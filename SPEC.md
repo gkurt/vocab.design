@@ -154,9 +154,9 @@ component library would save — without the branding or churn.
 ## 6. Specimen stage
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
-frame that reads as "exhibit space". It owns the caption, the controls (replay, reset,
-identify, view-source), the isolation mode (shadow root or iframe), and the
-attract-mode player. Written once; demos never reimplement any of it. Specimens follow
+frame that reads as "exhibit space". It owns the caption, the controls (identify,
+view-source; a ▶ Play control appears only under reduced motion), the isolation mode
+(shadow root or iframe), and the attract-mode player. Written once; demos never reimplement any of it. Specimens follow
 the page theme — the stage syncs the kit's light/dark tokens to the chrome's; there is
 no per-stage theme control.
 
@@ -175,7 +175,10 @@ never styling inside it:
   whole-scene subjects, where it rings the entire specimen. If the subject is not on
   stage when identify engages (a toast that hasn't fired), the stage **summons** it:
   the choreography is fast-forwarded — no cursor, waits collapsed — until the subject
-  appears, and is re-summoned if it dismisses itself while identify is held.
+  appears. While identify is held the stage freezes a **posed clone** of the specimen:
+  an inert snapshot the live demo's own timers cannot dismiss, so the subject never
+  vanishes mid-inspection. Releasing identify (or any real interaction) restores the
+  live demo.
 
 ## 7. Attract mode
 
@@ -206,8 +209,10 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   visually (`data-sim-focus` attribute styled by the kit) plus the key HUD. Only user
   mode touches real focus. (A scripted `.focus()` would hijack the keyboard of someone
   scrolling past — the worst possible bug on a site that defines "focus trap".)
-- **`prefers-reduced-motion` disables attract entirely.** Demos show a meaningful
-  resting state with manual play/step controls.
+- **`prefers-reduced-motion` disables attract entirely.** The stage instead rests on
+  the posed specimen — the summoned state identify shows, subject on stage — and the
+  ▶ Play control (hidden otherwise) runs a single scripted pass on request.
+  Interacting wakes the live demo; after the idle beat it returns to the pose.
 - **One scheduler per page** decides which stage may play: on index pages only the
   centered or hovered stage animates (others hold their first frame); on a term page
   the hero stage plays. IntersectionObserver-gated; off-screen stages are fully paused.

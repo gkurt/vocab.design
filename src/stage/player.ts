@@ -75,9 +75,8 @@ export class AttractPlayer {
   /** Real user input detected — halt the script and hand the demo over as-is. */
   userIntent(): void {
     clearTimeout(this.#resumeTimer);
-    if (this.#state !== 'attract' && this.#state !== 'user') return;
     if (this.#state === 'attract') this.#cancelRun();
-    this.#setState('user');
+    if (this.#state !== 'user') this.#setState('user');
   }
 
   /** Pointer left after user mode — reset and let attract resume after an idle beat. */
@@ -167,8 +166,13 @@ export class AttractPlayer {
       this.#reset();
       await this.#play(generation);
       if (generation !== this.#generation) return;
+      // Reduced motion never auto-loops: an explicit play runs a single pass.
+      if (this.#host.reducedMotion) break;
       if (!(await this.#sleep(LOOP_PAUSE_MS, generation))) return;
     }
+    this.#cursor.removeAttribute('data-visible');
+    this.#setState(this.#visible ? 'idle' : 'paused');
+    release(this);
   }
 
   async #play(generation: number): Promise<void> {

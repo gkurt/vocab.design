@@ -64,6 +64,18 @@ vd-stage figure {
   background: var(--vd-paper);
 }
 
+/* Attract loops on its own; the explicit play control exists for reduced-motion
+   visitors, for whom it is the only path to the demonstration (SPEC §7). */
+[data-stage-replay] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-stage-replay] {
+    display: block;
+  }
+}
+
 .vd-ghost-cursor {
   position: absolute;
   top: -10px;
