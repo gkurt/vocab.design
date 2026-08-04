@@ -19,17 +19,27 @@ const STEP_GAP_MS = 350;
 const LOOP_PAUSE_MS = 1400;
 const RESUME_IDLE_MS = 4000;
 const SUMMON_GAP_MS = 60;
+const FX_TTL_MS = 700;
+const DRAG_MOVES = 3;
 
 const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
+// Tall, narrow arrow with a vertical left edge and a tail, like a real pointer.
+// The tip sits at (4.5, 1.5); stage.css offsets the svg so the tip is the hotspot.
 const CURSOR_SVG =
-  '<svg viewBox="0 0 20 20" width="20" height="20"><path d="M3 1l14 8.5-6.2 1.3L14 17l-2.6 1.2-3.2-6.2L3 16.5z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2"/></svg>';
+  '<svg viewBox="0 0 20 24" width="20" height="24"><path d="M4.5 1.5v16.3l3.7-3.6 2.4 5.6 2.6-1.1-2.4-5.5h5.2z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+
+function centerOf(el: Element): { x: number; y: number } {
+  const rect = el.getBoundingClientRect();
+  return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+}
 
 /**
  * Attract-mode player (SPEC §7–8). Drives a demo through its choreography with
  * synthesized events and a visible ghost cursor, looping for as long as the
- * stage is on screen. Never moves real focus — keyboard steps use simulated
- * focus (`data-sim-focus`) plus the key HUD.
+ * stage is on screen. Input kinds are disambiguated at the cursor (left/right
+ * arcs, held-drag arc, caret pulses). Never moves real focus — keyboard steps
+ * use simulated focus (`data-sim-focus`) plus the key HUD.
  */
 export class AttractPlayer {
   #steps: Step[];
@@ -127,7 +137,10 @@ export class AttractPlayer {
         this.#target = this.#host.root().querySelector(step.moveTo);
         continue;
       }
-      if ('click' in step || 'dblclick' in step) this.#dispatchClick('dblclick' in step);
+      if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
+      else if ('rightClick' in step) this.#dispatchButton(2);
+      else if ('middleClick' in step) this.#dispatchButton(1);
+      else if ('drag' in step) this.#summonDrag(step.drag.to);
       else if ('press' in step) this.#dispatchKey(step.press);
       else if ('type' in step) this.#dispatchType(step.type);
       else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
@@ -181,9 +194,21 @@ export class AttractPlayer {
       if ('moveTo' in step) {
         if (!(await this.#moveTo(step.moveTo, generation))) return;
       } else if ('click' in step || 'dblclick' in step) {
-        this.#press();
-        this.#dispatchClick('dblclick' in step);
+        this.#fx('vd-fx-arc vd-fx-arc--left');
+        if ('dblclick' in step) setTimeout(() => this.#fx('vd-fx-arc vd-fx-arc--left'), 140);
+        this.#dispatchButton(0, 'dblclick' in step);
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
+      } else if ('rightClick' in step) {
+        this.#fx('vd-fx-arc vd-fx-arc--right');
+        this.#dispatchButton(2);
+        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
+      } else if ('middleClick' in step) {
+        this.#fx('vd-fx-caret vd-fx-caret--up vd-fx-caret--pulse');
+        this.#fx('vd-fx-caret vd-fx-caret--down vd-fx-caret--pulse');
+        this.#dispatchButton(1);
+        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
+      } else if ('drag' in step) {
+        if (!(await this.#drag(step.drag.to, generation))) return;
       } else if ('press' in step) {
         this.#showKey(step.press);
         this.#dispatchKey(step.press);
@@ -193,7 +218,9 @@ export class AttractPlayer {
         this.#dispatchType(step.type);
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('scroll' in step) {
-        (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0, behavior: 'smooth' });
+        const y = step.scroll.y ?? 0;
+        if (y !== 0) this.#fxWheel(y > 0 ? 'down' : 'up');
+        (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: y, behavior: 'smooth' });
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('wait' in step) {
         if (!(await this.#sleep(step.wait, generation))) return;
@@ -206,31 +233,100 @@ export class AttractPlayer {
     const el = this.#host.root().querySelector(selector);
     if (!el) return this.#sleep(STEP_GAP_MS, generation);
     this.#target = el;
-    const overlayRect = this.#host.overlay.getBoundingClientRect();
-    const rect = el.getBoundingClientRect();
-    const x = rect.left + rect.width / 2 - overlayRect.left;
-    const y = rect.top + rect.height / 2 - overlayRect.top;
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
-    this.#cursor.style.transitionDuration = `${travel}ms`;
-    this.#cursor.style.transform = `translate(${x}px, ${y}px)`;
+    this.#placeCursor(centerOf(el), travel);
     this.#cursor.setAttribute('data-visible', '');
     return this.#sleep(travel + 80, generation);
   }
 
-  #press(): void {
-    this.#cursor.removeAttribute('data-press');
-    void this.#cursor.offsetWidth;
-    this.#cursor.setAttribute('data-press', '');
+  /** Held drag: pointer down at the current target, travel, release at `to` (SPEC §8). */
+  async #drag(toSelector: string, generation: number): Promise<boolean> {
+    const source = this.#target;
+    const dest = this.#host.root().querySelector(toSelector);
+    if (!source || !dest) return this.#sleep(STEP_GAP_MS, generation);
+    const from = centerOf(source);
+    const to = centerOf(dest);
+    const held = this.#fx('vd-fx-arc vd-fx-arc--left vd-fx-arc--held', true);
+    this.#dispatchPointer(source, 'pointerdown', from);
+    const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
+    this.#placeCursor(to, travel);
+    for (let i = 1; i <= DRAG_MOVES; i++) {
+      if (!(await this.#sleep(Math.max(travel / (DRAG_MOVES + 1), 10), generation))) {
+        held.remove();
+        return false;
+      }
+      const t = i / DRAG_MOVES;
+      this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t });
+    }
+    if (!(await this.#sleep(120, generation))) {
+      held.remove();
+      return false;
+    }
+    this.#dispatchPointer(source, 'pointerup', to);
+    held.classList.add('vd-fx-arc--release');
+    setTimeout(() => held.remove(), FX_TTL_MS);
+    this.#target = dest;
+    return this.#sleep(STEP_GAP_MS, generation);
   }
 
-  #dispatchClick(double: boolean): void {
+  #summonDrag(toSelector: string): void {
+    const source = this.#target;
+    const dest = this.#host.root().querySelector(toSelector);
+    if (!source || !dest) return;
+    const to = centerOf(dest);
+    this.#dispatchPointer(source, 'pointerdown', centerOf(source));
+    this.#dispatchPointer(source, 'pointermove', to);
+    this.#dispatchPointer(source, 'pointerup', to);
+    this.#target = dest;
+  }
+
+  #placeCursor(at: { x: number; y: number }, travelMs: number): void {
+    const overlayRect = this.#host.overlay.getBoundingClientRect();
+    this.#cursor.style.transitionDuration = `${travelMs}ms`;
+    this.#cursor.style.transform = `translate(${at.x - overlayRect.left}px, ${at.y - overlayRect.top}px)`;
+  }
+
+  /** Spawn a cursor effect (arc/caret). Non-persistent effects clean themselves up. */
+  #fx(className: string, persistent = false): HTMLElement {
+    const el = document.createElement('span');
+    el.className = className;
+    this.#cursor.appendChild(el);
+    if (!persistent) setTimeout(() => el.remove(), FX_TTL_MS);
+    return el;
+  }
+
+  #fxWheel(direction: 'up' | 'down'): void {
+    this.#fx(`vd-fx-caret vd-fx-caret--${direction}`);
+    setTimeout(() => this.#fx(`vd-fx-caret vd-fx-caret--${direction}`), 140);
+  }
+
+  #dispatchButton(button: 0 | 1 | 2, double = false): void {
     const el = this.#target;
     if (!el) return;
-    const opts = { bubbles: true, cancelable: true };
+    const opts = { bubbles: true, cancelable: true, button };
     el.dispatchEvent(new PointerEvent('pointerdown', opts));
     el.dispatchEvent(new PointerEvent('pointerup', opts));
-    el.dispatchEvent(new MouseEvent('click', opts));
-    if (double) el.dispatchEvent(new MouseEvent('dblclick', opts));
+    if (button === 0) {
+      el.dispatchEvent(new MouseEvent('click', opts));
+      if (double) el.dispatchEvent(new MouseEvent('dblclick', opts));
+    } else if (button === 1) {
+      el.dispatchEvent(new MouseEvent('auxclick', opts));
+    } else {
+      el.dispatchEvent(new MouseEvent('contextmenu', opts));
+    }
+  }
+
+  #dispatchPointer(el: Element, type: 'pointerdown' | 'pointermove' | 'pointerup', at: { x: number; y: number }): void {
+    el.dispatchEvent(
+      new PointerEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        button: type === 'pointermove' ? -1 : 0,
+        buttons: type === 'pointerup' ? 0 : 1,
+        clientX: at.x,
+        clientY: at.y,
+      }),
+    );
   }
 
   #dispatchKey(key: string): void {

@@ -76,44 +76,154 @@ vd-stage figure {
   }
 }
 
+/* The cursor is a 0×0 anchor at the interaction point; the arrow svg is offset
+   so its tip sits exactly on the point, and input effects emanate from it. */
 .vd-ghost-cursor {
   position: absolute;
-  top: -10px;
-  left: -10px;
-  width: 20px;
-  height: 20px;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
   opacity: 0;
   transition-property: transform, opacity;
   transition-timing-function: cubic-bezier(0.3, 0.7, 0.3, 1);
   will-change: transform;
+  z-index: 4;
+}
+
+.vd-ghost-cursor svg {
+  position: absolute;
+  top: -1.5px;
+  left: -4.5px;
+  display: block;
 }
 
 .vd-ghost-cursor[data-visible] {
   opacity: 1;
 }
 
-.vd-ghost-cursor::after {
-  content: "";
+/* Input effects — the click vocabulary (SPEC §8): left/right arcs, held-drag
+   arc, caret pulses for middle click, travelling carets for wheel. */
+.vd-fx-arc {
   position: absolute;
-  inset: -8px;
+  top: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  border: 2px solid var(--vd-accent);
+  border: 2px solid transparent;
   opacity: 0;
-  transform: scale(0.4);
+  pointer-events: none;
 }
 
-.vd-ghost-cursor[data-press]::after {
-  animation: vd-ripple 0.45s ease-out;
+.vd-fx-arc--left {
+  border-left-color: var(--vd-accent);
 }
 
-@keyframes vd-ripple {
+.vd-fx-arc--right {
+  border-right-color: var(--vd-accent);
+}
+
+.vd-fx-arc:not(.vd-fx-arc--held) {
+  animation: vd-arc-ripple 0.45s ease-out forwards;
+}
+
+.vd-fx-arc--held {
+  border-width: 3.5px;
+  animation: vd-arc-hold 0.2s ease-out forwards;
+}
+
+.vd-fx-arc--held.vd-fx-arc--release {
+  animation: vd-arc-ripple 0.35s ease-out forwards;
+}
+
+@keyframes vd-arc-ripple {
   0% {
     opacity: 0.9;
-    transform: scale(0.4);
+    scale: 0.5;
   }
   100% {
     opacity: 0;
-    transform: scale(1.4);
+    scale: 1.5;
+  }
+}
+
+@keyframes vd-arc-hold {
+  0% {
+    opacity: 0;
+    scale: 0.6;
+  }
+  100% {
+    opacity: 0.95;
+    scale: 1;
+  }
+}
+
+.vd-fx-caret {
+  position: absolute;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--vd-accent);
+  border-right: 0;
+  border-bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vd-fx-caret--up {
+  top: -22px;
+  transform: rotate(45deg);
+}
+
+.vd-fx-caret--down {
+  top: 10px;
+  transform: rotate(225deg);
+}
+
+.vd-fx-caret--up:not(.vd-fx-caret--pulse) {
+  animation: vd-caret-travel-up 0.5s ease-out forwards;
+}
+
+.vd-fx-caret--down:not(.vd-fx-caret--pulse) {
+  animation: vd-caret-travel-down 0.5s ease-out forwards;
+}
+
+.vd-fx-caret--pulse {
+  animation: vd-caret-pulse 0.5s ease-out forwards;
+}
+
+@keyframes vd-caret-pulse {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes vd-caret-travel-up {
+  0% {
+    opacity: 0.9;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -12px;
+  }
+}
+
+@keyframes vd-caret-travel-down {
+  0% {
+    opacity: 0.9;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 12px;
   }
 }
 

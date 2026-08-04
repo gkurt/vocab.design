@@ -233,12 +233,17 @@ export default steps([
 ])
 ```
 
-- **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `drag`,
-  `press` (key), `type` (text), `scroll`, `wait`, `assert`. Nothing demo-specific.
+- **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
+  `middleClick`, `drag`, `press` (key), `type` (text), `scroll`, `wait`, `assert`.
+  Nothing demo-specific.
 - **Targets are `data-part` attributes only** — a stable semantic contract that
   survives restyling. Never classes or tag structure.
 - The player dispatches real synthesized pointer/keyboard events inside the demo root,
   animating the ghost cursor between targets and popping key chips for keyboard steps.
+  Input kinds are disambiguated at the cursor: left click ripples a left arc, right
+  click a right arc, a held drag keeps its arc — thickened — until release, middle
+  click pulses paired up/down carets, and wheel scrolling ripples carets in the
+  scroll direction.
 - `assert` steps are invisible to viewers and load-bearing in CI.
 
 **The choreography is also the demo's smoke test.** CI (Playwright) executes every

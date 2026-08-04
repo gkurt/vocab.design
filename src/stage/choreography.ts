@@ -6,6 +6,9 @@ export type Step =
   | { moveTo: string }
   | { click: true }
   | { dblclick: true }
+  | { rightClick: true }
+  | { middleClick: true }
+  | { drag: { to: string } }
   | { press: string }
   | { type: string }
   | { scroll: { x?: number; y?: number } }
