@@ -1,0 +1,11 @@
+# Prefer Bun to run scripts (bun run uses the Bun runtime, not Node).
+[run]
+bun = true
+
+# Isolated installs — strict, symlinked node_modules (like pnpm), no phantom deps.
+[install]
+linker = "isolated"
+
+# Only re-print failing tests on reruns.
+[test]
+onlyFailures = true

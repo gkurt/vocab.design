@@ -1,0 +1,46 @@
+{
+  "name": "vocab.design",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A linked visual dictionary of design and UI vocabulary — every term with a live specimen, its aliases, and the connections between them.",
+  "homepage": "https://vocab.design",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkurt/vocab.design.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gkurt/vocab.design/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Gokhan Kurt",
+    "email": "krtgkn@gmail.com",
+    "url": "https://github.com/gkurt"
+  },
+  "imports": {
+    "#*": "./*"
+  },
+  "scripts": {
+    "typecheck": "tsc",
+    "lint": "biome lint",
+    "format": "biome format",
+    "check": "biome check",
+    "fix": "biome check --write",
+    "test": "bun test",
+    "checks": "bun check && bun typecheck && bun run test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.1",
+    "@types/bun": "^1.3.14",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
+    "typescript": "7.0.2"
+  },
+  "lint-staged": {
+    "*": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
+  }
+}

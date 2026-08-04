@@ -1,0 +1,103 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "defaultBranch": "main",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/.claude",
+      "!**/node_modules",
+      "!**/package-lock.json",
+      "!**/dist",
+      "!**/coverage",
+      "!**/build",
+      "!**/out",
+      "!**/*.gen.ts",
+      "!**/mockServiceWorker.js"
+      // Any generated files should be ignored,
+      // but if you have a specific generated file that you want to include,
+      // you can add an include rule for it here.
+    ]
+  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "css": {
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "javascript": {
+    "jsxRuntime": "reactClassic",
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "lineWidth": 140
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 140
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noForEach": "off"
+      },
+      "correctness": {
+        "noChildrenProp": "off",
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "warn"
+        },
+        "noUnusedVariables": {
+          "fix": "none",
+          "level": "info"
+        },
+        "noUnusedFunctionParameters": {
+          "fix": "none",
+          "level": "info"
+        }
+      },
+      "suspicious": {
+        "noAssignInExpressions": "off",
+        "noConfusingVoidType": "off",
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off"
+      },
+      "style": {
+        "noParameterAssign": "off",
+        "noNonNullAssertion": "off",
+        // Keep Zod version explicit — always `import * as z from 'zod/v4'`.
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["zod/v3", "zod/v4"],
+                "importNamePattern": "z|default",
+                "message": "Use `import * as z from 'zod/v4'` instead"
+              }
+            ],
+            "paths": {
+              "zod": "Import from 'zod/v4' instead to make the version explicit"
+            }
+          }
+        }
+      },
+      "a11y": "off"
+    }
+  }
+}
