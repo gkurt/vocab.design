@@ -5,19 +5,26 @@ import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
 const HOVER_DWELL_MS = 150;
 const PIN_SETTLE_MS = 320;
 const PIN_SHOW_MS = 1800;
+const IDENTIFY_REFRESH_MS = 250;
 
 function isVisible(el: HTMLElement): boolean {
+  if (!isRevealed(el)) return false;
+  return Number(getComputedStyle(el).opacity) >= 0.1;
+}
+
+/** Visibility without the opacity test — true the instant a CSS transition begins revealing the element. */
+function isRevealed(el: HTMLElement): boolean {
   const style = getComputedStyle(el);
-  if (style.visibility === 'hidden' || style.display === 'none' || Number(style.opacity) < 0.1) return false;
+  if (style.visibility === 'hidden' || style.display === 'none') return false;
   const rect = el.getBoundingClientRect();
   return rect.width > 0 && rect.height > 0;
 }
 
 /**
  * <vd-stage> — the specimen stage (SPEC §6). Owns demo isolation (shadow root +
- * adopted kit stylesheet), the attract player, takeover wiring, controls, and
- * subject annotation (specimen pin + identify spotlight) — curator's ink drawn
- * over the specimen, never styling inside it. Demos never reimplement any of this.
+ * adopted kit stylesheet), page-theme sync, the attract player, takeover wiring,
+ * controls, and subject annotation (specimen pin + identify spotlight) — curator's
+ * ink drawn over the specimen, never styling inside it.
  */
 class VdStage extends HTMLElement {
   #player: AttractPlayer | undefined;
@@ -32,6 +39,16 @@ class VdStage extends HTMLElement {
 
     const [demo, choreography] = await Promise.all([loadDemo(slug), loadChoreography(slug)]);
     if (!demo) return;
+
+    // Specimens follow the page theme (SPEC §6) — no per-stage theme control.
+    const syncTheme = () => {
+      const explicit = document.documentElement.dataset.theme;
+      const dark = explicit ? explicit === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      canvas.dataset.theme = dark ? 'dark' : 'light';
+    };
+    syncTheme();
+    new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
 
     const shadow = canvas.attachShadow({ mode: 'open' });
     const sheet = new CSSStyleSheet();
@@ -101,31 +118,56 @@ class VdStage extends HTMLElement {
       clearTimeout(pinHide);
       pinHide = setTimeout(() => pin.removeAttribute('data-visible'), PIN_SHOW_MS);
     };
+
+    let identifyActive = false;
+    let identifySticky = false;
+    let identifyRefresh: ReturnType<typeof setTimeout> | undefined;
+    const setIdentify = (on: boolean) => {
+      identifyActive = on;
+      if (!on) {
+        spotlight.removeAttribute('data-visible');
+        pin.removeAttribute('data-visible');
+        player.resume();
+        return;
+      }
+      const found = subject();
+      if (!found) return;
+      const place = () => {
+        if (!identifyActive) return;
+        const el = subject();
+        if (!el) return;
+        const overlayRect = overlay.getBoundingClientRect();
+        const rect = isWholeScene(el) ? overlayRect : el.getBoundingClientRect();
+        spotlight.style.left = `${rect.left - overlayRect.left - 6}px`;
+        spotlight.style.top = `${rect.top - overlayRect.top - 6}px`;
+        spotlight.style.width = `${rect.width + 12}px`;
+        spotlight.style.height = `${rect.height + 12}px`;
+        spotlight.setAttribute('data-visible', '');
+        clearTimeout(pinHide);
+        placePin(el);
+      };
+      // Transient subjects (a toast that hasn't fired) are summoned into view (SPEC §6).
+      if (!isWholeScene(found) && !isRevealed(found)) {
+        void player.summon(() => (subject() ? isRevealed(subject() as HTMLElement) : false)).then(place);
+      } else {
+        place();
+      }
+    };
+
     const subjectObserver = new MutationObserver(() => {
+      if (identifyActive) {
+        // The subject may dismiss itself (toast auto-hide) — re-summon while identify is held.
+        clearTimeout(identifyRefresh);
+        identifyRefresh = setTimeout(() => {
+          if (identifyActive) setIdentify(true);
+        }, IDENTIFY_REFRESH_MS);
+        return;
+      }
       clearTimeout(pinSettle);
       pinSettle = setTimeout(tryPin, PIN_SETTLE_MS);
     });
     subjectObserver.observe(shadow, { subtree: true, attributes: true, childList: true });
 
-    let identifySticky = false;
-    const setIdentify = (on: boolean) => {
-      if (!on) {
-        spotlight.removeAttribute('data-visible');
-        pin.removeAttribute('data-visible');
-        return;
-      }
-      const el = subject();
-      if (!el) return;
-      const overlayRect = overlay.getBoundingClientRect();
-      const rect = isWholeScene(el) ? overlayRect : el.getBoundingClientRect();
-      spotlight.style.left = `${rect.left - overlayRect.left - 6}px`;
-      spotlight.style.top = `${rect.top - overlayRect.top - 6}px`;
-      spotlight.style.width = `${rect.width + 12}px`;
-      spotlight.style.height = `${rect.height + 12}px`;
-      spotlight.setAttribute('data-visible', '');
-      clearTimeout(pinHide);
-      placePin(el);
-    };
     const identifyButton = this.querySelector<HTMLElement>('[data-stage-identify]');
     identifyButton?.addEventListener('pointerenter', () => setIdentify(true));
     identifyButton?.addEventListener('pointerleave', () => {
@@ -143,14 +185,15 @@ class VdStage extends HTMLElement {
     });
     canvas.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
-      player.userGone();
+      if (!identifyActive) player.userGone();
     });
     canvas.addEventListener('pointerdown', () => player.userIntent());
     canvas.addEventListener('focusin', () => player.userIntent());
 
-    this.querySelector('[data-stage-replay]')?.addEventListener('click', () => player.replay());
-    this.querySelector('[data-stage-theme]')?.addEventListener('click', () => {
-      canvas.dataset.theme = canvas.dataset.theme === 'dark' ? 'light' : 'dark';
+    this.querySelector('[data-stage-replay]')?.addEventListener('click', () => {
+      identifySticky = false;
+      if (identifyActive) setIdentify(false);
+      player.replay();
     });
 
     const observer = new IntersectionObserver(

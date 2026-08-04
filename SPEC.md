@@ -155,8 +155,10 @@ component library would save — without the branding or churn.
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
 frame that reads as "exhibit space". It owns the caption, the controls (replay, reset,
-identify, per-stage theme toggle, view-source), the isolation mode (shadow root or
-iframe), and the attract-mode player. Written once; demos never reimplement any of it.
+identify, view-source), the isolation mode (shadow root or iframe), and the
+attract-mode player. Written once; demos never reimplement any of it. Specimens follow
+the page theme — the stage syncs the kit's light/dark tokens to the chrome's; there is
+no per-stage theme control.
 
 **Reset is formalized as destroy-and-remount.** Demos must be cheaply re-creatable from
 initial state; no demo ships custom cleanup logic.
@@ -167,10 +169,13 @@ never styling inside it:
 - **Specimen pin**: during attract, when the `data-subject` element becomes visible in
   a play loop, a museum-style label bearing the headword appears beside it briefly.
 - **Identify control**: a caption affordance that, on hover or tap, dims everything
-  except the subject (overlay scrim with a cutout) and shows the label. Fully static,
-  so it works in user mode, on touch, and under reduced motion — the universal layer
-  for subjects the context register can't distinguish (a skeleton screen is grey by
-  definition) and for whole-scene subjects, where it rings the entire specimen.
+  except the subject (overlay scrim with a cutout) and shows the label. It works in
+  user mode, on touch, and under reduced motion — the universal layer for subjects the
+  context register can't distinguish (a skeleton screen is grey by definition) and for
+  whole-scene subjects, where it rings the entire specimen. If the subject is not on
+  stage when identify engages (a toast that hasn't fired), the stage **summons** it:
+  the choreography is fast-forwarded — no cursor, waits collapsed — until the subject
+  appears, and is re-summoned if it dismisses itself while identify is held.
 
 ## 7. Attract mode
 
@@ -181,20 +186,19 @@ cursor and key HUD chips — until the user takes over. Formalized so no demo re
 ### State machine (owned by the stage)
 
 ```
-idle ── enters viewport & scheduler grants ──▶ attract
+idle ── enters viewport & scheduler grants ──▶ attract (loops continuously)
 attract ── user intent ──▶ user
-attract ── loop cap reached ──▶ resting
-user ── pointer gone + idle ~4s ──▶ reset (remount) ──▶ resting
-resting ── re-enters viewport / replay pressed ──▶ attract
-any ── leaves viewport ──▶ paused (resume where left off)
+user ── pointer gone + idle ~4s ──▶ reset (remount) ──▶ attract
+any ── leaves viewport ──▶ paused; re-entering resumes
 ```
 
 - **User intent** (takeover): pointer dwell >150 ms, pointerdown, focusin, or tap on
   touch. Script halts immediately, ghost cursor fades, demo state is handed over as-is.
-- **Loop cap**: a choreography plays at most 2–3 times, then rests until the demo
-  re-enters the viewport. Motion is a courtesy, not a broadcast.
-- **Touch**: no hover exists — takeover is tap; resumption requires the explicit
-  replay control.
+- **Continuous play**: attract loops for as long as the stage is on screen, with a
+  beat between plays. Motion never outlives attention: off-viewport stages are fully
+  paused, and reduced-motion visitors get no attract at all.
+- **Touch**: no hover exists — takeover is tap; attract resumes after the same idle
+  beat once interaction stops.
 
 ### Non-negotiables
 

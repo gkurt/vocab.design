@@ -1,7 +1,7 @@
 import type { Step } from '#src/stage/choreography.ts';
 import { claim, release } from '#src/stage/scheduler.ts';
 
-export type PlayerState = 'idle' | 'attract' | 'user' | 'resting' | 'paused';
+export type PlayerState = 'idle' | 'attract' | 'user' | 'paused';
 
 export interface PlayerHost {
   /** Current demo root — looked up per step because remount replaces it. */
@@ -18,7 +18,7 @@ const CURSOR_TRAVEL_MS = 550;
 const STEP_GAP_MS = 350;
 const LOOP_PAUSE_MS = 1400;
 const RESUME_IDLE_MS = 4000;
-const LOOP_CAP = 2;
+const SUMMON_GAP_MS = 60;
 
 const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
@@ -27,15 +27,15 @@ const CURSOR_SVG =
 
 /**
  * Attract-mode player (SPEC §7–8). Drives a demo through its choreography with
- * synthesized events and a visible ghost cursor. Never moves real focus —
- * keyboard steps use simulated focus (`data-sim-focus`) plus the key HUD.
+ * synthesized events and a visible ghost cursor, looping for as long as the
+ * stage is on screen. Never moves real focus — keyboard steps use simulated
+ * focus (`data-sim-focus`) plus the key HUD.
  */
 export class AttractPlayer {
   #steps: Step[];
   #host: PlayerHost;
   #state: PlayerState = 'idle';
   #generation = 0;
-  #loops = 0;
   #visible = false;
   #cursor: HTMLElement;
   #hud: HTMLElement;
@@ -60,10 +60,7 @@ export class AttractPlayer {
 
   viewportEnter(): void {
     this.#visible = true;
-    if (this.#state === 'idle' || this.#state === 'paused' || this.#state === 'resting') {
-      this.#loops = 0;
-      this.#tryAttract();
-    }
+    if (this.#state === 'idle' || this.#state === 'paused') this.#tryAttract();
   }
 
   viewportLeave(): void {
@@ -83,15 +80,12 @@ export class AttractPlayer {
     this.#setState('user');
   }
 
-  /** Pointer left after user mode — reset to clean state after an idle beat. */
+  /** Pointer left after user mode — reset and let attract resume after an idle beat. */
   userGone(): void {
     if (this.#state !== 'user') return;
     clearTimeout(this.#resumeTimer);
     this.#resumeTimer = setTimeout(() => {
-      if (this.#state !== 'user') return;
-      this.#host.remount();
-      this.#simFocus = null;
-      this.#setState('resting');
+      if (this.#state === 'user') this.resume();
     }, RESUME_IDLE_MS);
   }
 
@@ -99,10 +93,56 @@ export class AttractPlayer {
   replay(): void {
     clearTimeout(this.#resumeTimer);
     this.#cancelRun();
+    this.#reset();
+    this.#setState('idle');
+    if (claim(this, () => void this.#run())) void this.#run();
+  }
+
+  /** Halt any script, restore a clean mount, and let attract resume if allowed. */
+  resume(): void {
+    clearTimeout(this.#resumeTimer);
+    this.#cancelRun();
+    this.#reset();
+    this.#setState(this.#visible ? 'idle' : 'paused');
+    this.#tryAttract();
+  }
+
+  /**
+   * Fast-forward the choreography — no cursor, waits collapsed to a settle beat —
+   * until `revealed` reports the subject on stage (SPEC §6, identify). The beat is
+   * required: CSS transitions haven't begun at the synchronous moment after a
+   * dispatch, so visibility can't be observed in the same tick. Leaves the player
+   * in user mode; callers restore attract with resume().
+   */
+  async summon(revealed: () => boolean): Promise<boolean> {
+    clearTimeout(this.#resumeTimer);
+    this.#cancelRun();
+    const generation = ++this.#generation;
+    this.#setState('user');
+    if (revealed()) return true;
+    this.#reset();
+    if (revealed()) return true;
+    for (const step of this.#steps) {
+      if (generation !== this.#generation) return false;
+      if ('moveTo' in step) {
+        this.#target = this.#host.root().querySelector(step.moveTo);
+        continue;
+      }
+      if ('click' in step || 'dblclick' in step) this.#dispatchClick('dblclick' in step);
+      else if ('press' in step) this.#dispatchKey(step.press);
+      else if ('type' in step) this.#dispatchType(step.type);
+      else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
+      else continue;
+      if (!(await this.#sleep(SUMMON_GAP_MS, generation))) return false;
+      if (revealed()) return true;
+    }
+    return revealed();
+  }
+
+  #reset(): void {
     this.#host.remount();
     this.#simFocus = null;
-    this.#loops = 0;
-    if (claim(this, () => this.#run())) void this.#run();
+    this.#target = null;
   }
 
   #tryAttract(): void {
@@ -123,17 +163,12 @@ export class AttractPlayer {
   async #run(): Promise<void> {
     const generation = ++this.#generation;
     this.#setState('attract');
-    while (this.#loops < LOOP_CAP) {
-      this.#host.remount();
-      this.#simFocus = null;
+    for (;;) {
+      this.#reset();
       await this.#play(generation);
       if (generation !== this.#generation) return;
-      this.#loops++;
       if (!(await this.#sleep(LOOP_PAUSE_MS, generation))) return;
     }
-    this.#cursor.removeAttribute('data-visible');
-    this.#setState('resting');
-    release(this);
   }
 
   async #play(generation: number): Promise<void> {
