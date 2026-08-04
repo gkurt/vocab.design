@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": ["src/styles/stage.css"],
+        "createdAt": "2026-08-04T22:53:03.932Z",
+        "reason": "User confirmed the dot-grid canvas backdrop is intentional: the specimen stage is a real canvas/exhibit surface per SPEC §6"
+      }
+    ]
+  }
+}
