@@ -32,13 +32,13 @@ vd-stage figure {
   z-index: 2;
 }
 
-vd-stage figcaption {
+.vd-stage-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
   border-top: 1px solid var(--vd-line);
-  padding: 8px 14px;
+  padding: 5px 8px;
   font-size: 12px;
   color: var(--vd-muted);
 }

@@ -15,13 +15,12 @@ const { slug, name } = Astro.props;
       <div data-stage-canvas></div>
       <div data-stage-overlay aria-hidden="true"></div>
     </div>
-    <figcaption>
-      <span>Specimen · {name} — illustrates the concept; for production use, see implementations below.</span>
+    <div class="vd-stage-bar">
       <span class="vd-stage-controls">
         <button data-stage-identify type="button" title={`Point out the ${name.toLowerCase()}`}>⌖ Identify</button>
         <button data-stage-replay type="button" title="Replay">↻ Replay</button>
       </span>
-    </figcaption>
+    </div>
   </figure>
 </vd-stage>
 
