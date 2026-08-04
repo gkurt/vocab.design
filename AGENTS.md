@@ -56,6 +56,10 @@ data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
 - **Choreographies double as tests**: every demo ships a declarative script the stage
   plays in attract mode and CI executes as a smoke test. `data-part` attributes are the
   only valid selectors in choreographies.
+- **Subject and context**: every demo marks the element the term names with
+  `data-subject` (on its top-level wrapper for whole-scene terms) and wraps scenery in
+  `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to
+  the subject — the stage draws all annotation (pin, identify spotlight) itself.
 - Term relations are validated for integrity and symmetry in CI; a relation to a
   nonexistent term requires creating that term's stub in the same change.
 

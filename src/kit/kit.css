@@ -12,6 +12,8 @@
   --sp-line: #dfe2e8;
   --sp-accent: #3557e8;
   --sp-accent-ink: #ffffff;
+  --sp-context-accent: #454a52;
+  --sp-context-accent-ink: #f3f4f6;
   --sp-radius: 8px;
   --sp-shadow: 0 4px 16px rgb(16 24 40 / 0.14);
   --sp-font: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
@@ -31,7 +33,18 @@
   --sp-line: #383d47;
   --sp-accent: #7290ff;
   --sp-accent-ink: #10131c;
+  --sp-context-accent: #aab0bc;
+  --sp-context-accent-ink: #171a21;
   --sp-shadow: 0 4px 16px rgb(0 0 0 / 0.45);
+}
+
+/* Context register — scenery around the subject (SPEC §5). Accent goes chroma-free
+   and elevation drops; contrast and type stay untouched, so context reads as quiet,
+   never as disabled. The subject is styled normally — no added emphasis. */
+.sp-context {
+  --sp-accent: var(--sp-context-accent);
+  --sp-accent-ink: var(--sp-context-accent-ink);
+  --sp-shadow: none;
 }
 
 .sp-root {

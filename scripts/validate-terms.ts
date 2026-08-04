@@ -71,6 +71,9 @@ for (const term of terms.values()) {
     for (const piece of ['demo.ts', 'choreography.ts']) {
       if (!(await Bun.file(join(DEMOS_DIR, term.slug, piece)).exists())) errors.push(`${term.slug}: demo declared but missing ${piece}`);
     }
+    const demoFile = Bun.file(join(DEMOS_DIR, term.slug, 'demo.ts'));
+    if ((await demoFile.exists()) && !(await demoFile.text()).includes('data-subject'))
+      errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
   }
 }
 

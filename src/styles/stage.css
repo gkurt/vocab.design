@@ -15,6 +15,7 @@ vd-stage figure {
 .vd-stage-body {
   position: relative;
   height: 320px;
+  overflow: hidden;
   background-image: radial-gradient(var(--vd-line) 1px, transparent 1px);
   background-size: 16px 16px;
 }
@@ -102,6 +103,60 @@ vd-stage figcaption {
     opacity: 0;
     transform: scale(1.4);
   }
+}
+
+/* Subject annotation — curator's ink over the specimen (SPEC §6). */
+.vd-subject-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--vd-paper);
+  background: var(--vd-ink);
+  border-radius: 6px;
+  padding: 3px 9px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 3;
+}
+
+.vd-subject-pin[data-side="below"] {
+  transform: translate(-50%, 0);
+}
+
+.vd-subject-pin[data-visible] {
+  opacity: 1;
+}
+
+.vd-subject-pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1px;
+  height: 7px;
+  background: var(--vd-ink);
+}
+
+.vd-subject-pin[data-side="below"]::after {
+  top: auto;
+  bottom: 100%;
+}
+
+.vd-spotlight {
+  position: absolute;
+  border: 2px solid var(--vd-accent);
+  border-radius: 10px;
+  box-shadow: 0 0 0 9999px rgb(12 10 8 / 0.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.vd-spotlight[data-visible] {
+  opacity: 1;
 }
 
 .vd-key-hud {

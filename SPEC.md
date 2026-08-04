@@ -135,6 +135,15 @@ component library would save — without the branding or churn.
   carries state, composed inside demos: app/window
   frame, button, input, avatar, text row, list item, menu item, card shell, plus a
   small inline SVG icon set. Demos compose from the kit and nothing else.
+- **Subject and context registers.** Every demo marks the element the term names
+  with `data-subject` (on its top-level wrapper when the whole scene is the
+  subject). Scenery is wrapped in the `.sp-context` register: accent remaps to a
+  chroma-free neutral and elevation drops to none, while contrast and type stay
+  untouched — context must read as *quiet*, never as *disabled* (grey-out is
+  itself UI vocabulary). The subject is styled normally — full kit palette, no
+  added emphasis — so the palette alone localizes the subject in every static
+  screenshot without the specimen lying about how the pattern looks. Whole-scene
+  subjects (layouts, motion, most patterns) skip the context register entirely.
 - **Isolation**: shadow DOM by default; `demo: iframe` for document-level behaviors
   that shadow DOM can't honestly demonstrate (skip link, focus trap, view transitions,
   scroll-driven animation).
@@ -146,11 +155,22 @@ component library would save — without the branding or churn.
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
 frame that reads as "exhibit space". It owns the caption, the controls (replay, reset,
-per-stage theme toggle, view-source), the isolation mode (shadow root or iframe), and
-the attract-mode player. Written once; demos never reimplement any of it.
+identify, per-stage theme toggle, view-source), the isolation mode (shadow root or
+iframe), and the attract-mode player. Written once; demos never reimplement any of it.
 
 **Reset is formalized as destroy-and-remount.** Demos must be cheaply re-creatable from
 initial state; no demo ships custom cleanup logic.
+
+The stage also owns **subject annotation** — curator's ink drawn *over* the specimen,
+never styling inside it:
+
+- **Specimen pin**: during attract, when the `data-subject` element becomes visible in
+  a play loop, a museum-style label bearing the headword appears beside it briefly.
+- **Identify control**: a caption affordance that, on hover or tap, dims everything
+  except the subject (overlay scrim with a cutout) and shows the label. Fully static,
+  so it works in user mode, on touch, and under reduced motion — the universal layer
+  for subjects the context register can't distinguish (a skeleton screen is grey by
+  definition) and for whole-scene subjects, where it rings the entire specimen.
 
 ## 7. Attract mode
 
@@ -215,7 +235,10 @@ export default steps([
 **The choreography is also the demo's smoke test.** CI (Playwright) executes every
 choreography headlessly against the built site, fails on any false `assert`, and
 uploads screenshots as review artifacts. Every agent-authored demo therefore ships
-with a machine-checkable proof that it behaves like the term it demonstrates.
+with a machine-checkable proof that it behaves like the term it demonstrates. The
+runner also asserts that exactly one `data-subject` exists after mount and captures
+the identify/spotlight state as a screenshot artifact — a reviewer sees not just that
+the demo runs, but *what it claims the term is*.
 
 ## 9. Implementations & sources
 
@@ -257,7 +280,8 @@ Agent-driven, human-reviewed, in four stages:
    the mechanical gates.
 
 **CI gates on every PR**: Zod schema validation · relation integrity + symmetry +
-stub existence · choreography execution with asserts · Biome · typecheck · build.
+stub existence · choreography execution with asserts · demo subject marking
+(`data-subject`) · Biome · typecheck · build.
 Screenshot artifacts on every demo change. Pipeline entry points live in `scripts/`.
 
 ## 12. Pilot: 20 terms
