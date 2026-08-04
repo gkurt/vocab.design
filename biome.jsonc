@@ -26,6 +26,9 @@
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
     "formatter": {
       "enabled": true
     }
@@ -99,5 +102,20 @@
       },
       "a11y": "off"
     }
-  }
+  },
+  "overrides": [
+    {
+      // Biome only sees .astro frontmatter, not the template — imports and
+      // variables used in the template would be stripped as "unused".
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ]
 }

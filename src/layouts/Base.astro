@@ -1,0 +1,56 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource-variable/source-serif-4';
+import '#src/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script is:inline>
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="mx-auto flex max-w-3xl items-baseline justify-between gap-4 px-5 py-6">
+      <a href="/" class="font-serif text-lg font-semibold tracking-tight">vocab.design</a>
+      <nav class="flex items-center gap-5 text-sm text-muted">
+        <a href="/" class="hover:text-ink">Browse</a>
+        <button data-theme-toggle class="cursor-pointer hover:text-ink" title="Toggle theme">◐</button>
+      </nav>
+    </header>
+    <main class="mx-auto max-w-3xl px-5 pt-6 pb-24">
+      <slot />
+    </main>
+    <footer class="mx-auto max-w-3xl border-t border-line px-5 py-8 text-xs text-muted">
+      Content is CC BY 4.0 · code is MIT · <a href="https://github.com/gkurt/vocab.design" class="underline hover:text-ink">source</a>
+    </footer>
+    <script>
+      document.querySelector('[data-theme-toggle]')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+        const now = root.dataset.theme ?? (dark ? 'dark' : 'light');
+        const next = now === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+---
+import { render } from 'astro:content';
+import SpecimenStage from '#src/components/SpecimenStage.astro';
+import Base from '#src/layouts/Base.astro';
+import { slugify } from '#src/lib/slug.ts';
+import type { TermEntry } from '#src/lib/terms.ts';
+import { getTerms } from '#src/lib/terms.ts';
+
+interface Props {
+  term: TermEntry;
+  redirectFrom?: string;
+}
+
+export async function getStaticPaths() {
+  const terms = await getTerms();
+  return terms.flatMap((term) => [
+    { params: { slug: term.data.slug }, props: { term } },
+    // Every alias is a search query we answer (SPEC §10): thin redirect pages with canonical.
+    ...term.data.aliases.map((alias) => ({
+      params: { slug: slugify(alias.name) },
+      props: { term, redirectFrom: alias.name },
+    })),
+  ]);
+}
+
+const { term, redirectFrom } = Astro.props;
+const d = term.data;
+const canonicalUrl = `${Astro.site}${d.slug}`;
+
+const all = await getTerms();
+const bySlug = new Map(all.map((t) => [t.data.slug, t.data]));
+const relationGroups = [
+  { label: 'Contrast with', slugs: d.relations.contrastWith },
+  { label: 'Variant of', slugs: d.relations.variantOf },
+  { label: 'Part of', slugs: d.relations.partOf },
+  { label: 'See also', slugs: d.relations.seeAlso },
+].filter((group) => group.slugs.length > 0);
+
+const { Content } = await render(term.entry);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  name: d.name,
+  alternateName: d.aliases.map((a) => a.name),
+  description: d.definition,
+  url: canonicalUrl,
+  inDefinedTermSet: { '@type': 'DefinedTermSet', name: 'vocab.design', url: 'https://vocab.design' },
+};
+
+const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')})` : '';
+---
+
+{
+  redirectFrom ? (
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <title>{redirectFrom} → {d.name} · vocab.design</title>
+        <link rel="canonical" href={canonicalUrl} />
+        <meta http-equiv="refresh" content={`0; url=/${d.slug}`} />
+      </head>
+      <body>
+        <p>
+          “{redirectFrom}” is another name for <a href={`/${d.slug}`}>{d.name}</a>.
+        </p>
+      </body>
+    </html>
+  ) : (
+    <Base title={`${d.name}${aka} — ${d.category} · vocab.design`} description={d.definition}>
+      <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      <article>
+        <p class="text-sm text-muted italic">{d.category}</p>
+        <h1 class="mt-1 font-serif text-5xl font-semibold tracking-tight">{d.name}</h1>
+        {d.aliases.length > 0 && (
+          <p class="mt-3 text-sm text-muted">
+            also called{' '}
+            {d.aliases.map((a, i) => (
+              <>
+                {i > 0 && ', '}
+                <span class="text-ink italic">{a.name}</span>
+                {a.source && <span> ({bySlug.get(a.source)?.name ?? a.source})</span>}
+              </>
+            ))}
+          </p>
+        )}
+        <p class="article mt-6 text-xl">{d.definition}</p>
+
+        {d.status === 'stub' && (
+          <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
+            This entry is in progress — the definition is here so links never dead-end; the full article and specimen are coming.
+          </p>
+        )}
+
+        {d.demo !== 'none' && (
+          <div class="mt-8">
+            <SpecimenStage slug={d.slug} name={d.name} />
+          </div>
+        )}
+
+        <div class="article mt-8">
+          <Content />
+        </div>
+
+        {d.prompting && (
+          <aside class="mt-8 rounded-lg border border-line bg-surface px-4 py-3">
+            <p class="text-xs tracking-wide text-muted uppercase">Saying it to an agent</p>
+            <p class="article mt-1 text-sm">{d.prompting}</p>
+          </aside>
+        )}
+
+        {relationGroups.length > 0 && (
+          <section class="mt-10">
+            <h2 class="text-sm tracking-wide text-muted uppercase">Related</h2>
+            {relationGroups.map((group) => (
+              <p class="mt-2 text-sm">
+                <span class="text-muted">{group.label}: </span>
+                {group.slugs.map((s, i) => (
+                  <>
+                    {i > 0 && ' · '}
+                    <a href={`/${s}`} class="text-accent underline underline-offset-3">
+                      {bySlug.get(s)?.name ?? s}
+                    </a>
+                  </>
+                ))}
+              </p>
+            ))}
+          </section>
+        )}
+
+        {d.implementations.length > 0 && (
+          <section class="mt-10">
+            <h2 class="text-sm tracking-wide text-muted uppercase">Implementations</h2>
+            <p class="mt-1 text-sm text-muted">Specimens illustrate the concept; for production use, start here.</p>
+            <table class="mt-3 w-full text-sm">
+              <tbody>
+                {d.implementations.map((impl) => (
+                  <tr class="border-t border-line">
+                    <td class="py-2 pr-4 text-muted">{impl.system}</td>
+                    <td class="py-2">
+                      <a href={impl.url} class="text-accent underline underline-offset-3" rel="noopener">
+                        {impl.name}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        )}
+
+        {d.sources.length > 0 && (
+          <section class="mt-10">
+            <h2 class="text-sm tracking-wide text-muted uppercase">Sources</h2>
+            <ul class="mt-2 text-sm">
+              {d.sources.map((source) => (
+                <li>
+                  <a href={source.url} class="text-accent underline underline-offset-3" rel="noopener">
+                    {source.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </article>
+    </Base>
+  )
+}

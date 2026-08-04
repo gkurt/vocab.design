@@ -9,12 +9,15 @@ change that contradicts SPEC.md needs the spec updated in the same PR.
 ## Commands
 
 ```bash
+bun run dev        # Astro dev server (port 4321)
+bun run build      # Static build to dist/
 bun run test       # Run all tests
-bun typecheck      # Type check (TypeScript 7, native tsc)
+bun typecheck      # astro sync + type check (TypeScript 7, native tsc)
+bun validate       # Content gates: schema, relations, symmetry, stubs, demo files
 bun run lint       # Lint
 bun run format     # Format
 bun run fix        # Lint + format + autofix
-bun run checks     # Everything: check + typecheck + test
+bun run checks     # Everything: check + typecheck + test + validate
 ```
 
 Prefer these scripts over ad-hoc commands. Do not prefix them with `bun run` when
@@ -23,18 +26,25 @@ agent use.
 
 ## Project Structure
 
-Current state: imprinted scaffold + spec. The Astro site is not scaffolded yet.
-
 ```
 SPEC.md                     # Canonical design doc — read first
-src/lib/                    # Shared utilities (slug normalization, term schema)
-src/content/terms/          # (planned) One MDX file per term, Zod-validated frontmatter
-src/content/demos/<slug>/   # (planned) demo.ts + choreography.ts per term
-src/kit/                    # (planned) Specimen kit: --sp-* tokens + custom-element primitives
-src/stage/                  # (planned) <specimen-stage>, attract-mode player, ghost cursor/key HUD
-scripts/                    # (planned) Content-pipeline entry points and validators
+src/lib/schema.ts           # Zod v4 term schema (single source of truth)
+src/lib/terms.ts            # getTerms() — the ONE way to read the collection (see gotcha below)
+src/lib/slug.ts             # slugify for terms and aliases
+src/content/terms/          # One MDX file per term, frontmatter per schema
+src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
+src/kit/kit.css             # Specimen kit: --sp-* tokens + primitives, adopted into shadow roots
+src/stage/                  # <vd-stage>, attract player, scheduler, choreography types
+src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
+src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
+scripts/validate-terms.ts   # Content gates run by `bun validate`
 e2e/                        # (planned) Playwright workspace: choreography smoke tests
 ```
+
+**Gotcha**: Astro validates collection entries against a derived JSON schema but does
+NOT apply Zod output transforms — defaults never materialize on `getCollection()`
+data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
+`getCollection('terms')` directly.
 
 ## Architecture
 

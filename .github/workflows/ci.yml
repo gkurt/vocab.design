@@ -17,3 +17,5 @@ jobs:
       - run: bun check
       - run: bun run test
       - run: bun typecheck
+      - run: bun validate
+      - run: bun run build

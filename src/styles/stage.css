@@ -1,0 +1,140 @@
+/* Stage chrome (light DOM) — the exhibit frame and the player's affordances.
+   Kept global because the player creates cursor/HUD elements dynamically. */
+
+vd-stage {
+  display: block;
+}
+
+vd-stage figure {
+  border: 1px solid var(--vd-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--vd-surface);
+}
+
+.vd-stage-body {
+  position: relative;
+  height: 320px;
+  background-image: radial-gradient(var(--vd-line) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+[data-stage-canvas] {
+  position: absolute;
+  inset: 0;
+}
+
+[data-stage-overlay] {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+vd-stage figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--vd-line);
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--vd-muted);
+}
+
+.vd-stage-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.vd-stage-controls button {
+  appearance: none;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--vd-muted);
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.vd-stage-controls button:hover {
+  color: var(--vd-ink);
+  background: var(--vd-paper);
+}
+
+.vd-ghost-cursor {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.3, 0.7, 0.3, 1);
+  will-change: transform;
+}
+
+.vd-ghost-cursor[data-visible] {
+  opacity: 1;
+}
+
+.vd-ghost-cursor::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--vd-accent);
+  opacity: 0;
+  transform: scale(0.4);
+}
+
+.vd-ghost-cursor[data-press]::after {
+  animation: vd-ripple 0.45s ease-out;
+}
+
+@keyframes vd-ripple {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
+.vd-key-hud {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.vd-key-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--vd-ink);
+  background: var(--vd-surface);
+  border: 1px solid var(--vd-line);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 3px 8px;
+  animation: vd-chip 1.1s ease both;
+}
+
+@keyframes vd-chip {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  15%,
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+  }
+}

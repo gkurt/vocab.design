@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+/* Chrome tokens (--vd-*). The specimen kit (--sp-*) is a separate system — never mix. */
+:root {
+  --vd-paper: #faf9f6;
+  --vd-surface: #ffffff;
+  --vd-ink: #1c1a17;
+  --vd-muted: #71695e;
+  --vd-line: #e5e1d8;
+  --vd-accent: #b34410;
+}
+
+:root[data-theme="dark"] {
+  --vd-paper: #171512;
+  --vd-surface: #201d19;
+  --vd-ink: #ece7de;
+  --vd-muted: #99917f;
+  --vd-line: #35312a;
+  --vd-accent: #e8763d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --vd-paper: #171512;
+    --vd-surface: #201d19;
+    --vd-ink: #ece7de;
+    --vd-muted: #99917f;
+    --vd-line: #35312a;
+    --vd-accent: #e8763d;
+  }
+}
+
+@theme {
+  --font-serif: "Source Serif 4 Variable", ui-serif, Georgia, serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --color-paper: var(--vd-paper);
+  --color-surface: var(--vd-surface);
+  --color-ink: var(--vd-ink);
+  --color-muted: var(--vd-muted);
+  --color-line: var(--vd-line);
+  --color-accent: var(--vd-accent);
+}
+
+body {
+  background: var(--vd-paper);
+  color: var(--vd-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Term article prose — dictionary voice. */
+.article {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  max-width: 65ch;
+}
+
+.article p + p {
+  margin-top: 1em;
+}
+
+.article a {
+  color: var(--vd-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
