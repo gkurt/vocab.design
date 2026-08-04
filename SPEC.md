@@ -1,0 +1,305 @@
+# vocab.design — Specification
+
+A linked visual dictionary of design and UI vocabulary: every term defined, demonstrated
+live, connected to its aliases and neighbors, and phrased so that both people and AI
+agents can use it.
+
+**Thesis.** Working with AI agents is mostly about knowing the vocabulary and using it
+correctly. People who can say "segmented control" get one in one prompt; people who say
+"those connected buttons where one is selected" iterate five times. The site closes that
+gap — exhaustively, not selectively.
+
+**Strategy.** Exhaustive coverage (500–1,000 terms across components, layouts, patterns,
+interactions, motion, typography, color, aesthetics, accessibility) and superior
+discoverability (every alias is a search query we answer; machine-readable for agents).
+No gimmick differentiators. The closest existing site, uiterms.com, has 64 terms, no
+cross-linking, and no agent angle; the tail is wide open.
+
+## 1. Principles
+
+1. **Exhaustive over curated.** The long tail ("what's the word for the little grip
+   dots?") is the product. Head terms are table stakes.
+2. **Every alias is a search query.** Aliases are first-class data, not footnotes —
+   they drive canonicalization, redirects, SEO, and the implementations table.
+3. **Specimens are platonic.** Demos show the *concept* of a toast, not Material's or
+   Apple's toast. No component libraries, no brand aesthetics in demos.
+4. **Demos are illustrations, not production code.** Stated on every page. Production
+   pointers live in the implementations table.
+5. **Longevity beats convenience.** Demos are built on the native web platform (many
+   terms *are* platform features: `<dialog>`, `popover`, scroll-snap, view transitions).
+   A reference site cannot afford dependency churn across 500 demos.
+6. **Accessibility is credibility.** A site defining "focus trap" and "skip link" must
+   itself be exemplary: keyboard-first, reduced-motion aware, semantic.
+7. **Agents are an audience.** Machine-readable term data (JSON-LD, llms.txt, raw
+   markdown endpoints) is core plumbing, not an add-on.
+8. **Chrome and specimen never share a visual language.** The reader must always know
+   where the site ends and the exhibit begins — especially when the term is "card".
+
+## 2. Content model
+
+One term = one MDX file in `src/content/terms/<slug>.mdx`. Frontmatter is validated by
+a Zod v4 schema (`src/lib/schema.ts`); the MDX body is the article (usage notes,
+disambiguation prose, history, common misnomers).
+
+### Frontmatter schema (canonical shape)
+
+```yaml
+name: Toast                      # headword, display form
+slug: toast                      # kebab-case, unique, = filename
+category: component              # exactly one, see §2.2
+status: published                # stub | draft | published
+definition: >-                   # the dictionary line, ≤ 200 chars, one sentence
+  A short, self-dismissing message that appears at the edge of the screen to
+  confirm an action or report a status.
+aliases:
+  - name: snackbar
+    source: material             # optional: which vocabulary uses this name
+relations:
+  contrastWith: [tooltip, banner, alert-dialog]   # symmetric, CI-enforced
+  variantOf: []                                   # directed: this is a variant of X
+  partOf: []                                      # directed: this appears inside X
+  seeAlso: [optimistic-ui]                        # symmetric, CI-enforced
+implementations:
+  - system: material             # from the tracked-systems registry, §9
+    name: Snackbar
+    url: https://m3.material.io/components/snackbar
+sources:
+  - title: "ARIA APG: alert pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
+demo: inline                     # none | inline | iframe (see §6)
+prompting: >-                    # optional: one line on how to ask an agent for this
+  Say "toast" for transient confirmations; say "banner" if it must persist.
+```
+
+### 2.2 Categories
+
+`component` · `layout` · `pattern` · `interaction` · `motion` · `typography` · `color`
+· `aesthetic` · `accessibility`. One category per term; cross-cutting membership is
+expressed through relations, not multiple categories.
+
+### 2.3 Relations and the stub policy
+
+Relations reference slugs. CI fails if a referenced slug has no file. The escape valve
+is **stubs**: a stub entry has only `name`, `slug`, `category`, `definition`, and
+`status: stub`. Stubs render as real pages (definition + "entry in progress"), so
+internal links never 404 and every named concept is searchable from day one. Writing a
+relation to a term that doesn't exist yet means creating its stub in the same change.
+
+Symmetry: `contrastWith` and `seeAlso` are symmetric — CI fails unless both sides
+declare the edge (stubs are exempt until promoted, since they carry no relations). `variantOf`/`partOf` are directed; reverse listings ("variants of
+this", "found inside") are derived at build time, never stored.
+
+## 3. Site architecture
+
+- **Astro 6** static site, content collections over `src/content/terms/`.
+- **Tailwind CSS v4** for chrome styling; specimen kit uses its own plain CSS (§5).
+- **Zero JS by default.** Interactivity ships as custom elements, progressively
+  enhanced; no framework runtime on term pages.
+- **Bun** for tooling, `bun test` for unit tests, **Playwright** (`e2e/`) for
+  choreography execution and smoke tests.
+- **Search**: Pagefind at build time.
+- **Deploy**: GitHub Pages via Actions, custom domain `vocab.design`.
+
+### URL scheme
+
+- `/{slug}` — term page, top level (`vocab.design/bento-grid`).
+- Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
+  the alias also appears in the target page's title metadata and on-page "also called".
+- `/browse` (all, grouped by category) · `/{category}` · `/glossary` (A–Z) · `/search`.
+
+## 4. Chrome design system
+
+Register: **publication, not app** — closer to a type foundry specimen site than a
+docs site. The chrome must recede so specimens read as the content.
+
+- **Type**: a text serif for headwords and definitions (dictionary voice), a sans for
+  UI/meta (house default: Geist Variable), mono for code and kbd. Working serif
+  candidate: Source Serif 4 Variable — revisit during visual design.
+- **Color**: near-monochrome ink/paper neutrals plus exactly one accent. Light and dark
+  themes from day one (`prefers-color-scheme` + explicit `data-theme` override).
+- **Dictionary conventions**, used functionally: large headword; italic
+  part-of-speech-style category tag (*component*, *motion*); "also called:" alias line
+  styled like pronunciation variants; cross-references as the visible link apparatus.
+- **Tokens**: CSS custom properties under `--vd-*`, mapped into Tailwind v4 `@theme`.
+
+## 5. Specimen kit
+
+The demos' own miniature design system. It exists to (a) keep 500+ agent-written demos
+looking like one collection, (b) keep specimens platonic, (c) replace the effort a
+component library would save — without the branding or churn.
+
+- **Tokens** under `--sp-*`, deliberately distinct from chrome tokens: different
+  neutral temperature, sans-only type at a smaller scale, one radius, one shadow. This
+  token wall is what enforces Principle 8.
+- **~15 primitives** as kit classes, plus vanilla-TS custom elements where a primitive
+  carries state, composed inside demos: app/window
+  frame, button, input, avatar, text row, list item, menu item, card shell, plus a
+  small inline SVG icon set. Demos compose from the kit and nothing else.
+- **Isolation**: shadow DOM by default; `demo: iframe` for document-level behaviors
+  that shadow DOM can't honestly demonstrate (skip link, focus trap, view transitions,
+  scroll-driven animation).
+- **Hard demos** (combobox-class accessibility) are implemented properly once, in the
+  kit, and reused — never re-derived per demo.
+- **Budgets**: no network requests, no timers while idle, small enough to inline.
+
+## 6. Specimen stage
+
+`<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
+frame that reads as "exhibit space". It owns the caption, the controls (replay, reset,
+per-stage theme toggle, view-source), the isolation mode (shadow root or iframe), and
+the attract-mode player. Written once; demos never reimplement any of it.
+
+**Reset is formalized as destroy-and-remount.** Demos must be cheaply re-creatable from
+initial state; no demo ships custom cleanup logic.
+
+## 7. Attract mode
+
+Demos play themselves (arcade "attract mode") with visible synthesized input — a ghost
+cursor and key HUD chips — until the user takes over. Formalized so no demo reinvents it:
+**the demo never knows it is being played.**
+
+### State machine (owned by the stage)
+
+```
+idle ── enters viewport & scheduler grants ──▶ attract
+attract ── user intent ──▶ user
+attract ── loop cap reached ──▶ resting
+user ── pointer gone + idle ~4s ──▶ reset (remount) ──▶ resting
+resting ── re-enters viewport / replay pressed ──▶ attract
+any ── leaves viewport ──▶ paused (resume where left off)
+```
+
+- **User intent** (takeover): pointer dwell >150 ms, pointerdown, focusin, or tap on
+  touch. Script halts immediately, ghost cursor fades, demo state is handed over as-is.
+- **Loop cap**: a choreography plays at most 2–3 times, then rests until the demo
+  re-enters the viewport. Motion is a courtesy, not a broadcast.
+- **Touch**: no hover exists — takeover is tap; resumption requires the explicit
+  replay control.
+
+### Non-negotiables
+
+- **Attract mode never moves real focus.** Scripted keyboard steps simulate focus
+  visually (`data-sim-focus` attribute styled by the kit) plus the key HUD. Only user
+  mode touches real focus. (A scripted `.focus()` would hijack the keyboard of someone
+  scrolling past — the worst possible bug on a site that defines "focus trap".)
+- **`prefers-reduced-motion` disables attract entirely.** Demos show a meaningful
+  resting state with manual play/step controls.
+- **One scheduler per page** decides which stage may play: on index pages only the
+  centered or hovered stage animates (others hold their first frame); on a term page
+  the hero stage plays. IntersectionObserver-gated; off-screen stages are fully paused.
+
+## 8. Choreography
+
+A declarative script colocated with each demo — data, not a program:
+
+```ts
+// src/content/demos/toast/choreography.ts
+export default steps([
+  { moveTo: '[data-part=save-button]' },
+  { click: true },
+  { wait: 400 },
+  { assert: { selector: '[data-part=toast]', state: 'visible' } },
+  { wait: 2200 },
+  { assert: { selector: '[data-part=toast]', state: 'hidden' } },
+])
+```
+
+- **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `drag`,
+  `press` (key), `type` (text), `scroll`, `wait`, `assert`. Nothing demo-specific.
+- **Targets are `data-part` attributes only** — a stable semantic contract that
+  survives restyling. Never classes or tag structure.
+- The player dispatches real synthesized pointer/keyboard events inside the demo root,
+  animating the ghost cursor between targets and popping key chips for keyboard steps.
+- `assert` steps are invisible to viewers and load-bearing in CI.
+
+**The choreography is also the demo's smoke test.** CI (Playwright) executes every
+choreography headlessly against the built site, fails on any false `assert`, and
+uploads screenshots as review artifacts. Every agent-authored demo therefore ships
+with a machine-checkable proof that it behaves like the term it demonstrates.
+
+## 9. Implementations & sources
+
+Libraries and design systems appear **as data, not as demo tooling**. Tracked systems
+registry (initial): `aria-apg`, `material`, `hig`, `fluent`, `carbon`, `polaris`,
+`radix`, `base-ui`, `shadcn`. Each implementation row: system, the system's name for
+the concept, and a docs URL.
+
+- The term page renders an implementations table under the statement: *"Specimens
+  illustrate the concept; for production use, start here."*
+- Implementation names feed the alias model (Material's "snackbar" is both an alias
+  and an implementation row) and the prompting line ("say `ToggleGroup` in a Radix
+  codebase").
+- **Link checking runs on a weekly schedule, not per-PR** — external link rot must
+  never block a merge.
+
+## 10. Discoverability
+
+- **Aliases** → static redirects + on-page/metadata presence (§3).
+- **JSON-LD**: every term page emits `DefinedTerm` within a site-wide
+  `DefinedTermSet`.
+- **Agents**: `llms.txt` at the root; every term also served as raw markdown at
+  `/{slug}.md`; full dataset export at `/terms.json`.
+- **OG images** generated per term at build (headword + category + definition line).
+- Sitemap, RSS feed of newly published terms.
+
+## 11. Content pipeline & CI gates
+
+Agent-driven, human-reviewed, in four stages:
+
+1. **Enumerate** — parallel sweeps over source types (ARIA APG, platform HIGs, design
+   system docs, NN/g, ui-patterns, community vernacular), looping until consecutive
+   rounds surface nothing new.
+2. **Canonicalize** — agents propose merge/alias decisions; **a human approves the
+   taxonomy**. This is the highest-judgment step.
+3. **Author** — one agent per term writes entry + demo + choreography against schema
+   and templates.
+4. **Verify** — separate agents fact-check definitions against cited sources; CI runs
+   the mechanical gates.
+
+**CI gates on every PR**: Zod schema validation · relation integrity + symmetry +
+stub existence · choreography execution with asserts · Biome · typecheck · build.
+Screenshot artifacts on every demo change. Pipeline entry points live in `scripts/`.
+
+## 12. Pilot: 20 terms
+
+Chosen to stress-test every hard part; if these pass, the remaining ~500 are easier.
+
+| Term | Category | Stress-tests |
+| --- | --- | --- |
+| Modal dialog | component | densest contrast cluster; head-term quality control |
+| Popover | component | contrast edges; alias (flyout) |
+| Drawer | component | aliases (off-canvas, side panel) |
+| Toast | component | alias with source (snackbar/material) |
+| Tooltip | component | tooltip/popover/hover-card confusion triple |
+| Chip | component | canonical alias merge (tag, pill, token) |
+| Kebab menu | component | alias family + variantOf (meatball); tail SEO |
+| Hamburger menu | component | usage-notes editorial section |
+| Scroll spy | pattern | tail term; interactive demo |
+| Segmented control | component | the founding-thesis poster child |
+| Combobox | component | hardest demo; fact-check against ARIA APG |
+| Optimistic UI | pattern | temporal demo (simulated server round-trip) |
+| Empty state | pattern | contrast with zero state (stub) |
+| Progressive disclosure | pattern | abstract concept — what "demo" means |
+| Skeleton screen | pattern | partOf/variantOf edges (shimmer, spinner stubs) |
+| Stagger | motion | pure animation demo |
+| Easing | motion | comparative demo (curves side by side) |
+| Glassmorphism | aesthetic | CSS-technique demo; aesthetics category probe |
+| Leading | typography | designer/developer alias split (line-height) |
+| Visually hidden | accessibility | demoing the invisible; sr-only alias |
+
+## 13. Non-goals
+
+- Not a component-library showcase or comparison site.
+- No accounts, comments, or CMS — git is the CMS; PRs are the editorial workflow.
+- No prompt marketplace; the `prompting` field stays one line per term.
+- No ads.
+
+## 14. Licensing
+
+Code is MIT. Term content — definitions, articles, and demo compositions as published —
+is CC BY 4.0.
+
+## 15. Open decisions
+
+- **Serif choice** for the chrome (§4) — decide during visual design of the chrome.
+- **OG image generation** approach (build-time satori vs. prerendered endpoint).
