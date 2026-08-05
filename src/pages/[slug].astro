@@ -29,8 +29,19 @@ const canonicalUrl = `${Astro.site}${d.slug}`;
 
 const all = await getTerms();
 const bySlug = new Map(all.map((t) => [t.data.slug, t.data]));
+
+// "Which word?" rows: this term plus every contrastWith neighbor that carries
+// its own useWhen (SPEC §2.3). Neighbors without one stay in the Related list.
+const contrastRows = d.useWhen
+  ? d.relations.contrastWith.flatMap((s) => {
+      const t = bySlug.get(s);
+      return t?.useWhen ? [{ slug: s, name: t.name, useWhen: t.useWhen }] : [];
+    })
+  : [];
+const tabled = new Set(contrastRows.map((row) => row.slug));
+
 const relationGroups = [
-  { label: 'Contrast with', slugs: d.relations.contrastWith },
+  { label: 'Contrast with', slugs: d.relations.contrastWith.filter((s) => !tabled.has(s)) },
   { label: 'Variant of', slugs: d.relations.variantOf },
   { label: 'Part of', slugs: d.relations.partOf },
   { label: 'See also', slugs: d.relations.seeAlso },
@@ -102,11 +113,34 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
           <Content />
         </div>
 
-        {d.prompting && (
-          <aside class="mt-8 rounded-lg border border-line bg-surface px-4 py-3">
-            <p class="text-xs tracking-wide text-muted uppercase">Saying it to an agent</p>
-            <p class="article mt-1 text-sm">{d.prompting}</p>
-          </aside>
+        {d.useWhen && (
+          <section class="mt-10">
+            <h2 class="text-sm tracking-wide text-muted uppercase">Which word?</h2>
+            <table class="mt-3 w-full text-sm">
+              <thead>
+                <tr class="text-left text-muted">
+                  <th class="py-1 pr-4 font-normal">If you want</th>
+                  <th class="py-1 font-normal">say</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-line">
+                  <td class="py-2 pr-4">{d.useWhen}</td>
+                  <td class="py-2 font-semibold">{d.name.toLowerCase()}</td>
+                </tr>
+                {contrastRows.map((row) => (
+                  <tr class="border-t border-line">
+                    <td class="py-2 pr-4">{row.useWhen}</td>
+                    <td class="py-2">
+                      <a href={`/${row.slug}`} class="text-accent underline underline-offset-3">
+                        {row.name.toLowerCase()}
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
         )}
 
         {relationGroups.length > 0 && (

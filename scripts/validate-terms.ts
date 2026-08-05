@@ -62,6 +62,8 @@ for (const term of terms.values()) {
     }
   }
 
+  if (term.status === 'published' && !term.useWhen) errors.push(`${term.slug}: published terms need useWhen (SPEC §2.3)`);
+
   if (term.status === 'stub') {
     const hasRelations = Object.values(term.relations).some((r) => r.length > 0);
     if (hasRelations || term.implementations.length > 0 || term.demo !== 'none')

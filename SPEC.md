@@ -67,8 +67,8 @@ sources:
   - title: "ARIA APG: alert pattern"
     url: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
 demo: inline                     # none | inline | iframe (see §6)
-prompting: >-                    # optional: one line on how to ask an agent for this
-  Say "toast" for transient confirmations; say "banner" if it must persist.
+useWhen: >-                      # the situation this word is for; powers "Which word?"
+  a passing confirmation that cleans up after itself
 ```
 
 ### 2.2 Categories
@@ -86,13 +86,21 @@ internal links never 404 and every named concept is searchable from day one. Wri
 relation to a term that doesn't exist yet means creating its stub in the same change.
 
 Symmetry: `contrastWith` and `seeAlso` are symmetric — CI fails unless both sides
-declare the edge (stubs are exempt until promoted, since they carry no relations). `variantOf`/`partOf` are directed; reverse listings ("variants of
-this", "found inside") are derived at build time, never stored.
+declare the edge (stubs are exempt until promoted, since they carry no relations).
+`variantOf`/`partOf` are directed; reverse listings ("variants of this", "found
+inside") are derived at build time, never stored.
+
+`useWhen` (a phrase naming the situation the word is for) powers the generated
+**"Which word?" table** on each term page: this term's row plus one row per
+`contrastWith` neighbor that carries its own `useWhen`. Each phrase is written once
+and reused by every neighbor's table; neighbors without one stay in the Related
+list, so nothing silently disappears. Stubs may carry `useWhen`; published terms
+must (enforced by `bun validate`).
 
 ### 2.4 Editorial style
 
-- **No em-dashes, ever, in published writing**: definitions, articles, prompting
-  lines, UI copy, README. They are widely read as a tell of AI-generated text, and
+- **No em-dashes, ever, in published writing**: definitions, articles, useWhen
+  phrases, UI copy, README. They are widely read as a tell of AI-generated text, and
   this site's credibility depends on not reading as AI output. Use a comma, colon,
   period, or parentheses instead. Enforced on term content by `bun validate`.
 
@@ -271,8 +279,8 @@ the concept, and a docs URL.
 - The term page renders an implementations table under the statement: *"Specimens
   illustrate the concept; for production use, start here."*
 - Implementation names feed the alias model (Material's "snackbar" is both an alias
-  and an implementation row) and the prompting line ("say `ToggleGroup` in a Radix
-  codebase").
+  and an implementation row) and answer the codebase-specific question ("say
+  `ToggleGroup` in a Radix codebase").
 - **Link checking runs on a weekly schedule, not per-PR** — external link rot must
   never block a merge.
 
@@ -336,7 +344,7 @@ Chosen to stress-test every hard part; if these pass, the remaining ~500 are eas
 
 - Not a component-library showcase or comparison site.
 - No accounts, comments, or CMS — git is the CMS; PRs are the editorial workflow.
-- No prompt marketplace; the `prompting` field stays one line per term.
+- No prompt marketplace; agent guidance stays one `useWhen` phrase per term.
 - No ads.
 
 ## 14. Licensing

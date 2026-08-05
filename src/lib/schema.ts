@@ -35,7 +35,8 @@ export const termSchema = z.object({
   implementations: z.array(z.object({ system: z.enum(SYSTEMS), name: z.string().min(1), url: z.url() })).default([]),
   sources: z.array(z.object({ title: z.string().min(1), url: z.url() })).default([]),
   demo: z.enum(['none', 'inline', 'iframe']).default('none'),
-  prompting: z.string().optional(),
+  /** The situation this word is for; powers the generated "Which word?" table (SPEC §2.3). */
+  useWhen: z.string().min(1).max(90).optional(),
 });
 
 export type Term = z.infer<typeof termSchema>;
