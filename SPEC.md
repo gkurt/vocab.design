@@ -85,6 +85,11 @@ is **stubs**: a stub entry has only `name`, `slug`, `category`, `definition`, an
 internal links never 404 and every named concept is searchable from day one. Writing a
 relation to a term that doesn't exist yet means creating its stub in the same change.
 
+`contrastWith` is held to a discrimination test: an edge earns its place when a person
+describing one term could plausibly reach for the other term's word, not when the
+components merely look alike. Keep the set small. The graph's value is discrimination,
+not connectivity, and at 500+ terms a loose criterion drowns every page in relations.
+
 Symmetry: `contrastWith` and `seeAlso` are symmetric — CI fails unless both sides
 declare the edge (stubs are exempt until promoted, since they carry no relations).
 `variantOf`/`partOf` are directed; reverse listings ("variants of this", "found
@@ -170,7 +175,8 @@ component library would save — without the branding or churn.
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
 frame that reads as "exhibit space". It owns the caption, the controls (identify,
-view-source; a ▶ Play control appears only under reduced motion), the isolation mode
+view-source, and a play control that reads "Auto-playing" while attract runs, stops
+the script when clicked, and reads "▶ Play" otherwise), the isolation mode
 (shadow root or iframe), and the attract-mode player. Written once; demos never reimplement any of it. Specimens follow
 the page theme — the stage syncs the kit's light/dark tokens to the chrome's; there is
 no per-stage theme control.
@@ -210,8 +216,10 @@ user ── pointer gone + idle ~4s ──▶ reset (remount) ──▶ attract
 any ── leaves viewport ──▶ paused; re-entering resumes
 ```
 
-- **User intent** (takeover): pointer dwell >150 ms, pointerdown, focusin, or tap on
-  touch. Script halts immediately, ghost cursor fades, demo state is handed over as-is.
+- **User intent** (takeover): a click or tap anywhere in the specimen, keyboard focus
+  entering it, or a >150 ms hover on an interactive element. Merely passing the
+  pointer over the stage (scrolling by) never takes over. Script halts immediately,
+  ghost cursor fades, demo state is handed over as-is.
 - **Continuous play**: attract loops for as long as the stage is on screen, with a
   beat between plays. Motion never outlives attention: off-viewport stages are fully
   paused, and reduced-motion visitors get no attract at all.
@@ -226,8 +234,9 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   scrolling past — the worst possible bug on a site that defines "focus trap".)
 - **`prefers-reduced-motion` disables attract entirely.** The stage instead rests on
   the posed specimen — the summoned state identify shows, subject on stage — and the
-  ▶ Play control (hidden otherwise) runs a single scripted pass on request.
-  Interacting wakes the live demo; after the idle beat it returns to the pose.
+  play control (always "▶ Play" here, since attract never runs) plays a single
+  scripted pass on request. Interacting wakes the live demo; after the idle beat it
+  returns to the pose.
 - **One scheduler per page** decides which stage may play: on index pages only the
   centered or hovered stage animates (others hold their first frame); on a term page
   the hero stage plays. IntersectionObserver-gated; off-screen stages are fully paused.

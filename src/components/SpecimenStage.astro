@@ -18,7 +18,10 @@ const { slug, name } = Astro.props;
     <div class="vd-stage-bar">
       <span class="vd-stage-controls">
         <button data-stage-identify type="button" title={`Point out the ${name.toLowerCase()}`}>⌖ Identify</button>
-        <button data-stage-replay type="button" title="Play the demonstration">▶ Play</button>
+        <button data-stage-replay type="button" title="Play the demonstration">
+          <span class="vd-stage-autoplay">Auto-playing</span>
+          <span class="vd-stage-play">▶ Play</span>
+        </button>
       </span>
     </div>
   </figure>

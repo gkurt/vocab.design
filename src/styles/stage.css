@@ -64,15 +64,39 @@ vd-stage figure {
   background: var(--vd-paper);
 }
 
-/* Attract loops on its own; the explicit play control exists for reduced-motion
-   visitors, for whom it is the only path to the demonstration (SPEC §7). */
-[data-stage-replay] {
+/* The play control morphs with the player state (SPEC §6): a live "Auto-playing"
+   status while attract runs (clicking stops the script), "▶ Play" otherwise.
+   Reduced motion never enters attract, so those visitors always see Play. */
+vd-stage:not([data-state="attract"]) .vd-stage-autoplay {
   display: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  [data-stage-replay] {
-    display: block;
+vd-stage[data-state="attract"] .vd-stage-play {
+  display: none;
+}
+
+.vd-stage-autoplay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vd-stage-autoplay::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--vd-accent);
+  animation: vd-live 1.6s ease-in-out infinite;
+}
+
+@keyframes vd-live {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
   }
 }
 

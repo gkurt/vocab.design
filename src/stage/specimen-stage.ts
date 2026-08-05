@@ -200,10 +200,18 @@ class VdStage extends HTMLElement {
       identifyActive = false;
       hideAnnotation();
     };
+    // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, or a
+    // dwell on an interactive element. Merely passing the pointer over the stage
+    // (scrolling by) never takes over.
+    const INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex]';
     let dwell: ReturnType<typeof setTimeout> | undefined;
-    canvas.addEventListener('pointerenter', () => {
+    canvas.addEventListener('pointerover', (event) => {
+      const el = event.composedPath()[0];
+      if (!(el instanceof Element) || !el.closest(INTERACTIVE)) return;
+      clearTimeout(dwell);
       dwell = setTimeout(() => player.userIntent(), HOVER_DWELL_MS);
     });
+    canvas.addEventListener('pointerout', () => clearTimeout(dwell));
     canvas.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
       if (!identifyActive) player.userGone();
@@ -220,6 +228,11 @@ class VdStage extends HTMLElement {
     });
 
     this.querySelector('[data-stage-replay]')?.addEventListener('click', () => {
+      // While attract runs the control reads "Auto-playing"; clicking it stops.
+      if (player.state === 'attract') {
+        player.userIntent();
+        return;
+      }
       dismissIdentify();
       player.replay();
     });
