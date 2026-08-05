@@ -19,6 +19,7 @@ const terms = new Map<string, Term>();
 const files = (await readdir(TERMS_DIR)).filter((f) => f.endsWith('.mdx')).sort();
 for (const file of files) {
   const text = await Bun.file(join(TERMS_DIR, file)).text();
+  if (text.includes('—')) errors.push(`${file}: em-dash found; editorial style bans them (SPEC §2.4)`);
   const frontmatter = text.match(/^---\n([\s\S]*?)\n---/)?.[1];
   if (!frontmatter) {
     errors.push(`${file}: missing frontmatter`);

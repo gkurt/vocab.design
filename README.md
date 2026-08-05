@@ -1,6 +1,6 @@
 # vocab.design
 
-A linked visual dictionary of design and UI vocabulary — every term with a live
+A linked visual dictionary of design and UI vocabulary: every term with a live
 specimen, its aliases, and the connections between them. Built on the observation that
 working with AI agents is mostly about knowing the vocabulary and using it correctly.
 

@@ -70,6 +70,9 @@ data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
 - **Imports**: use `.ts` extensions in source imports (`verbatimModuleSyntax` is on).
   Internal modules use the `#*` subpath alias (e.g. `import { env } from '#src/env.ts'`).
 - **Zod**: always `import * as z from 'zod/v4'` — never bare `zod` or `zod/v3`. Enforced by Biome.
+- **Editorial**: never use em-dashes in site content, UI copy, or docs prose. Use a
+  comma, colon, period, or parentheses instead (SPEC §2.4; `bun validate` enforces it
+  for term content).
 
 ## Coding Conventions
 

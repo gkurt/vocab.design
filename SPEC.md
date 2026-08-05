@@ -89,6 +89,13 @@ Symmetry: `contrastWith` and `seeAlso` are symmetric — CI fails unless both si
 declare the edge (stubs are exempt until promoted, since they carry no relations). `variantOf`/`partOf` are directed; reverse listings ("variants of
 this", "found inside") are derived at build time, never stored.
 
+### 2.4 Editorial style
+
+- **No em-dashes, ever, in published writing**: definitions, articles, prompting
+  lines, UI copy, README. They are widely read as a tell of AI-generated text, and
+  this site's credibility depends on not reading as AI output. Use a comma, colon,
+  period, or parentheses instead. Enforced on term content by `bun validate`.
+
 ## 3. Site architecture
 
 - **Astro 6** static site, content collections over `src/content/terms/`.

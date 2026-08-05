@@ -67,7 +67,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
       </body>
     </html>
   ) : (
-    <Base title={`${d.name}${aka} — ${d.category} · vocab.design`} description={d.definition}>
+    <Base title={`${d.name}${aka} · ${d.category} · vocab.design`} description={d.definition}>
       <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
       <article>
         <p class="text-sm text-muted italic">{d.category}</p>
@@ -88,7 +88,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
 
         {d.status === 'stub' && (
           <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-            This entry is in progress — the definition is here so links never dead-end; the full article and specimen are coming.
+            This entry is in progress. The definition is here so links never dead-end; the full article and specimen are coming.
           </p>
         )}
 
