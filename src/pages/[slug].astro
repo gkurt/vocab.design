@@ -40,10 +40,19 @@ const contrastRows = d.useWhen
   : [];
 const tabled = new Set(contrastRows.map((row) => row.slug));
 
+// Reverse listings for the directed relations are derived here, never stored (SPEC §2.3).
+const reverse = (kind: 'variantOf' | 'partOf') =>
+  all
+    .filter((t) => t.data.relations[kind].includes(d.slug))
+    .map((t) => t.data.slug)
+    .sort();
+
 const relationGroups = [
   { label: 'Contrast with', slugs: d.relations.contrastWith.filter((s) => !tabled.has(s)) },
   { label: 'Variant of', slugs: d.relations.variantOf },
+  { label: 'Variants', slugs: reverse('variantOf') },
   { label: 'Part of', slugs: d.relations.partOf },
+  { label: 'Contains', slugs: reverse('partOf') },
   { label: 'See also', slugs: d.relations.seeAlso },
 ].filter((group) => group.slugs.length > 0);
 

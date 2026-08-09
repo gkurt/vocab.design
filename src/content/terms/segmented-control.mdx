@@ -1,0 +1,44 @@
+---
+name: Segmented control
+slug: segmented-control
+category: component
+status: published
+definition: >-
+  A single control holding two to five mutually exclusive options side by side,
+  with the current one shown as a filled segment.
+aliases:
+  - name: segmented button
+    source: material
+  - name: toggle group
+    source: radix
+relations:
+  contrastWith: [tabs, radio-group]
+implementations:
+  - system: hig
+    name: Segmented controls
+    url: https://developer.apple.com/design/human-interface-guidelines/segmented-controls
+  - system: material
+    name: Segmented buttons
+    url: https://m3.material.io/components/segmented-buttons/overview
+  - system: radix
+    name: Toggle Group
+    url: https://www.radix-ui.com/primitives/docs/components/toggle-group
+demo: inline
+useWhen: two to five exclusive options, all visible at once
+---
+
+This is the poster child for knowing the word. Describe it and you get five
+different components; say "segmented control" and you get the thing you meant, in
+one step, from a person or from an agent.
+
+Its job is a small, closed set of exclusive choices where seeing the alternatives
+is part of the value: day, week, month; list or grid; all, active, archived. Past
+about five options the segments get too narrow to read and the control should
+become a [dropdown](/dropdown).
+
+Two neighbours. [Tabs](/tabs) also show exclusive options, but tabs swap a region
+of content and belong to it, while a segmented control usually filters or changes
+the shape of content that is already there. A [radio group](/radio-group) is the
+same logic in form clothing, used when the choice is being submitted rather than
+applied instantly. Note that Radix ships this as `ToggleGroup`, which is worth
+knowing when you are working in that codebase.

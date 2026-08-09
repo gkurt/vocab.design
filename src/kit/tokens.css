@@ -1,0 +1,73 @@
+/*
+ * Specimen kit tokens (SPEC §5) — the demos' own design system.
+ * Adopted into each stage's shadow root; :host is the stage canvas.
+ * Deliberately distinct from chrome tokens: cooler neutrals, sans-only, its own accent.
+ */
+
+:host {
+  --sp-bg: #f3f4f6;
+  --sp-surface: #ffffff;
+  --sp-sunken: #eaecf1;
+  --sp-ink: #23262b;
+  --sp-muted: #7b828d;
+  --sp-line: #dfe2e8;
+  --sp-accent: #3557e8;
+  --sp-accent-ink: #ffffff;
+  --sp-accent-soft: #e4e9fd;
+  --sp-context-accent: #454a52;
+  --sp-context-accent-ink: #f3f4f6;
+  --sp-context-accent-soft: #e5e7ec;
+  --sp-scrim: rgb(16 24 40 / 0.44);
+  --sp-radius: 8px;
+  --sp-shadow: 0 4px 16px rgb(16 24 40 / 0.14);
+  --sp-ease: cubic-bezier(0.3, 0.9, 0.3, 1);
+  --sp-font: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+
+  display: block;
+  height: 100%;
+  font-family: var(--sp-font);
+  font-size: 14px;
+  color: var(--sp-ink);
+}
+
+:host([data-theme="dark"]) {
+  --sp-bg: #1b1e24;
+  --sp-surface: #262a32;
+  --sp-sunken: #21242b;
+  --sp-ink: #e8eaef;
+  --sp-muted: #8d93a0;
+  --sp-line: #383d47;
+  --sp-accent: #7290ff;
+  --sp-accent-ink: #10131c;
+  --sp-accent-soft: #2c3550;
+  --sp-context-accent: #aab0bc;
+  --sp-context-accent-ink: #171a21;
+  --sp-context-accent-soft: #333842;
+  --sp-scrim: rgb(0 0 0 / 0.55);
+  --sp-shadow: 0 4px 16px rgb(0 0 0 / 0.45);
+}
+
+/* Context register — scenery around the subject (SPEC §5). Accent goes chroma-free
+   and elevation drops; contrast and type stay untouched, so context reads as quiet,
+   never as disabled. The subject is styled normally — no added emphasis. */
+.sp-context {
+  --sp-accent: var(--sp-context-accent);
+  --sp-accent-ink: var(--sp-context-accent-ink);
+  --sp-accent-soft: var(--sp-context-accent-soft);
+  --sp-shadow: none;
+}
+
+.sp-root {
+  height: 100%;
+}
+
+/* Simulated focus — attract mode never moves real focus (SPEC §7). */
+[data-sim-focus] {
+  outline: 2px solid var(--sp-accent);
+  outline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sp-accent);
+  outline-offset: 2px;
+}

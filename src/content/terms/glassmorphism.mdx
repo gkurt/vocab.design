@@ -1,0 +1,45 @@
+---
+name: Glassmorphism
+slug: glassmorphism
+category: aesthetic
+status: published
+definition: >-
+  A style where surfaces are translucent and blur what is behind them, separated
+  from the backdrop by a hairline edge and a soft shadow.
+aliases:
+  - name: frosted glass
+  - name: acrylic
+    source: fluent
+relations:
+  contrastWith: [neumorphism]
+implementations:
+  - system: hig
+    name: Materials
+    url: https://developer.apple.com/design/human-interface-guidelines/materials
+  - system: fluent
+    name: Acrylic
+    url: https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic
+sources:
+  - title: 'MDN: backdrop-filter'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter
+demo: inline
+useWhen: a translucent panel that blurs whatever is behind it
+---
+
+Four ingredients make the look: a blurred sample of the backdrop, a light tint over
+it, a one pixel border catching the edge, and a shadow holding the panel off the
+surface. Drop the border and it stops reading as glass; drop the shadow and it
+sinks into the background.
+
+It is doing a real job when it is used for layers that float over content, since
+you can see what is underneath and still read what is on top. Apple builds this
+into the platform as materials, Microsoft calls it acrylic, and both sets of
+guidance say the same thing: use it for chrome that sits above content, not for
+the content itself.
+
+The risks are contrast and cost. Text on glass is legible over one backdrop and
+unreadable over the next, so the tint has to be strong enough to guarantee contrast
+against anything that can scroll under it. `backdrop-filter` is also expensive to
+composite, and a page full of glass panels will show it. Against
+[neumorphism](/neumorphism): glass is about layers you can see through, neumorphism
+is about shapes pushed out of a single opaque surface.

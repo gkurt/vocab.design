@@ -1,0 +1,297 @@
+/* Kit controls (SPEC §5): the interactive primitives specimens compose from.
+   Stateful behaviour lives in the demos; this file only describes appearance. */
+
+.sp-button {
+  appearance: none;
+  border: 0;
+  font: inherit;
+  font-weight: 500;
+  color: var(--sp-accent-ink);
+  background: var(--sp-accent);
+  border-radius: var(--sp-radius);
+  padding: 7px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sp-button:active {
+  filter: brightness(0.92);
+}
+
+.sp-button--ghost {
+  background: transparent;
+  color: var(--sp-ink);
+  border: 1px solid var(--sp-line);
+}
+
+.sp-button--ghost[data-selected] {
+  background: var(--sp-accent-soft);
+  border-color: var(--sp-accent);
+}
+
+.sp-button--quiet {
+  background: transparent;
+  color: var(--sp-ink);
+  border: 0;
+}
+
+.sp-button--sm {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.sp-icon-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sp-ink);
+  cursor: pointer;
+}
+
+.sp-icon-button:hover,
+.sp-icon-button[data-open] {
+  background: var(--sp-sunken);
+}
+
+.sp-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sp-icon--dots {
+  fill: currentcolor;
+  stroke: none;
+}
+
+.sp-button--ghost[data-selected] .sp-icon {
+  fill: var(--sp-accent);
+  stroke: var(--sp-accent);
+}
+
+.sp-icon--chevron {
+  transition: transform 0.18s var(--sp-ease);
+}
+
+[aria-expanded="true"] .sp-icon--chevron {
+  transform: rotate(90deg);
+}
+
+.sp-input {
+  appearance: none;
+  font: inherit;
+  font-size: 13px;
+  color: var(--sp-ink);
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  width: 100%;
+}
+
+.sp-input::placeholder {
+  color: var(--sp-muted);
+}
+
+.sp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sp-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--sp-accent-soft);
+  color: var(--sp-ink);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sp-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sp-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.sp-list-item + .sp-list-item {
+  border-top: 1px solid var(--sp-line);
+  border-radius: 0;
+}
+
+/* Chip — one compact, self-contained value (SPEC §12 pilot). */
+.sp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--sp-line);
+  border-radius: 999px;
+  background: var(--sp-surface);
+  color: var(--sp-ink);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sp-chip[data-selected] {
+  background: var(--sp-accent-soft);
+  border-color: var(--sp-accent);
+  color: var(--sp-ink);
+}
+
+.sp-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-right: -3px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--sp-muted);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sp-chip-remove:hover {
+  color: var(--sp-ink);
+}
+
+/* Segmented control — one control, mutually exclusive options, all visible.
+   Behaviour lives in the `<sp-segmented>` kit element. */
+.sp-segmented {
+  position: relative;
+  display: inline-flex;
+  padding: 2px;
+  gap: 2px;
+  background: var(--sp-sunken);
+  border-radius: var(--sp-radius);
+}
+
+.sp-segment {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sp-muted);
+  padding: 5px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sp-segment[aria-selected="true"],
+.sp-segment[data-selected] {
+  color: var(--sp-ink);
+}
+
+.sp-segmented-thumb {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  background: var(--sp-surface);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgb(16 24 40 / 0.16);
+  transition:
+    left 0.24s var(--sp-ease),
+    width 0.24s var(--sp-ease);
+}
+
+/* Combobox wrapper — anchors the listbox. Behaviour lives in `<sp-combobox>`. */
+sp-combobox {
+  position: relative;
+  display: block;
+}
+
+/* Navigation list — used by drawers, hamburger panels, and scroll spy. */
+.sp-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sp-nav-item {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--sp-muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.sp-nav-item[data-current] {
+  color: var(--sp-ink);
+  background: var(--sp-accent-soft);
+  font-weight: 500;
+}
+
+/* Visually hidden — present to assistive technology, absent from the layout. */
+.sp-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The specimen's own inspection affordance: give the hidden text its layout back. */
+.sp-visually-hidden[data-revealed] {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+  padding: 1px 5px;
+  border: 1px dashed var(--sp-accent);
+  border-radius: 5px;
+  font-size: 12px;
+}

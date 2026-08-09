@@ -1,0 +1,151 @@
+/* Kit layout primitives (SPEC §5): the frames and text blocks specimens are built in. */
+
+.sp-app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  background: var(--sp-bg);
+  overflow: hidden;
+}
+
+/* An application window: the bounded scene most component specimens live inside. */
+.sp-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  height: 240px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+  overflow: hidden;
+}
+
+.sp-frame--wide {
+  width: 460px;
+}
+
+.sp-window {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+  padding: 16px 20px;
+  min-width: 240px;
+}
+
+.sp-surface {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+}
+
+.sp-topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--sp-line);
+  background: var(--sp-surface);
+}
+
+.sp-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px;
+  background: var(--sp-sunken);
+}
+
+/* Kit primitives set `display`, so the attribute needs the last word. */
+[hidden] {
+  /* biome-ignore lint/complexity/noImportantStyles: `hidden` must beat every primitive's own display */
+  display: none !important;
+}
+
+.sp-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sp-row--wrap {
+  flex-wrap: wrap;
+}
+
+.sp-row--between {
+  justify-content: space-between;
+}
+
+.sp-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sp-grow {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sp-heading {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.sp-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sp-muted);
+}
+
+.sp-text {
+  color: var(--sp-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sp-text--ink {
+  color: var(--sp-ink);
+}
+
+.sp-divider {
+  height: 1px;
+  background: var(--sp-line);
+}
+
+/* Blocks of stand-in copy: text as texture, so specimens never read as a real product. */
+.sp-line {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--sp-line);
+}
+
+.sp-scroll {
+  overflow: auto;
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
+}
+
+.sp-prose {
+  font-size: 13px;
+  line-height: var(--sp-leading, 1.5);
+  max-width: 34ch;
+}
+
+.sp-prose p + p {
+  margin-top: 0.8em;
+}
+
+/* Ruled prose: the leading itself drawn as the rhythm the text sits on. */
+.sp-prose--ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--sp-leading, 1.5) * 1em - 1px),
+    var(--sp-line) calc(var(--sp-leading, 1.5) * 1em)
+  );
+}

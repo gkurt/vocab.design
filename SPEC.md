@@ -261,9 +261,15 @@ export default steps([
   `middleClick`, `drag`, `press` (key), `type` (text), `scroll`, `wait`, `assert`.
   Nothing demo-specific.
 - **Targets are `data-part` attributes only** — a stable semantic contract that
-  survives restyling. Never classes or tag structure.
+  survives restyling. Never classes or tag structure. An `assert` may qualify a part
+  with a state attribute (`[data-part=seg-day][aria-selected="true"]`), which is how a
+  choreography proves state it cannot see; `hidden` covers absent as well as invisible.
 - The player dispatches real synthesized pointer/keyboard events inside the demo root,
   animating the ghost cursor between targets and popping key chips for keyboard steps.
+  `moveTo` carries hover with it (enter/leave land when the cursor arrives), since
+  hover is input a tooltip or a menu genuinely responds to, and `scroll` is animated by
+  the player rather than by `scroll-behavior`, which is unreliable and would let a step
+  silently do nothing.
   Input kinds are disambiguated at the cursor: left click ripples a left arc, right
   click a right arc, a held drag keeps its arc — thickened — until release, middle
   click pulses paired up/down carets, and wheel scrolling ripples carets in the

@@ -2,9 +2,33 @@
 name: Optimistic UI
 slug: optimistic-ui
 category: pattern
-status: stub
+status: published
 definition: >-
   Showing the result of an action immediately and reconciling with the server
   afterward, instead of making the user wait for confirmation.
+aliases:
+  - name: optimistic update
+relations:
+  contrastWith: [skeleton-screen]
+  seeAlso: [toast]
+sources:
+  - title: 'React: useOptimistic'
+    url: https://react.dev/reference/react/useOptimistic
+demo: inline
 useWhen: showing the result before the server confirms it
 ---
+
+The interface commits to the outcome it expects. The heart fills, the count goes
+up, the message appears in the thread, and the request goes out behind it. For
+actions that almost always succeed, this is the difference between an app that
+feels instant and one that feels like a form.
+
+The pattern is only half done at that point. The other half is reconciliation:
+what happens on the roughly one attempt in a hundred that fails. The state has to
+go back, and the user has to be told, in a way that does not read as a bug they
+caused. Rolling back silently is worse than never having been optimistic.
+
+Use it where the action is small, likely to succeed, and cheap to undo. Do not use
+it where being wrong is expensive: payments, deletions, anything the user would act
+on before the truth arrives. When the wait is unavoidable, show the wait honestly
+with a [skeleton screen](/skeleton-screen) instead.

@@ -33,7 +33,12 @@ src/lib/terms.ts            # getTerms() — the ONE way to read the collection 
 src/lib/slug.ts             # slugify for terms and aliases
 src/content/terms/          # One MDX file per term, frontmatter per schema
 src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
-src/kit/kit.css             # Specimen kit: --sp-* tokens + primitives, adopted into shadow roots
+src/kit/kit.ts              # Specimen kit stylesheet, assembled and adopted into shadow roots
+src/kit/*.css               # tokens · layout · controls · surfaces · motion (--sp-* only)
+src/kit/icons.ts            # Shared inline SVG icon set
+src/kit/parts.ts            # part()/partsOf()/flag(): the data-part lookup demos share
+src/kit/segmented.ts        # <sp-segmented>, <sp-combobox>: kit primitives that carry state
+src/kit/combobox.ts         #   (written once against ARIA APG, reused by every demo)
 src/stage/                  # <vd-stage>, attract player, scheduler, choreography types
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
@@ -55,7 +60,9 @@ data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
   third-party component libraries.
 - **Choreographies double as tests**: every demo ships a declarative script the stage
   plays in attract mode and CI executes as a smoke test. `data-part` attributes are the
-  only valid selectors in choreographies.
+  only valid selectors in choreographies; an `assert` may qualify one with a state
+  attribute (`[data-part=nav-install][data-current]`), and `state: 'hidden'` is
+  satisfied by an absent element as well as an invisible one.
 - **Subject and context**: every demo marks the element the term names with
   `data-subject` (on its top-level wrapper for whole-scene terms) and wraps scenery in
   `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to

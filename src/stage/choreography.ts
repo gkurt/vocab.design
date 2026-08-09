@@ -13,6 +13,7 @@ export type Step =
   | { type: string }
   | { scroll: { x?: number; y?: number } }
   | { wait: number }
+  /** `hidden` is satisfied by an element that is absent as well as one that is not visible. */
   | { assert: { selector: string; state: 'visible' | 'hidden' } };
 
 /** Identity helper that gives choreography files a typed, greppable shape. */

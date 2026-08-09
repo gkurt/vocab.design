@@ -1,0 +1,38 @@
+---
+name: Leading
+slug: leading
+category: typography
+status: published
+definition: >-
+  The vertical distance from one baseline of type to the next, which sets how a
+  paragraph holds together as a block.
+aliases:
+  - name: line height
+    source: css
+  - name: line spacing
+relations:
+  contrastWith: [tracking, kerning]
+sources:
+  - title: 'MDN: line-height'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+demo: inline
+useWhen: the vertical space between lines of type
+---
+
+Designers say leading, developers say line-height, and they are talking about
+nearly the same thing. The word is metal-type history: strips of lead placed
+between lines to space them out, which is why it rhymes with "bedding" and not with
+"reading".
+
+Nearly the same, because the two are measured differently. Leading is baseline to
+baseline; CSS `line-height` distributes its space above and below the text box, so
+half of it lands over the first line and half under the last. A unitless value like
+`1.5` is the safe form, since it scales with each element's own font size instead
+of being inherited as a fixed pixel amount.
+
+Body text usually wants somewhere between 1.4 and 1.6. Long measures need more,
+since the eye has further to travel back to find the start of the next line; large
+headlines need less, often below 1.2, because the same ratio at 48px opens gaps
+that break the phrase apart. Both of this term's neighbours are horizontal:
+[tracking](/tracking) spaces every letter in a run, [kerning](/kerning) fixes one
+troublesome pair.

@@ -1,4 +1,4 @@
-import kitCss from '#src/kit/kit.css?inline';
+import { kitCss } from '#src/kit/kit.ts';
 import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
 
@@ -49,6 +49,7 @@ class VdStage extends HTMLElement {
     new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
 
+    canvas.dataset.state = 'idle';
     const shadow = canvas.attachShadow({ mode: 'open' });
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(kitCss);
@@ -76,6 +77,8 @@ class VdStage extends HTMLElement {
       reducedMotion,
       onStateChange: (state) => {
         this.dataset.state = state;
+        // Mirrored inside the shadow root so kit animations pause with the player.
+        canvas.dataset.state = state;
         // Reduced motion rests on the posed specimen (SPEC §7).
         if (reducedMotion && state === 'idle') {
           setTimeout(() => {

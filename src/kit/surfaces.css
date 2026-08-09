@@ -1,0 +1,313 @@
+/* Kit surfaces (SPEC §5): the layered things that appear over a scene.
+   Each is implemented once here so 500 demos never re-derive a popover. */
+
+.sp-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--sp-scrim);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.22s,
+    visibility 0.22s;
+}
+
+.sp-scrim[data-open] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal dialog — a window that owns the whole scene until it is dealt with. */
+.sp-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  padding: 18px 20px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+  box-shadow: var(--sp-shadow);
+  transform: translate(-50%, calc(-50% + 8px)) scale(0.97);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.22s var(--sp-ease),
+    opacity 0.22s,
+    visibility 0.22s;
+}
+
+.sp-dialog[data-open] {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Popover — anchored, dismissible, and free to carry controls of its own. */
+.sp-popover {
+  position: absolute;
+  min-width: 180px;
+  padding: 12px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+  box-shadow: var(--sp-shadow);
+  transform: translateY(-4px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.18s var(--sp-ease),
+    opacity 0.18s,
+    visibility 0.18s;
+}
+
+.sp-popover[data-open] {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.sp-popover::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: var(--sp-arrow-x, 16px);
+  width: 8px;
+  height: 8px;
+  background: var(--sp-surface);
+  border-top: 1px solid var(--sp-line);
+  border-left: 1px solid var(--sp-line);
+  transform: rotate(45deg);
+}
+
+/* Menu — a list of commands, opened from a trigger. */
+.sp-menu {
+  position: absolute;
+  min-width: 160px;
+  padding: 4px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+  box-shadow: var(--sp-shadow);
+  transform-origin: top right;
+  transform: scale(0.96);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.14s var(--sp-ease),
+    opacity 0.14s,
+    visibility 0.14s;
+}
+
+.sp-menu[data-open] {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.sp-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--sp-ink);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sp-menu-item:hover,
+.sp-menu-item[data-active] {
+  background: var(--sp-sunken);
+}
+
+/* Drawer — a panel docked to an edge, sliding in over the scene. */
+.sp-drawer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 12px;
+  background: var(--sp-surface);
+  border-right: 1px solid var(--sp-line);
+  box-shadow: var(--sp-shadow);
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition:
+    transform 0.26s var(--sp-ease),
+    visibility 0.26s;
+}
+
+.sp-drawer--right {
+  left: auto;
+  right: 0;
+  border-right: 0;
+  border-left: 1px solid var(--sp-line);
+  transform: translateX(100%);
+}
+
+.sp-drawer[data-open] {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* Tooltip — a label for the thing under the pointer, and nothing more. */
+.sp-tooltip {
+  position: absolute;
+  padding: 4px 8px;
+  background: var(--sp-ink);
+  color: var(--sp-surface);
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  transform: translate(-50%, 2px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.14s,
+    visibility 0.14s,
+    transform 0.14s var(--sp-ease);
+}
+
+.sp-tooltip[data-open] {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.sp-tooltip::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  background: var(--sp-ink);
+  transform: rotate(45deg);
+}
+
+/* Toast — a message that leaves on its own. */
+.sp-toast {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: var(--sp-radius);
+  box-shadow: var(--sp-shadow);
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.25s var(--sp-ease),
+    opacity 0.25s,
+    visibility 0.25s;
+}
+
+.sp-toast[data-open] {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.sp-toast::before {
+  content: "✓";
+  color: var(--sp-accent);
+  font-weight: 700;
+}
+
+/* Listbox — the popup half of a combobox. */
+.sp-listbox {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  max-height: 132px;
+  overflow: auto;
+  padding: 4px;
+  margin: 0;
+  list-style: none;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  border-radius: 6px;
+  box-shadow: var(--sp-shadow);
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.12s,
+    visibility 0.12s;
+}
+
+.sp-listbox[data-open] {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sp-option {
+  padding: 6px 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.sp-option[aria-selected="true"] {
+  background: var(--sp-accent-soft);
+}
+
+/* Empty state — the panel that stands in for content that does not exist yet. */
+.sp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  padding: 16px;
+  text-align: center;
+}
+
+.sp-empty-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-line);
+  color: var(--sp-muted);
+}
+
+/* Glass — a translucent surface that samples what is behind it. */
+.sp-glass {
+  background: rgb(255 255 255 / 0.16);
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgb(16 24 40 / 0.24);
+  backdrop-filter: blur(14px) saturate(1.6);
+  color: #ffffff;
+}
+
+@supports not (backdrop-filter: blur(2px)) {
+  .sp-glass {
+    background: rgb(255 255 255 / 0.42);
+  }
+}

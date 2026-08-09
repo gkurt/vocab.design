@@ -19,6 +19,8 @@ const STEP_GAP_MS = 350;
 const LOOP_PAUSE_MS = 1400;
 const RESUME_IDLE_MS = 4000;
 const SUMMON_GAP_MS = 60;
+const SCROLL_MS = 420;
+const SCROLL_SLICES = 7;
 const FX_TTL_MS = 700;
 const DRAG_MOVES = 3;
 
@@ -50,6 +52,7 @@ export class AttractPlayer {
   #cursor: HTMLElement;
   #hud: HTMLElement;
   #target: Element | null = null;
+  #hovered: Element | null = null;
   #simFocus: Element | null = null;
   #resumeTimer: ReturnType<typeof setTimeout> | undefined;
 
@@ -135,6 +138,7 @@ export class AttractPlayer {
       if (generation !== this.#generation) return false;
       if ('moveTo' in step) {
         this.#target = this.#host.root().querySelector(step.moveTo);
+        this.#hover(this.#target);
         continue;
       }
       if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
@@ -155,6 +159,7 @@ export class AttractPlayer {
     this.#host.remount();
     this.#simFocus = null;
     this.#target = null;
+    this.#hovered = null;
   }
 
   #tryAttract(): void {
@@ -220,7 +225,7 @@ export class AttractPlayer {
       } else if ('scroll' in step) {
         const y = step.scroll.y ?? 0;
         if (y !== 0) this.#fxWheel(y > 0 ? 'down' : 'up');
-        (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: y, behavior: 'smooth' });
+        if (!(await this.#scroll(step.scroll.x ?? 0, y, generation))) return;
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('wait' in step) {
         if (!(await this.#sleep(step.wait, generation))) return;
@@ -236,7 +241,31 @@ export class AttractPlayer {
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
     this.#placeCursor(centerOf(el), travel);
     this.#cursor.setAttribute('data-visible', '');
-    return this.#sleep(travel + 80, generation);
+    if (!(await this.#sleep(travel, generation))) return false;
+    // Hover lands when the cursor arrives, not when it sets off.
+    this.#hover(el);
+    return this.#sleep(80, generation);
+  }
+
+  /**
+   * Move the synthetic pointer onto an element. Hover is real input vocabulary
+   * (tooltips, menus, hover cards), so the ghost cursor carries it. Enter/leave
+   * are dispatched on the element itself and do not bubble, matching the browser:
+   * demos listen on the element they want hover for.
+   */
+  #hover(el: Element | null): void {
+    if (this.#hovered === el) return;
+    const previous = this.#hovered;
+    this.#hovered = el;
+    if (previous?.isConnected) this.#dispatchHover(previous, ['pointerout', 'mouseout'], ['pointerleave', 'mouseleave']);
+    if (el) this.#dispatchHover(el, ['pointerover', 'mouseover', 'pointermove'], ['pointerenter', 'mouseenter']);
+  }
+
+  #dispatchHover(el: Element, bubbling: string[], direct: string[]): void {
+    const at = centerOf(el);
+    const base = { cancelable: false, clientX: at.x, clientY: at.y };
+    for (const type of bubbling) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: true }));
+    for (const type of direct) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: false }));
   }
 
   /** Held drag: pointer down at the current target, travel, release at `to` (SPEC §8). */
@@ -267,6 +296,26 @@ export class AttractPlayer {
     setTimeout(() => held.remove(), FX_TTL_MS);
     this.#target = dest;
     return this.#sleep(STEP_GAP_MS, generation);
+  }
+
+  /**
+   * Scroll the current target by hand, a slice at a time. `scroll-behavior:
+   * smooth` is not dependable (it is a no-op in some embedded and headless
+   * browsers, and off entirely under reduced motion), and a scroll that silently
+   * does nothing would make a choreography lie about what the demo did.
+   */
+  async #scroll(dx: number, dy: number, generation: number): Promise<boolean> {
+    const el = this.#target ?? this.#host.root();
+    const fromX = el.scrollLeft;
+    const fromY = el.scrollTop;
+    const slices = this.#host.reducedMotion ? 1 : SCROLL_SLICES;
+    for (let i = 1; i <= slices; i++) {
+      if (!(await this.#sleep(SCROLL_MS / slices, generation))) return false;
+      const t = i / slices;
+      el.scrollLeft = fromX + dx * t;
+      el.scrollTop = fromY + dy * t;
+    }
+    return true;
   }
 
   #summonDrag(toSelector: string): void {

@@ -1,0 +1,107 @@
+/* Kit motion (SPEC §5, §7). Every animation is written so that its natural,
+   unanimated state is the resting state: switching animations off leaves a
+   correct specimen, which is what reduced motion and off-screen pausing do. */
+
+.sp-skeleton {
+  border-radius: 5px;
+  background: var(--sp-line);
+  background-image: linear-gradient(90deg, transparent 0%, var(--sp-surface) 45%, transparent 90%);
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: sp-shimmer 1.5s linear infinite;
+}
+
+@keyframes sp-shimmer {
+  from {
+    background-position: -120% 0;
+  }
+  to {
+    background-position: 220% 0;
+  }
+}
+
+/* Stagger — the same entrance, offset item by item; --sp-i carries the index. */
+.sp-stagger-item {
+  animation: sp-rise 0.42s var(--sp-ease) backwards;
+  animation-delay: calc(var(--sp-i, 0) * var(--sp-stagger, 70ms));
+}
+
+@keyframes sp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Easing — one distance, several timing functions, run side by side. */
+.sp-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--sp-sunken);
+}
+
+.sp-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sp-accent);
+}
+
+[data-running] .sp-dot {
+  animation: sp-travel 1.1s var(--sp-timing, linear) forwards;
+}
+
+@keyframes sp-travel {
+  to {
+    left: calc(100% - 19px);
+  }
+}
+
+.sp-curve {
+  display: block;
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: var(--sp-muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* Pending work that the interface has already committed to (optimistic UI). */
+.sp-pending {
+  animation: sp-pulse 1s ease-in-out infinite;
+}
+
+@keyframes sp-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* Motion never outlives attention (SPEC §7): the stage mirrors its player state
+   onto the canvas, so an off-screen or handed-over specimen stops animating. */
+:host([data-state="paused"]) *,
+:host([data-state="paused"]) *::before,
+:host([data-state="paused"]) *::after {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-skeleton,
+  .sp-stagger-item,
+  .sp-pending,
+  [data-running] .sp-dot {
+    animation: none;
+  }
+
+  /* biome-ignore lint/style/noDescendingSpecificity: a stated motion preference comes last on purpose */
+  * {
+    /* biome-ignore lint/complexity/noImportantStyles: a stated motion preference outranks any specimen */
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,47 @@
+---
+name: Popover
+slug: popover
+category: component
+status: published
+definition: >-
+  A small surface anchored to the control that opened it, holding content or
+  controls of its own, and dismissed by clicking away or pressing Escape.
+aliases:
+  - name: flyout
+relations:
+  contrastWith: [tooltip, modal-dialog]
+  seeAlso: [kebab-menu]
+implementations:
+  - system: radix
+    name: Popover
+    url: https://www.radix-ui.com/primitives/docs/components/popover
+  - system: base-ui
+    name: Popover
+    url: https://base-ui.com/react/components/popover
+  - system: shadcn
+    name: Popover
+    url: https://ui.shadcn.com/docs/components/popover
+  - system: hig
+    name: Popovers
+    url: https://developer.apple.com/design/human-interface-guidelines/popovers
+sources:
+  - title: 'MDN: Popover API'
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Popover_API
+demo: inline
+useWhen: a small anchored surface with controls inside it
+---
+
+A popover is anchored and interactive. Those two properties are what separate it
+from its neighbours: it points at the thing that opened it, and you can put a
+button, a form, or a list inside it.
+
+The word gets used for a [tooltip](/tooltip) more often than any other mix-up on
+this site. The test is simple: if the surface only describes the control and
+disappears the moment the pointer leaves, it is a tooltip. If you are expected to
+reach into it, it is a popover. A tooltip you can click is a popover with a
+tooltip's manners, and it will fail for keyboard and touch users.
+
+The web platform has taken this over. The `popover` attribute plus CSS anchor
+positioning give you the top layer, light dismiss, and anchoring without a
+positioning library, which is why most of what libraries used to provide here is
+now a few lines of markup.

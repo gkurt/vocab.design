@@ -1,0 +1,43 @@
+---
+name: Skeleton screen
+slug: skeleton-screen
+category: pattern
+status: published
+definition: >-
+  A loading state made of grey shapes standing where the content will be, showing
+  the layout before the data arrives.
+aliases:
+  - name: skeleton
+  - name: content placeholder
+relations:
+  contrastWith: [spinner, empty-state, optimistic-ui]
+  seeAlso: [shimmer]
+implementations:
+  - system: shadcn
+    name: Skeleton
+    url: https://ui.shadcn.com/docs/components/skeleton
+  - system: carbon
+    name: Skeleton states
+    url: https://carbondesignsystem.com/patterns/loading-pattern/
+sources:
+  - title: 'Luke Wroblewski: Mobile design details, avoid the spinner'
+    url: https://www.lukew.com/ff/entry.asp?1797
+demo: inline
+useWhen: showing the shape of content while it loads
+---
+
+A skeleton is a promise about layout. Instead of a spinner in the middle of an
+empty page, you get the page: three rows, an avatar on the left, two lines of text
+each. Nothing has loaded, but the eye already knows where to go, and the arrival of
+real content is a fill rather than a jump.
+
+That only holds if the skeleton matches what comes back. Bones in the wrong place
+make the load feel worse than a blank area, because the layout visibly corrects
+itself. Match the number of rows you usually get, and the shape of the real
+content, or do not use the pattern.
+
+It is the wrong tool for short waits and for actions. Under about 300ms it is
+noise, and for a single button press a [spinner](/spinner) in the button says more.
+Where the result is predictable, skip the wait entirely with [optimistic
+UI](/optimistic-ui). The moving sweep across the bones is called a
+[shimmer](/shimmer), which is decoration and not part of the definition.
