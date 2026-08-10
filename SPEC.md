@@ -175,8 +175,9 @@ component library would save — without the branding or churn.
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
 frame that reads as "exhibit space". It owns the caption, the controls (identify,
-view-source, and a play control that reads "Auto-playing" while attract owns the
-stage, stops the script when clicked, and reads "▶ Play" otherwise), the isolation mode
+view-source, and a play control, pinned right, that reads "Playing" behind a pause
+glyph while attract owns the stage, stops the script when clicked, and reads "Play"
+behind a play glyph otherwise), the isolation mode
 (shadow root or iframe), and the attract-mode player. Written once; demos never reimplement any of it. Specimens follow
 the page theme — the stage syncs the kit's light/dark tokens to the chrome's; there is
 no per-stage theme control.

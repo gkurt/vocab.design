@@ -4,6 +4,15 @@
  * Deliberately distinct from chrome tokens: cooler neutrals, sans-only, its own accent.
  */
 
+/* The shadow root gets no page reset — Tailwind's preflight stops at the boundary —
+   so the kit states its own. Without it every `width: 100%` control overflows its
+   panel by its padding, and a `height: 100%` panel outgrows the frame it sits in. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :host {
   --sp-bg: #f3f4f6;
   --sp-surface: #ffffff;

@@ -32,10 +32,13 @@ vd-stage figure {
   z-index: 2;
 }
 
+/* Identify (and the controls that will join it) sit at the left; the play control is
+   pinned right. The empty run between them is what lets the play label change width
+   without moving anything. */
 .vd-stage-bar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
   border-top: 1px solid var(--vd-line);
   padding: 5px 8px;
@@ -48,7 +51,7 @@ vd-stage figure {
   gap: 4px;
 }
 
-.vd-stage-controls button {
+.vd-stage-bar button {
   appearance: none;
   background: none;
   border: 0;
@@ -59,53 +62,28 @@ vd-stage figure {
   cursor: pointer;
 }
 
-.vd-stage-controls button:hover {
+.vd-stage-bar button:hover {
   color: var(--vd-ink);
   background: var(--vd-paper);
 }
 
-/* The play control morphs with the player mode (SPEC §6): a live "Auto-playing"
-   status while attract owns the stage (clicking stops the script), "▶ Play"
-   otherwise. Reduced motion never enters attract, so those visitors always see Play.
-   The two labels share one grid cell, so the control keeps the width of the longer
-   of them and swapping never shifts the bar. */
-[data-stage-replay] {
-  display: grid;
-  place-items: center;
-}
-
-[data-stage-replay] > span {
-  grid-area: 1 / 1;
-}
-
-.vd-stage-autoplay {
+/* The play control morphs with the player mode (SPEC §6): "Playing", with the pause
+   glyph naming what a click does, while attract owns the stage; "Play" otherwise.
+   Reduced motion never enters attract, so those visitors always see Play. */
+.vd-stage-autoplay,
+.vd-stage-play {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+}
+
+.vd-stage-bar svg {
+  fill: currentColor;
 }
 
 vd-stage:not([data-autoplay]) .vd-stage-autoplay,
 vd-stage[data-autoplay] .vd-stage-play {
-  visibility: hidden;
-}
-
-.vd-stage-autoplay::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--vd-accent);
-  animation: vd-live 1.6s ease-in-out infinite;
-}
-
-@keyframes vd-live {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
-  }
+  display: none;
 }
 
 /* The cursor is a 0×0 anchor at the interaction point; the arrow svg is offset

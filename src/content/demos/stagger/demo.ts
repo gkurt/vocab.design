@@ -5,8 +5,6 @@ const ROWS = [
   { initials: 'JR', name: 'Jo assigned you a card' },
   { initials: 'PK', name: 'Pia left a comment' },
   { initials: 'TS', name: 'Tomas shared a board' },
-  { initials: 'LC', name: 'Lena approved the spec' },
-  { initials: 'DW', name: 'Dee closed an issue' },
 ];
 
 /**

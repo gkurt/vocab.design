@@ -17,12 +17,18 @@ const { slug, name } = Astro.props;
     </div>
     <div class="vd-stage-bar">
       <span class="vd-stage-controls">
-        <button data-stage-replay type="button" title="Play the demonstration">
-          <span class="vd-stage-autoplay">Auto-playing</span>
-          <span class="vd-stage-play">▶ Play</span>
-        </button>
         <button data-stage-identify type="button" title={`Point out the ${name.toLowerCase()}`}>⌖ Identify</button>
       </span>
+      <button data-stage-replay type="button" title="Play the demonstration">
+        <span class="vd-stage-autoplay">
+          <svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"
+            ><rect x="1.4" y="1" width="2.6" height="8" rx="0.7"></rect><rect x="6" y="1" width="2.6" height="8" rx="0.7"></rect></svg
+          >Playing
+        </span>
+        <span class="vd-stage-play">
+          <svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="M2.2 1.1 8.5 5 2.2 8.9Z"></path></svg>Play
+        </span>
+      </button>
     </div>
   </figure>
 </vd-stage>
