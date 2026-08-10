@@ -1,0 +1,17 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=field][data-state=untouched]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict]', state: 'hidden' } },
+  { moveTo: '[data-part=input]' },
+  { click: true },
+  { type: 'ada@example' },
+  { wait: 800 },
+  { assert: { selector: '[data-part=field][data-state=invalid]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict]', state: 'visible' } },
+  { wait: 1100 },
+  { type: '.com' },
+  { wait: 800 },
+  { assert: { selector: '[data-part=field][data-state=valid]', state: 'visible' } },
+  { wait: 1200 },
+]);

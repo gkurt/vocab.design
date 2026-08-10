@@ -1,0 +1,4 @@
+term:    Breadcrumbs
+scope:   element
+subject: nav.sp-grow[aria-label=Breadcrumb][data-part=trail]
+text:    HomeProjectsField guidePhotos

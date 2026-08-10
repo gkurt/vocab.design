@@ -83,6 +83,21 @@
   }
 }
 
+/* Pulse — an element kept alive in place. Scale and opacity only, on a loop that
+   returns to the resting frame, so a pulsing element can never push its
+   neighbours around (SPEC §5). `.sp-pending` above is the opacity-only cousin,
+   which is what a state change uses; this one is the term itself. */
+.sp-pulse {
+  animation: sp-breathe 1.8s ease-in-out infinite;
+}
+
+@keyframes sp-breathe {
+  50% {
+    opacity: 0.3;
+    transform: scale(0.72);
+  }
+}
+
 /* Motion never outlives attention (SPEC §7): the stage mirrors its player state
    onto the canvas, so an off-screen or handed-over specimen stops animating. */
 :host([data-state="paused"]) *,
@@ -98,6 +113,7 @@
   .sp-skeleton,
   .sp-stagger-item,
   .sp-pending,
+  .sp-pulse,
   [data-running] .sp-dot {
     animation: none;
   }

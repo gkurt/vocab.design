@@ -1,0 +1,4 @@
+term:    Toggletip
+scope:   element
+subject: div.sp-popover[data-open][data-part=tip][role=status]
+text:    Keys are created under Settings, then Developers. Rotating one revokes the old k

@@ -1,0 +1,4 @@
+term:    Pulse
+scope:   element
+subject: span.sp-swatch.sp-pulse[data-part=dot-mic]
+text:    

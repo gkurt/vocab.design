@@ -1,0 +1,4 @@
+term:    Command palette
+scope:   element
+subject: div.sp-dialog[aria-label=Commands][aria-modal=true][data-open][data-part=palette][role=dialog]
+text:    New documentInvite teammateExport as PDFSwitch to dark themeRename projectOpen s

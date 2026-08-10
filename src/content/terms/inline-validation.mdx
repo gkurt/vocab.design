@@ -1,0 +1,54 @@
+---
+name: Inline validation
+slug: inline-validation
+category: pattern
+status: published
+definition: >-
+  Checking a field as the reader fills or leaves it and showing the verdict beside
+  that field, rather than saving every complaint for the submit button.
+aliases:
+  - name: live validation
+  - name: real-time validation
+  - name: as-you-type validation
+  - name: input feedback
+    source: ui-patterns
+implementations:
+  - system: carbon
+    name: Form validation
+    url: https://carbondesignsystem.com/patterns/forms-pattern/
+  - system: base-ui
+    name: Field
+    url: https://base-ui.com/react/components/field
+sources:
+  - title: 'A List Apart: Inline Validation in Web Forms'
+    url: https://alistapart.com/article/inline-validation-in-web-forms/
+  - title: 'Nielsen Norman Group: 10 Design Guidelines for Reporting Errors in Forms'
+    url: https://www.nngroup.com/articles/errors-forms-design-guidelines/
+demo: inline
+useWhen: a field tells you it is wrong before you submit
+---
+
+The verdict has to arrive at the right moment, and the right moment is usually the
+one where the reader is done with the field, not one where they are still in the
+middle of it. An email address is wrong for almost the entire time it takes to type
+one, so a check that fires on every keystroke spends most of its effort reporting
+mistakes the reader was already about to fix. The exception is the field whose
+answer cannot be guessed in advance (is this username taken, does this password
+satisfy the rules), where feedback during typing is the only feedback that helps.
+
+Inline validation is a claim about where the verdict goes and when it appears, not
+about who decides it: the check may run in the browser or come back from a server.
+It also does not replace the summary a long form shows after a failed submit. Those
+two work together, since a reader who has scrolled well past a broken field needs
+something that gathers the problems up and links back to each one.
+
+Luke Wroblewski measured the pattern in 2009, testing six variants of the same form:
+the inline versions were completed faster, with fewer errors and higher reported
+satisfaction than the version checked only on submit. The names that stuck are less
+careful than the research was. "Real-time validation" and "as-you-type validation"
+both describe the impatient version, which is the one people complain about;
+ui-patterns files the whole idea under the calmer "input feedback".
+
+Reserve the space the message will take before there is a message. A verdict that
+shoves the rest of the form down as it appears makes the reader lose their place at
+exactly the moment they are being asked to read something.

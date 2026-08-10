@@ -1,0 +1,4 @@
+term:    Inline validation
+scope:   element
+subject: div.sp-field[data-part=field][data-state=untouched]
+text:    Email
