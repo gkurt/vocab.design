@@ -73,13 +73,6 @@ for (const term of terms.values()) {
       errors.push(`${term.slug}: stubs carry only name/slug/category/definition (SPEC §2.3)`);
   }
 
-  // The content model has three isolation modes (SPEC §5); the stage has built one.
-  // <vd-stage> always calls attachShadow, so an iframe term would mount in the shadow
-  // root and demonstrate the wrong thing while every gate stayed green. Loud beats
-  // silent until the stage learns the second mode; delete this when it does.
-  if (term.demo === 'iframe')
-    errors.push(`${term.slug}: demo "iframe" is specified but the stage only implements shadow-DOM isolation yet (SPEC §5–6)`);
-
   if (term.demo !== 'none') {
     for (const piece of ['demo.ts', 'choreography.ts']) {
       if (!(await Bun.file(join(DEMOS_DIR, term.slug, piece)).exists())) errors.push(`${term.slug}: demo declared but missing ${piece}`);

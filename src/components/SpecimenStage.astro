@@ -4,12 +4,14 @@ import '#src/styles/stage.css';
 interface Props {
   slug: string;
   name: string;
+  /** Isolation mode (SPEC §6): a shadow root, or a specimen document of its own. */
+  isolation: 'inline' | 'iframe';
 }
 
-const { slug, name } = Astro.props;
+const { slug, name, isolation } = Astro.props;
 ---
 
-<vd-stage data-slug={slug} data-name={name} data-state="idle">
+<vd-stage data-slug={slug} data-name={name} data-isolation={isolation} data-state="idle">
   <figure>
     <div class="vd-stage-body">
       <div data-stage-canvas></div>

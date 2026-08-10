@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { openStage, specimens } from './harness.ts';
+import { openStage, specimens, subjectBox } from './harness.ts';
 
 /**
  * The gesture that wakes a specimen has to land, on the specimen the reader was
@@ -34,20 +34,22 @@ for (const { slug } of specimens()) {
     // then measures nothing: the summon is still synthesizing input of its own.
     await expect(stage, 'the stage never settled onto its pose').toHaveAttribute('data-posed', '');
 
-    const subject = stage.locator('[data-subject]');
-    await subject.scrollIntoViewIfNeeded();
-    const box = await subject.boundingBox();
+    await stage.scrollIntoViewIfNeeded();
+    const box = await subjectBox(stage);
     expect(box, 'the posed subject has no box to click').not.toBeNull();
     if (!box) return;
 
     await stage.evaluate((el) => {
-      const shadow = el.querySelector('[data-stage-canvas]')?.shadowRoot;
-      if (!shadow) throw new Error('the specimen has no shadow root');
+      const root = (el as HTMLElement & { specimenRoot?: HTMLElement }).specimenRoot;
+      // Whatever hears the specimen's own events: its shadow root, or the document
+      // of its frame. Neither lets them out, so neither can be watched from here.
+      const events: Node | undefined = root?.getRootNode() ?? undefined;
+      if (!events) throw new Error('the specimen has no root to listen on');
       const landed: Landed[] = [];
       (window as unknown as { __landed: Landed[] }).__landed = landed;
       // Mark the tree the reader can see, so a rebuilt one is recognisable afterwards.
-      for (const node of shadow.querySelectorAll('*')) (node as HTMLElement & { __posed?: true }).__posed = true;
-      shadow.addEventListener(
+      for (const node of (events as ParentNode).querySelectorAll('*')) (node as HTMLElement & { __posed?: true }).__posed = true;
+      events.addEventListener(
         'click',
         (event) => {
           const target = event.composedPath()[0] as HTMLElement & { __posed?: true };

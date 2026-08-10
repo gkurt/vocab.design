@@ -1,7 +1,11 @@
 /*
  * Specimen kit tokens (SPEC §5) — the demos' own design system.
- * Adopted into each stage's shadow root; :host is the stage canvas.
  * Deliberately distinct from chrome tokens: cooler neutrals, sans-only, its own accent.
+ *
+ * The kit serves both isolation modes (SPEC §6) and the two put the stage's own
+ * attributes in different places: adopted into a shadow root, :host is the stage
+ * canvas; inlined into a specimen document, :root is its <html>. Every rule that
+ * reads one reads the other, since the selector that does not apply matches nothing.
  */
 
 /* The shadow root gets no page reset — Tailwind's preflight stops at the boundary —
@@ -13,7 +17,8 @@
   box-sizing: border-box;
 }
 
-:host {
+:host,
+:root {
   --sp-bg: #f3f4f6;
   --sp-surface: #ffffff;
   --sp-sunken: #eaecf1;
@@ -39,7 +44,8 @@
   color: var(--sp-ink);
 }
 
-:host([data-theme="dark"]) {
+:host([data-theme="dark"]),
+:root[data-theme="dark"] {
   --sp-bg: #1b1e24;
   --sp-surface: #262a32;
   --sp-sunken: #21242b;
@@ -68,6 +74,15 @@
 
 .sp-root {
   height: 100%;
+}
+
+/* Document scope only: a specimen document is the canvas, so it gets the box a
+   shadow root's :host already had. The stage sizes the frame; the page inside it
+   fills that frame and brings no margin of its own. */
+:root,
+:root > body {
+  height: 100%;
+  margin: 0;
 }
 
 /* Simulated focus — attract mode never moves real focus (SPEC §7). */

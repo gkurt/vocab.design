@@ -87,7 +87,10 @@
    onto the canvas, so an off-screen or handed-over specimen stops animating. */
 :host([data-state="paused"]) *,
 :host([data-state="paused"]) *::before,
-:host([data-state="paused"]) *::after {
+:host([data-state="paused"]) *::after,
+:root[data-state="paused"] *,
+:root[data-state="paused"] *::before,
+:root[data-state="paused"] *::after {
   animation-play-state: paused;
 }
 

@@ -1,0 +1,53 @@
+---
+name: View transition
+slug: view-transition
+category: motion
+status: published
+definition: >-
+  An animated change between two states of a page, where the browser photographs
+  before and after and interpolates the elements the two have in common.
+aliases:
+  - name: shared element transition
+  - name: page transition
+relations:
+  contrastWith: [stagger]
+  seeAlso: [easing]
+implementations:
+  - system: material
+    name: Transitions
+    url: https://m3.material.io/styles/motion/transitions/transition-patterns
+sources:
+  - title: 'MDN: View Transition API'
+    url: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+  - title: 'CSS View Transitions Module Level 1'
+    url: https://www.w3.org/TR/css-view-transitions-1/
+demo: iframe
+useWhen: one state of a page morphing into the next
+---
+
+For years this was the expensive kind of animation. Moving a thumbnail into a
+detail view meant measuring both positions, cloning the element, animating the
+clone over the top of everything, and removing it at the right moment, all while
+keeping the real DOM in a state nobody could see. The pattern was common enough
+to have a name, shared element transition, and rare enough in practice that most
+products skipped it.
+
+The browser does the bookkeeping now. `document.startViewTransition(callback)`
+photographs the current page, runs the callback that changes the DOM, photographs
+the result, and cross-fades between the two. Anything you want treated as a
+continuous object rather than as part of the background gets a
+`view-transition-name`, and the two photographs of that name are matched and
+animated from one to the other. A name may only be worn by one element at a time,
+which is the rule most first attempts break: the name moves from the old element
+to the new one, it is never held by both.
+
+It is worth keeping the two halves of the word apart. The transition is the
+change between views; [easing](/easing) is the shape of the movement inside it,
+and [stagger](/stagger) is what you reach for when many things arrive at once
+rather than one thing persisting. A view transition is the opposite claim: this
+element did not appear, it was already here.
+
+Motion this large is also motion that can make people ill, so a view transition
+answers `prefers-reduced-motion` like any other. The views still swap, because
+the swap is the function; the browser is simply not asked to animate between
+them.

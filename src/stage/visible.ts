@@ -7,6 +7,15 @@
  * disagree about is opacity, and the disagreement is the point.
  */
 
+/**
+ * Computed style from the element's own realm. A `demo: iframe` specimen lives in
+ * a second document (SPEC §6), and the page's `getComputedStyle` is not the one
+ * that knows how its elements resolve.
+ */
+function styleOf(el: HTMLElement): CSSStyleDeclaration {
+  return (el.ownerDocument.defaultView ?? window).getComputedStyle(el);
+}
+
 function hasBox(el: HTMLElement, style: CSSStyleDeclaration): boolean {
   if (style.visibility === 'hidden' || style.display === 'none') return false;
   const rect = el.getBoundingClientRect();
@@ -20,7 +29,7 @@ function hasBox(el: HTMLElement, style: CSSStyleDeclaration): boolean {
  * settles a fifth of a second late, every time.
  */
 export function isRevealed(el: HTMLElement): boolean {
-  return hasBox(el, getComputedStyle(el));
+  return hasBox(el, styleOf(el));
 }
 
 /**
@@ -37,7 +46,7 @@ export function isRevealed(el: HTMLElement): boolean {
  * should surface, not smooth over.
  */
 export function isSeen(el: HTMLElement): boolean {
-  const style = getComputedStyle(el);
+  const style = styleOf(el);
   if (!hasBox(el, style)) return false;
   return Number.parseFloat(style.opacity) > 0.05;
 }

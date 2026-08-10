@@ -25,6 +25,11 @@ export interface PlayerHost {
   overlay: HTMLElement;
   /** Destroy-and-remount the demo from its initial state. */
   remount: () => void;
+  /**
+   * Specimen coordinates to page coordinates (SPEC §6). Zero for shadow DOM; an
+   * iframe has a viewport of its own, and the ghost cursor lives in neither.
+   */
+  offset: () => { x: number; y: number };
   reducedMotion: boolean;
   onStateChange?: (state: PlayerState) => void;
 }
@@ -406,10 +411,16 @@ export class AttractPlayer {
     this.#target = dest;
   }
 
+  /**
+   * `at` is in the specimen's coordinates, which is what every dispatched event
+   * carries; the cursor is chrome, drawn on the overlay outside the specimen, so
+   * this is the one place the two spaces have to be reconciled.
+   */
   #placeCursor(at: { x: number; y: number }, travelMs: number): void {
     const overlayRect = this.#host.overlay.getBoundingClientRect();
+    const from = this.#host.offset();
     this.#cursor.style.transitionDuration = `${travelMs}ms`;
-    this.#cursor.style.transform = `translate(${at.x - overlayRect.left}px, ${at.y - overlayRect.top}px)`;
+    this.#cursor.style.transform = `translate(${at.x + from.x - overlayRect.left}px, ${at.y + from.y - overlayRect.top}px)`;
   }
 
   /** Spawn a cursor effect (arc/caret). Non-persistent effects clean themselves up. */

@@ -174,7 +174,10 @@ component library would save — without the branding or churn.
   there is no part of it that could be dimmed without dimming the term.
 - **Isolation**: shadow DOM by default; `demo: iframe` for document-level behaviors
   that shadow DOM can't honestly demonstrate (skip link, focus trap, view transitions,
-  scroll-driven animation).
+  scroll-driven animation). A frame is not the safer choice, it is the more expensive
+  one: a second realm, a second coordinate space, and its own copy of the type. Reach
+  for it only when the term's subject genuinely is document scope, and say in the
+  demo's own words why.
 - **No incidental layout shift.** A specimen changing state must not move the parts
   that did not change: reserve the room a revealed element will occupy rather than let
   it shove its neighbours around. A demonstration is watched, often on a loop, and
@@ -207,6 +210,20 @@ no per-stage theme control.
 
 **Reset is formalized as destroy-and-remount.** Demos must be cheaply re-creatable from
 initial state; no demo ships custom cleanup logic.
+
+**Both isolation modes are built, behind one internal shape** (`Surface`), so nothing
+above it asks which one it is driving. `demo: iframe` loads a generated specimen
+document, one per such term, never linked and never in the sitemap. The demo module is
+imported *inside* that document rather than injected into it, because a custom element
+registry, `document`, and `document.activeElement` all belong to a realm: a kit
+primitive defined from outside would register where the frame cannot see it, and a term
+about the page's own focus could not be about the page it is in. What the frame costs
+is paid in two places and nowhere else. The kit reads `:host` and `:root` for the same
+stage attributes, since a document has no host. And the overlay is chrome in the page
+while the specimen measures itself against a viewport of its own, so the stage converts
+between the two coordinate spaces for exactly the two things drawn across the boundary:
+the identify ring and the ghost cursor. A framed specimen also loads its own copy of the
+kit typeface, because a font face is declared per document.
 
 The stage also owns **subject annotation** — curator's ink drawn *over* the specimen,
 never styling inside it:
@@ -352,7 +369,9 @@ The runner drives **the real attract player**, through a single seam on the stag
 are not browser input: they do not trigger default activation behaviours, so a demo
 built on `<summary>` or a `<label>`, or on any other click the browser handles itself,
 would work perfectly under a real cursor and go still in attract mode. Testing the path
-that ships is the only way that failure is ever seen. Three runs, for three questions:
+that ships is the only way that failure is ever seen, and it drives both isolation
+modes through the same seam, so a framed specimen is graded exactly as hard as an
+inline one. Three runs, for three questions:
 
 - **Choreography**, at full speed with motion on. Cursor travel and the beats between
   steps are what the demo is timed against; a tooltip has to be given its hover delay.

@@ -114,7 +114,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
 
         {d.demo !== 'none' && (
           <div class="mt-8">
-            <SpecimenStage slug={d.slug} name={d.name} />
+            <SpecimenStage slug={d.slug} name={d.name} isolation={d.demo} />
           </div>
         )}
 

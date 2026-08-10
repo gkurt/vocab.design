@@ -1,0 +1,4 @@
+term:    View transition
+scope:   element
+subject: span.sp-swatch[data-part=hero]
+text:    

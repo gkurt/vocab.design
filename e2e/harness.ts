@@ -39,23 +39,55 @@ export function specimens(): Specimen[] {
 }
 
 /**
+ * The stage, as the harness reaches into it. `specimenRoot` is the seam that
+ * keeps this file out of the isolation question (SPEC §6): a specimen may be in
+ * a shadow root or in a document of its own, and Playwright's selectors pierce
+ * the first but not the second.
+ */
+type Stage = HTMLElement & { specimenRoot?: HTMLElement; audit(): Promise<StageAudit> };
+
+/**
  * Open a term page and wait for its specimen to be mounted and painted. The
- * stage mounts behind two dynamic imports, so "the page loaded" is not the same
- * question as "the demo is on stage".
+ * stage mounts behind dynamic imports, and a framed one behind a whole document
+ * load, so "the page loaded" is not the same question as "the demo is on stage".
  */
 export async function openStage(page: Page, slug: string): Promise<Locator> {
   await page.goto(`/${slug}`);
-  await page.waitForFunction(() => !!document.querySelector('[data-stage-canvas]')?.shadowRoot?.querySelector('.sp-root'));
-  // Metrics settle before anything measures or photographs a specimen.
+  await page.waitForFunction(() => !!(document.querySelector('vd-stage') as Stage | null)?.specimenRoot);
+  // Metrics settle before anything measures or photographs a specimen. A framed
+  // specimen loads its own copy of the type, so both documents have to be ready.
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => document.querySelector<HTMLIFrameElement>('vd-stage iframe')?.contentDocument?.fonts.ready);
   const stage = page.locator('vd-stage');
   await expect(stage).toBeVisible();
   return stage;
 }
 
+export interface Box {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+/**
+ * The subject's box in page coordinates. A framed specimen measures itself
+ * against its own viewport, so its rect has to be carried back out through the
+ * frame before anything in the page can aim at it.
+ */
+export function subjectBox(stage: Locator): Promise<Box | null> {
+  return stage.evaluate((el) => {
+    const subject = (el as Stage).specimenRoot?.querySelector('[data-subject]');
+    if (!subject) return null;
+    const rect = subject.getBoundingClientRect();
+    const frame = el.querySelector('iframe')?.getBoundingClientRect();
+    return { x: rect.left + (frame?.left ?? 0), y: rect.top + (frame?.top ?? 0), width: rect.width, height: rect.height };
+  });
+}
+
 /** Run the choreography once through the real player (SPEC §8). */
 export function audit(stage: Locator): Promise<StageAudit> {
-  return stage.evaluate((el) => (el as HTMLElement & { audit(): Promise<StageAudit> }).audit());
+  return stage.evaluate((el) => (el as Stage).audit());
 }
 
 /**
@@ -90,7 +122,7 @@ export interface Subject {
  */
 export async function describeSubject(stage: Locator, name: string): Promise<Subject> {
   const found = await stage.evaluate((el) => {
-    const root = el.querySelector('[data-stage-canvas]')?.shadowRoot?.querySelector('.sp-root');
+    const root = (el as Stage).specimenRoot;
     const subject = root?.querySelector('[data-subject]');
     if (!root || !subject) return null;
     // Everything but presentation. State attributes belong here: whether the subject

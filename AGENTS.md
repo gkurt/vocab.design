@@ -53,8 +53,11 @@ src/kit/combobox.ts         #   (written once against ARIA APG, reused by every 
 src/stage/                  # <vd-stage>, attract player, scheduler, choreography types
 src/stage/visible.ts        #   isRevealed (summon) vs isSeen (assert): see gotcha below
 src/stage/clock.ts          #   DemoClock: the only timer a demo may use, so a pose can stop it
+src/stage/surface.ts        #   the two isolation modes behind one shape; nothing above it branches
+src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
+src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 playwright.config.ts        # e2e runner: builds, previews on 4322, three passes over every specimen
 e2e/*.e2e.ts                # Choreography · identify snapshots · takeover (SPEC §8)
@@ -116,12 +119,16 @@ opacity included. Reach for the one that matches the question being asked.
   which way each specimen went.
 - Term relations are validated for integrity and symmetry in CI; a relation to a
   nonexistent term requires creating that term's stub in the same change.
-- **`demo: iframe` is not implemented.** The schema and SPEC §5–6 describe two isolation
-  modes, but `<vd-stage>` only ever calls `attachShadow`, so an iframe term would mount
-  in the shadow root and quietly demonstrate the wrong thing. `bun validate` rejects it
-  until the stage learns the second mode. Terms that genuinely need document scope
-  (skip link, focus trap, view transitions, scroll-driven animation) are blocked on that
-  work; do not author them as `inline` to get around the gate.
+- **Two isolation modes, one shape.** `src/stage/surface.ts` is the only file that knows
+  whether a specimen lives in a shadow root or in a document of its own; everything
+  above it reads `Surface`. `demo: iframe` generates `/specimen/<slug>/`, which imports
+  the demo *inside* the frame so kit custom elements register in the registry that
+  document can see. It is the expensive mode, not the safe one: reach for it only when
+  the term's subject genuinely is document scope (`document.startViewTransition`, the
+  page's own focus order, the document scroller), and never merely to get more room.
+  Two things are drawn across the boundary and both go through `Surface.offset()`: the
+  identify ring and the ghost cursor. Anything else new that measures a specimen from
+  the page has to do the same.
 
 ## Key Conventions
 

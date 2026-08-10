@@ -1,0 +1,48 @@
+---
+// A font face is declared per document, and this is a document of its own: without
+// this the kit would name Geist here and render the system sans, so the same
+// specimen would be set in a different typeface depending on its isolation mode.
+import '@fontsource-variable/geist';
+import { kitCss } from '#src/kit/kit.ts';
+import { getTerms } from '#src/lib/terms.ts';
+
+/**
+ * The document half of `demo: iframe` (SPEC §5–6). One page per term whose
+ * subject is document scope, embedded by <vd-stage> and never linked to.
+ *
+ * It exists so the demo runs in its own realm rather than being injected into a
+ * borrowed one: kit custom elements register in the registry this document can
+ * see, `document` means this document, and a term about the page's own focus
+ * order or view transitions has a page to be about.
+ */
+export async function getStaticPaths() {
+  const terms = await getTerms();
+  return terms
+    .filter((term) => term.data.demo === 'iframe')
+    .map((term) => ({ params: { slug: term.data.slug }, props: { name: term.data.name } }));
+}
+
+interface Props {
+  name: string;
+}
+
+const { slug } = Astro.params;
+const { name } = Astro.props;
+---
+
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{name} specimen</title>
+    <meta name="robots" content="noindex" />
+    <style is:inline set:html={kitCss}></style>
+  </head>
+  <body data-slug={slug}>
+    <script>
+      import { publishSpecimen } from '#src/stage/frame.ts';
+
+      publishSpecimen(document.body.dataset.slug ?? '');
+    </script>
+  </body>
+</html>

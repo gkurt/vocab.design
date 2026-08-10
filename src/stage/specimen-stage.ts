@@ -1,8 +1,9 @@
-import { kitCss } from '#src/kit/kit.ts';
 import { DemoClock } from '#src/stage/clock.ts';
 import type { AuditResult } from '#src/stage/player.ts';
 import { AttractPlayer } from '#src/stage/player.ts';
-import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
+import { loadChoreography } from '#src/stage/registry.ts';
+import type { Isolation } from '#src/stage/surface.ts';
+import { createSurface } from '#src/stage/surface.ts';
 import { isRevealed } from '#src/stage/visible.ts';
 
 const HOVER_DWELL_MS = 150;
@@ -18,7 +19,7 @@ export interface StageAudit extends AuditResult {
  * under the pointer? Only the first is user intent (SPEC §7). `dx`/`dy` are
  * omitted for touch, where the axis is not known from a single move.
  */
-function scrollsSpecimen(path: readonly (EventTarget | undefined)[], stop: Element, dx?: number, dy?: number): boolean {
+function scrollsSpecimen(path: readonly (EventTarget | undefined)[], stop: Node, dx?: number, dy?: number): boolean {
   const scrolls = (overflow: string) => overflow === 'auto' || overflow === 'scroll';
   for (const node of path) {
     if (node === stop) return false;
@@ -52,6 +53,15 @@ class VdStage extends HTMLElement {
   }
 
   /**
+   * The specimen's mount root, wherever isolation put it: inside this stage's
+   * shadow root, or inside the document of its frame (SPEC §6). Undefined until
+   * the demo is mounted, which makes it the honest "is the specimen up yet" test.
+   */
+  get specimenRoot(): HTMLElement | undefined {
+    return this.#mountRoot;
+  }
+
+  /**
    * Smoke-test seam (SPEC §8). Plays the choreography once through the real
    * player and reports what it proved: every failed `assert`, and how many
    * `data-subject` elements the fresh mount carries. It lives on the stage
@@ -74,24 +84,24 @@ class VdStage extends HTMLElement {
     const overlay = this.querySelector<HTMLElement>('[data-stage-overlay]');
     if (!slug || !canvas || !overlay) return;
 
-    const [demo, choreography] = await Promise.all([loadDemo(slug), loadChoreography(slug)]);
-    if (!demo) return;
+    const isolation: Isolation = this.dataset.isolation === 'iframe' ? 'iframe' : 'inline';
+    const [surface, choreography] = await Promise.all([
+      createSurface(canvas, slug, this.dataset.name ?? slug, isolation),
+      loadChoreography(slug),
+    ]);
+    if (!surface) return;
 
     // Specimens follow the page theme (SPEC §6) — no per-stage theme control.
     const syncTheme = () => {
       const explicit = document.documentElement.dataset.theme;
       const dark = explicit ? explicit === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-      canvas.dataset.theme = dark ? 'dark' : 'light';
+      surface.flag('data-theme', dark ? 'dark' : 'light');
     };
     syncTheme();
     new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
 
-    canvas.dataset.state = 'idle';
-    const shadow = canvas.attachShadow({ mode: 'open' });
-    const sheet = new CSSStyleSheet();
-    sheet.replaceSync(kitCss);
-    shadow.adoptedStyleSheets = [sheet];
+    surface.flag('data-state', 'idle');
 
     let posed = false;
     let clock: DemoClock | undefined;
@@ -105,11 +115,11 @@ class VdStage extends HTMLElement {
     const remount = () => {
       clock?.stop();
       this.#mountRoot?.remove();
-      const root = document.createElement('div');
+      const root = surface.doc.createElement('div');
       root.className = 'sp-root';
-      shadow.appendChild(root);
+      surface.host.appendChild(root);
       clock = new DemoClock();
-      demo.mount(root, clock);
+      surface.mount(root, clock);
       this.#mountRoot = root;
       setPosed(false);
     };
@@ -134,10 +144,11 @@ class VdStage extends HTMLElement {
       overlay,
       remount,
       reducedMotion,
+      offset: surface.offset,
       onStateChange: (state) => {
         this.dataset.state = state;
-        // Mirrored inside the shadow root so kit animations pause with the player.
-        canvas.dataset.state = state;
+        // Mirrored inside the specimen so kit animations pause with the player.
+        surface.flag('data-state', state);
         if (!identifyHold) setAutoplay(state === 'attract');
         // Reduced motion rests on the posed specimen (SPEC §7).
         if (reducedMotion && state === 'idle') {
@@ -218,9 +229,12 @@ class VdStage extends HTMLElement {
       if (!el) return;
       const overlayRect = overlay.getBoundingClientRect();
       const rect = el.getBoundingClientRect();
+      // The overlay is chrome and the subject may be in a document of its own, so
+      // the ring is placed in page coordinates, not the specimen's (SPEC §6).
+      const from = surface.offset();
       const box = {
-        left: rect.left - overlayRect.left - 6,
-        top: rect.top - overlayRect.top - 6,
+        left: rect.left + from.x - overlayRect.left - 6,
+        top: rect.top + from.y - overlayRect.top - 6,
         width: rect.width + 12,
         height: rect.height + 12,
       };
@@ -284,40 +298,48 @@ class VdStage extends HTMLElement {
     // passing the pointer over the stage, or scrolling the page past it, never takes over.
     const INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex]';
     let dwell: ReturnType<typeof setTimeout> | undefined;
-    // Listened for on the shadow root, not the host: pointerover/pointerout are pruned
-    // at the shadow boundary whenever both ends of the move are inside it, so the host
-    // only ever hears the pointer arrive in the specimen, never land on a control.
-    // Inside the shadow root the player's own synthesized input is in scope too, so
-    // every takeover signal is gated on isTrusted: the ghost cursor must never be
-    // mistaken for the user and hand the stage to itself.
-    shadow.addEventListener('pointerover', (event) => {
+    // Listened for inside the specimen, never on the canvas around it, because
+    // neither isolation boundary lets these out. Shadow DOM prunes pointerover and
+    // pointerout whenever both ends of a move are inside it, so a stage listening
+    // from outside would hear the pointer arrive in the specimen and never see it
+    // land on a control; an iframe does not let events out at all. Inside, the
+    // player's own synthesized input is in scope too, so every takeover signal is
+    // gated on isTrusted: the ghost cursor must never be mistaken for the user and
+    // hand the stage to itself.
+    const listen = <T extends Event>(type: string, handler: (event: T) => void, options?: AddEventListenerOptions) =>
+      surface.events.addEventListener(type, (event) => handler(event as T), options);
+
+    listen<PointerEvent>('pointerover', (event) => {
       if (!event.isTrusted) return;
       clearTimeout(dwell);
       const el = event.composedPath()[0];
       if (!(el instanceof Element) || !el.closest(INTERACTIVE)) return;
       dwell = setTimeout(() => takeover(el), HOVER_DWELL_MS);
     });
-    canvas.addEventListener('pointerleave', () => {
+    // The pointer leaving the specimen's outermost box, which is the canvas for a
+    // shadow root and the document element for a frame.
+    surface.edge.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
       if (!identifyActive) player.userGone();
     });
-    canvas.addEventListener('pointerdown', (event) => {
+    listen<PointerEvent>('pointerdown', (event) => {
       if (event.isTrusted) takeover(event.composedPath()[0]);
     });
-    canvas.addEventListener('focusin', (event) => {
+    listen<FocusEvent>('focusin', (event) => {
       if (event.isTrusted) takeover(event.composedPath()[0]);
     });
-    canvas.addEventListener(
+    listen<WheelEvent>(
       'wheel',
       (event) => {
-        if (event.isTrusted && scrollsSpecimen(event.composedPath(), canvas, event.deltaX, event.deltaY)) takeover(event.composedPath()[0]);
+        if (event.isTrusted && scrollsSpecimen(event.composedPath(), surface.outside, event.deltaX, event.deltaY))
+          takeover(event.composedPath()[0]);
       },
       { passive: true },
     );
-    canvas.addEventListener(
+    listen<TouchEvent>(
       'touchmove',
       (event) => {
-        if (event.isTrusted && scrollsSpecimen(event.composedPath(), canvas)) takeover(event.composedPath()[0]);
+        if (event.isTrusted && scrollsSpecimen(event.composedPath(), surface.outside)) takeover(event.composedPath()[0]);
       },
       { passive: true },
     );
