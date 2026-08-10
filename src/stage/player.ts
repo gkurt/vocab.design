@@ -145,7 +145,7 @@ export class AttractPlayer {
     if (revealed()) return true;
     this.#reset();
     if (revealed()) return true;
-    for (const step of this.#steps) {
+    for (const [index, step] of this.#steps.entries()) {
       if (generation !== this.#generation) return false;
       if ('moveTo' in step) {
         this.#target = this.#host.root().querySelector(step.moveTo);
@@ -159,11 +159,13 @@ export class AttractPlayer {
       else if ('press' in step) this.#dispatchKey(step.press);
       else if ('type' in step) this.#dispatchType(step.type);
       else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
-      // Waits are polled rather than dropped: a choreography's own beat is what knows
-      // how long the subject takes to arrive, and some subjects (a tooltip, behind its
-      // hover delay) exist only because of that beat. Capped, and left the moment the
-      // subject shows, so a summon still costs a beat rather than the whole script.
+      // Waits are dropped, except the ones the script itself says are load-bearing:
+      // a beat followed by a `visible` assert is often the only reason the subject
+      // exists at all (a tooltip, behind its hover delay). Those are polled, capped,
+      // and left the instant the subject shows. Every other beat is time the viewer
+      // would spend watching nothing arrive.
       else if ('wait' in step) {
+        if (!this.#expectsVisible(index)) continue;
         for (let left = Math.min(step.wait, SUMMON_WAIT_MS); left > 0; left -= SUMMON_TICK_MS) {
           if (!(await this.#sleep(Math.min(SUMMON_TICK_MS, left), generation))) return false;
           if (revealed()) return true;
@@ -174,6 +176,15 @@ export class AttractPlayer {
       if (revealed()) return true;
     }
     return true;
+  }
+
+  /** Does the script claim something should be on screen once the step at `from` is over? */
+  #expectsVisible(from: number): boolean {
+    for (const step of this.#steps.slice(from + 1)) {
+      if (!('assert' in step)) return false;
+      if (step.assert.state === 'visible') return true;
+    }
+    return false;
   }
 
   #reset(): void {

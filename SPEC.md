@@ -209,11 +209,12 @@ never styling inside it:
   whole-scene subjects, where it rings the entire specimen. If the subject is not on
   stage when identify engages (a toast that hasn't fired, text clipped to a pixel by
   the very technique the term names), the stage **summons** it:
-  the choreography is fast-forwarded — no cursor, waits capped and left the moment the
-  subject shows — until the subject appears. Waits are capped rather than dropped
-  because a beat in the script is often the only reason the subject exists at all: a
-  tooltip lives behind its hover delay, and a summon that skipped the wait would ring
-  an empty patch of the frame. While identify is held the stage freezes a **posed clone** of the specimen:
+  the choreography is fast-forwarded — no cursor, waits dropped — until the subject
+  appears. The exception is a wait the script itself marks as load-bearing, by
+  following it with a `visible` assert: that beat is often the only reason the subject
+  exists at all (a tooltip lives behind its hover delay), so it is polled, capped, and
+  left the instant the subject shows. Identify is a hover affordance and has to settle
+  at the speed of one, which is why every other beat is skipped outright. While identify is held the stage freezes a **posed clone** of the specimen:
   an inert snapshot the live demo's own timers cannot dismiss, so the subject never
   vanishes mid-inspection. Releasing identify (or any real interaction) restores the
   live demo. Identify **borrows** the stage rather than taking it: attract is
