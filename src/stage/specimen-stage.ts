@@ -223,11 +223,11 @@ class VdStage extends HTMLElement {
       identifyHold = false;
       hideAnnotation();
     };
-    const takeover = () => {
+    const takeover = (at?: EventTarget | null) => {
       setAutoplay(false);
       dismissIdentify();
       if (posed) remount();
-      player.userIntent();
+      player.userIntent(at);
     };
     // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, a dwell on
     // an interactive element, or a gesture that actually scrolls the specimen. Merely
@@ -238,26 +238,26 @@ class VdStage extends HTMLElement {
       const el = event.composedPath()[0];
       if (!(el instanceof Element) || !el.closest(INTERACTIVE)) return;
       clearTimeout(dwell);
-      dwell = setTimeout(takeover, HOVER_DWELL_MS);
+      dwell = setTimeout(() => takeover(el), HOVER_DWELL_MS);
     });
     canvas.addEventListener('pointerout', () => clearTimeout(dwell));
     canvas.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
       if (!identifyActive) player.userGone();
     });
-    canvas.addEventListener('pointerdown', takeover);
-    canvas.addEventListener('focusin', takeover);
+    canvas.addEventListener('pointerdown', (event) => takeover(event.composedPath()[0]));
+    canvas.addEventListener('focusin', (event) => takeover(event.composedPath()[0]));
     canvas.addEventListener(
       'wheel',
       (event) => {
-        if (scrollsSpecimen(event.composedPath(), canvas, event.deltaX, event.deltaY)) takeover();
+        if (scrollsSpecimen(event.composedPath(), canvas, event.deltaX, event.deltaY)) takeover(event.composedPath()[0]);
       },
       { passive: true },
     );
     canvas.addEventListener(
       'touchmove',
       (event) => {
-        if (scrollsSpecimen(event.composedPath(), canvas)) takeover();
+        if (scrollsSpecimen(event.composedPath(), canvas)) takeover(event.composedPath()[0]);
       },
       { passive: true },
     );

@@ -19,6 +19,8 @@ const STEP_GAP_MS = 350;
 const LOOP_PAUSE_MS = 1400;
 const RESUME_IDLE_MS = 4000;
 const SUMMON_GAP_MS = 60;
+const SUMMON_WAIT_MS = 900;
+const SUMMON_TICK_MS = 80;
 const SCROLL_MS = 420;
 const SCROLL_SLICES = 7;
 const FX_TTL_MS = 700;
@@ -85,9 +87,15 @@ export class AttractPlayer {
     release(this);
   }
 
-  /** Real user input detected — halt the script and hand the demo over as-is. */
-  userIntent(): void {
+  /**
+   * Real user input detected — halt the script and hand the demo over as-is.
+   * `at` is what the real pointer touched, when there is one: the ghost lets go of
+   * whatever it was hovering, unless the real pointer is already inside it, where a
+   * synthetic leave would contradict the enter the browser has just sent.
+   */
+  userIntent(at?: EventTarget | null): void {
     clearTimeout(this.#resumeTimer);
+    if (!(at instanceof Node) || !this.#hovered?.contains(at)) this.#hover(null);
     if (this.#state === 'attract') this.#cancelRun();
     if (this.#state !== 'user') this.#setState('user');
   }
@@ -151,7 +159,17 @@ export class AttractPlayer {
       else if ('press' in step) this.#dispatchKey(step.press);
       else if ('type' in step) this.#dispatchType(step.type);
       else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
-      else continue;
+      // Waits are polled rather than dropped: a choreography's own beat is what knows
+      // how long the subject takes to arrive, and some subjects (a tooltip, behind its
+      // hover delay) exist only because of that beat. Capped, and left the moment the
+      // subject shows, so a summon still costs a beat rather than the whole script.
+      else if ('wait' in step) {
+        for (let left = Math.min(step.wait, SUMMON_WAIT_MS); left > 0; left -= SUMMON_TICK_MS) {
+          if (!(await this.#sleep(Math.min(SUMMON_TICK_MS, left), generation))) return false;
+          if (revealed()) return true;
+        }
+        continue;
+      } else continue;
       if (!(await this.#sleep(SUMMON_GAP_MS, generation))) return false;
       if (revealed()) return true;
     }

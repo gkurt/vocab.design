@@ -198,8 +198,11 @@ never styling inside it:
   context register can't distinguish (a skeleton screen is grey by definition) and for
   whole-scene subjects, where it rings the entire specimen. If the subject is not on
   stage when identify engages (a toast that hasn't fired), the stage **summons** it:
-  the choreography is fast-forwarded — no cursor, waits collapsed — until the subject
-  appears. While identify is held the stage freezes a **posed clone** of the specimen:
+  the choreography is fast-forwarded — no cursor, waits capped and left the moment the
+  subject shows — until the subject appears. Waits are capped rather than dropped
+  because a beat in the script is often the only reason the subject exists at all: a
+  tooltip lives behind its hover delay, and a summon that skipped the wait would ring
+  an empty patch of the frame. While identify is held the stage freezes a **posed clone** of the specimen:
   an inert snapshot the live demo's own timers cannot dismiss, so the subject never
   vanishes mid-inspection. Releasing identify (or any real interaction) restores the
   live demo. Identify **borrows** the stage rather than taking it: attract is
@@ -229,7 +232,10 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   or scrolling the page while the stage happens to sit under the pointer, never takes
   over — which is why the scroll test is whether the gesture moves the specimen's own
   scroller, not whether it landed on the stage. Script halts immediately, ghost cursor
-  fades, demo state is handed over as-is.
+  fades, demo state is handed over as-is. The ghost also lets go of whatever it was
+  hovering, since a pointer that no longer exists cannot still be over a control —
+  unless the real pointer has landed inside that same control, where a synthetic leave
+  would contradict the enter the browser has just sent.
 - **Continuous play**: attract loops for as long as the stage is on screen, with a
   beat between plays. Motion never outlives attention: off-viewport stages are fully
   paused, and reduced-motion visitors get no attract at all.

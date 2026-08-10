@@ -160,7 +160,9 @@
   visibility: visible;
 }
 
-/* Tooltip — a label for the thing under the pointer, and nothing more. */
+/* Tooltip — a label for the thing under the pointer, and nothing more. Placed by
+   the demo against its frame (left/top and --sp-arrow-x), so a label anchored to a
+   control at the edge shifts to stay whole instead of being clipped. */
 .sp-tooltip {
   position: absolute;
   padding: 4px 8px;
@@ -169,17 +171,17 @@
   border-radius: 5px;
   font-size: 12px;
   white-space: nowrap;
-  transform: translate(-50%, 2px);
+  translate: 0 2px;
   opacity: 0;
   visibility: hidden;
   transition:
     opacity 0.14s,
     visibility 0.14s,
-    transform 0.14s var(--sp-ease);
+    translate 0.14s var(--sp-ease);
 }
 
 .sp-tooltip[data-open] {
-  transform: translate(-50%, 0);
+  translate: 0 0;
   opacity: 1;
   visibility: visible;
 }
@@ -188,7 +190,7 @@
   content: "";
   position: absolute;
   top: -3px;
-  left: 50%;
+  left: var(--sp-arrow-x, 50%);
   width: 7px;
   height: 7px;
   margin-left: -3.5px;
