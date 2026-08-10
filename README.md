@@ -20,7 +20,8 @@ Specimens are smoke-tested by their own choreographies. The suite needs a browse
 
 ```bash
 bunx playwright install chromium
-bun run test:e2e   # plays every choreography, photographs every identify state
+bun run test:e2e   # plays every choreography, photographs every identify state,
+                   # and checks that waking a posed specimen does not eat the click
 ```
 
 It builds the site and serves it on port 4322, so it never collides with `bun run dev`.

@@ -188,6 +188,11 @@ component library would save — without the branding or churn.
 - **Hard demos** (combobox-class accessibility) are implemented properly once, in the
   kit, and reused — never re-derived per demo.
 - **Budgets**: no network requests, no timers while idle, small enough to inline.
+- **The stage owns the clock.** A demo's only timer is the one `mount()` is handed.
+  The stage freezes it to pose the specimen and stops it on remount, neither of which
+  it can do to a timer taken from the global scope: that one keeps running under a
+  pose, dismisses the subject mid-inspection, and outlives the mount that set it.
+  `bun validate` rejects a bare `setTimeout` in a demo.
 
 ## 6. Specimen stage
 
@@ -227,10 +232,13 @@ never styling inside it:
   following it with a `visible` assert: that beat is often the only reason the subject
   exists at all (a tooltip lives behind its hover delay), so it is polled, capped, and
   left the instant the subject shows. Identify is a hover affordance and has to settle
-  at the speed of one, which is why every other beat is skipped outright. While identify is held the stage freezes a **posed clone** of the specimen:
-  an inert snapshot the live demo's own timers cannot dismiss, so the subject never
-  vanishes mid-inspection. Releasing identify (or any real interaction) restores the
-  live demo. Identify **borrows** the stage rather than taking it: attract is
+  at the speed of one, which is why every other beat is skipped outright. While identify is held the stage holds a **pose**: the
+  summoned specimen with its clock frozen, so the demo's own timers cannot dismiss the
+  subject mid-inspection. A pose is a stop, not a copy. The specimen stays the live one,
+  listeners and all, which is what lets the click that ends the pose land on the element
+  the reader aimed at rather than on a tree the stage has just replaced (SPEC §7). The
+  stage says when it is holding one, on the host as `data-posed`. Releasing identify
+  (or any real interaction) starts the clock again. Identify **borrows** the stage rather than taking it: attract is
   suspended, not ended, so the play control keeps reading "Auto-playing" throughout
   and the loop picks up again on release. A pose is only ever taken while the summon
   that produced it still owns the demo; if attract has already resumed, the pose is
@@ -253,7 +261,10 @@ any ── leaves viewport ──▶ paused; re-entering resumes
 
 - **User intent** (takeover): a click or tap anywhere in the specimen, keyboard focus
   entering it, a >150 ms hover on an interactive element, or a wheel/touch gesture
-  that actually scrolls specimen content. Merely passing the pointer over the stage,
+  that actually scrolls specimen content. **The gesture that takes over is not spent
+  taking over**: state is handed to the user as it stands, and the click that woke a
+  posed specimen still reaches the control it was aimed at. Waking is a thaw, never a
+  remount, for exactly this reason. Merely passing the pointer over the stage,
   or scrolling the page while the stage happens to sit under the pointer, never takes
   over — which is why the scroll test is whether the gesture moves the specimen's own
   scroller, not whether it landed on the stage. Script halts immediately, ghost cursor
@@ -280,7 +291,8 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   the posed specimen — the summoned state identify shows, subject on stage — and the
   play control (always "▶ Play" here, since attract never runs) plays a single
   scripted pass on request. Interacting wakes the live demo; after the idle beat it
-  returns to the pose.
+  returns to the pose. This is where a pose is the resting state rather than a moment
+  inside identify, so it is also where waking must not cost the reader their click.
 - **One scheduler per page** decides which stage may play: on index pages only the
   centered or hovered stage animates (others hold their first frame); on a term page
   the hero stage plays. IntersectionObserver-gated; off-screen stages are fully paused.
@@ -340,7 +352,7 @@ The runner drives **the real attract player**, through a single seam on the stag
 are not browser input: they do not trigger default activation behaviours, so a demo
 built on `<summary>` or a `<label>`, or on any other click the browser handles itself,
 would work perfectly under a real cursor and go still in attract mode. Testing the path
-that ships is the only way that failure is ever seen. Two runs, for two questions:
+that ships is the only way that failure is ever seen. Three runs, for three questions:
 
 - **Choreography**, at full speed with motion on. Cursor travel and the beats between
   steps are what the demo is timed against; a tooltip has to be given its hover delay.
@@ -350,6 +362,11 @@ that ships is the only way that failure is ever seen. Two runs, for two question
   text snapshot of its subject's shape (tag, kit classes, and the state attributes it
   carries when the spotlight lands) plus a still; the stills are collected into one
   contact sheet, so what all the specimens claim can be read in a single pass.
+- **Takeover**, also under reduced motion, where the stage rests on a pose. One quick
+  click on the posed subject, with no pause between arriving and pressing so the hover
+  dwell cannot wake the demo first, and one question: did the click reach an element
+  the pose actually held? Nothing recorded means the stage ate the gesture; an element
+  the pose never contained means it rebuilt the demo underneath the reader.
 
 `assert` and identify ask different questions about visibility, and the stage keeps them
 apart. Identify's summon asks *is the subject on stage, or on its way?* and answers true
@@ -399,7 +416,8 @@ Agent-driven, human-reviewed, in four stages:
 
 **CI gates on every PR**: Zod schema validation · relation integrity + symmetry +
 stub existence · choreography execution with asserts · demo subject marking
-(`data-subject`) · identify subject snapshots · Biome · typecheck · build.
+(`data-subject`) · no global timers in a demo · identify subject snapshots ·
+takeover reaching the posed specimen · Biome · typecheck · build.
 The identify contact sheet is uploaded on every run. Pipeline entry points live in
 `scripts/`.
 

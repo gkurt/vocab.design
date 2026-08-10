@@ -1,4 +1,5 @@
 import { part } from '#src/kit/parts.ts';
+import type { DemoClock } from '#src/stage/clock.ts';
 
 const LOAD_MS = 1500;
 
@@ -7,7 +8,7 @@ const LOAD_MS = 1500;
  * way, laid out exactly where the real rows will land. The subject is grey by
  * definition, so the stage's identify control is what points it out.
  */
-export function mount(root: HTMLElement): void {
+export function mount(root: HTMLElement, clock: DemoClock): void {
   const bones = [0, 1, 2]
     .map(
       () => `
@@ -52,13 +53,13 @@ export function mount(root: HTMLElement): void {
 
   const skeleton = part(root, 'skeleton');
   const content = part(root, 'content');
-  let timer: ReturnType<typeof setTimeout> | undefined;
+  let timer: number | undefined;
 
   part(root, 'reload').addEventListener('click', () => {
-    clearTimeout(timer);
+    clock.clearTimeout(timer);
     skeleton.hidden = false;
     content.hidden = true;
-    timer = setTimeout(() => {
+    timer = clock.setTimeout(() => {
       skeleton.hidden = true;
       content.hidden = false;
     }, LOAD_MS);

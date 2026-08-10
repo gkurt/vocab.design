@@ -13,6 +13,8 @@ import { slugify } from '#src/lib/slug.ts';
 const TERMS_DIR = 'src/content/terms';
 const DEMOS_DIR = 'src/content/demos';
 const SYMMETRIC = ['contrastWith', 'seeAlso'] as const;
+/** A timer call that is not `clock.`-qualified, so the stage cannot freeze or stop it. */
+const BARE_TIMER = /(?<![.\w])((?:set|clear)(?:Timeout|Interval)|(?:request|cancel)AnimationFrame)\s*\(/;
 
 const errors: string[] = [];
 const terms = new Map<string, Term>();
@@ -83,8 +85,16 @@ for (const term of terms.values()) {
       if (!(await Bun.file(join(DEMOS_DIR, term.slug, piece)).exists())) errors.push(`${term.slug}: demo declared but missing ${piece}`);
     }
     const demoFile = Bun.file(join(DEMOS_DIR, term.slug, 'demo.ts'));
-    if ((await demoFile.exists()) && !(await demoFile.text()).includes('data-subject'))
-      errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
+    if (await demoFile.exists()) {
+      const source = await demoFile.text();
+      if (!source.includes('data-subject')) errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
+
+      // A pose is the live specimen with its clock held (SPEC §6). A timer taken from
+      // the global scope is one the stage cannot reach: it keeps running under the
+      // pose, dismisses the subject mid-inspection, and outlives its own mount.
+      const stray = source.match(BARE_TIMER);
+      if (stray) errors.push(`${term.slug}: demo calls the global ${stray[1]}; use the clock the stage passes mount() (SPEC §6)`);
+    }
 
     // A script with nothing to prove passes the smoke test by saying nothing (SPEC §8).
     const scriptFile = Bun.file(join(DEMOS_DIR, term.slug, 'choreography.ts'));

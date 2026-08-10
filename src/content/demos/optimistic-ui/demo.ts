@@ -1,5 +1,6 @@
 import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
+import type { DemoClock } from '#src/stage/clock.ts';
 
 const ROUND_TRIP_MS = 1400;
 
@@ -8,7 +9,7 @@ const ROUND_TRIP_MS = 1400;
  * catches up afterwards. The second half of the term is the part demos usually
  * skip, so this one also shows the reconciliation when the request fails.
  */
-export function mount(root: HTMLElement): void {
+export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-subject style="width: 300px">
@@ -40,7 +41,7 @@ export function mount(root: HTMLElement): void {
   const fail = part(root, 'fail') as HTMLInputElement;
   let liked = false;
   let value = 18;
-  let timer: ReturnType<typeof setTimeout> | undefined;
+  let timer: number | undefined;
 
   const paint = (state: 'idle' | 'pending' | 'saved' | 'reverted', text: string) => {
     status.dataset.state = state;
@@ -49,7 +50,7 @@ export function mount(root: HTMLElement): void {
   };
 
   like.addEventListener('click', () => {
-    clearTimeout(timer);
+    clock.clearTimeout(timer);
     const next = !liked;
     // The interface commits first: state, count, and pressed styling all move now.
     liked = next;
@@ -60,7 +61,7 @@ export function mount(root: HTMLElement): void {
     paint('pending', 'Sending…');
 
     const willFail = fail.checked;
-    timer = setTimeout(() => {
+    timer = clock.setTimeout(() => {
       if (!willFail) {
         paint('saved', 'Saved');
         return;

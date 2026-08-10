@@ -1,5 +1,6 @@
 import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
+import type { DemoClock } from '#src/stage/clock.ts';
 
 const OPEN_DELAY_MS = 350;
 const EDGE_MARGIN = 8;
@@ -16,7 +17,7 @@ const LABELS: Record<string, string> = {
  * pointer. It carries no controls and dies with the pointer, which is the whole
  * distinction from a popover.
  */
-export function mount(root: HTMLElement): void {
+export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame" style="height: 200px">
@@ -42,7 +43,7 @@ export function mount(root: HTMLElement): void {
 
   const frame = root.querySelector('.sp-frame') as HTMLElement;
   const tooltip = part(root, 'tooltip');
-  let pending: { name: string; timer: ReturnType<typeof setTimeout> } | undefined;
+  let pending: { name: string; timer: number } | undefined;
   let described: HTMLElement | undefined;
 
   /** Anchor under the control, then shift to stay inside the frame rather than be clipped by it. */
@@ -81,7 +82,7 @@ export function mount(root: HTMLElement): void {
    */
   const hide = (name: string) => {
     if (pending?.name === name) {
-      clearTimeout(pending.timer);
+      clock.clearTimeout(pending.timer);
       pending = undefined;
     }
     if (tooltip.dataset.for === name) close();
@@ -90,8 +91,8 @@ export function mount(root: HTMLElement): void {
   for (const name of Object.keys(LABELS)) {
     const trigger = part(root, name);
     trigger.addEventListener('pointerenter', () => {
-      clearTimeout(pending?.timer);
-      pending = { name, timer: setTimeout(() => reveal(name, trigger), OPEN_DELAY_MS) };
+      clock.clearTimeout(pending?.timer);
+      pending = { name, timer: clock.setTimeout(() => reveal(name, trigger), OPEN_DELAY_MS) };
     });
     trigger.addEventListener('focus', () => reveal(name, trigger));
     trigger.addEventListener('pointerleave', () => hide(name));

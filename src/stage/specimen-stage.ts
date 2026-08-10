@@ -1,4 +1,5 @@
 import { kitCss } from '#src/kit/kit.ts';
+import { DemoClock } from '#src/stage/clock.ts';
 import type { AuditResult } from '#src/stage/player.ts';
 import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
@@ -93,14 +94,24 @@ class VdStage extends HTMLElement {
     shadow.adoptedStyleSheets = [sheet];
 
     let posed = false;
+    let clock: DemoClock | undefined;
+    // Announced on the host: the pose is the only stage state that is settled
+    // asynchronously, behind a summon, so "posed" is not derivable from the player.
+    const setPosed = (on: boolean) => {
+      posed = on;
+      if (on) this.dataset.posed = '';
+      else delete this.dataset.posed;
+    };
     const remount = () => {
+      clock?.stop();
       this.#mountRoot?.remove();
       const root = document.createElement('div');
       root.className = 'sp-root';
       shadow.appendChild(root);
-      demo.mount(root);
+      clock = new DemoClock();
+      demo.mount(root, clock);
       this.#mountRoot = root;
-      posed = false;
+      setPosed(false);
     };
     remount();
 
@@ -158,9 +169,10 @@ class VdStage extends HTMLElement {
     if (pointable) overlay.append(spotlight, pin);
 
     /**
-     * Freeze a posed clone of the specimen (SPEC §6): summon the subject if
-     * needed, then swap the live demo for an inert snapshot so the demo's own
-     * timers cannot dismiss the subject mid-inspection. Any remount restores live.
+     * Pose the specimen (SPEC §6): summon the subject if needed, then hold the
+     * demo's clock so its own timers cannot dismiss the subject mid-inspection.
+     * The specimen stays the live one, listeners and all, which is what lets the
+     * gesture that wakes it land on the element the reader aimed at.
      */
     let posing: Promise<void> | undefined;
     const enterPose = async () => {
@@ -170,16 +182,11 @@ class VdStage extends HTMLElement {
           const el = subject();
           return el ? isRevealed(el) : false;
         });
-        // A superseded summon means attract already has the stage back; posing now
-        // would leave the run playing a listener-less clone.
+        // A superseded summon means attract already has the stage back; freezing now
+        // would leave the run playing a specimen whose clock has stopped.
         if (!own) return;
-        const live = this.#mountRoot;
-        if (!live) return;
-        const poseRoot = live.cloneNode(true) as HTMLElement;
-        live.remove();
-        shadow.appendChild(poseRoot);
-        this.#mountRoot = poseRoot;
-        posed = true;
+        clock?.freeze();
+        setPosed(true);
       })();
       await posing;
       posing = undefined;
@@ -261,7 +268,15 @@ class VdStage extends HTMLElement {
     const takeover = (at?: EventTarget | null) => {
       setAutoplay(false);
       dismissIdentify();
-      if (posed) remount();
+      // Waking a posed specimen hands it over as it stands (SPEC §7). Remounting here
+      // would take the pressed node out of the document between pointerdown and click,
+      // and a click has no target left to fire on: the gesture that woke the demo would
+      // be the one gesture it never received. Touch has no hover to wake it first, so
+      // under reduced motion, where the stage rests on a pose, that was every tap.
+      if (posed) {
+        setPosed(false);
+        clock?.thaw();
+      }
       player.userIntent(at);
     };
     // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, a dwell on

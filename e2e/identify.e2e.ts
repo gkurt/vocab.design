@@ -5,7 +5,7 @@ import { describeSubject, expectDrawnOnStage, IDENTIFY_SHOTS, openStage, specime
 
 /**
  * What each specimen claims the term is (SPEC §6, §8). Identify summons the
- * subject if it is not on stage, freezes a posed clone, and rings it; this pass
+ * subject if it is not on stage, holds the pose, and rings it; this pass
  * records both halves of that claim: a committed text snapshot of the subject's
  * shape, which fails the build when a demo starts pointing somewhere else, and a
  * still of the spotlight, collected into a contact sheet so a reviewer can take
@@ -49,6 +49,15 @@ for (const { slug, name } of specimens()) {
     // toast is open, and visually hidden text has been given its box back.
     const subject = await describeSubject(stage, name);
     expect(subject.report).toMatchSnapshot(`${slug}-subject.txt`);
+
+    // A pose is the specimen with its clock stopped, so it has to outlast the timer
+    // that would end it: the slowest demo dismisses its subject at 2.2s. Read the
+    // subject again rather than trust the still, since a toast that closed under the
+    // spotlight is a change of state attributes before it is a change of pixels.
+    await expect(stage, 'the pose let go while identify was still held').toHaveAttribute('data-posed', '');
+    await page.waitForTimeout(2600);
+    const held = await describeSubject(stage, name);
+    expect(held.report, 'the subject changed under the spotlight, so its clock was still running').toBe(subject.report);
 
     const still = await stage.locator('.vd-stage-body').screenshot({
       path: join(IDENTIFY_SHOTS, `${slug}.png`),

@@ -52,11 +52,12 @@ src/kit/segmented.ts        # <sp-segmented>, <sp-combobox>: kit primitives that
 src/kit/combobox.ts         #   (written once against ARIA APG, reused by every demo)
 src/stage/                  # <vd-stage>, attract player, scheduler, choreography types
 src/stage/visible.ts        #   isRevealed (summon) vs isSeen (assert): see gotcha below
+src/stage/clock.ts          #   DemoClock: the only timer a demo may use, so a pose can stop it
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 scripts/validate-terms.ts   # Content gates run by `bun validate`
-playwright.config.ts        # e2e runner: builds, previews on 4322, two passes over every specimen
-e2e/*.e2e.ts                # Choreography smoke tests + identify snapshots (SPEC §8)
+playwright.config.ts        # e2e runner: builds, previews on 4322, three passes over every specimen
+e2e/*.e2e.ts                # Choreography · identify snapshots · takeover (SPEC §8)
 e2e/harness.ts              #   specimen discovery, stage helpers, subject description
 e2e/__snapshots__/          #   committed: what each specimen identifies as
 e2e/__artifacts__/          #   generated: identify stills + the contact sheet
@@ -66,6 +67,14 @@ e2e/__artifacts__/          #   generated: identify stills + the contact sheet
 NOT apply Zod output transforms — defaults never materialize on `getCollection()`
 data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
 `getCollection('terms')` directly.
+
+**Gotcha**: a demo's timers must come from the `DemoClock` its `mount(root, clock)`
+is handed, never from the global scope. Identify's pose is the live specimen with
+that clock frozen, not a copy of it, which is what lets the click that ends the pose
+land on the control the reader aimed at instead of on a tree the stage just rebuilt.
+A bare `setTimeout` is invisible to the pose and outlives its own mount; `bun validate`
+rejects one. The clock speaks `setTimeout`/`clearTimeout` only, so a demo that needs
+`requestAnimationFrame` is a reason to grow `src/stage/clock.ts`, not to reach past it.
 
 **Gotcha**: `src/stage/visible.ts` exports two visibility tests and they are not
 interchangeable. `isRevealed` is identify's: on stage *or on its way*, opacity ignored,

@@ -1,7 +1,9 @@
+import type { DemoClock } from '#src/stage/clock.ts';
+
 const TOAST_MS = 2200;
 
 /** Toast specimen: a save action confirms with a transient, self-dismissing toast. */
-export function mount(root: HTMLElement): void {
+export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window sp-context">
@@ -18,10 +20,10 @@ export function mount(root: HTMLElement): void {
   const save = root.querySelector('[data-part=save-button]');
   const toast = root.querySelector('[data-part=toast]');
   if (!save || !toast) return;
-  let timer: ReturnType<typeof setTimeout> | undefined;
+  let timer: number | undefined;
   save.addEventListener('click', () => {
     toast.setAttribute('data-open', '');
-    clearTimeout(timer);
-    timer = setTimeout(() => toast.removeAttribute('data-open'), TOAST_MS);
+    clock.clearTimeout(timer);
+    timer = clock.setTimeout(() => toast.removeAttribute('data-open'), TOAST_MS);
   });
 }
