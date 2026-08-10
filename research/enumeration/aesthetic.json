@@ -1,0 +1,2161 @@
+[
+  {
+    "name": "Skeuomorphism",
+    "slug": "skeuomorphism",
+    "category": "aesthetic",
+    "definition": "A style that makes interface elements imitate real objects and materials, using leather, metal, paper, and glossy highlights so their purpose reads as familiar.",
+    "useWhen": "the control is dressed as the physical object it replaces",
+    "aliases": [
+      { "name": "skeuomorphic design" },
+      { "name": "realistic UI", "source": "community" },
+      { "name": "skeuomorph" },
+      { "name": "textured UI", "source": "community" }
+    ],
+    "relatedSlugs": ["flat-design", "neumorphism", "claymorphism", "neo-skeuomorphism", "aqua", "gloss"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Skeuomorphism | Aesthetics Wiki", "url": "https://aesthetics.fandom.com/wiki/Skeuomorphism" },
+      {
+        "title": "NN/g: Flat Design: Its Origins, Its Problems, and Why Flat 2.0 Is Better for Users",
+        "url": "https://www.nngroup.com/articles/flat-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The reference pole for the whole category: half the other entries are defined against it."
+  },
+  {
+    "name": "Flat design",
+    "slug": "flat-design",
+    "category": "aesthetic",
+    "definition": "A style that strips away depth cues, using solid fills, sharp edges, and bold color instead of shadow, gradient, bevel, or texture.",
+    "useWhen": "no depth cues at all, only color and shape",
+    "aliases": [{ "name": "flat UI", "source": "community" }, { "name": "flat design 1.0" }, { "name": "2D interface style" }],
+    "relatedSlugs": ["skeuomorphism", "flat-design-2", "minimalism", "metro-design", "corporate-memphis"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Flat Design: Its Origins, Its Problems, and Why Flat 2.0 Is Better for Users",
+        "url": "https://www.nngroup.com/articles/flat-design/"
+      },
+      {
+        "title": "CareerFoundry: Flat Design: A Complete Beginner's Guide",
+        "url": "https://careerfoundry.com/en/blog/ui-design/what-is-flat-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Datable: emerged around 2011, mainstreamed by Windows Metro and iOS 7."
+  },
+  {
+    "name": "Flat 2.0",
+    "slug": "flat-design-2",
+    "category": "aesthetic",
+    "definition": "Flat design with the depth cues put back in small doses: soft shadow, subtle gradient, and hover feedback that show what can actually be clicked.",
+    "useWhen": "flat surfaces, but affordance restored with light shadow",
+    "aliases": [
+      { "name": "semi-flat design" },
+      { "name": "almost flat design" },
+      { "name": "flat design 2.0", "source": "nngroup" },
+      { "name": "near-flat" }
+    ],
+    "relatedSlugs": ["flat-design", "long-shadow", "material-you"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Flat Design: Its Origins, Its Problems, and Why Flat 2.0 Is Better for Users",
+        "url": "https://www.nngroup.com/articles/flat-design/"
+      },
+      {
+        "title": "UXPin: The 7-Minute Guide to Flat Design 2.0",
+        "url": "https://www.uxpin.com/studio/blog/the-7-minute-guide-to-flat-design-2-0/"
+      }
+    ],
+    "implementations": [],
+    "notes": "NN/g owns this coinage; 99designs and others say semi-flat for the same thing. Merge candidate with flat-design if the taxonomy prefers one entry with a history section."
+  },
+  {
+    "name": "Minimalism",
+    "slug": "minimalism",
+    "category": "aesthetic",
+    "definition": "A style that reduces an interface to one typeface, one accent color, and generous empty space, letting whitespace rather than ornament carry hierarchy.",
+    "useWhen": "hierarchy carried by space, not by decoration",
+    "aliases": [
+      { "name": "minimalist web design" },
+      { "name": "minimal UI" },
+      { "name": "reductive design" },
+      { "name": "clean UI", "source": "daisyui" },
+      { "name": "exaggerated minimalism", "source": "uistyleguide" }
+    ],
+    "relatedSlugs": ["maximalism", "flat-design", "swiss-style"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Superdesign: UI style catalog", "url": "https://superdesign.dev/styles" },
+      { "title": "Zoviz: Minimalist vs Maximalist Web Design", "url": "https://zoviz.com/blog/minimalist-vs-maximalist-web-design" }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Maximalism",
+    "slug": "maximalism",
+    "category": "aesthetic",
+    "definition": "A style that fills the screen on purpose with layered color, pattern, and type, treating abundance rather than restraint as the message.",
+    "useWhen": "abundance is the point, not a failure of editing",
+    "aliases": [
+      { "name": "maximalist web design" },
+      { "name": "more is more", "source": "community" },
+      { "name": "cluttercore", "source": "community" },
+      { "name": "dopamine design", "source": "daisyui" },
+      { "name": "Gen-Z chaos", "source": "uistyleguide" }
+    ],
+    "relatedSlugs": ["minimalism", "anti-design", "memphis-design", "vernacular-web"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Envato: Minimalism vs. Maximalism: Battle of the Divisive Design Styles",
+        "url": "https://elements.envato.com/learn/minimalism-vs-maximalism-design-style"
+      },
+      {
+        "title": "Twine: Minimalism vs Maximalism: The Pros and Cons for Web Design",
+        "url": "https://www.twine.net/blog/minimalism-vs-maximalism-web-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Anti-design",
+    "slug": "anti-design",
+    "category": "aesthetic",
+    "definition": "A deliberately awkward style that breaks layout, type, and color conventions so the interface reads as a statement rather than as a polished product.",
+    "useWhen": "the rule breaking is the message",
+    "aliases": [
+      { "name": "ugly design", "source": "community" },
+      { "name": "intentionally ugly web design" },
+      { "name": "anti-aesthetic" },
+      { "name": "anti-polish", "source": "uistyleguide" },
+      { "name": "raw aesthetic", "source": "uistyleguide" },
+      { "name": "Internet Ugly", "source": "namethatui" }
+    ],
+    "relatedSlugs": ["brutalist-web-design", "maximalism", "vernacular-web"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Envato: Minimalism vs. Maximalism: Battle of the Divisive Design Styles",
+        "url": "https://elements.envato.com/learn/minimalism-vs-maximalism-design-style"
+      }
+    ],
+    "implementations": [],
+    "notes": "Frequently conflated with brutalism; the discrimination is intent (statement) versus method (exposed structure)."
+  },
+  {
+    "name": "Brutalist web design",
+    "slug": "brutalist-web-design",
+    "category": "aesthetic",
+    "definition": "A raw style that leaves the document showing: system or monospace type, default link blue, hard borders, and no decoration beyond structure.",
+    "useWhen": "the page looks like unstyled HTML on purpose",
+    "aliases": [
+      { "name": "web brutalism", "source": "namethatui" },
+      { "name": "brutalism" },
+      { "name": "raw HTML aesthetic" },
+      { "name": "default browser look" },
+      { "name": "brutalist typography", "source": "community" },
+      { "name": "anti-grid brutalism", "source": "community" },
+      { "name": "sports brutalism", "source": "daisyui" }
+    ],
+    "relatedSlugs": ["neubrutalism", "anti-design", "vernacular-web", "terminal-aesthetic"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Superdesign: Brutalist Web Design: CSS Recipe, Live Examples and Trend Data",
+        "url": "https://superdesign.dev/styles/brutalism"
+      },
+      { "title": "NameThatUI: Neobrutalism", "url": "https://namethatui.com/styles/neobrutalism" }
+    ],
+    "implementations": [],
+    "notes": "Distinct from neubrutalism: brutalism deletes decoration, neubrutalism adds thick outlines and hard shadows."
+  },
+  {
+    "name": "Neubrutalism",
+    "slug": "neubrutalism",
+    "category": "aesthetic",
+    "definition": "A loud style built from thick black outlines, saturated flat color, square corners, and hard offset shadows with zero blur.",
+    "useWhen": "black outline plus a hard unblurred shadow",
+    "aliases": [
+      { "name": "neobrutalism", "source": "nngroup" },
+      { "name": "neo-brutalism" },
+      { "name": "new brutalism" },
+      { "name": "hard shadow style", "source": "community" },
+      { "name": "sticker UI", "source": "community" }
+    ],
+    "relatedSlugs": ["brutalist-web-design", "memphis-design", "maximalism"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "NN/g: Neobrutalism: Definition and Best Practices", "url": "https://www.nngroup.com/articles/neobrutalism/" },
+      { "title": "NameThatUI: Neobrutalism", "url": "https://namethatui.com/styles/neobrutalism" }
+    ],
+    "implementations": [
+      {
+        "systemId": "neobrutalism-components",
+        "name": "neobrutalism components",
+        "url": "https://www.neobrutalism.dev/",
+        "verified": true
+      }
+    ],
+    "notes": "Spelling is genuinely split: NN/g writes neobrutalism, the neubrutalism.com guide writes neubrutalism. Both spellings must resolve."
+  },
+  {
+    "name": "Claymorphism",
+    "slug": "claymorphism",
+    "category": "aesthetic",
+    "definition": "A soft style where controls look inflated from clay: pastel fills, very large corner radii, an inner highlight, and a tinted drop shadow.",
+    "useWhen": "puffy pastel surfaces that look moulded",
+    "aliases": [
+      { "name": "clay UI" },
+      { "name": "claymorphic design" },
+      { "name": "play-doh UI", "source": "community" },
+      { "name": "puffy 3D buttons", "source": "community" }
+    ],
+    "relatedSlugs": ["neumorphism", "skeuomorphism", "blob-shape"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Superdesign: UI style catalog", "url": "https://superdesign.dev/styles" },
+      { "title": "Wow-How: 4 Main Types of Morphism in UI Design", "url": "https://wow-how.com/articles/types-of-morphism-in-ui-design" }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Aurora UI",
+    "slug": "aurora-ui",
+    "category": "aesthetic",
+    "definition": "A style whose background is built from heavily blurred color blobs that glow and drift like the northern lights behind the content.",
+    "useWhen": "the background is soft glowing bands of color",
+    "aliases": [
+      { "name": "aurora gradient" },
+      { "name": "northern lights background", "source": "community" },
+      { "name": "blurred blob background" },
+      { "name": "glow background" }
+    ],
+    "relatedSlugs": ["mesh-gradient", "glassmorphism", "grainy-gradient"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Hype4 Academy: Aurora UI, new visual trend for 2021",
+        "url": "https://hype4.academy/articles/design/aurora-ui-new-visual-trend-for-2021"
+      },
+      {
+        "title": "Superdesign: Aurora UI: The CSS Gradient Recipe, Real Examples, and When It Breaks",
+        "url": "https://superdesign.dev/styles/aurora"
+      }
+    ],
+    "implementations": [],
+    "notes": "Coined by Michal Malewicz in 2020/2021. Distinguish from mesh gradient: aurora is the dark, often animated northern-lights case."
+  },
+  {
+    "name": "Mesh gradient",
+    "slug": "mesh-gradient",
+    "category": "color",
+    "definition": "A fill blended from several color points spread across a surface, so the transitions curve and pool instead of running in one straight direction.",
+    "useWhen": "colors blend from many points, not along one axis",
+    "aliases": [
+      { "name": "gradient mesh", "source": "adobe" },
+      { "name": "multi-point gradient" },
+      { "name": "blob gradient" },
+      { "name": "MeshGradient", "source": "swiftui" }
+    ],
+    "relatedSlugs": ["aurora-ui", "grainy-gradient", "duotone"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "DesignerUp: UI Color Gradients: How To Create Mesh, Aurora, and Blended Gradients",
+        "url": "https://designerup.co/video/ui-color-gradients-how-to-create-mesh-aurora-and-blended-gradients"
+      }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: recorded as color, surfaced by an aesthetic sweep. SwiftUI shipped a MeshGradient view; worth a verification probe at canonicalize."
+  },
+  {
+    "name": "Grainy gradient",
+    "slug": "grainy-gradient",
+    "category": "aesthetic",
+    "definition": "A gradient with a fine noise layer over it, added to hide banding and give a flat background the texture of printed paper or film.",
+    "useWhen": "a smooth background deliberately roughened with noise",
+    "aliases": [
+      { "name": "noise texture" },
+      { "name": "grain overlay" },
+      { "name": "film grain" },
+      { "name": "noisy background" },
+      { "name": "feTurbulence background", "source": "svg" }
+    ],
+    "relatedSlugs": ["aurora-ui", "mesh-gradient", "risograph"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "CSS-Tricks: Grainy Gradients", "url": "https://css-tricks.com/grainy-gradients/" },
+      { "title": "ibelick: Creating grainy backgrounds with CSS", "url": "https://ibelick.com/blog/create-grainy-backgrounds-with-css" }
+    ],
+    "implementations": [],
+    "notes": "Merge candidate: a separate noise-texture entry would overlap almost entirely, so aliases carry it here."
+  },
+  {
+    "name": "Liquid Glass",
+    "slug": "liquid-glass",
+    "category": "aesthetic",
+    "definition": "Apple's 2025 material where controls float as a translucent layer that refracts what is behind them and reshapes fluidly as content moves underneath.",
+    "useWhen": "controls are a glass layer that bends the content behind",
+    "aliases": [
+      { "name": "Liquid Glass", "source": "hig" },
+      { "name": "glass effect", "source": "swiftui" },
+      { "name": "iOS 26 glass", "source": "community" },
+      { "name": "Apple glass design" }
+    ],
+    "relatedSlugs": ["glassmorphism", "acrylic", "vibrancy", "windows-aero", "spatial-ui"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Wikipedia: Liquid Glass", "url": "https://en.wikipedia.org/wiki/Liquid_Glass" },
+      { "title": "WWDC25: Meet Liquid Glass", "url": "https://developer.apple.com/videos/play/wwdc2025/219/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Liquid Glass",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/materials",
+        "verified": true
+      }
+    ],
+    "notes": "Announced 9 June 2025 across iOS 26, iPadOS 26, macOS Tahoe, tvOS 26, visionOS 26, watchOS 26. The HIG page fetch returned only a title (JS rendered), so the URL resolves but its wording was not read this sweep."
+  },
+  {
+    "name": "Acrylic",
+    "slug": "acrylic",
+    "category": "aesthetic",
+    "definition": "Fluent's semi-transparent material that blurs, tints, and adds noise to whatever sits behind it, used on transient surfaces like flyouts and menus.",
+    "useWhen": "a frosted Windows surface you can see the desktop through",
+    "aliases": [
+      { "name": "acrylic material", "source": "fluent" },
+      { "name": "AcrylicBrush", "source": "winui" },
+      { "name": "background acrylic", "source": "fluent" },
+      { "name": "in-app acrylic", "source": "fluent" }
+    ],
+    "relatedSlugs": ["glassmorphism", "mica", "liquid-glass", "windows-aero"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Learn: Materials used in Windows apps",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fluent",
+        "name": "Acrylic",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic",
+        "verified": true
+      },
+      {
+        "systemId": "fluent",
+        "name": "Material",
+        "url": "https://fluent2.microsoft.design/material",
+        "verified": true
+      }
+    ],
+    "notes": "Microsoft's recipe is documented explicitly: background, blur, exclusion blend, color tint, noise."
+  },
+  {
+    "name": "Mica",
+    "slug": "mica",
+    "category": "aesthetic",
+    "definition": "Fluent's opaque app background material, subtly tinted with the user's desktop wallpaper color and going neutral when the window loses focus.",
+    "useWhen": "an opaque window background tinted by the wallpaper",
+    "aliases": [
+      { "name": "mica material", "source": "fluent" },
+      { "name": "Mica Alt", "source": "fluent" },
+      { "name": "wallpaper-aware background" }
+    ],
+    "relatedSlugs": ["acrylic", "material-you", "liquid-glass"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Learn: Materials used in Windows apps",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fluent",
+        "name": "Mica",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/style/mica",
+        "verified": true
+      }
+    ],
+    "notes": "Shares the wallpaper-personalization idea with Material You, from the opposite vendor. Good contrastWith pair with acrylic (opaque versus transient)."
+  },
+  {
+    "name": "Vibrancy",
+    "slug": "vibrancy",
+    "category": "aesthetic",
+    "definition": "A treatment that samples the color behind a translucent surface and adapts the text and icons drawn on it so they stay legible as the backdrop changes.",
+    "useWhen": "foreground color adapts to whatever shows through",
+    "aliases": [
+      { "name": "vibrancy", "source": "hig" },
+      { "name": "vibrant material", "source": "apple" },
+      { "name": "NSVisualEffectView vibrancy", "source": "appkit" },
+      { "name": "adaptive legibility" }
+    ],
+    "relatedSlugs": ["liquid-glass", "glassmorphism", "spatial-ui", "acrylic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WWDC23: Design for spatial user interfaces", "url": "https://developer.apple.com/videos/play/wwdc2023/10076/" },
+      {
+        "title": "Create with Swift: Ensuring interface legibility and contrast in visionOS",
+        "url": "https://www.createwithswift.com/ensuring-interface-legibility-and-contrast-in-visionos/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Vibrancy",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/materials",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the word most people reach for is just blur, but vibrancy names the legibility half of the effect."
+  },
+  {
+    "name": "Windows Aero",
+    "slug": "windows-aero",
+    "category": "aesthetic",
+    "definition": "The Windows Vista and 7 look built on translucent glass window frames, soft outer glows, reflections, and animated window transitions.",
+    "useWhen": "see-through window chrome from the Vista and 7 era",
+    "aliases": [
+      { "name": "Aero Glass", "source": "microsoft" },
+      { "name": "Aero", "source": "microsoft" },
+      { "name": "Windows 7 glass" },
+      { "name": "glass window borders", "source": "community" }
+    ],
+    "relatedSlugs": ["frutiger-aero", "acrylic", "glassmorphism", "liquid-glass"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "NameThatUI: visual style catalog", "url": "https://namethatui.com/styles" },
+      { "title": "Wikipedia: Liquid Glass", "url": "https://en.wikipedia.org/wiki/Liquid_Glass" }
+    ],
+    "implementations": [],
+    "notes": "Named separately from Frutiger Aero: Aero is the Microsoft product design language, Frutiger Aero the wider cultural aesthetic it belongs to."
+  },
+  {
+    "name": "Aqua",
+    "slug": "aqua",
+    "category": "aesthetic",
+    "definition": "Apple's early Mac OS X look of glossy blue gel buttons, pinstripes, gumdrop window controls, and a pulsing default button.",
+    "useWhen": "candy-gel Mac controls from the 2000s",
+    "aliases": [
+      { "name": "Aqua", "source": "apple" },
+      { "name": "lickable UI", "source": "community" },
+      { "name": "gel buttons" },
+      { "name": "candy buttons", "source": "community" },
+      { "name": "gumdrop buttons", "source": "community" }
+    ],
+    "relatedSlugs": ["gloss", "specular-highlight", "skeuomorphism", "frutiger-aero"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Wikipedia: Aqua (user interface)", "url": "https://en.wikipedia.org/wiki/Aqua_(user_interface)" },
+      { "title": "NameThatUI: Aqua", "url": "https://namethatui.com/styles/aqua" }
+    ],
+    "implementations": [],
+    "notes": "Introduced January 2000, shipped in Mac OS X 10.0; flattened out from OS X Yosemite in 2014."
+  },
+  {
+    "name": "Frutiger Aero",
+    "slug": "frutiger-aero",
+    "category": "aesthetic",
+    "definition": "The mid 2000s look of glossy gradients, bubbles, water, bright skies, and clean humanist type, retroactively named after the typeface and Windows Aero.",
+    "useWhen": "glossy optimistic 2000s tech imagery",
+    "aliases": [
+      { "name": "Web 2.0 gloss" },
+      { "name": "Aero aesthetic", "source": "community" },
+      { "name": "glossy 2000s", "source": "community" },
+      { "name": "bubbles and grass aesthetic", "source": "community" },
+      { "name": "Neo-Aero", "source": "community" }
+    ],
+    "relatedSlugs": ["windows-aero", "y2k-aesthetic", "gloss", "aqua"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Frutiger Aero | Aesthetics Wiki", "url": "https://aesthetics.fandom.com/wiki/Frutiger_Aero" },
+      { "title": "Kittl: Frutiger Aero aesthetic", "url": "https://www.kittl.com/blogs/frutiger-aero-aesthetic-stl/" }
+    ],
+    "implementations": [],
+    "notes": "Term coined retroactively by Sofi Lee in 2017, popular from 2022. Covers roughly 2004 to 2013, ended by flat design and iOS 7."
+  },
+  {
+    "name": "Y2K aesthetic",
+    "slug": "y2k-aesthetic",
+    "category": "aesthetic",
+    "definition": "The turn of the millennium look of chrome type, bubble shapes, translucent plastic, and lens flares, revived as a web and app style.",
+    "useWhen": "chrome, bubbles, and translucent plastic futurism",
+    "aliases": [
+      { "name": "Y2K futurism" },
+      { "name": "millennium aesthetic" },
+      { "name": "chrome aesthetic", "source": "community" },
+      { "name": "cybercore", "source": "community" },
+      { "name": "liquid chrome", "source": "community" },
+      { "name": "3D chrome", "source": "community" }
+    ],
+    "relatedSlugs": ["frutiger-aero", "vaporwave", "vernacular-web", "retro-web-design"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "NameThatUI: visual style catalog", "url": "https://namethatui.com/styles" },
+      { "title": "Frutiger Aero | 2000 Aesthetics Wiki", "url": "https://2000-aesthetics.fandom.com/wiki/Frutiger_Aero" }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Vaporwave",
+    "slug": "vaporwave",
+    "category": "aesthetic",
+    "definition": "A retro internet look of magenta and cyan gradients, grid horizons, Japanese type, statuary, and 90s desktop chrome used ironically.",
+    "useWhen": "90s mall and desktop imagery reused with irony",
+    "aliases": [
+      { "name": "vapourwave" },
+      { "name": "aesthetic", "source": "community" },
+      { "name": "mallsoft", "source": "community" },
+      { "name": "80s 90s nostalgia UI" }
+    ],
+    "relatedSlugs": ["synthwave", "glitch-aesthetic", "retro-web-design", "y2k-aesthetic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Vaporwave | Aesthetics Wiki", "url": "https://aesthetics.fandom.com/wiki/Vaporwave" },
+      {
+        "title": "Shutterstock: What Is the Vaporwave Aesthetic",
+        "url": "https://www.shutterstock.com/blog/vaporwave-aesthetic-retro-design"
+      }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Synthwave",
+    "slug": "synthwave",
+    "category": "aesthetic",
+    "definition": "A neon 1980s look built on sunset gradients, glowing perspective grids, and chrome type, close to vaporwave but sincere rather than ironic.",
+    "useWhen": "neon grid and sunset 80s futurism, played straight",
+    "aliases": [
+      { "name": "outrun" },
+      { "name": "retrowave" },
+      { "name": "neon 80s", "source": "community" },
+      { "name": "SynthWave '84", "source": "vscode" }
+    ],
+    "relatedSlugs": ["vaporwave", "neon-glow", "scanlines"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Vaporwave | Aesthetics Wiki", "url": "https://aesthetics.fandom.com/wiki/Vaporwave" },
+      { "title": "Digital Heroes: Vaporwave Retro Brand Design 2026", "url": "https://digitalheroesco.com/styles/vaporwave/" }
+    ],
+    "implementations": [],
+    "notes": "Merge candidate with vaporwave if the taxonomy wants one entry; the irony versus sincerity split is the only real discriminator."
+  },
+  {
+    "name": "Retro web design",
+    "slug": "retro-web-design",
+    "category": "aesthetic",
+    "definition": "A style that rebuilds the early desktop web on purpose: beveled window chrome, pixel and system type, garish color, and animated banners.",
+    "useWhen": "the page imitates a 90s desktop or an early website",
+    "aliases": [
+      { "name": "90s web design" },
+      { "name": "retro UI" },
+      { "name": "nostalgia web" },
+      { "name": "Windows 95 UI", "source": "community" }
+    ],
+    "relatedSlugs": ["vernacular-web", "pixel-art-ui", "bevel", "scanlines", "terminal-aesthetic"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Superdesign: Retro Web Design: CSS Recipe, Live Examples and Trend Data", "url": "https://superdesign.dev/styles/retro" },
+      {
+        "title": "Setproduct: Retro and brutalist UI design, a 2026 field guide",
+        "url": "https://www.setproduct.com/blog/retro-brutalist-ui-design-2026"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "98css",
+        "name": "98.css",
+        "url": "https://jdan.github.io/98.css/",
+        "verified": true
+      },
+      {
+        "systemId": "system-css",
+        "name": "system.css",
+        "url": "https://sakofchit.github.io/system.css/",
+        "verified": true
+      }
+    ],
+    "notes": "98.css recreates Windows 98; system.css recreates Apple System 6 (1984 to 1991)."
+  },
+  {
+    "name": "Vernacular web",
+    "slug": "vernacular-web",
+    "category": "aesthetic",
+    "definition": "The amateur homepage look of the GeoCities era: tiled backgrounds, sparkle GIFs, under construction signs, midi music, and hit counters.",
+    "useWhen": "the hand-made amateur homepage look",
+    "aliases": [
+      { "name": "GeoCities aesthetic" },
+      { "name": "old web", "source": "community" },
+      { "name": "web 1.0" },
+      { "name": "amateur web" },
+      { "name": "under construction web", "source": "community" }
+    ],
+    "relatedSlugs": ["retro-web-design", "brutalist-web-design", "maximalism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "NameThatUI: visual style catalog", "url": "https://namethatui.com/styles" }],
+    "implementations": [],
+    "notes": "The phrase comes from Olia Lialina's essay A Vernacular Web; that attribution was not verified this sweep and should be checked before publishing."
+  },
+  {
+    "name": "Pixel art UI",
+    "slug": "pixel-art-ui",
+    "category": "aesthetic",
+    "definition": "An interface drawn on a visible pixel grid, with bitmap type, hard aliased edges, and icons kept at their original low resolution.",
+    "useWhen": "the pixels are meant to be visible",
+    "aliases": [
+      { "name": "8-bit UI", "source": "community" },
+      { "name": "bitmap UI" },
+      { "name": "pixel UI" },
+      { "name": "pixelated interface" },
+      { "name": "pixel art", "source": "uistyleguide" }
+    ],
+    "relatedSlugs": ["retro-web-design", "dithering", "scanlines", "terminal-aesthetic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Sage: Retro Web Design: When Pixel Art Belongs on Your Site",
+        "url": "https://sage.agency/blog/websites-that-use-cool-pixel-art-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The load-bearing CSS is image-rendering: pixelated plus an integer scale factor."
+  },
+  {
+    "name": "Scanlines",
+    "slug": "scanlines",
+    "category": "aesthetic",
+    "definition": "Thin repeating dark lines laid over an interface to imitate the raster of a cathode ray tube screen, often with a slight curve and flicker.",
+    "useWhen": "the screen is dressed as an old CRT monitor",
+    "aliases": [
+      { "name": "CRT effect" },
+      { "name": "raster lines" },
+      { "name": "screen door effect", "source": "community" },
+      { "name": "TV lines", "source": "community" }
+    ],
+    "relatedSlugs": ["retro-web-design", "terminal-aesthetic", "glitch-aesthetic", "synthwave"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Superdesign: Retro Web Design", "url": "https://superdesign.dev/styles/retro" }],
+    "implementations": [],
+    "notes": "Classic long-tail query: people search for the word for the lines over a retro screen."
+  },
+  {
+    "name": "Dithering",
+    "slug": "dithering",
+    "category": "aesthetic",
+    "definition": "Simulating shades a palette does not contain by interleaving pixels of the colors it does have, giving images a speckled retro look.",
+    "useWhen": "shades faked by interleaving a tiny palette",
+    "aliases": [
+      { "name": "ordered dither" },
+      { "name": "Bayer dithering" },
+      { "name": "Floyd-Steinberg dithering" },
+      { "name": "1-bit style", "source": "community" }
+    ],
+    "relatedSlugs": ["pixel-art-ui", "halftone", "risograph", "duotone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "TechOps Asia: The Dithering Renaissance: How Retro Graphics Are Shaping Modern Design",
+        "url": "https://techopsasia.com/blog/dithering-renaissance-retro-graphics-modern-design"
+      }
+    ],
+    "implementations": [],
+    "notes": "Started as a compression constraint, now a deliberate style. Distinguish from halftone (print dots of varying size)."
+  },
+  {
+    "name": "Halftone",
+    "slug": "halftone",
+    "category": "aesthetic",
+    "definition": "Rendering tone as a grid of dots that vary in size, borrowed from print and used to give flat interface art a comic or newsprint feel.",
+    "useWhen": "tone made of print dots that grow and shrink",
+    "aliases": [
+      { "name": "dot screen" },
+      { "name": "Ben Day dots" },
+      { "name": "comic dots", "source": "community" },
+      { "name": "newsprint effect" }
+    ],
+    "relatedSlugs": ["dithering", "risograph", "duotone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Frequently confused with dithering; the discrimination is varying dot size versus interleaved fixed pixels."
+  },
+  {
+    "name": "Risograph style",
+    "slug": "risograph",
+    "category": "aesthetic",
+    "definition": "A print-inspired look of two or three flat spot colors that misregister slightly and show grain, imitating a riso duplicator.",
+    "useWhen": "flat spot colors that overprint and slip out of register",
+    "aliases": [
+      { "name": "riso print", "source": "community" },
+      { "name": "riso aesthetic" },
+      { "name": "misregistration style" },
+      { "name": "spot color print look" }
+    ],
+    "relatedSlugs": ["halftone", "grainy-gradient", "duotone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "No authoritative UI-side source found this sweep; the term is well established in illustration and increasingly used for web backgrounds. Verify before promoting past stub."
+  },
+  {
+    "name": "Glitch aesthetic",
+    "slug": "glitch-aesthetic",
+    "category": "aesthetic",
+    "definition": "A look that fakes signal failure with color channel offset, torn scan bands, and jitter, used for emphasis or as a whole visual identity.",
+    "useWhen": "deliberate corruption used as decoration",
+    "aliases": [
+      { "name": "glitch art" },
+      { "name": "RGB split", "source": "community" },
+      { "name": "chromatic aberration", "source": "community" },
+      { "name": "datamosh" }
+    ],
+    "relatedSlugs": ["vaporwave", "scanlines", "anti-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Photoshop Supply: Dither Patterns", "url": "https://www.photoshopsupply.com/patterns-textures/dither-patterns" }
+    ],
+    "implementations": [],
+    "notes": "Chromatic aberration is listed as an alias rather than its own record; split it out at canonicalize if the demo differs."
+  },
+  {
+    "name": "Memphis design",
+    "slug": "memphis-design",
+    "category": "aesthetic",
+    "definition": "The 1980s Memphis Group look of clashing pastels, squiggles, confetti dots, and terrazzo shapes scattered across a layout.",
+    "useWhen": "squiggles and confetti shapes on clashing pastels",
+    "aliases": [
+      { "name": "Memphis style" },
+      { "name": "Memphis Milano" },
+      { "name": "squiggle and confetti", "source": "community" },
+      { "name": "80s postmodern" }
+    ],
+    "relatedSlugs": ["corporate-memphis", "maximalism", "neubrutalism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Corporate Memphis", "url": "https://en.wikipedia.org/wiki/Corporate_Memphis" }],
+    "implementations": [],
+    "notes": "Must be disambiguated from Corporate Memphis, which only borrows the name."
+  },
+  {
+    "name": "Corporate Memphis",
+    "slug": "corporate-memphis",
+    "category": "aesthetic",
+    "definition": "The flat vector illustration style of bright, faceless people with long bendy limbs and small torsos that spread across tech marketing from 2017.",
+    "useWhen": "flat faceless people with long bendy limbs",
+    "aliases": [
+      { "name": "Alegria", "source": "facebook" },
+      { "name": "big tech illustration", "source": "community" },
+      { "name": "humans of flat", "source": "community" },
+      { "name": "flat art" },
+      { "name": "blob people", "source": "community" }
+    ],
+    "relatedSlugs": ["memphis-design", "flat-design", "isometric-illustration"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Wikipedia: Corporate Memphis", "url": "https://en.wikipedia.org/wiki/Corporate_Memphis" },
+      {
+        "title": "Webflow: Blue people and long limbs: How one illustration style took over the corporate world",
+        "url": "https://webflow.com/blog/corporate-memphis"
+      }
+    ],
+    "implementations": [],
+    "notes": "Named after the Memphis Group but visually unrelated to it; Alegria (Facebook, 2017) is the origin point."
+  },
+  {
+    "name": "Swiss style",
+    "slug": "swiss-style",
+    "category": "aesthetic",
+    "definition": "The Swiss modernist system of a strict grid, flush left sans serif type, asymmetric layout, and objective photography, still the base of clean UI layout.",
+    "useWhen": "grid, Helvetica, and nothing decorative",
+    "aliases": [
+      { "name": "International Typographic Style" },
+      { "name": "Swiss design" },
+      { "name": "grid system design" },
+      { "name": "Helvetica style", "source": "community" },
+      { "name": "Swiss modernism" },
+      { "name": "Swiss modernism 2.0", "source": "uistyleguide" }
+    ],
+    "relatedSlugs": ["minimalism", "flat-design"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Wikipedia: International Typographic Style", "url": "https://en.wikipedia.org/wiki/International_Typographic_Style" },
+      { "title": "Wikipedia: Swiss Style (design)", "url": "https://en.wikipedia.org/wiki/Swiss_Style_(design)" }
+    ],
+    "implementations": [],
+    "notes": "Ancestor of the 12-column grid and of most design system layout thinking."
+  },
+  {
+    "name": "Metro",
+    "slug": "metro-design",
+    "category": "aesthetic",
+    "definition": "Microsoft's typography led design language of flat colored tiles, large light headings, and motion used in place of chrome, shadow, and texture.",
+    "useWhen": "flat colored tiles and oversized light headings",
+    "aliases": [
+      { "name": "Modern UI", "source": "microsoft" },
+      { "name": "Metro", "source": "microsoft" },
+      { "name": "Windows Phone design" },
+      { "name": "Microsoft design language" },
+      { "name": "tile UI", "source": "community" }
+    ],
+    "relatedSlugs": ["flat-design", "acrylic", "mica"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Historically important as the trigger for flat design, but no authoritative live source captured this sweep. Verify against Microsoft or Wikipedia before authoring."
+  },
+  {
+    "name": "Material You",
+    "slug": "material-you",
+    "category": "aesthetic",
+    "definition": "Google's personalization layer where the system derives an app's entire color scheme from the user's wallpaper, so every app shifts together.",
+    "useWhen": "the palette comes from the user's wallpaper",
+    "aliases": [
+      { "name": "dynamic color", "source": "material" },
+      { "name": "Material 3", "source": "material" },
+      { "name": "Monet", "source": "community" },
+      { "name": "wallpaper theming" },
+      { "name": "tonal palette", "source": "material" }
+    ],
+    "relatedSlugs": ["mica", "semantic-color", "color-ramp", "material-3-expressive"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Android Developers: Dynamic color", "url": "https://developer.android.com/develop/ui/views/theming/dynamic-colors" }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Dynamic color",
+        "url": "https://developer.android.com/develop/ui/views/theming/dynamic-colors",
+        "verified": true
+      }
+    ],
+    "notes": "Overlaps the color category; recorded as aesthetic because Material You names a whole design language, not just a palette. Variants documented: Tonal Spot (Android 12), Neutral, Vibrant, Expressive (Android 13)."
+  },
+  {
+    "name": "Material 3 Expressive",
+    "slug": "material-3-expressive",
+    "category": "aesthetic",
+    "definition": "Google's 2025 update to Material 3, with bolder shapes, larger type, spring based motion physics, and a wider set of dynamic color variants.",
+    "useWhen": "Material turned up: big shapes, springy motion",
+    "aliases": [
+      { "name": "M3 Expressive", "source": "material" },
+      { "name": "expressive design", "source": "material" },
+      { "name": "Android 16 design" }
+    ],
+    "relatedSlugs": ["material-you", "flat-design-2"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Google blog: Material 3 Expressive redesign for Android and Wear OS",
+        "url": "https://blog.google/products-and-platforms/platforms/android/material-3-expressive-android-wearos-launch/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Announced May 2025, shipped on Pixel with Android 16 in September 2025."
+  },
+  {
+    "name": "Neo-skeuomorphism",
+    "slug": "neo-skeuomorphism",
+    "category": "aesthetic",
+    "definition": "The current return of depth and material to interfaces, using restrained texture, shadow, and highlight instead of literal leather, metal, and felt.",
+    "useWhen": "depth is back, but abstracted rather than literal",
+    "aliases": [
+      { "name": "modern skeuomorphism" },
+      { "name": "tactile UI", "source": "community" },
+      { "name": "skeuomorphism revival" },
+      { "name": "new skeuomorphic" }
+    ],
+    "relatedSlugs": ["skeuomorphism", "claymorphism", "neumorphism", "liquid-glass", "flat-design-2"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Userology: Flat Design is Dead: The Rise of Neo-Skeuomorphism in 2026",
+        "url": "https://www.userology.co/blogs/neo-skeuomorphism-ui-trends-2026-spatial"
+      },
+      {
+        "title": "Versions: The Evolution of Skeuomorphism",
+        "url": "https://versions.com/design/the-evolution-of-skeuomorphism-claymorphism-neumorphism-and-the-return-of-tactile-interfaces/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Trend-piece vocabulary rather than a settled term; keep as a stub unless the usage holds."
+  },
+  {
+    "name": "Spatial UI",
+    "slug": "spatial-ui",
+    "category": "aesthetic",
+    "definition": "Interface designed to sit in three dimensional space, where panels use a system glass material and depth rather than color carries hierarchy.",
+    "useWhen": "the interface floats in the room, not on a screen",
+    "aliases": [
+      { "name": "spatial design", "source": "apple" },
+      { "name": "visionOS UI" },
+      { "name": "XR interface" },
+      { "name": "3D UI" },
+      { "name": "mixed reality UI" }
+    ],
+    "relatedSlugs": ["liquid-glass", "vibrancy", "glassmorphism"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      { "title": "WWDC23: Design for spatial user interfaces", "url": "https://developer.apple.com/videos/play/wwdc2023/10076/" },
+      {
+        "title": "Create with Swift: Ensuring interface legibility and contrast in visionOS",
+        "url": "https://www.createwithswift.com/ensuring-interface-legibility-and-contrast-in-visionos/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Spatial layout",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/materials",
+        "verified": true
+      }
+    ],
+    "notes": "Marked demo: none because a flat specimen cannot honestly show a spatial subject. Reconsider if a parallax mock is judged fair."
+  },
+  {
+    "name": "Long shadow",
+    "slug": "long-shadow",
+    "category": "aesthetic",
+    "definition": "A flat era decoration where an icon casts a single hard shadow at 45 degrees that runs far past the shape before fading out.",
+    "useWhen": "one hard 45 degree shadow running off the icon",
+    "aliases": [{ "name": "long flat shadow" }, { "name": "45 degree shadow", "source": "community" }, { "name": "flat long shadow" }],
+    "relatedSlugs": ["flat-design", "flat-design-2", "bevel"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Flat Design: Its Origins, Its Problems, and Why Flat 2.0 Is Better for Users",
+        "url": "https://www.nngroup.com/articles/flat-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": "NN/g cites it as flat 2.0 gone wrong: decorative depth that carries no information."
+  },
+  {
+    "name": "Bevel and emboss",
+    "slug": "bevel",
+    "category": "aesthetic",
+    "definition": "Light and dark edges drawn along a shape's border so it reads as raised or carved, the depth trick behind classic desktop buttons.",
+    "useWhen": "a raised edge drawn from a light and a dark border",
+    "aliases": [
+      { "name": "beveled edge" },
+      { "name": "emboss" },
+      { "name": "outset border", "source": "css" },
+      { "name": "3D border", "source": "community" },
+      { "name": "chiseled edge" }
+    ],
+    "relatedSlugs": ["retro-web-design", "skeuomorphism", "neumorphism", "letterpress-text"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "98.css", "url": "https://jdan.github.io/98.css/" }],
+    "implementations": [
+      {
+        "systemId": "98css",
+        "name": "Button (beveled)",
+        "url": "https://jdan.github.io/98.css/",
+        "verified": true
+      }
+    ],
+    "notes": "CSS still ships border-style: outset/inset/ridge/groove for exactly this; a good specimen shows all four."
+  },
+  {
+    "name": "Letterpress text",
+    "slug": "letterpress-text",
+    "category": "aesthetic",
+    "definition": "A text effect that fakes stamping into the surface, using a one pixel light shadow below the glyphs and a slightly darker fill above it.",
+    "useWhen": "type that looks pressed into the surface",
+    "aliases": [
+      { "name": "engraved text" },
+      { "name": "embossed text" },
+      { "name": "inset text" },
+      { "name": "debossed type" },
+      { "name": "text-shadow trick", "source": "community" }
+    ],
+    "relatedSlugs": ["bevel", "skeuomorphism", "neumorphism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross-category candidate with typography; kept here because it is a finish, not a type decision."
+  },
+  {
+    "name": "Gloss",
+    "slug": "gloss",
+    "category": "aesthetic",
+    "definition": "A wet plastic finish made from a light gradient across the top half of a control, a highlight arc, and a darker lower half.",
+    "useWhen": "the control looks like polished wet plastic",
+    "aliases": [
+      { "name": "glossy button" },
+      { "name": "Web 2.0 gloss" },
+      { "name": "gel button" },
+      { "name": "shine", "source": "community" },
+      { "name": "candy button", "source": "community" }
+    ],
+    "relatedSlugs": ["aqua", "frutiger-aero", "specular-highlight", "skeuomorphism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "GirlieMac: CSS3 Gradients: No Image Aqua Button",
+        "url": "https://girliemac.com/blog/2009/04/30/css3-gradients-no-image-aqua-button/"
+      }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Specular highlight",
+    "slug": "specular-highlight",
+    "category": "aesthetic",
+    "definition": "The bright reflection drawn on a surface to say it is glossy, placed where a light source would strike a curved object.",
+    "useWhen": "the bright spot that makes a surface read as shiny",
+    "aliases": [
+      { "name": "highlight" },
+      { "name": "shine", "source": "community" },
+      { "name": "sheen" },
+      { "name": "hotspot" },
+      { "name": "glint", "source": "community" }
+    ],
+    "relatedSlugs": ["gloss", "aqua", "liquid-glass", "neumorphism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Aqua (user interface)", "url": "https://en.wikipedia.org/wiki/Aqua_(user_interface)" }],
+    "implementations": [],
+    "notes": "Deep tail: the word for the small bright arc, distinct from the whole gloss treatment. Apple's Liquid Glass documentation uses the term for its edge reflections."
+  },
+  {
+    "name": "Squircle",
+    "slug": "squircle",
+    "category": "aesthetic",
+    "definition": "A rounded square whose corners curve continuously into the sides instead of meeting a circular arc, the shape behind iOS app icons.",
+    "useWhen": "corners that blend in rather than snap to an arc",
+    "aliases": [
+      { "name": "superellipse" },
+      { "name": "continuous corner radius", "source": "apple" },
+      { "name": "smooth corners" },
+      { "name": "iOS icon shape", "source": "community" },
+      { "name": "G2 continuity", "source": "community" }
+    ],
+    "relatedSlugs": ["blob-shape", "liquid-glass"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Tail gold and highly searched. CSS corner-shape: squircle was landing in browsers around 2025; verify support and the exact property name before authoring."
+  },
+  {
+    "name": "Organic blob",
+    "slug": "blob-shape",
+    "category": "aesthetic",
+    "definition": "A soft irregular shape with no straight edges, used as a background accent or image mask to soften a strictly rectangular layout.",
+    "useWhen": "an amoeba shape softening a rectangular grid",
+    "aliases": [
+      { "name": "blob" },
+      { "name": "organic shape" },
+      { "name": "border-radius blob", "source": "community" },
+      { "name": "amoeba shape", "source": "community" }
+    ],
+    "relatedSlugs": ["claymorphism", "aurora-ui", "squircle", "corporate-memphis"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Made in CSS with eight-value border-radius, or with an SVG path."
+  },
+  {
+    "name": "Hand-drawn UI",
+    "slug": "hand-drawn-ui",
+    "category": "aesthetic",
+    "definition": "A style whose lines wobble as if sketched by hand, used to signal that a diagram or wireframe is provisional rather than finished.",
+    "useWhen": "the sketchiness says this is not final yet",
+    "aliases": [
+      { "name": "sketchy UI" },
+      { "name": "rough style", "source": "community" },
+      { "name": "wireframe aesthetic" },
+      { "name": "lo-fi look" },
+      { "name": "Excalidraw style", "source": "community" }
+    ],
+    "relatedSlugs": ["isometric-illustration", "brutalist-web-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wired Elements", "url": "https://wiredjs.com/" }, { "title": "Excalidraw", "url": "https://excalidraw.com/" }],
+    "implementations": [
+      {
+        "systemId": "wired-elements",
+        "name": "Wired Elements",
+        "url": "https://wiredjs.com/",
+        "verified": true
+      },
+      {
+        "systemId": "excalidraw",
+        "name": "Excalidraw",
+        "url": "https://excalidraw.com/",
+        "verified": true
+      }
+    ],
+    "notes": "Rough.js is the underlying renderer for both; add it as a system id at canonicalize."
+  },
+  {
+    "name": "Isometric illustration",
+    "slug": "isometric-illustration",
+    "category": "aesthetic",
+    "definition": "Art drawn on a fixed axonometric grid so depth reads without perspective, with parallel edges and no vanishing point.",
+    "useWhen": "depth without perspective, on a fixed 30 degree grid",
+    "aliases": [
+      { "name": "isometric art" },
+      { "name": "2.5D illustration", "source": "community" },
+      { "name": "axonometric" },
+      { "name": "isometric UI" }
+    ],
+    "relatedSlugs": ["corporate-memphis", "hand-drawn-ui"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Duotone",
+    "slug": "duotone",
+    "category": "color",
+    "definition": "An image mapped to exactly two colors, one carrying the shadows and one the highlights, so photography takes on a brand palette.",
+    "useWhen": "photos forced into two brand colors",
+    "aliases": [
+      { "name": "two tone" },
+      { "name": "duplex", "source": "print" },
+      { "name": "Spotify photo treatment", "source": "community" },
+      { "name": "gradient map", "source": "photoshop" }
+    ],
+    "relatedSlugs": ["halftone", "risograph", "dithering", "mesh-gradient"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross-category: recorded as color but discovered in the aesthetic sweep. Doable inline with SVG feColorMatrix or CSS filter plus blend modes."
+  },
+  {
+    "name": "Scrim",
+    "slug": "scrim",
+    "category": "component",
+    "definition": "A translucent layer laid over content to dim it while a dialog or sheet is open, signalling that everything beneath is out of reach.",
+    "useWhen": "the dimmed layer behind a modal surface",
+    "aliases": [
+      { "name": "overlay" },
+      { "name": "backdrop", "source": "bootstrap" },
+      { "name": "smoke", "source": "fluent" },
+      { "name": "dim layer", "source": "community" },
+      { "name": "obfuscation layer", "source": "community" }
+    ],
+    "relatedSlugs": ["modal-dialog", "drawer", "focus-trap", "popover"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Learn: Materials used in Windows apps",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fluent",
+        "name": "Smoke",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: filed as component, arguably layout. Strong candidate for merging into modal-dialog if the taxonomy prefers parts over standalone entries; Material calls it scrim, Fluent calls it smoke."
+  },
+  {
+    "name": "Dark mode",
+    "slug": "dark-mode",
+    "category": "color",
+    "definition": "A designed dark theme with its own surface tiers, desaturated accents, and off-white text, rather than an inversion of the light palette.",
+    "useWhen": "a dark theme designed, not inverted",
+    "aliases": [
+      { "name": "dark theme", "source": "material" },
+      { "name": "night mode", "source": "community" },
+      { "name": "dark appearance", "source": "hig" },
+      { "name": "light on dark" }
+    ],
+    "relatedSlugs": ["semantic-color", "color-ramp", "mica", "material-you"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "Superdesign: UI style catalog", "url": "https://superdesign.dev/styles" }],
+    "implementations": [],
+    "notes": "Cross-category: recorded as color. Almost certainly enumerated by the color sweep too; dedupe there."
+  },
+  {
+    "name": "Terminal aesthetic",
+    "slug": "terminal-aesthetic",
+    "category": "aesthetic",
+    "definition": "A look borrowed from the command line: monospace type on a fixed character grid, a block cursor, and green or amber text on black.",
+    "useWhen": "the UI dressed as a command line",
+    "aliases": [
+      { "name": "TUI aesthetic" },
+      { "name": "console UI" },
+      { "name": "monospace UI", "source": "community" },
+      { "name": "hacker aesthetic", "source": "community" },
+      { "name": "green screen", "source": "community" }
+    ],
+    "relatedSlugs": ["brutalist-web-design", "scanlines", "pixel-art-ui", "retro-web-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Setproduct: Retro and brutalist UI design, a 2026 field guide",
+        "url": "https://www.setproduct.com/blog/retro-brutalist-ui-design-2026"
+      }
+    ],
+    "implementations": [],
+    "notes": ""
+  },
+  {
+    "name": "Neon glow",
+    "slug": "neon-glow",
+    "category": "aesthetic",
+    "definition": "A saturated color surrounded by layered soft shadows of the same hue, so type or a border reads as a lit tube against a dark surface.",
+    "useWhen": "type or borders that look lit rather than filled",
+    "aliases": [
+      { "name": "glow effect" },
+      { "name": "outer glow", "source": "photoshop" },
+      { "name": "neon text" },
+      { "name": "bloom" },
+      { "name": "text glow", "source": "community" }
+    ],
+    "relatedSlugs": ["synthwave", "vaporwave", "aurora-ui", "terminal-aesthetic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Built from stacked text-shadow or box-shadow at increasing blur radii; bloom is the same idea in rendering vocabulary."
+  },
+  {
+    "name": "Editorial web design",
+    "slug": "editorial-web-design",
+    "category": "aesthetic",
+    "definition": "A style that borrows print magazine craft for the screen: a visible column grid, display type at poster scale, pull quotes, rules, and captioned images set into the text.",
+    "useWhen": "a page styled like a magazine spread rather than a template",
+    "aliases": [
+      { "name": "editorial design" },
+      { "name": "editorial style" },
+      { "name": "magazine style web design" },
+      { "name": "print-inspired web design" }
+    ],
+    "relatedSlugs": ["swiss-style", "minimalism", "maximalism"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Speckyboy: Modern magazine web layouts", "url": "https://speckyboy.com/modern-magazine-web-layouts/" },
+      { "title": "Wix: The biggest web design trends of 2026", "url": "https://www.wix.com/blog/web-design-trends" }
+    ],
+    "implementations": [],
+    "notes": "Overlaps the layout record magazine-layout, which owns the grid mechanics; this entry is the visual style. Merge candidate at canonicalize."
+  },
+  {
+    "name": "Fictional user interface",
+    "slug": "fictional-user-interface",
+    "category": "aesthetic",
+    "definition": "The screen graphics style invented for film, television, and games: dense readouts, targeting reticles, wireframe globes, and animated telemetry that look computational without computing anything.",
+    "useWhen": "interface art made to be watched rather than used",
+    "aliases": [
+      { "name": "FUI" },
+      { "name": "fantasy user interface" },
+      { "name": "futuristic user interface" },
+      { "name": "film user interface" },
+      { "name": "sci-fi HUD" },
+      { "name": "HUD style" }
+    ],
+    "relatedSlugs": ["cyberpunk-ui", "terminal-aesthetic", "neon-glow", "spatial-ui"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Reel Deal Film School: Creating Fantasy User Interfaces (FUIs)",
+        "url": "https://reeldealfilmschool.wordpress.com/2014/10/23/creating-fantasy-user-interfaces-fuis/"
+      },
+      { "title": "Kit FUI: user interfaces from movies, TV and video games", "url": "https://saji8k.github.io/kit-fui/" }
+    ],
+    "implementations": [],
+    "notes": "The F is expanded as fictional, fantasy, futuristic, film, or fake depending on who is writing; fictional is the least contested. HUD is the in-world subset."
+  },
+  {
+    "name": "Terrazzo",
+    "slug": "terrazzo",
+    "category": "aesthetic",
+    "definition": "A background pattern of small irregular chips scattered on a plain field, copied from poured stone flooring and used flat and multicolored behind interface content.",
+    "useWhen": "a speckled chip pattern used as a background fill",
+    "aliases": [{ "name": "terrazzo pattern" }, { "name": "chip pattern" }, { "name": "speckle pattern" }, { "name": "confetti texture" }],
+    "relatedSlugs": ["memphis-design", "maximalism", "halftone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Creative Market: Design Trend Report: Terrazzo", "url": "https://creativemarket.com/blog/design-trend-report-terrazzo" },
+      { "title": "Desenio: Design focus, terrazzo", "url": "https://desenio.com/design-magazine/trends-2/design-focus-this-fall-terrazzo/" }
+    ],
+    "implementations": [],
+    "notes": "Named in the memphis-design definition already; kept separate because it is used on its own as a pattern fill with no other Memphis cues."
+  },
+  {
+    "name": "Low poly",
+    "slug": "low-poly",
+    "category": "aesthetic",
+    "definition": "A 3D style that keeps the polygon count low enough to see, so surfaces read as faceted triangles under flat shading instead of smooth curves.",
+    "useWhen": "deliberately faceted 3D art with visible triangles",
+    "aliases": [{ "name": "low-polygon" }, { "name": "lowpoly" }, { "name": "faceted 3D" }, { "name": "polygonal illustration" }],
+    "relatedSlugs": ["isometric-illustration", "flat-design", "hyperreal-3d"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Aesthetics of Design: Low Poly Aesthetic", "url": "https://www.aesdes.org/2021/01/27/low-poly-aesthetic/" },
+      {
+        "title": "Sessions College: What is the deal with low poly art?",
+        "url": "https://www.sessions.edu/notes-on-design/whats-the-deal-with-low-poly-art/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Started as a rendering budget in games and became a look; flat shading, not the triangle count alone, is what makes it read as a style."
+  },
+  {
+    "name": "Gradient border",
+    "slug": "gradient-border",
+    "category": "aesthetic",
+    "definition": "An outline filled with a gradient rather than a single color, usually built from a conic or linear gradient behind a masked shape so the hue travels around the edge.",
+    "useWhen": "an outline whose color changes along its length",
+    "aliases": [
+      { "name": "gradient outline" },
+      { "name": "gradient stroke" },
+      { "name": "rainbow border" },
+      { "name": "animated border" },
+      { "name": "glow border" },
+      { "name": "shine border" }
+    ],
+    "relatedSlugs": ["mesh-gradient", "neon-glow", "aurora-ui"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "web.dev: Use conic gradients to create a cool border", "url": "https://web.dev/articles/conic-gradient-border" },
+      { "title": "Bram.us: Animating a CSS Gradient Border", "url": "https://www.bram.us/2021/01/29/animating-a-css-gradient-border/" },
+      {
+        "title": "Bejamas: Finding the best way to create animated gradient borders in CSS",
+        "url": "https://bejamas.com/hub/guides/css-animated-gradient-border"
+      }
+    ],
+    "implementations": [
+      { "systemId": "web-dev", "name": "Conic gradient border", "url": "https://web.dev/articles/conic-gradient-border", "verified": true }
+    ],
+    "notes": "border-image with a gradient works but cannot be animated directly; the rotating version needs a registered @property angle or a pseudo-element."
+  },
+  {
+    "name": "Retro-futurism",
+    "slug": "retro-futurism",
+    "category": "aesthetic",
+    "definition": "A style that pictures the future the way an earlier decade pictured it, so the technology on screen is advanced but the type, color, and hardware belong to the past.",
+    "useWhen": "a future imagined by an older decade, not by this one",
+    "aliases": [{ "name": "retrofuturism" }, { "name": "retro futurism" }, { "name": "retro-future" }, { "name": "yesterday’s tomorrow" }],
+    "relatedSlugs": ["cassette-futurism", "synthwave", "y2k-aesthetic", "frutiger-aero", "vaporwave"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Aesthetics Wiki: Retrofuturism", "url": "https://aesthetics.fandom.com/wiki/Retrofuturism" },
+      { "title": "Wikipedia: Raygun Gothic", "url": "https://en.wikipedia.org/wiki/Raygun_Gothic" }
+    ],
+    "implementations": [],
+    "notes": "Umbrella term; its dated subgenres (raygun gothic, atompunk, space age, cassette futurism, Y2K futurism) are separate names, not synonyms."
+  },
+  {
+    "name": "Cassette futurism",
+    "slug": "cassette-futurism",
+    "category": "aesthetic",
+    "definition": "The analog future of late 1970s science fiction: beige and putty plastic, chunky toggles and rocker switches, amber or green CRT readouts, and monochrome bitmap type.",
+    "useWhen": "a future built from 1970s and 80s analog hardware",
+    "aliases": [{ "name": "cassette punk" }, { "name": "tape futurism" }, { "name": "analog futurism" }, { "name": "used future" }],
+    "relatedSlugs": ["retro-futurism", "terminal-aesthetic", "scanlines", "pixel-art-ui"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Aesthetics Wiki: Cassette Futurism", "url": "https://aesthetics.fandom.com/wiki/Cassette_Futurism" },
+      { "title": "TV Tropes: Cassette Futurism", "url": "https://tvtropes.org/pmwiki/pmwiki.php/Main/CassetteFuturism" }
+    ],
+    "implementations": [],
+    "notes": "Distinguished from synthwave and vaporwave by materiality: worn utilitarian hardware rather than neon and gradients."
+  },
+  {
+    "name": "Cyberpunk UI",
+    "slug": "cyberpunk-ui",
+    "category": "aesthetic",
+    "definition": "A dystopian sci-fi interface style: near-black surfaces, one or two toxic neon accents, monospace all-caps labels, clipped corners, and scanline or glitch noise laid over the top.",
+    "useWhen": "dark dystopian surfaces with toxic neon accents",
+    "aliases": [{ "name": "cyberpunk style" }, { "name": "cyberpunk aesthetic" }, { "name": "neon dystopia UI" }, { "name": "hacker UI" }],
+    "relatedSlugs": ["terminal-aesthetic", "neon-glow", "glitch-aesthetic", "scanlines", "fictional-user-interface", "synthwave"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "stellae.design: Cyberpunk UI, dark themes, neon accents and terminal aesthetics",
+        "url": "https://www.stellae.design/en/learn/cyberpunk-ui-design"
+      },
+      { "title": "daisyUI trends: Cyberpunk UI design style", "url": "https://trends.daisyui.com/trend/cyberpunk/" }
+    ],
+    "implementations": [
+      { "systemId": "daisyui", "name": "cyberpunk theme", "url": "https://trends.daisyui.com/trend/cyberpunk/", "verified": true }
+    ],
+    "notes": "Reads as a bundle: it is mostly dark-mode plus neon-glow plus terminal-aesthetic plus scanlines, so canonicalize may prefer it as a collection page."
+  },
+  {
+    "name": "E-ink aesthetic",
+    "slug": "e-ink-aesthetic",
+    "category": "aesthetic",
+    "definition": "A paper-like style built for or borrowed from electronic ink: near-white ground, pure black text, hairline rules, no shadows or gradients, and paged navigation instead of smooth scrolling.",
+    "useWhen": "an interface styled like reflective ink on paper",
+    "aliases": [
+      { "name": "paper UI" },
+      { "name": "e-paper UI" },
+      { "name": "e-ink UI" },
+      { "name": "paper-like interface" },
+      { "name": "1-bit UI" }
+    ],
+    "relatedSlugs": ["minimalism", "dithering", "flat-design", "terminal-aesthetic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Intent: How to design for e-ink devices", "url": "https://www.withintent.com/blog/e-ink-design/" },
+      { "title": "CHI 2026: A Dedicated E-Paper Design System for Mobile Phones", "url": "https://doi.org/10.1145/3772318.3791459" }
+    ],
+    "implementations": [],
+    "notes": "On real e-paper the constraints are physical (slow refresh, ghosting, no backlight); as a style on ordinary screens it keeps only the look."
+  },
+  {
+    "name": "Biophilic design",
+    "slug": "biophilic-design",
+    "category": "aesthetic",
+    "definition": "A style that borrows from the natural world on purpose, using earthy greens and clays, organic silhouettes, botanical imagery, and slow ambient motion to make a screen feel less mechanical.",
+    "useWhen": "nature borrowed deliberately for calm, not decoration",
+    "aliases": [
+      { "name": "biophilic web design" },
+      { "name": "biophilia in design" },
+      { "name": "nature-inspired UI" },
+      { "name": "organic UI" },
+      { "name": "biomimetic design" }
+    ],
+    "relatedSlugs": ["blob-shape", "aurora-ui", "maximalism", "hand-drawn-ui"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "freeCodeCamp: What is Biophilic Design?", "url": "https://www.freecodecamp.org/news/what-is-biophilic-design/" },
+      {
+        "title": "Silphium Design: Understanding biophilia in digital design",
+        "url": "https://silphiumdesign.com/biophilia-in-digital-design-a-guide-for-2025/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Biomimetic is folded in as an alias but is not strictly a synonym: biophilia is about evoking nature, biomimicry about copying how nature works."
+  },
+  {
+    "name": "Deformable UI",
+    "slug": "deformable-ui",
+    "category": "aesthetic",
+    "definition": "A style where controls behave like soft matter, squashing under a press and springing back past rest, so the surface reads as jelly, clay, or inflated plastic rather than paint.",
+    "useWhen": "controls that squash and spring like soft material",
+    "aliases": [
+      { "name": "tactile digital", "source": "uistyleguide" },
+      { "name": "squishy UI" },
+      { "name": "tactile maximalism" },
+      { "name": "jelly UI" },
+      { "name": "squish UI" }
+    ],
+    "relatedSlugs": ["claymorphism", "neo-skeuomorphism", "liquid-glass", "material-3-expressive"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "UI Style Guide: Tactile Digital / Deformable UI",
+        "url": "https://www.uistyleguide.com/style/tactile-digital-deformable-ui"
+      },
+      {
+        "title": "Buzzvel: The human touch returns, design trends for 2026",
+        "url": "https://buzzvel.com/blog/design-trends-2026-human-touch"
+      }
+    ],
+    "implementations": [],
+    "notes": "Half aesthetic and half motion: the look is claymorphism, the term is really about the spring response on press. Candidate for a motion cross-reference."
+  },
+  {
+    "name": "Retro film aesthetic",
+    "slug": "retro-film-aesthetic",
+    "category": "aesthetic",
+    "definition": "A treatment that makes digital imagery look shot on film, adding grain, halation, light leaks, faded contrast, dust, and sometimes a corner date stamp.",
+    "useWhen": "photography faked to look developed rather than rendered",
+    "aliases": [
+      { "name": "vintage analog", "source": "uistyleguide" },
+      { "name": "analog nostalgia" },
+      { "name": "film look" },
+      { "name": "35mm look" },
+      { "name": "polaroid look" },
+      { "name": "light leak" }
+    ],
+    "relatedSlugs": ["grainy-gradient", "vhs-aesthetic", "risograph", "halftone", "duotone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wix: The biggest web design trends of 2026 (vintage photography and texture)",
+        "url": "https://www.wix.com/blog/web-design-trends"
+      }
+    ],
+    "implementations": [],
+    "notes": "Overlaps grainy-gradient, which covers noise over a flat fill; this record is the photographic treatment. Merge candidate."
+  },
+  {
+    "name": "VHS aesthetic",
+    "slug": "vhs-aesthetic",
+    "category": "aesthetic",
+    "definition": "A look that imitates a worn videotape: tracking bands, smeared color bleeding past edges, interlace comb artifacts, and burned-in timecode or REC overlays.",
+    "useWhen": "artifacts of magnetic tape used as decoration",
+    "aliases": [{ "name": "VHS look" }, { "name": "tape aesthetic" }, { "name": "analog horror look" }, { "name": "camcorder overlay" }],
+    "relatedSlugs": ["scanlines", "glitch-aesthetic", "retro-film-aesthetic", "vaporwave"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Aesthetics Wiki: Retrofuturism (analog subgenres)", "url": "https://aesthetics.fandom.com/wiki/Retrofuturism" }
+    ],
+    "implementations": [],
+    "notes": "Distinct from scanlines (CRT raster) and from glitch (digital failure): the artifacts here are magnetic and horizontal."
+  },
+  {
+    "name": "Hyperreal 3D",
+    "slug": "hyperreal-3d",
+    "category": "aesthetic",
+    "definition": "Rendered objects pushed past photographic realism, with physically based materials, sharp specular detail, and studio lighting, floated over an otherwise plain interface.",
+    "useWhen": "a rendered hero object that outdoes a photograph",
+    "aliases": [
+      { "name": "3D hyperrealism", "source": "uistyleguide" },
+      { "name": "hyperrealistic render" },
+      { "name": "photorealistic 3D" },
+      { "name": "CGI hero" }
+    ],
+    "relatedSlugs": ["low-poly", "specular-highlight", "gloss", "neo-skeuomorphism", "spatial-ui"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "wings.design: 3D and depth in UI, function versus aesthetic",
+        "url": "https://wings.design/insights/3d-depth-in-ui-when-it-works-and-when-its-just-aesthetic"
+      }
+    ],
+    "implementations": [],
+    "notes": "Opposite pole from low-poly on the same axis; usually delivered as a pre-rendered image or a WebGL scene rather than as CSS."
+  },
+  {
+    "name": "Kinetic typography",
+    "slug": "kinetic-typography",
+    "category": "typography",
+    "definition": "Type animated over time, where letters and words move, scale, stagger, or morph so the setting carries tone and emphasis that a static line cannot.",
+    "useWhen": "the type itself performs rather than sits still",
+    "aliases": [{ "name": "motion typography" }, { "name": "animated type" }, { "name": "text in motion" }, { "name": "type animation" }],
+    "relatedSlugs": ["glitch-aesthetic", "editorial-web-design", "maximalism"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "SVGator: What is kinetic typography, a guide to text in motion",
+        "url": "https://www.svgator.com/blog/kinetic-typography-a-guide-to-text-in-motion/"
+      },
+      { "title": "Linearity: Kinetic typography, the what, why and how", "url": "https://www.linearity.io/blog/kinetic-typography/" },
+      {
+        "title": "Kinetic Typography UX: principles, patterns, and getting started",
+        "url": "https://medium.com/hackernoon/kinetic-typography-quickstart-guide-for-devs-designers-d5c6b5545ade"
+      }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: recorded as typography, surfaced by an aesthetic sweep, and defensible as motion too. Word or letter splitting plus stagger is the usual mechanism, so it also touches the stagger term."
+  },
+  {
+    "name": "Zero UI",
+    "slug": "zero-ui",
+    "category": "pattern",
+    "definition": "A paradigm where the screen stops being the interface and the interaction happens through voice, gesture, presence, or sensors, so the system responds without anything to look at.",
+    "useWhen": "the interaction has no screen to design",
+    "aliases": [
+      { "name": "zero interface", "source": "uistyleguide" },
+      { "name": "invisible interface" },
+      { "name": "no UI" },
+      { "name": "screenless interface" },
+      { "name": "calm technology" }
+    ],
+    "relatedSlugs": ["multimodal-interface", "generative-ui"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Designer Daily: The invisible interface, an introduction to designing for Zero UI",
+        "url": "https://www.designer-daily.com/the-invisible-interface-an-introduction-to-designing-for-zero-ui-201632"
+      },
+      {
+        "title": "Microsoft Advertising: Zero UI, the invisible interface revolution",
+        "url": "https://about.ads.microsoft.com/en/blog/post/june-2025/zero-ui-the-invisible-interface-revolution"
+      },
+      { "title": "UX Planet: Zero UI, how to design invisible interfaces", "url": "https://uxplanet.org/zero-ui-2c56a8e952df" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: recorded as pattern, surfaced by an aesthetic sweep from a style catalog that files it as a look. Nothing to demo on a web page, hence demo none."
+  },
+  {
+    "name": "Generative UI",
+    "slug": "generative-ui",
+    "category": "pattern",
+    "definition": "An interface whose parts are chosen or composed by a model at runtime, so a request is answered with a built form, chart, or panel instead of a paragraph of text.",
+    "useWhen": "the model assembles the screen, not just the words",
+    "aliases": [
+      { "name": "GenUI" },
+      { "name": "AI-native UI", "source": "uistyleguide" },
+      { "name": "AI-generated interface" },
+      { "name": "agent-native UI" },
+      { "name": "adaptive interface" }
+    ],
+    "relatedSlugs": ["zero-ui", "multimodal-interface"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      { "title": "CopilotKit: Generative UI, understanding agent-powered interfaces", "url": "https://www.copilotkit.ai/generative-ui" },
+      {
+        "title": "Builder.io: Designing generative UI in an agent-native world",
+        "url": "https://www.builder.io/blog/designing-generative-ui-in-an-agent-native-world"
+      },
+      { "title": "Eleken: Inside generative UI in 2026", "url": "https://www.eleken.co/blog-posts/generative-ui" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: recorded as pattern, surfaced by an aesthetic sweep. Generative UI is the settled engineering name; AI-native UI is the trend-article name for the same thing."
+  },
+  {
+    "name": "Multimodal interface",
+    "slug": "multimodal-interface",
+    "category": "pattern",
+    "definition": "An interface that accepts and answers in more than one channel at once, letting a person speak, type, touch, or point and pick whichever suits the moment.",
+    "useWhen": "voice, touch, and screen share one interaction",
+    "aliases": [
+      { "name": "multimodal UX" },
+      { "name": "voice-first", "source": "uistyleguide" },
+      { "name": "voice user interface" },
+      { "name": "VUI" },
+      { "name": "multimodal UI" }
+    ],
+    "relatedSlugs": ["zero-ui", "generative-ui"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      { "title": "NN/g: Voice First, the future of interaction?", "url": "https://www.nngroup.com/articles/voice-first/" },
+      {
+        "title": "UXmatters: Voice first versus the multimodal user interfaces of the future",
+        "url": "https://www.uxmatters.com/mt/archives/2018/10/voice-first-versus-the-multimodal-user-interfaces-of-the-future.php"
+      }
+    ],
+    "implementations": [
+      { "systemId": "nngroup", "name": "Voice First", "url": "https://www.nngroup.com/articles/voice-first/", "verified": true }
+    ],
+    "notes": "Cross-category: recorded as pattern, surfaced by an aesthetic sweep of a catalog that lists voice-first multimodal as a style. Voice-first is the stricter claim, that voice leads and the screen assists."
+  },
+  {
+    "name": "Art Deco",
+    "slug": "art-deco",
+    "category": "aesthetic",
+    "definition": "A 1920s luxury style of strict symmetry, stepped and fanned geometry, strong vertical emphasis, metallic gold on deep color, and high contrast display capitals.",
+    "useWhen": "symmetrical geometric luxury, gold on deep color",
+    "aliases": [{ "name": "deco style" }, { "name": "Streamline Moderne" }, { "name": "Gatsby style", "source": "community" }],
+    "relatedSlugs": ["art-nouveau", "bauhaus-style", "retro-futurism", "memphis-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" },
+      {
+        "title": "Big Human: 12 graphic design styles, a complete guide for 2026",
+        "url": "https://www.bighuman.com/blog/graphic-design-styles-guide"
+      }
+    ],
+    "implementations": [],
+    "notes": "Reaches interfaces mainly through display type, borders, and frame ornament rather than through control design."
+  },
+  {
+    "name": "Bauhaus style",
+    "slug": "bauhaus-style",
+    "category": "aesthetic",
+    "definition": "A style reduced to primary red, yellow, and blue on off-white, elementary circles, triangles, and squares, and undecorated sans serif type, following form follows function.",
+    "useWhen": "primary colors and elementary shapes doing the work",
+    "aliases": [{ "name": "Bauhaus" }, { "name": "Bauhaus revival" }, { "name": "Bauhaus web design" }],
+    "relatedSlugs": ["de-stijl", "swiss-style", "flat-design", "memphis-design", "art-deco"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Digital Heroes: Bauhaus web design, form follows function revival",
+        "url": "https://digitalheroesco.com/styles/bauhaus-revival/"
+      },
+      { "title": "Inkbot Design: 20 iconic graphic design styles", "url": "https://inkbotdesign.com/graphic-design-styles/" }
+    ],
+    "implementations": [],
+    "notes": "Ancestor of swiss-style and of flat-design; the three are often conflated in trend writing, and the primary palette is what separates this one."
+  },
+  {
+    "name": "De Stijl",
+    "slug": "de-stijl",
+    "category": "aesthetic",
+    "definition": "A style built only from black rules, rectangular fields, and the three primaries on white, arranged asymmetrically with no curves and no diagonals.",
+    "useWhen": "black rules and primary rectangles, nothing else",
+    "aliases": [{ "name": "neoplasticism" }, { "name": "Mondrian style", "source": "community" }, { "name": "Mondrian grid" }],
+    "relatedSlugs": ["bauhaus-style", "swiss-style", "masonry"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Creative Market: Design trend report, De Stijl design", "url": "https://creativemarket.com/blog/de-stijl-design-trend" }
+    ],
+    "implementations": [],
+    "notes": "Often invoked as the ancestor of card and grid layout; useful on the site as the contrast case for a modular grid."
+  },
+  {
+    "name": "Mid-century modern",
+    "slug": "mid-century-modern",
+    "category": "aesthetic",
+    "definition": "A 1950s and 60s style of muted mustard, teal, and burnt orange, tapered organic shapes, textured paper grounds, and friendly geometric sans type.",
+    "useWhen": "muted 50s palette with tapered organic shapes",
+    "aliases": [{ "name": "MCM" }, { "name": "atomic age style" }, { "name": "Googie", "source": "community" }],
+    "relatedSlugs": ["retro-futurism", "memphis-design", "risograph", "corporate-memphis"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" }
+    ],
+    "implementations": [],
+    "notes": "The optimistic half of the same era that raygun gothic and atompunk draw on, which is why it keeps appearing next to retro-futurism."
+  },
+  {
+    "name": "Kawaii UI",
+    "slug": "kawaii-ui",
+    "category": "aesthetic",
+    "definition": "A cute style of pastel fills, rounded everything, oversized eyes and blush marks, sticker and mascot characters, and hand-lettered or bubbly rounded type.",
+    "useWhen": "cuteness carried by mascots, pastels, and round shapes",
+    "aliases": [{ "name": "kawaii" }, { "name": "cute UI" }, { "name": "mascot UI" }, { "name": "pastel cute style" }],
+    "relatedSlugs": ["claymorphism", "blob-shape", "y2k-aesthetic", "corporate-memphis"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" }
+    ],
+    "implementations": [],
+    "notes": "Japanese in origin and still the default register for consumer apps there; mascots do real work, standing in for empty states and errors."
+  },
+  {
+    "name": "Steampunk",
+    "slug": "steampunk",
+    "category": "aesthetic",
+    "definition": "A Victorian industrial style of brass, riveted plate, wood, and leather, with gauges, cogs, and valve controls standing in for ordinary interface widgets.",
+    "useWhen": "brass gauges and cogs instead of plain controls",
+    "aliases": [{ "name": "steampunk style" }, { "name": "Victorian futurism" }, { "name": "dieselpunk", "source": "community" }],
+    "relatedSlugs": ["skeuomorphism", "retro-futurism", "cassette-futurism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" },
+      {
+        "title": "My Steampunk Style: What is retro-futurism?",
+        "url": "https://my-steampunk-style.com/blogs/steampunk-blog/retro-futurism"
+      }
+    ],
+    "implementations": [],
+    "notes": "The clearest surviving case of full skeuomorphism in themes and games; dieselpunk is folded in as an alias but is a later decade."
+  },
+  {
+    "name": "Art Nouveau",
+    "slug": "art-nouveau",
+    "category": "aesthetic",
+    "definition": "A turn of the century style of whiplash curves, botanical line ornament, muted jewel tones, and lettering drawn to fit the frame rather than set on a grid.",
+    "useWhen": "botanical line ornament and curved frames",
+    "aliases": [{ "name": "nouveau style" }, { "name": "Jugendstil" }, { "name": "whiplash line", "source": "community" }],
+    "relatedSlugs": ["art-deco", "biophilic-design", "psychedelic-style", "maximalism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" }
+    ],
+    "implementations": [],
+    "notes": "Reaches the screen mostly as ornament and border art; its lettering is the direct ancestor of the psychedelic poster style."
+  },
+  {
+    "name": "Psychedelic style",
+    "slug": "psychedelic-style",
+    "category": "aesthetic",
+    "definition": "A 1960s poster style of vibrating complementary color, warped and interlocking lettering that fills its own shape, kaleidoscopic symmetry, and liquid distortion.",
+    "useWhen": "vibrating color and lettering warped to fill a shape",
+    "aliases": [{ "name": "psychedelia" }, { "name": "60s poster style" }, { "name": "trippy style", "source": "community" }],
+    "relatedSlugs": ["art-nouveau", "vaporwave", "maximalism", "anti-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" }
+    ],
+    "implementations": [],
+    "notes": "Legibility is traded for texture on purpose, which puts it next to anti-design when it is used on a live interface."
+  },
+  {
+    "name": "Grunge design",
+    "slug": "grunge-design",
+    "category": "aesthetic",
+    "definition": "A 1990s style of torn and photocopied texture, overlapped and cut type, off-grid layout, and dirty muted color, where legibility is traded for emotional pitch.",
+    "useWhen": "distressed texture and type deliberately off-grid",
+    "aliases": [
+      { "name": "grunge typography" },
+      { "name": "punk grunge", "source": "kittl" },
+      { "name": "distressed style" },
+      { "name": "zine aesthetic" }
+    ],
+    "relatedSlugs": ["anti-design", "brutalist-web-design", "risograph", "halftone", "vernacular-web"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Sessions College: The grunge typography of David Carson",
+        "url": "https://www.sessions.edu/notes-on-design/who-designed-it-the-grunge-typography-of-david-carson/"
+      },
+      {
+        "title": "Mew Design Docs: Grunge graphic design, the raw distressed art of the 90s",
+        "url": "https://docs.mew.design/blog/grunge-graphic-design-style/"
+      }
+    ],
+    "implementations": [],
+    "notes": "David Carson at Ray Gun is the reference; the digital revival keeps the texture and the cut type but usually restores a readable body copy."
+  },
+  {
+    "name": "Pop art style",
+    "slug": "pop-art-style",
+    "category": "aesthetic",
+    "definition": "A comic and advertising style of flat primary color, heavy black outlines, printed dot shading, speech balloons, and bold condensed capitals.",
+    "useWhen": "comic outlines, flat primaries, and printed dots",
+    "aliases": [
+      { "name": "pop art" },
+      { "name": "comic style" },
+      { "name": "Ben Day style" },
+      { "name": "Lichtenstein style", "source": "community" }
+    ],
+    "relatedSlugs": ["halftone", "neubrutalism", "memphis-design", "maximalism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Kittl: 60+ graphic design styles, names and descriptions", "url": "https://www.kittl.com/blogs/design-styles-name-stl/" },
+      { "title": "Inkbot Design: 20 iconic graphic design styles", "url": "https://inkbotdesign.com/graphic-design-styles/" }
+    ],
+    "implementations": [],
+    "notes": "Shares its dot shading with halftone and its heavy outlines with neubrutalism, so canonicalize should decide whether it survives as its own entry."
+  },
+  {
+    "name": "Solarpunk",
+    "slug": "solarpunk",
+    "category": "aesthetic",
+    "definition": "An optimistic ecological future style of daylight palettes, plant growth over structure, stained glass color, art nouveau curves, and visible solar and wind technology.",
+    "useWhen": "a hopeful green future rather than a dystopian one",
+    "aliases": [{ "name": "solar punk" }, { "name": "eco-futurism" }, { "name": "utopian solarpunk", "source": "designmd" }],
+    "relatedSlugs": ["biophilic-design", "afrofuturism", "cyberpunk-ui", "art-nouveau"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Aesthetics Wiki: Solarpunk", "url": "https://aesthetics.fandom.com/wiki/Solarpunk" }],
+    "implementations": [],
+    "notes": "Defined against cyberpunk on purpose: same technology, opposite politics and palette."
+  },
+  {
+    "name": "Afrofuturism",
+    "slug": "afrofuturism",
+    "category": "aesthetic",
+    "definition": "A style that pictures technology through the African diaspora, combining cosmic imagery, textile and mask pattern, gold and indigo, and geometric ornament used structurally.",
+    "useWhen": "a future told through African diaspora imagery",
+    "aliases": [{ "name": "Afro-futurism" }, { "name": "Afrofuturist design" }, { "name": "Amazofuturism", "source": "community" }],
+    "relatedSlugs": ["solarpunk", "retro-futurism", "maximalism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Aesthetics Wiki: Afrofuturism", "url": "https://aesthetics.fandom.com/wiki/Afrofuturism" },
+      { "title": "Wikipedia: Afrofuturism", "url": "https://en.wikipedia.org/wiki/Afrofuturism" }
+    ],
+    "implementations": [],
+    "notes": "Cultural movement first and a visual style second, so a term page has to say that rather than reduce it to pattern and palette."
+  },
+  {
+    "name": "Acid graphics",
+    "slug": "acid-graphics",
+    "category": "aesthetic",
+    "definition": "A 2020s rave revival style of chrome and liquid 3D objects, warped and stretched lettering, clashing saturated color on near black, smileys, globes, and wireframe motifs.",
+    "useWhen": "chrome, warped type, and rave motifs used ironically",
+    "aliases": [
+      { "name": "acid design" },
+      { "name": "acid house revival" },
+      { "name": "acid brutalism", "source": "community" },
+      { "name": "rave graphics" }
+    ],
+    "relatedSlugs": ["psychedelic-style", "y2k-aesthetic", "glitch-aesthetic", "anti-design", "maximalism"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "AIGA Eye on Design: Acid graphics are the new psychedelia",
+        "url": "https://eyeondesign.aiga.org/acid-graphics-are-the-new-psychedelia-with-a-heady-dose-of-cynicism/"
+      },
+      { "title": "Aesthetics Wiki: Acid Design", "url": "https://aesthetics.fandom.com/wiki/Acid_Design" }
+    ],
+    "implementations": [],
+    "notes": "Rooted in 1990s acid house flyers rather than 1960s psychedelia, and carries irony where the 60s style carried optimism."
+  },
+  {
+    "name": "Diegetic interface",
+    "slug": "diegetic-interface",
+    "category": "pattern",
+    "definition": "An interface that exists inside the fiction it serves, so the character can see and use it too, rather than being drawn on top of the world for the player alone.",
+    "useWhen": "the readout belongs to the world, not the screen",
+    "aliases": [
+      { "name": "diegetic UI" },
+      { "name": "in-world UI" },
+      { "name": "non-diegetic UI" },
+      { "name": "meta UI" },
+      { "name": "spatial game UI" }
+    ],
+    "relatedSlugs": ["fictional-user-interface", "spatial-ui", "cyberpunk-ui"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "TV Tropes: Diegetic Interface", "url": "https://tvtropes.org/pmwiki/pmwiki.php/Main/DiegeticInterface" },
+      {
+        "title": "Types of UI in gaming: diegetic, non-diegetic, spatial and meta",
+        "url": "https://medium.com/@lorenzoardeni/types-of-ui-in-gaming-diegetic-non-diegetic-spatial-and-meta-5024ce6362d0"
+      },
+      {
+        "title": "Nasty Rodent: Diegetic vs non-diegetic UI, the four-type framework",
+        "url": "https://nastyrodent.com/diegetic-and-non-diegetic-ui/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: recorded as pattern, surfaced by an aesthetic sweep. From the 2009 Fagerholt and Lorentzon thesis, whose four types are fiction against geometry; the other three names are listed as aliases only because they come as a set."
+  },
+  {
+    "name": "Digital collage",
+    "slug": "digital-collage",
+    "category": "aesthetic",
+    "definition": "A composition assembled from cut-out photography, torn paper edges, scanned texture, and type set at odd angles, so the page reads as pasted up rather than laid out.",
+    "useWhen": "imagery cut out and pasted rather than placed",
+    "aliases": [
+      { "name": "collage aesthetic" },
+      { "name": "cut-out collage" },
+      { "name": "mixed media", "source": "kittl" },
+      { "name": "scrapbook aesthetic" },
+      { "name": "paper cut-out style" }
+    ],
+    "relatedSlugs": ["grunge-design", "risograph", "memphis-design", "retro-film-aesthetic", "maximalism"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Linearity: Everything designers need to know about digital collage",
+        "url": "https://www.linearity.io/blog/digital-collage-guide/"
+      },
+      { "title": "Envato: Trend deep dive, collage art", "url": "https://author.envato.com/hub/trend-deep-dive-collage-art/" }
+    ],
+    "implementations": [],
+    "notes": "The torn edge and the visible scan texture are what sell it; without them it reads as ordinary image composition."
+  },
+  {
+    "name": "Progressive blur",
+    "slug": "progressive-blur",
+    "category": "aesthetic",
+    "definition": "A blur whose strength ramps across a region instead of applying evenly, so content fades into softness toward an edge rather than stopping at a hard line.",
+    "useWhen": "content should dissolve into blur, not meet an edge",
+    "aliases": [
+      { "name": "gradient blur" },
+      { "name": "graduated blur" },
+      { "name": "layered blur" },
+      { "name": "fade to blur" },
+      { "name": "blur scrim" }
+    ],
+    "relatedSlugs": ["scrim", "liquid-glass", "acrylic", "vibrancy"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "kennethnym: Progressive blur in CSS", "url": "https://kennethnym.com/blog/progressive-blur-in-css/" },
+      {
+        "title": "Devs Love Coffee: Making Apple progressive blur on the web",
+        "url": "https://www.devslovecoffee.com/blog/making-apple-progressive-blur-on-web"
+      }
+    ],
+    "implementations": [],
+    "notes": "Built today by stacking backdrop-filter layers under mask-image gradients; a CSS proposal to give blur() a from and to pair would replace the stack."
+  },
+  {
+    "name": "Holographic foil",
+    "slug": "holographic-foil",
+    "category": "aesthetic",
+    "definition": "A finish that shifts hue with viewing angle, imitating foil, soap film, or a CD surface with banded rainbow gradients over a pale metallic ground.",
+    "useWhen": "a surface whose color shifts as if it were foil",
+    "aliases": [
+      { "name": "iridescent" },
+      { "name": "iridescence" },
+      { "name": "holo gradient" },
+      { "name": "pearlescent" },
+      { "name": "oil slick", "source": "community" }
+    ],
+    "relatedSlugs": ["y2k-aesthetic", "mesh-gradient", "gloss", "specular-highlight", "aurora-ui"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Envato Tuts+: 100+ best holographic and iridescent textures",
+        "url": "https://design.tutsplus.com/articles/100-best-holographic-iridescent-textures-foil-backgrounds-and-effects--cms-40042"
+      },
+      {
+        "title": "Effect Labs: CSS holographic effect, iridescent and chrome",
+        "url": "https://effect-labs.com/en/pages/blog/effet-holographique-css.html"
+      }
+    ],
+    "implementations": [],
+    "notes": "The convincing version needs the hue to respond to something, pointer position or scroll, since a static rainbow gradient reads as a gradient rather than as foil."
+  },
+  {
+    "name": "New Wave design",
+    "slug": "new-wave-design",
+    "category": "aesthetic",
+    "definition": "The postmodern break from Swiss order: stair-stepped rules, diagonal and letter-spaced type, weights mixed inside a word, and text reversed out of bars.",
+    "useWhen": "the Swiss grid kept but deliberately violated",
+    "aliases": [
+      { "name": "Swiss punk" },
+      { "name": "New Wave typography" },
+      { "name": "Weingart style", "source": "community" },
+      { "name": "postmodern typography" }
+    ],
+    "relatedSlugs": ["swiss-style", "grunge-design", "memphis-design", "anti-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Hue and Eye: New Wave graphic design explained", "url": "https://www.hueandeye.org/new-wave-graphic-design/" },
+      { "title": "Wikipedia: Wolfgang Weingart", "url": "https://en.wikipedia.org/wiki/Wolfgang_Weingart" }
+    ],
+    "implementations": [],
+    "notes": "The missing middle between swiss-style and memphis-design: same tools, opposite intent. Weingart taught at Basel, which is why it is called Swiss punk."
+  },
+  {
+    "name": "Frutiger Metro",
+    "slug": "frutiger-metro",
+    "category": "aesthetic",
+    "definition": "The flat vector cousin of Frutiger Aero: gradient color blocks, bloom and glow, silhouetted figures, swooshes and abstract flourishes, without the glossy water and grass.",
+    "useWhen": "gradient vector blocks with bloom and swooshes",
+    "aliases": [
+      { "name": "Vectordelia" },
+      { "name": "flat Frutiger Aero" },
+      { "name": "vector metro" },
+      { "name": "vector vomit", "source": "community" }
+    ],
+    "relatedSlugs": ["frutiger-aero", "metro-design", "y2k-aesthetic", "corporate-memphis"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Aesthetics Wiki: Vectordelia", "url": "https://aesthetics.fandom.com/wiki/Vectordelia" },
+      { "title": "2000 Aesthetics Wiki: Frutiger Metro", "url": "https://2000-aesthetics.fandom.com/wiki/Frutiger_Metro" }
+    ],
+    "implementations": [],
+    "notes": "Vectordelia is the wiki name and Frutiger Metro the popular one; both cover the mid 2000s to early 2010s vector poster look, not Microsoft Metro."
+  },
+  {
+    "name": "Constructivism",
+    "slug": "constructivism",
+    "category": "aesthetic",
+    "definition": "A 1920s poster language of diagonal bars and blocks, red and black on off-white, photomontage, and heavy sans capitals set on a strong angle.",
+    "useWhen": "diagonal red and black bars driving the composition",
+    "aliases": [
+      { "name": "Russian constructivism" },
+      { "name": "constructivist design" },
+      { "name": "Soviet poster style", "source": "community" }
+    ],
+    "relatedSlugs": ["bauhaus-style", "de-stijl", "swiss-style", "digital-collage"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "daisyUI trends: UI design styles catalog", "url": "https://trends.daisyui.com/" },
+      { "title": "Inkbot Design: 20 iconic graphic design styles", "url": "https://inkbotdesign.com/graphic-design-styles/" }
+    ],
+    "implementations": [],
+    "notes": "Reaches interfaces through hero sections and posters rather than controls; the diagonal is what separates it from De Stijl and Bauhaus."
+  },
+  {
+    "name": "Dot grid background",
+    "slug": "dot-grid-background",
+    "category": "aesthetic",
+    "definition": "A faint repeating field of dots or ruled squares behind content, borrowed from graph paper and canvas tools to suggest an editable surface rather than a page.",
+    "useWhen": "a faint grid or dot field behind the content",
+    "aliases": [
+      { "name": "dot pattern", "source": "magicui" },
+      { "name": "grid pattern", "source": "magicui" },
+      { "name": "graph paper background" },
+      { "name": "dotted background" },
+      { "name": "blueprint grid" }
+    ],
+    "relatedSlugs": ["hand-drawn-ui", "terminal-aesthetic", "minimalism", "e-ink-aesthetic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Magic UI: Dot Pattern", "url": "https://magicui.design/docs/components/dot-pattern" },
+      { "title": "Magic UI: Grid Pattern", "url": "https://magicui.design/docs/components/grid-pattern" }
+    ],
+    "implementations": [
+      { "systemId": "magicui", "name": "Dot Pattern", "url": "https://magicui.design/docs/components/dot-pattern", "verified": true },
+      { "systemId": "magicui", "name": "Grid Pattern", "url": "https://magicui.design/docs/components/grid-pattern", "verified": true },
+      {
+        "systemId": "magicui",
+        "name": "Interactive Grid Pattern",
+        "url": "https://magicui.design/docs/components/interactive-grid-pattern",
+        "verified": true
+      }
+    ],
+    "notes": "Usually one repeating gradient or an SVG tile, masked with a radial fade so it does not compete with the text; the interactive versions light cells under the pointer."
+  }
+]

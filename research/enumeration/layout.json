@@ -1,0 +1,5249 @@
+[
+  {
+    "name": "App shell",
+    "slug": "app-shell",
+    "category": "layout",
+    "definition": "The persistent frame of an application, its header, navigation and footer, that stays put while only the content region swaps as you move around.",
+    "useWhen": "naming the part of the app that never reloads",
+    "aliases": [
+      {
+        "name": "application shell",
+        "source": "community"
+      },
+      {
+        "name": "app frame",
+        "source": "community"
+      },
+      {
+        "name": "shell layout",
+        "source": "community"
+      },
+      {
+        "name": "application shells",
+        "source": "tailwind"
+      },
+      {
+        "name": "app layout",
+        "source": "cloudscape"
+      }
+    ],
+    "relatedSlugs": ["app-bar", "sidebar", "holy-grail-layout", "page-header", "site-footer"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Instant Loading Web Apps with an Application Shell Architecture",
+        "url": "https://developer.chrome.com/blog/app-shell"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "chrome-developers",
+        "name": "Application Shell Architecture",
+        "url": "https://developer.chrome.com/blog/app-shell",
+        "verified": true
+      },
+      {
+        "systemId": "tailwind-ui",
+        "name": "Application Shells",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/stacked",
+        "verified": true
+      }
+    ],
+    "notes": "Two senses in the wild: the visual frame (design vocabulary) and the cached HTML/CSS/JS bundle (PWA performance vocabulary). Define the visual sense, mention the second."
+  },
+  {
+    "name": "Holy grail layout",
+    "slug": "holy-grail-layout",
+    "category": "layout",
+    "definition": "A three column page with header and footer where the centre column is fluid, the two side columns are fixed, and all three appear equal height.",
+    "useWhen": "the classic fixed, fluid, fixed three column page",
+    "aliases": [
+      {
+        "name": "holy grail",
+        "source": "community"
+      },
+      {
+        "name": "three column layout",
+        "source": "community"
+      },
+      {
+        "name": "fixed fluid fixed",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["app-shell", "sidebar", "multi-column-layout", "layout-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Holy grail (web design)",
+        "url": "https://en.wikipedia.org/wiki/Holy_grail_(web_design)"
+      }
+    ],
+    "implementations": [],
+    "notes": "The name is historical: it was hard before flexbox and grid. Worth saying so in the article."
+  },
+  {
+    "name": "Split view",
+    "slug": "split-view",
+    "category": "layout",
+    "definition": "A layout of two or more side by side panes where a choice in the leading pane decides what the trailing pane shows.",
+    "useWhen": "two panes where one drives the other",
+    "aliases": [
+      {
+        "name": "split views",
+        "source": "hig"
+      },
+      {
+        "name": "two pane layout",
+        "source": "community"
+      },
+      {
+        "name": "dual pane",
+        "source": "community"
+      },
+      {
+        "name": "side by side panes",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["list-detail", "sidebar", "supporting-pane", "inspector"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Split views, Human Interface Guidelines",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/split-views"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Split views",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/split-views",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate with list-detail. Keep separate: split view is the container mechanism (resizable panes, collapse behaviour), list-detail is the content relationship."
+  },
+  {
+    "name": "List detail",
+    "slug": "list-detail",
+    "category": "layout",
+    "definition": "A browsable list paired with a pane showing the selected item in full, collapsing to one screen at a time when the window is narrow.",
+    "useWhen": "browse a list, read one item, keep both in view",
+    "aliases": [
+      {
+        "name": "master detail",
+        "source": "community"
+      },
+      {
+        "name": "list-detail",
+        "source": "material"
+      },
+      {
+        "name": "list pane and detail pane",
+        "source": "material"
+      },
+      {
+        "name": "index detail",
+        "source": "community"
+      },
+      {
+        "name": "reading pane",
+        "source": "community"
+      },
+      {
+        "name": "preview pane",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["split-view", "multi-column-layout", "supporting-pane", "feed-layout"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Canonical layouts, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "List-detail (ListDetailPaneScaffold)",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Canonical layouts: list-detail",
+        "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
+        "verified": true
+      }
+    ],
+    "notes": "\"Master detail\" is the older name and still the most searched; it is being retired for the same reasons master/slave was."
+  },
+  {
+    "name": "Sidebar",
+    "slug": "sidebar",
+    "category": "layout",
+    "definition": "A persistent vertical region alongside the main content holding navigation or secondary controls, often collapsible on narrow screens.",
+    "useWhen": "navigation that lives beside the content, not above it",
+    "aliases": [
+      {
+        "name": "side navigation",
+        "source": "community"
+      },
+      {
+        "name": "side nav",
+        "source": "community"
+      },
+      {
+        "name": "aside",
+        "source": "html"
+      },
+      {
+        "name": "primary side bar",
+        "source": "vscode"
+      },
+      {
+        "name": "side panel",
+        "source": "community"
+      },
+      {
+        "name": "sidebar says",
+        "source": "web-dev"
+      }
+    ],
+    "relatedSlugs": ["drawer", "navigation-rail", "off-canvas", "app-shell", "inspector"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Sidebar, Every Layout",
+        "url": "https://every-layout.dev/layouts/sidebar/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind-ui",
+        "name": "Sidebar Layouts",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/sidebar",
+        "verified": true
+      },
+      {
+        "systemId": "every-layout",
+        "name": "The Sidebar",
+        "url": "https://every-layout.dev/layouts/sidebar/",
+        "verified": true
+      },
+      {
+        "systemId": "vscode",
+        "name": "Primary Side Bar",
+        "url": "https://code.visualstudio.com/docs/editing/userinterface",
+        "verified": true
+      }
+    ],
+    "notes": "Every Layout uses \"Sidebar\" for a narrower idea (a fixed width element beside a fluid one that wraps without a media query). Worth a disambiguation paragraph rather than a second record."
+  },
+  {
+    "name": "Multi column layout",
+    "slug": "multi-column-layout",
+    "category": "layout",
+    "definition": "An application shell with three or more vertical regions, typically navigation, a list, and a reading pane, as in a mail client.",
+    "useWhen": "three regions at once: navigate, list, read",
+    "aliases": [
+      {
+        "name": "three pane layout",
+        "source": "community"
+      },
+      {
+        "name": "tri-pane",
+        "source": "community"
+      },
+      {
+        "name": "inbox layout",
+        "source": "community"
+      },
+      {
+        "name": "multi-column layouts",
+        "source": "tailwind"
+      },
+      {
+        "name": "folder pane",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["list-detail", "split-view", "holy-grail-layout", "sidebar"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Column Layouts, Tailwind UI",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/multi-column"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind-ui",
+        "name": "Multi-Column Layouts",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/multi-column",
+        "verified": true
+      }
+    ],
+    "notes": "Clashes with the CSS multi-column module (column-count), which is a different thing. Disambiguate in the article."
+  },
+  {
+    "name": "Supporting pane",
+    "slug": "supporting-pane",
+    "category": "layout",
+    "definition": "A secondary pane holding content that only makes sense next to the main pane, placed beside it on wide windows and below it on narrow ones.",
+    "useWhen": "helper content that cannot stand on its own",
+    "aliases": [
+      {
+        "name": "supporting pane",
+        "source": "material"
+      },
+      {
+        "name": "secondary pane",
+        "source": "community"
+      },
+      {
+        "name": "focus pane and supporting pane",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["split-view", "inspector", "list-detail", "feed-layout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Canonical layouts, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Supporting pane (SupportingPaneScaffold)",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Canonical layouts: supporting pane",
+        "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Inspector",
+    "slug": "inspector",
+    "category": "layout",
+    "definition": "A pane, usually on the trailing edge, that shows and edits the properties of whatever is currently selected.",
+    "useWhen": "a panel whose contents follow the selection",
+    "aliases": [
+      {
+        "name": "properties panel",
+        "source": "community"
+      },
+      {
+        "name": "inspector pane",
+        "source": "hig"
+      },
+      {
+        "name": "attributes panel",
+        "source": "community"
+      },
+      {
+        "name": "right rail",
+        "source": "community"
+      },
+      {
+        "name": "design panel",
+        "source": "figma"
+      }
+    ],
+    "relatedSlugs": ["split-view", "sidebar", "supporting-pane"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Split views, Human Interface Guidelines",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/split-views"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Inspector pane",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/split-views",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Activity bar",
+    "slug": "activity-bar",
+    "category": "layout",
+    "definition": "A narrow strip of icon buttons along the edge of a window that switches which panel the adjacent sidebar is showing.",
+    "useWhen": "an icon strip that swaps the sidebar's contents",
+    "aliases": [
+      {
+        "name": "activity bar",
+        "source": "vscode"
+      },
+      {
+        "name": "icon rail",
+        "source": "community"
+      },
+      {
+        "name": "tool rail",
+        "source": "community"
+      },
+      {
+        "name": "left dock",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["navigation-rail", "sidebar", "status-bar"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Visual Studio Code User Interface",
+        "url": "https://code.visualstudio.com/docs/editing/userinterface"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "vscode",
+        "name": "Activity Bar",
+        "url": "https://code.visualstudio.com/docs/editing/userinterface",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate with navigation-rail: same shape, different vocabulary (IDE versus Material). Keep both as aliases of one another if canonicalize agrees."
+  },
+  {
+    "name": "Status bar",
+    "slug": "status-bar",
+    "category": "layout",
+    "definition": "A thin strip along the edge of a window or screen that reports state and offers only minor actions, never the primary ones.",
+    "useWhen": "an edge strip that reports rather than commands",
+    "aliases": [
+      {
+        "name": "status bar",
+        "source": "vscode"
+      },
+      {
+        "name": "system status bar",
+        "source": "community"
+      },
+      {
+        "name": "info bar",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["app-bar", "activity-bar", "safe-area", "home-indicator"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Visual Studio Code User Interface",
+        "url": "https://code.visualstudio.com/docs/editing/userinterface"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "vscode",
+        "name": "Status Bar",
+        "url": "https://code.visualstudio.com/docs/editing/userinterface",
+        "verified": true
+      }
+    ],
+    "notes": "Two senses: the OS status bar on phones (clock, battery) and the app status bar in desktop tools. Both belong in one entry."
+  },
+  {
+    "name": "Home indicator",
+    "slug": "home-indicator",
+    "category": "layout",
+    "definition": "The thin bar at the bottom of a gesture driven phone screen, reserved space that app content must not sit beneath.",
+    "useWhen": "the reserved strip at the bottom of a modern phone",
+    "aliases": [
+      {
+        "name": "home bar",
+        "source": "community"
+      },
+      {
+        "name": "gesture bar",
+        "source": "android"
+      },
+      {
+        "name": "home indicator",
+        "source": "hig"
+      }
+    ],
+    "relatedSlugs": ["safe-area", "display-cutout", "edge-to-edge", "status-bar"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Layout, Human Interface Guidelines",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Home indicator",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Sticky header",
+    "slug": "sticky-header",
+    "category": "layout",
+    "definition": "A header that scrolls away with the page until it reaches the top edge, then stays fixed there while the rest keeps moving.",
+    "useWhen": "a header that pins itself once it hits the top",
+    "aliases": [
+      {
+        "name": "sticky nav",
+        "source": "community"
+      },
+      {
+        "name": "fixed header",
+        "source": "community"
+      },
+      {
+        "name": "pinned header",
+        "source": "community"
+      },
+      {
+        "name": "persistent header",
+        "source": "community"
+      },
+      {
+        "name": "affix",
+        "source": "bootstrap"
+      }
+    ],
+    "relatedSlugs": ["sticky-footer", "sticky-sidebar", "app-bar", "frozen-column", "scroll-container"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Using container scroll-state queries, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Conditional_rules/Container_scroll-state_queries"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "position: sticky and the stuck state",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Conditional_rules/Container_scroll-state_queries",
+        "verified": true
+      }
+    ],
+    "notes": "The \"stuck\" state now has a CSS query for it (scroll-state), which makes a nice demo beat."
+  },
+  {
+    "name": "Sticky footer",
+    "slug": "sticky-footer",
+    "category": "layout",
+    "definition": "A footer held against the bottom of the viewport when the page is short, and pushed below the content when the page is long.",
+    "useWhen": "a footer that will not float in the middle of a short page",
+    "aliases": [
+      {
+        "name": "bottom stuck footer",
+        "source": "community"
+      },
+      {
+        "name": "footer to bottom",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sticky-header", "site-footer", "cover"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Commonly confused with a fixed footer that always overlays the page. The distinction is the whole entry."
+  },
+  {
+    "name": "Sticky sidebar",
+    "slug": "sticky-sidebar",
+    "category": "layout",
+    "definition": "A side column that scrolls with the page and then holds in place once its top reaches the viewport edge, releasing at the end of its container.",
+    "useWhen": "a side column that follows you down a long article",
+    "aliases": [
+      {
+        "name": "sticky sidebar",
+        "source": "community"
+      },
+      {
+        "name": "pinned sidebar",
+        "source": "community"
+      },
+      {
+        "name": "sticky rail",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sticky-header", "sidebar", "table-of-contents", "scroll-spy"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Hero",
+    "slug": "hero",
+    "category": "layout",
+    "definition": "The large opening block of a page carrying a headline, a supporting line, imagery, and the main call to action.",
+    "useWhen": "the big opening block that sets the pitch",
+    "aliases": [
+      {
+        "name": "hero section",
+        "source": "tailwind"
+      },
+      {
+        "name": "hero banner",
+        "source": "community"
+      },
+      {
+        "name": "hero image",
+        "source": "community"
+      },
+      {
+        "name": "jumbotron",
+        "source": "bootstrap"
+      },
+      {
+        "name": "splash",
+        "source": "community"
+      },
+      {
+        "name": "billboard",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["the-fold", "banner", "cover", "full-bleed", "split-screen-layout"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Hero Sections, Tailwind UI",
+        "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/heroes"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind-ui",
+        "name": "Hero Sections",
+        "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/heroes",
+        "verified": true
+      }
+    ],
+    "notes": "\"Jumbotron\" was Bootstrap's name and was dropped in Bootstrap 5; record it as a historical alias."
+  },
+  {
+    "name": "Card grid",
+    "slug": "card-grid",
+    "category": "layout",
+    "definition": "Content laid out as equal width cards flowing across a responsive grid and wrapping to new rows as space allows.",
+    "useWhen": "many peers of the same kind, browsed by scanning",
+    "aliases": [
+      {
+        "name": "grid list",
+        "source": "tailwind"
+      },
+      {
+        "name": "tile grid",
+        "source": "community"
+      },
+      {
+        "name": "gallery grid",
+        "source": "community"
+      },
+      {
+        "name": "product grid",
+        "source": "community"
+      },
+      {
+        "name": "collection view",
+        "source": "hig"
+      },
+      {
+        "name": "collections",
+        "source": "hig"
+      }
+    ],
+    "relatedSlugs": ["masonry", "bento-grid", "feed-layout", "dashboard-grid", "layout-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Grid Lists, Tailwind UI",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/lists/grid-lists"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind-ui",
+        "name": "Grid Lists",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/lists/grid-lists",
+        "verified": true
+      }
+    ],
+    "notes": "Contrast set with masonry (already on the site) and bento-grid (already on the site): even rows versus ragged versus deliberately unequal cells."
+  },
+  {
+    "name": "Dashboard grid",
+    "slug": "dashboard-grid",
+    "category": "layout",
+    "definition": "A grid of tiles, each holding one metric, chart or list, that a reader can often resize and rearrange.",
+    "useWhen": "many independent readouts on one screen",
+    "aliases": [
+      {
+        "name": "widget grid",
+        "source": "community"
+      },
+      {
+        "name": "tile layout",
+        "source": "community"
+      },
+      {
+        "name": "dashboard canvas",
+        "source": "community"
+      },
+      {
+        "name": "card dashboard",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["card-grid", "bento-grid", "layout-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Magazine layout",
+    "slug": "magazine-layout",
+    "category": "layout",
+    "definition": "An editorial composition with mixed column widths, one dominant lead story and smaller supporting items arranged around it.",
+    "useWhen": "an editorial page with one clear lead and ranked rest",
+    "aliases": [
+      {
+        "name": "editorial layout",
+        "source": "community"
+      },
+      {
+        "name": "newspaper layout",
+        "source": "community"
+      },
+      {
+        "name": "front page layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["modular-grid", "broken-grid", "card-grid", "gutenberg-diagram"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Feed layout",
+    "slug": "feed-layout",
+    "category": "layout",
+    "definition": "A scrolling column or adaptive grid of equivalent items built for browsing, where no item outranks another by position alone.",
+    "useWhen": "endless peers you skim rather than navigate",
+    "aliases": [
+      {
+        "name": "feed",
+        "source": "material"
+      },
+      {
+        "name": "timeline",
+        "source": "community"
+      },
+      {
+        "name": "stream",
+        "source": "community"
+      },
+      {
+        "name": "feeds",
+        "source": "tailwind"
+      }
+    ],
+    "relatedSlugs": ["card-grid", "content-shelf", "list-detail", "masonry"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Canonical layouts, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Feed (LazyVerticalGrid with GridCells.Adaptive)",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Canonical layouts: feed",
+        "url": "https://m3.material.io/foundations/layout/canonical-examples/overview",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Kanban board",
+    "slug": "kanban-board",
+    "category": "layout",
+    "definition": "A row of vertical columns, each one a stage, holding cards that move sideways as work progresses.",
+    "useWhen": "items that belong to exactly one stage at a time",
+    "aliases": [
+      {
+        "name": "board layout",
+        "source": "community"
+      },
+      {
+        "name": "column board",
+        "source": "community"
+      },
+      {
+        "name": "swimlane board",
+        "source": "community"
+      },
+      {
+        "name": "trello layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["content-shelf", "card-grid", "scroll-container"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "A swimlane is strictly the horizontal band across a board, not the vertical column; the two get swapped constantly and that confusion is worth the entry."
+  },
+  {
+    "name": "Shelf",
+    "slug": "content-shelf",
+    "category": "layout",
+    "definition": "A horizontally scrolling row of cards, one row per category, stacked down the page so each row is browsed sideways.",
+    "useWhen": "many categories, each with too many items to stack",
+    "aliases": [
+      {
+        "name": "shelf",
+        "source": "community"
+      },
+      {
+        "name": "rail",
+        "source": "community"
+      },
+      {
+        "name": "carousel row",
+        "source": "community"
+      },
+      {
+        "name": "swimlane",
+        "source": "community"
+      },
+      {
+        "name": "reel",
+        "source": "every-layout"
+      },
+      {
+        "name": "tray",
+        "source": "community"
+      },
+      {
+        "name": "netflix rows",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["scroll-snap", "scroll-container", "feed-layout", "card-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Reel, Every Layout",
+        "url": "https://every-layout.dev/layouts/reel/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Reel",
+        "url": "https://every-layout.dev/layouts/reel/",
+        "verified": true
+      }
+    ],
+    "notes": "Prime long tail term: people describe it (\"the Netflix rows\") long before they can name it. Every Layout's \"Reel\" is the closest thing to a canonical name."
+  },
+  {
+    "name": "Split screen layout",
+    "slug": "split-screen-layout",
+    "category": "layout",
+    "definition": "A page cut into two equal full height halves, each carrying its own message or path, with no hierarchy between them.",
+    "useWhen": "two equally weighted choices on one page",
+    "aliases": [
+      {
+        "name": "split design",
+        "source": "community"
+      },
+      {
+        "name": "50/50 layout",
+        "source": "community"
+      },
+      {
+        "name": "dual pane hero",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["hero", "split-view", "zigzag-layout"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Distinct from split-view: this is a marketing composition, not a selection driven pane pair. Contrast pair worth keeping."
+  },
+  {
+    "name": "Zigzag layout",
+    "slug": "zigzag-layout",
+    "category": "layout",
+    "definition": "Alternating rows that flip which side the image and the text sit on, so the eye zigzags down a list of features.",
+    "useWhen": "a run of feature blocks that would otherwise read as a list",
+    "aliases": [
+      {
+        "name": "alternating layout",
+        "source": "community"
+      },
+      {
+        "name": "zig zag",
+        "source": "community"
+      },
+      {
+        "name": "interleaved rows",
+        "source": "community"
+      },
+      {
+        "name": "ping pong layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["z-pattern", "media-object", "split-screen-layout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Logo cloud",
+    "slug": "logo-cloud",
+    "category": "layout",
+    "definition": "A row or grid of customer logos used as social proof, usually flattened to one colour so no brand dominates.",
+    "useWhen": "proof by association, laid out as a strip of marks",
+    "aliases": [
+      {
+        "name": "logo bar",
+        "source": "community"
+      },
+      {
+        "name": "logo wall",
+        "source": "community"
+      },
+      {
+        "name": "logo garden",
+        "source": "community"
+      },
+      {
+        "name": "client strip",
+        "source": "community"
+      },
+      {
+        "name": "as seen in",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["cluster", "hero"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Page header",
+    "slug": "page-header",
+    "category": "layout",
+    "definition": "The band at the top of a screen carrying the page title, its context, and the actions that apply to the page as a whole.",
+    "useWhen": "the title band that owns the page's own actions",
+    "aliases": [
+      {
+        "name": "page heading",
+        "source": "tailwind"
+      },
+      {
+        "name": "masthead",
+        "source": "community"
+      },
+      {
+        "name": "page title bar",
+        "source": "community"
+      },
+      {
+        "name": "page banner",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["app-bar", "site-footer", "app-shell", "hero"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Page Headings, Tailwind UI",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/headings/page-headings"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind-ui",
+        "name": "Page Headings",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/headings/page-headings",
+        "verified": true
+      }
+    ],
+    "notes": "Contrast with app-bar (already on the site): the app bar belongs to the app, the page header belongs to this page."
+  },
+  {
+    "name": "Site footer",
+    "slug": "site-footer",
+    "category": "layout",
+    "definition": "The closing region of a site holding secondary navigation, legal links, and contact details that do not deserve top level placement.",
+    "useWhen": "everything that must exist but must not compete",
+    "aliases": [
+      {
+        "name": "footer",
+        "source": "community"
+      },
+      {
+        "name": "fat footer",
+        "source": "community"
+      },
+      {
+        "name": "mega footer",
+        "source": "community"
+      },
+      {
+        "name": "sitemap footer",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sticky-footer", "page-header", "app-shell"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Container",
+    "slug": "container",
+    "category": "layout",
+    "definition": "A wrapper that caps how wide content can get and adds the side padding that keeps it off the viewport edges.",
+    "useWhen": "the element that decides how wide the page can be",
+    "aliases": [
+      {
+        "name": "wrapper",
+        "source": "community"
+      },
+      {
+        "name": "content well",
+        "source": "community"
+      },
+      {
+        "name": "constrained width",
+        "source": "community"
+      },
+      {
+        "name": "the center",
+        "source": "every-layout"
+      },
+      {
+        "name": "max-width wrapper",
+        "source": "community"
+      },
+      {
+        "name": "container",
+        "source": "bootstrap"
+      }
+    ],
+    "relatedSlugs": ["gutter", "layout-margins", "full-bleed", "breakout", "layout-grid"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Grid system, Bootstrap",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "bootstrap",
+        "name": "Containers",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/",
+        "verified": true
+      },
+      {
+        "systemId": "tailwind-ui",
+        "name": "Containers",
+        "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/layout/containers",
+        "verified": true
+      },
+      {
+        "systemId": "every-layout",
+        "name": "The Center",
+        "url": "https://every-layout.dev/layouts/center/",
+        "verified": true
+      }
+    ],
+    "notes": "Name collides with container-query's \"container\". Disambiguate: this is the width capping wrapper, that is the query containment root."
+  },
+  {
+    "name": "Full bleed",
+    "slug": "full-bleed",
+    "category": "layout",
+    "definition": "An element that breaks past the content column to span the whole viewport width while its neighbours stay constrained.",
+    "useWhen": "one band that runs edge to edge inside a narrow page",
+    "aliases": [
+      {
+        "name": "full width",
+        "source": "community"
+      },
+      {
+        "name": "bleed",
+        "source": "print"
+      },
+      {
+        "name": "edge to edge band",
+        "source": "community"
+      },
+      {
+        "name": "escape the container",
+        "source": "community"
+      },
+      {
+        "name": "full alignment",
+        "source": "wordpress"
+      },
+      {
+        "name": "alignfull",
+        "source": "wordpress"
+      }
+    ],
+    "relatedSlugs": ["breakout", "container", "gutter", "edge-to-edge"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Full Bleed, CSS-Tricks",
+        "url": "https://css-tricks.com/full-bleed/"
+      },
+      {
+        "title": "CSS Grid full-bleed layout tutorial, Josh W. Comeau",
+        "url": "https://www.joshwcomeau.com/css/full-bleed/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Borrowed from print, where a full bleed image runs off the trimmed edge of the paper. Say so."
+  },
+  {
+    "name": "Breakout",
+    "slug": "breakout",
+    "category": "layout",
+    "definition": "A track wider than the reading column but narrower than the viewport, used for figures and code that need more room than prose.",
+    "useWhen": "a figure that needs more width than the text",
+    "aliases": [
+      {
+        "name": "breakout width",
+        "source": "community"
+      },
+      {
+        "name": "popout",
+        "source": "community"
+      },
+      {
+        "name": "wide track",
+        "source": "community"
+      },
+      {
+        "name": "layout breakouts",
+        "source": "community"
+      },
+      {
+        "name": "wide alignment",
+        "source": "wordpress"
+      },
+      {
+        "name": "alignwide",
+        "source": "wordpress"
+      }
+    ],
+    "relatedSlugs": ["full-bleed", "container", "layout-grid", "sidenote"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layout Breakouts with CSS Grid, Ryan Mulligan",
+        "url": "https://ryanmulligan.dev/blog/layout-breakouts/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Usually implemented as a named grid track set (full, breakout, content). The named track diagram is the demo."
+  },
+  {
+    "name": "Edge to edge",
+    "slug": "edge-to-edge",
+    "category": "layout",
+    "definition": "Drawing an app behind the system bars so content reaches the physical screen edges, with insets applied only to what must stay tappable.",
+    "useWhen": "content under the bars, controls kept clear of them",
+    "aliases": [
+      {
+        "name": "immersive mode",
+        "source": "android"
+      },
+      {
+        "name": "draw behind system bars",
+        "source": "android"
+      },
+      {
+        "name": "full screen layout",
+        "source": "community"
+      },
+      {
+        "name": "edge-to-edge",
+        "source": "android"
+      }
+    ],
+    "relatedSlugs": ["safe-area", "display-cutout", "home-indicator", "full-bleed"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Learn about foldables, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/foldables/learn-about-foldables"
+      }
+    ],
+    "implementations": [],
+    "notes": "Cross platform naming clash: Android says edge-to-edge, Apple says full screen with safe area insets, the web says viewport-fit=cover."
+  },
+  {
+    "name": "Safe area",
+    "slug": "safe-area",
+    "category": "layout",
+    "definition": "The part of the screen guaranteed clear of notches, system bars and rounded corners, where interactive content can safely sit.",
+    "useWhen": "the region a control can occupy without being clipped",
+    "aliases": [
+      {
+        "name": "safe area inset",
+        "source": "community"
+      },
+      {
+        "name": "safe area layout guide",
+        "source": "hig"
+      },
+      {
+        "name": "safe zone",
+        "source": "community"
+      },
+      {
+        "name": "env(safe-area-inset-bottom)",
+        "source": "css"
+      },
+      {
+        "name": "window insets",
+        "source": "android"
+      }
+    ],
+    "relatedSlugs": ["display-cutout", "home-indicator", "edge-to-edge", "layout-margins", "status-bar"],
+    "priority": "head",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "env() CSS function, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/env"
+      },
+      {
+        "title": "Using safe-area-inset to build mobile-safe layouts, Polypane",
+        "url": "https://polypane.app/blog/using-safe-area-inset-to-build-mobile-safe-layouts/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "env(safe-area-inset-*)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/env",
+        "verified": true
+      },
+      {
+        "systemId": "hig",
+        "name": "safeAreaLayoutGuide",
+        "url": "https://developer.apple.com/documentation/uikit/uiview/safearealayoutguide",
+        "verified": true
+      },
+      {
+        "systemId": "maui",
+        "name": "Safe area layout",
+        "url": "https://learn.microsoft.com/en-us/dotnet/maui/user-interface/safe-area",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Display cutout",
+    "slug": "display-cutout",
+    "category": "layout",
+    "definition": "The camera housing that intrudes into the screen rectangle, which a layout has to route content around rather than under.",
+    "useWhen": "naming the hole the layout must dodge",
+    "aliases": [
+      {
+        "name": "notch",
+        "source": "community"
+      },
+      {
+        "name": "dynamic island",
+        "source": "apple"
+      },
+      {
+        "name": "punch hole",
+        "source": "community"
+      },
+      {
+        "name": "cutout",
+        "source": "android"
+      },
+      {
+        "name": "sensor housing",
+        "source": "hig"
+      }
+    ],
+    "relatedSlugs": ["safe-area", "edge-to-edge", "letterboxing"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Using safe-area-inset to build mobile-safe layouts, Polypane",
+        "url": "https://polypane.app/blog/using-safe-area-inset-to-build-mobile-safe-layouts/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Letterboxing",
+    "slug": "letterboxing",
+    "category": "layout",
+    "definition": "Filling the mismatch between content shape and screen shape with bars: above and below for letterbox, at the sides for pillarbox.",
+    "useWhen": "the bars that appear when ratios do not match",
+    "aliases": [
+      {
+        "name": "pillarboxing",
+        "source": "community"
+      },
+      {
+        "name": "windowboxing",
+        "source": "community"
+      },
+      {
+        "name": "black bars",
+        "source": "community"
+      },
+      {
+        "name": "matting",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["aspect-ratio-box", "display-cutout", "device-posture"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Pillarbox",
+        "url": "https://en.wikipedia.org/wiki/Pillarbox"
+      }
+    ],
+    "implementations": [],
+    "notes": "Also the name for what a mobile OS does to an app that refuses to resize on a foldable or tablet, which is the modern UI sense."
+  },
+  {
+    "name": "Gutter",
+    "slug": "gutter",
+    "category": "layout",
+    "definition": "The space between columns or tracks in a grid, distinct from the outer margin that separates the grid from the container edge.",
+    "useWhen": "the space between columns, not around them",
+    "aliases": [
+      {
+        "name": "alley",
+        "source": "print"
+      },
+      {
+        "name": "gap",
+        "source": "css"
+      },
+      {
+        "name": "column gap",
+        "source": "css"
+      },
+      {
+        "name": "grid gap",
+        "source": "community"
+      },
+      {
+        "name": "gutters",
+        "source": "bootstrap"
+      }
+    ],
+    "relatedSlugs": ["layout-margins", "layout-grid", "container", "spacing-scale"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Gutters, MDN glossary",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Gutters"
+      },
+      {
+        "title": "Gutters, Webflow glossary",
+        "url": "https://university.webflow.com/glossary/gutters"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Gutters",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Gutters",
+        "verified": true
+      },
+      {
+        "systemId": "bootstrap",
+        "name": "Gutters",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "2x Grid gutter",
+        "url": "https://carbondesignsystem.com/elements/2x-grid/overview/",
+        "verified": true
+      }
+    ],
+    "notes": "In print, gutter also means the binding margin between facing pages and alley means the space between columns; the web collapsed the two. Worth the disambiguation paragraph."
+  },
+  {
+    "name": "Layout margins",
+    "slug": "layout-margins",
+    "category": "layout",
+    "definition": "The reserved space between a container's edge and its content, sized by the system so content never touches the edge of the screen.",
+    "useWhen": "the outer breathing room, set once by the system",
+    "aliases": [
+      {
+        "name": "margins",
+        "source": "material"
+      },
+      {
+        "name": "outer margin",
+        "source": "community"
+      },
+      {
+        "name": "content inset",
+        "source": "community"
+      },
+      {
+        "name": "directional layout margins",
+        "source": "hig"
+      },
+      {
+        "name": "screen margin",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["gutter", "container", "safe-area", "spacing-scale"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layout, Human Interface Guidelines",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Layout margins",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "2x Grid margin",
+        "url": "https://carbondesignsystem.com/elements/2x-grid/overview/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "The fold",
+    "slug": "the-fold",
+    "category": "layout",
+    "definition": "The bottom edge of the first screenful, above which content is seen without any scrolling and below which it must be earned.",
+    "useWhen": "arguing about what must be visible before a scroll",
+    "aliases": [
+      {
+        "name": "above the fold",
+        "source": "community"
+      },
+      {
+        "name": "below the fold",
+        "source": "community"
+      },
+      {
+        "name": "first viewport",
+        "source": "community"
+      },
+      {
+        "name": "initial viewport",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["hero", "viewport", "f-pattern", "cover"],
+    "priority": "head",
+    "demo": "iframe",
+    "sources": [],
+    "implementations": [],
+    "notes": "Borrowed from newspapers. The interesting article is the disagreement: NN/g measures more attention above it, but there is no single fold across devices."
+  },
+  {
+    "name": "F pattern",
+    "slug": "f-pattern",
+    "category": "layout",
+    "definition": "The scanning shape eye tracking finds on text heavy pages: two horizontal sweeps across the top, then a vertical run down the left edge.",
+    "useWhen": "predicting how a text heavy page gets skimmed",
+    "aliases": [
+      {
+        "name": "F-shaped pattern",
+        "source": "nngroup"
+      },
+      {
+        "name": "F-shaped reading pattern",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["z-pattern", "gutenberg-diagram", "visual-hierarchy", "the-fold"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Nielsen Norman Group",
+        "url": "https://en.wikipedia.org/wiki/Nielsen_Norman_Group"
+      }
+    ],
+    "implementations": [],
+    "notes": "Fact check the article against the original NN/g 2006 eye tracking study, not the many blog restatements."
+  },
+  {
+    "name": "Z pattern",
+    "slug": "z-pattern",
+    "category": "layout",
+    "definition": "The scanning shape on sparse pages: across the top, diagonally down to the lower left, then across the bottom to the final call to action.",
+    "useWhen": "laying out a sparse page with one clear action",
+    "aliases": [
+      {
+        "name": "Z-shaped pattern",
+        "source": "community"
+      },
+      {
+        "name": "zigzag scanning",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "gutenberg-diagram", "zigzag-layout", "hero"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Gutenberg diagram",
+    "slug": "gutenberg-diagram",
+    "category": "layout",
+    "definition": "A model splitting evenly weighted pages into four quadrants, with the eye falling from the primary area at top left to the terminal area at bottom right.",
+    "useWhen": "placing the last thing you want read",
+    "aliases": [
+      {
+        "name": "reading gravity",
+        "source": "community"
+      },
+      {
+        "name": "Gutenberg rule",
+        "source": "community"
+      },
+      {
+        "name": "primary optical area",
+        "source": "community"
+      },
+      {
+        "name": "terminal area",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "z-pattern", "visual-hierarchy", "magazine-layout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Long tail gold: designers know the F and Z patterns and almost never know this one, which is the older parent of both."
+  },
+  {
+    "name": "Rule of thirds",
+    "slug": "rule-of-thirds",
+    "category": "layout",
+    "definition": "Dividing a frame into nine equal cells with two lines each way and placing the important elements on the lines or their intersections.",
+    "useWhen": "placing a focal point off centre on purpose",
+    "aliases": [
+      {
+        "name": "thirds grid",
+        "source": "community"
+      },
+      {
+        "name": "compositional thirds",
+        "source": "photography"
+      }
+    ],
+    "relatedSlugs": ["visual-hierarchy", "modular-grid", "layout-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Visual hierarchy",
+    "slug": "visual-hierarchy",
+    "category": "aesthetic",
+    "definition": "The ordering of elements by visual weight, size, contrast, position and spacing, so a reader learns what matters most without being told.",
+    "useWhen": "deciding what a reader should notice first",
+    "aliases": [
+      {
+        "name": "hierarchy",
+        "source": "community"
+      },
+      {
+        "name": "information hierarchy",
+        "source": "community"
+      },
+      {
+        "name": "visual order",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["whitespace", "f-pattern", "gutenberg-diagram", "density"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross category: recorded here because layout is one of its main levers, but aesthetic or pattern may be the better home. Merge candidate with whatever the aesthetic sweep produces."
+  },
+  {
+    "name": "Whitespace",
+    "slug": "whitespace",
+    "category": "layout",
+    "definition": "The empty area between and around elements, treated as an active design material rather than as leftover space.",
+    "useWhen": "the empty space doing the grouping work",
+    "aliases": [
+      {
+        "name": "negative space",
+        "source": "community"
+      },
+      {
+        "name": "white space",
+        "source": "community"
+      },
+      {
+        "name": "breathing room",
+        "source": "community"
+      },
+      {
+        "name": "macro whitespace",
+        "source": "community"
+      },
+      {
+        "name": "micro whitespace",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["spacing-scale", "density", "visual-hierarchy", "layout-margins"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "White space (visual arts)",
+        "url": "https://en.wikipedia.org/wiki/White_space_(visual_arts)"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "atlassian",
+        "name": "Spacing",
+        "url": "https://atlassian.design/foundations/spacing",
+        "verified": true
+      }
+    ],
+    "notes": "Whitespace need not be white; that misreading is worth a line in the article."
+  },
+  {
+    "name": "Optical alignment",
+    "slug": "optical-alignment",
+    "category": "layout",
+    "definition": "Nudging an element off its measured position so it looks aligned, correcting for shapes whose bounding box lies about their visual centre.",
+    "useWhen": "it measures right but still looks wrong",
+    "aliases": [
+      {
+        "name": "optical adjustment",
+        "source": "community"
+      },
+      {
+        "name": "visual centering",
+        "source": "community"
+      },
+      {
+        "name": "optical correction",
+        "source": "community"
+      },
+      {
+        "name": "overshoot",
+        "source": "typography"
+      }
+    ],
+    "relatedSlugs": ["whitespace", "spacing-scale", "eight-point-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Spacing, Atlassian Design",
+        "url": "https://atlassian.design/foundations/spacing"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "atlassian",
+        "name": "Optical adjustments",
+        "url": "https://atlassian.design/foundations/spacing",
+        "verified": true
+      }
+    ],
+    "notes": "Excellent demo candidate: a play button in a circle, mathematically centred versus optically centred."
+  },
+  {
+    "name": "Density",
+    "slug": "density",
+    "category": "layout",
+    "definition": "How much content a system packs into a given area, tuned as a named setting so the same components can run comfortable or compact.",
+    "useWhen": "the same UI, tighter, for expert users",
+    "aliases": [
+      {
+        "name": "information density",
+        "source": "community"
+      },
+      {
+        "name": "display density",
+        "source": "material"
+      },
+      {
+        "name": "comfortable, cozy, compact",
+        "source": "community"
+      },
+      {
+        "name": "spacing density",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["spacing-scale", "whitespace", "eight-point-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Spacing scale",
+    "slug": "spacing-scale",
+    "category": "layout",
+    "definition": "The fixed, named set of spacing values a system allows, so gaps come from a shortlist instead of being invented per screen.",
+    "useWhen": "why the gap is 12 and not 13",
+    "aliases": [
+      {
+        "name": "space scale",
+        "source": "community"
+      },
+      {
+        "name": "spacing tokens",
+        "source": "community"
+      },
+      {
+        "name": "spacing ramp",
+        "source": "community"
+      },
+      {
+        "name": "space tokens",
+        "source": "atlassian"
+      }
+    ],
+    "relatedSlugs": ["eight-point-grid", "density", "gutter", "whitespace", "layout-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Spacing, Atlassian Design",
+        "url": "https://atlassian.design/foundations/spacing"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "atlassian",
+        "name": "Spacing",
+        "url": "https://atlassian.design/foundations/spacing",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "8 point grid",
+    "slug": "eight-point-grid",
+    "category": "layout",
+    "definition": "A spacing convention where every size and gap is a multiple of eight, so values stay whole numbers at every common screen density.",
+    "useWhen": "picking a base unit for a whole system",
+    "aliases": [
+      {
+        "name": "8pt grid",
+        "source": "community"
+      },
+      {
+        "name": "8 point grid system",
+        "source": "community"
+      },
+      {
+        "name": "4pt grid",
+        "source": "community"
+      },
+      {
+        "name": "base unit grid",
+        "source": "community"
+      },
+      {
+        "name": "mini unit",
+        "source": "carbon"
+      }
+    ],
+    "relatedSlugs": ["spacing-scale", "baseline-grid", "layout-grid", "density"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": []
+  },
+  {
+    "name": "Baseline grid",
+    "slug": "baseline-grid",
+    "category": "layout",
+    "definition": "A set of evenly spaced horizontal lines that every line of text sits on, so type in adjacent columns lines up across the page.",
+    "useWhen": "text in neighbouring columns must line up",
+    "aliases": [
+      {
+        "name": "vertical rhythm",
+        "source": "community"
+      },
+      {
+        "name": "baseline rhythm",
+        "source": "community"
+      },
+      {
+        "name": "typographic grid",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["eight-point-grid", "layout-grid", "modular-grid", "leading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross category candidate with typography (it sits next to leading, already on the site). Kept in layout because it governs the page, not the face."
+  },
+  {
+    "name": "12 column grid",
+    "slug": "twelve-column-grid",
+    "category": "layout",
+    "definition": "The web's default column count, chosen because twelve divides cleanly into halves, thirds, quarters and sixths.",
+    "useWhen": "why almost every layout grid has twelve columns",
+    "aliases": [
+      {
+        "name": "twelve column grid",
+        "source": "community"
+      },
+      {
+        "name": "12-col",
+        "source": "community"
+      },
+      {
+        "name": "grid system",
+        "source": "bootstrap"
+      },
+      {
+        "name": "12-span grid",
+        "source": "web-dev"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "gutter", "container", "modular-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Grid system, Bootstrap",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "bootstrap",
+        "name": "12 column grid system",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/",
+        "verified": true
+      },
+      {
+        "systemId": "uswds",
+        "name": "Layout grid",
+        "url": "https://designsystem.digital.gov/utilities/layout-grid/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Layout grid",
+    "slug": "layout-grid",
+    "category": "layout",
+    "definition": "The shared column, gutter and margin structure a team lays every screen against, so different people's pages line up with each other.",
+    "useWhen": "the agreed skeleton every screen is built on",
+    "aliases": [
+      {
+        "name": "grid system",
+        "source": "community"
+      },
+      {
+        "name": "column grid",
+        "source": "community"
+      },
+      {
+        "name": "2x Grid",
+        "source": "carbon"
+      },
+      {
+        "name": "responsive grid",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["twelve-column-grid", "gutter", "layout-margins", "modular-grid", "breakpoint"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layout grid, U.S. Web Design System",
+        "url": "https://designsystem.digital.gov/utilities/layout-grid/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "2x Grid",
+        "url": "https://carbondesignsystem.com/elements/2x-grid/overview/",
+        "verified": true
+      },
+      {
+        "systemId": "uswds",
+        "name": "Layout grid",
+        "url": "https://designsystem.digital.gov/utilities/layout-grid/",
+        "verified": true
+      },
+      {
+        "systemId": "bootstrap",
+        "name": "Grid system",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Modular grid",
+    "slug": "modular-grid",
+    "category": "layout",
+    "definition": "A grid with both columns and rows, dividing the page into equal modules that content can span in either direction.",
+    "useWhen": "content that needs to span rows as well as columns",
+    "aliases": [
+      {
+        "name": "module grid",
+        "source": "community"
+      },
+      {
+        "name": "two dimensional grid",
+        "source": "community"
+      },
+      {
+        "name": "swiss grid",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "baseline-grid", "bento-grid", "magazine-layout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Contrast set worth building: manuscript, column, modular, hierarchical, baseline. The classic grid taxonomy."
+  },
+  {
+    "name": "Broken grid",
+    "slug": "broken-grid",
+    "category": "layout",
+    "definition": "A composition that sets up a grid and then deliberately violates it, overlapping and offsetting elements to create tension.",
+    "useWhen": "breaking the grid on purpose, not by accident",
+    "aliases": [
+      {
+        "name": "asymmetric layout",
+        "source": "community"
+      },
+      {
+        "name": "broken grid layout",
+        "source": "community"
+      },
+      {
+        "name": "deconstructed layout",
+        "source": "community"
+      },
+      {
+        "name": "overlapping layout",
+        "source": "community"
+      },
+      {
+        "name": "asymmetric grid",
+        "source": "uiterms"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "modular-grid", "magazine-layout", "imposter"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Round two folded in \"asymmetric grid\" from the uiterms glossary, where it means columns of deliberately uneven width; canonicalize may want to split that sense out from overlapping and offsetting."
+  },
+  {
+    "name": "Breakpoint",
+    "slug": "breakpoint",
+    "category": "layout",
+    "definition": "A viewport width at which a layout is allowed to change shape, defined once so every screen in a system reflows at the same places.",
+    "useWhen": "the widths where the layout is allowed to change",
+    "aliases": [
+      {
+        "name": "media query breakpoint",
+        "source": "community"
+      },
+      {
+        "name": "responsive breakpoint",
+        "source": "community"
+      },
+      {
+        "name": "screen size",
+        "source": "tailwind"
+      },
+      {
+        "name": "breakpoints",
+        "source": "bootstrap"
+      }
+    ],
+    "relatedSlugs": ["container-query", "window-size-class", "adaptive-layout", "layout-grid", "mobile-first"],
+    "priority": "head",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Grid system, Bootstrap",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "bootstrap",
+        "name": "Breakpoints (xs, sm, md, lg, xl, xxl)",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/",
+        "verified": true
+      }
+    ],
+    "notes": "iframe because the subject is the viewport itself; a shadow root cannot make media queries fire."
+  },
+  {
+    "name": "Container query",
+    "slug": "container-query",
+    "category": "layout",
+    "definition": "A rule that responds to the size of a component's own container rather than the viewport, so one component adapts anywhere it is placed.",
+    "useWhen": "a component that must adapt to its slot, not the screen",
+    "aliases": [
+      {
+        "name": "element query",
+        "source": "community"
+      },
+      {
+        "name": "@container",
+        "source": "css"
+      },
+      {
+        "name": "containment query",
+        "source": "community"
+      },
+      {
+        "name": "component query",
+        "source": "community"
+      },
+      {
+        "name": "container query layout",
+        "source": "uiterms"
+      }
+    ],
+    "relatedSlugs": ["breakpoint", "switcher", "adaptive-layout", "intrinsic-web-design"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "@container at-rule, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@container"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "@container",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@container",
+        "verified": true
+      }
+    ],
+    "notes": "Style queries and scroll-state queries are the same at-rule extended; mention them as siblings rather than separate entries."
+  },
+  {
+    "name": "Window size class",
+    "slug": "window-size-class",
+    "category": "layout",
+    "definition": "A named bucket for how much width an app window has (compact, medium, expanded), used instead of raw device categories.",
+    "useWhen": "reasoning about window width, not device type",
+    "aliases": [
+      {
+        "name": "size class",
+        "source": "hig"
+      },
+      {
+        "name": "compact, medium, expanded",
+        "source": "material"
+      },
+      {
+        "name": "window size classes",
+        "source": "android"
+      },
+      {
+        "name": "regular and compact",
+        "source": "hig"
+      }
+    ],
+    "relatedSlugs": ["breakpoint", "adaptive-layout", "device-posture", "split-view"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Canonical layouts, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Window size classes",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts",
+        "verified": true
+      }
+    ],
+    "notes": "The point of the term is that a phone in split screen is compact and a tablet in split screen may also be compact; device is the wrong unit."
+  },
+  {
+    "name": "Adaptive layout",
+    "slug": "adaptive-layout",
+    "category": "layout",
+    "definition": "A layout that switches between a few discrete arrangements chosen per size class, rather than flowing continuously as the window changes.",
+    "useWhen": "distinguishing snapping between layouts from fluid reflow",
+    "aliases": [
+      {
+        "name": "adaptive design",
+        "source": "community"
+      },
+      {
+        "name": "adaptive versus responsive",
+        "source": "community"
+      },
+      {
+        "name": "adaptive apps",
+        "source": "android"
+      }
+    ],
+    "relatedSlugs": ["breakpoint", "window-size-class", "layout-shifter", "intrinsic-web-design"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Canonical layouts, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Adaptive apps",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts",
+        "verified": true
+      }
+    ],
+    "notes": "The adaptive versus responsive distinction is the whole entry; treat it as a contrastWith pair."
+  },
+  {
+    "name": "Mobile first",
+    "slug": "mobile-first",
+    "category": "layout",
+    "definition": "Designing and writing the narrow layout first and adding rules as space is gained, so the small screen is the default rather than the fallback.",
+    "useWhen": "which end of the range you start designing from",
+    "aliases": [
+      {
+        "name": "mobile-first design",
+        "source": "community"
+      },
+      {
+        "name": "min-width first",
+        "source": "community"
+      },
+      {
+        "name": "progressive enhancement of layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["breakpoint", "adaptive-layout", "column-drop", "thumb-zone"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Device Layout Patterns, LukeW",
+        "url": "https://www.lukew.com/ff/entry.asp?1514="
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "bootstrap",
+        "name": "Mobile first (min-width breakpoints)",
+        "url": "https://getbootstrap.com/docs/5.3/layout/grid/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Intrinsic web design",
+    "slug": "intrinsic-web-design",
+    "category": "layout",
+    "definition": "Building layouts from what the content needs, using grid, flexbox and intrinsic sizing together, instead of imposing a fixed column skeleton.",
+    "useWhen": "naming the era after responsive web design",
+    "aliases": [
+      {
+        "name": "intrinsic layout",
+        "source": "community"
+      },
+      {
+        "name": "content out layout",
+        "source": "community"
+      },
+      {
+        "name": "intrinsic sizing",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["container-query", "switcher", "adaptive-layout", "layout-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Designing Intrinsic Layouts, Jen Simmons",
+        "url": "https://talks.jensimmons.com/15TjNW"
+      }
+    ],
+    "implementations": [],
+    "notes": "Coined by Jen Simmons in 2018. Good tail term with a clear attributable origin."
+  },
+  {
+    "name": "Mostly fluid",
+    "slug": "mostly-fluid",
+    "category": "layout",
+    "definition": "A responsive pattern where a multi column grid stretches with the viewport up to a maximum width, then centres, stacking only on the smallest screens.",
+    "useWhen": "one grid that just widens, then caps",
+    "aliases": [
+      {
+        "name": "mostly fluid pattern",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["column-drop", "layout-shifter", "off-canvas", "container"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Device Layout Patterns, LukeW",
+        "url": "https://www.lukew.com/ff/entry.asp?1514="
+      }
+    ],
+    "implementations": [],
+    "notes": "One of Luke Wroblewski's five multi-device layout patterns (tiny tweaks, mostly fluid, column drop, layout shifter, off canvas). Consider a single parent entry with five children."
+  },
+  {
+    "name": "Column drop",
+    "slug": "column-drop",
+    "category": "layout",
+    "definition": "A responsive pattern where full height columns peel off one at a time and stack below as the viewport narrows, keeping source order.",
+    "useWhen": "columns that stack one by one as space runs out",
+    "aliases": [
+      {
+        "name": "column drop pattern",
+        "source": "community"
+      },
+      {
+        "name": "stacking columns",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["mostly-fluid", "layout-shifter", "switcher", "holy-grail-layout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Device Layout Patterns, LukeW",
+        "url": "https://www.lukew.com/ff/entry.asp?1514="
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Layout shifter",
+    "slug": "layout-shifter",
+    "category": "layout",
+    "definition": "A responsive pattern where the arrangement genuinely differs per breakpoint rather than reflowing, so each size gets its own composition.",
+    "useWhen": "sizes get different layouts, not the same one reflowed",
+    "aliases": [
+      {
+        "name": "layout shifter pattern",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["adaptive-layout", "mostly-fluid", "column-drop", "layout-shift"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Device Layout Patterns, LukeW",
+        "url": "https://www.lukew.com/ff/entry.asp?1514="
+      }
+    ],
+    "implementations": [],
+    "notes": "Easy to confuse with layout-shift (the CLS metric), which is unrelated. Worth an explicit contrast."
+  },
+  {
+    "name": "Off canvas",
+    "slug": "off-canvas",
+    "category": "layout",
+    "definition": "Keeping secondary regions parked outside the viewport and sliding them in on demand, instead of stacking them below the main content.",
+    "useWhen": "secondary panels parked off screen until called",
+    "aliases": [
+      {
+        "name": "off-canvas navigation",
+        "source": "community"
+      },
+      {
+        "name": "slide-in panel",
+        "source": "community"
+      },
+      {
+        "name": "off canvas menu",
+        "source": "community"
+      },
+      {
+        "name": "offcanvas",
+        "source": "bootstrap"
+      }
+    ],
+    "relatedSlugs": ["drawer", "sidebar", "hamburger-menu", "mostly-fluid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Device Layout Patterns, LukeW",
+        "url": "https://www.lukew.com/ff/entry.asp?1514="
+      }
+    ],
+    "implementations": [],
+    "notes": "Close to drawer (already on the site). Off canvas is the layout strategy, drawer is the component; keep as contrastWith."
+  },
+  {
+    "name": "Stack",
+    "slug": "stack",
+    "category": "layout",
+    "definition": "A layout primitive that puts one consistent gap between every child in a vertical run, so spacing lives with the parent instead of each item.",
+    "useWhen": "one rule for the space between everything vertical",
+    "aliases": [
+      {
+        "name": "the stack",
+        "source": "every-layout"
+      },
+      {
+        "name": "vertical stack",
+        "source": "community"
+      },
+      {
+        "name": "owl selector",
+        "source": "community"
+      },
+      {
+        "name": "flow",
+        "source": "community"
+      },
+      {
+        "name": "VStack",
+        "source": "swiftui"
+      }
+    ],
+    "relatedSlugs": ["cluster", "spacing-scale", "switcher", "gutter"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Stack, Every Layout",
+        "url": "https://every-layout.dev/layouts/stack/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Stack",
+        "url": "https://every-layout.dev/layouts/stack/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Cluster",
+    "slug": "cluster",
+    "category": "layout",
+    "definition": "A layout primitive that lays items of differing widths out like words in a paragraph, wrapping to new lines with even gaps in both directions.",
+    "useWhen": "tags or buttons of mixed widths that must wrap neatly",
+    "aliases": [
+      {
+        "name": "the cluster",
+        "source": "every-layout"
+      },
+      {
+        "name": "tag list",
+        "source": "community"
+      },
+      {
+        "name": "wrap group",
+        "source": "community"
+      },
+      {
+        "name": "inline group",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["stack", "chip", "logo-cloud", "gutter"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layouts, Every Layout",
+        "url": "https://every-layout.dev/layouts/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Cluster",
+        "url": "https://every-layout.dev/layouts/cluster/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Switcher",
+    "slug": "switcher",
+    "category": "layout",
+    "definition": "A layout primitive that flips between a row and a column at a threshold it works out from its own width, with no media query involved.",
+    "useWhen": "side by side until it does not fit, then stacked",
+    "aliases": [
+      {
+        "name": "the switcher",
+        "source": "every-layout"
+      },
+      {
+        "name": "flexbox holy albatross",
+        "source": "community"
+      },
+      {
+        "name": "container based switch",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["container-query", "column-drop", "sidebar", "stack"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Switcher, W3C Design System",
+        "url": "https://design-system.w3.org/layouts/switcher.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Switcher",
+        "url": "https://every-layout.dev/layouts/switcher/",
+        "verified": true
+      },
+      {
+        "systemId": "w3c-design-system",
+        "name": "Switcher",
+        "url": "https://design-system.w3.org/layouts/switcher.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Cover",
+    "slug": "cover",
+    "category": "layout",
+    "definition": "A layout primitive that fills at least the viewport height, centring a principal element vertically with optional header and footer pinned above and below.",
+    "useWhen": "a full height panel with something centred in it",
+    "aliases": [
+      {
+        "name": "the cover",
+        "source": "every-layout"
+      },
+      {
+        "name": "full height section",
+        "source": "community"
+      },
+      {
+        "name": "viewport height section",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["hero", "the-fold", "sticky-footer", "scroll-snap"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Cover, Every Layout",
+        "url": "https://every-layout.dev/layouts/cover/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Cover",
+        "url": "https://every-layout.dev/layouts/cover/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Imposter",
+    "slug": "imposter",
+    "category": "layout",
+    "definition": "A layout primitive that positions one element centred over its container, overlapping whatever is beneath rather than taking a place in the flow.",
+    "useWhen": "one element floated dead centre over the rest",
+    "aliases": [
+      {
+        "name": "the imposter",
+        "source": "every-layout"
+      },
+      {
+        "name": "overlay centre",
+        "source": "community"
+      },
+      {
+        "name": "absolute centre",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["modal-dialog", "stacking-context", "broken-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layouts, Every Layout",
+        "url": "https://every-layout.dev/layouts/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Imposter",
+        "url": "https://every-layout.dev/layouts/imposter/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Media object",
+    "slug": "media-object",
+    "category": "layout",
+    "definition": "The pairing of a fixed size image or avatar on one side with a heading and text that fills the rest, repeated everywhere in interfaces.",
+    "useWhen": "avatar or thumbnail beside a block of text",
+    "aliases": [
+      {
+        "name": "media object",
+        "source": "community"
+      },
+      {
+        "name": "media block",
+        "source": "community"
+      },
+      {
+        "name": "avatar and text",
+        "source": "community"
+      },
+      {
+        "name": "media objects",
+        "source": "tailwind"
+      }
+    ],
+    "relatedSlugs": ["flag-object", "sidebar", "cluster", "card-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The media object saves hundreds of lines of code, Nicole Sullivan",
+        "url": "http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/"
+      },
+      {
+        "title": "The Media Object, A Bunch of Ways, CSS-Tricks",
+        "url": "https://css-tricks.com/media-object-bunch-ways/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Named by Nicole Sullivan in 2010 as the flagship example of OOCSS. Attributable origin, which makes a good article."
+  },
+  {
+    "name": "Flag object",
+    "slug": "flag-object",
+    "category": "layout",
+    "definition": "A media object whose two sides can be vertically aligned to each other, top, middle or bottom, instead of both starting at the top.",
+    "useWhen": "a media object whose halves need to align middle",
+    "aliases": [
+      {
+        "name": "the flag object",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["media-object", "cluster"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The flag object, CSS Wizardry",
+        "url": "https://csswizardry.com/2013/05/the-flag-object/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Coined by Harry Roberts. Deep tail; may be better as an alias section inside media-object if canonicalize prefers fewer entries."
+  },
+  {
+    "name": "Aspect ratio box",
+    "slug": "aspect-ratio-box",
+    "category": "layout",
+    "definition": "A container that holds a fixed width to height proportion whatever its size, so media reserves its space before it loads.",
+    "useWhen": "reserving the right shaped hole before an image arrives",
+    "aliases": [
+      {
+        "name": "intrinsic ratio",
+        "source": "community"
+      },
+      {
+        "name": "padding-top hack",
+        "source": "community"
+      },
+      {
+        "name": "ratio box",
+        "source": "community"
+      },
+      {
+        "name": "the frame",
+        "source": "every-layout"
+      },
+      {
+        "name": "aspect-ratio",
+        "source": "css"
+      },
+      {
+        "name": "respect for aspect",
+        "source": "web-dev"
+      }
+    ],
+    "relatedSlugs": ["layout-shift", "letterboxing", "skeleton-screen", "card-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layouts, Every Layout",
+        "url": "https://every-layout.dev/layouts/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "every-layout",
+        "name": "The Frame",
+        "url": "https://every-layout.dev/layouts/frame/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Subgrid",
+    "slug": "subgrid",
+    "category": "layout",
+    "definition": "A nested grid that borrows its parent's tracks instead of defining its own, so contents of separate children still line up with each other.",
+    "useWhen": "card internals that must align across sibling cards",
+    "aliases": [
+      {
+        "name": "grid-template-columns: subgrid",
+        "source": "css"
+      },
+      {
+        "name": "nested grid alignment",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "card-grid", "gutter", "modular-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Subgrid, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Subgrid"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Subgrid",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Subgrid",
+        "verified": true
+      }
+    ],
+    "notes": "Best demo on the site's list: three cards with different length titles, aligned buttons with and without subgrid."
+  },
+  {
+    "name": "Scroll snap",
+    "slug": "scroll-snap",
+    "category": "layout",
+    "definition": "Snap positions declared on a scroll container so scrolling settles on a chosen item edge instead of stopping wherever momentum runs out.",
+    "useWhen": "scrolling that must land on an item, not between two",
+    "aliases": [
+      {
+        "name": "snap scrolling",
+        "source": "community"
+      },
+      {
+        "name": "snap points",
+        "source": "community"
+      },
+      {
+        "name": "paging scroll",
+        "source": "community"
+      },
+      {
+        "name": "full page scroll",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["scroll-container", "content-shelf", "cover", "scrollytelling"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS scroll snap, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "CSS scroll snap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Scroll container",
+    "slug": "scroll-container",
+    "category": "layout",
+    "definition": "The element that actually scrolls its overflowing content, distinct from the page, and the box the browser calls the scrollport.",
+    "useWhen": "identifying which box is doing the scrolling",
+    "aliases": [
+      {
+        "name": "scrollport",
+        "source": "css"
+      },
+      {
+        "name": "scroller",
+        "source": "community"
+      },
+      {
+        "name": "scrolling box",
+        "source": "css"
+      },
+      {
+        "name": "overflow container",
+        "source": "community"
+      },
+      {
+        "name": "scroll view",
+        "source": "hig"
+      }
+    ],
+    "relatedSlugs": ["scroll-snap", "sticky-header", "content-shelf", "viewport"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS scroll snap, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap"
+      }
+    ],
+    "implementations": [],
+    "notes": "Genuine tail gold: \"scrollport\" is the spec word almost nobody knows, and \"which thing is scrolling\" is a daily debugging question."
+  },
+  {
+    "name": "Stacking context",
+    "slug": "stacking-context",
+    "category": "layout",
+    "definition": "A self contained depth ordering created by certain properties, inside which z-index only competes locally and can never escape to the level above.",
+    "useWhen": "why a huge z-index still sits behind something",
+    "aliases": [
+      {
+        "name": "z-index context",
+        "source": "community"
+      },
+      {
+        "name": "paint order",
+        "source": "community"
+      },
+      {
+        "name": "layer context",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["imposter", "modal-dialog", "popover", "containing-block"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS Flexible Box Layout Module Level 1",
+        "url": "https://www.w3.org/TR/css-flexbox-1/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The z-index: 9999 that does nothing is one of the most searched layout problems there is, and this is the word that explains it."
+  },
+  {
+    "name": "Containing block",
+    "slug": "containing-block",
+    "category": "layout",
+    "definition": "The box an element's percentages and offsets are measured against, which is not always its parent and changes with positioning.",
+    "useWhen": "asking what 100% is actually 100% of",
+    "aliases": [
+      {
+        "name": "positioning context",
+        "source": "community"
+      },
+      {
+        "name": "reference box",
+        "source": "community"
+      },
+      {
+        "name": "offset parent",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["stacking-context", "imposter", "container"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS Flexible Box Layout Module Level 1",
+        "url": "https://www.w3.org/TR/css-flexbox-1/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Layout shift",
+    "slug": "layout-shift",
+    "category": "layout",
+    "definition": "Content moving after it has already been painted, usually because something arriving late took space that was never reserved for it.",
+    "useWhen": "the page jumped and you lost your place",
+    "aliases": [
+      {
+        "name": "cumulative layout shift",
+        "source": "web-vitals"
+      },
+      {
+        "name": "CLS",
+        "source": "web-vitals"
+      },
+      {
+        "name": "content jump",
+        "source": "community"
+      },
+      {
+        "name": "reflow jump",
+        "source": "community"
+      },
+      {
+        "name": "jank",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["aspect-ratio-box", "skeleton-screen", "layout-shifter", "spinner"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Directly echoes SPEC section 5's no incidental layout shift rule, so the site is already opinionated about it."
+  },
+  {
+    "name": "Viewport",
+    "slug": "viewport",
+    "category": "layout",
+    "definition": "The visible rectangle of a page inside the browser window, excluding the browser's own bars, and the unit basis for vh and vw.",
+    "useWhen": "the visible window, not the whole document",
+    "aliases": [
+      {
+        "name": "visual viewport",
+        "source": "css"
+      },
+      {
+        "name": "layout viewport",
+        "source": "css"
+      },
+      {
+        "name": "viewport units",
+        "source": "community"
+      },
+      {
+        "name": "svh, lvh, dvh",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["the-fold", "breakpoint", "scroll-container", "safe-area", "chrome"],
+    "priority": "head",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Viewport concepts, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Viewport concepts",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts",
+        "verified": true
+      }
+    ],
+    "notes": "The layout versus visual viewport split, and the small, large and dynamic viewport units, are the interesting part."
+  },
+  {
+    "name": "Chrome",
+    "slug": "chrome",
+    "category": "layout",
+    "definition": "The parts of a window or app that frame content rather than being content: title bars, toolbars, tab strips and address bars.",
+    "useWhen": "separating the frame from the thing being framed",
+    "aliases": [
+      {
+        "name": "browser chrome",
+        "source": "community"
+      },
+      {
+        "name": "app chrome",
+        "source": "community"
+      },
+      {
+        "name": "furniture",
+        "source": "community"
+      },
+      {
+        "name": "window decoration",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["app-shell", "viewport", "app-bar", "status-bar"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Viewport concepts, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts"
+      }
+    ],
+    "implementations": [],
+    "notes": "Predates the browser named Chrome, which is exactly why people are confused by it. This site's own SPEC uses chrome in this sense."
+  },
+  {
+    "name": "Thumb zone",
+    "slug": "thumb-zone",
+    "category": "layout",
+    "definition": "The arc of a phone screen a thumb reaches comfortably in a one handed grip, with harder to reach bands above and across from it.",
+    "useWhen": "placing primary actions within easy reach on phones",
+    "aliases": [
+      {
+        "name": "reachability",
+        "source": "community"
+      },
+      {
+        "name": "thumb arc",
+        "source": "community"
+      },
+      {
+        "name": "one handed reach",
+        "source": "community"
+      },
+      {
+        "name": "green zone",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["safe-area", "mobile-first", "home-indicator", "app-bar"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Thumb Zone: Designing For Mobile Users, Smashing Magazine",
+        "url": "https://www.smashingmagazine.com/2016/09/the-thumb-zone-designing-for-mobile-users/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Coined by Steven Hoober from 2013 field observation. Could be filed under pattern or interaction; layout is where the decision actually gets made."
+  },
+  {
+    "name": "Device posture",
+    "slug": "device-posture",
+    "category": "layout",
+    "definition": "The physical fold state of a foldable device, such as flat, book or tabletop, which a layout can respond to alongside plain size.",
+    "useWhen": "a layout that responds to how the device is folded",
+    "aliases": [
+      {
+        "name": "tabletop posture",
+        "source": "android"
+      },
+      {
+        "name": "book posture",
+        "source": "android"
+      },
+      {
+        "name": "folding feature",
+        "source": "android"
+      },
+      {
+        "name": "hinge",
+        "source": "community"
+      },
+      {
+        "name": "posture",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["window-size-class", "adaptive-layout", "letterboxing", "split-view"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Learn about foldables, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/foldables/learn-about-foldables"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Postures (tabletop, book) and folding features",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/foldables/learn-about-foldables",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Frozen column",
+    "slug": "frozen-column",
+    "category": "layout",
+    "definition": "A table column held against the edge while the rest scrolls sideways, so the row's identifying value stays readable.",
+    "useWhen": "a wide table where you lose track of the row",
+    "aliases": [
+      {
+        "name": "pinned column",
+        "source": "mui"
+      },
+      {
+        "name": "sticky column",
+        "source": "community"
+      },
+      {
+        "name": "locked column",
+        "source": "community"
+      },
+      {
+        "name": "freeze panes",
+        "source": "excel"
+      },
+      {
+        "name": "frozen header row",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sticky-header", "scroll-container", "layout-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Data Grid column pinning, MUI X",
+        "url": "https://mui.com/x/react-data-grid/column-pinning/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mui-x",
+        "name": "Column pinning",
+        "url": "https://mui.com/x/react-data-grid/column-pinning/",
+        "verified": true
+      }
+    ],
+    "notes": "Four names for one feature (pinned, sticky, frozen, locked) makes it a strong alias magnet for search."
+  },
+  {
+    "name": "Sidenote",
+    "slug": "sidenote",
+    "category": "layout",
+    "definition": "A note placed in the outer margin beside the line it belongs to, rather than collected at the foot of the page.",
+    "useWhen": "an aside that must stay level with its sentence",
+    "aliases": [
+      {
+        "name": "margin note",
+        "source": "community"
+      },
+      {
+        "name": "marginalia",
+        "source": "print"
+      },
+      {
+        "name": "side note",
+        "source": "community"
+      },
+      {
+        "name": "tufte sidenote",
+        "source": "community"
+      },
+      {
+        "name": "gloss",
+        "source": "print"
+      }
+    ],
+    "relatedSlugs": ["breakout", "container", "pull-quote", "sticky-sidebar"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "relatedSlugs mentions pull-quote, which this sweep did not record; the typography sweep is the natural owner of that one."
+  },
+  {
+    "name": "Landmark region",
+    "slug": "landmark-region",
+    "category": "accessibility",
+    "definition": "A named structural area of a page, such as banner, navigation, main or contentinfo, that assistive technology can jump between.",
+    "useWhen": "making the page's layout regions navigable by keyboard",
+    "aliases": [
+      {
+        "name": "ARIA landmark",
+        "source": "aria-apg"
+      },
+      {
+        "name": "landmark",
+        "source": "community"
+      },
+      {
+        "name": "page region",
+        "source": "community"
+      },
+      {
+        "name": "region role",
+        "source": "aria-apg"
+      }
+    ],
+    "relatedSlugs": ["app-shell", "site-footer", "page-header", "sidebar", "skip-link"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Region Landmark, ARIA APG",
+        "url": "https://w3.org/WAI/ARIA/apg/patterns/landmarks/examples/region.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Landmark regions",
+        "url": "https://w3.org/WAI/ARIA/apg/patterns/landmarks/examples/region.html",
+        "verified": true
+      }
+    ],
+    "notes": "Cross category: recorded from the layout sweep because landmarks map one to one onto layout regions, but accessibility is the right home. Merge candidate with the accessibility sweep. iframe because landmark navigation is document scope."
+  },
+  {
+    "name": "Scrollytelling",
+    "slug": "scrollytelling",
+    "category": "pattern",
+    "definition": "A narrative layout where a pinned graphic stays fixed while text scrolls past it, each step changing what the graphic shows.",
+    "useWhen": "one visual that changes as the story scrolls past",
+    "aliases": [
+      {
+        "name": "scroll driven narrative",
+        "source": "community"
+      },
+      {
+        "name": "pinned scroll",
+        "source": "community"
+      },
+      {
+        "name": "sticky graphic",
+        "source": "community"
+      },
+      {
+        "name": "scroll story",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sticky-sidebar", "scroll-snap", "cover", "scroll-spy"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross category: pattern or motion is arguably the better home. Recorded here because the mechanism is a sticky layout region."
+  },
+  {
+    "name": "Logical properties",
+    "slug": "logical-properties",
+    "category": "layout",
+    "definition": "Layout properties named by flow direction (inline start, block end) rather than by screen edge, so a layout mirrors itself in other writing modes.",
+    "useWhen": "spacing that must flip for right to left text",
+    "aliases": [
+      {
+        "name": "flow relative properties",
+        "source": "css"
+      },
+      {
+        "name": "inline-start and block-end",
+        "source": "css"
+      },
+      {
+        "name": "writing mode aware properties",
+        "source": "community"
+      },
+      {
+        "name": "margin-inline",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["rtl-mirroring", "gutter", "layout-margins", "intrinsic-web-design"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS guides, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "RTL mirroring",
+    "slug": "rtl-mirroring",
+    "category": "layout",
+    "definition": "Flipping a layout horizontally for right to left languages, moving navigation and progression to the other side while leaving some elements unmirrored.",
+    "useWhen": "shipping the same screen in Arabic or Hebrew",
+    "aliases": [
+      {
+        "name": "bidirectional layout",
+        "source": "community"
+      },
+      {
+        "name": "bidi",
+        "source": "community"
+      },
+      {
+        "name": "right to left layout",
+        "source": "community"
+      },
+      {
+        "name": "mirroring",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["logical-properties", "layout-grid", "sidebar"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The interesting content is what does not mirror: clocks, media playback controls, and numbers."
+  },
+  {
+    "name": "Navigation rail",
+    "slug": "navigation-rail",
+    "category": "component",
+    "definition": "A narrow vertical strip of top level destinations at the side of a screen, used at medium widths where a bottom bar is wasteful and a drawer is too heavy.",
+    "useWhen": "top level navigation on a medium width window",
+    "aliases": [
+      {
+        "name": "navigation rail",
+        "source": "material"
+      },
+      {
+        "name": "rail",
+        "source": "community"
+      },
+      {
+        "name": "icon sidebar",
+        "source": "community"
+      },
+      {
+        "name": "mini drawer",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sidebar", "activity-bar", "drawer", "app-bar", "window-size-class"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Navigation rail, Material Design 3",
+        "url": "https://m3.material.io/components/navigation-rail/guidelines"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Navigation rail",
+        "url": "https://m3.material.io/components/navigation-rail/guidelines",
+        "verified": true
+      }
+    ],
+    "notes": "Cross category: this is a component, found through the layout sweep because it is defined by the window width it belongs to. The component sweep may also produce it."
+  },
+  {
+    "name": "Responsive web design",
+    "slug": "responsive-web-design",
+    "category": "layout",
+    "definition": "One layout that adapts to any screen through fluid grids, flexible images and media queries, rather than a separate site built for each class of device.",
+    "useWhen": "the umbrella term for one adapting layout",
+    "aliases": [
+      {
+        "name": "RWD",
+        "source": "community"
+      },
+      {
+        "name": "responsive design",
+        "source": "community"
+      },
+      {
+        "name": "fluid design",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["fluid-grid", "breakpoint", "adaptive-layout", "mobile-first", "intrinsic-web-design"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Responsive Web Design, A List Apart",
+        "url": "https://alistapart.com/article/responsive-web-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Ethan Marcotte, 2010, named three ingredients: fluid grids, flexible images, media queries. Round one captured the parts but not the umbrella word. Contrast with adaptive-layout, which swaps whole layouts at fixed sizes."
+  },
+  {
+    "name": "Fluid grid",
+    "slug": "fluid-grid",
+    "category": "layout",
+    "definition": "A grid whose columns and gutters are expressed as proportions rather than fixed pixels, so the whole composition stretches and shrinks with its container.",
+    "useWhen": "columns measured in proportions, not pixels",
+    "aliases": [
+      {
+        "name": "fluid grids",
+        "source": "alistapart"
+      },
+      {
+        "name": "fluid layout",
+        "source": "community"
+      },
+      {
+        "name": "liquid layout",
+        "source": "community"
+      },
+      {
+        "name": "percentage grid",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["responsive-web-design", "layout-grid", "mostly-fluid", "container", "intrinsic-web-design"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Responsive Web Design, A List Apart",
+        "url": "https://alistapart.com/article/responsive-web-design/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Historically the counterpart of the fixed width layout. Worth saying that fr units and minmax made the arithmetic disappear."
+  },
+  {
+    "name": "Tiny tweaks",
+    "slug": "tiny-tweaks",
+    "category": "layout",
+    "definition": "The lightest responsive pattern: a single column design that only adjusts type size, image size and margins as the screen changes.",
+    "useWhen": "one column that only nudges type and margins",
+    "aliases": [
+      {
+        "name": "tiny tweaks pattern",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["mostly-fluid", "column-drop", "layout-shifter", "off-canvas"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Multi-Device Layout Patterns, LukeW",
+        "url": "https://www.lukew.com/ff/entry.asp?1514"
+      }
+    ],
+    "implementations": [],
+    "notes": "The fifth of Luke Wroblewski's five multi-device layout patterns. Round one captured mostly fluid, column drop, layout shifter and off canvas but missed this one."
+  },
+  {
+    "name": "Content choreography",
+    "slug": "content-choreography",
+    "category": "layout",
+    "definition": "Deciding how blocks of content reorder and regroup as a layout reflows, so hierarchy survives the collapse from several columns into one.",
+    "useWhen": "deciding what order stacked blocks land in",
+    "aliases": [
+      {
+        "name": "choreographing content",
+        "source": "community"
+      },
+      {
+        "name": "content reflow order",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["responsive-web-design", "column-drop", "layout-shifter", "visual-hierarchy"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Content Choreography, Trent Walton",
+        "url": "https://trentwalton.com/2011/07/14/content-choreography/"
+      },
+      {
+        "title": "How To Maintain Hierarchy Through Content Choreography, Smashing Magazine",
+        "url": "https://www.smashingmagazine.com/2013/04/maintain-hierarchy-content-choreography/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Trent Walton, 2011. Names the failure round one already has the mechanics for: stacking columns destroys hierarchy unless someone chooses the new order."
+  },
+  {
+    "name": "Pane",
+    "slug": "pane",
+    "category": "layout",
+    "definition": "A layout container that holds one destination's content inside a window, either fixed or flexible in width, combined with other panes to fill the space.",
+    "useWhen": "naming one region of a multi region window",
+    "aliases": [
+      {
+        "name": "fixed pane",
+        "source": "material"
+      },
+      {
+        "name": "flexible pane",
+        "source": "material"
+      },
+      {
+        "name": "floating pane",
+        "source": "material"
+      },
+      {
+        "name": "semi permanent pane",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["split-view", "supporting-pane", "list-detail", "sidebar", "spacer"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Scaffold, Material Design 3",
+        "url": "https://m3.material.io/foundations/layout/scaffold/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Panes",
+        "url": "https://m3.material.io/foundations/layout/scaffold/overview",
+        "verified": true
+      }
+    ],
+    "notes": "Material 3 names four kinds: fixed, flexible, floating, semi permanent. Distinguish from panel, which many systems use loosely for any boxed region."
+  },
+  {
+    "name": "Spacer",
+    "slug": "spacer",
+    "category": "layout",
+    "definition": "A deliberate empty element between regions: the gap between two panes that carries the drag handle when they resize, or the flexible filler that pushes toolbar items apart.",
+    "useWhen": "the empty element that does the spacing",
+    "aliases": [
+      {
+        "name": "pane spacer",
+        "source": "material"
+      },
+      {
+        "name": "flexible space",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["pane", "gutter", "whitespace", "split-view"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Scaffold, Material Design 3",
+        "url": "https://m3.material.io/foundations/layout/scaffold/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Spacer",
+        "url": "https://m3.material.io/foundations/layout/scaffold/overview",
+        "verified": true
+      }
+    ],
+    "notes": "Two senses worth naming: Material 3's gap between panes, and the flexible spacer element in toolbars, SwiftUI stacks and Figma auto layout."
+  },
+  {
+    "name": "Scaffold",
+    "slug": "scaffold",
+    "category": "layout",
+    "definition": "The frame that positions an app's persistent regions, its bars, panes and body, so each screen drops content into named slots instead of inventing its own arrangement.",
+    "useWhen": "the named slots a screen's parts drop into",
+    "aliases": [
+      {
+        "name": "layout scaffold",
+        "source": "material"
+      },
+      {
+        "name": "app scaffolding",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["app-shell", "pane", "spacer", "page-header", "canonical-layout"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Scaffold, Material Design 3",
+        "url": "https://m3.material.io/foundations/layout/scaffold/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Scaffold",
+        "url": "https://m3.material.io/foundations/layout/scaffold/overview",
+        "verified": true
+      }
+    ],
+    "notes": "Overlaps app-shell: a scaffold is the slotted frame a toolkit hands you, an app shell is the part of a running app that never reloads. Flutter's Scaffold widget is the same word, unverified this sweep."
+  },
+  {
+    "name": "Canonical layout",
+    "slug": "canonical-layout",
+    "category": "layout",
+    "definition": "One of a small set of proven multi pane arrangements a platform recommends, such as list detail, supporting pane and feed, instead of a new layout per screen.",
+    "useWhen": "reaching for a proven arrangement, not a new one",
+    "aliases": [
+      {
+        "name": "canonical layouts",
+        "source": "material"
+      },
+      {
+        "name": "canonical example",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["list-detail", "supporting-pane", "feed-layout", "pane", "window-size-class"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Canonical layouts, Material Design 3",
+        "url": "https://m3.material.io/foundations/layout/canonical-layouts/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Canonical layouts",
+        "url": "https://m3.material.io/foundations/layout/canonical-layouts/overview",
+        "verified": true
+      }
+    ],
+    "notes": "The parent term for list-detail, supporting-pane and feed-layout, which round one captured individually. Material moved the page from canonical-examples to canonical-layouts; both paths appear in search."
+  },
+  {
+    "name": "Layer cake pattern",
+    "slug": "layer-cake-pattern",
+    "category": "layout",
+    "definition": "A scanning shape where the eye reads headings and subheadings and skips the text between them, so the fixation map looks like stacked layers.",
+    "useWhen": "predicting a skim that only reads headings",
+    "aliases": [
+      {
+        "name": "layer-cake pattern",
+        "source": "nngroup"
+      },
+      {
+        "name": "layer cake scanning",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "spotted-pattern", "visual-hierarchy", "table-of-contents"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Text Scanning Patterns: Eyetracking Evidence, NN/g",
+        "url": "https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/"
+      },
+      {
+        "title": "F-Shaped Pattern of Reading on the Web, NN/g",
+        "url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/"
+      }
+    ],
+    "implementations": [],
+    "notes": "One of NN/g's named scanning patterns. Round one took F, Z and Gutenberg only; this and its four siblings are the rest of the set, and the layout argument for good subheadings."
+  },
+  {
+    "name": "Spotted pattern",
+    "slug": "spotted-pattern",
+    "category": "layout",
+    "definition": "A scanning shape where the eye jumps to isolated words scattered down the page, hunting a keyword, a link or a number rather than reading anything.",
+    "useWhen": "predicting a keyword hunt rather than reading",
+    "aliases": [
+      {
+        "name": "spotted scanning",
+        "source": "community"
+      },
+      {
+        "name": "spotted pattern",
+        "source": "nngroup"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "layer-cake-pattern", "visual-hierarchy", "whitespace"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Text Scanning Patterns: Eyetracking Evidence, NN/g",
+        "url": "https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The scanning pattern that justifies bolding keywords and formatting numerals distinctly."
+  },
+  {
+    "name": "Commitment pattern",
+    "slug": "commitment-pattern",
+    "category": "layout",
+    "definition": "The rare scanning shape where a motivated reader fixates on nearly every word, the only pattern that behaves like actual reading.",
+    "useWhen": "the one case where readers read every word",
+    "aliases": [
+      {
+        "name": "commitment pattern",
+        "source": "nngroup"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "layer-cake-pattern", "spotted-pattern", "measure"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Text Scanning Patterns: Eyetracking Evidence, NN/g",
+        "url": "https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Useful as the counterexample: it is what designers assume happens and almost never does."
+  },
+  {
+    "name": "Marking pattern",
+    "slug": "marking-pattern",
+    "category": "layout",
+    "definition": "A scanning shape where the eye holds one spot on the screen while content scrolls past underneath it, most common on phones.",
+    "useWhen": "reasoning about where eyes rest while scrolling",
+    "aliases": [
+      {
+        "name": "marking pattern",
+        "source": "nngroup"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "scroll-container", "thumb-zone", "the-fold"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "F-Shaped Pattern of Reading on the Web, NN/g",
+        "url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Do not confuse with the marking menu, a separate gesture control already captured in the component sweep."
+  },
+  {
+    "name": "Bypassing pattern",
+    "slug": "bypassing-pattern",
+    "category": "layout",
+    "definition": "A scanning shape where readers deliberately skip the opening words of each line because every line in a list starts the same way.",
+    "useWhen": "arguing against repeated leading words in lists",
+    "aliases": [
+      {
+        "name": "bypassing pattern",
+        "source": "nngroup"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "layer-cake-pattern", "visual-hierarchy", "hanging-indent"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "F-Shaped Pattern of Reading on the Web, NN/g",
+        "url": "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The evidence behind front loading list items with the word that differs."
+  },
+  {
+    "name": "Lawn mower pattern",
+    "slug": "lawn-mower-pattern",
+    "category": "layout",
+    "definition": "A scanning shape for tables where the eye runs across one row, drops down and runs back the other way, mowing the cells in alternating directions.",
+    "useWhen": "laying out a comparison table for scanning",
+    "aliases": [
+      {
+        "name": "lawnmower pattern",
+        "source": "community"
+      },
+      {
+        "name": "lawn mower eyetracking pattern",
+        "source": "nngroup"
+      }
+    ],
+    "relatedSlugs": ["f-pattern", "zigzag-layout", "frozen-column", "modular-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Lawn Mower Eyetracking Pattern for Scanning Comparison Tables, NN/g",
+        "url": "https://www.nngroup.com/articles/lawn-mower-pattern/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Observed most on comparison tables and zigzag layouts. Pairs with zigzag-layout, which is the layout that provokes it."
+  },
+  {
+    "name": "App silhouette",
+    "slug": "app-silhouette",
+    "category": "layout",
+    "definition": "The recognisable outline of an app's chrome, which bars and panes it has and where they sit, used to classify one app's layout against another's.",
+    "useWhen": "classifying an app by the shape of its chrome",
+    "aliases": [
+      {
+        "name": "silhouette",
+        "source": "fluent"
+      },
+      {
+        "name": "app silhouettes",
+        "source": "fluent"
+      },
+      {
+        "name": "top navigation silhouette",
+        "source": "fluent"
+      },
+      {
+        "name": "left navigation silhouette",
+        "source": "fluent"
+      }
+    ],
+    "relatedSlugs": ["app-shell", "sidebar", "page-header", "activity-bar", "scaffold"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Windows app silhouettes, Microsoft Learn",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/basics/app-silhouette"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fluent",
+        "name": "App silhouettes",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/basics/app-silhouette",
+        "verified": true
+      }
+    ],
+    "notes": "Windows names four: top navigation, menu bar, left navigation, tab view. A good vocabulary word for the thing designers point at when they say an app looks like Settings."
+  },
+  {
+    "name": "Box",
+    "slug": "box",
+    "category": "layout",
+    "definition": "A bordered container, optionally titled, that groups logically related controls so the grouping is drawn rather than implied by spacing alone.",
+    "useWhen": "grouping controls with a visible boundary",
+    "aliases": [
+      {
+        "name": "boxes",
+        "source": "hig"
+      },
+      {
+        "name": "group box",
+        "source": "community"
+      },
+      {
+        "name": "grouping container",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["fieldset", "container", "whitespace", "density"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Boxes, Human Interface Guidelines",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/boxes"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Boxes",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/boxes",
+        "verified": true
+      }
+    ],
+    "notes": "Overlaps fieldset in the component sweep: a box is the visual grouping device, a fieldset is the form semantics. Windows calls it a group box, SwiftUI a GroupBox."
+  },
+  {
+    "name": "Anchor positioning",
+    "slug": "anchor-positioning",
+    "category": "layout",
+    "definition": "A CSS mechanism that tethers one element to another, sizing and placing it against its anchor and trying fallback positions when the default one would overflow.",
+    "useWhen": "pinning one element to another without JavaScript",
+    "aliases": [
+      {
+        "name": "CSS anchor positioning",
+        "source": "mdn"
+      },
+      {
+        "name": "anchor-name",
+        "source": "css"
+      },
+      {
+        "name": "position-anchor",
+        "source": "css"
+      },
+      {
+        "name": "position-try",
+        "source": "css"
+      },
+      {
+        "name": "anchor-positioned element",
+        "source": "mdn"
+      }
+    ],
+    "relatedSlugs": ["popover", "tooltip", "hover-card", "containing-block", "stacking-context"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS anchor positioning, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "CSS anchor positioning",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning",
+        "verified": true
+      }
+    ],
+    "notes": "The platform answer to what floating-ui does in script. position-try-fallbacks is the vocabulary designers actually need: what happens when the tooltip hits the edge."
+  },
+  {
+    "name": "Top layer",
+    "slug": "top-layer",
+    "category": "layout",
+    "definition": "The layer above everything else in a document where fullscreen elements, modal dialogs and popovers render, escaping every ancestor's clipping and stacking order.",
+    "useWhen": "explaining why a dialog is not trapped by overflow",
+    "aliases": [
+      {
+        "name": "top-layer",
+        "source": "css"
+      },
+      {
+        "name": "browser top layer",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["stacking-context", "modal-dialog", "popover", "containing-block"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Top layer, MDN glossary",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Top_layer"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Top layer",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Top_layer",
+        "verified": true
+      }
+    ],
+    "notes": "The answer to the oldest z-index bug: a dialog inside overflow: hidden. Each top layer element also gets its own ::backdrop."
+  },
+  {
+    "name": "Fluid space scale",
+    "slug": "fluid-space-scale",
+    "category": "layout",
+    "definition": "A spacing ramp whose every step interpolates between a minimum and a maximum viewport, so gaps grow smoothly with the screen instead of jumping at breakpoints.",
+    "useWhen": "spacing that scales with the screen, not in steps",
+    "aliases": [
+      {
+        "name": "fluid space",
+        "source": "utopia"
+      },
+      {
+        "name": "fluid spacing",
+        "source": "community"
+      },
+      {
+        "name": "space steps",
+        "source": "utopia"
+      },
+      {
+        "name": "one-up pairs",
+        "source": "utopia"
+      }
+    ],
+    "relatedSlugs": ["spacing-scale", "fluid-typography", "breakpoint", "eight-point-grid", "container-query"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Fluid Space Calculator, Utopia",
+        "url": "https://utopia.fyi/space/calculator/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "utopia",
+        "name": "Fluid Space Calculator",
+        "url": "https://utopia.fyi/space/calculator/",
+        "verified": true
+      }
+    ],
+    "notes": "The spacing counterpart of fluid-typography, which the typography sweep already has. Utopia's T-shirt names and one-up pairs are the vocabulary in use."
+  },
+  {
+    "name": "Global navigation",
+    "slug": "global-navigation",
+    "category": "layout",
+    "definition": "The links to the top tier of a site's structure, present on every page and unchanged wherever the reader currently is.",
+    "useWhen": "the nav that is the same on every page",
+    "aliases": [
+      {
+        "name": "global nav",
+        "source": "community"
+      },
+      {
+        "name": "primary navigation",
+        "source": "community"
+      },
+      {
+        "name": "main navigation",
+        "source": "community"
+      },
+      {
+        "name": "site navigation",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["page-header", "sidebar", "local-navigation", "utility-navigation", "site-footer"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Difference Between Information Architecture and Navigation, NN/g",
+        "url": "https://www.nngroup.com/articles/ia-vs-navigation/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Page anatomy vocabulary: the trio global, local and utility navigation is how IA people name the regions a layout has to provide."
+  },
+  {
+    "name": "Local navigation",
+    "slug": "local-navigation",
+    "category": "layout",
+    "definition": "Links contextual to where the reader is, showing the siblings and children of the current page rather than the whole site.",
+    "useWhen": "nav that changes with the section you are in",
+    "aliases": [
+      {
+        "name": "local nav",
+        "source": "community"
+      },
+      {
+        "name": "contextual navigation",
+        "source": "community"
+      },
+      {
+        "name": "section navigation",
+        "source": "community"
+      },
+      {
+        "name": "sub navigation",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["global-navigation", "sidebar", "table-of-contents", "utility-navigation"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Local Navigation Is a Valuable Orientation and Wayfinding Aid, NN/g",
+        "url": "https://www.nngroup.com/articles/local-navigation/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Usually the thing in the sidebar. Distinguish from a table of contents, which is within one page."
+  },
+  {
+    "name": "Utility navigation",
+    "slug": "utility-navigation",
+    "category": "layout",
+    "definition": "The strip of secondary tools and account actions, sign in, search, language, cart, kept apart from the links that describe the site's content.",
+    "useWhen": "the small links above or beside the main nav",
+    "aliases": [
+      {
+        "name": "utility nav",
+        "source": "community"
+      },
+      {
+        "name": "pre-header",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["global-navigation", "page-header", "local-navigation", "app-bar"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Utility Navigation: What It Is and How to Design It, NN/g",
+        "url": "https://www.nngroup.com/articles/utility-navigation/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The utility bar record in the component sweep is the same word for the component; this record is the page region. Canonicalize should decide which keeps the name."
+  },
+  {
+    "name": "Universal navigation",
+    "slug": "universal-navigation",
+    "category": "layout",
+    "definition": "A slim bar that links a subsite back to its parent organisation's other sites, sitting above the subsite's own global navigation.",
+    "useWhen": "connecting a subsite back to the parent org",
+    "aliases": [
+      {
+        "name": "universal nav",
+        "source": "community"
+      },
+      {
+        "name": "corporate bar",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["global-navigation", "utility-navigation", "page-header"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Universal Navigation: Connecting Subsites to Main Sites, NN/g",
+        "url": "https://www.nngroup.com/articles/universal-navigation/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Very common on university, government and large enterprise sites, and almost never named by the people building them."
+  },
+  {
+    "name": "Text columns",
+    "slug": "text-columns",
+    "category": "layout",
+    "definition": "Flowing one block of running text into several columns that fill and balance automatically, with an optional rule drawn between them.",
+    "useWhen": "one passage of text split into columns",
+    "aliases": [
+      {
+        "name": "CSS multi-column layout",
+        "source": "mdn"
+      },
+      {
+        "name": "multicol",
+        "source": "community"
+      },
+      {
+        "name": "column-count",
+        "source": "css"
+      },
+      {
+        "name": "column rule",
+        "source": "css"
+      },
+      {
+        "name": "newspaper columns",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["multi-column-layout", "measure", "magazine-layout", "gutter", "sidenote"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS multi-column layout, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "CSS multi-column layout",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout",
+        "verified": true
+      }
+    ],
+    "notes": "Name collision to resolve in canonicalize: round one's multi-column-layout means side by side panes, this is one passage flowing into columns. Column boxes, column rules and spanning elements are the spec's words."
+  },
+  {
+    "name": "Named grid areas",
+    "slug": "named-grid-areas",
+    "category": "layout",
+    "definition": "Naming regions of a grid and drawing the layout as rows of those names, so items are placed by name instead of by line number.",
+    "useWhen": "placing items by name instead of by number",
+    "aliases": [
+      {
+        "name": "grid-template-areas",
+        "source": "css"
+      },
+      {
+        "name": "named template areas",
+        "source": "mdn"
+      },
+      {
+        "name": "ascii art grid",
+        "source": "mdn"
+      },
+      {
+        "name": "grid area",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "subgrid", "holy-grail-layout", "logical-properties"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Grid template areas, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Grid_template_areas"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Grid template areas",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Grid_template_areas",
+        "verified": true
+      }
+    ],
+    "notes": "MDN itself calls it the ascii-art method, which is the phrase most designers recognise."
+  },
+  {
+    "name": "Multi-window mode",
+    "slug": "multi-window-mode",
+    "category": "layout",
+    "definition": "A windowing mode where two or more apps share one screen, side by side, stacked, or as freeform windows, so every app must survive being any size.",
+    "useWhen": "the app is only part of the screen",
+    "aliases": [
+      {
+        "name": "split-screen mode",
+        "source": "android"
+      },
+      {
+        "name": "freeform windowing",
+        "source": "android"
+      },
+      {
+        "name": "desktop windowing",
+        "source": "android"
+      },
+      {
+        "name": "multitasking layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["window-size-class", "adaptive-layout", "device-posture", "split-view", "picture-in-picture"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Support multi-window mode, Android Developers",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/support-multi-window-mode"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Multi-window mode",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/support-multi-window-mode",
+        "verified": true
+      }
+    ],
+    "notes": "The reason window-size-class exists: the window, not the device, is what a layout responds to. Apple's Stage Manager is the same idea, unverified this sweep."
+  },
+  {
+    "name": "Picture in picture",
+    "slug": "picture-in-picture",
+    "category": "layout",
+    "definition": "A small always on top window that keeps video or navigation visible in a corner while the reader works in another app or scrolls another page.",
+    "useWhen": "keeping video visible while doing something else",
+    "aliases": [
+      {
+        "name": "PiP",
+        "source": "android"
+      },
+      {
+        "name": "mini player",
+        "source": "community"
+      },
+      {
+        "name": "floating player",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["multi-window-mode", "top-layer", "sticky-header", "scroll-container"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Use picture-in-picture (PiP), Android Developers",
+        "url": "https://developer.android.com/develop/ui/views/picture-in-picture"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Picture-in-picture",
+        "url": "https://developer.android.com/develop/ui/views/picture-in-picture",
+        "verified": true
+      }
+    ],
+    "notes": "Cross category: could sit with components. Captured here because it is a window mode, and because the web now has a Document Picture-in-Picture API."
+  },
+  {
+    "name": "Proximity",
+    "slug": "proximity",
+    "category": "layout",
+    "definition": "The grouping principle that elements placed close together read as related, which is why spacing decides perceived structure more reliably than borders do.",
+    "useWhen": "arguing that spacing, not lines, makes groups",
+    "aliases": [
+      {
+        "name": "law of proximity",
+        "source": "community"
+      },
+      {
+        "name": "Gestalt proximity",
+        "source": "nngroup"
+      },
+      {
+        "name": "grouping by proximity",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["whitespace", "common-region", "density", "spacing-scale", "visual-hierarchy"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Proximity Principle in Visual Design, NN/g",
+        "url": "https://www.nngroup.com/articles/gestalt-proximity/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The classic failure case makes a good demo: a label sitting nearer the wrong field than its own."
+  },
+  {
+    "name": "Common region",
+    "slug": "common-region",
+    "category": "layout",
+    "definition": "The grouping principle that anything inside a shared boundary reads as one group, strong enough to beat how far apart the items actually are.",
+    "useWhen": "when a container has to beat the spacing",
+    "aliases": [
+      {
+        "name": "law of common region",
+        "source": "community"
+      },
+      {
+        "name": "Gestalt common region",
+        "source": "nngroup"
+      },
+      {
+        "name": "container grouping",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["proximity", "box", "whitespace", "density"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Principle of Common Region: Containers Create Groupings, NN/g",
+        "url": "https://www.nngroup.com/articles/common-region/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Pairs with proximity as a contrast set, and explains why cards work and why too many boxes stop working."
+  },
+  {
+    "name": "Justified gallery",
+    "slug": "justified-gallery",
+    "category": "layout",
+    "definition": "A photo grid that scales and trims images so every row lands on one shared height with flush left and right edges, unlike masonry's ragged columns.",
+    "useWhen": "photos of mixed shapes in tidy flush rows",
+    "aliases": [
+      {
+        "name": "justified layout",
+        "source": "flickr"
+      },
+      {
+        "name": "mosaic layout",
+        "source": "community"
+      },
+      {
+        "name": "justified image grid",
+        "source": "community"
+      },
+      {
+        "name": "Flickr style gallery",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["masonry", "card-grid", "aspect-ratio-box", "gutter"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Justified Layout by Flickr",
+        "url": "https://flickr.github.io/justified-layout/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "flickr-justified-layout",
+        "name": "Justified Layout",
+        "url": "https://flickr.github.io/justified-layout/",
+        "verified": true
+      }
+    ],
+    "notes": "The contrast partner for masonry, which is already a site term: masonry keeps widths and varies heights, a justified gallery keeps heights and varies widths."
+  },
+  {
+    "name": "Compound grid",
+    "slug": "compound-grid",
+    "category": "layout",
+    "definition": "Two or more grids of different column counts overlaid in one layout, so a page can carry several rhythms while still sharing one structure.",
+    "useWhen": "one page needing two different column rhythms",
+    "aliases": [
+      {
+        "name": "compound grids",
+        "source": "community"
+      },
+      {
+        "name": "overlaid grids",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "modular-grid", "twelve-column-grid", "baseline-grid", "subgrid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Five simple steps to designing grid systems, part 4, Mark Boulton",
+        "url": "https://markboulton.co.uk/journal/five-simple-steps-to-designing-grid-systems-part-4/"
+      },
+      {
+        "title": "Mark Boulton on grids and responsive web design, Creative Bloq",
+        "url": "https://www.creativebloq.com/design/mark-boulton-grids-and-responsive-web-design-7135509"
+      }
+    ],
+    "implementations": [],
+    "notes": "Swiss theory from the 1960s that desktop publishing made impractical and CSS grid made easy again. Good tail term with a strong demo."
+  },
+  {
+    "name": "Density independent pixel",
+    "slug": "density-independent-pixel",
+    "category": "layout",
+    "definition": "A virtual unit of length that stays the same physical size across screen densities, so one number can describe a layout on every device.",
+    "useWhen": "why sizes are written in dp, pt or CSS px",
+    "aliases": [
+      {
+        "name": "dp",
+        "source": "android"
+      },
+      {
+        "name": "dip",
+        "source": "community"
+      },
+      {
+        "name": "device independent pixel",
+        "source": "community"
+      },
+      {
+        "name": "effective pixel",
+        "source": "fluent"
+      }
+    ],
+    "relatedSlugs": ["density", "spacing-scale", "breakpoint", "eight-point-grid", "viewport"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Support different pixel densities, Android Developers",
+        "url": "https://developer.android.com/training/multiscreen/screendensities"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Density-independent pixel (dp)",
+        "url": "https://developer.android.com/training/multiscreen/screendensities",
+        "verified": true
+      }
+    ],
+    "notes": "One idea under four names: dp on Android, pt on Apple platforms, effective pixel on Windows, CSS pixel on the web. Android's sp is the text variant that follows the user's font size."
+  },
+  {
+    "name": "Golden ratio",
+    "slug": "golden-ratio",
+    "category": "layout",
+    "definition": "The proportion of roughly 1 to 1.618 used to divide a layout, so its parts relate to each other by a rule instead of by arbitrary numbers.",
+    "useWhen": "picking proportions that are not arbitrary",
+    "aliases": [
+      {
+        "name": "divine proportion",
+        "source": "community"
+      },
+      {
+        "name": "golden section",
+        "source": "community"
+      },
+      {
+        "name": "phi grid",
+        "source": "community"
+      },
+      {
+        "name": "1.618",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["rule-of-thirds", "modular-grid", "layout-grid", "visual-balance", "spacing-scale"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "A designer's guide to the Golden Ratio, Creative Bloq",
+        "url": "https://www.creativebloq.com/design/designers-guide-golden-ratio-12121546"
+      }
+    ],
+    "implementations": [],
+    "notes": "Round one has rule-of-thirds but not its parent. The honest article says the maths is often applied after the fact, and shows the 38/62 split it implies."
+  },
+  {
+    "name": "Visual balance",
+    "slug": "visual-balance",
+    "category": "layout",
+    "definition": "The distribution of visual weight across a composition, reached by mirroring elements, by setting one large element against several small ones, or by radiating from a centre.",
+    "useWhen": "saying why a layout feels tippy or settled",
+    "aliases": [
+      {
+        "name": "symmetrical balance",
+        "source": "community"
+      },
+      {
+        "name": "asymmetrical balance",
+        "source": "community"
+      },
+      {
+        "name": "radial balance",
+        "source": "community"
+      },
+      {
+        "name": "compositional balance",
+        "source": "community"
+      },
+      {
+        "name": "visual weight",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["focal-point", "whitespace", "optical-alignment", "visual-hierarchy", "rule-of-thirds"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Principles: Compositional, Symmetrical And Asymmetrical Balance, Smashing Magazine",
+        "url": "https://www.smashingmagazine.com/2015/06/design-principles-compositional-balance-symmetry-asymmetry/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Visual weight is folded in as an alias but may deserve splitting out: it is the property, balance is the arrangement."
+  },
+  {
+    "name": "Focal point",
+    "slug": "focal-point",
+    "category": "layout",
+    "definition": "The one element a composition is built around, given enough size, contrast or isolation that the eye lands there before anywhere else.",
+    "useWhen": "naming the thing the eye should hit first",
+    "aliases": [
+      {
+        "name": "center of interest",
+        "source": "community"
+      },
+      {
+        "name": "dominant element",
+        "source": "community"
+      },
+      {
+        "name": "visual anchor",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["visual-hierarchy", "visual-balance", "hero", "whitespace", "rule-of-thirds"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Principles: Compositional, Symmetrical And Asymmetrical Balance, Smashing Magazine",
+        "url": "https://www.smashingmagazine.com/2015/06/design-principles-compositional-balance-symmetry-asymmetry/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The demo writes itself: one layout with two competing focal points, one with a single clear one."
+  },
+  {
+    "name": "Overview plus detail",
+    "slug": "overview-plus-detail",
+    "category": "layout",
+    "definition": "A layout that shows a compressed overview and a detailed view at the same time in separate regions, so the reader keeps their place while inspecting one part.",
+    "useWhen": "a map or minimap kept beside the detail",
+    "aliases": [
+      {
+        "name": "overview+detail",
+        "source": "community"
+      },
+      {
+        "name": "overview and detail",
+        "source": "community"
+      },
+      {
+        "name": "minimap pane",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["focus-plus-context", "split-view", "list-detail", "minimap"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "A Review of Overview+Detail, Zooming, and Focus+Context Interfaces, Cockburn, Karlson and Bederson",
+        "url": "https://dl.acm.org/doi/10.1145/1456650.1456652"
+      }
+    ],
+    "implementations": [],
+    "notes": "The formal name for the code editor minimap, the map inset and the page thumbnails rail. Its contrast partner is focus-plus-context."
+  },
+  {
+    "name": "Focus plus context",
+    "slug": "focus-plus-context",
+    "category": "layout",
+    "definition": "A layout that keeps one region in full detail inside its own surroundings, shrinking or dimming the context instead of moving it into a second pane.",
+    "useWhen": "detail and its surroundings in one view",
+    "aliases": [
+      {
+        "name": "focus+context",
+        "source": "community"
+      },
+      {
+        "name": "detail in place",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["overview-plus-detail", "fisheye-view", "inspector", "sidenote"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "A Review of Overview+Detail, Zooming, and Focus+Context Interfaces, Cockburn, Karlson and Bederson",
+        "url": "https://dl.acm.org/doi/10.1145/1456650.1456652"
+      }
+    ],
+    "implementations": [],
+    "notes": "Useful because it names what expanding a row in place does, as against opening a detail pane."
+  },
+  {
+    "name": "Fisheye view",
+    "slug": "fisheye-view",
+    "category": "layout",
+    "definition": "A focus plus context display that magnifies whatever has attention and progressively compresses everything further away, like a lens dragged along a list.",
+    "useWhen": "magnifying one item without hiding the rest",
+    "aliases": [
+      {
+        "name": "fisheye distortion",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["focus-plus-context", "overview-plus-detail", "density", "thumb-zone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "A Review of Overview+Detail, Zooming, and Focus+Context Interfaces, Cockburn, Karlson and Bederson",
+        "url": "https://dl.acm.org/doi/10.1145/1456650.1456652"
+      }
+    ],
+    "implementations": [],
+    "notes": "The motion sweep already has dock magnification, which is one instance of this. Keep fisheye-view as the general display technique and let canonicalize decide the parent."
+  },
+  {
+    "name": "Semantic zoom",
+    "slug": "semantic-zoom",
+    "category": "layout",
+    "definition": "Switching between two views of the same content, a zoomed out view of group headings and a zoomed in view of individual items, instead of scaling pixels.",
+    "useWhen": "zooming out to headings, not to smaller text",
+    "aliases": [
+      {
+        "name": "SemanticZoom",
+        "source": "fluent"
+      },
+      {
+        "name": "zoomed out view",
+        "source": "fluent"
+      },
+      {
+        "name": "zoomed in view",
+        "source": "fluent"
+      }
+    ],
+    "relatedSlugs": ["overview-plus-detail", "focus-plus-context", "scroll-spy", "table-of-contents"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Semantic zoom, Microsoft Learn",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/controls/semantic-zoom"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fluent",
+        "name": "Semantic zoom",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/design/controls/semantic-zoom",
+        "verified": true
+      }
+    ],
+    "notes": "A Windows 8 idea worth reviving as vocabulary: it names what a jump list, a year view in a calendar and a map's label thinning all do."
+  },
+  {
+    "name": "Object fit",
+    "slug": "object-fit",
+    "category": "layout",
+    "definition": "How a picture or video is resized inside a box whose shape it does not match: stretched to fill, letterboxed to fit whole, or cropped to cover every edge.",
+    "useWhen": "choosing between cropping and letterboxing",
+    "aliases": [
+      {
+        "name": "object-fit",
+        "source": "css"
+      },
+      {
+        "name": "aspect fill",
+        "source": "community"
+      },
+      {
+        "name": "aspect fit",
+        "source": "community"
+      },
+      {
+        "name": "scale to fill",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["aspect-ratio-box", "letterboxing", "full-bleed", "card-grid", "justified-gallery"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "object-fit, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "object-fit",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit",
+        "verified": true
+      }
+    ],
+    "notes": "The everyday cover versus contain decision, and the term that ties letterboxing and pillarboxing to a real property. Pairs with object-position, which chooses what the crop keeps."
+  },
+  {
+    "name": "Overscan safe area",
+    "slug": "overscan-safe-area",
+    "category": "layout",
+    "definition": "The inset a television layout keeps clear of the screen edge, about five percent, because sets crop the outer frame and anything near it disappears.",
+    "useWhen": "laying out for a screen that crops its own edges",
+    "aliases": [
+      {
+        "name": "title safe area",
+        "source": "community"
+      },
+      {
+        "name": "action safe area",
+        "source": "community"
+      },
+      {
+        "name": "overscan margin",
+        "source": "android"
+      },
+      {
+        "name": "TV safe area",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["safe-area", "layout-margins", "edge-to-edge", "letterboxing", "display-cutout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layouts in the Leanback UI toolkit, Android Developers",
+        "url": "https://developer.android.com/training/tv/playback/leanback/layouts"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Overscan-safe area",
+        "url": "https://developer.android.com/training/tv/playback/leanback/layouts",
+        "verified": true
+      }
+    ],
+    "notes": "Broadcast vocabulary that survived into TV app design: 48dp by 27dp on a 960 by 540 layout. Sibling of safe-area on phones and display-cutout."
+  },
+  {
+    "name": "Page break",
+    "slug": "page-break",
+    "category": "layout",
+    "definition": "Where content is cut to continue in the next fragment, a printed page, a column or a region, and the rules that stop a heading being stranded at the cut.",
+    "useWhen": "controlling where printed or column content splits",
+    "aliases": [
+      {
+        "name": "CSS fragmentation",
+        "source": "mdn"
+      },
+      {
+        "name": "fragmentainer",
+        "source": "css"
+      },
+      {
+        "name": "break-inside",
+        "source": "css"
+      },
+      {
+        "name": "break-before",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["text-columns", "magazine-layout", "baseline-grid", "sidenote"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS fragmentation, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fragmentation"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "CSS fragmentation",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fragmentation",
+        "verified": true
+      }
+    ],
+    "notes": "The layout side of the widow and orphan terms the typography sweep already has. Print stylesheets are the case nobody tests until someone prints an invoice."
+  },
+  {
+    "name": "Pancake stack",
+    "slug": "pancake-stack",
+    "category": "layout",
+    "definition": "A three row page where the header and footer take only the height they need and the middle row absorbs every remaining pixel, even when the content is short.",
+    "useWhen": "header, body, footer with the body taking the slack",
+    "aliases": [
+      {
+        "name": "pancake",
+        "source": "web-dev"
+      },
+      {
+        "name": "auto 1fr auto",
+        "source": "css"
+      },
+      {
+        "name": "full height page",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sticky-footer", "holy-grail-layout", "app-shell", "cover"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Pancake stack, web.dev layout patterns",
+        "url": "https://web.dev/patterns/layout/pancake-stack/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "web-dev",
+        "name": "Pancake Stack",
+        "url": "https://web.dev/patterns/layout/pancake-stack/",
+        "verified": true
+      }
+    ],
+    "notes": "From Una Kravets' ten one line layouts. The vocabulary designers actually use for the problem sticky-footer used to solve with hacks."
+  },
+  {
+    "name": "Deconstructed pancake",
+    "slug": "deconstructed-pancake",
+    "category": "layout",
+    "definition": "A row of equal cards that wraps to fewer per line as space runs out, with the last line left aligned at its natural size rather than stretched to fill.",
+    "useWhen": "a wrapping row whose last line should not stretch",
+    "aliases": [
+      {
+        "name": "the deconstructed pancake",
+        "source": "web-dev"
+      },
+      {
+        "name": "wrapping flex row",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["card-grid", "cluster", "ram-technique", "switcher"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Deconstructed pancake, web.dev layout patterns",
+        "url": "https://web.dev/patterns/layout/deconstructed-pancake/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "web-dev",
+        "name": "The Deconstructed Pancake",
+        "url": "https://web.dev/patterns/layout/deconstructed-pancake/",
+        "verified": true
+      }
+    ],
+    "notes": "The named contrast to the RAM technique: flex basis with wrapping versus auto-fit tracks. Worth one demo showing both side by side."
+  },
+  {
+    "name": "RAM technique",
+    "slug": "ram-technique",
+    "category": "layout",
+    "definition": "A grid that decides its own column count from a minimum item width, so the same one line rule works at every screen size without a single breakpoint.",
+    "useWhen": "a grid that reflows with no breakpoints at all",
+    "aliases": [
+      {
+        "name": "RAM",
+        "source": "web-dev"
+      },
+      {
+        "name": "repeat auto minmax",
+        "source": "web-dev"
+      },
+      {
+        "name": "auto-fit minmax",
+        "source": "community"
+      },
+      {
+        "name": "auto-fill",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["card-grid", "layout-grid", "intrinsic-web-design", "container-query", "breakpoint"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "RAM (Repeat, Auto, Minmax), web.dev layout patterns",
+        "url": "https://web.dev/patterns/layout/repeat-auto-minmax/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "web-dev",
+        "name": "RAM (Repeat, Auto, Minmax)",
+        "url": "https://web.dev/patterns/layout/repeat-auto-minmax/",
+        "verified": true
+      }
+    ],
+    "notes": "auto-fit collapses empty tracks, auto-fill keeps them: that difference is the whole demo, and it is the one thing people get wrong."
+  },
+  {
+    "name": "Viewport range",
+    "slug": "viewport-range",
+    "category": "layout",
+    "definition": "A named band of viewport widths, narrow, regular or wide, that fixes how many layout columns a page may use, sitting one level above raw breakpoints.",
+    "useWhen": "talking in named width bands, not pixel values",
+    "aliases": [
+      {
+        "name": "viewport ranges",
+        "source": "primer"
+      },
+      {
+        "name": "narrow, regular, wide",
+        "source": "primer"
+      }
+    ],
+    "relatedSlugs": ["breakpoint", "window-size-class", "adaptive-layout", "layout-grid"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Layout, Primer",
+        "url": "https://primer.style/foundations/layout/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Viewport ranges",
+        "url": "https://primer.style/foundations/layout/",
+        "verified": true
+      }
+    ],
+    "notes": "Primer's counterpart to Material's window size classes. Merge candidate with window-size-class: same idea, different platform, and canonicalize should probably keep one with both names."
+  },
+  {
+    "name": "Keyline",
+    "slug": "keyline",
+    "category": "layout",
+    "definition": "An invisible line that content across a whole screen aligns to, such as the edge line every row starts at and the deeper line where text begins after an icon.",
+    "useWhen": "the shared line every row's text starts on",
+    "aliases": [
+      {
+        "name": "keylines",
+        "source": "material"
+      },
+      {
+        "name": "metrics and keylines",
+        "source": "material"
+      },
+      {
+        "name": "alignment line",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["layout-margins", "optical-alignment", "eight-point-grid", "layout-grid", "gutter"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Metrics and keylines, Material Design",
+        "url": "https://m1.material.io/layout/metrics-keylines.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Metrics & keylines",
+        "url": "https://m1.material.io/layout/metrics-keylines.html",
+        "verified": true
+      }
+    ],
+    "notes": "Material 1 vocabulary that outlived its spec: 16dp at the screen edge, 72dp where list text starts after an avatar. The word designers reach for when a list looks ragged."
+  },
+  {
+    "name": "Spanned layout",
+    "slug": "spanned-layout",
+    "category": "layout",
+    "definition": "How an app arranges itself when one window is stretched across two displays, either keeping content clear of the seam or splitting the layout exactly at it.",
+    "useWhen": "one app stretched across two screens",
+    "aliases": [
+      {
+        "name": "spanning",
+        "source": "microsoft-dual-screen"
+      },
+      {
+        "name": "spanned state",
+        "source": "microsoft-dual-screen"
+      },
+      {
+        "name": "seam",
+        "source": "community"
+      },
+      {
+        "name": "display mask",
+        "source": "microsoft-dual-screen"
+      },
+      {
+        "name": "dual-screen layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["device-posture", "multi-window-mode", "split-view", "safe-area", "window-size-class"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Surface Duo device modes, Microsoft Learn",
+        "url": "https://learn.microsoft.com/en-us/dual-screen/design/postures"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "microsoft-dual-screen",
+        "name": "Spanning",
+        "url": "https://learn.microsoft.com/en-us/dual-screen/design/postures",
+        "verified": true
+      }
+    ],
+    "notes": "Sibling of device-posture, which round one captured: posture is the shape of the hinge, spanning is what the layout does about it. The web version is the viewport segments API."
+  },
+  {
+    "name": "Column offset",
+    "slug": "column-offset",
+    "category": "layout",
+    "definition": "Pushing a column away from the grid's start so it begins on a later line, leaving deliberate empty tracks rather than an element to fill them.",
+    "useWhen": "starting a column part way across the grid",
+    "aliases": [
+      {
+        "name": "offset column",
+        "source": "bootstrap"
+      },
+      {
+        "name": "push and pull columns",
+        "source": "community"
+      },
+      {
+        "name": "grid offset",
+        "source": "community"
+      },
+      {
+        "name": "indented column",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["layout-grid", "twelve-column-grid", "gutter", "named-grid-areas", "whitespace"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Columns, Bootstrap",
+        "url": "https://getbootstrap.com/docs/5.3/layout/columns/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "bootstrap",
+        "name": "Offsetting columns",
+        "url": "https://getbootstrap.com/docs/5.3/layout/columns/",
+        "verified": true
+      }
+    ],
+    "notes": "Push and pull are the older float era names for the same move, and they also reordered columns, which is why source order and visual order came apart."
+  },
+  {
+    "name": "Grid lanes",
+    "slug": "grid-lanes",
+    "category": "layout",
+    "definition": "The native masonry mechanism in CSS grid, where one axis keeps strict tracks and the other lets items stack into whichever lane has room.",
+    "useWhen": "masonry without a library, straight from grid",
+    "aliases": [
+      {
+        "name": "display: grid-lanes",
+        "source": "css"
+      },
+      {
+        "name": "grid-lanes layout",
+        "source": "mdn"
+      },
+      {
+        "name": "stacking axis",
+        "source": "mdn"
+      },
+      {
+        "name": "CSS grid level 3",
+        "source": "w3c"
+      }
+    ],
+    "relatedSlugs": ["masonry", "card-grid", "layout-grid", "subgrid", "ram-technique"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Masonry layout, MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout"
+      },
+      {
+        "title": "CSS Grid Layout Module Level 3",
+        "url": "https://www.w3.org/TR/css-grid-3/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Masonry layout (grid-lanes)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout",
+        "verified": true
+      }
+    ],
+    "notes": "Masonry is already a site term; this is the mechanism and the newer name for it. The naming argument itself, item-flow versus grid-lanes, is part of the story worth telling."
+  },
+  {
+    "name": "Responsive upscaling",
+    "slug": "responsive-upscaling",
+    "category": "layout",
+    "definition": "Designing what a layout does with the space it gains on very wide screens, rather than only what it drops as screens narrow.",
+    "useWhen": "the layout has more room than it knows what to do with",
+    "aliases": [
+      {
+        "name": "upscaling",
+        "source": "baymard"
+      },
+      {
+        "name": "large screen design",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["responsive-web-design", "mobile-first", "container", "breakpoint", "density"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Responsive Upscaling: 11 Ideas for Large-Screen E-Commerce Design, Baymard",
+        "url": "https://baymard.com/blog/responsive-upscaling"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "baymard",
+        "name": "Responsive upscaling",
+        "url": "https://baymard.com/blog/responsive-upscaling",
+        "verified": true
+      }
+    ],
+    "notes": "A Baymard coinage, so canonicalize should judge whether it has escaped one vendor. It names the neglected half of responsive design: everything above the widest breakpoint."
+  },
+  {
+    "name": "Infinite canvas",
+    "slug": "infinite-canvas",
+    "category": "layout",
+    "definition": "A workspace with no page edges, where content is placed anywhere in an unbounded plane and the viewport pans and zooms over it instead of scrolling a document.",
+    "useWhen": "a board with no page, only a viewport over it",
+    "aliases": [
+      {
+        "name": "unbounded canvas",
+        "source": "community"
+      },
+      {
+        "name": "whiteboard canvas",
+        "source": "community"
+      },
+      {
+        "name": "spatial canvas",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["viewport", "overview-plus-detail", "scroll-container", "kanban-board", "dashboard-grid"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "tldraw: Infinite Canvas SDK",
+        "url": "https://tldraw.dev/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tldraw",
+        "name": "Infinite canvas",
+        "url": "https://tldraw.dev/",
+        "verified": true
+      }
+    ],
+    "notes": "The layout model behind Figma, Miro, tldraw and node editors. Round one has minimap and pan and zoom in other sweeps but never named the surface itself."
+  }
+]

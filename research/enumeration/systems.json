@@ -1,0 +1,2282 @@
+[
+  {
+    "id": "aria-apg",
+    "name": "ARIA Authoring Practices Guide",
+    "vendor": "W3C Web Accessibility Initiative",
+    "kind": "spec",
+    "docsUrl": "https://www.w3.org/WAI/ARIA/apg/patterns/",
+    "repoUrl": "https://github.com/w3c/aria-practices",
+    "availability": "open-source",
+    "license": "W3C Software and Document License",
+    "trust": {
+      "githubStars": 1338,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "33 patterns confirmed live at the patterns index. GitHub reports no SPDX license (the repo carries the W3C document licence). The naming authority for keyboard and role semantics, so it outranks any library on pattern names."
+  },
+  {
+    "id": "material",
+    "name": "Material Design 3",
+    "vendor": "Google",
+    "kind": "design-system",
+    "docsUrl": "https://m3.material.io/components",
+    "repoUrl": "https://github.com/material-components/material-web",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 11161,
+      "npmPackage": "@material/web",
+      "npmWeeklyDownloads": 132665,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Platform authority for Android and Google surfaces. The guidelines carry the vocabulary (snackbar, FAB, bottom sheet); the web component package is far smaller than the guidelines' influence."
+  },
+  {
+    "id": "hig",
+    "name": "Apple Human Interface Guidelines",
+    "vendor": "Apple",
+    "kind": "design-system",
+    "docsUrl": "https://developer.apple.com/design/human-interface-guidelines/components",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Free to read, no source repository, no npm presence. Platform authority for Apple platforms and the source of several headwords (action sheet, popover, segmented control)."
+  },
+  {
+    "id": "fluent",
+    "name": "Fluent 2",
+    "vendor": "Microsoft",
+    "kind": "design-system",
+    "docsUrl": "https://fluent2.microsoft.design/components/web/react",
+    "repoUrl": "https://github.com/microsoft/fluentui",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 20200,
+      "npmPackage": "@fluentui/react-components",
+      "npmWeeklyDownloads": 416285,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Platform authority for Windows and Microsoft 365 surfaces. GitHub reports no SPDX license for the monorepo (custom LICENSE with trademark terms), though the packages are MIT in practice; treated as unverified here."
+  },
+  {
+    "id": "carbon",
+    "name": "Carbon Design System",
+    "vendor": "IBM",
+    "kind": "design-system",
+    "docsUrl": "https://carbondesignsystem.com/",
+    "repoUrl": "https://github.com/carbon-design-system/carbon",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 9345,
+      "npmPackage": "@carbon/react",
+      "npmWeeklyDownloads": 154622,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Very active repo (pushed the day of the sweep). Enterprise vocabulary source: data table, structured list, notification, tearsheet."
+  },
+  {
+    "id": "polaris",
+    "name": "Shopify Polaris",
+    "vendor": "Shopify",
+    "kind": "design-system",
+    "docsUrl": "https://shopify.dev/docs/api/polaris",
+    "repoUrl": "https://github.com/Shopify/polaris-react-archive",
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": 6174,
+      "npmPackage": "@shopify/polaris",
+      "npmWeeklyDownloads": 243786,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Changed shape since the SPEC registry was written. polaris.shopify.com now 301s to shopify.dev/docs/api/polaris, Shopify/polaris was renamed to Shopify/polaris-react-archive, and npm carries a deprecation: Polaris React is no longer maintained, use Polaris web components. Web component source is not public. Keep the entry (it owns terms like index table and banner) but de-rank the React docs."
+  },
+  {
+    "id": "radix",
+    "name": "Radix Primitives",
+    "vendor": "WorkOS",
+    "kind": "component-library",
+    "docsUrl": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+    "repoUrl": "https://github.com/radix-ui/primitives",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 19153,
+      "npmPackage": "@radix-ui/react-dialog",
+      "npmWeeklyDownloads": 69675668,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Download figure is for the dialog package alone, the usual proxy since Radix publishes per component. The de facto naming source for the React ecosystem (Toggle Group, Collapsible, Hover Card)."
+  },
+  {
+    "id": "base-ui",
+    "name": "Base UI",
+    "vendor": "MUI",
+    "kind": "component-library",
+    "docsUrl": "https://base-ui.com/react/overview/quick-start",
+    "repoUrl": "https://github.com/mui/base-ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 10593,
+      "npmPackage": "@base-ui/react",
+      "npmWeeklyDownloads": 9506531,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Package renamed: v1 ships as @base-ui/react (9.5M/week), while the older @base-ui-components/react is down to 427,426/week. Built by people from Radix, Floating UI and MUI."
+  },
+  {
+    "id": "shadcn",
+    "name": "shadcn/ui",
+    "vendor": "shadcn (Vercel)",
+    "kind": "component-library",
+    "docsUrl": "https://ui.shadcn.com/docs/components",
+    "repoUrl": "https://github.com/shadcn-ui/ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 120985,
+      "npmPackage": "shadcn",
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": true,
+    "notes": "Distributed as a copy-in code registry plus a CLI, so npm downloads do not measure adoption and are left null. Highest star count in this registry by a wide margin, which makes its component names (Sheet, Sonner, Combobox) unusually load bearing."
+  },
+  {
+    "id": "ant-design",
+    "name": "Ant Design",
+    "vendor": "Ant Group",
+    "kind": "design-system",
+    "docsUrl": "https://ant.design/components/overview/",
+    "repoUrl": "https://github.com/ant-design/ant-design",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 99020,
+      "npmPackage": "antd",
+      "npmWeeklyDownloads": 3621277,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Enterprise React system with its own vocabulary (Cascader, Transfer, Descriptions, Anchor) that several terms will need as an alias source."
+  },
+  {
+    "id": "chakra",
+    "name": "Chakra UI",
+    "vendor": "Chakra Systems",
+    "kind": "component-library",
+    "docsUrl": "https://chakra-ui.com/docs/components",
+    "repoUrl": "https://github.com/chakra-ui/chakra-ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 40567,
+      "npmPackage": "@chakra-ui/react",
+      "npmWeeklyDownloads": 1739277,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Same team as Ark UI and Zag. v3 is built on Ark, so Chakra and Ark rows will often agree on a name."
+  },
+  {
+    "id": "mantine",
+    "name": "Mantine",
+    "vendor": "Mantine (Vitaly Rtishchev)",
+    "kind": "component-library",
+    "docsUrl": "https://mantine.dev/",
+    "repoUrl": "https://github.com/mantinedev/mantine",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 31537,
+      "npmPackage": "@mantine/core",
+      "npmWeeklyDownloads": 2325508,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Large surface area, useful for long tail component names (Spotlight, Affix, NavLink, SegmentedControl)."
+  },
+  {
+    "id": "mui",
+    "name": "Material UI",
+    "vendor": "MUI",
+    "kind": "component-library",
+    "docsUrl": "https://mui.com/material-ui/all-components/",
+    "repoUrl": "https://github.com/mui/material-ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 98724,
+      "npmPackage": "@mui/material",
+      "npmWeeklyDownloads": 10151560,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A React reading of Material, distinct from Google's own Material entry. Some MUI parts (X Data Grid Pro, Premium) sit behind a commercial licence, so a term row pointing at MUI X should be checked before it is trusted as free."
+  },
+  {
+    "id": "bootstrap",
+    "name": "Bootstrap",
+    "vendor": "Bootstrap Core Team",
+    "kind": "css-framework",
+    "docsUrl": "https://getbootstrap.com/docs/5.3/components/",
+    "repoUrl": "https://github.com/twbs/bootstrap",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 174565,
+      "npmPackage": "bootstrap",
+      "npmWeeklyDownloads": 6286548,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Historically the source of the most widely spoken component names in the industry (jumbotron, navbar, well, modal), which makes it valuable as an alias source even where it is no longer the recommended implementation."
+  },
+  {
+    "id": "atlassian",
+    "name": "Atlassian Design System",
+    "vendor": "Atlassian",
+    "kind": "design-system",
+    "docsUrl": "https://atlassian.design/components",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": "@atlaskit/button",
+      "npmWeeklyDownloads": 216897,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Partially gated in an unusual way: docs are public and packages ship to npm under Apache-2.0, but there is no GitHub repository. The npm metadata points at a read only Bitbucket mirror (bitbucket.org/atlassian/atlassian-frontend-mirror), so stars are null and repoUrl is left null rather than pointing at a mirror."
+  },
+  {
+    "id": "spectrum",
+    "name": "Adobe Spectrum",
+    "vendor": "Adobe",
+    "kind": "design-system",
+    "docsUrl": "https://spectrum.adobe.com/",
+    "repoUrl": "https://github.com/adobe/react-spectrum",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 15781,
+      "npmPackage": "@adobe/react-spectrum",
+      "npmWeeklyDownloads": 1015305,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Three implementations under one design system: React Spectrum (this row), Spectrum Web Components (adobe/spectrum-web-components, 1,529 stars, Apache-2.0), and Spectrum CSS. The headless layer underneath is recorded separately as react-aria."
+  },
+  {
+    "id": "primer",
+    "name": "Primer",
+    "vendor": "GitHub",
+    "kind": "design-system",
+    "docsUrl": "https://primer.style/components",
+    "repoUrl": "https://github.com/primer/react",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 3882,
+      "npmPackage": "@primer/react",
+      "npmWeeklyDownloads": 53501,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Low downloads relative to influence, because Primer is mostly consumed inside GitHub itself. @primer/primitives runs higher at 104,070/week. Ships React, Rails and CSS implementations."
+  },
+  {
+    "id": "lightning",
+    "name": "Salesforce Lightning Design System",
+    "vendor": "Salesforce",
+    "kind": "design-system",
+    "docsUrl": "https://www.lightningdesignsystem.com/",
+    "repoUrl": "https://github.com/salesforce-ux/design-system",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 3699,
+      "npmPackage": "@salesforce-ux/design-system",
+      "npmWeeklyDownloads": 54651,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Now presenting as Lightning Design System 2. GitHub reports no SPDX license (custom BSD style file with Salesforce trademark terms). Repo pushed 2026-06-02, so slower than most peers but not stale."
+  },
+  {
+    "id": "govuk",
+    "name": "GOV.UK Design System",
+    "vendor": "UK Government Digital Service",
+    "kind": "design-system",
+    "docsUrl": "https://design-system.service.gov.uk/components/",
+    "repoUrl": "https://github.com/alphagov/govuk-frontend",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 1438,
+      "npmPackage": "govuk-frontend",
+      "npmWeeklyDownloads": 247678,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Docs are under the Open Government Licence v3.0 and the code is MIT, both confirmed on the components index. High trust for plain language naming and for accessibility-first patterns (error summary, task list, cookie banner)."
+  },
+  {
+    "id": "uswds",
+    "name": "U.S. Web Design System",
+    "vendor": "U.S. General Services Administration",
+    "kind": "design-system",
+    "docsUrl": "https://designsystem.digital.gov/components/overview/",
+    "repoUrl": "https://github.com/uswds/uswds",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 7146,
+      "npmPackage": "@uswds/uswds",
+      "npmWeeklyDownloads": 69310,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "47 components on the index. GitHub reports no SPDX license; USWDS is published as a US Government work (public domain) with a custom LICENSE file, so the field is left null rather than guessed."
+  },
+  {
+    "id": "nord",
+    "name": "Nord Design System",
+    "vendor": "Nordhealth",
+    "kind": "design-system",
+    "docsUrl": "https://nordhealth.design/components/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": "@nordhealth/components",
+      "npmWeeklyDownloads": 13840,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Source is not public. The nordhealth GitHub org holds only example projects and the Adele design system index, no component repo, and the npm package declares SEE LICENSE IN LICENSE.md. Docs are free and unusually well written, so keep it but rank it below open systems."
+  },
+  {
+    "id": "orbit",
+    "name": "Orbit",
+    "vendor": "Kiwi.com",
+    "kind": "design-system",
+    "docsUrl": "https://orbit.kiwi/components/",
+    "repoUrl": "https://github.com/kiwicom/orbit",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 1438,
+      "npmPackage": "@kiwicom/orbit-components",
+      "npmWeeklyDownloads": 261367,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "orbit.kiwi failed to resolve from this sweep's fetcher (DNS), so the docs URL is taken from the repo homepage field rather than a successful page load. Worth re-checking before any row links to it."
+  },
+  {
+    "id": "garden",
+    "name": "Zendesk Garden",
+    "vendor": "Zendesk",
+    "kind": "design-system",
+    "docsUrl": "https://garden.zendesk.com/components",
+    "repoUrl": "https://github.com/zendeskgarden/react-components",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 1110,
+      "npmPackage": "@zendeskgarden/react-buttons",
+      "npmWeeklyDownloads": 79239,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Garden 9 is current. Published per component on npm, so the buttons package stands in for the whole."
+  },
+  {
+    "id": "cloudscape",
+    "name": "Cloudscape Design System",
+    "vendor": "Amazon Web Services",
+    "kind": "design-system",
+    "docsUrl": "https://cloudscape.design/components/",
+    "repoUrl": "https://github.com/cloudscape-design/components",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 2627,
+      "npmPackage": "@cloudscape-design/components",
+      "npmWeeklyDownloads": 118182,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Strong source for console and data-dense vocabulary (app layout, flashbar, property filter, wizard, split panel)."
+  },
+  {
+    "id": "elastic-eui",
+    "name": "Elastic UI Framework",
+    "vendor": "Elastic",
+    "kind": "design-system",
+    "docsUrl": "https://eui.elastic.co/",
+    "repoUrl": "https://github.com/elastic/eui",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 6343,
+      "npmPackage": "@elastic/eui",
+      "npmWeeklyDownloads": 424072,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Licence is the sticking point: the docs site states dual licensing under Elastic License 2.0 and SSPL v1, neither of which is OSI open source. Availability is recorded as open-source (source is readable and free to use) but the licence field is left null and this row should not be described as MIT-style."
+  },
+  {
+    "id": "blueprint",
+    "name": "Blueprint",
+    "vendor": "Palantir",
+    "kind": "component-library",
+    "docsUrl": "https://blueprintjs.com/docs/",
+    "repoUrl": "https://github.com/palantir/blueprint",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 21982,
+      "npmPackage": "@blueprintjs/core",
+      "npmWeeklyDownloads": 483773,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Long lived data-dense React toolkit, still pushed the day of the sweep. Owns names like Omnibar, Callout, Non-ideal state."
+  },
+  {
+    "id": "base-web",
+    "name": "Base Web",
+    "vendor": "Uber",
+    "kind": "design-system",
+    "docsUrl": "https://baseweb.design/",
+    "repoUrl": "https://github.com/uber/baseweb",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 8997,
+      "npmPackage": "baseui",
+      "npmWeeklyDownloads": 64489,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Slowing: last push 2026-07-07 and downloads well below peers of the same star count. Fine as an alias source, weak as a recommendation."
+  },
+  {
+    "id": "heroui",
+    "name": "HeroUI",
+    "vendor": "HeroUI Inc",
+    "kind": "component-library",
+    "docsUrl": "https://www.heroui.com/docs/components/button",
+    "repoUrl": "https://github.com/heroui-inc/heroui",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 30334,
+      "npmPackage": "@heroui/react",
+      "npmWeeklyDownloads": 503736,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Formerly NextUI, so older term data and blog posts will use the old name. Built on React Aria."
+  },
+  {
+    "id": "daisyui",
+    "name": "daisyUI",
+    "vendor": "Pouya Saadeghi",
+    "kind": "css-framework",
+    "docsUrl": "https://daisyui.com/components/",
+    "repoUrl": "https://github.com/saadeghi/daisyui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 42035,
+      "npmPackage": "daisyui",
+      "npmWeeklyDownloads": 916267,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Class-name level naming for Tailwind users. Useful as an alias source, not as an accessibility reference."
+  },
+  {
+    "id": "primereact",
+    "name": "PrimeReact",
+    "vendor": "PrimeTek",
+    "kind": "component-library",
+    "docsUrl": "https://primereact.dev/",
+    "repoUrl": "https://github.com/primefaces/primereact",
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": 8321,
+      "npmPackage": "primereact",
+      "npmWeeklyDownloads": 332977,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Flagged for review. The GitHub repo is archived (2026-06-28), and so are primeng, primevue, primeicons, primeflex and primeuix; the docs site banners a Next Chapter Begins link to PrimeUI. npm still declares SEE LICENSE IN LICENSE.md and no repository field. Docs are live and downloads are healthy, but the open-source repo trail has been closed, so maintained is false pending a look at PrimeUI."
+  },
+  {
+    "id": "web-awesome",
+    "name": "Web Awesome",
+    "vendor": "Font Awesome",
+    "kind": "component-library",
+    "docsUrl": "https://webawesome.com/docs/",
+    "repoUrl": "https://github.com/shoelace-style/webawesome",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 1274,
+      "npmPackage": "@awesome.me/webawesome",
+      "npmWeeklyDownloads": 454102,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Successor to Shoelace, which is now archived (shoelace-style/shoelace, 13,852 stars, archived 2026-05-14, @shoelace-style/shoelace still at 137,905/week). Partially gated: the core library is MIT but a Pro tier exists and the docs offer personalised Pro installation, so some component pages may describe paid parts."
+  },
+  {
+    "id": "pajamas",
+    "name": "Pajamas",
+    "vendor": "GitLab",
+    "kind": "design-system",
+    "docsUrl": "https://design.gitlab.com/components/overview",
+    "repoUrl": "https://gitlab.com/gitlab-org/gitlab-ui",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": "@gitlab/ui",
+      "npmWeeklyDownloads": 66891,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Source lives on GitLab, not GitHub, so githubStars is null by definition and any star-based ranking must not treat that as zero trust."
+  },
+  {
+    "id": "geist",
+    "name": "Geist",
+    "vendor": "Vercel",
+    "kind": "design-system",
+    "docsUrl": "https://vercel.com/geist/introduction",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Docs are public and serve markdown by appending .md to a component URL, which makes them cheap to cite. No public source repo, and the package the docs name (@vercel/geistcn) returned 404 from the npm downloads API during this sweep, so no npm figures are recorded."
+  },
+  {
+    "id": "ark-ui",
+    "name": "Ark UI",
+    "vendor": "Chakra Systems",
+    "kind": "component-library",
+    "docsUrl": "https://ark-ui.com/docs/components/accordion",
+    "repoUrl": "https://github.com/chakra-ui/ark",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 5335,
+      "npmPackage": "@ark-ui/react",
+      "npmWeeklyDownloads": 937465,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Headless and cross framework (React, Solid, Vue, Svelte confirmed on the docs), which makes its part names a good neutral reference when React libraries disagree."
+  },
+  {
+    "id": "headless-ui",
+    "name": "Headless UI",
+    "vendor": "Tailwind Labs",
+    "kind": "component-library",
+    "docsUrl": "https://headlessui.com/",
+    "repoUrl": "https://github.com/tailwindlabs/headlessui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 28705,
+      "npmPackage": "@headlessui/react",
+      "npmWeeklyDownloads": 7177965,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Last push 2026-04-13, the slowest cadence of the healthy headless libraries here. Small component set, so it will only appear on a handful of terms (menu, listbox, combobox, dialog, disclosure, switch)."
+  },
+  {
+    "id": "react-aria",
+    "name": "React Aria Components",
+    "vendor": "Adobe",
+    "kind": "component-library",
+    "docsUrl": "https://react-aria.adobe.com/",
+    "repoUrl": "https://github.com/adobe/react-spectrum",
+    "availability": "open-source",
+    "license": "Apache-2.0",
+    "trust": {
+      "githubStars": 15781,
+      "npmPackage": "react-aria-components",
+      "npmWeeklyDownloads": 3603797,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Docs moved: react-spectrum.adobe.com/react-aria/* now 301s to react-aria.adobe.com. Shares the adobe/react-spectrum repo with the spectrum entry, so star counts are duplicated across the two rows on purpose."
+  },
+  {
+    "id": "melt-ui",
+    "name": "Melt UI",
+    "vendor": "Melt UI",
+    "kind": "component-library",
+    "docsUrl": "https://next.melt-ui.com/",
+    "repoUrl": "https://github.com/melt-ui/melt-ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 4181,
+      "npmPackage": "@melt-ui/svelte",
+      "npmWeeklyDownloads": 192213,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Split across two repos and both are slow. Legacy melt-ui/melt-ui (4,181 stars, @melt-ui/svelte 192,213/week) last pushed 2025-09-30; the Svelte 5 rewrite melt-ui/next-gen (328 stars, npm melt 7,792/week) last pushed 2026-03-04. Marked unmaintained on the strength of both dates, worth re-probing before de-listing."
+  },
+  {
+    "id": "bits-ui",
+    "name": "Bits UI",
+    "vendor": "Huntabyte",
+    "kind": "component-library",
+    "docsUrl": "https://bits-ui.com/docs/components/accordion",
+    "repoUrl": "https://github.com/huntabyte/bits-ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 3472,
+      "npmPackage": "bits-ui",
+      "npmWeeklyDownloads": 936022,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The healthy Svelte headless option now (pushed the day of the sweep, 5x the downloads of Melt). Underpins shadcn-svelte, so its names travel."
+  },
+  {
+    "id": "kobalte",
+    "name": "Kobalte",
+    "vendor": "Kobalte",
+    "kind": "component-library",
+    "docsUrl": "https://kobalte.dev/docs/core/overview/introduction",
+    "repoUrl": "https://github.com/kobaltedev/kobalte",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 1821,
+      "npmPackage": "@kobalte/core",
+      "npmWeeklyDownloads": 347402,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "SolidJS equivalent of Radix, follows WAI-ARIA naming closely."
+  },
+  {
+    "id": "cmdk",
+    "name": "cmdk",
+    "vendor": "Paco Coursey",
+    "kind": "component-library",
+    "docsUrl": "https://cmdk.paco.me/",
+    "repoUrl": "https://github.com/pacocoursey/cmdk",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 12880,
+      "npmPackage": "cmdk",
+      "npmWeeklyDownloads": 43867577,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library: it owns command palette / command menu. Last push 2025-10-29, so it is quiet, but 43.8M weekly downloads (mostly via shadcn/ui) make it the reference implementation regardless."
+  },
+  {
+    "id": "sonner",
+    "name": "Sonner",
+    "vendor": "Emil Kowalski",
+    "kind": "component-library",
+    "docsUrl": "https://sonner.emilkowal.ski/",
+    "repoUrl": "https://github.com/emilkowalski/sonner",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 12805,
+      "npmPackage": "sonner",
+      "npmWeeklyDownloads": 49587516,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library: toast. Its stacking and swipe behaviour is what most people now mean by the word, which is a naming dispute worth recording on the toast term (toast vs snackbar vs notification)."
+  },
+  {
+    "id": "vaul",
+    "name": "Vaul",
+    "vendor": "Emil Kowalski",
+    "kind": "component-library",
+    "docsUrl": "https://vaul.emilkowal.ski/",
+    "repoUrl": "https://github.com/emilkowalski/vaul",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 8545,
+      "npmPackage": "vaul",
+      "npmWeeklyDownloads": 38658911,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library: drawer, specifically the bottom sheet reading of it. Last push 2025-10-03. Directly relevant to the drawer vs bottom sheet vs sheet naming split (Material says bottom sheet, shadcn says Sheet, Vaul says Drawer)."
+  },
+  {
+    "id": "floating-ui",
+    "name": "Floating UI",
+    "vendor": "Floating UI",
+    "kind": "component-library",
+    "docsUrl": "https://floating-ui.com/",
+    "repoUrl": "https://github.com/floating-ui/floating-ui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 32696,
+      "npmPackage": "@floating-ui/dom",
+      "npmWeeklyDownloads": 93011947,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Successor to Popper. Owns the positioning vocabulary that several terms depend on (placement, flip, shift, collision detection, virtual element, anchor)."
+  },
+  {
+    "id": "embla",
+    "name": "Embla Carousel",
+    "vendor": "David Jerleke",
+    "kind": "component-library",
+    "docsUrl": "https://www.embla-carousel.com/",
+    "repoUrl": "https://github.com/davidjerleke/embla-carousel",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 8387,
+      "npmPackage": "embla-carousel",
+      "npmWeeklyDownloads": 37141474,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library: carousel. Its option names (loop, align, slidesToScroll, dragFree) are the current default vocabulary for the term."
+  },
+  {
+    "id": "tanstack-table",
+    "name": "TanStack Table",
+    "vendor": "TanStack",
+    "kind": "component-library",
+    "docsUrl": "https://tanstack.com/table/latest",
+    "repoUrl": "https://github.com/TanStack/table",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 28305,
+      "npmPackage": "@tanstack/react-table",
+      "npmWeeklyDownloads": 17923776,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library in practice: data table / data grid, plus the sub-vocabulary of column pinning, faceted filters, row selection and row models."
+  },
+  {
+    "id": "dnd-kit",
+    "name": "dnd kit",
+    "vendor": "Claudéric Demers",
+    "kind": "component-library",
+    "docsUrl": "https://dndkit.com/",
+    "repoUrl": "https://github.com/clauderic/dnd-kit",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 17514,
+      "npmPackage": "@dnd-kit/core",
+      "npmWeeklyDownloads": 22796204,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library: drag and drop, and the source of the accessible reading of it (droppable, sortable, drag overlay, keyboard sensor, screen reader announcements). docs.dndkit.com now 301s to dndkit.com."
+  },
+  {
+    "id": "tailwind-plus",
+    "name": "Tailwind Plus (with Catalyst)",
+    "vendor": "Tailwind Labs",
+    "kind": "component-library",
+    "docsUrl": "https://tailwindcss.com/plus",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": "Commercial (Tailwind Plus licence)",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Formerly Tailwind UI. One time purchase, 299 USD personal and 979 USD team, covering 500+ UI blocks, 13 templates and the Catalyst React kit. Component pages are behind the purchase, so rows pointing here should be marked paid and never presented as a free starting point. Its block names (stacked list, description list, flyout menu) are still worth recording as aliases."
+  },
+  {
+    "id": "untitled-ui",
+    "name": "Untitled UI",
+    "vendor": "Untitled UI",
+    "kind": "component-library",
+    "docsUrl": "https://www.untitledui.com/react/components/buttons",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": "Commercial (free tier available)",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Partially gated. Individual component pages such as buttons are labelled FREE and are open source, built on React Aria and Tailwind, while the full kits are one time purchases (Figma 139 USD, React 349 USD, Icons 59 USD) behind a Get PRO wall. Availability recorded as paid because the catalogue as a whole is gated even though some pages are readable."
+  },
+  {
+    "id": "smart-interface-design-patterns",
+    "name": "Smart Interface Design Patterns",
+    "vendor": "Vitaly Friedman",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://smart-interface-design-patterns.com/",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Paid video course, 275 USD for lifetime access or 579 USD with live training, 40 lessons over 15 hours. No free pattern pages to link to, so it is a research input rather than an implementation row."
+  },
+  {
+    "id": "mobbin",
+    "name": "Mobbin",
+    "vendor": "Mobbin",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://mobbin.com/",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Unverified this sweep: both mobbin.com and mobbin.com/pricing returned 403 to the fetcher, so availability paid is recorded from the presence of a pricing page and prior knowledge, not from a page read. Screenshot library of shipped apps, useful for real world naming evidence, but it is behind sign-in and should be hidden from public implementation tables."
+  },
+  {
+    "id": "open-ui",
+    "name": "Open UI",
+    "vendor": "W3C Community Group",
+    "kind": "spec",
+    "docsUrl": "https://open-ui.org/",
+    "repoUrl": "https://github.com/openui/open-ui",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 4511,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A W3C Community Group, so it is a research and proposal effort rather than a normative spec; official is false on purpose. Its research pages compare component names across many design systems, which makes it a strong second opinion on a headword. Graduated work includes Popover API and customisable select."
+  },
+  {
+    "id": "mdn",
+    "name": "MDN Web Docs",
+    "vendor": "Mozilla",
+    "kind": "spec",
+    "docsUrl": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements",
+    "repoUrl": "https://github.com/mdn/content",
+    "availability": "open-source",
+    "license": "Creative Commons (see MDN attribution page)",
+    "trust": {
+      "githubStars": 10917,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Platform authority for the web itself. The right implementation row whenever the answer is a built-in element or API (dialog, details, popover, anchor positioning) rather than a library component."
+  },
+  {
+    "id": "whatwg-html",
+    "name": "HTML Standard",
+    "vendor": "WHATWG",
+    "kind": "spec",
+    "docsUrl": "https://html.spec.whatwg.org/multipage/",
+    "repoUrl": "https://github.com/whatwg/html",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 9349,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The normative text behind MDN's prose. GitHub reports no SPDX license (the standard is published under CC BY 4.0 terms stated in the document itself). Cite it when a term's precise behaviour is specified rather than conventional."
+  },
+  {
+    "id": "ui-patterns",
+    "name": "UI Patterns",
+    "vendor": "Anders Toxboe (Learning Loop)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://ui-patterns.com/patterns",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Pattern pages read free; card decks and posters are sold separately through shop.learningloop.io. Old but genuinely useful for interaction and persuasion pattern names that component libraries have no word for."
+  },
+  {
+    "id": "nngroup",
+    "name": "Nielsen Norman Group",
+    "vendor": "Nielsen Norman Group",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://www.nngroup.com/articles/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Articles are free to read; reports, courses and certification are paid. Note the URL shape: topic pages such as /topic/web-ui-design-patterns/ 404, only /articles/ paths were confirmed live, so link rot risk is real here."
+  },
+  {
+    "id": "component-gallery",
+    "name": "The Component Gallery",
+    "vendor": "Iain Bean",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://component.gallery/components/",
+    "repoUrl": "https://github.com/inbn/component-gallery",
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": 340,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Directly adjacent to this project: it indexes what each design system calls the same component. The site returned 403 to the fetcher, so details come from the repo (Astro plus Airtable, last pushed 2026-06-12, no licence file). Best used as a cross-check on alias lists rather than as an implementation row."
+  },
+  {
+    "id": "inclusive-components",
+    "name": "Inclusive Components",
+    "vendor": "Heydon Pickering",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://inclusive-components.design/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Abandoned as a site: the most recent article is Cards from June 2018, and the updated material moved to a paid book at book.inclusive-components.design. Still cited constantly for accessible component reasoning, so keep it but de-rank it as stale."
+  },
+  {
+    "id": "deceptive-design",
+    "name": "Deceptive Design",
+    "vendor": "Testimonium Ltd (Harry Brignull)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://www.deceptive.design/types",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Formerly Dark Patterns. 18 pattern types confirmed live on the types index, each mapped to laws and enforcement actions, all free to read with no repo and no stated licence. The naming authority for this family (confirmshaming, sneaking, hard to cancel, privacy zuckering), which is why 17 rows point at it. Note that deceptive.design 301s to www.deceptive.design, so rows should carry the www form."
+  },
+  {
+    "id": "css",
+    "name": "CSS",
+    "vendor": "W3C CSS Working Group",
+    "kind": "spec",
+    "docsUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    "repoUrl": "https://github.com/w3c/csswg-drafts",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 4859,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Consolidation candidate. Every one of the 17 rows using this id links to an MDN page (easing-function, @starting-style, view transitions, @keyframes), so the honest join is mdn, with w3c-css kept for the normative text. Stars and repo here are the CSS Working Group drafts repo (no SPDX licence reported; the drafts carry the W3C document licence). Recommend rewriting these rows to systemId mdn and retiring this id."
+  },
+  {
+    "id": "goodui",
+    "name": "GoodUI",
+    "vendor": "Jakub Linowski",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://goodui.org/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Freemium: the numbered UI ideas (Undos, Inline Validation, Upfront Progress) read free, while the A/B test effect sizes behind them are gated by a Join to see the effect membership. Newest tests dated July 2026, so it is alive. All 12 rows point at the bare site root rather than a per-idea URL, so each needs a deeper link before it can be shown in an implementation table."
+  },
+  {
+    "id": "gsap",
+    "name": "GSAP",
+    "vendor": "Webflow (GreenSock)",
+    "kind": "component-library",
+    "docsUrl": "https://gsap.com/docs/v3/",
+    "repoUrl": "https://github.com/greensock/GSAP",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 27606,
+      "npmPackage": "gsap",
+      "npmWeeklyDownloads": 4448997,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "An animation engine rather than a component library, recorded under the nearest kind. Licensing changed under Webflow: the licensing page states a Standard No Charge License covering all of GSAP including the formerly Club-only plugins (SplitText, MorphSVG, Flip), with the one restriction that it may not be used to build a competing visual animation builder. GitHub reports no SPDX licence, so the field is left null. Owns the vocabulary several motion terms need (tween, timeline, scrub, yoyo, FLIP)."
+  },
+  {
+    "id": "uxpatterns",
+    "name": "UX Patterns for Devs",
+    "vendor": "David Dias",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://uxpatterns.dev/patterns/getting-started",
+    "repoUrl": "https://github.com/thedaviddias/ux-patterns-for-developers",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 229,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "About 90 patterns across 10 categories (forms, navigation, data display, AI intelligence), free and community maintained, last pushed 2026-06-30. GitHub reports no SPDX licence. /patterns 308s to /patterns/getting-started, so rows carrying the short URL should be updated. Low star count for its coverage, so treat it as a naming second opinion rather than an authority."
+  },
+  {
+    "id": "uxpatterns-dev",
+    "name": "UX Patterns for Devs",
+    "vendor": "David Dias",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://uxpatterns.dev/patterns/getting-started",
+    "repoUrl": "https://github.com/thedaviddias/ux-patterns-for-developers",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 229,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Duplicate id. Same site, same URL and same repo as uxpatterns; two rows (Activity Feed, Comparison Table) picked up the domain-style spelling. Recommend rewriting those rows to systemId uxpatterns and deleting this entry."
+  },
+  {
+    "id": "tailwind",
+    "name": "Tailwind CSS",
+    "vendor": "Tailwind Labs",
+    "kind": "css-framework",
+    "docsUrl": "https://tailwindcss.com/docs/styling-with-utility-classes",
+    "repoUrl": "https://github.com/tailwindlabs/tailwindcss",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 97162,
+      "npmPackage": "tailwindcss",
+      "npmWeeklyDownloads": 120828649,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Pushed the day of the sweep. Utility class names are the naming source these rows want (truncate, line-clamp, animate-pulse, antialiased, the 50 to 950 shade scale). Distinct from the paid tailwind-plus / tailwind-ui blocks and from headless-ui, all three from the same vendor. /docs 307s to an installation page, so a topic URL is used here."
+  },
+  {
+    "id": "android",
+    "name": "Android Developers",
+    "vendor": "Google",
+    "kind": "design-system",
+    "docsUrl": "https://developer.android.com/design/ui",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Platform authority for Android, and the source of the adaptive layout vocabulary these rows use (canonical layouts, list-detail, supporting pane, feed, window size classes, foldable postures). Overlaps material: Material 3 is the design language, this is the platform and API documentation, and the Compose scaffold names (ListDetailPaneScaffold) exist only here. Free to read, no single repo, samples live at github.com/android."
+  },
+  {
+    "id": "every-layout",
+    "name": "Every Layout",
+    "vendor": "Heydon Pickering and Andy Bell",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://every-layout.dev/layouts/",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Partially gated: 69 USD buys all layouts, the generators, the EPUB and lifetime updates, while the rudiments, axioms and a few layouts (Stack, Sidebar, Switcher) read free. The Sidebar page loaded in full for this sweep. It is the naming authority for the algorithmic layout vocabulary (Stack, Cluster, Sidebar, Switcher, Cover, Reel, Frame, Imposter), so nine layout rows depend on it even though the catalogue as a whole is a purchase. 3rd edition, still updated."
+  },
+  {
+    "id": "framer-motion",
+    "name": "Motion",
+    "vendor": "Motion (Matt Perry)",
+    "kind": "component-library",
+    "docsUrl": "https://motion.dev/docs",
+    "repoUrl": "https://github.com/motiondivision/motion",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 33187,
+      "npmPackage": "motion",
+      "npmWeeklyDownloads": 17582090,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Renamed. Framer Motion is now Motion, the repo is motiondivision/motion and the docs are motion.dev, which is where all eight rows already point. Both packages are live: motion at 17,582,090/week and the legacy framer-motion at 42,856,174/week, so the old name still carries the larger share of installs. Owns the React animation vocabulary these rows use (layout animations, layoutId, AnimatePresence, spring damping). Consider renaming the id to motion once the term rows are rewritten."
+  },
+  {
+    "id": "tailwind-ui",
+    "name": "Tailwind Plus (formerly Tailwind UI)",
+    "vendor": "Tailwind Labs",
+    "kind": "component-library",
+    "docsUrl": "https://tailwindcss.com/plus",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": "Commercial (Tailwind Plus licence)",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Duplicate id. This is the same product as the existing tailwind-plus entry: the seven rows point at tailwindcss.com/plus/ui-blocks/* pages, where the first example or two preview free and every later block replaces the code with a Get the code link to the pricing anchor. Recommend rewriting these rows to systemId tailwind-plus and deleting this entry. Block names (application shell, sidebar layout, multi-column, hero section, grid list, page heading) are still worth keeping as aliases."
+  },
+  {
+    "id": "wcag",
+    "name": "Web Content Accessibility Guidelines",
+    "vendor": "W3C Web Accessibility Initiative",
+    "kind": "spec",
+    "docsUrl": "https://www.w3.org/WAI/WCAG22/Understanding/",
+    "repoUrl": "https://github.com/w3c/wcag",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 1466,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The normative accessibility authority: a success criterion number (1.4.3 Contrast Minimum, 2.5.8 Target Size, 1.4.12 Text Spacing) outranks any vendor guidance on the same question. Repo pushed the day of the sweep; GitHub reports no SPDX licence (W3C document licence). Two of the six rows link to dequeuniversity.com mirrors of WCAG criteria rather than to w3.org, which is a deque row wearing a wcag id; point those at the Understanding pages instead. Distinct from aria-apg (patterns) and w3c-css (colour maths)."
+  },
+  {
+    "id": "dtcg",
+    "name": "Design Tokens Format Module",
+    "vendor": "Design Tokens Community Group",
+    "kind": "spec",
+    "docsUrl": "https://www.designtokens.org/tr/drafts/color/",
+    "repoUrl": "https://github.com/design-tokens/community-group",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 2090,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A W3C Community Group report, explicitly not a W3C standard and not on the standards track, so official is false. The colour module is a preview draft (Draft Community Group Report dated 2026-07-30) that warns against citing it directly, which matters because all five rows cite exactly that page: colorSpace, srgb, hex fallback, gradient and color token types. Published under the W3C Community CLA. The /TR/ index 404s in uppercase; the lowercase /tr/drafts/ path works."
+  },
+  {
+    "id": "vscode",
+    "name": "Visual Studio Code",
+    "vendor": "Microsoft",
+    "kind": "design-system",
+    "docsUrl": "https://code.visualstudio.com/docs/editing/userinterface",
+    "repoUrl": "https://github.com/microsoft/vscode",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 188544,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Not a design system anyone can install, but the naming authority for IDE chrome: Activity Bar, Primary Side Bar, Secondary Side Bar, Panel, Status Bar, Editor Group. Three layout rows use it for exactly that. The MIT repo is the vscode source (the shipped binary carries a Microsoft product licence), and the docs are free."
+  },
+  {
+    "id": "flutter",
+    "name": "Flutter",
+    "vendor": "Google",
+    "kind": "component-library",
+    "docsUrl": "https://api.flutter.dev/",
+    "repoUrl": "https://github.com/flutter/flutter",
+    "availability": "open-source",
+    "license": "BSD-3-Clause",
+    "trust": {
+      "githubStars": 178287,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Platform authority for its own UI toolkit and a useful cross-platform check on a name, since the widget catalogue often keeps a word the web dropped (Hero for shared element transition, ElevationOverlay and surfaceTint for elevation). Ships on pub.dev, not npm, so the npm fields stay null. Repo pushed the day of the sweep."
+  },
+  {
+    "id": "baymard",
+    "name": "Baymard Institute",
+    "vendor": "Baymard Institute",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://baymard.com/learn",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Partially gated. The /learn guides the three rows cite (checkout flow, guest checkout, express checkout, order summary) read free, while the 700+ research-backed guidelines and the benchmark data across 330+ sites sit behind a subscription with no public price. Availability is free-docs because every row-level URL here is a readable page, but anything citing a numbered guideline should be checked for a paywall first. Strongest evidence base in the registry for e-commerce checkout naming."
+  },
+  {
+    "id": "uikit",
+    "name": "UIKit",
+    "vendor": "Apple",
+    "kind": "component-library",
+    "docsUrl": "https://developer.apple.com/documentation/uikit",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Apple's iOS framework, closed source, free to read. Platform authority for gesture vocabulary, which is what both rows use it for (pan gesture, pinch gesture, and the recognizer naming underneath). Careful with the id: uikit is also the name of an unrelated open-source CSS framework at getuikit.com, so a future sweep must not merge the two. Sits under hig, which carries the design guidance while this carries the API names."
+  },
+  {
+    "id": "patterns-dev",
+    "name": "patterns.dev",
+    "vendor": "Lydia Hallie and Addy Osmani",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://www.patterns.dev/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": "CC BY-NC 4.0",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Free online book on design, rendering and performance patterns, licence confirmed on the about page as Creative Commons Attribution-NonCommercial 4.0, which means content cannot be reproduced commercially. No public repo found for the site itself. Still updated (React stack patterns, View Transitions). Owns the loading vocabulary the two rows want (import on visibility, list virtualization)."
+  },
+  {
+    "id": "opentype",
+    "name": "OpenType Specification",
+    "vendor": "Microsoft",
+    "kind": "spec",
+    "docsUrl": "https://learn.microsoft.com/en-us/typography/opentype/spec/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "OpenType 1.9.1 on Microsoft Learn, free to read. The registry authority for typographic feature and axis names, which is exactly what both rows cite (registered feature tags such as liga and tnum, and the design-variation axis registry wght, wdth, opsz, ital, slnt). The docs are generated from github.com/MicrosoftDocs/typography, which returns 404 to the API (private); public feedback goes to MicrosoftDocs/typography-issues, so repoUrl is left null."
+  },
+  {
+    "id": "98css",
+    "name": "98.css",
+    "vendor": "Jordan Scales",
+    "kind": "css-framework",
+    "docsUrl": "https://jdan.github.io/98.css/",
+    "repoUrl": "https://github.com/jdan/98.css",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 11433,
+      "npmPackage": "98.css",
+      "npmWeeklyDownloads": 4324,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A stylesheet that recreates the Windows 98 UI, cited by aesthetic rows as the reference implementation of the beveled, chiseled look. High stars against very low downloads, which is the normal shape for a novelty stylesheet copied rather than installed. Last push 2025-09-07, effectively finished rather than abandoned. Sibling of system-css (classic Mac OS)."
+  },
+  {
+    "id": "wired-elements",
+    "name": "Wired Elements",
+    "vendor": "Preet Shihn (rough-stuff)",
+    "kind": "component-library",
+    "docsUrl": "https://wiredjs.com/",
+    "repoUrl": "https://github.com/rough-stuff/wired-elements",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 10822,
+      "npmPackage": "wired-elements",
+      "npmWeeklyDownloads": 1309,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Web components drawn in a hand-sketched style on top of Rough.js, the canonical implementation of the sketchy or wireframe aesthetic in real controls. Last push 2023-10-07 and 1,309 downloads a week, so it is stale: keep it as evidence for the aesthetic term, do not present it as a live option."
+  },
+  {
+    "id": "wicg",
+    "name": "Web Incubator Community Group",
+    "vendor": "W3C Community Group",
+    "kind": "spec",
+    "docsUrl": "https://wicg.github.io/eyedropper-api/",
+    "repoUrl": "https://github.com/WICG/eyedropper-api",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 71,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Incubation venue, not a standards body, so official is false: a WICG draft is a proposal that may never ship. The single row cites the EyeDropper API draft, whose repo (71 stars, no SPDX licence) was last pushed 2022-03-30, hence maintained false, even though the spec text still loads and the API ships in Chromium. The id is too broad for one draft; consider naming the row wicg-eyedropper or citing MDN for the shipped API instead."
+  },
+  {
+    "id": "webkit",
+    "name": "WebKit",
+    "vendor": "Apple",
+    "kind": "spec",
+    "docsUrl": "https://webkit.org/blog/",
+    "repoUrl": "https://github.com/WebKit/WebKit",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 10057,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A browser engine recorded under the nearest kind. Platform authority for what Safari actually implements, and the WebKit blog is often the first published explanation of a feature, which is why the display-p3 wide gamut post is cited. Repo pushed the day of the sweep; GitHub reports no SPDX licence (BSD-2-Clause plus LGPL in the tree). Cite it for engine-specific behaviour, not as a substitute for mdn or w3c-css."
+  },
+  {
+    "id": "web-dev",
+    "name": "web.dev",
+    "vendor": "Google (Chrome team)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://web.dev/",
+    "repoUrl": "https://github.com/GoogleChrome/web.dev",
+    "availability": "free-docs",
+    "license": "CC BY 4.0 (content), Apache-2.0 (code samples)",
+    "trust": {
+      "githubStars": 3613,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Guidance articles written by the Chrome team, free and openly licensed. The cited push-permission article was last updated 2025-03-26, so the site is alive even though the GoogleChrome/web.dev repo was archived on 2024-03-13 (publishing moved off it). Overlaps chrome-developers and chrome, which are the same publisher on a different domain; a single google-web-docs id would cover all three."
+  },
+  {
+    "id": "w3c-design-system",
+    "name": "W3C Design System",
+    "vendor": "W3C",
+    "kind": "design-system",
+    "docsUrl": "https://design-system.w3.org/",
+    "repoUrl": "https://github.com/w3c/w3c-website",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 262,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The design system for W3C's own website, not a normative deliverable, so official is false despite the vendor. Live (page generated 2025-10-17), repo pushed 2026-07-22, no SPDX licence reported. Its single row is Switcher, a layout it takes from Every Layout without crediting it on the page, so that row is better attributed to every-layout with this kept as a second usage. Do not confuse with w3c, w3c-css or wcag, which are the standards themselves."
+  },
+  {
+    "id": "w3c-css",
+    "name": "W3C CSS Specifications",
+    "vendor": "W3C CSS Working Group",
+    "kind": "spec",
+    "docsUrl": "https://www.w3.org/TR/css-color-4/",
+    "repoUrl": "https://github.com/w3c/csswg-drafts",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 4859,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The normative CSS text, cited here for the predefined colour spaces in Colour Level 4. Both the /TR/ snapshot and the editor's draft at drafts.csswg.org resolve; the drafts are the working copy and the TR page is the stable citation. Repo pushed the day of the sweep, no SPDX licence (W3C document licence). This is the id the css rows should collapse into when a normative citation is wanted, and mdn when a reader-facing one is."
+  },
+  {
+    "id": "w3c",
+    "name": "W3C Technical Reports",
+    "vendor": "W3C",
+    "kind": "spec",
+    "docsUrl": "https://www.w3.org/TR/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Catch-all for a W3C document outside the CSS and accessibility groups. Its one row cites HTML Ruby Markup Extensions, a Candidate Recommendation Snapshot dated 2026-06-04 from the Internationalization Working Group, dual licensed CC BY 4.0 and the W3C Software and Document License. Too broad as an id: prefer the specific group (w3c-css, wcag, aria-apg) and keep this only for one-off documents like this one, each of which has its own repo under github.com/w3c."
+  },
+  {
+    "id": "verdigris",
+    "name": "Verdigris Design System",
+    "vendor": "Verdigris Technologies",
+    "kind": "design-system",
+    "docsUrl": "https://design.verdigris.co/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A small in-house design system from an energy analytics company, docs public with a CONTRIBUTING page and an integration guide (Tailwind preset, raw tokens, CSS imports), but no public repo, no npm package and no stated licence found. Its single row is Eyebrow, a typography label worth recording because larger systems rarely name it. Weakest trust signals of any system in the registry: keep it as alias evidence only."
+  },
+  {
+    "id": "useronboard",
+    "name": "UserOnboard",
+    "vendor": "UserOnboard (Samuel Hulick)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://www.useronboard.com/onboarding-ux-patterns/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Onboarding teardowns and a free pattern index, which is where the Permission Priming row points. The site sells training alongside the free material but showed no price to this sweep. Freshness is mixed: the pattern pages still illustrate with musical.ly and Inbox by Gmail while the teardown list leads with current products, so maintained is recorded true on the teardowns rather than on the pattern pages."
+  },
+  {
+    "id": "system-css",
+    "name": "system.css",
+    "vendor": "Sakun Acharige",
+    "kind": "css-framework",
+    "docsUrl": "https://sakofchit.github.io/system.css/",
+    "repoUrl": "https://github.com/sakofchit/system.css",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 3845,
+      "npmPackage": "system.css",
+      "npmWeeklyDownloads": 95,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A stylesheet that recreates the classic Mac OS interface, the counterpart to 98css and cited for the same reason: it is the reference implementation of a retro-OS aesthetic term. 95 downloads a week, so it is copied from the docs rather than installed. Last push 2023-11-26, finished rather than maintained in the usual sense."
+  },
+  {
+    "id": "scrollama",
+    "name": "Scrollama",
+    "vendor": "Russell Samora",
+    "kind": "component-library",
+    "docsUrl": "https://github.com/russellsamora/scrollama",
+    "repoUrl": "https://github.com/russellsamora/scrollama",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 5994,
+      "npmPackage": "scrollama",
+      "npmWeeklyDownloads": 14188,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term library: scrollytelling, built on IntersectionObserver, and the source of that vocabulary (step, progress, offset, enter and exit). Broken URL in the term data: the row points at github.com/russellL/scrollama, which 404s to the API; the real repo is russellsamora/scrollama. Quiet (last push 2025-11-13) and modest downloads, but no competitor owns the word."
+  },
+  {
+    "id": "rampensau",
+    "name": "RampenSau",
+    "vendor": "David Aerne (meodai)",
+    "kind": "component-library",
+    "docsUrl": "https://meodai.github.io/rampensau/",
+    "repoUrl": "https://github.com/meodai/rampensau",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 317,
+      "npmPackage": "rampensau",
+      "npmWeeklyDownloads": 1187,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Palette generator by the author of the colour names project, cited for hue cycling in a colour ramp. Small (317 stars, 1,187 downloads a week) but pushed 2026-06-28 and effectively the only named implementation of the technique, so keep it as evidence and rank it low."
+  },
+  {
+    "id": "postcss",
+    "name": "PostCSS",
+    "vendor": "PostCSS (Andrey Sitnik)",
+    "kind": "css-framework",
+    "docsUrl": "https://postcss.org/",
+    "repoUrl": "https://github.com/postcss/postcss",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 28982,
+      "npmPackage": "postcss",
+      "npmWeeklyDownloads": 271618690,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Mislabelled row. The single usage cites @csstools/postcss-gamut-mapping, which is not PostCSS itself but a plugin from csstools/postcss-plugins (1,052 stars, MIT-0, pushed the day of the sweep, 2,979,118 downloads a week). Recommend a separate csstools id for that plugin family and keeping this entry only if a row genuinely means the PostCSS core. npmjs.com returns 403 to the fetcher; the downloads API answers, which is how these figures were read."
+  },
+  {
+    "id": "neobrutalism-components",
+    "name": "neobrutalism components",
+    "vendor": "Emil Kosz (ekmas)",
+    "kind": "component-library",
+    "docsUrl": "https://www.neobrutalism.dev/",
+    "repoUrl": "https://github.com/ekmas/neobrutalism-components",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 5305,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A shadcn-style copy-in registry restyled for the neobrutalist look (hard shadows, thick black borders, flat saturated fills), so it is the reference implementation of that aesthetic term. No npm package exists under either neobrutalism-components or neobrutalism, which is expected for a copy-in registry. Pushed 2026-08-02."
+  },
+  {
+    "id": "mui-x",
+    "name": "MUI X",
+    "vendor": "MUI",
+    "kind": "component-library",
+    "docsUrl": "https://mui.com/x/introduction/licensing/",
+    "repoUrl": "https://github.com/mui/mui-x",
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": 5829,
+      "npmPackage": "@mui/x-data-grid",
+      "npmWeeklyDownloads": 3023773,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Split licence, which is why availability is paid rather than open-source: the Community tier is MIT, but the cited feature (Data Grid column pinning) carries a Pro plan badge on its own docs page, and Premium sits above that. GitHub reports no SPDX licence for the monorepo. The mui entry already warns about this; keep the two separate so a row pointing at an X feature is never presented as free."
+  },
+  {
+    "id": "maui",
+    "name": ".NET MAUI",
+    "vendor": "Microsoft",
+    "kind": "component-library",
+    "docsUrl": "https://learn.microsoft.com/en-us/dotnet/maui/",
+    "repoUrl": "https://github.com/dotnet/maui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 23296,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Cross-platform .NET UI framework, pushed the day of the sweep, docs free on Microsoft Learn (the URL takes a ?view=net-maui-10.0 redirect). Ships on NuGet, not npm, so those fields stay null. Its single row is safe area layout, useful as a cross-platform confirmation that the word travels beyond iOS."
+  },
+  {
+    "id": "lottie",
+    "name": "Lottie",
+    "vendor": "Airbnb",
+    "kind": "component-library",
+    "docsUrl": "https://lottie.airbnb.tech/",
+    "repoUrl": "https://github.com/airbnb/lottie-web",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 32046,
+      "npmPackage": "lottie-web",
+      "npmWeeklyDownloads": 7163087,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Owns the name for a JSON-encoded vector animation exported from After Effects. Docs moved: airbnb.io/lottie 301s to lottie.airbnb.tech, which renders client side and returned an empty body to the fetcher, so the details here come from the repo. lottie-web last pushed 2025-09-01; the actively developed successor is LottieFiles' dotLottie (LottieFiles/dotlottie-web, 844 stars, MIT, @lottiefiles/dotlottie-web at 1,507,633/week), worth a second row if a term needs the newer format."
+  },
+  {
+    "id": "img-comparison-slider",
+    "name": "Image Comparison Slider",
+    "vendor": "Dmytro Snisarenko (sneas)",
+    "kind": "component-library",
+    "docsUrl": "https://img-comparison-slider.sneas.io/",
+    "repoUrl": "https://github.com/sneas/img-comparison-slider",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 865,
+      "npmPackage": "img-comparison-slider",
+      "npmWeeklyDownloads": 39587,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Single-term web component: the before and after image comparison slider. Small but alive (pushed 2026-05-25, 39,587 downloads a week). The term row links to the GitHub repo rather than the docs site, which is live and the better implementation URL."
+  },
+  {
+    "id": "illustrator",
+    "name": "Adobe Illustrator",
+    "vendor": "Adobe",
+    "kind": "design-system",
+    "docsUrl": "https://helpx.adobe.com/illustrator/using/gradients.html",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Junk row candidate. A subscription design tool, not an implementation source: the one row cites its gradient dither control as evidence for a colour term, which is a feature reference a reader cannot use. helpx.adobe.com refused the connection twice during this sweep (curl returned 000 for both the Illustrator and the Adobe Fonts paths), so neither the docsUrl recorded here nor the deep link in the term data was confirmed live. Recommend dropping the implementation row and keeping the observation in the term's notes instead of creating a tool entry."
+  },
+  {
+    "id": "font-awesome",
+    "name": "Font Awesome",
+    "vendor": "Font Awesome",
+    "kind": "component-library",
+    "docsUrl": "https://docs.fontawesome.com/",
+    "repoUrl": "https://github.com/FortAwesome/Font-Awesome",
+    "availability": "open-source",
+    "license": null,
+    "trust": {
+      "githubStars": 76821,
+      "npmPackage": "@fortawesome/fontawesome-free",
+      "npmWeeklyDownloads": 2367508,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Icon set rather than a component library, recorded under the nearest kind. Partially gated: a Pro tier exists (fontawesome.com/license serves a Pro License page) alongside the free set, and GitHub reports no SPDX licence for the repo because it mixes licences across icons, fonts and code, so the field is left null. Its row is icon font accessibility guidance, which is genuinely useful and free to read. Same vendor as the existing web-awesome entry."
+  },
+  {
+    "id": "flowbite",
+    "name": "Flowbite",
+    "vendor": "Themesberg",
+    "kind": "component-library",
+    "docsUrl": "https://flowbite.com/docs/getting-started/introduction/",
+    "repoUrl": "https://github.com/themesberg/flowbite",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 9320,
+      "npmPackage": "flowbite",
+      "npmWeeklyDownloads": 595304,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Tailwind component library, MIT and healthy (595,304 downloads a week, pushed 2026-06-27), though the vendor also sells Flowbite Pro blocks and templates. Cited for Speed Dial, a name it shares with Material's expandable FAB, which makes it a useful alias source for that term. Note the docs redirect from the bare domain to www."
+  },
+  {
+    "id": "excalidraw",
+    "name": "Excalidraw",
+    "vendor": "Excalidraw",
+    "kind": "component-library",
+    "docsUrl": "https://excalidraw.com/",
+    "repoUrl": "https://github.com/excalidraw/excalidraw",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 129274,
+      "npmPackage": "@excalidraw/excalidraw",
+      "npmWeeklyDownloads": 474277,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Junk row candidate, though a defensible one. Excalidraw is a whiteboard app, not a UI implementation, and its single row cites it as the popular example of the hand-drawn or sketchy aesthetic. If the term keeps an implementation table, wired-elements is the row that actually implements controls in that style; this belongs in prose or as an embeddable editor (the npm package is a real React component, 474,277 downloads a week). Highest star count of any new entry."
+  },
+  {
+    "id": "designsystems-surf",
+    "name": "Design Systems Surf",
+    "vendor": "Ilya Greben",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://designsystems.surf/components",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Indexes 60+ components across design systems from large product teams, which puts it in the same job as the existing component-gallery entry and makes it a cross-check on alias lists rather than an implementation row. Free to browse, but the site now carries a Membership tier and sells digital products, so re-check before treating any specific page as free. No repo, no licence."
+  },
+  {
+    "id": "deque",
+    "name": "Deque University",
+    "vendor": "Deque Systems",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://dequeuniversity.com/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Freemium: the WCAG resource pages read free (the 1.4.12 Text Spacing and 2.5.5 Target Size pages both loaded), while courses and instructor-led training are sold. It is a restatement of WCAG, not the source, so a row citing a success criterion belongs on wcag with a w3.org Understanding URL; two rows currently do this the other way round. Deque's open-source engine axe-core (dequelabs/axe-core, 7,389 stars, MPL-2.0) is a separate thing and would need its own id."
+  },
+  {
+    "id": "css-tricks",
+    "name": "CSS-Tricks",
+    "vendor": "DigitalOcean",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://css-tricks.com/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Free article archive, founded by Chris Coyier in 2007 and now powered by DigitalOcean, still publishing (articles dated 2026-08-10 on the homepage). Its row is the Priority+ Navigation pattern, an article from 2015-04-29 that named the pattern, which is exactly the case where a blog outranks a design system on a headword. Treat individual articles as dated evidence, not current guidance."
+  },
+  {
+    "id": "colorjs",
+    "name": "Color.js",
+    "vendor": "Lea Verou and Chris Lilley",
+    "kind": "component-library",
+    "docsUrl": "https://colorjs.io/docs/",
+    "repoUrl": "https://github.com/color-js/color.js",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 2286,
+      "npmPackage": "colorjs.io",
+      "npmWeeklyDownloads": 7650964,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Unusually high authority for its star count: it is written by two editors of the CSS Color specifications and describes itself as a testing ground for a native Color object, so its naming (gamut mapping rather than naive clipping, colour difference methods, OKLCh) tracks w3c-css closely. Pushed the day of the sweep, 7.6M downloads a week. The right implementation row for colour maths terms where mdn documents the CSS syntax but nothing documents the algorithm."
+  },
+  {
+    "id": "chrome-developers",
+    "name": "Chrome for Developers",
+    "vendor": "Google (Chrome team)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://developer.chrome.com/docs",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": "CC BY 4.0 (content), Apache-2.0 (code samples)",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Chrome's own documentation and blog, free and openly licensed. Its row cites the App Shell Architecture post, which is live but stamped Last updated 2015-11-16 and predates the tooling it recommends, so it is historical evidence for the name rather than current guidance. Consolidation candidate: chrome-developers, chrome and web-dev are all Google Chrome team publications; recommend one id (chrome-developers) covering developer.chrome.com and keeping web-dev separate only if the domain distinction matters."
+  },
+  {
+    "id": "chrome",
+    "name": "Chrome for Developers",
+    "vendor": "Google (Chrome team)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://developer.chrome.com/docs",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": "CC BY 4.0 (content), Apache-2.0 (code samples)",
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Duplicate id. A bare chrome on one row (the 300ms tap delay post, live on developer.chrome.com) where chrome-developers was used elsewhere for the same publication. Recommend rewriting that row to systemId chrome-developers and deleting this entry. Kept for now so the join does not drop the row."
+  },
+  {
+    "id": "angular",
+    "name": "Angular",
+    "vendor": "Google",
+    "kind": "component-library",
+    "docsUrl": "https://angular.dev/best-practices/a11y",
+    "repoUrl": "https://github.com/angular/angular",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 100959,
+      "npmPackage": "@angular/cdk",
+      "npmWeeklyDownloads": 4062031,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "A framework rather than a component library, recorded under the nearest kind. The cited concept, LiveAnnouncer, actually lives in the Angular CDK (angular/components, 25,035 stars, MIT, docs at material.angular.dev/cdk/a11y/overview), which is why the npm figures here are for @angular/cdk rather than @angular/core. It is a genuinely useful row: LiveAnnouncer is one of the few named implementations of a live region announcer, so the term needs it even though the URL points at the framework's general accessibility guide."
+  },
+  {
+    "id": "ai-ux-playground",
+    "name": "AI UX Playground",
+    "vendor": "AI UX Playground",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://aiuxplayground.com/pattern/slash-command/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "New pattern catalogue for AI product interfaces (chat and agentic patterns, teardowns, a glossary), free to read, copyright 2026, no named author or company and no repo or licence found. Its row is Slash Commands. Weak provenance, but it is one of the few catalogues naming this generation of patterns at all, so keep it as corroboration and never as a sole source."
+  },
+  {
+    "id": "adobe-fonts",
+    "name": "Adobe Fonts",
+    "vendor": "Adobe",
+    "kind": "design-system",
+    "docsUrl": "https://helpx.adobe.com/fonts/using/font-events.html",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Unverified this sweep: helpx.adobe.com refused the connection twice (curl returned 000, WebFetch timed out at 60s), so nothing on this row was read live and the availability judgement rests on Adobe Fonts being a Creative Cloud service rather than on a page. Formerly Typekit, which is where its row's concept comes from: font events, the loading-class vocabulary (wf-loading, wf-active) that Web Font Loader popularised. Re-probe before publishing, and consider citing mdn font loading or the CSS Font Loading API instead."
+  },
+  {
+    "id": "magicui",
+    "name": "Magic UI",
+    "vendor": "Magic UI (Dillion Verma)",
+    "kind": "component-library",
+    "docsUrl": "https://magicui.design/docs",
+    "repoUrl": "https://github.com/magicuidesign/magicui",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 21853,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Animated marketing-site components built on shadcn/ui conventions. Stars and license read from the GitHub API this session; pushed 2026-08-09."
+  },
+  {
+    "id": "tldraw",
+    "name": "tldraw",
+    "vendor": "tldraw GB Ltd",
+    "kind": "component-library",
+    "docsUrl": "https://tldraw.dev",
+    "repoUrl": "https://github.com/tldraw/tldraw",
+    "availability": "open-source",
+    "license": "tldraw License (custom; free with watermark, paid to remove)",
+    "trust": {
+      "githubStars": 49703,
+      "npmPackage": "tldraw",
+      "npmWeeklyDownloads": 346089,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Infinite-canvas whiteboard SDK; cited as the implementation for the infinite-canvas layout term. Source-available under a custom license (GitHub reports NOASSERTION)."
+  },
+  {
+    "id": "flickr-justified-layout",
+    "name": "Flickr justified-layout",
+    "vendor": "Flickr (SmugMug)",
+    "kind": "component-library",
+    "docsUrl": "https://flickr.github.io/justified-layout/",
+    "repoUrl": "https://github.com/flickr/justified-layout",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 1639,
+      "npmPackage": "justified-layout",
+      "npmWeeklyDownloads": 26059,
+      "official": false,
+      "maintained": false,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The canonical justified-gallery row solver. Last push 2023-09-05, so marked unmaintained, but the algorithm write-up remains the reference."
+  },
+  {
+    "id": "buildui",
+    "name": "Build UI",
+    "vendor": "Build UI (Sam Selikoff)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://buildui.com/recipes",
+    "repoUrl": null,
+    "availability": "paid",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Video courses and animation recipes (Framer Motion/React); some recipes free, membership gates the rest. Cited for the dock-magnification recipe."
+  },
+  {
+    "id": "utopia",
+    "name": "Utopia",
+    "vendor": "Clearleft (Trys Mudford, James Gilyead)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://utopia.fyi",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "The fluid type and space scale calculators; the reference vocabulary for fluid-space-scale and fluid typography."
+  },
+  {
+    "id": "microsoft-dual-screen",
+    "name": "Microsoft dual-screen docs",
+    "vendor": "Microsoft",
+    "kind": "design-system",
+    "docsUrl": "https://learn.microsoft.com/en-us/dual-screen/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": true,
+      "maintained": true,
+      "asOf": "2026-08-10"
+    },
+    "tracked": false,
+    "notes": "Surface Duo era dual-screen and foldable layout guidance (spanned layouts, hinge-aware panes). Distinct from the fluent id on purpose."
+  }
+]

@@ -1,0 +1,2885 @@
+[
+  {
+    "name": "Infinite scroll",
+    "slug": "infinite-scroll",
+    "category": "pattern",
+    "definition": "A list that appends the next page of results automatically as the reader approaches the bottom, so the content never ends and no page controls appear.",
+    "useWhen": "the feed loads more by itself as you near the bottom",
+    "aliases": [
+      { "name": "endless scroll", "source": "community" },
+      { "name": "continuous scrolling", "source": "ui-patterns" },
+      { "name": "infinite scrolling", "source": "nngroup" },
+      { "name": "auto-load", "source": "community" },
+      { "name": "infinite list", "source": "community" }
+    ],
+    "relatedSlugs": ["pagination", "load-more", "lazy-loading", "list-virtualization", "false-bottom"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Infinite Scrolling: When to Use It, When to Avoid It",
+        "url": "https://www.nngroup.com/articles/infinite-scrolling-tips/"
+      },
+      { "title": "UI Patterns: Continuous Scrolling", "url": "https://ui-patterns.com/patterns" }
+    ],
+    "implementations": [
+      {
+        "systemId": "nngroup",
+        "name": "Infinite scrolling",
+        "url": "https://www.nngroup.com/articles/infinite-scrolling-tips/",
+        "verified": true
+      },
+      { "systemId": "ui-patterns", "name": "Continuous Scrolling", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "The accessibility complaint (unreachable footer) is the false-bottom term, kept separate."
+  },
+  {
+    "name": "Pagination",
+    "slug": "pagination",
+    "category": "pattern",
+    "definition": "Splitting a long result set into numbered pages the reader steps through, so each page has a stable address and a known position in the whole.",
+    "useWhen": "results are cut into numbered pages you can jump between",
+    "aliases": [
+      { "name": "paging", "source": "community" },
+      { "name": "pager", "source": "community" },
+      { "name": "page navigation", "source": "govuk" },
+      { "name": "paginator", "source": "material" }
+    ],
+    "relatedSlugs": ["infinite-scroll", "load-more", "cursor-pagination"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Alternatives to Pagination on Product-Listing Pages",
+        "url": "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/"
+      },
+      { "title": "GOV.UK Design System: Pagination", "url": "https://design-system.service.gov.uk/components/pagination/" }
+    ],
+    "implementations": [
+      { "systemId": "govuk", "name": "Pagination", "url": "https://design-system.service.gov.uk/components/pagination/", "verified": true },
+      { "systemId": "ui-patterns", "name": "Pagination", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "Most design systems file pagination as a component; recorded here as the flow pattern, merge step should pick one home."
+  },
+  {
+    "name": "Load more",
+    "slug": "load-more",
+    "category": "pattern",
+    "definition": "A button at the end of a list that fetches and appends the next batch only when pressed, keeping the reader in control of how much arrives.",
+    "useWhen": "the next batch waits behind a button instead of arriving on its own",
+    "aliases": [
+      { "name": "show more button", "source": "nngroup" },
+      { "name": "load more button", "source": "community" },
+      { "name": "see more", "source": "community" },
+      { "name": "manual pagination", "source": "community" }
+    ],
+    "relatedSlugs": ["infinite-scroll", "pagination"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Alternatives to Pagination on Product-Listing Pages",
+        "url": "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "nngroup",
+        "name": "Load-more button",
+        "url": "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Cursor pagination",
+    "slug": "cursor-pagination",
+    "category": "pattern",
+    "definition": "Paging that moves by a pointer into the result set rather than a page number, so newly inserted rows never shift what the next page contains.",
+    "useWhen": "the list only offers next and previous, never page numbers",
+    "aliases": [
+      { "name": "keyset pagination", "source": "community" },
+      { "name": "cursor-based pagination", "source": "community" },
+      { "name": "seek pagination", "source": "community" },
+      { "name": "next and previous only", "source": "community" }
+    ],
+    "relatedSlugs": ["pagination", "infinite-scroll"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Names the reason a feed shows only Next and Previous. Sits on the boundary between data access and UI vocabulary."
+  },
+  {
+    "name": "Pull to refresh",
+    "slug": "pull-to-refresh",
+    "category": "pattern",
+    "definition": "Dragging a list downward past its top edge to trigger a reload, with a spinner that appears in the space the drag opens up.",
+    "useWhen": "tugging a list down to fetch new items",
+    "aliases": [
+      { "name": "swipe to refresh", "source": "material" },
+      { "name": "swipe refresh", "source": "material" },
+      { "name": "drag to refresh", "source": "community" },
+      { "name": "pull down to refresh", "source": "community" }
+    ],
+    "relatedSlugs": ["rubber-band-scrolling", "infinite-scroll"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Pull to refresh", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Pull to refresh", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "Credited to Loren Brichter's Tweetie; worth a history note in the article."
+  },
+  {
+    "name": "Lazy loading",
+    "slug": "lazy-loading",
+    "category": "pattern",
+    "definition": "Deferring the fetch of an image, list section, or module until it is about to be needed, usually when it approaches the viewport.",
+    "useWhen": "content is fetched only once it is nearly on screen",
+    "aliases": [
+      { "name": "deferred loading", "source": "community" },
+      { "name": "import on visibility", "source": "patterns-dev" },
+      { "name": "below the fold loading", "source": "community" },
+      { "name": "loading=lazy", "source": "mdn" }
+    ],
+    "relatedSlugs": ["infinite-scroll", "list-virtualization", "progressive-image-loading"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "patterns.dev: Import On Visibility", "url": "https://www.patterns.dev/" },
+      { "title": "MDN: lazy loading", "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Lazy loading",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading",
+        "verified": true
+      },
+      { "systemId": "patterns-dev", "name": "Import On Visibility", "url": "https://www.patterns.dev/", "verified": true }
+    ]
+  },
+  {
+    "name": "List virtualization",
+    "slug": "list-virtualization",
+    "category": "pattern",
+    "definition": "Rendering only the rows currently in view and a small buffer around them, while spacers preserve the scrollbar of the full list.",
+    "useWhen": "a huge list renders only the rows you can see",
+    "aliases": [
+      { "name": "windowing", "source": "community" },
+      { "name": "virtual scrolling", "source": "community" },
+      { "name": "virtualized list", "source": "community" },
+      { "name": "virtual list", "source": "ant-design" },
+      { "name": "row virtualization", "source": "tanstack-table" }
+    ],
+    "relatedSlugs": ["infinite-scroll", "lazy-loading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "patterns.dev: List Virtualization", "url": "https://www.patterns.dev/" }],
+    "implementations": [
+      { "systemId": "patterns-dev", "name": "List Virtualization", "url": "https://www.patterns.dev/", "verified": true },
+      { "systemId": "tanstack-table", "name": "Virtualization", "url": "https://tanstack.com/table/latest", "verified": true }
+    ],
+    "notes": "Breaks find-in-page and anchor links, which is the usual reason a reader goes looking for the word."
+  },
+  {
+    "name": "Progressive image loading",
+    "slug": "progressive-image-loading",
+    "category": "pattern",
+    "definition": "Showing a cheap stand-in for an image, a blur, a dominant colour, or a low resolution copy, and swapping in the full file once it arrives.",
+    "useWhen": "a blurred or coloured block stands in until the photo loads",
+    "aliases": [
+      { "name": "blur-up", "source": "community" },
+      { "name": "LQIP", "source": "community" },
+      { "name": "low quality image placeholder", "source": "community" },
+      { "name": "blurhash", "source": "community" },
+      { "name": "dominant colour placeholder", "source": "community" }
+    ],
+    "relatedSlugs": ["lazy-loading", "skeleton-screen"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Contrast with skeleton-screen (already on site): skeletons stand in for layout, LQIP stands in for one image."
+  },
+  {
+    "name": "Undo",
+    "slug": "undo",
+    "category": "pattern",
+    "definition": "Letting an action run immediately and offering to reverse it afterwards, instead of stopping to ask whether the reader really meant it.",
+    "useWhen": "the action happens first and offers a way back",
+    "aliases": [
+      { "name": "undo toast", "source": "community" },
+      { "name": "undo snackbar", "source": "material" },
+      { "name": "revert", "source": "community" },
+      { "name": "take it back", "source": "community" }
+    ],
+    "relatedSlugs": ["type-to-confirm", "soft-delete", "optimistic-ui"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Undo", "url": "https://ui-patterns.com/patterns" },
+      { "title": "GoodUI: Try Undos instead of prompting for confirmation", "url": "https://goodui.org/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Undo", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "goodui", "name": "Undos", "url": "https://goodui.org/", "verified": true }
+    ]
+  },
+  {
+    "name": "Soft delete",
+    "slug": "soft-delete",
+    "category": "pattern",
+    "definition": "Removing an item from view but keeping it recoverable in a trash or archive for a period, so deletion is reversible without a confirmation step.",
+    "useWhen": "deleted things go to a bin you can dig them out of",
+    "aliases": [
+      { "name": "trash", "source": "community" },
+      { "name": "recycle bin", "source": "community" },
+      { "name": "archive", "source": "community" },
+      { "name": "deleted items", "source": "community" },
+      { "name": "recently deleted", "source": "hig" }
+    ],
+    "relatedSlugs": ["undo", "type-to-confirm", "bulk-actions"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Delete patterns", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Delete patterns", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "Type to confirm",
+    "slug": "type-to-confirm",
+    "category": "pattern",
+    "definition": "Guarding a destructive action by making the reader type the name of the thing being destroyed before the confirm button becomes usable.",
+    "useWhen": "you must type the repo name to delete it",
+    "aliases": [
+      { "name": "type the name to confirm", "source": "community" },
+      { "name": "confirmation by typing", "source": "community" },
+      { "name": "delete confirmation input", "source": "community" },
+      { "name": "friction dialog", "source": "community" }
+    ],
+    "relatedSlugs": ["soft-delete", "undo", "alert-dialog"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Delete patterns", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Delete with confirmation", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ],
+    "notes": "GitHub popularised it; Cloudscape documents it as delete with text confirmation."
+  },
+  {
+    "name": "Wizard",
+    "slug": "wizard",
+    "category": "pattern",
+    "definition": "A task broken into ordered steps with only one step visible at a time, plus a fixed indicator of how many steps remain.",
+    "useWhen": "a long task is walked through one screen at a time",
+    "aliases": [
+      { "name": "stepper", "source": "material" },
+      { "name": "multi-step form", "source": "community" },
+      { "name": "step-by-step flow", "source": "community" },
+      { "name": "setup wizard", "source": "community" },
+      { "name": "guided flow", "source": "community" }
+    ],
+    "relatedSlugs": ["steps-left", "one-thing-per-page", "check-answers", "onboarding-tour"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Wizard", "url": "https://ui-patterns.com/patterns" },
+      { "title": "Cloudscape: Wizard", "url": "https://cloudscape.design/components/wizard/" }
+    ],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Wizard", "url": "https://cloudscape.design/components/wizard/", "verified": true },
+      { "systemId": "ui-patterns", "name": "Wizard", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "Naming split worth recording: wizard is the flow, stepper is the indicator component."
+  },
+  {
+    "name": "Steps left",
+    "slug": "steps-left",
+    "category": "pattern",
+    "definition": "Telling the reader where they are in a multi-step task and how many steps are still to come, so the end of the task is visible from the start.",
+    "useWhen": "the flow says step 2 of 5",
+    "aliases": [
+      { "name": "step indicator", "source": "community" },
+      { "name": "progress tracker", "source": "carbon" },
+      { "name": "completeness meter", "source": "ui-patterns" },
+      { "name": "step 2 of 5", "source": "community" }
+    ],
+    "relatedSlugs": ["wizard", "endowed-progress", "onboarding-checklist"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Steps Left", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Steps Left", "url": "https://ui-patterns.com/patterns", "verified": true }]
+  },
+  {
+    "name": "One thing per page",
+    "slug": "one-thing-per-page",
+    "category": "pattern",
+    "definition": "Asking a single question on each screen of a form so the reader never chooses which field to answer first and errors point somewhere unambiguous.",
+    "useWhen": "each form screen asks exactly one question",
+    "aliases": [
+      { "name": "question pages", "source": "govuk" },
+      { "name": "one question per page", "source": "govuk" },
+      { "name": "single question form", "source": "community" }
+    ],
+    "relatedSlugs": ["wizard", "check-answers", "error-summary"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "GOV.UK Design System: Question pages", "url": "https://design-system.service.gov.uk/patterns/question-pages/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Question pages",
+        "url": "https://design-system.service.gov.uk/patterns/question-pages/",
+        "verified": true
+      }
+    ],
+    "notes": "GOV.UK files it as Question pages; the phrase one thing per page is the community headword."
+  },
+  {
+    "name": "Check answers",
+    "slug": "check-answers",
+    "category": "pattern",
+    "definition": "A review screen listing everything the reader entered, with a change link beside each answer, shown before the submission is final.",
+    "useWhen": "a summary screen lets you review and edit before submitting",
+    "aliases": [
+      { "name": "review page", "source": "community" },
+      { "name": "summary page", "source": "community" },
+      { "name": "check your answers", "source": "govuk" },
+      { "name": "order review", "source": "community" },
+      { "name": "confirm and submit", "source": "community" }
+    ],
+    "relatedSlugs": ["wizard", "one-thing-per-page", "confirmation-page", "order-summary"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "GOV.UK Design System: Check answers", "url": "https://design-system.service.gov.uk/patterns/check-answers/" }],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Check answers",
+        "url": "https://design-system.service.gov.uk/patterns/check-answers/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Confirmation page",
+    "slug": "confirmation-page",
+    "category": "pattern",
+    "definition": "The screen that closes a transaction, stating plainly that it succeeded, giving a reference the reader can quote, and saying what happens next.",
+    "useWhen": "the screen that says it worked and what happens next",
+    "aliases": [
+      { "name": "success page", "source": "community" },
+      { "name": "thank you page", "source": "community" },
+      { "name": "receipt page", "source": "community" },
+      { "name": "order confirmation", "source": "community" }
+    ],
+    "relatedSlugs": ["check-answers", "empty-state"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "GOV.UK Design System: Confirmation pages", "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Confirmation pages",
+        "url": "https://design-system.service.gov.uk/patterns/confirmation-pages/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Error summary",
+    "slug": "error-summary",
+    "category": "pattern",
+    "definition": "A block at the top of a failed form listing every problem as links that move focus to the field that caused it.",
+    "useWhen": "one list at the top links to each broken field",
+    "aliases": [
+      { "name": "error list", "source": "community" },
+      { "name": "validation summary", "source": "community" },
+      { "name": "there is a problem", "source": "govuk" },
+      { "name": "form error summary", "source": "uswds" }
+    ],
+    "relatedSlugs": ["inline-validation", "one-thing-per-page", "error-message"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "GOV.UK Design System: Error summary", "url": "https://design-system.service.gov.uk/components/error-summary/" },
+      {
+        "title": "GOV.UK Design System: Recover from validation errors",
+        "url": "https://design-system.service.gov.uk/patterns/validation/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Error summary",
+        "url": "https://design-system.service.gov.uk/components/error-summary/",
+        "verified": true
+      }
+    ],
+    "notes": "Could land in accessibility instead; the focus-management behaviour is the whole point of it."
+  },
+  {
+    "name": "Inline validation",
+    "slug": "inline-validation",
+    "category": "pattern",
+    "definition": "Checking a field as the reader leaves or fills it and showing the verdict next to that field, rather than saving all complaints for submission.",
+    "useWhen": "a field tells you it is wrong before you submit",
+    "aliases": [
+      { "name": "live validation", "source": "community" },
+      { "name": "input feedback", "source": "ui-patterns" },
+      { "name": "real-time validation", "source": "community" },
+      { "name": "as-you-type validation", "source": "community" },
+      { "name": "form validation", "source": "bootstrap" }
+    ],
+    "relatedSlugs": ["error-summary", "password-strength-meter", "forgiving-format"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Input Feedback", "url": "https://ui-patterns.com/patterns" },
+      { "title": "GoodUI: Try Inline Validation instead of delaying errors", "url": "https://goodui.org/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Input Feedback", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "goodui", "name": "Inline Validation", "url": "https://goodui.org/", "verified": true }
+    ]
+  },
+  {
+    "name": "Inline edit",
+    "slug": "inline-edit",
+    "category": "pattern",
+    "definition": "Turning a piece of displayed content into an editable field in place, so the reader changes it without leaving the page or opening a form.",
+    "useWhen": "clicking the text itself turns it into a field",
+    "aliases": [
+      { "name": "inplace editor", "source": "ui-patterns" },
+      { "name": "edit in place", "source": "community" },
+      { "name": "click to edit", "source": "community" },
+      { "name": "inline editable", "source": "atlassian" },
+      { "name": "editable text", "source": "community" }
+    ],
+    "relatedSlugs": ["autosave", "inline-validation", "direct-manipulation"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Inplace Editor", "url": "https://ui-patterns.com/patterns/InplaceEditor" },
+      { "title": "Atlassian Design System: Inline edit", "url": "https://atlassian.design/components/inline-edit/examples" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Inplace Editor", "url": "https://ui-patterns.com/patterns/InplaceEditor", "verified": true },
+      {
+        "systemId": "atlassian",
+        "name": "Inline edit",
+        "url": "https://atlassian.design/components/inline-edit/examples",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Autosave",
+    "slug": "autosave",
+    "category": "pattern",
+    "definition": "Persisting the reader's work continuously without a save action, usually with a quiet status line reporting when the last save happened.",
+    "useWhen": "work is kept without anyone pressing save",
+    "aliases": [
+      { "name": "auto-save", "source": "community" },
+      { "name": "saving indicator", "source": "community" },
+      { "name": "all changes saved", "source": "community" },
+      { "name": "draft saving", "source": "community" }
+    ],
+    "relatedSlugs": ["inline-edit", "unsaved-changes-guard", "optimistic-ui"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Autosave", "url": "https://ui-patterns.com/patterns/autosave" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Autosave", "url": "https://ui-patterns.com/patterns/autosave", "verified": true }
+    ]
+  },
+  {
+    "name": "Unsaved changes guard",
+    "slug": "unsaved-changes-guard",
+    "category": "pattern",
+    "definition": "Warning the reader that edits will be lost before a navigation or close is allowed to proceed, and offering to save or discard first.",
+    "useWhen": "leaving a form asks whether to discard your edits",
+    "aliases": [
+      { "name": "dirty state warning", "source": "community" },
+      { "name": "leave site dialog", "source": "community" },
+      { "name": "communicating unsaved changes", "source": "cloudscape" },
+      { "name": "beforeunload prompt", "source": "mdn" },
+      { "name": "discard changes prompt", "source": "community" }
+    ],
+    "relatedSlugs": ["autosave", "alert-dialog", "soft-delete"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Communicating unsaved changes", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Communicating unsaved changes", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "Drag to reorder",
+    "slug": "drag-to-reorder",
+    "category": "pattern",
+    "definition": "Changing the order of a list by dragging an item to a new position, with the remaining items shifting to show where it will land.",
+    "useWhen": "you rearrange a list by dragging its rows",
+    "aliases": [
+      { "name": "sortable list", "source": "dnd-kit" },
+      { "name": "reorderable list", "source": "community" },
+      { "name": "drag and drop reordering", "source": "community" },
+      { "name": "rearrange", "source": "hig" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "drop-indicator", "drag-handle", "bulk-actions"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "dnd kit: Sortable", "url": "https://dndkit.com/" },
+      { "title": "Cloudscape: Drag-and-drop", "url": "https://cloudscape.design/patterns/" }
+    ],
+    "implementations": [
+      { "systemId": "dnd-kit", "name": "Sortable", "url": "https://dndkit.com/concepts/sortable", "verified": true },
+      { "systemId": "cloudscape", "name": "Drag-and-drop", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ],
+    "notes": "The keyboard equivalent (move up, move down, or grab and arrow) is the accessibility half of this term."
+  },
+  {
+    "name": "Drop indicator",
+    "slug": "drop-indicator",
+    "category": "pattern",
+    "definition": "The line or highlighted gap drawn during a drag to show exactly where the item will land if it is released now.",
+    "useWhen": "the line that shows where the dragged item will land",
+    "aliases": [
+      { "name": "insertion indicator", "source": "react-aria" },
+      { "name": "drop line", "source": "community" },
+      { "name": "drop target highlight", "source": "community" },
+      { "name": "placeholder gap", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-to-reorder", "drag-and-drop", "drag-preview"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "React Aria: Drag and drop", "url": "https://react-aria.adobe.com/" }],
+    "implementations": [{ "systemId": "react-aria", "name": "DropIndicator", "url": "https://react-aria.adobe.com/dnd", "verified": true }],
+    "notes": "Strong long-tail candidate: people search for the name of the blue line."
+  },
+  {
+    "name": "Drag preview",
+    "slug": "drag-preview",
+    "category": "pattern",
+    "definition": "The semi-transparent copy of the dragged item that follows the pointer, sometimes collapsed into a stack when several items move at once.",
+    "useWhen": "the ghost of the item that follows your cursor",
+    "aliases": [
+      { "name": "drag overlay", "source": "dnd-kit" },
+      { "name": "drag image", "source": "mdn" },
+      { "name": "ghost image", "source": "community" },
+      { "name": "drag ghost", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-to-reorder", "drop-indicator", "drag-and-drop"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "dnd kit: Drag overlay", "url": "https://dndkit.com/" }],
+    "implementations": [
+      {
+        "systemId": "dnd-kit",
+        "name": "DragOverlay",
+        "url": "https://dndkit.com/legacy/api-documentation/draggable/drag-overlay",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Bulk actions",
+    "slug": "bulk-actions",
+    "category": "pattern",
+    "definition": "Selecting several rows and applying one command to all of them, usually through a bar that appears once a selection exists and reports its count.",
+    "useWhen": "picking many rows and acting on them at once",
+    "aliases": [
+      { "name": "batch actions", "source": "carbon" },
+      { "name": "bulk edit", "source": "community" },
+      { "name": "multi-select actions", "source": "community" },
+      { "name": "contextual action bar", "source": "material" },
+      { "name": "selection toolbar", "source": "community" }
+    ],
+    "relatedSlugs": ["select-all-across-pages", "range-selection", "soft-delete"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Carbon Design System: Data table", "url": "https://carbondesignsystem.com/components/data-table/usage/" }],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Batch actions",
+        "url": "https://carbondesignsystem.com/components/data-table/usage/",
+        "verified": true
+      },
+      { "systemId": "cloudscape", "name": "Actions", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "Select all across pages",
+    "slug": "select-all-across-pages",
+    "category": "pattern",
+    "definition": "Offering to extend a selection from the visible page to every matching row, after a header checkbox has selected only what is on screen.",
+    "useWhen": "select all offers to also take the rows you cannot see",
+    "aliases": [
+      { "name": "select all matching", "source": "community" },
+      { "name": "select all 1,204 items", "source": "community" },
+      { "name": "cross-page selection", "source": "community" }
+    ],
+    "relatedSlugs": ["bulk-actions", "range-selection"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Gmail popularised the two-stage version; no design system seems to have a documented name for it."
+  },
+  {
+    "name": "Range selection",
+    "slug": "range-selection",
+    "category": "pattern",
+    "definition": "Clicking one item then shift-clicking another to select everything between them, the keyboard-modified alternative to ticking each row.",
+    "useWhen": "shift-click grabs everything between two rows",
+    "aliases": [
+      { "name": "shift-click selection", "source": "community" },
+      { "name": "contiguous selection", "source": "community" },
+      { "name": "anchor selection", "source": "community" },
+      { "name": "extend selection", "source": "hig" }
+    ],
+    "relatedSlugs": ["bulk-actions", "marquee-selection", "select-all-across-pages"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Could belong in interaction; recorded here because it is a selection model rather than a gesture."
+  },
+  {
+    "name": "Marquee selection",
+    "slug": "marquee-selection",
+    "category": "pattern",
+    "definition": "Dragging a rectangle across empty space to select every item it touches, the desktop file manager gesture carried into canvases and boards.",
+    "useWhen": "dragging a box across items to select them",
+    "aliases": [
+      { "name": "rubber band selection", "source": "community" },
+      { "name": "lasso selection", "source": "community" },
+      { "name": "box select", "source": "community" },
+      { "name": "drag select", "source": "community" },
+      { "name": "band select", "source": "community" }
+    ],
+    "relatedSlugs": ["range-selection", "bulk-actions"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Prime long-tail entry: several competing names and no authoritative documentation."
+  },
+  {
+    "name": "Faceted search",
+    "slug": "faceted-search",
+    "category": "pattern",
+    "definition": "Narrowing results by ticking values from several independent attribute groups, with counts showing how many results each value would leave.",
+    "useWhen": "filters grouped by attribute, each showing result counts",
+    "aliases": [
+      { "name": "faceted navigation", "source": "community" },
+      { "name": "guided navigation", "source": "community" },
+      { "name": "filter sidebar", "source": "community" },
+      { "name": "refinements", "source": "community" },
+      { "name": "faceted filters", "source": "tanstack-table" }
+    ],
+    "relatedSlugs": ["applied-filters", "typeahead", "search-scope"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "A List Apart: Design Patterns: Faceted Navigation",
+        "url": "https://alistapart.com/article/design-patterns-faceted-navigation/"
+      },
+      { "title": "Cloudscape: Filtering patterns", "url": "https://cloudscape.design/patterns/" }
+    ],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Filtering patterns", "url": "https://cloudscape.design/patterns/", "verified": true },
+      { "systemId": "tanstack-table", "name": "Faceted values", "url": "https://tanstack.com/table/latest", "verified": true }
+    ]
+  },
+  {
+    "name": "Applied filters",
+    "slug": "applied-filters",
+    "category": "pattern",
+    "definition": "A row of removable tokens above the results showing every filter currently in force, with a control to clear them all at once.",
+    "useWhen": "the removable tags showing which filters are on",
+    "aliases": [
+      { "name": "filter chips", "source": "material" },
+      { "name": "filter pills", "source": "community" },
+      { "name": "active filters", "source": "community" },
+      { "name": "filter tokens", "source": "cloudscape" },
+      { "name": "selected filters", "source": "community" }
+    ],
+    "relatedSlugs": ["faceted-search", "chip"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Filtering patterns", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Property filter tokens", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ],
+    "notes": "chip already exists on the site; this is the pattern that uses chips, so it needs a contrastWith edge rather than a merge."
+  },
+  {
+    "name": "Typeahead",
+    "slug": "typeahead",
+    "category": "pattern",
+    "definition": "Offering suggestions that update on every keystroke, drawn from a live query, so the reader picks a result rather than finishing the phrase.",
+    "useWhen": "suggestions appear and change as you type",
+    "aliases": [
+      { "name": "autocomplete", "source": "community" },
+      { "name": "autosuggest", "source": "community" },
+      { "name": "search as you type", "source": "community" },
+      { "name": "instant search", "source": "community" },
+      { "name": "predictive search", "source": "community" },
+      { "name": "lookahead", "source": "community" },
+      { "name": "suggest", "source": "blueprint" }
+    ],
+    "relatedSlugs": ["combobox", "inline-autocomplete", "faceted-search", "did-you-mean"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Autocomplete", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Autocomplete", "url": "https://ui-patterns.com/patterns", "verified": true },
+      {
+        "systemId": "aria-apg",
+        "name": "Editable Combobox With List Autocomplete",
+        "url": "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/",
+        "verified": true
+      }
+    ],
+    "notes": "combobox is already on the site as the component; typeahead is the behaviour, and the two need a disambiguation article."
+  },
+  {
+    "name": "Inline autocomplete",
+    "slug": "inline-autocomplete",
+    "category": "pattern",
+    "definition": "Completing the reader's text inside the field itself, with the guessed remainder selected so the next keystroke replaces it.",
+    "useWhen": "the field finishes your word inside the field",
+    "aliases": [
+      { "name": "autocomplete inline", "source": "aria-apg" },
+      { "name": "inline completion", "source": "community" },
+      { "name": "ghost text", "source": "community" },
+      { "name": "type-ahead completion", "source": "community" },
+      { "name": "URL bar autofill", "source": "community" }
+    ],
+    "relatedSlugs": ["typeahead", "combobox"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "ARIA APG: Combobox pattern", "url": "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" }],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Editable Combobox With Both List and Inline Autocomplete",
+        "url": "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-both/",
+        "verified": true
+      }
+    ],
+    "notes": "Ghost text now also names the AI completion suggestion in editors; a naming collision worth an article."
+  },
+  {
+    "name": "Did you mean",
+    "slug": "did-you-mean",
+    "category": "pattern",
+    "definition": "Offering a corrected spelling for a query that returned little or nothing, either as a suggestion to accept or as a substitution the reader can undo.",
+    "useWhen": "search offers a corrected spelling of your query",
+    "aliases": [
+      { "name": "spelling suggestion", "source": "community" },
+      { "name": "query correction", "source": "community" },
+      { "name": "showing results for", "source": "community" },
+      { "name": "search instead for", "source": "community" }
+    ],
+    "relatedSlugs": ["typeahead", "no-results-state"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The forgiving reading of it (auto-substitute plus a way back) is the interesting half."
+  },
+  {
+    "name": "No results state",
+    "slug": "no-results-state",
+    "category": "pattern",
+    "definition": "What a search or filtered list shows when nothing matched, naming the query, explaining why, and offering a way to loosen the constraints.",
+    "useWhen": "the screen shown when a search matches nothing",
+    "aliases": [
+      { "name": "zero results", "source": "community" },
+      { "name": "no matches", "source": "community" },
+      { "name": "empty search results", "source": "community" },
+      { "name": "null state", "source": "community" }
+    ],
+    "relatedSlugs": ["empty-state", "did-you-mean", "faceted-search"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Empty states", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Empty states", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ],
+    "notes": "empty-state and zero-state already exist on the site. This is the distinct no-results reading; if the merge step folds it in, keep no results and zero results as aliases there."
+  },
+  {
+    "name": "Onboarding tour",
+    "slug": "onboarding-tour",
+    "category": "pattern",
+    "definition": "A short sequence of pointers layered over a live interface, each naming one control, advanced by the reader and skippable at any point.",
+    "useWhen": "a stepped overlay walks you around a live screen",
+    "aliases": [
+      { "name": "product tour", "source": "community" },
+      { "name": "guided tour", "source": "ui-patterns" },
+      { "name": "walkthrough", "source": "ui-patterns" },
+      { "name": "playthrough", "source": "ui-patterns" },
+      { "name": "feature tour", "source": "community" },
+      { "name": "in-app tour", "source": "community" }
+    ],
+    "relatedSlugs": ["coach-mark", "hotspot", "onboarding-checklist", "feature-spotlight"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Guided Tour", "url": "https://ui-patterns.com/patterns" },
+      { "title": "Cloudscape: Onboarding", "url": "https://cloudscape.design/patterns/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Guided Tour", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "cloudscape", "name": "Onboarding", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "Coach mark",
+    "slug": "coach-mark",
+    "category": "pattern",
+    "definition": "A translucent overlay drawn once over a first run, labelling controls with hand-drawn arrows and captions and dismissed by a single tap anywhere.",
+    "useWhen": "the one-time scribbled overlay labelling the whole screen",
+    "aliases": [
+      { "name": "coachmarks", "source": "ui-patterns" },
+      { "name": "instructional overlay", "source": "community" },
+      { "name": "first-run overlay", "source": "community" },
+      { "name": "annotated overlay", "source": "community" }
+    ],
+    "relatedSlugs": ["onboarding-tour", "hotspot", "first-run-experience"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Coachmarks", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Coachmarks", "url": "https://ui-patterns.com/patterns", "verified": true }],
+    "notes": "Distinct from a tour: one screen, all at once, no steps. Widely conflated, which is exactly why the entry earns its place."
+  },
+  {
+    "name": "Hotspot",
+    "slug": "hotspot",
+    "category": "pattern",
+    "definition": "A small pulsing dot placed on a control to advertise that something can be learned there, expanding into a tip when the reader engages with it.",
+    "useWhen": "the pulsing dot inviting you to discover a feature",
+    "aliases": [
+      { "name": "beacon", "source": "community" },
+      { "name": "pulsing dot", "source": "community" },
+      { "name": "spotlight dot", "source": "community" },
+      { "name": "discovery indicator", "source": "community" }
+    ],
+    "relatedSlugs": ["onboarding-tour", "coach-mark", "feature-spotlight"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Inline Hints", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Inline Hints", "url": "https://ui-patterns.com/patterns", "verified": true }]
+  },
+  {
+    "name": "Onboarding checklist",
+    "slug": "onboarding-checklist",
+    "category": "pattern",
+    "definition": "A persistent list of setup tasks with completion state and a progress meter, kept available so the reader can return to unfinished steps.",
+    "useWhen": "a setup list you can leave and come back to",
+    "aliases": [
+      { "name": "getting started checklist", "source": "community" },
+      { "name": "setup checklist", "source": "community" },
+      { "name": "task list", "source": "govuk" },
+      { "name": "complete multiple tasks", "source": "govuk" },
+      { "name": "quick start guide", "source": "community" }
+    ],
+    "relatedSlugs": ["onboarding-tour", "endowed-progress", "steps-left"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "GOV.UK Design System: Complete multiple tasks",
+        "url": "https://design-system.service.gov.uk/patterns/complete-multiple-tasks/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Complete multiple tasks",
+        "url": "https://design-system.service.gov.uk/patterns/complete-multiple-tasks/",
+        "verified": true
+      }
+    ],
+    "notes": "GOV.UK renamed Task list pages to Complete multiple tasks and split out a Task list component; both names are live in the wild."
+  },
+  {
+    "name": "Endowed progress",
+    "slug": "endowed-progress",
+    "category": "pattern",
+    "definition": "Starting a progress meter part filled, so the reader feels they are continuing something already begun rather than starting from nothing.",
+    "useWhen": "the progress bar starts at 20 percent before you did anything",
+    "aliases": [
+      { "name": "endowed progress effect", "source": "community" },
+      { "name": "artificial advancement", "source": "community" },
+      { "name": "head start progress", "source": "community" },
+      { "name": "upfront progress", "source": "goodui" }
+    ],
+    "relatedSlugs": ["onboarding-checklist", "steps-left", "goal-gradient"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "GoodUI: Try Upfront Progress instead of starting with a blank", "url": "https://goodui.org/" }],
+    "implementations": [{ "systemId": "goodui", "name": "Upfront Progress", "url": "https://goodui.org/", "verified": true }]
+  },
+  {
+    "name": "Goal gradient",
+    "slug": "goal-gradient",
+    "category": "pattern",
+    "definition": "Effort rising as a visible goal gets closer, which is why interfaces show how little is left rather than how much has been done.",
+    "useWhen": "the interface shows how close you are, not how far you came",
+    "aliases": [
+      { "name": "goal-gradient effect", "source": "ui-patterns" },
+      { "name": "almost there", "source": "community" },
+      { "name": "two stamps to go", "source": "community" }
+    ],
+    "relatedSlugs": ["endowed-progress", "onboarding-checklist", "streak"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Goal-Gradient Effect", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Goal-Gradient Effect", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "A psychology principle rather than a UI shape; kept because its interface expression (a nearly full meter) is demoable."
+  },
+  {
+    "name": "Swipe to reveal",
+    "slug": "swipe-to-reveal",
+    "category": "pattern",
+    "definition": "Sliding a list row sideways to uncover a strip of actions behind it, which stay open until one is chosen or the row is slid back.",
+    "useWhen": "sliding a row aside uncovers its hidden buttons",
+    "aliases": [
+      { "name": "swipe actions", "source": "hig" },
+      { "name": "swipe to delete", "source": "community" },
+      { "name": "contextual swipe", "source": "nngroup" },
+      { "name": "leading and trailing swipe actions", "source": "hig" },
+      { "name": "reveal mode swipe", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe-to-dismiss", "bulk-actions", "context-menu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "NN/g: Using Swipe to Trigger Contextual Actions", "url": "https://www.nngroup.com/articles/contextual-swipe/" },
+      { "title": "Android: Swipe to reveal", "url": "https://developer.android.com/design/ui/wear/guides/m2-5/components/swipe-to-reveal" }
+    ],
+    "implementations": [
+      { "systemId": "nngroup", "name": "Contextual swipe", "url": "https://www.nngroup.com/articles/contextual-swipe/", "verified": true },
+      {
+        "systemId": "android",
+        "name": "Swipe to reveal",
+        "url": "https://developer.android.com/design/ui/wear/guides/m2-5/components/swipe-to-reveal",
+        "verified": true
+      }
+    ],
+    "notes": "Reveal mode versus execute mode is the useful distinction: execute fires the action once the swipe passes a threshold."
+  },
+  {
+    "name": "Swipe to dismiss",
+    "slug": "swipe-to-dismiss",
+    "category": "pattern",
+    "definition": "Flinging an item off the edge of the screen to remove it, with the item tracking the finger and snapping back if the throw is too short.",
+    "useWhen": "throwing a card or notification off the screen to clear it",
+    "aliases": [
+      { "name": "swipe away", "source": "community" },
+      { "name": "dismissible", "source": "material" },
+      { "name": "flick to dismiss", "source": "community" },
+      { "name": "swipe to clear", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe-to-reveal", "undo", "swipe-deck"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "NN/g: Using Swipe to Trigger Contextual Actions", "url": "https://www.nngroup.com/articles/contextual-swipe/" }
+    ],
+    "implementations": [
+      { "systemId": "nngroup", "name": "Swipe to dismiss", "url": "https://www.nngroup.com/articles/contextual-swipe/", "verified": true }
+    ]
+  },
+  {
+    "name": "Swipe deck",
+    "slug": "swipe-deck",
+    "category": "pattern",
+    "definition": "A stack of cards judged one at a time, each thrown left or right to record a binary decision and reveal the next card underneath.",
+    "useWhen": "a stack of cards you swipe left or right to judge",
+    "aliases": [
+      { "name": "card stack", "source": "community" },
+      { "name": "tinder swipe", "source": "community" },
+      { "name": "swipe cards", "source": "community" },
+      { "name": "yes no deck", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe-to-dismiss", "stories"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "No design system documents it; the vernacular name is the product that popularised it."
+  },
+  {
+    "name": "List detail",
+    "slug": "list-detail",
+    "category": "pattern",
+    "definition": "A list of items beside the full record of whichever one is selected, collapsing to a single navigable pane when the screen is too narrow for both.",
+    "useWhen": "a list on one side and the selected item's detail on the other",
+    "aliases": [
+      { "name": "master detail", "source": "community" },
+      { "name": "master-detail interface", "source": "community" },
+      { "name": "split view", "source": "hig" },
+      { "name": "two-pane layout", "source": "android" },
+      { "name": "three-pane layout", "source": "android" },
+      { "name": "supporting pane", "source": "android" }
+    ],
+    "relatedSlugs": ["quick-view", "hub-and-spoke", "drawer"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Android: Build a list-detail layout", "url": "https://developer.android.com/develop/adaptive-apps/guides/list-detail" }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "List-detail",
+        "url": "https://developer.android.com/develop/adaptive-apps/guides/list-detail",
+        "verified": true
+      }
+    ],
+    "notes": "Arguably layout rather than pattern; the responsive collapse behaviour is what makes it a flow. Android renamed master-detail to list-detail, a naming shift worth an article."
+  },
+  {
+    "name": "Priority plus navigation",
+    "slug": "priority-plus-navigation",
+    "category": "pattern",
+    "definition": "A horizontal menu that keeps as many items visible as fit and moves the rest into a More control, recalculating whenever the available width changes.",
+    "useWhen": "the nav shows what fits and hides the rest behind More",
+    "aliases": [
+      { "name": "priority+ navigation", "source": "community" },
+      { "name": "priority plus pattern", "source": "community" },
+      { "name": "more menu overflow nav", "source": "community" },
+      { "name": "adaptive navigation", "source": "community" },
+      { "name": "overflow list", "source": "blueprint" }
+    ],
+    "relatedSlugs": ["overflow-menu", "hamburger-menu", "quick-return-header"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "CSS-Tricks: The Priority+ Navigation Pattern", "url": "https://css-tricks.com/the-priority-navigation-pattern/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "css-tricks",
+        "name": "Priority+ Navigation",
+        "url": "https://css-tricks.com/the-priority-navigation-pattern/",
+        "verified": true
+      }
+    ],
+    "notes": "Coined by Michael Scharnagl, popularised by Brad Frost. overflow-menu already exists on the site as the component; this is the responsive strategy that fills it."
+  },
+  {
+    "name": "Quick return header",
+    "slug": "quick-return-header",
+    "category": "pattern",
+    "definition": "A header that slides out of the way while the reader scrolls down and returns immediately on the first upward scroll, without waiting for the top of the page.",
+    "useWhen": "the bar hides going down and comes back the moment you scroll up",
+    "aliases": [
+      { "name": "hidey bar", "source": "community" },
+      { "name": "headroom", "source": "community" },
+      { "name": "hide on scroll header", "source": "community" },
+      { "name": "auto-hiding header", "source": "community" },
+      { "name": "quick return pattern", "source": "android" }
+    ],
+    "relatedSlugs": ["back-to-top", "priority-plus-navigation", "app-bar"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Bram.us: hide a header when scrolling down, show it again when scrolling up",
+        "url": "https://www.bram.us/2025/10/22/solved-by-css-scroll-state-queries-hide-a-header-when-scrolling-down-show-it-again-when-scrolling-up/"
+      }
+    ],
+    "implementations": [],
+    "notes": "iframe demo: the subject is the document scroller and a position:sticky header measured against it."
+  },
+  {
+    "name": "Back to top",
+    "slug": "back-to-top",
+    "category": "pattern",
+    "definition": "A control that appears after the reader has scrolled some distance and returns them to the top of the page in one action.",
+    "useWhen": "the button that appears partway down to send you back up",
+    "aliases": [
+      { "name": "scroll to top", "source": "community" },
+      { "name": "return to top", "source": "community" },
+      { "name": "back to top link", "source": "govuk" },
+      { "name": "float back to top", "source": "ant-design" }
+    ],
+    "relatedSlugs": ["quick-return-header", "infinite-scroll", "reading-progress"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [{ "title": "Ant Design: FloatButton BackTop", "url": "https://ant.design/components/float-button" }],
+    "implementations": [
+      { "systemId": "ant-design", "name": "FloatButton.BackTop", "url": "https://ant.design/components/float-button", "verified": true }
+    ],
+    "notes": "iframe demo: the trigger threshold is a property of the document scroller."
+  },
+  {
+    "name": "Reading progress",
+    "slug": "reading-progress",
+    "category": "pattern",
+    "definition": "A bar tied to scroll position that shows how much of an article remains, usually pinned to the top edge and filling as the reader descends.",
+    "useWhen": "the thin bar showing how far through the article you are",
+    "aliases": [
+      { "name": "reading progress bar", "source": "community" },
+      { "name": "scroll progress indicator", "source": "community" },
+      { "name": "scroll-linked progress bar", "source": "community" },
+      { "name": "article progress bar", "source": "community" }
+    ],
+    "relatedSlugs": ["back-to-top", "scroll-spy", "steps-left"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [],
+    "implementations": [],
+    "notes": "iframe demo: the subject is scroll-driven animation over the document scroller. scroll-spy already exists and should carry a contrastWith edge."
+  },
+  {
+    "name": "Scroll hijacking",
+    "slug": "scroll-hijacking",
+    "category": "pattern",
+    "definition": "Overriding the browser's scrolling so a wheel turn advances a scripted sequence instead of moving the page by the distance the reader asked for.",
+    "useWhen": "the page takes over what one scroll of the wheel does",
+    "aliases": [
+      { "name": "scrolljacking", "source": "community" },
+      { "name": "hijacked scrolling", "source": "community" },
+      { "name": "scroll takeover", "source": "community" },
+      { "name": "full-page scroll", "source": "community" }
+    ],
+    "relatedSlugs": ["false-bottom", "scroll-snap", "reading-progress"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [],
+    "implementations": [],
+    "notes": "Almost always used pejoratively; contrast with scroll-snap, which constrains scrolling without stealing it."
+  },
+  {
+    "name": "False bottom",
+    "slug": "false-bottom",
+    "category": "pattern",
+    "definition": "A page that looks finished at a point where content actually continues, so the reader stops scrolling and never sees the rest.",
+    "useWhen": "the page looks like it ended but has not",
+    "aliases": [
+      { "name": "false floor", "source": "community" },
+      { "name": "illusion of completeness", "source": "nngroup" },
+      { "name": "premature end", "source": "community" },
+      { "name": "suggesting continuity", "source": "goodui" }
+    ],
+    "relatedSlugs": ["infinite-scroll", "scroll-hijacking"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "GoodUI: Try Suggesting Continuity instead of false bottoms", "url": "https://goodui.org/" }],
+    "implementations": [{ "systemId": "goodui", "name": "Suggesting Continuity", "url": "https://goodui.org/", "verified": true }],
+    "notes": "Excellent long-tail entry: readers know the problem and not the word."
+  },
+  {
+    "name": "Permission priming",
+    "slug": "permission-priming",
+    "category": "pattern",
+    "definition": "Explaining why access is needed in the product's own dialog first, and only firing the operating system prompt once the reader has said yes to that.",
+    "useWhen": "your own dialog asks before the real system prompt does",
+    "aliases": [
+      { "name": "pre-permission prompt", "source": "community" },
+      { "name": "soft ask", "source": "community" },
+      { "name": "double permission pattern", "source": "web-dev" },
+      { "name": "primer dialog", "source": "community" },
+      { "name": "permission pre-prompt", "source": "community" }
+    ],
+    "relatedSlugs": ["interstitial", "nagging", "onboarding-tour"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "UserOnboard: Permission Priming", "url": "https://www.useronboard.com/onboarding-ux-patterns/permission-priming/" },
+      { "title": "web.dev: Permission UX", "url": "https://web.dev/articles/push-notifications-permissions-ux" }
+    ],
+    "implementations": [
+      {
+        "systemId": "useronboard",
+        "name": "Permission Priming",
+        "url": "https://www.useronboard.com/onboarding-ux-patterns/permission-priming/",
+        "verified": true
+      },
+      {
+        "systemId": "web-dev",
+        "name": "Double permission pattern",
+        "url": "https://web.dev/articles/push-notifications-permissions-ux",
+        "verified": true
+      }
+    ],
+    "notes": "Genuine long-tail gold: three competing names for one well-understood behaviour."
+  },
+  {
+    "name": "Interstitial",
+    "slug": "interstitial",
+    "category": "pattern",
+    "definition": "A full screen placed between two steps of a flow, carrying a message, an advert, or a warning that the reader must pass through to continue.",
+    "useWhen": "a whole screen sits between you and where you were going",
+    "aliases": [
+      { "name": "interruption page", "source": "govuk" },
+      { "name": "interstitial ad", "source": "community" },
+      { "name": "splash interstitial", "source": "community" },
+      { "name": "in-between screen", "source": "community" }
+    ],
+    "relatedSlugs": ["paywall", "permission-priming", "modal-dialog", "cookie-consent-banner"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "GOV.UK Design System: Interruption pages", "url": "https://design-system.service.gov.uk/patterns/interruption-pages/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Interruption pages",
+        "url": "https://design-system.service.gov.uk/patterns/interruption-pages/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Smart app banner",
+    "slug": "smart-app-banner",
+    "category": "pattern",
+    "definition": "A strip pinned to the top of a mobile web page urging the reader to open or install the native app instead, with an install or open action.",
+    "useWhen": "the strip on a mobile site pushing you into the app",
+    "aliases": [
+      { "name": "app install banner", "source": "community" },
+      { "name": "open in app prompt", "source": "community" },
+      { "name": "app interstitial", "source": "community" },
+      { "name": "install prompt", "source": "community" }
+    ],
+    "relatedSlugs": ["interstitial", "nagging", "banner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The full-screen version is penalised by search engines as an intrusive interstitial, which is part of the term's story."
+  },
+  {
+    "name": "Rating prompt",
+    "slug": "rating-prompt",
+    "category": "pattern",
+    "definition": "An in-product request to rate or review, usually timed to a moment of success and often filtered so only positive responses reach the public store.",
+    "useWhen": "the app asks how you like it right after something went well",
+    "aliases": [
+      { "name": "review request", "source": "community" },
+      { "name": "app rating prompt", "source": "community" },
+      { "name": "review gating", "source": "community" },
+      { "name": "rate this app", "source": "community" },
+      { "name": "how are we doing", "source": "community" }
+    ],
+    "relatedSlugs": ["nagging", "interstitial", "microsurvey"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Review gating (routing unhappy answers to private feedback) is against both app store policies, worth saying in the article."
+  },
+  {
+    "name": "Microsurvey",
+    "slug": "microsurvey",
+    "category": "pattern",
+    "definition": "A one or two question survey placed inside the product at the moment being asked about, answered in place rather than on a separate page.",
+    "useWhen": "a one-question survey inside the thing it asks about",
+    "aliases": [
+      { "name": "in-app survey", "source": "community" },
+      { "name": "one-question survey", "source": "community" },
+      { "name": "NPS prompt", "source": "community" },
+      { "name": "feedback mechanism", "source": "cloudscape" },
+      { "name": "was this helpful", "source": "community" }
+    ],
+    "relatedSlugs": ["rating-prompt", "toast"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Feedback mechanisms", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Feedback mechanisms", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "Paywall",
+    "slug": "paywall",
+    "category": "pattern",
+    "definition": "A barrier that stops access to content or a feature until the reader pays, placed either before anything is shown or partway into the content.",
+    "useWhen": "the point where content stops until you pay",
+    "aliases": [
+      { "name": "hard paywall", "source": "community" },
+      { "name": "content gate", "source": "community" },
+      { "name": "subscription wall", "source": "community" },
+      { "name": "premium wall", "source": "community" }
+    ],
+    "relatedSlugs": ["metered-paywall", "feature-gate", "interstitial"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Paywall", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Paywall", "url": "https://ui-patterns.com/patterns", "verified": true }]
+  },
+  {
+    "name": "Metered paywall",
+    "slug": "metered-paywall",
+    "category": "pattern",
+    "definition": "A paywall that grants a fixed number of free items per period and counts down publicly, so the barrier arrives only after the reader is invested.",
+    "useWhen": "you get three free articles a month and a counter says so",
+    "aliases": [
+      { "name": "soft paywall", "source": "community" },
+      { "name": "freemium meter", "source": "community" },
+      { "name": "article counter", "source": "community" },
+      { "name": "leaky paywall", "source": "community" }
+    ],
+    "relatedSlugs": ["paywall", "feature-gate", "scarcity-indicator"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The fade-to-white teaser above it is a separate visual device, sometimes called a content fade or gradient fade."
+  },
+  {
+    "name": "Feature gate",
+    "slug": "feature-gate",
+    "category": "pattern",
+    "definition": "Showing a locked feature in place, with its real position in the interface, so the reader sees what upgrading would unlock rather than a hidden absence.",
+    "useWhen": "a locked feature stays visible with an upgrade badge",
+    "aliases": [
+      { "name": "upgrade prompt", "source": "community" },
+      { "name": "freemium wall", "source": "community" },
+      { "name": "locked feature", "source": "community" },
+      { "name": "teaser lock", "source": "community" },
+      { "name": "pro badge", "source": "community" }
+    ],
+    "relatedSlugs": ["paywall", "metered-paywall", "empty-state"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "GoodUI: Try Exposing Options instead of hiding them", "url": "https://goodui.org/" }],
+    "implementations": [{ "systemId": "goodui", "name": "Exposing Options", "url": "https://goodui.org/", "verified": true }]
+  },
+  {
+    "name": "Lazy registration",
+    "slug": "lazy-registration",
+    "category": "pattern",
+    "definition": "Letting someone use a product and accumulate state anonymously, and asking for an account only when that state needs to survive the session.",
+    "useWhen": "you can start using it before making an account",
+    "aliases": [
+      { "name": "deferred registration", "source": "community" },
+      { "name": "anonymous account", "source": "community" },
+      { "name": "try before you sign up", "source": "community" },
+      { "name": "guest mode", "source": "community" }
+    ],
+    "relatedSlugs": ["gradual-engagement", "progressive-profiling", "guest-checkout"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Lazy Registration", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Lazy Registration", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ]
+  },
+  {
+    "name": "Gradual engagement",
+    "slug": "gradual-engagement",
+    "category": "pattern",
+    "definition": "Replacing a sign-up form at the front door with a first useful action, so the reader experiences value before being asked for anything.",
+    "useWhen": "the first screen does something instead of asking you to register",
+    "aliases": [
+      { "name": "gradual sign up", "source": "goodui" },
+      { "name": "progressive engagement", "source": "community" },
+      { "name": "value first onboarding", "source": "community" }
+    ],
+    "relatedSlugs": ["lazy-registration", "progressive-profiling", "onboarding-tour"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "GoodUI: Try Gradual Engagement instead of a hasty sign up", "url": "https://goodui.org/" }],
+    "implementations": [{ "systemId": "goodui", "name": "Gradual Engagement", "url": "https://goodui.org/", "verified": true }]
+  },
+  {
+    "name": "Progressive profiling",
+    "slug": "progressive-profiling",
+    "category": "pattern",
+    "definition": "Collecting profile details a few at a time across separate visits, instead of demanding the whole record in one long form at registration.",
+    "useWhen": "the product asks for one more detail each time you return",
+    "aliases": [
+      { "name": "incremental profiling", "source": "community" },
+      { "name": "drip profiling", "source": "community" },
+      { "name": "profile completeness", "source": "community" },
+      { "name": "completeness meter", "source": "ui-patterns" }
+    ],
+    "relatedSlugs": ["gradual-engagement", "lazy-registration", "endowed-progress"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Completeness meter", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Completeness meter", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ]
+  },
+  {
+    "name": "Social login",
+    "slug": "social-login",
+    "category": "pattern",
+    "definition": "Signing in by delegating identity to an existing account elsewhere, presented as a row of provider buttons above or instead of a password form.",
+    "useWhen": "the row of continue with Google and Apple buttons",
+    "aliases": [
+      { "name": "social sign-in", "source": "community" },
+      { "name": "continue with Google", "source": "community" },
+      { "name": "third-party login", "source": "community" },
+      { "name": "OAuth login", "source": "community" },
+      { "name": "federated login", "source": "community" }
+    ],
+    "relatedSlugs": ["magic-link", "one-time-code-login", "passkey"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Carbon Design System: Login pattern", "url": "https://carbondesignsystem.com/patterns/login-pattern/" }],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Alternative logins",
+        "url": "https://carbondesignsystem.com/patterns/login-pattern/",
+        "verified": true
+      }
+    ],
+    "notes": "The NASCAR problem (too many provider buttons) is the usual reason people search for this term."
+  },
+  {
+    "name": "Magic link",
+    "slug": "magic-link",
+    "category": "pattern",
+    "definition": "Signing in by clicking a single-use link emailed on request, with no password, and a screen that waits and offers to resend while the mail arrives.",
+    "useWhen": "you sign in by clicking a link sent to your email",
+    "aliases": [
+      { "name": "email link sign-in", "source": "community" },
+      { "name": "passwordless link", "source": "community" },
+      { "name": "login link", "source": "community" },
+      { "name": "check your email screen", "source": "community" }
+    ],
+    "relatedSlugs": ["one-time-code-login", "social-login", "passkey"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The waiting screen with a resend timer is the demoable half of the term."
+  },
+  {
+    "name": "One-time code login",
+    "slug": "one-time-code-login",
+    "category": "pattern",
+    "definition": "Signing in by typing a short code sent to a second channel, keeping the reader inside the app rather than sending them out to a mail client.",
+    "useWhen": "you type a six digit code sent by mail or text",
+    "aliases": [
+      { "name": "OTP", "source": "community" },
+      { "name": "email OTP", "source": "community" },
+      { "name": "verification code", "source": "community" },
+      { "name": "six digit code", "source": "community" },
+      { "name": "two-factor code", "source": "community" }
+    ],
+    "relatedSlugs": ["magic-link", "social-login", "passkey"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The segmented code input is a component (pin input, one-time code field); this record is the flow around it."
+  },
+  {
+    "name": "Passkey",
+    "slug": "passkey",
+    "category": "pattern",
+    "definition": "Signing in with a device-held credential unlocked by the reader's own biometric or screen lock, so the interface asks for a face or fingerprint, not a secret.",
+    "useWhen": "signing in with a fingerprint instead of a password",
+    "aliases": [
+      { "name": "WebAuthn", "source": "community" },
+      { "name": "FIDO2", "source": "community" },
+      { "name": "biometric login", "source": "community" },
+      { "name": "device credential", "source": "community" }
+    ],
+    "relatedSlugs": ["magic-link", "one-time-code-login", "social-login"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      { "title": "MDN: Web Authentication API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Passkeys",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Security/Authentication/Passkeys",
+        "verified": true
+      }
+    ],
+    "notes": "demo none: the interesting part is an operating system dialog that cannot be reproduced honestly in a page."
+  },
+  {
+    "name": "Password strength meter",
+    "slug": "password-strength-meter",
+    "category": "pattern",
+    "definition": "A gauge that scores a password while it is typed and names what would improve it, replacing a list of rules with continuous feedback.",
+    "useWhen": "the bar that rates a password as you type it",
+    "aliases": [
+      { "name": "strength indicator", "source": "community" },
+      { "name": "password meter", "source": "community" },
+      { "name": "password quality bar", "source": "community" }
+    ],
+    "relatedSlugs": ["inline-validation", "reveal-password", "social-login"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Password Strength Meter", "url": "https://ui-patterns.com/patterns" },
+      { "title": "GOV.UK Design System: Passwords", "url": "https://design-system.service.gov.uk/patterns/passwords/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Password Strength Meter", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "govuk", "name": "Passwords", "url": "https://design-system.service.gov.uk/patterns/passwords/", "verified": true }
+    ]
+  },
+  {
+    "name": "Reveal password",
+    "slug": "reveal-password",
+    "category": "pattern",
+    "definition": "A toggle inside a password field that switches the text between masked and readable, so the reader can check what they typed before submitting.",
+    "useWhen": "the eye icon that unmasks what you typed",
+    "aliases": [
+      { "name": "show password toggle", "source": "govuk" },
+      { "name": "unmask password", "source": "community" },
+      { "name": "eye icon", "source": "community" },
+      { "name": "password visibility toggle", "source": "material" }
+    ],
+    "relatedSlugs": ["password-strength-meter", "input-mask"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "GOV.UK Design System: Passwords", "url": "https://design-system.service.gov.uk/patterns/passwords/" }],
+    "implementations": [
+      { "systemId": "govuk", "name": "Show password", "url": "https://design-system.service.gov.uk/patterns/passwords/", "verified": true }
+    ],
+    "notes": "The crossed-eye icon means the opposite thing in different products, a genuine and documented ambiguity."
+  },
+  {
+    "name": "Captcha",
+    "slug": "captcha",
+    "category": "pattern",
+    "definition": "A challenge inserted into a flow to distinguish a person from a script, ranging from distorted text to a single checkbox judged by behaviour.",
+    "useWhen": "the step that proves you are not a robot",
+    "aliases": [
+      { "name": "human verification", "source": "community" },
+      { "name": "bot check", "source": "community" },
+      { "name": "I am not a robot", "source": "community" },
+      { "name": "invisible captcha", "source": "community" }
+    ],
+    "relatedSlugs": ["honeypot-field", "interstitial"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Captcha", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Captcha", "url": "https://ui-patterns.com/patterns", "verified": true }]
+  },
+  {
+    "name": "Honeypot field",
+    "slug": "honeypot-field",
+    "category": "pattern",
+    "definition": "A form field hidden from people but visible to automated form fillers, used to reject submissions that fill it in without challenging anyone.",
+    "useWhen": "the invisible field that only a bot would fill in",
+    "aliases": [
+      { "name": "honeypot", "source": "community" },
+      { "name": "bot trap field", "source": "community" },
+      { "name": "spam trap input", "source": "community" }
+    ],
+    "relatedSlugs": ["captcha", "visually-hidden"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross-cuts accessibility: a naive display:none honeypot is invisible to screen readers too, which is why the correct technique matters."
+  },
+  {
+    "name": "Cookie consent banner",
+    "slug": "cookie-consent-banner",
+    "category": "pattern",
+    "definition": "A notice asking permission to store non-essential cookies before the reader has done anything, offering accept, reject, and a route to per-purpose choices.",
+    "useWhen": "the consent notice that greets you before you read anything",
+    "aliases": [
+      { "name": "cookie banner", "source": "govuk" },
+      { "name": "consent notice", "source": "community" },
+      { "name": "CMP", "source": "community" },
+      { "name": "consent management platform", "source": "community" },
+      { "name": "GDPR banner", "source": "community" }
+    ],
+    "relatedSlugs": ["interstitial", "preselected-opt-in", "obstruction"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "GOV.UK Design System: Cookie banner", "url": "https://design-system.service.gov.uk/components/cookie-banner/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Cookie banner",
+        "url": "https://design-system.service.gov.uk/components/cookie-banner/",
+        "verified": true
+      }
+    ],
+    "notes": "banner already exists on the site as the component. This is the flow, and it is where several deceptive design terms live in the wild."
+  },
+  {
+    "name": "Guest checkout",
+    "slug": "guest-checkout",
+    "category": "pattern",
+    "definition": "Letting a buyer complete a purchase without creating an account, with the offer to save details moved to after the order is placed.",
+    "useWhen": "buying without being made to create an account",
+    "aliases": [
+      { "name": "checkout as guest", "source": "community" },
+      { "name": "no account checkout", "source": "community" },
+      { "name": "anonymous checkout", "source": "community" }
+    ],
+    "relatedSlugs": ["express-checkout", "lazy-registration", "order-summary"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Baymard Institute: Ecommerce Checkout UX", "url": "https://baymard.com/learn/checkout-flow-ux-optimization" }],
+    "implementations": [
+      {
+        "systemId": "baymard",
+        "name": "Guest checkout",
+        "url": "https://baymard.com/learn/checkout-flow-ux-optimization",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Express checkout",
+    "slug": "express-checkout",
+    "category": "pattern",
+    "definition": "A row of one-tap payment buttons placed above the normal form, which fetch address and payment details from a wallet the buyer already has.",
+    "useWhen": "the wallet buttons above the checkout form",
+    "aliases": [
+      { "name": "wallet buttons", "source": "community" },
+      { "name": "one-click checkout", "source": "community" },
+      { "name": "accelerated checkout", "source": "polaris" },
+      { "name": "buy now button", "source": "community" },
+      { "name": "payment request", "source": "mdn" }
+    ],
+    "relatedSlugs": ["guest-checkout", "order-summary", "address-autocomplete"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Baymard Institute: Ecommerce Checkout UX", "url": "https://baymard.com/learn/checkout-flow-ux-optimization" }],
+    "implementations": [
+      {
+        "systemId": "baymard",
+        "name": "Express checkout",
+        "url": "https://baymard.com/learn/checkout-flow-ux-optimization",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Order summary",
+    "slug": "order-summary",
+    "category": "pattern",
+    "definition": "The persistent panel beside a checkout listing items, quantities, and every cost line, kept visible so nothing about the total arrives as a surprise.",
+    "useWhen": "the panel beside checkout that itemises what you will pay",
+    "aliases": [
+      { "name": "order recap", "source": "community" },
+      { "name": "cart summary", "source": "community" },
+      { "name": "basket summary", "source": "community" },
+      { "name": "cost breakdown", "source": "community" }
+    ],
+    "relatedSlugs": ["check-answers", "guest-checkout", "drip-pricing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Baymard Institute: Ecommerce Checkout UX", "url": "https://baymard.com/learn/checkout-flow-ux-optimization" }],
+    "implementations": [
+      { "systemId": "baymard", "name": "Order summary", "url": "https://baymard.com/learn/checkout-flow-ux-optimization", "verified": true }
+    ]
+  },
+  {
+    "name": "Address autocomplete",
+    "slug": "address-autocomplete",
+    "category": "pattern",
+    "definition": "Replacing a set of address fields with one lookup that suggests full addresses after a few characters and fills the rest on selection.",
+    "useWhen": "typing a postcode fills in the whole address",
+    "aliases": [
+      { "name": "address lookup", "source": "govuk" },
+      { "name": "postcode lookup", "source": "govuk" },
+      { "name": "address finder", "source": "community" },
+      { "name": "autofill address", "source": "community" }
+    ],
+    "relatedSlugs": ["typeahead", "guest-checkout", "forgiving-format"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "GOV.UK Design System: Addresses", "url": "https://design-system.service.gov.uk/patterns/addresses/" }],
+    "implementations": [
+      { "systemId": "govuk", "name": "Addresses", "url": "https://design-system.service.gov.uk/patterns/addresses/", "verified": true }
+    ]
+  },
+  {
+    "name": "Sticky add to cart",
+    "slug": "sticky-add-to-cart",
+    "category": "pattern",
+    "definition": "A condensed product bar that pins itself to an edge once the real buy button has scrolled away, keeping price and purchase always reachable.",
+    "useWhen": "the buy bar that sticks once the real button scrolls off",
+    "aliases": [
+      { "name": "sticky buy bar", "source": "community" },
+      { "name": "persistent add to cart", "source": "community" },
+      { "name": "floating purchase bar", "source": "community" },
+      { "name": "sticky CTA", "source": "community" }
+    ],
+    "relatedSlugs": ["quick-return-header", "mini-cart", "order-summary"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [],
+    "implementations": [],
+    "notes": "iframe demo: it is defined by its relationship to the document scroller."
+  },
+  {
+    "name": "Mini cart",
+    "slug": "mini-cart",
+    "category": "pattern",
+    "definition": "A compact view of the basket opened from the cart icon, confirming what was just added and offering checkout without leaving the current page.",
+    "useWhen": "the small basket panel that opens from the cart icon",
+    "aliases": [
+      { "name": "cart drawer", "source": "community" },
+      { "name": "slide-out cart", "source": "community" },
+      { "name": "cart preview", "source": "community" },
+      { "name": "basket flyout", "source": "community" }
+    ],
+    "relatedSlugs": ["drawer", "order-summary", "quick-view"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "drawer already exists as the component; this is the commerce reading of it."
+  },
+  {
+    "name": "Save for later",
+    "slug": "save-for-later",
+    "category": "pattern",
+    "definition": "Moving an item out of the active list into a parked list that stays associated with the reader, without deleting it or committing to it.",
+    "useWhen": "parking an item without buying or discarding it",
+    "aliases": [
+      { "name": "wishlist", "source": "community" },
+      { "name": "saved items", "source": "community" },
+      { "name": "read it later", "source": "community" },
+      { "name": "favorites", "source": "ui-patterns" },
+      { "name": "watchlist", "source": "community" }
+    ],
+    "relatedSlugs": ["mini-cart", "soft-delete", "bulk-actions"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Favorites", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Favorites", "url": "https://ui-patterns.com/patterns", "verified": true }]
+  },
+  {
+    "name": "Quick view",
+    "slug": "quick-view",
+    "category": "pattern",
+    "definition": "Opening a summary of an item over the list it came from, so the reader can inspect it and return without losing scroll position or filters.",
+    "useWhen": "peeking at an item without leaving the list",
+    "aliases": [
+      { "name": "quick look", "source": "hig" },
+      { "name": "peek", "source": "community" },
+      { "name": "preview modal", "source": "community" },
+      { "name": "item preview", "source": "community" },
+      { "name": "hover preview", "source": "community" }
+    ],
+    "relatedSlugs": ["list-detail", "modal-dialog", "hover-card"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "hover-card already exists; quick view is the deliberate open, not the hover."
+  },
+  {
+    "name": "Social proof",
+    "slug": "social-proof",
+    "category": "pattern",
+    "definition": "Showing what other people did or said next to a decision, as counts, reviews, logos, or live activity, so the reader can borrow their judgement.",
+    "useWhen": "the interface shows what others chose to steady your choice",
+    "aliases": [
+      { "name": "testimonials", "source": "ui-patterns" },
+      { "name": "review count", "source": "community" },
+      { "name": "used by logos", "source": "community" },
+      { "name": "activity notification", "source": "community" },
+      { "name": "N people are viewing this", "source": "community" }
+    ],
+    "relatedSlugs": ["fake-social-proof", "scarcity-indicator", "leaderboard"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Social Proof", "url": "https://ui-patterns.com/patterns" },
+      { "title": "GoodUI: Try Social Proof instead of talking about yourself", "url": "https://goodui.org/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Social Proof", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "goodui", "name": "Social Proof", "url": "https://goodui.org/", "verified": true }
+    ]
+  },
+  {
+    "name": "Scarcity indicator",
+    "slug": "scarcity-indicator",
+    "category": "pattern",
+    "definition": "A label reporting how little of something is left, in stock, in seats, or in time, placed beside the action it is meant to accelerate.",
+    "useWhen": "only two left in stock, printed next to the buy button",
+    "aliases": [
+      { "name": "low stock warning", "source": "community" },
+      { "name": "limited availability", "source": "community" },
+      { "name": "only N left", "source": "community" },
+      { "name": "scarcity", "source": "ui-patterns" }
+    ],
+    "relatedSlugs": ["fake-scarcity", "countdown-timer", "social-proof"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Scarcity", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Scarcity", "url": "https://ui-patterns.com/patterns", "verified": true }],
+    "notes": "Honest when the number is real; the fabricated version is recorded separately as fake-scarcity."
+  },
+  {
+    "name": "Countdown timer",
+    "slug": "countdown-timer",
+    "category": "pattern",
+    "definition": "A running clock attached to an offer or a held resource, showing how long remains and what will happen when it reaches zero.",
+    "useWhen": "a clock ticking down beside an offer or a held seat",
+    "aliases": [
+      { "name": "urgency timer", "source": "community" },
+      { "name": "offer expires in", "source": "community" },
+      { "name": "session timer", "source": "community" },
+      { "name": "seat hold timer", "source": "community" },
+      { "name": "limited duration", "source": "ui-patterns" }
+    ],
+    "relatedSlugs": ["fake-urgency", "scarcity-indicator", "session-timeout"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Limited duration", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Limited duration", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ]
+  },
+  {
+    "name": "Session timeout warning",
+    "slug": "session-timeout",
+    "category": "pattern",
+    "definition": "A dialog that appears before an idle session expires, counting down and offering to extend it, so unsaved work is not lost silently.",
+    "useWhen": "the warning that you are about to be signed out",
+    "aliases": [
+      { "name": "timeout warning", "source": "govuk" },
+      { "name": "idle timeout dialog", "source": "community" },
+      { "name": "stay signed in prompt", "source": "community" },
+      { "name": "session expiry warning", "source": "community" }
+    ],
+    "relatedSlugs": ["countdown-timer", "unsaved-changes-guard", "alert-dialog"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Accessibility overlap: WCAG 2.2.1 Timing Adjustable is what forces the extend option."
+  },
+  {
+    "name": "Streak",
+    "slug": "streak",
+    "category": "pattern",
+    "definition": "A count of consecutive periods in which the reader did the thing, displayed prominently and lost if a period is missed.",
+    "useWhen": "the running count of consecutive days you kept going",
+    "aliases": [
+      { "name": "daily streak", "source": "community" },
+      { "name": "streak counter", "source": "community" },
+      { "name": "streak freeze", "source": "community" },
+      { "name": "chain", "source": "community" }
+    ],
+    "relatedSlugs": ["goal-gradient", "leaderboard", "endowed-progress"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Loss aversion made visible; the streak freeze is the mitigation and is itself a named sub-pattern."
+  },
+  {
+    "name": "Leaderboard",
+    "slug": "leaderboard",
+    "category": "pattern",
+    "definition": "A ranked list of participants by some score, with the reader's own position pinned into view even when it falls outside the visible range.",
+    "useWhen": "a ranked table with your own row pinned into view",
+    "aliases": [
+      { "name": "ranking table", "source": "community" },
+      { "name": "high score table", "source": "community" },
+      { "name": "podium", "source": "community" },
+      { "name": "top contributors", "source": "community" }
+    ],
+    "relatedSlugs": ["streak", "social-proof", "achievement-badge"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Leaderboard", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [{ "systemId": "ui-patterns", "name": "Leaderboard", "url": "https://ui-patterns.com/patterns", "verified": true }]
+  },
+  {
+    "name": "Achievement badge",
+    "slug": "achievement-badge",
+    "category": "pattern",
+    "definition": "A collectible marker awarded for a milestone and displayed on a profile, often shown greyed out before it is earned so the set is visible.",
+    "useWhen": "the collectible award shown on a profile",
+    "aliases": [
+      { "name": "collectible achievements", "source": "ui-patterns" },
+      { "name": "trophy", "source": "community" },
+      { "name": "achievement", "source": "community" },
+      { "name": "unlock", "source": "community" }
+    ],
+    "relatedSlugs": ["streak", "leaderboard", "badge"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Collectible Achievements", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Collectible Achievements", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "badge already exists on the site as the small count or status marker; this is the gamification sense and needs a contrastWith edge, not a merge."
+  },
+  {
+    "name": "Dark pattern",
+    "slug": "dark-pattern",
+    "category": "pattern",
+    "definition": "An interface arranged to make the reader do something they did not intend and would not have chosen, by exploiting how attention and defaults work.",
+    "useWhen": "the interface is designed against the person using it",
+    "aliases": [
+      { "name": "deceptive design", "source": "deceptive-design" },
+      { "name": "deceptive pattern", "source": "deceptive-design" },
+      { "name": "manipulative design", "source": "community" },
+      { "name": "anti-pattern", "source": "community" },
+      { "name": "asshole design", "source": "community" }
+    ],
+    "relatedSlugs": ["confirmshaming", "roach-motel", "drip-pricing", "nagging", "misdirection"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Types of deceptive pattern", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Deceptive patterns", "url": "https://www.deceptive.design/types", "verified": true }
+    ],
+    "notes": "Harry Brignull coined dark pattern in 2010 and now prefers deceptive pattern; the rename is the article. Parent term for the whole family below."
+  },
+  {
+    "name": "Confirmshaming",
+    "slug": "confirmshaming",
+    "category": "pattern",
+    "definition": "Wording the decline option so that choosing it is an admission of something embarrassing, making refusal feel like a confession rather than a choice.",
+    "useWhen": "the no button is written to make you feel bad",
+    "aliases": [
+      { "name": "shame decline", "source": "community" },
+      { "name": "guilt opt-out", "source": "community" },
+      { "name": "no thanks, I hate saving money", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "trick-wording", "nagging"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Confirmshaming", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Confirmshaming", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Roach motel",
+    "slug": "roach-motel",
+    "category": "pattern",
+    "definition": "Making entry into a commitment take one click and exit take a phone call, a chat queue, or a buried page, so the asymmetry keeps people subscribed.",
+    "useWhen": "easy to sign up, deliberately hard to leave",
+    "aliases": [
+      { "name": "hard to cancel", "source": "deceptive-design" },
+      { "name": "cancellation friction", "source": "community" },
+      { "name": "easy in hard out", "source": "community" },
+      { "name": "click to cancel violation", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "obstruction", "forced-continuity"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Hard to cancel", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Hard to cancel", "url": "https://www.deceptive.design/types", "verified": true }
+    ],
+    "notes": "deceptive.design renamed it Hard to cancel; roach motel remains the searched term, which is exactly the kind of gap this site should close."
+  },
+  {
+    "name": "Drip pricing",
+    "slug": "drip-pricing",
+    "category": "pattern",
+    "definition": "Advertising a low headline price and adding mandatory fees one screen at a time, so the true total only appears once the buyer is committed.",
+    "useWhen": "fees keep appearing as you move through checkout",
+    "aliases": [
+      { "name": "hidden costs", "source": "deceptive-design" },
+      { "name": "partitioned pricing", "source": "community" },
+      { "name": "junk fees", "source": "community" },
+      { "name": "resort fee", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "order-summary", "comparison-prevention"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Hidden costs", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Hidden costs", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Sneak into basket",
+    "slug": "sneak-into-basket",
+    "category": "pattern",
+    "definition": "Adding an item the buyer never chose, an insurance, a donation, a warranty, into the cart through a preselected control found earlier in the flow.",
+    "useWhen": "something you never picked is in your basket",
+    "aliases": [
+      { "name": "sneaking", "source": "deceptive-design" },
+      { "name": "sneak into basket", "source": "community" },
+      { "name": "added extras", "source": "community" },
+      { "name": "unwanted add-on", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "preselected-opt-in", "order-summary"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Sneaking", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Sneaking", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Privacy zuckering",
+    "slug": "privacy-zuckering",
+    "category": "pattern",
+    "definition": "Steering people into sharing more about themselves than they meant to, by making the permissive choice the easy one and the private choice several clicks deep.",
+    "useWhen": "the settings are arranged so sharing is the easy answer",
+    "aliases": [
+      { "name": "privacy dark pattern", "source": "community" },
+      { "name": "oversharing by default", "source": "community" },
+      { "name": "consent maze", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "cookie-consent-banner", "preselected-opt-in"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Types of deceptive pattern", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Privacy zuckering", "url": "https://www.deceptive.design/types", "verified": true }
+    ],
+    "notes": "Named after Mark Zuckerberg; still in Brignull's original twelve but absorbed into other categories on the current types index. Verify before publishing."
+  },
+  {
+    "name": "Nagging",
+    "slug": "nagging",
+    "category": "pattern",
+    "definition": "Interrupting a task again and again with the same request, so that agreeing becomes the cheapest way to be left alone.",
+    "useWhen": "the same prompt keeps returning until you give in",
+    "aliases": [
+      { "name": "persistent prompt", "source": "community" },
+      { "name": "prompt fatigue", "source": "community" },
+      { "name": "repeat ask", "source": "community" },
+      { "name": "maybe later loop", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "permission-priming", "rating-prompt", "smart-app-banner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Nagging", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Nagging", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Disguised ad",
+    "slug": "disguised-ad",
+    "category": "pattern",
+    "definition": "An advertisement styled to look like a control or an item of content, so the click it collects was aimed at something else entirely.",
+    "useWhen": "the download button that is actually an advert",
+    "aliases": [
+      { "name": "native ad", "source": "community" },
+      { "name": "sponsored content", "source": "community" },
+      { "name": "fake download button", "source": "community" },
+      { "name": "ad camouflage", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "misdirection", "interstitial"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Disguised ads", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Disguised ads", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Preselected opt-in",
+    "slug": "preselected-opt-in",
+    "category": "pattern",
+    "definition": "Arriving at a choice with the answer that benefits the business already ticked, so consent is collected from everyone who does not notice.",
+    "useWhen": "the marketing box is already ticked when you get there",
+    "aliases": [
+      { "name": "preselection", "source": "deceptive-design" },
+      { "name": "prechecked box", "source": "community" },
+      { "name": "opt-out by default", "source": "community" },
+      { "name": "default consent", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "smart-defaults", "sneak-into-basket", "cookie-consent-banner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Preselection", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Preselection", "url": "https://www.deceptive.design/types", "verified": true }
+    ],
+    "notes": "Sharpest contrast pair on the site: smart-defaults and preselected-opt-in are the same mechanic judged by whose interest the default serves."
+  },
+  {
+    "name": "Forced continuity",
+    "slug": "forced-continuity",
+    "category": "pattern",
+    "definition": "Turning a free trial into a paid subscription automatically, with the card taken up front and no reminder before the first real charge.",
+    "useWhen": "a free trial quietly becomes a paid plan",
+    "aliases": [
+      { "name": "hidden subscription", "source": "deceptive-design" },
+      { "name": "auto-renewal trap", "source": "community" },
+      { "name": "negative option billing", "source": "community" },
+      { "name": "free trial trap", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "roach-motel", "paywall"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Hidden subscription", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Hidden subscription", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Misdirection",
+    "slug": "misdirection",
+    "category": "pattern",
+    "definition": "Using contrast, size, and position to pull attention to the option the business prefers while the other option is present but visually demoted.",
+    "useWhen": "the choice you want is there but styled to be missed",
+    "aliases": [
+      { "name": "visual interference", "source": "deceptive-design" },
+      { "name": "false hierarchy", "source": "community" },
+      { "name": "attention misdirection", "source": "community" },
+      { "name": "greyed-out decline", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "disguised-ad", "trick-wording"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Visual interference", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Visual interference", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Fake scarcity",
+    "slug": "fake-scarcity",
+    "category": "pattern",
+    "definition": "Claiming limited supply that is not real, with stock counts or demand messages generated to pressure a decision rather than report a fact.",
+    "useWhen": "only three left, and the number is invented",
+    "aliases": [
+      { "name": "false scarcity", "source": "community" },
+      { "name": "invented stock count", "source": "community" },
+      { "name": "high demand badge", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "scarcity-indicator", "fake-urgency"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Fake scarcity", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Fake scarcity", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Fake urgency",
+    "slug": "fake-urgency",
+    "category": "pattern",
+    "definition": "Presenting a deadline that does not exist, usually a timer that resets on reload, so the reader hurries a decision they had time to make.",
+    "useWhen": "the countdown resets when you refresh the page",
+    "aliases": [
+      { "name": "false urgency", "source": "community" },
+      { "name": "resetting countdown", "source": "community" },
+      { "name": "perpetual sale", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "countdown-timer", "fake-scarcity"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Fake urgency", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Fake urgency", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Fake social proof",
+    "slug": "fake-social-proof",
+    "category": "pattern",
+    "definition": "Manufacturing evidence that other people approve, through invented reviews, testimonials, or live activity messages nobody actually generated.",
+    "useWhen": "someone in Leeds just bought this, and nobody did",
+    "aliases": [
+      { "name": "fake reviews", "source": "community" },
+      { "name": "activity notification spam", "source": "community" },
+      { "name": "fabricated testimonials", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "social-proof"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Fake social proof", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Fake social proof", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Trick wording",
+    "slug": "trick-wording",
+    "category": "pattern",
+    "definition": "Phrasing a choice so its plain reading is the opposite of its effect, typically through double negatives or a label that describes the wrong outcome.",
+    "useWhen": "untick this box to not stop receiving emails",
+    "aliases": [
+      { "name": "trick question", "source": "community" },
+      { "name": "double negative checkbox", "source": "community" },
+      { "name": "confusing wording", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "confirmshaming", "misdirection"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Trick wording", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Trick wording", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Comparison prevention",
+    "slug": "comparison-prevention",
+    "category": "pattern",
+    "definition": "Structuring plans or products so their features and prices cannot be lined up, forcing a decision that no side-by-side reading would support.",
+    "useWhen": "the plans are built so you cannot compare them",
+    "aliases": [
+      { "name": "price comparison prevention", "source": "community" },
+      { "name": "obfuscated pricing", "source": "community" },
+      { "name": "incomparable tiers", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "comparison-table", "drip-pricing"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Comparison prevention", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Comparison prevention", "url": "https://www.deceptive.design/types", "verified": true }
+    ]
+  },
+  {
+    "name": "Obstruction",
+    "slug": "obstruction",
+    "category": "pattern",
+    "definition": "Putting deliberate hurdles in front of an action the business does not want taken, so the effort itself does the discouraging.",
+    "useWhen": "the path exists but is made exhausting on purpose",
+    "aliases": [
+      { "name": "friction by design", "source": "community" },
+      { "name": "intentional friction", "source": "community" },
+      { "name": "manage preferences maze", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "roach-motel", "cookie-consent-banner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Deceptive Design: Obstruction", "url": "https://www.deceptive.design/types" }],
+    "implementations": [
+      { "systemId": "deceptive-design", "name": "Obstruction", "url": "https://www.deceptive.design/types", "verified": true }
+    ],
+    "notes": "Not all added friction is deceptive: type-to-confirm is deliberate friction in the reader's favour, which makes a good contrast pair."
+  },
+  {
+    "name": "Friend spam",
+    "slug": "friend-spam",
+    "category": "pattern",
+    "definition": "Asking for access to a contact list under one pretext and using it to send invitations that appear to come from the reader.",
+    "useWhen": "the app mails your contacts as if you had",
+    "aliases": [
+      { "name": "contact list harvesting", "source": "community" },
+      { "name": "invite spam", "source": "community" },
+      { "name": "invite friends", "source": "ui-patterns" },
+      { "name": "address book import", "source": "community" }
+    ],
+    "relatedSlugs": ["dark-pattern", "privacy-zuckering", "permission-priming"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Invite friends", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Invite friends", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "One of Brignull's original twelve. The honest version (invite friends) and the deceptive version share a shape, which is the article."
+  },
+  {
+    "name": "Activity feed",
+    "slug": "activity-feed",
+    "category": "pattern",
+    "definition": "A reverse chronological list of things that happened, each entry naming an actor, a verb, and an object, grouped when many are alike.",
+    "useWhen": "the running list of who did what, most recent first",
+    "aliases": [
+      { "name": "activity stream", "source": "ui-patterns" },
+      { "name": "news feed", "source": "community" },
+      { "name": "timeline", "source": "community" },
+      { "name": "audit log", "source": "community" },
+      { "name": "what's happening", "source": "community" }
+    ],
+    "relatedSlugs": ["notification-digest", "infinite-scroll", "stories"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Activity Stream", "url": "https://ui-patterns.com/patterns/ActivityStream" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Activity Stream", "url": "https://ui-patterns.com/patterns/ActivityStream", "verified": true },
+      { "systemId": "uxpatterns-dev", "name": "Activity Feed", "url": "https://uxpatterns.dev/patterns", "verified": true }
+    ]
+  },
+  {
+    "name": "Stories",
+    "slug": "stories",
+    "category": "pattern",
+    "definition": "A sequence of full-screen cards that advance on a timer, paused by holding, skipped by tapping the edges, and gone after a fixed lifetime.",
+    "useWhen": "the timed full-screen cards you tap through",
+    "aliases": [
+      { "name": "story format", "source": "community" },
+      { "name": "ephemeral stories", "source": "community" },
+      { "name": "story rail", "source": "community" },
+      { "name": "segmented progress bars", "source": "community" }
+    ],
+    "relatedSlugs": ["activity-feed", "swipe-deck", "carousel"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The segmented progress bar along the top is a component-level term of its own and may deserve a separate entry."
+  },
+  {
+    "name": "Mention autocomplete",
+    "slug": "mention-autocomplete",
+    "category": "pattern",
+    "definition": "Typing a trigger character inside a text field to open a filtered list of people or objects, inserting the chosen one as a linked token.",
+    "useWhen": "typing @ opens a list of people to insert",
+    "aliases": [
+      { "name": "at-mention", "source": "community" },
+      { "name": "@mention", "source": "community" },
+      { "name": "user tagging", "source": "community" },
+      { "name": "trigger character menu", "source": "community" }
+    ],
+    "relatedSlugs": ["slash-command", "typeahead", "combobox"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "AI UX Playground: Slash Commands", "url": "https://aiuxplayground.com/pattern/slash-command/" }],
+    "implementations": [],
+    "notes": "Distinguished from slash-command by what selection does: a mention inserts text, a slash command runs something."
+  },
+  {
+    "name": "Slash command",
+    "slug": "slash-command",
+    "category": "pattern",
+    "definition": "Typing a forward slash in a composer to open a menu of actions, where choosing one runs it rather than inserting the words into the message.",
+    "useWhen": "typing / in the message box opens a command menu",
+    "aliases": [
+      { "name": "slash menu", "source": "community" },
+      { "name": "inline command menu", "source": "community" },
+      { "name": "block menu", "source": "community" }
+    ],
+    "relatedSlugs": ["mention-autocomplete", "command-palette", "keyboard-shortcut-overlay"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "AI UX Playground: Slash Commands", "url": "https://aiuxplayground.com/pattern/slash-command/" }],
+    "implementations": [
+      {
+        "systemId": "ai-ux-playground",
+        "name": "Slash Commands",
+        "url": "https://aiuxplayground.com/pattern/slash-command/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Typing indicator",
+    "slug": "typing-indicator",
+    "category": "pattern",
+    "definition": "A transient signal that someone else is composing a message, usually three animated dots, which disappears if they stop or send.",
+    "useWhen": "the three bouncing dots meaning someone is replying",
+    "aliases": [
+      { "name": "is typing", "source": "community" },
+      { "name": "typing bubble", "source": "community" },
+      { "name": "three dots indicator", "source": "community" },
+      { "name": "composing indicator", "source": "community" }
+    ],
+    "relatedSlugs": ["read-receipt", "presence-indicator", "spinner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Now doubles as the waiting state for a language model reply, which is a live naming collision worth documenting."
+  },
+  {
+    "name": "Read receipt",
+    "slug": "read-receipt",
+    "category": "pattern",
+    "definition": "A per-message marker reporting how far a message got, sent, delivered, or read, drawn as ticks, labels, or the recipient's avatar.",
+    "useWhen": "the ticks that say sent, delivered, and read",
+    "aliases": [
+      { "name": "delivery receipt", "source": "community" },
+      { "name": "seen indicator", "source": "community" },
+      { "name": "blue ticks", "source": "community" },
+      { "name": "message status", "source": "community" }
+    ],
+    "relatedSlugs": ["typing-indicator", "presence-indicator"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "The double tick and its colour are conventions with no standard, so the term is understood but the drawing is not."
+  },
+  {
+    "name": "Presence indicator",
+    "slug": "presence-indicator",
+    "category": "pattern",
+    "definition": "A small marker attached to a person showing whether they are available right now, and the faces or cursors of everyone currently in a shared document.",
+    "useWhen": "the dot or avatar row saying who is here right now",
+    "aliases": [
+      { "name": "online status", "source": "community" },
+      { "name": "presence dot", "source": "community" },
+      { "name": "avatar stack", "source": "community" },
+      { "name": "live cursors", "source": "community" },
+      { "name": "facepile", "source": "community" }
+    ],
+    "relatedSlugs": ["typing-indicator", "read-receipt", "activity-feed"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Facepile and avatar group are component names; presence is the pattern that gives them meaning."
+  },
+  {
+    "name": "Notification digest",
+    "slug": "notification-digest",
+    "category": "pattern",
+    "definition": "Collecting many similar alerts into one summary rather than delivering each, so the count rises but the number of interruptions does not.",
+    "useWhen": "many alerts arrive as one grouped summary",
+    "aliases": [
+      { "name": "notification grouping", "source": "community" },
+      { "name": "notification bundling", "source": "community" },
+      { "name": "batched notifications", "source": "community" },
+      { "name": "summary notification", "source": "android" },
+      { "name": "notification summary", "source": "hig" }
+    ],
+    "relatedSlugs": ["activity-feed", "nagging", "toast"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Android says group and summary notification; Apple says notification summary. Both names are live."
+  },
+  {
+    "name": "Feature spotlight",
+    "slug": "feature-spotlight",
+    "category": "pattern",
+    "definition": "A one-time announcement pointing at something newly added, shown in place next to the feature and dismissed for good once acknowledged.",
+    "useWhen": "the one-time New badge pointing at a change",
+    "aliases": [
+      { "name": "what's new", "source": "community" },
+      { "name": "release announcement", "source": "community" },
+      { "name": "new feature callout", "source": "community" },
+      { "name": "announcing new features", "source": "cloudscape" },
+      { "name": "changelog popover", "source": "community" }
+    ],
+    "relatedSlugs": ["hotspot", "onboarding-tour", "first-run-experience"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Announcing new features", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [
+      { "systemId": "cloudscape", "name": "Announcing new features", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "First run experience",
+    "slug": "first-run-experience",
+    "category": "pattern",
+    "definition": "Everything shown only on the very first open, from a welcome sequence to seeded sample content, and never shown to that person again.",
+    "useWhen": "what happens only the very first time you open it",
+    "aliases": [
+      { "name": "FRE", "source": "fluent" },
+      { "name": "first-time user experience", "source": "community" },
+      { "name": "FTUE", "source": "community" },
+      { "name": "welcome flow", "source": "community" },
+      { "name": "sample data", "source": "community" },
+      { "name": "onboarding flow", "source": "uiterms" }
+    ],
+    "relatedSlugs": ["coach-mark", "onboarding-tour", "onboarding-checklist", "empty-state"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "FRE and FTUE are widely used inside product teams and almost never written down, which makes this a strong dictionary entry."
+  },
+  {
+    "name": "Keyboard shortcut overlay",
+    "slug": "keyboard-shortcut-overlay",
+    "category": "pattern",
+    "definition": "A panel of every available shortcut, opened by a shortcut of its own and grouped by context, that closes on the next key press.",
+    "useWhen": "pressing ? shows the list of every shortcut",
+    "aliases": [
+      { "name": "shortcut cheatsheet", "source": "community" },
+      { "name": "keyboard help", "source": "community" },
+      { "name": "hotkey overlay", "source": "community" },
+      { "name": "press ? for help", "source": "community" }
+    ],
+    "relatedSlugs": ["slash-command", "command-palette", "help-drawer"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Keyboard Shortcuts", "url": "https://ui-patterns.com/patterns" }],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Keyboard Shortcuts", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ]
+  },
+  {
+    "name": "Help drawer",
+    "slug": "help-drawer",
+    "category": "pattern",
+    "definition": "Documentation opened beside the task rather than over it, keeping the form usable while the explanation is read and staying open across steps.",
+    "useWhen": "help opens beside the form instead of on top of it",
+    "aliases": [
+      { "name": "help panel", "source": "cloudscape" },
+      { "name": "contextual help", "source": "community" },
+      { "name": "info panel", "source": "community" },
+      { "name": "side sheet help", "source": "community" }
+    ],
+    "relatedSlugs": ["drawer", "keyboard-shortcut-overlay", "progressive-disclosure"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Help system", "url": "https://cloudscape.design/patterns/" }],
+    "implementations": [{ "systemId": "cloudscape", "name": "Help system", "url": "https://cloudscape.design/patterns/", "verified": true }]
+  },
+  {
+    "name": "Forgiving format",
+    "slug": "forgiving-format",
+    "category": "pattern",
+    "definition": "Accepting whatever shape the reader types and normalising it afterwards, instead of rejecting input that differs only in spacing or punctuation.",
+    "useWhen": "the field takes the card number however you type it",
+    "aliases": [
+      { "name": "forgiving input", "source": "ui-patterns" },
+      { "name": "lenient parsing", "source": "community" },
+      { "name": "flexible input", "source": "community" },
+      { "name": "input normalisation", "source": "community" }
+    ],
+    "relatedSlugs": ["input-mask", "structured-format", "inline-validation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Forgiving Format", "url": "https://ui-patterns.com/patterns" },
+      { "title": "GoodUI: Try Forgiving Inputs instead of being strict with data", "url": "https://goodui.org/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Forgiving Format", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "goodui", "name": "Forgiving Inputs", "url": "https://goodui.org/", "verified": true }
+    ]
+  },
+  {
+    "name": "Structured format",
+    "slug": "structured-format",
+    "category": "pattern",
+    "definition": "Splitting one value across several small fields with fixed shapes, which teaches the expected format but costs the reader extra focus moves.",
+    "useWhen": "one value split across several little boxes",
+    "aliases": [
+      { "name": "segmented input", "source": "community" },
+      { "name": "split field", "source": "community" },
+      { "name": "multi-part input", "source": "community" },
+      { "name": "date input three fields", "source": "govuk" }
+    ],
+    "relatedSlugs": ["input-mask", "forgiving-format", "one-time-code-login"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "UI Patterns: Structured Format", "url": "https://ui-patterns.com/patterns/StructuredFormat" }],
+    "implementations": [
+      {
+        "systemId": "ui-patterns",
+        "name": "Structured Format",
+        "url": "https://ui-patterns.com/patterns/StructuredFormat",
+        "verified": true
+      },
+      { "systemId": "govuk", "name": "Dates", "url": "https://design-system.service.gov.uk/patterns/dates/", "verified": true }
+    ]
+  },
+  {
+    "name": "Input mask",
+    "slug": "input-mask",
+    "category": "pattern",
+    "definition": "Formatting a value inside the field as it is typed, inserting separators automatically so the shape of the value is visible while entering it.",
+    "useWhen": "the field adds the dashes and spaces as you type",
+    "aliases": [
+      { "name": "masked input", "source": "community" },
+      { "name": "formatted input", "source": "community" },
+      { "name": "auto-formatting field", "source": "community" },
+      { "name": "pattern input", "source": "community" }
+    ],
+    "relatedSlugs": ["forgiving-format", "structured-format", "inline-validation"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Widely considered harmful for phone numbers and welcome for card numbers; the disagreement is the article."
+  },
+  {
+    "name": "Smart defaults",
+    "slug": "smart-defaults",
+    "category": "pattern",
+    "definition": "Prefilling a choice with the answer most people in this situation want, so the common case needs no work and every other case is still reachable.",
+    "useWhen": "the form arrives already answered the way you would have",
+    "aliases": [
+      { "name": "good defaults", "source": "ui-patterns" },
+      { "name": "sensible defaults", "source": "community" },
+      { "name": "prefilled values", "source": "community" },
+      { "name": "recommended option", "source": "goodui" }
+    ],
+    "relatedSlugs": ["preselected-opt-in", "forgiving-format", "address-autocomplete"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Good Defaults", "url": "https://ui-patterns.com/patterns" },
+      { "title": "GoodUI: Try Smart Defaults instead of asking to do extra work", "url": "https://goodui.org/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Good Defaults", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "goodui", "name": "Smart Defaults", "url": "https://goodui.org/", "verified": true }
+    ]
+  },
+  {
+    "name": "Offline indicator",
+    "slug": "offline-indicator",
+    "category": "pattern",
+    "definition": "A persistent notice that the product has lost its connection, saying what still works, what is queued, and when the last sync happened.",
+    "useWhen": "the bar telling you the app is working offline",
+    "aliases": [
+      { "name": "connection status bar", "source": "community" },
+      { "name": "you are offline", "source": "community" },
+      { "name": "sync status", "source": "community" },
+      { "name": "stale data indicator", "source": "community" },
+      { "name": "reconnecting banner", "source": "community" }
+    ],
+    "relatedSlugs": ["optimistic-ui", "toast", "banner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Pairs with optimistic-ui (already on site): optimistic UI is what fills the gap this indicator explains."
+  },
+  {
+    "name": "Direct manipulation",
+    "slug": "direct-manipulation",
+    "category": "pattern",
+    "definition": "Acting on an object by handling the object itself, dragging, resizing, or typing into it, rather than describing the change in a separate control.",
+    "useWhen": "you change the thing by grabbing the thing",
+    "aliases": [
+      { "name": "in-place manipulation", "source": "community" },
+      { "name": "WYSIWYG", "source": "ui-patterns" },
+      { "name": "handles and grips", "source": "community" },
+      { "name": "on-canvas editing", "source": "community" }
+    ],
+    "relatedSlugs": ["inline-edit", "drag-to-reorder", "morphing-controls"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "GoodUI: Try Direct Manipulation instead of contextless menus", "url": "https://goodui.org/" }],
+    "implementations": [
+      { "systemId": "goodui", "name": "Direct Manipulation", "url": "https://goodui.org/", "verified": true },
+      { "systemId": "ui-patterns", "name": "WYSIWYG", "url": "https://ui-patterns.com/patterns", "verified": true }
+    ],
+    "notes": "Ben Shneiderman's term from 1982; the history is worth a paragraph."
+  },
+  {
+    "name": "Morphing control",
+    "slug": "morphing-controls",
+    "category": "pattern",
+    "definition": "One control that changes what it says and does according to state, showing play when paused and pause when playing rather than offering both.",
+    "useWhen": "one button that becomes the next action each time",
+    "aliases": [
+      { "name": "morphing controls", "source": "ui-patterns" },
+      { "name": "state-dependent button", "source": "community" },
+      { "name": "toggle button", "source": "community" },
+      { "name": "multifunctional control", "source": "goodui" }
+    ],
+    "relatedSlugs": ["direct-manipulation", "progressive-reduction", "segmented-control"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Morphing Controls", "url": "https://ui-patterns.com/patterns/morphing-controls" },
+      { "title": "GoodUI: Try Multifunctional Controls instead of more parts", "url": "https://goodui.org/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "ui-patterns",
+        "name": "Morphing Controls",
+        "url": "https://ui-patterns.com/patterns/morphing-controls",
+        "verified": true
+      },
+      { "systemId": "goodui", "name": "Multifunctional Controls", "url": "https://goodui.org/", "verified": true }
+    ],
+    "notes": "Accessibility trap worth naming: a morphing label breaks the promise that a control's name describes what it does."
+  },
+  {
+    "name": "Progressive reduction",
+    "slug": "progressive-reduction",
+    "category": "pattern",
+    "definition": "Simplifying a control as the same person uses it more, dropping the label once the icon has been learned and restoring it after a long absence.",
+    "useWhen": "the label falls away once you have used it enough",
+    "aliases": [
+      { "name": "adaptive simplification", "source": "community" },
+      { "name": "experience-based UI", "source": "community" },
+      { "name": "proficiency-adaptive interface", "source": "community" }
+    ],
+    "relatedSlugs": ["morphing-controls", "onboarding-tour", "hotspot"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "GoodUI: Try Progressive Reduction instead of being static", "url": "https://goodui.org/" }],
+    "implementations": [{ "systemId": "goodui", "name": "Progressive Reduction", "url": "https://goodui.org/", "verified": true }],
+    "notes": "Coined at Dan Birman and Allan Grinshtein's LayerVault; more discussed than shipped, which is itself worth saying."
+  },
+  {
+    "name": "Hub and spoke",
+    "slug": "hub-and-spoke",
+    "category": "pattern",
+    "definition": "A navigation shape where every task is reached from one home screen and returns to it, with no way to move sideways between tasks.",
+    "useWhen": "every section is reached from home and returns there",
+    "aliases": [
+      { "name": "hub-and-spoke navigation", "source": "community" },
+      { "name": "springboard", "source": "community" },
+      { "name": "launchpad navigation", "source": "community" },
+      { "name": "home link", "source": "ui-patterns" }
+    ],
+    "relatedSlugs": ["list-detail", "priority-plus-navigation", "wizard"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [],
+    "implementations": [],
+    "notes": "Cross-category: could be filed as layout. The original iOS home screen is the canonical example."
+  },
+  {
+    "name": "Zebra striping",
+    "slug": "zebra-striping",
+    "category": "pattern",
+    "definition": "Tinting alternate rows of a table so the eye can track one record across many columns without losing the line.",
+    "useWhen": "alternating row tints to keep your place across columns",
+    "aliases": [
+      { "name": "zebra rows", "source": "community" },
+      { "name": "alternating row colors", "source": "ui-patterns" },
+      { "name": "banded rows", "source": "community" },
+      { "name": "striped table", "source": "bootstrap" }
+    ],
+    "relatedSlugs": ["expandable-row", "sticky-column", "comparison-table"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Alternating Row Colors", "url": "https://ui-patterns.com/patterns" },
+      { "title": "Carbon Design System: Data table", "url": "https://carbondesignsystem.com/components/data-table/usage/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Alternating Row Colors", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "bootstrap", "name": "Striped rows", "url": "https://getbootstrap.com/docs/5.3/content/tables/", "verified": true }
+    ],
+    "notes": "Cross-category candidate: could sit in color or layout. The evidence that it helps is weaker than its popularity suggests, which is worth saying."
+  },
+  {
+    "name": "Expandable row",
+    "slug": "expandable-row",
+    "category": "pattern",
+    "definition": "A table row that opens in place to show detail beneath it, keeping the surrounding rows and the reader's scroll position intact.",
+    "useWhen": "a row opens downward to show its details",
+    "aliases": [
+      { "name": "row expansion", "source": "carbon" },
+      { "name": "expandable table row", "source": "community" },
+      { "name": "nested row", "source": "community" },
+      { "name": "detail row", "source": "community" },
+      { "name": "accordion row", "source": "community" }
+    ],
+    "relatedSlugs": ["zebra-striping", "list-detail", "quick-view", "accordion"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Carbon Design System: Data table", "url": "https://carbondesignsystem.com/components/data-table/usage/" }],
+    "implementations": [
+      { "systemId": "carbon", "name": "Expandable", "url": "https://carbondesignsystem.com/components/data-table/usage/", "verified": true }
+    ],
+    "notes": "accordion already exists on the site; this is the table reading of it and needs a contrastWith edge."
+  },
+  {
+    "name": "Sticky column",
+    "slug": "sticky-column",
+    "category": "pattern",
+    "definition": "Holding the identifying column in place while the rest of a wide table scrolls sideways, so every row stays labelled at any horizontal position.",
+    "useWhen": "the first column stays put while the table scrolls sideways",
+    "aliases": [
+      { "name": "frozen column", "source": "community" },
+      { "name": "pinned column", "source": "tanstack-table" },
+      { "name": "column pinning", "source": "tanstack-table" },
+      { "name": "fixed column", "source": "ant-design" },
+      { "name": "freeze panes", "source": "community" }
+    ],
+    "relatedSlugs": ["zebra-striping", "expandable-row", "comparison-table"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "TanStack Table: Column Pinning", "url": "https://tanstack.com/table/latest" }],
+    "implementations": [
+      { "systemId": "tanstack-table", "name": "Column Pinning", "url": "https://tanstack.com/table/latest", "verified": true }
+    ]
+  },
+  {
+    "name": "Comparison table",
+    "slug": "comparison-table",
+    "category": "pattern",
+    "definition": "A grid with options as columns and attributes as rows, aligned so the same attribute reads across every option and differences are visible at a glance.",
+    "useWhen": "options as columns, features as rows, lined up to compare",
+    "aliases": [
+      { "name": "pricing table", "source": "ui-patterns" },
+      { "name": "feature matrix", "source": "community" },
+      { "name": "plan comparison", "source": "community" },
+      { "name": "spec comparison", "source": "community" }
+    ],
+    "relatedSlugs": ["comparison-prevention", "sticky-column", "faceted-search"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Pricing table", "url": "https://ui-patterns.com/patterns" },
+      { "title": "UX Patterns for Developers: Comparison Table", "url": "https://uxpatterns.dev/patterns" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Pricing table", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "uxpatterns-dev", "name": "Comparison Table", "url": "https://uxpatterns.dev/patterns", "verified": true }
+    ]
+  },
+  {
+    "name": "Rule builder",
+    "slug": "rule-builder",
+    "category": "pattern",
+    "definition": "Assembling a condition from dropdowns and values, joined by and or or, so a non-programmer can express a query without writing one.",
+    "useWhen": "building an if-this-then-that condition from dropdowns",
+    "aliases": [
+      { "name": "query builder", "source": "community" },
+      { "name": "condition builder", "source": "community" },
+      { "name": "filter builder", "source": "community" },
+      { "name": "smart playlist rules", "source": "community" },
+      { "name": "property filter", "source": "cloudscape" }
+    ],
+    "relatedSlugs": ["faceted-search", "applied-filters", "structured-format"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "UI Patterns: Rule Builder", "url": "https://ui-patterns.com/patterns" },
+      { "title": "Cloudscape: Filtering patterns", "url": "https://cloudscape.design/patterns/" }
+    ],
+    "implementations": [
+      { "systemId": "ui-patterns", "name": "Rule Builder", "url": "https://ui-patterns.com/patterns", "verified": true },
+      { "systemId": "cloudscape", "name": "Property filter", "url": "https://cloudscape.design/patterns/", "verified": true }
+    ]
+  },
+  {
+    "name": "Drill-down navigation",
+    "slug": "drill-down-navigation",
+    "category": "pattern",
+    "definition": "Going deeper into a hierarchy one level at a time inside the same panel, each level replacing the last and offering a way back up.",
+    "useWhen": "a hierarchy is too deep to show all at once",
+    "aliases": [
+      { "name": "panel stack", "source": "blueprint" },
+      { "name": "nested panel navigation", "source": "community" },
+      { "name": "push navigation", "source": "community" },
+      { "name": "drilldown", "source": "community" }
+    ],
+    "relatedSlugs": ["hub-and-spoke", "list-detail", "breadcrumbs", "push-transition", "submenu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Blueprint: Panel stack", "url": "https://blueprintjs.com/docs/#core/components/panel-stack" }],
+    "implementations": [
+      {
+        "systemId": "blueprint",
+        "name": "PanelStack",
+        "url": "https://blueprintjs.com/docs/#core/components/panel-stack",
+        "verified": true
+      }
+    ],
+    "notes": "The mobile settings pattern, and the one a narrow sidebar falls back to. The state question worth writing about is whether the panel you came from keeps its scroll and form state when you go back."
+  }
+]

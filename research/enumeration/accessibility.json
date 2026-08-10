@@ -1,0 +1,3419 @@
+[
+  {
+    "name": "Focus ring",
+    "slug": "focus-ring",
+    "category": "accessibility",
+    "definition": "The visible outline drawn around the element that currently holds keyboard focus, showing where the next keypress will land.",
+    "useWhen": "marking where keyboard focus is sitting right now",
+    "aliases": [
+      { "name": "focus outline", "source": "community" },
+      { "name": "focus indicator", "source": "wcag" },
+      { "name": "focus highlight", "source": "community" },
+      { "name": "focus halo", "source": "spectrum" },
+      { "name": "keyboard focus indicator", "source": "aria-apg" }
+    ],
+    "relatedSlugs": ["focus-visible", "focus-appearance", "focus-order", "focus-not-obscured"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Focus Visible", "url": "https://www.w3.org/TR/WCAG22/#focus-visible" },
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "react-aria",
+        "name": "useFocusRing",
+        "url": "https://react-spectrum.adobe.com/react-aria/useFocusRing.html",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "Focus indicators",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/keyboard/",
+        "verified": true
+      },
+      {
+        "systemId": "primer",
+        "name": "Visual focus indicator",
+        "url": "https://primer.style/accessibility/design-guidance/focus-management/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "Keep focus outlines",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      },
+      { "systemId": "fluent", "name": "Focus stroke", "url": "https://fluent2.microsoft.design/accessibility", "verified": true }
+    ],
+    "notes": "Head term. The stage already draws annotation rings, so the demo must not confuse its own ring with the specimen's."
+  },
+  {
+    "name": "Focus visible",
+    "slug": "focus-visible",
+    "category": "accessibility",
+    "definition": "A focus style shown only when focus arrived by keyboard or another non-pointer route, so a mouse click does not leave a ring behind.",
+    "useWhen": "showing the ring to keyboard users but not to clickers",
+    "aliases": [
+      { "name": ":focus-visible", "source": "css" },
+      { "name": "keyboard-only focus style", "source": "community" },
+      { "name": "focus-visible polyfill", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-ring", "focus-appearance"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: :focus-visible", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:focus-visible" }
+    ],
+    "implementations": [
+      {
+        "systemId": "react-aria",
+        "name": "useFocusVisible",
+        "url": "https://react-spectrum.adobe.com/react-aria/useFocusVisible.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Focus order",
+    "slug": "focus-order",
+    "category": "accessibility",
+    "definition": "The sequence keyboard focus follows through a page, which should match reading order instead of source quirks or positive tabindex values.",
+    "useWhen": "the path Tab takes through a whole page",
+    "aliases": [
+      { "name": "tab order", "source": "community" },
+      { "name": "tab sequence", "source": "aria-apg" },
+      { "name": "tab ring", "source": "aria-apg" },
+      { "name": "sequential focus navigation", "source": "html" },
+      { "name": "linear focus flow", "source": "a11yproject" }
+    ],
+    "relatedSlugs": ["tab-stop", "reading-order", "focus-management", "skip-link"],
+    "priority": "head",
+    "demo": "iframe",
+    "sources": [
+      { "title": "WCAG 2.2: Focus Order", "url": "https://www.w3.org/TR/WCAG22/#focus-order" },
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Tabbing order",
+        "url": "https://primer.style/accessibility/design-guidance/focus-management/",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "Navigation order",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/keyboard/",
+        "verified": true
+      },
+      {
+        "systemId": "fluent",
+        "name": "Keyboard navigation and assistive technologies",
+        "url": "https://fluent2.microsoft.design/accessibility",
+        "verified": true
+      }
+    ],
+    "notes": "iframe: the subject is the document's own focus order, which a shadow root cannot honestly stage."
+  },
+  {
+    "name": "Tab stop",
+    "slug": "tab-stop",
+    "category": "accessibility",
+    "definition": "One position in the tab sequence: a place the Tab key can reach, counted once even when the widget it belongs to holds many focusable parts.",
+    "useWhen": "counting how many Tab presses a widget costs",
+    "aliases": [{ "name": "tab index position", "source": "community" }, { "name": "single tab stop", "source": "aria-apg" }],
+    "relatedSlugs": ["focus-order", "roving-tabindex", "tabbable"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" },
+      { "title": "Erik Kroes: glossary (tab stop)", "url": "https://www.erikkroes.nl/glossary/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Tabbable",
+    "slug": "tabbable",
+    "category": "accessibility",
+    "definition": "Reachable by the Tab key, as opposed to merely focusable: an element with tabindex of -1 can take focus from script but never from Tab.",
+    "useWhen": "distinguishing script focus from Tab reachability",
+    "aliases": [
+      { "name": "focusable vs tabbable", "source": "community" },
+      { "name": "programmatically focusable", "source": "community" },
+      { "name": "tabindex -1", "source": "html" },
+      { "name": "sequentially focusable", "source": "html" }
+    ],
+    "relatedSlugs": ["tab-stop", "focus-order", "roving-tabindex", "inert"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: tabindex", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/tabindex" },
+      { "title": "Eric Eggert: Two different kinds of focusable UI elements", "url": "https://yatil.net/blog/focusable-ui-elements" },
+      { "title": "TetraLogical: When to use tabindex=0", "url": "https://tetralogical.com/blog/2024/04/04/when-to-use-tabindex-0/" }
+    ],
+    "implementations": [],
+    "notes": "Tail gold: the distinction people reach for and cannot name. Headword could also be 'Focusable but not tabbable'."
+  },
+  {
+    "name": "Roving tabindex",
+    "slug": "roving-tabindex",
+    "category": "accessibility",
+    "definition": "A focus technique where only one item in a composite widget is tabbable at a time and arrow keys move that single tab stop between siblings.",
+    "useWhen": "arrow keys move inside, Tab leaves the whole group",
+    "aliases": [
+      { "name": "roving focus", "source": "community" },
+      { "name": "roving tab index", "source": "community" },
+      { "name": "arrow key navigation", "source": "community" }
+    ],
+    "relatedSlugs": ["tab-stop", "active-descendant", "focus-management", "tabs", "radio-group"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [],
+    "notes": "Radix ships RovingFocusGroup and Angular CDK ships FocusKeyManager; neither URL was confirmed this sweep."
+  },
+  {
+    "name": "Active descendant",
+    "slug": "active-descendant",
+    "category": "accessibility",
+    "definition": "A focus technique where DOM focus stays on a container or input and aria-activedescendant names which child is active, used when focus must not move.",
+    "useWhen": "the typing field must keep focus while a list moves",
+    "aliases": [
+      { "name": "aria-activedescendant", "source": "aria" },
+      { "name": "virtual focus", "source": "community" },
+      { "name": "fake focus", "source": "community" }
+    ],
+    "relatedSlugs": ["roving-tabindex", "combobox", "focus-management"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" },
+      {
+        "title": "MDN: aria-activedescendant",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-activedescendant"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Focus management",
+    "slug": "focus-management",
+    "category": "accessibility",
+    "definition": "Deliberately moving keyboard focus after a state change so the reader lands on the new content instead of at the top of the document.",
+    "useWhen": "deciding where focus goes when the UI changes",
+    "aliases": [
+      { "name": "managing focus", "source": "community" },
+      { "name": "moving focus", "source": "community" },
+      { "name": "focus handling", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-restoration", "focus-trap", "route-announcement", "modal-dialog"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "react-aria",
+        "name": "FocusScope",
+        "url": "https://react-spectrum.adobe.com/react-aria/FocusScope.html",
+        "verified": true
+      },
+      {
+        "systemId": "primer",
+        "name": "Focus management",
+        "url": "https://primer.style/accessibility/design-guidance/focus-management/",
+        "verified": true
+      },
+      { "systemId": "fluent", "name": "Manage focus", "url": "https://fluent2.microsoft.design/accessibility", "verified": true }
+    ],
+    "notes": "Merge candidate with the existing focus-trap entry; focus management is the umbrella, focus trap is one case."
+  },
+  {
+    "name": "Focus restoration",
+    "slug": "focus-restoration",
+    "category": "accessibility",
+    "definition": "Returning focus to the control that opened an overlay once it closes, so the reader resumes where they were rather than at the start of the page.",
+    "useWhen": "an overlay closes and focus has to go somewhere",
+    "aliases": [
+      { "name": "return focus", "source": "community" },
+      { "name": "restore focus", "source": "react-aria" },
+      { "name": "focus return", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-management", "focus-trap", "modal-dialog", "popover"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "react-aria",
+        "name": "FocusScope restoreFocus",
+        "url": "https://react-spectrum.adobe.com/react-aria/FocusScope.html",
+        "verified": true
+      },
+      {
+        "systemId": "primer",
+        "name": "Focus return",
+        "url": "https://primer.style/accessibility/design-guidance/focus-management/",
+        "verified": true
+      }
+    ],
+    "notes": "Subsumes 'initial focus' (where focus goes when the overlay opens); canonicalize may want both under one entry."
+  },
+  {
+    "name": "Keyboard trap",
+    "slug": "keyboard-trap",
+    "category": "accessibility",
+    "definition": "A defect where focus enters a region and cannot be moved out with the keyboard alone, stranding anyone who does not use a pointer.",
+    "useWhen": "naming the bug where Tab cannot get back out",
+    "aliases": [
+      { "name": "focus trap (as a bug)", "source": "community" },
+      { "name": "keyboard trapped", "source": "wcag" },
+      { "name": "no keyboard trap", "source": "wcag" }
+    ],
+    "relatedSlugs": ["focus-trap", "inert", "modal-dialog"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: No Keyboard Trap", "url": "https://www.w3.org/TR/WCAG22/#no-keyboard-trap" }],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "Focus is not trapped",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      }
+    ],
+    "notes": "Deliberate contrast with the existing focus-trap entry: same mechanism, one intended and escapable, one not."
+  },
+  {
+    "name": "Focus not obscured",
+    "slug": "focus-not-obscured",
+    "category": "accessibility",
+    "definition": "The requirement that a focused control is not completely hidden by sticky headers, footers, cookie bars, or chat widgets when it receives focus.",
+    "useWhen": "the sticky header swallows the focused control",
+    "aliases": [
+      { "name": "focus hidden behind sticky header", "source": "community" },
+      { "name": "obscured focus", "source": "community" },
+      { "name": "scroll-padding for focus", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-ring", "focus-order", "app-bar"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Focus Not Obscured (Minimum)", "url": "https://www.w3.org/TR/WCAG22/#focus-not-obscured-minimum" },
+      {
+        "title": "W3C F110: sticky footer or header hiding focused elements",
+        "url": "https://www.w3.org/WAI/WCAG22/Techniques/failures/F110"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Focus appearance",
+    "slug": "focus-appearance",
+    "category": "accessibility",
+    "definition": "The size and contrast a focus indicator must reach to count as visible: enough area around the control, enough change against both the control and its background.",
+    "useWhen": "judging whether a focus ring is strong enough",
+    "aliases": [
+      { "name": "focus indicator contrast", "source": "community" },
+      { "name": "focus indicator size", "source": "wcag" },
+      { "name": "2px outline rule", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-ring", "focus-visible", "non-text-contrast"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Focus Appearance", "url": "https://www.w3.org/TR/WCAG22/#focus-appearance" }],
+    "implementations": []
+  },
+  {
+    "name": "Selection follows focus",
+    "slug": "selection-follows-focus",
+    "category": "accessibility",
+    "definition": "A pattern where moving focus in a list or tablist immediately selects the item, as opposed to requiring a separate Enter or Space to commit.",
+    "useWhen": "deciding if arrowing also picks, or only moves",
+    "aliases": [
+      { "name": "automatic activation", "source": "aria-apg" },
+      { "name": "manual activation", "source": "aria-apg" },
+      { "name": "auto-select on focus", "source": "community" }
+    ],
+    "relatedSlugs": ["tabs", "roving-tabindex", "radio-group"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Live region",
+    "slug": "live-region",
+    "category": "accessibility",
+    "definition": "A container marked so assistive technology reads changes inside it without moving focus, used for messages that appear after an action.",
+    "useWhen": "something must be spoken without stealing focus",
+    "aliases": [
+      { "name": "aria-live", "source": "aria" },
+      { "name": "screen reader announcement", "source": "community" },
+      { "name": "announcer", "source": "community" },
+      { "name": "live announcement", "source": "community" },
+      { "name": "LiveAnnouncer", "source": "angular" },
+      { "name": "role=alert", "source": "aria" },
+      { "name": "alert region", "source": "community" }
+    ],
+    "relatedSlugs": ["politeness-level", "status-message", "atomic-live-region", "toast", "route-announcement"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-live",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live"
+      },
+      { "title": "WCAG 2.2: Status Messages", "url": "https://www.w3.org/TR/WCAG22/#status-messages" }
+    ],
+    "implementations": [
+      { "systemId": "angular", "name": "LiveAnnouncer", "url": "https://angular.dev/best-practices/a11y", "verified": true },
+      {
+        "systemId": "primer",
+        "name": "Assistive technology announcements",
+        "url": "https://primer.style/accessibility/patterns/accessible-notifications-and-messages/",
+        "verified": true
+      }
+    ],
+    "notes": "Absorbs the search query 'screen reader announcement', which is a head phrase but not a separate concept."
+  },
+  {
+    "name": "Politeness level",
+    "slug": "politeness-level",
+    "category": "accessibility",
+    "definition": "The urgency setting on a live region: polite waits for a pause in speech, assertive interrupts whatever is being read.",
+    "useWhen": "choosing whether an update may interrupt speech",
+    "aliases": [
+      { "name": "aria-live polite", "source": "aria" },
+      { "name": "assertive", "source": "aria" },
+      { "name": "live region politeness", "source": "community" },
+      { "name": "announcement queue", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "status-message", "alert-dialog"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: aria-live", "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Atomic live region",
+    "slug": "atomic-live-region",
+    "category": "accessibility",
+    "definition": "A live region setting that makes assistive technology re-read the whole region when any part of it changes, instead of only the changed fragment.",
+    "useWhen": "a partial update would be read out of context",
+    "aliases": [
+      { "name": "aria-atomic", "source": "aria" },
+      { "name": "aria-relevant", "source": "aria" },
+      { "name": "whole region announcement", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "politeness-level"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-atomic",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-atomic"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Status message",
+    "slug": "status-message",
+    "category": "accessibility",
+    "definition": "A change in content that reports progress, result, or state and must be announced without taking focus, such as a count of search results.",
+    "useWhen": "reporting an outcome the reader did not navigate to",
+    "aliases": [
+      { "name": "role=status", "source": "aria" },
+      { "name": "status region", "source": "community" },
+      { "name": "polite status", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "toast", "spinner", "empty-state"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Status Messages", "url": "https://www.w3.org/TR/WCAG22/#status-messages" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Accessible notifications and messages",
+        "url": "https://primer.style/accessibility/patterns/accessible-notifications-and-messages/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Landmark",
+    "slug": "landmark",
+    "category": "accessibility",
+    "definition": "A named region role (banner, navigation, main, complementary, contentinfo, search) that lets assistive technology jump between the major parts of a page.",
+    "useWhen": "naming the big regions so they can be jumped between",
+    "aliases": [
+      { "name": "landmark region", "source": "aria-apg" },
+      { "name": "landmark role", "source": "aria" },
+      { "name": "region", "source": "wcag" },
+      { "name": "main landmark", "source": "community" }
+    ],
+    "relatedSlugs": ["banner", "app-bar", "skip-link", "heading-hierarchy", "rotor"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Landmark Regions", "url": "https://www.w3.org/WAI/ARIA/apg/practices/" },
+      { "title": "A11y Project checklist", "url": "https://www.a11yproject.com/checklist/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Landmarks",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/keyboard/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Accessible name",
+    "slug": "accessible-name",
+    "category": "accessibility",
+    "definition": "The string assistive technology announces for a control, computed from label, aria-labelledby, aria-label, or its own content in a fixed order of precedence.",
+    "useWhen": "asking what a control is actually called out loud",
+    "aliases": [
+      { "name": "accname", "source": "w3c" },
+      { "name": "accessible name computation", "source": "w3c" },
+      { "name": "name from content", "source": "aria" },
+      { "name": "a11y name", "source": "community" },
+      { "name": "accessibilityLabel", "source": "hig" },
+      { "name": "contentDescription", "source": "android" },
+      { "name": "double speak", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-description", "icon-button-label", "label-in-name", "label-association", "visually-hidden"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Accessible Name and Description Computation 1.2", "url": "https://www.w3.org/TR/accname-1.2/" },
+      {
+        "title": "APG: Providing Accessible Names and Descriptions",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Accessible description",
+    "slug": "accessible-description",
+    "category": "accessibility",
+    "definition": "Supplementary text announced after a control's name, carrying hint or error detail without becoming part of the name itself.",
+    "useWhen": "extra detail that should follow the name, not replace it",
+    "aliases": [
+      { "name": "aria-describedby", "source": "aria" },
+      { "name": "aria-description", "source": "aria" },
+      { "name": "hint text", "source": "community" },
+      { "name": "help text", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-name", "invalid-state", "error-identification"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "APG: Providing Accessible Names and Descriptions",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/"
+      },
+      {
+        "title": "MDN: aria-describedby",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Accessibility tree",
+    "slug": "accessibility-tree",
+    "category": "accessibility",
+    "definition": "The parallel tree a browser derives from the DOM, holding the role, name, state, and value that assistive technology actually reads.",
+    "useWhen": "talking about what AT sees rather than what renders",
+    "aliases": [
+      { "name": "a11y tree", "source": "community" },
+      { "name": "accessibility object model", "source": "community" },
+      { "name": "accessibility node", "source": "community" },
+      { "name": "accessibility API", "source": "community" },
+      { "name": "UI Automation", "source": "community" },
+      { "name": "IAccessible2", "source": "community" },
+      { "name": "off-screen model", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-name", "aria-hidden", "screen-reader", "role-description"],
+    "priority": "head",
+    "demo": "none",
+    "sources": [
+      { "title": "Erik Kroes: glossary (accessibility tree)", "url": "https://www.erikkroes.nl/glossary/" },
+      { "title": "MDN glossary: Accessibility", "url": "https://developer.mozilla.org/en-US/docs/Glossary/Accessibility" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Semantic HTML and ARIA",
+        "url": "https://primer.style/accessibility/design-guidance/semantic-html-and-aria/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Alt text",
+    "slug": "alt-text",
+    "category": "accessibility",
+    "definition": "The text alternative that stands in for an image, written to serve the same purpose in the same context rather than to describe every detail.",
+    "useWhen": "writing what an image says when it cannot be seen",
+    "aliases": [
+      { "name": "alternative text", "source": "wcag" },
+      { "name": "text alternative", "source": "wcag" },
+      { "name": "alt attribute", "source": "html" },
+      { "name": "image description", "source": "community" }
+    ],
+    "relatedSlugs": ["decorative-image", "long-description", "icon-button-label", "captions"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Non-text Content", "url": "https://www.w3.org/TR/WCAG22/#non-text-content" },
+      { "title": "WebAIM: Images and Alternative Text", "url": "https://webaim.org/articles/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Alternative text for images",
+        "url": "https://primer.style/accessibility/design-guidance/alternative-text-for-images/",
+        "verified": true
+      },
+      {
+        "systemId": "fluent",
+        "name": "Rich media and alternatives",
+        "url": "https://fluent2.microsoft.design/accessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Decorative image",
+    "slug": "decorative-image",
+    "category": "accessibility",
+    "definition": "An image that carries no information and is given an empty alt attribute so assistive technology skips it entirely.",
+    "useWhen": "the picture adds nothing a reader would miss",
+    "aliases": [
+      { "name": "null alt", "source": "community" },
+      { "name": "empty alt", "source": "community" },
+      { "name": "alt=\"\"", "source": "html" },
+      { "name": "pure decoration", "source": "wcag" },
+      { "name": "presentational image", "source": "aria" }
+    ],
+    "relatedSlugs": ["alt-text", "aria-hidden"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Non-text Content", "url": "https://www.w3.org/TR/WCAG22/#non-text-content" },
+      { "title": "A11y Project checklist", "url": "https://www.a11yproject.com/checklist/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Informative and decorative images",
+        "url": "https://primer.style/accessibility/design-guidance/alternative-text-for-images/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Long description",
+    "slug": "long-description",
+    "category": "accessibility",
+    "definition": "An extended text alternative for a chart, diagram, or map, linked or referenced because a short alt string cannot carry the content.",
+    "useWhen": "the image is data and one line will not do",
+    "aliases": [
+      { "name": "longdesc", "source": "html" },
+      { "name": "aria-details", "source": "aria" },
+      { "name": "extended description", "source": "community" },
+      { "name": "complex image description", "source": "community" }
+    ],
+    "relatedSlugs": ["alt-text", "table-header-association"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-details",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-details"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Icon button label",
+    "slug": "icon-button-label",
+    "category": "accessibility",
+    "definition": "The accessible name given to a control that shows only an icon, supplied by visually hidden text or aria-label because there is no visible wording.",
+    "useWhen": "a button is a glyph and nothing else",
+    "aliases": [
+      { "name": "icon-only button name", "source": "community" },
+      { "name": "aria-label on icon button", "source": "community" },
+      { "name": "sr-only label", "source": "tailwind" }
+    ],
+    "relatedSlugs": ["accessible-name", "visually-hidden", "label-in-name", "tooltip"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "APG: Providing Accessible Names and Descriptions",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/"
+      }
+    ],
+    "implementations": [
+      { "systemId": "tailwind", "name": "sr-only", "url": "https://tailwindcss.com/docs/display", "verified": true },
+      {
+        "systemId": "react-aria",
+        "name": "VisuallyHidden",
+        "url": "https://react-spectrum.adobe.com/react-aria/VisuallyHidden.html",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "Screen reader text for icon-only buttons",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate with accessible-name; kept separate because it is the concrete case people search for."
+  },
+  {
+    "name": "Touch target size",
+    "slug": "touch-target-size",
+    "category": "accessibility",
+    "definition": "The minimum area a control must offer a finger or imprecise pointer, measured on the activation region rather than the painted glyph.",
+    "useWhen": "sizing something for a fingertip, not a cursor",
+    "aliases": [
+      { "name": "tap target", "source": "community" },
+      { "name": "hit area", "source": "community" },
+      { "name": "target size", "source": "wcag" },
+      { "name": "minimum touch target", "source": "material" },
+      { "name": "44pt minimum", "source": "hig" },
+      { "name": "48dp minimum", "source": "material" },
+      { "name": "dwell target", "source": "community" }
+    ],
+    "relatedSlugs": ["target-spacing", "touch-target-expansion", "pointer-cancellation"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Target Size (Minimum)", "url": "https://www.w3.org/TR/WCAG22/#target-size-minimum" },
+      { "title": "TetraLogical: Foundations, target sizes", "url": "https://tetralogical.com/blog/2022/12/20/foundations-target-size/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Touch target (48dp)",
+        "url": "https://support.google.com/accessibility/android/answer/7101858",
+        "verified": true
+      },
+      {
+        "systemId": "android",
+        "name": "Make apps more accessible",
+        "url": "https://developer.android.com/guide/topics/ui/accessibility/apps",
+        "verified": true
+      },
+      {
+        "systemId": "hig",
+        "name": "Accessibility",
+        "url": "https://developers.apple.com/design/human-interface-guidelines/foundations/accessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Target spacing",
+    "slug": "target-spacing",
+    "category": "accessibility",
+    "definition": "The exception that lets an undersized control pass when no other target falls inside a 24 pixel circle centred on it, trading size for clearance.",
+    "useWhen": "small controls that cannot grow but can be separated",
+    "aliases": [
+      { "name": "spacing exception", "source": "wcag" },
+      { "name": "24px circle test", "source": "community" },
+      { "name": "target offset", "source": "community" },
+      { "name": "undersized target", "source": "wcag" }
+    ],
+    "relatedSlugs": ["touch-target-size", "touch-target-expansion"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Target Size (Minimum)", "url": "https://www.w3.org/TR/WCAG22/#target-size-minimum" },
+      { "title": "TetraLogical: Foundations, target sizes", "url": "https://tetralogical.com/blog/2022/12/20/foundations-target-size/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Touch target expansion",
+    "slug": "touch-target-expansion",
+    "category": "accessibility",
+    "definition": "Padding or a pseudo element that grows a control's hit area past its visible bounds, so a small icon still meets the minimum target.",
+    "useWhen": "the icon must stay small but the target must not",
+    "aliases": [
+      { "name": "hit slop", "source": "react-native" },
+      { "name": "touch slop", "source": "community" },
+      { "name": "invisible hit area", "source": "community" },
+      { "name": "tap area padding", "source": "community" },
+      { "name": "extended touch target", "source": "material" }
+    ],
+    "relatedSlugs": ["touch-target-size", "target-spacing"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design 3: accessibility and structure", "url": "https://m3.material.io/foundations/designing/structure" },
+      {
+        "title": "Touch target size (Android Accessibility Help)",
+        "url": "https://support.google.com/accessibility/android/answer/7101858"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Touch target expansion",
+        "url": "https://m3.material.io/foundations/designing/structure",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the invisible padded rectangle around a 16px icon has no agreed name outside React Native's hitSlop."
+  },
+  {
+    "name": "Pointer cancellation",
+    "slug": "pointer-cancellation",
+    "category": "accessibility",
+    "definition": "Activating a control on pointer release rather than press, so someone who lands on the wrong target can slide off and abort.",
+    "useWhen": "letting a mis-press be taken back before release",
+    "aliases": [
+      { "name": "up-event activation", "source": "wcag" },
+      { "name": "down-event", "source": "wcag" },
+      { "name": "slide off to cancel", "source": "community" },
+      { "name": "abort or undo", "source": "wcag" }
+    ],
+    "relatedSlugs": ["touch-target-size", "dragging-alternative"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Pointer Cancellation", "url": "https://www.w3.org/TR/WCAG22/#pointer-cancellation" }],
+    "implementations": []
+  },
+  {
+    "name": "Dragging alternative",
+    "slug": "dragging-alternative",
+    "category": "accessibility",
+    "definition": "A second, non-dragging route to anything a drag can do, such as arrow keys or a move-to menu on a sortable list.",
+    "useWhen": "a drag is the only way to perform an action",
+    "aliases": [
+      { "name": "dragging movements", "source": "wcag" },
+      { "name": "keyboard drag and drop", "source": "community" },
+      { "name": "accessible drag and drop", "source": "community" },
+      { "name": "move menu", "source": "primer" }
+    ],
+    "relatedSlugs": ["pointer-gestures", "pointer-cancellation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Dragging Movements", "url": "https://www.w3.org/TR/WCAG22/#dragging-movements" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Drag and drop",
+        "url": "https://primer.style/accessibility/patterns/drag-and-drop/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Pointer gestures",
+    "slug": "pointer-gestures",
+    "category": "accessibility",
+    "definition": "Path based or multi finger gestures such as pinch, swipe, and draw, which need a single pointer equivalent to stay operable.",
+    "useWhen": "a pinch or swipe is the only way in",
+    "aliases": [
+      { "name": "path-based gesture", "source": "wcag" },
+      { "name": "multipoint gesture", "source": "wcag" },
+      { "name": "single pointer alternative", "source": "community" }
+    ],
+    "relatedSlugs": ["dragging-alternative", "motion-actuation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Pointer Gestures", "url": "https://www.w3.org/TR/WCAG22/#pointer-gestures" }],
+    "implementations": []
+  },
+  {
+    "name": "Motion actuation",
+    "slug": "motion-actuation",
+    "category": "accessibility",
+    "definition": "Triggering a function by moving the device itself, such as shake to undo, which needs a plain control alternative and an off switch.",
+    "useWhen": "the gesture is a shake or tilt of the device",
+    "aliases": [
+      { "name": "shake to undo", "source": "hig" },
+      { "name": "device motion trigger", "source": "community" },
+      { "name": "tilt gesture", "source": "community" }
+    ],
+    "relatedSlugs": ["pointer-gestures"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WCAG 2.2: Motion Actuation", "url": "https://www.w3.org/TR/WCAG22/#motion-actuation" }],
+    "implementations": []
+  },
+  {
+    "name": "Reduced motion",
+    "slug": "prefers-reduced-motion",
+    "category": "accessibility",
+    "definition": "A user preference asking interfaces to cut non-essential animation, honoured by shortening, cross fading, or removing movement rather than by doing nothing.",
+    "useWhen": "the reader has asked the system for less movement",
+    "aliases": [
+      { "name": "prefers-reduced-motion", "source": "css" },
+      { "name": "motion-reduce", "source": "tailwind" },
+      { "name": "motion-safe", "source": "tailwind" },
+      { "name": "Reduce Motion", "source": "hig" },
+      { "name": "remove animations", "source": "android" }
+    ],
+    "relatedSlugs": ["duration", "easing", "stagger", "view-transition", "reduced-transparency"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: prefers-reduced-motion",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion"
+      },
+      { "title": "WCAG 2.2: Animation from Interactions", "url": "https://www.w3.org/TR/WCAG22/#animation-from-interactions" }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Reduce Motion",
+        "url": "https://developers.apple.com/design/human-interface-guidelines/foundations/accessibility",
+        "verified": true
+      },
+      {
+        "systemId": "primer",
+        "name": "Motion and animation",
+        "url": "https://primer.style/accessibility/design-guidance/motion-and-animation/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: arguably belongs to motion. Recorded here because the preference and its media query are accessibility vocabulary."
+  },
+  {
+    "name": "Reduced transparency",
+    "slug": "reduced-transparency",
+    "category": "accessibility",
+    "definition": "A user preference asking for opaque surfaces instead of blur and translucency, honoured by swapping frosted layers for solid fills.",
+    "useWhen": "frosted panels have to become solid on request",
+    "aliases": [{ "name": "prefers-reduced-transparency", "source": "css" }, { "name": "Reduce Transparency", "source": "hig" }],
+    "relatedSlugs": ["glassmorphism", "prefers-contrast", "prefers-reduced-motion"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Using media queries for accessibility",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using_for_accessibility"
+      }
+    ],
+    "implementations": [],
+    "notes": "Direct counterpart to the existing glassmorphism entry: the preference that turns the frost off."
+  },
+  {
+    "name": "Increased contrast",
+    "slug": "prefers-contrast",
+    "category": "accessibility",
+    "definition": "A user preference for more contrast than a theme's default, honoured by strengthening borders, text, and state colours rather than by shifting hues.",
+    "useWhen": "the system asks for a higher contrast version",
+    "aliases": [
+      { "name": "prefers-contrast", "source": "css" },
+      { "name": "Increase Contrast", "source": "hig" },
+      { "name": "high contrast theme", "source": "community" }
+    ],
+    "relatedSlugs": ["forced-colors-mode", "contrast-ratio", "semantic-color"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Using media queries for accessibility",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using_for_accessibility"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Increase Contrast",
+        "url": "https://developers.apple.com/design/human-interface-guidelines/foundations/accessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Forced colors mode",
+    "slug": "forced-colors-mode",
+    "category": "accessibility",
+    "definition": "A mode where the operating system replaces the page palette with a small user chosen set, so borders, icons, and states must survive without author colours.",
+    "useWhen": "the OS throws your palette away and keeps the layout",
+    "aliases": [
+      { "name": "Windows High Contrast Mode", "source": "microsoft" },
+      { "name": "WHCM", "source": "community" },
+      { "name": "forced-colors", "source": "css" },
+      { "name": "Contrast Themes", "source": "microsoft" },
+      { "name": "forced-color-adjust", "source": "tailwind" }
+    ],
+    "relatedSlugs": ["prefers-contrast", "semantic-color", "non-text-contrast"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: forced-colors", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors" }
+    ],
+    "implementations": [
+      { "systemId": "tailwind", "name": "forced-color-adjust", "url": "https://tailwindcss.com/docs/forced-color-adjust", "verified": true }
+    ]
+  },
+  {
+    "name": "Contrast ratio",
+    "slug": "contrast-ratio",
+    "category": "accessibility",
+    "definition": "The measured luminance ratio between two colours, the number contrast requirements are written in: 4.5:1 for body text, 3:1 for large text.",
+    "useWhen": "putting a number on legibility of text over a fill",
+    "aliases": [
+      { "name": "colour contrast", "source": "community" },
+      { "name": "WCAG contrast", "source": "community" },
+      { "name": "4.5:1", "source": "community" },
+      { "name": "contrast checker", "source": "community" }
+    ],
+    "relatedSlugs": ["non-text-contrast", "large-text-threshold", "apca", "semantic-color", "color-ramp"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Contrast (Minimum)", "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum" }],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Color contrast",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/color/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "Sufficient color contrast",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      },
+      { "systemId": "fluent", "name": "Color contrast ratios", "url": "https://fluent2.microsoft.design/accessibility", "verified": true }
+    ],
+    "notes": "Cross-category with color; the enumeration for color may produce a duplicate."
+  },
+  {
+    "name": "Non-text contrast",
+    "slug": "non-text-contrast",
+    "category": "accessibility",
+    "definition": "The contrast requirement that applies to the parts of a control that are not text: borders, icons, focus rings, and state indicators.",
+    "useWhen": "the thing that must be seen is a border or icon",
+    "aliases": [
+      { "name": "UI component contrast", "source": "wcag" },
+      { "name": "graphical object contrast", "source": "wcag" },
+      { "name": "3:1 rule", "source": "community" }
+    ],
+    "relatedSlugs": ["contrast-ratio", "focus-appearance", "forced-colors-mode"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Non-text Contrast", "url": "https://www.w3.org/TR/WCAG22/#non-text-contrast" }],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Non-text contrast",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/color/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Large text threshold",
+    "slug": "large-text-threshold",
+    "category": "accessibility",
+    "definition": "The size at which text counts as large for contrast purposes (about 18pt, or 14pt when bold) and its required ratio drops from 4.5:1 to 3:1.",
+    "useWhen": "deciding which contrast number a heading owes",
+    "aliases": [
+      { "name": "large-scale text", "source": "wcag" },
+      { "name": "large text", "source": "community" },
+      { "name": "18pt rule", "source": "community" }
+    ],
+    "relatedSlugs": ["contrast-ratio", "apca"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WCAG 2.2: Contrast (Minimum)", "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum" }],
+    "implementations": [],
+    "notes": "Cross-category with typography."
+  },
+  {
+    "name": "APCA",
+    "slug": "apca",
+    "category": "accessibility",
+    "definition": "A newer contrast model that weights polarity, size, and weight instead of a single luminance ratio, drafted as a successor to the WCAG 2 formula.",
+    "useWhen": "the 4.5:1 number disagrees with what you can read",
+    "aliases": [
+      { "name": "Advanced Perceptual Contrast Algorithm", "source": "community" },
+      { "name": "Lc value", "source": "community" },
+      { "name": "WCAG 3 contrast", "source": "community" }
+    ],
+    "relatedSlugs": ["contrast-ratio", "large-text-threshold"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "WCAG 2.2 (contrast definitions this model replaces)", "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category with color. Implementation rows need a fresh sweep; none confirmed here."
+  },
+  {
+    "name": "Use of color",
+    "slug": "use-of-color",
+    "category": "accessibility",
+    "definition": "The rule that colour must never be the only carrier of meaning, so a red field also needs an icon, wording, or shape change.",
+    "useWhen": "the only difference between two states is hue",
+    "aliases": [
+      { "name": "colour alone", "source": "wcag" },
+      { "name": "don't rely on color", "source": "community" },
+      { "name": "redundant coding", "source": "community" },
+      { "name": "pattern fill", "source": "community" },
+      { "name": "texture encoding", "source": "community" }
+    ],
+    "relatedSlugs": ["semantic-color", "invalid-state", "current-page-indicator", "sensory-characteristics"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Use of Color", "url": "https://www.w3.org/TR/WCAG22/#use-of-color" }],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Use of color and color blindness",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/color/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Reflow",
+    "slug": "reflow",
+    "category": "accessibility",
+    "definition": "The requirement that content works in one column at 320 CSS pixels wide without two dimensional scrolling, which is 400 percent zoom on a desktop.",
+    "useWhen": "checking a layout at heavy zoom, not just on phones",
+    "aliases": [
+      { "name": "400% zoom", "source": "community" },
+      { "name": "320 CSS pixels", "source": "wcag" },
+      { "name": "no horizontal scrolling", "source": "community" }
+    ],
+    "relatedSlugs": ["resize-text", "text-spacing-override"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [{ "title": "WCAG 2.2: Reflow", "url": "https://www.w3.org/TR/WCAG22/#reflow" }],
+    "implementations": [
+      { "systemId": "fluent", "name": "Responsive layouts", "url": "https://fluent2.microsoft.design/accessibility", "verified": true }
+    ],
+    "notes": "iframe: the subject is the document viewport and its scroller, which a shadow root cannot stand in for."
+  },
+  {
+    "name": "Text spacing override",
+    "slug": "text-spacing-override",
+    "category": "accessibility",
+    "definition": "Content must survive a reader forcing larger line height, letter spacing, word spacing, and paragraph spacing, without clipping or overlap.",
+    "useWhen": "a user stylesheet loosens every spacing value",
+    "aliases": [
+      { "name": "text spacing", "source": "wcag" },
+      { "name": "text spacing bookmarklet", "source": "community" },
+      { "name": "user stylesheet spacing", "source": "community" }
+    ],
+    "relatedSlugs": ["reflow", "leading", "tracking", "resize-text"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Text Spacing", "url": "https://www.w3.org/TR/WCAG22/#text-spacing" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Text resizing and spacing",
+        "url": "https://primer.style/accessibility/design-guidance/text-resize-and-spacing/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Resize text",
+    "slug": "resize-text",
+    "category": "accessibility",
+    "definition": "Text must scale to at least 200 percent without loss of content or function, which rules out fixed pixel heights around wrapping copy.",
+    "useWhen": "the reader has enlarged text, not the whole page",
+    "aliases": [
+      { "name": "text-only zoom", "source": "community" },
+      { "name": "browser zoom", "source": "community" },
+      { "name": "200% text", "source": "wcag" },
+      { "name": "user font size", "source": "community" },
+      { "name": "text-only zoom vs full page zoom", "source": "primer" }
+    ],
+    "relatedSlugs": ["reflow", "dynamic-type", "text-spacing-override"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Resize Text", "url": "https://www.w3.org/TR/WCAG22/#resize-text" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Text resizing and spacing",
+        "url": "https://primer.style/accessibility/design-guidance/text-resize-and-spacing/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Dynamic Type",
+    "slug": "dynamic-type",
+    "category": "accessibility",
+    "definition": "Apple's system setting for the reader's preferred text size, which layouts follow instead of pinning type to fixed point values.",
+    "useWhen": "naming the platform text size setting on Apple devices",
+    "aliases": [
+      { "name": "Larger Text", "source": "hig" },
+      { "name": "preferred text size", "source": "hig" },
+      { "name": "font scale", "source": "android" },
+      { "name": "text scaling", "source": "android" }
+    ],
+    "relatedSlugs": ["resize-text", "reflow"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple HIG: Accessibility",
+        "url": "https://developers.apple.com/design/human-interface-guidelines/foundations/accessibility"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Dynamic Type",
+        "url": "https://developers.apple.com/design/human-interface-guidelines/foundations/accessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Error identification",
+    "slug": "error-identification",
+    "category": "accessibility",
+    "definition": "Naming the field that failed and saying what went wrong in text, rather than only outlining the input in red.",
+    "useWhen": "telling a reader which field failed and why",
+    "aliases": [
+      { "name": "inline error message", "source": "community" },
+      { "name": "validation message", "source": "community" },
+      { "name": "field error", "source": "community" },
+      { "name": "error suggestion", "source": "wcag" }
+    ],
+    "relatedSlugs": ["error-summary", "invalid-state", "accessible-description", "use-of-color"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Error Identification", "url": "https://www.w3.org/TR/WCAG22/#error-identification" },
+      { "title": "GOV.UK Design System: Error message", "url": "https://design-system.service.gov.uk/components/error-message/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Error message",
+        "url": "https://design-system.service.gov.uk/components/error-message/",
+        "verified": true
+      },
+      {
+        "systemId": "govuk",
+        "name": "Error message",
+        "url": "https://design-system.service.gov.uk/components/error-summary/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Error summary",
+    "slug": "error-summary",
+    "category": "accessibility",
+    "definition": "A block at the top of a form listing every failed field as links, focused on submit so the reader hears the count and can jump to each one.",
+    "useWhen": "a long form fails and the reader needs the whole list",
+    "aliases": [
+      { "name": "error list", "source": "community" },
+      { "name": "validation summary", "source": "community" },
+      { "name": "error banner", "source": "community" },
+      { "name": "error summary at the top", "source": "govuk" }
+    ],
+    "relatedSlugs": ["error-identification", "focus-management", "banner"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "GOV.UK Design System: Accessibility", "url": "https://design-system.service.gov.uk/accessibility/" }],
+    "implementations": [
+      { "systemId": "govuk", "name": "Error summary", "url": "https://design-system.service.gov.uk/accessibility/", "verified": true },
+      {
+        "systemId": "govuk",
+        "name": "Error summary",
+        "url": "https://design-system.service.gov.uk/components/error-summary/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: could sit under component or pattern; recorded here because its whole rationale is focus and announcement."
+  },
+  {
+    "name": "Label in name",
+    "slug": "label-in-name",
+    "category": "accessibility",
+    "definition": "The rule that a control's accessible name must contain its visible label text, so speaking the visible words works in voice control.",
+    "useWhen": "aria-label and the visible text disagree",
+    "aliases": [
+      { "name": "visible label mismatch", "source": "community" },
+      { "name": "speech input label", "source": "community" },
+      { "name": "aria-label override problem", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-name", "voice-control", "icon-button-label"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Label in Name", "url": "https://www.w3.org/TR/WCAG22/#label-in-name" }],
+    "implementations": []
+  },
+  {
+    "name": "Placeholder as label",
+    "slug": "placeholder-as-label",
+    "category": "accessibility",
+    "definition": "The antipattern of using placeholder text as a field's only label, which vanishes on typing and usually fails both contrast and naming.",
+    "useWhen": "naming why a placeholder-only field is broken",
+    "aliases": [
+      { "name": "placeholder-only field", "source": "community" },
+      { "name": "ghost label", "source": "community" },
+      { "name": "aria-placeholder", "source": "aria" }
+    ],
+    "relatedSlugs": ["label-association", "accessible-name"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Labels or Instructions", "url": "https://www.w3.org/TR/WCAG22/#labels-or-instructions" },
+      { "title": "A11y Project checklist", "url": "https://www.a11yproject.com/checklist/" }
+    ],
+    "implementations": [
+      { "systemId": "primer", "name": "Placeholders", "url": "https://primer.style/accessibility/patterns/placeholders/", "verified": true }
+    ]
+  },
+  {
+    "name": "Label association",
+    "slug": "label-association",
+    "category": "accessibility",
+    "definition": "The programmatic link between a label and its field, made by for and id or by wrapping, which makes the label clickable and the field named.",
+    "useWhen": "connecting the words to the input they name",
+    "aliases": [
+      { "name": "explicit label", "source": "community" },
+      { "name": "implicit label", "source": "community" },
+      { "name": "for/id pairing", "source": "html" },
+      { "name": "label wrapping", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-name", "placeholder-as-label", "error-identification"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "A11y Project checklist", "url": "https://www.a11yproject.com/checklist/" },
+      { "title": "WCAG 2.2: Labels or Instructions", "url": "https://www.w3.org/TR/WCAG22/#labels-or-instructions" }
+    ],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "Valid label for every input",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      }
+    ],
+    "notes": "SPEC section 8 warns that a choreography cannot rely on a label's native activation, which makes this a careful demo."
+  },
+  {
+    "name": "Input purpose",
+    "slug": "input-purpose",
+    "category": "accessibility",
+    "definition": "Machine readable autocomplete tokens on personal fields, which let browsers autofill and let personalisation tools add familiar icons or wording.",
+    "useWhen": "telling the browser what a field is actually for",
+    "aliases": [
+      { "name": "autocomplete attribute", "source": "html" },
+      { "name": "autofill token", "source": "community" },
+      { "name": "identify input purpose", "source": "wcag" }
+    ],
+    "relatedSlugs": ["label-association", "redundant-entry"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Identify Input Purpose", "url": "https://www.w3.org/TR/WCAG22/#identify-input-purpose" }],
+    "implementations": []
+  },
+  {
+    "name": "Accessible authentication",
+    "slug": "accessible-authentication",
+    "category": "accessibility",
+    "definition": "A sign-in route that never requires a cognitive function test such as recalling a password or solving a puzzle without offering an alternative.",
+    "useWhen": "a login demands memory or puzzle solving",
+    "aliases": [
+      { "name": "cognitive function test", "source": "wcag" },
+      { "name": "no CAPTCHA", "source": "community" },
+      { "name": "allow paste in password", "source": "community" }
+    ],
+    "relatedSlugs": ["redundant-entry"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "WCAG 2.2: Accessible Authentication (Minimum)", "url": "https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Redundant entry",
+    "slug": "redundant-entry",
+    "category": "accessibility",
+    "definition": "The rule against asking for the same information twice in one process, unless it is re-entered for a real reason such as confirmation.",
+    "useWhen": "a wizard asks for the address a second time",
+    "aliases": [{ "name": "re-entering information", "source": "wcag" }, { "name": "repeat entry", "source": "community" }],
+    "relatedSlugs": ["input-purpose", "accessible-authentication"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Redundant Entry", "url": "https://www.w3.org/TR/WCAG22/#redundant-entry" }],
+    "implementations": []
+  },
+  {
+    "name": "Timeout warning",
+    "slug": "timeout-warning",
+    "category": "accessibility",
+    "definition": "A warning before a session or form expires with a simple way to extend it, so a slower reader does not lose their work silently.",
+    "useWhen": "a session is about to expire under the reader",
+    "aliases": [
+      { "name": "session timeout dialog", "source": "community" },
+      { "name": "timing adjustable", "source": "wcag" },
+      { "name": "extend session", "source": "community" },
+      { "name": "idle timeout", "source": "community" },
+      { "name": "re-authenticating", "source": "wcag" }
+    ],
+    "relatedSlugs": ["modal-dialog", "alert-dialog", "status-message"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Timeouts", "url": "https://www.w3.org/TR/WCAG22/#timeouts" },
+      { "title": "WCAG 2.2: Timing Adjustable", "url": "https://www.w3.org/TR/WCAG22/#timing-adjustable" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: could equally be a pattern entry."
+  },
+  {
+    "name": "Pause, stop, hide",
+    "slug": "pause-stop-hide",
+    "category": "accessibility",
+    "definition": "A visible control for content that moves, blinks, scrolls, or updates on its own, so a reader can stop it before reading around it.",
+    "useWhen": "something animates or refreshes without being asked",
+    "aliases": [
+      { "name": "pause button", "source": "community" },
+      { "name": "carousel pause control", "source": "community" },
+      { "name": "auto-updating content control", "source": "wcag" }
+    ],
+    "relatedSlugs": ["prefers-reduced-motion", "live-region", "flashing-content"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Pause, Stop, Hide", "url": "https://www.w3.org/TR/WCAG22/#pause-stop-hide" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Pause control",
+        "url": "https://primer.style/accessibility/design-guidance/motion-and-animation/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Flashing content",
+    "slug": "flashing-content",
+    "category": "accessibility",
+    "definition": "Content that flashes more than three times per second in a large enough area, restricted because it can trigger seizures.",
+    "useWhen": "judging whether a flash rate is dangerous",
+    "aliases": [
+      { "name": "three flashes threshold", "source": "wcag" },
+      { "name": "photosensitive epilepsy", "source": "community" },
+      { "name": "general flash and red flash thresholds", "source": "wcag" },
+      { "name": "seizure safe", "source": "community" }
+    ],
+    "relatedSlugs": ["prefers-reduced-motion", "pause-stop-hide"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "WCAG 2.2: Three Flashes or Below Threshold", "url": "https://www.w3.org/TR/WCAG22/#three-flashes-or-below-threshold" }
+    ],
+    "implementations": [],
+    "notes": "demo: none on purpose. Building a specimen that flashes would be the harm the term names."
+  },
+  {
+    "name": "Character key shortcuts",
+    "slug": "character-key-shortcuts",
+    "category": "accessibility",
+    "definition": "Single letter shortcuts that fire without a modifier, which must be switchable off or remappable because speech input and screen readers trigger them by accident.",
+    "useWhen": "a bare letter key does something on the page",
+    "aliases": [
+      { "name": "single key shortcut", "source": "community" },
+      { "name": "hotkey", "source": "community" },
+      { "name": "keyboard shortcut conflict", "source": "community" },
+      { "name": "aria-keyshortcuts", "source": "aria" },
+      { "name": "pass through key", "source": "community" }
+    ],
+    "relatedSlugs": ["access-key", "browse-mode", "voice-control"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Character Key Shortcuts", "url": "https://www.w3.org/TR/WCAG22/#character-key-shortcuts" }],
+    "implementations": []
+  },
+  {
+    "name": "Access key",
+    "slug": "access-key",
+    "category": "accessibility",
+    "definition": "An author assigned shortcut key for a control, historically shown as an underlined letter, unreliable because it collides with browser and screen reader keys.",
+    "useWhen": "naming the underlined mnemonic letter in a control",
+    "aliases": [
+      { "name": "accesskey", "source": "html" },
+      { "name": "mnemonic", "source": "fluent" },
+      { "name": "underlined letter", "source": "community" },
+      { "name": "keyboard mnemonic", "source": "community" }
+    ],
+    "relatedSlugs": ["character-key-shortcuts"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Inert",
+    "slug": "inert",
+    "category": "accessibility",
+    "definition": "A state that removes a subtree from focus order, hit testing, and the accessibility tree at once, used to seal the background behind a dialog.",
+    "useWhen": "making a whole region unreachable, not just invisible",
+    "aliases": [
+      { "name": "inert attribute", "source": "html" },
+      { "name": "background inert", "source": "community" },
+      { "name": "aria-modal", "source": "aria" },
+      { "name": "inert polyfill", "source": "community" },
+      { "name": "focus guard", "source": "radix" }
+    ],
+    "relatedSlugs": ["focus-trap", "aria-hidden", "modal-dialog", "keyboard-trap"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-modal",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal"
+      }
+    ],
+    "implementations": [],
+    "notes": "Clean contrast with the existing aria-hidden and focus-trap entries: inert does all three jobs at once."
+  },
+  {
+    "name": "Heading hierarchy",
+    "slug": "heading-hierarchy",
+    "category": "accessibility",
+    "definition": "The nested outline formed by heading levels, navigated directly by assistive technology and broken by skipping a level or picking a level for its size.",
+    "useWhen": "structuring a page so it can be skimmed by heading",
+    "aliases": [
+      { "name": "heading levels", "source": "community" },
+      { "name": "heading structure", "source": "webaim" },
+      { "name": "document outline", "source": "community" },
+      { "name": "skipped heading level", "source": "community" },
+      { "name": "headings and labels", "source": "wcag" },
+      { "name": "section headings", "source": "wcag" }
+    ],
+    "relatedSlugs": ["landmark", "table-of-contents", "rotor", "reading-order"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Headings and Labels", "url": "https://www.w3.org/TR/WCAG22/#headings-and-labels" },
+      { "title": "A11y Project checklist", "url": "https://www.a11yproject.com/checklist/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "Heading hierarchy",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      },
+      {
+        "systemId": "fluent",
+        "name": "Structure, hierarchy, and navigation",
+        "url": "https://fluent2.microsoft.design/accessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Reading order",
+    "slug": "reading-order",
+    "category": "accessibility",
+    "definition": "The order content is exposed in the DOM, which drives both speech output and tab order, and which visual reordering can silently contradict.",
+    "useWhen": "the visual order and the source order disagree",
+    "aliases": [
+      { "name": "meaningful sequence", "source": "wcag" },
+      { "name": "DOM order", "source": "community" },
+      { "name": "source order", "source": "community" },
+      { "name": "visual order mismatch", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-order", "heading-hierarchy"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Meaningful Sequence", "url": "https://www.w3.org/TR/WCAG22/#meaningful-sequence" }],
+    "implementations": []
+  },
+  {
+    "name": "Screen reader",
+    "slug": "screen-reader",
+    "category": "accessibility",
+    "definition": "Software that speaks or brailles the accessibility tree and supplies its own keyboard commands for moving through a page.",
+    "useWhen": "naming the software that reads an interface aloud",
+    "aliases": [
+      { "name": "NVDA", "source": "community" },
+      { "name": "JAWS", "source": "community" },
+      { "name": "VoiceOver", "source": "hig" },
+      { "name": "TalkBack", "source": "android" },
+      { "name": "Narrator", "source": "microsoft" }
+    ],
+    "relatedSlugs": ["accessibility-tree", "browse-mode", "rotor", "braille-display"],
+    "priority": "head",
+    "demo": "none",
+    "sources": [
+      { "title": "WebAIM: Screen Readers", "url": "https://webaim.org/articles/" },
+      { "title": "web.dev accessibility glossary", "url": "https://web.dev/learn/accessibility/glossary/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Browse mode",
+    "slug": "browse-mode",
+    "category": "accessibility",
+    "definition": "The screen reader mode that intercepts keystrokes for reading and navigation, as opposed to focus or forms mode where keys reach the page.",
+    "useWhen": "explaining why a key press never reached your widget",
+    "aliases": [
+      { "name": "focus mode", "source": "nvda" },
+      { "name": "forms mode", "source": "jaws" },
+      { "name": "virtual cursor", "source": "jaws" },
+      { "name": "virtual mode", "source": "jaws" },
+      { "name": "application mode", "source": "community" },
+      { "name": "scan mode", "source": "narrator" },
+      { "name": "table mode", "source": "community" },
+      { "name": "pass key through", "source": "community" },
+      { "name": "virtual buffer", "source": "community" }
+    ],
+    "relatedSlugs": ["screen-reader", "character-key-shortcuts", "rotor"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Accessibility Developer Guide: Browse and focus modes",
+        "url": "https://www.accessibility-developer-guide.com/knowledge/screen-readers/desktop/browse-focus-modes/"
+      },
+      {
+        "title": "Tink: Understanding screen reader interaction modes",
+        "url": "https://tink.uk/understanding-screen-reader-interaction-modes/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold. Absorbs 'virtual cursor' as an alias rather than a separate entry."
+  },
+  {
+    "name": "Rotor",
+    "slug": "rotor",
+    "category": "accessibility",
+    "definition": "VoiceOver's dial for choosing what a swipe or flick moves between: headings, links, landmarks, form controls, or characters.",
+    "useWhen": "naming the VoiceOver dial that picks a navigation unit",
+    "aliases": [
+      { "name": "VoiceOver rotor", "source": "hig" },
+      { "name": "gestures rotor", "source": "hig" },
+      { "name": "element list", "source": "community" },
+      { "name": "quick nav", "source": "community" },
+      { "name": "landmark rotor", "source": "community" }
+    ],
+    "relatedSlugs": ["screen-reader", "landmark", "heading-hierarchy"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Apple Support: Use the VoiceOver rotor on Mac",
+        "url": "https://support.apple.com/guide/voiceover/voiceover-rotor-mchlp2719/mac"
+      },
+      { "title": "Deque: VoiceOver gestures on iOS", "url": "https://dequeuniversity.com/screenreaders/voiceover-ios-shortcuts" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Switch access",
+    "slug": "switch-access",
+    "category": "accessibility",
+    "definition": "Operating a device with one or two switches, where a scanning cursor steps through targets in turn and a press selects the highlighted one.",
+    "useWhen": "input is a single button and time, not a pointer",
+    "aliases": [
+      { "name": "switch control", "source": "hig" },
+      { "name": "scanning", "source": "community" },
+      { "name": "single switch", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-order", "tab-stop", "voice-control"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Apple HIG: Accessibility",
+        "url": "https://developers.apple.com/design/human-interface-guidelines/foundations/accessibility"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Voice control",
+    "slug": "voice-control",
+    "category": "accessibility",
+    "definition": "Operating an interface by speaking control names or numbered overlays, which makes the visible wording of a control its address.",
+    "useWhen": "the reader clicks by saying the button's name",
+    "aliases": [
+      { "name": "speech input", "source": "community" },
+      { "name": "Voice Control", "source": "hig" },
+      { "name": "Voice Access", "source": "android" },
+      { "name": "Dragon", "source": "community" },
+      { "name": "show numbers", "source": "community" },
+      { "name": "label mismatch", "source": "community" }
+    ],
+    "relatedSlugs": ["label-in-name", "accessible-name", "character-key-shortcuts"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WCAG 2.2: Label in Name", "url": "https://www.w3.org/TR/WCAG22/#label-in-name" }],
+    "implementations": []
+  },
+  {
+    "name": "Braille display",
+    "slug": "braille-display",
+    "category": "accessibility",
+    "definition": "A refreshable braille row that renders the same accessibility tree as speech, with abbreviated role names authors can override.",
+    "useWhen": "output is a braille line, not synthesized speech",
+    "aliases": [
+      { "name": "refreshable braille", "source": "community" },
+      { "name": "aria-braillelabel", "source": "aria" },
+      { "name": "aria-brailleroledescription", "source": "aria" }
+    ],
+    "relatedSlugs": ["screen-reader", "role-description", "accessibility-tree"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WAI-ARIA 1.3 editor's draft", "url": "https://w3c.github.io/aria/" }],
+    "implementations": []
+  },
+  {
+    "name": "Captions",
+    "slug": "captions",
+    "category": "accessibility",
+    "definition": "Synchronised text for a video's audio, including speaker changes and meaningful sound, distinct from subtitles which only translate dialogue.",
+    "useWhen": "text that carries the sound of a video, not a translation",
+    "aliases": [
+      { "name": "closed captions", "source": "community" },
+      { "name": "open captions", "source": "community" },
+      { "name": "CC", "source": "community" },
+      { "name": "subtitles", "source": "community" },
+      { "name": "SDH", "source": "community" },
+      { "name": "burned-in captions", "source": "community" },
+      { "name": "live captions", "source": "community" },
+      { "name": "CART", "source": "community" },
+      { "name": "speaker identification", "source": "community" }
+    ],
+    "relatedSlugs": ["audio-description", "transcript"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Captions (Prerecorded)", "url": "https://www.w3.org/TR/WCAG22/#captions-prerecorded" },
+      { "title": "web.dev accessibility glossary", "url": "https://web.dev/learn/accessibility/glossary/" }
+    ],
+    "implementations": [],
+    "notes": "Slug avoids colliding with a typography 'caption' (figure caption); canonicalize should keep both apart."
+  },
+  {
+    "name": "Audio description",
+    "slug": "audio-description",
+    "category": "accessibility",
+    "definition": "A narration track describing visual information the soundtrack leaves out, fitted into the gaps between dialogue.",
+    "useWhen": "the picture carries information the audio does not",
+    "aliases": [
+      { "name": "described video", "source": "community" },
+      { "name": "AD track", "source": "community" },
+      { "name": "extended audio description", "source": "wcag" }
+    ],
+    "relatedSlugs": ["captions", "transcript", "alt-text"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      { "title": "WCAG 2.2: Audio Description (Prerecorded)", "url": "https://www.w3.org/TR/WCAG22/#audio-description-prerecorded" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Transcript",
+    "slug": "transcript",
+    "category": "accessibility",
+    "definition": "A full text version of time based media, readable without playing it and searchable by both people and machines.",
+    "useWhen": "offering the whole of a video or podcast as text",
+    "aliases": [
+      { "name": "text transcript", "source": "community" },
+      { "name": "media alternative", "source": "wcag" },
+      { "name": "descriptive transcript", "source": "community" }
+    ],
+    "relatedSlugs": ["captions", "audio-description"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [{ "title": "WebAIM: Captions, Transcripts, and Audio Descriptions", "url": "https://webaim.org/articles/" }],
+    "implementations": []
+  },
+  {
+    "name": "Link purpose",
+    "slug": "link-purpose",
+    "category": "accessibility",
+    "definition": "Whether a link's own text says where it goes, the reason a list of read more and click here links fails when read out of context.",
+    "useWhen": "judging link text pulled out of its sentence",
+    "aliases": [
+      { "name": "descriptive link text", "source": "a11yproject" },
+      { "name": "click here problem", "source": "community" },
+      { "name": "ambiguous link text", "source": "wcag" },
+      { "name": "link context", "source": "wcag" }
+    ],
+    "relatedSlugs": ["accessible-name", "heading-hierarchy"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Link Purpose (In Context)", "url": "https://www.w3.org/TR/WCAG22/#link-purpose-in-context" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Guidance on naming controls",
+        "url": "https://primer.style/accessibility/design-guidance/links-and-buttons/",
+        "verified": true
+      },
+      { "systemId": "fluent", "name": "Meaningful text", "url": "https://fluent2.microsoft.design/accessibility", "verified": true }
+    ]
+  },
+  {
+    "name": "Current page indicator",
+    "slug": "current-page-indicator",
+    "category": "accessibility",
+    "definition": "The marking of which item in a navigation set is the one you are on, exposed with aria-current so it survives without the colour cue.",
+    "useWhen": "showing which nav item is the page you are on",
+    "aliases": [
+      { "name": "aria-current", "source": "aria" },
+      { "name": "active nav item", "source": "community" },
+      { "name": "you are here", "source": "community" },
+      { "name": "current step", "source": "community" }
+    ],
+    "relatedSlugs": ["use-of-color", "landmark", "scroll-spy", "table-of-contents"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-current",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current"
+      },
+      { "title": "W3C ARIA26 technique", "url": "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA26" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Pressed state",
+    "slug": "pressed-state",
+    "category": "accessibility",
+    "definition": "The on or off state of a toggle button, exposed with aria-pressed so the control reads as sticky rather than as a plain button.",
+    "useWhen": "a button stays down after you press it",
+    "aliases": [
+      { "name": "aria-pressed", "source": "aria" },
+      { "name": "toggle button state", "source": "community" },
+      { "name": "sticky button", "source": "community" }
+    ],
+    "relatedSlugs": ["segmented-control", "expanded-state", "mixed-state-checkbox"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-pressed",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-pressed"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Expanded state",
+    "slug": "expanded-state",
+    "category": "accessibility",
+    "definition": "The open or closed state of a disclosure, exposed with aria-expanded on the control that owns it rather than on the panel it reveals.",
+    "useWhen": "the trigger must say whether its panel is open",
+    "aliases": [
+      { "name": "aria-expanded", "source": "aria" },
+      { "name": "disclosure state", "source": "aria-apg" },
+      { "name": "open state", "source": "community" }
+    ],
+    "relatedSlugs": ["progressive-disclosure", "accordion", "combobox", "pressed-state"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-expanded",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-expanded"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Mixed state checkbox",
+    "slug": "mixed-state-checkbox",
+    "category": "accessibility",
+    "definition": "A checkbox showing a third, indeterminate state when only some of the boxes it governs are checked.",
+    "useWhen": "a parent box stands over a partly checked group",
+    "aliases": [
+      { "name": "indeterminate checkbox", "source": "html" },
+      { "name": "tri-state checkbox", "source": "community" },
+      { "name": "partial checkbox", "source": "community" },
+      { "name": "aria-checked mixed", "source": "aria" },
+      { "name": "dash checkbox", "source": "community" }
+    ],
+    "relatedSlugs": ["pressed-state", "radio-group"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-checked",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-checked"
+      },
+      { "title": "APG patterns: Checkbox", "url": "https://www.w3.org/WAI/ARIA/apg/patterns/" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: reads as a component to most people; recorded here because the third state exists for the semantics."
+  },
+  {
+    "name": "Focusable disabled",
+    "slug": "focusable-disabled",
+    "category": "accessibility",
+    "definition": "A control styled as unavailable but left in the tab order with aria-disabled, so a reader can find it and learn why it is off.",
+    "useWhen": "a disabled control still needs to be discoverable",
+    "aliases": [
+      { "name": "aria-disabled", "source": "aria" },
+      { "name": "soft disable", "source": "community" },
+      { "name": "disabled but focusable", "source": "aria-apg" },
+      { "name": "greyed out", "source": "community" }
+    ],
+    "relatedSlugs": ["tabbable", "focus-order", "tooltip"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Developing a Keyboard Interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" },
+      {
+        "title": "MDN: aria-disabled",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold: the trade-off between the native disabled attribute and aria-disabled has no popular name."
+  },
+  {
+    "name": "Invalid state",
+    "slug": "invalid-state",
+    "category": "accessibility",
+    "definition": "The programmatic mark that a field's value failed validation, paired with a pointer to the message that explains it.",
+    "useWhen": "the field itself must report that it is wrong",
+    "aliases": [
+      { "name": "aria-invalid", "source": "aria" },
+      { "name": "aria-errormessage", "source": "aria" },
+      { "name": "error state", "source": "community" }
+    ],
+    "relatedSlugs": ["error-identification", "accessible-description", "use-of-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-invalid",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-invalid"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Role description",
+    "slug": "role-description",
+    "category": "accessibility",
+    "definition": "An author supplied name for a widget's role, spoken in place of the stock role name, which overrides the platform wording and misleads easily.",
+    "useWhen": "renaming what a widget calls itself out loud",
+    "aliases": [{ "name": "aria-roledescription", "source": "aria" }, { "name": "custom role name", "source": "community" }],
+    "relatedSlugs": ["accessible-name", "accessibility-tree", "braille-display"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "MDN: aria-roledescription",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-roledescription"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Header association",
+    "slug": "table-header-association",
+    "category": "accessibility",
+    "definition": "The markup that ties a data cell to its row and column headers, so a cell read on its own still says what it is.",
+    "useWhen": "a table cell must announce which column it is in",
+    "aliases": [
+      { "name": "scope attribute", "source": "html" },
+      { "name": "headers attribute", "source": "html" },
+      { "name": "row header", "source": "community" },
+      { "name": "column header", "source": "community" }
+    ],
+    "relatedSlugs": ["heading-hierarchy", "long-description"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "APG: Grid and Table Properties", "url": "https://www.w3.org/WAI/ARIA/apg/practices/" },
+      { "title": "WebAIM: Tables", "url": "https://webaim.org/articles/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Hoverable, dismissible, persistent",
+    "slug": "hoverable-dismissible-persistent",
+    "category": "accessibility",
+    "definition": "The three conditions content revealed on hover or focus must meet: reachable with the pointer, dismissible without moving focus, and not self-closing.",
+    "useWhen": "judging whether a tooltip or flyout behaves",
+    "aliases": [
+      { "name": "content on hover or focus", "source": "wcag" },
+      { "name": "dismissible tooltip", "source": "community" },
+      { "name": "escape to dismiss", "source": "community" },
+      { "name": "hover bridge", "source": "community" }
+    ],
+    "relatedSlugs": ["tooltip", "hover-card", "popover", "dropdown"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Content on Hover or Focus", "url": "https://www.w3.org/TR/WCAG22/#content-on-hover-or-focus" },
+      { "title": "W3C SCR39 technique", "url": "https://www.w3.org/WAI/WCAG22/Techniques/client-side-script/SCR39.html" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Tooltips",
+        "url": "https://primer.style/accessibility/patterns/primer-components/tooltips/",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the trio is always cited together and has no single popular headword."
+  },
+  {
+    "name": "Sensory characteristics",
+    "slug": "sensory-characteristics",
+    "category": "accessibility",
+    "definition": "Instructions that lean on shape, size, position, or sound alone, such as the round button on the right, which fail when those cues are not perceived.",
+    "useWhen": "copy points at a control by shape or position",
+    "aliases": [
+      { "name": "shape and position instructions", "source": "wcag" },
+      { "name": "the button on the right", "source": "community" }
+    ],
+    "relatedSlugs": ["use-of-color", "link-purpose"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Sensory Characteristics", "url": "https://www.w3.org/TR/WCAG22/#sensory-characteristics" }],
+    "implementations": []
+  },
+  {
+    "name": "Route announcement",
+    "slug": "route-announcement",
+    "category": "accessibility",
+    "definition": "Telling assistive technology that a client side navigation happened, by moving focus to the new heading or posting the new title to a live region.",
+    "useWhen": "the URL changed but the page never reloaded",
+    "aliases": [
+      { "name": "route announcer", "source": "next" },
+      { "name": "SPA navigation announcement", "source": "community" },
+      { "name": "page change announcement", "source": "community" },
+      { "name": "focus on route change", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "focus-management", "view-transition", "heading-hierarchy"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Dave Rupert: Accessible page navigation in single page apps",
+        "url": "https://daverupert.com/2019/01/accessible-page-navigations-in-single-page-apps/"
+      }
+    ],
+    "implementations": [],
+    "notes": "iframe: the subject is the document title and the document's focus, so it needs its own document."
+  },
+  {
+    "name": "Consistent help",
+    "slug": "consistent-help",
+    "category": "accessibility",
+    "definition": "Keeping the same help route, a contact link, a chat launcher, a self-help pane, in the same relative place on every page so a stuck reader can find it again.",
+    "useWhen": "placing the help affordance so it never moves",
+    "aliases": [
+      { "name": "help entry point", "source": "wcag" },
+      { "name": "persistent help", "source": "community" },
+      { "name": "help in the same place", "source": "community" }
+    ],
+    "relatedSlugs": ["consistent-identification", "landmark", "redundant-entry"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Consistent Help", "url": "https://www.w3.org/TR/WCAG22/#consistent-help" }],
+    "implementations": [],
+    "notes": "WCAG 2.2 addition (3.2.6). The demo can show two pages of one flow with the help control anchored versus wandering."
+  },
+  {
+    "name": "Change of context",
+    "slug": "change-of-context",
+    "category": "accessibility",
+    "definition": "A shift big enough to disorient a reader, a new page, a new window, a moved focus, a rearranged form, and the rule that it should follow a request rather than a keystroke.",
+    "useWhen": "naming the surprise a select or focus event should not cause",
+    "aliases": [
+      { "name": "on focus", "source": "wcag" },
+      { "name": "on input", "source": "wcag" },
+      { "name": "context change", "source": "community" },
+      { "name": "auto-submit on select", "source": "community" },
+      { "name": "change on request", "source": "wcag" }
+    ],
+    "relatedSlugs": ["focus-management", "route-announcement", "selection-follows-focus"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: On Input", "url": "https://www.w3.org/TR/WCAG22/#on-input" },
+      { "title": "WCAG 2.2: On Focus", "url": "https://www.w3.org/TR/WCAG22/#on-focus" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Page title",
+    "slug": "page-title",
+    "category": "accessibility",
+    "definition": "The document title, the first thing a screen reader speaks and the only label a reader has when picking between tabs, windows, and history entries.",
+    "useWhen": "the label a page carries outside its own viewport",
+    "aliases": [
+      { "name": "document title", "source": "community" },
+      { "name": "page titled", "source": "wcag" },
+      { "name": "title element", "source": "whatwg-html" },
+      { "name": "tab title", "source": "community" }
+    ],
+    "relatedSlugs": ["route-announcement", "heading-hierarchy"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [{ "title": "WCAG 2.2: Page Titled", "url": "https://www.w3.org/TR/WCAG22/#page-titled" }],
+    "implementations": [],
+    "notes": "iframe: the subject is the document title, which only exists at document scope."
+  },
+  {
+    "name": "Language attribute",
+    "slug": "language-attribute",
+    "category": "accessibility",
+    "definition": "The declared language of a document or a passage inside it, which picks the voice, the pronunciation rules, and the hyphenation a reader gets.",
+    "useWhen": "a quoted passage is in another language than the page",
+    "aliases": [
+      { "name": "lang attribute", "source": "whatwg-html" },
+      { "name": "language of page", "source": "wcag" },
+      { "name": "language of parts", "source": "wcag" },
+      { "name": "lang switch", "source": "community" }
+    ],
+    "relatedSlugs": ["screen-reader", "pronunciation", "page-title"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [
+      { "title": "WCAG 2.2: Language of Page", "url": "https://www.w3.org/TR/WCAG22/#language-of-page" },
+      { "title": "WCAG 2.2: Language of Parts", "url": "https://www.w3.org/TR/WCAG22/#language-of-parts" }
+    ],
+    "implementations": [],
+    "notes": "iframe: the page language lives on the root element of a document."
+  },
+  {
+    "name": "Images of text",
+    "slug": "images-of-text",
+    "category": "accessibility",
+    "definition": "Text baked into a raster image, which cannot be resized, restyled, selected, translated, or read by anything but the alt attribute someone remembered to write.",
+    "useWhen": "arguing a headline should be text, not a picture of text",
+    "aliases": [
+      { "name": "text in images", "source": "community" },
+      { "name": "baked-in text", "source": "community" },
+      { "name": "image of text", "source": "wcag" }
+    ],
+    "relatedSlugs": ["alt-text", "resize-text", "forced-colors-mode"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Images of Text", "url": "https://www.w3.org/TR/WCAG22/#images-of-text" }],
+    "implementations": []
+  },
+  {
+    "name": "Audio control",
+    "slug": "audio-control",
+    "category": "accessibility",
+    "definition": "A way to stop sound that started on its own, because autoplaying audio drowns out the screen reader voice a reader depends on to find the control that stops it.",
+    "useWhen": "anything makes noise before the reader asked",
+    "aliases": [
+      { "name": "autoplay audio", "source": "community" },
+      { "name": "mute control", "source": "community" },
+      { "name": "sound off by default", "source": "community" }
+    ],
+    "relatedSlugs": ["pause-stop-hide", "screen-reader", "captions"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Audio Control", "url": "https://www.w3.org/TR/WCAG22/#audio-control" }],
+    "implementations": []
+  },
+  {
+    "name": "Sign language interpretation",
+    "slug": "sign-language-interpretation",
+    "category": "accessibility",
+    "definition": "A signed track alongside video, presented as an inset or a companion stream, for readers whose first language is a sign language rather than the written caption text.",
+    "useWhen": "captions are not the reader first language",
+    "aliases": [
+      { "name": "signed video", "source": "community" },
+      { "name": "interpreter inset", "source": "community" },
+      { "name": "sign language (prerecorded)", "source": "wcag" }
+    ],
+    "relatedSlugs": ["captions", "audio-description", "transcript"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Sign Language (Prerecorded)", "url": "https://www.w3.org/TR/WCAG22/#sign-language-prerecorded" }],
+    "implementations": []
+  },
+  {
+    "name": "Name, role, value",
+    "slug": "name-role-value",
+    "category": "accessibility",
+    "definition": "The three things every control has to expose to assistive technology: what it is called, what kind of thing it is, and what state it is currently in.",
+    "useWhen": "auditing whether a custom control is really a control",
+    "aliases": [
+      { "name": "name role value", "source": "wcag" },
+      { "name": "NRV", "source": "community" },
+      { "name": "role name value", "source": "primer" }
+    ],
+    "relatedSlugs": ["accessible-name", "role-description", "pressed-state", "accessibility-tree"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Name, Role, Value", "url": "https://www.w3.org/TR/WCAG22/#name-role-value" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Semantic HTML and ARIA",
+        "url": "https://primer.style/accessibility/design-guidance/semantic-html-and-aria/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Semantic HTML",
+    "slug": "semantic-html",
+    "category": "accessibility",
+    "definition": "Reaching for the element that already means what you mean, so name, role, keyboard behaviour, and platform conventions arrive for free instead of being rebuilt.",
+    "useWhen": "choosing between a native element and a rebuilt one",
+    "aliases": [
+      { "name": "native semantics", "source": "primer" },
+      { "name": "implicit role", "source": "primer" },
+      { "name": "use the platform", "source": "community" },
+      { "name": "div soup", "source": "community" },
+      { "name": "divitis", "source": "community" }
+    ],
+    "relatedSlugs": ["first-rule-of-aria", "accessibility-tree", "button-versus-link", "name-role-value"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Primer: Semantic HTML and ARIA", "url": "https://primer.style/accessibility/design-guidance/semantic-html-and-aria/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Semantic HTML and ARIA",
+        "url": "https://primer.style/accessibility/design-guidance/semantic-html-and-aria/",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "Reinforce semantic HTML",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/keyboard/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "Semantic markup",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "First rule of ARIA",
+    "slug": "first-rule-of-aria",
+    "category": "accessibility",
+    "definition": "The maxim that no ARIA is better than bad ARIA: if a native element does the job, use it rather than pinning a role onto a div and reimplementing the behaviour.",
+    "useWhen": "someone proposes a role instead of an element",
+    "aliases": [
+      { "name": "no ARIA is better than bad ARIA", "source": "w3c" },
+      { "name": "rules of ARIA use", "source": "w3c" },
+      { "name": "ARIA first rule", "source": "community" }
+    ],
+    "relatedSlugs": ["semantic-html", "presentation-role", "accessibility-tree"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "W3C: Using ARIA, rules of ARIA use", "url": "https://www.w3.org/TR/using-aria/" },
+      { "title": "Primer: The first rule of ARIA", "url": "https://primer.style/accessibility/design-guidance/semantic-html-and-aria/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "The first rule of ARIA",
+        "url": "https://primer.style/accessibility/design-guidance/semantic-html-and-aria/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Button versus link",
+    "slug": "button-versus-link",
+    "category": "accessibility",
+    "definition": "The rule that decides which element to use: a link goes somewhere, a button does something, and the choice sets the keyboard, the cursor, and the announced role.",
+    "useWhen": "a control looks like a button but navigates",
+    "aliases": [
+      { "name": "links and buttons", "source": "primer" },
+      { "name": "link-button", "source": "primer" },
+      { "name": "div button", "source": "community" },
+      { "name": "fake button", "source": "community" },
+      { "name": "call-to-action link", "source": "primer" }
+    ],
+    "relatedSlugs": ["semantic-html", "link-purpose", "name-role-value"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Primer: Links and buttons", "url": "https://primer.style/accessibility/design-guidance/links-and-buttons/" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Links and buttons",
+        "url": "https://primer.style/accessibility/design-guidance/links-and-buttons/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "POUR",
+    "slug": "pour",
+    "category": "accessibility",
+    "definition": "The four principles WCAG is built on, perceivable, operable, understandable, and robust, used as a shorthand for sorting an accessibility problem into a bucket.",
+    "useWhen": "classifying what kind of barrier you are looking at",
+    "aliases": [
+      { "name": "perceivable operable understandable robust", "source": "wcag" },
+      { "name": "four principles", "source": "wcag" }
+    ],
+    "relatedSlugs": ["conformance-level", "name-role-value"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WCAG 2.2: Introduction", "url": "https://www.w3.org/TR/WCAG22/" }],
+    "implementations": [],
+    "notes": "Vocabulary rather than an interface part; demo: none unless canonicalize finds a way to show it."
+  },
+  {
+    "name": "Conformance level",
+    "slug": "conformance-level",
+    "category": "accessibility",
+    "definition": "The A, AA, or AAA tier a success criterion sits in, and the tier a product claims, which is what people mean when they say a design is \"AA\".",
+    "useWhen": "someone says the target is AA and you need the tiers",
+    "aliases": [
+      { "name": "level A", "source": "wcag" },
+      { "name": "level AA", "source": "wcag" },
+      { "name": "double-A", "source": "community" },
+      { "name": "success criterion", "source": "wcag" },
+      { "name": "bronze", "source": "w3c" },
+      { "name": "silver", "source": "w3c" },
+      { "name": "gold", "source": "w3c" }
+    ],
+    "relatedSlugs": ["pour", "contrast-ratio"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WCAG 2.2: Conformance", "url": "https://www.w3.org/TR/WCAG22/#conformance" }],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "WCAG AA across all standard themes",
+        "url": "https://carbondesignsystem.com/guidelines/accessibility/color/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "WCAG 2.1 AA",
+        "url": "https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Plain language",
+    "slug": "plain-language",
+    "category": "accessibility",
+    "definition": "Writing interface copy at the reading level of the people using it, with short sentences, familiar words, and the point first, rather than at the level of the org chart.",
+    "useWhen": "the copy is correct but nobody can act on it",
+    "aliases": [
+      { "name": "reading level", "source": "wcag" },
+      { "name": "readability", "source": "community" },
+      { "name": "plain English", "source": "govuk" },
+      { "name": "lower secondary reading level", "source": "wcag" }
+    ],
+    "relatedSlugs": ["error-identification", "link-purpose", "abbreviation-expansion"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Reading Level", "url": "https://www.w3.org/TR/WCAG22/#reading-level" }],
+    "implementations": []
+  },
+  {
+    "name": "Abbreviation expansion",
+    "slug": "abbreviation-expansion",
+    "category": "accessibility",
+    "definition": "Giving the full form of an acronym or initialism on first use or on demand, so a reader who does not already know it is not left guessing.",
+    "useWhen": "an interface is full of internal initialisms",
+    "aliases": [
+      { "name": "abbr element", "source": "whatwg-html" },
+      { "name": "abbreviations", "source": "wcag" },
+      { "name": "acronym expansion", "source": "community" },
+      { "name": "expansion on first use", "source": "community" }
+    ],
+    "relatedSlugs": ["plain-language", "pronunciation", "accessible-description"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Abbreviations", "url": "https://www.w3.org/TR/WCAG22/#abbreviations" }],
+    "implementations": []
+  },
+  {
+    "name": "Pronunciation",
+    "slug": "pronunciation",
+    "category": "accessibility",
+    "definition": "How a synthetic voice says a word, and the hints an author can give when the default reading turns a product name, a units string, or a homograph into nonsense.",
+    "useWhen": "the screen reader mangles a name or a number",
+    "aliases": [
+      { "name": "phonetic spelling", "source": "community" },
+      { "name": "speech pronunciation", "source": "community" },
+      { "name": "ruby annotation", "source": "whatwg-html" }
+    ],
+    "relatedSlugs": ["language-attribute", "screen-reader", "abbreviation-expansion"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "WCAG 2.2: Pronunciation", "url": "https://www.w3.org/TR/WCAG22/#pronunciation" }],
+    "implementations": [],
+    "notes": "Audible only, so a visual demo can at best show the markup and a transcript of what is spoken."
+  },
+  {
+    "name": "Orientation lock",
+    "slug": "orientation-lock",
+    "category": "accessibility",
+    "definition": "Restricting a screen to portrait or landscape, which strands anyone whose device is fixed in a mount or a wheelchair arm in the orientation the design refused.",
+    "useWhen": "a layout only works one way up",
+    "aliases": [
+      { "name": "orientation", "source": "wcag" },
+      { "name": "portrait lock", "source": "community" },
+      { "name": "landscape lock", "source": "community" },
+      { "name": "rotation lock", "source": "community" }
+    ],
+    "relatedSlugs": ["reflow", "resize-text"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Orientation", "url": "https://www.w3.org/TR/WCAG22/#orientation" }],
+    "implementations": []
+  },
+  {
+    "name": "Consistent identification",
+    "slug": "consistent-identification",
+    "category": "accessibility",
+    "definition": "Calling the same function by the same name and icon everywhere in a product, so a reader who learned it once does not have to relearn it per screen.",
+    "useWhen": "the same action has three names across screens",
+    "aliases": [
+      { "name": "consistent navigation", "source": "wcag" },
+      { "name": "consistent labelling", "source": "community" },
+      { "name": "same name same function", "source": "community" }
+    ],
+    "relatedSlugs": ["consistent-help", "icon-button-label", "link-purpose"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WCAG 2.2: Consistent Identification", "url": "https://www.w3.org/TR/WCAG22/#consistent-identification" },
+      { "title": "WCAG 2.2: Consistent Navigation", "url": "https://www.w3.org/TR/WCAG22/#consistent-navigation" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Presentation role",
+    "slug": "presentation-role",
+    "category": "accessibility",
+    "definition": "Stripping an element of its semantics while leaving it on screen, so a table used for layout or a list used for spacing stops being announced as one.",
+    "useWhen": "markup you needed for layout is lying about meaning",
+    "aliases": [
+      { "name": "role=presentation", "source": "aria" },
+      { "name": "role=none", "source": "aria" },
+      { "name": "semantics removed", "source": "community" }
+    ],
+    "relatedSlugs": ["presentational-children", "semantic-html", "accessibility-tree", "aria-hidden"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WAI-ARIA 1.2: presentation role", "url": "https://www.w3.org/TR/wai-aria-1.2/#presentation" }],
+    "implementations": [],
+    "notes": "Distinct from aria-hidden: presentation keeps the element and its content readable, it only drops the role."
+  },
+  {
+    "name": "Presentational children",
+    "slug": "presentational-children",
+    "category": "accessibility",
+    "definition": "The rule that some roles flatten everything inside them into their own label, which is why an icon and a span inside a button are never announced separately.",
+    "useWhen": "markup inside a control vanishes from the a11y tree",
+    "aliases": [
+      { "name": "children are presentational", "source": "aria" },
+      { "name": "name from content", "source": "aria" },
+      { "name": "flattened children", "source": "community" }
+    ],
+    "relatedSlugs": ["presentation-role", "accessible-name", "accessibility-tree", "icon-button-label"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WAI-ARIA 1.2: Presentational Children", "url": "https://www.w3.org/TR/wai-aria-1.2/#childrenArePresentational" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Owned element",
+    "slug": "owned-element",
+    "category": "accessibility",
+    "definition": "A child the accessibility tree is told to adopt from elsewhere in the DOM, used when the visual nesting a role requires is impossible in the markup.",
+    "useWhen": "a listbox and its options cannot be nested in markup",
+    "aliases": [
+      { "name": "aria-owns", "source": "aria" },
+      { "name": "reparenting", "source": "community" },
+      { "name": "adopted children", "source": "community" }
+    ],
+    "relatedSlugs": ["accessibility-tree", "active-descendant", "reading-order"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WAI-ARIA 1.2: aria-owns", "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-owns" }],
+    "implementations": [],
+    "notes": "Support is patchy and it is easy to build a tree nobody can navigate, so canonicalize may want the cautionary framing."
+  },
+  {
+    "name": "Busy state",
+    "slug": "busy-state",
+    "category": "accessibility",
+    "definition": "Marking a region as still loading so assistive technology waits for the finished result instead of reading each row as it streams in.",
+    "useWhen": "a region updates in pieces and each piece speaks",
+    "aliases": [
+      { "name": "aria-busy", "source": "aria" },
+      { "name": "loading region", "source": "community" },
+      { "name": "suppressed announcements", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "politeness-level", "skeleton-screen", "spinner"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WAI-ARIA 1.2: aria-busy", "url": "https://www.w3.org/TR/wai-aria-1.2/#aria-busy" }],
+    "implementations": []
+  },
+  {
+    "name": "Sort state",
+    "slug": "sort-state",
+    "category": "accessibility",
+    "definition": "The announced direction of the one column a table is currently sorted by, carried on that column header alone rather than on every sortable header.",
+    "useWhen": "a sorted column shows an arrow but says nothing",
+    "aliases": [
+      { "name": "aria-sort", "source": "aria" },
+      { "name": "sort direction", "source": "community" },
+      { "name": "sortable column indicator", "source": "community" }
+    ],
+    "relatedSlugs": ["table-header-association", "current-page-indicator", "pressed-state"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: aria-sort", "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-sort" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Set size and position",
+    "slug": "set-size-and-position",
+    "category": "accessibility",
+    "definition": "Telling assistive technology how big a list really is and where an item sits in it, so a windowed or paginated list still announces \"item 6 of 16\".",
+    "useWhen": "only twenty rows of ten thousand are in the DOM",
+    "aliases": [
+      { "name": "aria-setsize", "source": "aria" },
+      { "name": "aria-posinset", "source": "aria" },
+      { "name": "item 6 of 16", "source": "community" },
+      { "name": "virtual list count", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "accessible-name", "busy-state"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-setsize",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-setsize"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Has popup",
+    "slug": "has-popup",
+    "category": "accessibility",
+    "definition": "A hint on a trigger that says something will open and what kind of thing it will be, a menu, a listbox, a dialog, before the reader commits to pressing it.",
+    "useWhen": "a button opens a menu and gives no warning",
+    "aliases": [
+      { "name": "aria-haspopup", "source": "aria" },
+      { "name": "menu button hint", "source": "community" },
+      { "name": "submenu indicator", "source": "community" }
+    ],
+    "relatedSlugs": ["expanded-state", "dropdown", "popover", "context-menu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: aria-haspopup",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Group label",
+    "slug": "group-label",
+    "category": "accessibility",
+    "definition": "The one name that covers a set of controls, a question above its radio buttons or a heading above an address block, so each field is heard in context.",
+    "useWhen": "individual field labels make no sense on their own",
+    "aliases": [
+      { "name": "fieldset and legend", "source": "whatwg-html" },
+      { "name": "role=group", "source": "aria" },
+      { "name": "grouping label", "source": "community" },
+      { "name": "radiogroup label", "source": "aria-apg" }
+    ],
+    "relatedSlugs": ["label-association", "radio-group", "accessible-name", "heading-hierarchy"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WAI-ARIA 1.2: group role", "url": "https://www.w3.org/TR/wai-aria-1.2/#group" }],
+    "implementations": [],
+    "notes": "Overlaps the component-category fieldset record: this one is about the name, that one about the box."
+  },
+  {
+    "name": "Required field indicator",
+    "slug": "required-field-indicator",
+    "category": "accessibility",
+    "definition": "How a form says a field cannot be left empty, in the label text, in the announced name, and not by an asterisk whose meaning is explained somewhere else.",
+    "useWhen": "deciding how to mark required versus optional fields",
+    "aliases": [
+      { "name": "asterisk convention", "source": "community" },
+      { "name": "aria-required", "source": "aria" },
+      { "name": "required marker", "source": "community" },
+      { "name": "optional marking", "source": "community" }
+    ],
+    "relatedSlugs": ["label-association", "error-identification", "invalid-state", "group-label"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "WCAG 2.2: Labels or Instructions", "url": "https://www.w3.org/TR/WCAG22/#labels-or-instructions" }],
+    "implementations": []
+  },
+  {
+    "name": "Positive tabindex",
+    "slug": "positive-tabindex",
+    "category": "accessibility",
+    "definition": "Using tabindex values above zero to force an order, which yanks those elements to the front of the whole page sequence and is almost always a bug.",
+    "useWhen": "someone proposes tabindex=\"1\" to fix an order",
+    "aliases": [
+      { "name": "tabindex=\"1\"", "source": "community" },
+      { "name": "tabindex greater than zero", "source": "community" },
+      { "name": "forced tab order", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-order", "tab-stop", "tabbable", "reading-flow"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: tabindex", "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/tabindex" }
+    ],
+    "implementations": [],
+    "notes": "Antipattern term. Verify the MDN URL before publishing: the global-attributes path moved with the Reference reshuffle."
+  },
+  {
+    "name": "Initial focus",
+    "slug": "initial-focus",
+    "category": "accessibility",
+    "definition": "Where focus lands when a view, dialog, or page first appears, chosen deliberately rather than left on the body or dumped on the first close button.",
+    "useWhen": "a dialog opens and nobody decided where focus goes",
+    "aliases": [
+      { "name": "autofocus", "source": "whatwg-html" },
+      { "name": "default focus", "source": "community" },
+      { "name": "focus on open", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-management", "focus-restoration", "modal-dialog", "focus-trap"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Primer: Focus management", "url": "https://primer.style/accessibility/design-guidance/focus-management/" }],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Focus management",
+        "url": "https://primer.style/accessibility/design-guidance/focus-management/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Focus guard",
+    "slug": "focus-guard",
+    "category": "accessibility",
+    "definition": "A hidden sentinel element placed at the edge of a trapped region, there to catch focus leaving it and bounce it back without relying on keydown interception.",
+    "useWhen": "building a trap that survives browser chrome and iframes",
+    "aliases": [
+      { "name": "focus sentinel", "source": "community" },
+      { "name": "focus bumper", "source": "community" },
+      { "name": "guard span", "source": "radix" }
+    ],
+    "relatedSlugs": ["focus-trap", "inert", "focus-management", "modal-dialog"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "npm: @radix-ui/react-focus-guards", "url": "https://www.npmjs.com/package/@radix-ui/react-focus-guards" },
+      { "title": "react-focus-lock", "url": "https://github.com/theKashey/react-focus-lock" }
+    ],
+    "implementations": [
+      { "systemId": "radix", "name": "FocusGuards", "url": "https://www.npmjs.com/package/@radix-ui/react-focus-guards", "verified": true }
+    ]
+  },
+  {
+    "name": "Reading flow",
+    "slug": "reading-flow",
+    "category": "accessibility",
+    "definition": "A CSS property that repoints reading and tab order at the visual arrangement of a flex or grid container, instead of leaving both stuck in source order.",
+    "useWhen": "a visual reorder has left tab order zigzagging",
+    "aliases": [
+      { "name": "reading-flow", "source": "css" },
+      { "name": "reading-order", "source": "css" },
+      { "name": "flex-visual", "source": "css" },
+      { "name": "ordinal group", "source": "css" }
+    ],
+    "relatedSlugs": ["reading-order", "focus-order", "positive-tabindex"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: reading-flow", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/reading-flow" }
+    ],
+    "implementations": [
+      {
+        "systemId": "css",
+        "name": "reading-flow",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/reading-flow",
+        "verified": true
+      }
+    ],
+    "notes": "Experimental and Chromium-only as of this sweep, which makes it a good tail term rather than guidance."
+  },
+  {
+    "name": "Spatial navigation",
+    "slug": "spatial-navigation",
+    "category": "accessibility",
+    "definition": "Moving focus by direction rather than by sequence, so arrow keys, a D-pad, or a TV remote jump to the nearest control up, down, left, or right.",
+    "useWhen": "the input is a remote or a game pad, not a keyboard",
+    "aliases": [
+      { "name": "directional navigation", "source": "wicg" },
+      { "name": "arrow key focus", "source": "community" },
+      { "name": "D-pad navigation", "source": "community" },
+      { "name": "10-foot UI navigation", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-order", "roving-tabindex", "focus-ring"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "CSS Spatial Navigation Level 1", "url": "https://drafts.csswg.org/css-nav-1/" },
+      { "title": "WICG: spatial-navigation", "url": "https://github.com/WICG/spatial-navigation" }
+    ],
+    "implementations": [
+      { "systemId": "wicg", "name": "Spatial Navigation polyfill", "url": "https://wicg.github.io/spatial-navigation/", "verified": true }
+    ]
+  },
+  {
+    "name": "Inverted colors",
+    "slug": "inverted-colors",
+    "category": "accessibility",
+    "definition": "A whole-screen colour inversion applied by the OS, which flips a design nobody tested upside down and turns every shadow into a highlight.",
+    "useWhen": "the OS inverts your palette and shadows go wrong",
+    "aliases": [
+      { "name": "inverted-colors", "source": "css" },
+      { "name": "Smart Invert", "source": "hig" },
+      { "name": "Classic Invert", "source": "hig" },
+      { "name": "colour inversion", "source": "community" }
+    ],
+    "relatedSlugs": ["forced-colors-mode", "prefers-contrast", "reduced-transparency"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: inverted-colors",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/inverted-colors"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "css",
+        "name": "inverted-colors media feature",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/inverted-colors",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Screen curtain",
+    "slug": "screen-curtain",
+    "category": "accessibility",
+    "definition": "A screen reader mode that switches the display off entirely while navigation keeps working, used for privacy and by sighted testers to check an audio-only run.",
+    "useWhen": "testing whether a flow works with the screen dark",
+    "aliases": [
+      { "name": "VoiceOver screen curtain", "source": "hig" },
+      { "name": "blackout mode", "source": "community" },
+      { "name": "screen off navigation", "source": "community" }
+    ],
+    "relatedSlugs": ["screen-reader", "browse-mode", "rotor"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "Apple Support: Use Screen Curtain with VoiceOver", "url": "https://support.apple.com/en-us/111797" }],
+    "implementations": [],
+    "notes": "Not renderable as a specimen; a candidate for a term with no demo, or a staged illustration."
+  },
+  {
+    "name": "Review cursor",
+    "slug": "review-cursor",
+    "category": "accessibility",
+    "definition": "A second cursor a screen reader user can move over the screen to read text without moving the system focus, so inspecting a region does not disturb the app.",
+    "useWhen": "a reader inspects content without leaving the field",
+    "aliases": [
+      { "name": "NVDA review cursor", "source": "community" },
+      { "name": "screen review", "source": "community" },
+      { "name": "virtual cursor", "source": "community" },
+      { "name": "flat review", "source": "community" }
+    ],
+    "relatedSlugs": ["browse-mode", "screen-reader", "focus-management", "live-region"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "NVDA User Guide: Review cursor", "url": "https://download.nvaccess.org/documentation/userGuide.html" }],
+    "implementations": []
+  },
+  {
+    "name": "Explore by touch",
+    "slug": "explore-by-touch",
+    "category": "accessibility",
+    "definition": "The touch screen reader mode where dragging a finger reads whatever is under it and activation takes a second, deliberate tap, so nothing fires by accident.",
+    "useWhen": "designing touch targets a finger has to find blind",
+    "aliases": [
+      { "name": "touch exploration", "source": "android" },
+      { "name": "TalkBack explore by touch", "source": "android" },
+      { "name": "double-tap to activate", "source": "community" },
+      { "name": "swipe navigation", "source": "community" }
+    ],
+    "relatedSlugs": ["touch-target-size", "screen-reader", "pointer-gestures", "escape-gesture"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Android Accessibility Help: Navigate your device with TalkBack",
+        "url": "https://support.google.com/accessibility/android/answer/6006598"
+      },
+      { "title": "Deque University: TalkBack gestures", "url": "https://dequeuniversity.com/screenreaders/talkback-shortcuts" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Verbosity",
+    "slug": "verbosity",
+    "category": "accessibility",
+    "definition": "How much a screen reader says about each thing it reaches, a user setting that decides whether your carefully written description is heard at all.",
+    "useWhen": "arguing about how much detail a label should carry",
+    "aliases": [
+      { "name": "speech verbosity", "source": "community" },
+      { "name": "punctuation level", "source": "community" },
+      { "name": "verbosity setting", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-description", "accessible-name", "screen-reader", "role-description"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "NVDA User Guide", "url": "https://download.nvaccess.org/documentation/userGuide.html" }],
+    "implementations": []
+  },
+  {
+    "name": "Accessibility overlay",
+    "slug": "accessibility-overlay",
+    "category": "accessibility",
+    "definition": "A third party script bolted onto a site with a promise of automatic compliance, usually a floating widget of font and contrast toggles that fixes nothing underneath.",
+    "useWhen": "someone proposes buying a widget instead of fixing",
+    "aliases": [
+      { "name": "overlay widget", "source": "community" },
+      { "name": "accessibility widget", "source": "community" },
+      { "name": "a11y toolbar", "source": "community" },
+      { "name": "compliance plugin", "source": "community" }
+    ],
+    "relatedSlugs": ["prefers-contrast", "resize-text", "screen-reader"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Overlay Fact Sheet", "url": "https://overlayfactsheet.com/en/" }],
+    "implementations": [],
+    "notes": "Contested term with a strong consensus against the products; the entry should carry that consensus rather than stay neutral."
+  },
+  {
+    "name": "Curb cut effect",
+    "slug": "curb-cut-effect",
+    "category": "accessibility",
+    "definition": "The pattern where something built for a disabled minority turns out to serve everyone, the way dropped kerbs serve prams and captions serve noisy rooms.",
+    "useWhen": "justifying accessibility work to a sceptical room",
+    "aliases": [
+      { "name": "curb cut", "source": "community" },
+      { "name": "solve for one extend to many", "source": "microsoft" },
+      { "name": "electric door effect", "source": "community" }
+    ],
+    "relatedSlugs": ["situational-disability", "captions", "voice-control"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "Wikipedia: Curb cut effect", "url": "https://en.wikipedia.org/wiki/Curb_cut_effect" },
+      { "title": "Microsoft Design: Inclusive 101", "url": "https://inclusive.microsoft.design/articles/inclusive-101-guidebook" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Situational disability",
+    "slug": "situational-disability",
+    "category": "accessibility",
+    "definition": "A barrier that comes from the moment rather than the body, one arm holding a baby, sunlight on a screen, a noisy train, and that makes the audience for access everyone.",
+    "useWhen": "widening who a barrier actually affects",
+    "aliases": [
+      { "name": "persona spectrum", "source": "microsoft" },
+      { "name": "temporary disability", "source": "microsoft" },
+      { "name": "situational impairment", "source": "community" },
+      { "name": "permanent temporary situational", "source": "microsoft" }
+    ],
+    "relatedSlugs": ["curb-cut-effect", "touch-target-size", "captions"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "Microsoft Design: Inclusive 101 guidebook", "url": "https://inclusive.microsoft.design/articles/inclusive-101-guidebook" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Accessibility annotation",
+    "slug": "accessibility-annotation",
+    "category": "accessibility",
+    "definition": "Notes attached to a design file that spell out the things a mockup cannot show: heading levels, focus order, names, roles, live regions, and alt text.",
+    "useWhen": "handing a design over without losing the semantics",
+    "aliases": [
+      { "name": "a11y annotation kit", "source": "community" },
+      { "name": "annotation toolkit", "source": "primer" },
+      { "name": "design spec annotations", "source": "community" },
+      { "name": "focus order annotation", "source": "primer" }
+    ],
+    "relatedSlugs": ["heading-hierarchy", "focus-order", "accessible-name", "live-region", "alt-text"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Primer: Annotation Toolkit", "url": "https://primer.style/accessibility/tools-and-resources/annotation-toolkit/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "GitHub Annotation Toolkit",
+        "url": "https://primer.style/accessibility/tools-and-resources/annotation-toolkit/",
+        "verified": true
+      },
+      {
+        "systemId": "fluent",
+        "name": "Design accessibility specs",
+        "url": "https://fluent2.microsoft.design/accessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Magic tap",
+    "slug": "magic-tap",
+    "category": "accessibility",
+    "definition": "A screen reader gesture that fires the one action a screen is most likely about, answering the call or pausing the track, without the reader hunting for the control.",
+    "useWhen": "a screen has one obvious action worth a shortcut",
+    "aliases": [
+      { "name": "accessibilityPerformMagicTap", "source": "uikit" },
+      { "name": "two-finger double tap", "source": "hig" },
+      { "name": "most intended action", "source": "uikit" }
+    ],
+    "relatedSlugs": ["escape-gesture", "explore-by-touch", "pointer-gestures"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Apple: Supporting Accessibility (View Controller Programming Guide)",
+        "url": "https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/SupportingAccessibility.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "uikit",
+        "name": "accessibilityPerformMagicTap",
+        "url": "https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/SupportingAccessibility.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Escape gesture",
+    "slug": "escape-gesture",
+    "category": "accessibility",
+    "definition": "The screen reader equivalent of the Escape key, a two finger scrub that dismisses a sheet or steps back a level and that a custom overlay has to answer for itself.",
+    "useWhen": "a custom sheet ignores the platform dismiss gesture",
+    "aliases": [
+      { "name": "accessibilityPerformEscape", "source": "uikit" },
+      { "name": "two-finger scrub", "source": "hig" },
+      { "name": "z-shaped gesture", "source": "community" }
+    ],
+    "relatedSlugs": ["magic-tap", "modal-dialog", "hoverable-dismissible-persistent", "explore-by-touch"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "Apple: Supporting Accessibility (View Controller Programming Guide)",
+        "url": "https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/SupportingAccessibility.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "uikit",
+        "name": "accessibilityPerformEscape",
+        "url": "https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/SupportingAccessibility.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Functional need",
+    "slug": "functional-need",
+    "category": "accessibility",
+    "definition": "A statement of the gap between what a person can do and what a design demands, used by the WCAG 3 draft in place of sorting people into disability categories.",
+    "useWhen": "framing a barrier without naming a diagnosis",
+    "aliases": [
+      { "name": "functional needs", "source": "w3c" },
+      { "name": "user need", "source": "w3c" },
+      { "name": "outcome", "source": "w3c" },
+      { "name": "assertion", "source": "w3c" }
+    ],
+    "relatedSlugs": ["pour", "conformance-level", "situational-disability"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "W3C: Explainer for WCAG 3.0", "url": "https://www.w3.org/TR/wcag-3.0-explainer/" },
+      { "title": "WCAG 3.0 editor draft", "url": "https://w3c.github.io/silver/guidelines/" }
+    ],
+    "implementations": [],
+    "notes": "WCAG 3 draft vocabulary, still moving. Worth a record because audits already use the phrase."
+  },
+  {
+    "name": "Screen magnification",
+    "slug": "screen-magnification",
+    "category": "accessibility",
+    "definition": "Blowing part of the screen up many times over, so a reader sees a keyhole of the layout at a time and anything far from the action is effectively off screen.",
+    "useWhen": "a toast at the corner will never be seen",
+    "aliases": [
+      { "name": "screen magnifier", "source": "community" },
+      { "name": "ZoomText", "source": "community" },
+      { "name": "magnifier keyhole", "source": "community" },
+      { "name": "low vision zoom", "source": "community" }
+    ],
+    "relatedSlugs": ["reflow", "resize-text", "live-region", "focus-not-obscured"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "AbilityNet: Screen magnification", "url": "https://abilitynet.org.uk/factsheets/screen-magnification" }],
+    "implementations": [],
+    "notes": "Explains why feedback belongs near the control that caused it rather than in a screen corner."
+  },
+  {
+    "name": "Double speak",
+    "slug": "double-speak",
+    "category": "accessibility",
+    "definition": "A control announced twice because its name arrives from two places at once, typically an aria-label stacked on visible text or a title repeating the label.",
+    "useWhen": "a screen reader says the same thing twice",
+    "aliases": [
+      { "name": "double announcement", "source": "community" },
+      { "name": "announced twice", "source": "community" },
+      { "name": "stuttering", "source": "community" },
+      { "name": "duplicate label", "source": "community" }
+    ],
+    "relatedSlugs": ["accessible-name", "accessible-description", "icon-button-label", "label-in-name"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "W3C public-aria: Does double announced content bother screen reader users?",
+        "url": "https://lists.w3.org/Archives/Public/public-aria/2015Nov/0021.html"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Nested interactive",
+    "slug": "nested-interactive",
+    "category": "accessibility",
+    "definition": "A focusable control placed inside another control, such as a button inside a link or a checkbox inside a row that is itself clickable, which leaves an unreachable tab stop.",
+    "useWhen": "a whole card is clickable and so is its button",
+    "aliases": [
+      { "name": "nested-interactive", "source": "deque" },
+      { "name": "interactive controls must not be nested", "source": "deque" },
+      { "name": "button in a link", "source": "community" },
+      { "name": "clickable card problem", "source": "community" }
+    ],
+    "relatedSlugs": ["tab-stop", "presentational-children", "button-versus-link", "touch-target-size"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Deque: Interactive controls must not be nested", "url": "https://dequeuniversity.com/rules/axe/4.8/nested-interactive" }
+    ],
+    "implementations": [
+      {
+        "systemId": "deque",
+        "name": "nested-interactive",
+        "url": "https://dequeuniversity.com/rules/axe/4.8/nested-interactive",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Focusable scroll region",
+    "slug": "focusable-scroll-region",
+    "category": "accessibility",
+    "definition": "Giving a scrollable box its own tab stop so a keyboard user can scroll it, which matters whenever the content inside holds no focusable element of its own.",
+    "useWhen": "a code block or log pane scrolls but cannot be reached",
+    "aliases": [
+      { "name": "scrollable-region-focusable", "source": "deque" },
+      { "name": "keyboard scrollable region", "source": "community" },
+      { "name": "tabindex on a scroller", "source": "community" }
+    ],
+    "relatedSlugs": ["tab-stop", "focus-ring", "reflow", "focus-not-obscured"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Deque: Scrollable region must have keyboard access",
+        "url": "https://dequeuniversity.com/rules/axe/4.9/scrollable-region-focusable"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "deque",
+        "name": "scrollable-region-focusable",
+        "url": "https://dequeuniversity.com/rules/axe/4.9/scrollable-region-focusable",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Hidden but focusable",
+    "slug": "hidden-but-focusable",
+    "category": "accessibility",
+    "definition": "An element hidden from assistive technology that is still in the tab sequence, so keyboard focus lands on something a screen reader refuses to describe.",
+    "useWhen": "focus disappears into an offscreen or hidden panel",
+    "aliases": [
+      { "name": "aria-hidden-focus", "source": "deque" },
+      { "name": "focusable inside aria-hidden", "source": "community" },
+      { "name": "ghost tab stop", "source": "community" },
+      { "name": "silent focus", "source": "community" }
+    ],
+    "relatedSlugs": ["aria-hidden", "inert", "tabbable", "visually-hidden", "focus-order"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "W3C ACT: Element with aria-hidden has no content in sequential focus navigation",
+        "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/"
+      },
+      {
+        "title": "Deque: aria-hidden elements do not contain focusable elements",
+        "url": "https://dequeuniversity.com/rules/axe/4.4/aria-hidden-focus"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "deque",
+        "name": "aria-hidden-focus",
+        "url": "https://dequeuniversity.com/rules/axe/4.4/aria-hidden-focus",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Symbol support",
+    "slug": "symbol-support",
+    "category": "accessibility",
+    "definition": "Marking a control with a concept code so a reader who uses an augmentative symbol set sees their own familiar picture in place of your icon and wording.",
+    "useWhen": "the words and icons themselves are the barrier",
+    "aliases": [
+      { "name": "WAI-Adapt", "source": "w3c" },
+      { "name": "personalization semantics", "source": "w3c" },
+      { "name": "AAC symbols", "source": "community" },
+      { "name": "adapt-symbol", "source": "w3c" }
+    ],
+    "relatedSlugs": ["plain-language", "icon-button-label", "accessible-name"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "WAI-Adapt: Symbols Module", "url": "https://www.w3.org/TR/adapt-symbols/" },
+      { "title": "WAI-Adapt Explainer", "url": "https://www.w3.org/TR/adapt/" }
+    ],
+    "implementations": [],
+    "notes": "Cognitive accessibility vocabulary, still a draft spec, but the only name for the idea."
+  },
+  {
+    "name": "Line focus",
+    "slug": "line-focus",
+    "category": "accessibility",
+    "definition": "A reading aid that dims everything except one to five lines of text, so the eye has a single band to track and cannot skip or reread a line by accident.",
+    "useWhen": "long prose has to be readable line by line",
+    "aliases": [
+      { "name": "reading ruler", "source": "community" },
+      { "name": "line highlighter", "source": "community" },
+      { "name": "focus mode reading", "source": "community" }
+    ],
+    "relatedSlugs": ["reader-mode", "plain-language", "text-spacing-override", "leading"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Support: Use Immersive Reader in Microsoft Edge",
+        "url": "https://support.microsoft.com/en-US/edge/use-immersive-reader-in-microsoft-edge"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Reader mode",
+    "slug": "reader-mode",
+    "category": "accessibility",
+    "definition": "A browser view that throws away your layout and rebuilds the article as plain text the reader can restyle, which is a verdict on how readable the original was.",
+    "useWhen": "checking what survives when the design is stripped",
+    "aliases": [
+      { "name": "reader view", "source": "community" },
+      { "name": "Immersive Reader", "source": "community" },
+      { "name": "reading mode", "source": "community" },
+      { "name": "distraction free reading", "source": "community" }
+    ],
+    "relatedSlugs": ["line-focus", "read-aloud", "semantic-html", "plain-language"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Support: Use Immersive Reader and reading mode in Microsoft Edge",
+        "url": "https://support.microsoft.com/en-US/edge/use-immersive-reader-in-microsoft-edge"
+      }
+    ],
+    "implementations": [],
+    "notes": "Depends entirely on semantic markup, so the demo can show a page that reader mode empties."
+  },
+  {
+    "name": "Read aloud",
+    "slug": "read-aloud",
+    "category": "accessibility",
+    "definition": "Speaking page text with synthetic voice for readers who are not blind, with word highlighting as it goes, which is a reading aid rather than a screen reader.",
+    "useWhen": "distinguishing text to speech from a screen reader",
+    "aliases": [
+      { "name": "text to speech", "source": "community" },
+      { "name": "TTS", "source": "community" },
+      { "name": "speak selection", "source": "hig" },
+      { "name": "karaoke highlighting", "source": "community" }
+    ],
+    "relatedSlugs": ["screen-reader", "reader-mode", "pronunciation", "plain-language"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Support: Use Immersive Reader in Microsoft Edge",
+        "url": "https://support.microsoft.com/en-US/edge/use-immersive-reader-in-microsoft-edge"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Sonification",
+    "slug": "sonification",
+    "category": "accessibility",
+    "definition": "Turning data into sound, mapping a series to pitch or rhythm, so a chart can be heard as a shape rather than described one value at a time.",
+    "useWhen": "a chart has to be perceivable without sight",
+    "aliases": [
+      { "name": "data sonification", "source": "community" },
+      { "name": "audio chart", "source": "community" },
+      { "name": "audio graph", "source": "community" },
+      { "name": "data table alternative", "source": "community" }
+    ],
+    "relatedSlugs": ["long-description", "alt-text", "use-of-color", "transcript"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "University of Washington: Making data visualizations accessible",
+        "url": "https://www.washington.edu/accesstech/dataviz/"
+      },
+      { "title": "Wikipedia: Data sonification", "url": "https://en.wikipedia.org/wiki/Data_sonification" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Accessibility trait",
+    "slug": "accessibility-trait",
+    "category": "accessibility",
+    "definition": "The platform flag on a native view that says what it is and how it behaves, the mobile counterpart to a role plus a state, and the thing a custom control has to set by hand.",
+    "useWhen": "a custom native control announces as plain text",
+    "aliases": [
+      { "name": "accessibilityTraits", "source": "uikit" },
+      { "name": "UIAccessibilityTraits", "source": "uikit" },
+      { "name": "accessibilityRole", "source": "community" },
+      { "name": "mobile role", "source": "community" }
+    ],
+    "relatedSlugs": ["name-role-value", "role-description", "accessible-name", "accessibility-tree"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Deque: What iOS traits actually do", "url": "https://www.deque.com/blog/ios-traits/" },
+      { "title": "Mobile A11y: iOS UIKit accessibility traits", "url": "https://mobilea11y.com/blog/traits/" }
+    ],
+    "implementations": [
+      { "systemId": "deque", "name": "iOS accessibility traits", "url": "https://www.deque.com/blog/ios-traits/", "verified": true }
+    ]
+  },
+  {
+    "name": "Accessibility grouping",
+    "slug": "accessibility-grouping",
+    "category": "accessibility",
+    "definition": "Collapsing a cluster of elements, an icon plus a label plus a value, into one thing assistive technology stops at, instead of three stops that mean nothing apart.",
+    "useWhen": "a card reads as five fragments instead of one item",
+    "aliases": [
+      { "name": "shouldGroupAccessibilityChildren", "source": "uikit" },
+      { "name": "merge semantics", "source": "flutter" },
+      { "name": "importantForAccessibility", "source": "android" },
+      { "name": "accessibility element", "source": "uikit" },
+      { "name": "screen reader focusable", "source": "android" }
+    ],
+    "relatedSlugs": ["presentational-children", "accessible-name", "reading-order", "nested-interactive"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Microsoft Learn: View.ImportantForAccessibility",
+        "url": "https://learn.microsoft.com/dotnet/api/android.views.view.importantforaccessibility"
+      },
+      { "title": "React Native: Accessibility", "url": "https://archive.reactnative.dev/docs/accessibility" }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "importantForAccessibility",
+        "url": "https://learn.microsoft.com/dotnet/api/android.views.view.importantforaccessibility",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Focus delegation",
+    "slug": "focus-delegation",
+    "category": "accessibility",
+    "definition": "A shadow root option that forwards focus from the host into the first focusable element inside it, so clicking the padding of a custom element does not leave focus nowhere.",
+    "useWhen": "a custom element swallows clicks near its edges",
+    "aliases": [
+      { "name": "delegatesFocus", "source": "whatwg-html" },
+      { "name": "dead focus zone", "source": "community" },
+      { "name": "host focus forwarding", "source": "community" }
+    ],
+    "relatedSlugs": ["initial-focus", "focus-ring", "tabbable", "focus-order"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: ShadowRoot.delegatesFocus", "url": "https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus" },
+      {
+        "title": "Frontend Masters: Shadow DOM focus delegation",
+        "url": "https://frontendmasters.com/blog/shadow-dom-focus-delegation-getting-delegatesfocus-right/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Directly relevant to this project: every specimen in shadow mode is a host whose focus behaviour this decides."
+  },
+  {
+    "name": "Streaming announcement",
+    "slug": "streaming-announcement",
+    "category": "accessibility",
+    "definition": "How a screen reader is told about text that arrives token by token, holding the region quiet while it streams and speaking once when the answer is complete.",
+    "useWhen": "a reply types itself in and floods the announcer",
+    "aliases": [
+      { "name": "token flood", "source": "community" },
+      { "name": "streaming live region", "source": "community" },
+      { "name": "generation complete announcement", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "busy-state", "politeness-level", "aria-notify"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Primer: Copilot accessibility principles", "url": "https://primer.style/accessibility/foundations/copilot-principles/" },
+      {
+        "title": "Harvard User Research Center: Review of generative AI chatbots accessibility",
+        "url": "https://urc.library.harvard.edu/blog/review-generative-ai-chatbots-accessibility"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "primer",
+        "name": "Copilot accessibility principles",
+        "url": "https://primer.style/accessibility/foundations/copilot-principles/",
+        "verified": true
+      }
+    ],
+    "notes": "Emerging vocabulary, and one of the few places where aria-busy earns its keep."
+  },
+  {
+    "name": "ARIA notify",
+    "slug": "aria-notify",
+    "category": "accessibility",
+    "definition": "A proposed API for speaking a message directly to assistive technology, without the live region trick of mutating hidden text and hoping the timing works out.",
+    "useWhen": "an announcement has no element it belongs to",
+    "aliases": [
+      { "name": "ariaNotify", "source": "wicg" },
+      { "name": "notification API", "source": "wicg" },
+      { "name": "confetti-free announcement", "source": "community" }
+    ],
+    "relatedSlugs": ["live-region", "politeness-level", "streaming-announcement", "status-message"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "WICG AOM: Accessibility (ARIA) Notification API", "url": "https://wicg.github.io/aom/notification-api.html" }],
+    "implementations": [
+      { "systemId": "wicg", "name": "ARIA Notification API", "url": "https://wicg.github.io/aom/notification-api.html", "verified": true }
+    ],
+    "notes": "Proposal stage. Worth a record because live-region workarounds are usually explained by contrast with it."
+  },
+  {
+    "name": "Cognitive load",
+    "slug": "cognitive-load",
+    "category": "accessibility",
+    "definition": "The mental effort an interface demands, split between the work the task really needs and the work the design added by way of clutter, jargon, and avoidable steps.",
+    "useWhen": "a screen is correct but exhausting to use",
+    "aliases": [
+      { "name": "memory load", "source": "community" },
+      { "name": "extraneous load", "source": "community" },
+      { "name": "working memory demand", "source": "community" },
+      { "name": "mental effort", "source": "community" }
+    ],
+    "relatedSlugs": ["plain-language", "chunking", "progressive-disclosure", "redundant-entry"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "W3C WAI: Cognitive Accessibility at W3C", "url": "https://www.w3.org/WAI/cognitive/" },
+      { "title": "W3C: Avoid Too Much Content", "url": "https://www.w3.org/WAI/WCAG2/supplemental/patterns/o5p03-manageable-quantity" }
+    ],
+    "implementations": [],
+    "notes": "Sits on the border with the pattern category; nothing in the other files claims it, so it is filed here with its cognitive accessibility framing."
+  },
+  {
+    "name": "Chunking",
+    "slug": "chunking",
+    "category": "accessibility",
+    "definition": "Breaking content into small labelled pieces, short paragraphs, lists, and headings, so a reader can hold one piece at a time instead of the whole wall.",
+    "useWhen": "a dense block has to be read by anyone tired",
+    "aliases": [
+      { "name": "content chunking", "source": "community" },
+      { "name": "succinct text", "source": "w3c" },
+      { "name": "visual grouping", "source": "community" }
+    ],
+    "relatedSlugs": ["cognitive-load", "plain-language", "heading-hierarchy", "group-label"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "W3C: Keep Text Succinct (cognitive accessibility design pattern)",
+        "url": "https://www.w3.org/WAI/WCAG2/supplemental/patterns/o3p05-succinct-text/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Overlaps typography and content design; filed here because the cited pattern is cognitive accessibility guidance."
+  }
+]

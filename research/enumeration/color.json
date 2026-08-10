@@ -1,0 +1,3867 @@
+[
+  {
+    "name": "Contrast ratio",
+    "slug": "contrast-ratio",
+    "category": "color",
+    "definition": "A number from 1:1 to 21:1 describing how far apart two colours sit in relative luminance, used to decide whether text on a background is readable.",
+    "useWhen": "measuring whether two colours are far enough apart to read",
+    "aliases": [
+      {
+        "name": "colour contrast",
+        "source": "community"
+      },
+      {
+        "name": "contrast checker",
+        "source": "community"
+      },
+      {
+        "name": "4.5:1",
+        "source": "wcag"
+      },
+      {
+        "name": "AA contrast",
+        "source": "wcag"
+      },
+      {
+        "name": "color contrast",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["relative-luminance", "apca", "non-text-contrast", "color-ramp"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Understanding Success Criterion 1.4.11: Non-text Contrast",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "wcag",
+        "name": "Contrast (Minimum)",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "Understanding the scale",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+        "verified": true
+      }
+    ],
+    "notes": "Head term. Cross-category with accessibility; kept in color because the demo is two swatches and a number."
+  },
+  {
+    "name": "Relative luminance",
+    "slug": "relative-luminance",
+    "category": "color",
+    "definition": "The brightness of a colour measured on a 0 to 1 scale after each channel is linearised, which is the input every WCAG contrast calculation actually uses.",
+    "useWhen": "explaining why two colours of equal saturation contrast differently",
+    "aliases": [
+      {
+        "name": "luminance",
+        "source": "community"
+      },
+      {
+        "name": "perceived brightness",
+        "source": "community"
+      },
+      {
+        "name": "L1 L2",
+        "source": "wcag"
+      }
+    ],
+    "relatedSlugs": ["contrast-ratio", "lightness", "apca"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Understanding Success Criterion 1.4.11: Non-text Contrast",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "wcag",
+        "name": "relative luminance",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+        "verified": true
+      }
+    ],
+    "notes": "Tail. The reason yellow and blue at the same HSL lightness score wildly different contrast."
+  },
+  {
+    "name": "APCA",
+    "slug": "apca",
+    "category": "color",
+    "definition": "A perceptual contrast algorithm proposed for WCAG 3 that scores a text and background pair as an Lc value and takes font size and weight into account.",
+    "useWhen": "scoring contrast in a way that accounts for text size and weight",
+    "aliases": [
+      {
+        "name": "Advanced Perceptual Contrast Algorithm"
+      },
+      {
+        "name": "Lc value",
+        "source": "community"
+      },
+      {
+        "name": "WCAG 3 contrast",
+        "source": "community"
+      },
+      {
+        "name": "perceptual contrast"
+      }
+    ],
+    "relatedSlugs": ["contrast-ratio", "relative-luminance"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Radix Colors: understanding the scale (quotes Lc 60 and Lc 90)",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "radix",
+        "name": "Lc 60 / Lc 90 guarantee",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: Radix guarantees its step 11 and 12 text against step 2 in Lc, not in WCAG ratio."
+  },
+  {
+    "name": "Hue",
+    "slug": "hue",
+    "category": "color",
+    "definition": "The attribute that gives a colour its name, red or teal or violet, expressed as an angle around a colour wheel independent of how light or vivid it is.",
+    "useWhen": "naming the colour itself, apart from its lightness or intensity",
+    "aliases": [
+      {
+        "name": "colour angle",
+        "source": "community"
+      },
+      {
+        "name": "H in HSL"
+      },
+      {
+        "name": "color angle",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["saturation", "chroma", "lightness", "color-wheel", "hue-shift"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "hue",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Hue (the H in HCT)",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Saturation",
+    "slug": "saturation",
+    "category": "color",
+    "definition": "How far a colour is from grey on a scale where 100 percent is the pure hue and 0 percent is neutral, as modelled by HSL and its relatives.",
+    "useWhen": "describing how vivid or washed out a colour looks",
+    "aliases": [
+      {
+        "name": "intensity",
+        "source": "community"
+      },
+      {
+        "name": "colourfulness"
+      },
+      {
+        "name": "S in HSL"
+      },
+      {
+        "name": "vividness"
+      },
+      {
+        "name": "colorfulness"
+      }
+    ],
+    "relatedSlugs": ["chroma", "hue", "desaturation", "color-space"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "hsl()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate with chroma; they are not the same measure and the distinction is worth a contrastWith edge."
+  },
+  {
+    "name": "Chroma",
+    "slug": "chroma",
+    "category": "color",
+    "definition": "Colourfulness measured in absolute terms rather than as a percentage of the maximum, so a light pastel and a dark ink can be compared on one scale.",
+    "useWhen": "comparing colourfulness across colours of different lightness",
+    "aliases": [
+      {
+        "name": "C in OKLCH"
+      },
+      {
+        "name": "C in HCT",
+        "source": "material"
+      },
+      {
+        "name": "colourfulness"
+      },
+      {
+        "name": "colorfulness"
+      }
+    ],
+    "relatedSlugs": ["saturation", "oklch", "hct", "color-gamut", "gamut-mapping"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: oklch()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch"
+      },
+      {
+        "title": "HCT in ColorAide",
+        "url": "https://facelessuser.github.io/coloraide/colors/hct/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "oklch() chroma channel",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "the purest step (step 9)",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+        "verified": true
+      }
+    ],
+    "notes": "The word that separates OKLCH from HSL: chroma is unbounded and hue dependent, saturation is a percentage."
+  },
+  {
+    "name": "Lightness",
+    "slug": "lightness",
+    "category": "color",
+    "definition": "How light or dark a colour reads, from black at one end to white at the other, held separately from its hue and its colourfulness.",
+    "useWhen": "stepping a colour lighter or darker without changing the hue",
+    "aliases": [
+      {
+        "name": "value",
+        "source": "community"
+      },
+      {
+        "name": "tone",
+        "source": "material"
+      },
+      {
+        "name": "L in OKLCH"
+      },
+      {
+        "name": "brightness",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-ramp", "relative-luminance", "oklch", "tone", "perceptual-uniformity"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: oklch()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Tone",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+        "verified": true
+      },
+      {
+        "systemId": "mdn",
+        "name": "oklch() lightness channel",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch",
+        "verified": true
+      }
+    ],
+    "notes": "Brightness, value, lightness and tone are four vocabularies for nearby ideas; disambiguation prose is the point of this entry."
+  },
+  {
+    "name": "Tint",
+    "slug": "tint",
+    "category": "color",
+    "definition": "A colour with white mixed in, lighter than the original hue and used for faint fills, hover washes and subtle backgrounds.",
+    "useWhen": "a lighter version of a colour made by adding white",
+    "aliases": [
+      {
+        "name": "pastel",
+        "source": "community"
+      },
+      {
+        "name": "wash",
+        "source": "community"
+      },
+      {
+        "name": "tint colour",
+        "source": "hig"
+      },
+      {
+        "name": "tint color",
+        "source": "hig"
+      }
+    ],
+    "relatedSlugs": ["shade", "tone", "color-ramp", "accent-color", "surface-tint"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "tint color",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/color",
+        "verified": false
+      }
+    ],
+    "notes": "Apple overloads 'tint colour' to mean the app accent colour, which is a genuine naming dispute worth calling out."
+  },
+  {
+    "name": "Shade",
+    "slug": "shade",
+    "category": "color",
+    "definition": "A colour with black mixed in, darker than the original hue and typically used for pressed states, borders and dark theme surfaces.",
+    "useWhen": "a darker version of a colour made by adding black",
+    "aliases": [
+      {
+        "name": "dark variant",
+        "source": "community"
+      },
+      {
+        "name": "shade scale",
+        "source": "community"
+      },
+      {
+        "name": "600, 700, 800",
+        "source": "tailwind"
+      }
+    ],
+    "relatedSlugs": ["tint", "tone", "color-ramp"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind",
+        "name": "shades 50 to 950",
+        "url": "https://tailwindcss.com/docs/colors",
+        "verified": true
+      }
+    ],
+    "notes": "Casual usage calls every ramp step a 'shade'; the entry should note the strict versus loose sense."
+  },
+  {
+    "name": "Tone",
+    "slug": "tone",
+    "category": "color",
+    "definition": "A colour with grey mixed in, softer than the pure hue, and in Material's vocabulary the numbered lightness step from 0 to 100 that a palette is built from.",
+    "useWhen": "a muted colour, or a numbered lightness step in Material",
+    "aliases": [
+      {
+        "name": "muted colour",
+        "source": "community"
+      },
+      {
+        "name": "tone value",
+        "source": "material"
+      },
+      {
+        "name": "T in HCT",
+        "source": "material"
+      },
+      {
+        "name": "muted color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["tint", "shade", "color-ramp", "hct", "lightness"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: how the color system works",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Tone",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+        "verified": true
+      }
+    ],
+    "notes": "Two live senses (paint mixing versus Material tone); merge candidate with lightness if canonicalize prefers one entry."
+  },
+  {
+    "name": "Color wheel",
+    "slug": "color-wheel",
+    "category": "color",
+    "definition": "A circular arrangement of hues that makes relationships between colours geometric, so a scheme becomes a shape drawn across the circle.",
+    "useWhen": "picking colours by their angular relationship to each other",
+    "aliases": [
+      {
+        "name": "color circle"
+      },
+      {
+        "name": "hue wheel",
+        "source": "community"
+      },
+      {
+        "name": "color ring",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-harmony", "complementary-colors", "analogous-colors", "hue"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Color harmony",
+    "slug": "color-harmony",
+    "category": "color",
+    "definition": "A rule for choosing colours by their positions on the wheel, such as complementary or analogous or triadic, so a palette holds together by construction.",
+    "useWhen": "choosing a palette by a geometric rule rather than by eye",
+    "aliases": [
+      {
+        "name": "color scheme",
+        "source": "community"
+      },
+      {
+        "name": "color relationship"
+      },
+      {
+        "name": "palette type",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-wheel", "complementary-colors", "analogous-colors", "triadic-colors", "monochromatic-palette"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Ultimate Color Glossary For UI Designers",
+        "url": "https://careerfoundry.com/en/blog/ui-design/color-glossary-for-ui-designers/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Complementary colors",
+    "slug": "complementary-colors",
+    "category": "color",
+    "definition": "Two hues sitting opposite each other on the colour wheel, the pairing that produces the strongest contrast and the loudest accent.",
+    "useWhen": "the loudest possible pairing of two hues",
+    "aliases": [
+      {
+        "name": "opposite colors",
+        "source": "community"
+      },
+      {
+        "name": "split-complementary"
+      },
+      {
+        "name": "contrasting colors",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-harmony", "analogous-colors", "color-wheel"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Split-complementary is recorded here as an alias; canonicalize may promote it to its own entry."
+  },
+  {
+    "name": "Analogous colors",
+    "slug": "analogous-colors",
+    "category": "color",
+    "definition": "A palette built from hues that neighbour each other on the wheel, giving a calm scheme with no colour fighting another for attention.",
+    "useWhen": "a quiet palette of neighbouring hues",
+    "aliases": [
+      {
+        "name": "adjacent colors",
+        "source": "community"
+      },
+      {
+        "name": "neighbouring hues"
+      }
+    ],
+    "relatedSlugs": ["color-harmony", "complementary-colors", "monochromatic-palette"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Triadic color scheme",
+    "slug": "triadic-colors",
+    "category": "color",
+    "definition": "A palette of three hues spaced evenly around the colour wheel, vivid by construction and usually applied with one hue dominant.",
+    "useWhen": "three hues balanced evenly around the wheel",
+    "aliases": [
+      {
+        "name": "triad",
+        "source": "community"
+      },
+      {
+        "name": "tetradic",
+        "source": "community"
+      },
+      {
+        "name": "square scheme",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-harmony", "color-wheel", "sixty-thirty-ten-rule"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Monochromatic palette",
+    "slug": "monochromatic-palette",
+    "category": "color",
+    "definition": "A scheme drawn from one hue at many lightness and saturation levels, so hierarchy comes from contrast alone rather than from colour difference.",
+    "useWhen": "one hue carrying the whole interface",
+    "aliases": [
+      {
+        "name": "monochrome",
+        "source": "community"
+      },
+      {
+        "name": "single hue palette"
+      },
+      {
+        "name": "one color scheme",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-ramp", "color-harmony", "neutral-palette"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Ultimate Color Glossary For UI Designers",
+        "url": "https://careerfoundry.com/en/blog/ui-design/color-glossary-for-ui-designers/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Color temperature",
+    "slug": "color-temperature",
+    "category": "color",
+    "definition": "Whether a colour reads warm (toward red and orange) or cool (toward blue), the axis designers use to bias a neutral grey without changing its lightness.",
+    "useWhen": "biasing a palette warm or cool",
+    "aliases": [
+      {
+        "name": "warm and cool colors",
+        "source": "community"
+      },
+      {
+        "name": "warm grey",
+        "source": "community"
+      },
+      {
+        "name": "cool grey",
+        "source": "community"
+      },
+      {
+        "name": "warm gray",
+        "source": "community"
+      },
+      {
+        "name": "cool gray",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["tinted-neutral", "neutral-palette", "hue"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Glossary: Basic Color Terminology",
+        "url": "https://design4users.com/basic-color-terminology/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "60-30-10 rule",
+    "slug": "sixty-thirty-ten-rule",
+    "category": "color",
+    "definition": "A proportion guideline that gives about 60 percent of a layout to a dominant colour, 30 percent to a secondary, and 10 percent to an accent.",
+    "useWhen": "deciding how much of each colour to use, not which colours",
+    "aliases": [
+      {
+        "name": "60/30/10",
+        "source": "community"
+      },
+      {
+        "name": "color proportion rule"
+      },
+      {
+        "name": "dominant secondary accent"
+      }
+    ],
+    "relatedSlugs": ["accent-color", "color-harmony", "brand-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The 60-30-10 Rule (UX Planet)",
+        "url": "https://uxplanet.org/the-60-30-10-rule-a-foolproof-way-to-choose-colors-for-your-ui-design-d15625e56d25"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold: names the question 'how much of each colour', which no token system answers."
+  },
+  {
+    "name": "Accent color",
+    "slug": "accent-color",
+    "category": "color",
+    "definition": "The one saturated colour an interface spends sparingly on the things it wants clicked, so its rarity is what makes it read as important.",
+    "useWhen": "the one colour reserved for the primary action",
+    "aliases": [
+      {
+        "name": "primary color",
+        "source": "material"
+      },
+      {
+        "name": "tint color",
+        "source": "hig"
+      },
+      {
+        "name": "brand accent",
+        "source": "community"
+      },
+      {
+        "name": "highlight color",
+        "source": "community"
+      },
+      {
+        "name": "accent-color",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["brand-color", "color-role", "sixty-thirty-ten-rule", "semantic-color"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: accent-color",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/accent-color"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "accent-color",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/accent-color",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "accent scale",
+        "url": "https://www.radix-ui.com/themes/docs/theme/color",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Primary",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      }
+    ],
+    "notes": "The CSS accent-color property (which tints checkboxes and range inputs) is a distinct enough sense that it may deserve its own tail entry."
+  },
+  {
+    "name": "Brand color",
+    "slug": "brand-color",
+    "category": "color",
+    "definition": "The colour an organisation owns in a customer's memory, carried into a product as the seed for its palette rather than used directly on every surface.",
+    "useWhen": "the colour the company owns, before it becomes UI tokens",
+    "aliases": [
+      {
+        "name": "brand palette",
+        "source": "community"
+      },
+      {
+        "name": "corporate colors"
+      },
+      {
+        "name": "signature color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["accent-color", "seed-color", "color-token", "color-harmonization"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Spectrum: color system",
+        "url": "https://spectrum.adobe.com/page/color-system/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fluent",
+        "name": "Brand colors",
+        "url": "https://fluent2.microsoft.design/color",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Neutral palette",
+    "slug": "neutral-palette",
+    "category": "color",
+    "definition": "The greys an interface is mostly made of, ramped from page background to body text, which carry the structure while the accent carries the attention.",
+    "useWhen": "the greys that most of the interface is actually made of",
+    "aliases": [
+      {
+        "name": "greyscale",
+        "source": "community"
+      },
+      {
+        "name": "gray ramp",
+        "source": "community"
+      },
+      {
+        "name": "neutral ramp",
+        "source": "fluent"
+      },
+      {
+        "name": "slate scale",
+        "source": "radix"
+      },
+      {
+        "name": "grayscale",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-ramp", "tinted-neutral", "surface-color", "color-temperature"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Carbon: color",
+        "url": "https://carbondesignsystem.com/elements/color/overview/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "neutral gray palette",
+        "url": "https://carbondesignsystem.com/elements/color/overview/",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Neutral key color",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Tinted neutral",
+    "slug": "tinted-neutral",
+    "category": "color",
+    "definition": "A grey with a trace of the brand hue mixed in, so backgrounds and borders belong to the palette instead of reading as a separate, colder system.",
+    "useWhen": "greys that quietly carry the brand hue",
+    "aliases": [
+      {
+        "name": "hued gray",
+        "source": "community"
+      },
+      {
+        "name": "brand-tinted grey"
+      },
+      {
+        "name": "gray scale companion",
+        "source": "radix"
+      },
+      {
+        "name": "brand-tinted gray"
+      }
+    ],
+    "relatedSlugs": ["neutral-palette", "color-temperature", "surface-tint", "color-harmonization"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Radix Colors: custom palettes",
+        "url": "https://www.radix-ui.com/colors/docs/overview/custom-palettes"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "radix",
+        "name": "matching gray scale",
+        "url": "https://www.radix-ui.com/colors/docs/overview/custom-palettes",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: readers search 'why does my grey look dirty next to my blue'."
+  },
+  {
+    "name": "Status color",
+    "slug": "status-color",
+    "category": "color",
+    "definition": "The small fixed set of colours a product reserves for outcome, typically success, warning, danger and info, so meaning is consistent wherever it appears.",
+    "useWhen": "colours that report an outcome rather than a brand",
+    "aliases": [
+      {
+        "name": "feedback colors",
+        "source": "community"
+      },
+      {
+        "name": "intent colors",
+        "source": "community"
+      },
+      {
+        "name": "critical",
+        "source": "polaris"
+      },
+      {
+        "name": "error color",
+        "source": "material"
+      },
+      {
+        "name": "state colors",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["semantic-color", "color-role", "color-alone"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Polaris: palettes and roles",
+        "url": "https://polaris-react.shopify.com/design/colors/palettes-and-roles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "critical / warning / success color roles",
+        "url": "https://polaris-react.shopify.com/design/colors/palettes-and-roles",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Error",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate with the existing semantic-color stub; status colour is the narrower, outcome-only sense."
+  },
+  {
+    "name": "Surface color",
+    "slug": "surface-color",
+    "category": "color",
+    "definition": "The colour of a plane that content sits on, defined as a set of stacked levels so a card on a page and a sheet on a card are told apart by value.",
+    "useWhen": "naming the plane content sits on, not the page background",
+    "aliases": [
+      {
+        "name": "background color",
+        "source": "community"
+      },
+      {
+        "name": "surface container",
+        "source": "material"
+      },
+      {
+        "name": "layer token",
+        "source": "carbon"
+      },
+      {
+        "name": "bg-surface",
+        "source": "polaris"
+      },
+      {
+        "name": "canvas",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["surface-tint", "elevation-overlay", "color-role", "neutral-palette"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      },
+      {
+        "title": "Carbon: color",
+        "url": "https://carbondesignsystem.com/elements/color/overview/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Surface, Surface container (lowest to highest)",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "layer 01 / 02 / 03",
+        "url": "https://carbondesignsystem.com/elements/color/overview/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "bg-surface",
+        "url": "https://polaris-react.shopify.com/design/colors/color-tokens",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "On-color",
+    "slug": "on-color",
+    "category": "color",
+    "definition": "A colour defined by what it sits on, such as on-primary or on-surface, so every fill ships with the foreground guaranteed to be readable against it.",
+    "useWhen": "the foreground colour that ships paired with a fill",
+    "aliases": [
+      {
+        "name": "onPrimary",
+        "source": "material"
+      },
+      {
+        "name": "on-surface",
+        "source": "material"
+      },
+      {
+        "name": "contrast color",
+        "source": "community"
+      },
+      {
+        "name": "foreground pair",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-role", "container-color", "contrast-ratio", "semantic-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "On primary, On surface, On error",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the 'on' prefix is opaque to newcomers and is exactly the kind of word this site exists to answer."
+  },
+  {
+    "name": "Container color",
+    "slug": "container-color",
+    "category": "color",
+    "definition": "A muted companion to an accent, light enough to fill a chip or a card behind ordinary text, so an accent can shade a region without shouting.",
+    "useWhen": "a soft fill in the accent hue rather than the solid accent",
+    "aliases": [
+      {
+        "name": "primaryContainer",
+        "source": "material"
+      },
+      {
+        "name": "subtle background",
+        "source": "radix"
+      },
+      {
+        "name": "soft variant",
+        "source": "radix"
+      },
+      {
+        "name": "muted fill",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["on-color", "color-role", "accent-color", "color-ramp"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Primary container",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "steps 3 to 5, UI element background",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Color role",
+    "slug": "color-role",
+    "category": "color",
+    "definition": "A named job in the interface, such as surface or outline or on-primary, that components style themselves against instead of reaching for a palette value.",
+    "useWhen": "the job a colour does, as the thing components reference",
+    "aliases": [
+      {
+        "name": "color token",
+        "source": "community"
+      },
+      {
+        "name": "semantic token",
+        "source": "community"
+      },
+      {
+        "name": "color slot",
+        "source": "community"
+      },
+      {
+        "name": "role token",
+        "source": "polaris"
+      }
+    ],
+    "relatedSlugs": ["semantic-color", "color-token", "on-color", "surface-color", "primitive-color-token"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      },
+      {
+        "title": "Polaris: palettes and roles",
+        "url": "https://polaris-react.shopify.com/design/colors/palettes-and-roles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Color roles",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "color role",
+        "url": "https://polaris-react.shopify.com/design/colors/palettes-and-roles",
+        "verified": true
+      }
+    ],
+    "notes": "Strong merge candidate with the existing semantic-color stub; role is the system's word, semantic colour is the community's."
+  },
+  {
+    "name": "State layer",
+    "slug": "state-layer",
+    "category": "color",
+    "definition": "A translucent sheet of the content colour laid over a control at a fixed opacity per state, so hover, focus and pressed are one rule instead of three palettes.",
+    "useWhen": "one overlay opacity expressing hover, focus and pressed",
+    "aliases": [
+      {
+        "name": "state overlay",
+        "source": "community"
+      },
+      {
+        "name": "hover layer",
+        "source": "community"
+      },
+      {
+        "name": "interaction state layer",
+        "source": "material"
+      },
+      {
+        "name": "ripple color",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["surface-tint", "elevation-overlay", "alpha-channel", "color-role"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material: states",
+        "url": "https://m2.material.io/go/design-states/"
+      },
+      {
+        "title": "Spectrum design data: states",
+        "url": "https://opensource.adobe.com/spectrum-design-data/registry/states"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "State layer",
+        "url": "https://m2.material.io/go/design-states/",
+        "verified": true
+      },
+      {
+        "systemId": "spectrum",
+        "name": "states",
+        "url": "https://opensource.adobe.com/spectrum-design-data/registry/states",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold and very demoable: one swatch, four states, opacity readout."
+  },
+  {
+    "name": "Surface tint",
+    "slug": "surface-tint",
+    "category": "color",
+    "definition": "A wash of the primary colour blended into a surface in proportion to its elevation, so height reads as a colour shift rather than only as a shadow.",
+    "useWhen": "elevation shown by tinting a surface rather than by shadow",
+    "aliases": [
+      {
+        "name": "surfaceTint",
+        "source": "material"
+      },
+      {
+        "name": "tonal elevation",
+        "source": "material"
+      },
+      {
+        "name": "tonal surface color",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["elevation-overlay", "surface-color", "state-layer", "dark-mode"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      },
+      {
+        "title": "Flutter: ElevationOverlay.applyOverlay",
+        "url": "https://api.flutter.dev/flutter/material/ElevationOverlay/applyOverlay.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Surface tint",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      },
+      {
+        "systemId": "flutter",
+        "name": "surfaceTint",
+        "url": "https://api.flutter.dev/flutter/material/ElevationOverlay/applyOverlay.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Elevation overlay",
+    "slug": "elevation-overlay",
+    "category": "color",
+    "definition": "The older dark theme technique of laying white over a surface at an opacity that rises with elevation, because shadows are nearly invisible on dark backgrounds.",
+    "useWhen": "raising a dark surface where a shadow would not show",
+    "aliases": [
+      {
+        "name": "dark theme overlay",
+        "source": "material"
+      },
+      {
+        "name": "elevation tint",
+        "source": "community"
+      },
+      {
+        "name": "ElevationOverlay",
+        "source": "flutter"
+      }
+    ],
+    "relatedSlugs": ["surface-tint", "dark-mode", "surface-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Flutter: ElevationOverlay.applyOverlay",
+        "url": "https://api.flutter.dev/flutter/material/ElevationOverlay/applyOverlay.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "flutter",
+        "name": "ElevationOverlay",
+        "url": "https://api.flutter.dev/flutter/material/ElevationOverlay/applyOverlay.html",
+        "verified": true
+      }
+    ],
+    "notes": "Superseded by surface tint in Material 3; the entry should say so, since both words are still in circulation."
+  },
+  {
+    "name": "Scrim",
+    "slug": "scrim",
+    "category": "color",
+    "definition": "A translucent or gradient layer laid over imagery or behind a dialog, dimming what is beneath so text on top clears contrast or so focus moves forward.",
+    "useWhen": "darkening what is behind so the layer above stays readable",
+    "aliases": [
+      {
+        "name": "overlay",
+        "source": "community"
+      },
+      {
+        "name": "backdrop",
+        "source": "community"
+      },
+      {
+        "name": "image overlay",
+        "source": "community"
+      },
+      {
+        "name": "gradient overlay",
+        "source": "community"
+      },
+      {
+        "name": "dim layer",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["alpha-channel", "contrast-ratio", "gradient", "modal-dialog"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Designing Accessible Text Over Images",
+        "url": "https://www.smashingmagazine.com/2023/08/designing-accessible-text-over-images-part1/"
+      },
+      {
+        "title": "Material 3: color roles (scrim role)",
+        "url": "https://m3.material.io/styles/color/roles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Scrim",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold. Classic 'what is the word for the dark gradient behind the caption on a photo'."
+  },
+  {
+    "name": "Inverse color",
+    "slug": "inverse-color",
+    "category": "color",
+    "definition": "A surface and text pair flipped against the current theme, so a snackbar or tooltip reads as a foreign object that arrived from outside the page.",
+    "useWhen": "an element deliberately styled opposite to the theme",
+    "aliases": [
+      {
+        "name": "inverseSurface",
+        "source": "material"
+      },
+      {
+        "name": "inverted theme",
+        "source": "community"
+      },
+      {
+        "name": "reverse color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-role", "dark-mode", "surface-color", "toast"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Inverse surface, Inverse on surface, Inverse primary",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Dark mode",
+    "slug": "dark-mode",
+    "category": "color",
+    "definition": "A second palette built on dark surfaces with light foregrounds, derived from the light one by rebalancing lightness and saturation rather than by inverting it.",
+    "useWhen": "the dark counterpart of a palette, not an inversion of it",
+    "aliases": [
+      {
+        "name": "dark theme",
+        "source": "material"
+      },
+      {
+        "name": "night mode",
+        "source": "community"
+      },
+      {
+        "name": "light out",
+        "source": "community"
+      },
+      {
+        "name": "prefers-color-scheme",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["color-scheme", "true-black-theme", "surface-tint", "flash-of-inaccurate-color-theme", "light-dark"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple HIG: Dark Mode",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/dark-mode"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Dark Mode",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/dark-mode",
+        "verified": true
+      },
+      {
+        "systemId": "carbon",
+        "name": "dark themes (g90, g100)",
+        "url": "https://carbondesignsystem.com/elements/color/usage/",
+        "verified": true
+      }
+    ],
+    "notes": "Head term. The interesting content is the rules that make a dark palette not an inversion: reduced saturation, no pure white text."
+  },
+  {
+    "name": "True black theme",
+    "slug": "true-black-theme",
+    "category": "color",
+    "definition": "A dark palette whose background is pure black rather than near black, which switches OLED pixels off entirely but makes elements look like they float in a void.",
+    "useWhen": "a dark theme at pure black for OLED, not near black",
+    "aliases": [
+      {
+        "name": "AMOLED theme",
+        "source": "community"
+      },
+      {
+        "name": "pure black mode",
+        "source": "community"
+      },
+      {
+        "name": "OLED dark mode",
+        "source": "community"
+      },
+      {
+        "name": "black theme",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["dark-mode", "surface-color", "contrast-ratio"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Dark mode color guide",
+        "url": "https://devpalettes.com/blog/dark-mode-color-guide/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail. Names the argument about #000000 versus #121212 that every dark theme discussion reaches."
+  },
+  {
+    "name": "Flash of inaccurate color theme",
+    "slug": "flash-of-inaccurate-color-theme",
+    "category": "color",
+    "definition": "The moment a page paints in the wrong theme before the stored preference is applied, showing a light flash to a reader who chose dark.",
+    "useWhen": "the wrong theme showing for a frame on page load",
+    "aliases": [
+      {
+        "name": "FART",
+        "source": "community"
+      },
+      {
+        "name": "dark mode flash",
+        "source": "community"
+      },
+      {
+        "name": "theme flash",
+        "source": "community"
+      },
+      {
+        "name": "flash of unstyled theme",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["dark-mode", "color-scheme", "light-dark"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "Flash of inAccurate coloR Theme (FART)",
+        "url": "https://css-tricks.com/flash-of-inaccurate-color-theme-fart/"
+      },
+      {
+        "title": "Avoiding Flash of Inaccurate Theme Color",
+        "url": "https://blog.jim-nielsen.com/2022/avoiding-flash-of-inaccurate-theme-color/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold with a real community acronym. Demo is document scope (first paint of a whole document), hence iframe."
+  },
+  {
+    "name": "Forced colors mode",
+    "slug": "forced-colors-mode",
+    "category": "color",
+    "definition": "An operating system mode that replaces a page's palette with a small user-chosen set of system colours, overriding almost everything an author specified.",
+    "useWhen": "the OS is imposing its own palette on your interface",
+    "aliases": [
+      {
+        "name": "Windows High Contrast Mode",
+        "source": "community"
+      },
+      {
+        "name": "WHCM",
+        "source": "community"
+      },
+      {
+        "name": "contrast themes",
+        "source": "microsoft"
+      },
+      {
+        "name": "forced-colors",
+        "source": "css"
+      },
+      {
+        "name": "-ms-high-contrast",
+        "source": "microsoft"
+      }
+    ],
+    "relatedSlugs": ["system-color-keyword", "contrast-ratio", "color-scheme", "increased-contrast"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: forced-colors",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors"
+      },
+      {
+        "title": "Styling for Windows high contrast with forced colors",
+        "url": "https://blogs.windows.com/msedgedev/2020/09/17/styling-for-windows-high-contrast-with-new-standards-for-forced-colors/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "forced-colors media feature",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category with accessibility; kept in color because the subject is the palette substitution itself."
+  },
+  {
+    "name": "Increased contrast preference",
+    "slug": "increased-contrast",
+    "category": "color",
+    "definition": "A user setting asking for stronger separation between foreground and background, which platforms expose so a product can ship a higher contrast palette.",
+    "useWhen": "the reader has asked the system for more contrast",
+    "aliases": [
+      {
+        "name": "prefers-contrast",
+        "source": "css"
+      },
+      {
+        "name": "Increase Contrast",
+        "source": "hig"
+      },
+      {
+        "name": "high contrast theme",
+        "source": "community"
+      },
+      {
+        "name": "contrast level",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["forced-colors-mode", "contrast-ratio", "color-scheme"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color overview (standard, medium and high contrast)",
+        "url": "https://m3.material.io/styles/color/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "contrast levels (standard, medium, high)",
+        "url": "https://m3.material.io/styles/color/overview",
+        "verified": true
+      },
+      {
+        "systemId": "mdn",
+        "name": "prefers-contrast",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-contrast",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category with accessibility. Material ships medium and high contrast palettes alongside light and dark."
+  },
+  {
+    "name": "Color scheme",
+    "slug": "color-scheme",
+    "category": "color",
+    "definition": "The declaration that a page or element supports light or dark rendering, which also tells the browser which palette to use for scrollbars and form controls.",
+    "useWhen": "telling the browser which themes your page supports",
+    "aliases": [
+      {
+        "name": "color-scheme",
+        "source": "css"
+      },
+      {
+        "name": "prefers-color-scheme",
+        "source": "css"
+      },
+      {
+        "name": "theme preference",
+        "source": "community"
+      },
+      {
+        "name": "supported color schemes",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["dark-mode", "light-dark", "flash-of-inaccurate-color-theme", "system-color-keyword"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      },
+      {
+        "title": "MDN: accent-color respects color schemes",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/accent-color"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "color-scheme",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme",
+        "verified": true
+      }
+    ],
+    "notes": "Demo is arguably document scope, since the visible effect includes the document scrollbar and UA form widgets."
+  },
+  {
+    "name": "light-dark()",
+    "slug": "light-dark",
+    "category": "color",
+    "definition": "A CSS function that takes two colours and returns the one matching the page's current colour scheme, collapsing a theme's light and dark values into one declaration.",
+    "useWhen": "writing both theme values inline instead of in a media query",
+    "aliases": [
+      {
+        "name": "light-dark function",
+        "source": "css"
+      },
+      {
+        "name": "theme-aware color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-scheme", "dark-mode", "color-mix"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "light-dark()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Color space",
+    "slug": "color-space",
+    "category": "color",
+    "definition": "A coordinate system for describing colour, where the choice of axes decides whether arithmetic like mixing or stepping a ramp matches what the eye sees.",
+    "useWhen": "naming the coordinate system a colour value is written in",
+    "aliases": [
+      {
+        "name": "color model",
+        "source": "community"
+      },
+      {
+        "name": "colorSpace",
+        "source": "dtcg"
+      },
+      {
+        "name": "CIELAB"
+      },
+      {
+        "name": "Oklab"
+      }
+    ],
+    "relatedSlugs": ["oklch", "srgb", "color-gamut", "perceptual-uniformity", "hct"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS Color Module Level 4",
+        "url": "https://www.w3.org/TR/css-color-4/"
+      },
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "w3c-css",
+        "name": "predefined color spaces",
+        "url": "https://www.w3.org/TR/css-color-4/",
+        "verified": true
+      },
+      {
+        "systemId": "dtcg",
+        "name": "colorSpace",
+        "url": "https://www.designtokens.org/tr/drafts/color/",
+        "verified": true
+      }
+    ],
+    "notes": "Colour space versus colour model is a live distinction worth the disambiguation prose."
+  },
+  {
+    "name": "OKLCH",
+    "slug": "oklch",
+    "category": "color",
+    "definition": "A colour notation of lightness, chroma and hue built on Oklab, where changing the hue leaves the perceived lightness alone and equal steps look equal.",
+    "useWhen": "writing colour so that equal numeric steps look equal",
+    "aliases": [
+      {
+        "name": "oklch()",
+        "source": "css"
+      },
+      {
+        "name": "Oklab",
+        "source": "css"
+      },
+      {
+        "name": "LCH",
+        "source": "css"
+      },
+      {
+        "name": "perceptual color notation",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-space", "chroma", "perceptual-uniformity", "gamut-mapping", "color-ramp"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: oklch()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch"
+      },
+      {
+        "title": "CSS Color Module Level 4",
+        "url": "https://www.w3.org/TR/css-color-4/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "oklch()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch",
+        "verified": true
+      },
+      {
+        "systemId": "tailwind",
+        "name": "OKLCH default palette",
+        "url": "https://tailwindcss.com/docs/colors",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "HCT",
+    "slug": "hct",
+    "category": "color",
+    "definition": "Material's colour space of hue, chroma and tone, which borrows hue and chroma from CAM16 and lightness from CIELAB so tone alone predicts contrast.",
+    "useWhen": "generating a Material palette where tone predicts contrast",
+    "aliases": [
+      {
+        "name": "hue chroma tone",
+        "source": "material"
+      },
+      {
+        "name": "Material color space",
+        "source": "material"
+      },
+      {
+        "name": "material-color-utilities",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": ["oklch", "color-space", "tone", "dynamic-color", "color-ramp"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: how the color system works",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works"
+      },
+      {
+        "title": "HCT in ColorAide",
+        "url": "https://facelessuser.github.io/coloraide/colors/hct/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "HCT",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the reason Material can promise a contrast ratio from a tone number alone."
+  },
+  {
+    "name": "Perceptual uniformity",
+    "slug": "perceptual-uniformity",
+    "category": "color",
+    "definition": "The property of a colour space where equal numeric distances look like equal visual differences, which is what makes a generated ramp step evenly.",
+    "useWhen": "explaining why an HSL ramp looks uneven and an OKLCH one does not",
+    "aliases": [
+      {
+        "name": "perceptually uniform",
+        "source": "community"
+      },
+      {
+        "name": "even steps",
+        "source": "community"
+      },
+      {
+        "name": "uniform color space"
+      }
+    ],
+    "relatedSlugs": ["oklch", "color-space", "color-ramp", "hue-shift", "lightness"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: oklch()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "improved hue and chroma uniformity",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Color gamut",
+    "slug": "color-gamut",
+    "category": "color",
+    "definition": "The set of colours a space or a display can actually produce, which is why a value that is legal in one notation can be impossible on a given screen.",
+    "useWhen": "asking whether a colour can be shown at all",
+    "aliases": [
+      {
+        "name": "gamut",
+        "source": "community"
+      },
+      {
+        "name": "out of gamut",
+        "source": "community"
+      },
+      {
+        "name": "color-gamut media query",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["wide-gamut", "gamut-mapping", "srgb", "color-space", "chroma"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: color-gamut media feature",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/color-gamut"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "color-gamut",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/color-gamut",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Wide gamut",
+    "slug": "wide-gamut",
+    "category": "color",
+    "definition": "Colour beyond what sRGB can express, addressed in CSS through spaces such as display-p3 and rec2020 and shown only on displays that reach that far.",
+    "useWhen": "reaching for colours sRGB cannot express",
+    "aliases": [
+      {
+        "name": "Display P3",
+        "source": "community"
+      },
+      {
+        "name": "P3",
+        "source": "community"
+      },
+      {
+        "name": "rec2020",
+        "source": "css"
+      },
+      {
+        "name": "HDR color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-gamut", "gamut-mapping", "srgb", "color-space", "alpha-channel"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wide Gamut Color in CSS with Display-P3",
+        "url": "https://webkit.org/blog/10042/wide-gamut-color-in-css-with-display-p3/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "webkit",
+        "name": "display-p3",
+        "url": "https://webkit.org/blog/10042/wide-gamut-color-in-css-with-display-p3/",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "P3 scales",
+        "url": "https://www.radix-ui.com/colors",
+        "verified": true
+      }
+    ],
+    "notes": "Radix notes alpha blending differs in P3 from sRGB, which is a good disambiguation hook."
+  },
+  {
+    "name": "Gamut mapping",
+    "slug": "gamut-mapping",
+    "category": "color",
+    "definition": "Converting a colour that falls outside a display's range into the nearest one inside it, usually by lowering chroma in OKLCH rather than clipping each channel.",
+    "useWhen": "bringing an impossible colour into a display's range",
+    "aliases": [
+      {
+        "name": "gamut clipping",
+        "source": "community"
+      },
+      {
+        "name": "clamping",
+        "source": "community"
+      },
+      {
+        "name": "chroma reduction",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-gamut", "wide-gamut", "oklch", "chroma"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color.js: gamut mapping",
+        "url": "https://colorjs.io/docs/gamut-mapping"
+      },
+      {
+        "title": "CSS Color Module Level 4",
+        "url": "https://www.w3.org/TR/css-color-4/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "colorjs",
+        "name": "gamut mapping",
+        "url": "https://colorjs.io/docs/gamut-mapping",
+        "verified": true
+      },
+      {
+        "systemId": "postcss",
+        "name": "@csstools/postcss-gamut-mapping",
+        "url": "https://www.npmjs.com/package/@csstools/postcss-gamut-mapping",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: clipping darkens a bright colour, mapping does not, and that difference is visible in a demo."
+  },
+  {
+    "name": "sRGB",
+    "slug": "srgb",
+    "category": "color",
+    "definition": "The default colour space of the web, the one hex codes and plain rgb() values live in, and the baseline every wider gamut is described relative to.",
+    "useWhen": "the assumed colour space behind a hex code",
+    "aliases": [
+      {
+        "name": "standard RGB"
+      },
+      {
+        "name": "RGB",
+        "source": "community"
+      },
+      {
+        "name": "web-safe color space",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["hex-color", "color-space", "wide-gamut", "color-gamut"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "CSS Color Module Level 4",
+        "url": "https://www.w3.org/TR/css-color-4/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "dtcg",
+        "name": "srgb colorSpace",
+        "url": "https://www.designtokens.org/tr/drafts/color/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Hex color",
+    "slug": "hex-color",
+    "category": "color",
+    "definition": "A colour written as a hash followed by three, four, six or eight hexadecimal digits, the notation most handoffs still speak even when the source is OKLCH.",
+    "useWhen": "the notation a colour is handed over in",
+    "aliases": [
+      {
+        "name": "hex code",
+        "source": "community"
+      },
+      {
+        "name": "hex value",
+        "source": "community"
+      },
+      {
+        "name": "#RRGGBB"
+      },
+      {
+        "name": "8-digit hex",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["srgb", "alpha-channel", "color-token", "named-color"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "hexadecimal color",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      },
+      {
+        "systemId": "dtcg",
+        "name": "hex fallback",
+        "url": "https://www.designtokens.org/tr/drafts/color/",
+        "verified": true
+      }
+    ],
+    "notes": "The 8-digit form (hex with alpha) is the part people actually search for."
+  },
+  {
+    "name": "Opacity",
+    "slug": "opacity",
+    "category": "color",
+    "definition": "How much of what is behind an element shows through it, applied to the whole element and its children at once rather than to a single colour value.",
+    "useWhen": "fading an entire element and everything inside it",
+    "aliases": [
+      {
+        "name": "transparency",
+        "source": "community"
+      },
+      {
+        "name": "translucency",
+        "source": "community"
+      },
+      {
+        "name": "fade",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["alpha-channel", "alpha-compositing", "state-layer", "scrim", "emphasis-level"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Alpha Compositing",
+        "url": "https://ciechanow.ski/alpha-compositing/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Merge candidate with alpha-channel; the useful entry is the contrast between them, so both records should survive as a contrastWith pair."
+  },
+  {
+    "name": "Alpha channel",
+    "slug": "alpha-channel",
+    "category": "color",
+    "definition": "The transparency component carried inside a colour value itself, which lets a border or fill blend with whatever surface it lands on instead of assuming one.",
+    "useWhen": "a colour that must blend with an unknown background",
+    "aliases": [
+      {
+        "name": "alpha",
+        "source": "community"
+      },
+      {
+        "name": "rgba",
+        "source": "community"
+      },
+      {
+        "name": "alpha scale",
+        "source": "radix"
+      },
+      {
+        "name": "transparency channel"
+      }
+    ],
+    "relatedSlugs": ["opacity", "alpha-compositing", "state-layer", "wide-gamut", "hex-color"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      },
+      {
+        "title": "Radix Colors",
+        "url": "https://www.radix-ui.com/colors"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "radix",
+        "name": "alpha variants",
+        "url": "https://www.radix-ui.com/colors",
+        "verified": true
+      },
+      {
+        "systemId": "mdn",
+        "name": "alpha channel",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Alpha compositing",
+    "slug": "alpha-compositing",
+    "category": "color",
+    "definition": "The arithmetic that combines a translucent layer with what is beneath it, and the reason two stacked 50 percent layers do not add up to fully opaque.",
+    "useWhen": "predicting the result of stacking translucent layers",
+    "aliases": [
+      {
+        "name": "compositing",
+        "source": "community"
+      },
+      {
+        "name": "premultiplied alpha",
+        "source": "community"
+      },
+      {
+        "name": "source-over",
+        "source": "community"
+      },
+      {
+        "name": "straight alpha",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["alpha-channel", "opacity", "blend-mode", "state-layer"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Alpha Compositing",
+        "url": "https://ciechanow.ski/alpha-compositing/"
+      },
+      {
+        "title": "Premultiplied alpha (Win2D)",
+        "url": "https://learn.microsoft.com/en-us/windows/apps/develop/win2d/premultiplied-alpha"
+      }
+    ],
+    "implementations": [],
+    "notes": "Premultiplied versus straight alpha is a strong candidate for its own tail entry if canonicalize wants the split."
+  },
+  {
+    "name": "Blend mode",
+    "slug": "blend-mode",
+    "category": "color",
+    "definition": "A formula for combining a layer's colour with the colour behind it, such as multiply or screen or overlay, instead of simply covering it.",
+    "useWhen": "combining layers by a formula rather than by covering",
+    "aliases": [
+      {
+        "name": "mix-blend-mode",
+        "source": "css"
+      },
+      {
+        "name": "multiply",
+        "source": "community"
+      },
+      {
+        "name": "screen",
+        "source": "community"
+      },
+      {
+        "name": "layer blending",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["alpha-compositing", "duotone", "opacity", "scrim"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: mix-blend-mode",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mix-blend-mode"
+      },
+      {
+        "title": "web.dev: Blend Modes",
+        "url": "https://web.dev/learn/css/blend-modes"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "mix-blend-mode",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mix-blend-mode",
+        "verified": true
+      },
+      {
+        "systemId": "tailwind",
+        "name": "mix-blend-mode utilities",
+        "url": "https://tailwindcss.com/docs/mix-blend-mode",
+        "verified": true
+      }
+    ],
+    "notes": "The isolation property (stopping a blend at a stacking context) is a plausible separate tail entry."
+  },
+  {
+    "name": "Duotone",
+    "slug": "duotone",
+    "category": "color",
+    "definition": "An image rendered in two colours instead of full colour, mapping its shadows to one hue and its highlights to another so photography joins the brand palette.",
+    "useWhen": "forcing photography into two brand colours",
+    "aliases": [
+      {
+        "name": "two-tone",
+        "source": "community"
+      },
+      {
+        "name": "duotone filter",
+        "source": "community"
+      },
+      {
+        "name": "gradient map",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["blend-mode", "monochromatic-palette", "brand-color", "gradient"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "web.dev: Blend Modes",
+        "url": "https://web.dev/learn/css/blend-modes"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Gradient",
+    "slug": "gradient",
+    "category": "color",
+    "definition": "A fill that transitions between two or more colours across a shape, defined by colour stops and by the space the transition is interpolated in.",
+    "useWhen": "a fill that changes colour across its own area",
+    "aliases": [
+      {
+        "name": "linear-gradient",
+        "source": "css"
+      },
+      {
+        "name": "radial gradient",
+        "source": "css"
+      },
+      {
+        "name": "color transition",
+        "source": "community"
+      },
+      {
+        "name": "ramp",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-stop", "conic-gradient", "mesh-gradient", "color-interpolation", "color-banding", "scrim"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Using CSS gradients",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Images/Using_gradients"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "gradient",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Images/Using_gradients",
+        "verified": true
+      },
+      {
+        "systemId": "dtcg",
+        "name": "gradient token type",
+        "url": "https://www.designtokens.org/tr/drafts/color/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Color stop",
+    "slug": "color-stop",
+    "category": "color",
+    "definition": "A colour pinned at a position along a gradient, with an optional hint between two stops that moves the halfway point of the transition off centre.",
+    "useWhen": "pinning a colour at a point along a gradient",
+    "aliases": [
+      {
+        "name": "gradient stop",
+        "source": "community"
+      },
+      {
+        "name": "interpolation hint",
+        "source": "css"
+      },
+      {
+        "name": "midpoint",
+        "source": "community"
+      },
+      {
+        "name": "stop position"
+      }
+    ],
+    "relatedSlugs": ["gradient", "color-interpolation", "conic-gradient"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Using CSS gradients",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Images/Using_gradients"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "color stop, interpolation hint",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Images/Using_gradients",
+        "verified": true
+      }
+    ],
+    "notes": "Interpolation hint is genuine tail vocabulary and could be split out."
+  },
+  {
+    "name": "Conic gradient",
+    "slug": "conic-gradient",
+    "category": "color",
+    "definition": "A gradient whose colours sweep around a centre point like a clock hand rather than along a line, the shape behind pie charts, colour wheels and progress rings.",
+    "useWhen": "colours sweeping around a centre instead of across a line",
+    "aliases": [
+      {
+        "name": "conic-gradient()",
+        "source": "css"
+      },
+      {
+        "name": "angular gradient",
+        "source": "community"
+      },
+      {
+        "name": "sweep gradient",
+        "source": "android"
+      },
+      {
+        "name": "pie gradient",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["gradient", "color-stop", "color-wheel"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: conic-gradient()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/conic-gradient"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "conic-gradient()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/conic-gradient",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Mesh gradient",
+    "slug": "mesh-gradient",
+    "category": "color",
+    "definition": "A soft multi-point blend built from colours placed on a grid and smoothed between them, giving the blurred, cloudlike backgrounds a linear gradient cannot.",
+    "useWhen": "a soft multi-point colour blend, not a straight ramp",
+    "aliases": [
+      {
+        "name": "gradient mesh",
+        "source": "community"
+      },
+      {
+        "name": "aurora background",
+        "source": "community"
+      },
+      {
+        "name": "blob gradient",
+        "source": "community"
+      },
+      {
+        "name": "MeshGradient",
+        "source": "swiftui"
+      }
+    ],
+    "relatedSlugs": ["gradient", "color-banding", "duotone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color gradient",
+        "url": "https://en.wikipedia.org/wiki/Color_gradient"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold: a very common visual with no name most designers can produce on demand."
+  },
+  {
+    "name": "Color interpolation",
+    "slug": "color-interpolation",
+    "category": "color",
+    "definition": "The rule for what happens between two colours in a gradient or transition, including which space the blend runs in and which way around the hue wheel it travels.",
+    "useWhen": "controlling the path a blend takes between two colours",
+    "aliases": [
+      {
+        "name": "hue interpolation",
+        "source": "css"
+      },
+      {
+        "name": "longer hue",
+        "source": "css"
+      },
+      {
+        "name": "shorter hue",
+        "source": "css"
+      },
+      {
+        "name": "in oklab",
+        "source": "css"
+      },
+      {
+        "name": "grey dead zone",
+        "source": "community"
+      },
+      {
+        "name": "gray dead zone",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["gradient", "color-mix", "oklch", "color-stop"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color-interpolation-method>",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color-interpolation-method"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "<color-interpolation-method>",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color-interpolation-method",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: names why blue to yellow goes through grey in sRGB but not in OKLCH."
+  },
+  {
+    "name": "Color banding",
+    "slug": "color-banding",
+    "category": "color",
+    "definition": "The visible stripes that appear across a gradient when a display or file cannot render enough intermediate steps to keep the transition smooth.",
+    "useWhen": "a gradient breaking into visible stripes",
+    "aliases": [
+      {
+        "name": "banding",
+        "source": "community"
+      },
+      {
+        "name": "posterization",
+        "source": "community"
+      },
+      {
+        "name": "gradient stripes",
+        "source": "community"
+      },
+      {
+        "name": "contouring",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["dithering", "gradient", "color-space"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color Banding and Dithering",
+        "url": "https://shader-tutorial.dev/advanced/color-banding-dithering/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold and highly demoable: one wide, low-contrast gradient shows it immediately."
+  },
+  {
+    "name": "Dithering",
+    "slug": "dithering",
+    "category": "color",
+    "definition": "Adding fine noise to a gradient or image so the eye averages neighbouring pixels into the missing intermediate colours, hiding the bands.",
+    "useWhen": "removing banding by adding fine noise",
+    "aliases": [
+      {
+        "name": "noise dither",
+        "source": "community"
+      },
+      {
+        "name": "grain overlay",
+        "source": "community"
+      },
+      {
+        "name": "gradient dither",
+        "source": "adobe"
+      }
+    ],
+    "relatedSlugs": ["color-banding", "gradient"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color Banding and Dithering",
+        "url": "https://shader-tutorial.dev/advanced/color-banding-dithering/"
+      },
+      {
+        "title": "Control dither in gradients (Illustrator)",
+        "url": "https://helpx.adobe.com/illustrator/desktop/paint-and-fill/create-and-edit-gradients/control-dither-in-gradients.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "illustrator",
+        "name": "gradient dither",
+        "url": "https://helpx.adobe.com/illustrator/desktop/paint-and-fill/create-and-edit-gradients/control-dither-in-gradients.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Hue shift",
+    "slug": "hue-shift",
+    "category": "color",
+    "definition": "Rotating hue deliberately along a ramp, warmer at the light end and cooler at the dark end, so a scale looks alive instead of like one colour fading out.",
+    "useWhen": "steering hue across a ramp instead of holding it fixed",
+    "aliases": [
+      {
+        "name": "hue torsion",
+        "source": "community"
+      },
+      {
+        "name": "hue rotation",
+        "source": "community"
+      },
+      {
+        "name": "hue cycling",
+        "source": "community"
+      },
+      {
+        "name": "warm light cool shadow",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-ramp", "perceptual-uniformity", "color-temperature", "oklch"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Rampensau: palette generation with hue cycling",
+        "url": "https://github.com/meodai/rampensau"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "rampensau",
+        "name": "hue cycling",
+        "url": "https://github.com/meodai/rampensau",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: names the trick behind ramps that look designed rather than generated."
+  },
+  {
+    "name": "Dynamic color",
+    "slug": "dynamic-color",
+    "category": "color",
+    "definition": "A scheme generated at runtime from a source the user controls, such as a wallpaper, so the product's palette is derived on the device rather than shipped.",
+    "useWhen": "the palette is generated on the device, not shipped",
+    "aliases": [
+      {
+        "name": "Material You",
+        "source": "material"
+      },
+      {
+        "name": "wallpaper colors",
+        "source": "android"
+      },
+      {
+        "name": "user-generated color",
+        "source": "material"
+      },
+      {
+        "name": "system accent color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["seed-color", "hct", "color-harmonization", "color-role"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: dynamic color from a user-generated source",
+        "url": "https://m3.material.io/styles/color/dynamic/user-generated-source"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Dynamic color",
+        "url": "https://m3.material.io/styles/color/dynamic/user-generated-source",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "dynamicColorScheme (Compose)",
+        "url": "https://developer.android.com/develop/ui/compose/designsystems/material3",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Seed color",
+    "slug": "seed-color",
+    "category": "color",
+    "definition": "The single input colour an algorithm expands into a whole scheme, so a palette becomes something derived from one decision rather than picked swatch by swatch.",
+    "useWhen": "one colour in, a whole palette out",
+    "aliases": [
+      {
+        "name": "source color",
+        "source": "material"
+      },
+      {
+        "name": "key color",
+        "source": "material"
+      },
+      {
+        "name": "base color",
+        "source": "community"
+      },
+      {
+        "name": "primary seed",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["dynamic-color", "color-ramp", "brand-color", "hct"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: how the color system works",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "source color, key colors",
+        "url": "https://m3.material.io/styles/color/system/how-the-system-works",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "custom palette generator",
+        "url": "https://www.radix-ui.com/colors/docs/overview/custom-palettes",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Color harmonization",
+    "slug": "color-harmonization",
+    "category": "color",
+    "definition": "Nudging an outside colour's hue toward the current scheme so a fixed brand or status colour sits inside a generated palette without looking imported.",
+    "useWhen": "making a fixed outside colour belong to a generated scheme",
+    "aliases": [
+      {
+        "name": "harmonize",
+        "source": "material"
+      },
+      {
+        "name": "HarmonizedColors",
+        "source": "material"
+      },
+      {
+        "name": "color blending",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["dynamic-color", "seed-color", "brand-color", "status-color", "tinted-neutral"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color overview",
+        "url": "https://m3.material.io/styles/color/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "harmonized custom colors",
+        "url": "https://m3.material.io/styles/color/overview",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the answer to 'my warning orange clashes with the generated theme'."
+  },
+  {
+    "name": "Color token",
+    "slug": "color-token",
+    "category": "color",
+    "definition": "A named colour decision stored once and referenced everywhere, so retheming is a change to the value rather than an edit at every place it is used.",
+    "useWhen": "a colour stored as a name so it can be repointed",
+    "aliases": [
+      {
+        "name": "design token",
+        "source": "community"
+      },
+      {
+        "name": "color variable",
+        "source": "community"
+      },
+      {
+        "name": "CSS custom property",
+        "source": "community"
+      },
+      {
+        "name": "Figma variable",
+        "source": "figma"
+      }
+    ],
+    "relatedSlugs": ["semantic-color", "primitive-color-token", "color-role", "color-ramp"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Design Tokens Color Module",
+        "url": "https://www.designtokens.org/tr/drafts/color/"
+      },
+      {
+        "title": "Design Tokens Format Module",
+        "url": "https://w3c.github.io/cg-reports/design-tokens/CG-FINAL-format-20251028/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "dtcg",
+        "name": "color token type",
+        "url": "https://www.designtokens.org/tr/drafts/color/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "color tokens",
+        "url": "https://polaris-react.shopify.com/design/colors/color-tokens",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Primitive color token",
+    "slug": "primitive-color-token",
+    "category": "color",
+    "definition": "A raw palette value named for what it is, like blue-500, sitting under the semantic layer that names colours for what they do.",
+    "useWhen": "the raw palette value beneath a semantic name",
+    "aliases": [
+      {
+        "name": "global token",
+        "source": "community"
+      },
+      {
+        "name": "reference token",
+        "source": "material"
+      },
+      {
+        "name": "core token",
+        "source": "community"
+      },
+      {
+        "name": "base token",
+        "source": "community"
+      },
+      {
+        "name": "raw value",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-token", "semantic-color", "color-role", "color-ramp"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color token naming: primitive, semantic and component layers",
+        "url": "https://colorarchive.org/guides/color-token-naming-guide/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "spectrum",
+        "name": "core tokens",
+        "url": "https://spectrum.adobe.com/page/color-palette/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "color scale (primitive) versus role tokens",
+        "url": "https://polaris-react.shopify.com/design/colors/palettes-and-roles",
+        "verified": true
+      }
+    ],
+    "notes": "Component-level tokens are a third tier; may deserve a separate entry outside the color category."
+  },
+  {
+    "name": "Swatch",
+    "slug": "swatch",
+    "category": "color",
+    "definition": "A small block of flat colour shown as a sample, used in pickers and documentation to stand in for a value the reader cannot otherwise see.",
+    "useWhen": "a small block standing in for a colour value",
+    "aliases": [
+      {
+        "name": "color chip",
+        "source": "community"
+      },
+      {
+        "name": "color sample",
+        "source": "community"
+      },
+      {
+        "name": "palette square",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-picker", "color-ramp", "color-token", "eyedropper"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The EyeDropper API (mentions preview swatch)",
+        "url": "https://developer.chrome.com/docs/capabilities/web-apis/eyedropper"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Eyedropper",
+    "slug": "eyedropper",
+    "category": "component",
+    "definition": "A tool that turns the cursor into a sampler so a colour can be picked from anywhere on screen, usually with a magnified preview of the pixel under it.",
+    "useWhen": "sampling a colour from pixels rather than typing a value",
+    "aliases": [
+      {
+        "name": "color picker tool",
+        "source": "community"
+      },
+      {
+        "name": "dropper",
+        "source": "community"
+      },
+      {
+        "name": "EyeDropper API",
+        "source": "wicg"
+      },
+      {
+        "name": "pipette",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["swatch", "color-picker"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: EyeDropper API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API"
+      },
+      {
+        "title": "EyeDropper API specification",
+        "url": "https://wicg.github.io/eyedropper-api/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "wicg",
+        "name": "EyeDropper",
+        "url": "https://wicg.github.io/eyedropper-api/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: recorded as component, surfaced by the colour sweep. Merge with the component file's color-picker entry if one exists."
+  },
+  {
+    "name": "Color picker",
+    "slug": "color-picker",
+    "category": "component",
+    "definition": "A control for choosing a colour, usually pairing a saturation and lightness field with a hue slider, an alpha slider and a text field for a value.",
+    "useWhen": "letting a person choose an arbitrary colour",
+    "aliases": [
+      {
+        "name": "color chooser",
+        "source": "community"
+      },
+      {
+        "name": "color input",
+        "source": "community"
+      },
+      {
+        "name": "color wheel picker",
+        "source": "community"
+      },
+      {
+        "name": "saturation field",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["swatch", "eyedropper", "hue", "alpha-channel"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: EyeDropper API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API"
+      }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: component, not color. Likely a duplicate of a record from the component sweep."
+  },
+  {
+    "name": "currentColor",
+    "slug": "currentcolor",
+    "category": "color",
+    "definition": "A CSS keyword meaning the element's own text colour, letting borders, icons and fills inherit whatever colour the surrounding text happens to be.",
+    "useWhen": "an icon or border that should follow the text colour",
+    "aliases": [
+      {
+        "name": "currentcolor",
+        "source": "css"
+      },
+      {
+        "name": "inherit the text color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-role", "on-color", "color-mix"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "currentColor",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold for icon systems: one keyword is why an SVG picks up a button's text colour."
+  },
+  {
+    "name": "color-mix()",
+    "slug": "color-mix",
+    "category": "color",
+    "definition": "A CSS function that blends two colours by a chosen percentage in a chosen colour space, so hover and disabled variants are derived rather than hand-picked.",
+    "useWhen": "deriving a variant from a colour instead of picking one",
+    "aliases": [
+      {
+        "name": "color mixing",
+        "source": "community"
+      },
+      {
+        "name": "mix in oklab",
+        "source": "css"
+      },
+      {
+        "name": "tint function",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["relative-color-syntax", "color-interpolation", "state-layer", "light-dark"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      },
+      {
+        "title": "CSS Color Module Level 5 vocabulary in css-color-4",
+        "url": "https://www.w3.org/TR/css-color-4/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "color-mix()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Relative color syntax",
+    "slug": "relative-color-syntax",
+    "category": "color",
+    "definition": "CSS notation that builds a new colour from an existing one by naming an origin colour with from and then adjusting individual channels.",
+    "useWhen": "deriving a colour by editing one channel of another",
+    "aliases": [
+      {
+        "name": "from keyword",
+        "source": "css"
+      },
+      {
+        "name": "relative colors",
+        "source": "css"
+      },
+      {
+        "name": "channel adjustment",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-mix", "oklch", "color-token", "hue-shift"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Using relative colors",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "relative color syntax",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "contrast-color()",
+    "slug": "contrast-color",
+    "category": "color",
+    "definition": "A CSS function that returns a foreground colour guaranteed to contrast with a given background, moving the on-colour decision from the palette into the browser.",
+    "useWhen": "asking the browser for a readable foreground",
+    "aliases": [
+      {
+        "name": "color-contrast()",
+        "source": "css"
+      },
+      {
+        "name": "auto text color",
+        "source": "community"
+      },
+      {
+        "name": "automatic contrast",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["on-color", "contrast-ratio", "color-mix"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "contrast-color()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ],
+    "notes": "Renamed from the earlier color-contrast() proposal; both names are searched."
+  },
+  {
+    "name": "System color keyword",
+    "slug": "system-color-keyword",
+    "category": "color",
+    "definition": "A CSS keyword such as Canvas, CanvasText or LinkText that resolves to a colour chosen by the operating system rather than by the page.",
+    "useWhen": "styling with the colours the OS itself picked",
+    "aliases": [
+      {
+        "name": "system colors",
+        "source": "css"
+      },
+      {
+        "name": "Canvas",
+        "source": "css"
+      },
+      {
+        "name": "CanvasText",
+        "source": "css"
+      },
+      {
+        "name": "AccentColor",
+        "source": "css"
+      },
+      {
+        "name": "ButtonFace",
+        "source": "css"
+      }
+    ],
+    "relatedSlugs": ["forced-colors-mode", "color-scheme", "named-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      },
+      {
+        "title": "Windows High Contrast Mode and CSS custom properties",
+        "url": "https://www.smashingmagazine.com/2022/03/windows-high-contrast-colors-mode-css-custom-properties/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "system colors",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Named color",
+    "slug": "named-color",
+    "category": "color",
+    "definition": "One of the CSS keywords such as tomato or rebeccapurple that map to fixed sRGB values, a fossil vocabulary still useful for prototypes and debugging.",
+    "useWhen": "the keyword colours built into CSS",
+    "aliases": [
+      {
+        "name": "CSS color keywords",
+        "source": "css"
+      },
+      {
+        "name": "X11 colors",
+        "source": "community"
+      },
+      {
+        "name": "rebeccapurple",
+        "source": "css"
+      },
+      {
+        "name": "web colors",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["hex-color", "srgb", "system-color-keyword"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "named colors",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Sequential palette",
+    "slug": "sequential-palette",
+    "category": "color",
+    "definition": "A data palette that runs light to dark in one direction, encoding an ordered quantity so that darker always means more.",
+    "useWhen": "colour encoding an ordered quantity",
+    "aliases": [
+      {
+        "name": "sequential scale",
+        "source": "community"
+      },
+      {
+        "name": "single-hue scale",
+        "source": "community"
+      },
+      {
+        "name": "heatmap scale",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["diverging-palette", "categorical-palette", "color-ramp", "lightness"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color palettes for data visualization",
+        "url": "https://colorarchive.org/guides/data-visualization-color-palettes/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Data visualisation vocabulary; close cousin of the existing color-ramp entry but ordered by value, not by UI job."
+  },
+  {
+    "name": "Diverging palette",
+    "slug": "diverging-palette",
+    "category": "color",
+    "definition": "A data palette built from two sequential scales meeting at a neutral midpoint, used when values run above and below a meaningful zero.",
+    "useWhen": "values that run above and below a midpoint",
+    "aliases": [
+      {
+        "name": "diverging scale",
+        "source": "community"
+      },
+      {
+        "name": "bipolar palette",
+        "source": "community"
+      },
+      {
+        "name": "red-white-blue scale",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sequential-palette", "categorical-palette", "color-vision-deficiency"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color palettes for data visualization",
+        "url": "https://colorarchive.org/guides/data-visualization-color-palettes/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Categorical palette",
+    "slug": "categorical-palette",
+    "category": "color",
+    "definition": "A data palette of distinct hues at roughly equal visual weight, used for groups that have no order so no colour reads as larger than another.",
+    "useWhen": "colouring unordered groups without implying rank",
+    "aliases": [
+      {
+        "name": "qualitative palette",
+        "source": "community"
+      },
+      {
+        "name": "categorical scale",
+        "source": "community"
+      },
+      {
+        "name": "series colors",
+        "source": "community"
+      },
+      {
+        "name": "chart colors",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["sequential-palette", "diverging-palette", "color-vision-deficiency", "color-harmony"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Color palettes for data visualization",
+        "url": "https://colorarchive.org/guides/data-visualization-color-palettes/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Color vision deficiency",
+    "slug": "color-vision-deficiency",
+    "category": "accessibility",
+    "definition": "Reduced ability to tell certain hues apart, most often red from green, which makes hue alone an unreliable way to carry meaning for roughly one man in twelve.",
+    "useWhen": "checking a palette against reduced hue discrimination",
+    "aliases": [
+      {
+        "name": "color blindness",
+        "source": "community"
+      },
+      {
+        "name": "deuteranopia",
+        "source": "community"
+      },
+      {
+        "name": "protanopia",
+        "source": "community"
+      },
+      {
+        "name": "tritanopia",
+        "source": "community"
+      },
+      {
+        "name": "CVD",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-alone", "categorical-palette", "contrast-ratio"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Designing for color blindness",
+        "url": "https://colorblind.io/guides/designing-for-color-blindness"
+      }
+    ],
+    "implementations": [],
+    "notes": "Cross-category: recorded as accessibility, surfaced by the colour sweep."
+  },
+  {
+    "name": "Color as the only cue",
+    "slug": "color-alone",
+    "category": "accessibility",
+    "definition": "The failure of carrying meaning in hue with nothing else, so a reader who cannot separate those hues, or is on a monochrome screen, loses the information entirely.",
+    "useWhen": "checking that meaning survives without hue",
+    "aliases": [
+      {
+        "name": "use of color",
+        "source": "wcag"
+      },
+      {
+        "name": "don't rely on color alone",
+        "source": "community"
+      },
+      {
+        "name": "color-only information",
+        "source": "community"
+      },
+      {
+        "name": "greyscale test",
+        "source": "community"
+      },
+      {
+        "name": "grayscale test",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-vision-deficiency", "status-color", "non-text-contrast"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> notes WCAG 2.2 advice against colour as the sole cue",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "wcag",
+        "name": "Understanding SC 1.4.1: Use of Color",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: accessibility. The WCAG URL follows the same pattern as the verified non-text-contrast page but was not fetched this sweep."
+  },
+  {
+    "name": "Non-text contrast",
+    "slug": "non-text-contrast",
+    "category": "accessibility",
+    "definition": "The requirement that controls, focus indicators and meaningful graphics reach 3:1 against what is next to them, which is the rule that governs borders and icons.",
+    "useWhen": "contrast for controls and icons rather than text",
+    "aliases": [
+      {
+        "name": "1.4.11",
+        "source": "wcag"
+      },
+      {
+        "name": "UI component contrast",
+        "source": "community"
+      },
+      {
+        "name": "3:1",
+        "source": "wcag"
+      },
+      {
+        "name": "graphical object contrast",
+        "source": "wcag"
+      }
+    ],
+    "relatedSlugs": ["contrast-ratio", "color-alone", "apca"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Understanding Success Criterion 1.4.11: Non-text Contrast",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "wcag",
+        "name": "Non-text Contrast",
+        "url": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: accessibility. Kept separate from contrast-ratio because the 3:1 threshold for controls is what people get wrong."
+  },
+  {
+    "name": "Vibrancy",
+    "slug": "vibrancy",
+    "category": "color",
+    "definition": "Apple's treatment where foreground colour samples the blurred content behind a material, so labels on a translucent panel shift with whatever they cover.",
+    "useWhen": "foreground colour that reacts to the blur behind it",
+    "aliases": [
+      {
+        "name": "vibrant material",
+        "source": "hig"
+      },
+      {
+        "name": "translucency",
+        "source": "hig"
+      },
+      {
+        "name": "materials",
+        "source": "hig"
+      },
+      {
+        "name": "frosted glass",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["glassmorphism", "blend-mode", "alpha-channel", "scrim"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple HIG: Dark Mode (vibrancy and materials)",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/dark-mode"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "vibrancy",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/dark-mode",
+        "verified": true
+      }
+    ],
+    "notes": "Related to the existing glassmorphism entry; vibrancy is the platform mechanism, glassmorphism is the aesthetic."
+  },
+  {
+    "name": "Emphasis level",
+    "slug": "emphasis-level",
+    "category": "color",
+    "definition": "A hierarchy expressed by lowering the opacity of one foreground colour rather than by choosing different colours, giving high, medium and disabled text one source.",
+    "useWhen": "ranking text by opacity instead of by separate colours",
+    "aliases": [
+      {
+        "name": "high emphasis",
+        "source": "material"
+      },
+      {
+        "name": "medium emphasis",
+        "source": "material"
+      },
+      {
+        "name": "disabled emphasis",
+        "source": "material"
+      },
+      {
+        "name": "text opacity",
+        "source": "community"
+      },
+      {
+        "name": "secondary text",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["opacity", "on-color", "color-role", "contrast-ratio"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material: states and emphasis",
+        "url": "https://m2.material.io/go/design-states/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "emphasis levels",
+        "url": "https://m2.material.io/go/design-states/",
+        "verified": true
+      }
+    ],
+    "notes": "Material 3 moved to explicit on-surface-variant roles instead; the entry should note the opacity approach can quietly fail contrast."
+  },
+  {
+    "name": "Selection color",
+    "slug": "selection-color",
+    "category": "color",
+    "definition": "The highlight painted behind text a reader has selected, which a page can restyle and thereby break the contrast the operating system had guaranteed.",
+    "useWhen": "styling the highlight behind selected text",
+    "aliases": [
+      {
+        "name": "::selection",
+        "source": "css"
+      },
+      {
+        "name": "highlight color",
+        "source": "community"
+      },
+      {
+        "name": "text selection background",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["system-color-keyword", "accent-color", "contrast-ratio"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: <color> CSS type (Highlight system colors)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Highlight / HighlightText",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Scrollbar color",
+    "slug": "scrollbar-color",
+    "category": "color",
+    "definition": "The thumb and track colours of a scrollbar, which a page can set explicitly or leave to the declared colour scheme so the browser draws its own dark variant.",
+    "useWhen": "matching the scrollbar to a dark or branded theme",
+    "aliases": [
+      {
+        "name": "scrollbar-color",
+        "source": "css"
+      },
+      {
+        "name": "scrollbar thumb",
+        "source": "community"
+      },
+      {
+        "name": "custom scrollbar",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-scheme", "dark-mode", "system-color-keyword"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "MDN: scrollbar-color",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-color"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "scrollbar-color",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-color",
+        "verified": true
+      }
+    ],
+    "notes": "Marked iframe: the honest subject is the document scroller, though a scrolling sub-element demo could stay inline."
+  },
+  {
+    "name": "Color theme",
+    "slug": "color-theme",
+    "category": "color",
+    "definition": "A complete named set of colour values a product can swap in whole, so light, dark, high contrast and per-tenant branding are the same mechanism.",
+    "useWhen": "a whole palette swapped as one named set",
+    "aliases": [
+      {
+        "name": "theme",
+        "source": "community"
+      },
+      {
+        "name": "theming",
+        "source": "community"
+      },
+      {
+        "name": "white label",
+        "source": "community"
+      },
+      {
+        "name": "g10, g90, g100",
+        "source": "carbon"
+      },
+      {
+        "name": "skin",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-token", "dark-mode", "color-role", "color-scheme"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Carbon: color usage and themes",
+        "url": "https://carbondesignsystem.com/elements/color/usage/"
+      },
+      {
+        "title": "Radix Themes: color",
+        "url": "https://www.radix-ui.com/themes/docs/theme/color"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "themes (white, g10, g90, g100)",
+        "url": "https://carbondesignsystem.com/elements/color/usage/",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "Theme accentColor / grayColor",
+        "url": "https://www.radix-ui.com/themes/docs/theme/color",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Color alias",
+    "slug": "color-alias",
+    "category": "color",
+    "definition": "A second name pointing at an existing scale so one palette can answer to several meanings, letting yellow serve as both warning and pending without duplication.",
+    "useWhen": "one scale answering to more than one meaning",
+    "aliases": [
+      {
+        "name": "aliasing",
+        "source": "radix"
+      },
+      {
+        "name": "alias token",
+        "source": "community"
+      },
+      {
+        "name": "token reference",
+        "source": "dtcg"
+      },
+      {
+        "name": "semantic alias",
+        "source": "radix"
+      }
+    ],
+    "relatedSlugs": ["semantic-color", "color-token", "primitive-color-token", "status-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Radix Colors: aliasing",
+        "url": "https://www.radix-ui.com/colors/docs/overview/aliasing"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "radix",
+        "name": "Aliasing",
+        "url": "https://www.radix-ui.com/colors/docs/overview/aliasing",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate with semantic-color and primitive-color-token; the three describe one layered system from different angles."
+  },
+  {
+    "name": "Interaction color step",
+    "slug": "interaction-color-step",
+    "category": "color",
+    "definition": "The convention that hover, active and selected are the next steps along the same scale rather than separate colours, so states are derived from one ramp.",
+    "useWhen": "hover and pressed derived from a scale, not picked",
+    "aliases": [
+      {
+        "name": "interactive token",
+        "source": "carbon"
+      },
+      {
+        "name": "hover token",
+        "source": "community"
+      },
+      {
+        "name": "half step",
+        "source": "carbon"
+      },
+      {
+        "name": "hovered UI element background",
+        "source": "radix"
+      }
+    ],
+    "relatedSlugs": ["color-ramp", "state-layer", "color-role", "container-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Carbon: color",
+        "url": "https://carbondesignsystem.com/elements/color/overview/"
+      },
+      {
+        "title": "Radix Colors: understanding the scale",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "interaction tokens (half steps)",
+        "url": "https://carbondesignsystem.com/elements/color/overview/",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "steps 4 and 5, hover and active",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+        "verified": true
+      }
+    ],
+    "notes": "Tail gold: the reason a ramp has twelve steps rather than nine. Contrasts with state-layer, which does the same job with opacity."
+  },
+  {
+    "name": "Static color",
+    "slug": "static-color",
+    "category": "color",
+    "definition": "A colour deliberately excluded from theming because it sits on something that never changes, such as a label over a photo or a fixed brand mark.",
+    "useWhen": "a colour that must not flip with the theme",
+    "aliases": [
+      {
+        "name": "static color palette",
+        "source": "spectrum"
+      },
+      {
+        "name": "fixed color",
+        "source": "material"
+      },
+      {
+        "name": "theme-independent color",
+        "source": "community"
+      },
+      {
+        "name": "always white",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["color-theme", "scrim", "color-role", "dark-mode"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Spectrum: color system",
+        "url": "https://spectrum.adobe.com/page/color-system/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "spectrum",
+        "name": "static colors",
+        "url": "https://spectrum.adobe.com/page/color-system/",
+        "verified": true
+      }
+    ],
+    "notes": "Material has the parallel idea in its fixed colour roles (primary fixed, on primary fixed)."
+  },
+  {
+    "name": "Outline color",
+    "slug": "outline-color",
+    "category": "color",
+    "definition": "The role that draws boundaries, split into a stronger value for edges that must be seen and a weaker one for dividers that only need to hint at structure.",
+    "useWhen": "the colour of borders and dividers as a named role",
+    "aliases": [
+      {
+        "name": "outline variant",
+        "source": "material"
+      },
+      {
+        "name": "border token",
+        "source": "polaris"
+      },
+      {
+        "name": "divider color",
+        "source": "community"
+      },
+      {
+        "name": "subtle borders and separators",
+        "source": "radix"
+      }
+    ],
+    "relatedSlugs": ["color-role", "non-text-contrast", "surface-color"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: color roles",
+        "url": "https://m3.material.io/styles/color/roles"
+      },
+      {
+        "title": "Radix Colors: understanding the scale",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Outline, Outline variant",
+        "url": "https://m3.material.io/styles/color/roles",
+        "verified": true
+      },
+      {
+        "systemId": "radix",
+        "name": "steps 6 to 8, borders and focus rings",
+        "url": "https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale",
+        "verified": true
+      }
+    ]
+  }
+]

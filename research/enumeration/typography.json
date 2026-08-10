@@ -1,0 +1,2591 @@
+[
+  {
+    "name": "Baseline",
+    "slug": "baseline",
+    "category": "typography",
+    "definition": "The invisible line that most letters sit on, and the line every other vertical type metric is measured from.",
+    "useWhen": "aligning text with an icon or another line of text",
+    "aliases": [{ "name": "alphabetic baseline", "source": "css" }, { "name": "text baseline" }],
+    "relatedSlugs": ["x-height", "cap-height", "baseline-grid", "text-box-trim", "leading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" },
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "vertical-align / baseline alignment",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ],
+    "notes": "Anchor term for the whole metrics cluster."
+  },
+  {
+    "name": "X-height",
+    "slug": "x-height",
+    "category": "typography",
+    "definition": "The height of a lowercase x in a typeface, measured from the baseline, which is what makes two fonts at the same point size look different sizes.",
+    "useWhen": "explaining why two fonts at the same size look different",
+    "aliases": [{ "name": "x height" }, { "name": "lowercase height" }, { "name": "mean line" }],
+    "relatedSlugs": ["cap-height", "baseline", "font-metric-override", "optical-size"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "X-height (Wikipedia)", "url": "https://en.wikipedia.org/wiki/X-height" },
+      { "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "ex unit / font-size-adjust",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Cap height",
+    "slug": "cap-height",
+    "category": "typography",
+    "definition": "The height of a capital letter measured from the baseline, and the edge designers usually mean when they say text should line up flush.",
+    "useWhen": "aligning a heading optically instead of by its box",
+    "aliases": [{ "name": "capital height" }, { "name": "cap-height baseline", "source": "css" }],
+    "relatedSlugs": ["x-height", "baseline", "text-box-trim", "half-leading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-box-edge: cap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Ascender",
+    "slug": "ascender",
+    "category": "typography",
+    "definition": "The part of a lowercase letter such as b, d, or h that rises above the x-height.",
+    "useWhen": "naming the strokes that reach above lowercase height",
+    "aliases": [{ "name": "ascender line" }, { "name": "ascent", "source": "css" }],
+    "relatedSlugs": ["descender", "x-height", "font-metric-override"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Ascender (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Ascender_(typography)" },
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "ascent-override",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Descender",
+    "slug": "descender",
+    "category": "typography",
+    "definition": "The part of a letter such as g, j, p, or y that drops below the baseline.",
+    "useWhen": "naming the strokes that hang below the baseline",
+    "aliases": [{ "name": "descender line" }, { "name": "descent", "source": "css" }],
+    "relatedSlugs": ["ascender", "baseline", "font-metric-override", "half-leading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Descender (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Descender" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "descent-override",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Counter",
+    "slug": "counter",
+    "category": "typography",
+    "definition": "The fully enclosed white space inside a letter such as o, b, or the upper bowl of an a.",
+    "useWhen": "describing the hole inside a letterform",
+    "aliases": [{ "name": "closed counter" }, { "name": "bowl" }],
+    "relatedSlugs": ["aperture", "legibility"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }],
+    "implementations": []
+  },
+  {
+    "name": "Aperture",
+    "slug": "aperture",
+    "category": "typography",
+    "definition": "The partly enclosed opening in a letter such as the gap at the bottom of a lowercase e or the mouth of a c.",
+    "useWhen": "explaining why one sans feels more legible at small sizes",
+    "aliases": [{ "name": "open counter" }, { "name": "letter opening" }],
+    "relatedSlugs": ["counter", "legibility", "optical-size"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" },
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Overshoot",
+    "slug": "overshoot",
+    "category": "typography",
+    "definition": "The tiny amount by which round and pointed letters extend past the baseline or cap line so they look the same size as flat ones.",
+    "useWhen": "explaining why a circle must be drawn larger than a square",
+    "aliases": [{ "name": "optical overshoot" }, { "name": "round letter overhang" }],
+    "relatedSlugs": ["baseline", "cap-height", "hanging-punctuation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }],
+    "implementations": [],
+    "notes": "Same optical-correction idea an icon designer applies to circular glyphs; possible seeAlso into an icon term."
+  },
+  {
+    "name": "Ink trap",
+    "slug": "ink-trap",
+    "category": "typography",
+    "definition": "A notch cut out of a letter's inside corners so spreading ink or blurring pixels do not fill the joint solid.",
+    "useWhen": "naming the cut-out notches in a display typeface",
+    "aliases": [{ "name": "ink traps" }, { "name": "trap" }],
+    "relatedSlugs": ["optical-size", "legibility"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Ink trap (Typography.Guru)", "url": "https://typography.guru/term/ink-trap-r64/" },
+      { "title": "Ink trap (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Ink_trap" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Tittle",
+    "slug": "tittle",
+    "category": "typography",
+    "definition": "The dot above a lowercase i or j.",
+    "useWhen": "you need the word for the dot on an i",
+    "aliases": [{ "name": "the dot on the i" }, { "name": "superscript dot" }],
+    "relatedSlugs": ["glyph", "ascender"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" },
+      { "title": "Weird Glyphs (Pangram Pangram)", "url": "https://pangrampangram.com/blogs/journal/weird-glyphs" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Half-leading",
+    "slug": "half-leading",
+    "category": "typography",
+    "definition": "The empty space a browser splits evenly above and below a line of text when line height exceeds the font's own height, which is why text boxes never sit flush.",
+    "useWhen": "explaining the mystery padding around a line of text",
+    "aliases": [{ "name": "leading space" }, { "name": "line box padding" }, { "name": "half leading" }],
+    "relatedSlugs": ["text-box-trim", "leading", "cap-height", "baseline"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Leading-Trim: The Future of Digital Typesetting",
+        "url": "https://medium.com/microsoft-design/leading-trim-the-future-of-digital-typesetting-d082d84b202"
+      },
+      { "title": "CSS text-box-trim (Chrome for Developers)", "url": "https://developer.chrome.com/blog/css-text-box-trim" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Text box trim",
+    "slug": "text-box-trim",
+    "category": "typography",
+    "definition": "Cutting the leftover space above and below a line of text so the box hugs the cap height and baseline instead of the font's full ascent and descent.",
+    "useWhen": "you want a label's box to match the letters, not the font",
+    "aliases": [
+      { "name": "leading-trim", "source": "community" },
+      { "name": "leading trim" },
+      { "name": "text-box-edge", "source": "css" },
+      { "name": "capsize", "source": "community" },
+      { "name": "cap height trimming" }
+    ],
+    "relatedSlugs": ["half-leading", "cap-height", "baseline", "leading"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "CSS text-box-trim (Chrome for Developers)", "url": "https://developer.chrome.com/blog/css-text-box-trim" },
+      { "title": "text-box-trim (CSS-Tricks Almanac)", "url": "https://css-tricks.com/almanac/properties/t/text-box-trim/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-box-trim / text-box-edge",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ],
+    "notes": "Strong tail term; the property was renamed from leading-trim, so both spellings are live search queries."
+  },
+  {
+    "name": "Typeface",
+    "slug": "typeface",
+    "category": "typography",
+    "definition": "The designed set of letterforms itself, as distinct from a font, which is one particular file or instance you actually use.",
+    "useWhen": "distinguishing the design from the file",
+    "aliases": [{ "name": "font", "source": "community" }, { "name": "type family" }, { "name": "font family", "source": "css" }],
+    "relatedSlugs": ["glyph", "font-stack", "superfamily", "variable-font"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Font (Google Fonts Knowledge)", "url": "https://fonts.google.com/knowledge/glossary/font" },
+      {
+        "title": "Family, type family, or font family (Google Fonts Knowledge)",
+        "url": "https://fonts.google.com/knowledge/glossary/family_or_type_family_or_font_family"
+      }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-family", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ],
+    "notes": "Typeface vs font is the classic disambiguation entry; keep them as one term with the other as an alias."
+  },
+  {
+    "name": "Glyph",
+    "slug": "glyph",
+    "category": "typography",
+    "definition": "A single drawn shape in a font, which may be one character, a variant of one, or several characters fused together.",
+    "useWhen": "talking about drawn shapes rather than characters",
+    "aliases": [{ "name": "character" }, { "name": "letterform" }],
+    "relatedSlugs": ["ligature", "tofu", "stylistic-set", "typeface"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" },
+      { "title": "Letters (Google Fonts Knowledge)", "url": "https://fonts.google.com/knowledge/glossary/letters" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Serif",
+    "slug": "serif",
+    "category": "typography",
+    "definition": "The small finishing stroke at the end of a letter's stem, and by extension the class of typefaces that have them.",
+    "useWhen": "naming the little feet on the ends of strokes",
+    "aliases": [{ "name": "serif font" }, { "name": "roman", "source": "community" }, { "name": "bracketed serif" }],
+    "relatedSlugs": ["sans-serif", "typeface", "font-pairing"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" },
+      { "title": "Classification (Google Fonts Knowledge)", "url": "https://fonts.google.com/knowledge/glossary/classification" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "serif generic family",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Sans-serif",
+    "slug": "sans-serif",
+    "category": "typography",
+    "definition": "A typeface drawn without finishing strokes on the ends of its stems, which is the default register of most interface type.",
+    "useWhen": "naming type without finishing strokes",
+    "aliases": [{ "name": "sans" }, { "name": "grotesque", "source": "community" }, { "name": "gothic", "source": "community" }],
+    "relatedSlugs": ["serif", "typeface", "system-font"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "sans-serif generic family",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ],
+    "notes": "Classification families (grotesque, neo-grotesque, humanist, geometric, slab) are a possible sub-cluster if the taxonomy wants them."
+  },
+  {
+    "name": "Monospace",
+    "slug": "monospace",
+    "category": "typography",
+    "definition": "A typeface in which every character occupies the same horizontal width, so characters stack into columns down the page.",
+    "useWhen": "code, terminals, or anything that must line up in columns",
+    "aliases": [{ "name": "monospaced" }, { "name": "fixed-width font" }, { "name": "typewriter font" }, { "name": "code font" }],
+    "relatedSlugs": ["tabular-figures", "typeface", "ch-unit"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Monospaced (Google Fonts Knowledge)", "url": "https://fonts.google.com/knowledge/glossary/monospaced" },
+      { "title": "Monospaced fonts (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "monospace generic family",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Superfamily",
+    "slug": "superfamily",
+    "category": "typography",
+    "definition": "A type system whose serif, sans, and sometimes mono members share one skeleton, so they pair by construction rather than by taste.",
+    "useWhen": "picking two typefaces that are guaranteed to agree",
+    "aliases": [{ "name": "super family" }, { "name": "type system", "source": "community" }, { "name": "matched family" }],
+    "relatedSlugs": ["font-pairing", "typeface", "variable-font"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "How to Pair Fonts (Pangram Pangram)", "url": "https://pangrampangram.com/blogs/journal/how-to-pair-fonts" }],
+    "implementations": []
+  },
+  {
+    "name": "Font pairing",
+    "slug": "font-pairing",
+    "category": "typography",
+    "definition": "Choosing two or more typefaces that work together, usually one expressive and one neutral, with enough contrast to read as a deliberate choice.",
+    "useWhen": "deciding which two typefaces to run together",
+    "aliases": [{ "name": "type pairing" }, { "name": "font combination" }, { "name": "typeface pairing" }],
+    "relatedSlugs": ["superfamily", "typographic-hierarchy", "type-scale"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Three secrets to font pairing (Adobe Design)", "url": "https://adobe.design/ideas/three-secrets-to-font-pairing" },
+      { "title": "Mixing fonts (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Type specimen",
+    "slug": "type-specimen",
+    "category": "typography",
+    "definition": "A display of a typeface's characters, sizes, and styles made to show what the face can do rather than to communicate the text itself.",
+    "useWhen": "showing off a typeface rather than using it",
+    "aliases": [{ "name": "specimen sheet" }, { "name": "font specimen" }, { "name": "type sample" }],
+    "relatedSlugs": ["pangram", "typeface", "lorem-ipsum"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "How to Pair Fonts (Pangram Pangram)", "url": "https://pangrampangram.com/blogs/journal/how-to-pair-fonts" }],
+    "implementations": []
+  },
+  {
+    "name": "Pangram",
+    "slug": "pangram",
+    "category": "typography",
+    "definition": "A sentence that uses every letter of the alphabet at least once, used to show a whole character set in one line.",
+    "useWhen": "you need one line that shows every letter",
+    "aliases": [{ "name": "the quick brown fox" }, { "name": "alphabet sentence" }],
+    "relatedSlugs": ["type-specimen", "lorem-ipsum"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Typeface (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Typeface_families" }],
+    "implementations": []
+  },
+  {
+    "name": "Lorem ipsum",
+    "slug": "lorem-ipsum",
+    "category": "typography",
+    "definition": "Scrambled pseudo-Latin placeholder text used so a layout can be judged on its shape and texture before the real copy exists.",
+    "useWhen": "filling a layout before the copy is written",
+    "aliases": [{ "name": "greeking" }, { "name": "dummy text" }, { "name": "placeholder text" }, { "name": "filler text" }],
+    "relatedSlugs": ["typographic-color", "type-specimen"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Lorem ipsum (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Lorem_ipsum" }],
+    "implementations": [],
+    "notes": "Greeking is the broader practice; lorem ipsum is the specific text and the far more common search query."
+  },
+  {
+    "name": "Type scale",
+    "slug": "type-scale",
+    "category": "typography",
+    "definition": "The fixed set of text sizes a design allows, chosen so sizes relate to each other rather than being picked one at a time.",
+    "useWhen": "deciding what sizes are allowed to exist at all",
+    "aliases": [
+      { "name": "type ramp", "source": "fluent" },
+      { "name": "typescale", "source": "material" },
+      { "name": "type sets", "source": "carbon" },
+      { "name": "text styles", "source": "hig" },
+      { "name": "font size scale" }
+    ],
+    "relatedSlugs": ["modular-scale", "fluid-typography", "typographic-hierarchy", "typography-token"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Typography (Fluent 2)", "url": "https://fluent2.microsoft.design/typography" },
+      { "title": "Type sets (Carbon Design System)", "url": "https://carbondesignsystem.com/guidelines/typography/type-sets/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Type scale",
+        "url": "https://m3.material.io/styles/typography/type-scale-tokens",
+        "verified": true
+      },
+      { "systemId": "fluent", "name": "Type ramp", "url": "https://fluent2.microsoft.design/typography", "verified": true },
+      {
+        "systemId": "carbon",
+        "name": "Type sets",
+        "url": "https://carbondesignsystem.com/guidelines/typography/type-sets/",
+        "verified": true
+      },
+      {
+        "systemId": "polaris",
+        "name": "Font and typescale",
+        "url": "https://polaris-react.shopify.com/design/typography/font-and-typescale",
+        "verified": true
+      },
+      {
+        "systemId": "hig",
+        "name": "Typography (text styles)",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Modular scale",
+    "slug": "modular-scale",
+    "category": "typography",
+    "definition": "A type scale generated by multiplying a base size by a fixed ratio, so every step is proportionally related to the one before it.",
+    "useWhen": "generating sizes from a ratio instead of picking them",
+    "aliases": [{ "name": "ratio-based type scale" }, { "name": "major third scale" }, { "name": "perfect fourth scale" }],
+    "relatedSlugs": ["type-scale", "vertical-rhythm", "fluid-typography"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "What the Font are Vertical Rhythm and Modular Scale?",
+        "url": "https://www.bounteous.com/insights/2018/03/26/what-font-are-vertical-rhythm-and-modular-scale/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "Major third type scale (ratio 1.2)",
+        "url": "https://polaris-react.shopify.com/design/typography/font-and-typescale",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Fluid typography",
+    "slug": "fluid-typography",
+    "category": "typography",
+    "definition": "Type sizes that scale continuously with the viewport between a minimum and a maximum, rather than jumping at breakpoints.",
+    "useWhen": "sizing text across screens without breakpoints",
+    "aliases": [
+      { "name": "fluid type scale" },
+      { "name": "clamp typography", "source": "css" },
+      { "name": "responsive type" },
+      { "name": "fluid heading styles", "source": "carbon" }
+    ],
+    "relatedSlugs": ["type-scale", "modular-scale", "dynamic-type"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Fluid Typography (CSS-Tricks)", "url": "https://css-tricks.com/snippets/css/fluid-typography/" },
+      {
+        "title": "Creating a Fluid Type Scale (Modern CSS)",
+        "url": "https://moderncss.dev/generating-font-size-css-rules-and-creating-a-fluid-type-scale/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Fluid heading styles",
+        "url": "https://carbondesignsystem.com/guidelines/typography/type-sets/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Typographic hierarchy",
+    "slug": "typographic-hierarchy",
+    "category": "typography",
+    "definition": "The ordering of text by visual weight so a reader can tell at a glance what is a title, what is body, and what is a caption.",
+    "useWhen": "making importance readable without reading",
+    "aliases": [{ "name": "type hierarchy" }, { "name": "visual hierarchy of text" }, { "name": "heading hierarchy" }],
+    "relatedSlugs": ["type-scale", "eyebrow", "font-weight", "all-caps"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Hierarchical headings (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Typography (Fluent 2)", "url": "https://fluent2.microsoft.design/typography" }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Type roles: display, headline, title, body, label",
+        "url": "https://m3.material.io/styles/typography/type-scale-tokens",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Typography token",
+    "slug": "typography-token",
+    "category": "typography",
+    "definition": "A named bundle of type values (family, size, weight, line height, tracking) that a design system hands out instead of raw numbers.",
+    "useWhen": "naming a text style so it can be reused and themed",
+    "aliases": [
+      { "name": "text style", "source": "hig" },
+      { "name": "type token" },
+      { "name": "type style" },
+      { "name": "font token" },
+      { "name": "typography role", "source": "material" }
+    ],
+    "relatedSlugs": ["type-scale", "typographic-hierarchy"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [{ "title": "Design tokens (Fluent 2)", "url": "https://fluent2.microsoft.design/design-tokens" }],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "Font tokens (--p-font-size-100)",
+        "url": "https://polaris-react.shopify.com/design/typography/font-and-typescale",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Type scale tokens",
+        "url": "https://m3.material.io/styles/typography/type-scale-tokens",
+        "verified": true
+      }
+    ],
+    "notes": "Sits at the border of typography and a future design-token cluster; merge candidate with any generic design-token entry."
+  },
+  {
+    "name": "Baseline grid",
+    "slug": "baseline-grid",
+    "category": "typography",
+    "definition": "A repeating horizontal grid that every line of text sits on, so text in separate columns or cards lines up across the layout.",
+    "useWhen": "making text in separate columns line up across a page",
+    "aliases": [
+      { "name": "typographic grid" },
+      { "name": "4px baseline grid", "source": "community" },
+      { "name": "8pt grid", "source": "community" }
+    ],
+    "relatedSlugs": ["vertical-rhythm", "baseline", "leading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Designing with 4px/8px baseline grids", "url": "https://richmcnabb.com/designing-with-4px-8px-baseline-grids/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "polaris",
+        "name": "Line heights aligned to the 4px grid",
+        "url": "https://polaris-react.shopify.com/design/typography/font-and-typescale",
+        "verified": true
+      }
+    ],
+    "notes": "Could arguably be category layout; kept in typography because the grid unit is the line of text."
+  },
+  {
+    "name": "Vertical rhythm",
+    "slug": "vertical-rhythm",
+    "category": "typography",
+    "definition": "Spacing every block of text by multiples of one line height so the page keeps an even beat from top to bottom.",
+    "useWhen": "spacing paragraphs and headings by one consistent unit",
+    "aliases": [{ "name": "typographic rhythm" }, { "name": "baseline rhythm" }],
+    "relatedSlugs": ["baseline-grid", "modular-scale", "leading"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "What the Font are Vertical Rhythm and Modular Scale?",
+        "url": "https://www.bounteous.com/insights/2018/03/26/what-font-are-vertical-rhythm-and-modular-scale/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Point size",
+    "slug": "point-size",
+    "category": "typography",
+    "definition": "The nominal size of type, measured in points, which describes the body the letters are drawn on rather than the height of any letter.",
+    "useWhen": "explaining why 16pt in two fonts looks different",
+    "aliases": [{ "name": "font size" }, { "name": "type size" }, { "name": "pt", "source": "css" }],
+    "relatedSlugs": ["em-unit", "x-height", "type-scale", "optical-size"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Point size (Monotype glossary)", "url": "https://www.monotype.com/resources/typographic-terms" },
+      { "title": "Point size (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-size", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ]
+  },
+  {
+    "name": "Em",
+    "slug": "em-unit",
+    "category": "typography",
+    "definition": "A relative unit equal to the current font size, historically the width of the square the letter m was cast on.",
+    "useWhen": "sizing something relative to the text it sits in",
+    "aliases": [{ "name": "em unit" }, { "name": "em square" }, { "name": "em quad" }, { "name": "rem", "source": "css" }],
+    "relatedSlugs": ["point-size", "ch-unit", "em-dash", "en-dash"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Em sizing (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "em / rem length units",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ],
+    "notes": "rem is close enough that it may deserve its own entry during canonicalize."
+  },
+  {
+    "name": "Ch unit",
+    "slug": "ch-unit",
+    "category": "typography",
+    "definition": "A CSS length equal to the advance width of the digit zero in the current font, used to set column widths in characters rather than pixels.",
+    "useWhen": "setting a column width in characters, not pixels",
+    "aliases": [{ "name": "character unit", "source": "css" }, { "name": "ch", "source": "css" }, { "name": "character width unit" }],
+    "relatedSlugs": ["measure", "monospace", "em-unit"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Line Length (Measure)", "url": "https://kweri.app/learn/line-length-measure" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "ch length unit",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Measure",
+    "slug": "measure",
+    "category": "typography",
+    "definition": "The width of a column of text, judged in characters per line, with roughly 45 to 75 treated as the comfortable range for reading.",
+    "useWhen": "deciding how wide a paragraph is allowed to get",
+    "aliases": [{ "name": "line length" }, { "name": "column width" }, { "name": "characters per line" }, { "name": "CPL" }],
+    "relatedSlugs": ["ch-unit", "readability", "rag", "justified-text"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Choose a comfortable measure (Elements of Typographic Style Applied to the Web)",
+        "url": "http://webtypography.net/2.1.2"
+      },
+      { "title": "Readability: The Optimal Line Length (Baymard)", "url": "https://baymard.com/blog/line-length-readability" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Rag",
+    "slug": "rag",
+    "category": "typography",
+    "definition": "The uneven edge left by unjustified text, and the thing typographers tune so that edge makes no distracting shapes down the side of a paragraph.",
+    "useWhen": "critiquing the uneven edge of a paragraph",
+    "aliases": [{ "name": "ragged right" }, { "name": "ragged edge" }, { "name": "flush left ragged right" }, { "name": "rag right" }],
+    "relatedSlugs": ["justified-text", "river", "measure", "text-balancing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Typography glossary terms", "url": "https://weirdwolf.agency/design-glossary-terms-typography/" },
+      { "title": "Justified text (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-align: left / start",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "River",
+    "slug": "river",
+    "category": "typography",
+    "definition": "An accidental channel of white space running down a paragraph where word spaces on consecutive lines happen to line up.",
+    "useWhen": "naming the white streak running down a paragraph",
+    "aliases": [{ "name": "rivers of white" }, { "name": "river of white space" }],
+    "relatedSlugs": ["justified-text", "word-spacing", "typographic-color", "rag"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "River (Wikipedia)", "url": "https://en.wikipedia.org/wiki/River_(typography)" }],
+    "implementations": []
+  },
+  {
+    "name": "Widow",
+    "slug": "widow",
+    "category": "typography",
+    "definition": "A short last line of a paragraph, often a single word, stranded at the top of the next column or page.",
+    "useWhen": "naming a stranded last line at the top of a column",
+    "aliases": [{ "name": "typographic widow" }, { "name": "widow line" }],
+    "relatedSlugs": ["orphan", "runt", "text-balancing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "An end to typographic widows on the web (Clagnut)", "url": "https://clagnut.com/blog/2424" },
+      { "title": "Widow and orphan control (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "widows", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text", "verified": true }
+    ],
+    "notes": "Widow and orphan are defined in opposite directions by different sources; the entry has to say so."
+  },
+  {
+    "name": "Orphan",
+    "slug": "orphan",
+    "category": "typography",
+    "definition": "A first line of a paragraph left alone at the bottom of a column or page, with the rest of the paragraph carried over.",
+    "useWhen": "naming a first line left behind at the bottom of a column",
+    "aliases": [{ "name": "orphan line" }, { "name": "orphaned line" }],
+    "relatedSlugs": ["widow", "runt", "text-balancing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" }],
+    "implementations": [
+      { "systemId": "mdn", "name": "orphans", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text", "verified": true }
+    ]
+  },
+  {
+    "name": "Runt",
+    "slug": "runt",
+    "category": "typography",
+    "definition": "A single word left alone on the last line of a paragraph or heading.",
+    "useWhen": "naming the lone word on a heading's last line",
+    "aliases": [{ "name": "lonely word" }, { "name": "hanging word" }, { "name": "widow", "source": "community" }],
+    "relatedSlugs": ["widow", "text-balancing", "non-breaking-space"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "An end to typographic widows on the web (Clagnut)", "url": "https://clagnut.com/blog/2424" },
+      { "title": "text-wrap balance vs pretty (LogRocket)", "url": "https://blog.logrocket.com/css-text-wrap-balance-vs-text-wrap-pretty/" }
+    ],
+    "implementations": [],
+    "notes": "Casually called a widow by most web designers; strong disambiguation entry against widow and orphan."
+  },
+  {
+    "name": "Justified text",
+    "slug": "justified-text",
+    "category": "typography",
+    "definition": "Text set so both edges of the column are flush, achieved by stretching or squeezing the spaces between words on each line.",
+    "useWhen": "you want both edges of a column flush",
+    "aliases": [
+      { "name": "justification" },
+      { "name": "full justification" },
+      { "name": "flush left and right" },
+      { "name": "text-align: justify", "source": "css" }
+    ],
+    "relatedSlugs": ["rag", "river", "hyphenation", "word-spacing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Justified text (Practical Typography)", "url": "https://practicaltypography.com/" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-align: justify / text-justify",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Hyphenation",
+    "slug": "hyphenation",
+    "category": "typography",
+    "definition": "Breaking a word across two lines at a syllable boundary so lines fill more evenly, marked with a hyphen at the break.",
+    "useWhen": "keeping narrow columns from tearing open",
+    "aliases": [{ "name": "auto-hyphenation" }, { "name": "word breaking" }, { "name": "hyphens", "source": "css" }],
+    "relatedSlugs": ["soft-hyphen", "justified-text", "hyphenation-ladder", "word-break"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Hyphenation (Practical Typography)", "url": "https://practicaltypography.com/" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "hyphens / hyphenate-limit-chars",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      },
+      { "systemId": "tailwind", "name": "hyphens", "url": "https://tailwindcss.com/docs/hyphens", "verified": true }
+    ]
+  },
+  {
+    "name": "Hyphenation ladder",
+    "slug": "hyphenation-ladder",
+    "category": "typography",
+    "definition": "Three or more consecutive lines ending in a hyphen, which builds a visible staircase down the right edge of a column.",
+    "useWhen": "naming a stack of hyphens down a column edge",
+    "aliases": [{ "name": "ladder" }, { "name": "stacked hyphens" }, { "name": "hyphen stack" }],
+    "relatedSlugs": ["hyphenation", "rag", "river"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Hyphenation (Practical Typography)", "url": "https://practicaltypography.com/" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "hyphenate-limit-lines (unsupported)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Hanging punctuation",
+    "slug": "hanging-punctuation",
+    "category": "typography",
+    "definition": "Letting quotes, hyphens, and other light marks sit outside the text column so the edge of the text reads as straight to the eye.",
+    "useWhen": "a quote mark makes the left edge look dented",
+    "aliases": [
+      { "name": "optical margin alignment", "source": "indesign" },
+      { "name": "hung punctuation" },
+      { "name": "hanging quotes" },
+      { "name": "optical alignment" }
+    ],
+    "relatedSlugs": ["overshoot", "smart-quotes", "pull-quote", "measure"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Optical Margin Alignment in InDesign (Fonts.com)",
+        "url": "https://www.myfonts.com/pages/fontscom-learning-fyti-using-type-tools-optical-margin-alignment-in-indesign/"
+      },
+      {
+        "title": "Hung Punctuation and Optical Margin Alignment (CreativePro)",
+        "url": "https://creativepro.com/typetalk-hung-punctuation-optical-margin-alignment/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "hanging-punctuation",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ],
+    "notes": "Merge candidate: optical margin alignment is InDesign's name for the same effect and should stay an alias, not a term."
+  },
+  {
+    "name": "Text balancing",
+    "slug": "text-balancing",
+    "category": "typography",
+    "definition": "Choosing line breaks so a short block of text has lines of roughly equal length instead of a long first line and a stub second one.",
+    "useWhen": "a two line heading breaks badly",
+    "aliases": [
+      { "name": "balanced text", "source": "css" },
+      { "name": "text-wrap: balance", "source": "css" },
+      { "name": "text-wrap: pretty", "source": "css" },
+      { "name": "text balance", "source": "tailwind" },
+      { "name": "headline balancing" }
+    ],
+    "relatedSlugs": ["runt", "widow", "rag", "non-breaking-space"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "text-wrap (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap" },
+      {
+        "title": "When to use text-wrap: balance vs pretty (LogRocket)",
+        "url": "https://blog.logrocket.com/css-text-wrap-balance-vs-text-wrap-pretty/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-wrap: balance / pretty",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap",
+        "verified": true
+      }
+    ],
+    "notes": "balance and pretty solve different problems (even lines vs no stranded last word); canonicalize may want to split them."
+  },
+  {
+    "name": "First-line indent",
+    "slug": "first-line-indent",
+    "category": "typography",
+    "definition": "Indenting the opening line of a paragraph so the start of each paragraph is visible without a blank line between them.",
+    "useWhen": "marking new paragraphs without adding space",
+    "aliases": [{ "name": "paragraph indent" }, { "name": "text-indent", "source": "css" }, { "name": "indent" }],
+    "relatedSlugs": ["hanging-indent", "drop-cap", "vertical-rhythm"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "First-line indents (Practical Typography)", "url": "https://practicaltypography.com/" }],
+    "implementations": [
+      { "systemId": "mdn", "name": "text-indent", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text", "verified": true }
+    ]
+  },
+  {
+    "name": "Hanging indent",
+    "slug": "hanging-indent",
+    "category": "typography",
+    "definition": "A paragraph whose first line starts further left than the rest, so the following lines are indented under it.",
+    "useWhen": "setting bibliographies, definitions, or list labels",
+    "aliases": [{ "name": "outdent" }, { "name": "negative indent" }, { "name": "reverse indent" }],
+    "relatedSlugs": ["first-line-indent", "hanging-punctuation"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "negative text-indent",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Typographic color",
+    "slug": "typographic-color",
+    "category": "typography",
+    "definition": "The overall lightness or darkness a block of text produces when you stop reading it and look at it as a grey texture.",
+    "useWhen": "judging a paragraph as texture rather than words",
+    "aliases": [{ "name": "type color" }, { "name": "grey value" }, { "name": "gray value" }, { "name": "page texture" }],
+    "relatedSlugs": ["river", "leading", "tracking", "font-weight"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Color (Practical Typography)", "url": "https://practicaltypography.com/color.html" }],
+    "implementations": [],
+    "notes": "Cross-category trap: the word color here has nothing to do with the color category. Worth a contrastWith into semantic-color."
+  },
+  {
+    "name": "Word spacing",
+    "slug": "word-spacing",
+    "category": "typography",
+    "definition": "The width of the gaps between words, which justification stretches and which, set too wide, opens rivers down a paragraph.",
+    "useWhen": "the gaps between words, not between letters",
+    "aliases": [{ "name": "word space" }, { "name": "interword spacing" }, { "name": "word-spacing", "source": "css" }],
+    "relatedSlugs": ["tracking", "justified-text", "river"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Word spaces (Practical Typography)", "url": "https://practicaltypography.com/" }],
+    "implementations": [
+      { "systemId": "mdn", "name": "word-spacing", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text", "verified": true }
+    ]
+  },
+  {
+    "name": "Optical kerning",
+    "slug": "optical-kerning",
+    "category": "typography",
+    "definition": "Letting software space letter pairs by looking at their shapes, instead of using the pair values the type designer built into the font.",
+    "useWhen": "a font's own spacing is unreliable at display size",
+    "aliases": [
+      { "name": "optical spacing" },
+      { "name": "metrics kerning", "source": "adobe" },
+      { "name": "metric kerning" },
+      { "name": "auto kerning" }
+    ],
+    "relatedSlugs": ["kerning", "tracking", "typeface"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Metrics vs. optical spacing (Practical Typography)",
+        "url": "https://practicaltypography.com/metrics-vs-optical-spacing.html"
+      }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-kerning", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ],
+    "notes": "Kerning already exists on the site; this is the metric vs optical distinction, which is a separate question and a separate search."
+  },
+  {
+    "name": "Drop cap",
+    "slug": "drop-cap",
+    "category": "typography",
+    "definition": "An oversized opening letter set into the first lines of a paragraph, marking where the reading starts.",
+    "useWhen": "marking where an article begins",
+    "aliases": [
+      { "name": "dropped capital" },
+      { "name": "initial letter", "source": "css" },
+      { "name": "versal" },
+      { "name": "illuminated capital" }
+    ],
+    "relatedSlugs": ["raised-cap", "first-line-indent", "pull-quote"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "initial-letter (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/initial-letter" },
+      {
+        "title": "How to Use Drop Caps effectively",
+        "url": "https://hyentus.com/blog/how-to-use-drop-caps-effectively-in-editorial-design"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "initial-letter",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/initial-letter",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Raised cap",
+    "slug": "raised-cap",
+    "category": "typography",
+    "definition": "An oversized opening letter that sits on the first line's baseline and rises above the text, rather than sinking into it.",
+    "useWhen": "the big opening letter rises instead of sinking",
+    "aliases": [{ "name": "raised initial" }, { "name": "stick-up cap" }, { "name": "elevated cap" }],
+    "relatedSlugs": ["drop-cap", "initial-letter"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "initial-letter (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/initial-letter" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "initial-letter with sink value",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/initial-letter",
+        "verified": true
+      }
+    ],
+    "notes": "relatedSlugs mentions initial-letter, which is currently an alias of drop-cap rather than a term; resolve in canonicalize."
+  },
+  {
+    "name": "Pull quote",
+    "slug": "pull-quote",
+    "category": "typography",
+    "definition": "A phrase lifted out of an article and set large as a graphic element, to draw a browsing reader into the text.",
+    "useWhen": "advertising a line of the article to a scanner",
+    "aliases": [
+      { "name": "pullquote" },
+      { "name": "callout quote" },
+      { "name": "lift-out quote" },
+      { "name": "block quote", "source": "community" },
+      { "name": "quote", "source": "component-gallery" }
+    ],
+    "relatedSlugs": ["deck", "eyebrow", "drop-cap", "smart-quotes"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Pull Quotes (Fonts.com)", "url": "https://www.myfonts.com/pages/fontscom-learning-fyti-typographic-tips-pull-quotes/" },
+      {
+        "title": "How to Attract Attention With Pull Quotes (CreativePro)",
+        "url": "https://creativepro.com/how-to-attract-attention-pull-quotes/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Eyebrow",
+    "slug": "eyebrow",
+    "category": "typography",
+    "definition": "A short line of text above a heading that says what category or series the content belongs to.",
+    "useWhen": "labelling what kind of thing a heading is",
+    "aliases": [
+      { "name": "kicker" },
+      { "name": "overline", "source": "material" },
+      { "name": "eyebrow heading" },
+      { "name": "pretitle" },
+      { "name": "superhead" }
+    ],
+    "relatedSlugs": ["deck", "typographic-hierarchy", "all-caps"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Eyebrow Typography (Verdigris Design System)", "url": "https://design.verdigris.co/categories/typography/eyebrow" }
+    ],
+    "implementations": [
+      { "systemId": "verdigris", "name": "Eyebrow", "url": "https://design.verdigris.co/categories/typography/eyebrow", "verified": true }
+    ],
+    "notes": "Material's older overline style is the closest design-system equivalent; kept as an alias."
+  },
+  {
+    "name": "Deck",
+    "slug": "deck",
+    "category": "typography",
+    "definition": "The short summary line set between a headline and the body, larger than body text and written to sell the article.",
+    "useWhen": "the summary line under a headline",
+    "aliases": [{ "name": "standfirst" }, { "name": "dek" }, { "name": "subhead" }, { "name": "subtitle" }, { "name": "lede-in" }],
+    "relatedSlugs": ["eyebrow", "pull-quote", "typographic-hierarchy"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Headings in Typography (Uxcel)", "url": "https://uxcel.com/lessons/headings-761" }],
+    "implementations": []
+  },
+  {
+    "name": "Small caps",
+    "slug": "small-caps",
+    "category": "typography",
+    "definition": "Capital letters drawn at roughly lowercase height, with weight adjusted to match, so an abbreviation does not shout inside running text.",
+    "useWhen": "setting acronyms inside body text without shouting",
+    "aliases": [
+      { "name": "smallcaps" },
+      { "name": "SC", "source": "opentype" },
+      { "name": "font-variant-caps: small-caps", "source": "css" }
+    ],
+    "relatedSlugs": ["petite-caps", "all-caps", "faux-bold", "opentype-features"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Small caps (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "OpenType font features (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-caps",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Petite caps",
+    "slug": "petite-caps",
+    "category": "typography",
+    "definition": "Capitals drawn to exactly x-height, shorter than small caps, so they sit flush with the lowercase around them.",
+    "useWhen": "you need caps that match x-height exactly",
+    "aliases": [{ "name": "petite capitals" }, { "name": "pcap", "source": "opentype" }],
+    "relatedSlugs": ["small-caps", "x-height", "opentype-features"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "OpenType font features (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-caps: petite-caps",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "All caps",
+    "slug": "all-caps",
+    "category": "typography",
+    "definition": "Text set entirely in capitals, which reads slower than mixed case because the word's outline shape disappears.",
+    "useWhen": "short labels that must shout, never sentences",
+    "aliases": [
+      { "name": "uppercase" },
+      { "name": "caps" },
+      { "name": "text-transform: uppercase", "source": "css" },
+      { "name": "capitals" }
+    ],
+    "relatedSlugs": ["small-caps", "title-case", "sentence-case", "tracking"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "All caps (Practical Typography)", "url": "https://practicaltypography.com/" },
+      {
+        "title": "Title case vs sentence case in UI",
+        "url": "https://www.everyinteraction.com/articles/title-case-vs-sentence-case-in-ui/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-transform: uppercase",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Title case",
+    "slug": "title-case",
+    "category": "typography",
+    "definition": "Capitalizing the first letter of each significant word in a heading or label, leaving short articles and prepositions lowercase.",
+    "useWhen": "Apple-style headings, buttons, and menu labels",
+    "aliases": [{ "name": "headline case" }, { "name": "capital case" }, { "name": "start case" }],
+    "relatedSlugs": ["sentence-case", "all-caps", "typographic-hierarchy"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Title case capitalization (APA Style)",
+        "url": "https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case"
+      },
+      { "title": "Title case (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Title_case" }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Title-style capitalization",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+        "verified": true
+      },
+      {
+        "systemId": "mdn",
+        "name": "text-transform: capitalize",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Sentence case",
+    "slug": "sentence-case",
+    "category": "typography",
+    "definition": "Capitalizing only the first word of a label or heading, plus any proper nouns, as you would in an ordinary sentence.",
+    "useWhen": "Google-style UI copy and anything meant to be read",
+    "aliases": [{ "name": "sentence-style capitalization", "source": "material" }, { "name": "normal case" }],
+    "relatedSlugs": ["title-case", "all-caps"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Writing style (Carbon Design System)", "url": "https://carbondesignsystem.com/guidelines/content/writing-style/" },
+      {
+        "title": "Title case vs sentence case in UI",
+        "url": "https://www.everyinteraction.com/articles/title-case-vs-sentence-case-in-ui/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Sentence case",
+        "url": "https://carbondesignsystem.com/guidelines/content/writing-style/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Italic",
+    "slug": "italic",
+    "category": "typography",
+    "definition": "A companion style with letterforms redrawn on a cursive model, not merely slanted, used for emphasis and titles.",
+    "useWhen": "emphasis inside running text",
+    "aliases": [{ "name": "cursive" }, { "name": "font-style: italic", "source": "css" }, { "name": "ital axis", "source": "opentype" }],
+    "relatedSlugs": ["oblique", "faux-bold", "font-weight", "variation-axis"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Bold or italic (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-style: italic",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Oblique",
+    "slug": "oblique",
+    "category": "typography",
+    "definition": "An upright typeface slanted to the right without redrawing its letters, which is why it lacks the cursive forms a true italic has.",
+    "useWhen": "distinguishing a slanted roman from a real italic",
+    "aliases": [
+      { "name": "slanted" },
+      { "name": "sloped roman" },
+      { "name": "slnt axis", "source": "opentype" },
+      { "name": "faux italic" }
+    ],
+    "relatedSlugs": ["italic", "faux-bold", "variation-axis"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" },
+      {
+        "title": "OpenType Design-Variation Axis Tag Registry",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-style: oblique",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Faux bold",
+    "slug": "faux-bold",
+    "category": "typography",
+    "definition": "A bold or italic the browser fakes by smearing or shearing the regular weight, because the real style was never loaded.",
+    "useWhen": "your bold looks wrong and blurry",
+    "aliases": [
+      { "name": "synthetic bold" },
+      { "name": "fake bold" },
+      { "name": "font synthesis", "source": "css" },
+      { "name": "faux italic" }
+    ],
+    "relatedSlugs": ["font-weight", "italic", "oblique", "font-stack"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "CSS fonts module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts" }],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-synthesis", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ]
+  },
+  {
+    "name": "Font weight",
+    "slug": "font-weight",
+    "category": "typography",
+    "definition": "How thick a typeface's strokes are, named in steps from thin to black and numbered from 100 to 900 on the web.",
+    "useWhen": "naming how heavy the strokes are",
+    "aliases": [{ "name": "weight" }, { "name": "boldness" }, { "name": "wght axis", "source": "opentype" }, { "name": "type weight" }],
+    "relatedSlugs": ["grade-axis", "faux-bold", "typographic-color", "variation-axis"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" },
+      {
+        "title": "OpenType Design-Variation Axis Tag Registry",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg"
+      }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-weight", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ]
+  },
+  {
+    "name": "Tabular figures",
+    "slug": "tabular-figures",
+    "category": "typography",
+    "definition": "Numerals drawn to identical widths so digits stack into columns, and so a changing number does not shift the text around it.",
+    "useWhen": "numbers in a table, a timer, or a live counter",
+    "aliases": [
+      { "name": "tabular numbers" },
+      { "name": "tabular-nums", "source": "css" },
+      { "name": "monospaced figures" },
+      { "name": "tnum", "source": "opentype" },
+      { "name": "fixed-width numerals" }
+    ],
+    "relatedSlugs": ["lining-figures", "oldstyle-figures", "monospace", "opentype-features"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Facts about figures (Jason Pamental)",
+        "url": "https://www.rwt.io/typography-tips/facts-about-figures-numeric-styles-with-opentype-features/"
+      },
+      {
+        "title": "OpenType at Work: Figure Styles (Type Network)",
+        "url": "https://typenetwork.com/articles/opentype-at-work-figure-styles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-numeric: tabular-nums",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ],
+    "notes": "Proportional figures are the contrasting setting; worth an alias row or its own stub."
+  },
+  {
+    "name": "Oldstyle figures",
+    "slug": "oldstyle-figures",
+    "category": "typography",
+    "definition": "Numerals with varying heights, some rising and some dropping below the baseline, so numbers blend into lowercase running text.",
+    "useWhen": "numbers inside a sentence, not in a table",
+    "aliases": [
+      { "name": "old style figures" },
+      { "name": "text figures" },
+      { "name": "lowercase numerals" },
+      { "name": "hanging figures" },
+      { "name": "onum", "source": "opentype" }
+    ],
+    "relatedSlugs": ["lining-figures", "tabular-figures", "opentype-features"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "OpenType at Work: Figure Styles (Type Network)",
+        "url": "https://typenetwork.com/articles/opentype-at-work-figure-styles"
+      },
+      { "title": "Alternate figures (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-numeric: oldstyle-nums",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Lining figures",
+    "slug": "lining-figures",
+    "category": "typography",
+    "definition": "Numerals all drawn to cap height so they line up evenly with capitals and with each other.",
+    "useWhen": "numbers next to capitals or in interface chrome",
+    "aliases": [
+      { "name": "titling figures" },
+      { "name": "lining numerals" },
+      { "name": "lnum", "source": "opentype" },
+      { "name": "modern figures" }
+    ],
+    "relatedSlugs": ["oldstyle-figures", "tabular-figures", "cap-height"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Lining Figures", "url": "https://totallytype.com/figures.php" },
+      {
+        "title": "OpenType at Work: Figure Styles (Type Network)",
+        "url": "https://typenetwork.com/articles/opentype-at-work-figure-styles"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-numeric: lining-nums",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Ligature",
+    "slug": "ligature",
+    "category": "typography",
+    "definition": "A single glyph that replaces two or more letters whose shapes would otherwise collide, such as the f and i pair.",
+    "useWhen": "two letters collide and the font fuses them",
+    "aliases": [
+      { "name": "ligatures" },
+      { "name": "standard ligatures", "source": "opentype" },
+      { "name": "discretionary ligatures", "source": "opentype" },
+      { "name": "liga", "source": "opentype" },
+      { "name": "programming ligatures", "source": "community" }
+    ],
+    "relatedSlugs": ["glyph", "opentype-features", "contextual-alternates", "icon-font"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Ligatures (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "OpenType font features (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-ligatures",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ],
+    "notes": "Discretionary ligatures folded in as an alias rather than split out; revisit if the demo wants to show both."
+  },
+  {
+    "name": "Contextual alternates",
+    "slug": "contextual-alternates",
+    "category": "typography",
+    "definition": "Substitute letterforms a font swaps in automatically based on the neighbouring characters, so joins and repeats look natural.",
+    "useWhen": "a script font changes shape depending on its neighbours",
+    "aliases": [{ "name": "calt", "source": "opentype" }, { "name": "contextual forms" }, { "name": "contextual substitution" }],
+    "relatedSlugs": ["ligature", "stylistic-set", "opentype-features", "swash"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Syntax for OpenType features in CSS (Adobe Fonts)", "url": "https://helpx.adobe.com/fonts/using/open-type-syntax.html" },
+      {
+        "title": "Registered features, a-e (OpenType spec)",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/features_ae"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-ligatures: contextual",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Stylistic set",
+    "slug": "stylistic-set",
+    "category": "typography",
+    "definition": "A numbered bundle of alternate glyphs inside a font, switched on as a group to change the look of certain letters.",
+    "useWhen": "switching a font's single-storey a on",
+    "aliases": [
+      { "name": "stylistic sets" },
+      { "name": "ss01", "source": "opentype" },
+      { "name": "character variants", "source": "opentype" },
+      { "name": "alternate glyphs" }
+    ],
+    "relatedSlugs": ["contextual-alternates", "swash", "opentype-features", "glyph"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Syntax for OpenType features in CSS (Adobe Fonts)", "url": "https://helpx.adobe.com/fonts/using/open-type-syntax.html" },
+      {
+        "title": "A Practical Guide to Alternate Characters (Pangram Pangram)",
+        "url": "https://pangrampangram.com/blogs/journal/opentype-features"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-alternates / @font-feature-values",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Swash",
+    "slug": "swash",
+    "category": "typography",
+    "definition": "A letter drawn with an ornamental flourish, usually an extended entry or exit stroke on an italic capital.",
+    "useWhen": "naming the decorative tail on a fancy capital",
+    "aliases": [{ "name": "swash caps" }, { "name": "swsh", "source": "opentype" }, { "name": "flourish" }],
+    "relatedSlugs": ["stylistic-set", "opentype-features", "italic"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "OpenType features (Typofonderie)", "url": "https://typofonderie.com/help/opentype-features" },
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-alternates: swash()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "OpenType features",
+    "slug": "opentype-features",
+    "category": "typography",
+    "definition": "Optional glyph substitutions and spacing rules packed inside a font file, addressed by four-letter tags and switched on from CSS.",
+    "useWhen": "reaching for a font capability that is off by default",
+    "aliases": [
+      { "name": "font features" },
+      { "name": "feature tags" },
+      { "name": "font-feature-settings", "source": "css" },
+      { "name": "OpenType" }
+    ],
+    "relatedSlugs": ["ligature", "stylistic-set", "tabular-figures", "small-caps", "variable-font"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "OpenType font features (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts" },
+      { "title": "OpenType Features (Fonts.com)", "url": "https://www.fonts.com/content/learning/fyti/using-type-tools/opentype-features" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-feature-settings / font-variant",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      },
+      {
+        "systemId": "opentype",
+        "name": "Registered features",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/features_ae",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Superscript",
+    "slug": "superscript",
+    "category": "typography",
+    "definition": "Small raised characters used for footnote markers, ordinals, and exponents, ideally drawn by the font rather than shrunk by software.",
+    "useWhen": "footnote markers, ordinals, and exponents",
+    "aliases": [
+      { "name": "superior figures" },
+      { "name": "subscript" },
+      { "name": "inferior figures" },
+      { "name": "ordinals", "source": "opentype" },
+      { "name": "sups", "source": "opentype" }
+    ],
+    "relatedSlugs": ["opentype-features", "oldstyle-figures", "faux-bold"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Ordinals (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "OpenType font features (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-position",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Variable font",
+    "slug": "variable-font",
+    "category": "typography",
+    "definition": "One font file that contains a continuous design space, so any weight, width, or other axis value between the extremes can be requested.",
+    "useWhen": "you need many weights without many files",
+    "aliases": [{ "name": "variable fonts" }, { "name": "VF" }, { "name": "OpenType variations" }, { "name": "variable typeface" }],
+    "relatedSlugs": ["variation-axis", "optical-size", "grade-axis", "named-instance", "web-font"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Variable fonts (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/Variable_fonts" },
+      { "title": "Designing with Variable Fonts", "url": "https://variablefonts.io/about-variable-fonts/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variation-settings",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-variation-settings",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Variation axis",
+    "slug": "variation-axis",
+    "category": "typography",
+    "definition": "One dimension a variable font can move along, named by a four-letter tag: lowercase for the five registered axes, uppercase for custom ones.",
+    "useWhen": "naming a single dial inside a variable font",
+    "aliases": [
+      { "name": "font axis" },
+      { "name": "design axis" },
+      { "name": "registered axes", "source": "opentype" },
+      { "name": "custom axis" },
+      { "name": "wght wdth slnt ital opsz", "source": "opentype" }
+    ],
+    "relatedSlugs": ["variable-font", "optical-size", "grade-axis", "font-weight"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "OpenType Design-Variation Axis Tag Registry",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg"
+      },
+      { "title": "Variable fonts (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/Variable_fonts" }
+    ],
+    "implementations": [
+      {
+        "systemId": "opentype",
+        "name": "Design-variation axis tag registry",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Optical size",
+    "slug": "optical-size",
+    "category": "typography",
+    "definition": "A font adjusting its own drawing for the size it is set at, thickening strokes and opening spacing for small text and refining both for large.",
+    "useWhen": "type that should be redrawn, not just scaled",
+    "aliases": [
+      { "name": "opsz", "source": "opentype" },
+      { "name": "optical sizing" },
+      { "name": "optical scaling" },
+      { "name": "font-optical-sizing", "source": "css" }
+    ],
+    "relatedSlugs": ["variation-axis", "variable-font", "ink-trap", "point-size"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Optical Size axis (Google Fonts Knowledge)", "url": "https://fonts.google.com/knowledge/glossary/optical_size_axis" },
+      { "title": "opsz axis tag (OpenType spec)", "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxistag_opsz" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-optical-sizing",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-optical-sizing",
+        "verified": true
+      },
+      {
+        "systemId": "hig",
+        "name": "SF Pro Text and SF Pro Display switching",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Grade",
+    "slug": "grade-axis",
+    "category": "typography",
+    "definition": "A variable font axis that thickens or thins strokes without changing any character's width, so text can get darker without reflowing.",
+    "useWhen": "darkening text on a dark background without reflow",
+    "aliases": [{ "name": "GRAD", "source": "opentype" }, { "name": "grade axis" }, { "name": "optical grade" }],
+    "relatedSlugs": ["variation-axis", "font-weight", "variable-font"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "OpenType Design-Variation Axis Tag Registry",
+        "url": "https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg"
+      },
+      { "title": "Designing with Variable Fonts", "url": "https://variablefonts.io/about-variable-fonts/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Named instance",
+    "slug": "named-instance",
+    "category": "typography",
+    "definition": "A specific point in a variable font's design space that the designer has given a style name, so it can be picked like an ordinary weight.",
+    "useWhen": "picking a named style out of a variable font",
+    "aliases": [{ "name": "instance" }, { "name": "static instance" }, { "name": "predefined instance" }],
+    "relatedSlugs": ["variable-font", "variation-axis", "typeface"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Designing with Variable Fonts", "url": "https://variablefonts.io/about-variable-fonts/" },
+      { "title": "Variations (FontLab manual)", "url": "https://help.fontlab.com/fontlab/7/manual/Variable-Fonts/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Web font",
+    "slug": "web-font",
+    "category": "typography",
+    "definition": "A font file downloaded by the page rather than taken from the reader's device, declared in CSS and delivered like any other asset.",
+    "useWhen": "type the page ships rather than borrows",
+    "aliases": [{ "name": "webfont" }, { "name": "custom font" }, { "name": "@font-face", "source": "css" }, { "name": "WOFF2" }],
+    "relatedSlugs": ["font-stack", "fout", "foit", "font-subsetting", "system-font"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "CSS fonts module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts" }],
+    "implementations": [
+      { "systemId": "mdn", "name": "@font-face", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ]
+  },
+  {
+    "name": "Font stack",
+    "slug": "font-stack",
+    "category": "typography",
+    "definition": "The ordered list of typefaces a rule names, each tried in turn until one is available, ending in a generic family.",
+    "useWhen": "listing which fonts to try and in what order",
+    "aliases": [
+      { "name": "font-family stack", "source": "css" },
+      { "name": "fallback chain" },
+      { "name": "font list" },
+      { "name": "system font stack" }
+    ],
+    "relatedSlugs": ["fallback-font", "system-font", "web-font", "tofu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Font Stacks and Fallbacks", "url": "https://designhubs.dev/typography/t16-font-stacks/" },
+      { "title": "Creating Perfect Font Fallbacks in CSS", "url": "https://www.aleksandrhovhannisyan.com/blog/perfect-font-fallbacks/" }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-family", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true }
+    ]
+  },
+  {
+    "name": "Fallback font",
+    "slug": "fallback-font",
+    "category": "typography",
+    "definition": "The typeface actually used when the preferred one is missing or has not loaded, either for the whole run of text or for characters it lacks.",
+    "useWhen": "naming what shows up when the real font does not",
+    "aliases": [
+      { "name": "font fallback" },
+      { "name": "substitute font" },
+      { "name": "backup font" },
+      { "name": "per-character fallback" }
+    ],
+    "relatedSlugs": ["font-stack", "fout", "font-metric-override", "tofu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Framework tools for font fallbacks (Chrome for Developers)",
+        "url": "https://developer.chrome.com/blog/framework-tools-font-fallback/"
+      },
+      { "title": "Creating Perfect Font Fallbacks in CSS", "url": "https://www.aleksandrhovhannisyan.com/blog/perfect-font-fallbacks/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "generic font families",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "System font",
+    "slug": "system-font",
+    "category": "typography",
+    "definition": "The typeface the operating system uses for its own interface, requested by keyword so each platform supplies its native face.",
+    "useWhen": "you want the app to look native and load nothing",
+    "aliases": [
+      { "name": "system-ui", "source": "css" },
+      { "name": "native font" },
+      { "name": "platform font" },
+      { "name": "San Francisco" },
+      { "name": "Segoe UI" },
+      { "name": "Roboto" }
+    ],
+    "relatedSlugs": ["font-stack", "web-font", "dynamic-type"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "System fonts (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Typography (Fluent 2)", "url": "https://fluent2.microsoft.design/typography" }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "System fonts (SF Pro, New York)",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+        "verified": true
+      },
+      { "systemId": "fluent", "name": "Segoe UI Variable", "url": "https://fluent2.microsoft.design/typography", "verified": true }
+    ]
+  },
+  {
+    "name": "FOUT",
+    "slug": "fout",
+    "category": "typography",
+    "definition": "The visible swap when a page first paints text in a fallback face and then re-renders it once the web font arrives.",
+    "useWhen": "the text visibly changes font on load",
+    "aliases": [
+      { "name": "flash of unstyled text" },
+      { "name": "font swap" },
+      { "name": "font flash" },
+      { "name": "font-display: swap", "source": "css" }
+    ],
+    "relatedSlugs": ["foit", "foft", "font-metric-override", "fallback-font", "web-font"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "FOUT (Google Fonts Knowledge)", "url": "https://fonts.google.com/knowledge/glossary/fout" },
+      { "title": "FOUT, FOIT, FOFT (CSS-Tricks)", "url": "https://css-tricks.com/fout-foit-foft/" }
+    ],
+    "implementations": [
+      { "systemId": "mdn", "name": "font-display", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts", "verified": true },
+      { "systemId": "adobe-fonts", "name": "Font events", "url": "https://helpx.adobe.com/fonts/using/font-events.html", "verified": true }
+    ]
+  },
+  {
+    "name": "FOIT",
+    "slug": "foit",
+    "category": "typography",
+    "definition": "The blank period when a browser hides text entirely rather than show it in a fallback face while the web font loads.",
+    "useWhen": "the text is missing, not just wrong, on load",
+    "aliases": [{ "name": "flash of invisible text" }, { "name": "invisible text" }, { "name": "font blocking period", "source": "css" }],
+    "relatedSlugs": ["fout", "foft", "web-font"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Ensure text remains visible during webfont load (Lighthouse)",
+        "url": "https://developer.chrome.com/docs/lighthouse/performance/font-display"
+      },
+      { "title": "Fighting FOIT and FOUT Together (CSS-Tricks)", "url": "https://css-tricks.com/fighting-foit-and-fout-together/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-display: block / optional",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "FOFT",
+    "slug": "foft",
+    "category": "typography",
+    "definition": "A loading strategy that shows the roman weight as soon as it arrives and lets the remaining styles swap in afterwards, so the swap happens in stages.",
+    "useWhen": "staging a font swap instead of taking it all at once",
+    "aliases": [{ "name": "flash of faux text" }, { "name": "critical FOFT" }, { "name": "staged font loading" }],
+    "relatedSlugs": ["fout", "foit", "faux-bold", "web-font"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "FOUT, FOIT, FOFT (CSS-Tricks)", "url": "https://css-tricks.com/fout-foit-foft/" }],
+    "implementations": []
+  },
+  {
+    "name": "Font metric override",
+    "slug": "font-metric-override",
+    "category": "typography",
+    "definition": "Reshaping a fallback font's size and vertical metrics in CSS so it occupies the same space as the web font and the swap shifts nothing.",
+    "useWhen": "killing the layout jump when a web font lands",
+    "aliases": [
+      { "name": "size-adjust", "source": "css" },
+      { "name": "ascent-override", "source": "css" },
+      { "name": "descent-override", "source": "css" },
+      { "name": "line-gap-override", "source": "css" },
+      { "name": "metric compatible fallback" },
+      { "name": "adjusted fallback font" }
+    ],
+    "relatedSlugs": ["fallback-font", "fout", "x-height", "web-font"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Framework tools for font fallbacks (Chrome for Developers)",
+        "url": "https://developer.chrome.com/blog/framework-tools-font-fallback/"
+      },
+      { "title": "Creating Perfect Font Fallbacks in CSS", "url": "https://www.aleksandrhovhannisyan.com/blog/perfect-font-fallbacks/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "@font-face size-adjust and metric overrides",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ],
+    "notes": "Sits between typography and performance; the layout-shift angle may pull it toward a future performance cluster."
+  },
+  {
+    "name": "Font subsetting",
+    "slug": "font-subsetting",
+    "category": "typography",
+    "definition": "Shipping only the characters a page actually needs, cutting the font file down and letting the browser fetch ranges on demand.",
+    "useWhen": "cutting a font file down to what the page uses",
+    "aliases": [
+      { "name": "subsetting" },
+      { "name": "unicode-range", "source": "css" },
+      { "name": "font slicing" },
+      { "name": "character subset" }
+    ],
+    "relatedSlugs": ["web-font", "tofu", "fallback-font"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "CSS fonts module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts" },
+      { "title": "Font Fallback and Tofu", "url": "https://symbolfyi.com/guides/font-fallback-tofu/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "unicode-range descriptor",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Tofu",
+    "slug": "tofu",
+    "category": "typography",
+    "definition": "The empty rectangle a font renders when it has no glyph for a character, named for the block of bean curd it resembles.",
+    "useWhen": "naming the empty box where a character should be",
+    "aliases": [
+      { "name": "notdef glyph" },
+      { "name": ".notdef" },
+      { "name": "missing glyph box" },
+      { "name": "empty box character" },
+      { "name": "replacement box" }
+    ],
+    "relatedSlugs": ["fallback-font", "font-subsetting", "glyph", "emoji-presentation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Tofu (Words of Type)", "url": "https://wiki.wordsoftype.com/en/entry/tofu" },
+      { "title": "Notdef glyph (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Notdef_glyph" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Hinting",
+    "slug": "font-hinting",
+    "category": "typography",
+    "definition": "Instructions inside a font that nudge its outlines onto the pixel grid at small sizes so stems stay crisp and even.",
+    "useWhen": "explaining why type looks fuzzy at small sizes",
+    "aliases": [{ "name": "font hinting" }, { "name": "grid fitting" }, { "name": "TrueType hinting" }],
+    "relatedSlugs": ["font-smoothing", "legibility", "optical-size"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }],
+    "implementations": []
+  },
+  {
+    "name": "Font smoothing",
+    "slug": "font-smoothing",
+    "category": "typography",
+    "definition": "How a device softens the edges of letterforms, either by shading whole pixels grey or by lighting a pixel's coloured subpixels separately.",
+    "useWhen": "your type looks heavier on one platform than another",
+    "aliases": [
+      { "name": "antialiasing" },
+      { "name": "anti-aliasing" },
+      { "name": "subpixel rendering" },
+      { "name": "grayscale antialiasing" },
+      { "name": "-webkit-font-smoothing", "source": "css" }
+    ],
+    "relatedSlugs": ["font-hinting", "legibility", "typographic-color"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "font-smooth (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth" },
+      { "title": "What's the deal with WebKit Font Smoothing?", "url": "https://dbushell.com/2024/11/05/webkit-font-smoothing/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "tailwind",
+        "name": "font-smoothing utilities",
+        "url": "https://tailwindcss.com/docs/font-smoothing",
+        "verified": true
+      },
+      { "systemId": "mdn", "name": "font-smooth", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth", "verified": true }
+    ]
+  },
+  {
+    "name": "Truncation",
+    "slug": "truncation",
+    "category": "typography",
+    "definition": "Cutting text that does not fit and marking the cut, usually with an ellipsis, so the reader knows something was removed.",
+    "useWhen": "text has to fit a box it does not fit",
+    "aliases": [
+      { "name": "text truncation" },
+      { "name": "ellipsis" },
+      { "name": "text-overflow", "source": "css" },
+      { "name": "truncate", "source": "tailwind" },
+      { "name": "clipping text" }
+    ],
+    "relatedSlugs": ["line-clamp", "word-break", "measure"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "CSS text module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" },
+      { "title": "text-overflow (Tailwind CSS)", "url": "https://tailwindcss.com/docs/text-overflow" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-overflow: ellipsis",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      },
+      { "systemId": "tailwind", "name": "truncate", "url": "https://tailwindcss.com/docs/text-overflow", "verified": true }
+    ]
+  },
+  {
+    "name": "Line clamp",
+    "slug": "line-clamp",
+    "category": "typography",
+    "definition": "Cutting a block of text off after a fixed number of lines, with an ellipsis at the end of the last one.",
+    "useWhen": "capping a card's description at three lines",
+    "aliases": [
+      { "name": "multiline truncation" },
+      { "name": "line-clamp", "source": "css" },
+      { "name": "-webkit-line-clamp", "source": "css" },
+      { "name": "multi-line ellipsis" },
+      { "name": "text clamping" }
+    ],
+    "relatedSlugs": ["truncation", "measure", "progressive-disclosure"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "line-clamp (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp" },
+      { "title": "line-clamp (CSS-Tricks Almanac)", "url": "https://css-tricks.com/almanac/properties/l/line-clamp/" }
+    ],
+    "implementations": [
+      { "systemId": "tailwind", "name": "line-clamp", "url": "https://tailwindcss.com/docs/line-clamp", "verified": true },
+      {
+        "systemId": "mdn",
+        "name": "line-clamp",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Word break",
+    "slug": "word-break",
+    "category": "typography",
+    "definition": "Whether a long unbroken string is allowed to split mid-word rather than overflow its container, and where that split may happen.",
+    "useWhen": "a long URL or token is bursting out of its box",
+    "aliases": [
+      { "name": "word-break", "source": "css" },
+      { "name": "overflow-wrap", "source": "css" },
+      { "name": "word-wrap", "source": "css" },
+      { "name": "break-word" },
+      { "name": "anywhere breaking" }
+    ],
+    "relatedSlugs": ["hyphenation", "truncation", "zero-width-space", "soft-hyphen"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "CSS text module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "word-break / overflow-wrap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Soft hyphen",
+    "slug": "soft-hyphen",
+    "category": "typography",
+    "definition": "An invisible character placed inside a word that marks where a hyphen may appear if the word has to break, and stays hidden otherwise.",
+    "useWhen": "telling the browser where a long word may break",
+    "aliases": [
+      { "name": "shy", "source": "html" },
+      { "name": "discretionary hyphen" },
+      { "name": "optional hyphen" },
+      { "name": "U+00AD" }
+    ],
+    "relatedSlugs": ["hyphenation", "zero-width-space", "non-breaking-space", "word-break"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Optional hyphens (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Non-Breaking Space and Soft Hyphen (Tilda)", "url": "https://help.tilda.cc/unbroken-space" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Non-breaking space",
+    "slug": "non-breaking-space",
+    "category": "typography",
+    "definition": "A space that renders normally but forbids a line break, gluing two words together so they never end up on separate lines.",
+    "useWhen": "keeping a number and its unit on one line",
+    "aliases": [{ "name": "nbsp", "source": "html" }, { "name": "hard space" }, { "name": "fixed space" }, { "name": "no-break space" }],
+    "relatedSlugs": ["soft-hyphen", "zero-width-space", "runt", "text-balancing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Nonbreaking spaces (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Non-Breaking Space and Soft Hyphen (Tilda)", "url": "https://help.tilda.cc/unbroken-space" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Zero-width space",
+    "slug": "zero-width-space",
+    "category": "typography",
+    "definition": "An invisible character that takes no width and adds a legal break point, letting a long string wrap without showing a hyphen.",
+    "useWhen": "breaking a long identifier with no visible mark",
+    "aliases": [{ "name": "ZWSP" }, { "name": "U+200B" }, { "name": "invisible break" }, { "name": "zero width space" }],
+    "relatedSlugs": ["soft-hyphen", "word-break", "non-breaking-space"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Zero-width space (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Zero-width_space" }],
+    "implementations": []
+  },
+  {
+    "name": "Smart quotes",
+    "slug": "smart-quotes",
+    "category": "typography",
+    "definition": "The curved opening and closing quotation marks a typeface actually draws, as opposed to the straight vertical marks inherited from typewriters.",
+    "useWhen": "your quotes look like typewriter ticks",
+    "aliases": [
+      { "name": "curly quotes" },
+      { "name": "typographer's quotes" },
+      { "name": "dumb quotes" },
+      { "name": "straight quotes" },
+      { "name": "curved apostrophe" }
+    ],
+    "relatedSlugs": ["prime-mark", "hanging-punctuation", "pull-quote"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Straight and curly quotes (Practical Typography)", "url": "https://practicaltypography.com/" },
+      {
+        "title": "The Definitive Guide to Quotes, Apostrophes, and Primes",
+        "url": "https://creativepro.com/the-definitive-guide-to-quotes-apostrophes-and-primes/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Prime mark",
+    "slug": "prime-mark",
+    "category": "typography",
+    "definition": "The slanted tick used for feet, inches, minutes, and seconds, which is a different character from either a straight quote or a curly one.",
+    "useWhen": "writing feet and inches, not quoting anyone",
+    "aliases": [{ "name": "primes" }, { "name": "foot mark" }, { "name": "inch mark" }, { "name": "double prime" }],
+    "relatedSlugs": ["smart-quotes"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Foot and inch marks (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Typography Cheatsheet (Typewolf)", "url": "https://www.typewolf.com/cheatsheet" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Em dash",
+    "slug": "em-dash",
+    "category": "typography",
+    "definition": "The longest common dash, about the width of the letter m, used to set off an abrupt break or aside in a sentence.",
+    "useWhen": "naming the longest dash on the keyboard",
+    "aliases": [{ "name": "long dash" }, { "name": "mdash", "source": "html" }, { "name": "quad dash" }],
+    "relatedSlugs": ["en-dash", "em-unit"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Hyphens and dashes (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "Typography Cheatsheet (Typewolf)", "url": "https://www.typewolf.com/cheatsheet" }
+    ],
+    "implementations": [],
+    "notes": "Awkward but necessary: the site bans the character in its own prose (SPEC 2.4) while still owing readers the definition. Author with care."
+  },
+  {
+    "name": "En dash",
+    "slug": "en-dash",
+    "category": "typography",
+    "definition": "A dash about the width of the letter n, used for ranges of numbers and for connections between two things.",
+    "useWhen": "writing a range of numbers or dates",
+    "aliases": [{ "name": "ndash", "source": "html" }, { "name": "range dash" }, { "name": "short dash" }],
+    "relatedSlugs": ["em-dash", "em-unit"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Hyphens and dashes (Practical Typography)", "url": "https://practicaltypography.com/" }],
+    "implementations": []
+  },
+  {
+    "name": "Pilcrow",
+    "slug": "pilcrow",
+    "category": "typography",
+    "definition": "The paragraph mark, a reversed P with a doubled stem, used to show where a paragraph begins or as a hover anchor beside a heading.",
+    "useWhen": "naming the paragraph symbol in an editor",
+    "aliases": [{ "name": "paragraph mark" }, { "name": "paragraph symbol" }, { "name": "paraph" }, { "name": "blind P" }],
+    "relatedSlugs": ["first-line-indent", "glyph"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Pilcrow (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Pilcrow" },
+      { "title": "Paragraph and section marks (Practical Typography)", "url": "https://practicaltypography.com/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Underline",
+    "slug": "underline",
+    "category": "typography",
+    "definition": "A rule drawn under text, on the web the default marker for a link, ideally set to skip the descenders it would otherwise cross.",
+    "useWhen": "marking a link without relying on color alone",
+    "aliases": [
+      { "name": "text-decoration: underline", "source": "css" },
+      { "name": "underscore" },
+      { "name": "skip ink", "source": "css" },
+      { "name": "text-decoration-skip-ink", "source": "css" }
+    ],
+    "relatedSlugs": ["strikethrough", "descender", "legibility"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Underlining (Practical Typography)", "url": "https://practicaltypography.com/" },
+      { "title": "CSS text module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-decoration-line / text-decoration-skip-ink",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Strikethrough",
+    "slug": "strikethrough",
+    "category": "typography",
+    "definition": "A rule drawn through the middle of text to mark it as removed, superseded, or no longer the current price.",
+    "useWhen": "showing text that no longer applies",
+    "aliases": [{ "name": "line-through", "source": "css" }, { "name": "strike" }, { "name": "struck out" }, { "name": "crossed out" }],
+    "relatedSlugs": ["underline"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "CSS text module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "text-decoration-line: line-through",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Ruby annotation",
+    "slug": "ruby-annotation",
+    "category": "typography",
+    "definition": "Small guide text set beside or above a run of base text, most often to give the pronunciation of East Asian characters.",
+    "useWhen": "annotating characters with their pronunciation",
+    "aliases": [
+      { "name": "furigana", "source": "community" },
+      { "name": "ruby text", "source": "html" },
+      { "name": "rubi" },
+      { "name": "phonetic guide" }
+    ],
+    "relatedSlugs": ["vertical-writing-mode", "bidirectional-text"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Ruby (W3C Internationalization)", "url": "https://www.w3.org/International/questions/qa-ruby.en.html" },
+      { "title": "HTML Ruby Markup Extensions (W3C)", "url": "https://www.w3.org/TR/html-ruby-extensions/" }
+    ],
+    "implementations": [
+      { "systemId": "w3c", "name": "ruby element", "url": "https://www.w3.org/TR/html-ruby-extensions/", "verified": true }
+    ]
+  },
+  {
+    "name": "Bidirectional text",
+    "slug": "bidirectional-text",
+    "category": "typography",
+    "definition": "Text mixing a right-to-left script with left-to-right runs such as numbers or Latin words, where each run keeps its own direction.",
+    "useWhen": "Arabic or Hebrew text containing Latin or digits",
+    "aliases": [{ "name": "bidi" }, { "name": "RTL" }, { "name": "right-to-left text" }, { "name": "unicode-bidi", "source": "css" }],
+    "relatedSlugs": ["vertical-writing-mode", "ruby-annotation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "CSS text module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "direction / unicode-bidi",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ],
+    "notes": "Arguably layout or accessibility; recorded as typography because the subject is how text sets."
+  },
+  {
+    "name": "Vertical writing mode",
+    "slug": "vertical-writing-mode",
+    "category": "typography",
+    "definition": "Setting lines to run top to bottom in columns rather than left to right, as traditional Chinese, Japanese, and Korean typography does.",
+    "useWhen": "typesetting CJK text in columns",
+    "aliases": [
+      { "name": "writing-mode", "source": "css" },
+      { "name": "vertical text" },
+      { "name": "tategaki", "source": "community" },
+      { "name": "text-orientation", "source": "css" }
+    ],
+    "relatedSlugs": ["ruby-annotation", "bidirectional-text"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "CSS text module (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "writing-mode / text-orientation",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Legibility",
+    "slug": "legibility",
+    "category": "typography",
+    "definition": "How easily one letter can be told apart from another, a property of the typeface's drawing rather than of how the text is set.",
+    "useWhen": "judging the typeface, not the setting",
+    "aliases": [{ "name": "letter distinguishability" }, { "name": "character legibility" }],
+    "relatedSlugs": ["readability", "aperture", "counter", "font-smoothing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Typography Terms: Glossary (NN/g)", "url": "https://www.nngroup.com/articles/typography-terms-ux/" },
+      { "title": "A Glossary of Typographic Terms (Monotype)", "url": "https://www.monotype.com/resources/typographic-terms" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Readability",
+    "slug": "readability",
+    "category": "typography",
+    "definition": "How comfortably a body of text can be read at length, a property of the setting: size, measure, leading, and contrast.",
+    "useWhen": "judging the setting, not the typeface",
+    "aliases": [{ "name": "reading comfort" }, { "name": "text readability" }],
+    "relatedSlugs": ["legibility", "measure", "leading", "typographic-color"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Readability: The Optimal Line Length (Baymard)", "url": "https://baymard.com/blog/line-length-readability" },
+      { "title": "Choose a comfortable measure (webtypography.net)", "url": "http://webtypography.net/2.1.2" }
+    ],
+    "implementations": [],
+    "notes": "Legibility and readability are the classic mixed-up pair; they should contrastWith each other."
+  },
+  {
+    "name": "Dynamic Type",
+    "slug": "dynamic-type",
+    "category": "typography",
+    "definition": "A platform feature that scales interface text to a size the reader chose in system settings, with layouts expected to reflow around it.",
+    "useWhen": "the reader, not the designer, picks the text size",
+    "aliases": [
+      { "name": "text scaling" },
+      { "name": "font scaling" },
+      { "name": "large text sizes", "source": "hig" },
+      { "name": "accessibility text sizes", "source": "hig" },
+      { "name": "sp units", "source": "material" }
+    ],
+    "relatedSlugs": ["fluid-typography", "text-spacing", "type-scale", "system-font"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "The details of UI typography (WWDC20)", "url": "https://developer.apple.com/videos/play/wwdc2020/10175/" }],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Dynamic Type",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/typography",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: equally an accessibility term. Recorded as typography since the subject is type sizing."
+  },
+  {
+    "name": "Text spacing",
+    "slug": "text-spacing",
+    "category": "accessibility",
+    "definition": "The requirement that a reader can increase line height, letter spacing, word spacing, and paragraph spacing without any content being lost or clipped.",
+    "useWhen": "proving a layout survives reader-set spacing",
+    "aliases": [{ "name": "WCAG 1.4.12", "source": "wcag" }, { "name": "text spacing override" }, { "name": "user stylesheet spacing" }],
+    "relatedSlugs": ["dynamic-type", "leading", "tracking", "word-spacing"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "1.4.12 Text Spacing (Deque University)", "url": "https://dequeuniversity.com/resources/wcag2.1/1.4.12-text-spacing" }
+    ],
+    "implementations": [
+      {
+        "systemId": "wcag",
+        "name": "Success Criterion 1.4.12 Text Spacing",
+        "url": "https://dequeuniversity.com/resources/wcag2.1/1.4.12-text-spacing",
+        "verified": true
+      }
+    ],
+    "notes": "CROSS-CATEGORY: filed under accessibility, surfaced by the typography sweep. Merge with the accessibility file's version if it enumerates one."
+  },
+  {
+    "name": "Icon font",
+    "slug": "icon-font",
+    "category": "typography",
+    "definition": "A font whose glyphs are icons rather than letters, addressed by code point or by a ligature so an icon can be styled like text.",
+    "useWhen": "icons delivered as type instead of as images",
+    "aliases": [
+      { "name": "font icons" },
+      { "name": "glyph icons" },
+      { "name": "ligature icons" },
+      { "name": "Material Symbols", "source": "material" },
+      { "name": "Font Awesome", "source": "community" }
+    ],
+    "relatedSlugs": ["ligature", "tofu", "web-font", "glyph"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "SVG, Icon Fonts, and Accessibility (24 Accessibility)",
+        "url": "https://www.24a11y.com/2017/svg-icon-fonts-accessibility-case-study/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "font-awesome",
+        "name": "Icon font accessibility",
+        "url": "https://docs.fontawesome.com/web/dig-deeper/accessibility",
+        "verified": true
+      }
+    ],
+    "notes": "Could equally be filed as component; the mechanism is a font, so typography."
+  },
+  {
+    "name": "Color font",
+    "slug": "color-font",
+    "category": "typography",
+    "definition": "A font whose glyphs carry their own colors, gradients, or layers, with a palette the page can override rather than a single ink.",
+    "useWhen": "type that carries its own colors",
+    "aliases": [
+      { "name": "COLR font" },
+      { "name": "COLRv1" },
+      { "name": "chromatic font" },
+      { "name": "font-palette", "source": "css" },
+      { "name": "OpenType-SVG" }
+    ],
+    "relatedSlugs": ["emoji-presentation", "glyph", "web-font"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "COLRv1 and CSS font-palette (CSS-Tricks)", "url": "https://css-tricks.com/colrv1-and-css-font-palette-web-typography/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-palette / @font-palette-values",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Emoji presentation",
+    "slug": "emoji-presentation",
+    "category": "typography",
+    "definition": "Whether a character that can be either a symbol or an emoji renders as flat text or as a color emoji, selected by a variation selector or by CSS.",
+    "useWhen": "a symbol turns into an emoji you did not want",
+    "aliases": [
+      { "name": "variation selector", "source": "unicode" },
+      { "name": "text presentation" },
+      { "name": "font-variant-emoji", "source": "css" },
+      { "name": "emoji vs text style" }
+    ],
+    "relatedSlugs": ["color-font", "tofu", "glyph"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "font-variant-emoji (MDN)", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-emoji" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "font-variant-emoji",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-emoji",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Heading",
+    "slug": "heading",
+    "category": "typography",
+    "definition": "A short line of type that names the section under it and, by its size and weight, says how far down the outline that section sits.",
+    "useWhen": "naming a section and showing its depth at once",
+    "aliases": [
+      {
+        "name": "title",
+        "source": "community"
+      },
+      {
+        "name": "headline",
+        "source": "community"
+      },
+      {
+        "name": "section header",
+        "source": "community"
+      },
+      {
+        "name": "subheading",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": ["typographic-hierarchy", "eyebrow", "deck", "heading-hierarchy", "type-scale"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "The Component Gallery: Heading",
+        "url": "https://component.gallery/components/heading/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "component-gallery",
+        "name": "Heading",
+        "url": "https://component.gallery/components/heading/",
+        "verified": true
+      }
+    ],
+    "notes": "Round one caught heading-hierarchy (the outline rule) and typographic-hierarchy (the scale) but not the thing itself. The article should hold the two apart: level is semantic, size is a choice, and they are allowed to disagree."
+  }
+]

@@ -1,0 +1,2125 @@
+[
+  {
+    "name": "Tap",
+    "slug": "tap",
+    "category": "interaction",
+    "definition": "A single press and lift of one finger on a touch surface, the touch equivalent of a click, used to activate a control or select an item.",
+    "useWhen": "the touch gesture that activates something",
+    "aliases": [
+      { "name": "touch", "source": "material" },
+      { "name": "single tap", "source": "community" },
+      { "name": "press", "source": "community" }
+    ],
+    "relatedSlugs": ["double-tap", "long-press", "touch-target", "tap-delay"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures (touch mechanics)", "url": "https://m1.material.io/patterns/gestures.html" },
+      { "title": "iOS HIG: Gestures", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Touch", "url": "https://m1.material.io/patterns/gestures.html", "verified": true },
+      {
+        "systemId": "hig",
+        "name": "Tap",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures",
+        "verified": true
+      }
+    ],
+    "notes": "Material calls the mechanic touch and the outcome activate; Apple calls it tap."
+  },
+  {
+    "name": "Double tap",
+    "slug": "double-tap",
+    "category": "interaction",
+    "definition": "Two taps in quick succession on the same spot, conventionally used to zoom in on content or to zoom back out when already zoomed.",
+    "useWhen": "two quick taps that mean zoom, not activate",
+    "aliases": [{ "name": "double touch", "source": "material" }, { "name": "double-tap to zoom", "source": "community" }],
+    "relatedSlugs": ["tap", "double-click", "pinch-to-zoom", "tap-delay"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "iOS HIG: Gestures", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" },
+      { "title": "Material Design: Gestures", "url": "https://m1.material.io/patterns/gestures.html" }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Double touch", "url": "https://m1.material.io/patterns/gestures.html", "verified": true }
+    ]
+  },
+  {
+    "name": "Long press",
+    "slug": "long-press",
+    "category": "interaction",
+    "definition": "A press held in place for a moment before release, used to reveal secondary actions, enter a rearrange mode, or open a contextual menu.",
+    "useWhen": "holding a touch to reach the secondary action",
+    "aliases": [
+      { "name": "touch and hold", "source": "hig" },
+      { "name": "press and hold", "source": "community" },
+      { "name": "tap and hold", "source": "community" },
+      { "name": "long tap", "source": "community" },
+      { "name": "long-press drag", "source": "material" }
+    ],
+    "relatedSlugs": ["tap", "secondary-click", "radial-menu", "hold-to-confirm"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures (long press)", "url": "https://m1.material.io/patterns/gestures.html" },
+      { "title": "iOS HIG: Gestures", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Long press", "url": "https://m1.material.io/patterns/gestures.html", "verified": true },
+      {
+        "systemId": "hig",
+        "name": "Touch and hold",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures",
+        "verified": true
+      }
+    ],
+    "notes": "Long press is the touch counterpart of secondary click; worth a contrastWith edge to context-menu (already on site)."
+  },
+  {
+    "name": "Swipe",
+    "slug": "swipe",
+    "category": "interaction",
+    "definition": "A quick directional drag of a finger across the screen, faster and coarser than a drag, usually without a specific on-screen target.",
+    "useWhen": "a fast directional stroke, not a controlled drag",
+    "aliases": [{ "name": "paging swipe", "source": "material" }, { "name": "swipe gesture", "source": "community" }],
+    "relatedSlugs": ["fling", "pan", "drag-and-drop", "swipe-to-dismiss", "edge-swipe"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures", "url": "https://m1.material.io/patterns/gestures.html" },
+      { "title": "Material Design 3: Gestures", "url": "https://m3.material.io/foundations/interaction/gestures" }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Swipe", "url": "https://m3.material.io/foundations/interaction/gestures", "verified": true },
+      {
+        "systemId": "hig",
+        "name": "Swipe",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Fling",
+    "slug": "fling",
+    "category": "interaction",
+    "definition": "The fastest of the drag family: contact is released while still moving, so the content keeps travelling and the action cannot be dragged back.",
+    "useWhen": "a throw that releases mid-motion and cannot be taken back",
+    "aliases": [{ "name": "flick", "source": "hig" }, { "name": "throw", "source": "community" }],
+    "relatedSlugs": ["swipe", "momentum-scrolling", "drag-threshold"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures (drag, swipe, or fling)", "url": "https://m1.material.io/patterns/gestures.html" },
+      { "title": "iOS HIG: Gestures (flick)", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Fling", "url": "https://m1.material.io/patterns/gestures.html", "verified": true },
+      {
+        "systemId": "hig",
+        "name": "Flick",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures",
+        "verified": true
+      }
+    ],
+    "notes": "Material distinguishes drag, swipe and fling purely by velocity and whether contact is kept; Apple's word for the same thing is flick."
+  },
+  {
+    "name": "Pan",
+    "slug": "pan",
+    "category": "interaction",
+    "definition": "Moving the viewport across content in any direction while keeping contact, so the content feels anchored to the finger or cursor.",
+    "useWhen": "moving the view over content rather than the content itself",
+    "aliases": [
+      { "name": "pan gesture", "source": "hig" },
+      { "name": "drag to pan", "source": "community" },
+      { "name": "grab and drag", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe", "pinch-to-zoom", "orbit", "momentum-scrolling"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design: Gestures (pan)", "url": "https://m1.material.io/patterns/gestures.html" }],
+    "implementations": [
+      {
+        "systemId": "uikit",
+        "name": "Pan gesture",
+        "url": "https://developer.apple.com/documentation/uikit/handling-pan-gestures",
+        "verified": true
+      },
+      { "systemId": "material", "name": "Pan", "url": "https://m1.material.io/patterns/gestures.html", "verified": true }
+    ]
+  },
+  {
+    "name": "Drag and drop",
+    "slug": "drag-and-drop",
+    "category": "interaction",
+    "definition": "Picking up an object, moving it under continuous pointer or finger contact, and releasing it over a target that accepts it.",
+    "useWhen": "moving an object onto a target by holding it the whole way",
+    "aliases": [
+      { "name": "drag-and-drop", "source": "mdn" },
+      { "name": "pick up and move", "source": "material" },
+      { "name": "dnd", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-handle", "drop-zone", "drag-preview", "drop-indicator", "drag-threshold", "drag-autoscroll"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: HTML Drag and Drop API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" },
+      { "title": "Cloudscape: Drag and drop pattern", "url": "https://cloudscape.design/patterns/general/drag-and-drop/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "HTML Drag and Drop API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API",
+        "verified": true
+      },
+      {
+        "systemId": "cloudscape",
+        "name": "Drag and drop",
+        "url": "https://cloudscape.design/patterns/general/drag-and-drop/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Pinch to zoom",
+    "slug": "pinch-to-zoom",
+    "category": "interaction",
+    "definition": "Two fingers moving apart or together on a surface to scale content up or down, with the scale tracking the distance between them.",
+    "useWhen": "two fingers changing the scale of what is on screen",
+    "aliases": [
+      { "name": "pinch open", "source": "material" },
+      { "name": "pinch closed", "source": "material" },
+      { "name": "pinch out", "source": "community" },
+      { "name": "pinch in", "source": "community" },
+      { "name": "spread", "source": "community" }
+    ],
+    "relatedSlugs": ["multi-touch", "double-tap", "rotate-gesture", "pan"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures (pinch open and closed)", "url": "https://m1.material.io/patterns/gestures.html" },
+      { "title": "UIKit: Handling pinch gestures", "url": "https://developer.apple.com/documentation/uikit/handling-pinch-gestures" }
+    ],
+    "implementations": [
+      {
+        "systemId": "uikit",
+        "name": "Pinch gesture",
+        "url": "https://developer.apple.com/documentation/uikit/handling-pinch-gestures",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Pinch open / pinch closed",
+        "url": "https://m1.material.io/patterns/gestures.html",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Rotate gesture",
+    "slug": "rotate-gesture",
+    "category": "interaction",
+    "definition": "Two fingers turning around a common center to rotate the object or view beneath them, the angle tracking the fingers as they orbit.",
+    "useWhen": "turning content with two fingers rather than a handle",
+    "aliases": [
+      { "name": "rotate", "source": "material" },
+      { "name": "twist", "source": "community" },
+      { "name": "two-finger rotate", "source": "community" }
+    ],
+    "relatedSlugs": ["pinch-to-zoom", "multi-touch", "orbit"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design: Gestures (rotate)", "url": "https://m1.material.io/patterns/gestures.html" }],
+    "implementations": [
+      { "systemId": "material", "name": "Rotate", "url": "https://m1.material.io/patterns/gestures.html", "verified": true }
+    ]
+  },
+  {
+    "name": "Multi-touch",
+    "slug": "multi-touch",
+    "category": "interaction",
+    "definition": "Input from more than one simultaneous contact point, letting a surface distinguish two-finger scrolling, pinching, rotating and larger finger counts.",
+    "useWhen": "naming input that depends on more than one finger at once",
+    "aliases": [
+      { "name": "multitouch", "source": "community" },
+      { "name": "multifinger gesture", "source": "hig" },
+      { "name": "two-finger gesture", "source": "material" }
+    ],
+    "relatedSlugs": ["pinch-to-zoom", "rotate-gesture", "pressure-sensitivity"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      {
+        "title": "MDN: Pointer events (primary pointer, pointerId)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events"
+      },
+      { "title": "Material Design: Gestures (two-finger mechanics)", "url": "https://m1.material.io/patterns/gestures.html" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Pointer events",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events",
+        "verified": true
+      }
+    ],
+    "notes": "Hard to demonstrate honestly with a single ghost cursor, so demo is none rather than a faked animation."
+  },
+  {
+    "name": "Edge swipe",
+    "slug": "edge-swipe",
+    "category": "interaction",
+    "definition": "A swipe that begins off the screen edge and travels inward, reserved by the system for navigation such as going back or revealing a drawer.",
+    "useWhen": "a gesture that starts at the bezel, not on a control",
+    "aliases": [
+      { "name": "screen-edge pan", "source": "hig" },
+      { "name": "back swipe", "source": "community" },
+      { "name": "edge gesture", "source": "community" },
+      { "name": "bezel swipe", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe", "swipe-to-dismiss", "pan"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design: Gestures (edge swipe)", "url": "https://m1.material.io/patterns/gestures.html" }],
+    "implementations": [
+      { "systemId": "material", "name": "Edge swipe", "url": "https://m1.material.io/patterns/gestures.html", "verified": true }
+    ],
+    "notes": "Relates to drawer, which already exists on the site; edge swipe is the gesture, drawer is the surface."
+  },
+  {
+    "name": "Pull to refresh",
+    "slug": "pull-to-refresh",
+    "category": "interaction",
+    "definition": "Dragging a list past its top edge and releasing to request fresh content, with an indicator that follows the pull and then spins.",
+    "useWhen": "asking for new content by tugging the top of a list",
+    "aliases": [
+      { "name": "swipe to refresh", "source": "material" },
+      { "name": "pull-down to refresh", "source": "community" },
+      { "name": "drag to refresh", "source": "community" }
+    ],
+    "relatedSlugs": ["overscroll", "rubber-banding", "swipe"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Android: About swipe-to-refresh", "url": "https://developer.android.com/develop/ui/views/touch-and-input/swipe" },
+      { "title": "ui-patterns: Pull to refresh", "url": "https://ui-patterns.com/patterns/pull-to-refresh" },
+      { "title": "Wikipedia: Pull-to-refresh", "url": "https://en.wikipedia.org/wiki/Pull-to-refresh" }
+    ],
+    "implementations": [
+      {
+        "systemId": "android",
+        "name": "Swipe-to-refresh",
+        "url": "https://developer.android.com/develop/ui/views/touch-and-input/swipe",
+        "verified": true
+      },
+      {
+        "systemId": "open-ui",
+        "name": "Overscroll actions",
+        "url": "https://open-ui.org/components/overscroll-actions.explainer/",
+        "verified": true
+      }
+    ],
+    "notes": "Android's official name is swipe-to-refresh; the community name is pull-to-refresh. Compose docs call it Pull to refresh."
+  },
+  {
+    "name": "Swipe to dismiss",
+    "slug": "swipe-to-dismiss",
+    "category": "interaction",
+    "definition": "Sliding an item sideways off its own row or off screen to remove it, where passing a distance threshold commits the removal on release.",
+    "useWhen": "removing an item by throwing it off its row",
+    "aliases": [
+      { "name": "dismiss", "source": "material" },
+      { "name": "swipe away", "source": "community" },
+      { "name": "swipe to delete", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe-actions", "swipe", "undo", "drag-threshold"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures (dismiss)", "url": "https://m1.material.io/patterns/gestures.html" },
+      {
+        "title": "LogRocket: Designing swipe-to-delete and swipe-to-reveal",
+        "url": "https://blog.logrocket.com/ux-design/accessible-swipe-contextual-action-triggers/"
+      }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Dismiss", "url": "https://m1.material.io/patterns/gestures.html", "verified": true }
+    ]
+  },
+  {
+    "name": "Swipe actions",
+    "slug": "swipe-actions",
+    "category": "interaction",
+    "definition": "Buttons hidden behind a list row that a partial sideways swipe reveals, so destructive or common actions live under the item itself.",
+    "useWhen": "actions parked behind a row until it is swiped",
+    "aliases": [
+      { "name": "swipe to reveal", "source": "community" },
+      { "name": "swipe actions", "source": "hig" },
+      { "name": "leading and trailing actions", "source": "community" },
+      { "name": "row actions", "source": "community" }
+    ],
+    "relatedSlugs": ["swipe-to-dismiss", "long-press", "secondary-click"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "LogRocket: Designing swipe-to-delete and swipe-to-reveal interactions",
+        "url": "https://blog.logrocket.com/ux-design/accessible-swipe-contextual-action-triggers/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Shake to undo",
+    "slug": "shake-to-undo",
+    "category": "interaction",
+    "definition": "Physically shaking a device to trigger undo or redo, an accelerometer gesture Apple defines system wide for reversing a recent edit.",
+    "useWhen": "undo triggered by motion rather than a control",
+    "aliases": [{ "name": "shake", "source": "hig" }, { "name": "shake gesture", "source": "community" }],
+    "relatedSlugs": ["undo", "haptic-feedback"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "iOS HIG: Gestures (shake)", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Shake",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Force touch",
+    "slug": "force-touch",
+    "category": "interaction",
+    "definition": "A press whose depth is part of the input, letting a harder press mean something different from a light one on a pressure sensing surface.",
+    "useWhen": "press depth carries meaning, not just contact",
+    "aliases": [
+      { "name": "3D Touch", "source": "hig" },
+      { "name": "pressure touch", "source": "community" },
+      { "name": "deep press", "source": "community" }
+    ],
+    "relatedSlugs": ["long-press", "pressure-sensitivity", "peek", "haptic-feedback"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "iOS HIG: Gestures and 3D Touch", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }
+    ],
+    "implementations": [],
+    "notes": "Largely retired on current hardware, but still the word people reach for; keep as a historical tail entry."
+  },
+  {
+    "name": "Haptic feedback",
+    "slug": "haptic-feedback",
+    "category": "interaction",
+    "definition": "A brief physical vibration or tap produced by the device to confirm an interaction, mark a boundary, or signal success and failure.",
+    "useWhen": "feedback the user feels rather than sees or hears",
+    "aliases": [
+      { "name": "haptics", "source": "hig" },
+      { "name": "vibration feedback", "source": "community" },
+      { "name": "taptic feedback", "source": "community" }
+    ],
+    "relatedSlugs": ["pressed-state", "ripple", "snapping"],
+    "priority": "core",
+    "demo": "none",
+    "sources": [
+      { "title": "UXmatters: Designing for touch", "url": "https://www.uxmatters.com/mt/archives/2020/02/designing-for-touch.php" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Look and pinch",
+    "slug": "look-and-pinch",
+    "category": "interaction",
+    "definition": "Spatial input where the eyes choose the target and a finger pinch commits the action, so selection and activation come from different body parts.",
+    "useWhen": "gaze selects, hand confirms, no cursor involved",
+    "aliases": [
+      { "name": "gaze and pinch", "source": "community" },
+      { "name": "indirect gesture", "source": "hig" },
+      { "name": "eye tracking selection", "source": "community" }
+    ],
+    "relatedSlugs": ["dwell-activation", "hover", "pinch-to-zoom"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "Apple Developer: Explore game input in visionOS", "url": "https://developer.apple.com/videos/play/wwdc2024/10094/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Hover",
+    "slug": "hover",
+    "category": "interaction",
+    "definition": "A pointer resting over an element without pressing, a state that exists for mice and pens but has no true equivalent on touch.",
+    "useWhen": "the pointer is over something but has not committed",
+    "aliases": [
+      { "name": "mouseover", "source": "community" },
+      { "name": "rollover", "source": "community" },
+      { "name": "hovered state", "source": "material" }
+    ],
+    "relatedSlugs": ["hover-intent", "sticky-hover", "pressed-state", "focus-follows-mouse"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design 3: States", "url": "https://m3.material.io/foundations/interaction/states/overview" },
+      { "title": "MDN: Pointer events", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Hovered state",
+        "url": "https://m3.material.io/foundations/interaction/states/overview",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Hover intent",
+    "slug": "hover-intent",
+    "category": "interaction",
+    "definition": "Waiting out a short delay or watching cursor direction before acting on a hover, so a pointer merely passing through does not open anything.",
+    "useWhen": "telling a deliberate hover from one passing through",
+    "aliases": [
+      { "name": "hover delay", "source": "community" },
+      { "name": "hoverIntent", "source": "community" },
+      { "name": "intent detection", "source": "community" },
+      { "name": "safe triangle", "source": "community" },
+      { "name": "diagonal problem", "source": "community" }
+    ],
+    "relatedSlugs": ["hover", "spring-loading", "debounce", "dwell-activation"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Baymard: Provide a hover delay of 300 to 500 ms", "url": "https://baymard.com/blog/dropdown-menu-flickering-issue" },
+      {
+        "title": "NN/g: Timing guidelines for exposing hidden content",
+        "url": "https://www.nngroup.com/articles/timing-exposing-content/"
+      },
+      {
+        "title": "CSS-Tricks: Dropdown menus with more forgiving mouse movement paths",
+        "url": "https://css-tricks.com/dropdown-menus-with-more-forgiving-mouse-movement-paths/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Tail gold: the safe triangle and the diagonal problem are separate enough that canonicalize may want them as aliases here or as their own entries."
+  },
+  {
+    "name": "Spring loading",
+    "slug": "spring-loading",
+    "category": "interaction",
+    "definition": "Hovering a dragged item over a container until it opens, so a drag can travel through nested destinations without being dropped and restarted.",
+    "useWhen": "a drag opens what it hovers so it can go deeper",
+    "aliases": [
+      { "name": "spring-loaded folders", "source": "hig" },
+      { "name": "hover to open during drag", "source": "community" },
+      { "name": "drag hover expand", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "hover-intent", "drop-zone", "drag-autoscroll"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "MacPaw: What is spring loading on Mac", "url": "https://macpaw.com/how-to/use-spring-loading-on-mac" }],
+    "implementations": []
+  },
+  {
+    "name": "Peek",
+    "slug": "peek",
+    "category": "interaction",
+    "definition": "A preview shown while a press is held, which either collapses when the finger lifts or commits to the full view if the press continues.",
+    "useWhen": "a preview that lasts only as long as the press",
+    "aliases": [
+      { "name": "peek and pop", "source": "hig" },
+      { "name": "preview on press", "source": "community" },
+      { "name": "quick look", "source": "community" }
+    ],
+    "relatedSlugs": ["force-touch", "long-press"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "iOS HIG: Gestures (peek)", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }],
+    "implementations": [],
+    "notes": "Merge candidate with hover-card (already on site): peek is the press-held cousin of the hover preview."
+  },
+  {
+    "name": "Pointer capture",
+    "slug": "pointer-capture",
+    "category": "interaction",
+    "definition": "Redirecting all events for one pointer to a chosen element, so a drag keeps reaching the control it started on even when it wanders off.",
+    "useWhen": "a drag must keep its grip after leaving the element",
+    "aliases": [
+      { "name": "setPointerCapture", "source": "mdn" },
+      { "name": "mouse capture", "source": "community" },
+      { "name": "drag capture", "source": "community" }
+    ],
+    "relatedSlugs": ["pointer-lock", "drag-and-drop", "scrubbing", "hit-testing"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: Pointer events (pointer capture)", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Pointer capture",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Pointer lock",
+    "slug": "pointer-lock",
+    "category": "interaction",
+    "definition": "Hiding the cursor and reading only its movement deltas, so input keeps flowing past the edges of the screen instead of stopping at them.",
+    "useWhen": "input is relative movement, not a screen position",
+    "aliases": [
+      { "name": "mouse lock", "source": "mdn" },
+      { "name": "mouse look", "source": "community" },
+      { "name": "cursor lock", "source": "community" }
+    ],
+    "relatedSlugs": ["pointer-capture", "orbit", "dead-zone"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [{ "title": "MDN: Pointer Lock API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Pointer Lock API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API",
+        "verified": true
+      }
+    ],
+    "notes": "Needs a real user gesture and a browser permission prompt, so it cannot be demonstrated in attract mode."
+  },
+  {
+    "name": "Hit testing",
+    "slug": "hit-testing",
+    "category": "interaction",
+    "definition": "Working out which element sits under a pointer, which decides who receives the event when shapes overlap or transparent areas are in the way.",
+    "useWhen": "asking which element a click actually lands on",
+    "aliases": [
+      { "name": "hit test", "source": "mdn" },
+      { "name": "hit detection", "source": "community" },
+      { "name": "pick", "source": "community" }
+    ],
+    "relatedSlugs": ["click-through", "hit-slop", "touch-target", "pointer-capture"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "MDN: Pointer events (hit test)", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }],
+    "implementations": [
+      { "systemId": "mdn", "name": "Hit test", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events", "verified": true }
+    ]
+  },
+  {
+    "name": "Touch target",
+    "slug": "touch-target",
+    "category": "interaction",
+    "definition": "The activatable area of a control, which needs a minimum size and spacing so a fingertip can hit it without catching its neighbours.",
+    "useWhen": "sizing what the finger must hit, not what is drawn",
+    "aliases": [
+      { "name": "tap target", "source": "community" },
+      { "name": "hit target", "source": "hig" },
+      { "name": "target size", "source": "wcag" },
+      { "name": "click target", "source": "community" },
+      { "name": "hit area", "source": "community" }
+    ],
+    "relatedSlugs": ["hit-slop", "fitts-law", "thumb-zone", "hit-testing"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Understanding SC 2.5.8: Target Size (Minimum)",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
+      },
+      {
+        "title": "Smashing Magazine: Accessible target sizes cheatsheet",
+        "url": "https://www.smashingmagazine.com/2023/04/accessible-tap-target-sizes-rage-taps-clicks/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "wcag",
+        "name": "Target Size (Minimum) 2.5.8",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+        "verified": true
+      },
+      {
+        "systemId": "deque",
+        "name": "2.5.5 Target Size",
+        "url": "https://dequeuniversity.com/resources/wcag2.1/2.5.5-target-size",
+        "verified": true
+      }
+    ],
+    "notes": "Sits on the interaction and accessibility border; recorded here because the word is used about input, not about assistive tech."
+  },
+  {
+    "name": "Hit slop",
+    "slug": "hit-slop",
+    "category": "interaction",
+    "definition": "Invisible padding that extends a control's activatable area beyond its drawn bounds, so a small icon can stay small and still be easy to hit.",
+    "useWhen": "the tappable area is bigger than the visible control",
+    "aliases": [
+      { "name": "hitSlop", "source": "community" },
+      { "name": "touch target padding", "source": "community" },
+      { "name": "invisible hit area", "source": "community" },
+      { "name": "extended tap area", "source": "community" }
+    ],
+    "relatedSlugs": ["touch-target", "hit-testing", "fitts-law"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Smashing Magazine: Accessible target sizes cheatsheet",
+        "url": "https://www.smashingmagazine.com/2023/04/accessible-tap-target-sizes-rage-taps-clicks/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Fitts's law",
+    "slug": "fitts-law",
+    "category": "interaction",
+    "definition": "The rule that the time to hit a target grows with its distance and shrinks with its size, which is why screen edges and corners are so easy to reach.",
+    "useWhen": "arguing about how big or how near a control should be",
+    "aliases": [
+      { "name": "Fitts law", "source": "community" },
+      { "name": "law of target acquisition", "source": "community" },
+      { "name": "magic corners", "source": "community" }
+    ],
+    "relatedSlugs": ["touch-target", "hit-slop", "thumb-zone", "radial-menu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Smashing Magazine: Accessible target sizes cheatsheet",
+        "url": "https://www.smashingmagazine.com/2023/04/accessible-tap-target-sizes-rage-taps-clicks/"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Drag threshold",
+    "slug": "drag-threshold",
+    "category": "interaction",
+    "definition": "The small distance a pointer must travel while pressed before the gesture counts as a drag, so a shaky click is not mistaken for one.",
+    "useWhen": "deciding when a press turns into a drag",
+    "aliases": [
+      { "name": "drag slop", "source": "community" },
+      { "name": "touch slop", "source": "community" },
+      { "name": "movement threshold", "source": "community" },
+      { "name": "drag tolerance", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "dead-zone", "fling", "swipe-to-dismiss"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design: Gestures (touch mechanics)", "url": "https://m1.material.io/patterns/gestures.html" }],
+    "implementations": []
+  },
+  {
+    "name": "Dead zone",
+    "slug": "dead-zone",
+    "category": "interaction",
+    "definition": "A range of input near the resting position that is deliberately ignored, so tiny unintended movement produces no response at all.",
+    "useWhen": "input near zero is ignored on purpose",
+    "aliases": [
+      { "name": "deadzone", "source": "community" },
+      { "name": "deadband", "source": "community" },
+      { "name": "stick dead zone", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-threshold", "pointer-lock", "debounce"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Apple Developer: Explore game input in visionOS", "url": "https://developer.apple.com/videos/play/wwdc2024/10094/" }
+    ],
+    "implementations": [],
+    "notes": "Game and tool UI vocabulary that has quietly moved into touch UI as the word for ignored micro-movement."
+  },
+  {
+    "name": "Ghost click",
+    "slug": "ghost-click",
+    "category": "interaction",
+    "definition": "A stray click the browser emits after a touch has already been handled, landing on whatever moved under the finger in the meantime.",
+    "useWhen": "one touch produces a second, unwanted activation",
+    "aliases": [
+      { "name": "ghostclick", "source": "community" },
+      { "name": "phantom click", "source": "community" },
+      { "name": "double activation", "source": "community" }
+    ],
+    "relatedSlugs": ["tap-delay", "click-through", "tap"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "FastClick: polyfill to remove click delays", "url": "https://github.com/ftlabs/fastclick" },
+      { "title": "Chrome for Developers: 300ms tap delay, gone away", "url": "https://developer.chrome.com/blog/300ms-tap-delay-gone-away" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Tap delay",
+    "slug": "tap-delay",
+    "category": "interaction",
+    "definition": "The pause a touch browser once held before dispatching a click, kept open in case a second tap arrived and turned the gesture into a zoom.",
+    "useWhen": "naming the historic lag between tap and response",
+    "aliases": [
+      { "name": "300ms click delay", "source": "community" },
+      { "name": "click delay", "source": "community" },
+      { "name": "touch delay", "source": "community" }
+    ],
+    "relatedSlugs": ["ghost-click", "double-tap", "tap"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Chrome for Developers: 300ms tap delay, gone away", "url": "https://developer.chrome.com/blog/300ms-tap-delay-gone-away" }
+    ],
+    "implementations": [
+      {
+        "systemId": "chrome",
+        "name": "300ms tap delay",
+        "url": "https://developer.chrome.com/blog/300ms-tap-delay-gone-away",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Secondary click",
+    "slug": "secondary-click",
+    "category": "interaction",
+    "definition": "The alternate pointer press, usually the right button or a two-finger tap, reserved for opening contextual actions rather than activating.",
+    "useWhen": "the press that asks for options instead of acting",
+    "aliases": [
+      { "name": "right click", "source": "community" },
+      { "name": "context click", "source": "community" },
+      { "name": "two-finger click", "source": "hig" },
+      { "name": "control-click", "source": "hig" }
+    ],
+    "relatedSlugs": ["long-press", "middle-click", "radial-menu"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: Pointer events (buttons state)", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }
+    ],
+    "implementations": [],
+    "notes": "context-menu already exists on the site; secondary click is the input that opens it, worth a seeAlso rather than a merge."
+  },
+  {
+    "name": "Middle click",
+    "slug": "middle-click",
+    "category": "interaction",
+    "definition": "A press of the scroll wheel button, conventionally used to open a link in a new tab, close a tab, or start autoscrolling.",
+    "useWhen": "the wheel press, not the left or right button",
+    "aliases": [
+      { "name": "wheel click", "source": "community" },
+      { "name": "middle mouse button", "source": "community" },
+      { "name": "auxiliary click", "source": "mdn" }
+    ],
+    "relatedSlugs": ["secondary-click", "double-click", "drag-autoscroll"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "MDN: Pointer events", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }],
+    "implementations": []
+  },
+  {
+    "name": "Double click",
+    "slug": "double-click",
+    "category": "interaction",
+    "definition": "Two clicks inside a short interval on the same spot, treated as one gesture that opens, edits, or selects a word rather than activating twice.",
+    "useWhen": "two clicks that mean something a single click does not",
+    "aliases": [
+      { "name": "dblclick", "source": "mdn" },
+      { "name": "double-click to open", "source": "community" },
+      { "name": "double-click speed", "source": "community" }
+    ],
+    "relatedSlugs": ["double-tap", "caret", "range-select", "secondary-click"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "MDN: Pointer events", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }],
+    "implementations": [],
+    "notes": "Double-click to select a word and triple-click to select a paragraph belong here as aliases unless canonicalize splits them out."
+  },
+  {
+    "name": "Click-through",
+    "slug": "click-through",
+    "category": "interaction",
+    "definition": "A click that both focuses an inactive surface and reaches the control underneath, instead of being spent activating the window first.",
+    "useWhen": "the first click also does the thing, or does not",
+    "aliases": [
+      { "name": "click-through activation", "source": "community" },
+      { "name": "focus-stealing click", "source": "community" },
+      { "name": "pass-through click", "source": "community" }
+    ],
+    "relatedSlugs": ["focus-follows-mouse", "hit-testing", "ghost-click"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "LWN: Focus follows mouse or click to focus?", "url": "https://lwn.net/Articles/467703/" }],
+    "implementations": [],
+    "notes": "Also used in CSS sense (pointer-events: none makes an overlay click-through). Two meanings worth disambiguating in the article."
+  },
+  {
+    "name": "Pressure sensitivity",
+    "slug": "pressure-sensitivity",
+    "category": "interaction",
+    "definition": "Reading how hard a pen or finger presses, plus tilt and twist, so stroke weight and behaviour vary with the shape of the contact.",
+    "useWhen": "how hard or how tilted the input is matters",
+    "aliases": [
+      { "name": "pen pressure", "source": "community" },
+      { "name": "stylus tilt", "source": "mdn" },
+      { "name": "tilt and twist", "source": "mdn" },
+      { "name": "tangential pressure", "source": "mdn" }
+    ],
+    "relatedSlugs": ["force-touch", "multi-touch", "hit-testing"],
+    "priority": "tail",
+    "demo": "none",
+    "sources": [
+      { "title": "MDN: Pointer events (pressure, tilt, twist)", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Pointer events pressure and tilt",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Drag handle",
+    "slug": "drag-handle",
+    "category": "component",
+    "definition": "The small gripped area, often drawn as rows of dots or lines, that marks where an item may be picked up and dragged.",
+    "useWhen": "the part of an item that says grab me here",
+    "aliases": [
+      { "name": "grabber", "source": "community" },
+      { "name": "grip", "source": "community" },
+      { "name": "grip dots", "source": "community" },
+      { "name": "drag indicator", "source": "material" },
+      { "name": "move handle", "source": "community" },
+      { "name": "reorder handle", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "drag-to-reorder", "drop-zone"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Drag and drop", "url": "https://cloudscape.design/patterns/general/drag-and-drop/" }],
+    "implementations": [
+      {
+        "systemId": "cloudscape",
+        "name": "Drag handle",
+        "url": "https://cloudscape.design/patterns/general/drag-and-drop/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: it is a component, but it is discovered through interaction searches. This is the literal what is the word for the little grip dots query."
+  },
+  {
+    "name": "Drop zone",
+    "slug": "drop-zone",
+    "category": "interaction",
+    "definition": "The region that will accept a dragged item, usually highlighted while a compatible drag is in flight so the destination is unmistakable.",
+    "useWhen": "the area that says a drag can land here",
+    "aliases": [
+      { "name": "drop target", "source": "mdn" },
+      { "name": "dropzone", "source": "community" },
+      { "name": "drop area", "source": "community" },
+      { "name": "landing zone", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "drop-indicator", "spring-loading", "drag-preview"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: HTML Drag and Drop API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Drop target",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Drop indicator",
+    "slug": "drop-indicator",
+    "category": "component",
+    "definition": "The thin line or gap that appears between items during a drag to show exactly where the item will land if released now.",
+    "useWhen": "showing the exact slot a drop will occupy",
+    "aliases": [
+      { "name": "insertion line", "source": "community" },
+      { "name": "insertion point", "source": "community" },
+      { "name": "drop line", "source": "community" },
+      { "name": "placeholder gap", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "drop-zone", "drag-to-reorder", "drag-preview"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Drag and drop", "url": "https://cloudscape.design/patterns/general/drag-and-drop/" }],
+    "implementations": [
+      {
+        "systemId": "cloudscape",
+        "name": "Drop indicator",
+        "url": "https://cloudscape.design/patterns/general/drag-and-drop/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: an element, so filed as component, but only ever seen mid-interaction."
+  },
+  {
+    "name": "Drag preview",
+    "slug": "drag-preview",
+    "category": "interaction",
+    "definition": "The translucent copy of the dragged item that follows the pointer, standing in for the original while it stays in place.",
+    "useWhen": "the ghost of the item that follows the cursor",
+    "aliases": [
+      { "name": "drag image", "source": "mdn" },
+      { "name": "drag feedback image", "source": "mdn" },
+      { "name": "ghost image", "source": "community" },
+      { "name": "drag ghost", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "drop-indicator", "drop-zone"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: HTML Drag and Drop API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "setDragImage",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Drag autoscroll",
+    "slug": "drag-autoscroll",
+    "category": "interaction",
+    "definition": "Scrolling a container automatically when a drag is held near its edge, so an item can be moved somewhere currently off screen.",
+    "useWhen": "a drag needs to reach past the visible area",
+    "aliases": [
+      { "name": "edge autoscroll", "source": "community" },
+      { "name": "auto-scroll on drag", "source": "community" },
+      { "name": "scroll while dragging", "source": "community" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "spring-loading", "momentum-scrolling"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Cloudscape: Drag and drop", "url": "https://cloudscape.design/patterns/general/drag-and-drop/" }],
+    "implementations": []
+  },
+  {
+    "name": "Drag to reorder",
+    "slug": "drag-to-reorder",
+    "category": "interaction",
+    "definition": "Rearranging a list or grid by dragging items to new positions, with the remaining items shifting to open a place for the one in hand.",
+    "useWhen": "changing order by moving items, not by controls",
+    "aliases": [
+      { "name": "reorder", "source": "community" },
+      { "name": "sortable list", "source": "community" },
+      { "name": "rearrange", "source": "hig" },
+      { "name": "pick up and move", "source": "material" }
+    ],
+    "relatedSlugs": ["drag-and-drop", "drag-handle", "drop-indicator"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Material Design: Gestures (pick up and move)", "url": "https://m1.material.io/patterns/gestures.html" },
+      { "title": "Cloudscape: Drag and drop", "url": "https://cloudscape.design/patterns/general/drag-and-drop/" }
+    ],
+    "implementations": [
+      { "systemId": "material", "name": "Pick up and move", "url": "https://m1.material.io/patterns/gestures.html", "verified": true }
+    ]
+  },
+  {
+    "name": "Momentum scrolling",
+    "slug": "momentum-scrolling",
+    "category": "interaction",
+    "definition": "Content that keeps moving after the finger lifts, decelerating as though it had mass, so one flick can travel a long way.",
+    "useWhen": "scrolling that coasts after the gesture ends",
+    "aliases": [
+      { "name": "inertial scrolling", "source": "community" },
+      { "name": "kinetic scrolling", "source": "community" },
+      { "name": "scroll momentum", "source": "community" },
+      { "name": "flick scrolling", "source": "community" }
+    ],
+    "relatedSlugs": ["fling", "rubber-banding", "scroll-snap", "overscroll"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Basic concepts of scroll snap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap/Basic_concepts"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Rubber banding",
+    "slug": "rubber-banding",
+    "category": "interaction",
+    "definition": "Letting content stretch past its scroll boundary under the finger and spring back on release, so the edge is felt rather than hit.",
+    "useWhen": "the elastic bounce at the end of a scroll",
+    "aliases": [
+      { "name": "elastic scrolling", "source": "community" },
+      { "name": "scroll bouncing", "source": "community" },
+      { "name": "bounce scrolling", "source": "community" },
+      { "name": "overscroll bounce", "source": "community" }
+    ],
+    "relatedSlugs": ["overscroll", "momentum-scrolling", "pull-to-refresh", "scroll-chaining"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: overscroll-behavior", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior" },
+      {
+        "title": "Smashing Magazine: Scroll bouncing on your websites",
+        "url": "https://www.smashingmagazine.com/2018/08/scroll-bouncing-websites/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "overscroll-behavior",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
+        "verified": true
+      }
+    ],
+    "notes": "Android's edge glow is the same idea with a different affordance; treat it as an alias unless the article separates them."
+  },
+  {
+    "name": "Overscroll",
+    "slug": "overscroll",
+    "category": "interaction",
+    "definition": "Scrolling input that continues after a scroller has reached its limit, which platforms answer with a bounce, a glow, or a handoff to the parent.",
+    "useWhen": "input keeps scrolling past the end of the content",
+    "aliases": [
+      { "name": "overscroll affordance", "source": "community" },
+      { "name": "edge glow", "source": "material" },
+      { "name": "overscroll collapse", "source": "material" }
+    ],
+    "relatedSlugs": ["rubber-banding", "scroll-chaining", "pull-to-refresh"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: overscroll-behavior", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior" },
+      { "title": "CSS-Tricks: overscroll-behavior", "url": "https://css-tricks.com/almanac/properties/o/overscroll-behavior/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "overscroll-behavior",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
+        "verified": true
+      },
+      {
+        "systemId": "open-ui",
+        "name": "Overscroll actions",
+        "url": "https://open-ui.org/components/overscroll-actions.explainer/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Scroll snap",
+    "slug": "scroll-snap",
+    "category": "interaction",
+    "definition": "A scroller that comes to rest on defined positions rather than wherever momentum leaves it, so items always finish aligned.",
+    "useWhen": "scrolling must settle on items, not between them",
+    "aliases": [
+      { "name": "snap points", "source": "community" },
+      { "name": "snap scrolling", "source": "community" },
+      { "name": "scroll-snap-type", "source": "mdn" },
+      { "name": "paging scroll", "source": "community" }
+    ],
+    "relatedSlugs": ["momentum-scrolling", "snapping", "overscroll"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: CSS scroll snap", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" },
+      { "title": "MDN: scroll-snap-type", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-snap-type" }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "CSS scroll snap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Scroll chaining",
+    "slug": "scroll-chaining",
+    "category": "interaction",
+    "definition": "When an inner scroller reaches its end and the gesture continues, the scroll passes to the page behind it unless that handoff is blocked.",
+    "useWhen": "an inner scroll spills over into the page behind",
+    "aliases": [
+      { "name": "scroll propagation", "source": "community" },
+      { "name": "overscroll-behavior: contain", "source": "mdn" },
+      { "name": "scroll bleed", "source": "community" }
+    ],
+    "relatedSlugs": ["overscroll", "scroll-lock", "rubber-banding"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "MDN: overscroll-behavior", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior" }],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "overscroll-behavior contain",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Scroll lock",
+    "slug": "scroll-lock",
+    "category": "interaction",
+    "definition": "Freezing the page behind an open overlay so a wheel or swipe moves the overlay's own content and never the document underneath.",
+    "useWhen": "the page must hold still while an overlay is open",
+    "aliases": [
+      { "name": "body scroll lock", "source": "community" },
+      { "name": "scroll blocking", "source": "community" },
+      { "name": "freeze background scroll", "source": "community" }
+    ],
+    "relatedSlugs": ["scroll-chaining", "light-dismiss"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [{ "title": "MDN: overscroll-behavior", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior" }],
+    "implementations": [],
+    "notes": "Subject is the document scroller, so this is a genuine iframe case. Pairs with modal-dialog, already on the site."
+  },
+  {
+    "name": "Scroll hijacking",
+    "slug": "scroll-hijacking",
+    "category": "interaction",
+    "definition": "Taking over the page scroller so a gesture drives a scripted sequence instead of moving the page by the amount the reader asked for.",
+    "useWhen": "the page answers a scroll with something other than scrolling",
+    "aliases": [
+      { "name": "scrolljacking", "source": "community" },
+      { "name": "scroll jacking", "source": "community" },
+      { "name": "hijacked scrolling", "source": "community" }
+    ],
+    "relatedSlugs": ["scroll-snap", "momentum-scrolling", "infinite-scroll"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [{ "title": "MDN: CSS scroll snap", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" }],
+    "implementations": [],
+    "notes": "Pejorative in most usage; the article should say so. Subject is the document scroller, hence iframe."
+  },
+  {
+    "name": "Scroll anchoring",
+    "slug": "scroll-anchoring",
+    "category": "interaction",
+    "definition": "Keeping the reader's position fixed when content loads or resizes above it, by adjusting scroll offset so the visible text does not jump.",
+    "useWhen": "content loads above and the view must not jump",
+    "aliases": [
+      { "name": "anchor scrolling", "source": "community" },
+      { "name": "overflow-anchor", "source": "mdn" },
+      { "name": "scroll jump prevention", "source": "community" }
+    ],
+    "relatedSlugs": ["infinite-scroll", "scroll-snap"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      {
+        "title": "MDN: overscroll-behavior (scrolling behaviour reference)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior"
+      }
+    ],
+    "implementations": [],
+    "notes": "MDN has a dedicated overflow-anchor page that was not fetched this sweep; verify before authoring."
+  },
+  {
+    "name": "Infinite scroll",
+    "slug": "infinite-scroll",
+    "category": "pattern",
+    "definition": "Loading the next page of results as the reader approaches the end, so the list extends continuously instead of asking for a next page.",
+    "useWhen": "the list grows as you reach the bottom of it",
+    "aliases": [
+      { "name": "endless scroll", "source": "community" },
+      { "name": "continuous scroll", "source": "community" },
+      { "name": "lazy loading list", "source": "community" }
+    ],
+    "relatedSlugs": ["scroll-anchoring", "scroll-hijacking", "momentum-scrolling"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [{ "title": "MDN: CSS scroll snap", "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap" }],
+    "implementations": [],
+    "notes": "Cross-category: filed as pattern, but surfaced by an interaction sweep. Likely also enumerated by the pattern agent."
+  },
+  {
+    "name": "Keyboard shortcut",
+    "slug": "keyboard-shortcut",
+    "category": "interaction",
+    "definition": "A key or key combination that runs a command directly, giving practised users a path that skips the menus and the pointer entirely.",
+    "useWhen": "a command reachable by keys instead of controls",
+    "aliases": [
+      { "name": "hotkey", "source": "community" },
+      { "name": "accelerator", "source": "community" },
+      { "name": "key binding", "source": "community" },
+      { "name": "shortcut key", "source": "community" }
+    ],
+    "relatedSlugs": ["chorded-shortcut", "key-sequence", "modifier-key", "access-key"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" },
+      { "title": "Wikipedia: Keyboard shortcut", "url": "https://en.wikipedia.org/wiki/Keyboard_mnemonic" }
+    ],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Keyboard shortcuts",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Chorded shortcut",
+    "slug": "chorded-shortcut",
+    "category": "interaction",
+    "definition": "A shortcut whose keys are held down together like a chord, in contrast to one typed as a sequence of separate presses.",
+    "useWhen": "keys pressed together rather than one after another",
+    "aliases": [
+      { "name": "key chord", "source": "community" },
+      { "name": "chording", "source": "community" },
+      { "name": "key combination", "source": "community" },
+      { "name": "combo key", "source": "community" }
+    ],
+    "relatedSlugs": ["keyboard-shortcut", "key-sequence", "modifier-key"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Chorded keyboard", "url": "https://en.wikipedia.org/wiki/Chorded_keyboard" }],
+    "implementations": []
+  },
+  {
+    "name": "Key sequence",
+    "slug": "key-sequence",
+    "category": "interaction",
+    "definition": "A shortcut typed as an ordered run of presses, where the first key opens a mode and the next chooses within it.",
+    "useWhen": "shortcuts typed in order, like a prefix then a letter",
+    "aliases": [
+      { "name": "leader key", "source": "community" },
+      { "name": "sequential shortcut", "source": "community" },
+      { "name": "prefix key", "source": "community" },
+      { "name": "key chord sequence", "source": "community" }
+    ],
+    "relatedSlugs": ["chorded-shortcut", "keyboard-shortcut", "quasimode"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Chorded keyboard", "url": "https://en.wikipedia.org/wiki/Chorded_keyboard" }],
+    "implementations": []
+  },
+  {
+    "name": "Modifier key",
+    "slug": "modifier-key",
+    "category": "interaction",
+    "definition": "A key held to change what another input means, so the same click or keystroke can copy instead of move, or add instead of replace.",
+    "useWhen": "a held key changes what the next input does",
+    "aliases": [
+      { "name": "meta key", "source": "community" },
+      { "name": "qualifier key", "source": "community" },
+      { "name": "Shift, Ctrl, Alt, Cmd", "source": "community" }
+    ],
+    "relatedSlugs": ["chorded-shortcut", "range-select", "multi-select", "scrubby-slider"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Mnemonics (keyboard)", "url": "https://en.wikipedia.org/wiki/Mnemonics_(keyboard)" }],
+    "implementations": []
+  },
+  {
+    "name": "Access key",
+    "slug": "access-key",
+    "category": "interaction",
+    "definition": "A single letter, usually shown underlined, that jumps straight to a menu or control once the access modifier is held.",
+    "useWhen": "the underlined letter that reaches a menu item",
+    "aliases": [
+      { "name": "keyboard mnemonic", "source": "community" },
+      { "name": "mnemonic", "source": "community" },
+      { "name": "underlined letter", "source": "community" },
+      { "name": "accesskey", "source": "mdn" }
+    ],
+    "relatedSlugs": ["keyboard-shortcut", "typeahead", "modifier-key"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Mnemonics (keyboard)", "url": "https://en.wikipedia.org/wiki/Mnemonics_(keyboard)" }],
+    "implementations": [],
+    "notes": "Windows calls it an access key, general HCI literature calls it a mnemonic; keep both as aliases."
+  },
+  {
+    "name": "Roving tabindex",
+    "slug": "roving-tabindex",
+    "category": "interaction",
+    "definition": "A focus technique where only one item in a group is in the tab order and arrow keys move that position, so Tab enters and leaves the whole group once.",
+    "useWhen": "a group of controls that Tab treats as one stop",
+    "aliases": [
+      { "name": "roving tab index", "source": "community" },
+      { "name": "arrow key navigation", "source": "community" },
+      { "name": "composite widget focus", "source": "aria-apg" }
+    ],
+    "relatedSlugs": ["tab-order", "selection-follows-focus", "typeahead"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Roving tabindex",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category candidate with accessibility; the accessibility sweep may also propose it. aria-activedescendant is the sibling technique and could be its own tail entry."
+  },
+  {
+    "name": "Tab order",
+    "slug": "tab-order",
+    "category": "accessibility",
+    "definition": "The path keyboard focus follows through a page as Tab is pressed, which should match the reading order and never strand the user.",
+    "useWhen": "the order the keyboard walks through a page",
+    "aliases": [
+      { "name": "tab sequence", "source": "aria-apg" },
+      { "name": "focus order", "source": "community" },
+      { "name": "tab ring", "source": "community" },
+      { "name": "tabindex order", "source": "community" }
+    ],
+    "relatedSlugs": ["roving-tabindex", "keyboard-trap", "focus-follows-mouse"],
+    "priority": "core",
+    "demo": "iframe",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Tab sequence",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: filed accessibility. Subject is the document's own focus order, so it is a genuine iframe demo."
+  },
+  {
+    "name": "Typeahead",
+    "slug": "typeahead",
+    "category": "interaction",
+    "definition": "Jumping to the item that starts with the letters just typed, so a long list can be reached by spelling rather than by arrowing.",
+    "useWhen": "typing letters to jump within a list",
+    "aliases": [
+      { "name": "type-ahead find", "source": "community" },
+      { "name": "first letter navigation", "source": "aria-apg" },
+      { "name": "type to search", "source": "community" },
+      { "name": "incremental search", "source": "community" }
+    ],
+    "relatedSlugs": ["roving-tabindex", "access-key", "keyboard-shortcut"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Keyboard navigation inside components",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "verified": true
+      }
+    ],
+    "notes": "Distinct from autocomplete in a combobox, which is already covered by the existing combobox entry; the article should separate them."
+  },
+  {
+    "name": "Key repeat",
+    "slug": "key-repeat",
+    "category": "interaction",
+    "definition": "A held key firing repeatedly after an initial delay, which is how arrow keys scroll and backspace deletes more than one character.",
+    "useWhen": "holding a key keeps producing the action",
+    "aliases": [
+      { "name": "auto-repeat", "source": "community" },
+      { "name": "typematic", "source": "community" },
+      { "name": "repeat rate", "source": "community" },
+      { "name": "key repeat delay", "source": "community" }
+    ],
+    "relatedSlugs": ["nudge", "keyboard-shortcut", "hold-to-confirm"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Focus follows mouse",
+    "slug": "focus-follows-mouse",
+    "category": "interaction",
+    "definition": "A focus model in which whatever the pointer is over receives keyboard input, without any click to claim it first.",
+    "useWhen": "keyboard input goes where the pointer is pointing",
+    "aliases": [
+      { "name": "pointer focus", "source": "community" },
+      { "name": "sloppy focus", "source": "community" },
+      { "name": "implicit focus model", "source": "community" },
+      { "name": "click to focus", "source": "community" }
+    ],
+    "relatedSlugs": ["hover", "click-through", "tab-order"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "LWN: Focus follows mouse or click to focus?", "url": "https://lwn.net/Articles/467703/" }],
+    "implementations": [],
+    "notes": "Click to focus is the opposite model and is recorded here as an alias; canonicalize may prefer it as a contrasting stub."
+  },
+  {
+    "name": "Selection follows focus",
+    "slug": "selection-follows-focus",
+    "category": "interaction",
+    "definition": "A widget where moving focus also selects, so arrowing through tabs or a listbox changes the selection immediately rather than on a second press.",
+    "useWhen": "arrowing changes the choice, not just the highlight",
+    "aliases": [
+      { "name": "automatic activation", "source": "aria-apg" },
+      { "name": "manual activation", "source": "aria-apg" },
+      { "name": "follow focus", "source": "community" }
+    ],
+    "relatedSlugs": ["roving-tabindex", "multi-select", "tab-order"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" },
+      { "title": "ARIA APG: Patterns index", "url": "https://www.w3.org/WAI/ARIA/apg/patterns/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "aria-apg",
+        "name": "Selection follows focus",
+        "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+        "verified": true
+      }
+    ],
+    "notes": "Contrast pair with the existing tabs entry, where automatic versus manual activation is the visible consequence."
+  },
+  {
+    "name": "Keyboard trap",
+    "slug": "keyboard-trap",
+    "category": "accessibility",
+    "definition": "A place keyboard focus can enter but not leave by keyboard alone, stranding anyone who is not using a pointer.",
+    "useWhen": "focus goes in and cannot be tabbed back out",
+    "aliases": [
+      { "name": "focus trap (accidental)", "source": "community" },
+      { "name": "keyboard dead end", "source": "community" },
+      { "name": "no keyboard trap", "source": "wcag" }
+    ],
+    "relatedSlugs": ["tab-order", "light-dismiss"],
+    "priority": "tail",
+    "demo": "iframe",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": [],
+    "notes": "Merge risk with the existing focus-trap entry: focus trap is deliberate and correct in a dialog, keyboard trap is the accidental failure. The two should contrast, not merge."
+  },
+  {
+    "name": "Light dismiss",
+    "slug": "light-dismiss",
+    "category": "interaction",
+    "definition": "Closing a transient surface by clicking outside it or pressing Escape, without a dedicated close control being used.",
+    "useWhen": "clicking away is enough to close something",
+    "aliases": [
+      { "name": "click outside to close", "source": "community" },
+      { "name": "dismiss on outside click", "source": "community" },
+      { "name": "auto dismiss", "source": "community" },
+      { "name": "popover=auto", "source": "mdn" },
+      { "name": "escape to dismiss", "source": "community" }
+    ],
+    "relatedSlugs": ["scroll-lock", "swipe-to-dismiss", "keyboard-trap"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "ARIA APG: Patterns index", "url": "https://www.w3.org/WAI/ARIA/apg/patterns/" }],
+    "implementations": [],
+    "notes": "The native popover attribute names this behaviour directly (auto versus manual); verify the MDN popover page before authoring."
+  },
+  {
+    "name": "Marquee selection",
+    "slug": "marquee-selection",
+    "category": "interaction",
+    "definition": "Dragging a rectangle across a canvas or list to select everything it encloses, the border often animating so the region reads as live.",
+    "useWhen": "selecting many items by dragging a box around them",
+    "aliases": [
+      { "name": "rubber band selection", "source": "community" },
+      { "name": "box select", "source": "community" },
+      { "name": "drag select", "source": "community" },
+      { "name": "band select", "source": "community" },
+      { "name": "marquee", "source": "community" }
+    ],
+    "relatedSlugs": ["lasso-selection", "multi-select", "range-select", "marching-ants"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Computer Hope: What is a marquee?", "url": "https://www.computerhope.com/jargon/m/marquee.htm" }],
+    "implementations": []
+  },
+  {
+    "name": "Lasso selection",
+    "slug": "lasso-selection",
+    "category": "interaction",
+    "definition": "Selecting by drawing a freehand outline around items, so the boundary can follow an irregular shape instead of a rectangle.",
+    "useWhen": "selecting an irregular region by drawing around it",
+    "aliases": [
+      { "name": "lasso tool", "source": "community" },
+      { "name": "free form selection", "source": "community" },
+      { "name": "freehand select", "source": "community" }
+    ],
+    "relatedSlugs": ["marquee-selection", "multi-select"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Lasso tool", "url": "https://en.wikipedia.org/wiki/Lasso_tool" }],
+    "implementations": []
+  },
+  {
+    "name": "Range select",
+    "slug": "range-select",
+    "category": "interaction",
+    "definition": "Choosing a contiguous run of items by marking one end and holding Shift while marking the other, selecting everything between them.",
+    "useWhen": "selecting everything between two items at once",
+    "aliases": [
+      { "name": "shift-click", "source": "community" },
+      { "name": "shift select", "source": "community" },
+      { "name": "contiguous selection", "source": "community" },
+      { "name": "extend selection", "source": "community" }
+    ],
+    "relatedSlugs": ["multi-select", "marquee-selection", "modifier-key"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Multi-select",
+    "slug": "multi-select",
+    "category": "interaction",
+    "definition": "Adding items to a selection one at a time with a modifier held, so choices accumulate instead of replacing each other.",
+    "useWhen": "picking several items that are not next to each other",
+    "aliases": [
+      { "name": "ctrl-click", "source": "community" },
+      { "name": "cmd-click", "source": "community" },
+      { "name": "toggle select", "source": "community" },
+      { "name": "additive selection", "source": "community" },
+      { "name": "multiple selection", "source": "aria-apg" }
+    ],
+    "relatedSlugs": ["range-select", "marquee-selection", "modifier-key", "selection-follows-focus"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "ARIA APG: Developing a keyboard interface", "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Selection handle",
+    "slug": "selection-handle",
+    "category": "interaction",
+    "definition": "The draggable grip at each end of a touch text selection, used to widen or narrow the range a finger cannot adjust precisely.",
+    "useWhen": "adjusting a touch selection by its endpoints",
+    "aliases": [
+      { "name": "selection handles", "source": "community" },
+      { "name": "text selection grabber", "source": "community" },
+      { "name": "selection anchor", "source": "community" },
+      { "name": "text handle", "source": "community" }
+    ],
+    "relatedSlugs": ["caret", "long-press", "range-select"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "iOS HIG: Gestures (touch and hold in text)",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Caret",
+    "slug": "caret",
+    "category": "interaction",
+    "definition": "The blinking marker showing where typed text will be inserted, moved by clicking, by arrow keys, or by dragging on touch.",
+    "useWhen": "the text insertion marker, not the mouse pointer",
+    "aliases": [
+      { "name": "text cursor", "source": "community" },
+      { "name": "insertion point", "source": "hig" },
+      { "name": "cursor", "source": "community" },
+      { "name": "caret browsing", "source": "community" }
+    ],
+    "relatedSlugs": ["selection-handle", "double-click", "range-select"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "iOS HIG: Gestures (magnified cursor positioning)",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures"
+      }
+    ],
+    "implementations": [],
+    "notes": "Name collision worth calling out: caret also names the small triangle glyph on a dropdown trigger."
+  },
+  {
+    "name": "Marching ants",
+    "slug": "marching-ants",
+    "category": "motion",
+    "definition": "The animated dashed outline that circles a selection, moving continuously so the boundary reads as active rather than drawn.",
+    "useWhen": "the crawling dashed border around a selection",
+    "aliases": [
+      { "name": "crawling ants", "source": "community" },
+      { "name": "animated selection border", "source": "community" },
+      { "name": "dancing ants", "source": "community" }
+    ],
+    "relatedSlugs": ["marquee-selection", "lasso-selection"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Computer Hope: What is a marquee?", "url": "https://www.computerhope.com/jargon/m/marquee.htm" }],
+    "implementations": [],
+    "notes": "Cross-category: filed as motion since the animation is the term, but discovered through selection vocabulary."
+  },
+  {
+    "name": "Scrubbing",
+    "slug": "scrubbing",
+    "category": "interaction",
+    "definition": "Dragging a playhead along a timeline to move through media by hand, previewing frames as the position changes rather than waiting for playback.",
+    "useWhen": "dragging through time to find a moment",
+    "aliases": [
+      { "name": "scrub", "source": "community" },
+      { "name": "seeking", "source": "community" },
+      { "name": "timeline scrubbing", "source": "community" },
+      { "name": "scrubber", "source": "community" }
+    ],
+    "relatedSlugs": ["scrubby-slider", "pointer-capture", "snapping"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Cloudinary: Video scrubbing", "url": "https://cloudinary.com/glossary/video-scrubbing" },
+      { "title": "Audacity manual: Scrubbing and seeking", "url": "https://manual.audacityteam.org/man/scrubbing_and_seeking.html" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Scrubby slider",
+    "slug": "scrubby-slider",
+    "category": "interaction",
+    "definition": "A numeric field whose label can be dragged sideways to change the value, giving a slider's feel without a slider taking up room.",
+    "useWhen": "dragging a label to change the number beside it",
+    "aliases": [
+      { "name": "number scrubbing", "source": "community" },
+      { "name": "scrubby sliders", "source": "photoshop" },
+      { "name": "drag to change value", "source": "community" },
+      { "name": "sliding value", "source": "figma" },
+      { "name": "draggable number input", "source": "community" }
+    ],
+    "relatedSlugs": ["scrubbing", "modifier-key", "nudge", "pointer-capture"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "CSS-Tricks: Number scrubbing", "url": "https://css-tricks.com/number-scrubbing/" },
+      { "title": "John Nack on Adobe: Scrubby sliders and more", "url": "https://blogs.adobe.com/jnack/2009/02/scrubby_sliders_more.html" }
+    ],
+    "implementations": [],
+    "notes": "Strong tail term: people search for it as the Figma or Photoshop drag-the-label thing without knowing a name."
+  },
+  {
+    "name": "Nudge",
+    "slug": "nudge",
+    "category": "interaction",
+    "definition": "Moving or changing a value by one small fixed step with an arrow key, with a modifier switching to a larger step.",
+    "useWhen": "moving something by exact steps with the keyboard",
+    "aliases": [
+      { "name": "arrow key nudge", "source": "community" },
+      { "name": "big nudge", "source": "community" },
+      { "name": "step", "source": "community" },
+      { "name": "increment", "source": "community" }
+    ],
+    "relatedSlugs": ["key-repeat", "snapping", "scrubby-slider", "modifier-key"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Figma Learn: Adjust alignment, rotation, position, and dimensions",
+        "url": "https://help.figma.com/hc/en-us/articles/360039956914-Adjust-alignment-rotation-position-and-dimensions"
+      }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Snapping",
+    "slug": "snapping",
+    "category": "interaction",
+    "definition": "Pulling a dragged object into exact alignment once it comes within a small distance of a grid, guide, or another object's edge.",
+    "useWhen": "a drag jumps into alignment near a guide",
+    "aliases": [
+      { "name": "snap to grid", "source": "community" },
+      { "name": "magnetic snapping", "source": "community" },
+      { "name": "snap to object", "source": "community" },
+      { "name": "snap tolerance", "source": "community" }
+    ],
+    "relatedSlugs": ["smart-guides", "scroll-snap", "nudge", "drag-and-drop"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Snap (computer graphics)", "url": "https://en.wikipedia.org/wiki/Snap_(computer_graphics)" }],
+    "implementations": []
+  },
+  {
+    "name": "Smart guides",
+    "slug": "smart-guides",
+    "category": "interaction",
+    "definition": "Alignment lines that appear only while dragging, showing which edges or centers the moving object currently lines up with.",
+    "useWhen": "the guide lines that appear mid-drag",
+    "aliases": [
+      { "name": "alignment guides", "source": "community" },
+      { "name": "dynamic guides", "source": "community" },
+      { "name": "magnetic guides", "source": "community" },
+      { "name": "red lines", "source": "community" }
+    ],
+    "relatedSlugs": ["snapping", "drag-and-drop", "drop-indicator"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "CreativePro: Smart(er) guides", "url": "https://creativepro.com/smarter-guides/" }],
+    "implementations": [],
+    "notes": "Borderline layout, but the guides only exist during an interaction, so filed here."
+  },
+  {
+    "name": "Radial menu",
+    "slug": "radial-menu",
+    "category": "component",
+    "definition": "A menu whose items sit around the point of invocation, so a choice is made by direction and distance rather than by reading a list.",
+    "useWhen": "a menu chosen by direction from where you pressed",
+    "aliases": [
+      { "name": "pie menu", "source": "community" },
+      { "name": "circular menu", "source": "community" },
+      { "name": "wheel menu", "source": "community" }
+    ],
+    "relatedSlugs": ["marking-menu", "secondary-click", "long-press", "fitts-law"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Pie menu", "url": "https://en.wikipedia.org/wiki/Pie_menu" }],
+    "implementations": [],
+    "notes": "Cross-category: a component, but it is an interaction technique first. Contrasts with the existing context-menu entry."
+  },
+  {
+    "name": "Marking menu",
+    "slug": "marking-menu",
+    "category": "interaction",
+    "definition": "A radial menu that can be answered before it appears: waiting shows the menu, while a confident stroke in the item's direction selects it outright.",
+    "useWhen": "an expert stroke that skips showing the menu",
+    "aliases": [
+      { "name": "gesture menu", "source": "community" },
+      { "name": "mark mode", "source": "community" },
+      { "name": "flow menu", "source": "community" }
+    ],
+    "relatedSlugs": ["radial-menu", "mouse-gesture", "quasimode"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Buxton: User learning and performance with marking menus", "url": "https://www.billbuxton.com/MMUserLearn.html" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Mouse gesture",
+    "slug": "mouse-gesture",
+    "category": "interaction",
+    "definition": "A command issued by the shape of a pointer stroke, usually with a button held, so a movement stands in for a menu choice.",
+    "useWhen": "a drawn stroke that means a command",
+    "aliases": [
+      { "name": "rocker gesture", "source": "community" },
+      { "name": "gesture navigation", "source": "community" },
+      { "name": "stroke gesture", "source": "community" }
+    ],
+    "relatedSlugs": ["marking-menu", "swipe", "keyboard-shortcut"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Pie menu", "url": "https://en.wikipedia.org/wiki/Pie_menu" }],
+    "implementations": []
+  },
+  {
+    "name": "Orbit",
+    "slug": "orbit",
+    "category": "interaction",
+    "definition": "Rotating a camera around a fixed point by dragging, so the scene appears to turn while the subject stays centered.",
+    "useWhen": "dragging to turn a 3D view around its subject",
+    "aliases": [
+      { "name": "tumble", "source": "community" },
+      { "name": "arcball", "source": "community" },
+      { "name": "turntable", "source": "community" },
+      { "name": "orbit control", "source": "community" }
+    ],
+    "relatedSlugs": ["pan", "rotate-gesture", "pointer-lock"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "Apple Developer: Explore game input in visionOS", "url": "https://developer.apple.com/videos/play/wwdc2024/10094/" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Undo",
+    "slug": "undo",
+    "category": "interaction",
+    "definition": "Reversing the last action and returning to the state before it, which is what lets an interface offer actions without confirming every one.",
+    "useWhen": "letting an action be taken back instead of confirmed",
+    "aliases": [
+      { "name": "undo and redo", "source": "community" },
+      { "name": "revert", "source": "community" },
+      { "name": "undo stack", "source": "community" },
+      { "name": "undo toast", "source": "community" }
+    ],
+    "relatedSlugs": ["shake-to-undo", "hold-to-confirm", "swipe-to-dismiss"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "iOS HIG: Gestures (shake to undo)", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }
+    ],
+    "implementations": [],
+    "notes": "Relates to the existing toast entry, since undo is the classic toast action."
+  },
+  {
+    "name": "Hold to confirm",
+    "slug": "hold-to-confirm",
+    "category": "interaction",
+    "definition": "Requiring a press to be held for a moment before a destructive action commits, with progress shown so the wait is understood as deliberate.",
+    "useWhen": "a dangerous action guarded by a held press",
+    "aliases": [
+      { "name": "press and hold to confirm", "source": "community" },
+      { "name": "hold to delete", "source": "community" },
+      { "name": "long press to confirm", "source": "community" }
+    ],
+    "relatedSlugs": ["long-press", "undo", "key-repeat"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design: Gestures (long press)", "url": "https://m1.material.io/patterns/gestures.html" }],
+    "implementations": [],
+    "notes": "Contrast pair with the existing alert-dialog entry: both guard a destructive action, one with a dialog, one with time."
+  },
+  {
+    "name": "Pressed state",
+    "slug": "pressed-state",
+    "category": "interaction",
+    "definition": "The look a control takes while it is actually being held down, confirming that the press was received before the action runs.",
+    "useWhen": "the moment a control is under the finger",
+    "aliases": [
+      { "name": "active state", "source": "community" },
+      { "name": "pressed", "source": "material" },
+      { "name": "down state", "source": "community" },
+      { "name": "touch state", "source": "community" }
+    ],
+    "relatedSlugs": ["hover", "ripple", "haptic-feedback", "tap"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design 3: States", "url": "https://m3.material.io/foundations/interaction/states/overview" }],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Pressed state",
+        "url": "https://m3.material.io/foundations/interaction/states/overview",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "name": "Ripple",
+    "slug": "ripple",
+    "category": "motion",
+    "definition": "A circular wash that spreads from the point of contact to acknowledge a touch, Material's way of tying feedback to where the finger landed.",
+    "useWhen": "touch feedback that spreads from the contact point",
+    "aliases": [
+      { "name": "ink ripple", "source": "material" },
+      { "name": "state layer", "source": "material" },
+      { "name": "touch ripple", "source": "community" }
+    ],
+    "relatedSlugs": ["pressed-state", "haptic-feedback", "tap"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [{ "title": "Material Design 3: States", "url": "https://m3.material.io/foundations/interaction/states/overview" }],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "State layer / ripple",
+        "url": "https://m3.material.io/foundations/interaction/states/overview",
+        "verified": true
+      }
+    ],
+    "notes": "Cross-category: filed as motion. State layer is Material's current term and may deserve a separate colour entry."
+  },
+  {
+    "name": "Debounce",
+    "slug": "debounce",
+    "category": "interaction",
+    "definition": "Waiting until input has stopped for a set moment before reacting, so a burst of keystrokes or clicks produces one response instead of many.",
+    "useWhen": "waiting for input to settle before responding",
+    "aliases": [
+      { "name": "debouncing", "source": "community" },
+      { "name": "input settling", "source": "community" },
+      { "name": "trailing delay", "source": "community" }
+    ],
+    "relatedSlugs": ["throttle", "hover-intent", "dead-zone"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "NN/g: Timing guidelines for exposing hidden content", "url": "https://www.nngroup.com/articles/timing-exposing-content/" }
+    ],
+    "implementations": [],
+    "notes": "Recorded as felt behaviour rather than as a coding utility; the demo should show the search field that waits."
+  },
+  {
+    "name": "Throttle",
+    "slug": "throttle",
+    "category": "interaction",
+    "definition": "Capping how often a continuous stream of input is acted on, so a response fires at a steady rate instead of on every event.",
+    "useWhen": "limiting how often a continuous input is answered",
+    "aliases": [
+      { "name": "throttling", "source": "community" },
+      { "name": "rate limiting input", "source": "community" },
+      { "name": "sampling", "source": "community" }
+    ],
+    "relatedSlugs": ["debounce", "momentum-scrolling"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "MDN: Pointer events (coalesced events)", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" }
+    ],
+    "implementations": [],
+    "notes": "Merge candidate with debounce; keep separate only if the article can hold the distinction clearly."
+  },
+  {
+    "name": "Affordance",
+    "slug": "affordance",
+    "category": "interaction",
+    "definition": "What an element makes possible for the person using it, such as a surface that can be pushed, dragged, or scrolled.",
+    "useWhen": "naming what an element allows a person to do",
+    "aliases": [{ "name": "perceived affordance", "source": "community" }, { "name": "action possibility", "source": "community" }],
+    "relatedSlugs": ["signifier", "drag-handle", "touch-target"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Supercharge: UI glossary", "url": "https://supercharge.design/blog/ui-glossary-list-of-essential-ui-design-terms" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Signifier",
+    "slug": "signifier",
+    "category": "interaction",
+    "definition": "The visible cue that advertises an affordance, such as a grip texture, an underline, or a shadow that says this can be pressed.",
+    "useWhen": "the cue that tells you an action is possible",
+    "aliases": [
+      { "name": "perceptible signifier", "source": "community" },
+      { "name": "visual cue", "source": "community" },
+      { "name": "interaction cue", "source": "community" }
+    ],
+    "relatedSlugs": ["affordance", "drag-handle", "pressed-state"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "Supercharge: UI glossary", "url": "https://supercharge.design/blog/ui-glossary-list-of-essential-ui-design-terms" }
+    ],
+    "implementations": [],
+    "notes": "Norman's distinction: affordance is the possibility, signifier is the advertisement of it. Strong contrastWith pair."
+  },
+  {
+    "name": "Microinteraction",
+    "slug": "microinteraction",
+    "category": "interaction",
+    "definition": "A small self-contained loop of trigger, rule, feedback, and result, such as a toggle that flips, buzzes, and settles into its new state.",
+    "useWhen": "one tiny complete interaction, trigger to feedback",
+    "aliases": [
+      { "name": "micro-interaction", "source": "community" },
+      { "name": "micro interaction", "source": "community" },
+      { "name": "interaction detail", "source": "community" }
+    ],
+    "relatedSlugs": ["ripple", "pressed-state", "haptic-feedback"],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      { "title": "Supercharge: UI glossary", "url": "https://supercharge.design/blog/ui-glossary-list-of-essential-ui-design-terms" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category candidate with motion; the motion sweep may also propose it."
+  },
+  {
+    "name": "Quasimode",
+    "slug": "quasimode",
+    "category": "interaction",
+    "definition": "A temporary mode held open by the user, such as a key kept down, so it cannot be forgotten and ends the moment the hold ends.",
+    "useWhen": "a mode that lasts only while you hold it",
+    "aliases": [
+      { "name": "spring-loaded mode", "source": "community" },
+      { "name": "held mode", "source": "community" },
+      { "name": "modal versus modeless", "source": "community" }
+    ],
+    "relatedSlugs": ["modifier-key", "key-sequence", "marking-menu"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [{ "title": "Wikipedia: Chorded keyboard", "url": "https://en.wikipedia.org/wiki/Chorded_keyboard" }],
+    "implementations": [],
+    "notes": "Raskin's term. Explains why holding Space to pan is safer than a pan tool you can forget you are in."
+  },
+  {
+    "name": "Dwell activation",
+    "slug": "dwell-activation",
+    "category": "interaction",
+    "definition": "Committing an action by keeping a pointer or gaze still on a target for a set time, for input methods that have no click of their own.",
+    "useWhen": "holding still is the only way to click",
+    "aliases": [
+      { "name": "dwell click", "source": "community" },
+      { "name": "hover to activate", "source": "community" },
+      { "name": "gaze dwell", "source": "community" }
+    ],
+    "relatedSlugs": ["hover-intent", "look-and-pinch", "hover"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "NN/g: Timing guidelines for exposing hidden content", "url": "https://www.nngroup.com/articles/timing-exposing-content/" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category candidate with accessibility: it is a primary input method for people who cannot click."
+  },
+  {
+    "name": "Sticky hover",
+    "slug": "sticky-hover",
+    "category": "interaction",
+    "definition": "A hover style that stays applied on a touch device after a tap, because there is no pointer to leave and clear the state.",
+    "useWhen": "a tapped control stays looking hovered",
+    "aliases": [
+      { "name": "stuck hover", "source": "community" },
+      { "name": "hover on touch", "source": "community" },
+      { "name": "phantom hover", "source": "community" }
+    ],
+    "relatedSlugs": ["hover", "ghost-click", "tap"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "UXmatters: Designing for touch", "url": "https://www.uxmatters.com/mt/archives/2020/02/designing-for-touch.php" }
+    ],
+    "implementations": []
+  },
+  {
+    "name": "Thumb zone",
+    "slug": "thumb-zone",
+    "category": "interaction",
+    "definition": "The arc of the screen a thumb can reach comfortably while holding a phone one handed, which shapes where primary controls belong.",
+    "useWhen": "placing controls where a thumb can actually reach",
+    "aliases": [
+      { "name": "reachability", "source": "hig" },
+      { "name": "thumb reach", "source": "community" },
+      { "name": "one-handed reach", "source": "community" },
+      { "name": "ergonomic zone", "source": "community" }
+    ],
+    "relatedSlugs": ["touch-target", "fitts-law", "app-bar"],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      { "title": "UXmatters: Designing for touch", "url": "https://www.uxmatters.com/mt/archives/2020/02/designing-for-touch.php" }
+    ],
+    "implementations": [],
+    "notes": "Cross-category candidate with layout; recorded here because it is reasoning about input reach, not about grid."
+  }
+]
