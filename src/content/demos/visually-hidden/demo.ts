@@ -17,7 +17,7 @@ export function mount(root: HTMLElement): void {
           <button class="sp-button sp-button--ghost sp-button--sm" data-part="reveal" aria-pressed="false">Reveal hidden text</button>
         </div>
         <div class="sp-row" style="gap: 14px; margin-top: 14px">
-          <button class="sp-button sp-button--ghost sp-row" data-part="labelled" style="position: relative">
+          <button class="sp-button sp-button--ghost sp-row" data-part="labelled">
             ${icon('trash')}<span class="sp-visually-hidden" data-part="label">Delete message</span>
           </button>
           <button class="sp-button sp-button--ghost sp-row" data-part="unlabelled">
@@ -36,12 +36,6 @@ export function mount(root: HTMLElement): void {
   const label = part(root, 'label');
   const reveal = part(root, 'reveal');
   const labelled = part(root, 'labelled');
-
-  // Hold the room the label will need before it needs it, so revealing the text moves
-  // nothing but the text itself, and both buttons keep looking alike (SPEC §5).
-  flag(label, 'data-revealed', true);
-  labelled.style.marginRight = `${label.offsetWidth + 6}px`;
-  flag(label, 'data-revealed', false);
 
   labelled.addEventListener('click', () => {
     transcript.textContent = '“Delete message, button”';

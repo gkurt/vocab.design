@@ -65,9 +65,11 @@ data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
   satisfied by an absent element as well as an invisible one. Scripted input must
   reach a state rather than flip it (SPEC §8): a demo's trigger opens, and dismissal
   is explicit. Toggles are only for demos where the toggling is the term itself.
-- **No layout shift**: a specimen changing state must not move the parts that did not
-  change (SPEC §5). Reserve the room a revealed element will take, measuring it once on
-  mount if that is the only way to know it.
+- **No incidental layout shift**: a specimen changing state must not move the parts
+  that did not change (SPEC §5). Reserve the room a revealed element will take,
+  measuring it once on mount if that is the only way to know it. When the size change
+  is itself the term, contain it: widening a control is fair, growing its row or
+  pushing what is below is not.
 - **Subject and context**: every demo marks the element the term names with
   `data-subject` (on its top-level wrapper for whole-scene terms) and wraps scenery in
   `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to

@@ -167,12 +167,16 @@ component library would save — without the branding or churn.
 - **Isolation**: shadow DOM by default; `demo: iframe` for document-level behaviors
   that shadow DOM can't honestly demonstrate (skip link, focus trap, view transitions,
   scroll-driven animation).
-- **No layout shift.** A specimen changing state must not move the parts that did not
-  change: reserve the room a revealed element will occupy rather than letting it push
-  its neighbours aside. A demonstration is watched, often on a loop, and content
-  jumping under the eye reads as the specimen being broken rather than as the term
-  doing its work. Where the reserved size can only be known at runtime, the demo
-  measures it once on mount.
+- **No incidental layout shift.** A specimen changing state must not move the parts
+  that did not change: reserve the room a revealed element will occupy rather than let
+  it shove its neighbours around. A demonstration is watched, often on a loop, and
+  content jumping under the eye reads as the specimen being broken rather than as the
+  term doing its work. Where the reserved size can only be known at runtime, the demo
+  measures it once on mount. Where taking up room *is* the term (hidden text getting
+  its layout back), the change stays where it belongs: it may widen the control that
+  owns it, but the line that control sits in, and everything below, holds still —
+  usually by keeping the new content out of the cross axis rather than by moving it
+  somewhere it would not really live.
 - **Hard demos** (combobox-class accessibility) are implemented properly once, in the
   kit, and reused — never re-derived per demo.
 - **Budgets**: no network requests, no timers while idle, small enough to inline.
