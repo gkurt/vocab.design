@@ -1,0 +1,77 @@
+---
+name: Progress bar
+slug: progress-bar
+category: component
+status: published
+definition: >-
+  A filling bar reporting how far along a task is, determinate when the end is
+  known and indeterminate when it is not.
+aliases:
+  - name: progress indicator
+    source: nngroup
+  - name: loading bar
+    source: cloudscape
+  - name: progress
+    source: community
+implementations:
+  - system: material
+    name: Progress indicators
+    url: https://m3.material.io/components/progress-indicators/overview
+  - system: hig
+    name: Progress indicators
+    url: https://developer.apple.com/design/human-interface-guidelines/progress-indicators
+  - system: fluent
+    name: Progress Bar
+    url: https://fluent2.microsoft.design/components/web/react/core/progressbar/usage
+  - system: carbon
+    name: Progress bar
+    url: https://carbondesignsystem.com/components/progress-bar/usage/
+  - system: radix
+    name: Progress
+    url: https://www.radix-ui.com/primitives/docs/components/progress
+  - system: base-ui
+    name: Progress
+    url: https://base-ui.com/react/components/progress
+  - system: shadcn
+    name: Progress
+    url: https://ui.shadcn.com/docs/components/progress
+sources:
+  - title: 'ARIA Authoring Practices Guide: Communicating Value and Limits for Range Widgets'
+    url: https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/
+  - title: 'Nielsen Norman Group: Progress Indicators Make a Slow System Less Insufferable'
+    url: https://www.nngroup.com/articles/progress-indicators/
+demo: inline
+useWhen: showing how far through a task you are
+---
+
+A progress bar is a wait made legible. The fill answers the only question a person
+has while a task runs, which is how much longer, and it earns its place when that
+answer is real: an upload knows its byte count, an import knows its row count, a
+multi-file job knows how many files are left. Reach for one when the wait is long
+enough to be felt (roughly ten seconds and up) and short enough that watching it is
+reasonable. Below about a second, show nothing at all.
+
+The determinate bar is the one worth building. An indeterminate bar, the striped or
+sliding variant that loops without advancing, says only that something is still
+happening, which is what a spinner says in less space. Keep indeterminate for the
+opening moments of a load, before there is enough information to compute a
+percentage, and switch to determinate as soon as there is. A bar that stalls at 99%
+does more damage than no bar at all, so let the number be honest rather than
+flattering.
+
+Two neighbours get confused with it. A meter reports a measurement that happens to
+sit between a floor and a ceiling (disk used, password strength, budget spent); it
+is not going anywhere and it has no completion. A progress bar is about a task with
+an end. In markup that distinction is a role: `progressbar` with `aria-valuenow`,
+dropping `aria-valuenow` entirely while the value is unknown, versus `meter`. The
+other neighbour is the numbered step tracker at the top of a checkout, which is
+navigation through a flow the person controls, not a report on work the system is
+doing.
+
+The misnomers are mostly borrowed breadth. "Progress indicator" is the family name
+(NN/g and both Material and Apple use it that way) and covers spinners and activity
+rings as well as bars, so it is imprecise when you specifically mean the bar.
+"Loading bar" is common vernacular and fine in conversation, though it quietly
+assumes the task is a load; bars also count deletions, exports, and conversions.
+Say "determinate progress bar" when the distinction matters, because that is the
+phrase every design system will recognise.

@@ -1,0 +1,79 @@
+---
+name: Text area
+slug: textarea
+category: component
+status: published
+definition: >-
+  A multi-line text box, usually resizable, for input that will not fit on one
+  line: a comment, a description, an address, a note.
+aliases:
+  - name: multiline input
+    source: community
+  - name: comment box
+    source: community
+  - name: text area
+    source: cloudscape
+implementations:
+  - system: material
+    name: Text field (multi-line)
+    url: https://m3.material.io/components/text-fields/overview
+  - system: hig
+    name: Text views
+    url: https://developer.apple.com/design/human-interface-guidelines/text-views
+  - system: fluent
+    name: Textarea
+    url: https://fluent2.microsoft.design/components/web/react/core/textarea/usage
+  - system: carbon
+    name: Text area
+    url: https://carbondesignsystem.com/components/text-input/usage/
+  - system: polaris
+    name: TextArea
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components/forms/textarea
+  - system: radix
+    name: TextArea
+    url: https://www.radix-ui.com/themes/docs/components/text-area
+  - system: shadcn
+    name: Textarea
+    url: https://ui.shadcn.com/docs/components/textarea
+sources:
+  - title: 'MDN: the textarea element'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea
+  - title: 'GOV.UK Design System: Textarea'
+    url: https://design-system.service.gov.uk/components/textarea/
+demo: inline
+useWhen: input that runs to several lines
+---
+
+A text area is the box you reach for when the answer is prose. Its size is a
+promise about how much you expect: three rows invite a sentence, ten rows invite
+a paragraph, and a box that fills the screen tells people to write until they are
+done. That signal is the main design decision, and it is worth spending on,
+because a box sized for a tweet in front of a question that deserves an essay
+will get a tweet.
+
+The height a text area starts at is not a limit on what can be typed into it.
+Once the text outgrows the visible rows the box scrolls its own content, keeping
+the page around it exactly where it was. Most browsers also give the element a
+drag handle so a reader can trade page real estate for room to read what they
+wrote. Auto-growing boxes, which expand line by line as you type, are the common
+variation, and they are a real trade: nothing is ever hidden above the fold of
+the box, but every keystroke can now move whatever sits below it, including the
+button people are typing their way toward.
+
+The line against a single-line text field is the shape of the answer, not its
+length. A long product SKU still belongs in a one-line field, because it is one
+value with no internal structure, and a field that permits line breaks invites
+them. The line against a rich text editor is formatting: a text area holds plain
+text, so if the content needs bold, links, or headings, this is the wrong
+control, and pointing a text area at code is the same mistake one step further
+along.
+
+Names vary more than the component does. The HTML element is `<textarea>`, one
+word, while most design systems write it as two ("text area"), Apple calls the
+same idea a text view, and Material treats it as the multi-line mode of a text
+field rather than a component of its own. In product copy it usually goes by the
+job it is doing (comment box, message box, notes field), which is why the generic
+word is worth keeping in the vocabulary. Whatever it is called, the same two
+rules apply: give it a visible label above the box rather than a placeholder that
+disappears on the first keystroke, and if there is a length limit, say so with a
+character count next to the box, before anyone starts writing.

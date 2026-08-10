@@ -133,6 +133,26 @@
   background: var(--sp-line);
 }
 
+/* Key cap — a legend that names a key, sitting with the text primitives because it
+   is one: it says what to press and is never itself the thing you press. Sans like
+   the rest of the kit (SPEC §5); the raised edge is the only thing borrowed from a
+   real keyboard. */
+.sp-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 1px 5px;
+  border: 1px solid var(--sp-line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--sp-surface);
+  color: var(--sp-muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
 /* Blocks of stand-in copy: text as texture, so specimens never read as a real product. */
 .sp-line {
   height: 8px;

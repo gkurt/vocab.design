@@ -76,6 +76,12 @@
   stroke: none;
 }
 
+/* An outline glyph filled in: the on-state of a rating star or a favourite heart,
+   where the same drawing has to say empty and full without changing shape. */
+.sp-icon--filled {
+  fill: currentcolor;
+}
+
 .sp-button--ghost[data-selected] .sp-icon {
   fill: var(--sp-accent);
   stroke: var(--sp-accent);
@@ -109,6 +115,181 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+/* Checkbox — a box with three states, because the third one (mixed) is real. State
+   is read from `aria-checked` (including "mixed") or from `data-checked`, so the
+   control can be the button a synthesized click actually reaches. */
+.sp-checkbox {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid var(--sp-line);
+  border-radius: 5px;
+  background: var(--sp-surface);
+  color: var(--sp-accent-ink);
+  cursor: pointer;
+  transition:
+    background-color 0.14s ease,
+    border-color 0.14s ease;
+}
+
+.sp-checkbox::after {
+  content: "";
+  width: 4px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 0 2px 2px 0;
+  translate: 0 -1px;
+  rotate: 45deg;
+  opacity: 0;
+}
+
+.sp-checkbox[aria-checked="true"],
+.sp-checkbox[aria-checked="mixed"],
+.sp-checkbox[data-checked] {
+  background: var(--sp-accent);
+  border-color: var(--sp-accent);
+}
+
+.sp-checkbox[aria-checked="true"]::after,
+.sp-checkbox[data-checked]::after {
+  opacity: 1;
+}
+
+/* Mixed is some-but-not-all, drawn as a bar: a half-drawn check would read as a
+   check that failed rather than as a state of its own. */
+.sp-checkbox[aria-checked="mixed"]::after,
+.sp-checkbox[data-checked="mixed"]::after {
+  width: 8px;
+  height: 2px;
+  border: 0;
+  background: currentcolor;
+  translate: none;
+  rotate: none;
+  opacity: 1;
+}
+
+/* Switch — a track the thumb rides, where the position is the state. Same state
+   attributes as the checkbox; the thumb takes its colour from whatever the track
+   became, so both themes get a thumb that reads against it. */
+.sp-switch {
+  appearance: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--sp-line);
+  border-radius: 999px;
+  background: var(--sp-sunken);
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--sp-ease),
+    border-color 0.2s ease;
+}
+
+.sp-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sp-muted);
+  transition:
+    translate 0.2s var(--sp-ease),
+    background-color 0.2s ease;
+}
+
+.sp-switch[aria-checked="true"],
+.sp-switch[data-checked] {
+  background: var(--sp-accent);
+  border-color: var(--sp-accent);
+}
+
+.sp-switch[aria-checked="true"]::after,
+.sp-switch[data-checked]::after {
+  background: var(--sp-accent-ink);
+  translate: 14px 0;
+}
+
+/* Slider — a value picked along a track. Positions arrive as custom properties, so
+   one set of parts serves a single value and a range alike: the fill spans
+   `--sp-from` to `--sp-to`, and each thumb sits at its own `--sp-at`. Nothing here
+   transitions, since a dragged thumb that eases is a thumb lagging the pointer. */
+.sp-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+}
+
+.sp-slider-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--sp-sunken);
+}
+
+.sp-slider-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--sp-from, 0%);
+  right: calc(100% - var(--sp-to, 0%));
+  border-radius: inherit;
+  background: var(--sp-accent);
+}
+
+.sp-slider-thumb {
+  appearance: none;
+  position: absolute;
+  top: 50%;
+  left: var(--sp-at, 0%);
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--sp-accent);
+  translate: -50% -50%;
+  cursor: pointer;
+}
+
+/* Progress — a determinate track and fill, the fill's width carried by `--sp-value`
+   so the element's own attributes stay free for the demo's semantics. There is no
+   indeterminate variant: that one is a different term, and it would be a loop. */
+.sp-progress {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sp-sunken);
+}
+
+.sp-progress-fill {
+  width: var(--sp-value, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--sp-accent);
+  transition: width 0.3s var(--sp-ease);
+}
+
+/* Meter modifier — the same track reading a measurement instead of a task's
+   progress, so its fill answers to the zone the value landed in. Unzoned and
+   `ok` are the accent; `warn` is the one hue the kit keeps for running out. */
+.sp-progress--meter[data-zone="warn"] .sp-progress-fill {
+  background: var(--sp-warn);
 }
 
 .sp-avatar {
@@ -150,6 +331,46 @@
 .sp-list-item + .sp-list-item {
   border-top: 1px solid var(--sp-line);
   border-radius: 0;
+}
+
+/* Data table — the list's tabular cousin: rows of one shape, read down columns as
+   well as across. Styled through element selectors under the class on purpose, so a
+   demo about tabular data writes table markup rather than a grid pretending to be one. */
+.sp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.sp-table th,
+.sp-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--sp-line);
+  white-space: nowrap;
+}
+
+.sp-table th {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sp-muted);
+}
+
+.sp-table tbody tr {
+  transition: background-color 0.14s ease;
+}
+
+.sp-table tbody tr:hover {
+  background: var(--sp-sunken);
+}
+
+/* The row a selection is on, which outranks the row the pointer is over. */
+.sp-table tbody tr[data-selected] {
+  background: var(--sp-accent-soft);
+}
+
+.sp-table tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 /* Chip — one compact, self-contained value (SPEC §12 pilot). */

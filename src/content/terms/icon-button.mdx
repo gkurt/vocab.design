@@ -1,0 +1,70 @@
+---
+name: Icon button
+slug: icon-button
+category: component
+status: published
+definition: >-
+  A button whose whole label is an icon, so it needs an accessible name and
+  usually a tooltip to say what it does.
+aliases:
+  - name: action icon
+    source: mantine
+  - name: glyph button
+    source: community
+  - name: square button
+    source: community
+implementations:
+  - system: material
+    name: Icon button
+    url: https://m3.material.io/components/icon-buttons/overview
+  - system: radix
+    name: IconButton
+    url: https://www.radix-ui.com/themes/docs/components/icon-button
+  - system: carbon
+    name: Icon-only button
+    url: https://carbondesignsystem.com/components/button/usage/
+  - system: polaris
+    name: Button (icon-only)
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components/actions/button
+  - system: shadcn
+    name: Button (size="icon")
+    url: https://ui.shadcn.com/docs/components/button
+sources:
+  - title: 'ARIA Authoring Practices Guide: Button pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/button/
+  - title: 'Carbon Design System: Button accessibility'
+    url: https://carbondesignsystem.com/components/button/accessibility/
+demo: inline
+useWhen: a square control carrying only a glyph
+---
+
+An icon button is an ordinary button with its label drawn rather than written. What
+it buys is room: toolbars, table rows, card headers, and message composers can hold
+six actions in the space two words would take. What it costs is that the glyph has
+to carry the whole meaning, and only a small vocabulary is read the same way by
+everyone (magnifier, plus, X, trash, printer, pencil). For an action a product
+invented, a word beats a picture every time.
+
+Because there is no visible text, the accessible name has to be supplied
+explicitly: `aria-label` on the button, or visually hidden text inside it. The
+`title` attribute is not a substitute, since it never appears on touch and is
+announced inconsistently. Name the action, not the drawing ("Delete", not "trash
+icon"), and give sighted users the same information through a tooltip on hover and
+on focus. Keep the hit area at least 24 by 24 CSS pixels even when the glyph is
+smaller, or the control is only usable by people with steady hands.
+
+Two neighbours get confused with it. A button carrying an icon *and* a word is not
+an icon button, it is a button with a leading icon, and it needs none of this
+apparatus. A control that stays pressed is a toggle button, marked with
+`aria-pressed`, which happens to be icon-only; the icon then has to say both what
+the action is and which state it is in, which is why mute, pin, and favourite are
+the hardest icons to draw. Systems name the thing differently: Radix Themes ships
+`IconButton`, Mantine calls it `ActionIcon`, and Material, Carbon, Polaris, and
+shadcn all treat it as a variant of Button.
+
+The community names, "glyph button" and "square button", describe the shape instead
+of the job, and the shape is not reliable: plenty of icon buttons are round. The
+more expensive mistake is calling any small icon an icon button. A status glyph in a
+table cell and a decorative mark beside a heading are not buttons at all, and giving
+them button affordances (hover background, pressed state, a tooltip that reads like
+a command) promises an action that never happens.

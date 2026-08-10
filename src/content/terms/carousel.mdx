@@ -1,0 +1,59 @@
+---
+name: Carousel
+slug: carousel
+category: component
+status: published
+definition: >-
+  A row of items shown a few at a time that advances by arrows, swipe or a timer,
+  with the rest waiting off screen.
+aliases:
+  - name: slideshow
+    source: aria-apg
+  - name: image rotator
+    source: aria-apg
+implementations:
+  - system: aria-apg
+    name: Carousel (Slide Show or Image Rotator)
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/carousel/
+  - system: material
+    name: Carousel
+    url: https://m3.material.io/components/carousel/overview
+  - system: fluent
+    name: Carousel
+    url: https://fluent2.microsoft.design/components/web/react/core/carousel/usage
+  - system: shadcn
+    name: Carousel
+    url: https://ui.shadcn.com/docs/components/carousel
+sources:
+  - title: 'ARIA Authoring Practices Guide: Carousel pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/carousel/
+  - title: 'Nielsen Norman Group: Carousel usability'
+    url: https://www.nngroup.com/articles/designing-effective-carousels/
+demo: inline
+useWhen: a set of items shown a few at a time in a row
+---
+
+A carousel is a viewport onto a longer list. It shows one item, or a handful, and
+keeps the rest just outside the frame, where a set of controls (arrows, dots, a
+swipe, sometimes a timer) moves the window along. The items are peers: nothing
+about the second slide makes it a different *kind* of thing from the first, which
+is why the controls count and point rather than name.
+
+That is the line between a carousel and tabs. Tabs label their panels, and the
+labels are the point: a reader picks the one they want and can come back to it.
+A carousel's dots name nothing, so a reader can only step and see what turns up.
+Reach for tabs when the destinations are distinguishable, and for a carousel when
+the items are alike and there are more of them than the space allows.
+
+Two other words get borrowed for this. "Slider" is the older web name for it, and
+it collides badly with the input control of the same name, so most vocabularies
+now say carousel and leave slider to the track and handle. "Gallery" usually
+means the grid view of a collection, where everything is visible at once and
+nothing is waiting off screen, which is the opposite trade.
+
+The pattern's poor reputation comes almost entirely from auto-rotation. Content
+that moves on its own reads as an advertisement and gets skipped, and it takes
+the item away from anyone who reads slowly or aims slowly. A carousel that
+rotates needs a stop control, and it needs to stop on hover and on focus. Even
+without a timer, very few readers ever see past the first slide, so nothing
+important should live only in slide four.

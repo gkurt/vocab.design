@@ -1,0 +1,78 @@
+---
+name: Checkbox
+slug: checkbox
+category: component
+status: published
+definition: >-
+  A square control that turns one independent option on or off, used in sets
+  where any number of the options may be chosen.
+aliases:
+  - name: tick box
+    source: community
+  - name: check box
+    source: community
+  - name: checkboxes
+    source: govuk
+implementations:
+  - system: aria-apg
+    name: Checkbox
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/
+  - system: material
+    name: Checkbox
+    url: https://m3.material.io/components/checkbox/overview
+  - system: hig
+    name: Toggles (checkbox style)
+    url: https://developer.apple.com/design/human-interface-guidelines/toggles
+  - system: fluent
+    name: Checkbox
+    url: https://fluent2.microsoft.design/components/web/react/core/checkbox/usage
+  - system: carbon
+    name: Checkbox
+    url: https://carbondesignsystem.com/components/checkbox/usage/
+  - system: polaris
+    name: Checkbox
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components/forms/checkbox
+  - system: radix
+    name: Checkbox
+    url: https://www.radix-ui.com/primitives/docs/components/checkbox
+  - system: base-ui
+    name: Checkbox
+    url: https://base-ui.com/react/components/checkbox
+  - system: shadcn
+    name: Checkbox
+    url: https://ui.shadcn.com/docs/components/checkbox
+sources:
+  - title: 'ARIA Authoring Practices Guide: Checkbox pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/
+  - title: 'MDN: input type="checkbox"'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/checkbox
+demo: inline
+useWhen: each option is independently on or off
+---
+
+A checkbox asks one closed question about one option, and its answer has no bearing
+on the boxes around it. That independence is the whole of the term: a set of five
+checkboxes has thirty-two legal answers, including none of them. A single checkbox
+is legitimate too (agreeing to terms, remembering a login), which is why the
+control cannot be defined by the set it usually appears in. The label belongs to the
+box, sits after it, and is part of what you can click.
+
+Because the answer is per option, the choice is normally not applied until something
+commits it. That expectation, more than the shape, is what separates the checkbox
+from a [switch](/switch): a switch acts the moment it moves, a checkbox waits for
+Save, Apply, or Export. Reaching for a checkbox and then firing the change instantly
+is the most common way the two get crossed.
+
+The third state is real. When a parent box governs a group, `aria-checked="mixed"`
+(the `indeterminate` property in HTML) says *some, but not all*, and it is drawn as a
+bar rather than a half-drawn check. Mixed is a state a checkbox reports, never one a
+person can choose: clicking a mixed box completes the set or empties it. It is also
+purely visual in HTML, set only from script, and never submitted.
+
+The misnomers are mostly about the wrong cardinality. A set where exactly one answer
+is allowed is a [radio group](/radio-group) drawn with the wrong glyph, and readers
+will trust the square over your instructions. "Tick box" is British usage for the same
+control, "check box" is the older two-word spelling, and GOV.UK names its component
+in the plural ("checkboxes") because its guidance is about the set. Calling a
+selectable [chip](/chip) or a toggle button a checkbox loses the one promise the
+square makes: this option, on or off, by itself.

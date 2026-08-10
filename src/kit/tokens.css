@@ -28,6 +28,9 @@
   --sp-accent: #3557e8;
   --sp-accent-ink: #ffffff;
   --sp-accent-soft: #e4e9fd;
+  /* The kit's only second hue: what a measurement turns when it is running out
+     (a meter's warn zone, a counter near its limit). Not an error colour. */
+  --sp-warn: #b45309;
   --sp-context-accent: #454a52;
   --sp-context-accent-ink: #f3f4f6;
   --sp-context-accent-soft: #e5e7ec;
@@ -55,6 +58,7 @@
   --sp-accent: #7290ff;
   --sp-accent-ink: #10131c;
   --sp-accent-soft: #2c3550;
+  --sp-warn: #f2a65a;
   --sp-context-accent: #aab0bc;
   --sp-context-accent-ink: #171a21;
   --sp-context-accent-soft: #333842;
@@ -69,6 +73,9 @@
   --sp-accent: var(--sp-context-accent);
   --sp-accent-ink: var(--sp-context-accent-ink);
   --sp-accent-soft: var(--sp-context-accent-soft);
+  /* Warn goes neutral with the accent: a warning colour left in the scenery would
+     out-shout a subject whose own accent has just gone chroma-free. */
+  --sp-warn: var(--sp-context-accent);
   --sp-shadow: none;
 }
 

@@ -1,0 +1,77 @@
+---
+name: Text field
+slug: text-field
+category: component
+status: published
+definition: >-
+  A single line box for typed input, carrying a label, an optional hint, and the
+  error message shown when what was typed does not pass.
+aliases:
+  - name: text input
+    source: govuk
+  - name: textbox
+    source: nngroup
+  - name: input field
+    source: community
+  - name: form field
+    source: community
+implementations:
+  - system: material
+    name: Text fields
+    url: https://m3.material.io/components/text-fields/overview
+  - system: hig
+    name: Text fields
+    url: https://developer.apple.com/design/human-interface-guidelines/text-fields
+  - system: fluent
+    name: Input
+    url: https://fluent2.microsoft.design/components/web/react/core/input/usage
+  - system: carbon
+    name: Text input
+    url: https://carbondesignsystem.com/components/text-input/usage/
+  - system: polaris
+    name: Text field
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components/forms/textfield
+  - system: radix
+    name: Text Field
+    url: https://www.radix-ui.com/themes/docs/components/text-field
+  - system: base-ui
+    name: Input
+    url: https://base-ui.com/react/components/input
+  - system: shadcn
+    name: Input
+    url: https://ui.shadcn.com/docs/components/input
+sources:
+  - title: 'GOV.UK Design System: Text input'
+    url: https://design-system.service.gov.uk/components/text-input/
+  - title: 'W3C WAI tutorials: Labeling controls'
+    url: https://www.w3.org/WAI/tutorials/forms/labels/
+demo: inline
+useWhen: one line of free text or a number
+---
+
+A text field is the whole assembly, not just the box. The word names four parts that
+travel together: the label that says what to type, the control that takes the typing,
+the hint that heads off the likely mistake, and the message that explains a value the
+field would not accept. Every design system that ships this component ships all four,
+which is why "text field" is the useful unit of vocabulary and "the input" is not.
+
+The label stays visible. A placeholder is not a label: it vanishes the moment someone
+starts typing, exactly when the reminder is wanted, and it is read late or not at all
+by some screen readers. Put the format guidance in the hint, above or below the box but
+always present, and keep the error for the value that actually failed. Width is
+information too: a field sized for a postcode tells the reader how much is expected, so
+size the box to the content rather than to the column it sits in.
+
+The line count is the boundary. One line is a text field; more than one is a text area,
+and the two are not interchangeable, because a single line box silently hides the middle
+of a long value. A field that offers a list of values as you type is a combobox, and one
+that returns results rather than storing a value is a search field. What separates them
+is not the look (all three are a box you type into) but what the typing is for.
+
+Names differ more than the component does. HTML calls the element `input`, but `<input>`
+also produces checkboxes, radios, and sliders, so "input field" describes the tag rather
+than the concept. "Form field" is looser still: it names any slot in a form, including
+selects and checkboxes. "Textbox" comes from the ARIA role of the same name and is
+common in usability writing. In code, expect `TextField` in Material, Polaris, and Radix
+Themes, `Text input` in Carbon and GOV.UK, and a bare `Input` in Fluent, Base UI, and
+shadcn/ui.

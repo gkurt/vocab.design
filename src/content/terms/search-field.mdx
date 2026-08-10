@@ -1,0 +1,77 @@
+---
+name: Search field
+slug: search-field
+category: component
+status: published
+definition: >-
+  A text input specialised for queries, with a magnifier, a clear control and
+  often suggestions that appear as you type.
+aliases:
+  - name: search box
+    source: community
+  - name: searchbox
+    source: fluent
+  - name: search bar
+    source: material
+  - name: omnibox
+    source: community
+  - name: search input
+    source: component-gallery
+  - name: text filter
+    source: cloudscape
+implementations:
+  - system: material
+    name: Search
+    url: https://m3.material.io/components/search/overview
+  - system: hig
+    name: Search fields
+    url: https://developer.apple.com/design/human-interface-guidelines/search-fields
+  - system: fluent
+    name: Searchbox
+    url: https://fluent2.microsoft.design/components/web/react/core/searchbox/usage/
+  - system: carbon
+    name: Search
+    url: https://carbondesignsystem.com/components/search/usage/
+  - system: polaris
+    name: Search field
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components/forms/search-field
+sources:
+  - title: 'MDN: <input type="search">'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/search
+  - title: 'Nielsen Norman Group: Search: Visible and Simple'
+    url: https://www.nngroup.com/articles/search-visible-and-simple/
+demo: inline
+useWhen: the input is for searching, not for data entry
+---
+
+A search field is the one input people find by its shape. The magnifier, the wide
+box, and a placeholder that names what is being searched ("Search plants") are read
+together as an invitation to type a phrase rather than a value. Everything else about
+it follows from what a query is: disposable. Nobody edits a query the way they edit a
+form field, so the field carries a clear control that wipes it in one gesture, and
+that control appears only once there is something to clear.
+
+Decide whether the field searches on submit or filters as you type, and let the layout
+say which. A field that narrows a list under it needs no button and should update on
+every keystroke; a field that leaves for a results page needs Enter to mean something
+and usually a visible submit. Reserve the room the clear control will take so the field
+does not resize the moment a letter lands, keep the magnifier decorative
+(`aria-hidden`), and give the input a real accessible name, because a placeholder
+disappears exactly when a screen-reader user would want it.
+
+The neighbour it is most often confused with is the combobox. Both are a text input
+that shows a list as you type, and the difference is where the result ends up: a
+combobox puts a chosen value into the field and closes, while a search field sends you
+to matches that live somewhere else, and its own text stays as the record of what you
+asked for. A command palette is a search field pointed at commands instead of content,
+wrapped in an overlay. A row of filter chips is not a search field at all: filters are
+picked from a known set, queries are typed from nothing.
+
+The names drift by vocabulary. "Search bar" usually describes the whole region the
+field sits in rather than the control, which is why Material uses it for the persistent
+top-of-app treatment. "Searchbox" is Fluent's spelling, and it matches ARIA's
+`role="searchbox"`, the role a `<input type="search">` reports. "Omnibox" belongs to
+browsers, where one field accepts both a URL and a query, so borrowing it for an
+ordinary product search promises an address bar's cleverness. Cloudscape's "text
+filter" is the most honest of the aliases when the field only narrows a table in place,
+since nothing is being searched for beyond what is already on screen.
