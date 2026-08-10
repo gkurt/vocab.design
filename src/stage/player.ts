@@ -17,7 +17,7 @@ export interface PlayerHost {
 const CURSOR_TRAVEL_MS = 550;
 const STEP_GAP_MS = 350;
 const LOOP_PAUSE_MS = 1400;
-const RESUME_IDLE_MS = 4000;
+const RESUME_IDLE_MS = 1200;
 const SUMMON_GAP_MS = 60;
 const SUMMON_WAIT_MS = 900;
 const SUMMON_TICK_MS = 80;

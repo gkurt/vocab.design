@@ -234,30 +234,40 @@ class VdStage extends HTMLElement {
     // passing the pointer over the stage, or scrolling the page past it, never takes over.
     const INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex]';
     let dwell: ReturnType<typeof setTimeout> | undefined;
-    canvas.addEventListener('pointerover', (event) => {
+    // Listened for on the shadow root, not the host: pointerover/pointerout are pruned
+    // at the shadow boundary whenever both ends of the move are inside it, so the host
+    // only ever hears the pointer arrive in the specimen, never land on a control.
+    // Inside the shadow root the player's own synthesized input is in scope too, so
+    // every takeover signal is gated on isTrusted: the ghost cursor must never be
+    // mistaken for the user and hand the stage to itself.
+    shadow.addEventListener('pointerover', (event) => {
+      if (!event.isTrusted) return;
+      clearTimeout(dwell);
       const el = event.composedPath()[0];
       if (!(el instanceof Element) || !el.closest(INTERACTIVE)) return;
-      clearTimeout(dwell);
       dwell = setTimeout(() => takeover(el), HOVER_DWELL_MS);
     });
-    canvas.addEventListener('pointerout', () => clearTimeout(dwell));
     canvas.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
       if (!identifyActive) player.userGone();
     });
-    canvas.addEventListener('pointerdown', (event) => takeover(event.composedPath()[0]));
-    canvas.addEventListener('focusin', (event) => takeover(event.composedPath()[0]));
+    canvas.addEventListener('pointerdown', (event) => {
+      if (event.isTrusted) takeover(event.composedPath()[0]);
+    });
+    canvas.addEventListener('focusin', (event) => {
+      if (event.isTrusted) takeover(event.composedPath()[0]);
+    });
     canvas.addEventListener(
       'wheel',
       (event) => {
-        if (scrollsSpecimen(event.composedPath(), canvas, event.deltaX, event.deltaY)) takeover(event.composedPath()[0]);
+        if (event.isTrusted && scrollsSpecimen(event.composedPath(), canvas, event.deltaX, event.deltaY)) takeover(event.composedPath()[0]);
       },
       { passive: true },
     );
     canvas.addEventListener(
       'touchmove',
       (event) => {
-        if (scrollsSpecimen(event.composedPath(), canvas)) takeover(event.composedPath()[0]);
+        if (event.isTrusted && scrollsSpecimen(event.composedPath(), canvas)) takeover(event.composedPath()[0]);
       },
       { passive: true },
     );

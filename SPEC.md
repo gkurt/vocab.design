@@ -167,6 +167,12 @@ component library would save — without the branding or churn.
 - **Isolation**: shadow DOM by default; `demo: iframe` for document-level behaviors
   that shadow DOM can't honestly demonstrate (skip link, focus trap, view transitions,
   scroll-driven animation).
+- **No layout shift.** A specimen changing state must not move the parts that did not
+  change: reserve the room a revealed element will occupy rather than letting it push
+  its neighbours aside. A demonstration is watched, often on a loop, and content
+  jumping under the eye reads as the specimen being broken rather than as the term
+  doing its work. Where the reserved size can only be known at runtime, the demo
+  measures it once on mount.
 - **Hard demos** (combobox-class accessibility) are implemented properly once, in the
   kit, and reused — never re-derived per demo.
 - **Budgets**: no network requests, no timers while idle, small enough to inline.
@@ -222,7 +228,7 @@ cursor and key HUD chips — until the user takes over. Formalized so no demo re
 ```
 idle ── enters viewport & scheduler grants ──▶ attract (loops continuously)
 attract ── user intent ──▶ user
-user ── pointer gone + idle ~4s ──▶ reset (remount) ──▶ attract
+user ── pointer gone + idle ~1.2s ──▶ reset (remount) ──▶ attract
 any ── leaves viewport ──▶ paused; re-entering resumes
 ```
 
@@ -232,7 +238,10 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   or scrolling the page while the stage happens to sit under the pointer, never takes
   over — which is why the scroll test is whether the gesture moves the specimen's own
   scroller, not whether it landed on the stage. Script halts immediately, ghost cursor
-  fades, demo state is handed over as-is. The ghost also lets go of whatever it was
+  fades, demo state is handed over as-is. The dwell is watched from inside the
+  specimen's shadow root: hover events do not cross the shadow boundary when both ends
+  of the move are inside it, so a stage listening from outside would only ever hear the
+  pointer arrive in the specimen and never see it land on a control. The ghost also lets go of whatever it was
   hovering, since a pointer that no longer exists cannot still be over a control —
   unless the real pointer has landed inside that same control, where a synthetic leave
   would contradict the enter the browser has just sent.

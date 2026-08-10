@@ -282,9 +282,14 @@ sp-combobox {
   border: 0;
 }
 
-/* The specimen's own inspection affordance: give the hidden text its layout back. */
+/* The specimen's own inspection affordance: give the hidden text its size back, drawn
+   beside its host so the control it belongs to keeps looking exactly like the one
+   without hidden text, and so revealing it shifts nothing (SPEC §5). The host is
+   positioned; the demo reserves the room this needs. */
 .sp-visually-hidden[data-revealed] {
-  position: static;
+  left: 100%;
+  top: 50%;
+  translate: 6px -50%;
   width: auto;
   height: auto;
   margin: 0;
