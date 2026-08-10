@@ -42,7 +42,7 @@ export function mount(root: HTMLElement): void {
 
   const frame = root.querySelector('.sp-frame') as HTMLElement;
   const tooltip = part(root, 'tooltip');
-  let timer: ReturnType<typeof setTimeout> | undefined;
+  let pending: { name: string; timer: ReturnType<typeof setTimeout> } | undefined;
   let described: HTMLElement | undefined;
 
   /** Anchor under the control, then shift to stay inside the frame rather than be clipped by it. */
@@ -58,6 +58,7 @@ export function mount(root: HTMLElement): void {
   };
 
   const reveal = (name: string, trigger: HTMLElement) => {
+    pending = undefined;
     tooltip.textContent = LABELS[name] ?? '';
     tooltip.dataset.for = name;
     place(trigger);
@@ -67,25 +68,37 @@ export function mount(root: HTMLElement): void {
     flag(tooltip, 'data-open', true);
   };
 
-  const hide = () => {
-    clearTimeout(timer);
+  const close = () => {
     described?.removeAttribute('aria-describedby');
     described = undefined;
     flag(tooltip, 'data-open', false);
   };
 
+  /**
+   * Leaving one control must not cancel the label another control is already waiting
+   * on: the pointer is only ever on one of them, and both an attract script and a real
+   * pointer can be moving through the toolbar at the same moment.
+   */
+  const hide = (name: string) => {
+    if (pending?.name === name) {
+      clearTimeout(pending.timer);
+      pending = undefined;
+    }
+    if (tooltip.dataset.for === name) close();
+  };
+
   for (const name of Object.keys(LABELS)) {
     const trigger = part(root, name);
     trigger.addEventListener('pointerenter', () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => reveal(name, trigger), OPEN_DELAY_MS);
+      clearTimeout(pending?.timer);
+      pending = { name, timer: setTimeout(() => reveal(name, trigger), OPEN_DELAY_MS) };
     });
     trigger.addEventListener('focus', () => reveal(name, trigger));
-    trigger.addEventListener('pointerleave', hide);
-    trigger.addEventListener('blur', hide);
+    trigger.addEventListener('pointerleave', () => hide(name));
+    trigger.addEventListener('blur', () => hide(name));
   }
 
   root.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') hide();
+    if (event.key === 'Escape') close();
   });
 }

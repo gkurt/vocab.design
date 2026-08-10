@@ -207,7 +207,8 @@ never styling inside it:
   user mode, on touch, and under reduced motion — the universal layer for subjects the
   context register can't distinguish (a skeleton screen is grey by definition) and for
   whole-scene subjects, where it rings the entire specimen. If the subject is not on
-  stage when identify engages (a toast that hasn't fired), the stage **summons** it:
+  stage when identify engages (a toast that hasn't fired, text clipped to a pixel by
+  the very technique the term names), the stage **summons** it:
   the choreography is fast-forwarded — no cursor, waits capped and left the moment the
   subject shows — until the subject appears. Waits are capped rather than dropped
   because a beat in the script is often the only reason the subject exists at all: a

@@ -4,12 +4,16 @@ import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
 
 const HOVER_DWELL_MS = 150;
 
-/** Visibility without an opacity test — true the instant a CSS transition begins revealing the element. */
+/**
+ * Visibility without an opacity test — true the instant a CSS transition begins
+ * revealing the element. A box clipped down to a pixel (visually hidden text) does not
+ * count: there is nothing there for identify to ring.
+ */
 function isRevealed(el: HTMLElement): boolean {
   const style = getComputedStyle(el);
   if (style.visibility === 'hidden' || style.display === 'none') return false;
   const rect = el.getBoundingClientRect();
-  return rect.width > 0 && rect.height > 0;
+  return rect.width > 1 && rect.height > 1;
 }
 
 /**

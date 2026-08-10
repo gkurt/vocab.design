@@ -5,12 +5,12 @@ import { flag, part } from '#src/kit/parts.ts';
  * Visually hidden specimen: two icon-only buttons that look identical and read
  * completely differently. The transcript is what a screen reader would announce;
  * the reveal control gives the hidden text its layout back so you can see where
- * it was all along. The whole scene is the subject, since the term names text
- * that has no geometry to point at.
+ * it was all along. The subject is that text: it has no geometry to point at until
+ * the reveal, which is exactly what identify summons.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app" data-subject>
+    <div class="sp-app">
       <div class="sp-window" style="width: 400px">
         <div class="sp-row sp-row--between">
           <span class="sp-heading">Message actions</span>
@@ -18,7 +18,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row" style="gap: 14px; margin-top: 14px">
           <button class="sp-button sp-button--ghost sp-row" data-part="labelled">
-            ${icon('trash')}<span class="sp-visually-hidden" data-part="label">Delete message</span>
+            ${icon('trash')}<span class="sp-visually-hidden" data-part="label" data-subject>Delete message</span>
           </button>
           <button class="sp-button sp-button--ghost sp-row" data-part="unlabelled">
             ${icon('star')}
