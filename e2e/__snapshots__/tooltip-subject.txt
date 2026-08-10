@@ -1,0 +1,4 @@
+term:    Tooltip
+scope:   element
+subject: span.sp-tooltip[data-for=share][data-open][data-part=tooltip][role=tooltip]
+text:    Share

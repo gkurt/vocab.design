@@ -1,0 +1,4 @@
+term:    Visually hidden
+scope:   element
+subject: span.sp-visually-hidden[data-part=label][data-revealed]
+text:    Delete message

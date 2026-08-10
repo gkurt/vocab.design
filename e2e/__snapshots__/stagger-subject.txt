@@ -1,0 +1,4 @@
+term:    Stagger
+scope:   element
+subject: ul.sp-list[data-part=list]
+text:    AM Ada mentioned you JR Jo assigned you a card PK Pia left a comment TS Tomas sh

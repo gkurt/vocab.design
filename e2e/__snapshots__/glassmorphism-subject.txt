@@ -1,0 +1,4 @@
+term:    Glassmorphism
+scope:   element
+subject: div.sp-glass[data-part=panel]
+text:    Now playing Blur, tint, hairline edge

@@ -33,12 +33,16 @@
     "check": "biome check",
     "fix": "biome check --write",
     "test": "bun test",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:update": "playwright test --update-snapshots",
     "validate": "bun scripts/validate-terms.ts",
-    "checks": "bun check && bun typecheck && bun run test && bun validate",
+    "checks": "bun check && bun typecheck && bun run test && bun validate && bun run test:e2e",
     "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.1",
+    "@playwright/test": "^1.62.1",
     "@types/bun": "^1.3.14",
     "cookie": "^2.0.1",
     "husky": "^9.1.7",

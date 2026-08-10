@@ -1,0 +1,4 @@
+term:    Modal dialog
+scope:   element
+subject: div.sp-dialog[aria-labelledby=dialog-title][aria-modal=true][data-open][data-part=dialog][role=dialog]
+text:    Delete “Northwind”? This removes 14 boards and cannot be undone. Cancel Delete

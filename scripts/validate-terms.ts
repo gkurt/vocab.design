@@ -7,7 +7,8 @@ import { slugify } from '#src/lib/slug.ts';
 
 /**
  * Content gates (SPEC §11): schema validation, slug/alias uniqueness, relation
- * integrity + symmetry (stubs exempt), stub minimality, and demo file existence.
+ * integrity + symmetry (stubs exempt), stub minimality, demo file existence, and
+ * the two things a specimen must carry before the e2e harness can judge it.
  */
 const TERMS_DIR = 'src/content/terms';
 const DEMOS_DIR = 'src/content/demos';
@@ -77,6 +78,11 @@ for (const term of terms.values()) {
     const demoFile = Bun.file(join(DEMOS_DIR, term.slug, 'demo.ts'));
     if ((await demoFile.exists()) && !(await demoFile.text()).includes('data-subject'))
       errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
+
+    // A script with nothing to prove passes the smoke test by saying nothing (SPEC §8).
+    const scriptFile = Bun.file(join(DEMOS_DIR, term.slug, 'choreography.ts'));
+    if ((await scriptFile.exists()) && !(await scriptFile.text()).includes('assert:'))
+      errors.push(`${term.slug}: choreography needs at least one assert, or it proves nothing (SPEC §8)`);
   }
 }
 

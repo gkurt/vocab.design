@@ -1,0 +1,4 @@
+term:    Popover
+scope:   element
+subject: div.sp-popover[aria-label=Filter invoices][data-open][data-part=popover][role=dialog]
+text:    Status Paid Due Draft Apply

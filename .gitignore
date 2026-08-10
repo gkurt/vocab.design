@@ -30,6 +30,15 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .cache
 *.tsbuildinfo
 
+# playwright: run output and review artifacts. Subject snapshots under
+# e2e/__snapshots__ are committed on purpose — they are the record of what each
+# specimen identifies as.
+e2e/.results
+e2e/.report
+e2e/__artifacts__
+test-results
+playwright-report
+
 # IntelliJ based IDEs
 .idea
 

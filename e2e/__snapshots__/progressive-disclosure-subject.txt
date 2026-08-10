@@ -1,0 +1,4 @@
+term:    Progressive disclosure
+scope:   element
+subject: div[data-part=disclosure]
+text:    Advanced options Default branch main Retention 90 days

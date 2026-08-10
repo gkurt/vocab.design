@@ -12,9 +12,20 @@ systems, the specimen stage and attract mode, and the content pipeline.
 ```bash
 bun i              # install
 bun run dev        # dev server
-bun run checks     # biome + typecheck + tests + content validation
+bun run checks     # biome + typecheck + tests + content validation + specimen smoke tests
 bun run build      # static build
 ```
+
+Specimens are smoke-tested by their own choreographies. The suite needs a browser once:
+
+```bash
+bunx playwright install chromium
+bun run test:e2e   # plays every choreography, photographs every identify state
+```
+
+It builds the site and serves it on port 4322, so it never collides with `bun run dev`.
+Each run leaves a contact sheet at `e2e/__artifacts__/identify.html`: every specimen with
+identify engaged, side by side.
 
 ## Licensing
 

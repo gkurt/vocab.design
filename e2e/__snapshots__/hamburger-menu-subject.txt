@@ -1,0 +1,4 @@
+term:    Hamburger menu
+scope:   element
+subject: button.sp-icon-button[aria-controls=nav][aria-expanded=false][aria-label=Menu][data-part=trigger]
+text:    

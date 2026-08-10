@@ -1,7 +1,22 @@
 import type { Step } from '#src/stage/choreography.ts';
 import { claim, release } from '#src/stage/scheduler.ts';
+import { isSeen } from '#src/stage/visible.ts';
 
 export type PlayerState = 'idle' | 'attract' | 'user' | 'paused';
+
+/** An `assert` the specimen did not satisfy when the script reached it (SPEC §8). */
+export interface AssertFailure {
+  /** Index of the failing step in the choreography, so the report points at a line. */
+  step: number;
+  selector: string;
+  expected: 'visible' | 'hidden';
+}
+
+export interface AuditResult {
+  failures: AssertFailure[];
+  /** True if something cancelled the run part-way, leaving later asserts unjudged. */
+  interrupted: boolean;
+}
 
 export interface PlayerHost {
   /** Current demo root — looked up per step because remount replaces it. */
@@ -109,6 +124,29 @@ export class AttractPlayer {
     }, RESUME_IDLE_MS);
   }
 
+  /**
+   * Play the script once and report every `assert` the specimen failed (SPEC §8).
+   * The smoke test drives the real player rather than a replica of it, so a demo
+   * that only answers a browser's own click and not the player's synthesized one
+   * fails here instead of quietly going still in attract mode. `onMount` runs on
+   * the fresh mount, before the first step, which is the only moment "after
+   * mount" means anything.
+   *
+   * Leaves the player in user mode: the audit owns the demo until the caller
+   * hands it back with resume().
+   */
+  async audit(onMount?: () => void): Promise<AuditResult> {
+    clearTimeout(this.#resumeTimer);
+    this.#cancelRun();
+    const generation = ++this.#generation;
+    this.#setState('user');
+    this.#reset();
+    onMount?.();
+    const failures: AssertFailure[] = [];
+    await this.#play(generation, failures);
+    return { failures, interrupted: generation !== this.#generation };
+  }
+
   /** Explicit replay — the one path that plays even under reduced motion. */
   replay(): void {
     clearTimeout(this.#resumeTimer);
@@ -214,7 +252,7 @@ export class AttractPlayer {
     this.#setState('attract');
     for (;;) {
       this.#reset();
-      await this.#play(generation);
+      await this.#play(generation, undefined);
       if (generation !== this.#generation) return;
       // Reduced motion never auto-loops: an explicit play runs a single pass.
       if (this.#host.reducedMotion) break;
@@ -225,8 +263,9 @@ export class AttractPlayer {
     release(this);
   }
 
-  async #play(generation: number): Promise<void> {
-    for (const step of this.#steps) {
+  /** `failures` is passed only by audit(): viewers never see an assert evaluated. */
+  async #play(generation: number, failures: AssertFailure[] | undefined): Promise<void> {
+    for (const [index, step] of this.#steps.entries()) {
       if (generation !== this.#generation) return;
       if ('moveTo' in step) {
         if (!(await this.#moveTo(step.moveTo, generation))) return;
@@ -261,8 +300,14 @@ export class AttractPlayer {
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('wait' in step) {
         if (!(await this.#sleep(step.wait, generation))) return;
+      } else if ('assert' in step && failures) {
+        // `assert` steps are invisible to viewers and load-bearing in CI (SPEC §8).
+        const el = this.#host.root().querySelector<HTMLElement>(step.assert.selector);
+        // `hidden` is satisfied by an absent element as well as an invisible one.
+        const shown = el ? isSeen(el) : false;
+        if (shown !== (step.assert.state === 'visible'))
+          failures.push({ step: index, selector: step.assert.selector, expected: step.assert.state });
       }
-      // `assert` steps are invisible to viewers and executed only by the CI runner.
     }
   }
 

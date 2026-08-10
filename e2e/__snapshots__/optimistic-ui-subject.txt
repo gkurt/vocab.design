@@ -1,0 +1,4 @@
+term:    Optimistic UI
+scope:   element
+subject: div.sp-window
+text:    AM Ada M. Pushed the new colour ramp 18 Not liked yet

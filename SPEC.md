@@ -156,14 +156,22 @@ component library would save — without the branding or churn.
   frame, button, input, avatar, text row, list item, menu item, card shell, plus a
   small inline SVG icon set. Demos compose from the kit and nothing else.
 - **Subject and context registers.** Every demo marks the element the term names
-  with `data-subject` (on its top-level wrapper when the whole scene is the
-  subject). Scenery is wrapped in the `.sp-context` register: accent remaps to a
+  with `data-subject`, on the **narrowest** element that the term actually names.
+  Reaching for the top-level wrapper is a claim that the whole scene is the term,
+  not a default: it withdraws identify (§6), so a demo that grabs the wrapper out
+  of convenience loses the affordance that would have pointed at the right thing.
+  A demo's own instrumentation is never part of the term. A Replay button, a
+  "make the next request fail" switch, and the heading above a list are scenery
+  the specimen needs in order to be watchable, and they belong outside the
+  subject. Scenery is wrapped in the `.sp-context` register: accent remaps to a
   chroma-free neutral and elevation drops to none, while contrast and type stay
   untouched — context must read as *quiet*, never as *disabled* (grey-out is
   itself UI vocabulary). The subject is styled normally — full kit palette, no
   added emphasis — so the palette alone localizes the subject in every static
-  screenshot without the specimen lying about how the pattern looks. Whole-scene
-  subjects (layouts, motion, most patterns) skip the context register entirely.
+  screenshot without the specimen lying about how the pattern looks. Genuinely
+  whole-scene subjects skip the context register entirely: a term like easing,
+  demonstrated by three timings run side by side, is the comparison itself, and
+  there is no part of it that could be dimmed without dimming the term.
 - **Isolation**: shadow DOM by default; `demo: iframe` for document-level behaviors
   that shadow DOM can't honestly demonstrate (skip link, focus trap, view transitions,
   scroll-driven animation).
@@ -205,8 +213,13 @@ never styling inside it:
 - **Identify control**: a caption affordance that, on hover or tap, dims everything
   except the subject (overlay scrim with a cutout) and shows the label. It works in
   user mode, on touch, and under reduced motion — the universal layer for subjects the
-  context register can't distinguish (a skeleton screen is grey by definition) and for
-  whole-scene subjects, where it rings the entire specimen. If the subject is not on
+  context register can't distinguish (a skeleton screen is grey by definition).
+  It asks *which part of this is the term*, so a stage whose subject is the whole
+  scene does not offer it at all: the ring would trace the frame it already sits
+  inside and the label would repeat the headword printed above the stage, and an
+  affordance that resolves to "all of it" reads as a broken one. The stage decides
+  this once, on mount, and removes the control; the rest of the caption bar is
+  unchanged, so the play control keeps its place. If the subject is not on
   stage when identify engages (a toast that hasn't fired, text clipped to a pixel by
   the very technique the term names), the stage **summons** it:
   the choreography is fast-forwarded — no cursor, waits dropped — until the subject
@@ -314,13 +327,36 @@ export default steps([
   scroll direction.
 - `assert` steps are invisible to viewers and load-bearing in CI.
 
-**The choreography is also the demo's smoke test.** CI (Playwright) executes every
-choreography headlessly against the built site, fails on any false `assert`, and
+**The choreography is also the demo's smoke test.** CI (Playwright, in `e2e/`) executes
+every choreography headlessly against the built site, fails on any false `assert`, and
 uploads screenshots as review artifacts. Every agent-authored demo therefore ships
 with a machine-checkable proof that it behaves like the term it demonstrates. The
 runner also asserts that exactly one `data-subject` exists after mount and captures
 the identify/spotlight state as a screenshot artifact — a reviewer sees not just that
 the demo runs, but *what it claims the term is*.
+
+The runner drives **the real attract player**, through a single seam on the stage
+(`<vd-stage>.audit()`), rather than sending Playwright's own input. Synthesized events
+are not browser input: they do not trigger default activation behaviours, so a demo
+built on `<summary>` or a `<label>`, or on any other click the browser handles itself,
+would work perfectly under a real cursor and go still in attract mode. Testing the path
+that ships is the only way that failure is ever seen. Two runs, for two questions:
+
+- **Choreography**, at full speed with motion on. Cursor travel and the beats between
+  steps are what the demo is timed against; a tooltip has to be given its hover delay.
+- **Identify**, under `prefers-reduced-motion: reduce`. Attract never runs, the stage
+  rests on the posed specimen, and kit animation is off, so every still is of the same
+  moment rather than of whenever the shutter fell. Each specimen contributes a committed
+  text snapshot of its subject's shape (tag, kit classes, and the state attributes it
+  carries when the spotlight lands) plus a still; the stills are collected into one
+  contact sheet, so what all the specimens claim can be read in a single pass.
+
+`assert` and identify ask different questions about visibility, and the stage keeps them
+apart. Identify's summon asks *is the subject on stage, or on its way?* and answers true
+the instant a reveal begins, because a hover affordance cannot wait out a fade. An
+`assert` asks *could a reader see this?* and does consult opacity, because a row still
+waiting its turn in a stagger occupies its space and shows nothing. Neither treats a box
+clipped to a pixel as present.
 
 ## 9. Implementations & sources
 
@@ -363,8 +399,9 @@ Agent-driven, human-reviewed, in four stages:
 
 **CI gates on every PR**: Zod schema validation · relation integrity + symmetry +
 stub existence · choreography execution with asserts · demo subject marking
-(`data-subject`) · Biome · typecheck · build.
-Screenshot artifacts on every demo change. Pipeline entry points live in `scripts/`.
+(`data-subject`) · identify subject snapshots · Biome · typecheck · build.
+The identify contact sheet is uploaded on every run. Pipeline entry points live in
+`scripts/`.
 
 ## 12. Pilot: 20 terms
 

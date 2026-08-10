@@ -1,0 +1,4 @@
+term:    Skeleton screen
+scope:   element
+subject: div.sp-stack[aria-hidden=true][data-part=skeleton]
+text:    

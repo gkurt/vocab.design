@@ -1,19 +1,15 @@
 import { kitCss } from '#src/kit/kit.ts';
+import type { AuditResult } from '#src/stage/player.ts';
 import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
+import { isRevealed } from '#src/stage/visible.ts';
 
 const HOVER_DWELL_MS = 150;
 
-/**
- * Visibility without an opacity test — true the instant a CSS transition begins
- * revealing the element. A box clipped down to a pixel (visually hidden text) does not
- * count: there is nothing there for identify to ring.
- */
-function isRevealed(el: HTMLElement): boolean {
-  const style = getComputedStyle(el);
-  if (style.visibility === 'hidden' || style.display === 'none') return false;
-  const rect = el.getBoundingClientRect();
-  return rect.width > 1 && rect.height > 1;
+/** What one run of a specimen's choreography proves, as the CI harness reads it. */
+export interface StageAudit extends AuditResult {
+  /** `data-subject` elements present on the fresh mount; must be exactly one (SPEC §5). */
+  subjects: number;
 }
 
 /**
@@ -48,9 +44,30 @@ function scrollsSpecimen(path: readonly (EventTarget | undefined)[], stop: Eleme
 class VdStage extends HTMLElement {
   #player: AttractPlayer | undefined;
   #mountRoot: HTMLElement | undefined;
+  #ready: Promise<void> | undefined;
 
-  async connectedCallback(): Promise<void> {
-    if (this.#player) return;
+  connectedCallback(): void {
+    this.#ready ??= this.#setup();
+  }
+
+  /**
+   * Smoke-test seam (SPEC §8). Plays the choreography once through the real
+   * player and reports what it proved: every failed `assert`, and how many
+   * `data-subject` elements the fresh mount carries. It lives on the stage
+   * rather than in the test so the harness drives the same code attract does.
+   */
+  async audit(): Promise<StageAudit> {
+    await this.#ready;
+    const player = this.#player;
+    if (!player) throw new Error(`stage "${this.dataset.slug}" has no demo to audit`);
+    let subjects = 0;
+    const result = await player.audit(() => {
+      subjects = this.#mountRoot?.querySelectorAll('[data-subject]').length ?? 0;
+    });
+    return { ...result, subjects };
+  }
+
+  async #setup(): Promise<void> {
     const slug = this.dataset.slug;
     const canvas = this.querySelector<HTMLElement>('[data-stage-canvas]');
     const overlay = this.querySelector<HTMLElement>('[data-stage-overlay]');
@@ -122,16 +139,23 @@ class VdStage extends HTMLElement {
     this.#player = player;
 
     // --- Subject annotation (SPEC §6) ---
+    const subject = () => this.#mountRoot?.querySelector<HTMLElement>('[data-subject]') ?? null;
+    // data-subject on the demo's top-level wrapper means "the whole scene is the subject".
+    const isWholeScene = (el: HTMLElement) => el === this.#mountRoot?.firstElementChild;
+
+    // Identify answers "which part of this is the term". A whole-scene subject has no
+    // part: the ring would trace the frame it already sits inside and the pin would
+    // repeat the headword printed above the stage. No affordance beats one that
+    // resolves to "all of it", so the control is withdrawn rather than made to shrug.
+    const mounted = subject();
+    const pointable = !!mounted && !isWholeScene(mounted);
+
     const pin = document.createElement('div');
     pin.className = 'vd-subject-pin';
     pin.textContent = this.dataset.name ?? slug;
     const spotlight = document.createElement('div');
     spotlight.className = 'vd-spotlight';
-    overlay.append(spotlight, pin);
-
-    const subject = () => this.#mountRoot?.querySelector<HTMLElement>('[data-subject]') ?? null;
-    // data-subject on the demo's top-level wrapper means "the whole scene is the subject".
-    const isWholeScene = (el: HTMLElement) => el === this.#mountRoot?.firstElementChild;
+    if (pointable) overlay.append(spotlight, pin);
 
     /**
      * Freeze a posed clone of the specimen (SPEC §6): summon the subject if
@@ -161,17 +185,15 @@ class VdStage extends HTMLElement {
       posing = undefined;
     };
 
-    const placePin = (el: HTMLElement) => {
-      const overlayRect = overlay.getBoundingClientRect();
-      const rect = el.getBoundingClientRect();
-      const x = rect.left + rect.width / 2 - overlayRect.left;
-      const above = rect.top - overlayRect.top - 10;
-      pin.style.left = `${x}px`;
+    /** `rect` is the ring's box, in overlay coordinates. */
+    const placePin = (rect: { left: number; top: number; width: number; height: number }) => {
+      pin.style.left = `${rect.left + rect.width / 2}px`;
+      const above = rect.top - 10;
       if (above > 34) {
         pin.style.top = `${above}px`;
         pin.dataset.side = 'above';
       } else {
-        pin.style.top = `${rect.bottom - overlayRect.top + 10}px`;
+        pin.style.top = `${rect.top + rect.height + 10}px`;
         pin.dataset.side = 'below';
       }
       pin.setAttribute('data-visible', '');
@@ -188,13 +210,19 @@ class VdStage extends HTMLElement {
       const el = subject();
       if (!el) return;
       const overlayRect = overlay.getBoundingClientRect();
-      const rect = isWholeScene(el) ? overlayRect : el.getBoundingClientRect();
-      spotlight.style.left = `${rect.left - overlayRect.left - 6}px`;
-      spotlight.style.top = `${rect.top - overlayRect.top - 6}px`;
-      spotlight.style.width = `${rect.width + 12}px`;
-      spotlight.style.height = `${rect.height + 12}px`;
+      const rect = el.getBoundingClientRect();
+      const box = {
+        left: rect.left - overlayRect.left - 6,
+        top: rect.top - overlayRect.top - 6,
+        width: rect.width + 12,
+        height: rect.height + 12,
+      };
+      spotlight.style.left = `${box.left}px`;
+      spotlight.style.top = `${box.top}px`;
+      spotlight.style.width = `${box.width}px`;
+      spotlight.style.height = `${box.height}px`;
       spotlight.setAttribute('data-visible', '');
-      placePin(el);
+      placePin(box);
     };
     const setIdentify = (on: boolean) => {
       identifyActive = on;
@@ -211,14 +239,17 @@ class VdStage extends HTMLElement {
     };
 
     const identifyButton = this.querySelector<HTMLElement>('[data-stage-identify]');
-    identifyButton?.addEventListener('pointerenter', () => setIdentify(true));
-    identifyButton?.addEventListener('pointerleave', () => {
-      if (!identifySticky) setIdentify(false);
-    });
-    identifyButton?.addEventListener('click', () => {
-      identifySticky = !identifySticky;
-      setIdentify(identifySticky);
-    });
+    if (!pointable) identifyButton?.remove();
+    else {
+      identifyButton?.addEventListener('pointerenter', () => setIdentify(true));
+      identifyButton?.addEventListener('pointerleave', () => {
+        if (!identifySticky) setIdentify(false);
+      });
+      identifyButton?.addEventListener('click', () => {
+        identifySticky = !identifySticky;
+        setIdentify(identifySticky);
+      });
+    }
 
     // --- Takeover wiring (SPEC §7) ---
     const dismissIdentify = () => {

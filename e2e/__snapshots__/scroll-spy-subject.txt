@@ -1,0 +1,4 @@
+term:    Scroll spy
+scope:   element
+subject: nav[aria-label=On this page][data-part=nav]
+text:    On this page OverviewInstallTokensAPIThemingFAQ

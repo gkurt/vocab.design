@@ -1,0 +1,4 @@
+term:    Drawer
+scope:   element
+subject: aside.sp-drawer.sp-drawer--right[aria-label=Order details][data-open][data-part=drawer]
+text:    Order #4417 Customer Ravensbourne Ltd Status Packing Print label

@@ -1,0 +1,4 @@
+term:    Segmented control
+scope:   element
+subject: sp-segmented.sp-segmented[data-part=segmented][data-value=week][role=tablist]
+text:    Day Week Month

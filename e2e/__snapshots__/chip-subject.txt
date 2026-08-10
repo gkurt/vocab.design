@@ -1,0 +1,4 @@
+term:    Chip
+scope:   element
+subject: button.sp-chip[data-part=chip-open][data-selected]
+text:    Status: open

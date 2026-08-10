@@ -11,14 +11,25 @@ change that contradicts SPEC.md needs the spec updated in the same PR.
 ```bash
 bun run dev        # Astro dev server (port 4321)
 bun run build      # Static build to dist/
-bun run test       # Run all tests
+bun run test       # Unit tests (bun test)
+bun run test:e2e   # Specimen smoke tests: builds, serves on 4322, plays every choreography
 bun typecheck      # astro sync + type check (TypeScript 7, native tsc)
 bun validate       # Content gates: schema, relations, symmetry, stubs, demo files
 bun run lint       # Lint
 bun run format     # Format
 bun run fix        # Lint + format + autofix
-bun run checks     # Everything: check + typecheck + test + validate
+bun run checks     # Everything: check + typecheck + test + validate + test:e2e
 ```
+
+`bun run test:e2e` needs a browser once: `bunx playwright install chromium`. It builds
+the site and previews it on 4322, so it never collides with `bun run dev`. Run
+`bun run test:e2e:update` after a deliberate change to what a specimen identifies as,
+and read the diff in `e2e/__snapshots__/` before committing it.
+
+Do not put `[run] bun = true` back in `bunfig.toml`. It symlinks `node` to Bun for
+package.json scripts and everything they spawn, which Playwright's test runner cannot
+survive: its workers never report and `bun run test:e2e` hangs with no output at all.
+Bun still runs `bun test` and `bun scripts/*.ts`; node-shebanged binaries get Node.
 
 Prefer these scripts over ad-hoc commands. Do not prefix them with `bun run` when
 a bare alias exists (`bun check`, `bun typecheck`) — those are whitelisted for
@@ -40,16 +51,26 @@ src/kit/parts.ts            # part()/partsOf()/flag(): the data-part lookup demo
 src/kit/segmented.ts        # <sp-segmented>, <sp-combobox>: kit primitives that carry state
 src/kit/combobox.ts         #   (written once against ARIA APG, reused by every demo)
 src/stage/                  # <vd-stage>, attract player, scheduler, choreography types
+src/stage/visible.ts        #   isRevealed (summon) vs isSeen (assert): see gotcha below
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 scripts/validate-terms.ts   # Content gates run by `bun validate`
-e2e/                        # (planned) Playwright workspace: choreography smoke tests
+playwright.config.ts        # e2e runner: builds, previews on 4322, two passes over every specimen
+e2e/*.e2e.ts                # Choreography smoke tests + identify snapshots (SPEC §8)
+e2e/harness.ts              #   specimen discovery, stage helpers, subject description
+e2e/__snapshots__/          #   committed: what each specimen identifies as
+e2e/__artifacts__/          #   generated: identify stills + the contact sheet
 ```
 
 **Gotcha**: Astro validates collection entries against a derived JSON schema but does
 NOT apply Zod output transforms — defaults never materialize on `getCollection()`
 data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
 `getCollection('terms')` directly.
+
+**Gotcha**: `src/stage/visible.ts` exports two visibility tests and they are not
+interchangeable. `isRevealed` is identify's: on stage *or on its way*, opacity ignored,
+so a summon does not sit out a fade. `isSeen` is an `assert`'s: could a reader see it,
+opacity included. Reach for the one that matches the question being asked.
 
 ## Architecture
 
@@ -65,15 +86,25 @@ data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
   satisfied by an absent element as well as an invisible one. Scripted input must
   reach a state rather than flip it (SPEC §8): a demo's trigger opens, and dismissal
   is explicit. Toggles are only for demos where the toggling is the term itself.
+  `bun run test:e2e` plays each script through the real attract player, so a demo must
+  answer synthesized events: nothing may depend on a browser's own default activation
+  (`<summary>`, a `<label>` for an input, a form submit). An `assert` is judged the
+  moment the script reaches it, with no retry, so give a claim room rather than time it
+  to the edge of a transition. Demos never import anything from `e2e/`.
 - **No incidental layout shift**: a specimen changing state must not move the parts
   that did not change (SPEC §5). Reserve the room a revealed element will take,
   measuring it once on mount if that is the only way to know it. When the size change
   is itself the term, contain it: widening a control is fair, growing its row or
   pushing what is below is not.
 - **Subject and context**: every demo marks the element the term names with
-  `data-subject` (on its top-level wrapper for whole-scene terms) and wraps scenery in
+  `data-subject`, on the narrowest element that term actually names, and wraps scenery in
   `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to
   the subject — the stage draws all annotation (pin, identify spotlight) itself.
+  Demo instrumentation (a Replay button, a "make it fail" switch) is scenery, never
+  subject. Marking the top-level wrapper claims the whole scene is the term and
+  **withdraws the identify control** (SPEC §5–6), so reach for it only when no
+  narrower element is the answer; `e2e/__snapshots__/<slug>-subject.txt` records
+  which way each specimen went.
 - Term relations are validated for integrity and symmetry in CI; a relation to a
   nonexistent term requires creating that term's stub in the same change.
 

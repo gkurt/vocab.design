@@ -10,8 +10,8 @@ const ROUND_TRIP_MS = 1400;
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app" data-subject>
-      <div class="sp-window" style="width: 300px">
+    <div class="sp-app">
+      <div class="sp-window" data-subject style="width: 300px">
         <div class="sp-row">
           <span class="sp-avatar">AM</span>
           <span class="sp-grow">
@@ -26,7 +26,8 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="status" data-state="idle">Not liked yet</span>
         </div>
       </div>
-      <label class="sp-row sp-text" style="gap: 6px">
+      <!-- Instrumentation, not the pattern: the term is what the window does. -->
+      <label class="sp-row sp-text sp-context" style="gap: 6px">
         <input type="checkbox" data-part="fail" />
         Make the next request fail
       </label>

@@ -1,0 +1,4 @@
+term:    Empty state
+scope:   element
+subject: div.sp-empty[data-part=empty]
+text:    No projects yet A project holds your boards, files, and everyone working on them

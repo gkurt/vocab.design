@@ -1,0 +1,4 @@
+term:    Combobox
+scope:   element
+subject: sp-combobox[data-part=combobox]
+text:    BelgiumDenmarkEstoniaNamibiaNetherlandsNew ZealandNigeriaNorwayPortugalSenegal
