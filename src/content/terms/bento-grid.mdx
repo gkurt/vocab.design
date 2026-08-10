@@ -1,0 +1,41 @@
+---
+name: Bento grid
+slug: bento-grid
+category: layout
+status: published
+definition: >-
+  A grid whose cells are deliberately different sizes, tiled to fill a rectangle
+  without gaps, like the compartments of a bento box.
+aliases:
+  - name: bento box layout
+  - name: bento layout
+relations:
+  contrastWith: [masonry]
+  seeAlso: []
+sources:
+  - title: "MDN: CSS grid layout"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout
+demo: inline
+useWhen: cells at deliberately different sizes, tiled to fill a rectangle
+---
+
+The name arrived from Japanese lunch boxes by way of Apple's product pages and a
+run of startup marketing sites around 2022, and it stuck because nothing else in
+the vocabulary described the thing. A dashboard of unequal panels is not a card
+grid, not a mosaic, and not a masonry wall. It is a rectangle divided into
+compartments of chosen sizes.
+
+Two properties do the work. The cells vary in size on purpose, so the layout can
+say which panel matters most without a heading saying it. And the arrangement
+tiles: every cell is a whole number of tracks wide and tall, the field is filled
+edge to edge, and nothing is left ragged. Take either property away and it is a
+different layout. Equal cells are a plain grid. Ragged edges are
+[masonry](/masonry), which packs by column height and lets the bottom fall where
+it falls.
+
+The size differences are a claim about importance, so make the claim true. A
+bento whose largest cell holds the least useful number is worse than a uniform
+grid, because the reader has been told where to look and then let down. On narrow
+screens the compartments usually have to give up and stack, which is the honest
+answer: a bento that keeps its proportions at 360px is illegible in a way that
+serves nobody.

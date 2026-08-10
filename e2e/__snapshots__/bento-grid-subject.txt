@@ -1,0 +1,4 @@
+term:    Bento grid
+scope:   element
+subject: div.sp-grid[data-mode=bento][data-part=grid]
+text:    Revenue Active Churn Signups Regions Latency

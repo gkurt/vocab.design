@@ -1,0 +1,4 @@
+term:    Context menu
+scope:   element
+subject: div.sp-menu[aria-label=File actions][data-open][data-part=menu][role=menu]
+text:    Open Rename Copy link Move to trash

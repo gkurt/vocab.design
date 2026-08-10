@@ -429,7 +429,11 @@ export class AttractPlayer {
   #dispatchButton(button: 0 | 1 | 2, double = false): void {
     const el = this.#target;
     if (!el) return;
-    const opts = { bubbles: true, cancelable: true, button };
+    // Coordinates matter: a context menu opens at the pointer, and without them every
+    // scripted right-click would report (0, 0) and put the menu in the corner. The
+    // ghost is over the target's centre, so that is where the click happened.
+    const at = centerOf(el);
+    const opts = { bubbles: true, cancelable: true, button, clientX: at.x, clientY: at.y };
     el.dispatchEvent(new PointerEvent('pointerdown', opts));
     el.dispatchEvent(new PointerEvent('pointerup', opts));
     if (button === 0) {

@@ -107,6 +107,12 @@ opacity included. Reach for the one that matches the question being asked.
   which way each specimen went.
 - Term relations are validated for integrity and symmetry in CI; a relation to a
   nonexistent term requires creating that term's stub in the same change.
+- **`demo: iframe` is not implemented.** The schema and SPEC §5–6 describe two isolation
+  modes, but `<vd-stage>` only ever calls `attachShadow`, so an iframe term would mount
+  in the shadow root and quietly demonstrate the wrong thing. `bun validate` rejects it
+  until the stage learns the second mode. Terms that genuinely need document scope
+  (skip link, focus trap, view transitions, scroll-driven animation) are blocked on that
+  work; do not author them as `inline` to get around the gate.
 
 ## Key Conventions
 

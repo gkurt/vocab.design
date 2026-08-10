@@ -60,6 +60,22 @@
   background: var(--sp-sunken);
 }
 
+/* A field of cells sized by the layout rather than by their contents. Tracks and
+   spans stay with the demo, since those are the specific arrangement a layout term
+   is about; what the kit owns is the gutter, so every grid specimen shares one. */
+.sp-grid {
+  display: grid;
+  gap: 8px;
+}
+
+/* A block of flat colour, for specimens whose subject is the colour itself. Its
+   own paint comes from the demo: the kit has one accent on purpose (SPEC §5), and
+   a swatch that could only show kit colours could not demonstrate a palette. */
+.sp-swatch {
+  border-radius: 5px;
+  background: var(--sp-swatch, var(--sp-line));
+}
+
 /* Kit primitives set `display`, so the attribute needs the last word. */
 [hidden] {
   /* biome-ignore lint/complexity/noImportantStyles: `hidden` must beat every primitive's own display */
