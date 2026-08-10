@@ -45,7 +45,9 @@ export function mount(root: HTMLElement): void {
     trigger.setAttribute('aria-expanded', String(open));
   };
 
-  trigger.addEventListener('click', () => setOpen(!popover.hasAttribute('data-open')));
+  // The trigger opens; it never flips. Dismissal is explicit (Apply, Escape, a click
+  // outside), which keeps the gesture idempotent for a demonstration that repeats.
+  trigger.addEventListener('click', () => setOpen(true));
   part(root, 'apply').addEventListener('click', () => setOpen(false));
   for (const chip of ['chip-paid', 'chip-due', 'chip-draft']) {
     const el = part(root, chip);

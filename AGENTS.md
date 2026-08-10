@@ -62,7 +62,9 @@ data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
   plays in attract mode and CI executes as a smoke test. `data-part` attributes are the
   only valid selectors in choreographies; an `assert` may qualify one with a state
   attribute (`[data-part=nav-install][data-current]`), and `state: 'hidden'` is
-  satisfied by an absent element as well as an invisible one.
+  satisfied by an absent element as well as an invisible one. Scripted input must
+  reach a state rather than flip it (SPEC §8): a demo's trigger opens, and dismissal
+  is explicit. Toggles are only for demos where the toggling is the term itself.
 - **Subject and context**: every demo marks the element the term names with
   `data-subject` (on its top-level wrapper for whole-scene terms) and wraps scenery in
   `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to

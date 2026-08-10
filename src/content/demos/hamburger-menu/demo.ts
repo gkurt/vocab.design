@@ -48,7 +48,9 @@ export function mount(root: HTMLElement): void {
     trigger.setAttribute('aria-expanded', String(open));
   };
 
-  trigger.addEventListener('click', () => setOpen(!panel.hasAttribute('data-open')));
+  // Opens only: the scrim covers the trigger while the panel is out, so dismissal is
+  // the scrim or Escape (SPEC §8).
+  trigger.addEventListener('click', () => setOpen(true));
   scrim.addEventListener('click', () => setOpen(false));
   root.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setOpen(false);

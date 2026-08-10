@@ -175,8 +175,8 @@ component library would save — without the branding or churn.
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
 frame that reads as "exhibit space". It owns the caption, the controls (identify,
-view-source, and a play control that reads "Auto-playing" while attract runs, stops
-the script when clicked, and reads "▶ Play" otherwise), the isolation mode
+view-source, and a play control that reads "Auto-playing" while attract owns the
+stage, stops the script when clicked, and reads "▶ Play" otherwise), the isolation mode
 (shadow root or iframe), and the attract-mode player. Written once; demos never reimplement any of it. Specimens follow
 the page theme — the stage syncs the kit's light/dark tokens to the chrome's; there is
 no per-stage theme control.
@@ -187,8 +187,10 @@ initial state; no demo ships custom cleanup logic.
 The stage also owns **subject annotation** — curator's ink drawn *over* the specimen,
 never styling inside it:
 
-- **Specimen pin**: during attract, when the `data-subject` element becomes visible in
-  a play loop, a museum-style label bearing the headword appears beside it briefly.
+- **Specimen pin**: a museum-style label bearing the headword, drawn beside the
+  `data-subject` element. It belongs to identify, not to attract: a label that appears
+  unbidden mid-play is chrome talking over a demonstration the viewer is already
+  reading, and it competes with the ghost cursor for the same attention.
 - **Identify control**: a caption affordance that, on hover or tap, dims everything
   except the subject (overlay scrim with a cutout) and shows the label. It works in
   user mode, on touch, and under reduced motion — the universal layer for subjects the
@@ -199,7 +201,11 @@ never styling inside it:
   appears. While identify is held the stage freezes a **posed clone** of the specimen:
   an inert snapshot the live demo's own timers cannot dismiss, so the subject never
   vanishes mid-inspection. Releasing identify (or any real interaction) restores the
-  live demo.
+  live demo. Identify **borrows** the stage rather than taking it: attract is
+  suspended, not ended, so the play control keeps reading "Auto-playing" throughout
+  and the loop picks up again on release. A pose is only ever taken while the summon
+  that produced it still owns the demo; if attract has already resumed, the pose is
+  abandoned rather than freezing the live specimen out of its own run.
 
 ## 7. Attract mode
 
@@ -217,9 +223,12 @@ any ── leaves viewport ──▶ paused; re-entering resumes
 ```
 
 - **User intent** (takeover): a click or tap anywhere in the specimen, keyboard focus
-  entering it, or a >150 ms hover on an interactive element. Merely passing the
-  pointer over the stage (scrolling by) never takes over. Script halts immediately,
-  ghost cursor fades, demo state is handed over as-is.
+  entering it, a >150 ms hover on an interactive element, or a wheel/touch gesture
+  that actually scrolls specimen content. Merely passing the pointer over the stage,
+  or scrolling the page while the stage happens to sit under the pointer, never takes
+  over — which is why the scroll test is whether the gesture moves the specimen's own
+  scroller, not whether it landed on the stage. Script halts immediately, ghost cursor
+  fades, demo state is handed over as-is.
 - **Continuous play**: attract loops for as long as the stage is on screen, with a
   beat between plays. Motion never outlives attention: off-viewport stages are fully
   paused, and reduced-motion visitors get no attract at all.
@@ -264,6 +273,13 @@ export default steps([
   survives restyling. Never classes or tag structure. An `assert` may qualify a part
   with a state attribute (`[data-part=seg-day][aria-selected="true"]`), which is how a
   choreography proves state it cannot see; `hidden` covers absent as well as invisible.
+- **Scripted input reaches a state; it never flips one.** A pass can be interrupted,
+  fast-forwarded by a summon, or resumed at any point, so a step whose effect depends
+  on the state it finds can demonstrate the opposite of the term. Demos therefore give
+  their surfaces an explicit open and an explicit dismissal (choose an item, Apply,
+  Escape, click outside) instead of a trigger that toggles. A toggle is right where the
+  toggling *is* the term (a chip, a disclosure, a reveal), because there the script
+  drives both directions itself and the demonstration is the flip.
 - The player dispatches real synthesized pointer/keyboard events inside the demo root,
   animating the ghost cursor between targets and popping key chips for keyboard steps.
   `moveTo` carries hover with it (enter/leave land when the cursor arrives), since

@@ -64,21 +64,29 @@ vd-stage figure {
   background: var(--vd-paper);
 }
 
-/* The play control morphs with the player state (SPEC §6): a live "Auto-playing"
-   status while attract runs (clicking stops the script), "▶ Play" otherwise.
-   Reduced motion never enters attract, so those visitors always see Play. */
-vd-stage:not([data-state="attract"]) .vd-stage-autoplay {
-  display: none;
+/* The play control morphs with the player mode (SPEC §6): a live "Auto-playing"
+   status while attract owns the stage (clicking stops the script), "▶ Play"
+   otherwise. Reduced motion never enters attract, so those visitors always see Play.
+   The two labels share one grid cell, so the control keeps the width of the longer
+   of them and swapping never shifts the bar. */
+[data-stage-replay] {
+  display: grid;
+  place-items: center;
 }
 
-vd-stage[data-state="attract"] .vd-stage-play {
-  display: none;
+[data-stage-replay] > span {
+  grid-area: 1 / 1;
 }
 
 .vd-stage-autoplay {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+vd-stage:not([data-autoplay]) .vd-stage-autoplay,
+vd-stage[data-autoplay] .vd-stage-play {
+  visibility: hidden;
 }
 
 .vd-stage-autoplay::before {

@@ -44,7 +44,8 @@ export function mount(root: HTMLElement): void {
     trigger.setAttribute('aria-expanded', String(open));
   };
 
-  trigger.addEventListener('click', () => setOpen(!menu.hasAttribute('data-open')));
+  // Opens only: dismissal is choosing an item, Escape, or a click outside (SPEC §8).
+  trigger.addEventListener('click', () => setOpen(true));
   for (const item of menu.querySelectorAll('.sp-menu-item')) item.addEventListener('click', () => setOpen(false));
   root.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') setOpen(false);

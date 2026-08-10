@@ -3,20 +3,36 @@ import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography, loadDemo } from '#src/stage/registry.ts';
 
 const HOVER_DWELL_MS = 150;
-const PIN_SETTLE_MS = 320;
-const PIN_SHOW_MS = 1800;
 
-function isVisible(el: HTMLElement): boolean {
-  if (!isRevealed(el)) return false;
-  return Number(getComputedStyle(el).opacity) >= 0.1;
-}
-
-/** Visibility without the opacity test — true the instant a CSS transition begins revealing the element. */
+/** Visibility without an opacity test — true the instant a CSS transition begins revealing the element. */
 function isRevealed(el: HTMLElement): boolean {
   const style = getComputedStyle(el);
   if (style.visibility === 'hidden' || style.display === 'none') return false;
   const rect = el.getBoundingClientRect();
   return rect.width > 0 && rect.height > 0;
+}
+
+/**
+ * Would this gesture scroll the specimen itself, or is the page merely moving
+ * under the pointer? Only the first is user intent (SPEC §7). `dx`/`dy` are
+ * omitted for touch, where the axis is not known from a single move.
+ */
+function scrollsSpecimen(path: readonly (EventTarget | undefined)[], stop: Element, dx?: number, dy?: number): boolean {
+  const scrolls = (overflow: string) => overflow === 'auto' || overflow === 'scroll';
+  for (const node of path) {
+    if (node === stop) return false;
+    if (!(node instanceof HTMLElement)) continue;
+    const style = getComputedStyle(node);
+    const y = scrolls(style.overflowY) && node.scrollHeight > node.clientHeight;
+    const x = scrolls(style.overflowX) && node.scrollWidth > node.clientWidth;
+    if (dx === undefined || dy === undefined) {
+      if (x || y) return true;
+      continue;
+    }
+    if (y && dy !== 0 && (dy < 0 ? node.scrollTop > 0 : node.scrollTop + node.clientHeight < node.scrollHeight - 1)) return true;
+    if (x && dx !== 0 && (dx < 0 ? node.scrollLeft > 0 : node.scrollLeft + node.clientWidth < node.scrollWidth - 1)) return true;
+  }
+  return false;
 }
 
 /**
@@ -55,7 +71,6 @@ class VdStage extends HTMLElement {
     sheet.replaceSync(kitCss);
     shadow.adoptedStyleSheets = [sheet];
 
-    let pinnedThisLoop = false;
     let posed = false;
     const remount = () => {
       this.#mountRoot?.remove();
@@ -64,12 +79,24 @@ class VdStage extends HTMLElement {
       shadow.appendChild(root);
       demo.mount(root);
       this.#mountRoot = root;
-      pinnedThisLoop = false;
       posed = false;
     };
     remount();
 
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // The play control reads the *mode*, not the instantaneous player state: identify
+    // suspends attract without ending it, and the label must not flicker for that.
+    const replayButton = this.querySelector<HTMLElement>('[data-stage-replay]');
+    let autoplay = false;
+    let identifyHold = false;
+    const setAutoplay = (on: boolean) => {
+      autoplay = on;
+      if (on) this.dataset.autoplay = '';
+      else delete this.dataset.autoplay;
+      if (replayButton) replayButton.title = on ? 'Stop the demonstration' : 'Play the demonstration';
+    };
+
     const player = new AttractPlayer(choreography?.default ?? [], {
       root: () => this.#mountRoot as HTMLElement,
       overlay,
@@ -79,6 +106,7 @@ class VdStage extends HTMLElement {
         this.dataset.state = state;
         // Mirrored inside the shadow root so kit animations pause with the player.
         canvas.dataset.state = state;
+        if (!identifyHold) setAutoplay(state === 'attract');
         // Reduced motion rests on the posed specimen (SPEC §7).
         if (reducedMotion && state === 'idle') {
           setTimeout(() => {
@@ -110,7 +138,13 @@ class VdStage extends HTMLElement {
     const enterPose = async () => {
       if (posed) return;
       posing ??= (async () => {
-        await player.summon(() => (subject() ? isRevealed(subject() as HTMLElement) : false));
+        const own = await player.summon(() => {
+          const el = subject();
+          return el ? isRevealed(el) : false;
+        });
+        // A superseded summon means attract already has the stage back; posing now
+        // would leave the run playing a listener-less clone.
+        if (!own) return;
         const live = this.#mountRoot;
         if (!live) return;
         const poseRoot = live.cloneNode(true) as HTMLElement;
@@ -139,23 +173,6 @@ class VdStage extends HTMLElement {
       pin.setAttribute('data-visible', '');
     };
 
-    let pinHide: ReturnType<typeof setTimeout> | undefined;
-    let pinSettle: ReturnType<typeof setTimeout> | undefined;
-    const tryPin = () => {
-      if (this.dataset.state !== 'attract' || pinnedThisLoop) return;
-      const el = subject();
-      if (!el || isWholeScene(el) || !isVisible(el)) return;
-      pinnedThisLoop = true;
-      placePin(el);
-      clearTimeout(pinHide);
-      pinHide = setTimeout(() => pin.removeAttribute('data-visible'), PIN_SHOW_MS);
-    };
-    const subjectObserver = new MutationObserver(() => {
-      clearTimeout(pinSettle);
-      pinSettle = setTimeout(tryPin, PIN_SETTLE_MS);
-    });
-    subjectObserver.observe(shadow, { subtree: true, attributes: true, childList: true });
-
     let identifyActive = false;
     let identifySticky = false;
     const hideAnnotation = () => {
@@ -173,17 +190,19 @@ class VdStage extends HTMLElement {
       spotlight.style.width = `${rect.width + 12}px`;
       spotlight.style.height = `${rect.height + 12}px`;
       spotlight.setAttribute('data-visible', '');
-      clearTimeout(pinHide);
       placePin(el);
     };
     const setIdentify = (on: boolean) => {
       identifyActive = on;
       if (!on) {
+        identifyHold = false;
         hideAnnotation();
         // Reduced motion rests on the pose; otherwise the live demo resumes.
         if (!reducedMotion) player.resume();
         return;
       }
+      // Identify borrows the stage from attract rather than taking it (SPEC §6).
+      identifyHold = autoplay;
       void enterPose().then(place);
     };
 
@@ -201,39 +220,52 @@ class VdStage extends HTMLElement {
     const dismissIdentify = () => {
       identifySticky = false;
       identifyActive = false;
+      identifyHold = false;
       hideAnnotation();
     };
-    // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, or a
-    // dwell on an interactive element. Merely passing the pointer over the stage
-    // (scrolling by) never takes over.
+    const takeover = () => {
+      setAutoplay(false);
+      dismissIdentify();
+      if (posed) remount();
+      player.userIntent();
+    };
+    // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, a dwell on
+    // an interactive element, or a gesture that actually scrolls the specimen. Merely
+    // passing the pointer over the stage, or scrolling the page past it, never takes over.
     const INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex]';
     let dwell: ReturnType<typeof setTimeout> | undefined;
     canvas.addEventListener('pointerover', (event) => {
       const el = event.composedPath()[0];
       if (!(el instanceof Element) || !el.closest(INTERACTIVE)) return;
       clearTimeout(dwell);
-      dwell = setTimeout(() => player.userIntent(), HOVER_DWELL_MS);
+      dwell = setTimeout(takeover, HOVER_DWELL_MS);
     });
     canvas.addEventListener('pointerout', () => clearTimeout(dwell));
     canvas.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
       if (!identifyActive) player.userGone();
     });
-    canvas.addEventListener('pointerdown', () => {
-      dismissIdentify();
-      if (posed) remount();
-      player.userIntent();
-    });
-    canvas.addEventListener('focusin', () => {
-      dismissIdentify();
-      if (posed) remount();
-      player.userIntent();
-    });
+    canvas.addEventListener('pointerdown', takeover);
+    canvas.addEventListener('focusin', takeover);
+    canvas.addEventListener(
+      'wheel',
+      (event) => {
+        if (scrollsSpecimen(event.composedPath(), canvas, event.deltaX, event.deltaY)) takeover();
+      },
+      { passive: true },
+    );
+    canvas.addEventListener(
+      'touchmove',
+      (event) => {
+        if (scrollsSpecimen(event.composedPath(), canvas)) takeover();
+      },
+      { passive: true },
+    );
 
-    this.querySelector('[data-stage-replay]')?.addEventListener('click', () => {
-      // While attract runs the control reads "Auto-playing"; clicking it stops.
-      if (player.state === 'attract') {
-        player.userIntent();
+    replayButton?.addEventListener('click', () => {
+      // While attract owns the stage the control reads "Auto-playing"; clicking it stops.
+      if (autoplay) {
+        takeover();
         return;
       }
       dismissIdentify();

@@ -125,6 +125,9 @@ export class AttractPlayer {
    * required: CSS transitions haven't begun at the synchronous moment after a
    * dispatch, so visibility can't be observed in the same tick. Leaves the player
    * in user mode; callers restore attract with resume().
+   *
+   * Resolves false only when a later run superseded this summon — the caller no
+   * longer owns the demo and must not touch it.
    */
   async summon(revealed: () => boolean): Promise<boolean> {
     clearTimeout(this.#resumeTimer);
@@ -152,7 +155,7 @@ export class AttractPlayer {
       if (!(await this.#sleep(SUMMON_GAP_MS, generation))) return false;
       if (revealed()) return true;
     }
-    return revealed();
+    return true;
   }
 
   #reset(): void {
