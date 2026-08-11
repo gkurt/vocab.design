@@ -1,0 +1,4 @@
+term:    Step indicator
+scope:   element
+subject: ol.sp-row[aria-label=Checkout progress][data-part=steps]
+text:    1 Cart 2 Shipping 3 Payment

@@ -1,0 +1,4 @@
+term:    Navigation bar
+scope:   element
+subject: header.sp-topbar[data-part=bar]
+text:    Fieldbook SpeciesHabitatsTracksNotes GK

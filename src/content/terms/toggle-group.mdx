@@ -1,0 +1,53 @@
+---
+name: Toggle group
+slug: toggle-group
+category: component
+status: published
+definition: >-
+  A set of toggle buttons treated as one control, either single select like
+  radios or multi select like a row of formatting toggles.
+aliases:
+  - name: toggle button group
+    source: mui
+  - name: button toggle
+  - name: choice group
+    source: fluent
+relations:
+  contrastWith: [segmented-control, button-group]
+implementations:
+  - system: base-ui
+    name: Toggle Group
+    url: https://base-ui.com/react/components/toggle-group
+  - system: shadcn
+    name: Toggle Group
+    url: https://ui.shadcn.com/docs/components/toggle-group
+sources:
+  - title: 'Toggle Group, Base UI'
+    url: https://base-ui.com/react/components/toggle-group
+demo: inline
+useWhen: several toggles that belong to one decision
+---
+
+A toggle group is a container word. What it names is not a shape but a
+relationship: several buttons that each stay pressed or unpressed, wired together
+so they answer one question between them. The buttons look alike, sit together, and
+share a label, which is what tells a reader that pressing one is a statement about
+the same thing the others are about.
+
+Component libraries ship it in two modes and the difference matters more than the
+name suggests. In multiple mode each button is independent, like bold, italic and
+underline: any number can be on at once, and each carries its own `aria-pressed`.
+In single mode only one may be on, which is the same logic as a radio group and is
+usually better expressed as a [segmented control](/segmented-control), since that
+control draws the exclusivity instead of leaving it to be discovered.
+
+The nearest confusion is with a [button group](/button-group). Both are rows of
+buttons pushed together, but a button group holds actions that happen and forget,
+while a toggle group holds state that persists. If pressing a member changes what
+the interface *is* rather than doing something to it, the word is toggle group.
+
+Ask a Radix, Base UI, or shadcn codebase for `ToggleGroup` and you will get this
+component even when what you meant was a segmented control, because those libraries
+build the second out of the first. Material UI calls it ToggleButtonGroup, Fluent
+calls its single-select version a choice group. Saying which mode you want
+(exclusive or independent) saves a round trip in every one of them.

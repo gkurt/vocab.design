@@ -1,0 +1,4 @@
+term:    Error message
+scope:   element
+subject: p.sp-text.sp-text--ink[data-part=error][role=alert]
+text:    Enter a postcode, like SW1A 1AA

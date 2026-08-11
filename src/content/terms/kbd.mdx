@@ -1,0 +1,49 @@
+---
+name: Keyboard key
+slug: kbd
+category: component
+status: published
+definition: >-
+  A key drawn as a small keycap in running text or a menu, so a shortcut reads as
+  something you press rather than something you say.
+aliases:
+  - name: keycap
+  - name: key hint
+  - name: keybinding hint
+    source: primer
+  - name: shortcut chip
+implementations:
+  - system: shadcn
+    name: Kbd
+    url: https://ui.shadcn.com/docs/components
+sources:
+  - title: 'shadcn/ui: components'
+    url: https://ui.shadcn.com/docs/components
+demo: inline
+useWhen: printing a key the reader should press
+---
+
+The keycap exists to change how a word is read. "Press Escape to close" is a
+sentence with an ambiguous noun in it; the same word set in a small raised box is
+unmistakably a thing on the keyboard in front of you. HTML has an element for
+exactly this (`<kbd>`), and using it is what separates a genuine key hint from
+a span that happens to have a border.
+
+A keycap is a legend, not a control. It says what to press and is never itself
+the thing you press, which is why one should not be dropped inside a button or
+given a click handler. Menus and command palettes use them the same way: the
+shortcut is printed at the end of the row as a reminder that the command has a
+faster route, while the row remains what you activate.
+
+Conventions differ by platform, and picking one and holding it is more useful
+than picking the "right" one. Apple's guidance sets modifiers as symbols with no
+separator; most web and Windows interfaces spell them out and join them with a
+plus. Either way, keep the key names as the operating system prints them, and
+match the reader's platform rather than shipping both spellings joined by a
+slash.
+
+For assistive technology, remember that a chain of keycaps is read out as a
+string of loose letters. A shortcut that matters should carry a readable label
+of its own ("Save, Control S"), and a key drawn purely as decoration in a
+diagram should be hidden from the accessibility tree so nobody hears an
+inventory of a keyboard.

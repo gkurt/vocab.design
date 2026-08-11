@@ -1,0 +1,4 @@
+term:    Button
+scope:   element
+subject: button.sp-button[data-part=publish][data-state=idle][type=button]
+text:    Publish

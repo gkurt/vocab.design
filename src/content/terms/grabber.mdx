@@ -1,0 +1,55 @@
+---
+name: Grabber
+slug: grabber
+category: component
+status: published
+definition: >-
+  The short rounded bar drawn at the top of a bottom sheet to say the surface can
+  be dragged.
+aliases:
+  - name: drag indicator
+    source: material
+  - name: pull tab
+    source: community
+  - name: sheet handle
+    source: community
+  - name: grabber bar
+    source: hig
+  - name: pill handle
+    source: community
+relations:
+  partOf: [action-sheet, drawer]
+implementations:
+  - system: material
+    name: Drag handle
+    url: https://m3.material.io/components/bottom-sheets/overview
+sources:
+  - title: 'Bottom sheets, Material Design 3'
+    url: https://m3.material.io/components/bottom-sheets/overview
+demo: inline
+useWhen: the little bar on top of a sheet
+---
+
+A grabber is a promise about a gesture. Nothing on a touch screen announces that
+a surface can be dragged, so the bar is drawn where a thumb would grip: a few
+pixels of neutral colour, centred, at the edge the sheet moves along. Apple calls
+it a grabber, Material calls it a drag handle, and everyone in a standup calls it
+the little pill.
+
+It is a control, not decoration. The bar itself is around four pixels tall, so
+the region that responds to the drag has to be much larger, and the whole sheet
+header usually is: the mark says where, the hit area says how much room you
+actually have. Give it a role and a label, and let the keyboard move the sheet
+between its detents with arrow keys, because a gesture-only affordance is a
+gesture-only feature.
+
+The grabber also tells you what kind of sheet you are looking at. A sheet with
+detents (peek, half, full) earns one, and dragging is how you reach them. A sheet
+with a single fixed height does not: the bar then advertises a gesture that does
+nothing, and the reader learns to distrust it. On desktop the same mark appears
+on resizable panes and split views, where it doubles as the divider, and there
+the cursor does part of the work the bar does on touch.
+
+Draw it low contrast and keep it out of the tab order's way, but never hide it
+behind the content it sits above. If a sheet's first row scrolls under the
+grabber, the surface reads as broken rather than as draggable.

@@ -1,0 +1,4 @@
+term:    Menu button
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm.sp-row[aria-controls=actions-menu][aria-expanded=false][aria-haspopup=menu][data-part=trigger]
+text:    Actions

@@ -1,0 +1,4 @@
+term:    Disclosure triangle
+scope:   element
+subject: button.sp-icon-button[aria-controls=vd-branch][aria-expanded=false][aria-label=Expand components][data-part=twisty][type=button]
+text:    

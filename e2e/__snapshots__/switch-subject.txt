@@ -1,0 +1,4 @@
+term:    Switch
+scope:   element
+subject: button.sp-switch[aria-checked=false][aria-labelledby=vd-switch-label][data-part=switch][role=switch][type=button]
+text:    

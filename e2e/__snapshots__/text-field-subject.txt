@@ -1,0 +1,4 @@
+term:    Text field
+scope:   element
+subject: div.sp-field[data-part=field][data-state=empty]
+text:    Postcode We only use this to work out delivery.

@@ -1,0 +1,4 @@
+term:    Helper text
+scope:   element
+subject: span.sp-text[data-part=helper]
+text:    Lowercase letters and hyphens, 3 to 20 characters.

@@ -1,0 +1,4 @@
+term:    Ghost button
+scope:   element
+subject: button.sp-button.sp-button--quiet.sp-button--sm[data-part=ghost][type=button]
+text:    Add to shelf

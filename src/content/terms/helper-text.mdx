@@ -1,0 +1,54 @@
+---
+name: Helper text
+slug: helper-text
+category: component
+status: published
+definition: >-
+  The short line under a field that explains the format or constraint before
+  anything goes wrong.
+aliases:
+  - name: hint text
+    source: govuk
+  - name: field description
+  - name: assistive text
+    source: material
+  - name: supporting text
+    source: material
+relations:
+  contrastWith: [error-message]
+  partOf: [text-field]
+implementations:
+  - system: base-ui
+    name: Field.Description
+    url: https://base-ui.com/react/components/field
+sources:
+  - title: 'GOV.UK Design System: components'
+    url: https://design-system.service.gov.uk/components/
+demo: inline
+useWhen: guidance under a field, not an error
+---
+
+Helper text is preventative. It sits under the control from the moment the form
+loads, it says the one thing a person needs in order to fill the field correctly
+("8 characters or more", "we only use this for delivery updates"), and it is
+still there while they type. Nothing has happened yet, which is what separates it
+from every other line of small print near a field.
+
+The distinction that gets lost is helper text against an error message. An error
+is a reaction: it appears after a value has been judged, it names what is wrong,
+and it should go away when the value is fixed. Helper text is a constant. The
+tempting shortcut, swapping the hint out for the error and back again, costs the
+reader the rule at the exact moment they need it, so the two should be able to
+coexist, with the error taking the emphasis and the hint keeping its place.
+
+It is also not a tooltip. A hint that only appears when a small icon is hovered
+or pressed is a hint nobody reads on a phone and nobody hears at all unless the
+control is wired to announce it. If the guidance is short enough to be a hint,
+print it; if it is long enough to need hiding, it is documentation and belongs
+somewhere a person can go back to.
+
+Wire it up rather than merely placing it. The field's control should point at the
+line with `aria-describedby`, so the guidance is read out with the label instead
+of being discovered afterwards by a reader moving through the form. Keep it to
+one line: helper text that wraps to three has stopped being a hint and started
+competing with the label.

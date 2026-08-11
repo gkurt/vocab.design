@@ -1,0 +1,4 @@
+term:    Meter
+scope:   element
+subject: div.sp-progress.sp-progress--meter[aria-label=Storage used][aria-valuemax=64][aria-valuemin=0][aria-valuenow=21.4][aria-valuetext=21.4 GB of 64.0 GB used][data-part=meter][data-zone=ok][role=meter]
+text:    

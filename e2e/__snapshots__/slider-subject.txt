@@ -1,0 +1,4 @@
+term:    Slider
+scope:   element
+subject: div.sp-slider[data-part=slider]
+text:    

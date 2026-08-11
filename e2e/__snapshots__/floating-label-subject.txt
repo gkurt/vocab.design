@@ -1,0 +1,4 @@
+term:    Floating label
+scope:   element
+subject: label.sp-label[data-part=label][for=vd-name]
+text:    Full name

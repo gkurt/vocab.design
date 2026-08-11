@@ -1,0 +1,48 @@
+---
+name: Split button
+slug: split-button
+category: component
+status: published
+definition: >-
+  A two part control where the main area runs a default action and an attached
+  arrow opens a menu of related alternatives.
+aliases:
+  - name: split menu button
+  - name: button dropdown
+    source: cloudscape
+  - name: dropdown button
+  - name: menu split button
+    source: fluent
+relations:
+  contrastWith: [menu-button]
+sources:
+  - title: 'User-Interface Elements: Glossary, NN/g'
+    url: https://www.nngroup.com/articles/ui-elements-glossary/
+demo: inline
+useWhen: one obvious action plus a menu of its variants
+---
+
+A split button is a bet that one of the choices is the right one almost every time.
+The main half carries that choice and runs it in a single press; the attached arrow
+admits the others exist. Save, with save as a copy and save as a template behind the
+arrow, is the archetype, and so is Send with schedule send beside it.
+
+The bet fails in two ways. If there is no dominant action, the control invites a
+coin flip: people press the big half because it is big, and get something they did
+not want. If the menu holds unrelated commands rather than variants of the default,
+the arrow stops being a modifier and becomes a second control wearing the first
+one's clothes. A menu button is the honest answer to both, because it promises
+nothing until it is opened.
+
+Drawing it is a matter of making two targets read as two. The seam between the
+halves has to be visible, each half has to take hover and press state on its own,
+and the arrow half needs enough width that a fingertip cannot miss it into the
+action. Under the hood it really is two buttons inside one group: the main one
+labelled with the action, the arrow one labelled for what it opens and carrying
+`aria-haspopup="menu"` with `aria-expanded`.
+
+Names for it wander. Cloudscape calls the pattern a button dropdown, Fluent calls
+its version a menu split button, and plenty of teams just say dropdown button,
+which collides with the plain menu button that has no default action at all. If the
+control you mean has a main action attached to its arrow, "split button" is the word
+that says so.

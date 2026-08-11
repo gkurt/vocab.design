@@ -1,0 +1,4 @@
+term:    Search field
+scope:   element
+subject: div.sp-grow[data-part=search]
+text:    

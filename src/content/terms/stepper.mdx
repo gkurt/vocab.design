@@ -1,0 +1,75 @@
+---
+name: Stepper
+slug: stepper
+category: component
+status: published
+definition: >-
+  A small two part control with minus and plus that nudges a number up or down one
+  step at a time.
+aliases:
+  - name: spin button
+    source: fluent
+  - name: spinbutton
+    source: aria-apg
+  - name: number input
+    source: community
+  - name: quantity selector
+    source: community
+  - name: input stepper
+    source: nngroup
+relations:
+  contrastWith: [step-indicator, slider]
+implementations:
+  - system: hig
+    name: Steppers
+    url: https://developer.apple.com/design/human-interface-guidelines/steppers
+  - system: aria-apg
+    name: Spinbutton
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
+  - system: carbon
+    name: Number input
+    url: https://carbondesignsystem.com/components/number-input/usage/
+  - system: base-ui
+    name: Number field
+    url: https://base-ui.com/react/components/number-field
+sources:
+  - title: Steppers, Apple Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/steppers
+  - title: 'ARIA Authoring Practices Guide: Spinbutton pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/
+demo: inline
+useWhen: adjusting a number by small known increments
+---
+
+A stepper is the control for numbers you adjust rather than enter. Two guests
+becomes three, quantity one becomes two, the font goes up a point: moves of one
+known unit, made by pressing a target instead of selecting text and retyping it.
+That is its entire case. It wins where the range is short, the step is obvious,
+and the starting value is usually close to the answer, which is also why it is
+the default number control on touch, where a numeric keyboard is an interruption
+and a plus button is not.
+
+It loses everywhere else. Twelve presses to reach twelve is worse than typing
+twelve, so a stepper over a wide range needs a field you can also type into,
+which is what most web implementations actually ship: a number field with
+increment and decrement buttons attached. Hold to repeat helps and does not
+rescue it. Keep the ends honest as well: at the minimum the minus should be
+visibly unavailable rather than silently inert, and the value should never step
+past a limit and quietly clamp without saying so.
+
+The accessible name for this control is **spinbutton**, and the ARIA pattern of
+that name is what a hand built one has to satisfy: `role="spinbutton"` with
+`aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and arrow keys that step it,
+plus Home and End for the limits. A native `<input type="number">` brings all of
+that and the mobile keyboard with it, at the cost of browser-drawn arrows that
+are almost impossible to style consistently, which is why so many teams rebuild
+the control by hand.
+
+The word has a notorious collision. In Material UI, Ant Design, and much of the
+React ecosystem, a **Stepper** is the numbered progress track across the top of a
+wizard, which this site files under step indicator. Apple, the HTML
+specification, and Nielsen Norman all use "stepper" for the plus and minus
+control, and the two components have nothing in common. In a mixed codebase,
+say "quantity stepper" or "spin button" when you mean this one and "step
+indicator" or "progress steps" when you mean the other, and never rely on
+"stepper" alone to be understood.

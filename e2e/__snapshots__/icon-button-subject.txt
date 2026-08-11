@@ -1,0 +1,4 @@
+term:    Icon button
+scope:   element
+subject: button.sp-icon-button[aria-label=Copy link][data-part=copy]
+text:    

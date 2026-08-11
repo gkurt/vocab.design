@@ -1,0 +1,52 @@
+---
+name: Tag
+slug: tag
+category: component
+status: published
+definition: >-
+  A small label attached to an item to classify it, often coloured by category
+  and sometimes removable.
+aliases:
+  - name: label
+    source: primer
+  - name: keyword
+  - name: compound tag
+    source: blueprint
+relations:
+  contrastWith: [chip]
+implementations:
+  - system: fluent
+    name: Tag
+    url: https://fluent2.microsoft.design/components/web/react
+sources:
+  - title: 'GOV.UK Design System: components'
+    url: https://design-system.service.gov.uk/components/
+demo: inline
+useWhen: a small label that classifies an item
+---
+
+A tag belongs to the thing it sits on. It says what category an item is in
+(*docs*, *billing*, *urgent*), it is usually one of several, and it usually came
+from somebody choosing it. That last part matters: tags are authored metadata,
+which is why they are so often removable and why a set of them reads as a small
+vocabulary rather than as a computed fact about the item.
+
+The word collides with two neighbours. A badge is generated, not chosen: a count,
+a "new", a build status, something the system knows and the user does not set. A
+chip is a value inside a control: the thing sitting in a filter bar or an email
+recipient field, where clicking it changes what the interface is doing rather
+than describing what an item is. Roughly, a badge reports, a chip operates, and a
+tag classifies.
+
+Colour is the most abused part of the pattern. Hue is useful when it encodes a
+real dimension the reader can learn (one colour per project, one per severity),
+and noise when every tag gets a different colour because the palette had room.
+Colour should never be the only carrier either, so the word in the tag has to
+survive being printed in grey.
+
+Keep tags short and keep them plain. They are read in bulk, so a tag with a
+sentence in it is a description; a tag with an icon, a word and a close button
+crowded into fifteen pixels is a control that will be missed on touch. If a tag
+can be removed, give the close affordance its own hit area and a label of its own
+("Remove docs"), because "close" on its own tells a screen reader nothing about
+which classification just went away.

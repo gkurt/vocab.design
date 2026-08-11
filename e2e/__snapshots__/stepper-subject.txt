@@ -1,0 +1,4 @@
+term:    Stepper
+scope:   element
+subject: div.sp-surface.sp-row[aria-labelledby=vd-qty-label][data-part=stepper][role=group]
+text:    1

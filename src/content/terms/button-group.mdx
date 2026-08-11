@@ -1,0 +1,51 @@
+---
+name: Button group
+slug: button-group
+category: component
+status: published
+definition: >-
+  Buttons set flush against each other so they read as one unit of related
+  actions, usually with shared borders and rounded outer corners only.
+aliases:
+  - name: button bar
+  - name: grouped buttons
+  - name: btn-group
+    source: bootstrap
+relations:
+  contrastWith: [segmented-control, toolbar, toggle-group]
+implementations:
+  - system: shadcn
+    name: Button Group
+    url: https://ui.shadcn.com/docs/components/button-group
+sources:
+  - title: 'Button Group, shadcn/ui'
+    url: https://ui.shadcn.com/docs/components/button-group
+demo: inline
+useWhen: several actions that belong together visually
+---
+
+A button group is a piece of typography more than a piece of behaviour. Nothing
+changes about what the buttons do; they are simply set flush, sharing the borders
+between them and rounding only the outer corners, so the eye reads one object with
+three parts instead of three objects that happen to be near each other. The saved
+space is real, but the grouping is the point.
+
+Everything in the group should act on the same object. Copy, duplicate and archive
+belong together because they are all things you do to this file; a group that mixes
+those with Sign out is using the joinery to claim a relationship that is not there.
+Keep it to a handful, and give the destructive member its own separation if it can
+do real damage, because flush edges make a slip cheap.
+
+The look invites two mix-ups. A [segmented control](/segmented-control) is also a
+joined row, but one of its segments is always selected and the control reports a
+choice; a button group reports nothing and holds no state. A
+[toggle group](/toggle-group) is the middle case: joined buttons that each stay
+pressed. If nothing in the row stays pressed after you let go, "button group" is
+the word.
+
+For assistive technology the group is a `role="group"` with a name, and that is
+usually all it needs: each button keeps its own tab stop, because they are still
+ordinary buttons. A toolbar is the version that goes further, taking one tab stop
+for the whole set and moving between members with the arrow keys. Bootstrap's
+`btn-group` popularised the class name, which is why the compressed spelling still
+turns up in code review long after the framework has left the project.

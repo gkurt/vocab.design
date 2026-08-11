@@ -1,0 +1,4 @@
+term:    Card
+scope:   element
+subject: div.sp-surface[aria-label=Open Coastal shelf survey][data-part=card][role=link][tabindex=0]
+text:    Coastal shelf survey Field guide · 12 pages Save

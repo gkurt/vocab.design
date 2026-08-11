@@ -1,0 +1,4 @@
+term:    Checkbox
+scope:   element
+subject: button.sp-checkbox[aria-checked=true][aria-labelledby=cb-contacts-label][data-part=opt-contacts][role=checkbox][type=button]
+text:    

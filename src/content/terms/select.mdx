@@ -1,0 +1,53 @@
+---
+name: Select
+slug: select
+category: component
+status: published
+definition: >-
+  A closed control that shows the current choice and opens a list of options
+  when pressed, with no typing.
+aliases:
+  - name: dropdown list
+    source: nngroup
+  - name: picker
+    source: hig
+  - name: select menu
+  - name: pull down menu
+  - name: native select
+    source: shadcn
+relations:
+  contrastWith: [combobox, menu-button]
+implementations:
+  - system: base-ui
+    name: Select
+    url: https://base-ui.com/react/components/select
+sources:
+  - title: 'Select, Base UI'
+    url: https://base-ui.com/react/components/select
+demo: inline
+useWhen: one choice from a known list, no typing
+---
+
+A select is closed most of the time. It shows one value on one line, and pressing
+it lifts a list of the alternatives over the layout; picking one puts the list away
+again. That closed resting state is the point of the control: it costs the same
+single line whether it holds four options or forty.
+
+What separates a select from a [combobox](/combobox) is that you never type into
+it. Every option has to be readable by eye, which is also the honest limit on the
+pattern: somewhere past a dozen or so entries, scanning stops working and a control
+that filters as you type is the better answer. A select is for a set you can hold
+in your head, like paper sizes, currencies, or a status.
+
+The names vary more than the thing does. "Dropdown" is the everyday word, but it is
+loose enough to cover menus and comboboxes too, so it is worth reserving for casual
+use. Apple calls the closed control a pop-up button and the term "picker" covers the
+list it opens. On the web the plain `<select>` element is often called the native
+select, in contrast with the custom one a design system ships.
+
+The native element is still the cheapest correct answer: it gets the platform's own
+picker, keyboard behaviour, and typeahead for free, including the wheel that iOS
+puts up. A custom select has to earn that back by hand, and the pattern to copy is
+the select-only combobox: a button that carries `aria-haspopup="listbox"` and
+`aria-expanded`, a listbox of options with one marked selected, and dismissal on
+choosing, on Escape, and on a click outside.

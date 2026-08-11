@@ -1,0 +1,58 @@
+---
+name: Link
+slug: link
+category: component
+status: published
+definition: >-
+  A control that navigates somewhere, named for its destination, and carrying the
+  browser affordances of a destination (open in new tab, copy address).
+aliases:
+  - name: hyperlink
+    source: community
+  - name: anchor
+    source: community
+  - name: text link
+    source: community
+relations:
+  contrastWith: [button, ghost-button]
+implementations:
+  - system: aria-apg
+    name: Link
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/link/
+sources:
+  - title: 'ARIA Authoring Practices Guide: Link pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/link/
+demo: inline
+useWhen: the control goes somewhere rather than doing something
+---
+
+A link is the one control with an address. That is not a technicality: the
+address is what lets a reader hover to see where they are about to go, open the
+destination in a new tab, copy it into a message, bookmark it, and come back to
+it later through history. None of those are features anyone builds. They come
+free with an `<a href>` and they are all lost the moment the same behaviour is
+rebuilt on a click handler, which is why "make it a link" is a decision about
+what the control is, not about how it is painted.
+
+The test is where the reader ends up. If activating it takes them somewhere
+(another page, another view, a fragment further down this one), it is a link,
+even when it is drawn as a filled button. If it changes something where they
+already are, it is a button, even when it is drawn as blue underlined text. The
+two also answer different keys, which is the part that quietly breaks: a link
+activates on Enter alone, a button on Enter and Space. A reader who presses Space
+on a fake link scrolls the page instead.
+
+Name it for its destination. "Read the refund policy" and "Pricing" are links;
+"click here", "more", and "read more" are the same string repeated down a page,
+and a screen-reader user pulling up a list of links gets a list of the word
+"more". Underlining in body text is not decoration either: colour alone is the
+one distinguishing feature people with limited colour vision cannot rely on, so
+inside a paragraph the underline is what makes the link findable at all. Outside
+prose (a nav bar, a card that is entirely one link) position and context can carry
+that job instead.
+
+Visited styling is the oldest affordance the web still has and the most often
+thrown away. A link that changes colour once followed turns a list of results into
+a map of where the reader has already been, which matters most on exactly the
+pages people scan repeatedly. It costs one selector, and browsers deliberately
+limit what that selector can change, so it is worth spending the colour on.

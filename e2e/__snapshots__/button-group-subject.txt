@@ -1,0 +1,4 @@
+term:    Button group
+scope:   element
+subject: div[aria-label=File actions][data-part=group][role=group]
+text:    Copy linkDuplicateArchive

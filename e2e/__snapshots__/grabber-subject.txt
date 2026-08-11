@@ -1,0 +1,4 @@
+term:    Grabber
+scope:   element
+subject: button[aria-label=Resize sheet][data-part=grabber][type=button]
+text:    

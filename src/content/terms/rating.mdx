@@ -1,0 +1,63 @@
+---
+name: Rating
+slug: rating
+category: component
+status: published
+definition: >-
+  A row of stars or similar marks that both shows a score and, when interactive,
+  takes one.
+aliases:
+  - name: star rating
+    source: community
+  - name: rate
+    source: ant-design
+  - name: score input
+    source: community
+  - name: rating indicator
+    source: hig
+relations:
+  contrastWith: [meter]
+implementations:
+  - system: hig
+    name: Rating indicators
+    url: https://developer.apple.com/design/human-interface-guidelines/rating-indicators
+sources:
+  - title: Rating indicators, Apple Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/rating-indicators
+demo: inline
+useWhen: a score expressed as filled marks out of five
+---
+
+A rating is two components wearing one costume. Read-only, it reports a score
+that already exists: the average a product earned, the difficulty of a recipe,
+the strength of a match. Interactive, it is an input, and the only input whose
+entire range is drawn at once as a row of identical marks. Both forms use the
+same picture, which is why the word covers both, and why a specimen has to make
+clear which one it is: a rating you can click asks for an opinion, and a rating
+you cannot is telling you someone else's.
+
+Five marks is the convention, stars are the default drawing, and neither is a
+rule. Ten-point scales, three-point coffee-bean scales, and thumbs up or down
+are all ratings. What matters is that the scale is short enough to read without
+counting and that the marks are ordered, so a partly filled row means something
+at a glance. Averages need a half step or a fractional fill to be honest, since
+a row that rounds 4.4 up to five stars is lying about the number printed beside
+it. That number, and the count of votes behind it, usually belongs next to the
+marks: stars alone cannot say whether the score came from six people or six
+thousand.
+
+The interactive form is a single choice out of a few, so it is a radio group,
+not five checkboxes and not five toggles. Give every mark a label carrying the
+whole value it sets ("4 stars", never "star 4"), let arrow keys move through the
+scale, and provide a way back to nothing for a person who rated by accident.
+Hovering the row to preview a score is a nice touch and never the only feedback,
+because touch has no hover. A display-only rating should reach a screen reader as
+its sentence ("4.2 out of 5") rather than as five graphics.
+
+Watch the neighbouring words. A **review** is the written thing a rating is
+usually attached to, and the two are often confused in schemas and URLs. Apple
+calls the read-only form a **rating indicator**, which is a useful split: the
+indicator reports, the control collects. Ant Design ships the control as
+**Rate**. A rating is also not a measurement, however similar the filled bar
+looks: a score is an opinion someone recorded, so nothing about it fills up,
+runs out, or completes.

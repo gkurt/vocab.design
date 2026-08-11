@@ -35,7 +35,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="results" style="width: 92px; text-align: right">58 results</span>
         </div>
         <div class="sp-field" style="margin-top: 18px; gap: 8px">
-          <div class="sp-row sp-row--between">
+          <div class="sp-row sp-row--between sp-context">
             <span class="sp-label" id="vd-price-label">Max price</span>
             <span class="sp-text sp-text--ink" data-part="readout" style="width: 60px; text-align: right; font-variant-numeric: tabular-nums">$400</span>
           </div>
@@ -55,7 +55,7 @@ export function mount(root: HTMLElement): void {
               ></div>
             </div>
           </div>
-          <div data-part="scale" aria-hidden="true" style="position: relative; height: 15px">${stops}</div>
+          <div class="sp-context" data-part="scale" aria-hidden="true" style="position: relative; height: 15px">${stops}</div>
         </div>
         <div class="sp-row sp-context" style="margin-top: 16px">
           <button class="sp-chip" type="button" data-selected>In stock</button>

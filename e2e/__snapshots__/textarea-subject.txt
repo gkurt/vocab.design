@@ -1,0 +1,4 @@
+term:    Text area
+scope:   element
+subject: textarea.sp-input[data-part=box][placeholder=Describe the problem in as much detail as you need][rows=3][spellcheck=false]
+text:    

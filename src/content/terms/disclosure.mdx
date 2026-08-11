@@ -1,0 +1,60 @@
+---
+name: Disclosure
+slug: disclosure
+category: component
+status: published
+definition: >-
+  A single button that shows and hides one region of content, reporting its
+  state through aria-expanded.
+aliases:
+  - name: collapsible
+    source: radix
+  - name: show hide
+    source: aria-apg
+  - name: expandable section
+    source: cloudscape
+  - name: details
+    source: mdn
+  - name: expander
+    source: community
+  - name: disclosure control
+    source: hig
+relations:
+  contrastWith: [disclosure-triangle, progressive-disclosure, show-more-toggle]
+implementations:
+  - system: aria-apg
+    name: Disclosure (Show/Hide)
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/
+  - system: base-ui
+    name: Collapsible
+    url: https://base-ui.com/react/components/collapsible
+sources:
+  - title: 'ARIA Authoring Practices Guide: Disclosure (Show/Hide) pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/
+demo: inline
+useWhen: one control hiding one region
+---
+
+A disclosure is the smallest expandable thing there is: one button, one region,
+and no relationship to any other button on the page. That independence is what
+separates it from an accordion, where opening one section is allowed to close
+another. Nothing coordinates a disclosure except the person pressing it.
+
+The state lives on the button, not on the region. The button carries
+`aria-expanded="true"` or `"false"` and `aria-controls` pointing at the region's
+id, so a screen reader announces "collapsed" or "expanded" before anyone commits
+to the press. A chevron or triangle that rotates is the visual half of the same
+sentence, and it is only ever decoration: if the icon is the only thing that
+changed, the pattern is not implemented.
+
+HTML ships this as `<details>` and `<summary>`, which gets the semantics right
+for free and is worth reaching for whenever the content is genuinely inert.
+Custom implementations exist mostly because animating the browser's own version
+was awkward for years, and because a disclosure often needs to sit inside a
+control that already handles its own keyboard.
+
+Two habits break it. Hiding the region with opacity or a zero height while
+leaving it in the accessibility tree means assistive technology reads content the
+button claims is gone, so use `hidden`, `display: none`, or `content-visibility`.
+And putting anything a reader needs in order to decide (a price, a required
+field, an error) behind the button turns a disclosure into a trap.

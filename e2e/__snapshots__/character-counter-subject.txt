@@ -1,0 +1,4 @@
+term:    Character counter
+scope:   element
+subject: span.sp-text[aria-hidden=true][data-part=counter][data-state=ok]
+text:    0/40

@@ -1,0 +1,4 @@
+term:    Keyboard key
+scope:   element
+subject: kbd.sp-kbd[data-part=key-esc]
+text:    Esc

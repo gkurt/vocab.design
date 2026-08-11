@@ -1,0 +1,58 @@
+---
+name: List
+slug: list
+category: component
+status: published
+definition: >-
+  A vertical run of related items presented as a set, where the shared shape of
+  every row is what tells a reader the rows belong together.
+aliases:
+  - name: list group
+    source: bootstrap
+  - name: lists and tables
+    source: hig
+  - name: unordered list
+  - name: ordered list
+relations:
+  contrastWith: [data-table]
+implementations:
+  - system: material
+    name: Lists
+    url: https://m3.material.io/components/lists/overview
+  - system: hig
+    name: Lists and tables
+    url: https://developer.apple.com/design/human-interface-guidelines/lists-and-tables
+sources:
+  - title: 'The Component Gallery: List'
+    url: https://component.gallery/components/list/
+demo: inline
+useWhen: items are peers and the set matters more than any one row
+---
+
+A list is made by repetition. One row layout, applied to every item, is what
+turns a stack of unrelated blocks into a set a reader can scan: the eye learns
+the shape once and then only has to read what changed. That is also the
+constraint. A row that carries a different arrangement from its neighbours costs
+the whole list its scanability, which is why lists tolerate optional content
+(a missing timestamp, a second line) far better than they tolerate a second
+layout.
+
+Ordered and unordered are not a styling choice. Numbering claims that the
+sequence carries meaning, so a numbered list should survive the question "what
+would it mean to swap rows four and five". Steps, rankings and legal clauses
+earn numbers; a set of tags or a page of search results does not, however
+pleasant the numerals look.
+
+The line between a list and a table is what the columns are for. A table's
+values are meant to be read down as well as across, so alignment between rows is
+load bearing and each cell is a datum. A list row is read as one thing: an
+avatar, a name and a timestamp that together describe a person, not three
+columns being compared. When a reader starts scanning a single field down the
+page, the list has become a table wearing a list's clothes.
+
+Rows are frequently interactive, and the interaction should be as uniform as the
+layout. If every row navigates, the whole row is the target and there is nothing
+to teach. If some rows navigate and others only select, the shared shape is now
+lying about what each row does. Where a row needs several actions, put them
+behind one overflow control rather than sprinkling different buttons across
+different rows.

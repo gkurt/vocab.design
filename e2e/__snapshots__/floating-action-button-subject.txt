@@ -1,0 +1,4 @@
+term:    Floating action button
+scope:   element
+subject: button.sp-button[aria-haspopup=menu][aria-label=Create][data-part=fab][type=button]
+text:    

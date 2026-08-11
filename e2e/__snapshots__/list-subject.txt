@@ -1,0 +1,4 @@
+term:    List
+scope:   element
+subject: ul.sp-list[aria-label=Reviewers][data-part=list][role=listbox]
+text:    A Ada Whitfield 2m B Ben Oyelaran 14m C Cai Marchetti 1h D Devi Ramachandran Yes

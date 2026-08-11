@@ -1,0 +1,4 @@
+term:    Tag
+scope:   element
+subject: span.sp-chip[data-part=tag-typography]
+text:    typography

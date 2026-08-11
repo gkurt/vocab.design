@@ -1,0 +1,52 @@
+---
+name: Sort indicator
+slug: sort-indicator
+category: component
+status: published
+definition: >-
+  The small arrow in a column header showing that the table is sorted by that
+  column and in which direction.
+aliases:
+  - name: sort arrow
+    source: community
+  - name: sort caret
+    source: community
+  - name: sort direction indicator
+    source: community
+relations:
+  partOf: [data-table]
+sources:
+  - title: 'Data table, Carbon Design System'
+    url: https://carbondesignsystem.com/components/data-table/usage/
+demo: inline
+useWhen: the arrow in a header showing the sort
+---
+
+Rows in a table carry no evidence of why they are in the order they are in. The
+sort indicator is that evidence: one arrow, in one header, answering both halves
+of the question at once (sorted by this column, in this direction). Because it
+answers "which column" by being somewhere rather than by saying anything, exactly
+one may be shown at a time. Two arrows in two headers describe a table that
+cannot exist.
+
+Which way the arrow points is a convention people genuinely disagree about, so it
+is worth being deliberate. The usual reading is that the arrow points at the
+direction the values grow: up for ascending (A to Z, small to large, oldest
+first), down for descending. It falls apart on dates, where "descending" is what
+most readers would call "newest first", and on ratings, where "best first" is
+descending. If the column's meaning has a natural sense, put it in words next to
+the arrow or in the header's tooltip, because no arrow has ever settled this on
+its own.
+
+The arrow is the visible half of a state that also has to be machine readable.
+`aria-sort` goes on the header cell, takes `ascending`, `descending`, or `none`,
+and belongs to only one header in the table. The header itself should be a
+button, since the sort is a control and not a label, and the arrow is then part of
+that button's content rather than a separate thing to click.
+
+Keep the arrow's room reserved in every sortable header, whether or not that
+column is the sorted one. An arrow that appears out of nowhere widens its column
+and shoves the whole table sideways on the click that was meant to reorder it,
+which reads as breakage rather than as sorting. Reserving the slot also gives the
+hover state somewhere to live: a faint arrow under the pointer is how a header
+says it can be sorted before anyone tries.

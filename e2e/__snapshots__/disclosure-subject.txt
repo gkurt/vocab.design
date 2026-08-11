@@ -1,0 +1,4 @@
+term:    Disclosure
+scope:   element
+subject: button.sp-button.sp-button--quiet.sp-button--sm.sp-row[aria-controls=vd-delivery][aria-expanded=false][data-part=toggle][type=button]
+text:    Delivery details

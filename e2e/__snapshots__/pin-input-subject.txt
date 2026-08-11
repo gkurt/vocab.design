@@ -1,0 +1,4 @@
+term:    PIN input
+scope:   element
+subject: div.sp-row[aria-label=Verification code][data-part=group][role=group]
+text:    

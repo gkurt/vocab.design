@@ -1,0 +1,4 @@
+term:    Show more toggle
+scope:   element
+subject: button.sp-button.sp-button--quiet.sp-button--sm.sp-row[aria-controls=vd-review][aria-expanded=false][data-part=toggle][type=button]
+text:    Show more Show less

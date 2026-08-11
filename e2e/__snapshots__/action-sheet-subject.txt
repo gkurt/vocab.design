@@ -1,0 +1,4 @@
+term:    Action sheet
+scope:   element
+subject: div.sp-surface[aria-label=Share this note][aria-modal=true][data-part=sheet][role=dialog]
+text:    Copy link Add to favourites Hide from feed Cancel

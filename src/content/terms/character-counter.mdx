@@ -1,0 +1,48 @@
+---
+name: Character counter
+slug: character-counter
+category: component
+status: published
+definition: >-
+  The running count beside a text box showing how many characters are used, or
+  how many remain, against a limit.
+aliases:
+  - name: character count
+    source: govuk
+  - name: char limit counter
+    source: community
+  - name: remaining characters
+    source: community
+relations:
+  partOf: [textarea, text-field]
+sources:
+  - title: 'GOV.UK Design System: Character count'
+    url: https://design-system.service.gov.uk/components/character-count/
+demo: inline
+useWhen: showing how much of a length limit is used
+---
+
+A character counter only earns its place when a limit is real and tight enough to
+hit. Under a generous cap the count is noise, and readers learn to ignore it. The
+counter is also an admission: every one of them is a limit the system could not
+absorb quietly, so the first question is whether the field needs a maximum at all.
+
+Two idioms exist and they say different things. "34/40" reports the state of the
+field, and "6 characters remaining" reports the budget left. The second reads
+better when the limit is short and the pressure is the point; the first is easier
+to scan when the number is mostly reassurance. Whichever is chosen, it belongs
+where the eye already is: beside the label or under the box, never across the
+form.
+
+The counter has an accessibility trap in it. Updating a live region on every
+keystroke turns typing into a stream of announcements that drown out the letters
+themselves, so the visible number updates immediately while the announced one
+waits for a pause in typing. GOV.UK settled this in public, and the pattern of a
+polite, debounced status message next to a silent visible count is the version
+worth copying.
+
+Near the limit the counter usually changes register: a colour shift, or the count
+switching from used to remaining. That is a warning, not an error, and it should
+stay a warning. The error, if there is one, is what the field does when the limit
+is passed, and whether it refuses the extra characters or accepts and complains is
+a decision the counter alone does not make.

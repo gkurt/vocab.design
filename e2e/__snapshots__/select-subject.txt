@@ -1,0 +1,4 @@
+term:    Select
+scope:   element
+subject: div[data-part=select]
+text:    A4 A5A4A3Poster

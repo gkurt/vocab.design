@@ -1,0 +1,4 @@
+term:    Divider
+scope:   element
+subject: div.sp-divider[data-part=divider][role=separator]
+text:    

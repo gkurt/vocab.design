@@ -105,7 +105,9 @@ export function mount(root: HTMLElement): void {
     });
   };
 
-  markers.forEach((marker, i) => marker.addEventListener('click', () => go(i)));
+  markers.forEach((marker, i) => {
+    marker.addEventListener('click', () => go(i));
+  });
   part(root, 'prev').addEventListener('click', () => go(index - 1));
   part(root, 'next').addEventListener('click', () => go(index + 1));
 

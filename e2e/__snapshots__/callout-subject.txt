@@ -1,0 +1,4 @@
+term:    Callout
+scope:   element
+subject: div.sp-surface.sp-row[data-part=callout][role=note]
+text:    Revocation is immediate The old key stops working the moment you rotate. There i

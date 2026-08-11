@@ -1,0 +1,4 @@
+term:    Carousel
+scope:   element
+subject: section[aria-label=Field guide chapters][aria-roledescription=carousel][data-part=carousel][role=group]
+text:    1 Chapter one Reef habitats 2 Chapter two Tide pools 3 Chapter three Kelp forest

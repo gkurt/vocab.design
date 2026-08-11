@@ -1,0 +1,4 @@
+term:    Rating
+scope:   element
+subject: div.sp-row[aria-label=Rate these headphones][data-part=stars][role=radiogroup]
+text:    

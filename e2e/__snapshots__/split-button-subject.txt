@@ -1,0 +1,4 @@
+term:    Split button
+scope:   element
+subject: div[aria-label=Save][data-part=split][role=group]
+text:    Save Save as a copySave as a template

@@ -1,0 +1,4 @@
+term:    Popconfirm
+scope:   element
+subject: div.sp-popover[aria-labelledby=pc-question][data-open][data-part=popconfirm][role=dialog]
+text:    Remove Ada Lovelace from the project? Cancel Remove

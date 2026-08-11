@@ -1,0 +1,4 @@
+term:    Sort indicator
+scope:   element
+subject: span[aria-hidden=true][data-part=ind-track]
+text:    ↑

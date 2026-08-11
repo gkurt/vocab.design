@@ -1,0 +1,4 @@
+term:    Data table
+scope:   element
+subject: table.sp-table[aria-label=Invoices][data-part=table]
+text:    Client↑ Status Amount Ada Lovelace Paid $1,240.00 Ivy Chen Overdue $4,015.00 Nil

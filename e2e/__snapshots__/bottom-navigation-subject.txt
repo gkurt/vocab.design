@@ -1,0 +1,4 @@
+term:    Bottom navigation
+scope:   element
+subject: nav[aria-label=Main][data-part=bar]
+text:    Inbox Search Saved Alerts

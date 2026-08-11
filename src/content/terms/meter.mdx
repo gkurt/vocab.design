@@ -1,0 +1,63 @@
+---
+name: Meter
+slug: meter
+category: component
+status: published
+definition: >-
+  A gauge of a known quantity within a known range, such as disk used or password
+  strength, where the level is a fact rather than a task.
+aliases:
+  - name: level indicator
+    source: hig
+  - name: capacity indicator
+    source: hig
+  - name: strength meter
+    source: community
+  - name: usage bar
+    source: community
+relations:
+  contrastWith: [progress-bar, rating]
+implementations:
+  - system: aria-apg
+    name: Meter
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/meter/
+  - system: base-ui
+    name: Meter
+    url: https://base-ui.com/react/components/meter
+sources:
+  - title: 'ARIA Authoring Practices Guide: Meter pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/meter/
+demo: inline
+useWhen: a level within a known range, not a task
+---
+
+A meter reports a reading. Storage used out of storage bought, seats filled out
+of seats licensed, how strong the password you just typed is: quantities that
+exist right now, inside limits that are known, and that would still have a value
+if nobody were watching. That is the whole distinction from a progress bar, which
+tracks a job with a beginning and an end and is only interesting while it runs. A
+progress bar that stops moving is broken. A meter that stops moving is simply
+telling you nothing changed.
+
+Two facts have to be true before the word applies: there is a maximum, and the
+maximum means something to the reader. Twelve of sixteen gigabytes is a meter.
+"Twelve gigabytes uploaded so far" is not, because there is no edge to fill up
+against, and neither is a spinner waiting on an unknowable total. When the
+maximum exists but the reading has no natural direction of badness, a meter is
+still the right picture; it just has no zones.
+
+Zones are what a meter has and a progress bar does not. HTML's own `<meter>`
+carries `low`, `high`, and `optimum`, and the last one is the interesting part:
+it says which end of the range is the good end, so the same widget can turn
+amber near full for a disk and amber near empty for a battery or a weak password.
+Colour alone must never carry that, since it is exactly the message a colour
+blind reader loses. Put the number and its unit in text beside the track, and let
+the fill be the fast read rather than the only one.
+
+For assistive technology the role is `meter`, not `progressbar`, with
+`aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and an `aria-valuetext` that
+says the sentence a person would say ("12.4 GB of 16 GB used"). Apple's
+vocabulary splits the same idea in two, calling the read-only bar a **level
+indicator** and the storage flavour a **capacity indicator**; on the web the
+common names are usage bar and, for the password case, strength meter. All of
+them are the same component with a different maximum.

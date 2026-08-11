@@ -1,0 +1,4 @@
+term:    Link
+scope:   element
+subject: a[data-part=link][href=https://example.com/plans]
+text:    plans page

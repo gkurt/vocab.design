@@ -1,0 +1,4 @@
+term:    Confirmation dialog
+scope:   element
+subject: div.sp-dialog[aria-describedby=cd-body][aria-labelledby=cd-title][aria-modal=true][data-open][data-part=dialog][role=alertdialog]
+text:    Delete "Q3 forecast.xlsx"? Deleting removes it for everyone on the project. This

@@ -1,0 +1,51 @@
+---
+name: Avatar group
+slug: avatar-group
+category: component
+status: published
+definition: >-
+  Several avatars overlapped in a row to show a set of people compactly, with a
+  plus n counter standing for the rest.
+aliases:
+  - name: avatar stack
+    source: primer
+  - name: face pile
+    source: community
+  - name: facepile
+    source: community
+  - name: stacked avatars
+    source: community
+relations:
+  seeAlso: [avatar]
+implementations:
+  - system: fluent
+    name: Avatar group
+    url: https://fluent2.microsoft.design/components/web/react
+sources:
+  - title: Fluent 2 web components
+    url: https://fluent2.microsoft.design/components/web/react
+demo: inline
+useWhen: a row of overlapping faces with a plus n
+---
+
+An avatar group answers "who is on this" in the width of a table cell. The
+overlap is not decoration: it says these faces are one set rather than a list,
+and the ring drawn around each circle is what keeps the stack readable when two
+photographs happen to be the same colour. Three to five faces is the usual
+budget, and everyone past that becomes a counter.
+
+The counter is the part people get wrong. A plus n chip is a control, not a
+caption, so it should say how many are hidden (not the total), open something
+that names them, and be reachable by keyboard. If the rest of the set is not
+available anywhere, the group is claiming a promise it cannot keep, and a plain
+text count reads better than a chip that does nothing.
+
+Order carries meaning whether you intend it or not: the leftmost face reads as
+the most important one, so put the assignee, the owner, or the current user
+first, and keep the order stable between renders. A group that reshuffles on
+every refresh looks like a bug even when the membership has not changed.
+
+For assistive technology, the group is one thing with a label ("5 reviewers"),
+not five images to be read one after another. Stacked photographs alone say very
+little, so pair the group with names on hover, in the overflow, or in the text
+beside it, and never use it as the only place a name appears.

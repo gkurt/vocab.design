@@ -1,0 +1,56 @@
+---
+name: Floating action button
+slug: floating-action-button
+category: component
+status: published
+definition: >-
+  A round, raised button that hovers above the content in a fixed corner,
+  carrying the one action the screen is most for.
+aliases:
+  - name: fab
+    source: material
+  - name: extended fab
+    source: material
+  - name: float button
+    source: ant-design
+relations:
+  contrastWith: [icon-button]
+  variantOf: [button]
+implementations:
+  - system: material
+    name: Floating action button (FAB)
+    url: https://m3.material.io/components/floating-action-button/overview
+sources:
+  - title: 'Material Design 3: Floating action buttons (FABs)'
+    url: https://m3.material.io/components/floating-action-button/overview
+demo: inline
+useWhen: the screen has a single dominant action
+---
+
+The floating action button is Material Design's answer to a question every screen
+has: if a person came here to do one thing, where is that thing? The answer is a
+button that leaves the layout entirely. It sits above the content on its own layer,
+keeps its corner while the page scrolls under it, and is round and raised so that
+nothing else on the screen can be mistaken for it. Almost everyone shortens it to
+FAB, in speech and in code.
+
+Its power comes from being alone, which is also its main constraint. One per screen,
+and only when a single action really does dominate (compose, add, new). A screen with
+two equally likely verbs does not get two FABs, it gets a normal row of buttons,
+because the moment there are two the shape stops meaning "the thing you came for".
+The related trap is a screen with no dominant action at all, where a FAB gets filled
+with whatever seemed most important that week.
+
+Two things pull against it. A round icon on its own has to be understood without a
+label, so it works for a handful of verbs and fails for the rest. That is what the
+**extended FAB** is for: the same raised surface stretched into a pill with the verb
+written on it, which is the honest choice whenever the glyph would be a guess. And
+because it floats, it covers content, typically the end of a list, so the scrolling
+area under it needs padding to let the last row clear the button.
+
+Related shapes get confused with it. A FAB is not an [icon button](/icon-button):
+that one lives in a row of controls and takes its meaning from its neighbours. It is
+not part of [bottom navigation](/bottom-navigation) either. A row of destinations
+with a verb wedged into it makes the current marker mean two things, which is why
+Material floats the button above the bar or docks it to the bar's edge instead of
+placing it inside.

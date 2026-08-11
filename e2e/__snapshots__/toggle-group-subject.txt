@@ -1,0 +1,4 @@
+term:    Toggle group
+scope:   element
+subject: div.sp-row[aria-labelledby=format-label][data-part=group][role=group]
+text:    BIU

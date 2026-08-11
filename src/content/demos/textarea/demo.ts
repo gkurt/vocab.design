@@ -56,9 +56,11 @@ export function mount(root: HTMLElement): void {
     const overflowing = box.scrollHeight > box.clientHeight + 1;
     flag(measure, 'data-steady', steady);
     flag(measure, 'data-overflow', overflowing);
+    // Kept short on purpose (SPEC §5): a readout that wrapped to a second line
+    // would move the Post button beside it, which is the shift the box refuses.
     measure.textContent = steady
-      ? `Box ${mounted}px, unchanged. ${overflowing ? 'Text scrolls inside it.' : 'Text fits.'}`
-      : `Box ${box.offsetHeight}px, resized by hand.`;
+      ? `Box ${mounted}px. ${overflowing ? 'Text scrolls.' : 'Text fits.'}`
+      : `Box ${box.offsetHeight}px, resized.`;
   };
 
   box.addEventListener('input', () => {

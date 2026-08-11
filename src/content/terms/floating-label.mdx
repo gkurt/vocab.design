@@ -1,0 +1,47 @@
+---
+name: Floating label
+slug: floating-label
+category: component
+status: published
+definition: >-
+  A label that sits inside an empty field and rises to the field's top edge when
+  the field takes focus or holds a value.
+aliases:
+  - name: floating placeholder
+    source: community
+  - name: animated label
+    source: community
+  - name: shrinking label
+    source: mui
+relations:
+  partOf: [text-field]
+sources:
+  - title: 'MUI Text Field: the label that shrinks on focus or value'
+    url: https://mui.com/material-ui/react-text-field/
+demo: inline
+useWhen: the label starts inside the box and moves up
+---
+
+The floating label was Material Design's answer to a real problem: a placeholder
+that doubles as a label disappears the moment someone starts typing, taking with
+it the only description of what the box wants. Floating it keeps the word on
+screen. The label is never a placeholder, it just borrows the placeholder's
+position while the field is empty.
+
+The cost is that it borrows that position convincingly. An empty field with a
+floating label looks filled in, so people skip it, and the label at rest usually
+sits at placeholder contrast, which is the worst contrast on the form. When the
+label rises it also shrinks, and the shrunk size is often below the size the rest
+of the form respects. Small print at the moment of highest attention is a strange
+trade.
+
+Mechanically, the label moves and nothing else does. The field reserves the
+headroom the raised label will occupy from the start, so focusing an input never
+pushes the form down; the label travels through space the box already owned. That
+reserved band is why floating labels make fields taller than the same fields
+labelled above, which is the layout argument for and against them in one.
+
+It stays a real `<label>` throughout, associated with the control, so the
+animation is presentation over an ordinary labelled field. If the field also needs
+a format hint, that hint is a second line and not the label: the label cannot say
+"Email" and "we will never share this" from the same position.

@@ -1,0 +1,4 @@
+term:    Avatar group
+scope:   element
+subject: div.sp-row[aria-label=5 reviewers][data-part=group][role=group]
+text:    AMJORK +3

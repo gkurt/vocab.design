@@ -1,0 +1,4 @@
+term:    Avatar
+scope:   element
+subject: span.sp-avatar[aria-label=Ada Marceau][data-part=avatar][data-source=photo][role=img]
+text:    AM
