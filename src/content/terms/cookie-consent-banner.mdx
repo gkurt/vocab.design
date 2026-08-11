@@ -1,0 +1,60 @@
+---
+name: Cookie consent banner
+slug: cookie-consent-banner
+category: pattern
+status: published
+definition: >-
+  A notice asking permission to store non-essential cookies before the reader has
+  done anything, offering accept, reject, and a route to per-purpose choices.
+aliases:
+  - name: cookie banner
+    source: govuk
+  - name: consent notice
+    source: community
+  - name: CMP
+    source: community
+  - name: consent management platform
+    source: community
+  - name: GDPR banner
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'GOV.UK Design System: Cookie banner'
+    url: https://design-system.service.gov.uk/components/cookie-banner/
+demo: inline
+useWhen: the consent notice that greets you before you read anything
+---
+
+The cookie consent banner exists because European law treats storing anything
+non-essential on a reader's device as something they have to agree to first. That
+timing is what makes it hard to design: it is the only component that has to be
+understood before the page it covers has been read, by someone who came for
+something else. So it wants to be short, to name what it actually sets, and to
+leave as soon as it has an answer.
+
+The honest arrangement is narrow. Accept and reject are one click each, equally
+prominent, and the third route (per-purpose choices) is offered without being
+required. Nothing is pre-ticked, because a checkbox that starts on is not consent,
+and essential cookies are stated as not being up for discussion rather than dressed
+as a choice. The choice is remembered so the banner never asks twice, and there is
+a way back to it later, usually a link in the footer, since consent that cannot be
+withdrawn is not consent either.
+
+Most banners in the wild are built the other way, and it is worth naming the moves
+rather than pretending they are edge cases. Accept is a filled button and reject is
+low contrast grey text, or missing entirely, so the only way to decline is through
+a settings screen with twenty vendor toggles and a "reject all" control placed
+below the fold. Copy takes on a wounded tone, the notice reappears on every visit
+because declining is stored less carefully than accepting, and "legitimate
+interest" appears as a second column of switches most readers never see. These
+patterns work in the narrow sense that consent rates go up, and they are also what
+regulators have been fining, which makes the dark version an engineering liability
+as well as an unkind one.
+
+As a piece of layout the banner is a fixed strip at the bottom or a small panel at
+one corner, and it should stay out of the way of navigation and skip links while it
+waits. It is not a modal: blocking the page entirely (a cookie wall) makes the
+choice a toll rather than a choice. And it has to be reachable by keyboard and
+announced when it appears, because a notice nobody can see is still standing
+between them and the page.

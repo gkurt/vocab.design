@@ -1,0 +1,55 @@
+---
+name: Sans-serif
+slug: sans-serif
+category: typography
+status: published
+definition: >-
+  A typeface drawn without finishing strokes on the ends of its stems, which is
+  the default register of most interface type.
+aliases:
+  - name: sans
+  - name: grotesque
+    source: community
+  - name: gothic
+    source: community
+sources:
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+demo: inline
+useWhen: naming type without finishing strokes
+---
+
+The name is a subtraction: French *sans*, without, plus the stroke that is not
+there. That is the whole definition, and it is why the category is so wide.
+Nineteenth century foundries cut these faces for posters and headlines, not for
+books, and gave them names that record how strange they looked to eyes trained on
+serifs. English foundries called them grotesque, from the Italian *grottesco*,
+meaning cave-like or bizarre. American foundries called them gothic, for no
+better reason than that gothic already meant "old and severe". Both words are
+still in live use: Franklin Gothic and Akzidenz-Grotesk are the same class of
+thing, named twice.
+
+Three sub-genres do most of the work in practice. A grotesque or neo-grotesque
+(Helvetica, Arial, Inter) closes its apertures and holds every letter to nearly
+the same width, which is why a paragraph of it reads as an even grey and a long
+run of it reads as anonymous. A humanist sans (Frutiger, Open Sans, Lato) keeps
+the skeleton of a written letter: open apertures, varying widths, a two-storey
+lowercase g in some cases, and it stays legible at small sizes because its
+letters stay distinguishable from each other. A geometric sans (Futura, Poppins)
+draws bowls as near-circles and stems as near-lines, which is beautiful on a
+title and tiring across three paragraphs.
+
+Interfaces default to sans for reasons that are mostly historical and partly
+practical. Every platform's system face is a sans (San Francisco, Segoe UI,
+Roboto), so `system-ui` resolves to one and inherits the hinting and the
+optical sizes the platform ships. Small text at low resolution punished hairline
+detail, and interface text is mostly small. None of that makes sans inherently
+more readable, and the reflex is worth noticing: sans is the safe choice, not the
+correct one.
+
+The common pairing convention is one serif and one sans, with the contrast used
+to separate registers rather than for decoration: a serif headline over sans body
+copy, or sans labels and controls around serif prose. Many families now ship both
+halves under one name (Source Serif with Source Sans, IBM Plex Serif with IBM
+Plex Sans), which is the low-risk way to get a pairing whose proportions already
+agree.

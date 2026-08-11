@@ -1,0 +1,52 @@
+---
+name: Mega menu
+slug: mega-menu
+category: component
+status: published
+definition: >-
+  A large navigation panel that drops from a top level item and shows many links
+  at once, grouped into columns with headings.
+aliases:
+  - name: megamenu
+    source: nngroup
+  - name: flyout menu
+    source: tailwind
+  - name: mega dropdown
+  - name: navigation panel
+sources:
+  - title: 'User Interface Elements Glossary (NN/g)'
+    url: https://www.nngroup.com/articles/ui-elements-glossary/
+demo: inline
+useWhen: a nav panel too big to be a simple list
+---
+
+A mega menu is what a [dropdown](/dropdown) becomes when the site outgrows a single
+column. Instead of one list, the panel holds two or three columns of links under
+their own headings, and often a featured item or a short description beside them.
+The word is about scale and shape rather than mechanism: the point is that a whole
+section of the site is visible at once, so the reader can compare destinations
+instead of hunting one submenu at a time.
+
+Grouping is the entire value. A panel of twenty ungrouped links is worse than a
+short list, because it costs the same glance as a page of its own without saying
+what any of it is for. Headings turn the panel into a small map, which is why the
+best mega menus read like a site's table of contents. If the headings are hard to
+write, the navigation is usually the thing that needs fixing.
+
+How the panel opens is where most of them go wrong. Opening on hover feels fast and
+closes by accident: the pointer travelling diagonally toward a link in the third
+column leaves the trigger, and the panel disappears under it. Opening on click, with
+an explicit close (choosing a link, Escape, or a press outside), survives touch,
+keyboards, and shaky hands alike. Where hover is kept, it needs a
+[hover intent](/hover-intent) delay on the way in and a grace period on the way out,
+and it still needs the click path for everyone without a pointer.
+
+A mega menu is navigation, not a menu in the ARIA sense. Reaching for `role="menu"`
+and `role="menuitem"` imports the desktop application contract (one tab stop, arrow
+keys to move between items) that no one expects from a site header, and it tells
+assistive technology these are commands rather than links. The honest markup is a
+[disclosure](/disclosure): a button carrying `aria-expanded` and `aria-controls`,
+revealing a `nav` of ordinary lists of links. On a small screen the same content
+usually collapses into an [accordion](/accordion) inside the
+[hamburger menu](/hamburger-menu) panel, which is a good test of whether the
+grouping was real.

@@ -1,0 +1,27 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=chips-empty]', state: 'visible' } },
+  { assert: { selector: '[data-part=results][data-shown="6"]', state: 'visible' } },
+  { moveTo: '[data-part=facet-lamps]' },
+  { click: true },
+  { assert: { selector: '[data-part=box-lamps][aria-checked="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=results][data-shown="2"]', state: 'visible' } },
+  { assert: { selector: '[data-part=chip-lamps]', state: 'visible' } },
+  { wait: 900 },
+  { moveTo: '[data-part=facet-in-stock]' },
+  { click: true },
+  { assert: { selector: '[data-part=results][data-shown="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=chip-in-stock]', state: 'visible' } },
+  { wait: 900 },
+  { moveTo: '[data-part=chip-lamps]' },
+  { click: true },
+  { assert: { selector: '[data-part=chip-lamps]', state: 'hidden' } },
+  { assert: { selector: '[data-part=results][data-shown="4"]', state: 'visible' } },
+  { wait: 900 },
+  { moveTo: '[data-part=chip-in-stock]' },
+  { click: true },
+  { assert: { selector: '[data-part=chips-empty]', state: 'visible' } },
+  { assert: { selector: '[data-part=results][data-shown="6"]', state: 'visible' } },
+  { wait: 1200 },
+]);

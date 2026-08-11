@@ -1,0 +1,58 @@
+---
+name: Hover
+slug: hover
+category: interaction
+status: published
+definition: >-
+  A pointer resting over an element without pressing, a state that exists for mice and
+  pens but has no true equivalent on touch.
+aliases:
+  - name: mouseover
+    source: community
+  - name: rollover
+    source: community
+  - name: hovered state
+    source: material
+relations: {}
+implementations:
+  - system: material
+    name: Hovered state
+    url: https://m3.material.io/foundations/interaction/states/overview
+sources:
+  - title: "Material Design 3: States"
+    url: https://m3.material.io/foundations/interaction/states/overview
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+useWhen: the pointer is over something but has not committed
+---
+
+Hover is the cheapest thing an interface can say. The pointer is here, this thing
+under it is alive, and nothing has happened yet. That last part is what makes it
+useful: it lets a reader ask a question without paying for an answer, which is why
+the state carries tooltips, link previews, row actions, and the whole family of
+affordances that appear before a decision is made. It is also why the change should
+stay small. A hover that repaints a card, grows a button, or reflows a row is
+answering a question the reader has not asked, and on a list it turns a pass of the
+mouse into a strobe.
+
+Hover is not a mode a device is guaranteed to have. A touch screen has no pointer
+that rests, so `:hover` there is either never true or, worse, sticks to whatever was
+tapped last until something else is tapped. The consequence is a hard rule: nothing
+may be reachable only by hovering. Anything hidden behind it needs a press, a focus,
+or a permanent home somewhere. When you genuinely need to know what the device can
+do, the interaction media features answer it (`@media (hover: hover)` for the primary
+pointer, `any-hover` for any of them), and they are worth reaching for before you
+build a reveal that half your readers cannot open.
+
+Keyboards do not hover either, they focus, and the two states are usually meant to
+say the same thing. Write them together (`:hover, :focus-visible`) so a control that
+lights up under the mouse also lights up for someone arriving by Tab. Where hover
+opens something rather than merely tinting it, the timing matters as much as the
+styling: acting on contact makes a menu bar flicker at anyone crossing it, which is
+the problem hover intent exists to solve.
+
+One practical note about testing and demonstration. Synthesized pointer events do
+not light up `:hover` in a browser, so any specimen that has to show the state with
+no real pointer on it, including the one on this page, sets an attribute beside the
+pseudo-class and styles both.

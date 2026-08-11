@@ -1,0 +1,60 @@
+---
+name: Menu bar
+slug: menu-bar
+category: component
+status: published
+definition: >-
+  A permanent horizontal row of menu titles (File, Edit, View) whose menus open on
+  click and then follow the pointer along the row.
+aliases:
+  - name: menubar
+    source: shadcn
+  - name: application menu
+  - name: main menu
+implementations:
+  - system: aria-apg
+    name: Menu and Menubar
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+  - system: shadcn
+    name: Menubar
+    url: https://ui.shadcn.com/docs/components
+  - system: base-ui
+    name: Menubar
+    url: https://base-ui.com/react/overview/quick-start
+sources:
+  - title: 'ARIA Authoring Practices Guide: Menu and Menubar pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+useWhen: the desktop row of File, Edit, View menus
+---
+
+A menu bar is the row of words at the top of a desktop application: File, Edit,
+View, Help. It is always there, it holds no commands itself, and every command the
+program has is meant to be reachable through it. That completeness is the contract.
+A toolbar shows the handful of actions worth a button; the menu bar is where the
+rest live, in an order people have known since the 1980s.
+
+Its defining behaviour is what happens after the first press. Opening one menu arms
+the whole bar: from then on, passing the pointer over another title switches to that
+menu without a second click, and moving off the bar does not close anything. The bar
+has entered a mode, and it leaves that mode only when a command is chosen, Escape is
+pressed, or something outside is clicked. This is why a menu bar is worth naming
+separately from a row of independent [menu buttons](/menu-button), which each need
+their own press.
+
+The keyboard contract matches. The whole bar is a single tab stop, not one per
+title. Left and Right Arrow move along the titles, Down Arrow opens the menu under
+the current one, Up and Down move inside it, Escape steps back out, and typing a
+letter jumps to a command starting with it. This is exactly the case `role="menubar"`
+and `role="menuitem"` were written for, and one of the few places on the web where
+those roles are honest: a site header full of links is navigation and should not
+borrow them.
+
+Platforms differ about where the bar lives. macOS keeps one global bar at the top of
+the screen belonging to the frontmost application; Windows and Linux put it inside
+each window, and modern Windows apps often fold it into a single overflow button.
+On the web the pattern is rare outside editors and IDEs, where the density of
+commands justifies it, and it competes with the
+[command palette](/command-palette), which answers the same completeness problem by
+search instead of by hierarchy. Both can coexist: the bar teaches the vocabulary,
+the palette is faster once you know it.

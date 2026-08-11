@@ -1,0 +1,55 @@
+---
+name: Monospace
+slug: monospace
+category: typography
+status: published
+definition: >-
+  A typeface in which every character occupies the same horizontal width, so
+  characters stack into columns down the page.
+aliases:
+  - name: monospaced
+  - name: fixed-width font
+  - name: typewriter font
+  - name: code font
+sources:
+  - title: Monospaced (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/monospaced
+  - title: Monospaced fonts (Practical Typography)
+    url: https://practicaltypography.com/
+demo: inline
+useWhen: code, terminals, or anything that must line up in columns
+---
+
+The constraint came from machines. A typewriter advanced its carriage by one fixed
+step per key, so every letter had to be drawn to fill that step, and a teletype or
+a text terminal inherited the same grid because its memory held a rectangle of
+character cells. Nothing about reading asked for this. Every monospaced face is a
+drawing exercise in absorbing one width: the `i` and the `l` are given serifs and
+crossbars so they do not float in a puddle of space, and the `m` and the `w` are
+narrowed and sometimes have their middles simplified so they fit.
+
+What the grid buys is that position becomes meaningful. Column five is column five
+on every line, so indentation nests, a diff aligns, box-drawing characters join
+up, and a lone stray space is visible because it is the width of a letter. That is
+why code is set this way and why terminal interfaces can draw tables at all. The
+same property is worth borrowing outside code: reference numbers, hashes, and IP
+addresses are easier to compare and to read aloud in a fixed grid, and a
+[tabular figures](/tabular-figures) setting is the narrower version of the same
+idea when only the digits need to line up.
+
+In CSS the generic family is `monospace`, and it carries a famous quirk. Browsers
+apply a smaller default size to monospaced text (13px where the default is 16px)
+and the naive fix, naming a font first, silently loses that adjustment, which is
+why `font-family: Consolas, monospace` renders larger than expected. The classic
+workaround is `font-family: ui-monospace, SFMono-Regular, Menlo, monospace,
+monospace`, with the generic listed twice to keep the size rule from being
+undone. `ui-monospace` asks for the platform's own coding face, which is the
+counterpart of `system-ui`.
+
+Fixed width does not survive contact with the world. Emoji, CJK characters, and
+combining marks are not one cell wide, ligatures in coding faces draw two
+characters as one shape while keeping two advances, and any proportional fallback
+for a missing glyph breaks the grid at exactly the moment a terminal is trying to
+line up a table. The `ch` unit is the width of the zero glyph, so in a monospaced
+element `20ch` really is twenty characters, and in a proportional one it is a
+guess.

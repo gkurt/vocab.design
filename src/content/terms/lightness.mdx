@@ -1,0 +1,59 @@
+---
+name: Lightness
+slug: lightness
+category: color
+status: published
+definition: >-
+  How light or dark a colour reads, from black at one end to white at the other, held
+  separately from its hue and its colourfulness.
+aliases:
+  - name: value
+    source: community
+  - name: tone
+    source: material
+  - name: brightness
+    source: community
+  - name: L in OKLCH
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Tone
+    url: https://m3.material.io/styles/color/system/how-the-system-works
+sources:
+  - title: "MDN: oklch()"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch
+demo: inline
+useWhen: stepping a colour lighter or darker without changing the hue
+---
+
+Lightness is the axis that runs from black through the colour to white. Of the three
+attributes it is the one that does the most work in an interface, because contrast is a
+lightness relationship: text is legible on a background when the two are far enough apart
+on this axis, almost regardless of what [hue](/hue) either of them is. It is also the axis
+a palette is built along, since a ramp is one hue sampled at a fixed series of lightness
+steps.
+
+The models disagree about the word, and the disagreement matters. HSL's `L` is arithmetic:
+it is the midpoint of the largest and smallest RGB channel, so 50 percent lightness gives
+a vivid yellow and a deep blue the same number while the eye reads one as roughly three
+times lighter than the other. Lab and `oklch` define `L` perceptually, so 0.62 means the
+same apparent lightness at every hue, and Material's HCT names the same idea tone on a 0
+to 100 scale. HSB adds a third sense: its brightness reaches the pure hue rather than
+white, so 100 percent brightness is not white at all. When a tool says "brightness", check
+which of the three it means before trusting the number.
+
+Perceptual lightness is what makes a system's rules portable. Once the steps of a
+[colour ramp](/color-ramp) are perceptual, "step 600 takes white text and step 200 takes
+dark text" holds for every hue in the palette instead of needing a per-colour exception,
+and a dark theme becomes a considered remapping of lightness rather than an arithmetic
+inversion (a straight flip produces glaring surfaces, because a dark theme wants less
+contrast between its surfaces, not the same contrast upside down).
+
+One confusion worth naming: lighter is not more transparent. Raising lightness produces a
+known, opaque colour that will look the same wherever it is placed, while lowering
+[opacity](/opacity) produces whatever the backdrop happens to make of it. They can look
+identical over a white page and diverge completely over anything else.

@@ -1,3 +1,4 @@
+import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 
 const CODE = '284015';
@@ -17,8 +18,9 @@ const MESSAGES = {
  *
  * What the kit does have to be honoured by hand is the motion preference. A
  * `element.animate` keyframe set is out of reach of the `prefers-reduced-motion`
- * block in `motion.css`, so the demo asks the same question itself and simply
- * does not play. Nothing is lost by skipping it: the message below the field
+ * block in `motion.css`, so the demo asks the same question through the kit's
+ * `prefersReducedMotion` and simply does not play. Nothing is lost by skipping
+ * it: the message below the field
  * carries the rejection, which is the rule the term itself is written under.
  */
 export function mount(root: HTMLElement): void {
@@ -48,8 +50,7 @@ export function mount(root: HTMLElement): void {
   const code = part(root, 'code') as HTMLInputElement;
   const message = part(root, 'message');
 
-  const view = root.ownerDocument.defaultView ?? window;
-  const reduced = () => view.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = () => prefersReducedMotion(root);
 
   const say = (tone: keyof typeof MESSAGES) => {
     message.dataset.tone = tone;

@@ -1,0 +1,35 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=row-app]', state: 'hidden' } },
+  { moveTo: '[data-part=twisty-src]' },
+  { click: true },
+  { wait: 400 },
+  { assert: { selector: '[data-part=node-src][aria-expanded="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=row-app]', state: 'visible' } },
+  { wait: 800 },
+  // Closing again is the other half of expanding in place, so the script drives it.
+  { moveTo: '[data-part=twisty-src]' },
+  { click: true },
+  { wait: 400 },
+  { assert: { selector: '[data-part=node-src][aria-expanded="false"]', state: 'visible' } },
+  { assert: { selector: '[data-part=row-app]', state: 'hidden' } },
+  { wait: 600 },
+  { moveTo: '[data-part=twisty-assets]' },
+  { click: true },
+  { wait: 400 },
+  { assert: { selector: '[data-part=node-assets][aria-expanded="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=row-logo]', state: 'visible' } },
+  { wait: 500 },
+  // Selection is the other gesture: the row chooses, the triangle opens.
+  { moveTo: '[data-part=row-logo]' },
+  { click: true },
+  { wait: 400 },
+  { assert: { selector: '[data-part=row-logo][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=status][data-file=logo]', state: 'visible' } },
+  { wait: 600 },
+  { press: 'ArrowDown' },
+  { wait: 400 },
+  { assert: { selector: '[data-part=row-hero][aria-selected="true"]', state: 'visible' } },
+  { wait: 900 },
+]);

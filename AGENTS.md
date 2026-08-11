@@ -47,6 +47,7 @@ src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
 src/kit/kit.ts              # Specimen kit stylesheet, assembled and adopted into shadow roots
 src/kit/*.css               # tokens · layout · controls · surfaces · motion (--sp-* only)
 src/kit/icons.ts            # Shared inline SVG icon set
+src/kit/motion.ts           # prefersReducedMotion(): the gate a scripted animation asks itself
 src/kit/parts.ts            # part()/partsOf()/flag(): the data-part lookup demos share
 src/kit/segmented.ts        # <sp-segmented>, <sp-combobox>: kit primitives that carry state
 src/kit/combobox.ts         #   (written once against ARIA APG, reused by every demo)
@@ -103,6 +104,19 @@ opacity included. Reach for the one that matches the question being asked.
   (`<summary>`, a `<label>` for an input, a form submit). An `assert` is judged the
   moment the script reaches it, with no retry, so give a claim room rather than time it
   to the edge of a transition. Demos never import anything from `e2e/`.
+- **Synthesized input does not light up CSS state.** Attract's events never trigger
+  `:hover` or `:active`, so kit primitives that answer a pointer carry an attribute
+  spelling beside the pseudo-class (`data-hovered`, `data-pressed`, `data-open`). A
+  specimen that has to show a state with no pointer on it sets the attribute. Real
+  focus is the exception that stays simulated (`data-sim-focus`, SPEC §7).
+- **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
+  needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
+  to be a kit class. That is the test for whether something belongs in `src/kit/`:
+  paint a demo can state inline stays in the demo (the look is that term's own claim),
+  while structure, state, and animation the demo cannot express go in the kit.
+- **Scripted animation gates itself.** `motion.css` cannot reach an `element.animate`
+  keyframe set, so a demo that animates in script asks `prefersReducedMotion(root)`
+  from `#src/kit/motion.ts` and jumps to the end state instead of playing the move.
 - **No incidental layout shift**: a specimen changing state must not move the parts
   that did not change (SPEC §5). Reserve the room a revealed element will take,
   measuring it once on mount if that is the only way to know it. When the size change

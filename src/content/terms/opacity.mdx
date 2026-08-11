@@ -1,0 +1,53 @@
+---
+name: Opacity
+slug: opacity
+category: color
+status: published
+definition: >-
+  How much of what is behind an element shows through it, applied to the whole element
+  and its children at once rather than to a single colour value.
+aliases:
+  - name: transparency
+    source: community
+  - name: translucency
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Alpha Compositing"
+    url: https://ciechanow.ski/alpha-compositing/
+demo: inline
+useWhen: fading an entire element and everything inside it
+---
+
+Opacity is a multiplier on an entire element. The browser renders the element and
+everything inside it, then composites that finished picture over the backdrop at the given
+strength, which is why the whole thing fades as one piece: a panel at 40 percent takes its
+heading, its text, its border, and its shadow down with it. Nothing inside can opt out. A
+child written at full opacity inside a parent at 40 percent still lands at 40 percent,
+because the parent's value applies to the group and not to each paint separately.
+
+That group behaviour is the whole difference between `opacity` and an alpha channel in a
+colour value. `background: rgb(0 0 0 / 0.4)` makes one paint translucent and leaves the
+text on top of it perfectly solid; `opacity: 0.4` makes the element and its text
+translucent together. Reach for alpha when you want a see-through surface with readable
+content on it (a scrim, a glass panel, a hover wash), and for opacity when the element
+should recede as a unit, which is what a fade in or out actually is.
+
+There are two structural side effects worth knowing. Any value below 1 creates a stacking
+context, so an element that was happily interleaving with its siblings' z-index suddenly
+composites as its own layer, and blend modes inside it stop reaching outside it. In
+exchange, opacity is one of the two properties (with `transform`) that a browser can
+animate without repainting, which is why it is the cheapest transition available and the
+default way to bring something in or take it out.
+
+The cost is that a translucent element has no known colour. A caption at 60 percent opacity
+passes contrast over the card it was designed on and fails over the image the same card
+gets in a different layout, and no token in the design system records what it ended up as.
+For text, prefer a resolved, opaque value from the palette. That is the same reason
+lowering opacity is not a substitute for raising [lightness](/lightness): one of them is a
+decision, the other is a bet on the backdrop.

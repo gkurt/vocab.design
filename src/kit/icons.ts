@@ -4,9 +4,14 @@
  * `currentColor` through the `.sp-icon` primitive.
  */
 const PATHS = {
+  /* The kit has no error colour on purpose, so a failure that must not rely on
+     colour alone (WCAG 1.4.1) needs a shape to speak with. */
+  alert: '<path d="M12 4.5 20.8 19.5H3.2z"/><path d="M12 10v3.6"/><path d="M12 16.6h.01"/>',
   bell: '<path d="M18 9a6 6 0 1 0-12 0c0 5-2 6-2 6h16s-2-1-2-6"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/>',
+  calendar: '<rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M8 3.2v4.6M16 3.2v4.6M3.5 10.5h17"/>',
   check: '<path d="m5 12.5 4.5 4.5L19 7"/>',
   chevronDown: '<path d="m6 9 6 6 6-6"/>',
+  chevronLeft: '<path d="m15 6-6 6 6 6"/>',
   chevronRight: '<path d="m9 6 6 6-6 6"/>',
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   copy: '<path d="M11 9h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z"/><path d="M6 15a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2"/>',

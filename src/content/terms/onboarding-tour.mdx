@@ -1,0 +1,64 @@
+---
+name: Onboarding tour
+slug: onboarding-tour
+category: pattern
+status: published
+definition: >-
+  A short sequence of pointers layered over a live interface, each naming one
+  control, advanced by the reader and skippable at any point.
+aliases:
+  - name: product tour
+    source: community
+  - name: guided tour
+    source: ui-patterns
+  - name: walkthrough
+    source: ui-patterns
+  - name: playthrough
+    source: ui-patterns
+  - name: feature tour
+    source: community
+  - name: in-app tour
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Guided Tour'
+    url: https://ui-patterns.com/patterns
+  - title: 'Cloudscape: Onboarding'
+    url: https://cloudscape.design/patterns/
+demo: inline
+useWhen: a stepped overlay walks you around a live screen
+---
+
+An onboarding tour has four parts and they are always the same four: something
+that points at one element (a spotlight, a ring, a beak), a card of copy naming
+what that element does, a position counter so the reader knows how much is left,
+and a way out. The interface underneath stays visible, which is the whole
+argument for a tour over a slideshow: the reader is being shown their own screen
+rather than a picture of somebody else's.
+
+It is also the pattern most often reached for by accident. A tour is a lecture
+delivered before anyone asked a question, so the reader's incentive is to reach
+the end of it, not to learn from it, and step four is read less carefully than
+step one. That makes it a poor teacher of whole products and a decent announcer of
+single changes: one pointer at the control that moved does work that five pointers
+at five controls do not. Where the interface is the thing being learned, an empty
+state that explains itself, a first-run task with the answer inline, or a
+persistent help affordance all outlast a sequence the reader has to sit through
+once.
+
+If a tour ships, a few things are not optional. It has to be skippable from every
+step, and Skip must mean skip rather than remind me later. It must never point at
+a control the scrim also blocks, which is the classic implementation bug: the
+reader is told to click something the tour will not let them reach. Anchors have
+to be real element positions rather than fixed coordinates, or the pointer drifts
+onto empty space the moment the layout changes or the window narrows. And the tour
+should remember it has been seen, per person and per feature, because the second
+showing is what turns a helpful pointer into an obstacle.
+
+Accessibility is where most tours quietly fail. The card is the only thing on
+screen that matters while a step is up, so real implementations move focus into
+it, announce it, keep Escape working as a way out, and make the step counter
+readable rather than implied by a row of dots. The specimen here draws its
+spotlight rather than focusing anything, since a demonstration that grabbed the
+keyboard of a passing reader would be doing exactly what a badly built tour does.

@@ -1,0 +1,27 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=banner]', state: 'visible' } },
+  { assert: { selector: '[data-part=record][data-choice=none]', state: 'visible' } },
+  { wait: 600 },
+  { moveTo: '[data-part=manage]' },
+  { click: true },
+  { assert: { selector: '[data-part=banner][data-view=choices]', state: 'visible' } },
+  { assert: { selector: '[data-part=purposes]', state: 'visible' } },
+  { wait: 800 },
+  { moveTo: '[data-part=reject]' },
+  { click: true },
+  { assert: { selector: '[data-part=banner]', state: 'hidden' } },
+  { assert: { selector: '[data-part=record][data-choice=rejected]', state: 'visible' } },
+  { wait: 900 },
+  { moveTo: '[data-part=reopen]' },
+  { click: true },
+  { assert: { selector: '[data-part=banner][data-view=notice]', state: 'visible' } },
+  { assert: { selector: '[data-part=purposes]', state: 'hidden' } },
+  { wait: 700 },
+  { moveTo: '[data-part=accept]' },
+  { click: true },
+  { assert: { selector: '[data-part=banner]', state: 'hidden' } },
+  { assert: { selector: '[data-part=record][data-choice=accepted]', state: 'visible' } },
+  { wait: 1200 },
+]);

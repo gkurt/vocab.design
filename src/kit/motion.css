@@ -127,10 +127,63 @@
   animation: sp-blink 1.06s steps(1, end) infinite;
 }
 
+/* The terminal's own caret: a filled cell rather than a hairline, because a
+   character grid marks the insertion point by occupying a cell. Same blink, so it
+   answers the stage exactly as the bar does. */
+.sp-caret--block {
+  width: 0.6em;
+  border-left: 0;
+  background: currentcolor;
+}
+
 @keyframes sp-blink {
   50% {
     opacity: 0;
   }
+}
+
+/* Marquee — a strip that scrolls its own content forever. A CSS animation for the
+   same reason the caret is: an endless loop has to answer the stage, which pauses
+   it off screen and drops it under reduced motion, and neither of those reaches an
+   `element.animate` one.
+
+   The seam is the whole craft, so the kit owns it. The track carries two identical
+   groups and travels exactly half its own width, which lands the second group where
+   the first began only if the gap after the last item is the same as the gaps
+   between them. That is what the group's trailing padding is for: each group's box
+   includes its own trailing gap, so the two halves are equal and the loop has no
+   visible jump. The demo supplies the copies; duplicated content is decorative and
+   belongs behind `aria-hidden`. */
+.sp-marquee {
+  display: flex;
+  overflow: hidden;
+}
+
+.sp-marquee-track {
+  display: flex;
+  flex: 0 0 auto;
+  animation: sp-marquee var(--sp-marquee-time, 18s) linear infinite;
+}
+
+.sp-marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--sp-marquee-gap, 24px);
+  padding-right: var(--sp-marquee-gap, 24px);
+}
+
+@keyframes sp-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* A ticker holds still for a reader who is trying to read it. Both spellings, since
+   attract's synthesized pointer never lights up :hover (SPEC §7). */
+.sp-marquee:hover .sp-marquee-track,
+.sp-marquee[data-paused] .sp-marquee-track {
+  animation-play-state: paused;
 }
 
 /* Motion never outlives attention (SPEC §7): the stage mirrors its player state
@@ -151,6 +204,7 @@
   .sp-pulse,
   .sp-drift,
   .sp-caret,
+  .sp-marquee-track,
   [data-running] .sp-dot {
     animation: none;
   }

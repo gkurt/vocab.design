@@ -1,3 +1,4 @@
+import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -46,7 +47,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   `;
 
   const value = part(root, 'value');
-  const view = root.ownerDocument.defaultView ?? window;
   let tick: number | undefined;
 
   const paint = (n: number) => {
@@ -62,7 +62,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const run = () => {
     clock.clearTimeout(tick);
     // A reader who asked for less motion gets the figure, which was always the point.
-    if (view.matchMedia('(prefers-reduced-motion: reduce)').matches) return settle();
+    if (prefersReducedMotion(root)) return settle();
 
     value.setAttribute('data-counting', '');
     value.removeAttribute('data-settled');

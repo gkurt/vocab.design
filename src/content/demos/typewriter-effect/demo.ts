@@ -1,3 +1,4 @@
+import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -44,7 +45,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const line = part(root, 'line');
   const typed = part(root, 'typed');
-  const view = root.ownerDocument.defaultView ?? window;
   let tick: number | undefined;
 
   const finish = () => {
@@ -55,7 +55,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const run = () => {
     clock.clearTimeout(tick);
-    if (view.matchMedia('(prefers-reduced-motion: reduce)').matches) return finish();
+    if (prefersReducedMotion(root)) return finish();
 
     line.setAttribute('data-typing', '');
     line.removeAttribute('data-done');

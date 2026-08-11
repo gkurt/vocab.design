@@ -1,0 +1,48 @@
+---
+name: Kanban board
+slug: kanban-board
+category: layout
+status: published
+definition: >-
+  A row of vertical columns, each one a stage, holding cards that move sideways as
+  work progresses.
+aliases:
+  - name: board layout
+    source: community
+  - name: column board
+    source: community
+  - name: swimlane board
+    source: community
+  - name: trello layout
+    source: community
+relations: {}
+demo: inline
+useWhen: items that belong to exactly one stage at a time
+---
+
+Kanban is Japanese for signboard, and the original was literally that: a card on a
+physical board in a Toyota plant, moved from one column to the next as a part was
+worked on, so anyone walking past could see how much was in progress without
+asking. The software version keeps the shape and most of the point. Columns are
+stages, a card sits in exactly one of them, and the card's position is its status
+rather than a field inside it.
+
+That exclusivity is what separates the board from a table grouped by a column,
+which is the thing it most resembles. In a grouped table an item can be regrouped
+by any dimension and the grouping is a view. On a board the one dimension is
+baked into the layout, which is a real cost: a board cannot show you status and
+owner at the same time, and every team that has tried to solve that by adding a
+second row of columns has discovered why swimlanes are usually a mistake.
+
+The column header count is not decoration. Making queue length visible is the
+original purpose of the board, and a work in progress limit (a column that says
+three and turns amber at four) is the mechanism the method actually cares about.
+A board with unlabelled columns and no counts is the aesthetic of kanban without
+the part that changed anything.
+
+Two practical constraints follow from the shape. It needs horizontal room, so on a
+phone the columns become a swipeable set or a single stage at a time behind a
+picker, and stacking them defeats the comparison the layout exists for. And
+dragging cannot be the only way to move a card: a board where status changes
+require a sustained pointer gesture is unusable by keyboard, so the card needs a
+menu that names the destination columns as well.

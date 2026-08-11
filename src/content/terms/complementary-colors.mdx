@@ -1,0 +1,56 @@
+---
+name: Complementary colors
+slug: complementary-colors
+category: color
+status: published
+definition: >-
+  Two hues sitting opposite each other on the colour wheel, the pairing that produces the
+  strongest contrast and the loudest accent.
+aliases:
+  - name: opposite colors
+    source: community
+  - name: contrasting colors
+    source: community
+  - name: split-complementary
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+useWhen: the loudest possible pairing of two hues
+---
+
+Two colours are complementary when their hues are half a turn apart. Because they are as
+far from each other as the wheel allows, no other pairing separates them further, which is
+what makes the combination read as deliberate rather than accidental: one colour has
+nowhere further to go from the other.
+
+Which pairs those are depends entirely on whose wheel is being used, and this is the part
+that causes arguments. On the red, yellow, blue wheel taught in art classes, red pairs with
+green, blue with orange, and yellow with purple. On the additive wheel that screens
+actually work in, red pairs with cyan, green with magenta, and blue with yellow. A
+perceptual wheel such as the one `oklch` describes gives a third set of numbers again. All
+three are correct within their own model, so "the complement of red" is only a well posed
+question once you say which wheel you mean.
+
+Complementary pairs are loud on purpose, and they misbehave when used in equal measure. Set
+two fully saturated complements at the same lightness side by side and the shared edge
+appears to shimmer, an effect of the eye rather than the screen, and each colour makes the
+other look more intense than it is. The conventional fix is to refuse the symmetry: give
+one hue most of the area and the other a small fraction of it, and separate them in
+[lightness](/lightness) as well as in [hue](/hue). Softer relatives exist for when the full
+pair is too much, notably the split complementary (one colour plus the two hues either side
+of its opposite) and the triad.
+
+In interfaces the pairing is usually a job rather than a scheme: the brand hue carries the
+surface and the navigation, and its complement is spent on exactly one thing, the sale
+badge or the primary action, precisely because nothing else on the screen can compete with
+it. Two cautions. Hue opposition provides no lightness difference at all, so a complement
+never satisfies a text contrast requirement on its own. And red with green, the most famous
+pair of all, is the one that the most common colour vision deficiencies flatten into a
+single muddy hue.

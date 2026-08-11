@@ -1,0 +1,49 @@
+---
+name: Terminal aesthetic
+slug: terminal-aesthetic
+category: aesthetic
+status: published
+definition: >-
+  A look borrowed from the command line: monospace type on a fixed character grid, a
+  block cursor, and green or amber text on black.
+aliases:
+  - name: TUI aesthetic
+  - name: console UI
+  - name: monospace UI
+    source: community
+  - name: hacker aesthetic
+    source: community
+  - name: green screen
+    source: community
+sources:
+  - title: 'Setproduct: Retro and brutalist UI design, a 2026 field guide'
+    url: https://www.setproduct.com/blog/retro-brutalist-ui-design-2026
+demo: inline
+useWhen: the UI dressed as a command line
+---
+
+The style is built on one constraint: every character occupies the same cell. Once type
+is monospaced, alignment stops being a layout problem and becomes a counting problem, so
+tables are drawn with dots and pipes, rules are made of dashes, and boxes are made of box
+drawing characters rather than borders. The rest follows from the hardware being quoted.
+Text is a single phosphor colour on near black (P1 green or P3 amber), the insertion point
+is a filled block rather than a hairline, and the extra touches are all display artefacts:
+scanlines, a slight bloom around the glyphs, sometimes a curved screen edge or a flicker.
+
+What makes it more than nostalgia is that a lot of it is still true. Terminal user
+interfaces never went away, and the tools developers use most are text on a grid, so the
+look reads as competence and speed to that audience rather than as costume. That is why it
+turns up on developer tool landing pages, in build logs and status pages that keep the
+console voice on purpose, in AI coding products, and in games and fiction that need a
+computer to look like a computer. The grid also has genuine advantages: numbers line up in
+columns for free, diffs and logs stay readable, and the whole thing survives being
+rendered at any size in any font of the same class.
+
+Worn as a costume it has costs to answer for. A single hue on black gives one contrast
+ratio for everything, so state has to be carried by shape, prefix, or the second colour
+(the amber warning line) rather than by tint. Monospace is measurably slower to read in
+long prose than a proportional face, so it belongs to code, data, and short lines rather
+than to paragraphs. And the CRT extras are the risky part: scanlines cut effective
+contrast, a bloom filter blurs the glyph edges it decorates, and a flicker animation is
+exactly the kind of motion a reader may have asked the system to stop, so anything that
+moves needs to answer a stated motion preference.

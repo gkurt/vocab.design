@@ -1,0 +1,60 @@
+---
+name: Unsaved changes guard
+slug: unsaved-changes-guard
+category: pattern
+status: published
+definition: >-
+  Warning the reader that edits will be lost before a navigation or close is
+  allowed to proceed, and offering to save or discard first.
+aliases:
+  - name: dirty state warning
+    source: community
+  - name: leave site dialog
+    source: community
+  - name: communicating unsaved changes
+    source: cloudscape
+  - name: beforeunload prompt
+    source: mdn
+  - name: discard changes prompt
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Cloudscape: Communicating unsaved changes'
+    url: https://cloudscape.design/patterns/
+demo: inline
+useWhen: leaving a form asks whether to discard your edits
+---
+
+A guard turns one accidental click into a question. It needs two things to work: a
+dirty flag that is true only when the current values genuinely differ from the
+saved ones, and an interception point on every way out (a back control, a close
+button, a route change, a tab close). The flag is where implementations go wrong.
+Marking a form dirty because a field was focused, or because a framework re-rendered
+it, produces a prompt after a visit where nothing was typed, and a prompt that
+cries wolf gets dismissed by reflex, which is exactly the reflex the guard exists
+to interrupt.
+
+There are two guards, and they are not the same component. Inside the application
+you own the dialog: your words, your buttons, a default that keeps the work. At the
+edge of the document you get the browser's own `beforeunload` prompt, whose text
+you cannot write, whose buttons you cannot name, which most browsers only show if
+the reader has interacted with the page, and which is deliberately unstyleable to
+stop it being used as a trap. Treat it as a last net under a tab close, not as the
+main pattern.
+
+The buttons carry the whole meaning, so they should say what they do. "Keep
+editing" and "Discard changes" answer the question that was asked; "Cancel" and
+"OK" leave the reader guessing which one loses their work. The safe action is the
+default and the one Escape performs, the destructive one is named rather than
+implied, and where saving is cheap a third option ("Save and leave") is kinder than
+making someone go back to press Save themselves. In markup this is an alert dialog:
+it interrupts, so it is announced, and focus lands on the action that cannot lose
+anything.
+
+The pattern is also a symptom. Every guard is an admission that work can be lost,
+and continuous saving removes the need for the question rather than answering it
+better. Where a document autosaves, the guard has nothing to guard and can go away
+entirely. Where commitment has to stay explicit (a payment, a publish, a price
+change), keep the guard, keep it narrow, and let it fire only on the ways out that
+actually discard something.

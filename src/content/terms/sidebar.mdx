@@ -1,0 +1,53 @@
+---
+name: Sidebar
+slug: sidebar
+category: layout
+status: published
+definition: >-
+  A persistent vertical region alongside the main content holding navigation or
+  secondary controls, often collapsible on narrow screens.
+aliases:
+  - name: side navigation
+    source: community
+  - name: side nav
+    source: community
+  - name: aside
+    source: html
+  - name: primary side bar
+    source: vscode
+relations: {}
+sources:
+  - title: "The Sidebar, Every Layout"
+    url: https://every-layout.dev/layouts/sidebar/
+demo: inline
+useWhen: navigation that lives beside the content, not above it
+---
+
+What makes a region a sidebar is persistence. It sits next to the content rather
+than over it, it is there before you ask for it, and it stays while you read, so
+the place you are in and the places you could go are visible at the same time. A
+panel that covers the content and has to be dismissed is a drawer, and the
+difference matters more than the position does: the same column of links becomes
+a different component the moment it starts overlaying what it is navigating.
+
+The markup vocabulary is where this term gets muddled. HTML's `aside` means
+tangentially related content, a pull quote or a related links box, so wrapping
+primary navigation in an `aside` because the design calls it a sidebar gets the
+semantics backwards. Navigation belongs in a `nav`, whatever column it happens to
+be drawn in. Editors have their own names for the same region: VS Code calls it
+the primary side bar and gives the opposite edge a secondary one, and Material
+calls the narrow icon only form a navigation rail.
+
+Collapsing is what the specimen shows, and what collapses is the labels. An icon
+rail keeps the destinations reachable in about a third of the width, at the cost
+of asking the reader to know what the glyphs mean, which is why a rail usually
+grows tooltips or small captions under the icons. Sizing is the other half of the
+technique: the sidebar is the pane that holds its width while the content pane
+absorbs whatever is left. Every Layout's version adds a threshold, so that when
+the content pane would get too narrow to be worth having, the two stop being side
+by side and become a stack.
+
+Below that threshold the sidebar usually stops being a sidebar. It goes behind a
+control and comes back as a drawer over the content, which is the honest answer
+on a phone, and the reason a design that only specifies the wide case tends to
+ship a sidebar squeezed to 90 pixels of clipped text.

@@ -166,10 +166,12 @@
   overscroll-behavior: contain;
 }
 
+/* The two knobs a column of text is set with, both stated in the units the terms
+   themselves use: leading as a multiple, measure in characters per line. */
 .sp-prose {
   font-size: 13px;
   line-height: var(--sp-leading, 1.5);
-  max-width: 34ch;
+  max-width: var(--sp-measure, 34ch);
 }
 
 .sp-prose p + p {
