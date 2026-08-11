@@ -93,7 +93,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
       <body>
         <p>
           “{redirectFrom}” is another name for{" "}
-          <a href={pageUrl(`/${d.slug}`)}>{d.name}</a>.
+          <a href={pageUrl(d.slug)}>{d.name}</a>.
         </p>
       </body>
     </html>
@@ -167,7 +167,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
                     <td class="py-2 pr-4">{row.useWhen}</td>
                     <td class="py-2">
                       <a
-                        href={pageUrl(`/${row.slug}`)}
+                        href={pageUrl(row.slug)}
                         class="text-accent underline underline-offset-3"
                       >
                         {row.name.toLowerCase()}
@@ -190,7 +190,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
                   <>
                     {i > 0 && " · "}
                     <a
-                      href={pageUrl(`/${s}`)}
+                      href={pageUrl(s)}
                       class="text-accent underline underline-offset-3"
                     >
                       {bySlug.get(s)?.name ?? s}
