@@ -1,0 +1,59 @@
+---
+name: Swipe
+slug: swipe
+category: interaction
+status: published
+definition: >-
+  A quick directional drag of a finger across the screen, faster and coarser than a
+  drag, usually without a specific on-screen target.
+aliases:
+  - name: paging swipe
+    source: material
+  - name: swipe gesture
+    source: community
+  - name: flick
+    source: community
+implementations:
+  - system: material
+    name: Swipe
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures"
+    url: https://m1.material.io/patterns/gestures.html
+  - title: "Material Design 3: Gestures"
+    url: https://m3.material.io/foundations/interaction/gestures
+demo: inline
+useWhen: a fast directional stroke, not a controlled drag
+---
+
+A swipe and a drag are the same physical movement judged by different criteria. A drag
+is aimed: the object follows the finger and the release point decides the outcome, so
+slowness costs nothing and precision is the point. A swipe is thrown: what matters is
+the direction and the speed, and the finger usually lets go over nothing in particular.
+That is why a swipeable surface has to accept two ways of committing. Past a distance
+threshold (a quarter of the page is a common figure), or under it but fast enough that
+the velocity carries it, the surface completes the move; short and slow, it springs back
+to where it started.
+
+The direction is the vocabulary. Horizontal swipes page between siblings, which is how
+carousels, photo viewers, and tab strips move, and the platforms reserve the screen edges
+for going back. Vertical swipes scroll, and a vertical swipe near the bottom edge is the
+system's own. Everything left over is a shortcut on a row: revealing the actions parked
+behind an inbox item is a swipe with a target, which is the case where the two families
+meet. Whatever the direction, the surface should follow the finger while the gesture is
+live, because a swipe that only reveals its result on release is indistinguishable from
+a control that did not notice.
+
+Swipes are invisible. Nothing on screen says a surface can be thrown, so a swipe can be
+an accelerator and never the only route: page indicators earn their place partly by
+saying there is somewhere to go, and a peek of the next page at the screen edge does the
+same job better. The gesture also collides with things it does not own. A horizontal
+swipe inside a vertical scroller needs a decision about which axis wins (the web spells
+this `touch-action`, and taking the whole gesture with `touch-action: none` means taking
+responsibility for scrolling too), and a swipe that starts within a few millimetres of
+the screen edge probably belongs to the operating system rather than to your page.
+
+The word gets stretched to the mouse, where it is really a drag: a pointer does not
+flick, and a trackpad's two-finger swipe arrives as a scroll or a history gesture rather
+than as anything a page can listen for. If a behaviour matters on the desktop, put arrows
+or a keyboard route beside it rather than hoping the gesture translates.

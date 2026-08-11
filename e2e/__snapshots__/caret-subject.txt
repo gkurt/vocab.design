@@ -1,0 +1,4 @@
+term:    Caret
+scope:   element
+subject: span.sp-caret[data-part=caret]
+text:    

@@ -1,0 +1,66 @@
+---
+name: Captions
+slug: captions
+category: accessibility
+status: published
+definition: >-
+  Synchronised text for a video's audio, including speaker changes and meaningful
+  sound, distinct from subtitles which only translate dialogue.
+aliases:
+  - name: closed captions
+    source: community
+  - name: open captions
+    source: community
+  - name: CC
+    source: community
+  - name: subtitles
+    source: community
+  - name: SDH
+    source: community
+  - name: burned-in captions
+    source: community
+  - name: live captions
+    source: community
+  - name: CART
+    source: community
+  - name: speaker identification
+    source: community
+sources:
+  - title: 'WCAG 2.2: Captions (Prerecorded)'
+    url: https://www.w3.org/TR/WCAG22/#captions-prerecorded
+  - title: 'web.dev accessibility glossary'
+    url: https://web.dev/learn/accessibility/glossary/
+demo: inline
+useWhen: text that carries the sound of a video, not a translation
+---
+
+Captions carry the whole soundtrack, not just the words. Who is speaking, that a door
+slammed off screen, that the music turned ominous, that the line was delivered in
+Portuguese: everything a hearing viewer gets from the audio and would otherwise lose.
+Subtitles assume you can hear and translate what is said, which is why a subtitle track
+never says "[glass breaks]" and a caption track has to. The version marketed as SDH,
+subtitles for the deaf and hard of hearing, is the format splitting the difference:
+subtitle timing and styling, caption content.
+
+Closed means the text ships as its own track the viewer can switch on, off, restyle, or
+translate. Open, sometimes called burned-in, means the text is part of the picture and
+nobody can turn it off, which is why social video defaults to it: most feeds autoplay
+muted, and a large share of viewers keep captions on whether or not they need them. On
+the web the closed form is a `<track kind="captions">` pointing at a WebVTT file, and
+the player draws the cues; `kind="subtitles"` is the neighbouring value for the
+translation case.
+
+Live captioning is a different job with different tooling. CART is a trained
+stenographer producing a verbatim transcript in real time, and automatic speech
+recognition is the cheap approximation, good enough for a search index and routinely
+not good enough for names, jargon, or crosstalk. Auto-captions left unreviewed are the
+usual reason a caption track fails the people it was written for, and cleaning them up
+afterwards is most of the work of captioning at all.
+
+WCAG asks for captions on prerecorded video with audio at level A, and on live audio at
+level AA. A transcript is a related but separate artefact: unsynchronised, readable on
+its own, and the only route that serves someone who is both deaf and blind through a
+braille display. Videos with no meaningful audio need neither, and marking those
+correctly is part of the job too. When you write the cues, keep them short enough to
+read at speed, break lines on phrases rather than mid-clause, name the speaker when it
+changes, and put non-speech sound in brackets so it never reads as dialogue.

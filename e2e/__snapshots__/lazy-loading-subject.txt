@@ -1,0 +1,4 @@
+term:    Lazy loading
+scope:   element
+subject: div[data-part=media-1]
+text:    

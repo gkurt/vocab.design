@@ -1,0 +1,55 @@
+---
+name: Neon glow
+slug: neon-glow
+category: aesthetic
+status: published
+definition: >-
+  A saturated colour surrounded by layered soft shadows of the same hue, so type or a
+  border reads as a lit tube against a dark surface.
+aliases:
+  - name: glow effect
+  - name: outer glow
+    source: photoshop
+  - name: neon text
+  - name: bloom
+  - name: text glow
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources: []
+demo: inline
+useWhen: type or borders that look lit rather than filled
+---
+
+The recipe is one colour and several shadows of it, stacked at growing blur radii and
+falling opacity: a tight bright halo that fakes the tube itself, then two or three wider
+washes that stand in for the light spilling into the air around it. Type uses
+`text-shadow`, a border uses `box-shadow` with no offset, and an irregular shape uses
+`filter: drop-shadow()` repeated, since that one follows the alpha channel rather than
+the box. Whatever the property, the core stays a light near-white or a very light tint
+of the hue and the halo carries the saturation, which is how real neon photographs: the
+tube blows out to white and the colour lives in the glow.
+
+A dark background is not a stylistic preference here, it is a requirement. Glow is
+additive light, and light only reads as light when there is darkness for it to be
+brighter than. The same shadow stack on a white page turns into a smudge, which is the
+usual reason a neon treatment fails review. The effect is also uniquely tied to screens:
+it looks like what it is on an emissive display and disappears in print.
+
+The connotations are consistent and worth using deliberately: nightlife and signage,
+arcades, synthwave, and the cyberpunk register generally. It overlaps with the
+[Y2K aesthetic](/y2k-aesthetic), though the two differ in what is doing the shining:
+Y2K's brightness is specular, a highlight bouncing off chrome and plastic, while neon is
+emissive, coming from the element itself. Glow also does duty far outside the aesthetic,
+as the soft halo on a focus state, a live indicator, or a selected item in a dark theme.
+
+Two limits. Glow adds no contrast, so the core colour has to pass on its own against the
+background and the halo counts for nothing in a measurement; a thin light halo around
+light-on-dark text can actually smear the letterforms and cost legibility at small sizes.
+And a stack of large blurred shadows is expensive to paint, especially animated, so the
+pulse that makes a sign feel alive belongs to one or two elements and belongs behind
+`prefers-reduced-motion`.

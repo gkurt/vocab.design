@@ -1,0 +1,56 @@
+---
+name: Bottom sheet
+slug: bottom-sheet
+category: component
+status: published
+definition: >-
+  A surface anchored to the bottom edge that slides up over the content, often
+  draggable between a peeked and an expanded height.
+aliases:
+  - name: sheet
+    source: shadcn
+  - name: half sheet
+    source: hig
+  - name: modal sheet
+    source: community
+implementations:
+  - system: material
+    name: Bottom sheets
+    url: https://m3.material.io/components/bottom-sheets/overview
+  - system: shadcn
+    name: Sheet
+    url: https://ui.shadcn.com/docs/components/sheet
+sources:
+  - title: 'Bottom sheets, Material Design 3'
+    url: https://m3.material.io/components/bottom-sheets/overview
+demo: inline
+useWhen: a panel that rises from the bottom edge
+---
+
+A bottom sheet is a panel that comes up from the edge nearest the thumb. That is
+its whole argument: on a phone the bottom of the screen is the only part of the
+layout a hand can reach without regripping, so the surface that holds an
+alternative, a form, or the details of the thing you just tapped arrives there
+rather than in the middle.
+
+The heights it is allowed to rest at are called detents, and most sheets have two
+or three: a peek that shows a title and a line, a half that shows the useful part,
+and a full that takes the screen. A sheet with detents earns a
+[grabber](/grabber), the short rounded bar that says the surface can be dragged
+between them, and dragging is how a reader moves between them without hunting for
+a control. A sheet with one fixed height has no business drawing that bar.
+
+Modal or not is the second decision, and it is independent of the first. A modal
+sheet lays a scrim over the content behind it and has to be dealt with; a
+non-modal one lets the page keep working underneath, which is what makes a map
+application's list of nearby places a sheet rather than a dialog. Either way the
+dismissal has to be honest: a swipe down, an Escape, and a press on the scrim
+should all land, and a sheet that can only be closed by one of the three will be
+fought with.
+
+The names run together in practice. Material calls it a bottom sheet, Apple's
+sheets carry detents and the half one has its own name, and shadcn's Sheet is a
+generic edge panel of which the bottom one is a variant. The neighbouring word is
+[drawer](/drawer), which arrives from the side and can stay open beside the
+content; if the surface docks to the bottom and stacks over what it covers, sheet
+is the more precise word.

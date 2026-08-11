@@ -1,0 +1,4 @@
+term:    Corporate Memphis
+scope:   element
+subject: div[data-palette=coral][data-part=illustration]
+text:    

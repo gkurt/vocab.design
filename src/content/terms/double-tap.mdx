@@ -1,0 +1,54 @@
+---
+name: Double tap
+slug: double-tap
+category: interaction
+status: published
+definition: >-
+  Two taps in quick succession on the same spot, conventionally used to zoom in on
+  content or to zoom back out when already zoomed.
+aliases:
+  - name: double touch
+    source: material
+  - name: double-tap to zoom
+    source: community
+  - name: double tap to like
+    source: community
+implementations:
+  - system: material
+    name: Double touch
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures"
+    url: https://m1.material.io/patterns/gestures.html
+  - title: "iOS HIG: Gestures"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+demo: inline
+useWhen: two quick taps that mean zoom, not activate
+---
+
+Material describes the gesture literally: press, lift, press, lift, and the example it
+gives is zoom in. That is almost the whole convention. On a photo, a map, or a page of
+text, two quick taps enlarge the content around the point that was touched, and two more
+put it back. The pair of taps has to land close together in both time and space, and the
+system, not your interface, owns the thresholds.
+
+The gesture is worth knowing about even if you never wire it, because it costs something
+by existing. Mobile browsers historically waited roughly 300 milliseconds after every tap
+to see whether a second one was coming, which made every button on every page feel
+slightly late. Declaring a responsive viewport, or `touch-action: manipulation` on the
+control, tells the browser this element has no double tap to wait for, and the delay
+disappears.
+
+The second convention is the hidden one: double tapping a photo to like it. It is a
+shortcut layered on top of a control that already exists elsewhere on the card, which is
+the only honest way to ship a gesture nobody can see. When a double tap is the only route
+to something, the people locked out are specific and identifiable: anyone whose motor
+control cannot produce two presses inside the interval, anyone using a screen reader
+where a double tap already means activate, and anyone on a desktop where the equivalent
+is a double click with a different set of conventions again.
+
+Both taps still arrive on their own. On the web the first `click` fires, then the second,
+then `dblclick`, so a single tap must do something sensible by itself rather than being
+swallowed while the interface waits to find out whether a second one is coming. Selecting
+on the first tap and zooming on the pair is the pattern that composes; a timer that holds
+back the first tap makes every single tap feel broken.

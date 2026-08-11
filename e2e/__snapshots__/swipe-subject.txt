@@ -1,0 +1,4 @@
+term:    Swipe
+scope:   element
+subject: div.sp-surface[data-page=1][data-part=pager]
+text:    Harbour Lighthouse Boatyard

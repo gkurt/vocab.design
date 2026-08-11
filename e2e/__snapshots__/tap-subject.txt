@@ -1,0 +1,4 @@
+term:    Tap
+scope:   element
+subject: div.sp-surface[aria-pressed=false][data-part=card][role=button][tabindex=0]
+text:    13:40 2 seats Kalkan, 35 min

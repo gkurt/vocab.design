@@ -1,0 +1,56 @@
+---
+name: Container
+slug: container
+category: layout
+status: published
+definition: >-
+  A wrapper that caps how wide content can get and adds the side padding that keeps
+  it off the viewport edges.
+aliases:
+  - name: wrapper
+    source: community
+  - name: content well
+    source: community
+  - name: constrained width
+    source: community
+  - name: the center
+    source: every-layout
+  - name: max-width wrapper
+    source: community
+sources:
+  - title: "Grid system, Bootstrap"
+    url: https://getbootstrap.com/docs/5.3/layout/grid/
+demo: inline
+useWhen: the element that decides how wide the page can be
+---
+
+A container does two jobs that always travel together. It sets a maximum width, so
+that on a wide screen the text stops before it becomes unreadable, and it sets
+horizontal padding, so that on a narrow screen the text does not run into the bezel.
+Below the cap the padding is doing all the work and the container is simply the
+viewport minus its inset. Above the cap the padding stops mattering and the leftover
+space becomes margin on either side. The same element handles both cases, which is
+why it is worth having a name rather than a pair of rules copied from screen to
+screen.
+
+Most systems ship two variants. The capped one is the default, and a full width one
+drops the maximum so a band of colour, a hero, or an image can reach the edges. The
+usual arrangement nests them: a full width section provides the background, and a
+container inside it holds the content to a readable column. That is how a page ends
+up with edge to edge stripes and perfectly aligned text at the same time, and it is
+the difference between a container and full bleed content, which deliberately breaks
+out of one.
+
+Two unrelated things now answer to the word, and the collision is worth naming. This
+entry is the Bootstrap sense, a max-width wrapper. CSS also has `container-type` and
+`@container`, where a container is any element that a descendant can query the size
+of, and there the point is not to constrain anything but to become a reference for
+measurement. A container in the layout sense is usually not a container in the query
+sense, and saying "container query" out loud is the cheapest way to keep the two
+apart.
+
+One nuance decides whether the cap feels right. `max-width` on a container competes
+with the measure, the comfortable line length of the text inside it, and the two are
+not the same number. A 1200px container full of body copy is still unreadable; the
+cap belongs on the reading column, not on the shell that holds it. Systems that get
+this right cap the page at one width and the prose inside at another.

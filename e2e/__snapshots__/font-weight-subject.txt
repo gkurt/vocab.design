@@ -1,0 +1,4 @@
+term:    Font weight
+scope:   element
+subject: div.sp-stack[data-part=ramp]
+text:    Hamburgefons 300 Light Hamburgefons 400 Regular Hamburgefons 600 Semi Bold Hambu

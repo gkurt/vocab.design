@@ -1,0 +1,4 @@
+term:    Button versus link
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[data-part=action][type=button]
+text:    Send reminder

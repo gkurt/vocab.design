@@ -1,0 +1,4 @@
+term:    Bounce
+scope:   element
+subject: span.sp-chip[data-part=badge-bounce]
+text:    12 new

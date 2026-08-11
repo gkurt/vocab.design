@@ -1,0 +1,4 @@
+term:    Range slider
+scope:   element
+subject: div.sp-slider[data-lower=200][data-part=range][data-upper=800]
+text:    

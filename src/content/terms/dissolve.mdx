@@ -1,0 +1,55 @@
+---
+name: Dissolve
+slug: dissolve
+category: motion
+status: published
+definition: >-
+  A fade that carries the eye from one image or state to another without any movement,
+  inherited from film editing vocabulary.
+aliases:
+  - name: dip to color
+    source: community
+  - name: dip to black
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'School of Motion: motion design dictionary'
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: the change should register without implying direction
+---
+
+The word is an editing word. A cut replaces one shot with the next on a single frame; a
+dissolve spends time on the replacement, and that time is what tells the audience the two
+shots belong to each other. Interfaces borrowed the vocabulary along with the effect, and
+they borrowed it loosely: on the web a dissolve is any change of content delivered by
+opacity alone, with nothing sliding, scaling, or arriving from a direction. That is the
+whole grammar of it. Movement would say where the new content came from, and a dissolve is
+for the changes where the answer is nowhere, because the new thing occupies exactly the
+place and the job the old thing had.
+
+The mechanism has two shapes, and they are worth keeping apart. A
+[crossfade](/crossfade) is two elements sharing one span, both partly visible at the
+midpoint, which is what a film editor means by a cross dissolve. The other shape is one
+element whose contents are exchanged at the low point of a single fade: down to zero, swap,
+back up. Its midpoint shows neither side, which is why an editor would call it a dip, and
+why it is the only version available when there is genuinely one thing (an image element
+whose `src` changes, a slot painted by a canvas) rather than two. The single-slot version
+is more forgiving when the two sides are different shapes, since nothing is ever legible
+on top of anything else, and it costs a beat of emptiness that a crossfade does not.
+
+Timing decides whether it reads as one thing becoming another or as two separate events.
+Under roughly 200 milliseconds a dissolve is close enough to a cut that it stops carrying
+any relationship at all; over roughly 600 it reads as a scene change. Linear opacity is
+usually better than an eased curve, because the eye is more sensitive to change at the dark
+end and easing both halves tends to sag visibly in the middle. If the swap crosses the
+midpoint, do the content change exactly there, at zero opacity, so nobody ever sees the
+seam.
+
+Reach for it when the change has no direction to report: a photo replaced by the next in a
+gallery, a chart's range swapped, a status word updated in place. Reach for something else
+when it does. Direction belongs to a [slide transition](/slide-transition), arrival belongs
+to an [entrance animation](/entrance-animation), and a plain
+[fade](/fade) is the case where there is nothing on the other side at all, only presence
+becoming absence.

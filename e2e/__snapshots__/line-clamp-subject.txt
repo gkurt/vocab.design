@@ -1,0 +1,4 @@
+term:    Line clamp
+scope:   element
+subject: p.sp-text[data-lines=2][data-part=clamped]
+text:    Ripstop nylon with a welded roll top, a padded laptop sleeve, and side compressi

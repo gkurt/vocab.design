@@ -1,0 +1,4 @@
+term:    Exit animation
+scope:   element
+subject: article.sp-surface.sp-stack[data-part=card]
+text:    Build 4182 2m

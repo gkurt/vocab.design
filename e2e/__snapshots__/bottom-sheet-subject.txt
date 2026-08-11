@@ -1,0 +1,4 @@
+term:    Bottom sheet
+scope:   element
+subject: div.sp-surface[aria-label=Blue Bottle][data-part=sheet][data-state=half][role=dialog]
+text:    Blue Bottle Open till 6 Coffee bar, 24 Wharf Road. Seats twelve, takes cards onl

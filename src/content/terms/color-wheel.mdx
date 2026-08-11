@@ -1,0 +1,52 @@
+---
+name: Color wheel
+slug: color-wheel
+category: color
+status: published
+definition: >-
+  A circular arrangement of hues that makes relationships between colours geometric, so
+  a scheme becomes a shape drawn across the circle.
+aliases:
+  - name: color circle
+  - name: hue wheel
+    source: community
+  - name: color ring
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+useWhen: picking colours by their angular relationship to each other
+---
+
+The wheel exists because [hue](/hue) has no ends. Red runs to orange to yellow to green
+to blue to violet and then back to red, so the sensible way to lay the names out is a
+circle, and once they are on a circle the relationships become angles. Opposite is 180
+degrees. A triad is three points 120 degrees apart. Analogous colours are neighbours
+within about 30 degrees. This is the entire value of the device: a colour scheme stops
+being a matter of taste you have to argue about and becomes a shape you can draw, move
+as one piece, and hand to someone else.
+
+There is more than one wheel, and they disagree. The red, yellow, blue wheel taught in
+art rooms comes from mixing pigment, where yellow and blue make green. The red, green,
+blue wheel comes from mixing light, where the complement of red is cyan rather than
+green. And a wheel drawn from `hsl` hue angles is different again from one drawn from
+`oklch` hue angles, because the two derive their circles from different geometry. So
+"the complement of red" has at least three defensible answers, and a scheme copied off
+one wheel and rebuilt on another will not land in the same places. Say which wheel you
+are on.
+
+A wheel is also only about hue, which is why schemes picked from one so often look
+wrong when they are built. Twelve evenly spaced angles will hand you four greens and
+one orange, because equal angular steps are not equal perceptual steps. Two
+opposite hues at full [saturation](/saturation) will vibrate against each other rather
+than harmonize. The wheel picks the family; the work of making it usable is done
+afterward in [lightness](/lightness) and chroma, which is where a
+[colour ramp](/color-ramp) comes in. Treat the geometry as a starting hypothesis, not a
+result.

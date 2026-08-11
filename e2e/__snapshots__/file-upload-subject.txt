@@ -1,0 +1,4 @@
+term:    File upload
+scope:   element
+subject: section.sp-stack.sp-grow[aria-label=Add a receipt][data-part=uploader]
+text:    Drop a file here Browse XLSX or PDF, up to 10 MB No file chosen budget.xlsx Uplo

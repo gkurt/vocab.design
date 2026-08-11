@@ -1,0 +1,58 @@
+---
+name: Tap
+slug: tap
+category: interaction
+status: published
+definition: >-
+  A single press and lift of one finger on a touch surface, the touch equivalent of a
+  click, used to activate a control or select an item.
+aliases:
+  - name: touch
+    source: material
+  - name: single tap
+    source: community
+  - name: press
+    source: community
+implementations:
+  - system: material
+    name: Touch
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures (touch mechanics)"
+    url: https://m1.material.io/patterns/gestures.html
+  - title: "iOS HIG: Gestures"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+demo: inline
+useWhen: the touch gesture that activates something
+---
+
+Tap is the touch primitive everything else is measured against: one finger down, one
+finger up, in roughly the same place. Material describes it as press and lift, and every
+other gesture in the vocabulary is a deviation from it, by adding a second contact, by
+moving before the lift, or by staying down. Because it is the default, it is also the
+gesture that needs no teaching and no affordance beyond looking like something you could
+touch, which is why a design that hides its primary action behind anything else is
+spending a budget it does not have.
+
+Tap and click are the same intention on different hardware, and the sloppiness in
+everyday speech is mostly harmless: people say click on a phone and are understood. It
+matters in two places. In interface copy, name the gesture the reader is actually making,
+or avoid the verb entirely ("choose a plan" survives both). In code, `click` is not a
+mouse event on the web, it is the activation event, and it fires for a tap, for Enter on
+a focused button, and for assistive technology. Listening for `touchstart` to feel faster
+is how a control ends up firing on a scroll that started on top of it.
+
+The gesture has a history worth knowing, because it explains an old smell. Mobile
+browsers used to wait about 300 milliseconds after a touch ended to see whether a second
+one was coming and the tap was really a double tap for zoom. That delay made every
+button feel slightly dead, and a generation of libraries (FastClick and its imitators)
+existed to work around it. Browsers eventually removed the wait for pages that declare a
+sensible viewport or disable double-tap zoom, so the fix today is a meta viewport tag or
+`touch-action: manipulation`, not a script.
+
+Two constraints come with the finger. It is far less precise than a pointer, so the
+touch target has a floor (44 to 48 device-independent pixels, depending on whose
+guidance you follow) that has nothing to do with how big the icon looks. And it does not
+rest anywhere before it commits, so there is no hover state to preview with: whatever a
+mouse would have shown on the way in has to be visible already, or moved into the
+result of the tap itself.

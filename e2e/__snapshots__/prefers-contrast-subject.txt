@@ -1,0 +1,4 @@
+term:    Increased contrast
+scope:   element
+subject: div.sp-surface[data-contrast=normal][data-part=card]
+text:    Billing Trial Your plan renews on 3 September. Invoices go to the workspace owne

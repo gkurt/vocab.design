@@ -1,0 +1,4 @@
+term:    Hex color
+scope:   element
+subject: span.sp-row[data-hex=4F46E5][data-part=hex]
+text:    # 4F 46 E5

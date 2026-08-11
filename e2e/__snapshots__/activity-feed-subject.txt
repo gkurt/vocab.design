@@ -1,0 +1,4 @@
+term:    Activity feed
+scope:   element
+subject: ul.sp-list.sp-scroll.sp-surface[data-count=6][data-part=feed]
+text:    R Rosa M. opened Rebuild the west quay 4m J Jo W. and 3 others starred harbour-k

@@ -1,0 +1,58 @@
+---
+name: Hex color
+slug: hex-color
+category: color
+status: published
+definition: >-
+  A colour written as a hash followed by three, four, six or eight hexadecimal digits,
+  the notation most handoffs still speak even when the source is OKLCH.
+aliases:
+  - name: hex code
+    source: community
+  - name: hex value
+    source: community
+  - name: "#RRGGBB"
+  - name: 8-digit hex
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+useWhen: the notation a colour is handed over in
+---
+
+A hex colour is three numbers in a trench coat. The six digit form is three pairs, red
+then green then blue, each pair a byte written in base 16 and therefore running from
+`00` to `FF`, which is 0 to 255. `#4F46E5` is red 79, green 70, blue 229. Nothing about
+the notation is a colour model of its own: it is sRGB, the same coordinates
+`rgb(79 70 229)` names, in a spelling that fits in one token and survives being pasted
+into a chat window.
+
+The short forms are the ones that trip people. Three digits expand by doubling each
+digit, so `#f0c` is `#ff00cc` and not `#f00c00`, which is why only a lucky subset of
+colours can be written short. Four and eight digit forms append alpha in the same way:
+`#4F46E5CC` is that indigo at 80 percent opacity, and `#f0c8` is `#ff00cc88`. Case does
+not matter to a parser, though a codebase that mixes `#FFF` and `#fff` will fail its own
+diff review eventually. Alpha in the value is worth watching, because a colour carrying
+its own transparency is a different thing to reason about than a solid one sitting under
+an [opacity](/opacity) property.
+
+What hex is bad at is arithmetic. Reading `#4F46E5` tells you almost nothing about how
+light the colour is, and there is no digit you can nudge to make it a step darker without
+also swinging the hue. That is the whole argument for authoring in
+[OKLCH](/oklch) and for building a [colour ramp](/color-ramp) in a space where the
+numbers mean something, then letting the build step emit hex for the places that still
+need it. Hex is also capped at sRGB: a colour outside that gamut has no hex spelling at
+all, so a notation that once described every colour a screen could show now describes
+only the older ones.
+
+The staying power is social rather than technical. Hex is what a design tool puts on the
+clipboard, what a brand guideline prints, and what someone reads out loud in a meeting,
+so it remains the handoff format even for teams whose tokens are authored somewhere
+else. Treat it as an output format, not as the place decisions get made.

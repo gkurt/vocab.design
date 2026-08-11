@@ -1,0 +1,4 @@
+term:    Paywall
+scope:   element
+subject: div.sp-surface[data-part=wall]
+text:    Subscribe to keep reading 2 of 3 free articles read this month Subscribe, 4.00 a

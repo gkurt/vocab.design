@@ -1,0 +1,4 @@
+term:    Captions
+scope:   element
+subject: div[data-captions=on][data-cue=0][data-part=bar]
+text:    [rain against the window]

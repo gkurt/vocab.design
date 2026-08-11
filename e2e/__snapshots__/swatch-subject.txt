@@ -1,0 +1,4 @@
+term:    Swatch
+scope:   element
+subject: span.sp-swatch[data-part=block-ink]
+text:    

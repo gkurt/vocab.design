@@ -1,0 +1,63 @@
+---
+name: Countdown timer
+slug: countdown-timer
+category: pattern
+status: published
+definition: >-
+  A running clock attached to an offer or a held resource, showing how long remains
+  and what will happen when it reaches zero.
+aliases:
+  - name: urgency timer
+    source: community
+  - name: offer expires in
+    source: community
+  - name: session timer
+    source: community
+  - name: seat hold timer
+    source: community
+  - name: limited duration
+    source: ui-patterns
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Limited duration'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: a clock ticking down beside an offer or a held seat
+---
+
+A countdown is only worth showing when something genuinely changes at zero. A
+shipping cutoff moves the delivery date, a seat hold releases the seat, a session
+timer signs you out, a one-time code stops working. In all four the clock is
+reporting a fact the system would enforce whether or not it was drawn, and the
+reader is better off knowing. The moment the deadline exists only because the
+countdown is on the page, the pattern has turned into its dark twin, and the honest
+test is simple: reload the page and see whether the clock picks up where it was or
+starts again at fifteen minutes.
+
+Because it is the rarest thing in an interface, text that changes every second, a
+countdown is unusually easy to build badly. Set the digits in tabular figures so
+that 11 and 00 occupy the same width and the line does not twitch on every tick, and
+reserve the widest form the readout will ever take, so dropping from an hour to
+minutes does not resize anything around it. Match the granularity to the stakes:
+seconds under a minute, minutes under an hour, and days above that, since a shipping
+cutoff two days out that displays seconds is asking to be watched rather than read.
+Colour is a useful last-stretch signal and must not be the only one, so pair a warn
+hue with a change of wording.
+
+Screen readers are where countdowns do real damage. A readout inside an assertive
+live region interrupts every single second and makes the page unusable; the fix is
+to leave the ticking text unannounced and announce milestones politely instead, at
+five minutes, one minute, and expiry. Anything that logs a reader out or discards
+their work also has to satisfy WCAG's Timing Adjustable rule: warn before the limit,
+and let them extend it with one simple action. A session timer that expires silently
+during a long form is the same bug as a session timer nobody can extend.
+
+The dishonest version is common enough to have earned its own vocabulary: fake
+urgency, and a countdown is its favourite instrument. Timers that reset on reload,
+evergreen "sale ends in" clocks on permanently discounted products, and a clock next
+to a "only 2 left" message that is not counting anything are all the same trick, and
+consumer regulators have begun treating them as a deceptive practice rather than as
+marketing. The design defence is the same one that makes the honest version good:
+name the deadline, name the consequence, and let the clock report rather than
+persuade.

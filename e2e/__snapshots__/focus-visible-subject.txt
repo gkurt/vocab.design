@@ -1,0 +1,4 @@
+term:    Focus visible
+scope:   element
+subject: button.sp-button[data-part=save][data-route=keyboard][data-sim-focus][type=button]
+text:    Download

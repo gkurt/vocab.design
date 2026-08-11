@@ -1,0 +1,4 @@
+term:    Navigation menu
+scope:   element
+subject: nav.sp-row.sp-grow[aria-label=Main][data-part=menu]
+text:    Product Learn Pricing Analytics What happened last week Automations Rules that r

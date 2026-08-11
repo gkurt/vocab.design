@@ -1,0 +1,4 @@
+term:    OKLCH
+scope:   element
+subject: div.sp-stack[data-part=oklch][data-view=color]
+text:    oklch(L 0.08 h) Blue Yellow

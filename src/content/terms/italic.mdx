@@ -1,0 +1,55 @@
+---
+name: Italic
+slug: italic
+category: typography
+status: published
+definition: >-
+  A companion style with letterforms redrawn on a cursive model, not merely
+  slanted, used for emphasis and titles.
+aliases:
+  - name: cursive
+  - name: 'font-style: italic'
+    source: css
+  - name: ital axis
+    source: opentype
+relations: {}
+sources:
+  - title: Bold or italic (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+demo: inline
+useWhen: emphasis inside running text
+---
+
+An italic is a second alphabet, not a tilted copy of the first. The style comes
+from a sixteenth century chancery hand, and the letters still carry the pen:
+the two storey `a` collapses to one, the `e` tips its bowl, the `f` grows a
+descender it does not have upright, and entry and exit strokes appear where a
+roman has flat terminals. The slope is a side effect of writing quickly, which
+is why it is the least reliable way to spot one.
+
+The genuine sibling is the oblique, a roman mechanically slanted with no
+redrawing. Sans families often ship one and call it italic (Helvetica's is an
+oblique), while others ship both and mean different things by each. Worse is
+what a browser does when a family has neither: it fakes a slant by skewing the
+roman outline, which thins the strokes on one diagonal and leaves the letters
+looking sheared rather than written. A variable font can expose the difference
+as data, with `slnt` for a pure angle and `ital` for the switch to the drawn
+italic.
+
+The jobs are conventional and worth keeping straight. Italic marks emphasis
+inside running text, where a bold word would out-shout the paragraph around it,
+and it also names things: book and film titles, ship names, genus and species,
+words quoted as words, and a term the first time it is defined. In CSS the
+distinction between the two is the one HTML already draws between `em`
+(stress, which changes the meaning of the sentence) and `i` (a different mode
+of text, which does not).
+
+Interfaces should use it sparingly. A run of italic longer than a sentence or
+two is slower to read on screen, small sizes lose the fine entry strokes to
+antialiasing, and an italic set in a UI face is usually the synthesized shear
+rather than a drawn face, since the family was built for labels rather than for
+prose. Where the goal is hierarchy rather than emphasis, a step of [font
+weight](/font-weight) does the same work without changing the texture of the
+line.

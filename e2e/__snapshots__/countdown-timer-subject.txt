@@ -1,0 +1,4 @@
+term:    Countdown timer
+scope:   element
+subject: div[aria-label=Time left to order for delivery tomorrow][data-part=readout][role=timer]
+text:    01:00:04

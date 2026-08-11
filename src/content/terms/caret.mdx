@@ -1,0 +1,53 @@
+---
+name: Caret
+slug: caret
+category: interaction
+status: published
+definition: >-
+  The blinking marker showing where typed text will be inserted, moved by clicking, by
+  arrow keys, or by dragging on touch.
+aliases:
+  - name: text cursor
+    source: community
+  - name: insertion point
+    source: hig
+  - name: caret browsing
+    source: community
+sources:
+  - title: "MDN: caret-color"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/caret-color
+  - title: "iOS HIG: Gestures"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+demo: inline
+useWhen: the text insertion marker, not the mouse pointer
+---
+
+The caret is a position, not a thing. It sits between two characters, and every editing
+action is defined against it: typing inserts there, Backspace removes what is behind it,
+Home and End take it to the ends of the line, and a selection is what you get when it is
+dragged rather than placed. Because it marks a gap rather than a character, it is drawn
+as a thin bar between letters, and the classic block cursor of a terminal is the same
+idea rendered for a grid where a gap has no room of its own.
+
+Two words collide here and it is worth keeping them apart. The mouse pointer is the
+cursor in everyday speech and in CSS, where `cursor: text` names the I-beam shape the
+pointer takes over editable text. The caret is the insertion point, and it stays where it
+was put when the pointer wanders off. Apple's guidelines say insertion point for exactly
+this reason. Two other senses of the word are near enough to trip over: the caret that
+means a dropdown's small triangle (see disclosure triangle), and the typographic caret,
+the proofreader's mark for inserted text, which is where the name came from.
+
+It blinks because a stationary hairline is easy to lose and blinking is what draws the eye
+back to it. Around a second is the traditional rate, and it is one of the few animations
+that runs forever without asking, which makes it a fair thing to switch off: a stated
+motion preference should stop it, and it should never be the only thing on screen that
+moves. On the web, `caret-color` styles it, including `transparent` for interfaces that
+draw their own, which is the usual move in a code editor or a custom text engine.
+
+Placing it is harder than it looks. A click has to be resolved to the nearest gap between
+characters rather than to the character under the pointer, which is why a press slightly
+right of a letter's middle lands after it. Touch adds a magnifier, because a fingertip
+covers the very text it is aiming at. And a caret can exist outside a text field: caret
+browsing (F7 in several browsers) puts one in the page itself so a reader can move
+through the document with the keyboard, which is one reason content should survive being
+selected and traversed.

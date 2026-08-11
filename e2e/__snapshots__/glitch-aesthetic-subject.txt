@@ -1,0 +1,4 @@
+term:    Glitch aesthetic
+scope:   element
+subject: div[data-part=title]
+text:    SIGNAL SIGNAL SIGNAL

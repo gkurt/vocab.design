@@ -1,0 +1,4 @@
+term:    Double tap
+scope:   element
+subject: div.sp-surface[data-part=tile][role=button][tabindex=0]
+text:    

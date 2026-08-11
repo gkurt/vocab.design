@@ -1,0 +1,4 @@
+term:    Container
+scope:   element
+subject: div.sp-stack[data-part=container]
+text:    Tide tables

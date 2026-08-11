@@ -1,0 +1,4 @@
+term:    Anticipation
+scope:   element
+subject: button.sp-button[data-part=send][type=button]
+text:    Send

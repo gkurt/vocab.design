@@ -1,0 +1,4 @@
+term:    Grainy gradient
+scope:   element
+subject: div[data-grain=fine][data-part=panel]
+text:    

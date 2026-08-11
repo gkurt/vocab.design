@@ -1,0 +1,4 @@
+term:    Neon glow
+scope:   element
+subject: div[data-lit=neon][data-part=sign]
+text:    LATE BAR OPEN TILL 3

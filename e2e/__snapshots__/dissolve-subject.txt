@@ -1,0 +1,4 @@
+term:    Dissolve
+scope:   element
+subject: figure[data-part=plate][data-showing=dawn][data-state=settled]
+text:    Low tide, 05:40 Cape shoreline

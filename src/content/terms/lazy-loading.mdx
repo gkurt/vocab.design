@@ -1,0 +1,62 @@
+---
+name: Lazy loading
+slug: lazy-loading
+category: pattern
+status: published
+definition: >-
+  Deferring the fetch of an image, list section, or module until it is about to be
+  needed, usually when it approaches the viewport.
+aliases:
+  - name: deferred loading
+    source: community
+  - name: import on visibility
+    source: patterns-dev
+  - name: below the fold loading
+    source: community
+  - name: loading=lazy
+    source: mdn
+relations: {}
+implementations: []
+sources:
+  - title: 'patterns.dev: Import On Visibility'
+    url: https://www.patterns.dev/
+  - title: 'MDN: lazy loading'
+    url: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Lazy_loading
+demo: inline
+useWhen: content is fetched only once it is nearly on screen
+---
+
+Lazy loading trades a smaller first load for a later one. A page with forty images
+below the fold does not need forty requests competing with the text nobody has read
+yet, so the request is postponed until the thing is close enough to matter. The
+trigger is almost always proximity to the viewport, and "close enough" is the whole
+tuning problem: fetch at the exact moment an image scrolls into view and the reader
+watches it arrive, fetch a screen early and the deferral has bought less than it
+promised.
+
+Three things get lazily loaded and the vocabulary is shared but the mechanisms are
+not. Images and iframes have a browser-native version, the `loading="lazy"`
+attribute, where the heuristics belong to the engine. Sections of a list are
+deferred by the application, usually with an IntersectionObserver watching a
+sentinel element near the end, which is how infinite scroll is built and what
+distinguishes it from a Load more button that waits to be asked. JavaScript modules
+are deferred with a dynamic import fired on visibility, the pattern patterns.dev
+files as import on visibility: a heavy map, chart, or editor is not parsed until the
+reader scrolls to where it lives.
+
+The failure everyone hits once is lazy-loading the wrong thing. The hero image is
+the thing the reader is already looking at, so deferring it delays the largest
+contentful paint the technique was supposed to protect, and the fix is to mark it
+eager and defer only what is genuinely below the fold. The second failure is
+reserving no space: an image with no width, height, or aspect ratio contributes
+nothing to layout until it lands, and then shoves the paragraph the reader was
+halfway through down the page. Give the box its dimensions up front and let a
+placeholder or a skeleton screen hold the room.
+
+Deferral also has to survive readers who are not scrolling in the usual way.
+Anything hidden behind a lazy fetch is missing from a page print, from an in-page
+find, and sometimes from a crawler, so content that must be searchable or printable
+belongs in the initial response even when it is far down the page. The honest test
+is whether the reader can tell: if the deferred thing is always there by the time
+they look at it, lazy loading has done its job invisibly, which is the only way it
+is supposed to be noticed.

@@ -1,0 +1,4 @@
+term:    Heading
+scope:   element
+subject: h2.sp-grow[data-part=h2]
+text:    Refunds

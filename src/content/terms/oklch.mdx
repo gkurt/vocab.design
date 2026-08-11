@@ -1,0 +1,55 @@
+---
+name: OKLCH
+slug: oklch
+category: color
+status: published
+definition: >-
+  A colour notation of lightness, chroma and hue built on Oklab, where changing the hue
+  leaves the perceived lightness alone and equal steps look equal.
+aliases:
+  - name: Oklab
+    source: css
+  - name: LCH
+    source: css
+  - name: perceptual color notation
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: oklch()"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+demo: inline
+useWhen: writing colour so that equal numeric steps look equal
+---
+
+`oklch(0.65 0.16 258)` is three numbers: lightness from 0 to 1, chroma (how far the
+colour is from grey) as an open ended amount rather than a percentage, and
+[hue](/hue) as an angle. The polar form of Oklab, which is a colour space fitted to
+how people actually report seeing colour rather than to how a phosphor happens to
+work. The practical consequence is the whole reason to use it: the numbers behave.
+Hold lightness and chroma, rotate the hue, and every colour you land on looks equally
+light. Drop lightness by 0.1 and every hue gets equally darker.
+
+HSL, which the web spent twenty years writing, does not do this. Its L is arithmetic
+on RGB channels, so `hsl(55 70% 55%)` is a glaring yellow and `hsl(250 70% 55%)` is a
+murky blue, at identical numbers. Anyone who has built a ramp in HSL has discovered
+this by hand, usually by nudging the yellow row's numbers until it stopped shouting.
+In OKLCH the ramp is the numbers: pick a set of lightness steps once, apply them to
+every hue, and the steps hold. That is what makes a
+[colour ramp](/color-ramp) generable rather than hand tuned, and what lets a design
+system swap a brand hue without re-tuning the fifty values downstream of it.
+
+Two cautions. Chroma is not a percentage of anything, and the maximum achievable
+chroma changes with lightness and hue, so a value that is fine for one hue can fall
+outside sRGB for another. Browsers gamut map rather than fail, which usually looks
+right but means the colour you get is not always the colour you wrote. And OKLCH can
+address colours outside sRGB entirely on a wide gamut display, which is a feature
+right up until it is a difference between two people's screens. Ship as
+[hex](/hex-color) or `srgb` when the value has to be identical everywhere; author in
+OKLCH because that is where the arithmetic makes sense.

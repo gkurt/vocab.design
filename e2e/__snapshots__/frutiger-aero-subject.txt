@@ -1,0 +1,4 @@
+term:    Frutiger Aero
+scope:   element
+subject: div[data-part=card]
+text:    AquaSync HOME MEDIA, EVERYWHERE Your photos, your music, and your files on every

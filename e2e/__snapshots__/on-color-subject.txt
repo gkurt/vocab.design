@@ -1,0 +1,4 @@
+term:    On-color
+scope:   element
+subject: div.sp-stack[data-part=paired-ink]
+text:    Published Live for everyone on the team.

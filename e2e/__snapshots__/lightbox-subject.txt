@@ -1,0 +1,4 @@
+term:    Lightbox
+scope:   element
+subject: div.sp-scrim[aria-label=Photo viewer][aria-modal=true][data-index=3][data-open][data-part=lightbox][role=dialog]
+text:    Estuary, dawn 3 of 6

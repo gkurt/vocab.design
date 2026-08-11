@@ -1,0 +1,4 @@
+term:    App shell
+scope:   element
+subject: div.sp-frame.sp-frame--wide[data-loads=1][data-part=shell][data-view=overview]
+text:    Harbour office JK OverviewBerthsTides Overview Occupied 38 Free 11 Shell up 0:00

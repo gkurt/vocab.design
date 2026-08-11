@@ -1,0 +1,53 @@
+---
+name: Placeholder as label
+slug: placeholder-as-label
+category: accessibility
+status: published
+definition: >-
+  The antipattern of using placeholder text as a field's only label, which vanishes
+  on typing and usually fails both contrast and naming.
+aliases:
+  - name: placeholder-only field
+    source: community
+  - name: ghost label
+    source: community
+  - name: aria-placeholder
+    source: aria
+sources:
+  - title: 'WCAG 2.2: Labels or Instructions'
+    url: https://www.w3.org/TR/WCAG22/#labels-or-instructions
+  - title: 'A11y Project checklist'
+    url: https://www.a11yproject.com/checklist/
+demo: inline
+useWhen: naming why a placeholder-only field is broken
+---
+
+A placeholder is a hint that lives inside an empty field and leaves the moment anyone
+types. That behaviour is fine for what it was designed for and fatal for the job it
+keeps being given. When the placeholder is the only label, the name of the field is
+deleted by the act of filling it in, which is exactly when a person is most likely to
+want it: checking the form before submitting, coming back after an interruption, or
+working out which of the two date fields they are in.
+
+The damage is not only memory. Placeholder text is drawn in a muted grey by default, so
+a placeholder-only form usually fails contrast before anyone types a character, and
+darkening it to pass makes an empty field look like a filled one. Naming is
+inconsistent too: the accessible name computation treats `placeholder` as a last resort,
+after `aria-labelledby`, `aria-label`, and a real `<label>`, so what a screen reader
+announces depends on the browser, the assistive technology, and whether anything else
+happened to supply a name. `aria-placeholder` is the ARIA spelling of the same hint and
+is no more a label than the attribute it mirrors. Autofill, browser translation, and
+voice control all lean on the label too, and all of them do worse without one.
+
+The layout argument for the pattern is real, which is why it keeps coming back. A form
+of placeholder-only fields is shorter and looks tidier in a mockup where every field is
+empty. It stops looking tidy the moment it is used, which is the state a form spends
+almost all of its life in. Floating labels are the honest compromise: the label starts
+in the field and moves up out of the way rather than being destroyed, at the cost of a
+smaller label and a more complicated component.
+
+What a placeholder is genuinely good at is the example. `MM/YY`, `+44 7700 900000`,
+`Search orders, customers, and invoices`: format hints, sitting beside a visible label
+that stays put. If the hint is important enough that filling the field in should not
+hide it, it belongs under the field as help text instead, where it survives typing and
+gets read out with the field.

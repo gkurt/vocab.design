@@ -1,0 +1,4 @@
+term:    Entrance animation
+scope:   element
+subject: article.sp-surface.sp-row[aria-hidden=false][data-part=card]
+text:    RK Rana Kaur now

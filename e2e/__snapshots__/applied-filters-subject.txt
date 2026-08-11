@@ -1,0 +1,4 @@
+term:    Applied filters
+scope:   element
+subject: div.sp-row.sp-row--wrap[data-part=applied]
+text:    Remote✕ Design✕ Full time✕ Clear all

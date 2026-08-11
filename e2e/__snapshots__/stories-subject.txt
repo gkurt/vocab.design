@@ -1,0 +1,4 @@
+term:    Stories
+scope:   element
+subject: div[data-part=viewer]
+text:    R rosa.at.sea 4h Left the quay at six

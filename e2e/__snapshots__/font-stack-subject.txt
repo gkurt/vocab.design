@@ -1,0 +1,4 @@
+term:    Font stack
+scope:   element
+subject: span.sp-row[data-missing=none][data-part=declaration]
+text:    Georgia, Verdana, sans-serif;

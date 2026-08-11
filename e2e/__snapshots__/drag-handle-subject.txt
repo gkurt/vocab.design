@@ -1,0 +1,4 @@
+term:    Drag handle
+scope:   element
+subject: button.sp-icon-button[aria-label=Reorder Ember Lane][data-part=grip-ember][type=button]
+text:    

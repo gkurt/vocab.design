@@ -1,0 +1,4 @@
+term:    Affordance
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=raised][type=button]
+text:    Export CSV

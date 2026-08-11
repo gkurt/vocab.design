@@ -1,0 +1,4 @@
+term:    Sticky sidebar
+scope:   element
+subject: div.sp-surface[data-part=card]
+text:    On this page Approaches Moorings Tides Ashore

@@ -1,0 +1,4 @@
+term:    Italic
+scope:   element
+subject: div.sp-stack[data-part=sample-italic]
+text:    aef afterglow

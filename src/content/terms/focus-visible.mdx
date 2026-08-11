@@ -1,0 +1,50 @@
+---
+name: Focus visible
+slug: focus-visible
+category: accessibility
+status: published
+definition: >-
+  A focus style shown only when focus arrived by keyboard or another non-pointer
+  route, so a mouse click does not leave a ring behind.
+aliases:
+  - name: ':focus-visible pseudo-class'
+    source: css
+  - name: keyboard-only focus style
+    source: community
+  - name: focus-visible polyfill
+    source: community
+sources:
+  - title: 'MDN: :focus-visible'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:focus-visible
+demo: inline
+useWhen: showing the ring to keyboard users but not to clickers
+---
+
+A focus ring is the style. Focus visible is the rule about when to draw it. Every
+control that receives focus matches `:focus`, whether the reader tabbed to it or
+clicked it, and for years that produced an argument nobody won: keyboard users needed
+the ring, designers found it noise on a button somebody had just pressed with a mouse,
+and the truce was usually `outline: none`, which quietly broke the page for everyone
+navigating by keyboard.
+
+`:focus-visible` ends the argument by letting the browser judge how focus arrived. Tab,
+arrow keys, a screen reader moving the cursor, or a `focus()` call while the reader was
+last using the keyboard all count as visible. A mouse press on a button does not. The
+heuristic is the browser's, not yours, and it is deliberately generous where guessing
+would be dangerous: a text input matches `:focus-visible` even when clicked, because
+whatever brought focus there, the next thing that happens is typing.
+
+Writing it is two rules and a decision. Style `:focus-visible` with the ring you want,
+and if you must suppress the mouse case explicitly, `:focus:not(:focus-visible)` is the
+selector that names it. Never remove the outline without replacing it: the accessible
+minimum is a visible indicator, of adequate contrast and thickness, on every focusable
+element, and WCAG 2.2 tightened this with Focus Not Obscured and Focus Appearance. If
+you support older browsers, the historical answer was the WICG polyfill plus a
+`.focus-visible` class, or the earlier what-input approach of stamping the current input
+modality on the document. Both are now legacy: every current engine ships the selector.
+
+One caution: focus is still moving in the pointer case, and it is still real. A control
+with no visible ring after a click is still the place the next Tab starts from, still
+where a script's `focus()` landed, and still what a screen reader announces. Hiding the
+indicator is a decision about drawing, never about state, which is why the demonstration
+below reports focus in both routes and only changes whether the ring is drawn.
