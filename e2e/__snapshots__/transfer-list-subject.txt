@@ -1,0 +1,4 @@
+term:    Transfer list
+scope:   element
+subject: div.sp-row[data-part=transfer]
+text:    Available (4) RegionChannelDiscountRefunds Chosen (3) DateRevenueOrders

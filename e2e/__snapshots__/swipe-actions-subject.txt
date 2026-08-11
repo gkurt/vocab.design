@@ -1,0 +1,4 @@
+term:    Swipe actions
+scope:   element
+subject: div.sp-row[data-part=actions]
+text:    Archive Delete

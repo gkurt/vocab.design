@@ -1,0 +1,4 @@
+term:    Decorative image
+scope:   element
+subject: img[alt][data-part=decorative][src=data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22340%22%20height%3D%2224%22%20viewBox%3D%220%200%20340%2024%22%3E%3Cpath%20d%3D%22M4%2012c24-14%2048%2014%2072%200s48-14%2072%200%2048%2014%2072%200%2048-14%2072%200%22%20fill%3D%22none%22%20stroke%3D%22%239aa4bd%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%3Ccircle%20cx%3D%22170%22%20cy%3D%2212%22%20r%3D%224%22%20fill%3D%22%239aa4bd%22%2F%3E%3C%2Fsvg%3E]
+text:    

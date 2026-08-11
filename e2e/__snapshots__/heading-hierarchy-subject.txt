@@ -1,0 +1,4 @@
+term:    Heading hierarchy
+scope:   element
+subject: ul.sp-list[data-part=outline][data-state=nested]
+text:    h1 Brewing guide h2 Grind size h3 Burr settings h2 Water

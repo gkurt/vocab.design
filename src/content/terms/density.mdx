@@ -1,0 +1,50 @@
+---
+name: Density
+slug: density
+category: layout
+status: published
+definition: >-
+  How much content a system packs into a given area, tuned as a named setting so the
+  same components can run comfortable or compact.
+aliases:
+  - name: information density
+  - name: display density
+    source: material
+  - name: comfortable, cozy, compact
+  - name: spacing density
+relations:
+  seeAlso: [stack, data-table]
+demo: inline
+useWhen: the same UI, tighter, for expert users
+---
+
+Density is the amount of interface per square inch. It is set almost entirely by
+spacing (row height, cell padding, the gaps between controls) rather than by type size,
+which is why a system can offer it as a setting: change one step in the spacing scale
+and every table, list, and form gets tighter at once without a single component being
+redesigned. Gmail's comfortable, cozy, and compact are the names most people have met,
+and Material, Carbon, and Cloudscape all ship the same idea as a mode.
+
+The reason to offer it is that comfort and overview are in direct conflict, and which
+one wins depends on the reader. Someone reconciling four hundred invoices wants as many
+rows on screen as their eyes can take, because every row that does not fit is a scroll,
+and a scroll is a memory task. Someone using the same product once a month wants the
+opposite: fewer things, further apart, easier to hit. Neither is the correct default, so
+the honest move is to pick a default for the common case and let the other reader change
+it, remembering the choice per person rather than per device.
+
+Compact has a floor, and the floor is the body. Pointer targets stop being reliable
+below roughly 24 pixels and touch targets below roughly 44 ([touch target
+size](/touch-target-size)), so a compact mode is allowed to take space out of padding
+and row height but not out of the hit area, which usually means the target keeps its
+size and stops being visible as a box. Text needs its own floor too: leading is part of
+readability, not part of the spacing budget, so a compact table that shrinks
+[leading](/leading) below about 1.4 has crossed from dense into hard to read.
+
+Building it as a setting rather than a restyle is the whole discipline. Density belongs
+in the token layer as a multiplier or a swappable spacing step, so components read the
+spacing variable and never hardcode a number, and a [data table](/data-table) in compact
+is the same table with a different padding token rather than a second table. Test both
+modes as first class: the bugs live where a fixed height was assumed, where an icon was
+centred by eye against a padding value, and where an absolutely positioned overlay was
+placed with a number that only lined up in one mode.

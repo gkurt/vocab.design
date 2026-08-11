@@ -1,0 +1,4 @@
+term:    Lightness
+scope:   element
+subject: div.sp-row[data-lightness=55][data-part=ramp]
+text:    

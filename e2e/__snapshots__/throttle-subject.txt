@@ -1,0 +1,4 @@
+term:    Throttle
+scope:   element
+subject: div.sp-surface[data-calls=0][data-part=throttled]
+text:    Throttled to 300 ms 0 calls top 0px

@@ -1,0 +1,4 @@
+term:    Y2K aesthetic
+scope:   element
+subject: div[data-part=card]
+text:    PORTAL MMI EDITION CHAT TUNES PIX ENTER CONNECTED AT 56.6K

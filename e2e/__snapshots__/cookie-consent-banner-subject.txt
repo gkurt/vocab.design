@@ -1,0 +1,4 @@
+term:    Cookie consent banner
+scope:   element
+subject: div.sp-surface[aria-label=Cookies on this site][data-part=banner][data-view=notice][role=region]
+text:    Cookies on this site Essential cookies keep the site working. We would also like

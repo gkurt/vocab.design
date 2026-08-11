@@ -1,0 +1,4 @@
+term:    Stack
+scope:   element
+subject: div[data-mode=stack][data-part=column][data-rhythm=even]
+text:    Tide tables Revised in March

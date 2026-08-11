@@ -1,0 +1,61 @@
+---
+name: Squash and stretch
+slug: squash-and-stretch
+category: motion
+status: published
+definition: >-
+  Deforming an element along its direction of travel so it reads as having mass and
+  flexibility, usually as a press squash or a launch stretch.
+aliases:
+  - name: squish
+    source: community
+  - name: press squash
+    source: community
+  - name: non-uniform scale
+    source: community
+relations:
+  contrastWith: [spring-animation]
+implementations: []
+sources:
+  - title: "Interaction Design Foundation: UI Animation, How to Apply Disney's 12 Principles of Animation to UI Design"
+    url: https://ixdf.org/literature/article/ui-animation-how-to-apply-disney-s-12-principles-of-animation-to-ui-design
+demo: inline
+useWhen: a control should feel physical when pressed or launched
+---
+
+This is the first of Disney's twelve principles of animation, and the one with a rule
+attached: volume is conserved. Widen something and it has to flatten by about as much,
+stretch it and it has to narrow, or it stops reading as a body being deformed and starts
+reading as a picture being resized. The teaching case is a bouncing ball, which stretches
+along its path as it falls, flattens against the floor at the instant it is stopped, and
+leaves the floor stretched again. Nothing about the ball's shape is realistic. What it
+communicates is weight and material, and a rigid ball on the same trajectory looks like a
+diagram of a bounce rather than a bounce.
+
+Interfaces borrow it in much smaller amounts. A tile that gives slightly under a press is
+squash: the deformation happens at the point of contact, which is why the effect belongs
+under the finger and not somewhere else on the screen. A sheet that launches upward can
+stretch as it accelerates and settle as it arrives. A card flung by a drag can lead with
+its edge. The useful discipline is that the deformation must agree with the direction of
+travel, because that is the whole information content of the effect: squashed across the
+axis it is moving along, stretched with it. A press squash in a UI is a few percent, not a
+cartoon's fifty, and a control that visibly pancakes reads as broken rather than as
+tactile.
+
+Do it with `transform` and nothing else. Scaling the two axes inversely (`scale(1.06,
+0.94)`) is composited and costs no layout, while animating `width` and `height` reflows
+the page on every frame and drags whatever is next to the element around with it. Set
+`transform-origin` to the contact point, so a ball flattens against the floor rather than
+sinking through it and a pressed button spreads from where the finger is. Keep the press
+under roughly 150 milliseconds and make sure the release returns all the way: a squash
+that does not come back is indistinguishable from a rendering bug. Note that a scaled
+element keeps its original hit area, which is exactly what you want, since a target that
+shrank away from a finger mid-press would be a real problem rather than a stylistic one.
+
+Reach for it rarely. It suits things that stand for physical objects (a control being
+pressed, a panel being thrown) and suits text badly, since deformed letterforms read as a
+font failing to load. Everything moving with a rubbery quality makes an interface feel
+gummy and slow even when the timings are quick, which is the usual reason a designer is
+asked to take it back out. Honour `prefers-reduced-motion` by dropping the deformation and
+keeping the state change, which loses nothing important: the squash was always a comment
+on the press, never the press itself.

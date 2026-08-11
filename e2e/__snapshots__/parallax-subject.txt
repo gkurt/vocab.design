@@ -1,0 +1,4 @@
+term:    Parallax
+scope:   element
+subject: div.sp-scroll[data-part=scene]
+text:    Coast, 2019 Four albums CW Cliff walk, morning 18 photos HB Harbour bend 9 photo

@@ -1,0 +1,4 @@
+term:    Saturation
+scope:   element
+subject: div.sp-row[data-part=ramp][data-saturation=40]
+text:    

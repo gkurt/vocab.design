@@ -1,0 +1,4 @@
+term:    Sticky footer
+scope:   element
+subject: footer.sp-row[data-mode=held][data-part=footer]
+text:    Harbour Press, 2026 Contact

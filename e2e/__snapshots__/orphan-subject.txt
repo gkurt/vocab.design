@@ -1,0 +1,4 @@
+term:    Orphan
+scope:   element
+subject: span[data-column=1][data-part=orphan]
+text:    The next paragraph begins here,

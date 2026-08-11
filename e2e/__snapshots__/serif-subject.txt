@@ -1,0 +1,4 @@
+term:    Serif
+scope:   element
+subject: span[data-part=glyph-serif]
+text:    R

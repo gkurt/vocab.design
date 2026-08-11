@@ -1,0 +1,4 @@
+term:    Monospace
+scope:   element
+subject: div[data-part=mono]
+text:    sum 1,284.50 okfees 19.05 ok

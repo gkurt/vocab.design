@@ -1,0 +1,4 @@
+term:    Icon morph
+scope:   element
+subject: svg.sp-icon[aria-hidden=true][data-part=glyph][viewBox=0 0 24 24]
+text:    

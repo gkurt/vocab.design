@@ -1,0 +1,4 @@
+term:    Squash and stretch
+scope:   element
+subject: span[data-part=ball-soft]
+text:    

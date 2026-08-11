@@ -11,13 +11,15 @@ aliases:
     source: community
   - name: error suggestion
     source: wcag
+relations:
+  contrastWith: [error-message, inline-validation]
 sources:
   - title: 'WCAG 2.2: Error Identification'
     url: https://www.w3.org/TR/WCAG22/#error-identification
   - title: 'GOV.UK Design System: Error message'
     url: https://design-system.service.gov.uk/components/error-message/
 demo: inline
-useWhen: telling a reader which field failed and why
+useWhen: the failure has to be named in text, not carried by red alone
 ---
 
 A red outline is a hint, not an identification. WCAG's Error Identification criterion

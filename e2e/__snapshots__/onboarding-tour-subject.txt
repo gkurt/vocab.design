@@ -1,0 +1,4 @@
+term:    Onboarding tour
+scope:   element
+subject: div.sp-surface[aria-label=Product tour][data-part=tip][data-step=1][role=dialog]
+text:    Step 1 of 3 Start here. Every report begins as a draft you can throw away. Skip 

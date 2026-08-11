@@ -1,0 +1,4 @@
+term:    Fade
+scope:   element
+subject: article.sp-surface.sp-stack[aria-hidden=false][data-part=panel]
+text:    Build 4182 finished 2m ago 214 tests

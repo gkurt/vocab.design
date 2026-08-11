@@ -1,0 +1,65 @@
+---
+name: Marquee
+slug: marquee
+category: motion
+status: published
+definition: >-
+  Text or logos that scroll continuously across a strip, either as a decorative ticker
+  or because a label is too long for its box.
+aliases:
+  - name: ticker
+    source: community
+  - name: scrolling text
+    source: community
+  - name: logo cloud scroller
+    source: community
+  - name: news ticker
+    source: community
+  - name: infinite scroller
+    source: community
+relations:
+  contrastWith: [carousel, truncation]
+  seeAlso: [prefers-reduced-motion]
+implementations: []
+sources:
+  - title: "School of Motion: The Essential Motion Design Dictionary"
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: content is wider than its box and must still be read
+---
+
+A marquee moves its content past a fixed window instead of fitting the content to the
+window. Two quite different jobs go by the name. One is editorial: a ticker of prices,
+scores, or headlines, or a strip of client logos that a marketing page runs as a texture
+rather than as a list anyone reads item by item. The other is utilitarian: a track title
+or a file name too long for the row it lives in, set moving so the end of it can be seen
+at all. The first is decoration and should be treated as such. The second is a fallback
+for a layout that ran out of room, and static truncation with the full text available on
+demand is almost always the better answer.
+
+The name comes from the HTML element. Internet Explorer 2 shipped `<marquee>` in 1995,
+Netscape answered with `<blink>`, and between them they became the shorthand for
+everything wrong with the early web. `<marquee>` was never in a real HTML specification
+until the WHATWG documented it in the obsolete-features section so that browsers could
+keep parsing the pages that used it. Browsers still render it and the specification still
+tells authors not to use it. It died for good reasons: motion nobody asked for, with no
+way to stop it, attached to content that could only be read by waiting for it to come
+back around.
+
+The modern version is CSS, and the whole craft of it is the seam. Duplicate the content,
+translate the track by exactly half its own width, and loop, which lands the second copy
+where the first began. The join is only invisible if the gap after the last item equals
+the gaps between them, so the trailing gap has to belong to the group being repeated
+rather than sit between the two groups. The duplicate is decorative by definition and
+belongs behind `aria-hidden`, or a screen reader reads the whole ticker twice. Prefer
+transforms to animating `left` or scroll position, since a transform is the one property
+a compositor can run without laying the page out again on every frame.
+
+Then make it stoppable. WCAG 2.2.2 is unambiguous: anything that moves automatically for
+more than five seconds needs a mechanism to pause it, and for a marquee the cheap version
+is pausing on hover and on focus, which readers reach for instinctively the moment they
+want to read a row. Honour `prefers-reduced-motion` by holding the strip still. Never put
+information that exists nowhere else in a moving strip, and resist the temptation to make
+it a live region: `aria-live` on a ticker turns a decorative loop into an interruption
+every few seconds, which is how a well-meant announcement becomes the reason someone
+leaves.

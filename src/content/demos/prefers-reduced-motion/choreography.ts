@@ -1,0 +1,35 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=panel]', state: 'hidden' } },
+  { moveTo: '[data-part=show]' },
+  { click: true },
+  { wait: 600 },
+  // The travelling entrance: the panel is on stage and the scene says which one played.
+  { assert: { selector: '[data-part=scene][data-motion=full]', state: 'visible' } },
+  { assert: { selector: '[data-part=panel][data-open]', state: 'visible' } },
+  { wait: 900 },
+  { moveTo: '[data-part=hide]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=panel]', state: 'hidden' } },
+  { moveTo: '[data-part=seg-reduce]' },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=scene][data-motion=reduce]', state: 'visible' } },
+  { moveTo: '[data-part=show]' },
+  { click: true },
+  { wait: 600 },
+  // Same state reached, no travel: the panel cross faded into place.
+  { assert: { selector: '[data-part=panel][data-open]', state: 'visible' } },
+  { wait: 1100 },
+  { moveTo: '[data-part=hide]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=panel]', state: 'hidden' } },
+  { moveTo: '[data-part=seg-full]' },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=scene][data-motion=full]', state: 'visible' } },
+  { wait: 600 },
+]);

@@ -1,0 +1,4 @@
+term:    Spring animation
+scope:   element
+subject: span.sp-surface[data-part=tile-spring]
+text:    Card

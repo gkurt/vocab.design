@@ -1,0 +1,4 @@
+term:    Complementary colors
+scope:   element
+subject: div[data-pair=265][data-part=wheel]
+text:    

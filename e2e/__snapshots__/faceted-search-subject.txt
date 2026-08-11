@@ -1,0 +1,4 @@
+term:    Faceted search
+scope:   element
+subject: div.sp-surface[data-part=facets]
+text:    Type Chairs 2 Tables 2 Lamps 2 Availability In stock 4

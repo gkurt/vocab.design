@@ -1,0 +1,4 @@
+term:    Snapping
+scope:   element
+subject: div.sp-surface[data-cell=2-2][data-part=card]
+text:    Tile

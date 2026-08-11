@@ -1,0 +1,57 @@
+---
+name: Widow
+slug: widow
+category: typography
+status: published
+definition: >-
+  A short last line of a paragraph, often a single word, stranded at the top of the
+  next column or page.
+aliases:
+  - name: typographic widow
+  - name: widow line
+relations:
+  contrastWith: [orphan]
+sources:
+  - title: An end to typographic widows on the web (Clagnut)
+    url: https://clagnut.com/blog/2424
+  - title: Widow and orphan control (Practical Typography)
+    url: https://practicaltypography.com/
+demo: inline
+useWhen: naming a stranded last line at the top of a column
+---
+
+The word is from the composing room, where a page was a physical object and a
+paragraph could be cut in half by the edge of one. A widow is the tail: the last
+line of a paragraph, left at the top of the next column with nothing above it and
+nothing after it. The mnemonic that keeps it straight is grim and effective. A
+widow has no future, an [orphan](/orphan) has no past, so the widow is the line at
+the top and the orphan is the line at the bottom.
+
+Treat the definitions as contested. Bringhurst puts them this way round, and so do
+most typesetting manuals, but plenty of style guides and more than one piece of
+software swap them, and a few use one word for both. The practical move is to
+describe the case rather than name it when it matters: say "a single word on the
+last line" or "one line carried to the next column" and nobody has to guess which
+tradition you learned.
+
+The web mostly lost the print sense along with the page. With no columns and no
+page breaks, there is nothing for a last line to be stranded at the top of, so the
+word drifted to the case that does still happen everywhere: a paragraph or heading
+whose final line holds one lonely word. That is what a designer means by widow in
+a browser nine times out of ten, and it is worth hearing which sense someone is
+using before agreeing to fix it.
+
+The fixes go from cheapest to most declarative. Bind the last two words with a
+no-break space and they wrap together, which is the oldest trick and still the only
+one that works everywhere. `text-wrap: pretty` asks the browser to avoid a short
+last line for you, and `text-wrap: balance` evens out a heading of a few lines. In
+paged and multi-column contexts the `widows` property states the minimum number of
+lines that may be carried over, usually two. Then there is the fix a typesetter
+reaches for first, which is to edit the sentence.
+
+What not to do is distort the paragraph to save one word. Tightening the tracking
+of a whole block, forcing hyphenation, or nudging the measure until this one
+paragraph behaves are all bigger crimes than the widow. And in text you do not
+control, user content, translations, anything that reflows, the break moves with
+the font, the measure, and the reader's zoom, so ask for the outcome declaratively
+and let a stray word through when it happens.

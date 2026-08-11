@@ -1,0 +1,4 @@
+term:    Menu bar
+scope:   element
+subject: div.sp-row[aria-label=Application][data-part=bar][role=menubar]
+text:    File Edit View

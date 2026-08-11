@@ -1,0 +1,4 @@
+term:    Quick view
+scope:   element
+subject: div.sp-surface[aria-label=Quick view][data-part=quickview][role=dialog]
+text:    Ash crate $120 Stacks three high, oiled finish. Add to bag

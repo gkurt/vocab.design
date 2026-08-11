@@ -1,0 +1,4 @@
+term:    Tree view
+scope:   element
+subject: ul.sp-nav[aria-activedescendant=vd-tree-src][aria-label=Project files][data-part=tree][role=tree][tabindex=0]
+text:    src app.tsxrouter.ts assets logo.svghero.png README.md

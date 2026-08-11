@@ -1,0 +1,4 @@
+term:    Hue
+scope:   element
+subject: div.sp-row[data-hue=265][data-part=strip]
+text:    

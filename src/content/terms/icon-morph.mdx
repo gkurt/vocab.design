@@ -1,0 +1,61 @@
+---
+name: Icon morph
+slug: icon-morph
+category: motion
+status: published
+definition: >-
+  An icon that animates between two meanings rather than cutting, such as a hamburger
+  whose bars rotate into a close cross.
+aliases:
+  - name: animated icon
+    source: community
+  - name: hamburger to X
+    source: community
+  - name: play pause morph
+    source: community
+  - name: icon transition
+    source: community
+relations:
+  seeAlso: [hamburger-menu]
+implementations: []
+sources:
+  - title: "School of Motion: The Essential Motion Design Dictionary"
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: one control carries two states and should show the change
+---
+
+A morph works because the two drawings share parts. A hamburger and a cross are both
+made of straight bars of the same length, so the change can be told as movement: the
+outer two travel to the middle and rotate, the middle one gets out of the way. The eye
+follows individual strokes rather than noticing that a picture was replaced, and the
+result is that the control reads as one object in two states instead of two icons taking
+turns. Swap two unrelated glyphs and you get a cut, which is a perfectly good thing to
+do, but it is not this.
+
+The morph is a claim about the control, and the claim can be wrong. Animating from
+hamburger to cross says the press you just made is undone by the next one, which is true
+for a menu that toggles and false for one whose panel is dismissed some other way. It
+also inherits the cross's oldest ambiguity, since an X in the corner of a screen means
+close this, and readers reasonably disagree about whether that is the menu or the page.
+Play to pause is the safest example in the family, because the two shapes are the two
+states of one verb and nobody has to guess. If two icons are not opposite readings of a
+single control, a morph will imply a relationship that is not there.
+
+Draw both ends on the same grid at the same stroke weight, then move the strokes you can
+keep and fade only the ones you cannot. Do it with transforms on the parts, since
+`transform` and `opacity` are the two properties a compositor can animate without laying
+out the page again, and transforming a path is what makes the change legible as motion.
+Cross-fading two stacked drawings is a crossfade, not a morph, and at glyph size it reads
+as a smudge. Keep it short, roughly 150 to 250 milliseconds with a decelerating curve: a
+20 pixel icon has no room for an overshoot, and anything slower makes the control feel
+like it is deciding. Under `prefers-reduced-motion` let the glyph snap between its two
+readings, which loses nothing, because the meaning was in the two ends and never in the
+travel.
+
+Assistive technology never sees any of this, so the state has to be said in words as well
+as drawn. Change the accessible name with the drawing (open menu becomes close menu) and
+expose the state on the control with `aria-expanded` or `aria-pressed`, which is the part
+readers of the visual morph are getting for free. Do not describe the artwork in the
+label, and never let the morph be the only signal that something happened: it is a
+confirmation of a change the interface has already made somewhere the reader can see it.

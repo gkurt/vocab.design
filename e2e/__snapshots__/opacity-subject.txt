@@ -1,0 +1,4 @@
+term:    Opacity
+scope:   element
+subject: div.sp-window[data-opacity=100][data-part=panel]
+text:    Export 100% Six frames, one sheet. Save Cancel

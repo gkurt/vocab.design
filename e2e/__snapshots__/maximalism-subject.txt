@@ -1,0 +1,4 @@
+term:    Maximalism
+scope:   element
+subject: div[data-part=maximal]
+text:    HOT More ismore and then some. Body copy stays on a plain patch, because legible

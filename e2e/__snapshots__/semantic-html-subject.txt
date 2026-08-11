@@ -1,0 +1,4 @@
+term:    Semantic HTML
+scope:   element
+subject: div.sp-surface[data-part=semantic]
+text:    RoasteryBeansCafe Order Est. 2019

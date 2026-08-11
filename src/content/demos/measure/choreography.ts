@@ -1,0 +1,17 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  // The three columns widened in the order their labels claim, measured on mount.
+  { assert: { selector: '[data-part=page][data-ordered]', state: 'visible' } },
+  { assert: { selector: '[data-part=col-66][data-ideal]', state: 'visible' } },
+  { moveTo: '[data-part=col-45]' },
+  { wait: 900 },
+  { assert: { selector: '[data-part=col-45][data-cpl="45"]', state: 'visible' } },
+  { moveTo: '[data-part=col-66]' },
+  { wait: 1000 },
+  { assert: { selector: '[data-part=col-66][data-cpl="66"]', state: 'visible' } },
+  { moveTo: '[data-part=col-95]' },
+  { wait: 900 },
+  { assert: { selector: '[data-part=col-95][data-cpl="95"]', state: 'visible' } },
+  { wait: 700 },
+]);

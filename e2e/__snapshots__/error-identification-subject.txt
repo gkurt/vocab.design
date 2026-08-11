@@ -1,0 +1,4 @@
+term:    Error identification
+scope:   element
+subject: div.sp-field[data-part=field][data-state=ok]
+text:    Email address Enter an email address, like ada@example.com

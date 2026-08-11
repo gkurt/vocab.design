@@ -1,0 +1,55 @@
+---
+name: Transfer list
+slug: transfer-list
+category: component
+status: published
+definition: >-
+  Two side by side lists with arrow buttons between them, used to move items from
+  available to chosen and back.
+aliases:
+  - name: transfer
+    source: ant-design
+  - name: dual listbox
+  - name: pick list
+  - name: shuttle
+  - name: list builder
+relations:
+  contrastWith: [listbox, drag-and-drop]
+sources:
+  - title: 'Ant Design: components overview'
+    url: https://ant.design/components/overview/
+demo: inline
+useWhen: picking a subset by moving items between two lists
+---
+
+A transfer list splits one decision across two boxes. The left box holds what is
+available, the right box holds what has been chosen, and the buttons between them
+carry items across. The reason to spend that much space on a choice is that the
+result is worth reading on its own: a reader can see the chosen set as a short list
+rather than hunting for ticks scattered through a long one. Report builders, column
+pickers, permission editors, and mailing list membership all use it for that reason.
+
+It earns its room when the pool is large and the chosen set is small, and it wastes
+that room otherwise. For a handful of options, a group of [checkboxes](/checkbox) says
+the same thing in a quarter of the space. For one value, use a [select](/select). The
+honest test is whether anyone needs to read the chosen set back: if they do not, the
+extra list is decoration, and a multi select with chips is lighter. Watch the growth
+too, since two lists side by side stop working on a narrow screen and usually have to
+become one list with a filter and a chosen count.
+
+Order is a second question hiding inside the first. If the chosen list feeds something
+where sequence matters, such as the column order of a report, then the right hand list
+needs its own move up and move down controls, and moving an item across has to place
+it somewhere defensible (usually the end). If sequence does not matter, keep the list
+sorted the same way both sides are sorted, so an item lands where a reader would look
+for it rather than at the bottom.
+
+The accessible version is two [listboxes](/listbox) and a set of buttons, not a pile of
+divs. Each list needs a name of its own, since "Available" and "Chosen" are the only
+thing distinguishing them. Each button needs a label naming the direction in words
+("Move to chosen"), because an arrow glyph alone reads as "right pointing triangle".
+The buttons stay in the tab order and report `aria-disabled` when nothing is selected
+rather than vanishing, focus lands somewhere sensible after a move (the item in its new
+list, or the button if it is still usable), and the counts belong in text so the result
+of the move is announced. Adding [drag and drop](/drag-and-drop) between the lists is a
+fine shortcut on top of that, never the only way across.

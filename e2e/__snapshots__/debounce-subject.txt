@@ -1,0 +1,4 @@
+term:    Debounce
+scope:   element
+subject: div.sp-surface[data-fired=0][data-part=debounced]
+text:    Debounced 700 ms 0 calls

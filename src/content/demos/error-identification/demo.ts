@@ -1,5 +1,6 @@
 import { icon } from '#src/kit/icons.ts';
 import { part } from '#src/kit/parts.ts';
+import '#src/kit/segmented.ts';
 
 const MESSAGE = 'Enter an email address, like ada@example.com';
 
@@ -29,7 +30,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 360px">
         <div data-part="form" data-mode="colour">
           <span class="sp-heading sp-context" style="font-size: 14px">Contact details</span>
-          <div class="sp-field" data-part="field" data-state="ok" style="margin-top: 14px">
+          <div class="sp-field" data-part="field" data-state="ok" data-subject style="margin-top: 14px">
             <label class="sp-label" for="vd-ei-email">Email address</label>
             <input class="sp-input" id="vd-ei-email" data-part="input" value="ada.example.com" aria-describedby="vd-ei-error" readonly />
             <div data-part="slot" style="flex: 0 0 auto">

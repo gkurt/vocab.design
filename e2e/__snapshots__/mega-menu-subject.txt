@@ -1,0 +1,4 @@
+term:    Mega menu
+scope:   element
+subject: div.sp-menu[aria-label=Products][data-open][data-part=panel]
+text:    Platform AnalyticsAutomationsData warehouse By industry RetailFintechLogistics R

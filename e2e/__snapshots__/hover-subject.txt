@@ -1,0 +1,4 @@
+term:    Hover
+scope:   element
+subject: button.sp-button[data-part=live][type=button]
+text:    Follow Priya

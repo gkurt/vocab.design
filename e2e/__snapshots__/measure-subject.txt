@@ -1,0 +1,4 @@
+term:    Measure
+scope:   element
+subject: p.sp-prose[data-cpl=66][data-ideal][data-part=col-66]
+text:    The eye reads a line, sweeps back to the left edge, and drops one line down. The

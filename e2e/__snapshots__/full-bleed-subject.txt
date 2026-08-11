@@ -1,0 +1,4 @@
+term:    Full bleed
+scope:   element
+subject: figure[data-bleed][data-part=band]
+text:    Plate 4, edge to edge

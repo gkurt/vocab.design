@@ -1,0 +1,4 @@
+term:    Brutalist web design
+scope:   element
+subject: div[data-part=fragment]
+text:    Field Recordings Updated 4 March. Three hundred bytes of CSS, and most of that i

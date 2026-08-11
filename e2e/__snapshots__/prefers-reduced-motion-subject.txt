@@ -1,0 +1,4 @@
+term:    Reduced motion
+scope:   element
+subject: div.sp-surface[data-open][data-part=panel]
+text:    Filters Unread first, flagged pinned, everything else by date.

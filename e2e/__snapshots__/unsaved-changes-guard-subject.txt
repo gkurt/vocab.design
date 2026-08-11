@@ -1,0 +1,4 @@
+term:    Unsaved changes guard
+scope:   element
+subject: div.sp-dialog[aria-labelledby=ucg-title][aria-modal=true][data-open][data-part=guard][role=alertdialog]
+text:    Leave without saving? Your edits to Harbour notes have not been saved. Going bac

@@ -1,0 +1,4 @@
+term:    Soft delete
+scope:   element
+subject: div.sp-row.sp-surface[data-note=tide][data-part=undo-row][role=status]
+text:    Tide tables moved to Trash Undo

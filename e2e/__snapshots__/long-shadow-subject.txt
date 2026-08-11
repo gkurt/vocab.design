@@ -1,0 +1,4 @@
+term:    Long shadow
+scope:   element
+subject: div[data-part=tile][data-shadow=long]
+text:    N

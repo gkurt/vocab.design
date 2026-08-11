@@ -1,0 +1,4 @@
+term:    Label association
+scope:   element
+subject: div.sp-field[data-part=field-tied]
+text:    Email address

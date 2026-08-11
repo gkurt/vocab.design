@@ -1,0 +1,4 @@
+term:    Secondary click
+scope:   element
+subject: div.sp-option.sp-surface[aria-selected=false][data-part=tile-2][role=option]
+text:    Sketches

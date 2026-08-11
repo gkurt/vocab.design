@@ -1,0 +1,4 @@
+term:    Sidebar
+scope:   element
+subject: aside[data-mode=wide][data-part=sidebar]
+text:    Harbour Inbox Starred Schedule Settings MK Mira K.

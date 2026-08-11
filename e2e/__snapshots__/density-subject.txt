@@ -1,0 +1,4 @@
+term:    Density
+scope:   element
+subject: div.sp-surface[data-density=comfortable][data-part=region]
+text:    Symbol Side Qty Price ARLO Buy 1,200 18.40 BNTX Sell 340 96.15 CRWV Buy 80 212.0

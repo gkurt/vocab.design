@@ -28,26 +28,26 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 400px; height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Spacing</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="soup">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="stack">
             <button class="sp-segment" data-part="seg-soup" value="soup">Per item</button>
             <button class="sp-segment" data-part="seg-stack" value="stack">One rule</button>
           </sp-segmented>
         </div>
         <div class="sp-body">
-          <div data-part="column" data-subject data-mode="soup" data-rhythm="ragged" style="padding: 0 10px">
-            <div class="sp-surface" data-part="item-1" style="padding: 6px 10px; margin-top: ${SOUP[0]}px">
+          <div data-part="column" data-subject data-mode="stack" data-rhythm="even" style="padding: 0 10px">
+            <div class="sp-surface" data-part="item-1" style="padding: 6px 10px; margin-top: 0px">
               <span class="sp-heading" style="font-size: 13px">Tide tables</span>
             </div>
-            <div class="sp-surface" data-part="item-2" style="padding: 8px 10px; margin-top: ${SOUP[1]}px">
+            <div class="sp-surface" data-part="item-2" style="padding: 8px 10px; margin-top: 0px">
               <div class="sp-stack" style="gap: 6px">
                 <div class="sp-line" style="width: 88%"></div>
                 <div class="sp-line" style="width: 72%"></div>
               </div>
             </div>
-            <div class="sp-surface" data-part="item-3" style="padding: 8px 10px; margin-top: ${SOUP[2]}px">
+            <div class="sp-surface" data-part="item-3" style="padding: 8px 10px; margin-top: 0px">
               <div class="sp-line" style="width: 54%"></div>
             </div>
-            <div class="sp-surface" data-part="item-4" style="padding: 6px 10px; margin-top: ${SOUP[3]}px">
+            <div class="sp-surface" data-part="item-4" style="padding: 6px 10px; margin-top: 0px">
               <span class="sp-label">Revised in March</span>
             </div>
           </div>
@@ -86,5 +86,7 @@ export function mount(root: HTMLElement): void {
   };
 
   part(root, 'segmented').addEventListener('change', (event) => setMode((event as CustomEvent<string>).detail));
-  setMode('soup');
+  // Mounts on the term itself: the identify pose is the mount state, and a stack
+  // posed as margin soup would claim the counter-example (SPEC §6).
+  setMode('stack');
 }

@@ -31,8 +31,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-heading sp-grow">Notes</span>
           <span class="sp-row sp-text" data-part="trash" data-count="0" style="gap: 6px">${icon('trash')}<span data-part="trash-text">Trash 0</span></span>
         </div>
-        <div class="sp-body sp-context" style="display: flex; flex-direction: column; gap: 10px">
-          <ul class="sp-list sp-surface sp-grow" data-part="list"></ul>
+        <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
+          <ul class="sp-list sp-surface sp-grow sp-context" data-part="list"></ul>
           <div data-part="slot" style="flex: 0 0 auto">
             <div class="sp-row sp-surface" data-part="undo-row" data-subject role="status" style="padding: 8px 10px; box-shadow: var(--sp-shadow)">
               <span class="sp-text sp-text--ink sp-grow" data-part="undo-text">Deleted</span>

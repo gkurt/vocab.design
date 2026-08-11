@@ -1,0 +1,4 @@
+term:    Kanban board
+scope:   element
+subject: div.sp-row[data-part=board]
+text:    Todo 3 Rewrite introAudit links Index cards Doing 1 Plate scans Next Done 2 Set 

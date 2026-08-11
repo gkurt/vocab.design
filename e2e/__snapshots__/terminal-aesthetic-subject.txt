@@ -1,0 +1,4 @@
+term:    Terminal aesthetic
+scope:   element
+subject: div[data-part=terminal]
+text:    SYS/OS 2.1 READY. 32K FREE. > disk ............. OK tape ............. OK modem 
