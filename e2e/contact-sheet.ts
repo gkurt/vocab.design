@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
+import { absoluteUrl } from '#src/lib/url.ts';
 import { CONTACT_SHEET, IDENTIFY_SHOTS, SUBJECT_SNAPSHOTS } from './harness.ts';
 
 /**
@@ -29,7 +30,7 @@ export default function contactSheet(): void {
     const data = readFileSync(join(IDENTIFY_SHOTS, file)).toString('base64');
     return `<figure>
       <img src="data:image/png;base64,${data}" alt="${slug} with identify engaged" />
-      <figcaption><a href="https://vocab.design/${slug}">${slug}</a><pre>${escapeHtml(subject)}</pre></figcaption>
+      <figcaption><a href=${JSON.stringify(absoluteUrl(`/${slug}`))}>${slug}</a><pre>${escapeHtml(subject)}</pre></figcaption>
     </figure>`;
   });
 

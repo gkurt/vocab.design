@@ -5,6 +5,7 @@ import Base from '#src/layouts/Base.astro';
 import { slugify } from '#src/lib/slug.ts';
 import type { TermEntry } from '#src/lib/terms.ts';
 import { getTerms } from '#src/lib/terms.ts';
+import { pageUrl } from '#src/lib/url.ts';
 
 interface Props {
   term: TermEntry;
@@ -48,7 +49,10 @@ const reverse = (kind: 'variantOf' | 'partOf') =>
     .sort();
 
 const relationGroups = [
-  { label: 'Contrast with', slugs: d.relations.contrastWith.filter((s) => !tabled.has(s)) },
+  {
+    label: 'Contrast with',
+    slugs: d.relations.contrastWith.filter((s) => !tabled.has(s)),
+  },
   { label: 'Variant of', slugs: d.relations.variantOf },
   { label: 'Variants', slugs: reverse('variantOf') },
   { label: 'Part of', slugs: d.relations.partOf },
@@ -65,7 +69,11 @@ const jsonLd = {
   alternateName: d.aliases.map((a) => a.name),
   description: d.definition,
   url: canonicalUrl,
-  inDefinedTermSet: { '@type': 'DefinedTermSet', name: 'vocab.design', url: 'https://vocab.design' },
+  inDefinedTermSet: {
+    '@type': 'DefinedTermSet',
+    name: 'vocab.design',
+    url: 'https://vocab.design',
+  },
 };
 
 const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')})` : '';
@@ -76,43 +84,58 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
     <html lang="en">
       <head>
         <meta charset="utf-8" />
-        <title>{redirectFrom} → {d.name} · vocab.design</title>
+        <title>
+          {redirectFrom} → {d.name} · vocab.design
+        </title>
         <link rel="canonical" href={canonicalUrl} />
         <meta http-equiv="refresh" content={`0; url=/${d.slug}`} />
       </head>
       <body>
         <p>
-          “{redirectFrom}” is another name for <a href={`/${d.slug}`}>{d.name}</a>.
+          “{redirectFrom}” is another name for{" "}
+          <a href={pageUrl(`/${d.slug}`)}>{d.name}</a>.
         </p>
       </body>
     </html>
   ) : (
-    <Base title={`${d.name}${aka} · ${d.category} · vocab.design`} description={d.definition}>
-      <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <Base
+      title={`${d.name}${aka} · ${d.category} · vocab.design`}
+      description={d.definition}
+    >
+      <script
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd)}
+      />
       <article>
         <p class="text-sm text-muted italic">{d.category}</p>
-        <h1 class="mt-1 font-serif text-5xl font-semibold tracking-tight">{d.name}</h1>
+        <h1 class="mt-1 font-serif text-5xl font-semibold tracking-tight">
+          {d.name}
+        </h1>
         {d.aliases.length > 0 && (
           <p class="mt-3 text-sm text-muted">
-            also called{' '}
+            also called{" "}
             {d.aliases.map((a, i) => (
               <>
-                {i > 0 && ', '}
+                {i > 0 && ", "}
                 <span class="text-ink italic">{a.name}</span>
-                {a.source && <span> ({bySlug.get(a.source)?.name ?? a.source})</span>}
+                {a.source && (
+                  <span> ({bySlug.get(a.source)?.name ?? a.source})</span>
+                )}
               </>
             ))}
           </p>
         )}
         <p class="article mt-6 text-xl">{d.definition}</p>
 
-        {d.status === 'stub' && (
+        {d.status === "stub" && (
           <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-            This entry is in progress. The definition is here so links never dead-end; the full article and specimen are coming.
+            This entry is in progress. The definition is here so links never
+            dead-end; the full article and specimen are coming.
           </p>
         )}
 
-        {d.demo !== 'none' && (
+        {d.demo !== "none" && (
           <div class="mt-8">
             <SpecimenStage slug={d.slug} name={d.name} isolation={d.demo} />
           </div>
@@ -124,7 +147,9 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
 
         {d.useWhen && (
           <section class="mt-10">
-            <h2 class="text-sm tracking-wide text-muted uppercase">Which word?</h2>
+            <h2 class="text-sm tracking-wide text-muted uppercase">
+              Which word?
+            </h2>
             <table class="mt-3 w-full text-sm">
               <thead>
                 <tr class="text-left text-muted">
@@ -141,7 +166,10 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
                   <tr class="border-t border-line">
                     <td class="py-2 pr-4">{row.useWhen}</td>
                     <td class="py-2">
-                      <a href={`/${row.slug}`} class="text-accent underline underline-offset-3">
+                      <a
+                        href={pageUrl(`/${row.slug}`)}
+                        class="text-accent underline underline-offset-3"
+                      >
                         {row.name.toLowerCase()}
                       </a>
                     </td>
@@ -160,8 +188,11 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
                 <span class="text-muted">{group.label}: </span>
                 {group.slugs.map((s, i) => (
                   <>
-                    {i > 0 && ' · '}
-                    <a href={`/${s}`} class="text-accent underline underline-offset-3">
+                    {i > 0 && " · "}
+                    <a
+                      href={pageUrl(`/${s}`)}
+                      class="text-accent underline underline-offset-3"
+                    >
                       {bySlug.get(s)?.name ?? s}
                     </a>
                   </>
@@ -173,15 +204,23 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
 
         {d.implementations.length > 0 && (
           <section class="mt-10">
-            <h2 class="text-sm tracking-wide text-muted uppercase">Implementations</h2>
-            <p class="mt-1 text-sm text-muted">Specimens illustrate the concept; for production use, start here.</p>
+            <h2 class="text-sm tracking-wide text-muted uppercase">
+              Implementations
+            </h2>
+            <p class="mt-1 text-sm text-muted">
+              Specimens illustrate the concept; for production use, start here.
+            </p>
             <table class="mt-3 w-full text-sm">
               <tbody>
                 {d.implementations.map((impl) => (
                   <tr class="border-t border-line">
                     <td class="py-2 pr-4 text-muted">{impl.system}</td>
                     <td class="py-2">
-                      <a href={impl.url} class="text-accent underline underline-offset-3" rel="noopener">
+                      <a
+                        href={impl.url}
+                        class="text-accent underline underline-offset-3"
+                        rel="noopener"
+                      >
                         {impl.name}
                       </a>
                     </td>
@@ -198,7 +237,11 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
             <ul class="mt-2 text-sm">
               {d.sources.map((source) => (
                 <li>
-                  <a href={source.url} class="text-accent underline underline-offset-3" rel="noopener">
+                  <a
+                    href={source.url}
+                    class="text-accent underline underline-offset-3"
+                    rel="noopener"
+                  >
                     {source.title}
                   </a>
                 </li>
