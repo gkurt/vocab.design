@@ -1,0 +1,4 @@
+term:    Light dismiss
+scope:   element
+subject: div.sp-popover[aria-label=Share][data-open][data-part=popover][role=dialog]
+text:    Anyone with the link Copy link Send by email

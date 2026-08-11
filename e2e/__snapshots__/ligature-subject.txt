@@ -1,0 +1,4 @@
+term:    Ligature
+scope:   element
+subject: div[data-part=lig-on][data-word=waffle]
+text:    waffle

@@ -1,0 +1,4 @@
+term:    Flat design
+scope:   element
+subject: div[data-part=flat]
+text:    Night Shift Ora Vance Play

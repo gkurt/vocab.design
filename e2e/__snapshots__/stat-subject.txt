@@ -1,0 +1,4 @@
+term:    Stat
+scope:   element
+subject: div.sp-surface[data-part=stat]
+text:    Revenue $48,210 +12.4%

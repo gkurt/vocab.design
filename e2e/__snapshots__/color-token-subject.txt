@@ -1,0 +1,4 @@
+term:    Color token
+scope:   element
+subject: div.sp-stack[data-part=chain][data-theme=aurora]
+text:    primitive blue.600 orange.500 semantic color.accent = blue.600 component button.

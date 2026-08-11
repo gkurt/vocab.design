@@ -1,0 +1,4 @@
+term:    Offline indicator
+scope:   element
+subject: div.sp-row.sp-surface[data-part=pill][role=status]
+text:    Offline. You can keep reading and writing.

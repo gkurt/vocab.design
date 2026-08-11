@@ -1,0 +1,4 @@
+term:    Liquid Glass
+scope:   element
+subject: div.sp-glass[data-part=bar]
+text:    library albums search

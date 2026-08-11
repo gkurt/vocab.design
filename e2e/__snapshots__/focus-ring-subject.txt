@@ -1,0 +1,4 @@
+term:    Focus ring
+scope:   element
+subject: button.sp-button.sp-button--ghost[data-part=control-copy][data-sim-focus][type=button]
+text:    Copy link

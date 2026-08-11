@@ -1,0 +1,51 @@
+---
+name: Drag and drop
+slug: drag-and-drop
+category: interaction
+status: published
+definition: >-
+  Picking up an object, moving it under continuous pointer or finger contact, and
+  releasing it over a target that accepts it.
+aliases:
+  - name: pick up and move
+    source: material
+  - name: dnd
+relations:
+  contrastWith: [drop-zone]
+  seeAlso: [grabber]
+implementations: []
+sources:
+  - title: "MDN: HTML Drag and Drop API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+  - title: "Cloudscape: Drag and drop pattern"
+    url: https://cloudscape.design/patterns/general/drag-and-drop/
+demo: inline
+useWhen: moving an object onto a target by holding it the whole way
+---
+
+Drag and drop is one gesture with three beats, and an interface has to answer all
+three. On pick up, the object has to look picked up: lifted, slightly transparent,
+or removed from its slot. During the move, the destination has to say whether it
+would accept this thing, which is what a drop zone is for. On release, the object
+has to be somewhere, and if it is not, the interface owes the reader an animation
+back to where it came from rather than a silent snap.
+
+The web has two ways to build it and they are not interchangeable. The HTML Drag
+and Drop API (`dragstart`, `dragover`, `drop`) is the only one that can carry data
+across windows and from the desktop, which is why file uploads use it, but its
+drag image is hard to style and its event model is old and quirky. Pointer events
+plus your own hit testing give you full control of the ghost, the placeholder, and
+the animation, which is why reorderable lists are almost always built that way.
+Sorting cards inside one page is a pointer-events job, and accepting a file dropped
+from Finder is not.
+
+Whatever you build it with, drag and drop cannot be the only way to do the thing.
+It is a gesture with no discoverability, real precision demands, and no keyboard
+equivalent, so it fails a reader using a keyboard, a switch, or a tremor-prone
+hand. Ship a menu item, a Move to command, or arrow key reordering alongside it,
+and announce the result when the drop lands so the change is not visible only to
+people who watched it happen. Cloudscape puts this plainly: treat dragging as the
+accelerator, not the mechanism.
+
+On touch, add a press and hold before the drag starts. Without it, every attempt
+to scroll a list picks up whatever your thumb landed on.

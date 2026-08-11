@@ -1,0 +1,4 @@
+term:    Drop zone
+scope:   element
+subject: div[aria-label=Drop files to upload][data-part=zone][role=button]
+text:    Drop a file here PDF or PNG, up to 10 MB

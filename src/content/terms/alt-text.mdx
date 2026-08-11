@@ -1,0 +1,55 @@
+---
+name: Alt text
+slug: alt-text
+category: accessibility
+status: published
+definition: >-
+  The text alternative that stands in for an image, written to serve the same
+  purpose in the same context rather than to describe every detail.
+aliases:
+  - name: alternative text
+    source: wcag
+  - name: text alternative
+    source: wcag
+  - name: alt attribute
+    source: html
+  - name: image description
+relations:
+  contrastWith: [accessible-name, visually-hidden]
+implementations:
+  - system: fluent
+    name: Rich media and alternatives
+    url: https://fluent2.microsoft.design/accessibility
+sources:
+  - title: 'WCAG 2.2: Non-text Content'
+    url: https://www.w3.org/TR/WCAG22/#non-text-content
+  - title: 'WebAIM: Images and Alternative Text'
+    url: https://webaim.org/articles/
+demo: inline
+useWhen: writing what an image says when it cannot be seen
+---
+
+Alt text is not a description of an image. It is a replacement for one. The test to
+write against is simple: take the picture away, put your sentence in the hole it
+left, and read the page. If it still does the same job, the alt text is right.
+
+That test settles most of the arguments, because it makes the answer depend on
+context rather than on the file. The same photograph of a coffee grinder is "Baratza
+Encore, matte black" in a shop listing, "the grind size dial set to 18" in a tutorial
+about grind size, and nothing at all in a hero banner where the words beside it
+already say everything. Purely decorative images take an empty `alt=""`, which is not
+the same as leaving the attribute off: an empty alt removes the image from the
+accessibility tree, and a missing alt leaves screen readers announcing a filename.
+
+The usual rules follow from the test. Do not open with "image of" or "photo of",
+since the reader is already told it is an image. Do not repeat the caption or the
+sentence next to it, which produces the same words twice. If the image is a link or a
+button, the alt text names the destination or the action, not the picture, because
+that is what the control does. If the image is a chart or a diagram carrying data,
+the alternative is longer than an attribute holds, so put the content in the page and
+point at it.
+
+Alt text is also the fallback the browser reaches for when an image does not arrive:
+blocked, mistyped, still loading on a bad connection. That is why the alt is worth
+sizing for. An image box that keeps its dimensions and shows its text alternative
+degrades into something readable instead of into a broken icon.

@@ -1,0 +1,54 @@
+---
+name: Color token
+slug: color-token
+category: color
+status: published
+definition: >-
+  A named colour decision stored once and referenced everywhere, so retheming is a
+  change to the value rather than an edit at every place it is used.
+aliases:
+  - name: design token
+  - name: color variable
+  - name: CSS custom property
+  - name: Figma variable
+    source: figma
+relations:
+  seeAlso: [accent-color]
+implementations: []
+sources:
+  - title: "Design Tokens Color Module"
+    url: https://www.designtokens.org/tr/drafts/color/
+  - title: "Design Tokens Format Module"
+    url: https://w3c.github.io/cg-reports/design-tokens/CG-FINAL-format-20251028/
+demo: inline
+useWhen: a colour stored as a name so it can be repointed
+---
+
+A token is a name with a value behind it and, crucially, a promise that everything
+which wants that decision asks for the name. The payoff is not tidiness, it is that
+a change has one address. When a button, a link, a focus ring and a selected row
+all reference `color.accent`, moving the brand from blue to orange is one edit
+instead of a search across a codebase for a hex value that was also, in three
+places, slightly wrong.
+
+Most systems organise tokens in tiers. The primitive tier is the raw palette,
+named for what the colour is (`blue.600`). The semantic tier is named for the job
+it does (`color.accent`, `surface.subtle`, `text.danger`) and holds a reference to
+a primitive rather than a value of its own. A component tier can then pin a
+specific part to a semantic name (`button.background`). Only the semantic tier
+should ever be referenced by a component author, because a component that reaches
+past it to `blue.600` reintroduces exactly the coupling tokens were meant to
+remove.
+
+Tokens are also a format problem, not only a naming one. The same set has to reach
+CSS custom properties, Figma variables, iOS and Android, which is why the Design
+Tokens Community Group specified a JSON interchange format with typed values and
+explicit aliases. That is what lets one source generate `--color-accent`,
+a Swift constant, and a Figma variable collection that all agree.
+
+The common failures are worth naming. Tokens called `blue.600` used directly in
+components, so the theme cannot move. Tokens called `color.primary.new.2`, which
+record a migration instead of a decision. And too many tiers, where following a
+button's background through five aliases to find a hex value costs more than the
+indirection saves. A [semantic colour](/semantic-color) layer over a
+[color ramp](/color-ramp) is usually all the depth a product needs.

@@ -1,0 +1,47 @@
+---
+name: Hover lift
+slug: hover-lift
+category: motion
+status: published
+definition: >-
+  A card or button that rises a few pixels and deepens its shadow while the
+  pointer is over it, so the whole surface reads as lifted toward the reader.
+aliases:
+  - name: lift on hover
+  - name: card lift
+  - name: raise on hover
+  - name: elevation on hover
+relations:
+  contrastWith: [state-layer]
+sources:
+  - title: 'Subframe: CSS card hover effect examples'
+    url: https://www.subframe.com/tips/css-card-hover-effect-examples
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+demo: inline
+useWhen: a whole surface should answer the pointer, not just its border
+---
+
+A hover lift is two changes made together: the surface translates a few pixels
+up, and its shadow grows softer and further away. Neither half works alone. Move
+the card without changing the shadow and it looks like it slid rather than rose;
+deepen the shadow without moving it and the light source appears to have jumped.
+Done together they read as one physical fact, that the card has come closer to
+the reader, and the whole rectangle becomes the thing being pointed at rather
+than the word or the border inside it.
+
+The numbers are small. Two to six pixels of travel and a shadow roughly twice as
+diffuse is the whole range; past that a grid of cards starts popping like keys
+on a keyboard. It has to be a transform, never a change to margin, top, or
+height, because those recalculate layout and would nudge every neighbour in the
+row. Give it a short duration in and a slightly longer one out, since a lift
+that snaps back the instant the pointer leaves feels like the card dropped
+rather than settled.
+
+The affordance is honest only where the whole surface really is clickable, which
+is why a lift on a card whose only link is the title is a lie the reader finds
+out about by clicking the wrong part. It also says nothing at all on a
+touchscreen, where there is no hover to speak of, and it is not a focus
+indicator: keyboard readers need a visible focus outline, and elevation is not
+one. Treat the lift as decoration on top of a state that is already expressed
+some other way.

@@ -1,0 +1,47 @@
+---
+name: Shake
+slug: shake-animation
+category: motion
+status: published
+definition: >-
+  A short lateral wobble used to reject an input, borrowed from the head shake and
+  read as no rather than as an error message.
+aliases:
+  - name: error shake
+  - name: wrong password shake
+  - name: head shake
+  - name: wobble
+relations:
+  seeAlso: [inline-validation]
+sources:
+  - title: 'School of Motion: motion design dictionary'
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: an input is refused and should be felt, not just read
+---
+
+A shake is a refusal expressed as motion. The control moves a few pixels left,
+right, and back, two or three times, in under half a second, and lands exactly
+where it started. Nobody has to read anything to know what happened, because the
+gesture is the human head shake with the head taken out, and it arrives before
+the eye has finished travelling to any text that came with it. The macOS login
+window made it famous, and the pattern has been copied into every passcode
+screen since.
+
+The motion has strict limits. It has to be lateral, because a vertical wobble
+reads as a bounce and a bounce reads as playful. It has to be short, because
+anything past roughly 500ms stops being a reaction and starts being a complaint.
+And the amplitude has to decay, so the last pass is smaller than the first: a
+wobble of constant width reads as a mechanical loop rather than as something
+recoiling. Because it returns to its origin and moves by transform, it costs no
+layout at all and nothing around it shifts.
+
+A shake is a reaction, not a status. It happens once, at the moment of the
+rejection, and then it is gone, so it can never be the only thing that says an
+attempt failed. Pair it with text that stays: an
+[error message](/error-message) beneath the field, or
+[inline validation](/inline-validation) that survives long enough to be read.
+Motion is unavailable to anyone not looking at that part of the screen, and it is
+switched off entirely for readers who ask for reduced motion, which is the
+correct behaviour precisely because the shake was never carrying information the
+words did not already carry.

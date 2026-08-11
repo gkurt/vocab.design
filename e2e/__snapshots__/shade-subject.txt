@@ -1,0 +1,4 @@
+term:    Shade
+scope:   element
+subject: div.sp-row[data-part=shades]
+text:    25% 45% 65% 85%

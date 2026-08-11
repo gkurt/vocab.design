@@ -1,0 +1,50 @@
+---
+name: Count-up animation
+slug: count-up-animation
+category: motion
+status: published
+definition: >-
+  Animating a number toward its value instead of setting it, often with digits
+  rolling like an odometer so the change is legible.
+aliases:
+  - name: odometer animation
+  - name: rolling numbers
+  - name: number ticker
+  - name: animated counter
+  - name: slot machine numbers
+  - name: rolling digits
+  - name: value change
+relations:
+  contrastWith: [typewriter-effect]
+  seeAlso: [tabular-figures]
+sources:
+  - title: 'School of Motion: motion design dictionary'
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: a number changing should be noticed and read
+---
+
+Setting a number is instant and therefore invisible: if a dashboard figure swaps
+from 96,200 to 128,400 while the reader is looking somewhere else, nothing on
+screen ever said that it moved. A count-up interpolates the value over a few
+hundred milliseconds so the change has a duration, and a duration is something
+peripheral vision can catch. The odometer variant goes further and animates each
+digit column as a strip that rolls, which is what makes the effect read as a
+mechanism rather than as a number flickering.
+
+The technique has two failure modes and both are about respect for the reader.
+The first is length: counting from zero over two seconds turns a figure someone
+came to read into a figure they have to wait for, so keep it under about 800ms
+and ease it out hard, spending most of the animation near the final value rather
+than near the start. The second is credibility. A count-up that runs on every
+page load implies news where there is none, which is why it belongs on a value
+that actually just changed, not on every stat in the grid.
+
+Whatever the duration, the number must not resize the layout while it runs.
+That means tabular figures, so every digit occupies the same width and the
+column cannot wobble, and it means reserving the width of the final string
+rather than of the first. Under reduced motion there is nothing to
+negotiate: skip the interpolation and set the value, since the count was only
+ever a way of drawing attention to a number that is correct either way. The same
+goes for the frames themselves, which should come from the animation clock the
+rest of the interface uses rather than from a timer of the component's own.

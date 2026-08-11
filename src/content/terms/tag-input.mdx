@@ -1,0 +1,53 @@
+---
+name: Tag input
+slug: tag-input
+category: component
+status: published
+definition: >-
+  A field that turns each entry into a removable tag sitting inside the field,
+  with the caret waiting after the last one.
+aliases:
+  - name: token field
+  - name: tags input
+    source: mantine
+  - name: chips input
+  - name: pill input
+relations:
+  contrastWith: [chip]
+sources:
+  - title: 'Blueprint: Tag input'
+    url: https://blueprintjs.com/docs/#core/components/tag-input
+demo: inline
+useWhen: a reader types an open ended set of short values
+---
+
+A tag input is a text field that keeps eating its own content. You type a value,
+press a commit key, and the text stops being text: it becomes a small object
+inside the field, with its own remove control, and the caret reappears after it
+ready for the next one. The email recipient row is the pattern everybody has used,
+and it generalises to topics, skills, ingredients, anything that is a set of short
+values rather than one string.
+
+The commit key is the design decision. Enter is universal, comma is expected by
+anyone who has typed a list before, and Tab is contentious because it also means
+"leave this field". Whatever the set, the same rules have to hold at the edges:
+pasting a comma separated list produces several tags rather than one long one,
+leaving the field commits whatever is half typed instead of silently discarding
+it, and Backspace on an empty caret picks up the previous tag rather than deleting
+the whole field. Duplicates are worth catching at the moment of commit, when the
+input can simply flash the existing tag rather than adding a second copy.
+
+Two neighbours are easy to confuse with it. A multi-select combobox draws the same
+row of tokens, but its values come from a list the system owns, and typing filters
+that list rather than authoring anything. A tag input accepts what it is given.
+The middle ground, a field that suggests known values but still allows new ones,
+is the most common shipped form and needs to be explicit about which it is doing,
+usually by offering a "create" row in the suggestions.
+
+Accessibility is where this control most often falls apart. The tags are inside
+the field visually but they are separate controls, so each remove button needs a
+name that says what it removes, and the field needs a live region to announce
+additions and removals: without one, a keyboard user commits a value and hears
+nothing at all. Say the commit key in help text under the field too, because a
+field that quietly refuses to keep what was typed is the single most common
+complaint about the pattern.

@@ -1,0 +1,4 @@
+term:    Hero
+scope:   element
+subject: section.sp-row[data-part=hero]
+text:    Every survey, in one notebook Field notes, tide tables, and photographs, filed a

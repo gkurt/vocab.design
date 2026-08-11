@@ -1,0 +1,46 @@
+---
+name: Typewriter effect
+slug: typewriter-effect
+category: motion
+status: published
+definition: >-
+  Revealing text one character at a time, as if it were being typed, usually with
+  a blinking caret trailing the last letter.
+aliases:
+  - name: typing animation
+  - name: text scramble
+  - name: streaming text
+  - name: typed text
+  - name: text morph
+relations:
+  contrastWith: [count-up-animation]
+sources:
+  - title: 'School of Motion: motion design dictionary'
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: text should arrive as if being written right now
+---
+
+The typewriter effect adds a character at a time until the sentence is whole,
+with a caret blinking after the last letter so the line reads as being written
+rather than as being drawn. It came from terminals, moved to hero headlines as
+the decorative way to cycle a list of nouns, and then found a genuine job:
+tokens arriving from a language model look exactly like this, so the effect
+stopped being an ornament and became an honest report of a stream.
+
+That is the distinction worth keeping. When the text is really arriving over
+time, the animation is a status indicator and its pace should follow the source.
+When the text is already there, the animation is a delay you invented, and a
+reader who wanted the sentence now has to wait for it. The second kind belongs
+in short, skippable places, never in front of an instruction someone needs, and
+never on a loop that deletes and retypes the same words while the page is being
+read.
+
+Two implementation details matter more than the timing curve. The first is
+space: the text must be laid out at full length from the start, either by
+reserving its box or by rendering it and clipping, so the paragraph below does
+not creep upward line by line. The second is the accessibility of a partial
+sentence. Assistive technology should be given the complete string rather than
+sixty separate updates, so keep the animated copy out of a live region and let
+the finished text be what is announced. Under reduced motion, print the line and
+keep the caret still.

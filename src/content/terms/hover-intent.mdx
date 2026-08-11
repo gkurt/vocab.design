@@ -1,0 +1,54 @@
+---
+name: Hover intent
+slug: hover-intent
+category: interaction
+status: published
+definition: >-
+  Waiting out a short delay or watching cursor direction before acting on a hover,
+  so a pointer merely passing through does not open anything.
+aliases:
+  - name: hover delay
+  - name: intent detection
+  - name: safe triangle
+  - name: diagonal problem
+relations:
+  seeAlso: [tooltip]
+implementations: []
+sources:
+  - title: "Baymard: Provide a hover delay of 300 to 500 ms"
+    url: https://baymard.com/blog/dropdown-menu-flickering-issue
+  - title: "NN/g: Timing guidelines for exposing hidden content"
+    url: https://www.nngroup.com/articles/timing-exposing-content/
+  - title: "CSS-Tricks: Dropdown menus with more forgiving mouse movement paths"
+    url: https://css-tricks.com/dropdown-menus-with-more-forgiving-mouse-movement-paths/
+demo: inline
+useWhen: telling a deliberate hover from one passing through
+---
+
+A pointer crossing a navigation bar passes over every item on the way to the one
+it wants. If each of those hovers opens a panel, the reader gets a strobe of menus
+they never asked for, and the one they did want arrives last and looks the same as
+the noise. Hover intent is the rule that says a hover has to be held before it
+counts. Baymard's number is a delay of 300 to 500 milliseconds, which is long
+enough to filter a pass through and short enough that a deliberate hover does not
+feel broken.
+
+The delay is the easy half. The hard half is the diagonal problem: once the menu
+is open, the reader moves toward an item in it, and that diagonal path crosses a
+sibling trigger on the way, closing the menu out from under them. The classic
+fixes both amount to forgiving the path rather than the position. Track the
+cursor's direction and keep the menu open while the movement points into it, or
+compute the triangle between the cursor and the menu's far corners and treat
+anything inside that triangle as still on target. Amazon's mega menu is the
+famous example of the triangle approach.
+
+Give the close its own delay too, usually shorter than the open. A hover that
+flickers off because the pointer clipped a one pixel gap between the trigger and
+the panel is the same failure viewed from the other side. Also note that CSS
+alone can buy you the open delay, with `transition-delay` on a `:hover` rule, but
+it cannot do direction or geometry, so anything past the basic dwell means
+JavaScript.
+
+None of this helps a touch screen, which has no hover to be intentional about, or
+a keyboard, where focus is already deliberate by definition. Apply the delay to
+pointers only and let focus open immediately.

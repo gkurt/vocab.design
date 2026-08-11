@@ -1,0 +1,4 @@
+term:    Inert
+scope:   element
+subject: div.sp-body[data-part=page]
+text:    Project name Save draft Rename Draft saved

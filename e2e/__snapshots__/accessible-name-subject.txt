@@ -1,0 +1,4 @@
+term:    Accessible name
+scope:   element
+subject: button.sp-icon-button[aria-label=Delete draft][data-part=control-icon][type=button]
+text:    

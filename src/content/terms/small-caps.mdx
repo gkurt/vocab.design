@@ -1,0 +1,54 @@
+---
+name: Small caps
+slug: small-caps
+category: typography
+status: published
+definition: >-
+  Capital letters drawn at roughly lowercase height, with weight adjusted to
+  match, so an abbreviation does not shout inside running text.
+aliases:
+  - name: smallcaps
+  - name: SC
+    source: opentype
+  - name: 'font-variant-caps: small-caps'
+    source: css
+relations:
+  seeAlso: [drop-cap]
+sources:
+  - title: 'Practical Typography: Small caps'
+    url: https://practicaltypography.com/
+  - title: 'MDN: OpenType font features'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts
+demo: inline
+useWhen: setting acronyms inside body text without shouting
+---
+
+An acronym set in full capitals inside a paragraph is a stack of tall letters in
+a line of short ones, and the eye reads it as emphasis whether or not any was
+intended. Small caps solve that by giving the same letters roughly the height of
+the lowercase around them. The sentence keeps its even colour and the
+abbreviation stops raising its voice.
+
+The word "drawn" is doing real work in the definition. True small caps are
+separate glyphs the type designer cut: shrinking a capital thins its strokes and
+narrows its proportions, so the type designer compensates by widening the
+letters and keeping the stroke weight of the lowercase. That is the whole
+difference between small caps and faux small caps, and it is visible as soon as
+the two sit side by side, because scaled capitals look pale next to the text
+they are embedded in.
+
+In CSS the feature is reached through `font-variant-caps`. The value
+`small-caps` converts lowercase letters; `all-small-caps` converts capitals as
+well, which is the one to use for an acronym typed as `NASA`, since the markup
+keeps the real string for search, copy, and screen readers while only the
+rendering changes. Both map onto the OpenType features `smcp` and `c2sc`. If the
+font has neither, browsers synthesize the effect by scaling capitals, so the
+property never fails outright, it quietly degrades to the fake. This specimen's
+own typeface is one of those: it carries no small-cap glyphs, so what the demo
+renders is the browser's scaled approximation, and the caption says so.
+
+Small caps belong to running text, in abbreviations, in the first few words
+after a [drop cap](/drop-cap), and in running heads. They are a poor choice for
+anything long, because a paragraph entirely in small caps loses the ascenders
+and descenders that make word shapes recognisable, which is the same reason all
+capitals reads slowly.

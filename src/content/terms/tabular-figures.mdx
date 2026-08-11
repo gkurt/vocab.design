@@ -1,0 +1,54 @@
+---
+name: Tabular figures
+slug: tabular-figures
+category: typography
+status: published
+definition: >-
+  Numerals drawn to identical widths so digits stack into columns, and so a
+  changing number does not shift the text around it.
+aliases:
+  - name: tabular numbers
+  - name: tabular-nums
+    source: css
+  - name: monospaced figures
+  - name: tnum
+    source: opentype
+  - name: fixed-width numerals
+relations:
+  seeAlso: [count-up-animation]
+sources:
+  - title: 'Facts about figures: numeric styles with OpenType features'
+    url: https://www.rwt.io/typography-tips/facts-about-figures-numeric-styles-with-opentype-features/
+  - title: 'OpenType at Work: Figure Styles'
+    url: https://typenetwork.com/articles/opentype-at-work-figure-styles
+demo: inline
+useWhen: numbers in a table, a timer, or a live counter
+---
+
+Most text faces draw a 1 narrower than a 0, because in a sentence a wide 1
+leaves a hole. Those are proportional figures, and they are the right default
+for running prose. Put the same numerals in a column and the flaw appears at
+once: the hundreds place of one row sits over the tens place of the next, and
+the column stops being readable as a column.
+
+Tabular figures fix this by giving every digit the same advance width, usually
+the width of the widest one. Rows of the same length then line up digit over
+digit without any alignment work, and a decimal point falls where the eye
+expects it. The second effect matters even outside tables: a number that is
+being updated in place, a clock, a countdown, a live vote count, keeps a
+constant width, so nothing beside it twitches every time a digit changes. That
+is the same no-layout-shift argument this site's specimens are held to.
+
+In CSS the switch is `font-variant-numeric: tabular-nums`, which maps to the
+OpenType feature `tnum`; `proportional-nums` (`pnum`) asks for the other set.
+Both need the font to carry the feature, and a face with only one figure set
+will ignore the request rather than fake it, so it is worth checking the
+typeface before relying on it. The neighbouring axis is figure height, where
+lining figures all stand at cap height and oldstyle figures have ascenders and
+descenders like lowercase letters. The two axes are independent: tabular
+oldstyle figures exist and are lovely in a footnoted table.
+
+The habit worth building is scope. Setting `tabular-nums` on the whole document
+makes ordinary prose look faintly like a spreadsheet. Set it on tables, on
+metrics, on timers, on anything with a number that changes, and leave the
+paragraphs alone.

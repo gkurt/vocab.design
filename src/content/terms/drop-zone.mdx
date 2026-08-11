@@ -1,0 +1,50 @@
+---
+name: Drop zone
+slug: drop-zone
+category: interaction
+status: published
+definition: >-
+  The region that will accept a dragged item, usually highlighted while a
+  compatible drag is in flight so the destination is unmistakable.
+aliases:
+  - name: drop target
+    source: mdn
+  - name: dropzone
+  - name: drop area
+  - name: landing zone
+relations:
+  contrastWith: [drag-and-drop]
+implementations: []
+sources:
+  - title: "MDN: HTML Drag and Drop API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+demo: inline
+useWhen: the area that says a drag can land here
+---
+
+A drop zone is the answer to the question a drag asks the whole time it is in
+flight: where can this go? Its job is to be unmistakable, which means it has to
+change while something is over it, not merely sit there with a dashed border. The
+sequence readers rely on is three states: resting, armed the moment a compatible
+drag begins anywhere on the page, and active while the item is actually over this
+zone. The last one is what tells them to let go.
+
+Make the zone bigger than it looks. The visible dashed rectangle should sit inside
+a padded region that also accepts the drop, because releasing a file a few pixels
+outside the box and watching it do nothing is a small failure that reads as the
+feature being broken. On the same logic, decide what happens on a miss before you
+ship: an item dropped on nothing should animate back to where it came from, so the
+reader can see that the gesture was understood and refused.
+
+Say what the zone takes, and say it before the drop rather than after. The label
+carries the file types and the size limit, and if the drag holds something the
+zone cannot use, the active state should be a refusal rather than an invitation.
+On the web that means reading the drag data in `dragover` and calling
+`preventDefault()` only for the kinds you accept, since without that call the
+browser will not fire a drop at all. Note that the file names and MIME types are
+readable during the drag, so a wrong type can be rejected before anyone lets go.
+
+An upload drop zone always ships with a file input behind the same box, usually
+with the words choose a file. Dropping is the accelerator; the input is how the
+feature is actually reached by keyboard, by touch, and by anyone whose file
+manager is not sitting open beside the browser.

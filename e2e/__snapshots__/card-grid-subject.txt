@@ -1,0 +1,4 @@
+term:    Card grid
+scope:   element
+subject: ul.sp-grid[data-part=grid]
+text:    Field notebook 12 pages Tide log 4 pages Survey report with a long title 31 page

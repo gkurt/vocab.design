@@ -98,6 +98,41 @@
   }
 }
 
+/* Drift — the very slow wander of an aurora's blobs behind a surface. Alternating
+   back to its own first frame, and transform-only, so an ambient backdrop can
+   neither move the layout nor leave the scene somewhere it did not start. Shares
+   `--sp-i` with the stagger, which is how a field of blobs comes apart in phase. */
+.sp-drift {
+  animation: sp-drift var(--sp-drift-time, 18s) ease-in-out infinite alternate;
+  animation-delay: calc(var(--sp-i, 0) * -5s);
+}
+
+@keyframes sp-drift {
+  to {
+    transform: translate(var(--sp-drift-x, 40px), var(--sp-drift-y, -26px)) scale(1.14);
+  }
+}
+
+/* Caret — the blinking insertion point. It lives in the kit rather than in the demo
+   that types because an endless animation has to answer the stage: a CSS animation
+   is paused off-screen and dropped under reduced motion by the rules below, and a
+   `element.animate` one is reached by neither. The bar is drawn with a border so it
+   sits on the text baseline without occupying a character's width. */
+.sp-caret {
+  display: inline-block;
+  width: 0;
+  height: 1em;
+  border-left: 2px solid currentcolor;
+  vertical-align: text-bottom;
+  animation: sp-blink 1.06s steps(1, end) infinite;
+}
+
+@keyframes sp-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Motion never outlives attention (SPEC §7): the stage mirrors its player state
    onto the canvas, so an off-screen or handed-over specimen stops animating. */
 :host([data-state="paused"]) *,
@@ -114,6 +149,8 @@
   .sp-stagger-item,
   .sp-pending,
   .sp-pulse,
+  .sp-drift,
+  .sp-caret,
   [data-running] .sp-dot {
     animation: none;
   }

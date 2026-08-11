@@ -1,0 +1,4 @@
+term:    Shake
+scope:   element
+subject: div.sp-field[data-part=field]
+text:    Verification code

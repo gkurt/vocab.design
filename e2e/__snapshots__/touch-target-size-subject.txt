@@ -1,0 +1,4 @@
+term:    Touch target size
+scope:   element
+subject: button.sp-button.sp-button--ghost[aria-label=Favourite][data-part=target-big][type=button]
+text:    

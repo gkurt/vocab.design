@@ -1,0 +1,4 @@
+term:    Onboarding checklist
+scope:   element
+subject: div.sp-surface[data-part=card]
+text:    Get set up 1 of 3 done Name your workspace Done Invite a teammate To do Connect 

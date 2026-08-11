@@ -263,6 +263,15 @@
   opacity: 1;
 }
 
+/* The standalone listbox: the same list of options, sitting in the flow instead of
+   anchored under a field. Popping up is the combobox's behaviour, not the control's,
+   so a specimen about the list itself takes it out of the popup's coordinate space. */
+.sp-listbox--static {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+}
+
 .sp-option {
   padding: 6px 8px;
   border-radius: 5px;
@@ -313,4 +322,112 @@
   .sp-glass {
     background: rgb(255 255 255 / 0.42);
   }
+}
+
+/* Aurora — the soft, saturated field a glass surface is demonstrated over, and the
+   backdrop the aurora aesthetic is itself about. Its colours are stated here rather
+   than tokenized, for the same reason `.sp-swatch` takes its paint from the demo:
+   the kit has one accent on purpose and an aurora cannot be made of it. Like
+   `.sp-glass` it reads the same in both themes, because the wash is the term.
+   Blobs are separate children so a demo can place them, and drift them (`.sp-drift`). */
+.sp-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--sp-aurora-wash, linear-gradient(125deg, #4b6ef5, #b154c8 52%, #f2913d));
+}
+
+.sp-aurora-blob {
+  position: absolute;
+  width: var(--sp-blob-size, 170px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--sp-blob, #ffd166);
+  filter: blur(var(--sp-blob-blur, 26px));
+  opacity: 0.72;
+}
+
+/* Clay — an inflated pastel solid lit from the top left. The over-rounded corner
+   and the doubled inset lighting are the term, so both are stated locally instead
+   of taken from --sp-radius/--sp-shadow: a clay card at the kit radius is just a
+   card. Ink stays dark in both themes because the fill stays pastel in both. */
+.sp-clay {
+  border: 0;
+  border-radius: 26px;
+  background: var(--sp-clay-fill, #ccd5ff);
+  color: #23262b;
+  box-shadow:
+    0 12px 22px rgb(16 24 40 / 0.24),
+    inset 6px 6px 12px rgb(255 255 255 / 0.75),
+    inset -6px -7px 14px rgb(66 76 122 / 0.3);
+  transition:
+    transform 0.18s var(--sp-ease),
+    box-shadow 0.18s var(--sp-ease);
+}
+
+/* Clay gives under a press. Paired with a state attribute like every other hover in
+   the kit, since attract's synthesized input never lights up :hover or :active. */
+.sp-clay:hover,
+.sp-clay:active,
+.sp-clay[data-pressed] {
+  transform: scale(0.98);
+  box-shadow:
+    0 6px 12px rgb(16 24 40 / 0.2),
+    inset 4px 4px 9px rgb(255 255 255 / 0.6),
+    inset -4px -5px 11px rgb(66 76 122 / 0.34);
+}
+
+/* Neubrutalism — flat loud colour, a heavy outline, and a hard offset shadow with
+   no blur at all. The unblurred shadow is the whole term, so it is written here and
+   never reads --sp-shadow: the context register drops elevation to none, and a
+   neubrutalist specimen with its shadow deleted would be demonstrating nothing.
+   The edge inverts in dark mode so that shadow still lands against the canvas. */
+.sp-brutal {
+  border: 3px solid var(--sp-brutal-edge, #14161a);
+  border-radius: 4px;
+  background: var(--sp-brutal-fill, #ffd93d);
+  color: #14161a;
+  box-shadow: 6px 6px 0 0 var(--sp-brutal-edge, #14161a);
+  transition:
+    translate 0.1s linear,
+    box-shadow 0.1s linear;
+}
+
+:host([data-theme="dark"]) .sp-brutal,
+:root[data-theme="dark"] .sp-brutal {
+  --sp-brutal-edge: #f2f3ef;
+}
+
+/* Pressing drops the card onto its own shadow. Translate, not margin, so the nudge
+   cannot move anything around it (SPEC §5). */
+.sp-brutal:active,
+.sp-brutal[data-pressed] {
+  translate: 3px 3px;
+  box-shadow: 3px 3px 0 0 var(--sp-brutal-edge, #14161a);
+}
+
+/* Bevel — the raised, lit face skeuomorphism gives a control, and the foil a flat
+   specimen is read against. Gloss is a background-image, so pair it with a
+   background-color (or lay it over `.sp-texture` on a child). Its elevation is
+   local for the same reason neubrutalism's is: dimming the scenery must not erase
+   the effect the scenery is there to be compared with. */
+.sp-bevel {
+  border: 1px solid rgb(0 0 0 / 0.34);
+  border-radius: var(--sp-radius);
+  background-image: linear-gradient(rgb(255 255 255 / 0.45), rgb(255 255 255 / 0) 55%, rgb(0 0 0 / 0.16));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    inset 0 -1px 0 rgb(0 0 0 / 0.22),
+    0 2px 4px rgb(16 24 40 / 0.34);
+}
+
+/* Texture — the grain a surface borrows from a physical material. Two hairline
+   gratings over a base colour: crossed at the default 45deg they read as leather
+   or canvas tooth, lined up at 90deg as brushed metal. The material itself is the
+   demo's claim, so the base colour comes from the demo. */
+.sp-texture {
+  background-color: var(--sp-texture-base, #7c5a3c);
+  background-image:
+    repeating-linear-gradient(var(--sp-texture-angle, 45deg), rgb(255 255 255 / 0.07) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(calc(var(--sp-texture-angle, 45deg) * -1), rgb(0 0 0 / 0.12) 0 1px, transparent 1px 4px);
 }

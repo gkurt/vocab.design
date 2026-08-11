@@ -1,0 +1,4 @@
+term:    Aurora UI
+scope:   element
+subject: div.sp-aurora[data-part=aurora]
+text:    

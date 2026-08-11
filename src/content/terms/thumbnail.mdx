@@ -1,0 +1,53 @@
+---
+name: Thumbnail
+slug: thumbnail
+category: component
+status: published
+definition: >-
+  A small stand-in image for a larger one, cropped rather than letterboxed so a
+  row of them lines up.
+aliases:
+  - name: thumb
+  - name: preview image
+  - name: poster
+relations:
+  contrastWith: [avatar]
+implementations:
+  - system: polaris
+    name: Thumbnail
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components
+sources:
+  - title: Polaris web components
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components
+demo: inline
+useWhen: a small preview image of a bigger one
+---
+
+A thumbnail stands in for something bigger: a photo, a page, a video, a file. It
+is small enough that a dozen fit on one screen and specific enough that a reader
+recognises the original from it, which is the whole trick. The name comes from
+the printing habit of sketching a page at thumbnail size to judge the layout
+before drawing it properly.
+
+The defining decision is cropping. Source images arrive at every aspect ratio, and
+a grid only reads as a grid if every cell is the same shape, so the thumbnail box
+is fixed and the image fills it and loses its edges (`object-fit: cover`).
+Letterboxing instead, with bars in the leftover space, keeps the whole picture but
+gives up the alignment that made the row scannable. When the subject is reliably
+in one place, a fixed crop is safe; when it is not, the fix is a smarter focal
+point rather than a taller box.
+
+A thumbnail is a smaller file, not just a smaller box. Serving the full sized
+asset scaled down in CSS costs the reader the whole download, which on a page of
+forty previews is the difference between a fast grid and a broken one, so
+thumbnails come from a resizing pipeline and ship with the width descriptors that
+let a browser choose. The same discipline covers the placeholder: reserve the box
+at its final size before the bytes arrive, otherwise every image that loads shoves
+the layout it landed in.
+
+The word bends by medium. A video's still is a poster, a document's is a page
+preview, and a person's is an avatar, which is a different component because it
+is round, it falls back to initials, and it identifies rather than previews.
+Whatever it stands for, a thumbnail is usually also a control: it opens the thing
+it is showing, so it needs a real hit area and a text alternative describing the
+original rather than the crop.

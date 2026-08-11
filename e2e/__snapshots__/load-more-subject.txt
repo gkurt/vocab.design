@@ -1,0 +1,4 @@
+term:    Load more
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=more][type=button]
+text:    Load more

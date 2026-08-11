@@ -1,0 +1,4 @@
+term:    Tabular figures
+scope:   element
+subject: div.sp-stack[data-frame=a][data-part=col-tab]
+text:    8,412.051,970.366,033.189,258.47

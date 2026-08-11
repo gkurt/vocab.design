@@ -1,0 +1,4 @@
+term:    Typewriter effect
+scope:   element
+subject: p.sp-text.sp-text--ink[aria-label=Two fades sharing one span, so both are visible at the midpoint.][data-done][data-part=line]
+text:    Two fades sharing one span, so both are visible at the midpoint.

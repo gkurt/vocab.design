@@ -1,0 +1,4 @@
+term:    Autosave
+scope:   element
+subject: span.sp-text[data-part=status][data-state=idle][role=status]
+text:    All changes saved

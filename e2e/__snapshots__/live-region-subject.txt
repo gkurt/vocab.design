@@ -1,0 +1,4 @@
+term:    Live region
+scope:   element
+subject: p.sp-text.sp-text--ink[data-part=status][data-state=updated][role=status]
+text:    Espresso added. Cart: 1, $18.

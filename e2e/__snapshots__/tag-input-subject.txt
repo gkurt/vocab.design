@@ -1,0 +1,4 @@
+term:    Tag input
+scope:   element
+subject: div.sp-input[data-part=field]
+text:    typography ✕ grids ✕

@@ -1,0 +1,51 @@
+---
+name: Listbox
+slug: listbox
+category: component
+status: published
+definition: >-
+  An always visible list of options you choose from with the keyboard or pointer,
+  without a popup or a text field.
+aliases:
+  - name: option list
+  - name: list box
+  - name: selection list
+relations:
+  contrastWith: [select, combobox, list]
+implementations:
+  - system: aria-apg
+    name: Listbox
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+sources:
+  - title: 'ARIA APG: Listbox pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+useWhen: the options are on screen already, not behind a popup
+---
+
+A listbox is the list itself. Every option is on screen, one (or several) of them
+is marked selected, and choosing is a matter of moving through the list rather
+than opening anything. That is what separates it from the controls it is buried
+inside: a [select](/select) is a listbox behind a button, and a
+[combobox](/combobox) is a listbox behind a text field. Take the popup away and
+what is left is this component, which is why the word turns up so often in
+specifications and so rarely in product screenshots.
+
+Use it when the options deserve the space. Four to a dozen values that the reader
+will compare, or a set they will keep returning to while doing something else,
+justify a permanent list; a value chosen once and then ignored belongs in a
+collapsed control. The list has a fixed height and scrolls inside itself, which is
+part of the deal: it must never grow the page as the option set changes.
+
+The keyboard contract is the whole component. Selection follows arrow keys, Home
+and End jump to the ends, typing a letter jumps to the next option starting with
+it, and the list takes one tab stop rather than one per option, which means either
+roving `tabindex` or `aria-activedescendant` with focus parked on the container.
+The list carries `role="listbox"`, each row carries `role="option"` with
+`aria-selected`, and multi-select adds `aria-multiselectable` and either Shift plus
+arrows or, more legibly, a checkbox in every row.
+
+Do not reach for it when something plainer fits. A short set of mutually exclusive
+choices is a radio group, which needs no roving focus and labels itself; a list of
+commands is a menu, because its items do things rather than hold a value. A
+listbox holds a value, stays put, and hands that value to whatever submits it.

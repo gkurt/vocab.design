@@ -495,6 +495,22 @@ sp-combobox {
   font-weight: 500;
 }
 
+/* Spent controls — the affordance still there, the action no longer available.
+   Written once for both spellings: `disabled` where the control leaves the tab order
+   for good, `aria-disabled` where it must stay reachable to say why it cannot be
+   used. Opacity and cursor only, so a control keeps whatever shape its state had. */
+.sp-button:disabled,
+.sp-button[aria-disabled="true"],
+.sp-icon-button:disabled,
+.sp-icon-button[aria-disabled="true"],
+.sp-chip:disabled,
+.sp-chip[aria-disabled="true"],
+.sp-checkbox:disabled,
+.sp-switch:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 /* Visually hidden — present to assistive technology, absent from the layout. */
 .sp-visually-hidden {
   position: absolute;

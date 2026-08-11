@@ -1,0 +1,4 @@
+term:    Count-up animation
+scope:   element
+subject: span[data-part=value][data-settled]
+text:    $128,400

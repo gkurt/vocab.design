@@ -1,0 +1,4 @@
+term:    Gradient
+scope:   element
+subject: div[data-part=canvas][data-type=linear]
+text:    

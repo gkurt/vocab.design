@@ -1,0 +1,4 @@
+term:    Sticky header
+scope:   element
+subject: div.sp-row.sp-row--between[data-part=header]
+text:    Transactions 12 this month

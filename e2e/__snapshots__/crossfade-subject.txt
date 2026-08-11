@@ -1,0 +1,4 @@
+term:    Crossfade
+scope:   element
+subject: div[data-part=stack]
+text:    Chapter one Reef habitats Chapter two Kelp forests

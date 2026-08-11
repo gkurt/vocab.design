@@ -1,0 +1,50 @@
+---
+name: Media object
+slug: media-object
+category: layout
+status: published
+definition: >-
+  The pairing of a fixed size image or avatar on one side with a heading and text
+  that fills the rest, repeated everywhere in interfaces.
+aliases:
+  - name: media block
+    source: community
+  - name: avatar and text
+    source: community
+  - name: media objects
+    source: tailwind
+relations:
+  contrastWith: [card]
+sources:
+  - title: "The media object saves hundreds of lines of code, Nicole Sullivan"
+    url: http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+  - title: "The Media Object, A Bunch of Ways, CSS-Tricks"
+    url: https://css-tricks.com/media-object-bunch-ways/
+demo: inline
+useWhen: avatar or thumbnail beside a block of text
+---
+
+Nicole Sullivan named this in 2010 while looking for the shapes that repeat across
+every page of a large site, and the media object was the one that repeated most.
+A comment, a search result, a notification, a contact row, a tweet: all of them
+are a fixed size thing on one side and a variable block of text on the other. Give
+that arrangement one name and one implementation and hundreds of one-off rules for
+"avatar next to a name" stop being written.
+
+Two rules make it work. The media side keeps its own size and refuses to stretch
+or shrink. The body takes whatever width is left and, crucially, its text wraps
+under itself rather than sliding under the image. Floats gave the wrong answer to
+the second rule for years, which is why the original technique needed an overflow
+trick; flexbox gives it for free, since a flex item with `min-width: 0` establishes
+its own column.
+
+The third property is the one people forget: a media object nests. Its body can
+hold another media object, which is how a comment thread, a reply chain, or a
+nested list of collaborators is built without inventing a new layout for each
+depth. The specimen shows one nested inside another for exactly that reason.
+
+The media can be an avatar, a thumbnail, an icon, or a status dot, and the body
+can be a heading with a paragraph or a single line. What it must not become is a
+generic two column layout: once both sides are fluid, or the sides carry unrelated
+content, the name stops describing anything and a plain flex row is the honest
+answer.

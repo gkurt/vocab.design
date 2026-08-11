@@ -1,0 +1,4 @@
+term:    Neubrutalism
+scope:   element
+subject: div.sp-brutal[data-part=card]
+text:    WEEKLY DROP Six links, one build note, no filler. Sent every Thursday. SIGN ME U

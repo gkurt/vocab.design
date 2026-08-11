@@ -1,0 +1,4 @@
+term:    Skeuomorphism
+scope:   element
+subject: div.sp-texture[data-part=pad]
+text:    FIELD NOTES Ordered the good pencils. Tide is out at half past six. Pen Marker

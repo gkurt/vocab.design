@@ -1,0 +1,4 @@
+term:    Small caps
+scope:   element
+subject: span[data-part=run-small]
+text:    NASA

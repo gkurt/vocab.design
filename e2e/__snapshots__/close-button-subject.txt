@@ -1,0 +1,4 @@
+term:    Close button
+scope:   element
+subject: button.sp-icon-button[aria-label=Close filters][data-part=close][type=button]
+text:    

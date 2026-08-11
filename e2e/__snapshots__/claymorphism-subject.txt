@@ -1,0 +1,4 @@
+term:    Claymorphism
+scope:   element
+subject: div.sp-clay[data-part=card]
+text:    Daily goal 7,400 of 10,000 steps Log a walk

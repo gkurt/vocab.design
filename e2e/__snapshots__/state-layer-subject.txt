@@ -1,0 +1,4 @@
+term:    State layer
+scope:   element
+subject: button.sp-button[data-part=target][data-state=rest]
+text:    Add to library

@@ -80,7 +80,6 @@ export function mount(root: HTMLElement): void {
       [increase, quantity === MAX],
     ] as const) {
       button.setAttribute('aria-disabled', String(spent));
-      button.style.opacity = spent ? '0.35' : '';
     }
   };
 

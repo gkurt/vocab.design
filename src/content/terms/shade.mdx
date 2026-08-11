@@ -1,0 +1,48 @@
+---
+name: Shade
+slug: shade
+category: color
+status: published
+definition: >-
+  A colour with black mixed in, darker than the original hue and typically used for
+  pressed states, borders and dark theme surfaces.
+aliases:
+  - name: dark variant
+  - name: "600, 700, 800"
+    source: tailwind
+relations:
+  contrastWith: [tint]
+  seeAlso: [color-ramp]
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+useWhen: a darker version of a colour made by adding black
+---
+
+A shade is the mirror of a [tint](/tint): where a tint mixes white into a hue, a
+shade mixes black into it. In an interface the shades of the accent are what the
+hover and pressed states of a solid button are made of, what a border on a coloured
+fill is made of, and what a dark theme reaches for when a pale tint would glare.
+Numbered palettes bury the word inside the numbering: everything above the base
+step in a Tailwind or Radix scale is, in effect, a shade of it.
+
+The mechanical trap is that black is not a neutral ingredient. Mixing toward pure
+black drains chroma as well as lightness, so a naive shade ramp ends in a sequence
+of near greys that no longer look like the hue they came from. Palettes that hold
+up keep some chroma as they descend, or bend the hue slightly warm or cool on the
+way down, which is why hand tuned ramps still beat a straight mix for the darkest
+two or three steps.
+
+Shades also carry most of the contrast burden. Text on a light background is a deep
+shade rather than the base hue, because the base of a saturated ramp almost never
+clears 4.5 to 1 against white. The pattern most systems settle on is that mid steps
+are for fills, dark steps are for text and icons on light surfaces, and the
+darkest steps are for borders and pressed states where the shape matters more than
+the colour.
+
+One word of caution about vocabulary: in casual use "shade" often just means "a
+colour", as in shades of blue, and in some systems it names every step of a ramp
+including the light ones. The strict sense, black added to a hue, is the one worth
+keeping, because it is the only one that pairs cleanly with tint and tone.

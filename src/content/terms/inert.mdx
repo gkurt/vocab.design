@@ -1,0 +1,53 @@
+---
+name: Inert
+slug: inert
+category: accessibility
+status: published
+definition: >-
+  A state that removes a subtree from focus order, hit testing, and the
+  accessibility tree at once, used to seal the background behind a dialog.
+aliases:
+  - name: inert attribute
+    source: html
+  - name: background inert
+  - name: aria-modal
+    source: aria
+  - name: inert polyfill
+  - name: focus guard
+    source: radix
+relations:
+  seeAlso: [modal-dialog]
+sources:
+  - title: 'MDN: aria-modal'
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal
+demo: inline
+useWhen: making a whole region unreachable, not just invisible
+---
+
+When a modal opens, everything behind it has to stop being there. Not stop being
+visible, stop being reachable: no clicks, no Tab stops, no place a screen reader's
+virtual cursor can wander into. `inert` is the one attribute that does all of that at
+once. Put it on a subtree and the browser drops the whole thing out of hit testing,
+out of the focus order, and out of the accessibility tree, and turns off text
+selection and find in page inside it.
+
+Before it existed, this took three mechanisms that each did part of the job and drifted
+apart in practice. A focus trap kept Tab inside the dialog but left the background
+clickable. `aria-hidden` hid the background from screen readers but left it
+focusable, which produces the worst possible result: focus lands on a control that
+assistive technology insists is not there. Saving and restoring `tabindex` on every
+background control worked and was miserable. A `<dialog>` opened with `showModal()`
+gets the whole thing for free, since the browser makes everything outside the top
+layer inert on its own.
+
+Two cautions. Inert is inherited by everything inside the subtree and cannot be
+undone from within: there is no way to mark one descendant of an inert region
+active again, so the attribute goes on the region that should be sealed and nowhere
+else. And inert is invisible on its own. It does not dim anything, so the design
+still owes the reader a scrim or some other sign that the background is out of
+service, otherwise a control that simply ignores presses reads as a bug.
+
+`aria-modal="true"` on the dialog is the declarative cousin, telling assistive
+technology that content outside this dialog is unavailable. Support for it is
+uneven enough that it is worth pairing with real inertness rather than trusting on
+its own.

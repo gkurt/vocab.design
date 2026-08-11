@@ -1,0 +1,4 @@
+term:    Truncation
+scope:   element
+subject: p.sp-text.sp-text--ink[data-part=single]
+text:    Quarterly platform reliability review and incident retrospective, payments team

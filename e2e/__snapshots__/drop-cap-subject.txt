@@ -1,0 +1,4 @@
+term:    Drop cap
+scope:   element
+subject: span[data-part=cap]
+text:    T

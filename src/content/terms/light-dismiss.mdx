@@ -1,0 +1,50 @@
+---
+name: Light dismiss
+slug: light-dismiss
+category: interaction
+status: published
+definition: >-
+  Closing a transient surface by clicking outside it or pressing Escape, without a
+  dedicated close control being used.
+aliases:
+  - name: click outside to close
+  - name: dismiss on outside click
+  - name: auto dismiss
+  - name: popover=auto
+    source: mdn
+  - name: escape to dismiss
+relations:
+  contrastWith: [close-button]
+implementations: []
+sources:
+  - title: "ARIA APG: Patterns index"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+useWhen: clicking away is enough to close something
+---
+
+Light dismiss is what makes a surface feel transient. A menu, a popover, a
+combobox list, and a date picker all share the same contract: you opened it by
+choosing to, and you close it by going back to what you were doing. Clicking
+anywhere else and pressing Escape both mean the same thing, so both have to work.
+Escape is the half that gets forgotten, and it is the half a keyboard user
+depends on, since there is no outside to click.
+
+The word light is doing real work in the name. It is the opposite of a modal
+dismissal, where the surface owns the screen until it is dealt with and clicking
+away is either ignored or, at most, answered with a nudge. That difference is a
+decision about consequence, not about size: a form with unsaved edits should not
+evaporate because a click missed, while a menu that lingers after you looked away
+is just in the way. If a surface holds work, do not light dismiss it.
+
+Two details separate a good implementation from an irritating one. Listen on
+pointerdown rather than click, so a drag that starts inside the surface and ends
+outside it does not count as an outside press. And when several surfaces are open,
+Escape closes only the topmost one, which means keeping a stack rather than
+broadcasting a close to everything listening.
+
+The web now has this built in. A `popover="auto"` element gets outside click and
+Escape dismissal, plus stacking and top layer placement, from the browser. The
+manual version is worth understanding anyway, because the moment a surface needs
+behaviour the built in one does not have, you are back to writing the listeners
+yourself.

@@ -1,0 +1,4 @@
+term:    Accent color
+scope:   element
+subject: div.sp-window[data-accent=indigo][data-part=panel]
+text:    Weekly digest Every Monday, the five posts you missed. Product Design Research S

@@ -1,0 +1,50 @@
+---
+name: Offline indicator
+slug: offline-indicator
+category: pattern
+status: published
+definition: >-
+  A persistent notice that the product has lost its connection, saying what still
+  works, what is queued, and when the last sync happened.
+aliases:
+  - name: connection status bar
+    source: community
+  - name: you are offline
+    source: community
+  - name: sync status
+    source: community
+  - name: stale data indicator
+    source: community
+  - name: reconnecting banner
+    source: community
+relations:
+  contrastWith: [toast]
+  seeAlso: [optimistic-ui]
+implementations: []
+sources: []
+demo: inline
+useWhen: the bar telling you the app is working offline
+---
+
+Losing the network is a condition, not an event, so the indicator is persistent
+rather than transient. A toast that says "You are offline" and then leaves has
+told the reader something they can no longer verify, right when everything else on
+screen has quietly become a guess. The notice stays for as long as the condition
+does, and disappears on its own when the connection returns.
+
+What it says matters more than that it appears. Three claims earn their place:
+what still works (usually most of the product, since the data on screen is
+already there), what has been queued and will send later, and how stale what they
+are reading is. "Offline. Your last two edits will send when you reconnect" is
+useful. "Network error" is an apology with no information in it.
+
+The pattern extends past the notice itself. Actions that cannot complete offline
+should be marked at the point of use rather than only in the banner, which is why
+a queued message keeps a pending mark of its own next to it. Retrying should be
+automatic with a manual escape hatch, and the reconnect should be as visible as
+the disconnect, ideally naming what got sent.
+
+Be slow to declare it and quick to withdraw it. Browsers report online status
+unreliably: `navigator.onLine` says only that an interface exists, not that
+anything is reachable, so a real implementation confirms with a request before
+telling the reader their work is stuck.

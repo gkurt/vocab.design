@@ -1,0 +1,50 @@
+---
+name: Holy grail layout
+slug: holy-grail-layout
+category: layout
+status: published
+definition: >-
+  A three column page with header and footer where the centre column is fluid,
+  the two side columns are fixed, and all three appear equal height.
+aliases:
+  - name: holy grail
+    source: community
+  - name: three column layout
+    source: community
+  - name: fixed fluid fixed
+    source: community
+relations:
+  contrastWith: [split-view]
+sources:
+  - title: "Holy grail (web design)"
+    url: https://en.wikipedia.org/wiki/Holy_grail_(web_design)
+demo: inline
+useWhen: the classic fixed, fluid, fixed three column page
+---
+
+The name is a joke that outlived its own occasion. Getting a header, a footer, a
+fixed left column, a fixed right column, and a fluid middle onto one page sounds
+like the least ambitious layout imaginable, and for about a decade it was close
+to impossible in CSS without tricks. A List Apart published "In Search of the
+Holy Grail" in 2006, and the search was real: floats did not give equal column
+heights, so the answers involved negative margins, faux column backgrounds, or a
+table nobody wanted to admit to.
+
+Four constraints define it, and dropping any one makes the problem easy again.
+The side columns hold their width. The centre absorbs every pixel of the
+remaining space. All three columns read as the same height regardless of which
+one has the most content. And the centre comes first in the source, so the main
+content is what a reader or a crawler meets first.
+
+Grid dissolved all four at once. Three column tracks with the middle one at `1fr`,
+a row that stretches, and `grid-template-areas` to place the source order however
+the layout wants, and the layout is six lines of CSS with no hack in it. The term
+survives because it is still the fastest way to describe the arrangement, and
+because it is a useful reminder that what a layout system makes trivial and what
+it makes impossible is not obvious from the outside.
+
+On a phone the arrangement gives up: the columns stack, usually content first,
+with the navigation collapsing behind a control and the aside sinking to the
+bottom or disappearing. That is not a failure of the layout, it is the layout
+admitting that fixed, fluid, fixed needs about 700px before the fluid part has
+anything left to be fluid with.

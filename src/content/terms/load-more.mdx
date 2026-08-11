@@ -1,0 +1,49 @@
+---
+name: Load more
+slug: load-more
+category: pattern
+status: published
+definition: >-
+  A button at the end of a list that fetches and appends the next batch only when
+  pressed, keeping the reader in control of how much arrives.
+aliases:
+  - name: show more button
+    source: nngroup
+  - name: load more button
+    source: community
+  - name: manual pagination
+    source: community
+relations:
+  contrastWith: [show-more-toggle]
+implementations: []
+sources:
+  - title: 'NN/g: Alternatives to Pagination on Product-Listing Pages'
+    url: https://www.nngroup.com/articles/alternatives-pagination-listing-pages/
+demo: inline
+useWhen: the next batch waits behind a button instead of arriving on its own
+---
+
+Load more sits between numbered pages and infinite scroll. Like infinite scroll it
+appends rather than replaces, so the reader never loses the items they were
+comparing. Unlike infinite scroll it waits to be asked, which is what keeps the
+list finite: the page ends, the footer is reachable, and the reader can tell how
+far they have come.
+
+The button is only half the pattern. The other half is the count beside it,
+because a batch that arrives without saying "24 of 312" leaves the reader with no
+way to judge whether pressing again is worth it. Say how many are loaded and how
+many exist, and change the button when there is nothing left rather than letting
+it keep offering more of nothing.
+
+Three details separate a good implementation from a frustrating one. Focus should
+stay somewhere sensible after the batch lands, usually on the button itself, so a
+keyboard reader is not thrown to the top. The button should say it is working
+while the request is in flight, since a silent button invites a second press. And
+the appended items should be announced, or at least be reachable, without a scroll
+jump: the pattern's whole promise is that nothing the reader was already looking
+at moves.
+
+Reach for it when the list is browsed rather than searched, when the reader may
+plausibly want everything, and when deep linking to page seven does not matter.
+Where the reader is looking for one specific row and needs a stable address for
+it, numbered pagination is still the better answer.

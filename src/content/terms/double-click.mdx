@@ -1,0 +1,49 @@
+---
+name: Double click
+slug: double-click
+category: interaction
+status: published
+definition: >-
+  Two clicks inside a short interval on the same spot, treated as one gesture that
+  opens, edits, or selects a word rather than activating twice.
+aliases:
+  - name: dblclick
+    source: mdn
+  - name: double-click to open
+  - name: double-click speed
+relations: {}
+implementations: []
+sources:
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+useWhen: two clicks that mean something a single click does not
+---
+
+A double click is not two clicks. It is one gesture the system recognises when
+two presses land close enough together in time and in space, and the threshold is
+a setting the reader owns: every desktop operating system exposes a double-click
+speed, and some people have it turned right down. That is why a double click can
+never be the only way to reach a command. Anyone who cannot produce two presses
+inside the interval, or who is using a touch screen where the gesture barely
+exists, is simply locked out of it.
+
+It survives where it means something a single click does not. In a file manager,
+one click selects and two open, which is the distinction that gave the gesture its
+career. In a spreadsheet or a table of editable cells, two clicks enter edit mode
+on the value you already selected. In text, two clicks select a word and three
+select the paragraph, which is browser behaviour you get for free and should not
+break. What these have in common is that the single click already does something
+useful, so nobody is stranded by not knowing about the second one.
+
+On the web the event is `dblclick`, and it arrives after two full `click` events,
+not instead of them. Your click handler runs first, so the two behaviours have to
+compose: select, then open. If they conflict, you are fighting the platform, and
+the usual fix is to move the destructive or navigating action to a button rather
+than to try to swallow the first click with a timer. Suppressing that first click
+for a few hundred milliseconds to see whether a second is coming makes every
+single click feel broken.
+
+Watch what a double click does to a form. Two presses on a submit button send two
+requests unless the button disables itself on the first, which is one of the
+oldest bugs on the web and is still worth checking.

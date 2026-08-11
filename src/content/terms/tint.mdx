@@ -1,0 +1,48 @@
+---
+name: Tint
+slug: tint
+category: color
+status: published
+definition: >-
+  A colour with white mixed in, lighter than the original hue and used for faint
+  fills, hover washes and subtle backgrounds.
+aliases:
+  - name: pastel
+  - name: wash
+relations:
+  contrastWith: [shade]
+  seeAlso: [color-ramp, state-layer]
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+useWhen: a lighter version of a colour made by adding white
+---
+
+Tint, shade and tone are the three ways a pigment gets modified: white makes a
+tint, black makes a [shade](/shade), and grey makes a tone. The words come from
+paint and they survive in interfaces because the operations still describe what a
+palette generator is doing. A ten step blue ramp is, roughly, a stack of tints
+above the base and a stack of shades below it.
+
+In products, tints do the quiet work. The pale fill behind a selected row, the
+background of an informational banner, the wash a menu item takes on hover, the
+badge that has to be legible with dark text on it: all of these want a colour that
+is unmistakably the accent hue but far too light to compete with the accent itself.
+Getting them from the same base as the accent is what keeps a screen looking like
+one product rather than a collection of light blues.
+
+How the mixing is done matters more than it sounds. Blending toward white in sRGB
+is not perceptually even, so equal numeric steps produce a ramp that crowds at one
+end; mixing in a perceptual space such as oklab spaces them the way the eye reads
+them. A tint is also not the same thing as lowering opacity. An opaque tint is a
+known colour; a translucent one is whatever it happens to be sitting on, which is
+how the same badge ends up passing contrast on a card and failing it on a striped
+table.
+
+Dark themes are where the word gets slippery. A tint that reads as subtle against
+white glares against a dark surface, so the equivalent role in a dark theme is
+usually filled by a shade of the same hue, or by the accent at very low chroma.
+Apple's use of "tint colour" is a separate sense again: there it means the
+[accent colour](/accent-color) itself, not a lightened version of anything.

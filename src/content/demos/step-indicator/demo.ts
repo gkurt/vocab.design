@@ -89,7 +89,6 @@ export function mount(root: HTMLElement): void {
       [forward, at === STAGES.length - 1],
     ] as const) {
       button.setAttribute('aria-disabled', String(spent));
-      button.style.opacity = spent ? '0.4' : '';
     }
   };
 

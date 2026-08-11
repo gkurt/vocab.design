@@ -1,0 +1,4 @@
+term:    Drag and drop
+scope:   element
+subject: div.sp-surface[data-in=backlog][data-part=card]
+text:    Ship changelog

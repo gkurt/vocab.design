@@ -1,0 +1,4 @@
+term:    Listbox
+scope:   element
+subject: ul.sp-listbox.sp-listbox--static[aria-activedescendant=fmt-pdf][aria-labelledby=fmt-label][data-part=listbox][role=listbox][tabindex=0]
+text:    PDF document PNG image SVG vector CSV table JSON data

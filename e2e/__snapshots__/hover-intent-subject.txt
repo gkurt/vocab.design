@@ -1,0 +1,4 @@
+term:    Hover intent
+scope:   element
+subject: button.sp-button.sp-button--quiet.sp-button--sm[aria-expanded=false][aria-haspopup=menu][data-part=gated][type=button]
+text:    Resources

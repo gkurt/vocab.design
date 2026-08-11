@@ -1,0 +1,55 @@
+---
+name: Hero
+slug: hero
+category: layout
+status: published
+definition: >-
+  The large opening block of a page carrying a headline, a supporting line,
+  imagery, and the main call to action.
+aliases:
+  - name: hero section
+    source: tailwind
+  - name: hero banner
+    source: community
+  - name: hero image
+    source: community
+  - name: jumbotron
+    source: bootstrap
+  - name: splash
+    source: community
+  - name: billboard
+    source: community
+relations: {}
+sources:
+  - title: "Hero Sections, Tailwind UI"
+    url: https://tailwindcss.com/plus/ui-blocks/marketing/sections/heroes
+demo: inline
+useWhen: the big opening block that sets the pitch
+---
+
+The word comes from print, where the hero image was the one photograph a spread
+was built around. On the web it grew into a whole block: the first thing under
+the navigation, usually a headline at a size nothing else on the page gets, a
+sentence of support, one image or illustration, and the action the page exists to
+produce. Bootstrap shipped it as the jumbotron in 2012, which is why a decade of
+sites had the same grey rounded slab at the top.
+
+A hero is a layout slot, not a component, and it is judged by what fills it. The
+headline has to say what the thing is rather than how it feels, because a reader
+who cannot tell what is being offered will not read the second line. The
+supporting line earns its place by answering the question the headline raises.
+And there is one primary action, with at most one quieter alternative beside it:
+two equally weighted buttons is a hero that has not decided what it wants.
+
+Its size is its risk. Everything a hero takes is taken from whatever comes next,
+so the block should leave the following section visibly starting, the way the
+specimen does. A hero that fills the viewport exactly teaches the reader that the
+page is one screen long. A hero carousel is worse still: it is the same slot
+rented to several messages, and the usual outcome is that the second slide is
+seen by almost nobody.
+
+Two technical notes travel with it. The headline is normally the page's `h1`, so
+it should be marked up as one rather than styled to look like one. And the hero
+image is almost always the largest contentful paint on the page, which means it
+must not be lazy loaded, and text over it needs its contrast checked against the
+image rather than against the colour behind it.

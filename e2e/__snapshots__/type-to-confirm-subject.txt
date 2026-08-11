@@ -1,0 +1,4 @@
+term:    Type to confirm
+scope:   element
+subject: div.sp-field[data-part=guard][data-state=waiting]
+text:    Type northwind-web to confirm Type northwind-web exactly, including the hyphen.

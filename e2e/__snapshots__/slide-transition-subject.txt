@@ -1,0 +1,4 @@
+term:    Slide transition
+scope:   element
+subject: div.sp-row[data-index=0][data-part=track]
+text:    AM Ada M. Colour ramp is ready JR Jo R. Two notes on the spec PK Pia K. Shipping

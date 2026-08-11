@@ -1,0 +1,4 @@
+term:    Chat bubble
+scope:   element
+subject: div.sp-surface[data-part=bubble-sent]
+text:    Merged this morning.

@@ -1,0 +1,59 @@
+---
+name: Accessible name
+slug: accessible-name
+category: accessibility
+status: published
+definition: >-
+  The string assistive technology announces for a control, computed from label,
+  aria-labelledby, aria-label, or its own content in a fixed order of precedence.
+aliases:
+  - name: accname
+    source: w3c
+  - name: accessible name computation
+    source: w3c
+  - name: name from content
+    source: aria
+  - name: a11y name
+  - name: accessibilityLabel
+    source: hig
+  - name: contentDescription
+    source: android
+  - name: double speak
+relations:
+  contrastWith: [alt-text]
+sources:
+  - title: Accessible Name and Description Computation 1.2
+    url: https://www.w3.org/TR/accname-1.2/
+  - title: 'APG: Providing Accessible Names and Descriptions'
+    url: https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/
+demo: inline
+useWhen: asking what a control is actually called out loud
+---
+
+Every control has a name whether anyone chose one or not. The browser computes it,
+and the computation is specified: `aria-labelledby` wins, then `aria-label`, then the
+native label (a `<label for>`, a `<legend>`, a `<caption>`, an `alt`), then the
+element's own text content, then a handful of last resorts like `title`. The first
+one that yields a non-empty string ends the walk. Nothing further down gets a say.
+
+That precedence is why so many naming bugs look like the label is being ignored. It
+is being ignored, correctly, because something above it answered first. An
+`aria-label` on a button silently replaces the visible text inside it, so a button
+reading "Save" can announce "Submit form" and the two only disagree for the people
+who cannot see the difference. It also breaks voice control, where the user says what
+they see: if the visible text is not in the accessible name, "click Save" does
+nothing. WCAG's Label in Name criterion is exactly this rule.
+
+The best name is usually the one you did not have to write. Text inside the button,
+a real `<label>` tied to the input, an `alt` on the image: these name the control and
+stay in sync with it, because they are the same string the reader sees. Reach for
+`aria-label` when there is genuinely no visible text, which in practice means
+icon-only controls and landmarks that need telling apart. Reach for
+`aria-labelledby` when the text exists somewhere else on screen and should not be
+duplicated.
+
+Two failures are worth naming. Double speak is a control labelled twice, usually an
+icon button with both an `aria-label` and a visually hidden span, announcing
+everything twice over. And an unnamed control, the icon button nobody labelled at
+all, is announced as "button", which tells the listener a thing is there and nothing
+about what it does.

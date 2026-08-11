@@ -1,0 +1,4 @@
+term:    Holy grail layout
+scope:   whole scene
+subject: div.sp-app
+text:    Archive header Field notes 1fr 132px Notes Sources People 116px footer

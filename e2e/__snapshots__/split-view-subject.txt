@@ -1,0 +1,4 @@
+term:    Split view
+scope:   element
+subject: div.sp-row[data-part=split][data-state=free]
+text:    Harbour survey Tide tables Ferry timings Lighthouse log Harbour survey Edited 2 

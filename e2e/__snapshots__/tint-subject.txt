@@ -1,0 +1,4 @@
+term:    Tint
+scope:   element
+subject: div.sp-row[data-part=tints]
+text:    40% 60% 80% 92%

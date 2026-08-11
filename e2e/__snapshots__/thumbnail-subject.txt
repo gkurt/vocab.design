@@ -1,0 +1,4 @@
+term:    Thumbnail
+scope:   element
+subject: button.sp-button.sp-button--ghost[aria-label=Rooftop, noon][data-part=thumb-2][type=button]
+text:    

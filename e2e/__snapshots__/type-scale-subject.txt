@@ -1,0 +1,4 @@
+term:    Type scale
+scope:   element
+subject: div.sp-stack[data-part=scale][data-ratio=1.2]
+text:    Display 20.7px Title 17.3px Body 14.4px Caption 12.0px

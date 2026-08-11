@@ -1,0 +1,4 @@
+term:    Double click
+scope:   element
+subject: div.sp-surface[aria-selected=false][data-part=tile-2][role=option]
+text:    Budget.xlsx 38 KB

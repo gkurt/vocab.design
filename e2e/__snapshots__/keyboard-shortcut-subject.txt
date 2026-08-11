@@ -1,0 +1,4 @@
+term:    Keyboard shortcut
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[data-part=archive][type=button]
+text:    Archive E

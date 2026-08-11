@@ -1,0 +1,55 @@
+---
+name: Card grid
+slug: card-grid
+category: layout
+status: published
+definition: >-
+  Content laid out as equal width cards flowing across a responsive grid and
+  wrapping to new rows as space allows.
+aliases:
+  - name: grid list
+    source: tailwind
+  - name: tile grid
+    source: community
+  - name: gallery grid
+    source: community
+  - name: product grid
+    source: community
+  - name: collection view
+    source: hig
+relations:
+  contrastWith: [bento-grid]
+sources:
+  - title: "Grid Lists, Tailwind UI"
+    url: https://tailwindcss.com/plus/ui-blocks/application-ui/lists/grid-lists
+demo: inline
+useWhen: many peers of the same kind, browsed by scanning
+---
+
+A card grid says something before a single label is read: everything here is the
+same kind of thing, and none of it outranks the rest. That is its job and its
+limit. Products, photos, repositories, and templates all suit it, because a reader
+scans them looking for one, and scanning across a regular field is fast. A list of
+mixed importance does not suit it, because equal cells claim equal weight.
+
+Three properties do the work. The cards share a width, so the eye can move in a
+straight line down a column. They share a height per row, which is what makes the
+next row start on one line instead of a ragged edge. And the number of columns
+comes from the available space rather than from a fixed count:
+`repeat(auto-fill, minmax(180px, 1fr))` is the whole responsive behaviour, no
+breakpoints involved. Swap `auto-fill` for `auto-fit` and the difference shows
+only when there are fewer cards than tracks, where `auto-fit` collapses the empty
+ones and lets the cards stretch.
+
+The neighbours are worth keeping straight. [Masonry](/masonry) drops the shared
+row height and packs by column instead, which suits images of unequal
+proportions and makes a ragged bottom edge the price. A [bento
+grid](/bento-grid) drops the shared cell size on purpose, so its cells vary to
+say which one matters. A card grid keeps both and gains uniformity, which is the
+right trade only when the items really are peers.
+
+Two things go wrong in practice. Card height is set by the tallest content in the
+row, so one long title can inflate a whole row: clamp titles rather than letting
+them dictate. And a grid of cards is a list, so it should be marked up as one,
+with each card exposing a single link or heading rather than five competing
+targets in the same tile.
