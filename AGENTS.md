@@ -61,7 +61,7 @@ src/pages/                  # index, [slug] (terms + alias redirects), [slug].md
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 playwright.config.ts        # e2e runner: builds, previews on 4322, three passes over every specimen
-e2e/*.e2e.ts                # Choreography · identify snapshots · takeover (SPEC §8)
+e2e/*.e2e.ts                # Choreography · identify snapshots · takeover · reduced-motion guard (SPEC §8)
 e2e/harness.ts              #   specimen discovery, stage helpers, subject description
 e2e/__snapshots__/          #   committed: what each specimen identifies as
 e2e/__artifacts__/          #   generated: identify stills + the contact sheet
@@ -84,6 +84,18 @@ rejects one. The clock speaks `setTimeout`/`clearTimeout` only, so a demo that n
 interchangeable. `isRevealed` is identify's: on stage *or on its way*, opacity ignored,
 so a summon does not sit out a fade. `isSeen` is an `assert`'s: could a reader see it,
 opacity included. Reach for the one that matches the question being asked.
+
+**Gotcha**: never measure (`getBoundingClientRect`, `getComputedStyle`) synchronously
+after a style write; mount in the state you measure. A write to a transitioned property
+reads back as the old value until the transition ends, and which properties transition
+is not the demo's call alone: kit classes carry their own, and kit rules outrank inline
+styles. The stack demo's mount-time rhythm measurement was corrupted exactly this way,
+and now mounts in the state it measures (`src/content/demos/stack/demo.ts`). Under
+reduced motion the kit sets `transition: none !important` on everything
+(`e2e/reduced-motion.e2e.ts` guards it), so writes do land synchronously there, but
+that is the accessible path, not the common one: a measurement belongs at mount, on
+the mounted state, or a frame after the write. The flip side of `none`: `transitionend`
+never fires under reduced motion, so nothing may ever wait on it.
 
 ## Architecture
 

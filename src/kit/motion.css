@@ -209,9 +209,19 @@
     animation: none;
   }
 
+  /* `none`, not a near-zero duration. `transition-property` defaults to `all`,
+     so any duration at all manufactures a transition on every property change of
+     every element, and a script that writes a style and measures in the same tick
+     reads the old value (this corrupted the stack demo's mount-time rhythm
+     measurement). `none` lets writes land synchronously. The trade: nothing may
+     wait on `transitionend` under reduced motion, because with no transition the
+     event never fires; nothing in this codebase does, and
+     `e2e/reduced-motion.e2e.ts` holds the synchronous-write line. */
   /* biome-ignore lint/style/noDescendingSpecificity: a stated motion preference comes last on purpose */
-  * {
+  *,
+  *::before,
+  *::after {
     /* biome-ignore lint/complexity/noImportantStyles: a stated motion preference outranks any specimen */
-    transition-duration: 0.01ms !important;
+    transition: none !important;
   }
 }
