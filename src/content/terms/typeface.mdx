@@ -1,0 +1,56 @@
+---
+name: Typeface
+slug: typeface
+category: typography
+status: published
+definition: >-
+  The designed set of letterforms itself, as distinct from a font, which is one
+  particular file or instance you actually use.
+aliases:
+  - name: font
+    source: community
+  - name: type family
+  - name: font family
+    source: css
+relations: {}
+sources:
+  - title: Font (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/font
+  - title: Family, type family, or font family (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/family_or_type_family_or_font_family
+demo: inline
+useWhen: distinguishing the design from the file
+---
+
+The distinction is inherited from metal type, where it was physical. A typeface
+was the design: Garamond, the shapes a punchcutter drew. A font was a case of
+sorts, one size and one style of that design, cast in lead and owned by the
+printer. Ordering more of the same typeface at a different size meant buying
+another font, because a font was a countable thing sitting in a drawer. Nothing
+survives of the lead, but the vocabulary does, and it is still the reason the two
+words are not interchangeable to anyone who sets type for a living.
+
+On the web the file took the drawer's place. Georgia is a typeface; Georgia
+Bold Italic at 18px is a font. A variable font is the interesting case, since one
+file carries a continuous range of weights and widths and therefore an unbounded
+number of fonts, which is exactly why the distinction still earns its keep: you
+cannot count the fonts in the file, but you can name the typeface. CSS keeps the
+older word in `font-family`, and what that property takes is a list of typeface
+names, not files, resolved against whatever is installed or loaded. Picking one
+entry from that list is what a [font stack](/font-stack) is about.
+
+In casual use "font" has swallowed "typeface" almost completely, and correcting
+people is rarely worth it. Where it does matter is precision with a tool or a
+supplier: a foundry licence covers a family, a `@font-face` rule loads one file
+per style, and asking a colleague to "use the bold font" is unambiguous in a way
+that "use the bold typeface" is not. Related words carve the same territory
+finer: a family is the whole set of styles designed together, a style is one
+variant inside it (roman, [italic](/italic), condensed), and a
+[weight](/font-weight) is one axis those variants differ along.
+
+Choosing a typeface is choosing everything downstream of it, which is why the
+choice is worth making before the sizes are. The class the design belongs to
+([serif](/serif), [sans-serif](/sans-serif), monospace) sets the register, and
+its internal proportions, especially [x-height](/x-height), decide what your
+declared sizes will actually look like. Swap the typeface late and the
+[type scale](/type-scale) usually has to be re-picked with it.

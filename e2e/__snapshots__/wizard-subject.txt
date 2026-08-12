@@ -1,0 +1,4 @@
+term:    Wizard
+scope:   element
+subject: section.sp-surface[aria-label=Create a workspace][data-part=wizard][data-step=1][role=group]
+text:    1 Details 2 Region 3 Review Workspace name Give the workspace a name. Back Next

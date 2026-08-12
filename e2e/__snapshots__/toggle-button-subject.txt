@@ -1,0 +1,4 @@
+term:    Toggle button
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[aria-label=Bold][aria-pressed=false][data-part=bold][type=button]
+text:    B

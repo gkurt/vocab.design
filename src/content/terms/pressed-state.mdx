@@ -1,0 +1,58 @@
+---
+name: Pressed state
+slug: pressed-state
+category: interaction
+status: published
+definition: >-
+  The look a control takes while it is actually being held down, confirming that the press
+  was received before the action runs.
+aliases:
+  - name: active state
+    source: community
+  - name: pressed
+    source: material
+  - name: down state
+    source: community
+  - name: touch state
+    source: community
+implementations:
+  - system: material
+    name: Pressed
+    url: https://m3.material.io/foundations/interaction/states/overview
+sources:
+  - title: "Material Design 3: States"
+    url: https://m3.material.io/foundations/interaction/states/overview
+demo: inline
+useWhen: the moment a control is under the finger
+---
+
+Pressed is the shortest-lived state a control has and the one it can least afford to skip.
+It answers a question the reader asks with their hand: did that land? Everything after the
+press is about the result, and everything before it is about the invitation, but for the
+few hundred milliseconds in between the only thing being reported is contact. On touch it
+matters even more than with a mouse, because the finger is covering the control and the
+paint at the edges is all that gets through.
+
+CSS spells it `:active`, which is a name from the era before touch and reads like a state
+about being switched on. It is not: `:active` is true while the button is held and false
+the instant it is let go. The state about being switched on is `aria-pressed`, which a
+toggle button keeps between presses, and the two words colliding is the single most common
+confusion in this corner of the vocabulary. If the look has to survive the release, it is a
+selection or a toggle, not a pressed state.
+
+The pressed look also has to be quick enough to be true and slow enough to be seen. A tap
+can be over in eighty milliseconds, which is faster than an eye tracks, so both Material
+and the platforms specify a minimum time the state layer stays up after the finger lifts.
+Without that floor a fast press produces no feedback at all and the interface reads as
+having missed it. The other end of the same problem is a state that outstays the press,
+which reads as a stuck button. And a press that leaves the control before the release is
+supposed to cancel: dragging off a button is how a person changes their mind, so the paint
+should drop and the action should not run.
+
+There is a wrinkle that this site runs into directly. Synthesized events do not light up
+CSS state: dispatching `pointerdown` from a script never makes `:active` true, and the same
+goes for `:hover`. So the kit spells every pointer state twice, once as the pseudo-class
+for a real finger and once as an attribute a demo can set out loud (`data-pressed`,
+`data-hovered`). That is not only a demo trick. Any interface that has to show a control's
+state without a pointer on it, in a style guide, in a screenshot, in an onboarding tour,
+needs the same second spelling for the same reason.

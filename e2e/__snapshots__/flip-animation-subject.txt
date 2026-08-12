@@ -1,0 +1,4 @@
+term:    FLIP
+scope:   element
+subject: div[data-part=card]
+text:    Card

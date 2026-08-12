@@ -1,0 +1,4 @@
+term:    Swiss style
+scope:   element
+subject: div[data-part=poster]
+text:    NEUE GRAFIK Nr. 12 Der Filmund die Form 12 Sechs Abende, sechs Filme. Beginn zwa

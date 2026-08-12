@@ -1,0 +1,58 @@
+---
+name: Overshoot
+slug: overshoot
+category: motion
+status: published
+definition: >-
+  The part of a motion that carries past its final value before coming back, the
+  visual signature of an underdamped spring or a back easing curve.
+aliases:
+  - name: back easing
+    source: easings.net
+  - name: ease back
+  - name: anticipatory overshoot
+  - name: settle
+relations: {}
+implementations: []
+sources:
+  - title: Easing Functions Cheat Sheet
+    url: https://easings.net/
+  - title: 'MDN: easing-function'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/easing-function
+demo: inline
+useWhen: motion should read as having weight and momentum
+---
+
+An element that stops exactly where it was going reads as a value being set. An
+element that goes slightly too far and comes back reads as an object with mass,
+because that is what mass does: it carries momentum into its destination and has
+to lose it somewhere. The overshoot is that surplus, and it is the single cheapest
+way to make an interface feel physical, which is also why it is the single easiest
+thing to overdo.
+
+There are two ways to spell it. A [cubic bezier](/cubic-bezier) with a control
+point above 1 sends progress past the target once and brings it back, which is what
+the easings.net family calls back easing:
+`cubic-bezier(0.34, 1.56, 0.64, 1)` is the common ease-out-back. A
+[spring animation](/spring-animation) gets there differently, from damping below
+the critical value, and can cross the target more than once, each pass smaller than
+the last, until the remaining distance stops being visible. The first is a shape
+you draw; the second is a consequence you tune. The mirror image at the start of a
+motion, a small movement the wrong way before the real one, is
+[anticipation](/anticipation).
+
+The craft is in the amount. An overshoot of a few percent of the distance, or a few
+pixels, reads as confidence; ten percent reads as a bug. It has to end on the exact
+final value, since a motion that rests one pixel past its target has quietly moved
+the layout, and it has to be short, because the correction is time the reader spends
+waiting for a thing that already arrived. Reserve it for arrivals worth noticing: a
+sheet snapping into place, a card returning to its slot, a badge appearing.
+
+Where it is wrong is easier to state. Anything a person triggers dozens of times a
+day becomes irritating when it wobbles, so avoid it on menus, on toggles, and on
+[hover](/hover) feedback. Text and numbers should never overshoot, because a moving
+word cannot be read and a moving figure looks like a value still changing. And
+nothing that affects layout may overshoot: a height that passes its target pushes
+everything below it twice, which is the difference between motion that feels alive
+and motion that feels broken. Readers who ask for reduced motion get the settled
+position, not a shorter wobble.

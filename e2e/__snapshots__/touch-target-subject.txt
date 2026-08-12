@@ -1,0 +1,4 @@
+term:    Touch target
+scope:   element
+subject: button.sp-button.sp-button--quiet[aria-label=Favourite][data-part=roomy][type=button]
+text:    

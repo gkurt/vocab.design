@@ -1,0 +1,4 @@
+term:    Bulk actions
+scope:   element
+subject: div.sp-row[data-count=1][data-part=bar][role=status]
+text:    1 selected Archive Cancel

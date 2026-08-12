@@ -1,0 +1,4 @@
+term:    Cubic bezier
+scope:   element
+subject: svg[aria-label=cubic-bezier(0.2, 0.8, 0.2, 1) plotted with its two control handles][data-part=diagram][role=img][viewBox=-20 -22 140 144]
+text:    0.2, 0.8 0.2, 1 time progress

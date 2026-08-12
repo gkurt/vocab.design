@@ -1,0 +1,60 @@
+---
+name: Undo
+slug: undo
+category: pattern
+status: published
+definition: >-
+  Letting an action run immediately and offering to reverse it afterwards, instead of
+  stopping to ask whether the reader really meant it.
+aliases:
+  - name: undo toast
+    source: community
+  - name: undo snackbar
+    source: material
+  - name: revert
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Undo'
+    url: https://ui-patterns.com/patterns
+  - title: 'GoodUI: try undos instead of prompting for confirmation'
+    url: https://goodui.org/
+demo: inline
+useWhen: the action happens first and offers a way back
+---
+
+Undo moves the guard to the other side of the action. A confirmation asks before
+anything happens, which costs everyone a decision in order to catch the few people
+who did not mean it. Undo lets the action run, shows what happened, and keeps a way
+back open for a moment. The reader who meant it is never interrupted, and the reader
+who misclicked gets a repair that is faster than the dialog would have been. That is
+why the two are alternatives rather than partners: a system with a real undo does not
+need to ask, and asking twice is not twice as safe.
+
+The offer is what has to be designed, not the reversal. It names the action that ran,
+because "Done" is no use to someone who clicked the wrong row, and it carries exactly
+one control. It stays up long enough to cover the double take, commonly four to eight
+seconds, and it is easier to reach than the thing that produced it. Because the window
+is a timer, it must not be the only route: keep the keyboard spelling (Control or
+Command with Z) and, where the action leaves a trace, a permanent one in the place the
+change landed. A toast is the usual carrier, but the toast is not the pattern. The
+pattern is the reversibility, and an inline row, a banner, or a history panel can hold
+it just as well.
+
+Undo is one half of a pair with soft delete. Soft delete is the storage side, keeping
+the item recoverable in a bin for days; undo is the moment side, reversing the last
+action while it is still fresh in mind. Deletion is only the most quoted case. Sending,
+archiving, marking read, reordering, applying a filter, and accepting a suggestion are
+all better served by acting and offering the way back, and an editor's undo stack is
+the same idea with depth: many steps, addressable in order, rather than one offer with
+a clock on it.
+
+What undo cannot do is unring a bell. If the action has already reached someone else,
+moved money, published to the world, or satisfied a promise that data would be gone,
+there is nothing left to reverse and the honest design is either a real delay before
+the effect (an outgoing send held for a few seconds, which is what most "undo send"
+really is) or an explicit guard. The other failure is quieter: an undo that re-runs
+the inverse command rather than restoring the previous state. Restoring a row to the
+bottom of a list it was in the middle of, or losing the edit that came after, teaches
+readers that the offer is not to be trusted, which costs more than the dialog ever did.

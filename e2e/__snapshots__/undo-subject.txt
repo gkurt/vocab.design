@@ -1,0 +1,4 @@
+term:    Undo
+scope:   element
+subject: div.sp-toast[data-open][data-part=toast][role=status]
+text:    Message sent Undo

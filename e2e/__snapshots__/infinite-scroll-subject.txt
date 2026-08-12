@@ -1,0 +1,4 @@
+term:    Infinite scroll
+scope:   element
+subject: ul.sp-list.sp-scroll.sp-surface.sp-grow[data-part=feed]
+text:    Herring gulls on the west quay 9:02 Tide line further up than Tuesday 9:14 Two s

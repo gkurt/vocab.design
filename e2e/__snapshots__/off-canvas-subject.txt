@@ -1,0 +1,4 @@
+term:    Off canvas
+scope:   element
+subject: nav[aria-label=Sections][data-part=panel]
+text:    Sections Tides Moon Sunrise Weather

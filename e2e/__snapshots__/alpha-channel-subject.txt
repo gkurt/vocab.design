@@ -1,0 +1,4 @@
+term:    Alpha channel
+scope:   element
+subject: span[data-alpha=64][data-part=chip]
+text:    

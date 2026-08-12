@@ -1,0 +1,59 @@
+---
+name: Aspect ratio box
+slug: aspect-ratio-box
+category: layout
+status: published
+definition: >-
+  A container that holds a fixed width to height proportion whatever its size, so media
+  reserves its space before it loads.
+aliases:
+  - name: intrinsic ratio
+    source: community
+  - name: padding-top hack
+    source: community
+  - name: ratio box
+    source: community
+  - name: the frame
+    source: every-layout
+  - name: aspect-ratio
+    source: css
+  - name: respect for aspect
+    source: web-dev
+sources:
+  - title: "Layouts, Every Layout"
+    url: https://every-layout.dev/layouts/
+demo: inline
+useWhen: reserving the right shaped hole before an image arrives
+---
+
+An aspect ratio box is a container that knows its shape before it knows its size. Give it
+a width and `aspect-ratio: 16 / 9` and the height follows; give it a height and the width
+follows. That sounds like a small convenience and is actually a scheduling trick: the
+proportion is a fact the layout can act on immediately, while the image that will fill the
+box is still crossing the network. The hole is the right shape from the first frame, so
+nothing has to jump when the picture lands.
+
+The technique used to be a genuine hack, and the hack is worth knowing because it explains
+the name. Percentage padding in CSS resolves against the element's own width, in both axes,
+so `padding-top: 56.25%` on an empty box produces a height equal to nine sixteenths of its
+width. The content then had to be positioned absolutely inside that padding, since anything
+in normal flow would sit below it. It worked everywhere, it was completely opaque to read,
+and every design system had a `.ratio-16x9` class carrying that magic number. The
+`aspect-ratio` property replaced all of it. Related and easy to forget: putting `width` and
+`height` attributes back on an `<img>` gives the browser an implicit ratio to reserve with,
+which is the cheapest fix for a page that shifts as images arrive.
+
+Reserving is the whole point, so the failure it prevents deserves its name: cumulative
+layout shift, the metric that counts content moving under a reader after the first paint.
+An image without reserved space collapses to nothing, the text below it slides up, and the
+moment the bytes arrive it all slams back down, usually just as someone was about to tap
+a link. This is why ratio boxes travel with [lazy loading](/lazy-loading) and with
+[skeleton screens](/skeleton-screen): each of the three is a different answer to the same
+question, which is what occupies a region of the page while its content does not exist yet.
+
+Two practical notes. The box controls the shape, and `object-fit` controls what the media
+does inside it: `cover` crops to fill and is right for decorative imagery, `contain` letterboxes
+and is right when the whole frame matters, and choosing wrong is how faces end up cropped
+at the chin. And `aspect-ratio` is a preference, not a law: minimum and maximum sizes win
+against it, and content that cannot shrink will push the box out of proportion, so a ratio
+box is for media and embeds rather than for text, whose height belongs to the words in it.

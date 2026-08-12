@@ -1,0 +1,49 @@
+---
+name: Tween
+slug: tween
+category: motion
+status: published
+definition: >-
+  A single animation from one value to another over a duration, named for the
+  in-between frames a computer fills in.
+aliases:
+  - name: tweening
+  - name: inbetweening
+  - name: in-betweens
+relations: {}
+implementations: []
+sources:
+  - title: 'School of Motion: motion design dictionary'
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: naming one animation as a unit you can play or reverse
+---
+
+The word comes from hand-drawn animation, where the lead animator drew the poses
+that mattered and an assistant drew the frames between them. Those frames were the
+inbetweens, the job was inbetweening, and the software that arrived to do it
+shortened the word to tweening. A tween is therefore not a special kind of
+animation but the ordinary kind: two stated values, a duration, and a machine
+filling in every frame in between so nobody has to draw them.
+
+What the machine can fill in is a real limit worth knowing. Numbers, lengths,
+percentages, colours, and transforms interpolate cleanly, so a tween between them
+is smooth at any frame rate. Discrete values do not: `display`, `visibility`, and
+a font family have no halfway point, so they flip at one moment rather than glide,
+which is why a fade that also changes `display` needs the flip scheduled at the
+right end of the tween. Transforms interpolate component by component and only
+when the two lists line up, so `translateX(0) scale(1)` to
+`scale(2) translateX(40px)` is an ordering mistake that reads as a swerve.
+
+The other half of the term is that a tween is a thing, not just an effect. The Web
+Animations API hands back an object with a current time, a playback rate, and a
+reverse method, so an interface can seek a tween to 40 percent, run it backwards
+when a drag reverses, or cancel it and keep whatever frame it was on. That is the
+difference between animating a value and owning an animation, and it is what makes
+"the tween" a useful noun in a review.
+
+Two neighbours mark its edges. A [keyframe](/keyframe) animation is what you reach
+for when two ends are not enough and the motion needs poses pinned along the way,
+and a [spring animation](/spring-animation) is what you reach for when there
+should be no fixed duration at all, because a spring carries velocity through an
+interruption and a tween has to be restarted or crossfaded.

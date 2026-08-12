@@ -1,0 +1,61 @@
+---
+name: Scroll snap
+slug: scroll-snap
+category: layout
+status: published
+definition: >-
+  Snap positions declared on a scroll container so scrolling settles on a chosen item edge
+  instead of stopping wherever momentum runs out.
+aliases:
+  - name: snap scrolling
+    source: community
+  - name: snap points
+    source: community
+  - name: paging scroll
+    source: community
+  - name: full page scroll
+    source: community
+sources:
+  - title: "CSS scroll snap, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap
+demo: inline
+useWhen: scrolling that must land on an item, not between two
+---
+
+Scroll snap is a contract between a scroll container and its children. The container
+declares that snapping applies and on which axis, with `scroll-snap-type: x mandatory`, and
+each child that wants to be a resting place declares which of its edges counts, with
+`scroll-snap-align: start`, `center`, or `end`. The browser then does the rest: momentum,
+the trackpad, the scrollbar, the arrow keys, and a programmatic `scrollTo` all end at a snap
+position rather than wherever the physics happened to stop. Two extra properties handle the
+inconvenient cases. `scroll-padding` on the container moves the snap positions inward, which
+is how a sticky header stops covering the item that just snapped into place, and
+`scroll-margin` does the same for one child.
+
+The strictness keyword is the decision that matters. `mandatory` means the scroller must
+always come to rest on a snap position, which is what makes a carousel feel like a pager,
+and which will happily make content unreachable: an item taller than the scrollport has no
+valid resting place that shows its middle, so a reader can never see it. `proximity` snaps
+only when the scroll ends near a position and otherwise leaves the scroller alone, which is
+the safe choice for anything with reading matter in it. The short version: `mandatory` for
+strips of equally sized media, `proximity` for sections of a document, and never `mandatory`
+on an axis whose items can outgrow the port.
+
+The behaviour is older than the CSS. Paging in `UIScrollView` gave iOS its photo galleries
+and home screens, and web carousels spent a decade reimplementing that in JavaScript by
+listening for scroll events, cancelling them, and animating to a target, which broke
+momentum, keyboard access, and the scrollbar on the way. Scroll snap moved it into the
+compositor, so the effect survives being scrolled by any input the platform has. Do not
+confuse it with [snapping](/snapping), which is about dragging an object into alignment with
+a guide: same metaphor, different subject, and the only thing scroll snap aligns is the
+scroll position itself.
+
+Three details separate a good implementation from an annoying one. `scroll-snap-stop: always`
+forbids flying past several items in one flick, which matters when each item is a page of
+content rather than one photo in a strip. The last item usually cannot reach the alignment
+the others get, because the scroller runs out of scrollable distance before it does, so a
+trailing spacer or an `end` alignment on that item is what stops it sitting permanently
+half off screen. And snapping is a suggestion about where reading resumes, not a licence to
+take the scroll over: a page that hijacks every wheel tick into a full screen transition is
+the pattern people mean when they complain about scrolljacking, and scroll snap only earns
+its keep when the reader still feels in charge of the gesture.

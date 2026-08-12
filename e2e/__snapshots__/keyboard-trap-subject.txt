@@ -1,0 +1,4 @@
+term:    Keyboard trap
+scope:   element
+subject: div.sp-surface[data-mode=trapped][data-part=widget]
+text:    Zoom inZoom outReset Leave chart Escape leaves as well

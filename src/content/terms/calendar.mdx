@@ -1,0 +1,58 @@
+---
+name: Calendar
+slug: calendar
+category: component
+status: published
+definition: >-
+  A month grid of dates that can be read, navigated and selected from, whether
+  standing alone or living inside a date field.
+aliases:
+  - name: month view
+    source: community
+  - name: date grid
+    source: community
+  - name: mini calendar
+    source: community
+implementations:
+  - system: shadcn
+    name: Calendar
+    url: https://ui.shadcn.com/docs/components
+sources:
+  - title: 'shadcn/ui: components'
+    url: https://ui.shadcn.com/docs/components
+demo: inline
+useWhen: a month laid out as a grid of days
+---
+
+A calendar is a month drawn as seven columns and a handful of rows, so the reader
+can see the shape of the time they are choosing in. That shape is the whole reason
+the component exists. A text field can take a date in fewer pixels, but no field
+tells you that the 18th is a Saturday, that it falls in the same week as payday, or
+that the month has a five day gap before the next Monday. The grid answers those
+questions by being a grid.
+
+It is worth keeping the word separate from [date picker](/date-picker), which names
+the composite: a field you can type into, a button, and a calendar that opens under
+it. The calendar is the surface inside that composite, and it is perfectly happy
+without it. A booking page shows one inline, with no field at all, and a project
+tool puts a small one in the sidebar to move the week the main view is showing.
+When a design system ships a "Calendar" and a "Date picker" as two entries, this is
+the line between them.
+
+A calendar that reads well keeps every week whole, which means drawing the last few
+days of the previous month and the first few of the next, greyed and usually not
+choosable, so the rows never start ragged. It names the month it is showing, in
+words, next to the controls that page it. It marks today and the chosen day
+differently, because they are different claims: today is where the reader is
+standing, the selection is what they have said. And it starts the week on the day
+the reader's locale starts it on, which is Monday in most of the world and Sunday in
+the United States, a difference that quietly breaks a hand-built grid.
+
+Underneath, the thing really is a grid, and the accessibility work follows from
+saying so: `role="grid"` with a row per week, `aria-selected` on the chosen day,
+`aria-current="date"` on today, and one tab stop for the whole month rather than
+thirty-one. Inside it, the arrow keys move a day at a time, up and down move a week
+at a time (the same key, one row of seven), and Page Up and Page Down change the
+month. A grid of buttons with no keyboard model is the most common way this
+component fails, and it fails for exactly the people who would benefit most from
+not having to type a date.

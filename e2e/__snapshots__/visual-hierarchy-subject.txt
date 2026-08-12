@@ -1,0 +1,4 @@
+term:    Visual hierarchy
+scope:   element
+subject: div.sp-surface[data-part=card-ranked]
+text:    WORKSHOP 1 Typography for interfaces Thursday 14 March, Studio 2 3 Two hours on 

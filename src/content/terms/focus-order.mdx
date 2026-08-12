@@ -1,0 +1,62 @@
+---
+name: Focus order
+slug: focus-order
+category: accessibility
+status: published
+definition: >-
+  The sequence keyboard focus follows through a page, which should match reading
+  order instead of source quirks or positive tabindex values.
+aliases:
+  - name: tab order
+    source: community
+  - name: tab sequence
+    source: aria-apg
+  - name: tab ring
+    source: aria-apg
+  - name: sequential focus navigation
+    source: html
+  - name: linear focus flow
+    source: a11yproject
+implementations:
+  - system: fluent
+    name: Keyboard navigation and assistive technologies
+    url: https://fluent2.microsoft.design/accessibility
+sources:
+  - title: 'WCAG 2.2: Focus Order'
+    url: https://www.w3.org/TR/WCAG22/#focus-order
+  - title: 'APG: Developing a Keyboard Interface'
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+useWhen: the path Tab takes through a whole page
+---
+
+Focus order is the path Tab takes: every link, control, and field, one after another,
+in the order the browser finds them in the document. The browser is not guessing and it
+is not looking at the screen, which is the whole of the problem and the whole of the
+fix. WCAG's Focus Order criterion (2.4.3) asks only that the sequence preserve meaning
+and operability, and in practice that means one thing: the order somebody tabs through
+should be the order they read.
+
+It usually breaks in CSS rather than in HTML. `order` on a flex or grid child, a
+`row-reverse`, a grid area that moves a column, an absolutely positioned panel: each
+changes where a thing appears without changing where it sits in the source, and the ring
+then jumps around the screen while the markup stays perfectly tidy. The same crack
+appears from the other side when markup is appended at the end of the body but painted
+at the top, which is how a notification or a hand-rolled dialog ends up last in the
+sequence. Move the element, not just its pixels, and the two orders stay together.
+
+`tabindex` is the other lever, and only two of its values are safe. `tabindex="0"` puts a
+custom control in the natural order where it belongs; `tabindex="-1"` takes it out of the
+sequence while leaving it focusable from script, which is what a composite widget uses
+when it makes its children reachable by arrow keys instead. Anything positive builds a
+priority list that leapfrogs the entire document, and since it has to be maintained
+across every future change, `tabindex="1"` reliably becomes somebody else's bug. A
+toolbar, a menu, or a grid should be one stop that arrow keys move around inside, not
+twenty stops in a row.
+
+Checking it takes a minute: put the pointer down, press Tab from the top of the page, and
+watch. What you are looking for is a [focus ring](/focus-ring) that never disappears, an
+order that reads down the page, no [keyboard trap](/keyboard-trap) partway through, and
+nothing that scrolls into view a beat after focus has already passed it. If the path
+across a long header is tedious, the answer is a [skip link](/skip-link) rather than a
+resequenced document.

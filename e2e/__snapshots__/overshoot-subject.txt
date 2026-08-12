@@ -1,0 +1,4 @@
+term:    Overshoot
+scope:   element
+subject: span.sp-surface[data-part=sheet-over]
+text:    Share sheet

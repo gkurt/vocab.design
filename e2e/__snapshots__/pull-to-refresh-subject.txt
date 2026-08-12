@@ -1,0 +1,4 @@
+term:    Pull to refresh
+scope:   element
+subject: div.sp-row[data-part=indicator][data-state=refreshing][role=status]
+text:    Refreshing

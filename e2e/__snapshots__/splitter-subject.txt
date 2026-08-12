@@ -1,0 +1,4 @@
+term:    Splitter
+scope:   element
+subject: div[aria-controls=vd-sp-editor][aria-label=Resize the editor][aria-orientation=vertical][aria-valuemax=65][aria-valuemin=25][aria-valuenow=45][aria-valuetext=Editor 45 percent][data-part=splitter][role=separator][tabindex=0]
+text:    

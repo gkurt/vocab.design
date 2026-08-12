@@ -1,0 +1,54 @@
+---
+name: Justified text
+slug: justified-text
+category: typography
+status: published
+definition: >-
+  Text set so both edges of the column are flush, achieved by stretching or
+  squeezing the spaces between words on each line.
+aliases:
+  - name: justification
+  - name: full justification
+  - name: flush left and right
+  - name: 'text-align: justify'
+    source: css
+relations: {}
+sources:
+  - title: Justified text (Practical Typography)
+    url: https://practicaltypography.com/
+demo: inline
+useWhen: you want both edges of a column flush
+---
+
+Justification is a trade, not a setting. The line has to arrive at the right
+margin exactly, and the only thing available to stretch is the word spaces, so
+every line ends up with spaces of a different width from its neighbours. Where a
+line happens to hold few words, or one very long one, those spaces open up into
+gaps, and gaps that line up down the column read as pale vertical channels
+running through the text. Typographers call them rivers, and once you can see
+them you cannot unsee them.
+
+Print solves this with hyphenation and with judgement. A hyphenation dictionary
+gives the line breaker more places to break, so it can take a fragment of a long
+word down to the next line rather than stretching four spaces to cover it, and a
+good engine considers the whole paragraph at once, choosing the set of breaks
+with the lowest total badness rather than greedily filling one line at a time.
+That is what Knuth and Plass wrote for TeX, and it is why a justified book page
+looks calm and a justified web page usually does not.
+
+Browsers are getting closer but they are not there. `text-align: justify` is a
+greedy line breaker, so it commits to each line without knowing what the next one
+costs, and `hyphens: auto` needs the language declared (a `lang` attribute the
+browser has a dictionary for) before it will break a word at all. Without
+hyphenation, justification at a narrow [measure](/measure) is the worst case
+possible: fewer words per line means each space carries more of the stretch.
+`text-wrap: pretty` improves the rag and the last line, and
+`text-justify: inter-character` exists for scripts that need it, but the missing
+piece is still whole-paragraph optimisation.
+
+So the practical rule: justify only with hyphenation on, only at a comfortable
+measure, and prefer flush left (ragged right) everywhere else, which is what
+almost every interface should do. Flush left keeps one word space throughout, and
+a rag the eye uses to keep its place. Justified text also interacts badly with
+things a UI cannot control: a long URL, a proper noun that cannot be broken, or a
+reader who has zoomed, each of which turns one line into a row of islands.

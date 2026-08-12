@@ -1,0 +1,4 @@
+term:    All caps
+scope:   element
+subject: span[data-part=sample-tracked][data-tracking=0.09em]
+text:    Shipping address

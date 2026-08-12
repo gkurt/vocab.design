@@ -1,0 +1,58 @@
+---
+name: Off canvas
+slug: off-canvas
+category: layout
+status: published
+definition: >-
+  Keeping secondary regions parked outside the viewport and sliding them in on demand,
+  instead of stacking them below the main content.
+aliases:
+  - name: off-canvas navigation
+    source: community
+  - name: slide-in panel
+    source: community
+  - name: off canvas menu
+    source: community
+  - name: offcanvas
+    source: bootstrap
+sources:
+  - title: "Multi-Device Layout Patterns, LukeW"
+    url: https://www.lukew.com/ff/entry.asp?1514=
+demo: inline
+useWhen: secondary panels parked off screen until called
+---
+
+Off canvas is a layout technique before it is anything visual. The page is treated as being
+wider than the window: navigation, filters, or a details pane sit at a position outside the
+viewport, and a transform brings one of them in when it is asked for. The name comes from
+the early responsive era, when Luke Wroblewski catalogued the multi device layout patterns
+and this was the one that did not simply rearrange columns. It is the answer to a specific
+problem, which is that a phone screen has no room for two regions side by side and the
+obvious alternative is bad.
+
+That alternative is stacking. Put the navigation above the content and every visit starts
+with a list of links the reader has already decided against; put it below and nobody finds
+it. Off canvas buys a third place to keep things, which is not on the screen at all,
+without paying for it in vertical distance. The same reasoning covers a filter panel on a
+narrow product listing, a conversation list beside a thread, and a table of contents beside
+an article: two regions that both deserve to be reachable, one screen to show them in.
+
+The vocabulary needs care, because the visible half of this has a name of its own. A
+[drawer](/drawer) is the component: an edge docked panel with a scrim, a title, and a close
+button. Off canvas is where that panel is when you are not looking at it. Bootstrap muddies
+this by shipping a component literally called Offcanvas, and Material's navigation drawer is
+off canvas on small screens and permanently on canvas on large ones, which is the useful
+reading of the pair: off canvas is a responsive strategy that a component adopts at some
+widths and abandons at others, usually at a declared
+[breakpoint](/breakpoint). The [hamburger menu](/hamburger-menu) is the trigger that
+became famous for opening one.
+
+Three implementation notes decide whether it works. Park the panel with a transform rather
+than a layout offset, so the slide runs on the compositor and nothing reflows, and put
+`overflow-x: hidden` on the wrapper, or a phone will let a reader scroll sideways into the
+parked panel and find the layout is secretly twice as wide as the screen. Then remember that
+"off screen" is a visual fact and nothing more: a parked panel's links are still in the tab
+order and still read out by a screen reader, so the closed state needs `visibility: hidden`,
+`display: none`, or `inert` to actually be closed. And the slide is a courtesy, not the
+mechanism, so under `prefers-reduced-motion` the panel should simply be there, which is what
+the specimen on this page does.

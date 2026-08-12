@@ -1,0 +1,56 @@
+---
+name: Roving tabindex
+slug: roving-tabindex
+category: interaction
+status: published
+definition: >-
+  A focus technique where only one item in a group is in the tab order and arrow keys move
+  that position, so Tab enters and leaves the whole group once.
+aliases:
+  - name: roving tab index
+    source: community
+  - name: arrow key navigation
+    source: community
+  - name: composite widget focus
+    source: aria-apg
+implementations:
+  - system: aria-apg
+    name: Roving tabindex
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+sources:
+  - title: "ARIA APG: Developing a keyboard interface"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+useWhen: a group of controls that Tab treats as one stop
+---
+
+The APG states the mechanism in one sentence: the element that is to be included in the
+tab sequence carries `tabindex="0"` and every other focusable element in the composite
+carries `tabindex="-1"`. Arrow keys move the zero, and DOM focus follows it. What that buys
+is a keyboard user's patience. A toolbar of twelve buttons is one stop rather than twelve,
+so Tab still means "go to the next thing on the page" instead of "grind through this
+widget", and the arrows mean "move around inside the thing I am in".
+
+Which position the zero returns to when the group is left again is a real design decision
+and the APG names both answers. Remembering where the reader was is right for a toolbar or
+a tab list, where the last item they used is probably the one they want next. Resetting to
+the first item is right where the group is a list of equals and starting from the top is
+cheaper than wondering where you left off. Either way, exactly one item in the group has a
+zero at all times, and losing track of that invariant is the classic bug: a group with two
+zeros is two tab stops, and a group with none cannot be reached by keyboard at all.
+
+The alternative is `aria-activedescendant`, which the APG presents beside it. There, DOM
+focus stays on the container and the container points at the active item by id, so nothing
+inside it is focusable and no tabindex moves. It suits a listbox or a combobox, where focus
+belongs to the input while the highlight travels down the options. The practical
+differences are that the browser scrolls a newly focused element into view for you with a
+roving tabindex and does not with an active descendant, and that CSS `:focus` applies to
+the real focus, so an active descendant needs its own styling for the item that is merely
+active.
+
+Two smaller obligations come with the technique. Arrow keys have to be prevented from also
+scrolling the page once the group has handled them, and the keys have to match the group's
+shape: left and right along a toolbar, up and down through a menu, both plus Home and End
+in a grid. And every item still needs to be reachable by pointer, which is why clicking an
+item should move the zero onto it as well: the reader who clicks and then presses an arrow
+key expects to carry on from where they clicked, not from wherever the group was last.

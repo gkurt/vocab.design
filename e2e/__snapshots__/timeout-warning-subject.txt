@@ -1,0 +1,4 @@
+term:    Timeout warning
+scope:   element
+subject: div.sp-dialog[aria-labelledby=vd-tw-title][aria-modal=true][data-open][data-part=dialog][role=alertdialog]
+text:    Still there? You will be signed out in 0:35, and this page of your application i

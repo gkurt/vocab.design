@@ -1,0 +1,4 @@
+term:    Ripple
+scope:   element
+subject: button.sp-button[data-part=surface][type=button]
+text:    Add to library

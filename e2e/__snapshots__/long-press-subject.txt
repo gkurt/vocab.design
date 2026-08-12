@@ -1,0 +1,4 @@
+term:    Long press
+scope:   element
+subject: div.sp-surface[aria-haspopup=menu][data-part=tile][role=button][tabindex=0]
+text:    Harbour

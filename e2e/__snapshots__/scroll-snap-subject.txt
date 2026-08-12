@@ -1,0 +1,4 @@
+term:    Scroll snap
+scope:   element
+subject: div.sp-scroll[data-index=0][data-part=scroller][data-settled]
+text:    Cormorant Bay 01 Salt Pier 02 Longstone Light 03 Bell Rock 04

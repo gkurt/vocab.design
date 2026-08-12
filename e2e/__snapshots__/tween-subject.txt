@@ -1,0 +1,4 @@
+term:    Tween
+scope:   element
+subject: span[data-part=tile]
+text:    

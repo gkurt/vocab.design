@@ -1,0 +1,4 @@
+term:    Gradient border
+scope:   element
+subject: div[data-edge=conic][data-part=card]
+text:    Studio Pro Unlimited specimens, shared kits, and a seat for every reviewer. Upgr

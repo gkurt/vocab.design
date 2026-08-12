@@ -1,0 +1,50 @@
+---
+name: Ripple
+slug: ripple
+category: motion
+status: published
+definition: >-
+  A circular wash that spreads from the point of contact to acknowledge a touch,
+  Material's way of tying feedback to where the finger landed.
+aliases:
+  - name: ink ripple
+    source: material
+  - name: touch ripple
+relations: {}
+implementations:
+  - system: material
+    name: State layer (ripple)
+    url: https://m3.material.io/foundations/interaction/states/overview
+sources:
+  - title: 'Material Design 3: States'
+    url: https://m3.material.io/foundations/interaction/states/overview
+demo: inline
+useWhen: touch feedback that spreads from the contact point
+---
+
+A ripple answers a press by saying where the press was. A circle is born at the
+contact coordinates, grows until it has covered the control, and fades out as it
+goes, so the acknowledgement is not a generic flash but a mark at the exact spot
+the finger or pointer came down. Material introduced it as the ink metaphor of
+its first version, and the effect has been copied so widely that it now reads as
+touch feedback in general rather than as one vendor's signature.
+
+Mechanically it is a [state layer](/state-layer) with an origin. The circle is
+drawn in the control's own content colour at a low alpha, which is why the same
+rule works on a light button and a dark one, and it is clipped to the control so
+the wash cannot escape the shape it belongs to. Two values decide whether it
+feels right: the radius has to reach the furthest corner from the contact point,
+or the far edge stays unwashed, and the fade has to finish shortly after the
+growth does, so the control is left clean rather than tinted. Because it animates
+transform and opacity only, it costs no layout and cannot move the label under it.
+
+The ripple is also the clearest case in the kit of feedback that is genuinely
+about touch. On a mouse the origin is a nicety; on a finger it is confirmation
+that the press landed on the target rather than in the gap beside it, which is
+the same worry [touch target size](/touch-target-size) addresses at rest. Its
+weakness is duration. A ripple that outlives the press reads as lag, and a slow
+one on a control used dozens of times a day becomes an obstacle, so keep it under
+half a second and let it start immediately, on the press rather than on the
+release. It is decoration over information, so a reader who has asked for
+[reduced motion](/prefers-reduced-motion) is given the flat wash and nothing that
+travels.

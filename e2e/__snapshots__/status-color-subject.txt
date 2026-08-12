@@ -1,0 +1,4 @@
+term:    Status color
+scope:   element
+subject: div.sp-row[data-part=row]
+text:    Success Warning Danger Info

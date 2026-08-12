@@ -1,0 +1,56 @@
+---
+name: Pull to refresh
+slug: pull-to-refresh
+category: pattern
+status: published
+definition: >-
+  Dragging a list downward past its top edge to trigger a reload, with an indicator
+  that appears in the space the drag opens up.
+aliases:
+  - name: swipe to refresh
+    source: material
+  - name: drag to refresh
+    source: community
+  - name: pull down to refresh
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: pull to refresh'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: tugging a list down to fetch new items
+---
+
+Pull to refresh puts the reload where the reader's thumb already is. A list that is
+scrolled to the top has nowhere further to go, so the drag past that edge is spare
+input, and the pattern spends it on the one command a feed needs most. Loren Brichter
+built it into Tweetie in 2008 and it spread from there into almost every mobile list,
+which is why it now reads as a platform convention rather than as one app's invention.
+Android names it swipe to refresh and draws it as a circular indicator that descends
+from the top edge; iOS lists carry it as standard behaviour.
+
+The gesture has three states and the middle one is the whole craft. While the drag is
+short, the indicator follows the finger and the gesture is still cancellable, so
+letting go springs the list back and nothing is fetched. Past a threshold, roughly the
+height of the indicator, it arms: the arrow flips, or a ring completes, and a small
+haptic tick lands on the platforms that have one. Release from there commits, and the
+list holds the opened space while the request runs so the spinner has somewhere to
+live. Follow the finger exactly during the drag, with resistance rather than a hard
+stop past the threshold, or the gesture feels like it belongs to something else.
+
+Two things are easy to get wrong. The first is scope: the pull must only arm when the
+scroller is genuinely at its top, or a reader flicking back up through a feed will
+refresh by accident and lose their place. The second is what refresh means. Prepending
+new items above the reader's position is polite; replacing the list under them is not,
+and a feed that reorders itself on every pull makes the gesture feel risky. Where new
+items arrive on their own, say so with a count at the top instead, and let the pull be
+the way to accept them.
+
+It is a gesture, so it is invisible, which makes it an accelerator and never the only
+route. Keep a refresh command somewhere a pointer and a keyboard can reach, since there
+is nothing to drag with a mouse and nothing to press with a keyboard, and announce the
+result: a reader who cannot see the spinner needs to hear that the list reloaded and
+whether anything came. On the web the same gesture is often the browser's own, so a
+page that wants it has to claim the overscroll (`overscroll-behavior`) rather than fight
+the platform for the same drag.

@@ -1,0 +1,58 @@
+---
+name: Timeout warning
+slug: timeout-warning
+category: accessibility
+status: published
+definition: >-
+  A warning before a session or form expires with a simple way to extend it, so a
+  slower reader does not lose their work silently.
+aliases:
+  - name: session timeout dialog
+    source: community
+  - name: timing adjustable
+    source: wcag
+  - name: extend session
+    source: community
+  - name: idle timeout
+    source: community
+  - name: re-authenticating
+    source: wcag
+sources:
+  - title: 'WCAG 2.2: Timeouts'
+    url: https://www.w3.org/TR/WCAG22/#timeouts
+  - title: 'WCAG 2.2: Timing Adjustable'
+    url: https://www.w3.org/TR/WCAG22/#timing-adjustable
+demo: inline
+useWhen: a session is about to expire under the reader
+---
+
+Somewhere in the building a security policy decided that fifteen minutes of quiet means
+you have left. Meanwhile a real person is on page three of a benefits claim, reading it
+twice because it matters, or typing with a head pointer, or having gone to find the
+document the form asked for. The next click posts a form nobody is signed in to any more
+and the answers are gone. This is a timing problem that lands hardest on the people who
+need the most time, which is why WCAG treats it as an accessibility criterion rather than
+a product decision.
+
+Timing Adjustable (2.2.1, level A) sets out what you owe them. Either the limit can be
+turned off, or it can be extended to ten times the default before it starts, or the user
+is warned before it expires with at least twenty seconds to respond and can extend it
+with a simple action, at least ten times over. Twenty seconds is a floor and a low one,
+so give a minute where you can. The related criteria fill in the rest: Timeouts (2.2.6)
+says warn about data loss unless the data survives, and Re-authenticating (2.2.5) says
+that when the session does die and they sign back in, their work has to still be there.
+
+The dialog itself is the easy part, and it is mostly restraint. Warn early enough to be
+useful, name what is at stake ("your application is not saved yet") rather than just
+counting, and make extending one press of one clearly labelled button. Set the countdown
+in [tabular figures](/tabular-figures) so the number cannot jitter while somebody is
+reading it, and give the reader an explicit way out in both directions, extend or sign
+out now, instead of leaving the dialog to resolve itself. Announce it: the person who
+needs it most may not be looking at the screen.
+
+It is worth saying which clock this is. A [countdown timer](/countdown-timer) on a
+checkout page is pointed at the reader, manufacturing urgency in the seller's interest,
+and the honest ones are still doing that. A timeout warning points the other way: it is
+the system admitting it is about to do something destructive and asking permission first.
+The best version of it is a session long enough, and an [autosave](/autosave) good enough,
+that the dialog never has to appear.

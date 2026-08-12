@@ -1,0 +1,4 @@
+term:    Justified text
+scope:   element
+subject: p.sp-text[data-hyphens=none][data-part=justified][lang=en]
+text:    Justi­fi­ca­tion stretches the word spaces until every line reaches the mar­gin 

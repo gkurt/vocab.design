@@ -1,0 +1,63 @@
+---
+name: Splitter
+slug: splitter
+category: component
+status: published
+definition: >-
+  The draggable bar between two panes that changes how much room each one gets,
+  keyboard operable as a slider between limits.
+aliases:
+  - name: window splitter
+    source: aria-apg
+  - name: resizable
+    source: shadcn
+  - name: split panel
+    source: cloudscape
+  - name: sash
+    source: community
+  - name: grab handle
+    source: community
+implementations:
+  - system: aria-apg
+    name: Window Splitter
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+  - system: shadcn
+    name: Resizable
+    url: https://ui.shadcn.com/docs/components
+sources:
+  - title: 'ARIA APG: window splitter pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+useWhen: the draggable bar between two resizable panes
+---
+
+A splitter is the bar between two panes, and what it really controls is a single
+number: how the fixed width of their container is shared out. That is why it is
+modelled as a slider rather than as a handle. It has a minimum, a maximum, and a
+current value, and dragging it does not resize a pane so much as move the boundary
+that both panes answer to.
+
+It is worth separating the bar from the layout it sits in. A [split view](/split-view)
+is the arrangement, two panes side by side with a relationship between them, and it
+can exist with a boundary nobody is allowed to move. The splitter is the control
+that makes that boundary adjustable, which is also why it takes so many names:
+window splitter in the ARIA practices, sash in desktop toolkits, gutter in code
+editors, and Resizable or Split panel where a design system names the wrapper
+instead of the bar.
+
+Most of the craft is in the limits. Both panes need a minimum, or the bar drags one
+of them into uselessness; the pane that is not being read usually wants a maximum
+too. Decide what happens when the window changes size, since holding the leading
+pane at a fixed width and holding it at a fixed proportion are different products.
+Offer a way back: a double click that returns the bar to its default is the
+convention, and if a pane can collapse to nothing then something has to remain that
+brings it back. And give the bar a hit area far wider than the hairline it looks
+like, since a one pixel line is not a target on any pointer, let alone a finger.
+
+Keyboard is where splitters most often fail, and the pattern is small enough that
+there is no excuse. The bar is a `separator` with `tabindex="0"`, carrying
+`aria-valuenow`, `aria-valuemin` and `aria-valuemax` as the leading pane's share,
+`aria-orientation` for the axis it moves on, and a name that says what it sizes
+("Resize the file list"). Arrow keys move it a step at a time, Home and End take it
+to its limits, and Enter is conventionally the collapse toggle. Without that, the
+only people who can rebalance the window are the ones holding a mouse.

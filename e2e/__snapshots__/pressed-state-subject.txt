@@ -1,0 +1,4 @@
+term:    Pressed state
+scope:   element
+subject: button.sp-button[data-part=button][type=button]
+text:    Place order

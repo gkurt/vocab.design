@@ -1,0 +1,4 @@
+term:    Squircle
+scope:   element
+subject: svg[aria-label=Squircle][data-part=shape][role=img][viewBox=0 0 120 120]
+text:    

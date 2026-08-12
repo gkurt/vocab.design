@@ -1,0 +1,4 @@
+term:    Typeahead
+scope:   element
+subject: sp-combobox[data-part=field]
+text:    ManchesterMargateMaidstoneBirminghamBristolCardiffDoverNorwichSalisburyYork

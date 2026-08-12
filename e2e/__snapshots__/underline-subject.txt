@@ -1,0 +1,4 @@
+term:    Underline
+scope:   element
+subject: a[data-part=link-tuned][href=https://example.com/guidelines]
+text:    payment guidelines

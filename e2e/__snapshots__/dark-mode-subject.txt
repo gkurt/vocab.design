@@ -1,0 +1,4 @@
+term:    Dark mode
+scope:   element
+subject: div[data-lift=up][data-mode=derived][data-part=dark]
+text:    Today 3 due Raised card Accent

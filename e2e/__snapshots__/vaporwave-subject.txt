@@ -1,0 +1,4 @@
+term:    Vaporwave
+scope:   element
+subject: div[data-part=card]
+text:    untitled (1996) ヴェイパー V A P O R

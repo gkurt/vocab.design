@@ -1,0 +1,4 @@
+term:    Baseline
+scope:   element
+subject: div[data-part=ruled]
+text:    Handgloves Rpg

@@ -1,0 +1,66 @@
+---
+name: Progressive blur
+slug: progressive-blur
+category: aesthetic
+status: published
+definition: >-
+  A blur whose strength ramps across a region instead of applying evenly, so content fades
+  into softness toward an edge rather than stopping at a hard line.
+aliases:
+  - name: gradient blur
+  - name: graduated blur
+  - name: layered blur
+  - name: fade to blur
+  - name: blur scrim
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'kennethnym: Progressive blur in CSS'
+    url: https://kennethnym.com/blog/progressive-blur-in-css/
+  - title: 'Devs Love Coffee: Making Apple progressive blur on the web'
+    url: https://www.devslovecoffee.com/blog/making-apple-progressive-blur-on-web
+demo: inline
+useWhen: content should dissolve into blur, not meet an edge
+---
+
+A plain `backdrop-filter` blurs everything inside its box and nothing outside it, so
+wherever the box ends there is a seam: a straight line with sharp content on one side and
+soft content on the other. That seam is fine when the blurred thing is meant to read as a
+pane of glass with an edge, and wrong when it is meant to read as atmosphere. Progressive
+blur removes the seam by making the blur a gradient: none at one end of the region, heavy
+at the other, with everything in between ramping. Content scrolling toward the top of a
+screen then dissolves rather than crossing a threshold, which is why it has become the
+standard treatment for a floating navigation bar or a tab bar sitting over a scroller.
+
+CSS has no gradient blur, so the technique is a stack. Several absolutely positioned
+layers cover the same region, each with a larger `backdrop-filter: blur()` than the last,
+and each masked by a `linear-gradient` window that sits closer to the edge than the last.
+Because every layer blurs what is behind it, including the layers underneath, the blur
+accumulates where the windows overlap, and the overlap is designed to grow toward the
+edge. Four or five layers with blur radii roughly doubling is enough to read as continuous;
+mask stops that overlap by about half a band are what keep the joins invisible. The other
+routes are an SVG filter with a masked `feGaussianBlur`, or a canvas that draws the source
+several times, and both cost more for the same result. Native platforms just ask for a
+variable blur, which is why this looked easy on iOS long before it was possible here.
+
+It comes out of Apple's software. The iOS navigation bar and Control Center have used
+graduated blur for years, visionOS leans on it hard because a floating panel over a real
+room cannot have a hard edge without looking pasted on, and the current
+[liquid glass](/liquid-glass) direction is largely this effect plus refraction. It is the
+same family as [glassmorphism](/glassmorphism), with the difference that glassmorphism is
+about a surface you can see and progressive blur is about a surface you cannot: done well,
+the reader notices only that the top of the screen got quiet.
+
+Two costs are worth stating. It is not free to draw. Each layer is a separate compositing
+pass over live pixels, so a five layer ramp across the full width of a phone screen is the
+kind of thing that shows up on a mid range device as dropped frames while scrolling, and
+the honest mitigation is fewer layers, a shorter region, or a plain gradient scrim instead.
+And blur is not contrast. If text sits over the ramp, the ramp's job is legibility and it
+has to be tested as such, because a blur lowers detail without reliably lowering luminance:
+a white title over blurred white sky is still a white title over white sky. Pair it with a
+dimming layer, or with a [gradient](/gradient) scrim, and check the result rather than
+trusting the softness.

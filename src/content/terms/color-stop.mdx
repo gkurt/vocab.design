@@ -1,0 +1,60 @@
+---
+name: Color stop
+slug: color-stop
+category: color
+status: published
+definition: >-
+  A colour pinned at a position along a gradient, with an optional hint between two stops
+  that moves the halfway point of the transition off centre.
+aliases:
+  - name: gradient stop
+    source: community
+  - name: interpolation hint
+    source: css
+  - name: midpoint
+    source: community
+  - name: stop position
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: Using CSS gradients"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Images/Using_gradients
+demo: inline
+useWhen: pinning a colour at a point along a gradient
+---
+
+A [gradient](/gradient) is a list of stops, and a stop is a colour plus an optional position:
+`linear-gradient(90deg, #1D63D2 0%, #C0459B 50%, #F2B23A 100%)` names three of them. Leave
+the positions out and the browser distributes them evenly, first at the start and last at the
+end, so a two colour gradient needs no numbers at all. Everything between two stops is
+interpolated, and everything before the first or after the last is flat, which is how a stop
+at 20 percent buys you a solid fifth of the strip for free. Positions that run backwards are
+clamped to the largest value so far rather than reordered, so a stop written at 30 percent
+after one at 60 becomes a second stop at 60 and produces a hard edge.
+
+Hard edges are the technique that follows from that rule. Two stops at the same position give
+a band with no blend at all, which is how stripes, progress segments and barber poles are
+made, and the double-position shorthand writes one colour with both of its edges at once:
+`#1D63D2 0 25%`. The other thing that can appear between two stops is not a stop: a bare
+percentage with no colour is an **interpolation hint**, and it moves the point where the two
+neighbours are mixed half and half. `linear-gradient(#1D63D2, 30%, #F2B23A)` still runs
+between the same two colours, but it gets to the midpoint mixture in the first third, so the
+blue gives way early and the amber holds the rest of the strip.
+
+Interpolation happens in a colour space, and the default is the sRGB the values were written
+in, which has two well known dead zones. Blending two saturated hues can pass through a
+desaturated grey in the middle, and fading to the keyword `transparent` fades to transparent
+*black*, so a colour going to nothing picks up a grey cast on the way. The fix for the first
+is to name a better space, `linear-gradient(in oklab, ...)`, or to author in
+[OKLCH](/oklch) to begin with. The fix for the second is to end on the same colour at zero
+[alpha](/alpha-channel) rather than on `transparent`.
+
+Stops are also where a gradient stops being decoration and starts being a component. A
+[scrim](/scrim) is two or three stops chosen so the dimming is heaviest exactly where the
+text sits, and a meter or a heat scale is a set of stops carrying meaning at known positions.
+In both cases the positions are the design, so they belong in a token rather than being
+retyped per screen.

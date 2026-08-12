@@ -1,0 +1,4 @@
+term:    Color stop
+scope:   element
+subject: button[aria-label=Stop b][data-part=stop-b][data-pos=50][data-selected][type=button]
+text:    

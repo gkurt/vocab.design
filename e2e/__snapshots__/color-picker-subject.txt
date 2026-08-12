@@ -1,0 +1,4 @@
+term:    Color picker
+scope:   element
+subject: div.sp-surface.sp-stack[aria-label=Accent colour][data-hue=210][data-part=picker][data-sat=78][data-val=90][data-value=#328ce6][role=group]
+text:    0120240360 #328CE6

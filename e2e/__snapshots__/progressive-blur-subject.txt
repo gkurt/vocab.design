@@ -1,0 +1,4 @@
+term:    Progressive blur
+scope:   element
+subject: div[data-part=ramp]
+text:    

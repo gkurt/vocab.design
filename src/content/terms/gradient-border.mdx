@@ -1,0 +1,72 @@
+---
+name: Gradient border
+slug: gradient-border
+category: aesthetic
+status: published
+definition: >-
+  An outline filled with a gradient rather than a single color, usually built from a conic
+  or linear gradient behind a masked shape so the hue travels around the edge.
+aliases:
+  - name: gradient outline
+  - name: gradient stroke
+  - name: rainbow border
+  - name: animated border
+  - name: glow border
+  - name: shine border
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'web.dev: Use conic gradients to create a cool border'
+    url: https://web.dev/articles/conic-gradient-border
+  - title: 'Bram.us: Animating a CSS Gradient Border'
+    url: https://www.bram.us/2021/01/29/animating-a-css-gradient-border/
+  - title: 'Bejamas: Finding the best way to create animated gradient borders in CSS'
+    url: https://bejamas.com/hub/guides/css-animated-gradient-border
+demo: inline
+useWhen: an outline whose color changes along its length
+---
+
+CSS has no gradient border property, so every version of this is a trick, and the trick
+that has won is two backgrounds and a transparent border. The element gets a border of the
+thickness you want in `transparent`, a first background layer clipped to `padding-box`
+carrying the card's own fill, and a second layer clipped to `border-box` carrying the
+gradient. The border area is the only place where the second layer shows through, so the
+gradient becomes the outline, and because both layers are clipped by the same rounded box
+the corners come out right.
+
+Written out, that is `border: 2px solid transparent`, a radius, and
+`background: linear-gradient(var(--surface), var(--surface)) padding-box, conic-gradient(from 140deg, #6366f1, #22d3ee, #f472b6, #6366f1) border-box`.
+Nothing else, and no extra element.
+
+The obvious property, `border-image`, is the one to avoid. It can take a gradient, but it
+draws on the border box while ignoring `border-radius` entirely, so a rounded card gets a
+square gradient frame with the fill rounded inside it. The older workaround is a wrapper
+with a gradient background and a couple of pixels of padding around an inner element that
+carries the real fill, which still works and is sometimes easier to reason about, at the
+cost of an extra element and an inner radius you have to keep in step. A third route uses
+a pseudo-element sized larger than its parent, clipped with `mask` and
+`mask-composite: exclude`, which is what most component libraries ship because it composes
+with a shadow and survives an animated angle.
+
+Which gradient you choose decides what the eye reads. A linear gradient runs along one
+axis, so the top edge and the bottom edge end up different colours and each edge is fairly
+flat in itself. A conic gradient sweeps around a centre, which is the one that reads as
+hue travelling around the outline, and it is why the "shine" effect works: animate the
+starting angle and a bright band appears to run around the card. Animating it means
+registering the angle with `@property` so the browser can interpolate a custom property,
+since a bare variable jumps rather than tweens. Do that on a compositor-friendly property
+if you can, run it slowly, and stop it under
+[prefers reduced motion](/prefers-reduced-motion), because a permanently moving edge is
+motion nobody asked for.
+
+The caution is contrast. A gradient outline has no single colour, so it also has no single
+contrast ratio, and if the border is doing real work (marking the selected plan, showing
+which field is invalid) then its lightest stop is the one that has to clear 3:1 against
+whatever is behind it, not its average. It is decoration in most of the places it appears,
+which is fine, but a decorative gradient edge that also happens to be the only marker of
+state is a state that some readers cannot see. Keep the [focus ring](/focus-ring) a plain
+solid colour for the same reason.

@@ -1,0 +1,4 @@
+term:    Scrim
+scope:   element
+subject: div[data-part=scrim][data-scrim=gradient]
+text:    

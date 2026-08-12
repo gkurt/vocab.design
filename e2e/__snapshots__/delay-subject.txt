@@ -1,0 +1,4 @@
+term:    Delay
+scope:   element
+subject: span.sp-tooltip[data-open][data-part=tip-delayed][role=tooltip]
+text:    Duplicate this page

@@ -1,0 +1,4 @@
+term:    Contrast ratio
+scope:   element
+subject: div[data-level=aa][data-part=readout]
+text:    4.54:1 #767676 on #FFFFFF AA 4.5:1 AA large 3:1 AAA 7:1

@@ -1,0 +1,4 @@
+term:    Container query
+scope:   element
+subject: div.sp-surface[data-layout=stack][data-part=card]
+text:    Kelp forest survey

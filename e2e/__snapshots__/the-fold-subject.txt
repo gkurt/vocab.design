@@ -1,0 +1,4 @@
+term:    The fold
+scope:   element
+subject: div[data-part=fold]
+text:    

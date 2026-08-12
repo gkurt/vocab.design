@@ -1,0 +1,4 @@
+term:    Fluid typography
+scope:   element
+subject: span[data-bound=preferred][data-part=heading][data-size=30.3]
+text:    Made to measure

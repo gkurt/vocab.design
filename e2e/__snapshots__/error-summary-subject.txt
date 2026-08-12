@@ -1,0 +1,4 @@
+term:    Error summary
+scope:   element
+subject: div.sp-surface[data-part=summary][role=alert][tabindex=-1]
+text:    There is a problem Enter your full nameEnter an email address, like ada@example.

@@ -1,0 +1,4 @@
+term:    Fitts's law
+scope:   whole scene
+subject: div.sp-app
+text:    Aim Nothing hit yet start D 296 px, W 14 pxID 5.4 bits, about 860 ms D 119 px, W

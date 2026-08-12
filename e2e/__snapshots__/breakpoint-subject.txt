@@ -1,0 +1,4 @@
+term:    Breakpoint
+scope:   element
+subject: div.sp-grid[data-part=region][data-shape=stacked]
+text:    Tides Winds Charts Harbour log sm Aside

@@ -1,0 +1,52 @@
+---
+name: Required field indicator
+slug: required-field-indicator
+category: accessibility
+status: published
+definition: >-
+  How a form says a field cannot be left empty, in the label text, in the announced
+  name, and not by an asterisk whose meaning is explained somewhere else.
+aliases:
+  - name: asterisk convention
+    source: community
+  - name: aria-required
+    source: aria
+  - name: required marker
+    source: community
+  - name: optional marking
+    source: community
+sources:
+  - title: 'WCAG 2.2: Labels or Instructions'
+    url: https://www.w3.org/TR/WCAG22/#labels-or-instructions
+demo: inline
+useWhen: deciding how to mark required versus optional fields
+---
+
+Everybody knows the asterisk means required, which is exactly why it gets shipped
+without the sentence that says so. It is a convention, not a symbol with a meaning of
+its own, and WCAG 3.3.2 asks for the instruction to be provided when input is required.
+So the mark needs a legend, and the legend needs to come before the fields rather than
+under the submit button, where it is read after the decision it was supposed to inform.
+Half a line at the top of the form is the whole fix: "\* marks a required field".
+
+Then there is the half nobody sees. A mark that only exists visually leaves a
+[screen reader](/screen-reader) announcing "Email, edit" with no hint that it cannot be
+skipped. Use the native `required` attribute where the browser should enforce it, or
+`aria-required="true"` where your own validation does, and put the asterisk inside the
+`<label>` so it travels with the field rather than floating beside it. Mark the glyph
+`aria-hidden="true"` once the state is carried properly, or the name comes out as "Email
+star". Never let colour do the work alone, and never build the mark out of a pseudo
+element whose text some readers will not report.
+
+The inverted convention is often the better one. On a form where almost everything is
+mandatory, marking the two optional fields is quieter and more informative than
+sprinkling asterisks down the whole column. What you cannot do is run both at once, or
+switch between them from page to page: the reader learns one rule per form and applies it
+everywhere. Whichever way round it goes, the word itself, "optional" or "required",
+written into the label text, is still the clearest thing anyone has invented.
+
+Marking is a promise made in advance, not a report after the fact. A field that only
+reveals its requirement once the form has been rejected has already wasted somebody's
+time, and that is a different job:
+[error identification](/error-identification) says what went wrong, while the indicator
+is what should have made the error unnecessary.

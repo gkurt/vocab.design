@@ -1,0 +1,4 @@
+term:    Typeface
+scope:   element
+subject: div.sp-stack[data-part=specimen]
+text:    regular 34px Handgloves regular 21px Handgloves italic 21px Handgloves bold 21px

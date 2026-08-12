@@ -1,0 +1,59 @@
+---
+name: Container query
+slug: container-query
+category: layout
+status: published
+definition: >-
+  A rule that responds to the size of a component's own container rather than the
+  viewport, so one component adapts anywhere it is placed.
+aliases:
+  - name: element query
+    source: community
+  - name: containment query
+    source: community
+  - name: component query
+    source: community
+  - name: container query layout
+    source: uiterms
+sources:
+  - title: "@container at-rule, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@container
+demo: inline
+useWhen: a component that must adapt to its slot, not the screen
+---
+
+A container query is spelled in two halves. An ancestor volunteers to be measured with
+`container-type: inline-size`, and a descendant asks about it with
+`@container (min-width: 24rem)`. The rules inside that block apply when the nearest
+eligible ancestor is at least that wide, whatever the window is doing. Front end
+developers asked for this for roughly a decade under the name element queries, were told
+repeatedly that it was impossible for good reasons (a rule that resizes the thing it
+measures is a circular layout), and eventually got it once the specification worked out
+which axis to give up.
+
+The reason it matters is that components move and pages do not. A media card in the main
+column has room for a thumbnail beside its text; the same card in a sidebar does not; the
+same card again in a three-up grid is somewhere in between. With
+[breakpoints](/breakpoint) alone you write the card's layout against the viewport and it
+is wrong in at least one of those slots, or you invent props like `compact` and pass the
+layout down by hand from whoever knows where the card landed. A container query lets the
+card work it out locally, which is the difference between a component that is responsive
+and a component that is merely used inside a responsive page.
+
+The constraint to internalise is that an element cannot query itself. Declaring
+`container-type` and `@container` on the same box gives you nothing, so components come
+with a wrapper whose only job is to be the container, and the actual layout goes one level
+in. The other half of the deal is containment: a size container's contents no longer size
+it in the queried axis, which is exactly why `inline-size` (measure the width, let the
+height stay automatic) is the type almost everyone wants and `size` is the one that
+surprises people by collapsing their box. When several containers are nested, `container-name`
+picks which one is being asked, and the `cqw` and `cqi` units let type and spacing scale
+against the container rather than the window.
+
+One word, two jobs, and the ambiguity is worth heading off out loud. A
+[container](/container) in the Bootstrap sense is a wrapper that caps width; a container in
+this sense is any element that has agreed to be measured, and it usually caps nothing at
+all. Saying "query container" when you mean the second one costs one word and saves an
+argument. The direction of travel is that the mechanism generalises past size: style
+queries ask about a custom property's value on the container instead of its width, which
+is how a card learns it is on a dark panel rather than how wide the panel is.

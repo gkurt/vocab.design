@@ -1,0 +1,4 @@
+term:    Status message
+scope:   element
+subject: span.sp-text.sp-text--ink[data-part=status][role=status]
+text:    Saved

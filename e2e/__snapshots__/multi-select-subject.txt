@@ -1,0 +1,4 @@
+term:    Multi select
+scope:   element
+subject: div[data-chosen=failed][data-part=control]
+text:    Failed ✕ Any status Queued 4 Running 2 Passed 31 Failed 6 Skipped 3

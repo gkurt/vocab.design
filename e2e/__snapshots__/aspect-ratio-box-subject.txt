@@ -1,0 +1,4 @@
+term:    Aspect ratio box
+scope:   element
+subject: div.sp-row[data-part=box][data-ratio=16-9]
+text:    16 / 9

@@ -1,0 +1,4 @@
+term:    Required field indicator
+scope:   element
+subject: span.sp-label[aria-hidden=true][data-part=mark-email]
+text:    *
