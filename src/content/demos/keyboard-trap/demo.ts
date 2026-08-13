@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row">${stop('stop-home', 'Dashboard')}</div>
         </div>
         <span class="sp-label sp-context" data-part="caption" style="display: block; margin-top: 10px">${CAPTIONS.trapped.label}</span>
-        <div class="sp-surface" data-part="widget" data-subject data-mode="trapped" style="margin-top: 4px; padding: 10px 12px">
+        <div class="sp-surface" data-part="widget" data-subject data-pose="[data-mode=trapped]" data-mode="trapped" style="margin-top: 4px; padding: 10px 12px">
           <div class="sp-row" style="gap: 6px">
             ${TOOLS.map((tool) => stop(tool.key, tool.label)).join('')}
           </div>

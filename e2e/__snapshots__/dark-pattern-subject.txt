@@ -1,4 +1,4 @@
 term:    Dark pattern
 scope:   element
-subject: div.sp-surface[data-mode=deceptive][data-part=choice]
+subject: div.sp-surface[data-mode=deceptive][data-part=choice][data-pose=[data-mode=deceptive]]
 text:    Protect this order Yes, protect my order for 3.99 no thanks, i don’t mind if it 

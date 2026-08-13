@@ -147,6 +147,12 @@ never fires under reduced motion, so nothing may ever wait on it.
   `data-subject`, on the narrowest element that term actually names, and wraps scenery in
   `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to
   the subject — the stage draws all annotation (pin, identify spotlight) itself.
+  A demo whose states include a counter-example the subject itself passes through
+  (dark-pattern's fair checkout) declares the honest condition as a selector in
+  `data-pose` on the subject (`data-pose="[data-mode=deceptive]"`); identify refuses to
+  pose a state that fails it and plays on, or resets to the mount state, which must
+  satisfy it. Prefer designing states so the subject never stops being the term;
+  `data-pose` is for demos where the dishonest state is pedagogically required.
   Demo instrumentation (a Replay button, a "make it fail" switch) is scenery, never
   subject. Marking the top-level wrapper claims the whole scene is the term and
   **withdraws the identify control** (SPEC §5–6), so reach for it only when no

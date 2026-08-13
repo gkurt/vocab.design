@@ -51,7 +51,7 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-surface sp-scroll" data-part="viewport"
                style="flex: 0 0 auto; width: 248px; height: 156px; background: var(--sp-sunken)">
-            <div data-part="page" data-subject data-state="reflow" style="padding: 10px">
+            <div data-part="page" data-subject data-pose="[data-state=reflow]" data-state="reflow" style="padding: 10px">
               <span class="sp-heading" style="font-size: 14px">Tide table</span>
               <p class="sp-text" style="margin: 4px 0 0; font-size: 12px">Falmouth, week of 12 March.</p>
               <div class="sp-stack" data-part="cols" style="margin-top: 10px; gap: 8px">

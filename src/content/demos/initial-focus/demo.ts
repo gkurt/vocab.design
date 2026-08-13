@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading" id="vd-if-title" style="font-size: 14px">Project settings</span>
           <div class="sp-field" style="margin-top: 10px">
             <label class="sp-label" for="vd-if-name">Project name</label>
-            <input class="sp-input" id="vd-if-name" data-part="field" data-subject value="Harbour" readonly />
+            <input class="sp-input" id="vd-if-name" data-part="field" data-subject data-pose="[data-sim-focus]" value="Harbour" readonly />
           </div>
           <div class="sp-row sp-row--between" style="margin-top: 14px">
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="delete">Delete project</button>

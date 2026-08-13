@@ -15,6 +15,23 @@ export interface StageAudit extends AuditResult {
 }
 
 /**
+ * Is the subject currently being the term it names? A demo whose states include
+ * a counter-example (dark-pattern's fair checkout, keyboard-trap's escapable
+ * widget) declares the honest condition as a selector in `data-pose` on the
+ * subject; a pose taken while it fails would ring something that is visibly on
+ * stage but no longer the term. Visibility says "can it be seen"; this says
+ * "is what's seen the claim". No declaration means every visible state is
+ * honest, which is most demos, and the ones with states should be DESIGNED
+ * that way first (dark-mode's segmented picks the derivation, not the scheme,
+ * precisely so its subject never stops being dark): `data-pose` is for terms
+ * where the dishonest state is pedagogically required.
+ */
+function satisfiesPose(el: HTMLElement): boolean {
+  const condition = el.dataset.pose;
+  return !condition || el.matches(condition);
+}
+
+/**
  * Would this gesture scroll the specimen itself, or is the page merely moving
  * under the pointer? Only the first is user intent (SPEC §7). `dx`/`dy` are
  * omitted for touch, where the axis is not known from a single move.
@@ -191,7 +208,7 @@ class VdStage extends HTMLElement {
       posing ??= (async () => {
         const own = await player.summon(() => {
           const el = subject();
-          return el ? isRevealed(el) : false;
+          return el ? isRevealed(el) && satisfiesPose(el) : false;
         });
         // A superseded summon means attract already has the stage back; freezing now
         // would leave the run playing a specimen whose clock has stopped.

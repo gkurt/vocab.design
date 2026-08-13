@@ -245,7 +245,14 @@ never styling inside it:
   stage when identify engages (a toast that hasn't fired, text clipped to a pixel by
   the very technique the term names), the stage **summons** it:
   the choreography is fast-forwarded — no cursor, waits dropped — until the subject
-  appears. The exception is a wait the script itself marks as load-bearing, by
+  appears. On stage means being the term, not merely being visible: a demo whose
+  states include a counter-example (dark-pattern's fair checkout, keyboard-trap's
+  escapable widget) declares the honest condition as a selector in `data-pose` on the
+  subject, and a state that fails it keeps the summon playing, since a ring around the
+  fixed version would identify the opposite of the term. Prefer designing states so
+  the subject never stops being the term (dark-mode's segmented picks the derivation,
+  not the scheme, for exactly this reason); `data-pose` is for the demos where the
+  dishonest state is pedagogically required. The exception is a wait the script itself marks as load-bearing, by
   following it with a `visible` assert: that beat is often the only reason the subject
   exists at all (a tooltip lives behind its hover delay), so it is polled, capped, and
   left the instant the subject shows. Identify is a hover affordance and has to settle

@@ -1,4 +1,4 @@
 term:    Safe area
 scope:   element
-subject: div[data-mode=safe][data-part=region]
+subject: div[data-mode=safe][data-part=region][data-pose=[data-mode=safe]]
 text:    Now playing Continue

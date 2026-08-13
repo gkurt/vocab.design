@@ -46,6 +46,7 @@ export function mount(root: HTMLElement): void {
               <div
                 data-part="region"
                 data-subject
+                data-pose="[data-mode=safe]"
                 data-mode="safe"
                 style="position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding: ${TOP}px ${SIDE}px ${BOTTOM}px"
               >

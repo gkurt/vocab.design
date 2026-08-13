@@ -75,6 +75,7 @@ export function mount(root: HTMLElement): void {
             class="sp-surface"
             data-part="choice"
             data-subject
+            data-pose="[data-mode=deceptive]"
             data-mode="deceptive"
             style="display: flex; flex-direction: column; align-items: flex-start; height: 116px; padding: 12px 14px; background: var(--sp-surface)"
           >${BODY.deceptive}</div>
