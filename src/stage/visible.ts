@@ -27,9 +27,28 @@ function hasBox(el: HTMLElement, style: CSSStyleDeclaration): boolean {
  * this (SPEC §6), so it has to answer true the instant a reveal begins: a
  * summon that waited for the fade to finish would be a hover affordance that
  * settles a fifth of a second late, every time.
+ *
+ * "On its way" is a live fade, not a resting state. An element parked at
+ * opacity zero with nothing moving it (a scrim in its "none" state) is not on
+ * stage, and a pose that rang it would be pointing at nothing, so identify has
+ * to keep playing the script instead. A fade that has begun is in
+ * getAnimations() from its first tick, opacity still reading zero, which is
+ * what keeps the summon instant without waiting out the fade.
  */
 export function isRevealed(el: HTMLElement): boolean {
-  return hasBox(el, styleOf(el));
+  const style = styleOf(el);
+  if (!hasBox(el, style)) return false;
+  if (Number.parseFloat(style.opacity) > 0.05) return true;
+  return el.getAnimations().some(isFading);
+}
+
+/** Is this animation moving opacity? Duck-typed, because an iframe specimen's
+ * animations come from another realm, where `instanceof` this document's
+ * constructors is always false. */
+function isFading(anim: Animation): boolean {
+  if ('transitionProperty' in anim) return (anim as CSSTransition).transitionProperty === 'opacity';
+  const effect = anim.effect as KeyframeEffect | null;
+  return typeof effect?.getKeyframes === 'function' && effect.getKeyframes().some((frame) => 'opacity' in frame);
 }
 
 /**

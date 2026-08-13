@@ -81,9 +81,11 @@ rejects one. The clock speaks `setTimeout`/`clearTimeout` only, so a demo that n
 `requestAnimationFrame` is a reason to grow `src/stage/clock.ts`, not to reach past it.
 
 **Gotcha**: `src/stage/visible.ts` exports two visibility tests and they are not
-interchangeable. `isRevealed` is identify's: on stage *or on its way*, opacity ignored,
-so a summon does not sit out a fade. `isSeen` is an `assert`'s: could a reader see it,
-opacity included. Reach for the one that matches the question being asked.
+interchangeable. `isRevealed` is identify's: on stage *or on its way*, where a live
+fade counts (so a summon does not sit out a fade) but an element parked at opacity
+zero does not (so a pose never rings a subject the reader cannot see). `isSeen` is an
+`assert`'s: could a reader see it, opacity included, resting or not. Reach for the one
+that matches the question being asked.
 
 **Gotcha**: never measure (`getBoundingClientRect`, `getComputedStyle`) synchronously
 after a style write; mount in the state you measure. A write to a transitioned property

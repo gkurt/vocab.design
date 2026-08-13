@@ -393,10 +393,12 @@ inline one. Three runs, for three questions:
 
 `assert` and identify ask different questions about visibility, and the stage keeps them
 apart. Identify's summon asks *is the subject on stage, or on its way?* and answers true
-the instant a reveal begins, because a hover affordance cannot wait out a fade. An
-`assert` asks *could a reader see this?* and does consult opacity, because a row still
-waiting its turn in a stagger occupies its space and shows nothing. Neither treats a box
-clipped to a pixel as present.
+the instant a reveal begins, because a hover affordance cannot wait out a fade; "on its
+way" means a fade actually running, not a resting state, so a subject parked at opacity
+zero (a scrim in its "none" state) keeps the summon playing rather than posing a ring
+around nothing. An `assert` asks *could a reader see this?* and does consult opacity,
+because a row still waiting its turn in a stagger occupies its space and shows nothing.
+Neither treats a box clipped to a pixel as present.
 
 ## 9. Implementations & sources
 
