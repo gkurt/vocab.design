@@ -1,0 +1,4 @@
+term:    Current page indicator
+scope:   element
+subject: span.sp-nav-item[aria-current=page][data-current][data-page=overview][data-part=nav-overview][role=link][tabindex=0]
+text:    Overview

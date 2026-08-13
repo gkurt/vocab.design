@@ -1,0 +1,4 @@
+term:    Pixel art UI
+scope:   element
+subject: div[data-part=panel]
+text:    RANGER HP MP ITEM MAGIC FLEE

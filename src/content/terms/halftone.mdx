@@ -1,0 +1,54 @@
+---
+name: Halftone
+slug: halftone
+category: aesthetic
+status: published
+definition: >-
+  Rendering tone as a grid of dots that vary in size, borrowed from print and used to give
+  flat interface art a comic or newsprint feel.
+aliases:
+  - name: dot screen
+  - name: Ben Day dots
+  - name: comic dots
+    source: community
+  - name: newsprint effect
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources: []
+demo: inline
+useWhen: tone made of print dots that grow and shrink
+---
+
+A press can put ink down or leave paper bare, and nothing in between, so continuous tone
+had to be faked. The halftone screen does it by breaking the image into a regular lattice
+of dots whose size, not whose colour, carries the value: tiny dots read as a light grey,
+fat dots that almost touch read as near black, and at arm's length the eye averages the
+lot back into a photograph. Colour printing runs four of these screens, one per CMYK ink,
+each rotated to a different angle so the lattices interfere as little as possible, which
+is why a magnified newspaper photograph shows rosettes rather than a neat grid. Ben Day
+dots are the older cousin: a mechanical dot or line pattern of fixed size laid into flat
+areas of comic art, which is why the two names get used for the same look even though the
+processes are not the same.
+
+On the web the effect is cheap. A repeating `radial-gradient` at a small
+`background-size`, doubled and offset by half a cell to give the lattice its diagonal, is
+a halftone field, and changing only the dot radius walks it up the tone ramp. An SVG
+filter can go further and screen an actual image, and a canvas pass further still, but
+most interface uses are decorative: a dotted gradient behind a hero, a dot shadow offset
+under display type, dot texture inside an illustration's flat shapes. Pop art is the
+reason it reads as loud rather than as technical, since Lichtenstein enlarged the printing
+artefact until it became the subject, and every comic pastiche since has inherited that
+reading.
+
+Two things go wrong. The lattice is a fixed pixel pattern, so it aliases against display
+pixels and against browser zoom, producing moire that moves when the page scrolls; picking
+a cell size that is an even multiple of a device pixel, or accepting a slightly soft dot,
+is the usual fix. And a dot pattern eats contrast wherever text sits on it, so a headline
+over a halftone field needs its own solid backing rather than a hope that the dots average
+out. Keep the whole thing decorative, behind `aria-hidden` where it is a layer of its own,
+and remember that tone made of dots is one of the styles that suffers most from being
+scaled: the same panel at 200 percent zoom should still be dots and not a grey wash.

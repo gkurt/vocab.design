@@ -1,0 +1,4 @@
+term:    Em dash
+scope:   element
+subject: span[data-part=glyph-em-dash]
+text:    —

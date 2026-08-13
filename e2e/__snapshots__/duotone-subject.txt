@@ -1,0 +1,4 @@
+term:    Duotone
+scope:   element
+subject: div[data-part=duotone][data-ramp=ink]
+text:    

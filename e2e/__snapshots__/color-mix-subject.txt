@@ -1,0 +1,4 @@
+term:    color-mix()
+scope:   element
+subject: div[data-part=strip][data-space=srgb]
+text:    

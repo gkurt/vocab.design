@@ -1,0 +1,4 @@
+term:    Reading progress
+scope:   element
+subject: div.sp-progress[aria-hidden=true][data-part=bar][data-zone=start]
+text:    

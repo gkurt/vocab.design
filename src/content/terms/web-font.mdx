@@ -1,0 +1,61 @@
+---
+name: Web font
+slug: web-font
+category: typography
+status: published
+definition: >-
+  A font file downloaded by the page rather than taken from the reader's device,
+  declared in CSS and delivered like any other asset.
+aliases:
+  - name: webfont
+  - name: custom font
+  - name: '@font-face'
+    source: css
+  - name: WOFF2
+relations: {}
+sources:
+  - title: 'CSS fonts module (MDN)'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts
+demo: inline
+useWhen: type the page ships rather than borrows
+---
+
+An `@font-face` rule is a declaration, not a download. It gives a family name, a
+list of sources, and the weight and style range that name covers; the browser
+fetches the file only when a rule somewhere actually sets text in that family.
+That is why an unused face costs nothing and why a face used by one heading
+blocks that heading and nothing else. The name you invent in the rule is the
+name you then put at the front of a [font stack](/font-stack), so the same list
+describes both the face you want and what stands in for it.
+
+Between the request and the arrival there is a gap, and every rendering strategy
+is a different answer to it. FOIT (flash of invisible text) hides the text until
+the file lands, so the layout is right and unreadable. FOUT (flash of unstyled
+text) paints the fallback immediately and re-sets it when the file arrives, so
+the reader gets words early and a reflow later. `font-display` picks between
+them: `block` gives a short invisible period, `swap` gives an unlimited swap
+period, `fallback` gives a brief one and then keeps the fallback for the rest of
+the page, and `optional` lets the browser skip the file entirely on a slow
+connection. The reflow is worth engineering away rather than hiding: pick a
+fallback with a similar [x-height](/x-height) and width, then close the gap with
+`size-adjust`, `ascent-override`, and `descent-override` on a local
+`@font-face` rule so the stand-in occupies the same space the real face will.
+
+Delivery is where most of the weight goes. Ship WOFF2 and nothing else, since
+every browser that matters reads it and it compresses better than anything it
+replaced. Subset to the characters you actually set, split the subsets by
+`unicode-range` so a page of Latin text never fetches the Cyrillic block, and
+prefer one variable font over five static weights when you use more than about
+three of them. `preload` the one or two files above the fold and no more, since
+preloading everything just moves the queue. Self-host rather than pointing at a
+third party: cross-site caching was partitioned years ago, so a shared CDN no
+longer buys you a warm cache, and it does buy you a second connection and a
+privacy question.
+
+The last constraint is legal rather than technical. A retail [typeface](/typeface)
+licence for print does not cover web use, web licences are usually sold by
+monthly pageviews or as a one-off with a traffic cap, and the file is served in
+the open where anyone can take it. That is what open licences such as the SIL
+Open Font License are for, and it is why the practical choice for most
+interfaces is either an open family, a system stack that downloads nothing at
+all, or a paid face whose licence someone has actually read.

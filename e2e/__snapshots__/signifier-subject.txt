@@ -1,0 +1,4 @@
+term:    Signifier
+scope:   element
+subject: div.sp-row[data-part=signified]
+text:    Publish Release notes Reorder

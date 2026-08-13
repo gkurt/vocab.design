@@ -1,0 +1,4 @@
+term:    Accessibility tree
+scope:   element
+subject: div.sp-window[data-part=tree]
+text:    Accessibility tree document heading “Notifications” level 2 checkbox “Email dige

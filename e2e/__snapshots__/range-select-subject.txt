@@ -1,0 +1,4 @@
+term:    Range select
+scope:   element
+subject: div[aria-hidden=true][data-part=range][data-span=1]
+text:    

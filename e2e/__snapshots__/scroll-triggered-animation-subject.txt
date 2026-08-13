@@ -1,0 +1,4 @@
+term:    Scroll-triggered animation
+scope:   element
+subject: article.sp-surface.sp-row[data-part=card-c][data-played]
+text:    Night passage 21:40

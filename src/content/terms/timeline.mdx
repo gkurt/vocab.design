@@ -1,0 +1,60 @@
+---
+name: Timeline
+slug: timeline
+category: component
+status: published
+definition: >-
+  A vertical or horizontal line of dated events, each pinned to the line by a marker
+  and reading in order.
+aliases:
+  - name: history list
+    source: community
+  - name: event stream
+    source: community
+  - name: vertical timeline
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: Ant Design components overview
+    url: https://ant.design/components/overview/
+demo: inline
+useWhen: events in order along a line
+---
+
+A timeline draws time as a line and hangs events off it. The anatomy is three
+parts: the spine, a marker per event pinning it to a position, and the entry itself
+carrying a date and a short label. Everything the component adds over a plain dated
+list comes from that spine. It says the entries belong to one sequence, it makes
+the gaps between them visible, and it gives the eye somewhere to travel while
+reading, which is why the form survives in interfaces that could just as easily
+have used a table.
+
+Three neighbouring words get used for it and they are not interchangeable. An
+activity feed is a record that grows at the top, newest first, made of events the
+system logged rather than events anyone chose; you read the first few and stop. A
+timeline is curated and reads oldest first, because a sequence with a shape (this
+happened, then this, and that is why the next one took so long) only has that shape
+in forward order. A stepper looks similar and is about a process the reader is
+currently inside, with a current step and steps still to come, so its markers are
+states rather than dates. If the entries were selected by an editor, call it a
+timeline; if they arrived on their own, it is a feed; if the reader is walking
+through them, it is a stepper.
+
+The hard part is uneven time. Real event sets clump: four things in one week, then
+nothing for eight months. Spacing entries evenly is the usual choice and it quietly
+lies about the pace, while spacing them proportionally leaves a screen of empty
+spine that carries no information. The workable middle is even spacing with the gap
+stated in words ("8 months later") wherever it is large enough to matter, or a
+collapsed segment the reader can expand. If proportional spacing really is the
+point, what you are building is closer to a chart, and it should be read as one.
+
+Semantically it is an ordered list, and it should be marked up as one, with each
+date in a `time` element carrying a machine-readable value: the visible "12 Mar"
+means nothing to a screen reader six months into the next year. The spine and the
+markers are decoration and belong behind `aria-hidden`, since "bullet, bullet,
+bullet" adds nothing. Where an entry expands to show more, give it its own control
+with `aria-expanded`, keep the room the detail will occupy reserved so the entries
+below it hold still, and remember that the horizontal variant, which looks best in
+a hero, is the one that breaks first on a phone: most horizontal timelines end up
+vertical below the first breakpoint anyway.

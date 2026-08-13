@@ -1,0 +1,4 @@
+term:    Blend mode
+scope:   element
+subject: span[data-mode=multiply][data-part=top]
+text:    

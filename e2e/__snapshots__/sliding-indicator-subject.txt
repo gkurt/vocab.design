@@ -1,0 +1,4 @@
+term:    Sliding indicator
+scope:   element
+subject: span[data-at=overview][data-part=indicator]
+text:    

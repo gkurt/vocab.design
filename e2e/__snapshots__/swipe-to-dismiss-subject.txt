@@ -1,0 +1,4 @@
+term:    Swipe to dismiss
+scope:   element
+subject: div.sp-row[data-part=card][data-state=resting]
+text:    MW Ferry timetable changed for Thursday

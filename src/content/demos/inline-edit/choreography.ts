@@ -1,0 +1,36 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=field][data-mode=view]', state: 'visible' } },
+  { assert: { selector: '[data-part=value][data-value="Harbour"]', state: 'visible' } },
+  { assert: { selector: '[data-part=input]', state: 'hidden' } },
+  { moveTo: '[data-part=edit]' },
+  { click: true },
+  { wait: 400 },
+  // Same box, other mode: the input arrived where the text was.
+  { assert: { selector: '[data-part=field][data-mode=edit]', state: 'visible' } },
+  { assert: { selector: '[data-part=input]', state: 'visible' } },
+  { assert: { selector: '[data-part=view]', state: 'hidden' } },
+  { moveTo: '[data-part=input]' },
+  { type: ' Works' },
+  { wait: 500 },
+  { moveTo: '[data-part=save]' },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=field][data-mode=view]', state: 'visible' } },
+  { assert: { selector: '[data-part=value][data-value="Harbour Works"]', state: 'visible' } },
+  { assert: { selector: '[data-part=input]', state: 'hidden' } },
+  { wait: 900 },
+  { moveTo: '[data-part=edit]' },
+  { click: true },
+  { wait: 400 },
+  { moveTo: '[data-part=input]' },
+  { type: ' draft' },
+  { wait: 400 },
+  // Escape abandons, and the value the reader could see is the value that survives.
+  { press: 'Escape' },
+  { wait: 500 },
+  { assert: { selector: '[data-part=field][data-mode=view]', state: 'visible' } },
+  { assert: { selector: '[data-part=value][data-value="Harbour Works"]', state: 'visible' } },
+  { wait: 900 },
+]);

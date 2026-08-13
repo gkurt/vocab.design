@@ -46,12 +46,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-frame">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Members</span></div>
-        <div class="sp-body sp-context" style="display: flex; flex-direction: column; gap: 10px">
-          <ul class="sp-list sp-scroll sp-surface sp-grow" data-part="list" style="padding: 0 4px">
+        <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
+          <ul class="sp-list sp-scroll sp-surface sp-grow sp-context" data-part="list" style="padding: 0 4px">
             ${[0, 1, 2, 3].map(row).join('')}
           </ul>
           <div class="sp-row sp-row--between">
-            <span class="sp-text" data-part="count" role="status">4 of ${PEOPLE.length}</span>
+            <span class="sp-text sp-context" data-part="count" role="status">4 of ${PEOPLE.length}</span>
             <button class="sp-button sp-button--sm" data-part="more" data-subject type="button">${LABEL.rest}</button>
           </div>
         </div>

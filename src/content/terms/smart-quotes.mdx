@@ -1,0 +1,57 @@
+---
+name: Smart quotes
+slug: smart-quotes
+category: typography
+status: published
+definition: >-
+  The curved opening and closing quotation marks a typeface actually draws, as
+  opposed to the straight vertical marks inherited from typewriters.
+aliases:
+  - name: curly quotes
+  - name: typographer's quotes
+  - name: dumb quotes
+  - name: straight quotes
+  - name: curved apostrophe
+relations: {}
+sources:
+  - title: Straight and curly quotes (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: The Definitive Guide to Quotes, Apostrophes, and Primes
+    url: https://creativepro.com/the-definitive-guide-to-quotes-apostrophes-and-primes/
+demo: inline
+useWhen: your quotes look like typewriter ticks
+---
+
+The straight marks are a hardware compromise. A typewriter had a fixed number of
+keys, so one vertical tick stood in for the opening quote, the closing quote, the
+apostrophe, and the prime, and ASCII inherited the compromise wholesale. Real
+typography has four separate marks for the single and double pairs: `U+2018` and
+`U+2019` for single, `U+201C` and `U+201D` for double, each drawn to lean into
+the words it encloses. The apostrophe is not a fifth character, it is the right
+single quote `U+2019`, which is why a curly apostrophe and a closing single
+quote are the same glyph.
+
+Primes are the other half of the confusion. Feet and inches, minutes and
+seconds, and coordinates take the prime `U+2032` and double prime `U+2033`, which
+are slanted marks and not quotes at all. A straight tick is nobody's correct
+answer there either. It is only correct where the character is code: source,
+JSON, CSS, shell, HTML attributes, regular expressions, and anything a machine
+will parse, where a curly quote is a syntax error and an editor that inserts one
+has broken the document.
+
+Autocorrect is what most writing runs on, and it fails predictably at elisions.
+Anything that opens with an apostrophe standing in for dropped characters gets
+the wrong mark: `’twas`, `rock ’n’ roll`, `the ’90s`, and `’til` all want the
+closing form, and every smart-quote engine reaches for the opening one because
+it sees a space before it. The other regular failure is the leading apostrophe in
+dialect and in abbreviated years. Fixing them by hand is the work; there is no
+rule that saves you from reading.
+
+The marks are also local. German uses low-9 opening quotes and a raised closing
+pair, French uses guillemets with spaces inside them, and Japanese uses corner
+brackets, so a quotation is one of the details a translated interface has to
+re-typeset rather than reuse. CSS knows this: the `quotes` property and the `q`
+element take a locale-appropriate pair and the `:lang()` selector switches them,
+which beats hard-coding a glyph into a template. Store the correct characters in
+your content and normalise to straight marks only at the boundary where a search
+index or a legacy system demands them.

@@ -1,0 +1,4 @@
+term:    Focus management
+scope:   element
+subject: div.sp-dialog[aria-label=Rename project][aria-modal=true][data-open][data-part=dialog][role=dialog]
+text:    Rename project Project name Cancel Rename

@@ -1,0 +1,57 @@
+---
+name: Pan
+slug: pan
+category: interaction
+status: published
+definition: >-
+  Moving the viewport across content in any direction while keeping contact, so the content
+  feels anchored to the finger or cursor.
+aliases:
+  - name: pan gesture
+    source: hig
+  - name: drag to pan
+    source: community
+  - name: grab and drag
+    source: community
+implementations:
+  - system: material
+    name: Pan
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: 'Material Design: Gestures (pan)'
+    url: https://m1.material.io/patterns/gestures.html
+demo: inline
+useWhen: moving the view over content rather than the content itself
+---
+
+Panning comes from the camera, where a panorama head let an operator sweep across a scene
+too wide for the frame. Interfaces borrowed the word for the same relationship: the
+content is larger than the window onto it, and the gesture moves the window rather than
+the content. Material describes it as an omnidirectional one or two finger gesture that
+expands the field of view, and the omnidirectional part is the point. A map, a canvas, a
+photo at zoom, and a node graph all have to move diagonally, which is what separates
+panning from scrolling.
+
+The three words get used loosely and they describe different things. Scrolling moves one
+axis at a time along a document, usually by proxy: a wheel, a scrollbar, a flick that
+keeps going after the finger leaves. A swipe is a quick directional stroke that means
+something (next photo, delete this row) and is judged on speed and distance rather than
+position. Panning is contact tracking: the point under the finger stays under the finger
+for as long as the finger is down, so the content reads as a physical sheet being pushed
+rather than as a document being advanced. When that mapping is one to one and immediate,
+readers stop noticing the mechanism entirely.
+
+Which means the failure modes are all about breaking contact. Lag makes the sheet feel
+wet, because the point under the finger visibly is not. Acceleration applied to a pan is
+worse: the content arrives somewhere the hand did not put it. Panning past the edge needs
+an answer too, either a hard clamp or the rubber band that stretches and returns, and the
+choice tells the reader whether there is more content out there. On a desktop the cursor
+carries the state, which is the whole convention of the open hand and the closed fist:
+`grab` says this surface can be pushed, `grabbing` says you have it.
+
+The parts that are easy to forget are the alternatives. A pan surface needs keyboard
+equivalents (arrow keys move the viewport, Home returns to origin), it must not swallow
+the page scroll when the reader means to scroll past it, and on touch it competes with
+the browser's own gestures, which is what `touch-action` exists to arbitrate. Anything
+reachable only by dragging is unreachable to a reader who cannot drag, so a map with no
+zoom controls and no keyboard panning has locked half its content behind a gesture.

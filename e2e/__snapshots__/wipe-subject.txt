@@ -1,0 +1,4 @@
+term:    Wipe
+scope:   element
+subject: div[data-part=slot][data-showing=harbour][data-state=settled]
+text:    Harbour, 06:10 Offshore, 18:45

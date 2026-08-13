@@ -1,0 +1,4 @@
+term:    Initial focus
+scope:   element
+subject: input.sp-input[data-part=field][data-sim-focus][readonly][value=Harbour]
+text:    

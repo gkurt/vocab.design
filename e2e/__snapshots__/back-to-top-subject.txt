@@ -1,0 +1,4 @@
+term:    Back to top
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=totop][data-shown][type=button]
+text:    Back to top

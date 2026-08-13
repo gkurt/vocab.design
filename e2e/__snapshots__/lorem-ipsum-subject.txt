@@ -1,0 +1,4 @@
+term:    Lorem ipsum
+scope:   element
+subject: p.sp-text[data-part=bio-lorem]
+text:    Lorem ipsum dolor sit amet, consectetur adipiscing elit.

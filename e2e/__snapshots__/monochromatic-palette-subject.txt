@@ -1,0 +1,4 @@
+term:    Monochromatic palette
+scope:   element
+subject: div[data-hue=indigo][data-part=panel]
+text:    Storage Project archive 61 of 80 GB Upgrade Manage

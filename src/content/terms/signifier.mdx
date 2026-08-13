@@ -1,0 +1,54 @@
+---
+name: Signifier
+slug: signifier
+category: interaction
+status: published
+definition: >-
+  The visible cue that advertises an affordance, such as a grip texture, an underline, or a
+  shadow that says this can be pressed.
+aliases:
+  - name: perceptible signifier
+    source: community
+  - name: visual cue
+    source: community
+  - name: interaction cue
+    source: community
+sources:
+  - title: 'Supercharge: UI glossary'
+    url: https://supercharge.design/blog/ui-glossary-list-of-essential-ui-design-terms
+demo: inline
+useWhen: the cue that tells you an action is possible
+---
+
+Don Norman introduced signifier to clean up a mess he had made. The Design of Everyday
+Things borrowed affordance from perception psychology, designers took it to mean the
+visual hint rather than the action possibility, and by the 2013 revision he had split the
+two: the [affordance](/affordance) is what the thing allows, the signifier is what tells
+you so. The distinction earns its keep because on a screen the possibilities are all
+identical. Glass affords touching, everywhere, equally. Every difference a reader can
+perceive between a button and a paragraph is drawn, which makes the signifier the entire
+design surface.
+
+A signifier is anything perceivable that communicates where the action goes: the raised
+edge and fill of a button, the underline under a link, the grip dots on a drag handle, the
+cursor that becomes a hand or a resize arrow, the partial row peeking at the bottom of a
+list that says the content continues, the chevron that says this opens. Some are physical
+inheritances (a door's flat plate says push), most are pure convention, and convention is
+not a weaker kind of signifier. It is the strongest one available, because the reader
+arrives already fluent in it. That is why redesigning a link to not look like a link is
+expensive in a way that has nothing to do with taste.
+
+Norman's own examples run the other way too. Worn paint on a door, a footpath beaten
+across a lawn, a queue of people at a counter: none of these were designed to communicate
+anything, and all of them tell you what to do. Interfaces have the same accidental
+signifiers, and they are usually bugs. A cursor that stays as an arrow says a control is
+not clickable. Text with no underline says it is not a link. Uniform padding says two
+elements are the same kind of thing. Readers act on these signals whether or not anyone
+intended them.
+
+Which is what makes the failure worth naming precisely: an affordance without a signifier
+is invisible, and a signifier without an affordance is a lie. Flat design spent years
+rediscovering the first (borders and fills were doing work nobody had costed), and the
+second turns up as a false affordance every time text is styled like a link but does
+nothing, or a static image is dressed as a play button. Hover only signifiers are both
+failures at once, since roughly half of readers have no pointer to reveal them with.

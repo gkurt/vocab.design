@@ -1,0 +1,4 @@
+term:    List detail
+scope:   element
+subject: div.sp-grid[data-pane=detail][data-part=region][data-width=wide]
+text:    Notices Lock 4 closure Winter mooring Dredging survey Bridge repaint Ferry timet

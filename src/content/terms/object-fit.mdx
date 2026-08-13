@@ -1,0 +1,57 @@
+---
+name: Object fit
+slug: object-fit
+category: layout
+status: published
+definition: >-
+  How a picture or video is resized inside a box whose shape it does not match: stretched to
+  fill, letterboxed to fit whole, or cropped to cover every edge.
+aliases:
+  - name: aspect fill
+    source: community
+  - name: aspect fit
+    source: community
+  - name: scale to fill
+    source: community
+sources:
+  - title: "object-fit, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+demo: inline
+useWhen: choosing between cropping and letterboxing
+---
+
+A photograph has a shape and the slot you are putting it in has a different one, so something
+has to give. There are only three honest answers and CSS names all of them. `contain` keeps
+the whole picture and accepts empty bands on two sides, which is letterboxing. `cover` keeps
+the box full and accepts that the overflowing edges are cut off, which is cropping. `fill`,
+the default, keeps both and distorts the picture to do it, which is almost never what anyone
+wants and is exactly what an unset `object-fit` on a stretched `<img>` gives you. Two further
+values are less used and worth knowing: `none` draws the image at its natural size and lets
+the box clip it, and `scale-down` picks whichever of `none` and `contain` comes out smaller,
+so a small image is never blown up.
+
+The choice is a content question rather than a styling one. Crop a landscape, a texture, or a
+hero background and nobody notices the missing edges. Crop a product shot, a diagram, a
+screenshot, or a group photo and you have deleted the thing the picture was for. That is why
+avatars and thumbnails almost always use `cover` while a gallery of artwork almost always
+uses `contain`, and why a letterboxed band is not a bug to be styled away but the honest
+result of refusing to crop.
+
+When you do crop, `object-position` decides which part survives. It defaults to the centre,
+which is wrong for a portrait roughly as often as it is right, since faces sit in the top
+third. A `object-position: 50% 25%` is the cheap fix, a stored focal point per image is the
+real one, and a CMS that asks the uploader to click the subject is solving the same problem
+at the source. The pair maps exactly onto `background-size: cover / contain` with
+`background-position`, which is how the same job was done before `object-fit` existed. The
+difference is that `object-fit` works on real replaced elements, so the image keeps its
+`alt` text, its lazy loading, and its place in the accessibility tree, which a
+`background-image` does not.
+
+None of this decides how large the box is. That belongs to the
+[aspect ratio box](/aspect-ratio-box), which reserves the space before the media arrives; the
+fit is what happens to the media inside space already reserved. Getting both right is what
+stops a gallery from shifting as it loads, and the two are worth stating separately in code
+review: one line says how big the hole is, the other says what the picture does with it. The
+same vocabulary shows up in native toolkits under different spellings, where UIKit's
+`scaleAspectFill` and `scaleAspectFit` are `cover` and `contain` with the aliases most
+designers actually say out loud.

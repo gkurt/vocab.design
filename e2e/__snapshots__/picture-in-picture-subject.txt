@@ -1,0 +1,4 @@
+term:    Picture in picture
+scope:   element
+subject: div[data-corner=br][data-part=mini]
+text:    Tidal turbines Back to the article

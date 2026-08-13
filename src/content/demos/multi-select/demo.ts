@@ -53,8 +53,8 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading sp-grow" data-part="outside">Test runs</span>
           <span class="sp-label" data-part="count" style="width: 62px; text-align: right">6 runs</span>
         </div>
-        <div class="sp-body sp-context">
-          <div class="sp-label" style="margin-bottom: 6px" id="vd-ms-label">Status</div>
+        <div class="sp-body">
+          <div class="sp-label sp-context" style="margin-bottom: 6px" id="vd-ms-label">Status</div>
           <div data-part="control" data-subject style="position: relative">
             <div
               class="sp-input sp-row"

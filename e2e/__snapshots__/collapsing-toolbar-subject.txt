@@ -1,0 +1,4 @@
+term:    Collapsing toolbar
+scope:   element
+subject: header[data-part=bar][data-state=expanded]
+text:    9 charts Coastal charts

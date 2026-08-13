@@ -1,0 +1,51 @@
+---
+name: F pattern
+slug: f-pattern
+category: layout
+status: published
+definition: >-
+  The scanning shape eye tracking finds on text heavy pages: two horizontal sweeps across the
+  top, then a vertical run down the left edge.
+aliases:
+  - name: F-shaped pattern
+    source: nngroup
+  - name: F-shaped reading pattern
+    source: community
+sources:
+  - title: "Nielsen Norman Group"
+    url: https://en.wikipedia.org/wiki/Nielsen_Norman_Group
+demo: inline
+useWhen: predicting how a text heavy page gets skimmed
+---
+
+Put an eye tracker on someone reading a dense page and the heat map comes out looking like a
+capital F. A full-width sweep across the first line or two, a shorter sweep a little further
+down, then a vertical drift along the left edge picking up the first word or two of each line
+until something is worth stopping for. Jakob Nielsen published the finding in 2006 from
+several hundred users and it has been replicated often enough since to count as a fact about
+how people behave, not a theory about how they should.
+
+The important half of the finding is usually left off. The F is not a good outcome. It is what
+scanning looks like when a page has given the eye nothing better to do: no subheadings, no
+lists, no bolded phrases, paragraphs that all begin the same way. Readers land, sample the
+left edge, and leave. So the design response is not to arrange a layout in an F shape, which
+is the standard misreading, but to break the F up by putting real entry points where the eye
+is already going. The right-hand end of every line is where content goes to die.
+
+Three habits follow from it directly. Front-load the first two or three words of headings,
+links, and bullets with the words that distinguish them, because those are the only words
+reliably seen: "Refund policy for damaged orders" survives the scan and "Information about
+our policy on refunds" does not. Give long text visible landmarks, since a
+[heading hierarchy](/heading-hierarchy), a bulleted list, and a bolded phrase each restart
+the reader's attention and turn one F into several. And do not park anything unique in a
+right-hand column, which is the same instinct that produced banner blindness. The pattern
+mirrors under right-to-left scripts, where it is the same shape flipped, and it fades as
+content becomes visual: an image grid or a card layout is scanned in a spotted, jumpy way
+that no letter describes.
+
+Its usual companion in a vocabulary list is the Z pattern, which describes a sparse page with
+few elements, where the eye crosses the top, cuts diagonally down, and crosses the bottom.
+The two are not rivals so much as different densities: F is what text-heavy pages get, Z is
+what a landing page with four things on it gets. Both are descriptions of a starting point
+rather than instructions, and the design lever in either case is
+[visual hierarchy](/visual-hierarchy), which is what decides where the sweep stops.

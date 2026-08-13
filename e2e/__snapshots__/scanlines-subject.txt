@@ -1,0 +1,4 @@
+term:    Scanlines
+scope:   element
+subject: div[data-part=screen]
+text:    CH 04 23:47 TEST CARD

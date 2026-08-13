@@ -1,0 +1,4 @@
+term:    currentColor
+scope:   element
+subject: button[data-ink=slate][data-part=control][type=button]
+text:    Share file

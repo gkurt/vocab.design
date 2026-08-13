@@ -1,0 +1,61 @@
+---
+name: Collapsing toolbar
+slug: collapsing-toolbar
+category: motion
+status: published
+definition: >-
+  A header that shrinks as the page scrolls, trading its large title and image for a
+  compact bar that stays available.
+aliases:
+  - name: collapsing app bar
+    source: material
+  - name: large title collapse
+    source: hig
+  - name: shrinking header
+    source: community
+  - name: condensing header
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Material Design 3: Transitions'
+    url: https://m3.material.io/styles/motion/transitions
+demo: inline
+useWhen: a header must stay reachable without keeping its height
+---
+
+Two platforms arrived at the same idea and gave it two names. Android has the collapsing
+app bar, a tall header carrying a photo and an oversized title that condenses into an
+ordinary toolbar as the list scrolls up under it. iOS has the large title, which starts
+at display size on a fresh screen and shrinks into the centre of the navigation bar as
+soon as the reader moves. Both are answers to the same conflict: a screen wants a
+generous header to say where you are, and it wants that vertical space back the moment
+you start reading.
+
+The motion is driven by position, not by a clock. The header watches its own scroller
+and maps the first stretch of travel, usually the difference between its expanded and
+collapsed heights, onto a progress value between zero and one, then interpolates
+everything it owns across that value: its height, the title's scale and position, the
+opacity of the image behind it. Scroll halfway and the header is halfway collapsed,
+scroll back and it comes back, because the reader's finger is the timeline. That is the
+signature of scroll-linked motion, and it is a different thing from a
+[scroll-triggered animation](/scroll-triggered-animation), where crossing a threshold
+starts a one-shot that then runs on its own.
+
+The usual implementation trap is a feedback loop. If the header is in the flow and its
+height is the thing being animated, shrinking it changes the height of the scrollable
+content, which changes the scroll position, which changes the collapse, and the whole
+thing shudders. Keeping the header out of the flow, with the scroller reserving the
+expanded height as padding, breaks the loop: the content passes underneath rather than
+being pushed by it. The other trap is collapsing to nothing. The point of the pattern is
+that the bar stays available, so the collapsed state has to keep the title and the
+controls a reader still needs, or this is a header that disappears, which is a different
+pattern with its own trade-offs (a quick-return bar hides completely and comes back on
+the first upward scroll, so the way back is a flick rather than a trip to the top).
+
+Next to it, a [sticky header](/sticky-header) is the version that changes nothing at all:
+it pins at one height and stays there. Reach for a collapsing toolbar when the expanded
+state carries something worth the space, a cover image, a long title, a summary, and the
+compact state carries the controls. When the header is only a row of controls to begin
+with, collapsing it buys a few pixels and costs the reader a header that moves while
+they read.

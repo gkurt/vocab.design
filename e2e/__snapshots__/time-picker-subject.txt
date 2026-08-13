@@ -1,0 +1,4 @@
+term:    Time picker
+scope:   element
+subject: div.sp-surface[data-part=picker]
+text:    Start 09:30 AM 010203040506070809101112 000510152025303540455055 AM PM

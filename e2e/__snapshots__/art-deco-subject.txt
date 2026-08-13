@@ -1,0 +1,4 @@
+term:    Art Deco
+scope:   element
+subject: div[data-part=poster]
+text:    SAVOY SUPPER CLUB EST. MCMXXVII

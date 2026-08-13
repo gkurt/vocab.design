@@ -1,0 +1,4 @@
+term:    Modifier key
+scope:   element
+subject: ul.sp-list.sp-surface[aria-label=Assets][aria-multiselectable=true][data-count=1][data-part=list][role=listbox]
+text:    campaign-brief.md 4 KB kickoff-notes.md 11 KB budget-q3.csv 38 KB launch-deck.ke

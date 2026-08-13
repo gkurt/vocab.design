@@ -1,0 +1,4 @@
+term:    Smart quotes
+scope:   element
+subject: span[data-part=stored][data-quotes=curly]
+text:    He said “it’s fine.”

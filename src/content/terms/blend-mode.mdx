@@ -1,0 +1,69 @@
+---
+name: Blend mode
+slug: blend-mode
+category: color
+status: published
+definition: >-
+  A formula for combining a layer's colour with the colour behind it, such as multiply or
+  screen or overlay, instead of simply covering it.
+aliases:
+  - name: mix-blend-mode
+    source: css
+  - name: multiply
+    source: community
+  - name: screen
+    source: community
+  - name: layer blending
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: mix-blend-mode"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mix-blend-mode
+  - title: "web.dev: Blend Modes"
+    url: https://web.dev/learn/css/blend-modes
+demo: inline
+useWhen: combining layers by a formula rather than by covering
+---
+
+Stacking one element on another normally means the top one wins: it covers what is under
+it, and the only negotiation available is [opacity](/opacity), which is a weighted
+average and nothing more interesting. A blend mode replaces that with arithmetic. The
+browser takes each channel of the top colour and the corresponding channel of the
+backdrop and runs a function over the pair, so the result depends on both layers at once.
+The separable modes (multiply, screen, overlay, darken, lighten, difference, and their
+relatives) do this channel by channel. The non-separable four (hue, saturation, color,
+luminosity) work on the colour as a whole, taking one attribute from the top layer and
+the rest from the backdrop, which is why `luminosity` is the usual first move when
+tinting a photograph.
+
+Three modes carry most of the work. Multiply multiplies the channels, so nothing gets
+lighter and white is invisible: it is how a logo on a white background is knocked onto a
+coloured card without an alpha mask, and how ink looks on paper. Screen multiplies the
+inverses, so nothing gets darker and black is invisible: light leaks, glows, and
+[gradient](/gradient) washes over dark art. Overlay is the two of them chosen by the
+backdrop, multiplying where the backdrop is dark and screening where it is light, which
+increases contrast and is why grain and texture overlays reach for it. Soft light is the
+gentler version of the same idea.
+
+CSS spells this two ways, and confusing them costs an afternoon. `mix-blend-mode` blends
+an element with everything painted behind it in its stacking context.
+`background-blend-mode` blends an element's own background layers with each other and
+never touches the page. The catch with the first one is scope: blending runs to the edge
+of the nearest stacking context, so a blend meant for a card will happily eat the page
+background behind it. The fix is `isolation: isolate` on the group that should be the
+floor, which creates a stacking context on purpose rather than by the accident of a
+transform or a z-index.
+
+Blend modes are worth treating as paint rather than as a way to colour text. The result
+is computed, not chosen, so it sits outside whatever
+[contrast ratio](/contrast-ratio) work the palette went through, and a headline set in
+`difference` reads brilliantly over the middle of an image and disappears at both ends of
+it. They also compose against the [alpha channel](/alpha-channel) rather than replacing
+it, meaning a translucent blended layer is doing two things at once. Used deliberately,
+though, they buy effects nothing else can: [duotone](/duotone) images, ink-on-paper
+stamps, and lighting that responds to what it lands on.

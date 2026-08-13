@@ -1,0 +1,4 @@
+term:    F pattern
+scope:   element
+subject: svg[aria-hidden=true][data-part=path][viewBox=0 0 320 192]
+text:    1 2 3

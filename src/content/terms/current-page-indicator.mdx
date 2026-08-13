@@ -1,0 +1,52 @@
+---
+name: Current page indicator
+slug: current-page-indicator
+category: accessibility
+status: published
+definition: >-
+  The marking of which item in a navigation set is the one you are on, exposed with
+  aria-current so it survives without the colour cue.
+aliases:
+  - name: aria-current
+    source: aria
+  - name: active nav item
+    source: community
+  - name: you are here
+    source: community
+  - name: current step
+    source: community
+sources:
+  - title: 'MDN: aria-current'
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current
+  - title: 'W3C technique ARIA26: aria-current'
+    url: https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA26
+demo: inline
+useWhen: showing which nav item is the page you are on
+---
+
+A navigation menu answers two questions at once: where can I go, and where am I? The
+second one is the current page indicator, and it is usually the first thing to be built
+out of colour alone. A blue link among grey ones is a marking that disappears for anyone
+who cannot separate the two hues, and it says nothing at all to somebody listening to
+the page rather than looking at it.
+
+`aria-current` is the part that talks. Put `aria-current="page"` on the navigation item
+for the page being viewed and it is announced as the current page, once, on the one item
+that deserves it. The attribute takes other values for other kinds of set: `step` in a
+multi-step flow, `location` on a progress path, `date` in a calendar, `time` in a
+schedule, and a bare `true` when the set is something none of those words fit. Two rules
+keep it useful: exactly one item per set carries it, and `false` (or leaving it off) is
+the state for everything else, since `aria-current="false"` is not announced.
+
+The visible half has to survive a colour-only review. Add something with a shape: a
+weight change, a left bar or an underline, an inset marker, a small "you are here" dot.
+The reliable test is to look at the navigation in greyscale, or simply squint, and see
+whether the current item is still findable. This is WCAG's Use of Colour criterion
+(1.4.1) applied to the one component that breaks it most often.
+
+Two neighbours borrow the same idea in different shapes.
+[Breadcrumbs](/breadcrumbs) mark their last crumb as current, which is why that crumb is
+usually not a link at all. A [step indicator](/step-indicator) marks the stage you are on
+with `aria-current="step"`, and a [page indicator](/page-indicator) marks the slide you
+are on among the dots. The vocabulary is one attribute; what changes is the word after
+it.

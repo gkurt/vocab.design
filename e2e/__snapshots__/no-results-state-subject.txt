@@ -1,0 +1,4 @@
+term:    No results state
+scope:   element
+subject: div.sp-empty[data-part=noresults][data-query=chiar][role=status]
+text:    Nothing in the catalogue matches “chiar” Did you mean chair? Clear the search

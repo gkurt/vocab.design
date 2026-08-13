@@ -1,0 +1,4 @@
+term:    Strikethrough
+scope:   element
+subject: s[data-part=old-price]
+text:    £64.00

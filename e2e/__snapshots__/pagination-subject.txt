@@ -1,0 +1,4 @@
+term:    Pagination
+scope:   element
+subject: nav.sp-row[aria-label=Archive pages][data-part=pager]
+text:    1 2 … 3 4 5 … 12

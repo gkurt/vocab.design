@@ -1,0 +1,4 @@
+term:    Comparison table
+scope:   element
+subject: table.sp-table[aria-label=Plan comparison][data-mode=all][data-part=table]
+text:    Feature Starter TeamRECOMMENDED Scale Projects 325Unlimited Team seats 11050 Ver

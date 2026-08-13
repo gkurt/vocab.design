@@ -1,0 +1,4 @@
+term:    Web font
+scope:   element
+subject: div[data-part=sample][data-phase=loaded]
+text:    Handgloves & figures The same two lines, at the same declared size, in whichever

@@ -1,0 +1,4 @@
+term:    Hold to confirm
+scope:   element
+subject: button.sp-button.sp-button--ghost[data-part=hold][data-state=idle][type=button]
+text:    Hold to delete

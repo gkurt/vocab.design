@@ -1,0 +1,4 @@
+term:    Pan
+scope:   element
+subject: div[aria-label=Survey, pan with the arrow keys][data-part=canvas][data-view=middle][role=application][tabindex=0]
+text:    North ridge Mill road Harbour

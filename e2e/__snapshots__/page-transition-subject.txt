@@ -1,0 +1,4 @@
+term:    Page transition
+scope:   element
+subject: div[data-dir=forward][data-part=slot][data-route=list][data-state=settled][data-style=slide]
+text:    Harbour approach Chart 5 Shoals Chart 10 Ferry lanes Chart 9 Harbour approach

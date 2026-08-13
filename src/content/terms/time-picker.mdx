@@ -1,0 +1,63 @@
+---
+name: Time picker
+slug: time-picker
+category: component
+status: published
+definition: >-
+  A control for choosing a time of day, either as a dial you tap around or as hour
+  and minute lists.
+aliases:
+  - name: time input
+    source: cloudscape
+  - name: clock picker
+    source: community
+  - name: timepicker
+    source: ant-design
+relations: {}
+implementations:
+  - system: material
+    name: Time pickers
+    url: https://m3.material.io/components/time-pickers/overview
+sources:
+  - title: Ant Design components overview
+    url: https://ant.design/components/overview/
+demo: inline
+useWhen: choosing a clock time
+---
+
+A time picker turns a moment in the day into something you choose rather than
+something you type. It comes in two shapes. The dial draws a clock face and asks for
+the hour, then the minutes, which is the touch-first form and the one Material
+standardised; the list form stacks hours and minutes as two scrollable columns of
+cells, with AM and PM alongside, and is the form that fits inside a form. Both make
+the same bet: that a set of legal values shown up front beats a blank field, because
+the number of ways a person can write half past nine is larger than any parser
+wants to meet.
+
+The word sits in a family, and the neighbouring senses are worth keeping straight. A
+date picker chooses a day from a calendar; a date range picker chooses two ends of a
+span and has to show them as a filled band between; a time picker chooses a clock
+time and never a duration. "Two hours" is a duration and wants a different control
+entirely, usually a number with a unit. Where both a day and a time are needed, the
+usual answer is two controls in a row rather than one that tries to be both, since a
+combined picker either buries the time behind the calendar or shrinks the calendar
+to fit.
+
+Granularity is the decision that shapes everything else. A picker offering every
+minute of the day offers 1,440 cells and is unusable; one offering five-minute steps
+offers 288 and is pleasant; one offering the four slots a clinic actually has free
+is better than either, because a list of available times is a different and easier
+question than a clock. So the step should come from the domain, and the picker
+should say which values are unavailable rather than accepting them and failing on
+submit.
+
+The honest position on the whole component is that the fastest input for someone at
+a keyboard is still a text field. A person types "9:30" or "0930" or "9p" in about a
+second, and no picker beats that; what the picker is for is touch, unfamiliar
+formats, and the reader who genuinely does not know what times exist. The strongest
+build is therefore both: a field that accepts what people actually type and
+normalises it, with a picker attached for anyone who would rather choose. Whichever
+shape it takes, the cells are options and should carry listbox semantics, arrow keys
+should nudge the value the way they do in a native `input type="time"`, and the
+composed value should be announced as one string, since "eleven" then "forty" then
+"PM" read separately is three facts the reader has to assemble themselves.

@@ -1,0 +1,63 @@
+---
+name: color-mix()
+slug: color-mix
+category: color
+status: published
+definition: >-
+  A CSS function that blends two colours by a chosen percentage in a chosen colour space,
+  so hover and disabled variants are derived rather than hand-picked.
+aliases:
+  - name: color mixing
+    source: community
+  - name: mix in oklab
+    source: css
+  - name: tint function
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+  - title: "CSS Color Module Level 5 vocabulary in css-color-4"
+    url: https://www.w3.org/TR/css-color-4/
+demo: inline
+useWhen: deriving a variant from a colour instead of picking one
+---
+
+`color-mix()` takes an interpolation space and two colours, each with an optional
+percentage, and returns the colour that far between them:
+`color-mix(in oklab, var(--accent) 80%, white)` is the accent lightened by a fifth. Give
+one percentage and the other is inferred; give none and it is an even blend; give two
+that do not sum to 100 and they are normalised, with the shortfall applied as alpha. The
+second colour can be `transparent`, which turns the function into a clean way to derive a
+translucent wash, and either colour can be `currentColor`, which is how a hover fill
+follows the ink of the variant it lands on.
+
+The space argument is the whole craft, not a formality. Mixing in `srgb` interpolates the
+raw channel numbers, which is why a blue and an amber meet in the middle as mud and why
+an evenly stepped ramp bunches up at one end. Mixing in `oklab` walks a straight line
+through a perceptual space, so the midpoints keep an even lightness. The polar spaces
+(`oklch`, `lch`, `hsl`, `hwb`) travel around the hue circle rather than across it, which
+keeps the middle of a mix saturated, and they accept a hue interpolation method
+(`shorter hue` by default, or `longer`, `increasing`, `decreasing`) for choosing which
+way around to go. Two identical calls with a different space in them are two different
+colours.
+
+The practical win is that a design system stops shipping variants. One base token plus a
+few derivations covers the hover wash, the pressed fill, the subtle border, and the
+disabled state, and every one of them updates when the base does, including in a theme
+the system has never seen. It pairs naturally with relative colour syntax
+(`oklch(from var(--accent) l c h / 0.2)`), which changes one component of a colour
+instead of blending toward another, and the two together remove most of the reasons a
+palette used to be generated at build time.
+
+Where [tint](/tint) and [shade](/shade) are the operations, borrowed from paint,
+`color-mix()` is the engine that performs them in the browser at the moment the value is
+used, so a [colour ramp](/color-ramp) can be a formula rather than a list. What it does
+not do is make the result correct: a derived colour has no idea what it will sit on, so
+every step that carries text still has to clear its
+[contrast ratio](/contrast-ratio) the same as a hand-picked one would.

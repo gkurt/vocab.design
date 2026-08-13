@@ -1,0 +1,4 @@
+term:    Halftone
+scope:   element
+subject: div[data-part=panel]
+text:    PRINT PRINT Same ink, same grid. Only the dot gets bigger. 10%30%50%70%90%

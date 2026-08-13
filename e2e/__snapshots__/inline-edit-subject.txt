@@ -1,0 +1,4 @@
+term:    Inline edit
+scope:   element
+subject: div[data-mode=view][data-part=field]
+text:    Harbour

@@ -1,0 +1,55 @@
+---
+name: Focus management
+slug: focus-management
+category: accessibility
+status: published
+definition: >-
+  Deliberately moving keyboard focus after a state change so the reader lands on the
+  new content instead of at the top of the document.
+aliases:
+  - name: managing focus
+    source: community
+  - name: moving focus
+    source: community
+  - name: focus handling
+    source: community
+implementations:
+  - system: fluent
+    name: Manage focus
+    url: https://fluent2.microsoft.design/accessibility
+sources:
+  - title: 'APG: Developing a Keyboard Interface'
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+useWhen: deciding where focus goes when the UI changes
+---
+
+Every time an interface changes underneath someone, a question falls due: where is the
+keyboard now? On a document that only ever loads, the browser answers it. On anything
+that opens a dialog, swaps a route, reveals a panel, or deletes the row focus was
+sitting on, nobody answers it unless you do, and the default answer is bad. Focus falls
+back to the body, and the next Tab starts again from the top of the page.
+
+The practice is a short list of moments and a rule for each. When a dialog or a drawer
+opens, move focus into it. When it closes, put focus back on the control that opened it,
+because that is where the reader was standing. When a client-side route changes, move
+focus to the new heading or the main landmark, since no page load happened to do it for
+you. When content is revealed in place, leave focus alone: the reader is already there,
+and yanking them somewhere they did not ask to go is its own bug. When the focused
+element is destroyed, hand focus to the nearest sane neighbour before it goes, usually
+the next row in the list or the container the row was in.
+
+Four neighbours are worth telling apart, one sentence each.
+[Focus order](/focus-order) is the sequence Tab walks through content that is standing
+still. [Focus trap](/focus-trap) is holding focus inside an open surface for as long as
+it is open. Initial focus, the sibling term, is the single decision of which element
+gets it the moment a view appears. [Focus visible](/focus-visible) is whether the ring
+is drawn once focus arrives, not where focus went. Focus management is the umbrella:
+the practice of deciding all of the above on purpose.
+
+Two mechanics keep it honest. The element you move to has to be focusable, which for a
+heading or a dialog container means `tabindex="-1"`, focusable from script and still out
+of the tab sequence. And a move that nobody can see is only half a move: a dialog that
+takes focus without drawing a ring leaves a sighted keyboard user stranded, so pair the
+move with a visible [focus ring](/focus-ring) and, where the change is silent, a
+[status message](/status-message) that says what happened.

@@ -1,0 +1,4 @@
+term:    Scrubbing
+scope:   element
+subject: div[data-at=start][data-mode=idle][data-part=timeline]
+text:    

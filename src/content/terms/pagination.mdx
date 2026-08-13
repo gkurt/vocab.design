@@ -1,0 +1,66 @@
+---
+name: Pagination
+slug: pagination
+category: component
+status: published
+definition: >-
+  The numbered row of page links under a long result set, with previous and next
+  controls and usually an ellipsis where numbers are skipped.
+aliases:
+  - name: pager
+    source: community
+  - name: paging controls
+    source: community
+  - name: page navigation
+    source: community
+relations: {}
+implementations:
+  - system: shadcn
+    name: Pagination
+    url: https://ui.shadcn.com/docs/components/pagination
+sources:
+  - title: GOV.UK Design System components
+    url: https://design-system.service.gov.uk/components/
+demo: inline
+useWhen: results split into numbered pages
+---
+
+Pagination cuts a long result set into fixed slices and gives each slice a number
+you can point at. That is the whole proposition: page seven is a place, it has an
+address, it can be bookmarked and linked and returned to, and the reader always
+knows both where they are and how much is left. The control itself is a short row
+of links, almost never the full run of pages, because a hundred pages will not fit
+and nobody wants them. So it shows a window: the first page, the last page, the
+current page with a neighbour either side, and an ellipsis standing in for
+everything skipped. Previous and next bracket the window for readers who are just
+walking forward, and both go inert at the ends rather than disappearing, so the row
+never changes width under the pointer.
+
+It is one of three answers to the same problem, and the differences are not
+cosmetic. Infinite scroll appends automatically and never ends, which suits a feed
+you graze; the cost is an unreachable footer and no way to say where you were. Load
+more appends on request, which keeps what you were comparing on screen and keeps
+the page finite, but it still has no addresses: there is no way to send someone the
+batch you are looking at. Pagination replaces the contents instead of appending, so
+it loses the reader's place on purpose, and buys back the thing the other two
+cannot offer. Reach for it when someone is hunting one specific row, when results
+are ranked so position carries meaning, or when a URL has to survive being pasted
+into a message.
+
+Most of the craft is in the details around the numbers. Mark the current page with
+`aria-current="page"` and with something other than colour, since a filled swatch
+alone fails the moment the page is printed or read at low contrast. Give the whole
+row a `nav` with a label, so it is not just an anonymous run of links. Say the range
+in words nearby ("11 to 15 of 60"), because a page number means nothing without a
+page size. Keep the targets big enough to hit on a phone, where a row of tightly
+packed digits is the classic failure. And after a page change, move focus to the top
+of the results rather than leaving it on a number that has just moved: the reader
+asked for new content, so put them at the start of it.
+
+The number itself is the leaky part. Page and offset are computed from a position in
+a list that may be re-sorted or added to between requests, so a row can appear twice
+across two pages, or never appear at all, while the reader pages through a set that
+is quietly shifting under them. Systems where that matters use cursor paging under
+the hood (each page carries a pointer to where the last one stopped) and either drop
+the numbers or accept that they are approximate. The visible component stays the
+same; what it can honestly promise does not.
