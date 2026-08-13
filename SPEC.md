@@ -353,7 +353,13 @@ export default steps([
   Input kinds are disambiguated at the cursor: left click ripples a left arc, right
   click a right arc, a held drag closes the cursor into a grab hand until release
   (which ripples the click's arc), middle click pulses paired up/down carets, and
-  wheel scrolling ripples carets in the scroll direction. `type` lands its characters
+  wheel scrolling ripples carets in the scroll direction.
+  The pointer rests on an element's centre, unless the element carries `data-aim`,
+  which parks it just inside the bottom-right corner instead: on a small control the
+  cursor is the biggest thing on it, and a morphing glyph would perform entirely
+  underneath the arrow. The dispatched coordinates move with the drawn cursor, so an
+  opted-in element's events land at its corner, not its centre — a demo that resolves
+  input by coordinate should not opt in. `type` lands its characters
   one at a time, at a typist's cadence, into a HUD chip that grows with them: one
   `input` event per character, so a demo that answers each keystroke is demonstrated
   against the gesture a person actually makes. Summon keeps the single-event paste

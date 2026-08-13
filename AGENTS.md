@@ -117,7 +117,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   answer synthesized events: nothing may depend on a browser's own default activation
   (`<summary>`, a `<label>` for an input, a form submit). An `assert` is judged the
   moment the script reaches it, with no retry, so give a claim room rather than time it
-  to the edge of a transition. Demos never import anything from `e2e/`.
+  to the edge of a transition. Demos never import anything from `e2e/`. A small control
+  whose artwork the cursor would cover (a morphing glyph) may carry `data-aim`, which
+  parks the ghost cursor just inside its bottom-right corner instead of its centre;
+  events land there too, so a demo that resolves input by coordinate must not opt in.
 - **Synthesized input does not light up CSS state.** Attract's events never trigger
   `:hover` or `:active`, so kit primitives that answer a pointer carry an attribute
   spelling beside the pseudo-class (`data-hovered`, `data-pressed`, `data-open`). A

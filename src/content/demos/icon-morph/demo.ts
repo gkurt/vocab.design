@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame" style="height: 224px">
         <div class="sp-topbar">
-          <button class="sp-icon-button" type="button" data-part="trigger" aria-expanded="false" aria-label="Open menu">
+          <button class="sp-icon-button" type="button" data-part="trigger" data-aim aria-expanded="false" aria-label="Open menu">
             <svg class="sp-icon" data-part="glyph" data-subject viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px">
               ${bars}
             </svg>

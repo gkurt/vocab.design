@@ -11,7 +11,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame" style="width: 300px; height: 240px">
         <div class="sp-topbar">
-          <button class="sp-icon-button" data-part="trigger" data-subject aria-expanded="false" aria-controls="nav" aria-label="Menu">
+          <button class="sp-icon-button" data-part="trigger" data-subject data-aim aria-expanded="false" aria-controls="nav" aria-label="Menu">
             ${icon('menu')}
           </button>
           <span class="sp-heading sp-grow sp-context">Field guide</span>

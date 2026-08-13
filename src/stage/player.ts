@@ -62,8 +62,19 @@ const GRAB_SVG =
   '<path d="M4.6 10.8 V8.4 a1.45 1.45 0 0 1 2.9 0 V7.2 a1.45 1.45 0 0 1 2.9 0 v.5 a1.45 1.45 0 0 1 2.9 0 v1 a1.45 1.45 0 0 1 2.9 0 v3.9 a4.7 4.7 0 0 1 -4.7 4.7 h-2.2 a4.7 4.7 0 0 1 -4.7 -4.7 z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2" stroke-linejoin="round"/>' +
   '<path d="M7.5 9 v2 M10.4 8.3 v2.7 M13.3 9.3 v1.7" fill="none" stroke="var(--vd-paper, #fff)" stroke-width="0.9" stroke-linecap="round"/></svg>';
 
-function centerOf(el: Element): { x: number; y: number } {
+/**
+ * Where the pointer rests on an element: its centre, unless the element carries
+ * `data-aim`, which parks the pointer just inside its bottom-right corner. On a
+ * small control the cursor is the biggest thing on it, and a morphing glyph
+ * would perform entirely underneath the arrow. The corner is not configurable:
+ * the arrow's body extends down-right of its tip, so bottom-right is the one
+ * corner that leaves the artwork visible. The drawn cursor and the dispatched
+ * coordinates move together, so the stage never claims a click it did not make.
+ */
+function aimAt(el: Element): { x: number; y: number } {
   const rect = el.getBoundingClientRect();
+  if (el instanceof HTMLElement && el.dataset.aim !== undefined && rect.width > 8 && rect.height > 8)
+    return { x: rect.right - 3, y: rect.bottom - 3 };
   return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
 }
 
@@ -331,7 +342,7 @@ export class AttractPlayer {
     if (!el) return this.#sleep(STEP_GAP_MS, generation);
     this.#target = el;
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
-    this.#placeCursor(centerOf(el), travel);
+    this.#placeCursor(aimAt(el), travel);
     this.#cursor.setAttribute('data-visible', '');
     if (!(await this.#sleep(travel, generation))) return false;
     // Hover lands when the cursor arrives, not when it sets off.
@@ -354,7 +365,7 @@ export class AttractPlayer {
   }
 
   #dispatchHover(el: Element, bubbling: string[], direct: string[]): void {
-    const at = centerOf(el);
+    const at = aimAt(el);
     const base = { cancelable: false, clientX: at.x, clientY: at.y };
     for (const type of bubbling) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: true }));
     for (const type of direct) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: false }));
@@ -370,8 +381,8 @@ export class AttractPlayer {
     const source = this.#target;
     const dest = this.#host.root().querySelector(toSelector);
     if (!source || !dest) return this.#sleep(STEP_GAP_MS, generation);
-    const from = centerOf(source);
-    const to = centerOf(dest);
+    const from = aimAt(source);
+    const to = aimAt(dest);
     this.#cursor.setAttribute('data-grab', '');
     this.#dispatchPointer(source, 'pointerdown', from);
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
@@ -413,8 +424,8 @@ export class AttractPlayer {
     const source = this.#target;
     const dest = this.#host.root().querySelector(toSelector);
     if (!source || !dest) return;
-    const to = centerOf(dest);
-    this.#dispatchPointer(source, 'pointerdown', centerOf(source));
+    const to = aimAt(dest);
+    this.#dispatchPointer(source, 'pointerdown', aimAt(source));
     this.#dispatchPointer(source, 'pointermove', to);
     this.#dispatchPointer(source, 'pointerup', to);
     this.#target = dest;
@@ -452,7 +463,7 @@ export class AttractPlayer {
     // Coordinates matter: a context menu opens at the pointer, and without them every
     // scripted right-click would report (0, 0) and put the menu in the corner. The
     // ghost is over the target's centre, so that is where the click happened.
-    const at = centerOf(el);
+    const at = aimAt(el);
     const opts = { bubbles: true, cancelable: true, button, clientX: at.x, clientY: at.y };
     el.dispatchEvent(new PointerEvent('pointerdown', opts));
     el.dispatchEvent(new PointerEvent('pointerup', opts));
