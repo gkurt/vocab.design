@@ -1,0 +1,4 @@
+term:    Modular scale
+scope:   element
+subject: div.sp-stack[data-part=ladder][data-ratio=minor]
+text:    16 × 1.23 = 27.6px Typeset 16 × 1.22 = 23.0px Typeset 16 × 1.21 = 19.2px Typeset

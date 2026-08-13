@@ -1,0 +1,52 @@
+---
+name: Description list
+slug: description-list
+category: component
+status: published
+definition: >-
+  Paired labels and values laid out as a list of facts about one thing, rather than as
+  a table of many things.
+aliases:
+  - name: descriptions
+    source: ant-design
+  - name: summary list
+    source: govuk
+  - name: key-value pairs
+    source: cloudscape
+  - name: data list
+    source: mantine
+  - name: definition list
+  - name: properties list
+sources:
+  - title: 'Cloudscape: components'
+    url: https://cloudscape.design/components/
+demo: inline
+useWhen: labelled facts about a single record
+---
+
+A description list is the details panel of a record: Owner, Created, Status, Size,
+each label sitting with its value. In HTML it has its own element, `dl`, whose
+children come in pairs of `dt` (the name) and `dd` (the value), optionally grouped in
+a wrapping `div` so each pair can be styled as one row. The pairing is the point.
+Assistive technology reads a `dl` as a list of associated names and values, so a
+reader arriving at "Status" hears what it belongs to, and a value that is empty can be
+said to be empty rather than silently skipped.
+
+One name may take several values (two owners, three tags) and several names may share
+one value, which the element handles by letting `dt` and `dd` repeat inside a group.
+The visual arrangement is entirely free: labels beside values on a wide screen, labels
+above values on a narrow one, two or three columns of pairs across a summary card.
+None of that changes what the markup says, which is exactly why the semantic element
+is worth using instead of a stack of divs that merely look like pairs. Watch the two
+details every implementation trips over: `dd` carries a default left margin that has
+to be removed, and a label styled to near-invisibility stops being a label.
+
+Reach for a [table](/data-table) instead the moment there are many things rather than
+one. A table's power is comparison down a column, and its header row earns its keep
+only when the rows beneath it are alike. Turning a single record sideways into a
+two-column table of Field and Value produces a header row that says nothing, a
+sortable column no one would sort, and a shape that says "many records" when there is
+one. The reverse mistake is just as common: a description list holding six rows that a
+reader wants to compare should have been a table all along. GOV.UK's summary list is
+the pattern in its most-used form, a description list with an edit action per row, and
+it stays a list because each row is a fact about the one application being checked.

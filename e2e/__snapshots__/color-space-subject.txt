@@ -1,0 +1,4 @@
+term:    Color space
+scope:   element
+subject: div.sp-stack[data-pair=blue][data-part=panel]
+text:    in srgb straight across the channels in oklch around the hue circle

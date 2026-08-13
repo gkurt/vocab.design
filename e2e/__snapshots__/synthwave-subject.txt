@@ -1,0 +1,4 @@
+term:    Synthwave
+scope:   element
+subject: div[data-part=poster]
+text:    Night Drive OUTRUN 1984

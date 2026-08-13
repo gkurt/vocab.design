@@ -1,0 +1,4 @@
+term:    Neutral palette
+scope:   element
+subject: div[data-part=panel][data-tint=cool]
+text:    Members Ada Okonjo Owner Ren Takahashi Can edit Invite Manage

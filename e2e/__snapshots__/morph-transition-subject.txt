@@ -1,0 +1,4 @@
+term:    Morph transition
+scope:   element
+subject: div[data-part=surface][data-state=settled]
+text:    Thrift Open Thrift Armeria maritima. Cliff tops and salt marsh, flowering May to

@@ -1,0 +1,4 @@
+term:    Date range picker
+scope:   element
+subject: div.sp-surface[aria-label=Stay dates][data-part=panel][data-range=none][role=group]
+text:    April 2025 MoTuWeThFrSaSu 311234567891011121314151617181920212223242526272829301

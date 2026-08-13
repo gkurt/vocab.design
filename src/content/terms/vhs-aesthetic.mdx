@@ -1,0 +1,63 @@
+---
+name: VHS aesthetic
+slug: vhs-aesthetic
+category: aesthetic
+status: published
+definition: >-
+  A look that imitates a worn videotape: tracking bands, smeared color bleeding past edges,
+  interlace comb artifacts, and burned-in timecode or REC overlays.
+aliases:
+  - name: VHS look
+  - name: tape aesthetic
+  - name: analog horror look
+  - name: camcorder overlay
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'Aesthetics Wiki: Retrofuturism (analog subgenres)'
+    url: https://aesthetics.fandom.com/wiki/Retrofuturism
+demo: inline
+useWhen: artifacts of magnetic tape used as decoration
+---
+
+Every part of this look is a specific failure of magnetic tape. A tracking band is the
+horizontal strip of torn, noisy picture that rolls through the frame when the head is not
+aligned with the recorded track. Colour smears past the edges of objects because tape
+carried far less bandwidth for chroma than for brightness, so the hues arrive late and
+blurred while the outlines stay sharp. Comb teeth appear along fast horizontal motion
+because the two interlaced fields of a frame were recorded a fiftieth of a second apart.
+White flecks are dropouts, places where the oxide has shed. And everything is a little soft,
+a little washed, and a little warped, because each copy of a copy loses more. On top of the
+picture, not in it, sits the recorder's own display: PLAY with a triangle, REC with a dot, a
+running counter, and a date stamp in a coarse bitmap face.
+
+The look is a costume made of those faults, and it belongs to the home camcorder rather
+than to broadcast. Consumer VHS arrived in the late 1970s, took the format war from Betamax
+on tape length and price, and put a recording device in ordinary houses for about fifteen
+years. What is being imitated now is not television, it is somebody's own tape: a birthday,
+a garden, a school corridor, filmed by hand and rewatched until it degraded. That is why
+the revival landed in horror. Analog horror works by presenting itself as recovered
+footage, and the artifacts do the arguing, because a viewer reads decay as age and age as
+evidence.
+
+Two neighbours are commonly confused with it. The [glitch aesthetic](/glitch-aesthetic) is
+digital: block artifacts, datamosh, bit errors, an image failing as data. This one is
+analog: nothing is corrupted, the signal has simply worn out. [Scanlines](/scanlines) are
+the raster of the tube the tape was played back on, an overlay that can be dropped over any
+picture, which is why the comb tearing in the specimen here is kept inside the tracking band
+where the format actually puts it. [Vaporwave](/vaporwave) borrows all of this as period
+detail, and [cassette futurism](/cassette-futurism) is the hardware the tape went into
+rather than the image that came out.
+
+For interface work it is decoration and should be built as such: an
+[aria-hidden](/aria-hidden) layer with no pointer events over an image, never a filter over
+running text. Chroma fringing destroys legibility, so keep the offset shadows on display
+lettering and leave body copy clean. The rolling band is the risky part, since a bright
+strip travelling through a frame on a loop is both distracting and exactly the pattern that
+photosensitivity guidance addresses, so keep it slow, keep it low contrast, and give
+[reduced motion](/prefers-reduced-motion) a version that simply rests. The overlay text is a
+prop, so any real timestamp still needs to exist in the markup as text.

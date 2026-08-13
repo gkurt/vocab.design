@@ -1,0 +1,4 @@
+term:    Input group
+scope:   element
+subject: div.sp-row[data-part=group]
+text:    £ per night

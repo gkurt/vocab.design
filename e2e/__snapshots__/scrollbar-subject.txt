@@ -1,0 +1,4 @@
+term:    Scrollbar
+scope:   element
+subject: div[data-at=start][data-part=scrollbar]
+text:    

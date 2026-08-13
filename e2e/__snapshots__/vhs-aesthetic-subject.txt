@@ -1,0 +1,4 @@
+term:    VHS aesthetic
+scope:   element
+subject: div[data-part=frame]
+text:    SUMMER 94 ▶ PLAY SP 0:12:37 AUG 14 199410:32 PM

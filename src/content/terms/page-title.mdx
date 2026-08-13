@@ -1,0 +1,52 @@
+---
+name: Page title
+slug: page-title
+category: accessibility
+status: published
+definition: >-
+  The document title, the first thing a screen reader speaks and the only label a reader
+  has when picking between tabs, windows, and history entries.
+aliases:
+  - name: document title
+    source: community
+  - name: page titled
+    source: wcag
+  - name: title element
+    source: whatwg-html
+  - name: tab title
+    source: community
+sources:
+  - title: 'WCAG 2.2: Page Titled'
+    url: https://www.w3.org/TR/WCAG22/#page-titled
+demo: inline
+useWhen: the label a page carries outside its own viewport
+---
+
+The `title` element is the only piece of a page that has to work from outside the page.
+It is spoken first when a screen reader loads a document, before any heading, so it is
+how somebody learns where they landed. It is also the label on the tab, in the window
+switcher, in the history menu, in a bookmark, and in a search result. WCAG's success
+criterion 2.4.2 asks only that it describe the topic or purpose, which sounds trivial
+until you count how many products ship every route with the same eight words.
+
+Order matters more than length, because everything downstream truncates from the right. A
+narrow tab shows perhaps fifteen characters, and a screen reader user listening to a list
+of open windows is waiting for the part that differs. Put the specific first and the
+product last: "Settings, Mail" rather than "Mail, Settings". Two pages should never carry
+the same title, and state that changes the answer to "where am I" belongs in the title
+too: an unread count, a step number in a checkout, an unsaved marker, an error count on a
+form that just failed validation.
+
+The characteristic failure now is the single page application. Client-side routing swaps
+the view without touching `document.title`, so every history entry reads the same, the
+tab never changes, and a reader who navigated is given nothing at all: no load event, no
+new title, no announcement. Setting the title on every route change is half the fix. The
+other half is telling somebody it happened, either by moving focus to the new view's
+heading ([focus management](/focus-management)) or by announcing the new title through a
+[live region](/live-region), because a title that changes silently is a title nobody
+hears.
+
+One caution about writing them. A title is not a place for keyword stuffing or for a
+breadcrumb of the whole hierarchy. Long titles are cut off in exactly the places they are
+read, and the reader is left with three levels of ancestry and no idea which page they
+are on.

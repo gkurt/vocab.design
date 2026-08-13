@@ -1,0 +1,65 @@
+---
+name: Smooth scrolling
+slug: smooth-scrolling
+category: motion
+status: published
+definition: >-
+  Animating a programmatic jump so the page travels to its destination instead of cutting
+  there, which keeps an anchor link or a back-to-top button from losing the reader's place.
+aliases:
+  - name: 'scroll-behavior: smooth'
+    source: css
+  - name: animated scroll
+    source: community
+  - name: scroll to
+    source: community
+  - name: scrollIntoView
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'MDN: scroll-behavior'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+  - title: 'CSS-Tricks almanac: scroll-behavior'
+    url: https://css-tricks.com/almanac/properties/s/scroll-behavior/
+demo: inline
+useWhen: a jump would leave the reader unsure where they landed
+---
+
+A jump to an anchor is a cut. One frame the reader is at the top of a long document, the
+next they are somewhere in the middle of it, and nothing on screen says which direction they
+travelled or how far. Smooth scrolling replaces the cut with a short animated trip, and the
+information it adds is spatial: the reader watches the page run past, sees that the
+destination was a long way down, and arrives with the document's shape still intact in their
+head. That is the whole argument for it: not decoration, but continuity between two
+positions that a cut leaves unrelated.
+
+Both spellings are one line. In CSS, `scroll-behavior: smooth` on the scrolling element (the
+root, or whatever box actually scrolls) makes every programmatic scroll and every in-page
+link animate. In script, `element.scrollIntoView({ behavior: 'smooth', block: 'start' })`
+does the same for one target, and `window.scrollTo({ top, behavior: 'smooth' })` for an
+arbitrary position. `block` and `inline` decide where the target comes to rest in the
+viewport, which matters more than it sounds: `start` puts the heading against the top edge,
+where a [sticky header](/sticky-header) will cover it unless `scroll-margin-top` reserves
+the room. Neither spelling lets you set the duration, which browsers pick from the distance;
+a hand-rolled animation is what people reach for when they want to control that, and it is
+usually not worth the code.
+
+The failure mode is making the reader wait. A glide is orienting when the distance is real
+and the trip is under about half a second, and it is a tax when either of those breaks: a
+[back to top](/back-to-top) control on a very long page can animate for seconds, blurring
+past thousands of pixels the reader has no interest in, which is worse than the cut it
+replaced. Long distances should be capped or cut. A glide is also wrong when the reader is
+still steering, so a scroll animation started by a click has to yield the moment a wheel or
+touch gesture arrives, or the page fights the person scrolling it. And it can break
+navigation entirely if focus is not moved along with the view, since a keyboard reader who
+follows an in-page link needs the target focused, not merely shown.
+
+This is system motion toward a target the reader named, which is what separates it from
+[momentum scrolling](/momentum-scrolling): there, the reader's own flick supplies the
+velocity and physics carries it to a stop, and the interface is following rather than
+leading. Because this motion was not asked for directly, a stated
+[prefers-reduced-motion](/prefers-reduced-motion) should turn it back into a jump.
+`scroll-behavior: smooth` respects that preference in most browsers when the value comes
+from a media query, and a scripted version has to check for it, but either way the
+destination is the same. Only the trip disappears.

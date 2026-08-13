@@ -1,0 +1,21 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=list][data-layout=rows]', state: 'visible' } },
+  { assert: { selector: '[data-part=table]', state: 'visible' } },
+  { moveTo: '[data-part=pair-0]' },
+  { wait: 900 },
+  { assert: { selector: '[data-part=pair-3]', state: 'visible' } },
+  // One markup, two arrangements: the control restyles the pairs and says nothing new.
+  { moveTo: '[data-part=seg-stacked]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=list][data-layout=stacked]', state: 'visible' } },
+  { assert: { selector: '[data-part=term-2]', state: 'visible' } },
+  { wait: 1400 },
+  { moveTo: '[data-part=seg-rows]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=list][data-layout=rows]', state: 'visible' } },
+  { wait: 900 },
+]);

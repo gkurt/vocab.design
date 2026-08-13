@@ -1,0 +1,51 @@
+---
+name: Resize text
+slug: resize-text
+category: accessibility
+status: published
+definition: >-
+  Text must scale to at least 200 percent without loss of content or function, which rules
+  out fixed pixel heights around wrapping copy.
+aliases:
+  - name: text-only zoom
+    source: community
+  - name: browser zoom
+    source: community
+  - name: 200% text
+    source: wcag
+  - name: user font size
+    source: community
+sources:
+  - title: 'WCAG 2.2: Resize Text'
+    url: https://www.w3.org/TR/WCAG22/#resize-text
+demo: inline
+useWhen: the reader has enlarged text, not the whole page
+---
+
+Success criterion 1.4.4 asks that text can be scaled to 200 percent with nothing lost:
+no content cut off, no control that can no longer be operated, no label sliding out from
+under its own button. The reader is not making the window smaller and not asking for a
+different layout. They are asking for bigger letters in the same boxes, and the boxes
+have to give.
+
+The distinction that decides most implementations is text-only zoom against full page
+zoom. Full page zoom, the browser's own keyboard shortcut, scales everything at once:
+type, padding, images, and the CSS pixel itself, which is why layouts usually survive it
+and why teams testing only that way conclude they pass. Text-only zoom, which lives in
+the browser's font settings and in the operating system's, scales the type and leaves the
+box widths where they were. That is the harder case, and it is the one this criterion is
+really about, because the growth happens inside a container that did not grow with it.
+
+What survives it is type sized in relative units against containers with no fixed height.
+Set font sizes in `rem` so the reader's browser font size actually multiplies through,
+give containers `min-height` rather than `height`, centre a button's label with padding
+instead of a pixel `line-height`, and let rows wrap. The classic breakages are a card with
+`height: 120px`, a nav item that keeps its label on one line with `white-space: nowrap`,
+and text centred inside a fixed-height pill: at 200 percent the words are still there in
+the DOM and the reader cannot see them, which is exactly the loss the criterion names.
+
+Its sibling criterion is a different measurement of the same discomfort:
+[reflow](/reflow) (1.4.10) is about 400 percent zoom, where the requirement is one column
+at 320 CSS pixels and no two-dimensional scrolling, while this one is about 200 percent
+text in the layout you already have. Passing one does not pass the other, and both are
+worth a pass through before shipping a dense screen.

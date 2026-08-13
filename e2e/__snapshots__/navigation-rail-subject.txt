@@ -1,0 +1,4 @@
+term:    Navigation rail
+scope:   element
+subject: nav[aria-label=Sections][data-part=rail]
+text:    Inbox Agenda Saved Settings

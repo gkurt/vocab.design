@@ -1,0 +1,4 @@
+term:    Cassette futurism
+scope:   element
+subject: div[data-part=panel]
+text:    TANDEM 400 SEQ 04 T-00:19:47 ATMOS . . . NOMINAL PWR PUMP AUX VENT I / O

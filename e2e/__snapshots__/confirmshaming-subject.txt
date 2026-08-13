@@ -1,0 +1,4 @@
+term:    Confirmshaming
+scope:   element
+subject: button.sp-button.sp-button--quiet.sp-button--sm[data-mode=shaming][data-part=decline][data-pose=[data-mode=shaming]][type=button]
+text:    No thanks, I like paying full price

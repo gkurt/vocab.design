@@ -1,0 +1,4 @@
+term:    Smart defaults
+scope:   element
+subject: div.sp-surface.sp-grow[data-mode=prefilled][data-part=form][data-pose=[data-mode=prefilled]]
+text:    Country United Kingdom from your address Delivery date Tuesday 16 September soon

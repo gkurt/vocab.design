@@ -1,0 +1,4 @@
+term:    Retro-futurism
+scope:   element
+subject: div[data-part=poster]
+text:    The world of tomorrow Atomic express . daily departures

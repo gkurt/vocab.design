@@ -1,0 +1,4 @@
+term:    Media controls
+scope:   element
+subject: div.sp-row[aria-label=Playback][data-part=bar][data-shown][role=group]
+text:    0:12 1:30

@@ -1,0 +1,4 @@
+term:    Steps left
+scope:   element
+subject: div.sp-surface[aria-label=Progress through checkout][data-part=meter][data-step=2][role=group]
+text:    Step 2 of 4 2 steps left

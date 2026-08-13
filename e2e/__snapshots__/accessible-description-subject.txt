@@ -1,0 +1,4 @@
+term:    Accessible description
+scope:   element
+subject: div.sp-row.sp-row--between[data-part=desc-row][data-pose=[data-state=present]][data-state=present]
+text:    Description “This cannot be undone.”

@@ -1,0 +1,51 @@
+---
+name: Navigation rail
+slug: navigation-rail
+category: component
+status: published
+definition: >-
+  A narrow vertical strip of top level destinations at the side of a screen, used at
+  medium widths where a bottom bar is wasteful and a drawer is too heavy.
+aliases:
+  - name: rail
+  - name: icon sidebar
+  - name: mini drawer
+implementations:
+  - system: material
+    name: Navigation rail
+    url: https://m3.material.io/components/navigation-rail/guidelines
+sources:
+  - title: 'Navigation rail, Material Design 3'
+    url: https://m3.material.io/components/navigation-rail/guidelines
+demo: inline
+useWhen: top level navigation on a medium width window
+---
+
+A navigation rail is Material's answer to the tablet: a column about seventy pixels
+wide, pinned to the leading edge, holding three to seven destinations as an icon with
+a short label under it, and an indicator that marks the one you are on. Above the
+destinations sits an optional slot for the screen's primary action. It is the middle
+term in a responsive set. Below it, on a phone, the same destinations become a bar
+across the bottom; above it, on a desktop, they expand into a full drawer with labels
+beside the icons. The rail exists because a landscape tablet has vertical space to
+spare and horizontal space worth protecting, so navigation goes down the side and the
+content keeps its width.
+
+The indicator is the detail that makes a rail readable. Material draws it as a pill
+behind the active icon rather than as a line, and moving it between destinations is
+what tells a reader that these four things are one set. Labels under the icons are
+worth keeping: icon-only navigation is guesswork for anything past a house and a
+magnifying glass, and the rail has the room. Keep it to top level destinations only,
+mark the current one with `aria-current="page"` as well as with the pill, and give the
+whole strip a `nav` landmark with a name, so the rail is skippable rather than
+something a screen reader user walks through on every screen.
+
+Three neighbours get confused with it. A [sidebar](/sidebar) is the wide form: labels
+beside icons, room for sections and secondary controls, and often collapsible, and a
+sidebar collapsed to its icons is not automatically a rail (a rail is designed at that
+width, with labels and an indicator, rather than being a wide thing with its text cut
+off). [Bottom navigation](/bottom-navigation) is the same set of destinations rotated
+onto the phone's bottom edge, where thumbs are. A [drawer](/drawer) slides in over the
+content and goes away again, so it costs a press to open and returns nothing to the
+layout while closed. The rail is the one that is always there, always narrow, and
+never over anything.

@@ -1,0 +1,4 @@
+term:    Bauhaus style
+scope:   element
+subject: div[data-part=poster]
+text:    formfollowsfunction weimar 1923

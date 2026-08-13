@@ -1,0 +1,4 @@
+term:    Fallback font
+scope:   element
+subject: div[data-part=fallback][data-tuned=off]
+text:    Handgloves 0123

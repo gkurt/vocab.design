@@ -1,0 +1,4 @@
+term:    Scroll chaining
+scope:   element
+subject: div.sp-scroll.sp-surface[data-chain=room][data-mode=default][data-part=panel][data-pose=[data-mode=default]]
+text:    Ada Ferry at 6 or the later one? Ada The later one gets in after the shops shut 

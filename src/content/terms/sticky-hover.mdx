@@ -1,0 +1,57 @@
+---
+name: Sticky hover
+slug: sticky-hover
+category: interaction
+status: published
+definition: >-
+  A hover style that stays applied on a touch device after a tap, because there is no
+  pointer to leave and clear the state.
+aliases:
+  - name: stuck hover
+    source: community
+  - name: hover on touch
+    source: community
+  - name: phantom hover
+    source: community
+sources:
+  - title: "UXmatters: Designing for touch"
+    url: https://www.uxmatters.com/mt/archives/2020/02/designing-for-touch.php
+demo: inline
+useWhen: a tapped control stays looking hovered
+---
+
+Touch browsers emulate a mouse so that pages written for one keep working. A tap fires the
+compatibility sequence, and somewhere inside it the tapped element is treated as hovered,
+because a page that only reveals its menu on hover would otherwise be unusable. What the
+sequence has no way to produce is the other half of hover. A finger that lifts has not
+moved anywhere, so nothing fires the leave, and the element keeps its hover paint until
+something else takes it: usually the next tap on some other element, sometimes a scroll,
+sometimes nothing at all until the page is left. The result is a card that looks hovered
+with no pointer in the building, which readers understand as a selection they did not
+make.
+
+The paint is the small half of the problem. The large half is anything that only exists on
+hover. An action row that fades in under the pointer is, on a phone, either stranded on
+screen after one tap or unreachable until the reader taps twice, and the two-tap version
+was a genuine navigation trap on early touch browsers, where the first tap on a link with
+a hover menu did nothing but hover it. Anything a person actually needs therefore cannot
+live behind hover alone. Hover is a hint for pointers, and every affordance it reveals
+needs a permanent home as well, whether that is a visible button, an overflow menu, or a
+row that simply shows its actions all the time.
+
+The gate is a media query. `@media (hover: hover)` asks whether the primary pointing device
+can hover at all, and it is usually paired with `(pointer: fine)` to mean a real cursor
+rather than a stylus or a TV remote. Write the hover-only flourish inside it and the touch
+device never enters the state it cannot leave. Two details are worth knowing. It answers
+for the primary pointer, so a laptop with a touchscreen still reports hover, which is what
+`any-hover` is for, and it means the fallback has to be the generous branch: gate the
+disappearing, not the appearing, so a device that does not match ends up with everything
+visible rather than with nothing available.
+
+It is worth telling apart from its neighbours. A focus ring left behind after a click is
+real state on a real element, and `:focus-visible` exists to decide when to draw it; sticky
+hover is a state with no owner and no exit event. Hover intent is about not firing hover
+too eagerly on a pointer that is only passing through, which is a timing problem rather
+than a device one. And the same shape of bug reaches `:active` on some engines, where a
+tapped control keeps its pressed paint for a beat after the finger is gone, for exactly the
+same reason.

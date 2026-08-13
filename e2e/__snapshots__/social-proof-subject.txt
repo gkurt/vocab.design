@@ -1,0 +1,4 @@
+term:    Social proof
+scope:   element
+subject: div.sp-stack[data-mode=specific][data-part=cluster]
+text:    4.6 from 1,284 reviews 12,400 teams ship with Harbour AR MK JD SB 9 people from 

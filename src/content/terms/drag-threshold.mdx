@@ -1,0 +1,59 @@
+---
+name: Drag threshold
+slug: drag-threshold
+category: interaction
+status: published
+definition: >-
+  The small distance a pointer must travel while pressed before the gesture counts as a
+  drag, so a shaky click is not mistaken for one.
+aliases:
+  - name: drag slop
+    source: community
+  - name: touch slop
+    source: community
+  - name: movement threshold
+    source: community
+  - name: drag tolerance
+    source: community
+sources:
+  - title: "Material Design: Gestures (touch mechanics)"
+    url: https://m1.material.io/patterns/gestures.html
+demo: inline
+useWhen: deciding when a press turns into a drag
+---
+
+Nobody presses and releases on exactly the same pixel. A mouse click carries a pixel or
+two of travel from the muscles in the hand, a trackpad tap carries more, and a fingertip
+carries the most of all, because the contact patch shifts as the finger flattens and the
+reported point moves with it. An interface that treats any movement at all as a drag
+therefore turns half the clicks on a draggable card into tiny accidental drags, and the
+reader who wanted to open the card gets a card that jumped instead. The threshold is the
+dead zone that fixes this: press, wobble, release, and the gesture is still a click.
+
+It is measured from the point the press landed, as a straight line rather than per axis,
+and platforms publish their own value rather than letting each interface invent one.
+Android exposes it as touch slop, a handful of density-independent pixels every scrollable
+and draggable view agrees on, and drag libraries expose the same idea as an activation
+constraint, either a distance or a delay before the sensor starts. Two details separate a
+threshold that feels right from one that feels broken. Whatever distance was spent
+crossing it should be subtracted before the element starts following the pointer, or the
+element jumps by the width of the dead zone at the moment it wakes up, and the click that
+the press would otherwise have become has to be suppressed once the crossing happens, so
+one gesture does not both drag a card and open it.
+
+The number is a judgement about who is using the interface. Small values (a few pixels for
+a mouse) feel immediate and cost almost nothing on a pointer that is steady; the same
+value under a finger, or under a hand with a tremor, produces drags nobody asked for and
+clicks that never arrive. Large values feel like the interface needs a shove before it
+believes you. Touch usually gets the biggest threshold, or skips distance entirely and
+asks for a hold first, since an immediate finger drag on a phone already belongs to the
+scroller. And because a threshold makes dragging slightly harder to perform on purpose,
+it sits next to an accessibility duty rather than replacing one: anything achievable by
+dragging needs a route that is not a drag at all.
+
+The rest of the drag family divides the same gesture between them. The threshold decides
+whether a press ever became a drag, pointer capture decides which element keeps hearing
+that drag once it wanders off, and momentum scrolling decides what happens after the
+finger has already gone. Worth knowing too that the browser's own drag and drop has a
+threshold of its own that you do not set and cannot read, which is one of the reasons
+custom sorting is usually built on pointer events instead.

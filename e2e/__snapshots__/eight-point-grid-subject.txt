@@ -1,0 +1,4 @@
+term:    8 point grid
+scope:   element
+subject: div[data-part=snapped]
+text:    KE Open

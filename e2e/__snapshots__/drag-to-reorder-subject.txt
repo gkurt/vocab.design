@@ -1,0 +1,4 @@
+term:    Drag to reorder
+scope:   element
+subject: ul.sp-list[data-order=mail-plants-van-bins][data-part=list]
+text:    Answer the mail Today Water the plants Today Wash the van Sat Sort the bins Sat

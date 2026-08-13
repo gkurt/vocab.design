@@ -1,0 +1,54 @@
+---
+name: Page header
+slug: page-header
+category: layout
+status: published
+definition: >-
+  The band at the top of a screen carrying the page title, its context, and the actions
+  that apply to the page as a whole.
+aliases:
+  - name: page heading
+    source: tailwind
+  - name: masthead
+    source: community
+  - name: page title bar
+    source: community
+  - name: page banner
+    source: community
+sources:
+  - title: "Page Headings, Tailwind UI"
+    url: https://tailwindcss.com/plus/ui-blocks/application-ui/headings/page-headings
+demo: inline
+useWhen: the title band that owns the page's own actions
+---
+
+A page header is the block that answers three questions before any content is read: where
+am I, what is this, and what can I do to it. That is a breadcrumb or an eyebrow for
+position, a single first-level heading for identity, and a row of actions scoped to the
+whole page rather than to any row inside it. Supporting matter, a one-line description and
+a few status chips, sits between the heading and the content it describes.
+
+It is not the [navigation bar](/navigation-bar), and confusing the two is the usual
+mistake. The navigation bar belongs to the product and stays the same from screen to
+screen; the page header belongs to this page and changes with every one. A layout normally
+carries both, stacked, which is also why only one of them holds the h1: the site name is
+the site's, and the page title is this page's, as the top of its
+[heading hierarchy](/heading-hierarchy). It is not a [hero](/hero) either. A hero sells,
+with a large image and a call to action; a page header identifies, and in an application it
+is usually the densest, plainest band on the screen.
+
+Actions are where the craft is. One primary action sits at the right of the title line,
+secondary ones beside it, and everything else collapses into an overflow menu rather than
+lining up as six equal buttons. Actions that apply to a selection rather than to the page
+belong in a [toolbar](/toolbar) over the content, not up here, since a reader who has
+selected three rows should not have to work out which of two rows of buttons will act on
+them. Keep the title itself matching the words on the link that reached it, because a
+reader who clicked "Invoices" and landed on "Billing documents" has to check that they are
+in the right place.
+
+Because the header takes real vertical room, long pages often condense it on scroll into a
+compact bar carrying just the title and the primary action, which is the
+[collapsing toolbar](/collapsing-toolbar) pattern. Two rules make that survivable: the
+condensed state has to keep the page identifiable and its primary action reachable, and the
+room the change frees has to be given up smoothly rather than snapped away under a reader
+who is mid-sentence.

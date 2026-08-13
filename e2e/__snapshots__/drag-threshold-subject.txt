@@ -1,0 +1,4 @@
+term:    Drag threshold
+scope:   element
+subject: div.sp-surface[data-part=card][data-state=idle][data-verdict=none]
+text:    Ferry timetable Due Thursday

@@ -1,0 +1,4 @@
+term:    Color gamut
+scope:   element
+subject: div[data-part=diagram][data-space=srgb]
+text:    sRGB Display P3 Rec. 2020

@@ -1,0 +1,4 @@
+term:    Use of color
+scope:   element
+subject: div.sp-surface[data-mode=redundant][data-part=example][data-pose=[data-mode=redundant]]
+text:    Work email * required ada@ We only use it for delivery updates. Deliveries Sent 

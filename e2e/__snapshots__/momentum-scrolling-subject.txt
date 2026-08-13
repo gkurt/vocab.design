@@ -1,0 +1,4 @@
+term:    Momentum scrolling
+scope:   element
+subject: div[data-coast=none][data-part=strip][data-phase=idle]
+text:    

@@ -1,0 +1,4 @@
+term:    Interstitial
+scope:   element
+subject: div[aria-label=Sponsored message][data-part=ad][role=group]
+text:    Advertisement Harbour Times Premium Every tide table, every slipway notice, on a

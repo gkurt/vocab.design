@@ -1,0 +1,61 @@
+---
+name: Drag to reorder
+slug: drag-to-reorder
+category: pattern
+status: published
+definition: >-
+  Changing the order of a list by dragging an item to a new position, with the
+  remaining items shifting to show where it will land.
+aliases:
+  - name: sortable list
+    source: dnd-kit
+  - name: reorderable list
+    source: community
+  - name: drag and drop reordering
+    source: community
+  - name: rearrange
+    source: hig
+sources:
+  - title: 'dnd kit: Sortable'
+    url: https://dndkit.com/
+  - title: 'Cloudscape: Drag-and-drop'
+    url: https://cloudscape.design/patterns/
+demo: inline
+useWhen: you rearrange a list by dragging its rows
+---
+
+Reordering by dragging works because the order on screen is the order in the data.
+There is no dialog, no numbering field, no "move to position" prompt: the reader picks
+a row up, the rest of the list opens a space, and letting go writes the new sequence.
+That is the whole appeal of direct manipulation, and it is why the pattern shows up
+wherever a person owns a sequence they care about: a playlist, a set of dashboard
+cards, the columns of a table, the steps of a recipe, a to-do list read top to bottom.
+
+Most of the craft is in what the list promises before the drop. The lifted row needs a
+**drag preview** that reads as picked up rather than as broken, usually the row itself
+raised on a shadow, and the list needs a **drop indicator** saying where release will
+put it. Two spellings are common: a line drawn between two rows, or a gap opened at the
+destination by sliding the others aside, which is what this specimen does because the
+gap answers "how will the list look" instead of only "where is the seam". Whichever it
+is, commit on release and not before. Rewriting the order while the pointer is still
+down means the target keeps moving under the reader, and it usually means the code is
+re-parenting the node it is tracking, which is how a drag loses its own pointer events
+halfway through. Long lists also need autoscroll near the edges, since a row cannot be
+dropped somewhere the reader cannot scroll to while holding it.
+
+A drag is a gesture not everyone can make, so this pattern is never the only way to
+reorder. The keyboard equivalent is a grab mode: focus the row, press space or enter
+to lift it, arrow keys to move it, space to drop, escape to cancel, with each move
+announced in a live region ("Wash the van, position 2 of 4"). Libraries such as
+[dnd kit](https://dndkit.com) ship that mode because writing it from scratch is where
+most sortable lists quietly fail. A pointer-only alternative helps too: a Move up and
+Move down pair in the row's overflow menu costs almost nothing and rescues anyone on a
+trackpad, a touch screen, or a shaky hand. Undo matters more here than in most
+patterns, because the gesture is easy to complete by accident.
+
+Three words sit close together and are worth keeping apart. [Drag and drop](/drag-and-drop)
+is the family: pick something up, move it, release it somewhere meaningful. Drag to
+reorder is the specific job where the source and the destination are the same list and
+what changes is position, not ownership. A [drag handle](/drag-handle) is the small
+gripped mark that says which part of the row starts the drag, which a reorderable list
+usually wants so that pressing the row's own text can still select it.

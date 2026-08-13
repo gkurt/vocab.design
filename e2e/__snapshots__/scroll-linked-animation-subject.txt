@@ -1,0 +1,4 @@
+term:    Scroll-linked animation
+scope:   element
+subject: figure[data-at=start][data-part=figure][data-progress=0]
+text:    0 m Descent

@@ -1,0 +1,4 @@
+term:    Sort state
+scope:   element
+subject: th[aria-sort=ascending][data-part=th-name][scope=col]
+text:    Name

@@ -1,0 +1,50 @@
+---
+name: Media controls
+slug: media-controls
+category: component
+status: published
+definition: >-
+  The cluster of play, pause, skip, volume and fullscreen controls attached to a
+  player, which usually hides itself while playing.
+aliases:
+  - name: transport controls
+  - name: player controls
+  - name: playback controls
+  - name: video controls
+sources:
+  - title: 'UX Patterns for Developers'
+    url: https://uxpatterns.dev/patterns
+demo: inline
+useWhen: the control bar of a video or audio player
+---
+
+Media controls are the bar a player wears: play and pause, the elapsed and total time,
+the progress track, volume, captions, quality, fullscreen. The set has been stable
+since tape decks, which is why the glyphs need no labels to a sighted viewer and why
+inventing new ones is a bad trade. What varies is which of them a given player earns:
+a fifteen second loop needs play and nothing else, a lecture recording needs speed and
+a chapter list, a podcast needs skip back thirty seconds far more than it needs
+fullscreen.
+
+Play and pause share one button and one place. Two separate controls would mean the
+button under the pointer changes meaning between presses, and a bar where the primary
+action moves is a bar nobody can hit without looking. The same button therefore
+swaps its glyph and its accessible name together, and if it only swaps the glyph, a
+screen reader user is told to play something already playing. The other half of the
+state problem is the disappearing act: controls fade out while the picture plays and
+come back on pointer movement, on tap, or on pause. That is good for the picture and
+hard for everyone else, so the bar has to return for keyboard focus as well as for the
+pointer, and it must never be so quick to leave that a person aiming at it loses their
+target.
+
+The pieces around the bar have their own words. The track is a
+[scrubber](/scrubber), and dragging its playhead to move through the recording is
+[scrubbing](/scrubbing), which is a gesture with its own preview behaviour rather than
+something the bar itself does. [Captions](/captions) are a track the bar can switch on
+and off but not the same thing as the control that does it. Below the whole cluster
+sits the platform's own answer: `<video controls>` gives a native bar, complete with
+keyboard support, picture in picture, and captions plumbing, for free. Building a
+custom bar means taking on space to play or pause, arrow keys to seek, `M` to mute, a
+visible focus ring on every control, and a time readout that a screen reader announces
+without chattering on every frame. That is the price, and a player that skips it is
+usually worse than the default it replaced.

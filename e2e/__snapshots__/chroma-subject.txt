@@ -1,0 +1,4 @@
+term:    Chroma
+scope:   element
+subject: div[data-hue=blue][data-part=ramp]
+text:    

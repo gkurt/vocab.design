@@ -1,0 +1,4 @@
+term:    Description list
+scope:   element
+subject: dl[data-layout=rows][data-part=list]
+text:    Owner Rosa Marin Created 4 April 2025 Status In review Size 18.4 MB

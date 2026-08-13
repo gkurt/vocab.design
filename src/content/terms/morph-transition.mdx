@@ -1,0 +1,62 @@
+---
+name: Morph transition
+slug: morph-transition
+category: motion
+status: published
+definition: >-
+  A transition where a shape or icon is interpolated into a different shape rather than
+  swapped, so the two states read as one object changing.
+aliases:
+  - name: morph
+    source: community
+  - name: shape morph
+    source: community
+  - name: path morphing
+    source: gsap
+  - name: SVG morph
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'GSAP: Flip plugin'
+    url: https://gsap.com/docs/v3/Plugins/Flip/
+demo: inline
+useWhen: two states are the same object in different forms
+---
+
+A morph is a transition that refuses to admit anything was replaced. Two states that would
+otherwise be separate views, a card in a list and the page it opens, are drawn as one
+surface that changes shape: the card's box travels to where the panel's box is, growing and
+re-rounding on the way, while its contents hand over inside it. The reader's eye tracks a
+single object through the move and keeps its identity, which is the entire payoff. It
+answers where did this come from before the question is asked, and the way back out answers
+where does it go.
+
+Material's name for the pattern is the container transform, and it is the useful way to
+think about the mechanics: the thing that animates is the container, not the content. The
+container's position, size, and corner radius interpolate as one move, and the two sets of
+contents crossfade inside it, usually with the outgoing one leaving faster than the incoming
+one arrives so the surface never looks doubled. Getting the geometry right without hard
+coding it is what the FLIP technique is for: measure the first and last boxes, apply the
+inverse transform, then play it. GSAP packages that as its Flip plugin, and the browser now
+offers a native route, since a
+[view transition](/view-transition) with a shared `view-transition-name` on both boxes is
+the same idea with the measuring done for you.
+
+Two neighbours are worth keeping distinct. [Icon morph](/icon-morph) is this at glyph scale,
+where the strokes of a hamburger travel into a cross; morph transition is at surface scale,
+where a whole container changes shape and takes its contents with it. A
+[crossfade](/crossfade) is what you use when there is no shared geometry to interpolate:
+both elements simply dissolve through each other in place, and nothing claims to be the same
+object. Reaching for a morph between two things that are genuinely unrelated produces the
+worst result of the three, a surface that stretches into a shape the reader cannot connect
+to what they clicked.
+
+The craft is mostly restraint and bookkeeping. Keep it short, since a container travelling
+for half a second is a container the reader is waiting on, and give the arriving panel its
+final layout before the move rather than letting text reflow through it. Reserve the room
+the expanded state will occupy so the surrounding page does not shuffle as it grows, and
+make the collapse the same move reversed, because a morph out that dissolves instead of
+travelling drops the identity the morph in worked to establish. Under a stated
+[prefers-reduced-motion](/prefers-reduced-motion) the honest fallback is a plain fade
+between the two states: the identity claim was a nicety, and the state change was the point.

@@ -1,0 +1,56 @@
+---
+name: Pointer capture
+slug: pointer-capture
+category: interaction
+status: published
+definition: >-
+  Redirecting all events for one pointer to a chosen element, so a drag keeps reaching the
+  control it started on even when it wanders off.
+aliases:
+  - name: setPointerCapture
+    source: mdn
+  - name: mouse capture
+    source: community
+  - name: drag capture
+    source: community
+sources:
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+useWhen: a drag must keep its grip after leaving the element
+---
+
+A slider thumb is about fourteen pixels wide and the hand that drags it is not that
+accurate, so within a few frames the pointer is somewhere else entirely: over the track,
+over the label, over the page. Events follow the pointer, not the intention, which means
+the thumb stops hearing about the drag it is in the middle of and the value freezes while
+the reader keeps moving. Every custom slider, splitter, colour field, and resize handle
+meets this on its first day. The old fix was to move the listeners: bind `pointermove` and
+`pointerup` to the window on press and unbind them on release, and hope nothing throws in
+between.
+
+Pointer capture is the same fix with the browser doing the bookkeeping.
+`element.setPointerCapture(event.pointerId)` inside the `pointerdown` handler says that
+every later event from that particular pointer is to be delivered to this element,
+wherever the pointer actually is, until the pointer goes up or capture is lost. It is per
+pointer rather than per element, so two fingers can drag two thumbs at once without either
+handler seeing the other's moves, and captured events still bubble, so delegation keeps
+working. Touch already behaves this way without being asked: a touch pointer is implicitly
+captured by the element it landed on, which is exactly why a hand-rolled slider so often
+works on a phone and fails under a mouse.
+
+Two rules keep it honest. The capturing element has to stay in the document, because
+removing it or moving it to a new parent fires `lostpointercapture` and drops the gesture
+under the reader's finger, which is the deeper reason a drag implementation never rebuilds
+its own subtree mid-drag. And the element usually wants `touch-action: none`, since capture
+decides where a gesture is delivered rather than who owns it: without that, the browser can
+still decide the gesture was a scroll and cancel the pointer out from under you. Capture is
+also not pointer lock, which is a different thing entirely (it hides the cursor and hands
+you raw deltas for a first-person camera).
+
+The three drag words divide the gesture cleanly. A drag threshold decides whether the press
+became a drag at all, pointer capture decides which element keeps hearing it once the
+pointer strays, and momentum scrolling decides what the content does after the pointer is
+gone. A control that gets the middle one wrong feels arbitrarily fragile, because it works
+perfectly for small movements and dies for large ones, which is the exact opposite of what
+a reader dragging harder expects.

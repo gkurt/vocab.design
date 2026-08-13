@@ -1,0 +1,4 @@
+term:    Push transition
+scope:   element
+subject: div[data-dir=push][data-level=0][data-part=slot][data-state=settled]
+text:    Sea shanties 12 songs Ballads 9 songs Reels 14 songs Sea shanties Haul away Joe 

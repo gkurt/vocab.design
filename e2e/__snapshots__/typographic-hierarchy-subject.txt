@@ -1,0 +1,4 @@
+term:    Typographic hierarchy
+scope:   element
+subject: div.sp-stack[data-levels=on][data-part=column][data-pose=[data-levels=on]]
+text:    FIELD NOTES Rank before reading Rank is read before the words are. A reader who 

@@ -1,0 +1,4 @@
+term:    Text spacing
+scope:   element
+subject: div.sp-surface[data-part=prose][data-spacing=off]
+text:    Tide heights are metres above chart datum. Spring tides run through Thursday.

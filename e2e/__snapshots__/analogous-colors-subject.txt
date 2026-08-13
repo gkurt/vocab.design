@@ -1,0 +1,4 @@
+term:    Analogous colors
+scope:   element
+subject: g[data-part=set][data-set=amber]
+text:    

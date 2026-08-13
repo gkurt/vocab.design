@@ -1,0 +1,60 @@
+---
+name: Interstitial
+slug: interstitial
+category: pattern
+status: published
+definition: >-
+  A full screen placed between two steps of a flow, carrying a message, an advert, or a
+  warning that the reader must pass through to continue.
+aliases:
+  - name: interruption page
+    source: govuk
+  - name: interstitial ad
+    source: community
+  - name: splash interstitial
+    source: community
+  - name: in-between screen
+    source: community
+sources:
+  - title: 'GOV.UK Design System: Interruption pages'
+    url: https://design-system.service.gov.uk/patterns/interruption-pages/
+demo: inline
+useWhen: a whole screen sits between you and where you were going
+---
+
+An interstitial is a screen the reader did not ask for, standing between the thing they
+clicked and the thing they wanted. The word covers a wide family: the advert between
+two article pages, the app install screen a mobile site shows on arrival, the age gate,
+the "your download will begin shortly" page, and the warning a government service puts
+in front of a question people must not answer casually. What they share is the shape.
+The whole viewport is given over to one message, the journey is paused rather than
+branched, and there is exactly one way onward.
+
+The useful distinction is against a [modal dialog](/modal-dialog). A modal is an
+overlay on the page you are already on: the page stays behind it, escape closes it,
+focus is trapped and then handed back, and nothing about your position changes. An
+interstitial is a page in its own right. It usually has its own address, it appears in
+browser history, and there is nothing behind it to return to. That difference is not
+decorative, it decides the design. An interstitial has to say where the reader was
+going and carry them the rest of the way, because dismissing it is not an option the
+way closing a dialog is, and the browser Back button has to lead somewhere sane rather
+than bouncing the reader into the same screen again.
+
+There is a genuinely good version. The GOV.UK Design System calls it an interruption
+page and uses it exactly once per journey, for a warning that must not be skimmed: a
+declaration, a consequence, a change that cannot be undone. The rules that make it work
+are worth copying anywhere. One message and nothing else on the screen, no secondary
+decisions, no navigation, plain language, and a single obvious control that continues
+the thing the reader started. If a page like this is being reached for twice in one
+flow, the flow is the problem.
+
+The abusive version is the one most people picture, and it has real costs. Interstitial
+adverts that cover an article on arrival, app install screens that hide the content
+they promised, and countdown gated "skip" buttons all charge the reader for something
+they already chose. Search engines treat this as a quality problem rather than a taste
+one: Google has demoted pages that hide their content behind intrusive interstitials on
+mobile since 2017, with carve outs for legal obligations such as cookie consent and age
+verification, and for small banners that leave the page readable. The pattern that
+survives that test is the one that was serving the reader's journey rather than
+interrupting it, which is also, usually, the one that would survive being explained to
+them.

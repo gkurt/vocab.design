@@ -1,0 +1,55 @@
+---
+name: Scroll chaining
+slug: scroll-chaining
+category: interaction
+status: published
+definition: >-
+  When an inner scroller reaches its end and the gesture continues, the scroll passes to
+  the page behind it unless that handoff is blocked.
+aliases:
+  - name: scroll propagation
+    source: community
+  - name: "overscroll-behavior: contain"
+    source: mdn
+  - name: scroll bleed
+    source: community
+sources:
+  - title: "MDN: overscroll-behavior"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior
+demo: inline
+useWhen: an inner scroll spills over into the page behind
+---
+
+Scrollers nest, and a gesture only belongs to one of them at a time. While the inner one
+still has content the wheel or the finger moves it and nothing else notices; the moment it
+lands on its limit, the rest of the gesture is handed up to the nearest scrollable
+ancestor, and up again from there until something can use it or the document runs out.
+Most of the time this is a courtesy. A reader who flicks past a small embedded list on the
+way down a long article does not want the page to stop dead because the pointer happened
+to be over the list.
+
+The same courtesy is a bug the instant the inner scroller is floating above the page
+rather than sitting in it. Scroll to the bottom of a modal's body, or of a drawer, a
+bottom sheet, or an autocomplete list, and the page behind starts moving under the
+overlay; dismiss the overlay and the reader is somewhere they never navigated to. One
+declaration on the scrollable element settles it. `overscroll-behavior: contain` keeps the
+gesture from leaving that scroller while leaving the platform's own edge answer alone, and
+`none` suppresses that answer too, which is what a map or a drawing canvas wants. Both
+accept per-axis forms, so a horizontal carousel can refuse to hand sideways gestures on
+while still letting the page scroll down.
+
+Chaining is one half of overscroll rather than a separate event, which is why the property
+is named after the other half. Overscroll is the whole condition of scroll input arriving
+at a scroller that has no room left; what the platform does with it is a local answer (the
+iOS rubber band, the Android edge glow) plus this handoff to the parent. Momentum
+scrolling produces the same leftover from the other direction, since a coast that runs out
+of content is still a gesture nobody has spent, and one flick can therefore chain into the
+page long after the finger has gone.
+
+Two practical notes. The property governs scrolling, not events: a wheel listener on an
+ancestor still fires, so a script that was preventing default to fake containment can be
+deleted but a script that was counting wheel events cannot. And the old workaround of
+locking the document by setting `overflow: hidden` on the body loses the reader's scroll
+position and, on iOS, does not reliably hold, so the modern rule is simpler: every
+scrollable surface that floats above content gets `contain`, and the document is left
+alone.

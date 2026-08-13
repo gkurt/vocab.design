@@ -1,0 +1,4 @@
+term:    Motion choreography
+scope:   element
+subject: div.sp-grid[data-part=group][data-state=settled]
+text:    Total 1,284 Today 96 Trend +4.2% Queue 18 Errors 2 Notes 7

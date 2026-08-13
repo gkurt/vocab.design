@@ -1,0 +1,4 @@
+term:    Smooth scrolling
+scope:   element
+subject: div.sp-scroll[data-at=tides][data-part=page][data-state=idle]
+text:    Tides Harbour Anchorages Lights

@@ -1,0 +1,4 @@
+term:    Pointer capture
+scope:   element
+subject: div.sp-slider[data-level=mid][data-part=capture][data-state=idle]
+text:    

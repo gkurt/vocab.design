@@ -1,0 +1,60 @@
+---
+name: Color space
+slug: color-space
+category: color
+status: published
+definition: >-
+  A coordinate system for describing colour, where the choice of axes decides whether
+  arithmetic like mixing or stepping a ramp matches what the eye sees.
+aliases:
+  - name: color model
+    source: community
+  - name: colorSpace
+    source: dtcg
+  - name: CIELAB
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+useWhen: naming the coordinate system a colour value is written in
+---
+
+A colour model is an arrangement of axes: red green blue, hue saturation lightness,
+lightness chroma hue. A colour space is a model with its numbers pinned to actual light,
+so `rgb(29 99 210)` names one specific colour in sRGB and a slightly different one in
+Display P3. CSS writes both kinds of name in the same slot, which is why `#1D63D2`,
+`color(display-p3 0.1 0.39 0.81)` and `oklch(0.52 0.16 259)` can be three ways of asking
+for roughly the same colour and still behave differently the moment anything is computed
+from them.
+
+The axes are the whole argument. HSL's lightness is arithmetic on RGB channels, so
+holding it at 55 percent gives a glaring yellow and a murky blue at the same number,
+and a ramp built on it has to be nudged by hand at every hue. Oklab, and its polar form
+`oklch`, are fitted to how people report seeing colour: equal steps of
+[lightness](/lightness) look equal at every hue, and rotating the [hue](/hue) leaves the
+perceived lightness alone. That is the real reason to prefer one notation over another.
+Not precision, but whether the number you changed moved the thing you meant.
+
+Every operation that walks between two colours has to pick a space to walk in, and CSS
+makes that choice explicit rather than assuming it. `linear-gradient(to right in oklch,
+...)` states it for a ramp, and [color-mix()](/color-mix) takes it as a first argument.
+Interpolating in `srgb` averages the raw channels, so a blue and an amber meet in the
+middle as olive; interpolating in `oklch` travels around the hue circle instead, so the
+midpoints stay colourful and hold their lightness. The same two stops in two spaces are
+two different gradients.
+
+A space also bounds what it can express: sRGB, Display P3 and Rec. 2020 are the same
+idea at three sizes, and a colour written in the largest of them is not necessarily
+showable, which is what [colour gamut](/color-gamut) is about. In practice, author in
+[OKLCH](/oklch) because the arithmetic behaves, keep [hex](/hex-color) or `srgb` for
+values that have to be byte identical on every screen, and name the interpolation space
+anywhere a ramp or a mix is generated rather than inheriting whichever default the
+feature happens to carry.

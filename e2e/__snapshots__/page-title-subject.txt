@@ -1,0 +1,4 @@
+term:    Page title
+scope:   element
+subject: span.sp-text.sp-text--ink[data-page=inbox][data-part=tab-title]
+text:    Inbox, Mail

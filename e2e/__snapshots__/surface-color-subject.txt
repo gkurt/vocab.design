@@ -1,0 +1,4 @@
+term:    Surface color
+scope:   element
+subject: div[data-elevation=shadow][data-part=stack][data-scheme=light]
+text:    background surface surface-raised

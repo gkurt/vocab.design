@@ -1,0 +1,4 @@
+term:    FOIT
+scope:   element
+subject: div[data-part=sample][data-phase=waiting][data-pose=[data-phase=waiting]]
+text:    Handgloves & figures Laid out, measured, and reserved. Every line box is already

@@ -1,0 +1,4 @@
+term:    En dash
+scope:   element
+subject: div.sp-stack[data-part=jobs]
+text:    2019–2024, pages 44–51 the vote came in 51–49 the London–Paris route

@@ -1,0 +1,75 @@
+---
+name: Motion token
+slug: motion-token
+category: motion
+status: published
+definition: >-
+  A named duration or easing value published by a design system, so timings are chosen from
+  a set rather than typed per component.
+aliases:
+  - name: duration token
+    source: material
+  - name: easing token
+    source: material
+  - name: motion curve
+    source: fluent
+  - name: emphasized easing
+    source: material
+  - name: motion scheme
+    source: material
+  - name: spatial token
+    source: material
+  - name: effects token
+    source: material
+relations: {}
+implementations:
+  - system: material
+    name: Easing and duration tokens
+    url: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+  - system: fluent
+    name: Motion
+    url: https://fluent2.microsoft.design/motion
+sources:
+  - title: 'Material Design 3: easing and duration tokens'
+    url: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+  - title: 'Carbon Design System: motion overview'
+    url: https://carbondesignsystem.com/elements/motion/overview/
+demo: inline
+useWhen: timings should be system decisions, not per-component ones
+---
+
+Left alone, every component author picks a number. One menu opens in 150 milliseconds,
+another in 220, a third in 300 because that felt right on the day, and the product ends up
+with a dozen slightly different speeds that nobody chose together. A motion token is the same
+answer that a [color token](/color-token) is: name the value, publish the set, and make
+picking from the set the easy path. `duration-short-2` and `easing-emphasized` are decisions
+the system made once, and a component that spends them is inheriting a judgement rather than
+inventing one.
+
+The sets are small on purpose. Durations usually come as a short scale, roughly 100 to 500
+milliseconds, tiered so that the size of the moving element picks the tier: small controls
+get the fast end, full-screen surfaces the slow end, because a large surface travelling at a
+small control's speed reads as a snap. Easings come in three working shapes, whatever a
+given system calls them: a standard curve for things that start and stop on screen, a
+decelerating curve for things entering, and an accelerating curve for things leaving. Pair
+them wrongly and the motion misreads at once, since an element that leaves on a decelerating
+curve looks like it changed its mind on the way out.
+
+The naming differs more than the ideas do. Material publishes duration and easing as paired
+token sets, with the emphasized curves reserved for moments meant to carry weight and the
+standard ones for everyday state changes, and its newer motion-physics work adds spring
+based spatial and effects tokens on top. Carbon splits its curves into productive motion for
+work the reader is trying to get through and expressive motion for moments worth noticing,
+which is a genuinely different way to cut the same problem: by the tone of the moment rather
+than by the direction of travel. Fluent publishes named curves and durations for the same
+role. All of them ship the values as code, which is the part that matters.
+
+Tokenizing motion buys the same things tokenizing colour buys. Retuning is central: if the
+whole product feels sluggish, the fix is one duration scale, not four hundred call sites.
+Theming works, since a denser or a more playful theme can ship its own values behind the
+same names. And accessibility gets a single lever, because a stated
+[prefers-reduced-motion](/prefers-reduced-motion) can be honoured by redefining the tokens
+themselves rather than by auditing every component. The caution is that tokens do not do
+the thinking: `duration-medium-1` on a transition that should never have existed is still
+the wrong animation, at an approved speed. The token settles which value, and the
+[easing](/easing) and the [delay](/delay) still have to be the right ones for the moment.

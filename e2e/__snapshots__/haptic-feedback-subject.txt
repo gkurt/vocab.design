@@ -1,0 +1,4 @@
+term:    Haptic feedback
+scope:   element
+subject: div.sp-surface[data-kind=impact][data-part=tick]
+text:    Impact impactOccurred(.light)

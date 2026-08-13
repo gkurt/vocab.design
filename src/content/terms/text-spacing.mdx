@@ -1,0 +1,49 @@
+---
+name: Text spacing
+slug: text-spacing
+category: accessibility
+status: published
+definition: >-
+  The requirement that a reader can increase line height, letter spacing, word spacing,
+  and paragraph spacing without any content being lost or clipped.
+aliases:
+  - name: WCAG 1.4.12
+    source: wcag
+  - name: text spacing override
+  - name: user stylesheet spacing
+sources:
+  - title: '1.4.12 Text Spacing (Deque University)'
+    url: https://dequeuniversity.com/resources/wcag2.1/1.4.12-text-spacing
+demo: inline
+useWhen: proving a layout survives reader-set spacing
+---
+
+Some people read far more comfortably with the text opened up. Readers with dyslexia,
+low vision, or a tracking difficulty routinely install a user stylesheet or a browser
+extension that loosens [leading](/leading) and [tracking](/tracking) across every site
+they visit. WCAG's success criterion 1.4.12 does not ask you to ship those values. It
+asks that when a reader applies them, nothing breaks: no content is lost, no function is
+lost, nothing is clipped by a box that refuses to grow.
+
+The four numbers are exact, and they are stated as multiples of the font size rather than
+of whatever spacing the design already had. Line height at least 1.5 times the font size,
+spacing following paragraphs at least 2 times the font size, letter spacing at least 0.12
+times, and word spacing at least 0.16 times. Applying all four at once is the test, which
+is why the criterion is usually checked with a bookmarklet that sets them in one go
+rather than by reasoning about a stylesheet.
+
+Almost every failure comes from a height that was decided before the text arrived. A card
+with a fixed pixel height, a button whose label is centred by `line-height: 40px`, a
+truncated row with `overflow: hidden`, a badge sized to fit exactly one word. Setting
+`line-height` in pixels is the classic one, because a pixel line height silently discards
+the reader's setting instead of failing loudly. Unitless line heights, `min-height`
+instead of `height`, and padding rather than fixed rows fix most of it. Note that the
+criterion is about not preventing the override, so text in a box that grows passes even
+if the layout ends up taller than the designer intended.
+
+Its siblings ask different questions about the same reader. [Resize text](/resize-text)
+is about scaling the type itself to 200 percent, and [reflow](/reflow) is about the page
+at 320 CSS pixels wide. Text spacing changes neither the size nor the viewport: the type
+stays exactly as large, and only the air between the letters, words, lines, and
+paragraphs grows. A layout can survive zoom by reflowing to a phone layout and still fail
+this one, because the phone layout has fixed-height cards too.

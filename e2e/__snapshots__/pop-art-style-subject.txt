@@ -1,0 +1,4 @@
+term:    Pop art style
+scope:   element
+subject: div[data-part=card]
+text:    NEW! It worked on the first try!

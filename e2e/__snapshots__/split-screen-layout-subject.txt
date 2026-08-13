@@ -1,0 +1,4 @@
+term:    Split screen layout
+scope:   element
+subject: div.sp-grid[data-arrangement=side][data-part=region]
+text:    Take the boat out See the fleet Leave the boat here See the berths

@@ -1,0 +1,4 @@
+term:    Motion token
+scope:   element
+subject: table.sp-table[data-part=table][data-state=settled]
+text:    Token Value Runs like duration-fast 120 ms duration-base 240 ms duration-slow 40

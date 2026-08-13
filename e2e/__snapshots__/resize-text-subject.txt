@@ -1,0 +1,4 @@
+term:    Resize text
+scope:   element
+subject: div.sp-surface[data-part=card][data-scale=100]
+text:    Ferry times Every 40 minutes. Book a seat

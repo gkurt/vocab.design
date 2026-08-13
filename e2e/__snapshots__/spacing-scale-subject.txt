@@ -1,0 +1,4 @@
+term:    Spacing scale
+scope:   element
+subject: div.sp-stack[data-mode=scale][data-part=ruler]
+text:    Allowed steps space-1 4 space-2 8 space-3 12 space-4 16 space-6 24 space-8 32 sp
