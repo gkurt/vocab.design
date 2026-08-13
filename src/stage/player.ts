@@ -46,6 +46,7 @@ const SCROLL_MS = 420;
 const SCROLL_SLICES = 7;
 const FX_TTL_MS = 700;
 const DRAG_MOVES = 3;
+const PRESS_FLASH_MS = 200;
 
 const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
@@ -98,6 +99,10 @@ export class AttractPlayer {
   #hovered: Element | null = null;
   #simFocus: Element | null = null;
   #resumeTimer: ReturnType<typeof setTimeout> | undefined;
+  /** Attribute spellings the ghost set itself, so it never removes a demo's own. */
+  #hoverOwned: Element | null = null;
+  #pressOwned: Element | null = null;
+  #pressTimer: ReturnType<typeof setTimeout> | undefined;
 
   constructor(steps: Step[], host: PlayerHost) {
     this.#steps = steps;
@@ -252,6 +257,8 @@ export class AttractPlayer {
   }
 
   #reset(): void {
+    this.#releaseHover();
+    this.#releasePress();
     this.#host.remount();
     this.#simFocus = null;
     this.#target = null;
@@ -267,6 +274,10 @@ export class AttractPlayer {
     this.#generation++;
     this.#cursor.removeAttribute('data-visible');
     this.#cursor.removeAttribute('data-grab');
+    // A run abandoned mid-drag must not hand over a button still painted pressed.
+    // Hover is not released here: userIntent keeps it when the real pointer is
+    // already inside the hovered element, and a reset remounts everything anyway.
+    this.#releasePress();
   }
 
   #setState(state: PlayerState): void {
@@ -299,7 +310,7 @@ export class AttractPlayer {
       } else if ('click' in step || 'dblclick' in step) {
         this.#fx('vd-fx-arc vd-fx-arc--left');
         if ('dblclick' in step) setTimeout(() => this.#fx('vd-fx-arc vd-fx-arc--left'), 140);
-        this.#dispatchButton(0, 'dblclick' in step);
+        this.#dispatchButton(0, 'dblclick' in step, true);
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('rightClick' in step) {
         this.#fx('vd-fx-arc vd-fx-arc--right');
@@ -361,7 +372,45 @@ export class AttractPlayer {
     const previous = this.#hovered;
     this.#hovered = el;
     if (previous?.isConnected) this.#dispatchHover(previous, ['pointerout', 'mouseout'], ['pointerleave', 'mouseleave']);
-    if (el) this.#dispatchHover(el, ['pointerover', 'mouseover', 'pointermove'], ['pointerenter', 'mouseenter']);
+    // The demo hears the leave before the paint goes, so a remove here can never
+    // clobber a state the leave handler has just decided to keep.
+    this.#releaseHover();
+    if (el) {
+      this.#dispatchHover(el, ['pointerover', 'mouseover', 'pointermove'], ['pointerenter', 'mouseenter']);
+      // Mirror the ghost pointer into the kit's attribute spelling: a synthesized
+      // enter never lights :hover (SPEC §7), and the paint should not depend on it.
+      // Claimed only when the demo's own enter handler did not set it, so a demo
+      // that manages the attribute itself (the hover specimen) is never fought.
+      if (el instanceof HTMLElement && !el.hasAttribute('data-hovered')) {
+        el.setAttribute('data-hovered', '');
+        this.#hoverOwned = el;
+      }
+    }
+  }
+
+  #releaseHover(): void {
+    this.#hoverOwned?.removeAttribute('data-hovered');
+    this.#hoverOwned = null;
+  }
+
+  /**
+   * The pressed paint for a synthesized press. The events themselves are
+   * instantaneous, so the paint carries the press's duration instead: a beat for
+   * a click, the whole hold for a drag (no `holdMs`). Claimed and released under
+   * the same rule as hover: never touch an attribute the demo set itself.
+   */
+  #press(el: Element, holdMs?: number): void {
+    this.#releasePress();
+    if (!(el instanceof HTMLElement) || el.hasAttribute('data-pressed')) return;
+    el.setAttribute('data-pressed', '');
+    this.#pressOwned = el;
+    if (holdMs !== undefined) this.#pressTimer = setTimeout(() => this.#releasePress(), holdMs);
+  }
+
+  #releasePress(): void {
+    clearTimeout(this.#pressTimer);
+    this.#pressOwned?.removeAttribute('data-pressed');
+    this.#pressOwned = null;
   }
 
   #dispatchHover(el: Element, bubbling: string[], direct: string[]): void {
@@ -385,6 +434,9 @@ export class AttractPlayer {
     const to = aimAt(dest);
     this.#cursor.setAttribute('data-grab', '');
     this.#dispatchPointer(source, 'pointerdown', from);
+    // Held for the whole drag: the source shows its pressed paint as long as the
+    // hand is closed on it. Released with the pointer, or by #cancelRun.
+    this.#press(source);
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
     this.#placeCursor(to, travel);
     for (let i = 1; i <= DRAG_MOVES; i++) {
@@ -394,6 +446,7 @@ export class AttractPlayer {
     }
     if (!(await this.#sleep(120, generation))) return false;
     this.#dispatchPointer(source, 'pointerup', to);
+    this.#releasePress();
     this.#cursor.removeAttribute('data-grab');
     this.#fx('vd-fx-arc vd-fx-arc--left');
     this.#target = dest;
@@ -457,7 +510,8 @@ export class AttractPlayer {
     setTimeout(() => this.#fx(`vd-fx-caret vd-fx-caret--${direction}`), 140);
   }
 
-  #dispatchButton(button: 0 | 1 | 2, double = false): void {
+  /** `flash` shows the press as pressed paint — attract's paths pass it; summon stays bare. */
+  #dispatchButton(button: 0 | 1 | 2, double = false, flash = false): void {
     const el = this.#target;
     if (!el) return;
     // Coordinates matter: a context menu opens at the pointer, and without them every
@@ -475,6 +529,10 @@ export class AttractPlayer {
     } else {
       el.dispatchEvent(new MouseEvent('contextmenu', opts));
     }
+    // After the whole sequence, so a demo handler anywhere in it (down, up, or
+    // click — claymorphism presses on click) wins the attribute first and the
+    // flash's removal can never strip a state the demo is holding on its clock.
+    if (flash && button === 0) this.#press(el, PRESS_FLASH_MS);
   }
 
   #dispatchPointer(el: Element, type: 'pointerdown' | 'pointermove' | 'pointerup', at: { x: number; y: number }): void {

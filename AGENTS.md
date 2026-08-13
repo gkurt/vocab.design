@@ -123,9 +123,13 @@ never fires under reduced motion, so nothing may ever wait on it.
   events land there too, so a demo that resolves input by coordinate must not opt in.
 - **Synthesized input does not light up CSS state.** Attract's events never trigger
   `:hover` or `:active`, so kit primitives that answer a pointer carry an attribute
-  spelling beside the pseudo-class (`data-hovered`, `data-pressed`, `data-open`). A
-  specimen that has to show a state with no pointer on it sets the attribute. Real
-  focus is the exception that stays simulated (`data-sim-focus`, SPEC §7).
+  spelling beside the pseudo-class (`data-hovered`, `data-pressed`, `data-open`). The
+  player mirrors its own pointer into those spellings (hover rests, a press flashes, a
+  drag holds), claiming only attributes the demo's handlers did not set and releasing
+  only what it claimed, so controls light up under the ghost cursor without any demo
+  wiring. A specimen sets the attribute itself only for a state shown with no pointer
+  on it (a states row, a posed comparison). Real focus is the exception that stays
+  simulated (`data-sim-focus`, SPEC §7).
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

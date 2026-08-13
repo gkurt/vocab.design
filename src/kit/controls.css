@@ -387,7 +387,8 @@
   transition: background-color 0.14s ease;
 }
 
-.sp-table tbody tr:hover {
+.sp-table tbody tr:hover,
+.sp-table tbody tr[data-hovered] {
   background: var(--sp-sunken);
 }
 
@@ -483,7 +484,8 @@
   cursor: pointer;
 }
 
-.sp-chip-remove:hover {
+.sp-chip-remove:hover,
+.sp-chip-remove[data-hovered] {
   color: var(--sp-ink);
 }
 

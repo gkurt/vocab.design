@@ -350,6 +350,15 @@ export default steps([
   hover is input a tooltip or a menu genuinely responds to, and `scroll` is animated by
   the player rather than by `scroll-behavior`, which is unreliable and would let a step
   silently do nothing.
+  Synthesized events never light `:hover` or `:active`, so the player also mirrors its
+  own pointer into the kit's attribute spellings: `data-hovered` rests on the element
+  under the ghost cursor, and `data-pressed` flashes through a click and holds through
+  a drag. The mirror claims an attribute only when the demo's own handlers did not set
+  it, and releases only what it claimed, so a demo that manages these attributes as
+  part of its subject matter (the hover and pressed-state specimens) is never fought
+  over them. A demo therefore needs the spellings only for a state shown with no
+  pointer on it at all (a states row, a posed comparison), never to repaint its own
+  controls under attract.
   Input kinds are disambiguated at the cursor: left click ripples a left arc, right
   click a right arc, a held drag closes the cursor into a grab hand until release
   (which ripples the click's arc), middle click pulses paired up/down carets, and

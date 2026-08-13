@@ -122,6 +122,7 @@
 }
 
 .sp-menu-item:hover,
+.sp-menu-item[data-hovered],
 .sp-menu-item[data-active] {
   background: var(--sp-sunken);
 }
