@@ -1,0 +1,4 @@
+term:    Prompt input
+scope:   element
+subject: div.sp-surface[data-part=composer][data-state=empty]
+text:    Sonnet

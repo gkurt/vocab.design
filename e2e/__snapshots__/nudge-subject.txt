@@ -1,0 +1,4 @@
+term:    Nudge
+scope:   element
+subject: div.sp-surface[data-part=card][data-x=40][data-y=32]
+text:    Headline

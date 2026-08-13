@@ -1,0 +1,4 @@
+term:    Selection color
+scope:   element
+subject: span[data-part=run][data-pose=[data-selected]][data-selected]
+text:    the operating system's decision

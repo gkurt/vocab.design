@@ -1,0 +1,58 @@
+---
+name: Multi column layout
+slug: multi-column-layout
+category: layout
+status: published
+definition: >-
+  An application shell with three or more vertical regions, typically navigation, a list, and
+  a reading pane, as in a mail client.
+aliases:
+  - name: three pane layout
+    source: community
+  - name: tri-pane
+    source: community
+  - name: inbox layout
+    source: community
+  - name: multi-column layouts
+    source: tailwind
+  - name: folder pane
+    source: community
+sources:
+  - title: "Multi-Column Layouts, Tailwind UI"
+    url: https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/multi-column
+demo: inline
+useWhen: "three regions at once: navigate, list, read"
+---
+
+Mail clients, chat apps, file browsers, code editors and feed readers all converge on the
+same shape, because they all have the same problem: a large collection, a subset of it, and
+one thing being read. Three vertical regions solve it by putting all three levels on screen
+at once. The left region names the scope (folders, channels, projects), the middle lists what
+that scope contains, and the right shows the one item selected from the list. Each region
+narrows what the next one may show, so the reading direction and the drill-down direction are
+the same, and nothing has to be navigated away from to get context back.
+
+The proportions are not negotiable in the way they look. The two left regions are furniture:
+they hold names, so they are sized to their content or to a width the reader has dragged, and
+they keep that width. The reading pane is the only one that takes the slack, because it holds
+the thing the reader actually came for and is the only region that benefits from an extra
+hundred pixels. Each region scrolls independently and the page itself does not scroll at all,
+which is what makes the shape feel like an application rather than a document, and what makes
+a selection in the middle region survive scrolling in the right one.
+
+Below a certain width three regions stop being a layout and start being three slivers. The
+usual retreat has two steps: the navigation region collapses first, into a
+[navigation rail](/navigation-rail) of icons or behind a drawer, since a folder list is the
+region a reader consults least often. Then the remaining two collapse into a
+[list detail](/list-detail) drill-down, where choosing an item replaces the list rather than
+filling a pane beside it. That progression is worth designing deliberately, because the
+alternative is a [split view](/split-view) squeezed to the point where neither half is usable.
+
+Two details separate a working shell from a demo of one. Selection state belongs in the URL,
+all of it: a view showing the third message in the flagged folder should be a link someone
+can send, which also gives the browser's back button something sensible to undo. And each
+region wants to be a real [landmark](/landmark) with a name, since a keyboard or screen
+reader user meets the three regions in sequence rather than side by side, and "three columns"
+tells them nothing. Note also that CSS multi-column text (`column-count`, `column-gap`) is an
+unrelated mechanism that flows one block of prose into several narrow columns; the shared name
+is a coincidence of English rather than a family resemblance.

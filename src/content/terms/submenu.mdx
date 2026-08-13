@@ -1,0 +1,64 @@
+---
+name: Submenu
+slug: submenu
+category: component
+status: published
+definition: >-
+  A menu that opens sideways from a menu item, marked by a trailing arrow, and stays
+  open while the pointer travels diagonally toward it.
+aliases:
+  - name: nested menu
+    source: community
+  - name: cascading menu
+    source: community
+  - name: child menu
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'User Interface Elements Glossary, NN/g'
+    url: https://www.nngroup.com/articles/ui-elements-glossary/
+demo: inline
+useWhen: a menu that opens out of another menu
+---
+
+Every row in a menu does one of two things: it runs a command, or it opens another
+menu. The second kind is a submenu, and the small arrow parked at the right edge of
+the row is the entire signal. It promises that pressing here will not commit
+anything, only show more choices. While the child panel is up, the row that owns it
+stays lit, so the path back to where you came from is drawn the whole time.
+
+Opening one is where all the craft is. A panel that appears the instant the pointer
+crosses its parent row will flicker open and shut as someone slides down the list
+toward an item three rows lower, so real menus forgive the diagonal. Because the
+child sits to the right, the natural path toward it cuts across the rows underneath,
+and a good implementation keeps the panel open while the pointer stays inside the
+triangle drawn from where it left the parent row to the two far corners of the
+panel. Apple shipped that geometry in the classic Mac menu bar and people have been
+rebuilding it ever since; [hover intent](/hover-intent) is the general version of the
+same measurement. Touch has none of it, which is why a tap on the parent row has to
+open the panel too, and why phones usually replace the whole idea with a drill down
+that pushes the child list over the parent.
+
+The semantics are worth getting exactly right, because a submenu that is only a
+visual nesting is invisible to anyone not using a pointer. The parent row is a
+`menuitem` carrying `aria-haspopup="menu"` and an `aria-expanded` that actually
+changes, the panel it owns is a `menu`, Right Arrow opens it and moves into it, Left
+Arrow closes it and returns, and Escape shuts the deepest panel rather than the whole
+stack. One level of nesting is plenty and two is the practical ceiling. A third level
+is not a menu problem, it is an information architecture problem, and it usually
+wants a dialog or a dedicated picker instead.
+
+A submenu is less a component than a relationship, which is why it borrows its own
+panel from elsewhere. The same list of commands is a [dropdown](/dropdown) when a
+button opens it and a [context menu](/context-menu) when a right click does; what
+makes this one a submenu is only that its trigger is a menu item. Do not confuse it
+with a [mega menu](/mega-menu), which is a wide panel of navigation links opened from
+a site's top bar rather than a nested list of commands, and do not use nesting to
+hide the destructive item at the bottom of the list. Depth buys tidiness at the cost
+of discoverability, and anything a person needs to find by browsing belongs on the
+first level.

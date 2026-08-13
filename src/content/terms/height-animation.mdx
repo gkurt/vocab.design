@@ -1,0 +1,65 @@
+---
+name: Height animation
+slug: height-animation
+category: motion
+status: published
+definition: >-
+  Animating a container between collapsed and its content's natural size, long impossible
+  because height auto did not interpolate and now opened up by interpolate-size and calc-size().
+aliases:
+  - name: animate to height auto
+    source: chrome-developers
+  - name: collapse animation
+    source: community
+  - name: accordion animation
+    source: community
+  - name: auto-height transition
+    source: community
+  - name: interpolate-size
+    source: css
+  - name: calc-size
+    source: css
+relations: {}
+sources:
+  - title: 'Chrome for Developers: animate to height: auto'
+    url: https://developer.chrome.com/docs/css-ui/animate-to-height-auto
+  - title: 'MDN: interpolate-size'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size
+demo: inline
+useWhen: a section must grow to fit content without a magic pixel value
+---
+
+Every [accordion](/accordion), every [disclosure](/disclosure), and every expanding row wants
+the same thing: grow from nothing to exactly as tall as the content, smoothly. For most of
+the web's life that was the one animation CSS would not do. A transition interpolates between
+two values, and `auto` is not a value: it is an instruction to work the height out during
+layout, so the browser has no number to start from and nothing to divide the duration
+between. The height therefore snapped, and everyone reached for a workaround instead.
+
+There were three, and each cost something. Transitioning `max-height` from zero to a
+generously large guess works, but the guess is what you pay: the visible growth stops when
+the content ends while the transition keeps running to the guessed value, so the panel
+appears to finish early on short content and the easing curve stops meaning anything.
+Measuring the content in JavaScript and setting a pixel height is accurate, but it has to be
+redone whenever the content, the width, or the font changes, and it drags a layout read into
+every open. The grid trick, animating a single row between `grid-template-rows: 0fr` and
+`1fr`, is the cleanest of the three and needs no script at all, though it costs a wrapper
+element and an `overflow: hidden` that surprises anything trying to escape the box.
+
+The platform fix arrived as two pieces. `interpolate-size: allow-keywords`, usually set on
+the root, tells the browser it may interpolate intrinsic sizes, after which a plain
+`height: auto` transition animates. `calc-size()` is the finer instrument: it makes an
+intrinsic keyword usable in arithmetic, so `calc-size(auto, size + 1rem)` or a transition
+between `calc-size(auto)` and a fixed value both become expressible. Opting in explicitly is
+the design here rather than an accident, because making `auto` animate everywhere by default
+would change how existing pages behave. The same family of additions covers the neighbouring
+problem, where `transition-behavior: allow-discrete` lets an element transition while
+`display` is changing.
+
+Two details survive whichever spelling is used. Give the container `overflow: hidden` for the
+duration, or the content spills out of a box that is shorter than it is, and hand the height
+back to `auto` once the transition ends so that later content changes are not trapped inside
+a stale pixel value. Fade the content slightly behind the box rather than with it, since text
+arriving at full opacity in a half-open panel is the part that reads as jumpy. And under a
+stated [prefers-reduced-motion](/prefers-reduced-motion) let the panel simply be open: the
+size change carried no information the panel's own presence did not.

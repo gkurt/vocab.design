@@ -1,0 +1,4 @@
+term:    Fictional user interface
+scope:   element
+subject: div[data-part=screen][data-state=idle]
+text:    ORB-7 // telemetry sector 4F 0x7C1D0xA34B0x0F920xD6E80x38B5 LOCK

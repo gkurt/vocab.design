@@ -1,0 +1,4 @@
+term:    Named color
+scope:   element
+subject: div.sp-grid[data-part=grid][data-picked=tomato]
+text:    tomato coral papayawhip khaki wheat seagreen teal cornflowerblue dodgerblue rebe

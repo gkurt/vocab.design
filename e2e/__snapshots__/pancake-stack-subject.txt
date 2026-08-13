@@ -1,0 +1,4 @@
+term:    Pancake stack
+scope:   element
+subject: div[data-length=short][data-part=page]
+text:    Falmouth Harbour auto Tide times Tide times Tide times Tide times Tide times Tid

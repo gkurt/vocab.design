@@ -1,0 +1,4 @@
+term:    Font pairing
+scope:   element
+subject: div[data-pairing=paired][data-part=specimen][data-pose=[data-pairing=paired]]
+text:    Harbour Review The survey team spent three weeks on the pontoon, reading the tid

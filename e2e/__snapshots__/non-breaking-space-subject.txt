@@ -1,0 +1,4 @@
+term:    Non-breaking space
+scope:   element
+subject: p.sp-text.sp-text--ink[data-glue=nbsp][data-part=column][data-pose=[data-glue=nbsp]]
+text:    Meet Dr. Chen on the pontoon, bring the 10 km chart, and read section 4.2 before

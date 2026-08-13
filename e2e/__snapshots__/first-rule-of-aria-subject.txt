@@ -1,0 +1,4 @@
+term:    First rule of ARIA
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=native][type=button]
+text:    Save

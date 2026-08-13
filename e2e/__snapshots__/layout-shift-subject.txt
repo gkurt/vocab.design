@@ -1,0 +1,4 @@
+term:    Layout shift
+scope:   element
+subject: div.sp-surface[data-part=article][data-state=waiting]
+text:    Harbour dues Pay now

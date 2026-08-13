@@ -1,0 +1,4 @@
+term:    Group label
+scope:   element
+subject: div.sp-surface[aria-labelledby=vd-gl-speed][data-mode=labelled][data-part=speed][data-pose=[data-mode=labelled]][role=radiogroup]
+text:    Delivery speed Standard Express

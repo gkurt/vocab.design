@@ -1,0 +1,4 @@
+term:    Microinteraction
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[aria-pressed=false][data-count=127][data-part=like][type=button]
+text:    127

@@ -1,0 +1,4 @@
+term:    Mention autocomplete
+scope:   element
+subject: div[data-part=mention]
+text:    MI Mara Ito Design MB Marcus Bell Data MO Maya Osei Research PR Priya Raman Desi

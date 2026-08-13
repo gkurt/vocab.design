@@ -1,0 +1,4 @@
+term:    Images of text
+scope:   element
+subject: div[data-part=banner-text]
+text:    Summer reading Ends 31 August

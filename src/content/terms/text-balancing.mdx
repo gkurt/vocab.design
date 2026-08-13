@@ -1,0 +1,60 @@
+---
+name: Text balancing
+slug: text-balancing
+category: typography
+status: published
+definition: >-
+  Choosing line breaks so a short block of text has lines of roughly equal length
+  instead of a long first line and a stub second one.
+aliases:
+  - name: balanced text
+    source: css
+  - name: 'text-wrap: balance'
+    source: css
+  - name: 'text-wrap: pretty'
+    source: css
+  - name: text balance
+    source: tailwind
+  - name: headline balancing
+relations: {}
+sources:
+  - title: text-wrap (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap
+  - title: 'When to use text-wrap: balance vs pretty (LogRocket)'
+    url: https://blog.logrocket.com/css-text-wrap-balance-vs-text-wrap-pretty/
+demo: inline
+useWhen: a two line heading breaks badly
+---
+
+A browser breaks lines greedily: it fills the first line with as many words as
+will fit, then starts the second, and repeats. For body copy that is invisible.
+For a heading it is the thing that makes an otherwise finished design look
+unfinished, because the greedy pass regularly leaves a full first line and one
+lonely word underneath it. `text-wrap: balance` asks for the other answer, the
+set of breaks that makes the lines as close to equal as it can, and it does the
+arithmetic the designer used to do by hand with a `<br>`.
+
+There are two values and they are for different things. `balance` equalises every
+line in the block and is meant for short display text: headings, blurbs, card
+titles, captions, buttons. `pretty` leaves the bulk of the block alone and only
+tidies the end of it, pulling a word back so the last line is not a stub, which
+is the [orphan](/orphan) problem in running text. Reach for `balance` when the
+whole shape of the block is on show, and `pretty` when only its ragged tail is.
+
+Balancing is expensive, so browsers cap it: past a handful of lines, commonly
+around four to six, `balance` simply stops applying. That limit is a feature, not
+a bug to work around. It means the property is safe to put on every heading in a
+stylesheet without accidentally re-breaking an entire article, and it is the
+reason the answer to "why does my paragraph not balance" is that it was never
+meant to. Before this shipped, the same effect took a JavaScript library
+measuring text and inserting breaks on every resize, which is worth remembering
+when weighing whether a two-line heading is worth a dependency.
+
+Treat it as a preference rather than a guarantee. The browser optimises for equal
+lengths and knows nothing about meaning, so it will happily split a name or a
+number from its unit if that makes the lines even. Where a specific pair of words
+must stay together, a [non-breaking space](/non-breaking-space) is still the
+scalpel, and balancing will work around it. And because the result depends on the
+final rendered width, it re-runs on every resize and every font swap, so a
+balanced heading is one more thing to look at when a
+[fallback font](/fallback-font) is standing in for the real one.

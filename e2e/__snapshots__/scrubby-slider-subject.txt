@@ -1,0 +1,4 @@
+term:    Scrubby slider
+scope:   element
+subject: div.sp-row.sp-surface[data-part=field][data-trend=none][data-value=200]
+text:    W

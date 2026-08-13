@@ -1,0 +1,4 @@
+term:    Input mask
+scope:   element
+subject: div[data-part=phone-field][data-state=empty][data-value]
+text:    (___) ___-____

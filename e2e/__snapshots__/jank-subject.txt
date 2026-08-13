@@ -1,0 +1,4 @@
+term:    Jank
+scope:   element
+subject: span[data-part=marble-jank][data-state=landed]
+text:    

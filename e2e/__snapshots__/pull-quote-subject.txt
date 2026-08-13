@@ -1,0 +1,4 @@
+term:    Pull quote
+scope:   element
+subject: figure[aria-hidden=true][data-part=pull]
+text:    “ The tide gauge had been drifting for months.

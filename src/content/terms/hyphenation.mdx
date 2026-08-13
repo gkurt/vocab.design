@@ -1,0 +1,56 @@
+---
+name: Hyphenation
+slug: hyphenation
+category: typography
+status: published
+definition: >-
+  Breaking a word across two lines at a syllable boundary so lines fill more
+  evenly, marked with a hyphen at the break.
+aliases:
+  - name: auto-hyphenation
+  - name: word breaking
+  - name: hyphens
+    source: css
+relations: {}
+sources:
+  - title: hyphens (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens
+  - title: Hyphenation (Practical Typography)
+    url: https://practicaltypography.com/hyphenation.html
+demo: inline
+useWhen: keeping narrow columns from tearing open
+---
+
+A line breaker's default move is to push a word that does not fit down to the
+next line whole. At a comfortable [measure](/measure) that costs nothing. At a
+narrow one it is ruinous: a single long word leaves the line above it half empty,
+and a column of those reads as though it were falling apart. Hyphenation gives
+the breaker somewhere else to go, splitting the word at a syllable boundary and
+marking the split with a hyphen so the reader knows the word continues.
+
+In CSS this is `hyphens: auto`, and it has a dependency people forget: the
+browser hyphenates using a dictionary chosen by the element's language, so
+nothing happens at all unless a `lang` attribute is in scope. Set the language
+and the property together or you will ship a rule that quietly does nothing.
+Where you need the break in a specific place, or where the browser has no
+dictionary for your language, a soft hyphen (`&shy;`, U+00AD) marks a permitted
+break by hand: it is invisible unless the line actually breaks there. The
+companion properties are `hyphenate-character`, which changes the mark, and
+`hyphenate-limit-chars`, which sets how many letters must be left on each side.
+
+This is the setting that decides whether [justified text](/justified-text) is
+readable. Justification stretches the word spaces until each line reaches both
+margins, so an unhyphenated narrow column pays for every long word in white
+gaps, and the gaps line up into rivers. Hyphenated, the same column has more
+places to break and the spacing evens out. Ragged text needs it less, since it
+can simply be uneven, but it still benefits at the widths a phone gives you.
+
+The failure to watch for is a hyphenation ladder: three or more consecutive lines
+ending in a hyphen, which drags the eye down the right edge instead of along the
+lines. Print software caps the number of consecutive breaks; CSS does not, so on
+the web the fix is a wider measure or a bigger `hyphenate-limit-chars`. Two other
+cautions. Never hyphenate a heading, where the wrong break is very visible and
+[text balancing](/text-balancing) is the tool you actually wanted. And do not
+confuse this with `overflow-wrap` or `word-break`, which chop a word anywhere at
+all to stop it overflowing: those are damage control for a URL or a long token,
+not typesetting.

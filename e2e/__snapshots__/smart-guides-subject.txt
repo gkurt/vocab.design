@@ -1,0 +1,4 @@
+term:    Smart guides
+scope:   element
+subject: span[data-part=guide-v]
+text:    

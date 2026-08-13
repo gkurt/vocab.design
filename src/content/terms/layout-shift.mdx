@@ -1,0 +1,51 @@
+---
+name: Layout shift
+slug: layout-shift
+category: layout
+status: published
+definition: >-
+  Content moving after it has already been painted, usually because something arriving late
+  took space that was never reserved for it.
+aliases:
+  - name: cumulative layout shift
+    source: web-vitals
+  - name: CLS
+    source: web-vitals
+  - name: content jump
+    source: community
+  - name: reflow jump
+    source: community
+demo: inline
+useWhen: the page jumped and you lost your place
+---
+
+You are three lines into a paragraph when it slides down the screen. An image finished
+decoding, a banner mounted, a font swapped in, or an advert claimed a box nobody had set
+aside for it, and everything below that point moved. Nothing failed, exactly: the browser
+laid the page out correctly both times. What went wrong is that the first layout was
+published to a reader who had already started using it, and the second one arrived without
+asking. The cost is a lost place at best and a mis-tap at worst, since the button under the
+thumb at the moment of the tap is not the button that was there when the thumb started
+moving.
+
+The measurement is Cumulative Layout Shift, one of the Core Web Vitals. Each unexpected
+shift is scored by how much of the viewport moved multiplied by how far it moved, and a page
+is judged on its worst burst of shifts rather than on the running total, so one bad moment
+is not diluted by a long calm session. Shifts within half a second of the reader's own input
+are excluded from the score, because content moving in answer to a click is the interface
+responding rather than misbehaving. That exclusion is the whole distinction the term rests
+on: the word names movement nobody asked for.
+
+Every fix is the same fix, which is to reserve the room before the content needs it. Width
+and height attributes on an image, or an [aspect ratio box](/aspect-ratio-box) around it, let
+the browser compute the slot from the markup instead of from the file. Advert and embed slots
+carry a minimum height whether or not anything fills them. Late content gets a
+[skeleton screen](/skeleton-screen) at the size the real thing will be, rather than a spinner
+that collapses to nothing the moment it is replaced. A metric-matched fallback keeps the swap
+described by [FOUT](/fout) from reflowing the paragraph around it. New items go in below the
+reader's scroll position, or the scroller absorbs the insertion by adjusting its own offset.
+
+The rule generalises well past the metric, which is why this site holds its own specimens to
+it: a demonstration whose unchanged parts move while one part changes reads as broken rather
+than as the term doing its work. A shift is only honest when the movement is the point, and
+when it is, it belongs inside a box that has agreed to contain it.

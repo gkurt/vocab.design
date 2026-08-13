@@ -1,0 +1,4 @@
+term:    Fade through
+scope:   element
+subject: div[data-part=slot][data-showing=library][data-state=settled]
+text:    Recently played Two unread Storm warning lifted Tide table updated RJ Rosa Jelen

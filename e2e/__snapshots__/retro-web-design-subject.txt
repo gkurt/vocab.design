@@ -1,0 +1,4 @@
+term:    Retro web design
+scope:   element
+subject: div[data-part=page]
+text:    Ora's Home Page x Welcome to my page!!! UNDER CONSTRUCTION Sign my guestbook E-m

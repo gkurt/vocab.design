@@ -1,0 +1,4 @@
+term:    Golden ratio
+scope:   element
+subject: div.sp-surface[data-part=card]
+text:    Falmouth, 06:12 Berth 14 Book

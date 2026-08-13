@@ -1,0 +1,4 @@
+term:    Progressive image loading
+scope:   element
+subject: div[aria-label=Hillside at sunrise][data-kind=blur][data-part=slot][data-phase=placeholder][data-pose=[data-phase=placeholder]][role=img]
+text:    

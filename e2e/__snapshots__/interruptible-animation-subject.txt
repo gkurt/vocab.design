@@ -1,0 +1,4 @@
+term:    Interruptible animation
+scope:   element
+subject: span[data-at=left][data-part=live]
+text:    Sheet

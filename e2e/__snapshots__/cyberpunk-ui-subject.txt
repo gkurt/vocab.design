@@ -1,0 +1,4 @@
+term:    Cyberpunk UI
+scope:   element
+subject: div[data-part=panel]
+text:    Kasei Holdings // node 12 sn 4417-b Ghostline ICE TRACE Unauthorized access logg

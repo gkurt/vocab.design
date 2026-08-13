@@ -1,0 +1,4 @@
+term:    Push notification
+scope:   element
+subject: div.sp-glass.sp-row[data-part=notice-1][role=status]
+text:    RIDGE TRAILS Gate closed on Ridge Path Take the west approach instead

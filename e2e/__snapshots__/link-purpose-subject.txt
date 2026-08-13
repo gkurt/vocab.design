@@ -1,0 +1,4 @@
+term:    Link purpose
+scope:   element
+subject: div.sp-surface.sp-grow[data-mode=descriptive][data-part=results][data-pose=[data-mode=descriptive]]
+text:    Search results Renew your card Expires after three years. Reserve a room Holds u

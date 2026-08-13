@@ -1,0 +1,4 @@
+term:    Text balancing
+scope:   element
+subject: h3[data-part=headline][data-pose=[data-wrap=balance]][data-wrap=balance]
+text:    Take the harbour survey with you today

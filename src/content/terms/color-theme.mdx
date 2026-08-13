@@ -1,0 +1,68 @@
+---
+name: Color theme
+slug: color-theme
+category: color
+status: published
+definition: >-
+  A complete named set of colour values a product can swap in whole, so light, dark, high
+  contrast and per-tenant branding are the same mechanism.
+aliases:
+  - name: theme
+    source: community
+  - name: theming
+    source: community
+  - name: white label
+    source: community
+  - name: g10, g90, g100
+    source: carbon
+  - name: skin
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: radix
+    name: Theme accentColor / grayColor
+    url: https://www.radix-ui.com/themes/docs/theme/color
+sources:
+  - title: "Carbon: color usage and themes"
+    url: https://carbondesignsystem.com/elements/color/usage/
+  - title: "Radix Themes: color"
+    url: https://www.radix-ui.com/themes/docs/theme/color
+demo: inline
+useWhen: a whole palette swapped as one named set
+---
+
+A theme is the deliverable, not the idea. Once every component reads
+[colour tokens](/color-token) by name rather than by value, a theme is simply one complete
+set of values for those names, and swapping it changes the entire product without any
+component being edited or even told. The test of whether a theme really exists is whether
+the set is complete: a palette that covers backgrounds and text but leaves three shadows,
+two illustrations and a chart legend hardcoded is a repaint, not a theme, and those gaps
+are what make the second theme cost ten times what the first one did.
+
+Carbon ships four of them, named white, g10, g90 and g100, so a product picks a starting
+point rather than a mode. Radix Themes takes the same shape as props on a Theme component,
+where `accentColor` and `grayColor` select whole twelve step scales at once. The pattern
+generalises past light and dark: high contrast is a theme whose values were chosen to
+satisfy [contrast preferences](/prefers-contrast) rather than computed from the light set,
+and white labelling is a theme per tenant, which is why platform products that sell
+branding almost always get there through the same machinery.
+
+Keeping the neighbouring words straight is worth the effort, because four of them describe
+four different jobs. [Dark mode](/dark-mode) is the design work of one particular theme,
+its elevation model and its rebalanced accents. [Colour scheme](/color-scheme) is the
+plumbing that reports the reader's preference and tells the browser which set its own
+widgets should use. [light-dark()](/light-dark) is a CSS function for expressing two of a
+theme's values in one declaration. A theme is the named set of values itself, and it is
+the only one of the four that a designer hands over as a file.
+
+Mechanically the swap is usually one attribute on the root, with each theme redefining the
+same custom properties under its own selector, so the cascade does the distribution.
+Beyond that, the craft is in what the names mean: tokens named for their
+[role](/color-role) survive a new theme, and tokens named for their appearance
+(`grey-100`, `blue-600`) fall apart the moment a theme wants that surface to be dark. A
+theme should also be judged as a whole rather than colour by colour, since contrast,
+elevation and status legibility are properties of the set and not of any single value in it.

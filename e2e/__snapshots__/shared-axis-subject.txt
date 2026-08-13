@@ -1,0 +1,4 @@
+term:    Shared axis
+scope:   element
+subject: div[data-at=step-1][data-axis=x][data-part=slot][data-state=settled]
+text:    Crew list Shift plan

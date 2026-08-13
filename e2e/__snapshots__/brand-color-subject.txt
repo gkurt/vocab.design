@@ -1,0 +1,4 @@
+term:    Brand color
+scope:   element
+subject: div[data-brand=ledger][data-part=panel]
+text:    L Ledger Pricing Two seats left on this plan Renews on 3 March Upgrade Compare

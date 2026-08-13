@@ -1,0 +1,4 @@
+term:    Frame rate
+scope:   element
+subject: div.sp-stack[data-part=rates][data-state=settled]
+text:    60 fps 16.7 ms a frame 83 frames 30 fps 33 ms a frame 43 frames 12 fps 83 ms a f

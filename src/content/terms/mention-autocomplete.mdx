@@ -1,0 +1,56 @@
+---
+name: Mention autocomplete
+slug: mention-autocomplete
+category: pattern
+status: published
+definition: >-
+  Typing a trigger character inside a text field to open a filtered list of people
+  or objects, inserting the chosen one as a linked token.
+aliases:
+  - name: at-mention
+    source: community
+  - name: '@mention'
+    source: community
+  - name: user tagging
+    source: community
+  - name: trigger character menu
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'AI UX Playground: Slash Commands'
+    url: https://aiuxplayground.com/pattern/slash-command/
+demo: inline
+useWhen: typing @ opens a list of people to insert
+---
+
+The trigger character is the whole trick. A comment box is prose, and prose has no
+schema, so there is nothing to hang a picker off. Typing `@` declares that the next
+few characters are not prose but a query, and the field switches modes for exactly
+as long as that query lasts. Choosing a result ends the mode and leaves a token
+behind: a chip or a link that carries an identity, not the letters someone typed.
+
+That is what separates it from the field-level patterns it looks like. A
+[typeahead](/typeahead) or a [combobox](/combobox) owns its whole field, and every
+character in it is part of one query, which is why the widget can be a labelled
+control with a listbox attached to it. Mention autocomplete lives inside a field
+whose real purpose is something else, so it has to decide, on each keystroke,
+whether a query is even in progress. It is the same machinery a slash command uses,
+with a different sigil and a different catalogue: `@` for people, `#` for issues or
+channels, `/` for commands, `:` for emoji.
+
+The parsing rules are short and every implementation gets them wrong at least once.
+The trigger only counts at a word boundary, or an email address opens a picker
+halfway through. The query ends at whitespace, which is the conventional dismissal:
+typing a space after `@` means the reader meant the character literally. Backspacing
+through the trigger closes the menu. And the token is atomic once inserted, so
+Backspace removes the whole mention rather than the last letter of a name, and
+editing around it never leaves half a handle in the text.
+
+Two things then have to survive the send. The stored value is the identity, not the
+display name, so a person who changes their name does not orphan every mention of
+them. And the rendered token needs to say what it is to a screen reader (a link
+with the person's name is usually enough) and to the reader who has to know that
+typing a name in prose is not the same as tagging someone. The mention is a
+notification as much as it is text, which is why an accidental one is worse than a
+typo, and why the list should be scoped to people who can actually see the thread.

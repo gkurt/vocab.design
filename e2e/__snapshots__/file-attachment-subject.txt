@@ -1,0 +1,4 @@
+term:    File attachment
+scope:   element
+subject: div.sp-surface.sp-row[data-part=attachment]
+text:    PDF Trail map.pdf PDF, 1.2 MB

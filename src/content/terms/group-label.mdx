@@ -1,0 +1,60 @@
+---
+name: Group label
+slug: group-label
+category: accessibility
+status: published
+definition: >-
+  The one name that covers a set of controls, a question above its radio buttons or a
+  heading above an address block, so each field is heard in context.
+aliases:
+  - name: fieldset and legend
+    source: whatwg-html
+  - name: role=group
+    source: aria
+  - name: grouping label
+    source: community
+  - name: radiogroup label
+    source: aria-apg
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'WAI-ARIA 1.2: group role'
+    url: https://www.w3.org/TR/wai-aria-1.2/#group
+demo: inline
+useWhen: individual field labels make no sense on their own
+---
+
+Every control gets its own [accessible name](/accessible-name), and for most fields that is
+enough: "Email" tells you what to type. Some names only mean something in company. Standard
+and Express are not a choice until something says Delivery speed. Street, City, and Postcode
+are meaningless twice over on a page that collects a billing address and a shipping one. The
+group label is the name that covers the set, and it exists so a reader arriving at one field
+of the set is told which set they are in.
+
+HTML has an element for it. A `fieldset` wraps the controls and its `legend` names them, and
+that pairing is the only grouping construct browsers expose without help. Screen readers use
+it when the reader enters the group and, for radio buttons, generally announce it alongside
+each option, which is exactly the behaviour a radio set needs. The ARIA spelling is
+`role="group"` (or `role="radiogroup"` for a set of radios) named by `aria-labelledby`
+pointing at the heading already on screen, or by `aria-label` when there is nothing visible
+to point at. The two spellings produce the same result in the accessibility tree, so the
+choice between them is a styling and structure question rather than a semantic one.
+
+That styling question is the reason so many forms have no group label at all. `fieldset` and
+`legend` have famously stubborn defaults: the legend sits in the border, the fieldset resists
+flexbox and grid in ways that took browsers years to relax, and a designer's first move is
+usually to delete both and put an `h3` above a `div`. The heading looks identical and carries
+none of the association, so a reader hears Standard, radio, one of two, and has to guess. If
+the native pair genuinely cannot be styled the way the design needs, `role="group"` with
+`aria-labelledby` on that same heading costs two attributes and keeps the meaning.
+
+Grouping is not free, though, which is the other half of the judgement. The label is repeated
+on entry and sometimes on every option, so a form wrapped in three nested groups makes every
+field announce a paragraph before it says anything useful. Group where the individual labels
+would be ambiguous without it: [radio](/radio-group) and checkbox sets, address and date
+blocks, and any set of fields a question is being asked about. A field whose own label already
+says everything, sitting in a form with one obvious subject, does not need a group around it
+to say so again.

@@ -1,0 +1,4 @@
+term:    One-time code login
+scope:   element
+subject: section.sp-surface[data-part=code-step][data-state=waiting]
+text:    Enter the code Sent to ada@studio.example. It lasts 10 minutes. Verify Waiting f

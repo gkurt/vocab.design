@@ -1,0 +1,4 @@
+term:    Spring loading
+scope:   element
+subject: div.sp-surface[data-part=folder]
+text:    Projects 2 items inside Launch plan Brand refresh

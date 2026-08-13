@@ -1,0 +1,4 @@
+term:    Cap height
+scope:   element
+subject: div[data-part=ruled]
+text:    Hamburg

@@ -1,0 +1,65 @@
+---
+name: Frame rate
+slug: frame-rate
+category: motion
+status: published
+definition: >-
+  How many frames a second the interface actually draws, the budget every animation spends:
+  60fps leaves about 16ms per frame and a 120Hz display halves it.
+aliases:
+  - name: fps
+    source: community
+  - name: frames per second
+    source: community
+  - name: frame budget
+    source: community
+  - name: refresh rate
+    source: community
+  - name: 60fps
+    source: community
+relations: {}
+sources:
+  - title: 'MDN: animation performance and frame rate'
+    url: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Animation_performance_and_frame_rate
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+demo: inline
+useWhen: motion has to be judged in milliseconds per frame
+---
+
+Motion on a screen is a flip book. Nothing slides; a sequence of still pictures is drawn
+fast enough that a reader's eye fills in the travel between them, and the frame rate is how
+many of those pictures arrive each second. That number is really a budget written the other
+way round. A display refreshing 60 times a second gives the browser one frame every 16.7
+milliseconds, and everything that frame costs has to fit inside it: running the script that
+changed something, recalculating style, laying out, painting, and handing the result to the
+compositor. Miss the deadline and the display shows the previous picture again, because a
+half-drawn frame is not something a screen can show.
+
+The budget is not a constant. A 120Hz phone or laptop halves it to 8.3 milliseconds, a
+variable-refresh display moves it around while you watch, and a device that is warm or on
+low power quietly lowers the ceiling. This is why animation code should ask the browser
+when to draw rather than pick a number: `requestAnimationFrame` and CSS animations both run
+on the display's own cadence, so the same transition is smooth at 60 and smoother at 120
+without being rewritten. Sixty is a convention, not a law. Film has read as fluid at 24
+frames a second for a century, but each of those frames carries motion blur from a real
+shutter, and an interface drawing hard-edged rectangles has none, so an interface needs the
+higher rate to buy the same illusion.
+
+The frame rate is the budget; [jank](/jank) is what missing it looks like. Keeping the two
+apart is worth the effort, because they get measured differently. An average frame rate is
+a summary and it flatters: 58fps can mean a steady 58 or it can mean a perfect run with
+four frames dropped in a row at the worst possible moment, and only the second one is
+visible to a person. So the useful question is not the average but the shape of the tail,
+which is what the long-frame and dropped-frame counts in a browser's performance panel are
+for.
+
+What actually buys frames is doing less per frame. Animating `transform` and `opacity`
+keeps the work on the compositor, where a move costs no layout and no paint; animating
+`width`, `top`, or `box-shadow` drags style, layout, and paint back into every one of those
+16 milliseconds. Read layout values before writing them rather than alternating, keep the
+main thread free of long tasks while something is moving, and test on the slowest device
+that matters instead of the desktop the code was written on. And remember the cheapest
+frame of all is the one never drawn: under a stated
+[prefers-reduced-motion](/prefers-reduced-motion) the honest answer to a tight budget is to
+skip the movement rather than to spend the frames faster.

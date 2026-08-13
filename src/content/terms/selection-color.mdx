@@ -1,0 +1,58 @@
+---
+name: Selection color
+slug: selection-color
+category: color
+status: published
+definition: >-
+  The highlight painted behind text a reader has selected, which a page can restyle and
+  thereby break the contrast the operating system had guaranteed.
+aliases:
+  - name: "::selection"
+    source: css
+  - name: text selection background
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type (Highlight system colors)"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+useWhen: styling the highlight behind selected text
+---
+
+Until a page says otherwise, the selection highlight belongs to the platform. The operating
+system picks it, usually from the user's own accent setting, and it is one of the few
+colours in an interface that has already been checked against the text it will sit behind.
+`::selection` hands that decision to the page, and the property list it accepts is
+deliberately tiny: colour, background colour, text decoration, text shadow, and little
+else. The pseudo-element paints over live text rather than replacing it, so anything that
+would change layout, a different font size or a margin, is not on offer.
+
+The obligation that comes with taking the decision is contrast, and the usual failure is
+setting half the pair. Declare a saturated brand background and leave the foreground alone
+and the text is now dark ink on a dark wash; declare a foreground and leave the background
+alone and the same thing happens from the other side. Both values are cheap to state
+together, and the [ratio](/contrast-ratio) between them deserves the same treatment as body
+text, because selecting is something readers do in order to read: to hold their place, to
+copy, to hand a phrase to a translator. Under forced colours the browser takes the decision
+back, which is the correct outcome and a good argument against relying on the highlight to
+carry meaning.
+
+Two mechanical details catch people out. The rule does not cascade the way an ordinary
+declaration does, since browsers apply it per originating element, which is why codebases
+pair a bare `::selection` with `*::selection` instead of trusting a single rule on the
+root. And the highlight is scheme aware in the platform's hands but not in yours: a page
+that declares a [colour scheme](/color-scheme) gets a default highlight matching it, while
+a hardcoded pair keeps whatever it was given in both themes, so a restyled selection needs
+its own dark values like every other pair in the theme.
+
+It has relatives worth knowing. `::target-text` paints the fragment a link scrolled to,
+`::spelling-error` and `::grammar-error` expose the squiggles, and the custom highlight API
+lets script paint arbitrary ranges through `::highlight()`, which is how a find bar or a
+collaborative comment marks text without wrapping it in elements. Restyling any of them is
+worth doing when the platform highlight genuinely collides with the page, for example a
+blue default over a blue-heavy [accent](/accent-color), and worth leaving alone otherwise.

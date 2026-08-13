@@ -1,0 +1,61 @@
+---
+name: First rule of ARIA
+slug: first-rule-of-aria
+category: accessibility
+status: published
+definition: >-
+  The maxim that no ARIA is better than bad ARIA: if a native element does the job, use it
+  rather than pinning a role onto a div and reimplementing the behaviour.
+aliases:
+  - name: no ARIA is better than bad ARIA
+    source: w3c
+  - name: rules of ARIA use
+    source: w3c
+  - name: ARIA first rule
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'W3C: Using ARIA, rules of ARIA use'
+    url: https://www.w3.org/TR/using-aria/
+  - title: 'Primer: Semantic HTML and ARIA'
+    url: https://primer.style/accessibility/design-guidance/semantic-html-and-aria/
+demo: inline
+useWhen: someone proposes a role instead of an element
+---
+
+The wording in the W3C's own note is longer than the slogan it produced: if you can use a
+native HTML element or attribute with the semantics and behaviour you require already
+built in, instead of repurposing an element and adding an ARIA role, state, or property to
+make it accessible, then do so. It is the first of five rules of ARIA use, and the other
+four are variations on the same suspicion: do not change native semantics, make every
+interactive ARIA control usable from the keyboard, do not hide a focusable element from
+assistive technology, and give every interactive element an accessible name.
+
+The reason it comes first is that a role is a promise, not an implementation. Writing
+`role="button"` on a `div` tells assistive technology it is dealing with a button and
+changes nothing else about the element: it is still not in the tab order, still does
+nothing when Enter or Space is pressed, still shows no pressed state, and still will not
+answer a keyboard at all until somebody writes that code and keeps writing it in every
+future state. The `button` element ships all of it, in one tag, correctly, in every
+browser. That asymmetry is why the survey that scans a million home pages every year
+keeps finding that pages using ARIA average more detected errors than pages without it.
+The attribute is not the problem; the half of the work it does not do is.
+
+The rule is not an argument against ARIA, and reading it that way produces the opposite
+failure. There are widgets HTML has never had an element for, and for tabs, tree grids,
+comboboxes with rich options, and anything that has to announce itself while the reader is
+elsewhere, ARIA is the only vocabulary there is. The test is whether an element already
+exposes the [name, role, value](/name-role-value) you need. When it does, using it is
+free; when it does not, the ARIA is doing real work and the keyboard behaviour it implies
+is now yours to build and to test.
+
+In practice, the rule shows up in review as a question rather than a rejection. Someone
+proposes `role="button"`, and the useful reply is what the native element would cost, not
+whether the role is spelled right. Most of the time the honest answer is a line of CSS,
+because [semantic HTML](/semantic-html) already reached the same place with fewer moving
+parts. The times the answer is genuinely "no element does this" are the times ARIA earns
+its place, and those are worth spending the review effort on.

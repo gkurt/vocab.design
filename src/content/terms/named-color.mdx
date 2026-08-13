@@ -1,0 +1,63 @@
+---
+name: Named color
+slug: named-color
+category: color
+status: published
+definition: >-
+  One of the CSS keywords such as tomato or rebeccapurple that map to fixed sRGB values, a
+  fossil vocabulary still useful for prototypes and debugging.
+aliases:
+  - name: CSS color keywords
+    source: css
+  - name: X11 colors
+    source: community
+  - name: rebeccapurple
+    source: css
+  - name: web colors
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+  - title: "MDN: named-color"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/named-color
+demo: inline
+useWhen: the keyword colours built into CSS
+---
+
+CSS knows 148 colours by name, and every one of them is a fixed sRGB value with no opinion
+about anything else. `tomato` is exactly `#FF6347` in every browser, on every platform, in
+every theme, forever. That immovability is the whole character of the vocabulary: a named
+colour cannot respond to a [colour scheme](/color-scheme), cannot be retinted by a theme,
+and has no place on a ramp, which is why it belongs in sketches and debugging rather than
+in a design system. The keywords `transparent` and [currentColor](/currentcolor) sit in the
+same syntax slot but are not part of this list; they are computed, not fixed.
+
+The set is inherited rather than designed. Most of it comes from the X11 window system's
+colour database by way of early browsers, which is why it has no internal logic at all.
+`darkgray` is lighter than `gray`. Both British and American spellings work for the greys
+and only for the greys. `aqua` and `cyan` are the same colour under two names, as are
+`fuchsia` and `magenta`. Lightness is scattered, hue coverage is lumpy, and the naming
+mixes flowers, food, minerals and pure invention. Nothing in the list was chosen to sit
+beside anything else in it, so a palette assembled out of keywords will look assembled out
+of keywords.
+
+There is one deliberate entry. In 2014 the CSS Working Group added `rebeccapurple`,
+`#663399`, in memory of Rebecca Meyer, the daughter of Eric Meyer, who died of brain cancer
+on her sixth birthday. She had said she wanted to be called Becca once she turned six, and
+purple was her colour. It is the only value in the
+[named colour list](https://developer.mozilla.org/en-US/docs/Web/CSS/named-color) that was
+added for a reason outside the technology, and it is a good keyword to know for that alone.
+
+Where names still earn their keep is speed and legibility while working. A keyword is
+readable in a diff, memorable in a lesson, and impossible to typo into a plausible but
+wrong value the way a [hex colour](/hex-color) is, so debugging layout with `outline: 1px
+solid hotpink` beats reaching for a token. What they cannot do is scale: no keyword carries
+a lightness relationship to another keyword, none of them is defined in a wide
+[gamut](/color-gamut), and once a product needs a second theme, every keyword in the
+codebase becomes a value that has to be found and named properly.

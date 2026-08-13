@@ -1,0 +1,4 @@
+term:    RTL mirroring
+scope:   element
+subject: div.sp-surface[data-part=panel][data-pose=[dir=rtl]][dir=rtl]
+text:    Charts Tides Winds Back to the fleet Upload 62% Berth confirmed 12:40 1,240 m

@@ -1,0 +1,55 @@
+---
+name: Font pairing
+slug: font-pairing
+category: typography
+status: published
+definition: >-
+  Choosing two or more typefaces that work together, usually one expressive and
+  one neutral, with enough contrast to read as a deliberate choice.
+aliases:
+  - name: type pairing
+  - name: font combination
+  - name: typeface pairing
+relations: {}
+sources:
+  - title: Three secrets to font pairing (Adobe Design)
+    url: https://adobe.design/ideas/three-secrets-to-font-pairing
+  - title: Mixing fonts (Practical Typography)
+    url: https://practicaltypography.com/mixing-fonts.html
+demo: inline
+useWhen: deciding which two typefaces to run together
+---
+
+A pairing is a division of labour. One face does the announcing, at display sizes
+where its personality is the point, and the other does the reading, at text sizes
+where personality is a liability and evenness is everything. Give both jobs to
+one face and the page is quiet but a little flat; give them to two faces with
+nothing to say to each other and it looks like two designs stapled together. The
+old rule covers most of it: contrast or kinship, never almost. Two faces that are
+obviously different read as a decision, two faces from the same family read as a
+system, and two faces that are nearly the same read as a mistake nobody caught.
+
+The useful way to think about it is that some things should match and others
+should not. Match the metrics: two faces with similar [x-heights](/x-height) and
+similar widths will sit together at a shared size without one looking swollen,
+and if they do not match you spend the rest of the project nudging sizes to
+compensate. Contrast the skeleton: serif against sans, humanist against
+geometric, a high-contrast display face against an even text face. When both are
+true the pairing does the thing pairings are for, which is telling the reader
+instantly which layer of the page they are looking at.
+
+The packaged answer is a superfamily, a serif and a sans drawn from one skeleton
+and released together, where the matching has already been done by the person who
+drew both. Failing that, two faces is usually the ceiling: a display face, a text
+face, and possibly a [monospace](/monospace) for code, all of them assigned by
+role rather than picked by feel. Every extra face is bytes on the wire, one more
+[web font](/web-font) to load, and one more chance for a
+[FOUT](/fout) that changes the page's whole voice for half a second.
+
+This is a question about voices, not about loading, and it is worth keeping the
+two apart. A [font stack](/font-stack) is a chain of substitutes for one role,
+and a [fallback font](/fallback-font) is what stands in while the real one
+arrives. A pairing is the set of roles themselves. The overlap is that a pairing
+has to survive its own fallbacks: if your display serif degrades to the same
+generic sans your body text degrades to, the distinction the pairing was built on
+disappears on exactly the connections that most need help.

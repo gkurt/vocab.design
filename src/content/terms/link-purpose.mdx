@@ -1,0 +1,58 @@
+---
+name: Link purpose
+slug: link-purpose
+category: accessibility
+status: published
+definition: >-
+  Whether a link's own text says where it goes, the reason a list of read more and click
+  here links fails when read out of context.
+aliases:
+  - name: descriptive link text
+    source: a11yproject
+  - name: click here problem
+    source: community
+  - name: ambiguous link text
+    source: wcag
+  - name: link context
+    source: wcag
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'WCAG 2.2: Link Purpose (In Context)'
+    url: https://www.w3.org/TR/WCAG22/#link-purpose-in-context
+demo: inline
+useWhen: judging link text pulled out of its sentence
+---
+
+WCAG has two criteria here and the difference between them is the whole subject. 2.4.4
+Link Purpose (In Context) asks that the destination be determinable from the link text
+together with the context a machine can find: the sentence, paragraph, list item, or table
+cell the link sits in. 2.4.9 Link Purpose (Link Only) raises the bar to the link text
+alone. Most teams are asked to meet the first and would be better products if they met the
+second, because the second is the one that survives the way links are actually used.
+
+The reason is that links are routinely read outside their sentence. Screen readers offer a
+list of every link on the page, which is one of the fastest ways to navigate a long
+document; voice control users say the link's name to activate it; sighted readers scan for
+the blue words and never read the paragraph around them at all. In all three cases the
+link is on its own. A page of five "Read more" links produces a list of five identical
+entries, and a reader has to go back into the page and read around each one to rebuild
+what the words were supposed to say.
+
+Fixing it is usually a matter of moving the words already on screen. "Read more" beside a
+heading becomes the heading, and the sentence loses nothing. Where the visible text
+genuinely has to stay short, `aria-label` can carry a longer name, but it has a trap
+attached: WCAG 2.5.3 Label in Name requires the accessible name to contain the visible text,
+so "Read more" may become "Read more about renewals" and must not become "Renewals". A name
+that does not contain what the reader can see is a name they cannot say, which breaks voice
+control while looking like a fix in the audit tool.
+
+Two smaller rules come out of the same idea. Links with the same text should go to the same
+place, since a list of links is read as a list of destinations, and two "Details" entries
+that lead somewhere different make that list a lie. And the destination is part of the
+purpose: a link that opens a PDF, a new tab, or another site should say so in its text
+rather than in a title attribute or an icon nobody hears, which is the same argument the
+[change of context](/change-of-context) criteria make about warning before acting.

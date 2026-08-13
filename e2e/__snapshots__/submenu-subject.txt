@@ -1,0 +1,4 @@
+term:    Submenu
+scope:   element
+subject: div.sp-menu[aria-label=Paste special][data-open][data-part=submenu][role=menu]
+text:    Keep formatting Match style Plain text

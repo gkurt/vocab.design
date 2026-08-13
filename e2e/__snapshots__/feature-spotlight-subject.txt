@@ -1,0 +1,4 @@
+term:    Feature spotlight
+scope:   element
+subject: div.sp-surface[aria-label=What is new][data-part=bubble][role=dialog]
+text:    New Export straight to CSV. No spreadsheet step, no reformatting. Added this wee

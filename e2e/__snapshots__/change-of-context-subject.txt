@@ -1,0 +1,4 @@
+term:    Change of context
+scope:   element
+subject: div.sp-surface[data-mode=request][data-part=picker][data-pose=[data-mode=request]]
+text:    Delivery region United Kingdom Germany Japan Go no Go step

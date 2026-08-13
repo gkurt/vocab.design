@@ -1,0 +1,4 @@
+term:    Height animation
+scope:   element
+subject: div[data-part=panel][data-state=expanded]
+text:    Ships in two days, tracked

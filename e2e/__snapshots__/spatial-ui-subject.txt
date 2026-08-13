@@ -1,0 +1,4 @@
+term:    Spatial UI
+scope:   element
+subject: div[data-part=stack]
+text:    Library Coast Recordings Twelve Miles of Weather Episode 4, 38 min Play Later

@@ -1,0 +1,4 @@
+term:    Anchor positioning
+scope:   element
+subject: div.sp-surface[data-part=box]
+text:    Tide today

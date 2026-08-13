@@ -1,0 +1,4 @@
+term:    Color theme
+scope:   element
+subject: div.sp-grow[data-part=panel][data-set=light]
+text:    Inbox 3 new Weekly report Sent to four people Reply

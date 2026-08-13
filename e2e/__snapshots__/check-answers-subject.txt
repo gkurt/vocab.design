@@ -1,0 +1,4 @@
+term:    Check answers
+scope:   element
+subject: ul.sp-list[data-part=answers][data-pose=:not([data-sent])]
+text:    Name Ada Mbeki Change name Vehicle Blue van, KP19 TRX Change vehicle Address 4 M

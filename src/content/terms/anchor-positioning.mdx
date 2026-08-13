@@ -1,0 +1,60 @@
+---
+name: Anchor positioning
+slug: anchor-positioning
+category: layout
+status: published
+definition: >-
+  A CSS mechanism that tethers one element to another, sizing and placing it against its
+  anchor and trying fallback positions when the default one would overflow.
+aliases:
+  - name: CSS anchor positioning
+    source: mdn
+  - name: anchor-name
+    source: css
+  - name: position-anchor
+    source: css
+  - name: position-try
+    source: css
+  - name: anchor-positioned element
+    source: mdn
+sources:
+  - title: "CSS anchor positioning, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
+demo: inline
+useWhen: pinning one element to another without JavaScript
+---
+
+Tethering a panel to a button used to be a script. You measured the trigger, measured the
+panel, measured the viewport, worked out which side had room, wrote the coordinates onto an
+absolutely positioned box, and then did all of it again on every scroll and resize. Anchor
+positioning moves the whole job into the style sheet. One element declares itself a target
+with `anchor-name: --berth`, a positioned element claims that target with
+`position-anchor: --berth`, and from then on the browser keeps the two in register itself,
+including while the anchor moves.
+
+Placement comes in two grains. `position-area` is the coarse one, a three by three grid
+around the anchor addressed in logical terms: `block-end` puts the box below and centred,
+`inline-end` beside it, `block-start span-inline-end` in a corner. Because the terms are
+logical rather than physical, a layout that flips for a right to left language takes its
+anchored boxes with it and needs no second rule. The fine grain is the `anchor()` function,
+which resolves to one edge of the anchor and can be used anywhere a length is wanted, so a
+box can be pinned to the anchor's left edge while its top follows something else entirely.
+`anchor-size()` is the same idea for dimensions, which is how a listbox comes out exactly as
+wide as the field it belongs to.
+
+The part that replaces the most script is what happens near an edge.
+`position-try-fallbacks` takes an ordered list of alternatives, either the built in
+keywords (`flip-block`, `flip-inline`, `flip-start`) or named `@position-try` blocks of your
+own, and the browser uses the first one that fits in the containing block. The default
+placement stays the intention; the fallbacks are only what is allowed when the intention
+would overflow. `position-visibility` covers the remaining case, hiding the box outright
+when the anchor itself has scrolled out of sight, which is the one behaviour a fallback
+cannot express.
+
+This is a mechanism, not a component. A [tooltip](/tooltip), a [popover](/popover), a menu,
+and the listbox half of a [combobox](/combobox) are all things you build, and anchor
+positioning is what they are now built with, in place of the positioning library each of them
+used to carry. Two habits are worth keeping from that library era: an anchor is found by tree
+scope rather than by proximity, so a name declared in the wrong subtree silently resolves to
+nothing, and the anchor does not have to be the trigger, which is what lets a menu hang off a
+whole toolbar rather than off the button that opened it.

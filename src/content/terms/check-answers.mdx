@@ -1,0 +1,60 @@
+---
+name: Check answers
+slug: check-answers
+category: pattern
+status: published
+definition: >-
+  A review screen listing everything the reader entered, with a change link beside
+  each answer, shown before the submission is final.
+aliases:
+  - name: review page
+    source: community
+  - name: summary page
+    source: community
+  - name: check your answers
+    source: govuk
+  - name: order review
+    source: community
+  - name: confirm and submit
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'GOV.UK Design System: Check answers'
+    url: https://design-system.service.gov.uk/patterns/check-answers/
+demo: inline
+useWhen: a summary screen lets you review and edit before submitting
+---
+
+The screen is a list of three-column rows: what was asked, what was answered, and a
+link that goes back to the one question that answer came from. It sits at the end
+of a form, after the last question and before the irreversible button, and it is
+the only place in the flow where everything the reader said is visible at once. The
+[GOV.UK Design System](https://design-system.service.gov.uk/patterns/check-answers/)
+gave it the name most people use, along with the detail that makes it work: the
+change link goes to the question, not to the start of the form, and answering it
+returns the reader straight back to the summary.
+
+It exists because of the flow it usually ends. Split a form into one question per
+page, as a [wizard](/wizard) or a [stepper](/stepper) does, and nobody ever sees
+their answers together; each page is a keyhole. The review screen buys that
+structure back its coherence, which is why the two patterns are almost always
+found together and why a single-page form usually does not need one. It also
+catches the specific error a long flow produces: not a malformed field, which
+validation already caught, but a plausible answer given to the wrong question six
+pages ago.
+
+Do not confuse it with the page after the button. A confirmation page tells the
+reader what happened and gives them a reference number, and by then nothing can be
+edited. The review screen is the last moment where editing is still free, and the
+distinction is worth being pedantic about, because a service that shows a summary
+*after* submitting has given the reader a receipt while calling it a review.
+
+The craft is mostly restraint. Show every answer, including the ones left blank,
+because a missing row is invisible and a row reading "Not provided" is not. Make
+each change link name its own row (`Change name`, not five links all reading
+`Change`), or a screen reader hears the same word five times with nothing to
+distinguish them. Keep the reader's place: coming back from a change lands on the
+summary, ideally on the row that was just edited. And put the consequences next to
+the button, since this is the screen where a declaration or a payment total belongs
+rather than in a footnote earlier in the flow.

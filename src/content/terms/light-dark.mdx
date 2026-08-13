@@ -1,0 +1,56 @@
+---
+name: light-dark()
+slug: light-dark
+category: color
+status: published
+definition: >-
+  A CSS function that takes two colours and returns the one matching the page's current
+  colour scheme, collapsing a theme's light and dark values into one declaration.
+aliases:
+  - name: light-dark function
+    source: css
+  - name: theme-aware color
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+useWhen: writing both theme values inline instead of in a media query
+---
+
+`light-dark()` takes two colours and hands back one of them: the first if the element is
+being rendered light, the second if it is being rendered dark. Written on a custom property
+it turns a pair of declarations and the media query around them into a single line,
+`--surface: light-dark(#ffffff, #1b1e26)`, which is why a token file written this way is
+usually half the length of the one it replaces and impossible to leave half updated.
+
+What it reads is the element's own used [colour scheme](/color-scheme), not the system
+preference directly, so the function is inert until something has declared
+`color-scheme`. Miss that declaration and every pair silently returns its first argument,
+which is the single most common way this feature appears to be broken. The upside of
+reading the property rather than the query is that a subtree can commit to a scheme its
+page did not, and everything inside it, including the browser's own widgets, agrees with
+the values the function is now returning.
+
+It replaces a media query, not a theme system. Two values is exactly what the function
+holds, so the moment a product wants a third set, whether that is high contrast, sepia or
+a tenant's brand, the pairs have to be unpicked again. A
+[colour theme](/color-theme) expressed as one complete set of
+[token](/color-token) values under a selector scales to as many sets as the product sells,
+and `light-dark()` is best understood as the compact spelling for products whose answer is
+genuinely two. The two also mix well: a theme file can use the function for the pairs that
+really are pairs and keep selectors for the sets that are not.
+
+A few practical notes. Put the function on custom properties rather than sprinkling it
+through component rules, so the values stay in one place and a component still reads a
+name. It is a colour function, so it cannot carry a whole shadow, gradient stop list or
+image, and those parts of a [dark mode](/dark-mode) still need somewhere else to live.
+Under forced colours the browser overrides the result anyway, as it does with any colour a
+page states. And because the used scheme is what decides, testing means flipping the
+declaration, not only the operating system setting.

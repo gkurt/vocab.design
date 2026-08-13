@@ -1,0 +1,58 @@
+---
+name: Progressive image loading
+slug: progressive-image-loading
+category: pattern
+status: published
+definition: >-
+  Showing a cheap stand-in for an image, a blur, a dominant colour, or a low
+  resolution copy, and swapping in the full file once it arrives.
+aliases:
+  - name: blur-up
+    source: community
+  - name: LQIP
+    source: community
+  - name: low quality image placeholder
+    source: community
+  - name: blurhash
+    source: community
+  - name: dominant colour placeholder
+    source: community
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: a blurred or coloured block stands in until the photo loads
+---
+
+A photograph arrives in two passes. The first weighs a few hundred bytes and is
+inlined in the markup, so it paints with the page rather than after a round trip:
+a twenty pixel wide copy scaled up until it is only a smear of colour, or one
+averaged colour with no detail at all. The second pass is the real file, laid over
+the first and faded in once it has decoded. What the reader sees is a picture that
+sharpens, never a hole that fills.
+
+The vocabulary has grown a name for every rung. LQIP, low quality image
+placeholder, is the umbrella. Blur-up is the version most sites ship, and it is
+literally that: a tiny copy, upscaled, blurred to hide the artefacts.
+[BlurHash](https://blurha.sh) and its successor ThumbHash compress the same idea
+into a short string of about twenty characters, which can live in a database
+column beside the image path. Dominant colour is the floor: a single hex value, which costs nothing
+and still tells the eye what is coming.
+
+It is easy to confuse with two neighbours it actually composes with.
+[Lazy loading](/lazy-loading) decides *when* the fetch happens, and this pattern
+decides what occupies the box while that fetch is in flight; a lazily loaded image
+with a blur-up placeholder is both, and neither one substitutes for the other. A
+[skeleton screen](/skeleton-screen) stands in for content whose shape is known and
+whose values are not, so it is deliberately abstract and grey. A progressive
+placeholder is the opposite: it is a lossy version of this specific image, which
+is why it can carry the composition and the colour, and why it is worthless for
+anything but the picture it was derived from.
+
+The craft is in the swap and the box. Cross-fade rather than cut, because a hard
+replacement on a fast connection reads as a flicker, and keep the fade short
+enough that nobody waits on it. Give the element its aspect ratio up front so the
+placeholder and the full file occupy exactly the same rectangle and nothing below
+moves. Decode off the main thread with `decoding="async"` and swap on the image's
+own load event rather than on a timer. And keep the blur honest: blurred far
+enough that no one reads detail into it, not so far that the page looks broken.

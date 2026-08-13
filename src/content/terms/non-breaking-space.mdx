@@ -1,0 +1,56 @@
+---
+name: Non-breaking space
+slug: non-breaking-space
+category: typography
+status: published
+definition: >-
+  A space that renders normally but forbids a line break, gluing two words
+  together so they never end up on separate lines.
+aliases:
+  - name: nbsp
+    source: html
+  - name: hard space
+  - name: fixed space
+  - name: no-break space
+relations: {}
+sources:
+  - title: Nonbreaking spaces (Practical Typography)
+    url: https://practicaltypography.com/nonbreaking-spaces.html
+  - title: Non-Breaking Space and Soft Hyphen (Tilda)
+    url: https://help.tilda.cc/unbroken-space
+demo: inline
+useWhen: keeping a number and its unit on one line
+---
+
+U+00A0 looks exactly like an ordinary space and behaves like one in every way
+except the one that matters: a line breaker is not allowed to break there. In
+HTML it is written `&nbsp;`, and it is the oldest piece of typographic glue on
+the web. Everything else on this page is about where lines are allowed to fall;
+this is the character that says not here.
+
+The recurring cases are all pairs that mean nothing apart. A number and its unit
+(`10 km`, `4 GB`, `£12 million`), a title and a name (`Dr. Chen`), a label and
+its reference (`Figure 3`, `section 4.2`, `chapter 9`), initials in a name, and a
+short word you do not want stranded at the end of a line before a link. The
+diagnosis is easy: if seeing the two halves on different lines would make you
+read the line twice, glue them. The [soft hyphen](/hyphenation) is the mirror
+image of this character, one permits a break where there was none and this one
+forbids a break where there was one, and a well-set narrow column usually needs
+both.
+
+It is not a layout tool, though it has been used as one for thirty years. Runs of
+non-breaking spaces do not collapse the way ordinary whitespace does in HTML,
+which is why they became the poor typist's indent, and why they fall apart at
+every width other than the one they were tuned on. Padding is the answer there.
+The real caution with legitimate use is overflow: nothing is permitted to break a
+glued phrase, so in a column narrower than the phrase it will simply stick out.
+Glue the pairs that need it, not every pair you can find.
+
+Two neighbours are worth knowing. The narrow no-break space (U+202F) is the same
+promise at a tighter width, which some house styles prefer between a number and
+its unit. The word joiner (U+2060) forbids a break while taking up no width at
+all, which is what you want between a word and a following bracket or slash. And
+because all three are invisible in source, applying them consistently is a build
+step or a lint rule rather than a habit, in the same way that
+[smart quotes](/smart-quotes) end up being handled by a tool rather than by
+remembering.

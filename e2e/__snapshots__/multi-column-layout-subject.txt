@@ -1,0 +1,4 @@
+term:    Multi column layout
+scope:   element
+subject: div[data-part=shell]
+text:    Folders InboxFlaggedArchive Inbox · 3 messages Marta Vinck Berth confirmation Ha

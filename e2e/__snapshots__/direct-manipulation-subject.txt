@@ -1,0 +1,4 @@
+term:    Direct manipulation
+scope:   element
+subject: div.sp-surface[aria-label=Cover block][data-part=card][role=group]
+text:    

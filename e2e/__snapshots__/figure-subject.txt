@@ -1,0 +1,4 @@
+term:    Figure
+scope:   element
+subject: figure[data-part=figure]
+text:    Figure 3. Tide gauge at low water, Ridge Quay.

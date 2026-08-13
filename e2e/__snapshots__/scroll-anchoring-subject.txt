@@ -1,0 +1,4 @@
+term:    Scroll anchoring
+scope:   element
+subject: div.sp-scroll.sp-surface[data-part=anchored][data-top=m4]
+text:    Ada Message 1 Sam Message 2 Ada Message 3 Sam Message 4 Ada Message 5 Sam Messag

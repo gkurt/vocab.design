@@ -1,0 +1,58 @@
+---
+name: Pull quote
+slug: pull-quote
+category: typography
+status: published
+definition: >-
+  A phrase lifted out of an article and set large as a graphic element, to draw a
+  browsing reader into the text.
+aliases:
+  - name: pullquote
+  - name: callout quote
+  - name: lift-out quote
+  - name: block quote
+    source: community
+  - name: quote
+    source: component-gallery
+relations: {}
+sources:
+  - title: Pull Quotes (Fonts.com)
+    url: https://www.myfonts.com/pages/fontscom-learning-fyti-typographic-tips-pull-quotes/
+  - title: How to Attract Attention With Pull Quotes (CreativePro)
+    url: https://creativepro.com/how-to-attract-attention-pull-quotes/
+demo: inline
+useWhen: advertising a line of the article to a scanner
+---
+
+The pull quote is a magazine device, and its job is advertising. A reader
+flipping past a spread will read the headline, the caption, and one more thing,
+and the pull quote is that thing: a sentence promoted out of the running text and
+set at display size so it can be read from across the room. Its secondary job is
+compositional, breaking a grey column into pieces and giving the eye somewhere to
+land. The web inherited both jobs and the rules, oversized type, a rule or a
+heavy quote mark, generous space around it, mostly unchanged.
+
+The thing that makes it unusual to build is that it duplicates content. The
+sentence is on the page twice, once as prose and once as decoration, which means
+a screen reader will announce it twice unless you say not to. Mark the decorative
+copy [aria-hidden](/aria-hidden) and the problem disappears, since the real
+sentence is still there in the paragraph it came from. The demo above does
+exactly that. Markup is usually a `<figure>` or an `<aside>`, not a heading, so
+the lifted phrase does not gatecrash the document outline.
+
+Do not confuse it with a blockquote, despite the names people use. A blockquote
+quotes something from outside the document, it is content, removing it loses
+information, and it wants a `<blockquote>` with a `cite`. A pull quote quotes the
+document itself, it is decoration, and removing it loses nothing but the
+invitation. The same visual treatment gets used for both, which is where the
+confusion comes from, and it is why so many pull quotes end up marked up as
+quotations of the article by its own author.
+
+The craft is mostly in the choosing. Pick a sentence that stands on its own out of
+context, keep it to a dozen words or so, and never edit it into something the
+article does not actually say, because a reader who takes the bait and finds no
+such sentence has been lied to. Place it beside or after the passage it comes
+from rather than before it, or you spoil your own line. On a narrow screen the
+inset becomes a full-width interruption rather than a shape the text wraps
+around, so decide there whether it still earns its place or whether the column
+reads better without it.

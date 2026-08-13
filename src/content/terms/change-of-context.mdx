@@ -1,0 +1,63 @@
+---
+name: Change of context
+slug: change-of-context
+category: accessibility
+status: published
+definition: >-
+  A shift big enough to disorient a reader, a new page, a new window, a moved focus, a
+  rearranged form, and the rule that it should follow a request rather than a keystroke.
+aliases:
+  - name: on focus
+    source: wcag
+  - name: on input
+    source: wcag
+  - name: context change
+    source: community
+  - name: auto-submit on select
+    source: community
+  - name: change on request
+    source: wcag
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'WCAG 2.2: On Input'
+    url: https://www.w3.org/TR/WCAG22/#on-input
+  - title: 'WCAG 2.2: On Focus'
+    url: https://www.w3.org/TR/WCAG22/#on-focus
+demo: inline
+useWhen: naming the surprise a select or focus event should not cause
+---
+
+Two WCAG success criteria sit on top of one idea. 3.2.1 On Focus says that receiving
+focus must not change the context, and 3.2.2 On Input says that changing a setting must
+not change it either, unless the reader was warned before using the control. Together
+they add up to a single working rule, which the standard calls change on request: the
+interface may rearrange itself when it is asked to, and not when it is merely being read.
+
+The definition of context is narrower than "something changed", and knowing the four
+items is what makes the criteria usable in review. A change of context is a change of
+user agent (a new window or tab), a change of viewport, a change of focus, or a change of
+content that alters the meaning of the page. Revealing a hint under a field is not one.
+Filtering a list in place is not one. Loading a new page, opening a new window, moving
+focus somewhere the reader did not put it, and submitting a form are all firmly inside
+it, which is why so many of the failures are the same shape.
+
+The canonical failure is the country select that navigates the moment its value changes.
+On a keyboard, moving through a native select's options changes the value at every stop,
+so the page leaves under the reader while they are still travelling toward the option
+they wanted, and they arrive somewhere they never chose. The same fault has other
+disguises: a search field that submits on the first keystroke, a field that moves focus
+to the next box the instant it is full (the auto-advance a [pin input](/pin-input) has to
+handle carefully), and a tab that reloads the page instead of swapping a panel. Each one
+takes an event that means "I am considering this" and treats it as "do it".
+
+The fix is nearly always a button. Adding Go, Apply, or Search next to the control turns
+an input event back into a request, costs one click, and makes the behaviour legible to
+everyone rather than only to the people who already knew. Where a button genuinely is not
+wanted, the other conforming route is advance warning: describe the behaviour in text
+before the control, so nobody meets it by surprise. Neither route stops the interface
+from reporting what it did, which belongs in a [status message](/status-message) read out
+by a [live region](/live-region), not in a page that has already gone.

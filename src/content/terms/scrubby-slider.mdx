@@ -1,0 +1,64 @@
+---
+name: Scrubby slider
+slug: scrubby-slider
+category: interaction
+status: published
+definition: >-
+  A numeric field whose label can be dragged sideways to change the value, giving a
+  slider's feel without a slider taking up room.
+aliases:
+  - name: number scrubbing
+    source: community
+  - name: scrubby sliders
+    source: photoshop
+  - name: drag to change value
+    source: community
+  - name: sliding value
+    source: figma
+  - name: draggable number input
+    source: community
+sources:
+  - title: "CSS-Tricks: Number scrubbing"
+    url: https://css-tricks.com/number-scrubbing/
+  - title: "John Nack on Adobe: Scrubby sliders and more"
+    url: https://blogs.adobe.com/jnack/2009/02/scrubby_sliders_more.html
+demo: inline
+useWhen: dragging a label to change the number beside it
+---
+
+Adobe shipped these as scrubby sliders and the name stuck: put the pointer on the little
+word or icon beside a numeric field, drag sideways, and the number runs with you. Every
+professional tool has some version now. Photoshop scrubs almost every field it has, After
+Effects scrubs its property values, and Figma scrubs the labels in its inspector, which is
+why a designer moving between them expects the gesture on any number they meet. What it
+buys is real estate. A slider needs a track wide enough to be worth aiming at, and an
+inspector panel with twenty numbers in it has room for none of them, so the label becomes
+the track and the whole control costs nothing.
+
+The value has to track the pointer continuously rather than in visible jumps, because the
+feel is the entire point: this is coarse adjustment by hand, the same thing a slider is
+for. Two refinements make it usable. Sensitivity should be a ratio rather than one unit
+per pixel, so a value that runs to ten thousand is still reachable and a value from zero to
+one is still controllable, and modifier keys should offer a second and third ratio, which
+is the convention Adobe set (a modifier for finer, another for coarser). The other
+refinement is what happens at the edges of the screen. A long scrub runs out of monitor, so
+the serious implementations request pointer lock, hide the cursor, and accumulate raw
+movement instead, which turns the gesture into something with no boundary at all. Pointer
+capture is the cheaper half of that and the part you always need: without it the drag stops
+the moment the pointer leaves the label.
+
+None of this is discoverable, so the field has to say it. The reliable signal is the
+cursor, which changes to the horizontal resize arrows when the pointer is over the label,
+and the reliable rule is that the field still behaves like a field: a click puts a caret in
+it and lets a person type an exact number, because scrubbing is for approximating and
+typing is for knowing. Keep the two gestures on separate parts of the control, label for
+dragging and box for typing, or a stray click during a scrub will select text you did not
+mean to select.
+
+The word sits between two neighbours on this site. A slider is the version with a
+dedicated track, where the position of a thumb is the value and the control is legible
+without being touched. Scrubbing means dragging along a media timeline, where the thing
+being changed is playback position rather than a number in a field. And because a scrubby
+slider is a drag with no keyboard equivalent of its own, the field it lives in owes one
+anyway: arrow keys that nudge by the same step, so the value is reachable without the
+gesture at all.
