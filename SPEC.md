@@ -351,9 +351,13 @@ export default steps([
   the player rather than by `scroll-behavior`, which is unreliable and would let a step
   silently do nothing.
   Input kinds are disambiguated at the cursor: left click ripples a left arc, right
-  click a right arc, a held drag keeps its arc — thickened — until release, middle
-  click pulses paired up/down carets, and wheel scrolling ripples carets in the
-  scroll direction.
+  click a right arc, a held drag closes the cursor into a grab hand until release
+  (which ripples the click's arc), middle click pulses paired up/down carets, and
+  wheel scrolling ripples carets in the scroll direction. `type` lands its characters
+  one at a time, at a typist's cadence, into a HUD chip that grows with them: one
+  `input` event per character, so a demo that answers each keystroke is demonstrated
+  against the gesture a person actually makes. Summon keeps the single-event paste
+  (it fast-forwards), and reduced motion lands the whole string at once.
 - `assert` steps are invisible to viewers and load-bearing in CI.
 
 **The choreography is also the demo's smoke test.** CI (Playwright, in `e2e/`) executes

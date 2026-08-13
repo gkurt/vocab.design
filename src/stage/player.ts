@@ -36,6 +36,7 @@ export interface PlayerHost {
 
 const CURSOR_TRAVEL_MS = 550;
 const STEP_GAP_MS = 350;
+const TYPE_CHAR_MS = 70;
 const LOOP_PAUSE_MS = 1400;
 const RESUME_IDLE_MS = 1200;
 const SUMMON_GAP_MS = 60;
@@ -51,7 +52,15 @@ const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tab
 // Tall, narrow arrow with a vertical left edge and a tail, like a real pointer.
 // The tip sits at (4.5, 1.5); stage.css offsets the svg so the tip is the hotspot.
 const CURSOR_SVG =
-  '<svg viewBox="0 0 20 24" width="20" height="24"><path d="M4.5 1.5v16.3l3.7-3.6 2.4 5.6 2.6-1.1-2.4-5.5h5.2z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+  '<svg class="vd-cursor-arrow" viewBox="0 0 20 24" width="20" height="24"><path d="M4.5 1.5v16.3l3.7-3.6 2.4 5.6 2.6-1.1-2.4-5.5h5.2z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+
+// Closed hand the cursor becomes while a drag is held: four knuckle bumps over a
+// rounded palm, the fingers parted by paper-coloured seams so the fist reads as one
+// at cursor size. The grip sits at its centre; stage.css offsets it onto the hotspot.
+const GRAB_SVG =
+  '<svg class="vd-cursor-hand" viewBox="0 0 20 20" width="20" height="20">' +
+  '<path d="M4.6 10.8 V8.4 a1.45 1.45 0 0 1 2.9 0 V7.2 a1.45 1.45 0 0 1 2.9 0 v.5 a1.45 1.45 0 0 1 2.9 0 v1 a1.45 1.45 0 0 1 2.9 0 v3.9 a4.7 4.7 0 0 1 -4.7 4.7 h-2.2 a4.7 4.7 0 0 1 -4.7 -4.7 z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2" stroke-linejoin="round"/>' +
+  '<path d="M7.5 9 v2 M10.4 8.3 v2.7 M13.3 9.3 v1.7" fill="none" stroke="var(--vd-paper, #fff)" stroke-width="0.9" stroke-linecap="round"/></svg>';
 
 function centerOf(el: Element): { x: number; y: number } {
   const rect = el.getBoundingClientRect();
@@ -62,8 +71,9 @@ function centerOf(el: Element): { x: number; y: number } {
  * Attract-mode player (SPEC §7–8). Drives a demo through its choreography with
  * synthesized events and a visible ghost cursor, looping for as long as the
  * stage is on screen. Input kinds are disambiguated at the cursor (left/right
- * arcs, held-drag arc, caret pulses). Never moves real focus — keyboard steps
- * use simulated focus (`data-sim-focus`) plus the key HUD.
+ * arcs, a grab hand while a drag is held, caret pulses) and typing lands a
+ * character at a time. Never moves real focus — keyboard steps use simulated
+ * focus (`data-sim-focus`) plus the key HUD.
  */
 export class AttractPlayer {
   #steps: Step[];
@@ -83,7 +93,7 @@ export class AttractPlayer {
     this.#host = host;
     this.#cursor = document.createElement('div');
     this.#cursor.className = 'vd-ghost-cursor';
-    this.#cursor.innerHTML = CURSOR_SVG;
+    this.#cursor.innerHTML = CURSOR_SVG + GRAB_SVG;
     this.#hud = document.createElement('div');
     this.#hud.className = 'vd-key-hud';
     host.overlay.append(this.#cursor, this.#hud);
@@ -245,6 +255,7 @@ export class AttractPlayer {
   #cancelRun(): void {
     this.#generation++;
     this.#cursor.removeAttribute('data-visible');
+    this.#cursor.removeAttribute('data-grab');
   }
 
   #setState(state: PlayerState): void {
@@ -295,8 +306,7 @@ export class AttractPlayer {
         this.#dispatchKey(step.press);
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('type' in step) {
-        this.#showKey(step.type);
-        this.#dispatchType(step.type);
+        if (!(await this.#typewrite(step.type, generation))) return;
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('scroll' in step) {
         const y = step.scroll.y ?? 0;
@@ -350,32 +360,31 @@ export class AttractPlayer {
     for (const type of direct) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: false }));
   }
 
-  /** Held drag: pointer down at the current target, travel, release at `to` (SPEC §8). */
+  /**
+   * Held drag: pointer down at the current target, travel, release at `to` (SPEC §8).
+   * The cursor closes into a grab hand for as long as the button is held, and the
+   * release ripples the same arc a click does. Cancellation mid-drag goes through
+   * #cancelRun, which is what lets go of the hand on every abandoned run.
+   */
   async #drag(toSelector: string, generation: number): Promise<boolean> {
     const source = this.#target;
     const dest = this.#host.root().querySelector(toSelector);
     if (!source || !dest) return this.#sleep(STEP_GAP_MS, generation);
     const from = centerOf(source);
     const to = centerOf(dest);
-    const held = this.#fx('vd-fx-arc vd-fx-arc--left vd-fx-arc--held', true);
+    this.#cursor.setAttribute('data-grab', '');
     this.#dispatchPointer(source, 'pointerdown', from);
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
     this.#placeCursor(to, travel);
     for (let i = 1; i <= DRAG_MOVES; i++) {
-      if (!(await this.#sleep(Math.max(travel / (DRAG_MOVES + 1), 10), generation))) {
-        held.remove();
-        return false;
-      }
+      if (!(await this.#sleep(Math.max(travel / (DRAG_MOVES + 1), 10), generation))) return false;
       const t = i / DRAG_MOVES;
       this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t });
     }
-    if (!(await this.#sleep(120, generation))) {
-      held.remove();
-      return false;
-    }
+    if (!(await this.#sleep(120, generation))) return false;
     this.#dispatchPointer(source, 'pointerup', to);
-    held.classList.add('vd-fx-arc--release');
-    setTimeout(() => held.remove(), FX_TTL_MS);
+    this.#cursor.removeAttribute('data-grab');
+    this.#fx('vd-fx-arc vd-fx-arc--left');
     this.#target = dest;
     return this.#sleep(STEP_GAP_MS, generation);
   }
@@ -486,6 +495,34 @@ export class AttractPlayer {
     }
   }
 
+  /**
+   * Characters land one at a time, at a typist's cadence, into a chip that grows
+   * with them: a whole string in one `input` event is a paste, and a demo that
+   * answers each keystroke (a typeahead filter, a debounce) would be demonstrated
+   * against a gesture nobody makes. Summon keeps the paste (it fast-forwards), and
+   * reduced motion lands the string at once, like every other flattened move.
+   */
+  async #typewrite(text: string, generation: number): Promise<boolean> {
+    if (this.#host.reducedMotion) {
+      this.#showKey(text);
+      this.#dispatchType(text);
+      return true;
+    }
+    const chip = this.#showKey('', true);
+    for (const char of text) {
+      chip.textContent += char;
+      this.#dispatchType(char);
+      if (!(await this.#sleep(TYPE_CHAR_MS, generation))) {
+        chip.remove();
+        return false;
+      }
+    }
+    chip.removeAttribute('data-live');
+    chip.setAttribute('data-done', '');
+    setTimeout(() => chip.remove(), FX_TTL_MS);
+    return true;
+  }
+
   /** Simulated focus ring — real focus stays with the user (SPEC §7). */
   #advanceSimFocus(): void {
     const focusables = [...this.#host.root().querySelectorAll(FOCUSABLE)];
@@ -496,12 +533,15 @@ export class AttractPlayer {
     this.#simFocus?.setAttribute('data-sim-focus', '');
   }
 
-  #showKey(label: string): void {
+  /** A held chip stays until its caller retires it; the default fades on its own. */
+  #showKey(label: string, hold = false): HTMLElement {
     const chip = document.createElement('kbd');
     chip.className = 'vd-key-chip';
     chip.textContent = label;
+    if (hold) chip.setAttribute('data-live', '');
     this.#hud.appendChild(chip);
-    setTimeout(() => chip.remove(), 1100);
+    if (!hold) setTimeout(() => chip.remove(), 1100);
+    return chip;
   }
 
   /** Abortable sleep — resolves false if this run was cancelled meanwhile. */
