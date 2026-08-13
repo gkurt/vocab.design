@@ -28,6 +28,12 @@ const ROWS = ['Rent', 'Utilities', 'Groceries', 'Transit'];
  * The bars flip both ways under script, which is the one shape a toggle is right for
  * (SPEC §8): the flip is the term here, so the choreography drives both directions and
  * there is no state a resumed pass could read backwards.
+ *
+ * The panel lives inside the body, not the frame, so it slides in beneath the app bar
+ * rather than over it. The kit drawer covers the frame's full height, which would put
+ * it on top of the trigger: the glyph would be covered at the exact moment it performs,
+ * and the control that has just promised "Close menu" would be unreachable to a reader
+ * who takes the stage over.
  */
 export function mount(root: HTMLElement): void {
   const bars = BARS.map(
@@ -53,16 +59,16 @@ export function mount(root: HTMLElement): void {
           </button>
           <span class="sp-heading sp-grow sp-context">Ledger</span>
         </div>
-        <div class="sp-body sp-context" style="padding: 0">
+        <div class="sp-body sp-context" style="position: relative; padding: 0">
           <ul class="sp-list">${rows}</ul>
-        </div>
-        <div class="sp-drawer sp-context" data-part="panel" aria-label="Sections">
-          <span class="sp-label">Sections</span>
-          <ul class="sp-nav">
-            <li><span class="sp-nav-item" data-current>This month</span></li>
-            <li><span class="sp-nav-item">Last month</span></li>
-            <li><span class="sp-nav-item">Categories</span></li>
-          </ul>
+          <div class="sp-drawer sp-context" data-part="panel" aria-label="Sections">
+            <span class="sp-label">Sections</span>
+            <ul class="sp-nav">
+              <li><span class="sp-nav-item" data-current>This month</span></li>
+              <li><span class="sp-nav-item">Last month</span></li>
+              <li><span class="sp-nav-item">Categories</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
