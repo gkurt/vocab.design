@@ -180,7 +180,9 @@ never fires under reduced motion, so nothing may ever wait on it.
 - **Zod**: always `import * as z from 'zod/v4'` — never bare `zod` or `zod/v3`. Enforced by Biome.
 - **Editorial**: never use em-dashes in site content, UI copy, or docs prose. Use a
   comma, colon, period, or parentheses instead (SPEC §2.4; `bun validate` enforces it
-  for term content).
+  for term content). A site named in article prose is a markdown link to that site
+  (`[easings.net](https://easings.net)`), never a bare domain; `bun validate` rejects
+  bare domains and raw URLs in prose.
 
 ## Coding Conventions
 

@@ -15,6 +15,22 @@ const DEMOS_DIR = 'src/content/demos';
 const SYMMETRIC = ['contrastWith', 'seeAlso'] as const;
 /** A timer call that is not `clock.`-qualified, so the stage cannot freeze or stop it. */
 const BARE_TIMER = /(?<![.\w])((?:set|clear)(?:Timeout|Interval)|(?:request|cancel)AnimationFrame)\s*\(/;
+/** A domain named in prose. Sites the prose points a reader at have to be anchors. */
+const BARE_DOMAIN = /\b[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:design|org|com|net|io|dev|app)\b/g;
+
+/**
+ * Domains named in prose without being links (SPEC §2.4): a reader told about
+ * deceptive.design deserves an anchor, not a string to retype. Links and code
+ * are stripped first, so the rule judges only bare mentions; raw `https://`
+ * URLs left in prose are bare mentions too.
+ */
+function bareDomains(body: string): string[] {
+  const prose = body
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`[^`\n]*`/g, '')
+    .replace(/\[[^\]]*\]\([^)]*\)/g, '');
+  return [...prose.matchAll(BARE_DOMAIN)].map((m) => m[0]);
+}
 
 const errors: string[] = [];
 const terms = new Map<string, Term>();
@@ -28,6 +44,9 @@ for (const file of files) {
     errors.push(`${file}: missing frontmatter`);
     continue;
   }
+  const body = text.slice(text.indexOf('---', 3) + 3);
+  for (const domain of bareDomains(body))
+    errors.push(`${file}: "${domain}" is named in prose without being a link; anchor it to the actual site (SPEC §2.4)`);
   const result = termSchema.safeParse(parse(frontmatter));
   if (!result.success) {
     errors.push(`${file}: ${z.prettifyError(result.error)}`);

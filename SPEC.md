@@ -108,6 +108,10 @@ must (enforced by `bun validate`).
   phrases, UI copy, README. They are widely read as a tell of AI-generated text, and
   this site's credibility depends on not reading as AI output. Use a comma, colon,
   period, or parentheses instead. Enforced on term content by `bun validate`.
+- **A site named in prose is a link to that site.** A reader told about
+  deceptive.design or easings.net deserves an anchor, not a string to retype;
+  write `[deceptive.design](https://www.deceptive.design)`. Bare domains and raw
+  URLs in article prose are rejected by `bun validate` (code spans exempt).
 
 ## 3. Site architecture
 
