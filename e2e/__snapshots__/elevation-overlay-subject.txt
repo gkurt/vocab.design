@@ -1,0 +1,4 @@
+term:    Elevation overlay
+scope:   element
+subject: div[data-carrier=overlay][data-part=stack][data-pose=[data-scheme=dark]][data-scheme=dark]
+text:    Page · 0dp Card · 1dp · 5% white Dialog · 8dp · 12% white

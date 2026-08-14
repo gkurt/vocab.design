@@ -1,0 +1,4 @@
+term:    Grunge design
+scope:   element
+subject: div[data-part=card]
+text:    STATIC STATIC STATIC issue nine Nobody asked for the grid and nobody kept it. Th

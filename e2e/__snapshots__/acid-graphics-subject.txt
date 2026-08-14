@@ -1,0 +1,4 @@
+term:    Acid graphics
+scope:   element
+subject: div[data-part=poster]
+text:    RAVE//04 ACID LIQUID METAL 24 HRS SAT 04 // WAREHOUSE 12

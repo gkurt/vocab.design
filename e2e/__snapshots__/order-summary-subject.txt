@@ -1,0 +1,4 @@
+term:    Order summary
+scope:   element
+subject: section.sp-surface[data-part=summary]
+text:    Order summary Reading lamp, brass ×1 48.00 Linen shade ×2 14.00 Subtotal 62.00 S

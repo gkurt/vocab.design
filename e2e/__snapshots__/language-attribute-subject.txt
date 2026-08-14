@@ -1,0 +1,4 @@
+term:    Language attribute
+scope:   element
+subject: p.sp-text.sp-text--ink[data-part=text-fr][data-pose=[lang=fr]][lang=fr]
+text:    Il a répondu je vous en prie et il a souri.

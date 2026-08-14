@@ -1,0 +1,4 @@
+term:    Status bar
+scope:   element
+subject: div[data-ink=light][data-part=strip]
+text:    9:41

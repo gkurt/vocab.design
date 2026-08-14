@@ -1,0 +1,67 @@
+---
+name: Cognitive load
+slug: cognitive-load
+category: accessibility
+status: published
+definition: >-
+  The mental effort an interface demands, split between the work the task really needs and
+  the work the design added by way of clutter, jargon, and avoidable steps.
+aliases:
+  - name: memory load
+    source: community
+  - name: extraneous load
+    source: community
+  - name: working memory demand
+    source: community
+  - name: mental effort
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'W3C WAI: Cognitive Accessibility at W3C'
+    url: https://www.w3.org/WAI/cognitive/
+  - title: 'W3C: Avoid Too Much Content'
+    url: https://www.w3.org/WAI/WCAG2/supplemental/patterns/o5p03-manageable-quantity
+demo: inline
+useWhen: a screen is correct but exhausting to use
+---
+
+The useful split, borrowed from cognitive load theory, is between the load a task carries
+inherently and the load the design added on top. Choosing a delivery date is intrinsic: the
+decision exists whether or not anyone designs a screen for it. Nine ungrouped options with
+names taken from a file format specification, no answer filled in, and a paragraph of
+qualifying copy above them are extraneous, and extraneous load is the only kind a redesign
+can actually remove. That distinction is what keeps the term from collapsing into "this
+feels busy", because it names which of the busyness was avoidable.
+
+Working memory is the resource being spent, and it is small and short. The classic figure
+of seven items has been revised downward for years, and the practical reading is that
+anything a reader has to carry from one screen to the next is expensive: a code from an
+email, a total from a previous step, the meaning of an abbreviation defined earlier. The
+cheapest fixes are the boring ones. Group the choices so the eye reads three clusters
+instead of nine items. Write the labels in the words the reader already has. Answer what
+you can already answer, since a [smart default](/smart-defaults) turns a decision into a
+confirmation. Hide the rare controls behind
+[progressive disclosure](/progressive-disclosure) rather than ranking everything at once.
+Keep the earlier answers on screen, which is the whole argument for a
+[check answers](/check-answers) page.
+
+This matters most for the people the accessibility literature calls cognitively disabled,
+which is a very wide group: readers with a learning disability, an attention or memory
+condition, aphasia, a brain injury, or simply the ordinary decline of processing speed
+with age. It also covers a much larger temporary population, since anyone doing this on a
+phone, on a bus, tired, in a second language, or in the middle of something else is
+running with less working memory than they would in a usability lab. Cognitive
+accessibility guidance largely reads as good design advice for everybody, and that is not
+a coincidence.
+
+Be honest about measurement. Load is not read off a screen: it is inferred from proxies
+such as task completion time, error rate, backtracking, pupil dilation, or a self-report
+scale like NASA-TLX, all of which measure something adjacent to the thing. A design
+review can still be rigorous without a number. Count the decisions the screen asks for,
+count the ones it could have answered itself, count the words the reader would have to
+look up, and count what they are being asked to remember from a previous screen. Those
+four counts are arguable in a way that "it feels cluttered" is not.

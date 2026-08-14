@@ -1,0 +1,4 @@
+term:    Drag autoscroll
+scope:   element
+subject: div.sp-scroll.sp-surface[data-autoscroll=idle][data-moved=no][data-part=list]
+text:    Charter the ferry 1 Book the slipway 2 Print tide tables 3 Order buoy paint 4 Se

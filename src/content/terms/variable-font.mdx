@@ -1,0 +1,54 @@
+---
+name: Variable font
+slug: variable-font
+category: typography
+status: published
+definition: >-
+  One font file that contains a continuous design space, so any weight, width, or
+  other axis value between the extremes can be requested.
+aliases:
+  - name: variable fonts
+  - name: VF
+  - name: OpenType variations
+  - name: variable typeface
+relations: {}
+sources:
+  - title: Variable fonts (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/Variable_fonts
+  - title: Designing with Variable Fonts
+    url: https://variablefonts.io/about-variable-fonts/
+demo: inline
+useWhen: you need many weights without many files
+---
+
+A traditional family is a set of separate files: Regular, Medium, Bold, each one a
+finished drawing, and nothing exists between them. A variable font ships the
+drawings at the extremes plus the instructions for interpolating everything in
+between, so the family becomes a range rather than a list. Ask for 437 and you get
+437. The practical consequence is that a design decision stops being a choice
+among the weights someone happened to cut and becomes a number you can tune.
+
+The range is described by axes, each with a four-letter tag, a minimum, a maximum,
+and a default. Five are registered and have CSS properties of their own: `wght`
+maps to [font-weight](/font-weight), `wdth` to `font-stretch`, `opsz` to
+`font-optical-sizing`, and `slnt` and `ital` to `font-style`. Everything else is a
+custom axis the designer invented, addressed in capitals (`GRAD`, `YOPQ`) through
+`font-variation-settings`. Prefer the high-level property wherever one exists: it
+inherits and animates properly, while `font-variation-settings` sets the whole axis
+list at once, so a rule that names only `wght` silently resets every other axis the
+element had.
+
+A named instance is a coordinate the designer thought worth labelling: "SemiBold"
+is a pin at `wght` 600, "Condensed Bold" a pin in two axes at once. That is what a
+font menu in a design tool lists, and it is why a variable font is not a licence to
+invent weights at random. The named instances are the tested positions, and a
+family whose axis is meant to be swept, a display face used at one enormous size,
+usually says so.
+
+The performance case is real but it is arithmetic, not magic. One variable file is
+larger than any single static weight and smaller than four of them, so the crossover
+sits at roughly three or four styles: below that, ship statics. Above it, the single
+file wins and keeps winning, because every extra weight afterwards is free. The rest
+of the [web font](/web-font) discipline still applies, unchanged: subset the
+character set, preload the one file, and give `font-display` an answer so the
+first paint is not a decision the browser makes for you.

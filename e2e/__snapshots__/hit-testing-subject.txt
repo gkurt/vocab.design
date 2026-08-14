@@ -1,0 +1,4 @@
+term:    Hit testing
+scope:   element
+subject: div.sp-surface[data-layer=card][data-part=stack][data-rule=auto]
+text:    Harbour at dusk RAW

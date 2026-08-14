@@ -1,0 +1,4 @@
+term:    Metro
+scope:   element
+subject: div[data-part=panel]
+text:    collections photos tuesday, 14 march mail photos alerts people agenda

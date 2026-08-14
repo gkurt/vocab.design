@@ -1,0 +1,58 @@
+---
+name: Mobile first
+slug: mobile-first
+category: layout
+status: published
+definition: >-
+  Designing and writing the narrow layout first and adding rules as space is gained, so
+  the small screen is the default rather than the fallback.
+aliases:
+  - name: mobile-first design
+    source: community
+  - name: min-width first
+    source: community
+  - name: progressive enhancement of layout
+    source: community
+sources:
+  - title: "Multi-Device Layout Patterns, LukeW"
+    url: https://www.lukew.com/ff/entry.asp?1514=
+demo: inline
+useWhen: which end of the range you start designing from
+---
+
+Mobile first is an order of operations, not a look. The narrow layout is designed and
+written first and left unconditional, and every wider arrangement arrives as an addition
+on top of it. Luke Wroblewski made the case around 2009, when the phone was still treated
+as the degraded case, and the argument had two halves: phone traffic was about to
+overtake desktop, and the constraints of a small screen are a better editor than any
+review meeting. The name has outlived the numbers because the second half kept being
+true.
+
+In CSS the strategy has one spelling: base rules with no query around them, then
+`min-width` queries that only add. Written the other way, with `max-width` queries
+subtracting from a desktop base, the narrow layout becomes a pile of overrides, each
+undoing something the wide design assumed, and the stylesheet grows a section whose only
+job is to take things back. Two practical consequences follow from the mobile-first
+direction. A stylesheet read top to bottom tells you the story of the layout in the order
+it gains, and an old browser or a failed query gets the base rules, which are the complete
+ones. The [breakpoint](/breakpoint) entry covers where those additions are allowed to
+land.
+
+The part that gets misused is "first". It means first in sequence, not most important, and
+it does not license removing anything. A phone layout that has been cropped out of a
+desktop design is the failure the term exists to name: content behind a menu, a table with
+three of its eight columns, a form that quietly drops a field. If something is not worth
+showing on a phone it is probably not worth showing at all, and if it is worth showing,
+mobile first says find a shape for it at 320 pixels rather than a wider viewport to hide
+in. The discipline is ranking, which is why the approach is as much a content exercise as
+a layout one.
+
+It is also worth knowing when the strategy is wrong. A tool whose actual job is a
+thousand-row spreadsheet, a timeline editor, or an IDE has a desktop as its real subject,
+and pretending otherwise produces a phone build nobody uses and a desktop build that
+feels apologetic. Mobile first is one strategy inside
+[responsive web design](/responsive-web-design), which is the umbrella covering all of
+this; its inverted ancestor is graceful degradation, which starts from the richest case
+and arranges for it to fail politely. Progressive enhancement, the philosophy mobile first
+borrows its shape from, runs the other way and is the reason the base layer has to work on
+its own.

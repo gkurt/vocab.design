@@ -1,0 +1,4 @@
+term:    Sparkline
+scope:   element
+subject: svg[aria-label=Sessions over the last 30 days][data-part=spark-sessions][height=22][role=img][viewBox=0 0 90 22][width=90]
+text:    

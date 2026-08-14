@@ -1,0 +1,4 @@
+term:    Responsive web design
+scope:   element
+subject: div[data-cols=1][data-part=page]
+text:    Harbour Log About

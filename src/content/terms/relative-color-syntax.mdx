@@ -1,0 +1,54 @@
+---
+name: Relative color syntax
+slug: relative-color-syntax
+category: color
+status: published
+definition: >-
+  CSS notation that builds a new colour from an existing one by naming an origin colour with
+  from and then adjusting individual channels.
+aliases:
+  - name: from keyword
+    source: css
+  - name: relative colors
+    source: css
+  - name: channel adjustment
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: Using relative colors"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Colors/Using_relative_colors
+demo: inline
+useWhen: deriving a colour by editing one channel of another
+---
+
+Any CSS colour function can be written in a relative form: name a colour function, write
+`from` and an origin colour, and the channels of that origin become keywords available
+inside the function. `oklch(from var(--brand) calc(l + 0.1) c h)` is the brand colour raised
+a tenth in lightness with its chroma and hue passed through untouched, and
+`rgb(from var(--brand) r g b / 25%)` is the same colour at a quarter alpha. The keywords
+belong to the function doing the writing, not to the origin: ask for `oklch()` and you get
+`l`, `c`, `h`, and `alpha` no matter what notation the origin was authored in, which means
+the syntax is also a conversion. Channels arrive as numbers, so `calc()` can add, subtract,
+or scale them, and any channel can be replaced outright by a literal value.
+
+The reason to reach for it is that a design system stops enumerating its own variants. One
+brand token can carry the hover, the pressed fill, the subtle border, the disabled state,
+and the translucent wash as four derivations that all follow when the token changes,
+including into a theme nobody has drawn yet. That is the same argument
+[color-mix()](/color-mix) makes, and the two do genuinely different jobs: `color-mix()`
+blends two colours toward each other by a percentage, while this transforms one colour by
+editing a channel of it. Lightening toward white and raising `l` are not the same operation,
+and only one of them can promise the hue came out the other side unchanged.
+
+Two things to watch. Choose the space for the channel being edited, since `oklch` and `hsl`
+both have an `l` and they mean different things, and a perceptual space is what makes "one
+step lighter" hold across hues. And a derived colour has no idea what it will sit on, so
+every step that carries text still has to clear its own
+[contrast ratio](/contrast-ratio). The origin also has to be a colour the browser can
+resolve at that point, which a custom property is, so the pattern that pays off is a small
+set of seed tokens with the rest of the palette written as expressions over them.

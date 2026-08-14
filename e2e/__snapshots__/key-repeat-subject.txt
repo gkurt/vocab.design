@@ -1,0 +1,4 @@
+term:    Key repeat
+scope:   element
+subject: div.sp-surface[data-index=0][data-part=track][data-phase=idle]
+text:    

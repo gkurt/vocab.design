@@ -1,0 +1,4 @@
+term:    OpenType features
+scope:   element
+subject: div.sp-stack[data-features=off][data-part=rows]
+text:    "liga" waffle office the f pairs fuse "frac" 1/2 and 3/4 digits build a fraction

@@ -1,0 +1,4 @@
+term:    Passkey
+scope:   element
+subject: div.sp-dialog[aria-label=Use Touch ID][data-open][data-part=prompt][data-state=asking][role=dialog]
+text:    Use Touch ID? studio.example wants to verify you with the passkey on this device

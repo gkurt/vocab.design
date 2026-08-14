@@ -1,0 +1,55 @@
+---
+name: Diverging palette
+slug: diverging-palette
+category: color
+status: published
+definition: >-
+  A data palette built from two sequential scales meeting at a neutral midpoint, used when
+  values run above and below a meaningful zero.
+aliases:
+  - name: diverging scale
+    source: community
+  - name: bipolar palette
+    source: community
+  - name: red-white-blue scale
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Color palettes for data visualization"
+    url: https://colorarchive.org/guides/data-visualization-color-palettes/
+demo: inline
+useWhen: values that run above and below a midpoint
+---
+
+A diverging palette is two ramps glued together. Each arm runs from a pale neutral out to a
+saturated dark end, one arm in each of two hues, and the join is placed on the value that
+separates one kind of thing from the other: profit from loss, warmer than normal from
+cooler, ahead of target from behind. Colourfulness and darkness both grow with distance
+from that join, so the eye reads two things at once, which side a value is on and how far
+out it went.
+
+Everything depends on the midpoint being real. Zero is the obvious one, but an average, a
+target, a forecast, or last year's number can all be genuine dividing lines. What breaks
+the encoding is a midpoint chosen for the picture rather than for the data: slide the
+neutral away from zero and every value between the old middle and the new one flips its
+apparent sign, so a month that was above average is painted in the colour that says below.
+Nothing about the chart announces this, which is why an off-centre diverging scale is one
+of the quieter ways a chart can mislead. If the domain is lopsided, keep the neutral where
+it belongs and let one arm be shorter, or clamp both arms to the same distance and say so.
+
+Hue choice carries a load here too. The red and blue pairing is common because it maps onto
+a cultural warm and cool split, but red and green is the pairing to avoid: it is the exact
+axis most colour vision deficiency sits on, so the two arms collapse into one and the
+midpoint becomes invisible. Purple with orange, or teal with brown, survive that and print
+in greyscale as a light middle with dark ends, which is the shape the palette is supposed
+to have.
+
+When there is no meaningful middle, this is the wrong tool. Data that only runs one way
+belongs on a sequential palette, where lightness carries the order and the darkest end is
+simply the most. Groups with no order at all belong on a categorical palette, where the
+whole point is that no colour reads as more than another.

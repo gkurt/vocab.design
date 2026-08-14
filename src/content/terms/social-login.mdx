@@ -1,0 +1,61 @@
+---
+name: Social login
+slug: social-login
+category: pattern
+status: published
+definition: >-
+  Signing in by delegating identity to an existing account elsewhere, presented as a row
+  of provider buttons above or instead of a password form.
+aliases:
+  - name: social sign-in
+    source: community
+  - name: continue with Google
+    source: community
+  - name: third-party login
+    source: community
+  - name: OAuth login
+    source: community
+  - name: federated login
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Carbon Design System: Login pattern"
+    url: https://carbondesignsystem.com/patterns/login-pattern/
+demo: inline
+useWhen: the row of continue with Google and Apple buttons
+---
+
+The offer is plain: you already have an account somewhere, so use it. The site sends
+the reader to a provider, the provider asks whether this site may know who they are
+and what it may see, and the reader comes back with an identity nobody had to invent.
+No new password, no verification mail, no forgotten-password flow six months later.
+For most consumer products it is the highest converting sign-in route on the screen,
+which is exactly why it needs designing rather than dropping in.
+
+The failure that costs the most is account linking. Someone signs up with Google in
+March, comes back in September, types the address into the email field, and meets
+either a stranger's empty account or an error that tells them nothing. Match on the
+verified email address, say which route was used the first time ("you signed up with
+Google"), and offer to link the two rather than making the reader guess. Provider
+order is a real decision too: the row should read as a set of equals rather than a
+recommendation with alternatives beneath it, unless the audience genuinely has one
+dominant account. Show the route the reader used last if you can remember it, since
+that answers the question the buttons are really asking.
+
+The buttons themselves are the most rule-bound artwork in any sign-in screen. Each
+provider publishes brand guidance covering the mark, the wording, the minimum size,
+and which backgrounds are allowed, and those rules override house button styling, so
+the craft is in giving visually different marks equal weight rather than in restyling
+them. Keep the verb consistent across the row, put the email route below a labelled
+divider instead of hiding it, and never let the row grow past the three or four
+providers the audience actually uses.
+
+Two honest costs. Delegating identity means the provider can see where their users
+sign in and can end an account you depend on, which is why the email address should be
+stored as your own record from the first session rather than fetched on demand. And a
+row of provider buttons is a privacy statement whether or not it was meant as one, so
+the scopes requested should be the smallest set that works: a name and an email
+address, not a contact list. For a sign-in that leaves nothing with a third party at
+all, the alternatives are a [passkey](/passkey), a [magic link](/magic-link), or a
+[one-time code](/one-time-code-login).

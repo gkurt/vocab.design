@@ -1,0 +1,4 @@
+term:    Relative color syntax
+scope:   element
+subject: div.sp-surface.sp-stack[data-part=rows][data-seed=indigo]
+text:    hover oklch(from var(--brand) calc(l + 0.1) c h) pressed oklch(from var(--brand)

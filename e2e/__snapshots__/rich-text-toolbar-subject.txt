@@ -1,0 +1,4 @@
+term:    Rich text toolbar
+scope:   element
+subject: div.sp-row[aria-label=Formatting][data-part=toolbar][role=toolbar]
+text:    B I S Link

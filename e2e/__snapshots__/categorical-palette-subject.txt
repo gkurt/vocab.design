@@ -1,0 +1,4 @@
+term:    Categorical palette
+scope:   element
+subject: div.sp-surface[data-part=palette][data-series=search]
+text:    Search Social Email Direct Ads Other Mon Tue Wed Thu

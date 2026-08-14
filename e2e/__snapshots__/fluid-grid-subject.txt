@@ -1,0 +1,4 @@
+term:    Fluid grid
+scope:   element
+subject: div.sp-grid[data-column=75][data-part=fluid]
+text:    

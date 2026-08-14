@@ -1,0 +1,63 @@
+---
+name: Nested interactive
+slug: nested-interactive
+category: accessibility
+status: published
+definition: >-
+  A focusable control placed inside another control, such as a button inside a link or a
+  checkbox inside a clickable row, which garbles the announcement and can leave the inner
+  control unreachable.
+aliases:
+  - name: interactive controls must not be nested
+    source: deque
+  - name: button in a link
+    source: community
+  - name: clickable card problem
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'Deque: Interactive controls must not be nested'
+    url: https://dequeuniversity.com/rules/axe/4.8/nested-interactive
+  - title: 'WCAG 2.2: Name, Role, Value'
+    url: https://www.w3.org/TR/WCAG22/#name-role-value
+demo: inline
+useWhen: a whole card is clickable and so is its button
+---
+
+The design that produces it is almost always the same one: a card where the whole surface
+opens something, plus a small action in its corner. Written the obvious way, the card is a
+link and the action is a button inside that link, and both of the things the markup now
+claims are false. A link has one destination and one [accessible name](/accessible-name),
+so the button's label is swallowed into the link's name and read out as part of it: "link,
+Northern lights tour, three nights, Save". The button, meanwhile, is a second tab stop with
+no separate meaning of its own, and a pointer press on it activates the link underneath as
+well, because the click bubbles to the ancestor that is listening for it.
+
+The nesting is also invalid in the first place. The HTML content model says an `a` element
+may not contain interactive content, and a `button` may contain no interactive content
+either, so the parser is entitled to repair the markup by moving the inner control out.
+What each browser and each assistive technology does with the wreckage differs, which is
+the real cost: the same page announces one control in one screen reader, two in another,
+and something in between when the reader switches from browse mode to forms mode. One
+accessible name, two sets of behaviour, and no way to predict which one a given reader
+gets.
+
+The fix has a name, the card-action pattern, and it inverts the structure rather than
+patching it. Only the title becomes the link, and that link is stretched over the whole
+card by an absolutely positioned layer, usually a pseudo-element, so the card stays
+clickable everywhere. The action button is a sibling of the link, raised above that layer
+so it takes its own presses, and the two are now what they always were: two controls, two
+names, two tab stops that each do one thing. Text selection inside the card survives too,
+which the giant-anchor version quietly loses.
+
+The rule generalises past cards. A table row that navigates and also holds a checkbox, a
+list item wrapping a menu button, a label that contains a second control beside its input:
+each one puts a target inside a target, and each is caught by the axe rule of the same
+name. Where an inner control genuinely has to sit inside a larger clickable region, the
+region stops being a control: give it a click handler on a plain element, keep the real
+control as the only [focusable](/focus-order) thing there, and let the reader's own
+[semantic HTML](/semantic-html) say what each part is.

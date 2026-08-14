@@ -1,0 +1,4 @@
+term:    Has popup
+scope:   element
+subject: div.sp-surface.sp-grow[data-part=triggers]
+text:    Each one says what it opens Actions Country Share

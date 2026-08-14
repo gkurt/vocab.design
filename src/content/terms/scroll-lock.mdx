@@ -1,0 +1,54 @@
+---
+name: Scroll lock
+slug: scroll-lock
+category: interaction
+status: published
+definition: >-
+  Freezing the page behind an open overlay so a wheel or swipe moves the overlay's own
+  content and never the document underneath.
+aliases:
+  - name: body scroll lock
+    source: community
+  - name: scroll blocking
+    source: community
+  - name: freeze background scroll
+    source: community
+sources:
+  - title: "MDN: overscroll-behavior"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior
+demo: inline
+useWhen: the page must hold still while an overlay is open
+---
+
+Open a dialog, a drawer, or a filter panel, spin the wheel, and one of two things happens.
+Either the overlay's own list scrolls, which is what you meant, or the page slides away
+behind it, which is never what you meant: the thing you were reading disappears, the overlay
+hangs in space over a different part of the document, and closing it leaves you somewhere
+you did not choose to be. Locking the page while an overlay is open is the fix, and it is
+part of what makes a modal modal. The interface has asked for one answer, so everything that
+is not that question stops responding, including the scroller.
+
+The usual implementation is a couple of lines and a couple of traps. Setting
+`overflow: hidden` on the document element stops the page scrolling, but on a desktop it
+also removes the scrollbar, and the page reflows wider by its width the instant the overlay
+opens. That jump is the classic tell of a hand-rolled lock. Reserving the space with
+`scrollbar-gutter: stable` is the modern answer, and adding the measured scrollbar width as
+padding is the old one. On iOS the same rule has historically not held the document at all, which is why so
+many libraries pin the body with `position: fixed` at a negative offset and put the scroll
+position back on close: a heavier trick, and the one that loses the reader's place if the
+offset is not restored exactly.
+
+The other half of the job belongs to the overlay itself. A panel with its own scroller will
+happily hand its leftover gesture to whatever is behind it once it reaches its end, so the
+lock has to be paired with `overscroll-behavior: contain` on that panel, which is the same
+leak scroll chaining names in the general case. Where the overlay does not scroll at all,
+the simplest honest lock is to block the gesture rather than the geometry: it costs nothing
+and it survives being nested.
+
+None of this is a trap in the accessibility sense, though it looks like one from the
+outside. Deliberate containment while a modal is open is exactly what a reader with a
+screen reader or a keyboard also wants, which is why the same overlay marks the rest of the
+page `inert` and holds focus inside itself. The distinction worth keeping is the escape: a
+scroll lock, like a focus trap, is only legitimate when there is an obvious and always
+available way out. A lock that outlives the overlay, because a close path forgot to undo it,
+is the actual bug, and it presents as a page that will not scroll for no visible reason.

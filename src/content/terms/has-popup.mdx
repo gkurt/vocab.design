@@ -1,0 +1,57 @@
+---
+name: Has popup
+slug: has-popup
+category: accessibility
+status: published
+definition: >-
+  A hint on a trigger that says something will open and what kind of thing it will be, a menu,
+  a listbox, a dialog, before the reader commits to pressing it.
+aliases:
+  - name: aria-haspopup
+    source: aria
+  - name: menu button hint
+    source: community
+  - name: submenu indicator
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'MDN: aria-haspopup'
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup
+demo: inline
+useWhen: a button opens a menu and gives no warning
+---
+
+A chevron beside a label is a promise made to the eye: press this and something will appear.
+`aria-haspopup` is the same promise written down. It takes one of five values, `menu`,
+`listbox`, `tree`, `grid`, and `dialog`, and a screen reader appends it to the trigger's
+announcement, so a reader hears "button, Actions, has pop-up menu" and knows before pressing
+that focus is about to move into a list of commands rather than that something is about to
+be sent. The legacy value `true` is treated as `menu`, which is a fossil of the attribute's
+origin as a menu-button hint rather than a general one, and it is worth spelling the value
+out for that reason.
+
+The attribute is only a hint, and it is worth being clear about what it does not do. It does
+not open anything, does not manage focus, does not set the expanded state, and does not give
+the popup its own roles. Those are separate jobs: `aria-expanded` says whether the surface is
+open right now, the popup carries its own `role`, and `aria-controls` or the DOM relationship
+ties them together. The ARIA Authoring Practices spell out the full contract per pattern, and
+the menu button pattern in particular expects `aria-haspopup` and `aria-expanded` on the
+trigger together, since one says what is coming and the other says whether it has arrived.
+
+The most common mistake is a promise the interface does not keep. A trigger announced as
+having a pop-up menu that actually opens a confirmation dialog has told the reader something
+false about where their focus is going, and false is worse than silent. The second most
+common mistake is noise: putting `aria-haspopup` on a plain
+[disclosure](/disclosure) that reveals a paragraph in place. Nothing pops up there, no focus
+moves, and the announcement now warns about a surface that will never appear. If the revealed
+content is inline, `aria-expanded` alone is the honest markup.
+
+So the test before adding it is short. Does pressing this open a surface that sits over the
+content, and is that surface one of the five kinds the attribute can name? If yes, name the
+right one and keep the announcement true. If the popup is bespoke, pick the value whose
+keyboard contract you are actually implementing, because that value is what the reader will
+brace for.

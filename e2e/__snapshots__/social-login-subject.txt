@@ -1,0 +1,4 @@
+term:    Social login
+scope:   element
+subject: div.sp-stack[data-part=providers]
+text:    Continue with Google Continue with Apple Continue with Microsoft

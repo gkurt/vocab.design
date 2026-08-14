@@ -1,0 +1,56 @@
+---
+name: Drag autoscroll
+slug: drag-autoscroll
+category: interaction
+status: published
+definition: >-
+  Scrolling a container automatically when a drag is held near its edge, so an item can be
+  moved somewhere currently off screen.
+aliases:
+  - name: edge autoscroll
+    source: community
+  - name: auto-scroll on drag
+    source: community
+  - name: scroll while dragging
+    source: community
+sources:
+  - title: "Cloudscape Design System: Drag and drop"
+    url: https://cloudscape.design/patterns/general/drag-and-drop/
+demo: inline
+useWhen: a drag needs to reach past the visible area
+---
+
+A drag is a gesture with only one pointer in it, and the pointer is already busy. Once it is
+holding an item it cannot also reach for a scrollbar or spin a wheel, so any destination
+that is not currently on screen is unreachable unless the container helps. Autoscroll is
+that help: a band a few dozen pixels deep along each scrollable edge, and a rule that says
+while the pointer rests inside the band the container scrolls itself in that direction.
+Cross the band on the way to a drop and nothing happens, because the trigger is dwell rather
+than entry. Stop inside it and the content moves under the held item until the destination
+arrives.
+
+The speed is the whole craft. A single fixed rate is wrong in both directions: fast enough
+to cross a long list is too fast to stop on a target, and slow enough to aim with will not
+get anyone to row four hundred. The standard answer is to scale speed with how deep into the
+band the pointer is, so the outer edge of the band creeps and the very edge of the container
+races, which gives the reader one continuous control rather than a switch. Two details keep
+it from feeling wild: a maximum speed, and a stop at the end of the range instead of a
+scroll that keeps trying against a clamp. Touch needs its own numbers, since a finger sits
+where a cursor would only pass through and the band has to be deeper than the finger is
+wide.
+
+It is easy to forget that this belongs to more than reordering a list. Selecting text past
+the bottom of a window, dragging a card between kanban columns, moving a file into a folder
+part way down a tree, and pulling an event across a timeline are the same behavior in four
+different clothes. What they share is a drag whose target lives outside the viewport, which
+is also the test for whether a container needs it at all: a list that always fits has no
+edge worth reacting to, and a band drawn there only steals ordinary drags.
+
+Autoscroll is where a scroll container quietly runs out of neighbours. When the inner
+container reaches its end, nothing should chain outward to the page: a page that starts
+travelling under a held card takes the destination away rather than bringing it closer,
+which is the same leak scroll chaining names for wheels and the same fix, containment,
+applies. The keyboard route matters just as much, because none of this exists for someone
+who cannot hold a pointer down. A reorder that can only be done by dragging to an edge is a
+reorder some people simply cannot perform, so the pattern needs a keyboard equivalent (pick
+up, move with the arrow keys, drop) that scrolls the container into view on its own.

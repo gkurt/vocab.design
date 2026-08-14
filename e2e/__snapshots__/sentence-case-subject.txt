@@ -1,0 +1,4 @@
+term:    Sentence case
+scope:   element
+subject: div.sp-surface[data-case=sentence][data-part=labels]
+text:    Notification preferences Email digest Mentions in Harbour Sound and vibration Sa

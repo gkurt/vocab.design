@@ -1,0 +1,62 @@
+---
+name: Asymmetric easing
+slug: asymmetric-easing
+category: motion
+status: published
+definition: >-
+  Giving a state change and its reverse different curves or durations, usually a
+  quick confident exit and a slower entrance, so the two directions do not feel
+  identical.
+aliases:
+  - name: asymmetric duration
+    source: community
+  - name: directional easing
+    source: community
+  - name: in and out curves
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+  - title: The Vocabulary of Motion
+    url: https://motion-vocabulary.vercel.app/
+demo: inline
+useWhen: opening and closing should not be mirror images
+---
+
+The default is symmetry, because symmetry is what a single `transition`
+declaration gives you: one duration, one curve, played forwards to open and
+backwards to close. It is almost always slightly wrong. The two directions are
+not the same event. Something arriving is new information the reader has to find
+and read, so it deserves a moment and an ending that slows into place. Something
+leaving has already been dealt with, and every millisecond it spends leaving is a
+millisecond the reader waits for a decision they have already made.
+
+So the usual shape is a longer, decelerating entrance and a shorter, accelerating
+exit: roughly 250 milliseconds easing out for the arrival, roughly 200
+milliseconds easing in for the departure, with bigger gaps on bigger surfaces.
+Material publishes exactly this as a pair of named curves, decelerated for
+incoming elements and accelerated for outgoing ones, alongside the standard curve
+for everything that stays on screen and merely moves. The asymmetry is not a
+flourish; it is the interface admitting that arrival and departure carry different
+amounts of information.
+
+Curve and duration are separate knobs and can be split separately. An
+[entrance animation](/entrance-animation) that decelerates lands softly because
+the last frames are the slow ones; an [exit animation](/exit-animation) that
+accelerates reads as decisive because it commits immediately and is gone. Keeping
+the durations equal but the curves opposite already fixes most of the problem, and
+shortening the exit as well finishes the job. Both are ordinary
+[cubic bezier](/cubic-bezier) values, so the pair is worth writing down once as a
+[motion token](/motion-token) rather than being retyped, differently, in every
+component.
+
+Symmetry earns its place in two cases, and it is worth naming them so the rule
+does not become a tic. If the motion is reversible under a gesture, a drawer
+following a finger that can be pushed back at any moment, the two directions have
+to be the same because they are literally the same movement being scrubbed. And
+if the flip itself is the content, a switch or a chip, an asymmetric answer reads
+as the control behaving differently depending on its state, which is a bug rather
+than a nuance. Everywhere else, ask whether the thing leaving deserves as much of
+the reader's time as the thing arriving. It usually does not.

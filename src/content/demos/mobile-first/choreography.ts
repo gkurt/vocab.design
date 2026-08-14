@@ -1,0 +1,40 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=rules]', state: 'visible' } },
+  // The narrow layout is the unconditional one: base applies, nothing else does,
+  // and the page is complete without them.
+  { assert: { selector: '[data-part=rule-base][data-applied]', state: 'visible' } },
+  { assert: { selector: '[data-part=rule-md][data-applied]', state: 'hidden' } },
+  { assert: { selector: '[data-part=rule-lg][data-applied]', state: 'hidden' } },
+  { assert: { selector: '[data-part=main]', state: 'visible' } },
+  { assert: { selector: '[data-part=detail]', state: 'hidden' } },
+  { wait: 600 },
+  { moveTo: '[data-part=seg-md]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=seg-md][aria-selected="true"]', state: 'visible' } },
+  // The first addition, and the base rule is still in force underneath it.
+  { assert: { selector: '[data-part=rule-base][data-applied]', state: 'visible' } },
+  { assert: { selector: '[data-part=rule-md][data-applied]', state: 'visible' } },
+  { assert: { selector: '[data-part=rule-lg][data-applied]', state: 'hidden' } },
+  { assert: { selector: '[data-part=detail]', state: 'visible' } },
+  { assert: { selector: '[data-part=related]', state: 'hidden' } },
+  { wait: 900 },
+  { moveTo: '[data-part=seg-lg]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=rule-lg][data-applied]', state: 'visible' } },
+  { assert: { selector: '[data-part=related]', state: 'visible' } },
+  { assert: { selector: '[data-part=main]', state: 'visible' } },
+  { wait: 1100 },
+  // Each segment names a width, so the way back is a width too, not an undo.
+  { moveTo: '[data-part=seg-sm]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=rule-base][data-applied]', state: 'visible' } },
+  { assert: { selector: '[data-part=rule-md][data-applied]', state: 'hidden' } },
+  { assert: { selector: '[data-part=detail]', state: 'hidden' } },
+  { assert: { selector: '[data-part=main]', state: 'visible' } },
+  { wait: 800 },
+]);

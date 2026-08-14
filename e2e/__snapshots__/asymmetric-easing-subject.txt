@@ -1,0 +1,4 @@
+term:    Asymmetric easing
+scope:   element
+subject: div.sp-surface.sp-stack[data-part=panel]
+text:    Tide details High water 04:12, falling

@@ -1,0 +1,46 @@
+import { steps } from '#src/stage/choreography.ts';
+
+// Three questions, three screens, and only then the summary: each Continue goes to
+// exactly one place, and the crowded build at the end is the thing being argued
+// against. Every control reaches a state rather than flipping one (SPEC §8).
+export default steps([
+  { assert: { selector: '[data-part=form][data-q="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=q2-van]', state: 'hidden' } },
+  { wait: 700 },
+  { moveTo: '[data-part=field]' },
+  { click: true },
+  { type: 'KP19 TRX' },
+  { wait: 400 },
+  { moveTo: '[data-part=continue]' },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=form][data-q="2"]', state: 'visible' } },
+  { assert: { selector: '[data-part=field]', state: 'hidden' } },
+  { moveTo: '[data-part=q2-van]' },
+  { click: true },
+  { wait: 400 },
+  { assert: { selector: '[data-part=q2-van][aria-checked="true"]', state: 'visible' } },
+  { moveTo: '[data-part=continue]' },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=form][data-q="3"]', state: 'visible' } },
+  { moveTo: '[data-part=q3-yes]' },
+  { click: true },
+  { wait: 400 },
+  { moveTo: '[data-part=continue]' },
+  { click: true },
+  { wait: 600 },
+  // Nothing was ever asked twice, and every answer survived the walk.
+  { assert: { selector: '[data-part=form][data-q=review]', state: 'visible' } },
+  { assert: { selector: '[data-part=answer-reg][data-value="KP19 TRX"]', state: 'visible' } },
+  { assert: { selector: '[data-part=answer-type][data-value="Van"]', state: 'visible' } },
+  { wait: 900 },
+  { moveTo: '[data-part=seg-all]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=form][data-mode=all]', state: 'visible' } },
+  { assert: { selector: '[data-part=all-reg]', state: 'visible' } },
+  { assert: { selector: '[data-part=all-type]', state: 'visible' } },
+  { assert: { selector: '[data-part=all-business]', state: 'visible' } },
+  { wait: 1200 },
+]);

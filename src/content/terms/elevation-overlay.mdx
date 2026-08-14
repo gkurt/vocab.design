@@ -1,0 +1,52 @@
+---
+name: Elevation overlay
+slug: elevation-overlay
+category: color
+status: published
+definition: >-
+  The older dark theme technique of laying white over a surface at an opacity that rises with
+  elevation, because shadows are nearly invisible on dark backgrounds.
+aliases:
+  - name: dark theme overlay
+    source: material
+  - name: elevation tint
+    source: community
+  - name: ElevationOverlay
+    source: flutter
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Flutter: ElevationOverlay.applyOverlay"
+    url: https://api.flutter.dev/flutter/material/ElevationOverlay/applyOverlay.html
+demo: inline
+useWhen: raising a dark surface where a shadow would not show
+---
+
+A drop shadow works by darkening what is behind it, which is nothing at all to do against a
+near black page. Material 2 answered that with an overlay: keep one dark surface colour for
+everything, and lay a white film over it whose opacity climbs with elevation, so a sheet at
+24dp is visibly lighter than the card at 1dp even though both were painted from the same
+value. The table is small and worth knowing by shape rather than by heart. Around 5 percent
+at 1dp, 9 at 4dp, 12 at 8dp, 15 at 16dp, and 16 at 24dp, a curve that rises quickly and then
+flattens, because the last few steps have almost nowhere left to go before the surface stops
+reading as dark.
+
+The technique is worth naming because its result outlived its mechanism. Material 3 dropped
+the literal white film and folded the same behaviour into its surface container roles, which
+are pre-tinted with the theme's primary hue rather than with neutral white, and Flutter still
+ships `ElevationOverlay` for applications on the older scheme. Modern CSS makes the film
+unnecessary in either case, since a lighter step can be written straight into the token with
+a mix or a relative colour expression, but a codebase carrying an overlay opacity per
+elevation level is carrying this idea, and it should be recognised rather than reinvented.
+
+What survives all of it is the rule underneath: in a dark theme, elevation is lightness.
+This is the same ladder [surface colour](/surface-color) describes, which is why a dark
+palette is never an inversion of a light one. A light theme runs its surfaces up to white and
+lets shadow separate the top level, because white has nowhere further to go, while a dark
+theme has the whole range above its page colour available and spends it on height. Keep a
+soft shadow around anyway if you like, since it still reads at the edges of a large sheet,
+but never let it be the only thing saying which plane is on top.

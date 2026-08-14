@@ -1,0 +1,4 @@
+term:    List virtualization
+scope:   element
+subject: div.sp-scroll.sp-surface[data-part=viewport]
+text:    #1 pump 1 reported in 00:00 #2 valve 2 reported in 00:01 #3 boiler 3 reported in

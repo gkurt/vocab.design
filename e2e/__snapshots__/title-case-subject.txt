@@ -1,0 +1,4 @@
+term:    Title case
+scope:   element
+subject: h3[data-case=title][data-part=headline][data-pose=[data-case=title]]
+text:    The Rise and Fall of a Harbour with No Ships

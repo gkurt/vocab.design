@@ -1,0 +1,4 @@
+term:    Presentation role
+scope:   element
+subject: table[data-part=layout][data-pose=[role=presentation]][role=presentation]
+text:    Name Ada Lovelace Team Analytical Engines Access Full

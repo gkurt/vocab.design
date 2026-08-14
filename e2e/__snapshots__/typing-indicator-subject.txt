@@ -1,0 +1,4 @@
+term:    Typing indicator
+scope:   element
+subject: span.sp-row[aria-label=Ada is typing][data-part=indicator][role=status]
+text:    

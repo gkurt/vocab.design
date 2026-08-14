@@ -1,0 +1,59 @@
+---
+name: Lasso selection
+slug: lasso-selection
+category: interaction
+status: published
+definition: >-
+  Selecting by dragging a boundary around items on a canvas, freehand or as a rectangle, so
+  whatever the outline encloses becomes the selection when the drag ends.
+aliases:
+  - name: lasso tool
+    source: community
+  - name: marquee selection
+    source: community
+  - name: free form selection
+    source: community
+  - name: freehand select
+    source: community
+sources:
+  - title: "Wikipedia: Lasso tool"
+    url: https://en.wikipedia.org/wiki/Lasso_tool
+demo: inline
+useWhen: dragging an outline around items to select them
+---
+
+The gesture is defined by where it starts. A press on an item means move that item; a press
+on empty canvas means draw a boundary, and everything the boundary catches is selected when
+the pointer comes up. That one rule is what lets a canvas offer dragging and selecting with
+the same button and no mode switch, and it is why the empty space between items is load
+bearing rather than decoration. While the drag runs, the outline is drawn live and the items
+it currently holds are previewed as selected, so the reader can adjust the boundary before
+committing rather than releasing and finding out.
+
+Strictly, the lasso is the freehand version inherited from image editors, where the pointer
+trail is the outline and the shape can wrap around anything, and the rectangle is the
+marquee. In interface work the two words long ago collapsed into each other, and what most
+canvases actually ship is the rectangle: it is easy to aim, easy to describe, and cheap to
+test items against. Be careful with the word marquee on the web, where it is also the name
+of the scrolling banner element, so say rubber band or selection rectangle if the context
+could go either way. The list world's equivalent is range select, which spans an ordered
+sequence with Shift and a second click; a lasso is what you reach for when items have
+positions rather than an order.
+
+Three decisions separate a lasso that feels right from one that fights you. The first is
+whether an item counts when the boundary merely touches it or only when the boundary fully
+contains it: design tools mostly intersect, illustration tools mostly contain, and the
+choice needs to be stated in the interface somewhere because guessing it is miserable.
+The second is the modifiers, where holding Shift adds the new catch to the existing
+selection and Alt removes it, which is what makes an irregular selection reachable in
+several passes. The third is that a press on empty canvas which never travels far enough
+to count as a drag should clear the selection instead of drawing a boundary of zero size,
+which is the drag threshold doing its usual job.
+
+Everything else follows from those. A lasso that reaches the edge of its container has to
+autoscroll, or a canvas larger than its window can never be fully selected in one gesture.
+The pointer needs capturing so the boundary survives the pointer leaving the canvas, since
+people routinely overshoot. And because the whole thing is a drag, it cannot be the only
+route to a multiple selection: a keyboard reader needs select all, a click plus a modified
+click, or a filter that produces the same set, and the resulting count needs announcing
+rather than only being drawn.

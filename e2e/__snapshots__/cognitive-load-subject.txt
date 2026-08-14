@@ -1,0 +1,4 @@
+term:    Cognitive load
+scope:   element
+subject: div.sp-surface[data-mode=calm][data-part=task][data-pose=[data-mode=calm]]
+text:    What should it open in? Spreadsheetdefault Data file Printable How far back? Las

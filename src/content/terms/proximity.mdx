@@ -1,0 +1,56 @@
+---
+name: Proximity
+slug: proximity
+category: layout
+status: published
+definition: >-
+  The grouping principle that elements placed close together read as related, which is why
+  spacing decides perceived structure more reliably than borders do.
+aliases:
+  - name: law of proximity
+    source: community
+  - name: Gestalt proximity
+    source: nngroup
+  - name: grouping by proximity
+    source: community
+sources:
+  - title: "Proximity Principle in Visual Design, NN/g"
+    url: https://www.nngroup.com/articles/gestalt-proximity/
+demo: inline
+useWhen: arguing that spacing, not lines, makes groups
+---
+
+Proximity is the oldest of the Gestalt grouping principles, described by Max Wertheimer in
+1923 and rediscovered by every generation of interface designers since. The claim is
+narrow and strong: things placed near each other are perceived as one thing, and the
+perception happens before reading, not after. That is what makes it useful. A reader has
+already decided which label belongs to which field, and which price belongs to which
+product, in the time it takes to notice that the screen contains a form at all. Every
+other grouping device is competing with a judgement that has already been made.
+
+The working rule is a ratio rather than a number. Space inside a group has to be visibly
+smaller than the space around it, roughly half or less, and if the two are within a step of
+each other on your spacing scale the grouping simply does not read. This is also the answer
+to the most common review note in interface design, which is that a screen feels
+disorganised. It usually is not missing dividers. It is spending the same gap everywhere,
+so the structure has to be reconstructed from the words. [Whitespace](/whitespace) is the
+material this principle spends, and a spacing scale with widely separated steps is what
+makes spending it possible; a scale of near neighbours can only produce walls.
+
+The classic failure is the form label. A label placed midway between the field above it and
+the field below it belongs to neither, and the reader resolves the ambiguity by guessing,
+usually correctly and occasionally not. Nielsen Norman Group's
+[write-up of the principle](https://www.nngroup.com/articles/gestalt-proximity/) has the
+same example, because it keeps happening: the fix is to move the label three pixels closer
+to its own field and add twenty between the pairs, which costs nothing and removes the
+question. The same arithmetic settles captions under images, helper text under inputs, and
+prices under product names.
+
+Proximity has neighbours worth naming. Common region groups by enclosure, drawing a border
+or a shared background around the members, and it wins when items must be grouped without
+being moved, as in a settings page whose sections cannot be reordered. Similarity groups by
+shared appearance, which is what a colour-coded legend relies on. All three can say the same
+thing, and saying it three times is how a page ends up loud. Proximity is the one to reach
+for first because it is silent: it adds no ink, it survives a theme change, and it does not
+compete with the content for attention. The place it loses is density. A table of two
+hundred rows has no room to spend, so the honest tool there is a rule, not a gap.

@@ -1,0 +1,4 @@
+term:    Rag
+scope:   element
+subject: p[data-breaks=auto][data-part=column]
+text:    Set flush left and the right edge is free to be uneven. The trouble starts when 

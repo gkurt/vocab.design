@@ -1,0 +1,4 @@
+term:    Magic link
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=link][type=button]
+text:    Sign in to Studio

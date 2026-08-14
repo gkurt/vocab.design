@@ -1,0 +1,57 @@
+---
+name: Title case
+slug: title-case
+category: typography
+status: published
+definition: >-
+  Capitalising the first letter of each significant word in a heading or label,
+  leaving short articles, conjunctions and prepositions lowercase.
+aliases:
+  - name: headline case
+  - name: capital case
+  - name: start case
+relations: {}
+sources:
+  - title: Title case capitalization (APA Style)
+    url: https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case
+  - title: Title case (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Title_case
+demo: inline
+useWhen: Apple-style headings, buttons, and menu labels
+---
+
+Title case capitalises the words that carry meaning and leaves the joinery alone.
+Nouns, verbs, adjectives and adverbs go up; the articles (a, an, the), the short
+conjunctions (and, but, or) and the prepositions stay down, except when one of them
+lands first or last, where it goes up regardless. That is the whole rule until you
+reach a preposition of four letters or more, and there the style guides part
+company: Chicago keeps every preposition lowercase however long it is, while AP
+raises the ones of four letters and up, so "with" is down in one house and up in
+the other and no reviewer can settle it from first principles.
+
+The convention survives in interfaces mostly because Apple kept it. Menu titles,
+menu items, buttons and alert titles on Apple's platforms use title-style
+capitalisation, so a Mac application that switches to sentence case reads as
+foreign next to everything around it. Microsoft went the other way years ago and
+now writes almost everything in sentence case, which is why a cross-platform
+product usually has to pick a side rather than inherit one. What no product should
+do is reach for `text-transform: capitalize`, which raises every word including the
+ones the rule exists to keep down, and turns "The Rise and Fall of a Harbour" into
+something no style guide recognises. Title case is written by hand or not at all.
+
+Against [sentence case](/sentence-case) the difference is tone. Title case reads as
+formal, deliberate, a little older, which is exactly right on a marketing headline
+or a menu bar and can feel stuffy on a settings screen that is trying to talk to
+someone. It is also slower to write consistently, because every label becomes a
+small judgement call, and inconsistency is more visible here than in any other
+typographic decision: two adjacent buttons capitalised differently look like a bug.
+[All caps](/all-caps) is a third answer and a different tool, since it discards case
+information rather than distributing it, and belongs on short labels only.
+
+The practical failure is translation. Title case is close to meaningless outside
+English, so a string prepared this way and sent to a translator comes back sentence
+cased in French and noun-capitalised in German, and the interface stops matching
+itself. If a product ships in one language and wants the older, editorial register,
+title case is a reasonable choice made once and written into the content guide.
+If it ships in twenty, the case rule should be the one the other nineteen can
+actually follow.

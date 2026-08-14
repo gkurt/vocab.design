@@ -1,0 +1,4 @@
+term:    Site footer
+scope:   element
+subject: footer[data-mode=full][data-part=footer]
+text:    Product TidesChartsPricing Company AboutCareersPress Legal PrivacyTermsCookies N

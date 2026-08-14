@@ -1,0 +1,4 @@
+term:    Follow-through
+scope:   element
+subject: div.sp-surface.sp-row[data-part=card]
+text:    HR Harbour report Tide table updated New

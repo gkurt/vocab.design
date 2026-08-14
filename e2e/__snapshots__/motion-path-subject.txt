@@ -1,0 +1,4 @@
+term:    Motion path
+scope:   element
+subject: div[data-part=route]
+text:    offset-path: path()

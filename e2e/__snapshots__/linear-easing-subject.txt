@@ -1,0 +1,4 @@
+term:    linear() easing
+scope:   element
+subject: svg[aria-label=21 sampled stops plotted as a bounce, against the straight line of the linear keyword][data-part=graph][role=img][viewBox=-16 -8 124 128]
+text:    time progress

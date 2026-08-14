@@ -1,0 +1,4 @@
+term:    Variable font
+scope:   element
+subject: span[data-part=sample][data-wght=300]
+text:    Handgloves

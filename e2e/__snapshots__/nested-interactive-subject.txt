@@ -1,0 +1,4 @@
+term:    Nested interactive
+scope:   element
+subject: a.sp-surface[data-part=card-nested][data-sim-focus][href=#]
+text:    Northern lights tour 3 nights from £480 Save

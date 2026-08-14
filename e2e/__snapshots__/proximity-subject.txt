@@ -1,0 +1,4 @@
+term:    Proximity
+scope:   element
+subject: div.sp-stack[data-mode=spacing][data-part=fields][data-pose=[data-mode=spacing]]
+text:    Card number 4242 4242 4242 4242 Expiry 09 / 28 Security code • • •

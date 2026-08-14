@@ -1,0 +1,4 @@
+term:    Steampunk
+scope:   element
+subject: div.sp-texture[data-part=panel]
+text:    AETHER No. 4 PSI BOILER ROOM

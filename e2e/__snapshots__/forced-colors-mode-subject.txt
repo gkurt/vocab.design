@@ -1,0 +1,4 @@
+term:    Forced colors mode
+scope:   element
+subject: div[data-part=forced][data-theme=night]
+text:    Filters Unread only Has attachment Apply Reset

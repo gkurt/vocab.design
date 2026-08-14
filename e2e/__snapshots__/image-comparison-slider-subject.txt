@@ -1,0 +1,4 @@
+term:    Image comparison slider
+scope:   element
+subject: div[data-part=frame]
+text:    Before After

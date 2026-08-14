@@ -1,0 +1,61 @@
+---
+name: Presentation role
+slug: presentation-role
+category: accessibility
+status: published
+definition: >-
+  Stripping an element of its semantics while leaving it on screen, so a table used for
+  layout or a list used for spacing stops being announced as one.
+aliases:
+  - name: role=presentation
+    source: aria
+  - name: role=none
+    source: aria
+  - name: semantics removed
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'WAI-ARIA 1.2: presentation role'
+    url: https://www.w3.org/TR/wai-aria-1.2/#presentation
+  - title: 'W3C: Using ARIA, rules of ARIA use'
+    url: https://www.w3.org/TR/using-aria/
+demo: inline
+useWhen: markup you needed for layout is lying about meaning
+---
+
+`role="presentation"` and `role="none"` are the same role under two names. The second was
+added because the first kept being read as "this is decoration" when what it actually says
+is "ignore what this element claims to be". The element stays on screen, keeps its pixels,
+and keeps its text; what goes is the line the accessibility tree would have carried. A
+table with the role is no longer announced as a table, and because rows and cells are
+elements a table is required to own, they lose their roles with it. The same is true of a
+list and its items.
+
+There is a narrow set of cases where that is exactly right, and they share a shape: markup
+chosen for layout rather than for meaning. A table that only ever placed a label beside a
+value gives a screen reader user three rows, two columns, and a cell coordinate for every
+scrap of text, all of it noise. A list wrapping three cards because the CSS wanted a list
+announces "list, three items" about a grid. A wrapper element around an icon that already
+has a label duplicates it. In each one the role deletes an announcement that was never
+information, and the visual result does not move by a pixel.
+
+The role is also the classic way to hurt people quickly. Put it on a real data table and
+the header cells stop being headers, so a reader hears "118" with nothing to say the
+column was units or the row was Q3, and the relationship the table existed to express is
+gone. Two guards limit the damage: the role is ignored on a focusable element, and it is
+ignored on an element carrying a global ARIA attribute such as `aria-label`, since a name
+with no role to attach to would be stranded. Neither guard covers a table, which is why
+this is the one worth reviewing carefully.
+
+Removing semantics is still using ARIA, which puts the decision under the
+[first rule of ARIA](/first-rule-of-aria) like any other role. Prefer to fix the markup: if
+the table was only ever layout, CSS grid does the job and needs no role at all, and for a
+decorative image an empty `alt` is better supported than any role. Reach for it when the
+markup cannot change, in a legacy template or an email, and write down why. A quick way to
+check the result is to read the [accessibility tree](/accessibility-tree) in developer
+tools, where the stripped element shows as generic and its text sits directly under the
+parent.

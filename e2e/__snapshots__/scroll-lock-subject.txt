@@ -1,0 +1,4 @@
+term:    Scroll lock
+scope:   element
+subject: div.sp-scroll[data-locked][data-moved=no][data-part=page][data-pose=[data-locked]]
+text:    Deck and weather Waterproofs Deck boots Charts Lamps Rope Fenders

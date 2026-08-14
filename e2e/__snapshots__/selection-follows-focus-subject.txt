@@ -1,0 +1,4 @@
+term:    Selection follows focus
+scope:   element
+subject: div.sp-row[aria-label=Selection follows focus][data-part=auto-tabs][role=tablist][tabindex=0]
+text:    OverviewDetailsHistory

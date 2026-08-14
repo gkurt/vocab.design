@@ -1,0 +1,4 @@
+term:    Diverging palette
+scope:   element
+subject: div.sp-surface[data-centre=zero][data-part=scale][data-pose=[data-centre=zero]]
+text:    +8 0 -8 0 colder warmer

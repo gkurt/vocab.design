@@ -1,0 +1,56 @@
+---
+name: Responsive web design
+slug: responsive-web-design
+category: layout
+status: published
+definition: >-
+  One layout that adapts to any screen through fluid grids, flexible images and media
+  queries, rather than a separate site built for each class of device.
+aliases:
+  - name: RWD
+    source: community
+  - name: responsive design
+    source: community
+  - name: fluid design
+    source: community
+sources:
+  - title: "Responsive Web Design, A List Apart"
+    url: https://alistapart.com/article/responsive-web-design/
+demo: inline
+useWhen: the umbrella term for one adapting layout
+---
+
+The phrase comes from one article. In 2010 Ethan Marcotte published
+[Responsive Web Design](https://alistapart.com/article/responsive-web-design/) in A List
+Apart, borrowing the name from responsive architecture, and gave the practice exactly
+three ingredients: a fluid grid, flexible images, and media queries. The industry answer
+until then had been a second site on its own mobile subdomain, built once, maintained
+never, and always a release behind the real one. Responsive design replaced it with a
+single document at a single URL, holding the same content, reshaped by CSS.
+
+Each ingredient has its own entry here, so it is worth saying only what each contributes
+to the whole. A [fluid grid](/fluid-grid) states columns as proportions, so the
+composition stretches between any two sizes instead of only at the sizes someone thought
+of. Flexible media (`max-width: 100%` at its simplest, `srcset` when the bytes matter)
+keeps a picture inside whatever column it landed in. And a [breakpoint](/breakpoint) is
+where a media query is allowed to change the arrangement outright. Two later additions
+belong in the same sentence: a [container](/container) holds the fluid part to a readable
+width, and [fluid typography](/fluid-typography) does for type sizes what the grid does
+for columns.
+
+The word people reach for when they mean something narrower is usually adaptive layout: a
+small set of fixed designs, one per device class, snapped to at each breakpoint and rigid
+in between. The difference is what happens at 900 pixels when your design was drawn at
+768 and 1024. A responsive layout is doing something reasonable there because it was never
+drawn for a width at all; an adaptive one is showing you the 768 design in a window that
+could hold more. That is also the fastest way to check a claim of responsiveness: drag the
+window slowly and watch the space between the breakpoints, not the breakpoints themselves.
+
+Fifteen years on, the term is an umbrella rather than a technique. It now reasonably
+covers container queries (the component asking about its own space rather than the
+window's), the user-preference media features such as `prefers-reduced-motion` and
+`prefers-color-scheme`, and the honest limit of the whole idea: responding to width says
+nothing about responding to context. A phone is not just a narrow desktop, and deciding
+that a feature belongs on one and not the other is a content decision that no media query
+will make for you. Because the word names an approach rather than a decision, it is
+usually the wrong word in a code review and the right word in a brief.

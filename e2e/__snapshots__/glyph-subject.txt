@@ -1,0 +1,4 @@
+term:    Glyph
+scope:   element
+subject: span[data-part=glyph-serif]
+text:    a

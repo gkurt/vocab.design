@@ -1,0 +1,4 @@
+term:    Lasso selection
+scope:   element
+subject: span[data-part=lasso]
+text:    

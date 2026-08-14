@@ -1,0 +1,4 @@
+term:    Data grid
+scope:   element
+subject: table.sp-table[aria-label=Regional forecast][data-part=grid][role=grid]
+text:    Q1Q2Q3 North 4120 4380 4510 South 2870 2940 3105 East 1960 2080 1240 West 3340 3

@@ -1,0 +1,4 @@
+term:    Vernacular web
+scope:   element
+subject: div[data-part=page]
+text:    Ora's Cat Page Hi and welcome to my page!! It is about my cats and also HTML whi

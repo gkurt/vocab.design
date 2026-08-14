@@ -1,0 +1,60 @@
+---
+name: Data grid
+slug: data-grid
+category: component
+status: published
+definition: >-
+  A spreadsheet-like table where individual cells take focus and can be edited,
+  navigated cell by cell with the arrow keys.
+aliases:
+  - name: editable grid
+    source: community
+  - name: spreadsheet grid
+    source: community
+relations: {}
+implementations:
+  - system: aria-apg
+    name: Grid (Interactive Tabular Data and Layout Containers)
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+sources:
+  - title: 'ARIA Authoring Practices Guide: Grid pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+useWhen: a table you move around cell by cell
+---
+
+A table is for reading and a grid is for working. Both draw rows and columns, and
+that shared picture is why the two words get swapped, but the unit of interaction is
+different in each. In a table the row is the thing: you scan it, sort by a column,
+maybe select the row and act on it. In a grid the cell is the thing: it takes focus,
+it has a reference, it can be typed into, and moving between cells is the primary
+gesture rather than an accessibility afterthought. If a person would reasonably
+expect the arrow keys to walk them around the data, you are building a grid.
+
+That expectation is a contract, and the [ARIA Authoring Practices
+Guide](https://www.w3.org/WAI/ARIA/apg/patterns/) writes it down under the `grid`
+role. The whole widget is one tab stop, so Tab enters and leaves it rather than
+walking 400 cells. Inside, the arrow keys move focus one cell in each direction,
+Home and End go to the ends of the row, Control with Home and End go to the first and
+last cell of the grid, and Page Up and Page Down move by a screenful. Enter or F2
+opens the focused cell for editing, Escape abandons the edit, and Enter commits it
+and usually drops to the cell below. None of this is optional decoration: a grid that
+answers only the mouse is a spreadsheet nobody can use with their hands on the
+keyboard, which is where spreadsheet work actually happens.
+
+The cost is real, so spend it deliberately. A grid needs roving focus management, a
+cell reference model, an edit lifecycle with validation and rollback, and, once the
+row count passes a few hundred, row virtualization to keep the DOM small, which in
+turn means focus has to survive rows being recycled underneath it. Copy and paste
+across a rectangular selection, fill handles, frozen header columns, and per-column
+editors all queue up behind that. When the job is really "show me these records and
+let me sort them", a plain data table with an inline edit on the one field that
+changes is a fraction of the work and a fraction of the risk.
+
+On naming, "grid" alone is dangerously overloaded: in CSS and in layout conversation
+it means the arrangement of a page, and several component libraries ship a `Grid`
+that is purely a layout box. Say "data grid" when you mean the widget, and reserve
+"table" for the read-only cousin even when your library calls both by the same name.
+"Spreadsheet" is a good plain-language cue for what people expect, though it promises
+formulas and cell ranges that most data grids do not deliver, so use it to set
+expectations rather than to name the component.

@@ -1,0 +1,4 @@
+term:    Art Nouveau
+scope:   element
+subject: div[data-part=poster]
+text:    MAISON VERTE PARIS MDCCCXCVIII
