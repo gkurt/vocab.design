@@ -1,0 +1,4 @@
+term:    Drip pricing
+scope:   element
+subject: section.sp-surface[data-mode=dripping][data-part=total][data-pose=[data-mode=dripping]][data-step=0]
+text:    Standard admission ×2 42.00 Service fee 9.60 Facility fee 5.50 Delivery, mobile 

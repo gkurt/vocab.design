@@ -1,0 +1,4 @@
+term:    Soft hyphen
+scope:   element
+subject: p.sp-text.sp-text--ink[data-part=shy][data-width=narrow][lang=en]
+text:    The result was counter­intuitive.

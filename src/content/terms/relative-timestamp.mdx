@@ -1,0 +1,50 @@
+---
+name: Relative timestamp
+slug: relative-timestamp
+category: component
+status: published
+definition: >-
+  A time printed as a distance from now, two hours ago or in three days, updating itself
+  and holding the exact time in its tooltip.
+aliases:
+  - name: relative time
+    source: primer
+  - name: time ago
+    source: community
+  - name: fuzzy timestamp
+    source: community
+  - name: humanized time
+    source: community
+sources:
+  - title: 'Primer components'
+    url: https://primer.style/components
+demo: inline
+useWhen: printing a time as how long ago it was
+---
+
+A relative timestamp answers the question people actually have. In a feed, an inbox, or
+a comment thread, nobody wants to know that something happened at 14:32; they want to
+know whether it is new. "Two minutes ago" is read at a glance and needs no arithmetic,
+no timezone, and no knowledge of what today's date is. The cost is that the label goes
+stale while it sits on screen, so it has to re-render on a timer, coarsely: a stamp
+counting seconds is a distraction, and a stamp that never updates is a lie that gets
+worse the longer a tab stays open.
+
+The wording is a solved problem and does not need inventing. `Intl.RelativeTimeFormat`
+produces the phrase in the reader's own language and grammar, including the languages
+where "in three days" is not two words and a number, and its `numeric: 'auto'` option
+is what turns "1 day ago" into "yesterday". Pair it with `<time datetime="...">` so the
+machine readable instant travels with the human readable phrase, and put the full
+timestamp in the `title` attribute so hovering gives the exact time. A `title` is not
+enough on its own, since it is invisible to touch and unreliable for screen readers, so
+anything that genuinely needs the precise time should be able to show it another way.
+
+Precision has a threshold, and crossing it is the design decision. Relative wording is
+useful while the distance is small and becomes useless as it grows: "417 days ago" is
+worse than the date it replaced. Switch to an absolute date somewhere around a week,
+keep the year off until the year changes, and never let the two forms disagree. There
+are also places where relative time is simply the wrong tool. Legal records, financial
+transactions, schedules, medical logs and anything a person may have to quote back need
+the absolute time as the primary form, because a stamp whose meaning depends on when it
+was read cannot be cited. Relative is a convenience for the recent, not a replacement
+for the record.

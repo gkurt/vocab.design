@@ -1,0 +1,4 @@
+term:    System font
+scope:   element
+subject: span[data-part=specimen]
+text:    Handgloves 0123

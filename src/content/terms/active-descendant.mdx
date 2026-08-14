@@ -1,0 +1,59 @@
+---
+name: Active descendant
+slug: active-descendant
+category: accessibility
+status: published
+definition: >-
+  A focus technique where DOM focus stays on a container or input and aria-activedescendant
+  names which child is active, used when focus must not move.
+aliases:
+  - name: aria-activedescendant
+    source: aria
+  - name: virtual focus
+    source: community
+  - name: fake focus
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'APG: Developing a Keyboard Interface'
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+  - title: 'MDN: aria-activedescendant'
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-activedescendant
+demo: inline
+useWhen: the typing field must keep focus while a list moves
+---
+
+Most keyboard widgets move focus to whatever the arrow keys landed on. Sometimes they must
+not. In a [combobox](/combobox) the reader is typing, and the moment focus leaves the field
+the next keystroke goes somewhere else. The way out is to leave DOM focus where it is and
+point at the active item instead: the field keeps focus, and `aria-activedescendant` holds
+the id of the option that is currently active. Assistive technology follows the pointer and
+announces the referenced element as though focus were on it, which is why the pattern is
+also called virtual focus.
+
+Three obligations come with it. The element that keeps focus is the one that carries the
+attribute, and it has to be focusable and carry the right role. Every candidate child needs
+an id, since the attribute is a reference and nothing else. And the browser does none of
+the work it usually does for focus: no focus ring appears, and no scrolling happens, so the
+widget has to draw the active item itself and keep it inside the scroll container by hand.
+Forgetting the second half is the common bug, and it shows up as a list that arrows past
+the bottom of its own box.
+
+The alternative is roving tabindex, where real focus does move and exactly one child carries
+`tabindex="0"` while its siblings carry `-1`. Roving focus is the better default for a
+toolbar, a menu, or a radio group, because everything that depends on real focus keeps
+working. Active descendant is the answer where moving focus would break the interaction that
+is still happening: a text field driving a list, a grid whose cell editor holds the caret, a
+tree behind a filter box.
+
+Support was patchy for years, and that history is why some component libraries still avoid
+it. Current screen readers and browsers handle it well in the roles it is defined for, but
+the pattern is unforgiving of small mistakes: an id that does not resolve, a reference left
+behind after the list closes, or a visual highlight that is not the element the attribute
+names. Write it once, against the [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+combobox pattern, and reuse it rather than deriving it per widget. That is what this site's
+own kit does, and this specimen is that shared implementation.

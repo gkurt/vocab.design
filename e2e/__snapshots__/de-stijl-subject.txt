@@ -1,0 +1,4 @@
+term:    De Stijl
+scope:   element
+subject: div[aria-hidden=true][data-part=composition]
+text:    

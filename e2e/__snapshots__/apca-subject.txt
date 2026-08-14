@@ -1,0 +1,4 @@
+term:    APCA
+scope:   element
+subject: table.sp-table[data-part=table][data-size=body]
+text:    Pair WCAG 2 APCA Sample 16.07:1 Lc 103 Sample 4.54:1 Lc 72 Sample 7.84:1 Lc -50 

@@ -1,0 +1,4 @@
+term:    Isometric illustration
+scope:   element
+subject: span[aria-hidden=true][data-part=scene]
+text:    

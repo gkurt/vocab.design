@@ -1,0 +1,4 @@
+term:    Video player
+scope:   element
+subject: div[data-part=player][data-state=paused]
+text:    The tide runs out twice a day here. 0:00 2:14 CC

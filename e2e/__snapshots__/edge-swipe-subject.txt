@@ -1,0 +1,4 @@
+term:    Edge swipe
+scope:   element
+subject: span[data-part=edge-zone]
+text:    back

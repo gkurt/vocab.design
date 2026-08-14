@@ -1,0 +1,4 @@
+term:    Forgiving format
+scope:   element
+subject: div[data-part=forgiving][data-state=empty]
+text:    Nothing typed yet.

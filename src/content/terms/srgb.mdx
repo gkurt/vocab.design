@@ -1,0 +1,59 @@
+---
+name: sRGB
+slug: srgb
+category: color
+status: published
+definition: >-
+  The default colour space of the web, the one hex codes and plain rgb() values live in,
+  and the baseline every wider gamut is described relative to.
+aliases:
+  - name: standard RGB
+  - name: RGB
+    source: community
+  - name: web-safe color space
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+useWhen: the assumed colour space behind a hex code
+---
+
+sRGB was written in 1996 by Hewlett-Packard and Microsoft to describe the screen almost
+everyone already had: a CRT monitor in a dim office. It pins three primaries, a D65 white
+point, and a transfer curve, and that is the whole of it. Because it described the average
+device rather than an ideal one, it became the value everything defaulted to, and thirty
+years later it still is. An untagged `#1D63D2` in a stylesheet, an untagged JPEG, a colour
+picked in a design tool with no profile set: all of them mean sRGB, and none of them say so.
+
+The web writes it three ways and they are the same space. `#E5342B`, `rgb(229 52 43)` and
+`color(srgb 0.898 0.204 0.169)` name one colour; only the notation differs, hex and `rgb()`
+counting in 0 to 255 and the `color()` form in 0 to 1. What none of the three are is linear
+light. sRGB channel values carry a transfer curve of roughly the 2.2 power, which is why
+you cannot average two hex codes and get the colour halfway between them, and why every
+[contrast ratio](/contrast-ratio) starts by undoing that curve to recover
+[relative luminance](/relative-luminance).
+
+It is a small space. As a [colour gamut](/color-gamut) it covers about a third of what a
+person can see, and its reddest red is noticeably duller than a modern laptop can actually
+produce. Reaching past it is now a one-line decision: `color(display-p3 1 0 0)` asks for a
+red outside the sRGB triangle, and `oklch()` will accept a chroma beyond any display at
+all. The discipline is to spend the extra range on decoration and keep anything load
+bearing inside sRGB, because a browser that cannot show the wider value maps it back in and
+two screens then disagree about what you wrote.
+
+Two naming confusions are worth clearing. First, "RGB" on its own is a
+[colour model](/color-space), a set of axes with no fixed meaning, while sRGB is that model
+with its numbers pinned to actual light, which is why the same triple names a different
+colour in Display P3. Second, the old "web-safe" palette is not this: that was the 216
+colours a 256-colour graphics card could show without dithering in the late nineties, a
+constraint that died with the hardware. sRGB is not a restricted palette. It is the space
+the rest of the stack assumes when nobody says otherwise.

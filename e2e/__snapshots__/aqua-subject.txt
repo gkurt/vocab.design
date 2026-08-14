@@ -1,0 +1,4 @@
+term:    Aqua
+scope:   element
+subject: div[data-part=window]
+text:    Preferences Appearance Highlight colour and scrollbar arrow placement, the two k

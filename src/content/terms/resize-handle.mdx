@@ -1,0 +1,52 @@
+---
+name: Resize handle
+slug: resize-handle
+category: component
+status: published
+definition: >-
+  The small corner grip that lets you drag an element or window bigger and smaller,
+  drawn as diagonal ridges on a textarea or window corner.
+aliases:
+  - name: size grip
+    source: community
+  - name: grow box
+    source: community
+  - name: resizer
+    source: community
+  - name: corner grip
+    source: community
+  - name: handlebar
+    source: community
+sources:
+  - title: 'Size Grip, Microsoft Learn'
+    url: https://learn.microsoft.com/en-us/windows/win32/winauto/size-grip
+demo: inline
+useWhen: the corner grip that resizes a box
+---
+
+A resize handle is a few square pixels of ridges that make an edge draggable. It is a
+promise more than a mechanism: nothing about a corner says it can be pulled, so the
+grip is drawn to say it, which is why the diagonal ribs have survived from window
+corners and scrollbar gutters into the bottom right of every textarea on the web. Two
+neighbours are often confused with it, and the difference is what the drag does. A
+[drag handle](/drag-handle) moves the thing it is attached to, changing its position or
+its place in an order. A [splitter](/splitter) sits between two panes and divides them,
+so dragging it takes room from one and gives it to the other. A resize handle changes
+one box's own size and nothing else's.
+
+The cursor carries most of the meaning, and it is worth getting exactly right, because
+it is the only feedback before the drag starts. A corner grip takes `nwse-resize` or
+`nesw-resize` depending on which diagonal it sits on, an edge takes `ew-resize` or
+`ns-resize`, and a handle that shows the plain arrow reads as decoration. On touch there
+is no cursor at all, which is why the grip needs a hit area far bigger than its artwork
+and why an edge handle only a few pixels wide has to be padded out to a thumb.
+
+Every resize needs stops. A minimum keeps content from collapsing into an unreadable
+sliver, a maximum keeps a panel inside the space it lives in, and both should hold the
+drag at the limit rather than letting the box keep shrinking invisibly. Constrain what
+does not make sense to change: a code editor pane resizes horizontally only, a textarea
+usually should too, since `resize: vertical` prevents a reader from dragging a field
+wider than the column it sits in and breaking the layout around it. Keyboard access is
+the piece most often missing. Give the handle a role of separator or a slider's arrow
+keys, report the size with `aria-valuenow`, and remember the last size, because a panel
+that resets on every visit teaches people not to bother.

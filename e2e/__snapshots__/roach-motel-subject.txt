@@ -1,0 +1,4 @@
+term:    Roach motel
+scope:   element
+subject: section.sp-surface[data-mode=trapped][data-part=exit][data-pose=[data-mode=trapped]][data-step=0]
+text:    Screen 1 of 4 Cancelling Account No cancel control here. It lives three levels d

@@ -1,0 +1,4 @@
+term:    Optical size
+scope:   element
+subject: div.sp-stack[data-part=pair]
+text:    HandglovesHandgloves

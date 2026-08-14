@@ -1,0 +1,4 @@
+term:    Relative timestamp
+scope:   element
+subject: time[data-age=now][data-mode=relative][data-part=stamp-ada][datetime=2026-08-12T14:32][title=12 Aug 2026, 14:32]
+text:    just now

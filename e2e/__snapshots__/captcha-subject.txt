@@ -1,0 +1,4 @@
+term:    CAPTCHA
+scope:   element
+subject: div[data-mode=checkbox][data-part=widget][data-state=idle]
+text:    I am not a robot Human check

@@ -1,0 +1,4 @@
+term:    Transcript
+scope:   element
+subject: div.sp-surface[data-part=panel]
+text:    Transcript 0:04 MARA: You kept it, all this time. 0:11 JUN: I kept all of them. 

@@ -1,0 +1,70 @@
+---
+name: System font
+slug: system-font
+category: typography
+status: published
+definition: >-
+  The typeface the operating system uses for its own interface, requested by
+  keyword so each platform supplies its native face.
+aliases:
+  - name: system-ui
+    source: css
+  - name: native font
+  - name: platform font
+  - name: San Francisco
+  - name: Segoe UI
+  - name: Roboto
+relations: {}
+implementations:
+  - system: hig
+    name: System fonts (SF Pro, New York)
+    url: https://developer.apple.com/design/human-interface-guidelines/typography
+  - system: fluent
+    name: Segoe UI Variable
+    url: https://fluent2.microsoft.design/typography
+sources:
+  - title: System fonts (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: Typography (Fluent 2)
+    url: https://fluent2.microsoft.design/typography
+demo: inline
+useWhen: you want the app to look native and load nothing
+---
+
+`font-family: system-ui` is a request for whatever face the machine uses to draw
+its own menus and buttons. On Apple platforms that is SF Pro, with New York as
+the serif companion; on Windows 11 it is Segoe UI Variable, and Segoe UI on the
+versions before it; on Android it is Roboto. On a Linux desktop it is whatever
+the distribution's font configuration points at, which is genuinely not knowable
+from the page. One declaration, a different typeface per reader, and that is the
+feature rather than a bug.
+
+The reason product interfaces default to it is that it costs nothing and arrives
+already installed. There is no download, no `@font-face`, no flash of unstyled
+or invisible text, and no third request blocking a first paint. It also inherits
+work nobody wants to redo: the platform face has been hinted for that platform's
+rendering, carries the scripts that platform ships, and follows the size and
+weight the reader has chosen in accessibility settings. An application that
+should feel like part of the device rather than like a website is most of the
+way there on typography alone.
+
+It arrives at the front of a [font stack](/font-stack) like any other entry, and
+what follows it is a [fallback font](/fallback-font) for the machines where the
+keyword misses. That matters more than it sounds, because `system-ui` has a
+history of resolving badly for non-Latin scripts on some Linux configurations,
+where it can pick a face with no coverage and hand back tofu. The old spelling
+you still see in production, `-apple-system, BlinkMacSystemFont`, predates the
+standard keyword and was the way to reach the platform face before browsers
+agreed on one. CSS now also offers the generic families `ui-sans-serif`,
+`ui-serif`, `ui-monospace` and `ui-rounded`, which ask for the platform's face of
+that kind rather than for the interface face specifically.
+
+The cost is that you have designed against a typeface you cannot see. Metrics
+differ between the platforms: SF Pro is a touch narrower than Segoe UI, Roboto is
+narrower than both, and their [x-heights](/x-height) do not agree either, so any
+layout that depends on a line breaking in a particular place will break somewhere
+else on a machine you did not test. Reserve room rather than measuring it, keep
+[measure](/measure) in characters rather than pixels, and expect a heading to run
+a word longer somewhere. The other cost is identity: a product set in the system
+font looks like the operating system, which is exactly right for a utility and
+exactly wrong for a brand that was hoping to be recognised.

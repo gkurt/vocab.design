@@ -1,0 +1,4 @@
+term:    Psychedelic style
+scope:   element
+subject: div[data-part=poster]
+text:    AVALON BALLROOM SEPT 8 9 10 TWO NIGHTS SAN FRANCISCO

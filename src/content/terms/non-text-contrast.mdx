@@ -1,0 +1,60 @@
+---
+name: Non-text contrast
+slug: non-text-contrast
+category: accessibility
+status: published
+definition: >-
+  The requirement that controls, focus indicators and meaningful graphics reach 3:1 against
+  what is next to them, which is the rule that governs borders and icons.
+aliases:
+  - name: '1.4.11'
+    source: wcag
+  - name: UI component contrast
+    source: community
+  - name: '3:1'
+    source: wcag
+  - name: graphical object contrast
+    source: wcag
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'Understanding Success Criterion 1.4.11: Non-text Contrast'
+    url: https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html
+demo: inline
+useWhen: contrast for controls and icons rather than text
+---
+
+Text contrast has a rule everyone knows. Everything else on the screen got one in WCAG
+2.1, and it is 3:1. Success criterion 1.4.11 covers two families: the visual information
+needed to identify a user interface component and its state, and the parts of a graphic a
+reader needs in order to understand it. A field whose only edge is a hairline the same
+value as the page fails it. So does an icon-only button, a checked state told by a fill
+too pale to find, a chart line no one can separate from the plot area, and a focus
+indicator drawn in a grey that looked tasteful on a designer's monitor.
+
+The two thresholds are worth keeping straight. [Contrast ratio](/contrast-ratio) at 4.5:1
+is the text rule, 3:1 covers large text and everything non-text, and the comparison is
+always against the adjacent colour, which for a border means the background on both sides
+of it. Only the parts that carry the identification have to reach it: the edge of a
+button, not its whole fill; the pen stroke of a data series, not its label's shadow;
+the ring around a focused control, not the halo behind it. WCAG 2.2 adds a separate
+criterion on focus appearance with its own size and change requirements, so a focus
+indicator has two rules to satisfy rather than one.
+
+The exemptions are narrow and frequently overclaimed. Pure decoration is out, as is
+anything whose appearance the browser determines and the author has not styled, and so are
+inactive components: a disabled control is exempt, which is precisely why disabled is a
+state to hand out sparingly rather than a licence to grey things into invisibility.
+Logotypes are exempt as well. None of that covers a placeholder, a low-contrast divider
+carrying grouping, or an icon whose meaning is the only label present.
+
+This is the sibling criterion to [use of color](/use-of-color): that one says a difference
+must be told twice, and this one says the telling has to be visible at all. A redundant
+mark drawn at 1.5:1 satisfies neither. Two habits catch most of it. Measure the boundary
+colours in a design system once, rather than per screen, so borders and icon strokes are
+picked from values that already pass. And check the states as well as the resting look,
+since the checked, selected, and focused versions of a control are exactly the information
+this criterion is about.

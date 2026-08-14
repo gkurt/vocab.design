@@ -1,0 +1,4 @@
+term:    sRGB
+scope:   element
+subject: div.sp-stack[data-hue=red][data-part=space]
+text:    #E5342B rgb(229 52 43) color(srgb 0.898 0.204 0.169)

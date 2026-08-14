@@ -38,14 +38,14 @@ than like something being wrong with the machine.
 The cause is almost always the main thread being busy elsewhere. A long task blocks it,
 and rendering waits in line behind whatever the task is doing: parsing a chunk of JSON,
 building a hundred list rows, running a layout the code asked for at a bad moment. That last
-one has its own name. Layout thrashing is the loop where script writes a style, reads a
+one has its own name. [Layout thrashing](/layout-thrashing) is the loop where script writes a style, reads a
 measurement back, writes again, and forces the browser to recalculate geometry on every
 iteration instead of once at the end. Garbage collection, a large repaint, and a
 still-decoding image can each do the same, and a phone reaches all of these sooner than the
 laptop the code was written on.
 
 The escape is to move the animation off the busy thread altogether. `transform` and
-`opacity` can be handled by the compositor, which keeps drawing them at the display's
+`opacity` can be handled by the [compositor alone](/compositor-animation), which keeps drawing them at the display's
 cadence even while script is stuck, so an element that slides with `translate` survives a
 stall that would visibly break the same slide written with `left` or `margin`. Everything
 else is about doing less at the wrong moment: batch reads before writes, cut long tasks into

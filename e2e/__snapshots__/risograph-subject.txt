@@ -1,0 +1,4 @@
+term:    Risograph style
+scope:   element
+subject: div[data-part=card]
+text:    TWO DRUMS TWO DRUMS One pass per ink. Nothing lines up twice.

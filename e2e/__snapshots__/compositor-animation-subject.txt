@@ -1,0 +1,4 @@
+term:    Compositor-only animation
+scope:   element
+subject: span[data-part=mover-gpu][data-state=landed]
+text:    

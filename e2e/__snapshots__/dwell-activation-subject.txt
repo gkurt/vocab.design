@@ -1,0 +1,4 @@
+term:    Dwell activation
+scope:   element
+subject: button.sp-button.sp-button--ghost[aria-label=Draw][data-part=dwell][type=button]
+text:    

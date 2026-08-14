@@ -1,0 +1,53 @@
+---
+name: River
+slug: river
+category: typography
+status: published
+definition: >-
+  An accidental channel of white space running down a paragraph where word
+  spaces on consecutive lines happen to line up.
+aliases:
+  - name: rivers of white
+  - name: river of white space
+relations: {}
+sources:
+  - title: River (Wikipedia)
+    url: https://en.wikipedia.org/wiki/River_(typography)
+  - title: 'Typography Terms: Glossary (NN/g)'
+    url: https://www.nngroup.com/articles/typography-terms-ux/
+demo: inline
+useWhen: naming the white streak running down a paragraph
+---
+
+Nobody puts a river in a paragraph. It arrives when the word spaces on three or
+four consecutive lines happen to fall at nearly the same place, and the eye,
+which is very good at joining gaps into shapes, reads them as a channel running
+down the column instead of as separate spaces. Once you have seen one you cannot
+unsee it, which is the whole difficulty: the reader does not notice a river so
+much as get quietly slowed down by it, and the person who set the type notices
+nothing at all because they are reading the words.
+
+[Justified text](/justified-text) is where rivers breed. Justification works by
+stretching the word spaces until each line reaches both margins, so at a narrow
+[measure](/measure) the spaces get wide, and wide spaces have more chance of
+lining up and more visual weight when they do. Ragged text can produce one too,
+but it has to be unlucky rather than systematic, because its spaces are all the
+same width. The two tools that close a channel are more break opportunities and
+a wider column: [hyphenation](/hyphenation) gives the line breaker somewhere else
+to go, so no single line has to absorb the whole stretch, and a
+[rag](/rag) instead of justification takes the stretching away entirely.
+
+Seeing them is a trained skill with a low-tech trick behind it. Printers turned
+the proof upside down, or held it at arm's length, or squinted, all of which do
+the same thing: they destroy the words as words and leave the page as a pattern
+of grey and white. Blurring a screenshot works the same way. A related fault
+worth the same look is a lake, a single gap wide enough to punch a hole in the
+grey rather than to run down it.
+
+On the web the odds are worse than in print, because browsers break lines
+greedily, one line at a time, rather than optimising the paragraph as a whole the
+way a typesetting system does. There is no reflow pass to go back and fix a bad
+run, and the column width is whatever the reader's window happens to be, so a
+paragraph can be clean at one size and rivered at the next. That is the honest
+argument against `text-align: justify` on the web: not that justification is
+wrong, but that the machinery which made it work in print is not there.

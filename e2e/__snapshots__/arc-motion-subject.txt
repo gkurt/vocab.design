@@ -1,0 +1,4 @@
+term:    Arc motion
+scope:   element
+subject: div[data-part=lane-arc]
+text:    Card

@@ -1,0 +1,60 @@
+---
+name: Stepped animation
+slug: stepped-animation
+category: motion
+status: published
+definition: >-
+  Motion that jumps between a fixed number of discrete positions instead of interpolating, the
+  mechanic behind sprite sheets, ticking clock hands and segmented spinners.
+aliases:
+  - name: steps() easing
+    source: css
+  - name: step timing function
+    source: css
+  - name: stepped easing
+    source: community
+  - name: sprite animation
+    source: community
+  - name: jump-start
+    source: css
+relations: {}
+implementations: []
+sources:
+  - title: 'MDN: steps() easing function'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/easing-function/steps
+  - title: 'CSS-Tricks almanac: steps()'
+    url: https://css-tricks.com/almanac/functions/s/steps/
+demo: inline
+useWhen: the movement should tick rather than glide
+---
+
+Every other easing function is a curve through a continuum: whatever fraction of the duration
+has passed, there is a value for it. `steps()` refuses that. It divides the duration into a
+whole number of intervals and holds one value through each, so the animated property changes
+only at the boundaries. The result is not a smoothing decision at all, it is a quantisation:
+twelve steps means the element is only ever in one of twelve places, no matter how many
+frames the browser happens to draw.
+
+The second argument decides where the jumps fall relative to the interval, and it is the part
+people get wrong. `jump-end`, the default, holds the starting value first and never reaches
+the final one; `jump-start` leaves the start immediately and does reach the end;
+`jump-both` skips both endpoints and `jump-none` visits both, which makes it the right one
+for a sprite sheet, where all eight frames have to be shown. `step-start` and `step-end` are
+just the one-interval shorthands. Getting this wrong shows up as a walk cycle that skips a
+frame, or a clock hand that never quite points at twelve.
+
+Stepping is the point wherever the underlying thing really is discrete. A sprite strip is
+translated by whole frame widths. A second hand on a mechanical watch advances once a second
+because an escapement releases once a second, and a smoothly sweeping one reads as a
+different kind of watch. A segmented spinner has eight blades and eight states. A counter
+that ticks up in whole units is doing the same thing to a number. In all of these the
+quantisation is information, and interpolating between the states would be a lie about what
+is happening underneath.
+
+The failure mode is the same effect arriving uninvited. Motion that looks stepped when it
+should be continuous is almost never `steps()`; it is frames being missed, which has its own
+name and its own cure. The tell is regularity: a stepped easing holds for exactly the same
+interval every time, while dropped frames hold for whatever the main thread was busy with.
+This site's own typewriter effect is the friendly version of the same mechanic, a caret that
+blinks on `steps(1, end)` and characters that arrive one whole glyph at a time, because half a
+letter is not a thing a typist can produce.

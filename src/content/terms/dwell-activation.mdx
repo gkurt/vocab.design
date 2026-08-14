@@ -1,0 +1,56 @@
+---
+name: Dwell activation
+slug: dwell-activation
+category: interaction
+status: published
+definition: >-
+  Committing an action by keeping a pointer or gaze still on a target for a set time, for
+  input methods that have no click of their own.
+aliases:
+  - name: dwell click
+    source: community
+  - name: hover to activate
+    source: community
+  - name: gaze dwell
+    source: community
+sources:
+  - title: "NN/g: Timing guidelines for exposing hidden content"
+    url: https://www.nngroup.com/articles/timing-exposing-content/
+demo: inline
+useWhen: holding still is the only way to click
+---
+
+Dwell activation is an access method first and a design flourish a distant second. Someone
+driving a pointer with their eyes, with a head tracker, or with a mouse stick can move it
+accurately enough to land on a button, but has no button of their own to press once they
+get there. Dwelling supplies the missing half of the gesture: rest on the target, a
+countdown runs, and when it finishes the system issues a click. Windows ships this as a
+system feature for eye control, assistive software has offered dwell clicking for decades,
+and every gaze-driven headset and communication device is built on it. Design for it and
+you are designing for people who have no alternative, which is a different bar from
+designing a convenience.
+
+The countdown is the whole tuning problem, and it cuts both ways. Too short and the
+interface fires under a glance, because a pointer driven by gaze goes wherever attention
+goes and attention wanders across a screen constantly. That failure has a name in the eye
+tracking literature, the Midas touch, and it makes an interface exhausting: everything you
+look at happens. Too long and every action costs a second of holding perfectly still, which
+is tiring in a different way and multiplies across a sentence typed one letter at a time.
+The usual answer is to make the time adjustable, per person rather than per interface,
+which means an interface must not depend on any particular number being fast.
+
+Three things make a dwell target usable. It has to be big, because it must be held rather
+than merely reached, and a control that fits an eye tracker's jitter is considerably larger
+than one that fits a finger. It has to show the countdown, since a hold with no visible
+progress is indistinguishable from an interface that has stopped responding, and the same
+indicator doubles as the escape route: seeing the ring fill is what tells someone to look
+away in time. And it must not be surrounded by other dwell targets, because the pointer
+travels across whatever lies between the start and the destination, and anything it crosses
+is a hold beginning.
+
+The family resemblance is worth keeping straight, because three terms describe holding
+still in three different modes. A long press is a press held, on a control the finger is
+already touching. Spring loading is a drag held, over a container the pointer is carrying
+something across. Dwell activation is a hover held, with nothing pressed and nothing
+carried, which is why it is the only one of the three that has to work as a complete
+substitute for clicking rather than as an extra gesture layered on top of one.

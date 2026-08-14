@@ -1,0 +1,59 @@
+---
+name: Audio description
+slug: audio-description
+category: accessibility
+status: published
+definition: >-
+  A narration track describing visual information the soundtrack leaves out, fitted
+  into the gaps between dialogue.
+aliases:
+  - name: described video
+    source: community
+  - name: AD track
+    source: community
+  - name: extended audio description
+    source: wcag
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'WCAG 2.2: Audio Description (Prerecorded)'
+    url: https://www.w3.org/TR/WCAG22/#audio-description-prerecorded
+demo: inline
+useWhen: the picture carries information the audio does not
+---
+
+Some of what a video says is only ever shown. A character reads a letter without saying
+a word about it, a diagram fills the frame while the presenter says "as you can see
+here", a number appears on screen and is never spoken. Audio description is the second
+narration track that says those things out loud, written to fit the silences the
+dialogue leaves and voiced between the lines rather than over them. The constraint is
+the whole craft: a describer has a few seconds of room at a time, has to spend them on
+what actually carries the story, and has to get out of the way before the next line
+lands.
+
+When the gaps are not long enough, the standard track has to drop information, which is
+what extended audio description exists for. There the playback pauses so the
+description can finish, then resumes, and the running time of the video grows. WCAG asks
+for description of prerecorded video at level A, where a full text alternative is
+allowed as a substitute, and again at level AA, where description is required outright.
+Extended description sits at AAA, and pausing playback is only workable where the viewer
+controls the player rather than sitting in a cinema.
+
+The three text and audio alternatives are often confused, and they answer different
+questions. [Captions](/captions) turn the soundtrack into synchronised text, for a
+viewer who cannot hear it. Audio description turns the picture into sound, for a viewer
+who cannot see it. A [transcript](/transcript) is the whole programme as text, dialogue
+and description alike, readable without playing anything, which is the only route that
+works through a braille display. A described video with no captions and a captioned
+video with no description each leave out a different audience.
+
+Writing them is a specialist job, closer to editing than to copywriting. Describers work
+in the present tense, name what is on screen without interpreting it, keep character
+names consistent with the dialogue, and resist filling every silence, since a pause can
+be the point. Delivery is a recorded human voice or synthesized speech from a timed text
+file, and the web mechanism is a second audio track the player mixes in. Cheaper than
+all of it: shoot and script so the audio carries the meaning already, say the number
+rather than only showing it, and the description track has less to rescue.

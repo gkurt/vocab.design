@@ -1,0 +1,4 @@
+term:    Audio description
+scope:   element
+subject: div.sp-surface[data-part=strip][data-state=speaking][data-track=standard]
+text:    Audio description track She slides the letter across, unsigned.

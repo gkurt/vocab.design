@@ -1,0 +1,63 @@
+---
+name: Optical size
+slug: optical-size
+category: typography
+status: published
+definition: >-
+  A font adjusting its own drawing for the size it is set at, thickening strokes
+  and opening spacing for small text and refining both for large.
+aliases:
+  - name: opsz
+    source: opentype
+  - name: optical sizing
+  - name: optical scaling
+  - name: font-optical-sizing
+    source: css
+relations: {}
+implementations:
+  - system: hig
+    name: SF Pro Text and SF Pro Display
+    url: https://developer.apple.com/design/human-interface-guidelines/typography
+sources:
+  - title: Optical Size axis (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/optical_size_axis
+  - title: opsz axis tag (OpenType spec)
+    url: https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxistag_opsz
+demo: inline
+useWhen: type that should be redrawn, not just scaled
+---
+
+A letter that works at 9px and a letter that works at 90px are not the same
+drawing. Small text needs sturdier stems, more space between the letters, less
+contrast between thick and thin strokes, and wider apertures so an `e` does not
+fill in and an `a` does not close up. Large text needs the opposite: finer hairs,
+tighter fit, sharper detail, and more contrast, because at that size the eye is
+reading shapes rather than hunting for them. Optical size is the axis that holds
+both, so one family can be redrawn per size instead of merely scaled.
+
+This used to be automatic and then it was lost. A metal foundry cut a separate
+punch for every size it sold, and the punchcutter compensated by eye each time,
+so a 6pt Garamond really was a different design from a 36pt one. Phototype and
+then digital type replaced that with a single outline scaled by the machine,
+which is cheaper, uniform, and slightly wrong at both ends of the range: display
+settings look flabby and captions look spindly. [Variable fonts](/variable-font)
+brought the compensation back as the registered `opsz` axis, which the type
+designer draws once and the file interpolates.
+
+In CSS the axis is applied for you. `font-optical-sizing: auto` is the default,
+and it feeds the used `font-size` straight into `opsz`, so a face that ships the
+axis is already being redrawn as your [type scale](/type-scale) moves. You only
+reach for `font-variation-settings: 'opsz' 60` when you want a cut that does not
+match the size you are setting, a display drawing shrunk into a card for
+instance, and `font-optical-sizing: none` when you want the axis left alone.
+Apple ships the same idea as two named families rather than an axis, SF Pro Text
+and SF Pro Display, with a crossover around 20 points that the system picks for
+you.
+
+The catch is that most faces do not carry the axis, and there is no way to tell
+by looking at a rendered page. If it is missing, `font-optical-sizing` is inert
+and every declaration you wrote about it does nothing, which is a quiet failure
+rather than a loud one. Check the axes a file actually ships before designing
+around them: the serif this site loads carries a weight axis and nothing else,
+which is why the specimen above simulates the two cuts rather than pretending an
+axis it does not have is doing the work.

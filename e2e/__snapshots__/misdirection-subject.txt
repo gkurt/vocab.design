@@ -1,0 +1,4 @@
+term:    Misdirection
+scope:   element
+subject: section.sp-surface[data-mode=steered][data-part=choice][data-pose=[data-mode=steered]]
+text:    We use cookies Analytics and advertising partners. Reject all Accept all

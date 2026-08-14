@@ -1,0 +1,4 @@
+term:    Pointer lock
+scope:   element
+subject: div[data-outside=no][data-part=viewport][data-turn=none]
+text:    

@@ -1,0 +1,4 @@
+term:    Text columns
+scope:   element
+subject: div[data-part=block]
+text:    The presses ran twice a week, and the pages were set by hand until the last of t

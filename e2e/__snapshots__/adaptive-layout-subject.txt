@@ -1,0 +1,4 @@
+term:    Adaptive layout
+scope:   element
+subject: div[data-part=shell]
+text:    Inbox Inbox Find Saved Inbox Find Saved Inbox Mail InboxFindSavedArchive Inbox B

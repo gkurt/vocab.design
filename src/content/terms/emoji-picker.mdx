@@ -1,0 +1,49 @@
+---
+name: Emoji picker
+slug: emoji-picker
+category: component
+status: published
+definition: >-
+  A searchable grid of emoji organised by category, with recent choices remembered and
+  skin tone chosen once.
+aliases:
+  - name: emoji keyboard
+    source: community
+  - name: emoji palette
+    source: community
+  - name: emoji panel
+    source: community
+sources:
+  - title: 'UX Patterns for Developers'
+    url: https://uxpatterns.dev/patterns
+demo: inline
+useWhen: choosing an emoji from a searchable grid
+---
+
+An emoji picker is a panel with roughly three and a half thousand items in it, so the
+entire design problem is retrieval. Two habits share the panel and both have to work.
+Search first is what a fluent user does: they know the glyph they want, they know
+roughly what it is called, and two or three letters should get them there. Browse first
+is what everyone else does: they do not know the name, they know the mood, and the
+category row is the only way in. Give the search field the panel's most prominent
+position, keep the categories permanently visible rather than behind a menu, and match
+on more than the official Unicode name, because nobody searches for "grinning face with
+smiling eyes".
+
+The row of recently used emoji is the highest value real estate in the panel, because
+emoji use is extremely repetitive: a handful of glyphs cover most of what any one person
+sends. Sort it by recency, keep it short enough to scan without reading, and let a
+frequency signal creep in so a daily glyph is not pushed out by yesterday's one off.
+Skin tone is a single preference, set once from a swatch row and applied to every glyph
+that supports a modifier, rather than a question asked at each pick. It is stored per
+person, not per message.
+
+Two behaviours separate a good picker from an irritating one. Choosing does not close
+the panel, because people send several emoji at a time and a panel that dismisses after
+one pick forces a reopen for every glyph after the first. Dismissal is therefore
+explicit: a close control, the trigger again, Escape, or a click outside. And the whole
+panel is a listbox that a keyboard has to be able to work: arrow keys across the grid,
+type to filter without leaving the field, Enter to insert, Escape to leave. Emoji also
+carry text alternatives whether you plan for them or not, since a screen reader reads
+the glyph's Unicode name aloud, which is why a face inserted into a message is content
+and a face used as a button's only label is a mistake.

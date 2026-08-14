@@ -1,0 +1,4 @@
+term:    Letterpress text
+scope:   element
+subject: div[data-part=deboss]
+text:    PRESSED IN

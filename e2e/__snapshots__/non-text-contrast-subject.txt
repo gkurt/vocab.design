@@ -1,0 +1,4 @@
+term:    Non-text contrast
+scope:   element
+subject: div[data-mode=pass][data-part=row][data-pose=[data-mode=pass]]
+text:    Email Field border 3.1:1 Icon stroke 6.5:1 Send Focus ring 5.2:1 Series line 4.6

@@ -29,6 +29,9 @@ and read the diff in `e2e/__snapshots__/` before committing it.
 Do not put `[run] bun = true` back in `bunfig.toml`. It symlinks `node` to Bun for
 package.json scripts and everything they spawn, which Playwright's test runner cannot
 survive: its workers never report and `bun run test:e2e` hangs with no output at all.
+The same incompatibility bites ad-hoc scripts: `bun some-script.ts` cannot launch
+Playwright's chromium on this machine (the remote-debugging pipe hangs), so a script
+that drives a browser runs under `node` (import chromium from `@playwright/test`).
 Bun still runs `bun test` and `bun scripts/*.ts`; node-shebanged binaries get Node.
 
 Prefer these scripts over ad-hoc commands. Do not prefix them with `bun run` when

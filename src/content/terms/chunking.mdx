@@ -1,0 +1,56 @@
+---
+name: Chunking
+slug: chunking
+category: accessibility
+status: published
+definition: >-
+  Breaking content into small labelled pieces, short paragraphs, lists, and headings, so a
+  reader can hold one piece at a time instead of the whole wall.
+aliases:
+  - name: content chunking
+    source: community
+  - name: succinct text
+    source: w3c
+  - name: visual grouping
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'W3C: Keep Text Succinct'
+    url: https://www.w3.org/WAI/WCAG2/supplemental/patterns/o3p05-succinct-text/
+demo: inline
+useWhen: a dense block has to be read by anyone tired
+---
+
+Sixteen digits in a row is one long thing to hold. The same sixteen digits in four groups
+is four short things, and four short things are what a person can actually keep in mind
+while reading them off a card and typing them into a field. That is the whole mechanism,
+and it scales up from a card number to a page: short paragraphs, headings that say what
+the next stretch is about, lists instead of comma-strung sentences, and a form broken
+into named sections rather than presented as one column of thirty fields.
+
+The number everyone quotes deserves care. George Miller's 1956 paper on the "magical
+number seven, plus or minus two" was about absolute judgment and the span of immediate
+memory, not about how many links belong in a menu, and Miller was wry about the figure
+following him around. Later work puts the working memory span closer to four items, and
+the practical reading is simply that fewer, clearer pieces are held better than more,
+denser ones. It never licensed a rule that navigation must have seven entries.
+
+Chunking is the cheapest tool against [cognitive load](/cognitive-load), because it
+removes effort the design added rather than effort the task requires. It is also the
+principle two ordinary components are built out of: a [pin input](/pin-input) is a code
+chunked into one box per character, and an [input mask](/input-mask) is a value chunked as
+you type it. Formatting a value for display and accepting it unformatted are separate
+decisions, and the generous version does both: group the digits on the screen, and let the
+reader paste the whole run in unbroken.
+
+Group sizes are conventions worth respecting rather than inventing. Card numbers run in
+fours, phone numbers follow the local dialling shape, sort codes and postcodes have forms
+readers already know, and a code invented for an email should be split into threes or
+fours because that is what people can read back over a phone. In prose the same instinct
+means one idea per paragraph and a heading every few of them. The failure mode of
+chunking is chunking everything: a page of six-word paragraphs under a heading each is
+just as hard to read, because the pieces no longer say how they relate.

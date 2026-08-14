@@ -1,0 +1,61 @@
+---
+name: APCA
+slug: apca
+category: color
+status: published
+definition: >-
+  A perceptual contrast algorithm proposed for WCAG 3 that scores a text and background pair
+  as an Lc value and takes font size and weight into account.
+aliases:
+  - name: Advanced Perceptual Contrast Algorithm
+  - name: Lc value
+    source: community
+  - name: WCAG 3 contrast
+    source: community
+  - name: perceptual contrast
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: radix
+    name: Lc 60 and Lc 90 guarantee
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+sources:
+  - title: "Radix Colors: understanding the scale"
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+demo: inline
+useWhen: scoring contrast in a way that accounts for text size and weight
+---
+
+APCA reports one number, Lc, on a scale running to about 106 for black on white and about
+minus 108 for white on black. The sign is the point: the algorithm knows which of the pair
+is the text, so light text on a dark field and dark text on a light field are two different
+measurements rather than one. The [contrast ratio](/contrast-ratio) in WCAG 2 is symmetric
+by construction, dividing the lighter [relative luminance](/relative-luminance) by the
+darker, and cannot tell those two situations apart at all.
+
+The second departure is that a score alone is not a verdict. APCA pairs its output with a
+lookup table of font sizes and weights, so the same pair of colours can be fine for a 24px
+bold heading and much too weak for 14px body text. Roughly, thin small text is asked for
+around Lc 90, ordinary body text for Lc 75, and large or bold text for Lc 60, with anything
+under Lc 30 treated as invisible. That reframes contrast as a property of the typography as
+well as of the palette, which is what practitioners had been doing informally for years.
+
+The disagreements with WCAG 2 are where the argument lives, and they run both ways. Mid grey
+text on black can pass WCAG 2 at AAA and score under Lc 50, because the old formula's
+handling of dark backgrounds flatters them; white on a mid grey can fail 4.5:1 and score
+comfortably above Lc 75. Neither result is a bug in the tool that produced it. They are two
+models of the same phenomenon, one fitted to 1990s CRT measurements and one to more recent
+readability research, and where they part company is usually worth looking at with your own
+eyes.
+
+Status matters here, so state it plainly: APCA is a candidate for WCAG 3, and WCAG 3 is a
+working draft with no date. Nothing about APCA is normative, audits and procurement still
+quote 4.5:1, and a page that satisfies APCA is not thereby conformant. The sane position is
+to keep meeting the WCAG 2 thresholds you are actually held to and use Lc as the second
+opinion that catches what a symmetric ratio cannot, particularly in dark themes. Some design
+systems already publish both: Radix guarantees its text steps to Lc 60 and Lc 90 against a
+step 2 background, which is a contrast promise written into the
+[colour ramp](/color-ramp) rather than checked afterwards.

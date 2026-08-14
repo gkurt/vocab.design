@@ -1,0 +1,4 @@
+term:    Seed color
+scope:   element
+subject: div.sp-row[data-part=chain][data-seed=indigo]
+text:    Seed Tonal ramp 10 to 95 Primary Container Roles

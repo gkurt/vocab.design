@@ -1,0 +1,4 @@
+term:    Descender
+scope:   element
+subject: div[data-part=ruled]
+text:    Typography

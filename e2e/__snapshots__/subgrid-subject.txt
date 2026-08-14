@@ -1,0 +1,4 @@
+term:    Subgrid
+scope:   element
+subject: div[data-part=card-0][data-pose=[data-subgrid]][data-subgrid]
+text:    Day berth £24per night

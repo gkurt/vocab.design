@@ -1,0 +1,4 @@
+term:    System color keyword
+scope:   element
+subject: div.sp-grid[data-part=keywords]
+text:    Canvas CanvasText LinkText ButtonFace ButtonText ButtonBorder Highlight AccentCo

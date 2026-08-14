@@ -1,0 +1,4 @@
+term:    Hit slop
+scope:   element
+subject: button.sp-icon-button[aria-label=Add to album][data-hit=none][data-part=add][type=button]
+text:    

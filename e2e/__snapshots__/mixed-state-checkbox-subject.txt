@@ -1,0 +1,4 @@
+term:    Mixed state checkbox
+scope:   element
+subject: button.sp-checkbox[aria-checked=mixed][aria-label=Select all][data-aim][data-part=parent][data-pose=[aria-checked=mixed]][role=checkbox][type=button]
+text:    

@@ -1,0 +1,64 @@
+---
+name: CAPTCHA
+slug: captcha
+category: component
+status: published
+definition: >-
+  A challenge placed in a form to sort people from scripts, from distorted text to a
+  single checkbox that watches how you got there.
+aliases:
+  - name: human verification
+    source: community
+  - name: bot check
+    source: community
+  - name: recaptcha
+    source: community
+  - name: turnstile
+    source: community
+sources:
+  - title: 'UX Patterns for Developers'
+    url: https://uxpatterns.dev/patterns
+  - title: 'Inaccessibility of CAPTCHA (W3C)'
+    url: https://www.w3.org/TR/turingtest/
+  - title: 'Understanding SC 3.3.8: Accessible Authentication (Minimum)'
+    url: https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html
+demo: inline
+useWhen: the challenge that proves you are a person
+---
+
+A CAPTCHA is a test a form gives you before it will accept anything you typed. The
+name is an acronym for a completely automated public Turing test to tell computers and
+humans apart, and the first generation was exactly that: warped letters over a noisy
+background, on the theory that reading them was easy for a person and hard for a
+machine. Both halves of that theory have since collapsed. Distorted text is cheap for
+software to solve and expensive for people to squint at, so the checkbox generation
+quietly stopped testing the challenge at all. What a modern widget scores is the path
+your pointer took, how long the page sat open, the shape of your browser, and the
+reputation of the address you arrived from. The box you tick is a receipt for a
+judgement that was made before you touched it.
+
+The accessibility record is the part worth saying out loud. A visual puzzle locks out
+anyone who cannot see it, the audio alternative is routinely worse than the image, and
+grid challenges ask for object recognition in low-resolution photographs, which is hard
+for low vision, hard under a screen magnifier, and hard for anyone whose motor control
+makes nine small targets nine chances to misfire. The W3C has kept a standing note on
+[the inaccessibility of CAPTCHA](https://www.w3.org/TR/turingtest/) for two decades,
+and WCAG 2.2 added Accessible Authentication, which bars a cognitive function test as
+a step in signing in and allows object recognition only as a narrow exception. A
+challenge that is genuinely hard for a machine is, by construction, hard for a person,
+and the people it costs most are never the attackers.
+
+The successors mostly try to disappear. Risk based checks run invisibly and only
+escalate to a visible challenge when the score is poor, which turns the widget into an
+exception rather than a toll booth. A honeypot field, an input hidden from people and
+irresistible to naive scripts, removes a startling share of form spam and costs a
+sighted reader nothing at all. Rate limits, signed tokens, email confirmation, and
+simply not exposing an endpoint worth abusing do more real work than any puzzle. Reach
+for a visible challenge when you have measured that you need one, put it as late in the
+flow as you can, and never place it in front of a task someone has already paid for.
+
+The specimen above is a simulation and nothing in it is really tested, which is the
+only honest way to demonstrate this one. It is also a small confession: the ghost
+cursor that plays these demos moves in a straight line at a constant speed and clicks
+dead centre, which is precisely the signature a risk engine reads as a machine. The
+site would fail its own exhibit.

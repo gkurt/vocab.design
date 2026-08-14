@@ -1,0 +1,4 @@
+term:    Permission priming
+scope:   element
+subject: section.sp-surface[data-part=primer][data-state=asking]
+text:    Turn on order updates? One message when your driver leaves, and one when they ar

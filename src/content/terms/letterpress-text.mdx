@@ -1,0 +1,61 @@
+---
+name: Letterpress text
+slug: letterpress-text
+category: aesthetic
+status: published
+definition: >-
+  A text effect that fakes stamping into the surface, using a one pixel light shadow below
+  the glyphs and a slightly darker fill above it.
+aliases:
+  - name: engraved text
+  - name: embossed text
+  - name: debossed type
+  - name: text-shadow trick
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'MDN: text-shadow'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow
+demo: inline
+useWhen: type that looks pressed into the surface
+---
+
+The whole illusion is one pixel of shadow and an assumption about where the light is. We
+read light as coming from above, so a groove cut into a surface is shaded along its top
+edge and catches a highlight along its bottom edge. Copy that: set the type a little darker
+than the surface it sits on, then put a white or near white shadow one pixel below it, and
+the letters read as pressed in. Invert the pair, a light fill with a dark shadow below, and
+the same type reads as raised instead. Both need a mid tone surface to work on, since a
+highlight is invisible on white and a shadow is invisible on black, and both need the fill
+to sit close in value to the background, because the moment the letters have real contrast
+the eye stops reading a depression and starts reading coloured text with an outline.
+
+The name comes from a real press, where inked metal type is driven into damp paper and
+leaves an impression you can feel with a thumb. That bite was originally considered a fault:
+a nineteenth century pressman aimed to kiss the paper, and visible indentation meant the
+press was set too heavy. Fine printers reversed the judgement in the twentieth century,
+deep impression became the signature of hand printed work, and the sensation of type having
+physically happened to the paper is now most of what people pay a letterpress shop for.
+
+On the web the effect had a very sharp career. It was everywhere from about 2009 to 2012,
+on every heading of every grey gradient interface of the period, cheap to apply and
+convincing at display sizes. Then [flat design](/flat-design) arrived and executed the
+entire category of surface simulation in about eighteen months, and the effect went from
+house style to period marker without an intermediate stage. It kept one legitimate
+descendant: the single pixel light line along the top edge of a dark control, which is the
+same shadow doing structural work rather than decorative work.
+
+It survives honestly in three places. In print and on physical goods, where the impression
+is real. In large display type set on a genuinely mid tone surface, where the low contrast
+is a deliberate part of the composition. And in the small structural highlight described
+above. Everywhere else it fails the same two tests. The contrast it depends on is too low
+for body copy to be readable, so it cannot be used on anything anyone has to read at length,
+and it is invisible below about eighteen pixels, where a one pixel offset is simply blur.
+Remember that a theme switch inverts the physics: a shadow that reads as a groove on a pale
+surface reads as nothing at all on a dark one unless both the fill and the offset are
+swapped with it.

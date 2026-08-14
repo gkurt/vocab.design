@@ -1,0 +1,62 @@
+---
+name: Virtual keyboard
+slug: virtual-keyboard
+category: component
+status: published
+definition: >-
+  The on screen keyboard a device raises for a field, whose key set the field itself
+  chooses by declaring what kind of value it wants.
+aliases:
+  - name: on-screen keyboard
+    source: community
+  - name: soft keyboard
+    source: android
+  - name: software keyboard
+    source: community
+  - name: touch keyboard
+    source: community
+implementations:
+  - system: hig
+    name: Virtual keyboards
+    url: https://developer.apple.com/design/human-interface-guidelines/virtual-keyboards
+sources:
+  - title: 'Apple HIG: Virtual keyboards'
+    url: https://developer.apple.com/design/human-interface-guidelines/virtual-keyboards
+demo: inline
+useWhen: the field type decides which keys a reader is given
+---
+
+A virtual keyboard is the one component you do not build and cannot style, and it will
+take half the screen anyway. The device owns it. What the page gets is a say in which
+keyboard arrives, and that say is worth using: a field that asks for a phone number and
+is answered with the full alphabet has made every reader hunt for the number layer, and
+on a small screen that hunt costs more than the field itself. Declare the kind of value
+you want and the platform picks a key set to match, adding a decimal point, an at sign,
+or a URL row where those belong.
+
+The lever is `inputmode` (`numeric`, `decimal`, `tel`, `email`, `url`, `search`), with
+`enterkeyhint` deciding what the return key says (`go`, `next`, `send`, `search`). Both
+are hints to the keyboard, not validation, so they change the keys without changing what
+the field will accept, which is exactly the right split: a lenient field with a helpful
+keyboard beats a strict one with a general keyboard. Prefer `inputmode` over
+`type="number"` for things that are digit strings rather than quantities, because a
+number input brings spinner buttons, silently drops leading zeros, and treats a card
+number as arithmetic.
+
+What the keyboard really does to a layout is take room away. On the web this is the
+visual viewport shrinking while the layout viewport stays exactly as large as it was,
+which is why a footer pinned with `position: fixed` sits calmly underneath the keyboard
+while the reader stares at where it used to be. The `visualViewport` API is how a page
+finds out: its `height` and `offsetTop` change as the keyboard comes and goes, and a
+`resize` listener is what lets a bar reposition itself above the keys. Interactive
+widget behaviour is negotiable too, through the `interactive-widget` key in the viewport
+meta tag, which decides whether the keyboard resizes the visual viewport, the layout
+viewport, or neither.
+
+Design as if the bottom third of the screen may vanish at any moment. Keep the field
+being typed into and its error message inside the space that survives, scroll the
+focused field into view rather than trusting the platform to do it, and never place a
+submit button where the keyboard will cover it. Test with a hardware keyboard attached
+as well, because on tablets that combination hides the on screen keys and leaves a
+compact toolbar in their place, and a layout that only handles the two extremes will
+break on the middle.

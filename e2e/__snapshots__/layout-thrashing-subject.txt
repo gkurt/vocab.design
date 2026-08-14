@@ -1,0 +1,4 @@
+term:    Layout thrashing
+scope:   element
+subject: div.sp-stack[data-count=6][data-part=thrash]
+text:    Read, write, read, write 6 forced layouts

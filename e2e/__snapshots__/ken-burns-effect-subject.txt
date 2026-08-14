@@ -1,0 +1,4 @@
+term:    Ken Burns effect
+scope:   element
+subject: div[data-part=photo]
+text:    

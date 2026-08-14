@@ -1,0 +1,51 @@
+---
+name: Stacking context
+slug: stacking-context
+category: layout
+status: published
+definition: >-
+  A self contained depth ordering created by certain properties, inside which z-index only
+  competes locally and can never escape to the level above.
+aliases:
+  - name: z-index context
+    source: community
+  - name: paint order
+    source: community
+  - name: layer context
+    source: community
+sources:
+  - title: "Stacking context, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Stacking_context
+demo: inline
+useWhen: why a huge z-index still sits behind something
+---
+
+A stacking context is a private depth axis. Once an element establishes one, everything
+inside it is painted as a single unit at that element's own place in the order, and the
+z-index values within it are sorted only against each other. A child with `z-index: 9999`
+is the frontmost thing inside its context and still sits behind whatever comes after the
+context itself. This is the answer to the most common piece of CSS folklore there is,
+which is that a bigger number wins. It wins locally, and only locally.
+
+The trap is how quietly a context appears. The obvious way is a positioned element with a
+z-index that is not `auto`, which is the one most people know about. The unobvious ways are
+ordinary visual properties: `transform`, `opacity` below 1, `filter`, `backdrop-filter`,
+`mix-blend-mode`, `will-change` naming any of them, `contain: paint`, and `isolation:
+isolate`. A card with a hover lift, a fade-in wrapper left at 0.999 opacity, or a
+[blend mode](/blend-mode) applied three levels up is enough. Nothing in the markup says so,
+which is why the bug reads as a z-index problem and is really an ancestor problem.
+
+Debugging it is one question asked repeatedly: walk up from the element that will not come
+forward, and find the first ancestor that establishes a context. That is the element whose
+z-index actually matters, and the fix is to raise that ancestor, to remove the property
+that created the context, or to stop nesting the escaping element inside it at all. The
+last of those is why a [tooltip](/tooltip) or a [popover](/popover) that lives next to its
+trigger in the markup is fragile in a way that one rendered elsewhere is not.
+
+The modern escape is the top layer. A [modal dialog](/modal-dialog) opened with
+`showModal()`, and any element promoted with the popover API, is painted in a layer above
+the whole document, outside every stacking context the page has built, which is why those
+two features exist in the platform rather than in each design system. In the other
+direction, `isolation: isolate` creates a context deliberately: it is how you fence a
+component so its internal z-index values can never reach the page, and it is the one time
+this mechanism is a tool rather than a surprise.

@@ -1,0 +1,4 @@
+term:    Common region
+scope:   element
+subject: div[data-grouped][data-part=group-a][data-pose=[data-grouped]]
+text:    

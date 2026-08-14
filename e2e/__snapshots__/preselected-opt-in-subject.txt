@@ -1,0 +1,4 @@
+term:    Preselected opt-in
+scope:   element
+subject: div.sp-row[data-mode=preselected][data-part=opt-insurance][data-pose=[data-mode=preselected][data-state=checked]][data-state=checked]
+text:    Travel insurance for this crossing 12.00

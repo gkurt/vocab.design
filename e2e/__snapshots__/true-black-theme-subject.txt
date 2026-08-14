@@ -1,0 +1,4 @@
+term:    True black theme
+scope:   element
+subject: div[data-part=black][data-view=surfaces]
+text:    Page Card Dialog Overnight sync Nine files were copied and one was skipped becau

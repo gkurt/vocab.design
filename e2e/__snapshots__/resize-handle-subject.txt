@@ -1,0 +1,4 @@
+term:    Resize handle
+scope:   element
+subject: div[aria-label=Resize panel][data-part=corner][role=separator]
+text:    

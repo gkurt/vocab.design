@@ -1,0 +1,4 @@
+term:    Active descendant
+scope:   element
+subject: li.sp-option[aria-selected=true][data-active][data-key=bath][data-part=option-0][data-pose=[data-active]][role=option]
+text:    Bath Spa

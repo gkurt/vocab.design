@@ -1,0 +1,56 @@
+---
+name: Arc motion
+slug: arc-motion
+category: motion
+status: published
+definition: >-
+  Moving an element along a curved path rather than a straight line, so a change of position
+  reads as natural rather than mechanical.
+aliases:
+  - name: arcs
+    source: community
+  - name: curved motion path
+    source: material
+  - name: vertical-out arc
+    source: material
+relations: {}
+implementations:
+  - system: material
+    name: Arc upward and arc downward
+    url: https://m1.material.io/motion/movement.html
+sources:
+  - title: 'Material Design 1: duration and easing'
+    url: https://m1.material.io/motion/duration-easing.html
+  - title: "IxDF: UI Animation, applying Disney's 12 principles to UI"
+    url: https://ixdf.org/literature/article/ui-animation-how-to-apply-disney-s-12-principles-of-animation-to-ui-design
+demo: inline
+useWhen: an element travels in two axes at once
+---
+
+Nothing in the physical world travels a perfect diagonal. A hand reaching across a desk, a
+thrown ball, a door swinging open: all of them curve, because they are driven by joints and
+gravity rather than by two independent numbers. An element crossing a screen from one corner
+to another is driven by exactly two independent numbers, and that is why the straight
+version reads as machinery. Arc motion is the correction. The element still starts and ends
+in the same two places, and only the shape of what happens in between changes.
+
+The cheapest way to build one is to stop animating position as a single thing. Give the
+horizontal travel one timing curve and the vertical travel a different one, and the composed
+path bows. Material calls the two useful shapes by which axis finishes first: an element
+leaving vertically and arriving horizontally bows one way, and the reverse bows the other,
+so a card that rises out of a list and a card that falls back into it trace curves that
+mirror each other rather than retracing one line. Two nested elements, one transformed on
+each axis, is the whole implementation.
+
+Where the route deserves to be drawn as a shape rather than composed from two timings, the
+CSS mechanism is [motion path](/motion-path): the curve is stated once with `offset-path`
+and the animated value becomes distance along it. That is the better tool for anything more
+than a gentle bow, and the only reasonable tool for a route that doubles back or loops.
+Composed timings are for the common case, where the arc is shallow enough that nobody would
+ever describe it as a path.
+
+The limit is the one Material states plainly: do not arc a movement that only happens on one
+axis. A sheet sliding up from the bottom edge, a drawer coming in from the left, a row
+dropping into a list: these move along a single axis, and bending them adds a wobble that
+reads as the interface being unsure. The rule of thumb is that an arc is the answer to a
+diagonal, and a diagonal is the only thing it is the answer to.

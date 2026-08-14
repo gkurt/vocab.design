@@ -1,0 +1,4 @@
+term:    Tap delay
+scope:   element
+subject: button.sp-button[data-delay=none][data-part=legacy][type=button]
+text:    Add to cart

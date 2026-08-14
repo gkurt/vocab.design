@@ -1,0 +1,4 @@
+term:    Virtual keyboard
+scope:   element
+subject: div[aria-label=On screen keyboard][data-layout=digits][data-part=keyboard][role=group]
+text:    Number pad Next Done q w e r t y u i o p a s d f g h j k l ⇧ z x c v b n m ⌫ 123

@@ -1,0 +1,64 @@
+---
+name: Isometric illustration
+slug: isometric-illustration
+category: aesthetic
+status: published
+definition: >-
+  Art drawn on a fixed axonometric grid so depth reads without perspective, with parallel
+  edges and no vanishing point.
+aliases:
+  - name: isometric art
+  - name: 2.5D illustration
+    source: community
+  - name: axonometric
+  - name: isometric UI
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'Wikipedia: isometric projection'
+    url: https://en.wikipedia.org/wiki/Isometric_projection
+demo: inline
+useWhen: depth without perspective, on a fixed 30 degree grid
+---
+
+Depth here comes from a rule rather than from a camera. Two of the three axes are drawn at
+thirty degrees above the horizontal and the third stays vertical, so every edge of a cube
+lands on one of three fixed angles and edges that are parallel in the object stay parallel
+on the page. There is no vanishing point and no foreshortening: a crate at the back of the
+scene is drawn exactly the same size as an identical crate at the front, and a wall does not
+narrow as it recedes. That is the trade the projection makes. It gives up the sensation of
+standing somewhere and gets back a drawing you can measure, which is why engineers used it
+long before illustrators did. Strictly, true isometric puts one hundred and twenty degrees
+between the axes and foreshortens every edge by about 0.816; most illustration and nearly
+every game that calls itself isometric uses a tidier two-to-one screen ratio, an angle of
+about 26.6 degrees, which is really dimetric.
+
+Games kept the technique alive through the decades when illustration had moved on. Q*bert
+and Zaxxon in the early 1980s, then SimCity 2000, Civilization, Age of Empires, and Diablo,
+all chose it for the same practical reason: the fixed angle means one tile sprite works
+anywhere on the map, and the constant scale means a building can be dragged across the
+screen without being redrawn. Tech marketing rediscovered it around 2015 and used it for
+everything, cloud diagrams, server racks, tiny offices full of tiny workers, until the style
+became shorthand for a certain kind of enterprise landing page. Its closest neighbour on
+this site is [corporate Memphis](/corporate-memphis), which arrived in the same wave and
+solved the same brief with flat characters instead of flat architecture, and often on the
+same page.
+
+Building one is mostly bookkeeping. A cube is three parallelograms, a light top and two
+sides in descending values of one hue, and a scene is those cubes placed on a lattice where
+one step along an axis moves a fixed number of pixels right and down. The whole projection
+can be drawn in CSS with clipped polygons or with a pair of rotations, and the only real
+work is draw order: with no depth buffer, correctness means sorting the objects back to
+front and painting them in that sequence.
+
+As a register it suits diagrams, product tours, empty states, and anything explaining how
+parts of a system sit together, because the constant scale makes relationships legible.
+Reach for something else when the picture needs a focal point, since a projection with no
+perspective flattens emphasis along with distance, and be careful with type: lettering
+skewed onto an isometric plane is decoration and has to be duplicated as real text
+elsewhere. The illustration itself is almost always decorative, so it takes an empty alt
+attribute unless it carries information nothing else on the page carries.

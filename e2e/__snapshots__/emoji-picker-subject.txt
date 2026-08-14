@@ -1,0 +1,4 @@
+term:    Emoji picker
+scope:   element
+subject: div[aria-label=Emoji][data-part=picker][role=dialog]
+text:    Recent Smileys Nature Food Recently used 👍 🎉 🙂 ☕ 🌊 🔥

@@ -1,0 +1,59 @@
+---
+name: Multi-touch
+slug: multi-touch
+category: interaction
+status: published
+definition: >-
+  Input from more than one simultaneous contact point, letting a surface distinguish
+  two-finger scrolling, pinching, rotating and larger finger counts.
+aliases:
+  - name: multitouch
+    source: community
+  - name: multifinger gesture
+    source: hig
+  - name: two-finger gesture
+    source: material
+sources:
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+  - title: "Material Design: Gestures"
+    url: https://m1.material.io/patterns/gestures.html
+demo: inline
+useWhen: naming input that depends on more than one finger at once
+---
+
+One finger is unambiguous: it presses, it moves, it lifts. A second contact changes the
+question being asked. A surface with two fingers on it has to work out whether they are
+travelling together, spreading apart, turning about a shared midpoint, or whether one of
+them is simply resting while the other does the work. That decision is what multi-touch
+means, and it makes gesture recognition mostly bookkeeping: every contact arrives with an
+identity of its own, and the gesture lives in the relationship between them rather than in
+any single one.
+
+Two fingers carry most of the vocabulary. Pinch open and pinch closed scale content by the
+distance between the contacts, which is the mechanism behind pinch to zoom; the rotate
+gesture turns content by the angle of the line the two contacts span; and a two-finger
+drag scrolls or pans without being mistaken for a selection or a drag of the content
+itself. Above two, the gestures usually belong to the system rather than to the
+application: three-finger swipes move between spaces or undo, and four or five finger
+pinches on a tablet go home. The finger count is part of the name, so an instruction that
+says swipe when it means two-finger swipe will be followed wrongly by nearly everyone.
+
+On the web the contacts arrive as pointer events, each carrying a `pointerId` that stays
+stable from `pointerdown` through to `pointerup`, so tracking a gesture comes down to
+keeping a small map of live pointers and recomputing the distance and angle whenever one
+of them moves. Whether those events arrive at all is decided by `touch-action`. The
+browser's own panning and zooming are claimed before your handler runs and cannot be taken
+back afterwards, so a surface that wants a two-finger gesture of its own has to declare
+`touch-action: none`, or `pan-y` to keep vertical scrolling and claim the rest, in the
+stylesheet rather than in the handler.
+
+The conflict with the platform is unavoidable, so it is worth designing rather than
+discovering. A map inside a scrolling page that swallows one-finger drags strands the
+reader halfway down the article, which is why the usual settlement gives the page one
+finger and the map two, and says so on the surface. Anything the operating system has
+claimed, an edge swipe or a system-wide three-finger gesture, is taken before your code
+sees it at all. And multi-touch is a capability rather than a guarantee: a mouse has one
+pointer, a trackpad synthesizes some gestures and not others, and someone using a switch,
+a head pointer, or one hand has a single contact at most. Every pinch needs zoom controls
+behind it, and every two-finger scroll needs a scrollbar.

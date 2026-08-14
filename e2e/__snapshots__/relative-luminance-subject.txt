@@ -1,0 +1,4 @@
+term:    Relative luminance
+scope:   element
+subject: div[data-axis=y][data-part=scale][data-pose=[data-axis=y]]
+text:    00.250.50.751 White Y 1.000 Green Y 0.715 Grey 50% Y 0.216 Red Y 0.213 Blue Y 0.

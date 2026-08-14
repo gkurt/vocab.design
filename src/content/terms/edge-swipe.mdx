@@ -1,0 +1,61 @@
+---
+name: Edge swipe
+slug: edge-swipe
+category: interaction
+status: published
+definition: >-
+  A swipe that begins off the screen edge and travels inward, reserved by the system for
+  navigation such as going back or revealing a drawer.
+aliases:
+  - name: screen-edge pan
+    source: hig
+  - name: back swipe
+    source: community
+  - name: edge gesture
+    source: community
+  - name: bezel swipe
+    source: community
+implementations:
+  - system: material
+    name: Edge swipe
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures (edge swipe)"
+    url: https://m1.material.io/patterns/gestures.html
+demo: inline
+useWhen: a gesture that starts at the bezel, not on a control
+---
+
+What makes an edge swipe a distinct gesture is not its shape but its origin. Material puts
+it plainly: the gesture starts outside the screen and travels in, which is why the first
+event your code sees already has some travel behind it. A stroke that begins two
+centimetres in is a drag or a swipe and belongs to whatever it started on. The same stroke
+beginning at the bezel belongs to the system, because a band a few millimetres wide along
+each edge has been reserved before any application gets a say.
+
+Both mobile platforms spend that band on navigation. On iOS a rightward swipe from the
+left edge pops the current screen off the navigation stack, dragging the previous screen
+back into view under your thumb, and it is interactive the whole way: let go early and the
+screen you were leaving falls back into place. Android's gesture navigation reserves both
+side edges for back and the bottom edge for home and the recents switcher, having replaced
+the three-button bar with exactly these strokes, so a phone in gesture mode has claims on
+three of its four sides before an application draws anything.
+
+This is where the conflicts live, and they are all the same conflict: something in the
+interface wants a gesture that starts where the system has already booked one. A
+navigation drawer opened by pulling in from the left edge is the classic collision, which
+is why the modern advice is to open drawers from a visible control and to let the edge
+mean back. A horizontally scrolling carousel that reaches the edge of the screen has the
+same problem in miniature. Android offers a gesture exclusion API for the narrow cases
+that genuinely need the band back, capped in height and reset on every layout so it cannot
+be used to take the edge permanently, and iOS lets a view controller defer the system
+gesture rather than cancel it. Both are escape hatches with a cost: a reader who has
+learned that the edge means back will try it in your interface too.
+
+Implementing one is drag threshold work with the origin test in front of it. Was the
+first contact inside the band, has the stroke travelled far enough to commit, and does
+letting go before that point return the screen to where it was, following the finger the
+whole way rather than snapping at the end. Because the gesture is invisible, it can never
+be the only route: everything reachable by an edge swipe needs a back button, a close
+control, or a menu that does the same thing in the open. Treat the edge as an accelerator
+for the people who know it is there.

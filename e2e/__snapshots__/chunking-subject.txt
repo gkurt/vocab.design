@@ -1,0 +1,4 @@
+term:    Chunking
+scope:   element
+subject: div.sp-surface[data-mode=chunked][data-part=values][data-pose=[data-mode=chunked]]
+text:    Card number 4539148803436467 4 groups Phone 07700900123 3 groups One time code 4

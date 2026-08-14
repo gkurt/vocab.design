@@ -1,0 +1,45 @@
+import { steps } from '#src/stage/choreography.ts';
+
+// One click gets in. Then the exit is walked screen by screen until the path runs out
+// of controls entirely, and only after that does the fair version get its turn. The
+// pass ends back on the mount state, which is the one the subject's pose requires
+// (SPEC §6, §8).
+export default steps([
+  { assert: { selector: '[data-part=exit][data-mode="trapped"][data-step="0"]', state: 'visible' } },
+  { moveTo: '[data-part=join]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=join][data-joined]', state: 'visible' } },
+  { wait: 500 },
+  { moveTo: '[data-part=advance]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=exit][data-step="1"]', state: 'visible' } },
+  { wait: 800 },
+  { moveTo: '[data-part=advance]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=exit][data-step="2"]', state: 'visible' } },
+  { wait: 800 },
+  { moveTo: '[data-part=advance]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=exit][data-step="3"]', state: 'visible' } },
+  { assert: { selector: '[data-part=advance]', state: 'hidden' } },
+  { wait: 1000 },
+  { moveTo: '[data-part=mode-fair]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=exit][data-mode="fair"][data-step="0"]', state: 'visible' } },
+  { wait: 700 },
+  { moveTo: '[data-part=advance]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=exit][data-mode="fair"][data-step="1"]', state: 'visible' } },
+  { wait: 1000 },
+  { moveTo: '[data-part=mode-trapped]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=exit][data-mode="trapped"][data-step="0"]', state: 'visible' } },
+  { wait: 800 },
+]);

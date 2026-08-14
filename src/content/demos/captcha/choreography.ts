@@ -1,0 +1,35 @@
+import { steps } from '#src/stage/choreography.ts';
+
+// The gate is passed the way a person passes it: tick the box, wait out a verdict
+// nobody can see being made, then look at the version that asks for nine squares.
+export default steps([
+  { assert: { selector: '[data-part=widget][data-mode=checkbox]', state: 'visible' } },
+  { assert: { selector: '[data-part=widget][data-state=idle]', state: 'visible' } },
+  { moveTo: '[data-part=check]' },
+  { wait: 500 },
+  { click: true },
+  { assert: { selector: '[data-part=widget][data-state=checking]', state: 'visible' } },
+  { wait: 1500 },
+  { assert: { selector: '[data-part=widget][data-state=verified]', state: 'visible' } },
+  { moveTo: '[data-part=mode-grid]' },
+  { wait: 400 },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=widget][data-mode=grid]', state: 'visible' } },
+  { assert: { selector: '[data-part=tile-4]', state: 'visible' } },
+  { moveTo: '[data-part=tile-1]' },
+  { wait: 350 },
+  { click: true },
+  { moveTo: '[data-part=tile-5]' },
+  { wait: 350 },
+  { click: true },
+  { wait: 300 },
+  { assert: { selector: '[data-part=tile-1][data-selected]', state: 'visible' } },
+  { assert: { selector: '[data-part=tile-5][data-selected]', state: 'visible' } },
+  { moveTo: '[data-part=verify]' },
+  { wait: 350 },
+  { click: true },
+  { wait: 500 },
+  { assert: { selector: '[data-part=widget][data-state=verified]', state: 'visible' } },
+  { wait: 900 },
+]);

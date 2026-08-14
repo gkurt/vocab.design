@@ -1,0 +1,4 @@
+term:    Ascender
+scope:   element
+subject: div[data-part=ruled]
+text:    Bookshelf

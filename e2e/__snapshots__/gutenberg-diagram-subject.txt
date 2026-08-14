@@ -1,0 +1,4 @@
+term:    Gutenberg diagram
+scope:   element
+subject: div[data-part=quadrants]
+text:    primary optical area strong fallow area weak fallow area terminal area

@@ -1,0 +1,4 @@
+term:    River
+scope:   element
+subject: p.sp-text.sp-text--ink[data-part=rivered][lang=en]
+text:    Justi­fied at a nar­row meas­ure, the word spaces stretch until every line reach
