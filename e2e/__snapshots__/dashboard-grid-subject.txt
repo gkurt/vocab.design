@@ -1,0 +1,4 @@
+term:    Dashboard grid
+scope:   element
+subject: div.sp-grid[data-mode=sized][data-part=grid]
+text:    Revenue £84.2k Orders 1,204 Refunds 18 Uptime 99.9% Revenue by week Recent order

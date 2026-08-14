@@ -1,0 +1,4 @@
+term:    Key sequence
+scope:   element
+subject: div.sp-surface[data-part=sequence][data-state=idle]
+text:    g then ? No sequence started The prefix waits 1.6 s for the next key, then gives

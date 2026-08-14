@@ -1,0 +1,51 @@
+---
+name: Shake to undo
+slug: shake-to-undo
+category: interaction
+status: published
+definition: >-
+  Physically shaking a device to trigger undo or redo, an accelerometer gesture Apple
+  defines system wide for reversing a recent edit.
+aliases:
+  - name: shake gesture
+    source: community
+  - name: shake to redo
+    source: community
+sources:
+  - title: "iOS HIG: Gestures (shake)"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+demo: inline
+useWhen: undo triggered by motion rather than a control
+---
+
+Shake the phone and iOS raises an alert offering to undo the last edit, with Cancel beside
+it. Shake again after that and the alert offers the redo. It has been a system gesture since
+the first iPhone, handled by the operating system rather than by the app: the accelerometer
+reports a motion past a threshold, the frontmost responder is asked whether it has anything
+to reverse, and the alert appears if it does. Nothing on screen changes until the reader
+confirms, which is the one piece of the design that is unambiguously right, because a gesture
+this easy to make by accident cannot be allowed to act on its own.
+
+It is worth separating from [shake](/shake-animation), which is the same word for the
+opposite direction of travel. A shake animation is a refusal the interface makes: a password
+field wobbles to say no. Shake to undo is a gesture the reader makes, with the whole device,
+and the interface answers it. One is output and one is input, and the only thing they share is
+the shape of the movement, so a sentence that says "the app shakes" and a sentence that says
+"you shake the phone" are describing unrelated mechanics.
+
+The critique is discoverability. There is no affordance: nothing on screen suggests the
+gesture exists, nothing hints at it the first time an edit is made, and a reader who never
+happens to read about it will never find it. That is the defining problem of a motion
+gesture, and it is why [undo](/undo) still needs a control somewhere reachable, in a menu, on
+a toolbar, or behind a keyboard shortcut, with the shake as a shortcut for people who already
+know. The false positives are the other half: a phone in a hand on a bus, or a person walking
+briskly, produces motion that reads as a shake, and the alert interrupting an unrelated task
+is how most people first learn the feature exists.
+
+Motion as an input has an accessibility cost that WCAG names directly. Success criterion
+2.5.4 (Motion Actuation) requires that anything operable by moving the device also be operable
+through conventional controls, and that the motion trigger can be switched off, precisely
+because a tremor, a wheelchair over a kerb, or a phone mounted on a chair produces motion
+nobody meant. iOS provides the switch under accessibility settings, and a good many people
+turn it off the first time an alert appears out of nowhere. Build the gesture as a
+convenience layered on a control, never as the only route to the action.

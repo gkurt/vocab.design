@@ -1,0 +1,4 @@
+term:    Drop indicator
+scope:   element
+subject: span[data-part=indicator][data-slot=2]
+text:    

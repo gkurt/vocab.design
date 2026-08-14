@@ -1,0 +1,68 @@
+---
+name: Hidden but focusable
+slug: hidden-but-focusable
+category: accessibility
+status: published
+definition: >-
+  An element hidden from assistive technology that is still in the tab sequence, so keyboard
+  focus lands on something a screen reader refuses to describe.
+aliases:
+  - name: aria-hidden-focus
+    source: deque
+  - name: focusable inside aria-hidden
+    source: community
+  - name: ghost tab stop
+    source: community
+  - name: silent focus
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+sources:
+  - title: 'W3C ACT: Element with aria-hidden has no content in sequential focus navigation'
+    url: https://www.w3.org/WAI/standards-guidelines/act/rules/6cfa84/
+  - title: 'Deque: aria-hidden elements do not contain focusable elements'
+    url: https://dequeuniversity.com/rules/axe/4.4/aria-hidden-focus
+demo: inline
+useWhen: focus disappears into an offscreen or hidden panel
+---
+
+Two ways of hiding something get crossed, and the result is a tab stop that exists for
+nobody. The element is gone from the accessibility tree, usually because a container above
+it carries `aria-hidden="true"`, and it is gone from the screen, usually because that
+container has been pushed off with a transform or a negative offset. What it is not gone
+from is the tab sequence. Press Tab often enough and focus walks into it: the ring is
+somewhere nobody can see, and the software that would normally say where focus went has
+been told this element does not exist. Sighted keyboard users lose the ring for a press or
+two; screen reader users hear silence and have no way to find out what they are standing
+on.
+
+Almost every instance comes from a closed thing that was never really closed. A navigation
+drawer slid out of the viewport so it can animate back in, a carousel slide parked to the
+side, a tab panel moved off with a negative position instead of being taken out of the
+layout, an off-canvas menu that only sets `aria-hidden` when it shuts. The other half comes
+from the opposite direction: a dialog opens, the page behind it is marked `aria-hidden` to
+keep speech inside the dialog, and every link and button in that background keeps its place
+in the tab order. Automated checkers find this one reliably, which is why it shows up as
+its own rule in both the axe ruleset and the W3C's ACT rules, but the fix has to be chosen
+by a person, because the checker cannot tell which of the two hidings you meant.
+
+It helps to hold the three related techniques apart, because only one of them is a bug.
+[Visually hidden](/visually-hidden) is the deliberate opposite: the text is taken out of
+the layout and left in the accessibility tree, so software reads a label the design never
+prints. A [skip link](/skip-link) is hidden until it is focused, which means it is in the
+tab sequence on purpose and paints itself the instant focus arrives. This term is the
+crossing of the two: hidden from software, still reachable by keyboard, announced by
+nothing. [aria-hidden](/aria-hidden) hides from the tree alone and never touches
+focusability, which is the whole reason the trap exists.
+
+The repair depends on what the element is doing. If it is genuinely closed, close it
+properly with `display: none` or `visibility: hidden`, or remove it, and the tab sequence
+follows for free. If it has to stay rendered, [inert](/inert) is the one attribute that
+takes focus, hit testing, and the accessibility tree away together, which is exactly what a
+background behind a dialog needs. Setting `tabindex="-1"` on every control inside is the
+last resort and the most fragile, because the next control somebody adds will not have it.
+The test costs nothing: open the thing, close it, then hold Tab and watch. If the ring
+disappears for a press, something is still there.

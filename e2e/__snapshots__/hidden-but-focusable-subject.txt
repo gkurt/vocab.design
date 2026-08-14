@@ -1,0 +1,4 @@
+term:    Hidden but focusable
+scope:   element
+subject: a.sp-nav-item[data-mode=broken][data-part=stop-account][data-pose=[data-mode=broken]][href=#]
+text:    Account

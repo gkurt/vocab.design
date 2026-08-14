@@ -1,0 +1,4 @@
+term:    Hue shift
+scope:   element
+subject: div[data-hue=blue][data-part=ball]
+text:    

@@ -1,0 +1,56 @@
+---
+name: Middle click
+slug: middle-click
+category: interaction
+status: published
+definition: >-
+  A press of the scroll wheel button, conventionally used to open a link in a new tab, close
+  a tab, or start autoscrolling.
+aliases:
+  - name: wheel click
+    source: community
+  - name: middle mouse button
+    source: community
+  - name: auxiliary click
+    source: mdn
+sources:
+  - title: "MDN: Element auxclick event"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Element/auxclick_event
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+useWhen: the wheel press, not the left or right button
+---
+
+The wheel is a button, and pressing it means something specific in every desktop browser.
+On a link it opens the destination in a new tab without leaving the page, which is the whole
+point: a reader working through a list of results collects the interesting ones and keeps
+their place. On a tab it closes that tab. On empty page background it starts autoscroll,
+the mode where the page keeps scrolling in whatever direction the pointer is held from the
+anchor. Three jobs, one button, and none of them announced anywhere in the interface.
+
+In the DOM this is `auxclick`, an event browsers introduced precisely so that middle and
+back and forward presses stopped arriving as `click`. A handler reads `event.button`, where
+0 is primary, 1 is the wheel, and 2 is the one that raises the
+[secondary click](/secondary-click) menu. Two details bite. The browser's own middle-click
+behaviour is attached to a real anchor with a real `href`, so a link built as a `div` with a
+click handler has no middle-click behaviour at all, and no amount of `auxclick` code gives it
+back the browser's own tab handling. And on Windows and Linux a middle press on the page
+starts autoscroll unless the `mousedown` is cancelled, which is why a page that wants to
+handle the button itself has to say so at press time rather than at click time.
+
+Web applications forget it constantly, and the failure is always the same shape. A results
+list, a file tree, or a message list is built out of clickable rows rather than links, so
+middle-clicking a row does nothing, and every reader who has ever collected tabs from a list
+of results discovers that this particular list refuses to. The fix is not more JavaScript: it
+is to render the thing that navigates as an anchor with an `href`, let the browser handle the
+modifiers and the wheel press, and add behaviour on top. That single change also buys
+Ctrl-click and Cmd-click, drag to bookmark, copy link address, and open in a new window, all
+of which are the same affordance seen from different angles.
+
+None of this makes the button safe to depend on. Trackpads mostly have no middle button,
+tablets and phones have none at all, and assistive setups may remap it, so a wheel press can
+only ever be a shortcut for something reachable another way. Linux adds a fourth convention
+that surprises everyone who meets it, pasting the primary selection wherever the wheel is
+pressed, which is worth knowing about mostly because it explains stray text appearing in a
+field nobody typed into.

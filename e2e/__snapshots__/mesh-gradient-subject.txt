@@ -1,0 +1,4 @@
+term:    Mesh gradient
+scope:   element
+subject: div[data-part=field][data-spot=corner]
+text:    

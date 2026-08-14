@@ -1,0 +1,4 @@
+term:    Scroll pinning
+scope:   element
+subject: figure[data-part=figure][data-pin=pinned][data-pose=[data-pin=pinned]][data-step=1]
+text:    Step 1 of 3 Lay the gravel bed

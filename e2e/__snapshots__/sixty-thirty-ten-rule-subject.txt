@@ -1,0 +1,4 @@
+term:    60-30-10 rule
+scope:   element
+subject: div[data-mix=balanced][data-part=screen][data-pose=[data-mix=balanced]]
+text:    

@@ -1,0 +1,4 @@
+term:    Visual balance
+scope:   element
+subject: div[data-balanced][data-mode=asymmetric][data-part=composition][data-pose=[data-balanced]]
+text:    

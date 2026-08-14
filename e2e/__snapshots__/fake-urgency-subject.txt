@@ -1,0 +1,4 @@
+term:    Fake urgency
+scope:   element
+subject: div.sp-surface[data-mode=fake][data-part=banner][data-pose=[data-mode=fake]][data-reloads=0]
+text:    Sale price ends in 04:59 Order now or the price returns to 64.00.

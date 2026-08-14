@@ -1,0 +1,4 @@
+term:    Selection handle
+scope:   element
+subject: button[data-edge=end][data-part=handle-end][type=button]
+text:    

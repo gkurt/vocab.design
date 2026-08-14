@@ -1,0 +1,4 @@
+term:    Invalid state
+scope:   element
+subject: div.sp-input[data-part=input-good]
+text:    ada@

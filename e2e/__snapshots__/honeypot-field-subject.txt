@@ -1,0 +1,4 @@
+term:    Honeypot field
+scope:   element
+subject: div.sp-row[data-part=honeypot]
+text:    website

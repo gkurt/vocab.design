@@ -1,0 +1,4 @@
+term:    Magnetic button
+scope:   element
+subject: button.sp-button[data-part=button][data-pull=off][type=button]
+text:    Start a project

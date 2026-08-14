@@ -1,0 +1,56 @@
+---
+name: Drop indicator
+slug: drop-indicator
+category: pattern
+status: published
+definition: >-
+  The line or highlighted gap drawn during a drag to show exactly where the item will land
+  if it is released now.
+aliases:
+  - name: insertion indicator
+    source: react-aria
+  - name: drop line
+    source: community
+  - name: drop target highlight
+    source: community
+  - name: placeholder gap
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'React Aria: Drag and drop'
+    url: https://react-aria.adobe.com/
+demo: inline
+useWhen: the line that shows where the dragged item will land
+---
+
+A drop indicator answers one question, continuously, while a hand is moving something:
+if I let go now, where does it go? It is drawn between items rather than on them, it
+spans the width of the container that would accept the drop, and it moves as the pointer
+moves. The precision matters more than the styling. A line that sits in the gap the item
+will occupy is a promise, and a highlight smeared across a whole row is a guess, which
+is why a list that only tints the row under the cursor leaves people dropping things one
+slot away from where they meant to and then dragging them back.
+
+There are three common forms and they are not interchangeable. A line in the gap is for
+ordered lists, where the answer is a position between two neighbours. A highlighted
+container is for unordered destinations, where the answer is "into this folder" and no
+position is implied. A placeholder gap, where the list opens the slot the item would
+occupy, is the most literal of the three and the most expensive, since it moves
+everything below the insertion point on every pointer move. Pick by the question the
+drop is answering, and never draw two of them at once: an open gap plus a line is two
+promises about one release.
+
+The line is drawn by the drag, but it is owned by the drop target, which is why it
+belongs to this vocabulary rather than to the gesture. On this site
+[drag to reorder](/drag-to-reorder) is the gesture that rewrites a sequence; the drop
+indicator is what tells the reader which sequence they are about to get. React Aria calls
+its version the insertion indicator, and the name is worth borrowing, because it says the
+thing the pixels are for: it marks an insertion point, not a hovered element.
+
+Everything above is invisible to a keyboard or a screen reader, so a drag that only
+speaks in lines is not finished. The accessible route is to give reordering a
+keyboard path (grab, move with the arrow keys, release with the space bar) and to
+announce the same fact the line is drawing, as text, in a live region: "moved to
+position 3 of 8", or "insert before Ferry times". A hidden truth is what the indicator
+shows the eye, so an implementation that cannot say it out loud has not really said it.

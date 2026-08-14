@@ -1,0 +1,4 @@
+term:    Organic blob
+scope:   element
+subject: span[aria-hidden=true][data-part=blob-fill][data-shape=a]
+text:    

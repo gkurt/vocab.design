@@ -1,0 +1,4 @@
+term:    Confetti burst
+scope:   element
+subject: span[aria-hidden=true][data-burst=fired][data-part=burst][data-pose=[data-burst=fired]]
+text:    Done!

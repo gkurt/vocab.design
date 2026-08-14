@@ -1,0 +1,4 @@
+term:    Superscript
+scope:   element
+subject: p[data-part=line][data-pose=[data-raised=css]][data-raised=css]
+text:    Up 3%1 in the 1st quarter, on 240 m2.

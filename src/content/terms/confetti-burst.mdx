@@ -1,0 +1,65 @@
+---
+name: Confetti burst
+slug: confetti-burst
+category: motion
+status: published
+definition: >-
+  A short particle celebration thrown across the screen to mark a completion, decorative by
+  design and the first thing reduced motion should drop.
+aliases:
+  - name: confetti
+    source: community
+  - name: celebration animation
+    source: community
+  - name: particle burst
+    source: community
+  - name: delight moment
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'School of Motion: motion design dictionary'
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+useWhen: a milestone deserves a moment of celebration
+---
+
+Mechanically a confetti burst is a particle system with about six parameters: a launch
+point, a spread of angles around it, a random speed per particle, a rotation, a
+downward acceleration, and a fade. Two or three dozen small shapes are thrown from the
+point the celebration belongs to, arc up, tumble, and fall out of the frame in roughly a
+second. The whole thing lives on a layer above the interface and touches nothing in it:
+no element moves, no scrollbar appears, no pointer target changes. On the web it is
+usually a canvas rather than a few dozen animated DOM nodes, which is what
+[canvas-confetti](https://github.com/catdad/canvas-confetti) exists for, and the
+canvas is thrown away when the burst ends.
+
+The design question is never how to draw it. It is how often it fires. Celebration
+follows a steep annoyance curve: the first burst reads as the product being pleased
+for you, the fifth reads as the product being pleased with itself, and by the tenth the
+reader is waiting it out. So a burst is spent on the milestones a person would tell
+someone else about (finishing onboarding, filing the return, closing the last task in a
+sprint) and never on a completion they will perform forty times a day. A celebration
+attached to an ordinary save stops meaning "you finished something" and starts meaning
+"the button worked", which is a job a [toast](/toast) does better and much more quietly.
+The rule of thumb that survives contact with real products: if it fires more than once a
+session, it is decoration on a routine event, not a
+[microinteraction](/microinteraction) worth having.
+
+Because it is pure decoration, it carries a duty. Nothing may be communicated by the
+particles alone: the state change underneath (a row checked, a heading that now says
+Done, a status the assistive technology can read) has to carry the whole message, since
+confetti is invisible to a screen reader and gone in a second for everyone else. It is
+also the clearest case in the whole vocabulary of motion a
+[prefers-reduced-motion](/prefers-reduced-motion) reader should simply never see: a
+field of fast, high-contrast objects flying in different directions is close to the
+worst case for a vestibular disorder, and dropping it costs nothing, because the
+completion was already legible without it. Replace the burst with a static mark, not
+with a slower burst.
+
+Two implementation notes that decide whether it feels expensive or cheap. The layer must
+be `pointer-events: none` and outside the document flow, or a celebration can eat a click
+or add a scrollbar, which turns a reward into a [layout shift](/layout-shift). And the
+particles should animate on `transform` and `opacity` only, since a hundred elements
+animating anything else is the standard way to drop frames on the one screen you wanted
+to feel good.

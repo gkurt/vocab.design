@@ -1,0 +1,4 @@
+term:    Thumb zone
+scope:   element
+subject: div[data-part=map]
+text:    

@@ -1,0 +1,4 @@
+term:    Coach mark
+scope:   element
+subject: div.sp-popover[aria-label=Group by][data-open][data-part=callout][role=dialog]
+text:    Group by Stack rows under a shared owner or plan. Tip 1 of 1 Got it

@@ -1,0 +1,4 @@
+term:    Ghost click
+scope:   element
+subject: button[data-part=row-delete][data-row=delete][type=button]
+text:    Delete account

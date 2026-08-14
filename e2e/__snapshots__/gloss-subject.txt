@@ -1,0 +1,4 @@
+term:    Gloss
+scope:   element
+subject: span.sp-row[data-part=glossy]
+text:    Download

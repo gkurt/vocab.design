@@ -1,0 +1,60 @@
+---
+name: Color banding
+slug: color-banding
+category: color
+status: published
+definition: >-
+  The visible stripes that appear across a gradient when a display or file cannot render
+  enough intermediate steps to keep the transition smooth.
+aliases:
+  - name: banding
+    source: community
+  - name: posterization
+    source: community
+  - name: gradient stripes
+    source: community
+  - name: contouring
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Color Banding and Dithering
+    url: https://shader-tutorial.dev/advanced/color-banding-dithering/
+demo: inline
+useWhen: a gradient breaking into visible stripes
+---
+
+Banding is arithmetic, not a bug. An ordinary screen stores eight bits per channel, so
+there are 256 values available between black and full intensity and nothing in between
+them. Take a [gradient](/gradient) from `#2B3566` to `#0D1024`: the blue channel travels
+from 102 to 36, which is 66 distinct values, and if that ramp is 600 pixels tall then each
+value has to hold for about nine pixels. Nine pixels of one flat colour beside nine pixels
+of another is a stripe, and the eye is extremely good at finding it. The name for the same
+thing in image editing is posterisation, and in video work it is usually called contouring.
+
+Two conditions make it worse, and they arrive together. The shallower the transition, the
+fewer values it has to spend, so a subtle ramp bands harder than a dramatic one. And the
+larger the area, the more pixels each value has to cover. That is why banding shows up
+almost exclusively in the same places: dark hero backgrounds, near-flat overlays across a
+full page, blurred backdrops, and any [mesh gradient](/mesh-gradient), which is mostly
+shallow transitions over a lot of room. Compression compounds it, because JPEG and most
+video codecs actively flatten low-contrast regions into blocks of one value.
+
+The cure is [dithering](/dithering): add fine noise so neighbouring pixels sit on either
+side of the step and the eye averages them back into the colour that was missing. That is
+what a [grainy gradient](/grainy-gradient) is doing, and why the fix for banding is grain
+rather than blur, which only smears the same stripes. Two other levers help. Blending in
+a wider space, or simply letting the hue drift a little across the ramp, gives the
+transition more values to spend than a single channel had. And rotating the gradient a few
+degrees off the pixel grid breaks the perfectly horizontal edges the eye locks onto.
+
+Judging it honestly is harder than fixing it. Your own display is part of the system: many
+laptop panels are six bits per channel with temporal dithering on top, some scaling and
+colour management paths quantise a second time, and a screenshot can add banding that the
+live page did not have. That is why the specimen here builds its stripes deliberately, with
+hard stops, rather than hoping a shallow ramp misbehaves on your machine. If a client
+reports banding you cannot see, believe them and reach for grain.

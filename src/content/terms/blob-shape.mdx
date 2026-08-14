@@ -1,0 +1,61 @@
+---
+name: Organic blob
+slug: blob-shape
+category: aesthetic
+status: published
+definition: >-
+  A soft irregular shape with no straight edges, used as a background accent or image mask
+  to soften a strictly rectangular layout.
+aliases:
+  - name: blob
+  - name: organic shape
+  - name: border-radius blob
+    source: community
+  - name: amoeba shape
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'MDN: border-radius'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius
+demo: inline
+useWhen: an amoeba shape softening a rectangular grid
+---
+
+A blob is what you get when a circle stops being symmetrical. Every boundary is a curve,
+no two quadrants match, and nothing about it points anywhere. On the web the cheapest
+version is a single element with all eight radius values set independently, which is what
+the slash form of `border-radius` is for: four horizontal radii before the slash, four
+vertical after, so each corner gets an ellipse instead of an arc. Give those eight numbers
+different percentages and the box stops looking like a box. Generators such as
+[Blobmaker](https://www.blobmaker.app) will hand you an SVG path instead, which is what
+you want as soon as the outline needs more than four bulges.
+
+The reason blobs appeared everywhere around 2018 is that layout on the web is relentlessly
+rectangular. Grids, cards, containers, and images are all boxes, and a box repeated forty
+times reads as a spreadsheet. A blob behind the hero, or clipped around a photograph,
+introduces a curve nothing else in the layout has, at the price of one absolutely
+positioned element. It also carries a specific tone. Corners read as engineered and
+deliberate; the absence of them reads as handmade and approachable, which is why the
+device was picked up hardest by products that wanted to seem friendly rather than
+technical.
+
+That tonal job puts blobs in the same family as [Memphis design](/memphis-design), whose
+squiggles and confetti do the same anti-grid work with straight edges allowed, and
+[corporate Memphis](/corporate-memphis), the flat illustration style whose backgrounds are
+usually blobs and whose figures inherited their limbs from them. The shared ancestor is
+the mid-century organic modernism of amoeba coffee tables and kidney shaped pools, which
+is the visual joke people make when a landing page looks like a doctor's waiting room from
+1957.
+
+Practical notes. Keep blobs behind content and out of the reading path, since an irregular
+edge crossing a column of text costs legibility for nothing. Give them very low contrast
+against the page or they will win the composition they were supposed to support. Two blobs
+of different sizes overlapping read better than one, because the overlap is what makes the
+shape look deliberate rather than like a rendering accident. And accept that the style is
+dated: a blob in 2026 is a period reference, which is perfectly fine as long as it is
+being made on purpose.

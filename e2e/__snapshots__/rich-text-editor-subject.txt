@@ -1,0 +1,4 @@
+term:    Rich text editor
+scope:   element
+subject: div.sp-surface[aria-label=Field notes][aria-multiline=true][data-doc=plain][data-part=pane][role=textbox]
+text:    The gulls came in ahead of the weather. Boats tied short by four. Tide at 6:12. 

@@ -1,0 +1,4 @@
+term:    Curb cut effect
+scope:   element
+subject: div.sp-surface[data-part=kerb][data-who=wheelchair]
+text:    pavement road the cut Wheelchair Pram Delivery trolley Suitcase

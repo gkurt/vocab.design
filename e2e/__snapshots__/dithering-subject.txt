@@ -1,0 +1,4 @@
+term:    Dithering
+scope:   element
+subject: div[data-part=dithered][data-strength=medium]
+text:    

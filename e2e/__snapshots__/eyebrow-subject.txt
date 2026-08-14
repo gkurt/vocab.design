@@ -1,0 +1,4 @@
+term:    Eyebrow
+scope:   element
+subject: span[data-part=eyebrow]
+text:    Field notes

@@ -1,0 +1,55 @@
+---
+name: Jiggle mode
+slug: jiggle-mode
+category: motion
+status: published
+definition: >-
+  An editing state announced by making every rearrangeable item wobble in place, so the
+  whole screen says it can be reordered.
+aliases:
+  - name: wiggle mode
+    source: community
+  - name: wobble mode
+    source: community
+  - name: icon jiggle
+    source: community
+  - name: edit mode wiggle
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'How-To Geek: what is jiggle mode on iPhone'
+    url: https://www.howtogeek.com/692818/what-is-jiggle-mode-on-iphone-and-other-apple-devices/
+demo: inline
+useWhen: an editing mode should be announced by motion alone
+---
+
+Hold an icon on an iPhone home screen and everything starts to shake. Apple has never
+given the state an official name, so users named it: jiggle mode, wiggle mode, the
+wobble. Mechanically it is a tiny rotation oscillating around zero, a degree or two
+each way at four or five cycles a second, with a small phase offset per icon so the
+screen reads as a crowd of nervous objects rather than as one animation applied eight
+times. A delete badge appears on each item at the same moment, and the icons become
+draggable.
+
+The reason it works is that a mode is an invisible thing and this one is not. In every
+other state on that screen, nothing moves; the moment anything moves, the screen is in
+the other state, and the boundary is legible from across the room without reading a
+word. It also scopes itself for free. Items that wobble can be rearranged and items
+that stay still cannot, so the animation is simultaneously the mode indicator and the
+map of what the mode applies to, which no label in a corner could manage. The gesture
+in and out is worth noticing too: entry is a [long press](/long-press), a held
+gesture, which is the closest a touch screen gets to a quasimode, and exit is an
+explicit Done rather than another hold, because a mode you leave the same way you
+entered is a mode you will leave by accident.
+
+The lesson generalises past home screens. Any interface with a rearranging state can
+borrow it, and the same three parts travel: the motion says which state you are in, an
+affordance appears on each item saying what is now possible, and a clearly labelled
+exit ends it. What does not travel is the wobble as the only signal. Continuous motion
+is exactly what a reader with `prefers-reduced-motion` set has asked not to be shown,
+and it is invisible to a screen reader in any case, so the mode has to be announced in
+at least one other register: the badges, a changed toolbar, a status line, a live
+announcement. Build it so that switching the animation off leaves an interface that
+still says what state it is in, and the wobble becomes the delightful part rather than
+the load-bearing part.

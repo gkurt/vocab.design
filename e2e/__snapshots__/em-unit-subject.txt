@@ -1,0 +1,4 @@
+term:    Em
+scope:   element
+subject: div.sp-surface[data-part=card-em][data-size=14]
+text:    Storage 42 GB of 80 GB used

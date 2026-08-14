@@ -1,0 +1,4 @@
+term:    Fake scarcity
+scope:   element
+subject: div.sp-row.sp-row--wrap[data-count=14][data-mode=fake][data-part=chips][data-pose=[data-mode=fake]][data-refreshes=0]
+text:    Only 2 left at this price 14 people are viewing this now Booked 6 times in the l

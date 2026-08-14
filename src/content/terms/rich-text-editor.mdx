@@ -1,0 +1,62 @@
+---
+name: Rich text editor
+slug: rich-text-editor
+category: component
+status: published
+definition: >-
+  An editing surface that shows formatting as it will appear rather than as markup, so
+  what the writer sees is close to what readers get.
+aliases:
+  - name: RTE
+    source: component-gallery
+  - name: wysiwyg editor
+    source: component-gallery
+  - name: markdown editor
+    source: elastic-eui
+  - name: editor
+    source: atlassian
+relations: {}
+implementations: []
+sources:
+  - title: 'The Component Gallery: Rich text editor'
+    url: https://component.gallery/components/rich-text-editor/
+demo: inline
+useWhen: authors need formatting without learning a markup language
+---
+
+A rich text editor is a surface, not a strip of buttons. The
+[rich text toolbar](/rich-text-toolbar) above it is a separate component with its own
+contract, and it can be swapped for a bubble menu, a slash command, or a pair of
+keyboard shortcuts without changing what the editor is. What makes the editor the
+editor is that bold text is drawn bold in the place it will be read, so the writer
+never has to hold two documents in their head at once: the one they are typing and the
+one everybody else will see.
+
+Underneath, the honest version of this component is not a box of HTML. Browsers give
+you `contenteditable`, and its reputation is deserved: two browsers handed the same
+keystroke will produce different markup, and letting people paste arbitrary HTML into a
+field you later have to sanitise and render is a long-running source of both bugs and
+security holes. So serious editors keep a document model of their own, a tree of nodes
+and marks with a schema saying what may contain what, render that model to the screen,
+and treat every keystroke as a transaction against the tree rather than an edit to the
+DOM. ProseMirror popularised that architecture on the web and Lexical, TipTap and
+Slate all sit in the same lineage. The payoff is that collaborative editing,
+undo history, and paste cleanup become properties of the model instead of heroics.
+
+The rival genre is the markup editor, where the writer types plain text with a small
+syntax and sees the result rendered somewhere else, or not at all. Markdown wins where
+the audience is technical, where the content must stay in version control, and where
+predictability matters more than immediacy. Rich text wins where the writer should
+never learn a syntax to make a heading. The two have been converging for a decade,
+which is why Elastic's design system files its authoring surface under markdown editor
+while it looks and behaves like this one, and why most modern rich text editors quietly
+accept markdown shortcuts as you type.
+
+The surface has its own details to get right, none of which belong to the toolbar. It
+needs a placeholder that says what to write and disappears on the first character, not
+a label pretending to be one. It needs a visible focus ring, because a `div` that
+accepts typing has to announce itself as a text input to everyone, which means
+`role="textbox"`, `aria-multiline`, and an accessible name. It needs to grow with its
+content up to a limit and then scroll rather than push the page around, and it needs to
+say what it will keep: a writer who pastes a formatted table and gets three of its four
+columns is being told, too late, where the schema ends.

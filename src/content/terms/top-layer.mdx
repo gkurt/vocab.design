@@ -1,0 +1,52 @@
+---
+name: Top layer
+slug: top-layer
+category: layout
+status: published
+definition: >-
+  The layer above everything else in a document where fullscreen elements, modal dialogs
+  and popovers render, escaping every ancestor's clipping and stacking order.
+aliases:
+  - name: browser top layer
+    source: community
+relations: {}
+sources:
+  - title: "Top layer, MDN glossary"
+    url: https://developer.mozilla.org/en-US/docs/Glossary/Top_layer
+demo: inline
+useWhen: explaining why a dialog is not trapped by overflow
+---
+
+The top layer is a second painting surface the browser keeps above the whole document. It
+covers the viewport, it is painted after the root element and everything in it, and nothing
+in the page can be put in front of it. That is the part worth holding on to: it is not a
+very high z-index, it is not a z-index at all. An element promoted into it stops taking
+part in the page's painting order entirely, which is why no ancestor can clip it with
+`overflow: hidden`, no transformed parent can break its positioning, and no sibling wins
+against it by counting higher.
+
+Three things promote an element, and each is a browser feature rather than a style you can
+write. `dialog.showModal()` puts a [modal dialog](/modal-dialog) there. The `popover`
+attribute, shown with `showPopover()` or by a `popovertarget` button, puts a
+[popover](/popover) there. `requestFullscreen()` puts the fullscreen element there. In
+every case the element stays exactly where it is in the DOM, so inherited styles, event
+bubbling, and the accessibility tree are unaffected; only where it paints changes. Each
+promoted element also gets a `::backdrop` pseudo-element behind it, filling the viewport,
+which is how a modal gets its [scrim](/scrim) with no extra markup and why that scrim
+covers the page rather than a corner of it.
+
+What this ended is worth remembering, because the vocabulary of the workaround era is
+still in circulation. Before it, an overlay that had to escape its ancestors was portalled
+to the end of `<body>` by a framework, or given a z-index picked to beat whatever the last
+person picked, and both fail against a [stacking context](/stacking-context): a card with a
+transform or an opacity below one confines every z-index inside it, so a tooltip carrying
+99999 still paints under the next card along. The top layer removes the argument by taking
+the element out of the contest.
+
+Two practical notes. Ordering inside the top layer is a stack rather than a sort: the most
+recently promoted element sits on top, a dialog opened from a dialog covers its opener, and
+z-index has no say. And promotion is the browser's to give and take, so an element is
+removed the moment it is closed, `Escape` is handled for a modal dialog and for a popover
+without any script, and a popover gets [light dismiss](/light-dismiss) for free. The one
+thing to watch is that a top layer element is above your own fixed-position chrome too, so
+a sticky header or a cookie banner competing with a dialog will lose, correctly.

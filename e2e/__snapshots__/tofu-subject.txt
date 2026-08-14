@@ -1,0 +1,4 @@
+term:    Tofu
+scope:   element
+subject: div[data-part=line]
+text:    Message from about Friday

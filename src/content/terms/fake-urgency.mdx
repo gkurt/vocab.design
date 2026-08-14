@@ -1,0 +1,58 @@
+---
+name: Fake urgency
+slug: fake-urgency
+category: pattern
+status: published
+definition: >-
+  Presenting a deadline that does not exist, usually a timer that resets on reload, so
+  the reader hurries a decision they had time to make.
+aliases:
+  - name: false urgency
+    source: community
+  - name: resetting countdown
+    source: community
+  - name: perpetual sale
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Deceptive Design: Fake urgency'
+    url: https://www.deceptive.design/types
+demo: inline
+useWhen: the countdown resets when you refresh the page
+---
+
+Fake urgency is a deadline with nothing behind it. The banner says the offer ends in
+four minutes and fifty-nine seconds, the digits move, and the reader feels the clock
+even if they never read the words. Then they refresh the page and it is four fifty-nine
+again. Nothing was expiring. The timer was a pressure device rendered as a fact, and the
+decision it hurried was one the reader had all week to make. The same trick runs at
+larger scales: a sale that has been ending on Sunday every Sunday for two years, a
+"today only" price that is the only price the product has ever had, a booking screen
+that starts a fifteen-minute hold on a seat nobody else is looking at.
+
+The honest instrument it imitates is the [countdown timer](/countdown-timer), and the
+difference is not in the pixels. A real countdown reports something the system will
+enforce whether or not anyone is watching: a shipping cutoff that moves the delivery
+date, a session that signs you out, a held seat that goes back into inventory, a
+one-time code that stops working. Reload the page and an honest clock picks up where it
+was, because it is counting toward an event that exists outside the browser tab. The
+test is that simple, and it is the reason a team can usually tell which one they have
+shipped without arguing about intent: either something changes at zero, or the clock is
+the only thing that does.
+
+It sits under the [dark pattern](/dark-pattern) umbrella, catalogued at
+[deceptive.design](https://www.deceptive.design) alongside its twin,
+[fake scarcity](/fake-scarcity). The two pressure the same decision from different
+directions: fake urgency invents a limit on time, fake scarcity invents a limit on
+quantity ("only 2 left", counted by nobody). Teams often ship them together, a countdown
+above a stock badge, because the combination reads as a market rather than as a
+marketing decision.
+
+Regulators now treat manufactured deadlines as a deceptive practice rather than as
+enthusiasm: the US Federal Trade Commission has acted on false urgency claims, and the
+UK Competition and Markets Authority names urgency and pressure selling in its guidance
+on online choice architecture. The design rule that keeps a team clear is to make the
+clock earn its place. Name the deadline, name what changes when it passes, let it
+survive a reload, and if nothing at all happens at zero, write the offer as a sentence
+and let the reader decide at their own speed.

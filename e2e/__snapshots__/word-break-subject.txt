@@ -1,0 +1,4 @@
+term:    Word break
+scope:   element
+subject: p.sp-text.sp-text--ink[data-break=break-word][data-contained][data-part=column][data-pose=[data-contained]]
+text:    Receipt archived under 2f9ce1a488b04d17a3fe05c99b1d24e6 for the accounting depar

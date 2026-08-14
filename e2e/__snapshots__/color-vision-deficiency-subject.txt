@@ -1,0 +1,4 @@
+term:    Color vision deficiency
+scope:   element
+subject: div.sp-surface[data-coding=hue][data-part=panel-sim]
+text:    Deuteranopia, simulated api Passing web Failing docs Queued

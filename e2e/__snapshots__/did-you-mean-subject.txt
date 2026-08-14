@@ -1,0 +1,4 @@
+term:    Did you mean
+scope:   element
+subject: div.sp-row.sp-surface[data-mode=corrected][data-part=strip][role=status]
+text:    Showing results for receive Search instead for recieve Did you mean receive?

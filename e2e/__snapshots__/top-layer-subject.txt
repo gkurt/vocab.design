@@ -1,0 +1,4 @@
+term:    Top layer
+scope:   element
+subject: div.sp-dialog[data-layer=top][data-open][data-part=surface][data-pose=[data-layer=top]]
+text:    Order 4127 Shipped Tuesday, two parcels.

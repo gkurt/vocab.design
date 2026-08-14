@@ -1,0 +1,4 @@
+term:    Baseline grid
+scope:   element
+subject: div[data-part=lattice]
+text:    

@@ -1,0 +1,4 @@
+term:    Mica
+scope:   element
+subject: div[data-focus=active][data-part=mica]
+text:    Settings −□× DisplaySoundPower Opaque Sampled once. Nothing behind the window sh

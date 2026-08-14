@@ -1,0 +1,4 @@
+term:    Gauge
+scope:   element
+subject: div[aria-label=Disk pressure][aria-valuemax=100][aria-valuemin=0][aria-valuenow=35][data-part=gauge][data-value=35][data-zone=ok][role=meter]
+text:    0 100 35% Nominal

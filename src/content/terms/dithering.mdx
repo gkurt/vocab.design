@@ -1,0 +1,58 @@
+---
+name: Dithering
+slug: dithering
+category: color
+status: published
+definition: >-
+  Adding fine noise to a gradient or image so the eye averages neighbouring pixels into the
+  missing intermediate colours, hiding the bands.
+aliases:
+  - name: noise dither
+    source: community
+  - name: gradient dither
+    source: adobe
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Color Banding and Dithering
+    url: https://shader-tutorial.dev/advanced/color-banding-dithering/
+  - title: Control dither in gradients (Illustrator)
+    url: https://helpx.adobe.com/illustrator/desktop/paint-and-fill/create-and-edit-gradients/control-dither-in-gradients.html
+demo: inline
+useWhen: removing banding by adding fine noise
+---
+
+If [colour banding](/color-banding) is the disease, dithering is the cure, and the trade it
+makes is a good one: spend a little spatial detail to buy back colour detail. Where a ramp
+needs a value the display cannot produce, scatter pixels of the two nearest values it can,
+in the right proportion. From a normal viewing distance the eye integrates the pair and
+sees the colour that was never there. Nothing is smoothed and nothing is blurred, which is
+why dithering removes stripes while blur only softens their edges.
+
+Three families do the scattering, and the names are worth knowing because they look
+different. Ordered dithering compares each pixel against a fixed threshold matrix, usually
+a Bayer matrix, which is cheap, deterministic, and leaves a faint crosshatch that becomes
+the look in retro work. Error diffusion, of which Floyd-Steinberg is the famous one, rounds
+each pixel and pushes the leftover error onto its neighbours, giving an organic scatter
+with no repeating pattern and no way to compute one pixel independently of the last. And
+random or blue noise simply perturbs each pixel a fraction of a level, which is what a
+noise layer over a CSS gradient is doing.
+
+On the web the third one is the practical one. A [grainy gradient](/grainy-gradient) is a
+dither: an `feTurbulence` field inlined as a data URI, laid over the wash at low opacity
+with a blend mode, and it costs nothing at runtime. Illustrator and Photoshop have shipped
+a dither checkbox on gradients for years, video encoders add grain for the same reason, and
+game engines dither in the shader at the very end of the frame. The strength is the craft:
+enough noise to break the step, not so much that a flat surface reads as textured. If the
+grain is visible as grain, it has stopped being a dither and become a decision.
+
+Coarse dithering is also an aesthetic in its own right. The 1-bit Macintosh drew every grey
+it ever showed by dithering black and white, [pixel art](/pixel-art-ui) uses it for shading
+inside a tiny palette, and the deliberate roughness of a [risograph](/risograph) print
+depends on it. Reaching for that on purpose is a different job from hiding a band, and the
+tell is the scale: a dither meant to disappear is one pixel across, and a dither meant to
+be seen is not.

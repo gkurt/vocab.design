@@ -1,0 +1,4 @@
+term:    Middle click
+scope:   element
+subject: a.sp-surface[data-link=tides][data-part=link-tides][role=link][tabindex=0]
+text:    Tide tables for the harbour

@@ -1,0 +1,4 @@
+term:    Marching ants
+scope:   element
+subject: span[data-part=ants]
+text:    

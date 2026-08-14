@@ -1,0 +1,46 @@
+import { steps } from '#src/stage/choreography.ts';
+
+// The month is walked one moment at a time. Day 23 passes with nothing sent, day 31
+// takes the money, and only then does the honest version get the same walk, where the
+// reminder fires a week before the charge. The pass ends on the mount state, which is
+// the one the subject's pose requires.
+export default steps([
+  { assert: { selector: '[data-part=timeline][data-mode="forced"][data-day="0"]', state: 'visible' } },
+  { assert: { selector: '[data-part=reminder][data-state="none"]', state: 'visible' } },
+  { wait: 800 },
+  { moveTo: '[data-part=next]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=timeline][data-day="23"]', state: 'visible' } },
+  { assert: { selector: '[data-part=reminder][data-fired]', state: 'hidden' } },
+  { wait: 900 },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=timeline][data-day="31"]', state: 'visible' } },
+  { assert: { selector: '[data-part=charge][data-fired]', state: 'visible' } },
+  { assert: { selector: '[data-part=reminder][data-fired]', state: 'hidden' } },
+  { wait: 1200 },
+  { moveTo: '[data-part=mode-fair]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=timeline][data-mode="fair"][data-day="0"]', state: 'visible' } },
+  { assert: { selector: '[data-part=reminder][data-state="sent"]', state: 'visible' } },
+  { wait: 700 },
+  { moveTo: '[data-part=next]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=timeline][data-day="23"]', state: 'visible' } },
+  { assert: { selector: '[data-part=reminder][data-fired]', state: 'visible' } },
+  { wait: 900 },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=timeline][data-day="31"]', state: 'visible' } },
+  { assert: { selector: '[data-part=charge][data-fired]', state: 'visible' } },
+  { wait: 1000 },
+  { moveTo: '[data-part=mode-forced]' },
+  { click: true },
+  { wait: 600 },
+  { assert: { selector: '[data-part=timeline][data-mode="forced"][data-day="0"]', state: 'visible' } },
+  { assert: { selector: '[data-part=reminder][data-state="none"]', state: 'visible' } },
+  { wait: 800 },
+]);

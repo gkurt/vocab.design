@@ -1,0 +1,4 @@
+term:    Jiggle mode
+scope:   element
+subject: div.sp-grid[data-mode=editing][data-part=grid][data-pose=[data-mode=editing]]
+text:    Notes Mail Photos Search Clock Alerts Saved Rated

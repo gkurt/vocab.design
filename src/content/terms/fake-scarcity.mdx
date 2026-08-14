@@ -1,0 +1,58 @@
+---
+name: Fake scarcity
+slug: fake-scarcity
+category: pattern
+status: published
+definition: >-
+  Claiming limited supply that is not real, with stock counts or demand messages generated
+  to pressure a decision rather than report a fact.
+aliases:
+  - name: false scarcity
+    source: community
+  - name: invented stock count
+    source: community
+  - name: high demand badge
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Deceptive Design: Fake scarcity'
+    url: https://www.deceptive.design/types
+demo: inline
+useWhen: only three left, and the number is invented
+---
+
+Fake scarcity is a supply claim with no inventory behind it. "Only 2 left at this
+price." "14 people are viewing this right now." "Booked 6 times in the last hour." The
+sentences are written in the grammar of measurement, so they are read as measurements,
+and most of the time they are decoration: a number picked from a range, reseeded on
+every page load, tuned by whoever owns the conversion metric. The tell is that the
+figure moves when nothing about the world has moved. Refresh the listing and the crowd
+watching it changes size. Come back a week later and there are still exactly two left,
+which is a strange thing for a room that has been booked six times an hour ever since.
+
+Real scarcity is common and worth showing. A concert has a fixed number of seats, a
+print run ends, a kitchen has twelve portions of the special, and a warehouse count is
+a genuine number that reaches zero and stays there. What separates the honest version
+is that it can be wrong in public: it comes from inventory, it names its unit ("12 rooms
+for these dates" rather than "high demand"), and it goes to sold out when the supply
+does. A count that never reaches zero was never counting. So the useful design question
+is not whether to show availability, it is whether the interface would still print the
+number if the number were bad news.
+
+It belongs under the [dark pattern](/dark-pattern) umbrella and travels with
+[fake urgency](/fake-urgency), its twin in the other dimension: urgency invents a limit
+on time, scarcity invents a limit on quantity. They are usually shipped as a pair, a
+countdown above a stock badge, because two invented limits feel like a market rather
+than like a marketing decision. Naming which one is on the screen is what turns a
+review comment into a finding, since the fix for each is different: urgency needs a real
+deadline or none, scarcity needs a real count or none.
+
+Regulators reached this before most design teams did. In 2019 the UK Competition and
+Markets Authority secured formal undertakings from the largest hotel booking sites,
+[Booking.com](https://www.booking.com) among them, over pressure selling and misleading
+scarcity claims, requiring that any "only 1 room left" style statement be accurate for
+the search the reader actually ran. The US Federal Trade Commission treats invented
+demand messages as deceptive advertising by the same logic. The design rule is short:
+if you cannot point at the row in the database the badge is reading, do not draw the
+badge.

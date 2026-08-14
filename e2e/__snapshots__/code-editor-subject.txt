@@ -1,0 +1,4 @@
+term:    Code editor
+scope:   element
+subject: div.sp-surface[aria-label=Editor][data-folded=false][data-part=pane][role=group]
+text:    1 // tally the day's rows 2 const rows = load('day.csv') 3 function summarise(ro

@@ -1,0 +1,4 @@
+term:    Focal point
+scope:   element
+subject: button.sp-button.sp-button--ghost[data-lever=size][data-part=cta][data-pose=[data-lever]][type=button]
+text:    Reserve

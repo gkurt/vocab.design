@@ -1,0 +1,26 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { assert: { selector: '[data-part=line]', state: 'visible' } },
+  { assert: { selector: '[data-part=marker]', state: 'visible' } },
+  { wait: 700 },
+  { moveTo: '[data-part=exponent]' },
+  { wait: 900 },
+  // Each pick is a stated setting, not a flip: the script asks for the feature, then
+  // asks for the fallback back, so a pass joined halfway still lands where it says.
+  { moveTo: '[data-part=seg-variant]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=line][data-raised="variant"]', state: 'visible' } },
+  { assert: { selector: '[data-part=readout]', state: 'visible' } },
+  { moveTo: '[data-part=seg-css]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=line][data-raised="css"]', state: 'visible' } },
+  { moveTo: '[data-part=grown]' },
+  { wait: 900 },
+  { assert: { selector: '[data-part=grown]', state: 'visible' } },
+  { moveTo: '[data-part=held]' },
+  { wait: 800 },
+  { assert: { selector: '[data-part=held]', state: 'visible' } },
+]);

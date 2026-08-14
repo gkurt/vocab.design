@@ -1,0 +1,51 @@
+---
+name: Baseline grid
+slug: baseline-grid
+category: layout
+status: published
+definition: >-
+  A set of evenly spaced horizontal lines that every line of text sits on, so type in
+  adjacent columns lines up across the page.
+aliases:
+  - name: typographic grid
+    source: community
+relations: {}
+demo: inline
+useWhen: text in neighbouring columns must line up
+---
+
+A baseline grid is an artifact, not a habit. It is a ruled field of horizontal lines,
+spaced by one line of body text, that a layout is set onto: every line of type in every
+column comes to rest on one of those lines, whatever size or weight it is. The payoff is
+cross-column alignment. Two columns of text side by side, set on the same grid, read as
+one page rather than as two independent stacks that happen to be adjacent, and the eye
+crossing the [gutter](/gutter) lands on a line instead of between two.
+
+[Vertical rhythm](/vertical-rhythm) is the practice of sitting on the grid; this term is
+the grid you sit on. The unit is chosen first: a body size and a
+[leading](/leading) that multiply to a whole number, say 13px type at 20px of line
+height, and from there the 20 is the only vertical measurement in the design.
+Headings take line heights that are multiples of the unit rather than of their own font
+size, so a large heading is set on two lines of the grid rather than on 1.2 of itself.
+Space above and below a block, rule heights, image boxes, and list indents are all
+counted in lines. Borders and padding are where a grid quietly leaks, since a 1px edge
+pushes everything under it off by one unless the padding beside it gives the pixel back.
+
+Design tools ship the grid as a drawable object, which is why the term is usually met as
+a setting rather than as a theory: a baseline grid in a page layout or interface tool is
+a repeating rule you switch on, snap to, and switch off before export. Print got there
+first, where facing pages had to align across the spine and a shared grid was the only
+guarantee, and the vocabulary arrived on the web with the rest of the Swiss grid
+apparatus. It is a different grid from a column grid such as the
+[twelve column grid](/twelve-column-grid): one rules the horizontal divisions, the other
+rules the vertical ones, and a full grid system carries both.
+
+On the web the grid is approximate. CSS aligns line boxes rather than
+[baselines](/baseline), so the leading is split half above and half below the text and
+the true baseline lands wherever the font's own metrics put it, which moves when a
+fallback face with a different x-height loads. Reader-set text sizes, fluid type, and
+responsive line height changes all shift the unit at runtime, and any embed of unknown
+height breaks the run under it. `text-box-trim` and `text-box-edge` are what finally make
+strict alignment tractable by trimming the half leading away. Short of that, most teams
+keep the grid where it earns its keep, in multi column text and dense tabular layouts,
+and settle everywhere else for a spacing scale derived from the same unit.

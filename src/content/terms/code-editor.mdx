@@ -1,0 +1,58 @@
+---
+name: Code editor
+slug: code-editor
+category: component
+status: published
+definition: >-
+  A text area specialised for code, with a gutter of line numbers, syntax colouring
+  and a caret that understands indentation.
+aliases:
+  - name: code view
+    source: cloudscape
+  - name: code block
+    source: shadcn
+relations: {}
+implementations: []
+sources:
+  - title: Cloudscape components
+    url: https://cloudscape.design/components/
+demo: inline
+useWhen: an editing surface built for code
+---
+
+A textarea holds characters. A code editor holds a document it has an opinion about.
+The difference shows up in three places at once: the text is tinted by what each run
+of characters means, a gutter runs down the left with line numbers and the small
+controls that only make sense per line, and the caret behaves as though indentation
+were structure rather than spaces. Press Enter inside a block and the new line starts
+where the last one did. Type a bracket and the closing one arrives with it. Select a
+name and every other occurrence of it lights up. None of that is decoration; it is the
+editor demonstrating that it has parsed what is in front of it.
+
+The gutter is where a code editor keeps everything that belongs to a line rather than
+to a character: numbers, fold arrows, breakpoints, blame, the little marks that say
+this line changed since the last commit. Folding is the clearest case. Collapsing a
+function body is not hiding text, it is saying that the editor knows where the body
+starts and ends, and a collapsed block that snaps back open at the right boundary is
+the whole promise in miniature. The current line usually gets a wash of colour behind
+it too, which is a small thing until you look away and back at a screen of four
+hundred lines.
+
+Almost nobody writes this from scratch. Two engines carry the web:
+[Monaco](https://microsoft.github.io/monaco-editor/), the editor extracted from VS
+Code, which brings the full language-server experience and a bundle to match, and
+[CodeMirror](https://codemirror.net/), which is smaller, modular, and much friendlier
+on mobile. Both cost real weight, so both are usually loaded lazily, behind the moment
+someone actually starts editing. Read-only code samples on a documentation page are a
+different component wearing similar paint: they get the tinting and the copy button
+and no caret at all, which is why shadcn calls that one a code block.
+
+A plain textarea is still right more often than the tooling suggests. A one-line CSS
+selector, a webhook URL, a snippet someone is pasting rather than composing: those want
+a monospace font, sensible wrapping, and nothing else. Reach for a real editor when the
+work is structured enough that a person would otherwise count brackets by hand, and
+remember what the upgrade costs in accessibility. A code editor is a custom widget
+pretending to be a text field, so it has to declare its role, keep Escape and Tab
+behaving predictably enough to escape from, and give screen reader users a path that
+does not depend on seeing colour. Colour alone never carries meaning here anyway, since
+a syntax theme is one of the first things people replace.

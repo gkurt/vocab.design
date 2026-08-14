@@ -1,0 +1,59 @@
+---
+name: Minimap
+slug: minimap
+category: component
+status: published
+definition: >-
+  A shrunken overview of a long document or canvas beside the scrollbar, with a box
+  showing which part is currently on screen.
+aliases:
+  - name: code minimap
+    source: community
+  - name: overview ruler
+    source: community
+  - name: document map
+    source: community
+  - name: navigator
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: NameThatUI element index
+    url: https://namethatui.com/
+demo: inline
+useWhen: a zoomed out map of a long document or canvas
+---
+
+A minimap is two things stacked on each other. The first is the whole document drawn
+too small to read, so that its shape survives and its words do not: the ragged right
+edge of prose, the stepped indentation of a nested block, the solid slab of a table,
+the blank stretch where a section ends. The second is a translucent box laid over that
+drawing to say which slice of it you are currently looking at. Between them they answer
+a question a position indicator cannot: not only where am I, but what else is there.
+
+This is the overview plus detail arrangement, where a compressed view of everything sits
+permanently beside a readable view of one part, and the two stay locked together. The
+map is read as texture rather than as content, which is why it works at scales where no
+character is legible. People navigate by remembering that the thing they want was near
+the wide block two thirds down, and the map is the only place that memory has anything
+to hold on to. It is also a control, not a picture. Drag the box and the document
+scrolls under it; click anywhere on the strip and the view jumps there.
+
+The pattern came to most people through code editors. [Sublime
+Text](https://www.sublimetext.com) shipped it as a signature feature, [VS
+Code](https://code.visualstudio.com) made it a default, and design tools borrowed the
+same idea for canvases, where the map covers two dimensions instead of one. A leaner
+relative is the overview ruler, a narrow strip that draws no text at all and instead
+marks positions worth knowing about: search hits, errors, changed lines, other people's
+cursors. That variant is often the better trade, since the marks are the part a reader
+actually navigates by.
+
+Most interfaces do not need one. A [scrollbar](/scrollbar) already reports position and
+proportion, and it does it in fourteen pixels rather than sixty. A minimap earns its
+width only when the content has visual structure worth compressing and is long enough
+that scrolling to look is expensive, which rules out a settings page and most article
+pages. It also has real costs: it renders the document twice, it stops meaning anything
+once a file is long enough that a line is thinner than a pixel, and it is a pointer only
+affordance. Keyboard and screen reader users get nothing from a drawing of the text, so
+the minimap must always be a shortcut to somewhere reachable another way, never the only
+route.

@@ -1,0 +1,4 @@
+term:    Conic gradient
+scope:   element
+subject: div[data-part=disc][data-shape=wheel]
+text:    

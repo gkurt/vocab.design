@@ -1,0 +1,4 @@
+term:    Politeness level
+scope:   element
+subject: div.sp-row[data-level=idle][data-part=regions]
+text:    aria-live="polite" Empty aria-live="assertive" Empty

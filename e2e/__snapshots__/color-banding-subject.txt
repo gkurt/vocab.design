@@ -1,0 +1,4 @@
+term:    Color banding
+scope:   element
+subject: div[data-levels=6][data-part=ramp]
+text:    

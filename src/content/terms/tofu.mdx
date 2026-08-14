@@ -1,0 +1,56 @@
+---
+name: Tofu
+slug: tofu
+category: typography
+status: published
+definition: >-
+  The empty rectangle a font renders when it has no glyph for a character, named for the
+  block of bean curd it resembles.
+aliases:
+  - name: notdef glyph
+  - name: .notdef
+  - name: missing glyph box
+  - name: empty box character
+  - name: replacement box
+relations: {}
+sources:
+  - title: Tofu (Words of Type)
+    url: https://wiki.wordsoftype.com/en/entry/tofu
+  - title: Notdef glyph (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Notdef_glyph
+demo: inline
+useWhen: naming the empty box where a character should be
+---
+
+Tofu is the blank rectangle you get when a font is asked to draw a character it has no
+shape for. The nickname is the resemblance to a block of bean curd, and it stuck hard
+enough to name a typeface project: [Noto](https://fonts.google.com/noto) is short for
+"no more tofu", and its stated goal is a glyph for every character Unicode encodes, in
+every script, so that no reader anywhere meets a row of boxes where their language
+should be.
+
+Not every box means the same thing. The one the font draws itself is `.notdef`, glyph
+zero, the shape every font file reserves for "I was asked for this and I have nothing";
+most faces draw it as a plain rectangle, and a few draw nothing at all, which is worse,
+because a character that fails silently is invisible until somebody counts. A box with
+four tiny hexadecimal digits inside it is a last resort face telling you the codepoint
+it could not set, which makes it the most useful box of the three. And U+FFFD, the
+replacement character, is a different failure entirely: it is not a missing
+[glyph](/glyph) but a run of bytes that was not valid text, put there by whatever
+decoded the file, so it points at an encoding bug rather than at a font.
+
+Tofu is what the end of a [font stack](/font-stack) looks like when it runs out. The
+browser walks the families you listed, then the system's own
+[fallback fonts](/fallback-font), and draws a box only when nothing on the machine
+covers the character. Subsetting a [web font](/web-font) to the Latin range is the
+most reliable way to manufacture one: the page looks immaculate until a user types
+their own name. Emoji are the other common source, since a codepoint asking for emoji
+presentation needs a colour emoji font present at all, and an
+[icon font](/icon-font) shows the same rectangle when its file fails to load, except
+that there the box stands in for a control nobody can now name.
+
+What shipping tofu tells a reader is that their name, their language, or their script
+was not in the room when the product was built. The fixes are unglamorous: keep a broad
+fallback at the end of every stack, subset by the characters your users actually enter
+rather than by the ones in your marketing copy, and test with text you did not write
+yourself. A box in a screenshot is a bug report, not a rendering quirk.

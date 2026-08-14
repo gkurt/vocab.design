@@ -1,0 +1,63 @@
+---
+name: Thumb zone
+slug: thumb-zone
+category: layout
+status: published
+definition: >-
+  The arc of a phone screen a thumb reaches comfortably in a one handed grip, with harder
+  to reach bands above and across from it.
+aliases:
+  - name: reachability
+    source: community
+  - name: thumb arc
+    source: community
+  - name: one handed reach
+    source: community
+  - name: green zone
+    source: community
+relations: {}
+sources:
+  - title: "The Thumb Zone: Designing For Mobile Users"
+    url: https://www.smashingmagazine.com/2016/09/the-thumb-zone-designing-for-mobile-users/
+demo: inline
+useWhen: placing primary actions within easy reach on phones
+---
+
+Hold a phone in one hand and the thumb pivots from a fixed point near the bottom corner,
+sweeping an arc across the screen. Everything inside that arc can be tapped without moving
+the hand. Above it is a band that needs a stretch, and the far top corner, diagonally
+opposite the thumb, needs a regrip or a second hand. The zone is usually drawn as a heat
+map over the screen, warm at the bottom and cold at the top, and the useful part of the
+picture is that the arc has a fixed radius while phones keep getting taller: a 6.7 inch
+screen has the same reachable region a 4 inch screen did, and a great deal more that is
+out of it.
+
+The vocabulary comes from field research on how phones are actually held, most of it
+traceable to Steven Hoober's observation that a large share of phone use is one handed and
+thumb driven rather than the two handed, index finger posture interfaces were being drawn
+for. Two details matter more than the exact percentages. The map is handed, so a right
+thumb's easy region is the bottom right and a left grip mirrors it, which makes the honest
+common ground a band across the bottom of the screen rather than one corner. And the arc
+is a comfort gradient, not a boundary: the stretch band is reachable, just slow and
+unstable, which is exactly the wrong quality for a control people hit dozens of times a
+session.
+
+Most mobile conventions are this map made concrete.
+[Bottom navigation](/bottom-navigation) sits where it does because the top of the screen is
+the worst place for the thing tapped most; the
+[floating action button](/floating-action-button) parks the primary action in the corner
+nearest the thumb; [action sheets](/action-sheet) rise from the bottom edge instead of
+appearing as centred dialogs. Browsers moved their address bars down for the same reason,
+and both mobile platforms ship a system gesture that slides the whole screen into reach for
+the cases that cannot be designed around. The zone also has a reading in the other
+direction: putting a destructive or irreversible control in the hard band is a legitimate
+way to make it deliberate, as long as it is discoverable.
+
+Two limits are worth stating. The thumb zone answers where a control goes, not how big it
+is, so it never substitutes for [touch target size](/touch-target-size): a small target in
+the easy band is still a mis-tap. And the bottom edge is contested space, shared with the
+home indicator and the browser chrome, so a reach-friendly bar has to respect the
+[safe area](/safe-area) or it trades one problem for another. Grips also vary more than
+any single diagram admits, since people switch hands, use two thumbs while typing, and hold
+a phone differently when walking, which is why the map is a heuristic for placing the one
+or two actions that matter rather than a rule that governs a whole layout.

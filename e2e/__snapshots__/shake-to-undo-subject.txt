@@ -1,0 +1,4 @@
+term:    Shake to undo
+scope:   element
+subject: div.sp-surface[data-part=device][data-state=rest]
+text:    Notes 9:41 Ask about the boilerBring the parcel slip Call the landlord back Undo

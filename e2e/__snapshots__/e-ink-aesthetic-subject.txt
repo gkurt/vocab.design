@@ -1,0 +1,4 @@
+term:    E-ink aesthetic
+scope:   element
+subject: div[data-part=screen]
+text:    THE WEATHER MACHINE Chapter Three It had been running since before the town had 

@@ -1,0 +1,4 @@
+term:    Presence indicator
+scope:   element
+subject: span[aria-label=Rae O. is offline][data-part=dot-rae][data-state=offline][role=img]
+text:    

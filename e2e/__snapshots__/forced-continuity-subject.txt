@@ -1,0 +1,4 @@
+term:    Forced continuity
+scope:   element
+subject: div.sp-surface[data-day=0][data-mode=forced][data-part=timeline][data-pose=[data-mode=forced]]
+text:    Day 0Card taken Day 31Charged 79.00 Day 23No reminder sent

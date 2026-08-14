@@ -1,0 +1,64 @@
+---
+name: Coach mark
+slug: coach-mark
+category: component
+status: published
+definition: >-
+  A temporary message anchored to a control that teaches what it does, often chained
+  into a numbered sequence across a screen.
+aliases:
+  - name: coachmark
+    source: community
+  - name: hotspot
+    source: cloudscape
+  - name: beacon
+    source: community
+  - name: tour step
+    source: community
+  - name: spotlight tooltip
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: Coach mark, Adobe Spectrum
+    url: https://spectrum.adobe.com/page/coach-mark/
+demo: inline
+useWhen: a teaching bubble pointing at a control
+---
+
+A coach mark is the smallest unit of teaching an interface can offer: one message,
+anchored to one control, that says what that control does. It usually arrives with a
+beacon, the pulsing dot or ring that marks the spot before anyone has read anything,
+and it leaves for good once acknowledged. [Adobe
+Spectrum](https://spectrum.adobe.com/page/coach-mark/) treats it as the building block
+of onboarding rather than as onboarding itself, which is the right way round: chain
+several and you have a tour, but the piece is still the piece.
+
+Three neighbours are worth separating, because the words get swapped constantly. A
+[feature spotlight](/feature-spotlight) announces that something is new, which is a
+claim about the changelog rather than about the reader; a coach mark makes no claim
+about novelty and will happily explain a control that has been there for years. An
+[onboarding tour](/onboarding-tour) is a sequence with a counter, a Next button, and a
+Skip, and it takes the screen hostage until it is finished or refused. And a spotlight
+in the literal sense dims everything except its target with a scrim, which a coach mark
+does not do: the surrounding interface stays lit, stays clickable, and stays the thing
+the reader came for.
+
+That last point is the one implementations fail. A coach mark must never swallow the
+control it points at, so it is placed beside its anchor rather than over it, it takes
+no pointer events on the ring it draws, and it flips to the other side when the anchor
+is near an edge instead of being clipped. Dismissal has to be permanent and per person,
+recorded server side rather than in a cookie that a second device knows nothing about,
+because nothing sours a product faster than a tip that returns every session. Give it a
+real dismiss control, let Escape do the same job, and never make it disappear on a timer:
+the reader may still be reading.
+
+Treat every coach mark as a bug report on the control it points at. If a button needs a
+paragraph of explanation before anyone will press it, the cheapest fix is usually a
+clearer label, a better icon, or an empty state that explains itself, and the second
+cheapest is a [tooltip](/tooltip) that shows up when someone is already looking. Two or
+three coach marks in a product are a kindness; twelve are an admission. As for the
+mechanics, the callout is a labelled dialog with its own focus handling, the beacon is
+a real button rather than a decorative dot, and the pulse stops for a reader who has
+asked for reduced motion, since an animation that never ends is exactly the thing that
+request is about.
