@@ -13,6 +13,7 @@ bun run dev        # Astro dev server (port 4321)
 bun run build      # Static build to dist/
 bun run test       # Unit tests (bun test)
 bun run test:e2e   # Specimen smoke tests: builds, serves on 4322, plays every choreography
+bun run test:e2e:new  # Same suites, only for demos without a committed subject snapshot
 bun typecheck      # astro sync + type check (TypeScript 7, native tsc)
 bun validate       # Content gates: schema, relations, symmetry, stubs, demo files
 bun run lint       # Lint
@@ -24,7 +25,11 @@ bun run checks     # Everything: check + typecheck + test + validate + test:e2e
 `bun run test:e2e` needs a browser once: `bunx playwright install chromium`. It builds
 the site and previews it on 4322, so it never collides with `bun run dev`. Run
 `bun run test:e2e:update` after a deliberate change to what a specimen identifies as,
-and read the diff in `e2e/__snapshots__/` before committing it.
+and read the diff in `e2e/__snapshots__/` before committing it. After authoring new
+specimens, run `bun run test:e2e:new` first: it plays only the demos that have no
+committed subject snapshot yet (writing those snapshots on its first run), so
+behavioral failures surface in minutes instead of a full-collection pass; the full
+`bun run test:e2e` then runs once, before the commit.
 
 Do not put `[run] bun = true` back in `bunfig.toml`. It symlinks `node` to Bun for
 package.json scripts and everything they spawn, which Playwright's test runner cannot

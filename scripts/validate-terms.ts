@@ -7,14 +7,24 @@ import { slugify } from '#src/lib/slug.ts';
 
 /**
  * Content gates (SPEC §11): schema validation, slug/alias uniqueness, relation
- * integrity + symmetry (stubs exempt), stub minimality, demo file existence, and
- * the two things a specimen must carry before the e2e harness can judge it.
+ * integrity + symmetry (stubs exempt), stub minimality, demo file existence, the
+ * things a specimen must carry before the e2e harness can judge it, and the
+ * stage-escape rules of SPEC §5-§7 (bare timers, pointer/modal/view-transition
+ * escapes, transitionend waits, ungated script animation, invalid selectors).
  */
 const TERMS_DIR = 'src/content/terms';
 const DEMOS_DIR = 'src/content/demos';
 const SYMMETRIC = ['contrastWith', 'seeAlso'] as const;
 /** A timer call that is not `clock.`-qualified, so the stage cannot freeze or stop it. */
 const BARE_TIMER = /(?<![.\w])((?:set|clear)(?:Timeout|Interval)|(?:request|cancel)AnimationFrame)\s*\(/;
+/** APIs that reach past the stage: they capture the reader's real pointer or paint over the page. */
+const ESCAPES_STAGE = /\.(requestPointerLock|showModal)\s*\(/;
+/** Document-scope transitions belong to `demo: iframe` specimens only (SPEC §7). */
+const VIEW_TRANSITION_CALL = /\.startViewTransition\s*(\(|\?\.)/;
+/** Nothing may wait on transitionend: it never fires under reduced motion (SPEC §6). */
+const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitionend\s*=/;
+/** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
+const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
 /** A domain named in prose. Sites the prose points a reader at have to be anchors. */
 const BARE_DOMAIN = /\b[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:design|org|com|net|io|dev|app)\b/g;
 
@@ -106,12 +116,26 @@ for (const term of terms.values()) {
       // pose, dismisses the subject mid-inspection, and outlives its own mount.
       const stray = source.match(BARE_TIMER);
       if (stray) errors.push(`${term.slug}: demo calls the global ${stray[1]}; use the clock the stage passes mount() (SPEC §6)`);
+
+      const escapee = source.match(ESCAPES_STAGE);
+      if (escapee) errors.push(`${term.slug}: demo calls ${escapee[1]}(), which reaches past the stage; simulate it and say so (SPEC §7)`);
+      if (term.demo !== 'iframe' && VIEW_TRANSITION_CALL.test(source))
+        errors.push(`${term.slug}: startViewTransition is document-scoped; only a \`demo: iframe\` specimen may call it (SPEC §7)`);
+      if (TRANSITIONEND_WAIT.test(source))
+        errors.push(`${term.slug}: demo waits on transitionend, which never fires under reduced motion; time it on the clock (SPEC §6)`);
+      if (source.includes('.animate(') && !source.includes('prefersReducedMotion'))
+        errors.push(`${term.slug}: demo animates in script without asking prefersReducedMotion (SPEC §6)`);
     }
 
     // A script with nothing to prove passes the smoke test by saying nothing (SPEC §8).
     const scriptFile = Bun.file(join(DEMOS_DIR, term.slug, 'choreography.ts'));
-    if ((await scriptFile.exists()) && !(await scriptFile.text()).includes('assert:'))
-      errors.push(`${term.slug}: choreography needs at least one assert, or it proves nothing (SPEC §8)`);
+    if (await scriptFile.exists()) {
+      const script = await scriptFile.text();
+      if (!script.includes('assert:')) errors.push(`${term.slug}: choreography needs at least one assert, or it proves nothing (SPEC §8)`);
+      const invalid = script.match(UNQUOTED_DIGIT_SELECTOR);
+      if (invalid)
+        errors.push(`${term.slug}: choreography selector ${invalid[0]} has an unquoted value starting with a digit; quote it (SPEC §8)`);
+    }
   }
 }
 

@@ -200,6 +200,15 @@ component library would save — without the branding or churn.
   it can do to a timer taken from the global scope: that one keeps running under a
   pose, dismisses the subject mid-inspection, and outlives the mount that set it.
   `bun validate` rejects a bare `setTimeout` in a demo.
+- **The stage cannot be escaped.** A demo never calls an API whose effect reaches past
+  the exhibit frame: `requestPointerLock()` captures the reader's real pointer,
+  `showModal()` paints over the page, and `document.startViewTransition()` is
+  document-scoped and belongs to `demo: iframe` specimens alone. Simulate the effect
+  inside the frame and say so in a comment. A demo also never waits on `transitionend`
+  (it never fires under reduced motion; time the settle on the clock), and a demo that
+  animates in script asks `prefersReducedMotion` first. All enforced by `bun validate`,
+  which likewise rejects a choreography selector whose unquoted attribute value starts
+  with a digit (invalid CSS that only fails at play time).
 
 ## 6. Specimen stage
 
