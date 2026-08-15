@@ -68,8 +68,8 @@ src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme)
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
-playwright.config.ts        # e2e runner: builds, previews on 4322, three passes over every specimen
-e2e/*.e2e.ts                # Choreography · identify snapshots · takeover · reduced-motion guard (SPEC §8)
+playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
+e2e/*.e2e.ts                # Choreography · identify snapshots · identify mid-attract · takeover · reduced-motion guard (SPEC §8)
 e2e/harness.ts              #   specimen discovery, stage helpers, subject description
 e2e/__snapshots__/          #   committed: what each specimen identifies as
 e2e/__artifacts__/          #   generated: identify stills + the contact sheet

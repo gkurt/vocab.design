@@ -410,7 +410,7 @@ built on `<summary>` or a `<label>`, or on any other click the browser handles i
 would work perfectly under a real cursor and go still in attract mode. Testing the path
 that ships is the only way that failure is ever seen, and it drives both isolation
 modes through the same seam, so a framed specimen is graded exactly as hard as an
-inline one. Three runs, for three questions:
+inline one. Four runs, for four questions:
 
 - **Choreography**, at full speed with motion on. Cursor travel and the beats between
   steps are what the demo is timed against; a tooltip has to be given its hover delay.
@@ -420,6 +420,14 @@ inline one. Three runs, for three questions:
   text snapshot of its subject's shape (tag, kit classes, and the state attributes it
   carries when the spotlight lands) plus a still; the stills are collected into one
   contact sheet, so what all the specimens claim can be read in a single pass.
+- **Identify mid-attract**, with motion on. Reduced motion always poses the mount
+  state, so it can never catch the live class of bug: a subject transparent when the
+  spotlight lands, or a pose of a state the subject's `data-pose` calls dishonest.
+  This run lets attract own the stage, holds identify at one mid-script moment, waits
+  out the summon (and then one beat more, because a pose settles the instant a reveal
+  begins and its fade deserves the same room any claim gets), and holds the settled
+  pose to the specimen's word: one subject, a real box, visible ink, `data-pose`
+  satisfied, the pin bearing the headword.
 - **Takeover**, also under reduced motion, where the stage rests on a pose. One quick
   click on the posed subject, with no pause between arriving and pressing so the hover
   dwell cannot wake the demo first, and one question: did the click reach an element
