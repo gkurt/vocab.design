@@ -1160,26 +1160,6 @@
     "notes": "Formerly Dark Patterns. 18 pattern types confirmed live on the types index, each mapped to laws and enforcement actions, all free to read with no repo and no stated licence. The naming authority for this family (confirmshaming, sneaking, hard to cancel, privacy zuckering), which is why 17 rows point at it. Note that deceptive.design 301s to www.deceptive.design, so rows should carry the www form."
   },
   {
-    "id": "css",
-    "name": "CSS",
-    "vendor": "W3C CSS Working Group",
-    "kind": "spec",
-    "docsUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS",
-    "repoUrl": "https://github.com/w3c/csswg-drafts",
-    "availability": "open-source",
-    "license": null,
-    "trust": {
-      "githubStars": 4859,
-      "npmPackage": null,
-      "npmWeeklyDownloads": null,
-      "official": true,
-      "maintained": true,
-      "asOf": "2026-08-10"
-    },
-    "tracked": false,
-    "notes": "Consolidation candidate. Every one of the 17 rows using this id links to an MDN page (easing-function, @starting-style, view transitions, @keyframes), so the honest join is mdn, with w3c-css kept for the normative text. Stars and repo here are the CSS Working Group drafts repo (no SPDX licence reported; the drafts carry the W3C document licence). Recommend rewriting these rows to systemId mdn and retiring this id."
-  },
-  {
     "id": "goodui",
     "name": "GoodUI",
     "vendor": "Jakub Linowski",
@@ -1238,26 +1218,6 @@
     },
     "tracked": false,
     "notes": "About 90 patterns across 10 categories (forms, navigation, data display, AI intelligence), free and community maintained, last pushed 2026-06-30. GitHub reports no SPDX licence. /patterns 308s to /patterns/getting-started, so rows carrying the short URL should be updated. Low star count for its coverage, so treat it as a naming second opinion rather than an authority."
-  },
-  {
-    "id": "uxpatterns-dev",
-    "name": "UX Patterns for Devs",
-    "vendor": "David Dias",
-    "kind": "pattern-catalog",
-    "docsUrl": "https://uxpatterns.dev/patterns/getting-started",
-    "repoUrl": "https://github.com/thedaviddias/ux-patterns-for-developers",
-    "availability": "open-source",
-    "license": null,
-    "trust": {
-      "githubStars": 229,
-      "npmPackage": null,
-      "npmWeeklyDownloads": null,
-      "official": false,
-      "maintained": true,
-      "asOf": "2026-08-10"
-    },
-    "tracked": false,
-    "notes": "Duplicate id. Same site, same URL and same repo as uxpatterns; two rows (Activity Feed, Comparison Table) picked up the domain-style spelling. Recommend rewriting those rows to systemId uxpatterns and deleting this entry."
   },
   {
     "id": "tailwind",
@@ -1320,7 +1280,7 @@
     "notes": "Partially gated: 69 USD buys all layouts, the generators, the EPUB and lifetime updates, while the rudiments, axioms and a few layouts (Stack, Sidebar, Switcher) read free. The Sidebar page loaded in full for this sweep. It is the naming authority for the algorithmic layout vocabulary (Stack, Cluster, Sidebar, Switcher, Cover, Reel, Frame, Imposter), so nine layout rows depend on it even though the catalogue as a whole is a purchase. 3rd edition, still updated."
   },
   {
-    "id": "framer-motion",
+    "id": "motion",
     "name": "Motion",
     "vendor": "Motion (Matt Perry)",
     "kind": "component-library",
@@ -1337,27 +1297,7 @@
       "asOf": "2026-08-10"
     },
     "tracked": false,
-    "notes": "Renamed. Framer Motion is now Motion, the repo is motiondivision/motion and the docs are motion.dev, which is where all eight rows already point. Both packages are live: motion at 17,582,090/week and the legacy framer-motion at 42,856,174/week, so the old name still carries the larger share of installs. Owns the React animation vocabulary these rows use (layout animations, layoutId, AnimatePresence, spring damping). Consider renaming the id to motion once the term rows are rewritten."
-  },
-  {
-    "id": "tailwind-ui",
-    "name": "Tailwind Plus (formerly Tailwind UI)",
-    "vendor": "Tailwind Labs",
-    "kind": "component-library",
-    "docsUrl": "https://tailwindcss.com/plus",
-    "repoUrl": null,
-    "availability": "paid",
-    "license": "Commercial (Tailwind Plus licence)",
-    "trust": {
-      "githubStars": null,
-      "npmPackage": null,
-      "npmWeeklyDownloads": null,
-      "official": false,
-      "maintained": true,
-      "asOf": "2026-08-10"
-    },
-    "tracked": false,
-    "notes": "Duplicate id. This is the same product as the existing tailwind-plus entry: the seven rows point at tailwindcss.com/plus/ui-blocks/* pages, where the first example or two preview free and every later block replaces the code with a Get the code link to the pricing anchor. Recommend rewriting these rows to systemId tailwind-plus and deleting this entry. Block names (application shell, sidebar layout, multi-column, hero section, grid list, page heading) are still worth keeping as aliases."
+    "notes": "Renamed. Framer Motion is now Motion, the repo is motiondivision/motion and the docs are motion.dev, which is where all eight rows already point. Both packages are live: motion at 17,582,090/week and the legacy framer-motion at 42,856,174/week, so the old name still carries the larger share of installs. Owns the React animation vocabulary these rows use (layout animations, layoutId, AnimatePresence, spring damping). Consider renaming the id to motion once the term rows are rewritten. [renamed from framer-motion in the 2026-08-15 canonicalize pass]"
   },
   {
     "id": "wcag",
@@ -2078,26 +2018,6 @@
     },
     "tracked": false,
     "notes": "Chrome's own documentation and blog, free and openly licensed. Its row cites the App Shell Architecture post, which is live but stamped Last updated 2015-11-16 and predates the tooling it recommends, so it is historical evidence for the name rather than current guidance. Consolidation candidate: chrome-developers, chrome and web-dev are all Google Chrome team publications; recommend one id (chrome-developers) covering developer.chrome.com and keeping web-dev separate only if the domain distinction matters."
-  },
-  {
-    "id": "chrome",
-    "name": "Chrome for Developers",
-    "vendor": "Google (Chrome team)",
-    "kind": "pattern-catalog",
-    "docsUrl": "https://developer.chrome.com/docs",
-    "repoUrl": null,
-    "availability": "free-docs",
-    "license": "CC BY 4.0 (content), Apache-2.0 (code samples)",
-    "trust": {
-      "githubStars": null,
-      "npmPackage": null,
-      "npmWeeklyDownloads": null,
-      "official": true,
-      "maintained": true,
-      "asOf": "2026-08-10"
-    },
-    "tracked": false,
-    "notes": "Duplicate id. A bare chrome on one row (the 300ms tap delay post, live on developer.chrome.com) where chrome-developers was used elsewhere for the same publication. Recommend rewriting that row to systemId chrome-developers and deleting this entry. Kept for now so the join does not drop the row."
   },
   {
     "id": "angular",

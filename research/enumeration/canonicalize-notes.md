@@ -1,220 +1,148 @@
 # Canonicalize worklist (stage 2 input)
 
 Consolidated from the enumeration sweep agents' reports (2026-08-10) plus the merge
-run. The sweeps for interaction, typography, color, and systems completed their data
-files but lost their summary notes to a session crash; their per-record `notes` fields
-survive in the JSON.
+run, then largely RESOLVED by the canonicalize pass of 2026-08-15 (see below) and by
+ten authoring rounds settling contested slugs as they were authored. What remains
+live is marked; everything else is kept as the record of what was decided and why.
 
 ## Merge stats
 
-- 866 records swept, 815 unique candidates, against 48 existing terms.
-- By category: component 160 · pattern 118 · typography 108 · color 85 · layout 82 ·
-  accessibility 78 · interaction 75 · motion 62 · aesthetic 47.
-- By priority: head 99 · core 287 · tail 429.
-- 748 implementation rows, 706 verified at sweep time; 57 systems in the registry
-  before gap-filling.
-- Full mechanical issue list: run `bun scripts/merge-enumeration.ts`.
+- Round one: 866 records swept, 815 unique candidates, against 48 existing terms.
+- Round two added 210 records, taking the pool to 1025 unique candidates.
+- After the 2026-08-15 canonicalize pass the pool holds 966 records (six folded into
+  existing terms, two added by splits), all slug-unique, with registry ids
+  consolidated (css→mdn, uxpatterns-dev→uxpatterns, chrome→chrome-developers,
+  tailwind-ui→tailwind-plus, framer-motion→motion; systems.json 114→110).
 
-## Duplicate slugs (human must pick one home per slug)
+## RESOLVED: duplicate slugs
 
-component vs pattern: pagination, wizard, inline-edit, coach-mark, captcha,
-typing-indicator, presence-indicator, input-mask, zebra-striping, expandable-row,
-comparison-table. pattern vs interaction: pull-to-refresh, swipe-to-dismiss,
-drop-indicator, drag-preview, drag-to-reorder, scroll-hijacking, infinite-scroll,
-typeahead, marquee-selection, undo. layout vs interaction: scroll-snap, thumb-zone.
-component vs interaction: multi-select (NOTE: these are two different concepts under
-one word, the form control vs the shift/ctrl selection gesture; rename one rather
-than merge). pattern vs motion: scrollytelling. interaction vs motion: rubber-banding,
-momentum-scrolling, microinteraction. layout vs motion: layout-shift, scroll-snap
-(three-way with layout and interaction). motion vs typography: overshoot (two senses:
-animation past the target vs letterform past the baseline; likely two terms, rename
-one). layout vs typography: baseline-grid. color vs aesthetic: mesh-gradient,
-vibrancy, dithering, duotone, scrim, dark-mode. interaction vs accessibility:
-roving-tabindex, selection-follows-focus, access-key, pressed-state. color vs
-accessibility: forced-colors-mode, contrast-ratio, apca. typography vs accessibility:
-dynamic-type. pattern vs accessibility: error-summary. Within accessibility.json
-itself: keyboard-trap and non-text-contrast appear twice (agent self-duplicates, drop
-one copy of each). Within motion.json: ripple appears twice.
+The merge run collapsed all 51 round-one cross-category duplicates to single records,
+and authoring rounds 4-10 confirmed homes for the contested ones by publishing them:
+pagination, inline-edit, coach-mark, captcha, typing-indicator, presence-indicator,
+input-mask, comparison-table (component); swipe-to-dismiss, drop-indicator,
+drag-to-reorder (pattern); momentum-scrolling, microinteraction,
+selection-follows-focus (interaction); layout-shift, thumb-zone, baseline-grid
+(layout); mesh-gradient, dithering, forced-colors-mode, apca (color). The
+multi-select note resolved exactly as asked: multi-select is the form control,
+range-select the shift-click gesture. Still-unauthored contested slugs keep the
+merge run's homes, reviewed and confirmed 2026-08-15: zebra-striping and
+expandable-row (component), drag-preview, scroll-hijacking and scrollytelling
+(pattern), vibrancy (color), access-key (interaction), dynamic-type (typography).
 
-## Merge candidates (same concept, multiple records or overlap with existing terms)
+Overshoot: the motion sense owns the slug. The typography sense (letterforms passing
+the baseline or cap line) gets a disambiguation sentence in the existing overshoot
+article at the relations pass, not its own term. [PROSE TODO]
 
-- no-results-state vs existing empty-state/zero-state (three overlapping names).
-- typeahead vs existing combobox (behaviour vs component).
-- paywall / metered-paywall / feature-gate (collapse or keep three).
-- scarcity-indicator vs fake-scarcity, countdown-timer vs fake-urgency: deliberately
-  kept as honest/deceptive pairs, the contrast is the teaching.
-- smart-defaults vs preselected-opt-in: same mechanic, judged by whose interest it
-  serves; candidate for the sharpest contrastWith on the site.
-- focus-management vs existing focus-trap (umbrella vs one case); keyboard-trap vs
-  focus-trap kept as deliberate pair (escapable and intended vs not).
-- flip-animation vs layout-animation; crossfade vs dissolve;
-  shared-element-transition vs container-transform vs zoom-transition (one idea,
-  three platform words); damping vs spring-animation; scroll-scrubbing vs
-  scroll-linked-animation; motion-token vs existing duration/easing;
-  cross-document-view-transition may fold into the existing view-transition page.
-- split-view vs list-detail (kept separate: container mechanism vs content
-  relationship); activity-bar vs navigation-rail (IDE vs Material word for one shape);
-  flag-object as variantOf media-object or folded in; mostly-fluid / column-drop /
-  layout-shifter could become one parent with children.
-- flat-design-2 into flat-design; synthwave into vaporwave; grainy-gradient absorbs
-  noise-texture; halftone vs dithering need explicit contrastWith.
-- icon-button-label vs accessible-name; focus-restoration absorbs "initial focus";
-  live-region absorbs "screen reader announcement"; browse-mode absorbs "virtual
-  cursor"; heading-hierarchy absorbs "document outline".
-- stepper (numeric control) vs step-indicator (MUI/Ant call that one "Stepper").
+## RESOLVED: merge calls (2026-08-15)
 
-## Name collisions needing disambiguation prose
+- empty-state / zero-state / no-results-state: all three KEPT. The lines are already
+  drawn (container holds nothing / first-run teaching / a filter excluded everything)
+  and empty-state's article draws them; zero-state remains a stub to promote.
+- scroll-scrubbing: FOLDED. scroll-linked-animation carries the alias; scrubbing
+  (media) already owns the gesture word.
+- activity-bar: FOLDED into navigation-rail (aliases "activity bar", "icon rail").
+- cross-document-view-transition: FOLDED into view-transition (aliases added).
+- icon-button-label: DROPPED from the pool; it is a technique of accessible-name.
+- focus-restoration: FOLDED into focus-management (aliases added); that article
+  already teaches the return-on-close move. initial-focus stays its own term.
+- flag-object: FOLDED into media-object (alias "flag object").
+- cascader: SPLIT. "miller columns"/"column picker" removed from its aliases; a new
+  layout candidate miller-columns carries the Finder-column browsing layout.
+- blockquote: ADDED as a typography candidate (pull-quote's article already draws the
+  passage-lifted vs quoted-from-source line; component.gallery distinguishes them).
+- paywall / metered-paywall / feature-gate: all three KEPT as distinct (the wall, the
+  metering strategy, the entitlement gate). Contrast edges recorded below.
+- flip-animation absorbed layout-animation (alias); synthwave and flat-design-2 were
+  authored as deliberate contrasts rather than folded, overriding the earlier lean;
+  shared-element-transition folded into view-transition; damping authored as
+  spring-animation's companion; motion-token authored against duration/easing;
+  rubber-banding folded into overscroll; marquee-selection folded into
+  lasso-selection.
+- stepper vs step-indicator, focus-trap vs keyboard-trap, split-view vs list-detail,
+  scarcity-indicator vs fake-scarcity, countdown-timer vs fake-urgency,
+  smart-defaults vs preselected-opt-in: all KEPT as deliberate pairs; the contrast is
+  the teaching, wired in prose and due as contrastWith edges.
+- mostly-fluid / column-drop / layout-shifter: KEPT as three tail candidates (LukeW's
+  canonical names); author together in one round with cross-links, no parent term
+  (responsive-web-design is the umbrella).
+- vibrancy: aliases "frosted glass" and "materials" removed from the record (they
+  belong to glassmorphism); home stays color.
 
-thumb (slider) vs thumbnail; timeline (event list) vs timeline (media editor);
-chevron/caret (component) vs caret (typography, the text cursor); gutter (grid) vs
-gutter (editor); spinner (existing, loading) vs spinbutton (alias of stepper);
-container (width wrapper) vs container (query containment root); multi-column-layout
-(app panes) vs CSS multi-column; layout-shifter (LukeW pattern) vs layout-shift (CLS);
-swimlane (horizontal band, constantly misused for the vertical column); "ghost text"
-(inline autocomplete vs AI completion); captions (media) deliberately plural to avoid
-caption (figure); focus-visible vs focus-ring kept separate on purpose (heuristic vs
-style); neubrutalism vs neobrutalism spelling; Memphis vs Corporate Memphis
-(unrelated); Windows Aero vs Frutiger Aero.
+## RESOLVED: alias folds into existing terms (2026-08-15)
 
-## Aliases to fold into EXISTING term files (no new records)
+Applied (45 aliases across 26 terms), validate-clean. Notable rejections the
+collision map caught, left where they are: "flashbar" (callout), "undo snackbar"
+(undo), "autosuggest" (typeahead), "duration token" (motion-token), drawer's
+off-canvas trio (off-canvas). Deliberately NOT added: "tab list" to
+segmented-control (tabs territory), bare "menu" to dropdown, bare "anchor" to
+table-of-contents, "radio button" to radio-group, "tag picker" to combobox
+(tag-input territory), bare "autocomplete" to anything (contested between combobox
+and typeahead; decide at the relations pass, note only).
 
-- segmented-control: content switcher (carbon), tab list.
-- empty-state: non-ideal state (blueprint), blankslate (primer), result (ant),
-  blank slate (ui-patterns).
-- zero-state: no results, null state (if no-results-state merges).
-- banner/toast: scoped notification (lightning), warning text + notification banner
-  (govuk), flashbar (cloudscape); toast: undo snackbar.
-- spinner: inline loading (carbon).
-- drawer: sheet (shadcn), side sheet, navigation drawer, off-canvas menu, offcanvas
-  (bootstrap), slide-in panel.
-- combobox: autocomplete, autosuggest (cloudscape), tag picker.
-- chip/badge: tile (carbon), token, pill.
-- hamburger-menu: doner menu, burger (mantine).
-- table-of-contents: anchor (ant).
-- overflow-menu: more menu.
-- progressive-disclosure: expandable input, inline help box.
-- skip-link: bypass blocks (WCAG 2.4.1), skip navigation (webaim), skip to main
-  content.
-- visually-hidden: sr-only + not-sr-only (tailwind), clip-rect hack, VisuallyHidden
-  (react-aria), screen reader only text.
-- focus-trap: focus containment, FocusScope contain (react-aria), focus sentinel,
-  aria-modal.
-- glassmorphism: frosted glass, backdrop blur, acrylic-like, blurred card; also gains
-  prefers-reduced-transparency as counter-preference.
-- neumorphism: soft UI, extruded plastic.
-- view-transition: hero animation, shared element transition, @view-transition,
-  view-transition-class, MPA view transition.
-- easing: full curve family (sine/quad/cubic/quart/quint/expo/circ/back/elastic/
-  bounce, in/out/in-out), timing function, emphasized easing (material),
-  productive/expressive easing (carbon).
-- duration: duration token, short/medium/long/extra long (material).
-- stagger: staggering, delay cascade.
-- shimmer: shimmer sweep (contrast with new pulse-animation).
+## Name collisions needing disambiguation prose (live, due when the second sense arrives)
 
-## New contrastWith edges to existing terms
+thumb (slider) vs thumbnail; timeline (event list, authored) vs timeline (media
+editor); chevron/caret (component) vs caret (typography); gutter (grid) vs gutter
+(editor); spinner vs spinbutton; swimlane (horizontal band, constantly misused for
+the vertical column); "ghost text" (inline autocomplete vs AI completion);
+layout-shifter (LukeW) vs layout-shift (CLS, authored). Handled already:
+multi-column-layout vs text-columns (both articles disambiguate), pull-quote vs
+blockquote (article draws it), captions vs caption, focus-visible vs focus-ring,
+neubrutalism spelling, Memphis vs Corporate Memphis, Windows Aero vs Frutiger Aero
+(windows-aero candidate deliberately skipped), card-flip vs flip-animation (both
+authored). Round-two flag on "cover and contain" as a view-progress-timeline alias
+was checked and the record is RIGHT: cover/contain are view-timeline range names.
 
-badge↔achievement-badge, accordion↔expandable-row, hover-card↔quick-view,
-drawer↔mini-cart + help-drawer + off-canvas (strategy vs component),
-combobox↔typeahead + inline-autocomplete, scroll-spy↔reading-progress,
-segmented-control↔morphing-controls, banner↔cookie-consent-banner + hero,
-app-bar↔page-header + collapsing-toolbar, bento-grid/masonry↔card-grid +
-modular-grid, optimistic-ui↔offline-indicator, skeleton-screen↔layout-shift +
-aspect-ratio-box.
+## Contrast edges for the relations pass
+
+The keep-both decisions above, plus edges the sweeps proposed; feed these to the
+consolidated relations milestone as candidate contrastWith/seeAlso:
+
+- honest/deceptive pairs: countdown-timer↔fake-urgency,
+  scarcity-indicator↔fake-scarcity, smart-defaults↔preselected-opt-in,
+  social-proof↔fake-social-proof, input-mask↔forgiving-format (authored both ways in
+  prose already).
+- paywall↔metered-paywall↔feature-gate; empty-state↔zero-state↔no-results-state
+  (partially wired); focus-trap↔keyboard-trap↔focus-management↔initial-focus;
+  stepper↔step-indicator↔steps-left; halftone↔dithering; typeahead↔combobox
+  (+ the contested "autocomplete" alias decision).
+- badge↔achievement-badge, accordion↔expandable-row, hover-card↔quick-view,
+  drawer↔mini-cart + help-drawer + off-canvas, combobox↔inline-autocomplete,
+  scroll-spy↔reading-progress, segmented-control↔morphing-controls,
+  banner↔cookie-consent-banner + hero, app-bar↔page-header + collapsing-toolbar,
+  bento-grid/masonry↔card-grid + modular-grid + dashboard-grid,
+  optimistic-ui↔offline-indicator, skeleton-screen↔layout-shift + aspect-ratio-box.
 
 ## Known coverage gaps (follow-up sweeps)
 
-- motion, aesthetic, accessibility, and layout agents all exhausted their 200-call
-  WebSearch budgets before the formal two-dry-rounds stop; motion in particular was
-  still surfacing tail terms. Unrecorded candidates named: hover lift, magnetic
-  button, cursor follower, spring back, fill mode; editorial/magazine style, sci-fi
-  HUD, terrazzo, low-poly; forced-colors/system-colors docs, Label in Name,
-  Carbon/Polaris/Primer accessibility docs.
-- Blocked sources needing a browser-tool pass (403/429/JS-rendered to WebFetch):
-  uiterms.com, component.gallery, welie.com, uistyleguide.com (67 styles),
-  Radix/Bootstrap/Blueprint doc indexes, m3.material.io and Apple HIG indexes.
-- ui-patterns.com deep links use inconsistent slug casing and deceptive.design
-  per-type pages 504'd; several pattern rows point at index URLs and need deep links
-  before publication.
-- Deliberate omissions: ~90 pure cognitive-bias names from ui-patterns' persuasive
-  section (only the demoable ones were recorded); VPAT/ACR/ACT/POUR and other policy
-  vocabulary; block formatting context and normal flow as too CSS-mechanical.
+- Named gaps with no record anywhere: oversized typography / big type; millennial
+  beige / sad beige; plain elevation as its own term; the HTML invoker vocabulary
+  (invoker commands / commandfor / interest invokers / dialog closedby, Baseline
+  2025-12) belonging with dialog/popover; APG's "disclosure widget" phrase; "top
+  shelf" (tvOS) as new layout or content-shelf alias; Blueprint's "entity title" as
+  a page-header alias.
+- Round-one unrecorded stragglers now mostly authored (magnetic-button,
+  cursor-follower still pending, fill-mode authored, terrazzo/low-poly authored or
+  pooled); editorial/magazine style authored as editorial-web-design; sci-fi HUD
+  authored as fictional-user-interface.
+- welie.com is dead (SEO spam); never source it. ui-patterns deep links use
+  inconsistent slug casing; deceptive.design per-type pages 504'd at sweep time.
+- Deliberate omissions stand: ~90 pure cognitive-bias names, VPAT/ACR/ACT/POUR
+  policy vocabulary, block formatting context.
 
-## Registry id consolidations (from the gap-fill probe, 2026-08-10)
+## Registry notes (live residue)
 
-The registry now covers every referenced id (108 entries), but several ids should
-consolidate before authoring; each entry's notes carry the details:
-
-- css → mdn (all 17 rows link MDN pages); keep w3c-css for normative citations,
-  retire css.
-- uxpatterns-dev → uxpatterns; chrome → chrome-developers (consider folding web-dev
-  in too); tailwind-ui → tailwind-plus (already registered).
-- framer-motion is renamed Motion upstream (motion.dev, npm `motion`); consider
-  renaming the id.
-- deque rows that mirror WCAG criteria should point at w3.org Understanding pages;
-  postcss row actually cites csstools; angular row actually cites @angular/cdk.
-- uikit here is Apple UIKit, not getuikit.com; never merge on the name.
-- Junk rows better fixed in term data than in the registry: illustrator, excalidraw,
-  chrome (bare), wicg (single stale EyeDropper draft; prefer MDN); all 12 goodui rows
-  point at the site root and need per-idea URLs or removal.
-- Row-level residue: 1 row deleted (mantine NumberFormatter posing as a
-  relative-timestamp implementation); 1 row still unverified (HIG tint color,
-  JS-rendered page); tanstack /docs/introduction and embla /get-started/ 404'd so
-  those rows keep resolving root URLs.
-- Paid or gated, marked in the registry: every-layout, tailwind-plus, mui-x (cited
-  column pinning is the Pro tier), adobe-fonts, illustrator. maintained:false:
-  wired-elements, wicg.
-
-## Round two (2026-08-10): targeted re-sweep results
-
-Round two added 210 records (motion +35, aesthetic +39, accessibility +61, layout
-+52, delta over component/pattern/typography +23), taking the pool to 1025 unique
-candidates with 888 implementation rows (887 verified). Zero new cross-file duplicate
-slugs: the 51 in the list above are all round-one artifacts. Six new registry entries
-were added and probed (magicui, tldraw, flickr-justified-layout, buildui, utopia,
-microsoft-dual-screen), bringing systems.json to 114.
-
-Source outcomes from the browser pass:
-- welie.com is dead: the pattern library is gone and the domain serves SEO spam.
-  Remove it from any future source list.
-- uiterms.com, component.gallery, uistyleguide.com, Radix/Bootstrap/Blueprint/
-  m3.material.io/Apple HIG indexes: all captured via the browser pane and folded in.
-  component.gallery's full 60-component index was swept; nothing further remains.
-- Saturation: all four re-swept categories hit the two-consecutive-empty stopping
-  rule this time. Motion's remaining tail is judged to be library coinages rather
-  than shared vocabulary.
-
-New sense collisions for the human pass:
-- card-flip (motion) vs flip-animation (FLIP): unrelated meanings of one word,
-  flagged in both records.
-- cascader (component) carries "miller columns" as an alias, but Finder-style column
-  view is a browsing layout, not a cascading select; likely needs splitting.
-- "cover and contain" sits as an alias of motion:view-progress-timeline, which looks
-  wrong (it is object-fit vocabulary); motion owner should check.
-- typography:pull-quote carries "block quote" as an alias, but component.gallery
-  distinguishes quote-from-source vs passage-lifted-from-document; blockquote may
-  deserve its own record.
-
-More aliases for EXISTING site terms found in round two: dropdown gains "dropdown
-menu" and Material's "menu"; modal-dialog gains "modal" and Material's "dialog";
-radio-group gains "radio button"; skeleton-screen gains "skeleton" and Bootstrap's
-"placeholders"; segmented-control gains Material's "segmented button"; drawer gains
-"navigation drawer"; tabs gains HIG's "tab view"; combobox gains HIG's "combo box";
-empty-state gains Blueprint's "non-ideal state"; spinner gains Material 3
-Expressive's "loading indicator" (the shape-morphing replacement for the
-indeterminate circular indicator, m3.material.io/components/loading-indicator).
-
-Named gaps with no record anywhere (candidates for a small round three or manual
-addition): oversized typography / big type (typography); millennial beige / sad
-beige (color); plain elevation as its own term (color or layout; only
-tonal-elevation and elevation-overlay aliases exist); skip-link's aliases ("skip
-navigation", "bypass blocks") have no candidate record carrying them; the new HTML
-invoker vocabulary (invoker commands / command / commandfor, interest invokers /
-interestfor, dialog closedby, Baseline 2025-12) belongs with dialog/popover records;
-APG's "disclosure widget" phrase is absent everywhere; "top shelf" (tvOS) is either
-new layout or an alias of content-shelf; Blueprint's "entity title" reads as an
-alias of page-header.
+- deque rows mirroring WCAG criteria should point at w3.org Understanding pages;
+  postcss row actually cites csstools; angular row cites @angular/cdk; uikit is
+  Apple UIKit, never getuikit.com; goodui's 12 rows point at the site root and need
+  per-idea URLs or removal before those candidates are authored.
+- Paid or gated, marked: every-layout, tailwind-plus, mui-x, adobe-fonts,
+  illustrator. maintained:false: wired-elements, wicg.
+- 1 row still unverified (HIG tint color, JS-rendered); tanstack and embla rows
+  resolve root URLs.
 
 ## Attributions to verify before publishing
 
-Olia Lialina for "vernacular web"; CSS `corner-shape: squircle` support; the two HIG
-aesthetic rows marked verified on URL resolution only (JS-rendered pages).
+Olia Lialina for "vernacular web" (verified in the r9 vernacular-web article); CSS
+`corner-shape: squircle` support; the two HIG aesthetic rows marked verified on URL
+resolution only (JS-rendered pages).
