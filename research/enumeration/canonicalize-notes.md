@@ -115,6 +115,11 @@ consolidated relations milestone as candidate contrastWith/seeAlso:
 
 ## Known coverage gaps (follow-up sweeps)
 
+- User wishlist (2026-08-15), shaped and pooled: abbreviation (typography, core,
+  absorbing the abbreviation-expansion record), pixel-density (layout, core; DPI/PPI/
+  retina as aliases), chamfer (aesthetic, tail; must disambiguate the bevel term),
+  interface-metaphor (pattern, head; reshaped from "figures of speech", whose
+  idiom/localization half belongs to plain-language).
 - Named gaps with no record anywhere: oversized typography / big type; millennial
   beige / sad beige; plain elevation as its own term; the HTML invoker vocabulary
   (invoker commands / commandfor / interest invokers / dialog closedby, Baseline

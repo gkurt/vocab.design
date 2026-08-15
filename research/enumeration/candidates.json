@@ -1,47 +1,5 @@
 [
  {
-  "name": "Abbreviation expansion",
-  "slug": "abbreviation-expansion",
-  "category": "accessibility",
-  "definition": "Giving the full form of an acronym or initialism on first use or on demand, so a reader who does not already know it is not left guessing.",
-  "useWhen": "an interface is full of internal initialisms",
-  "aliases": [
-   {
-    "name": "abbr element",
-    "source": "whatwg-html"
-   },
-   {
-    "name": "abbreviations",
-    "source": "wcag"
-   },
-   {
-    "name": "acronym expansion",
-    "source": "community"
-   },
-   {
-    "name": "expansion on first use",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "plain-language",
-   "pronunciation",
-   "accessible-description"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "WCAG 2.2: Abbreviations",
-    "url": "https://www.w3.org/TR/WCAG22/#abbreviations"
-   }
-  ],
-  "implementations": [],
-  "sweptFrom": [
-   "accessibility"
-  ]
- },
- {
   "name": "Accent color",
   "slug": "accent-color",
   "category": "color",
@@ -46662,6 +46620,191 @@
   "implementations": [],
   "sweptFrom": [
    "canonicalize 2026-08-15: split from pull-quote per component.gallery distinction"
+  ]
+ },
+ {
+  "name": "Abbreviation",
+  "slug": "abbreviation",
+  "category": "typography",
+  "definition": "A shortened form of a word or phrase, from Dr. to NASA, with its own typographic conventions and an expansion assistive tech can speak.",
+  "useWhen": "shortened forms need setting, marking up, or expanding",
+  "aliases": [
+   {
+    "name": "acronym"
+   },
+   {
+    "name": "initialism"
+   },
+   {
+    "name": "abbr"
+   },
+   {
+    "name": "abbr element",
+    "source": "whatwg-html"
+   },
+   {
+    "name": "abbreviations",
+    "source": "wcag"
+   },
+   {
+    "name": "acronym expansion",
+    "source": "community"
+   },
+   {
+    "name": "expansion on first use",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "small-caps",
+   "all-caps",
+   "tooltip",
+   "plain-language"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "MDN: <abbr>",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr"
+   },
+   {
+    "title": "WCAG 2.2: Abbreviations",
+    "url": "https://www.w3.org/TR/WCAG22/#abbreviations"
+   }
+  ],
+  "implementations": [],
+  "sweptFrom": [
+   "user wishlist 2026-08-15, shaped in canonicalize follow-up",
+   "absorbs abbreviation-expansion (accessibility)"
+  ]
+ },
+ {
+  "name": "Pixel density",
+  "slug": "pixel-density",
+  "category": "layout",
+  "definition": "How many physical pixels a display packs into an inch, and the reason a CSS pixel is a unit of measure rather than a dot on the screen.",
+  "useWhen": "raster crispness, 2x assets, or dpi/ppi confusion is on the table",
+  "aliases": [
+   {
+    "name": "DPI"
+   },
+   {
+    "name": "PPI"
+   },
+   {
+    "name": "retina"
+   },
+   {
+    "name": "device pixel ratio"
+   },
+   {
+    "name": "2x"
+   },
+   {
+    "name": "hidpi"
+   }
+  ],
+  "relatedSlugs": [
+   "density-independent-pixel",
+   "images-of-text",
+   "resize-text"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "MDN: devicePixelRatio",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio"
+   },
+   {
+    "title": "MDN: Resolution media feature",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/resolution"
+   }
+  ],
+  "implementations": [],
+  "sweptFrom": [
+   "user wishlist 2026-08-15, shaped in canonicalize follow-up"
+  ]
+ },
+ {
+  "name": "Chamfer",
+  "slug": "chamfer",
+  "category": "aesthetic",
+  "definition": "A corner cut flat at an angle instead of rounded, the sharp-edged sibling of border-radius that reads industrial, military, or sci-fi.",
+  "useWhen": "corners should read machined rather than soft",
+  "aliases": [
+   {
+    "name": "chamfered corner"
+   },
+   {
+    "name": "cut corner"
+   },
+   {
+    "name": "angled corner"
+   },
+   {
+    "name": "clipped corner"
+   }
+  ],
+  "relatedSlugs": [
+   "border-radius",
+   "bevel",
+   "cyberpunk-ui",
+   "squircle"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "MDN: corner-shape",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape"
+   }
+  ],
+  "implementations": [],
+  "sweptFrom": [
+   "user wishlist 2026-08-15, shaped in canonicalize follow-up",
+   "article must disambiguate the existing bevel term (3D edge) from corner-shape: bevel (flat cut)"
+  ]
+ },
+ {
+  "name": "Interface metaphor",
+  "slug": "interface-metaphor",
+  "category": "pattern",
+  "definition": "Explaining a system by dressing it as something the user already knows: the desktop, the trash can, the folder, the shopping cart.",
+  "useWhen": "a familiar concept is carrying the explanation of an unfamiliar system",
+  "aliases": [
+   {
+    "name": "desktop metaphor"
+   },
+   {
+    "name": "UI metaphor"
+   },
+   {
+    "name": "conceptual metaphor"
+   }
+  ],
+  "relatedSlugs": [
+   "skeuomorphism",
+   "affordance",
+   "mental-model"
+  ],
+  "priority": "head",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Nielsen Norman Group: Metaphors in UX",
+    "url": "https://www.nngroup.com/articles/classifying-ux-metaphors/"
+   },
+   {
+    "title": "Wikipedia: Interface metaphor",
+    "url": "https://en.wikipedia.org/wiki/Interface_metaphor"
+   }
+  ],
+  "implementations": [],
+  "sweptFrom": [
+   "user wishlist 2026-08-15, shaped in canonicalize follow-up",
+   "reshaped from \"figures of speech\"; the idiom/localization half belongs to plain-language"
   ]
  }
 ]
