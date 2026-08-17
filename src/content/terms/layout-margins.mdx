@@ -1,0 +1,63 @@
+---
+name: Layout margins
+slug: layout-margins
+category: layout
+status: published
+definition: >-
+  The reserved space between a container's edge and its content, sized by the system so
+  content never touches the edge of the screen.
+aliases:
+  - name: margins
+    source: material
+  - name: outer margin
+    source: community
+  - name: content inset
+    source: community
+  - name: directional layout margins
+    source: hig
+  - name: screen margin
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Layout, Human Interface Guidelines"
+    url: https://developer.apple.com/design/human-interface-guidelines/layout
+demo: inline
+useWhen: the outer breathing room, set once by the system
+---
+
+Layout margins are the band of nothing that runs around a surface's content: the reason a
+paragraph on a phone starts a finger's width in from the glass rather than at the bezel.
+They belong to the surface, not to any component on it, and they are set once by the design
+system so that every screen in a product starts its content on the same vertical line. That
+last part is what makes them a term worth having. Any single screen can be inset by hand
+and look fine. A product where the inset was decided per screen reads as slightly broken
+in a way nobody can point at, because the left edge of the content moves as you navigate.
+
+The word to keep them apart from is [gutter](/gutter). Gutters are interior: they fall
+between columns, and a grid of twelve columns has eleven of them. Margins are exterior,
+and there are exactly two horizontally, one at each edge. The distinction survives into
+every grid system worth using, including the [twelve column grid](/twelve-column-grid) and
+the [layout grid](/layout-grid) generally, because the two numbers move independently:
+widening a window usually widens the margins in steps while the gutter holds still. Padding
+is the third neighbour, and the rule of thumb is ownership. Padding is a component's own
+business, declared by the component and travelling with it wherever it is placed. A layout
+margin is declared by the surface and applies to whatever is dropped into it.
+
+Two things make margins step rather than scale. The first is reach and comfort: a hand
+holding a phone rests its thumb over the outer few millimetres of the display, and text
+that runs to the edge is both awkward to read and easy to touch by accident. The second is
+[measure](/measure). Past a certain window width the useful thing to do with extra pixels
+is not to make lines longer but to leave them alone, so the margins absorb the surplus and
+the content column stays centred at a readable width. That is the same job a
+[container](/container) does with a max width, approached from the other side, and the two
+are usually the same rule written twice. Where a system publishes margin values per size
+class, the numbers are typically a small set of steps rather than a percentage, so that the
+inset is predictable at any width.
+
+Two edge cases are worth naming. Margins are not the [safe area](/safe-area): a notch, a
+home indicator, and a rounded corner impose their own insets, and the correct treatment is
+to add the layout margin inside the safe area rather than to treat one as the other.
+And some content is deliberately exempt. A [full bleed](/full-bleed) hero image, a divider
+meant to span the surface, and a sheet's grab handle all reach past the margin on purpose,
+which is only legible as a decision if everything else obeys it.

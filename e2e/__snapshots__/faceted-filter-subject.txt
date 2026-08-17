@@ -1,0 +1,4 @@
+term:    Faceted filter
+scope:   element
+subject: div.sp-surface[aria-label=Filters][data-part=facets][role=group]
+text:    Category Boots 4 Jackets 4 Packs 4 Price Under £50 4 £50 to £100 4 Over £100 4 B

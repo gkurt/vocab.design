@@ -1,0 +1,48 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  // The window fades in from mount, so the pristine claims wait for it to land.
+  { wait: 700 },
+  { assert: { selector: '[data-part=form][data-state=pristine]', state: 'visible' } },
+  { assert: { selector: '[data-part=field-email][data-state=pristine]', state: 'visible' } },
+  { assert: { selector: '[data-part=email-error]', state: 'hidden' } },
+  { wait: 500 },
+  { moveTo: '[data-part=name]' },
+  { click: true },
+  { type: 'Ada Lovelace' },
+  { moveTo: '[data-part=email]' },
+  { click: true },
+  { type: 'ada@harbour' },
+  { wait: 500 },
+  // Submit is the explicit trigger: it checks the whole set at once, which is the
+  // thing the grouping owns and no single field could do.
+  { moveTo: '[data-part=submit]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=form][data-state=invalid]', state: 'visible' } },
+  { assert: { selector: '[data-part=field-email][data-state=invalid]', state: 'visible' } },
+  { assert: { selector: '[data-part=email-error]', state: 'visible' } },
+  { assert: { selector: '[data-part=submit][aria-disabled="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=field-name][data-state=ok]', state: 'visible' } },
+  { wait: 1300 },
+  { moveTo: '[data-part=email]' },
+  { click: true },
+  { type: '.co' },
+  { wait: 700 },
+  { assert: { selector: '[data-part=form][data-state=ready]', state: 'visible' } },
+  { assert: { selector: '[data-part=field-email][data-state=ok]', state: 'visible' } },
+  { assert: { selector: '[data-part=email-error]', state: 'hidden' } },
+  { wait: 700 },
+  { moveTo: '[data-part=submit]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=form][data-state=sent]', state: 'visible' } },
+  { wait: 1200 },
+  // Start over is the explicit way back, so no control here ever flips a state.
+  { moveTo: '[data-part=clear]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=form][data-state=pristine]', state: 'visible' } },
+  { assert: { selector: '[data-part=email-error]', state: 'hidden' } },
+  { wait: 700 },
+]);

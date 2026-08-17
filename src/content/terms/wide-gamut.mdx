@@ -1,0 +1,68 @@
+---
+name: Wide gamut
+slug: wide-gamut
+category: color
+status: published
+definition: >-
+  Colour beyond what sRGB can express, addressed in CSS through spaces such as display-p3
+  and rec2020 and shown only on displays that reach that far.
+aliases:
+  - name: Display P3
+    source: community
+  - name: P3
+    source: community
+  - name: rec2020
+    source: css
+  - name: HDR color
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: radix
+    name: P3 scales
+    url: https://www.radix-ui.com/colors
+sources:
+  - title: Wide Gamut Color in CSS with Display-P3
+    url: https://webkit.org/blog/10042/wide-gamut-color-in-css-with-display-p3/
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+demo: inline
+useWhen: reaching for colours sRGB cannot express
+---
+
+[sRGB](/srgb) was drawn around the CRT monitor of 1996 and covers roughly a third of what
+a person can see. Wide gamut is the shorthand for everything past that line. Display P3,
+the space behind most laptop and phone screens sold since about 2016, pushes the red and
+green primaries outward and gains something like a quarter more area; Rec. 2020, written
+for broadcast, reaches further still and no consumer display fully covers it. CSS names
+these directly with `color(display-p3 1 0 0)` and `color(rec2020 1 0 0)`, and
+[OKLCH](/oklch) will accept a chroma past every one of them, because it is a
+[colour space](/color-space) with no device attached to it at all.
+
+The honest caveat comes first, because it decides how the feature is used: a wide gamut
+value only looks different on a display that reaches that far. On an sRGB screen
+`color(display-p3 1 0 0)` and `rgb(255 0 0)` paint the same red, and the two blocks in the
+specimen above are genuinely identical pixels. That is not a bug in the browser. It is
+[gamut mapping](/gamut-mapping) doing its job, and it is the cleanest way to state the pair:
+wide gamut is the bigger space, gamut mapping is what happens to a colour that does not fit
+in the smaller one.
+
+Two feature queries cover the two separate questions. `@supports (color: color(display-p3 1 0 0))`
+asks whether the engine can parse the syntax; `@media (color-gamut: p3)` asks whether the
+display can show it. The usual shape is an sRGB value stated plainly, then the wider one
+layered over it inside the media query, which also serves browsers that never heard of
+either. Radix Colors ships P3 variants of its scales on exactly this pattern, and
+[WebKit's original announcement](https://webkit.org/blog/10042/wide-gamut-color-in-css-with-display-p3/)
+set the convention.
+
+The discipline is to spend the extra range on decoration and keep anything load bearing
+inside the triangle every reader has, since a status that only reads as a more vivid red on
+a good laptop is broken everywhere else. Two names are worth untangling. Display P3 is not
+DCI-P3: they share primaries, but Display P3 uses the sRGB white point and transfer curve,
+which is what makes it usable on the web. And wide gamut is not HDR. Gamut is how saturated
+a colour can get, high dynamic range is how bright it can get, and a screen can have either
+without the other. See [colour gamut](/color-gamut) for the region itself and how it is
+drawn.

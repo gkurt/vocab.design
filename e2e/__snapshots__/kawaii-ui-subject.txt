@@ -1,0 +1,4 @@
+term:    Kawaii UI
+scope:   element
+subject: div[data-part=empty]
+text:    Nothing here yet Add your first one and it will show up here. Add one

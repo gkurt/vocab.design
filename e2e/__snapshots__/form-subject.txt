@@ -1,0 +1,4 @@
+term:    Form
+scope:   element
+subject: form.sp-window[aria-labelledby=vd-form-title][data-part=form][data-state=pristine][novalidate]
+text:    Create your account Full name *required As it appears on your card. Email addres

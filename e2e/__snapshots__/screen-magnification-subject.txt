@@ -1,0 +1,4 @@
+term:    Screen magnification
+scope:   element
+subject: div[data-part=lens][data-showing=field][data-zoom=300]
+text:    Invoices Save Reference INV-2291 Amount due 248.00 Payment failed

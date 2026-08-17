@@ -1,0 +1,69 @@
+---
+name: Hand-drawn UI
+slug: hand-drawn-ui
+category: aesthetic
+status: published
+definition: >-
+  A style whose lines wobble as if sketched by hand, used to signal that a diagram or
+  wireframe is provisional rather than finished.
+aliases:
+  - name: sketchy UI
+  - name: rough style
+    source: community
+  - name: wireframe aesthetic
+  - name: lo-fi look
+  - name: Excalidraw style
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Wired Elements
+    url: https://wiredjs.com/
+  - title: Excalidraw
+    url: https://excalidraw.com/
+demo: inline
+useWhen: the sketchiness says this is not final yet
+---
+
+The style has one job, and it is not decoration. A drawing that looks drawn tells the
+person reading it how finished the thinking behind it is. Show a stakeholder a crisp
+mockup with real type, real colour and pixel-true alignment and they will comment on the
+type, the colour and the alignment, because those are the things the picture has bothered
+to be precise about. Show them the same layout in wobbling pen strokes and they will
+comment on whether the steps are in the right order, because nothing else in the picture
+is claiming to be settled. The wobble is a promise of revisability, and its value is
+entirely in being believed.
+
+Mechanically, the look is a small set of moves. Straight lines are bowed slightly and
+drawn twice, since a pen retracing a line never lands on it exactly. Corners overshoot,
+so the strokes cross rather than meet. Fills are hachure, a field of diagonal strokes at a
+rough angle, because a pen cannot flood an area. Type is either genuinely hand-lettered or
+set in a face designed to look it, and everything sits a degree or two off square.
+[Rough.js](https://roughjs.com/) is the library that made this reproducible on the web by
+generating those jittered paths from ordinary shape calls, and
+[Wired Elements](https://wiredjs.com/) wraps the same generator around real form controls.
+[Excalidraw](https://excalidraw.com/) is where most people meet the register, and it is
+worth noticing what that tool got right: the sketchiness is deterministic per shape, so a
+diagram does not reshuffle its own wobble every time it repaints.
+
+The register has a natural range. It belongs to whiteboard tools, architecture diagrams,
+early product concepts, documentation that wants to be argued with, and teaching material
+where a diagram is a thought rather than a specification. It fits badly anywhere the
+interface is asking for trust or money, which is the same instinct that keeps
+[skeuomorphism](/skeuomorphism) out of a spreadsheet. It is also not
+[brutalist-web-design](/brutalist-web-design), though the two get confused: brutalism
+strips styling away and shows the raw material of the web, while a hand-drawn interface is
+heavily styled in order to look unstyled. One is an absence of craft as a position, the
+other is craft spent on the appearance of a first draft.
+
+Two cautions. The first is accessibility: hachure fills, doubled outlines and hand-lettered
+faces all cut contrast and legibility, and a wobbling 1px line is thinner than it looks, so
+a sketchy interface needs its strokes measured like any other and its lettering kept large.
+The second is the lie of the finished sketch. A production app dressed in wobbly strokes is
+using the register's promise (this is provisional, tell us what is wrong) to decorate
+something that is neither provisional nor open to change, and readers who have used the
+style honestly will notice. Keep it where the drawing really is a draft.

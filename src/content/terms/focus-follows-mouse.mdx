@@ -1,0 +1,53 @@
+---
+name: Focus follows mouse
+slug: focus-follows-mouse
+category: interaction
+status: published
+definition: >-
+  A focus model in which whatever the pointer is over receives keyboard input, without any
+  click to claim it first.
+aliases:
+  - name: pointer focus
+    source: community
+  - name: sloppy focus
+    source: community
+  - name: implicit focus model
+    source: community
+sources:
+  - title: "LWN: focus follows mouse or click to focus?"
+    url: https://lwn.net/Articles/467703/
+demo: inline
+useWhen: keyboard input goes where the pointer is pointing
+---
+
+Two answers exist to the question of which window the keyboard is talking to. Under click to
+focus, the window you last clicked, and it stays that way however far the pointer wanders.
+Under focus follows mouse, whichever window the pointer happens to be over, decided
+continuously and without any click at all. The second is the older answer, inherited from the
+X Window System, and it survives as an option in most Unix desktops and in nothing else at all.
+The variant most people actually run is the forgiving one, often called sloppy focus, where
+focus stays with the last window the pointer entered instead of evaporating when it strays onto
+the background.
+
+What its defenders like is that pointing and focusing stop being two separate acts. Glance at a
+terminal behind your editor, move the pointer, type, and the command runs without the window
+ever coming to the front or the editor losing its scroll position. For anyone working across
+several windows at once, that is a real saving, and it is why the setting has outlived the
+desktop metaphor that produced it. What its detractors point out is that the pointer has quietly
+become a mode with no indicator: a nudge of the mouse, a palm on a trackpad, or an animation
+sliding a window under the cursor can redirect a password into the wrong window, and nothing
+about the screen says so until afterwards. Both camps are describing the same mechanism
+accurately. It is a preference, not a mistake.
+
+The web has none of it. A browser is click to focus, and inside a page focus is claimed by a
+click or by Tab and by nothing else. What the web offers instead is hover, which is deliberately
+a separate channel: hover says the pointer is here, focus says the keyboard is here, and a page
+that wires the first to the second breaks assistive technology, steals keystrokes from anyone
+who is typing, and produces the notorious hover trap where a menu opens under a pointer that
+was only passing through. This is why focus visible exists as its own state and why sticky hover
+is a bug worth naming.
+
+The practical rule is that this belongs to the window manager and stops there. Read it as
+vocabulary for arguing about desktop configuration, and as a useful reminder of what a focus
+model is: a policy about where typed characters go, chosen once for a whole system, rather than
+anything an individual interface gets to decide for its own components.

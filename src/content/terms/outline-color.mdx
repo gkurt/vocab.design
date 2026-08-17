@@ -1,0 +1,68 @@
+---
+name: Outline color
+slug: outline-color
+category: color
+status: published
+definition: >-
+  The role that draws boundaries, split into a stronger value for edges that must be seen and
+  a weaker one for dividers that only need to hint at structure.
+aliases:
+  - name: outline variant
+    source: material
+  - name: border token
+    source: community
+  - name: divider color
+    source: community
+  - name: subtle borders and separators
+    source: radix
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Outline, Outline variant
+    url: https://m3.material.io/styles/color/roles
+  - system: radix
+    name: Steps 6 to 8, borders and focus rings
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+sources:
+  - title: "Material 3: color roles"
+    url: https://m3.material.io/styles/color/roles
+  - title: "Radix Colors: understanding the scale"
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+demo: inline
+useWhen: the colour of borders and dividers as a named role
+---
+
+The tempting shortcut is to draw a border with the text colour at low opacity: `1px solid
+rgb(0 0 0 / 0.12)` looks right on a white card and takes no thinking. It is also the reason
+the same component loses its edge entirely in dark mode, where black at 12 percent over a
+dark surface is very nearly the surface. A translucent border is not a colour, it is a
+recipe whose result depends on whatever it lands on, and once a card can sit on three
+different surfaces the recipe has three different answers. The fix is to name the boundary
+as a role of its own and let each theme resolve it.
+
+Most systems split the role in two, because boundaries do two different jobs. Material 3
+carries `outline` and `outline-variant`: the first for edges that have to be seen, the
+second for dividers that only need to suggest structure. Radix does the same thing
+positionally, reserving steps 6 to 8 of every scale for borders, from a subtle edge on a
+non-interactive surface up to the stronger border and focus ring an interactive one needs.
+Both are saying that the difference between a container's edge and a separator between two
+rows is a difference in role, not just in opacity.
+
+The strength question is where [non-text contrast](/non-text-contrast) comes in. Where a
+boundary is the only thing identifying a control or its state, a text field's edge, a
+checkbox's box, that boundary needs 3:1 against what surrounds it, and no amount of
+tastefulness excuses a hairline that meets 1.5:1. Where the container is already identified
+by its own fill or its [elevation](/elevation-overlay), the border is decoration and is
+allowed to be quiet. Knowing which case you are in is most of the work, and it is a good
+argument for the two-value split: one value that is answerable to a ratio, one that is not.
+
+Two neighbours worth keeping distinct. A [divider](/divider) is a component, a rule drawn
+between two things, and this term is the colour it is drawn in; the same value also paints
+the border of every card and input, none of which are dividers. And the strong end of the
+role is often the same value a [focus ring](/focus-ring) is drawn with, which Radix says out
+loud by putting both on step 8. That is one more reason the strong value is the one held to
+a ratio and the subtle one is not: a ring nobody can see is a control nobody can operate.

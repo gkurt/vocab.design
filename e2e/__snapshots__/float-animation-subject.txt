@@ -1,0 +1,4 @@
+term:    Float animation
+scope:   element
+subject: div.sp-surface[data-amp=subtle][data-float=on][data-part=card-2][data-pose=[data-float=on]]
+text:    Rating 4.9

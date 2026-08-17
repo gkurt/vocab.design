@@ -1,0 +1,4 @@
+term:    Feed layout
+scope:   element
+subject: div.sp-scroll[aria-label=Posts][data-at=top][data-order=chronological][data-part=feed][role=feed]
+text:    RN Rosa Neary 2 min reply IK Ivo Kranz 14 min reply MO Mara Oyelaran 1 h reply B

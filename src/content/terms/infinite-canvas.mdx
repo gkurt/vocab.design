@@ -1,0 +1,60 @@
+---
+name: Infinite canvas
+slug: infinite-canvas
+category: layout
+status: published
+definition: >-
+  A workspace with no page edges, where content is placed anywhere in an unbounded plane and
+  the viewport pans and zooms over it instead of scrolling a document.
+aliases:
+  - name: unbounded canvas
+    source: community
+  - name: whiteboard canvas
+    source: community
+  - name: spatial canvas
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "tldraw: Infinite Canvas SDK"
+    url: https://tldraw.dev/
+demo: inline
+useWhen: a board with no page, only a viewport over it
+---
+
+An infinite canvas has no page and therefore no end. Content sits at coordinates on an
+unbounded plane, and what the reader manipulates is not the content's position in a
+document but the camera: a bounded [viewport](/viewport) that pans and zooms over the plane.
+Whiteboards, node editors, design tools and diagramming apps all converge on this model for
+the same reason, which is that the work being done is spatial. Where two things sit relative
+to each other is the meaning, so a layout that reflows would destroy the document.
+
+The difference from a scroll container is worth stating precisely, because they look alike
+from a distance. A scroller has a content extent: it knows how tall its content is, the
+scrollbar is a proportion of that height, and scrolling to the bottom is a real place. A
+canvas has neither. Its content has a bounding box, but the plane it sits on does not end,
+so there is nothing for a scrollbar to be a proportion of. Everything that follows comes
+from that one fact. There is no home to return to unless the application invents one, which
+is what a "fit" or "zoom to fit" command is: it frames the bounding box of what exists,
+which is the only privileged view a canvas has. And a reader can get genuinely lost, in a
+way a scroller makes impossible, which is why a [minimap](/minimap) is close to mandatory
+rather than a nicety. The overview badge in the corner of every canvas tool is one.
+
+The gestures are the other half of the term. [Pan](/pan) moves the camera and
+[pinch to zoom](/pinch-to-zoom) changes its scale, and the hard part is that the same
+gestures also mean "move this object" and "select these objects", so a canvas spends most of
+its interaction budget on disambiguating a drag: space to pan, a hand tool, middle drag,
+two fingers, or a drag that starts on empty plane rather than on a shape. Zoom must keep the
+point under the pointer fixed, since a zoom that recentres throws away the reader's place.
+Below some scale the shapes stop being readable and a good canvas switches to drawing what
+the shapes mean instead, the same trick a minimap plays.
+
+Two costs are easy to underestimate. Rendering is one: an unbounded plane means culling
+what is off camera, in the same spirit as [list virtualization](/list-virtualization) but in
+two dimensions. Accessibility is the other, and it is the harder one. A plane of freely
+placed shapes has no reading order, so keyboard traversal, [focus order](/focus-order), and
+anything a screen reader announces have to be invented from the geometry or from a
+structure kept alongside it. The tools that do this well tend to maintain an explicit list
+view of the canvas rather than deriving one on the fly. [tldraw](https://tldraw.dev)
+publishes its camera and shape model as a library, which is a useful thing to read before
+building a third one.

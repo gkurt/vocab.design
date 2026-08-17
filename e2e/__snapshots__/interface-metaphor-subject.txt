@@ -1,0 +1,4 @@
+term:    Interface metaphor
+scope:   element
+subject: div.sp-surface[data-part=desk][data-where=inbox]
+text:    Notes Archive Trash

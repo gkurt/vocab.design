@@ -1,0 +1,4 @@
+term:    Reveal animation
+scope:   element
+subject: div[data-clip=open][data-part=panel]
+text:    Order 4471 Shipped Stovetop kettle, matte black 64.00 Filter papers, two packs 8

@@ -1,0 +1,4 @@
+term:    Abbreviation
+scope:   element
+subject: abbr[data-part=abbr-svg][title=Scalable Vector Graphics]
+text:    SVG

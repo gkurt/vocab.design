@@ -1,0 +1,4 @@
+term:    Infinite canvas
+scope:   element
+subject: div[aria-label=Board canvas][data-at=home][data-part=viewport][data-zoom=100][role=application]
+text:    Intake Survey Berth Release

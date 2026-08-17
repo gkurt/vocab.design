@@ -1,0 +1,4 @@
+term:    Retro film aesthetic
+scope:   element
+subject: span[data-part=treated]
+text:    '89 08 14

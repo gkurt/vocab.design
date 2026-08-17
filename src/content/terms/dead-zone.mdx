@@ -1,0 +1,54 @@
+---
+name: Dead zone
+slug: dead-zone
+category: interaction
+status: published
+definition: >-
+  A range of input near the resting position that is deliberately ignored, so tiny unintended
+  movement produces no response at all.
+aliases:
+  - name: deadzone
+    source: community
+  - name: deadband
+    source: community
+  - name: neutral zone
+    source: community
+  - name: stick dead zone
+    source: community
+sources:
+  - title: "Wikipedia: deadband"
+    url: https://en.wikipedia.org/wiki/Deadband
+demo: inline
+useWhen: input near zero is ignored on purpose
+---
+
+Physical inputs do not rest at zero. A thumbstick that has been leaned on for two years reports
+a small permanent offset, a trackpad reads a fingertip's tremor, a tilt sensor picks up the
+train. If the interface believes all of it, the camera drifts while nobody is touching
+anything, and the reader learns that the device is broken. A dead zone is the fix, and it is
+deliberately crude: a range around the neutral position where the input is thrown away and the
+output is exactly zero. Control engineering has called this a deadband for far longer than
+games have, and the same idea keeps a thermostat from switching on and off every few seconds.
+
+The pattern is not only about sticks. A pan control that sits silently at centre until you
+move meaningfully off it, a rotation handle that refuses to report a fraction of a degree, a
+scrubber that will not scrub until you mean it, a colour picker that snaps to true neutral
+near the middle of the wheel: all of them are the same trade, spending a little precision near
+the rest position to buy silence there. The cost is real. Everything inside the band is
+unreachable, so a control with a wide dead zone can no longer express a small value at all,
+and the reader feels it as a stick that suddenly lurches.
+
+Which is why the good implementations rescale rather than clip. Clipping means the first
+sample past the band jumps straight to the value it always had, so the output leaps from zero
+to eighteen percent in one pixel. Rescaling remaps what is left of the range onto the whole
+output, so the edge of the band emits nearly nothing and the full deflection still emits
+everything. It costs one line of arithmetic and it is the difference between a control that
+feels sticky and one that feels calm. The size should be adjustable, too, because the band a
+worn controller needs is not the band a new one needs.
+
+Two neighbouring terms are easy to confuse with it. A drag threshold is a distance the pointer
+must travel before a gesture is allowed to begin, and it is spent once per gesture. A dead
+zone is a region where input is ignored for as long as the input stays inside it, gesture or
+no gesture. Hit slop is the opposite move on the same axis: slop grows the region that answers
+so a near miss counts, while a dead zone shrinks the region that answers so a near miss does
+not.

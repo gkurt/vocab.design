@@ -1,0 +1,4 @@
+term:    Feature gate
+scope:   element
+subject: button.sp-surface.sp-row[data-open=false][data-part=gate][type=button]
+text:    Custom domain Point a domain you own at this workspace Team plan

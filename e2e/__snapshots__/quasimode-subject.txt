@@ -1,0 +1,4 @@
+term:    Quasimode
+scope:   element
+subject: div[data-did=none][data-mode=select][data-part=canvas]
+text:    Interviews Sign-off Handoff Kickoff Ship it Review Research Notes Retro Wirefram

@@ -1,0 +1,4 @@
+term:    Chart
+scope:   element
+subject: svg[aria-label=Monthly revenue for the last six months, peaking in June][data-part=plot][data-peak=84][data-series=revenue][height=168][role=img][viewBox=0 0 426 168][width=426]
+text:    0306090 JanFebMarAprMayJun £84k

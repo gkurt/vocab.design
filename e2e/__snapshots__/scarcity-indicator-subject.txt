@@ -1,0 +1,4 @@
+term:    Scarcity indicator
+scope:   element
+subject: span.sp-row[data-level=low][data-part=stock-line][role=status]
+text:    Only 3 left in size M

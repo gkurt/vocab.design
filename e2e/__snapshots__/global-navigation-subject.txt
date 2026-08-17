@@ -1,0 +1,4 @@
+term:    Global navigation
+scope:   element
+subject: nav.sp-topbar[aria-label=Site][data-current=home][data-part=global]
+text:    Harbour HomeLibraryReportsSettings RN

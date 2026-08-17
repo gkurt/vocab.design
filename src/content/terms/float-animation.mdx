@@ -1,0 +1,61 @@
+---
+name: Float animation
+slug: float-animation
+category: motion
+status: published
+definition: >-
+  A slow continuous up and down drift on an idle element, so a static composition keeps breathing
+  without asking for attention.
+aliases:
+  - name: floating animation
+    source: community
+  - name: bobbing
+    source: community
+  - name: drift
+    source: community
+  - name: hover float
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+  - title: The Vocabulary of Motion
+    url: https://motion-vocabulary.vercel.app/
+demo: inline
+useWhen: a hero illustration should not look frozen
+---
+
+Mechanically this is the smallest animation in the vocabulary: translate an element a few pixels
+up, ease it back down, repeat forever. No state changes, nothing is triggered, nothing resolves.
+Its whole job is to keep a composition from reading as a screenshot of itself. Marketing pages
+give it to the phone mockup and the little cards orbiting it, product pages give it to the empty
+state illustration, and games give it to anything meant to be hovering rather than resting on a
+surface.
+
+The craft is entirely in restraint and in phase. Amplitude belongs in single figures for anything
+the size of a card, because a float large enough to notice consciously has become a distraction
+rather than a texture. The period wants to be slower than a breath, four to six seconds for a
+full cycle, since anything quicker reads as nervousness. And when more than one element floats,
+they must not agree: give each a different duration and start each at a different point in its
+own cycle, so the group drifts. Identical timing turns a float into a pulse, and a row of cards
+rising and falling in unison looks like a loading state. Because the whole effect is a transform,
+it can never push a neighbour around, which is the other reason it is safe to sprinkle: the
+layout does not know it is happening.
+
+It sits between two neighbours that are easy to reach for by mistake.
+[Bounce animation](/bounce-animation) is a settle: it overshoots, oscillates and stops, and it
+means something just arrived. [Pulse animation](/pulse-animation) scales or fades in place and
+means look here, so it is a summons with a beginning and an end in mind. A float means nothing at
+all, deliberately. That is also why it is the finish on so many other effects: the blobs behind a
+piece of [aurora UI](/aurora-ui) drift rather than sit, a raised [button](/button) that lifts on
+hover is doing a one-shot version of the same move, and a hero built around a
+[focal point](/focal-point) usually floats the elements that are not it.
+
+The honest caveat is that idle motion is a cost paid by everyone and noticed by a few. Peripheral
+movement pulls the eye whether or not there is anything to see, it competes with the copy the page
+was built to have read, and for readers who get motion sick or who are trying to hold a sentence
+in their head it is genuinely hostile. So a float is the first thing that should disappear under
+[prefers reduced motion](/prefers-reduced-motion), and the right answer there is a full stop
+rather than a smaller bob. Nothing is lost when it goes, which is the clearest possible sign of
+what kind of animation it is.

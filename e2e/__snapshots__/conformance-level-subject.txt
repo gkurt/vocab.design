@@ -1,0 +1,4 @@
+term:    Conformance level
+scope:   element
+subject: span.sp-label[data-level=aa][data-part=tag-contrast]
+text:    AA

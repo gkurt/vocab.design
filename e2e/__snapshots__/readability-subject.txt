@@ -1,0 +1,4 @@
+term:    Readability
+scope:   element
+subject: p.sp-prose.sp-text--ink[data-part=paragraph][data-setting=comfortable]
+text:    Reading is not a matter of looking at letters one at a time. The eye moves along

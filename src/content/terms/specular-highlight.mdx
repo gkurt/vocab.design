@@ -1,0 +1,66 @@
+---
+name: Specular highlight
+slug: specular-highlight
+category: aesthetic
+status: published
+definition: >-
+  The bright reflection drawn on a surface to say it is glossy, placed where a light
+  source would strike a curved object.
+aliases:
+  - name: highlight
+  - name: sheen
+  - name: glint
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'Wikipedia: Aqua (user interface)'
+    url: https://en.wikipedia.org/wiki/Aqua_(user_interface)
+demo: inline
+useWhen: the bright spot that makes a surface read as shiny
+---
+
+A specular highlight is not shading. Shading describes how a whole surface is turned
+relative to a lamp, and it changes slowly across the form. A specular highlight is the
+reflected image of the lamp itself, appearing only where the surface happens to bounce
+that light straight at the viewer. Because it is a reflection of one object, it carries
+two pieces of information and no others. Its size and hardness report how rough the
+surface is: a polished surface reflects the lamp almost whole, so the highlight is small
+and its edge is crisp, while a rougher surface scatters the same light into a broad,
+faint smear. Its position reports where the lamp is, which is why a highlight moved to
+the other side of a shape instantly reads as a different scene rather than as a different
+material.
+
+Interfaces do not render this, they draw it. A radial gradient stopped short of the edge
+is a highlight; a linear wash across the top half with a hard stop is
+[gloss](/gloss); an inset white blob under an over-rounded corner is what makes
+[claymorphism](/claymorphism) look inflated; a bright line clinging to a rim is how
+[liquid-glass](/liquid-glass) says a panel has thickness. [Aqua](/aqua) is the best
+documented case, since it put the same pill of light on buttons, scrollbars and progress
+bars until the highlight became the operating system's signature. What
+[bevel](/bevel) adds is a different claim: a bevel is geometry, an angled face catching
+light along an edge, while a specular highlight is a spot of reflection that needs no
+edge at all. One useful detail of the physics survives into the drawing. A highlight
+takes the colour of the light rather than the colour of the object, so it is the one
+place a saturated fill drops most of its [chroma](/chroma), which is why a tinted
+highlight reads as plastic and a white one reads as glass.
+
+Three habits separate a convincing highlight from a smudge. Keep it off-centre, because a
+highlight centred on a shape reads as a glow coming from inside the object instead of
+light landing on it. Keep one per object, since a second highlight implies a second lamp
+and the eye notices the contradiction before it can name it. And keep the direction
+consistent across a set: a row of icons lit from four different angles looks like a row
+assembled from four different products, which is the most common way a highlight goes
+wrong in practice.
+
+The cost is contrast. A highlight is the brightest region of a control, so white label
+text crossing it is measured against near white, and a button that passes when averaged
+can fail in the band where the text actually sits. Measure the light region, not the
+mean. The related trap is maintenance: a highlight has to be tuned per fill colour, which
+is exactly the per hue work that [flat-design](/flat-design) was invented to escape. Both
+are arguments for spending the effect once, on the thing that most needs to look
+touchable, rather than on every surface in the product.

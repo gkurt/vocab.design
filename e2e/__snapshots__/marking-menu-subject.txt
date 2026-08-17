@@ -1,0 +1,4 @@
+term:    Marking menu
+scope:   element
+subject: span[data-part=ring]
+text:    Delete Duplicate Group Rename

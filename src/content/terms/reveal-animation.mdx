@@ -1,0 +1,67 @@
+---
+name: Reveal animation
+slug: reveal-animation
+category: motion
+status: published
+definition: >-
+  Motion that uncovers content already in place, usually by growing a clip or mask outward from a
+  point rather than moving the content itself.
+aliases:
+  - name: circular reveal
+    source: material
+  - name: clip-path reveal
+    source: community
+  - name: unfold
+    source: community
+  - name: masking
+    source: community
+  - name: organic mask reveal
+    source: community
+relations: {}
+implementations:
+  - system: material
+    name: Circular reveal (createCircularReveal)
+    url: https://developer.android.com/training/animation/reveal-or-hide-view
+sources:
+  - title: 'Android: reveal or hide a view using animation'
+    url: https://developer.android.com/training/animation/reveal-or-hide-view
+  - title: 'MDN: clip-path'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+demo: inline
+useWhen: content should be uncovered rather than moved in
+---
+
+The content is already there. It has been laid out, it is sitting at its final position, and
+the only thing animating is the shape of the window you are allowed to see it through. Android
+names this precisely: `ViewAnimationUtils.createCircularReveal` takes a view, a centre point,
+a starting radius and a final one, and animates a clipping circle between them. On the web the
+same move is a `clip-path` interpolated from a small `circle()` to one large enough to cover the
+farthest corner, or a `mask-image` whose gradient stop travels. Nothing is translated, nothing
+is faded, nothing is inserted. The box was full the whole time.
+
+That is what makes it feel different from an entrance. A slide says the content came from
+somewhere; a fade says it materialised. A reveal says it was always here and you are only now
+being let in, which is why the origin point does so much work. Grow the circle from the button
+that was pressed and the panel reads as having been opened by that press. Grow it from a
+corner, or from the middle of the screen, and the causal link is gone and the effect turns
+decorative. The Material pattern of expanding a floating action button into the sheet it
+summons is the whole idea in one gesture: the control does not move aside, it becomes the
+surface.
+
+Two neighbours are easy to confuse with it. A [wipe](/wipe) is a directional sweep whose edge
+crosses the frame, so it has a front and a back and it is usually a transition between two
+states rather than the arrival of one. A [fade](/fade) changes opacity, which means the content
+is on screen and merely transparent, so text under it can still be selected mid-animation and a
+half-faded element reads as unresolved rather than as partly uncovered. A reveal keeps the
+content fully opaque and simply refuses to paint the part outside the shape, so at any frame
+what you can see is finished. [Exit animation](/exit-animation) is the same mechanism run
+backwards, and the pairing is worth stating: a reveal that leaves by fading is a small
+inconsistency people feel without naming.
+
+Three practical notes. The clip has to start somewhere the reader can accept, so a start radius
+of exactly zero is often worse than a small one, because a shape appearing from literally
+nothing has no anchor. The room the content will take must already be reserved, since the
+element occupies its full box throughout and a layout that only settles when the animation ends
+was never really doing a reveal. And under a stated reduced-motion preference the correct answer
+is not a slower circle but no circle at all: the content is what matters and it was never
+anywhere else.

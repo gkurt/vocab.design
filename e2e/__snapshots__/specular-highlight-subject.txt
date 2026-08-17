@@ -1,0 +1,4 @@
+term:    Specular highlight
+scope:   element
+subject: span[data-part=hl-tight]
+text:    

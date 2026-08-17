@@ -1,0 +1,4 @@
+term:    Gamut mapping
+scope:   element
+subject: div.sp-swatch[data-fit=outside][data-part=mapped][data-pose=[data-fit=outside]]
+text:    

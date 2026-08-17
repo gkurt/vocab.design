@@ -1,0 +1,4 @@
+term:    Hanging indent
+scope:   element
+subject: li[data-indent=hanging][data-part=entry][data-pose=[data-indent=hanging]]
+text:    Bringhurst, Robert. The Elements of Typographic Style. Hartley & Marks, 1992.

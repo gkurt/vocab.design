@@ -1,0 +1,66 @@
+---
+name: Alpha compositing
+slug: alpha-compositing
+category: color
+status: published
+definition: >-
+  The arithmetic that combines a translucent layer with what is beneath it, and the reason
+  two stacked 50 percent layers do not add up to fully opaque.
+aliases:
+  - name: compositing
+    source: community
+  - name: premultiplied alpha
+    source: community
+  - name: source-over
+    source: community
+  - name: straight alpha
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Alpha Compositing
+    url: https://ciechanow.ski/alpha-compositing/
+  - title: Premultiplied alpha (Win2D)
+    url: https://learn.microsoft.com/en-us/windows/apps/develop/win2d/premultiplied-alpha
+demo: inline
+useWhen: predicting the result of stacking translucent layers
+---
+
+One line does most of the work. To put a source colour over a destination colour, the
+result is `src x a + dst x (1 - a)`, and the resulting alpha is `a + dst_a x (1 - a)`. That
+second half is the answer to the question everyone asks first: two layers at 50 percent do
+not make 100 percent, they make 75, because the second layer can only take half of what the
+first one left. Stack five and you are at about 97 percent, never quite at opaque. Every
+scrim, every frosted panel and every fade in the interface is that formula running per
+pixel.
+
+Thomas Porter and Tom Duff catalogued the whole family in 1984, and the names survive
+unchanged in Canvas, Core Graphics and every compositor since. `source-over` is the one the
+web does by default: draw the new thing on top. `source-atop` keeps the source only where
+the destination already had coverage, which is how you tint an existing shape without
+spilling past its edges. `destination-out` uses the source purely as a stencil and erases
+the destination underneath it, which is how a hole gets punched. The whole set is about
+coverage, which is what separates it from a [blend mode](/blend-mode): compositing decides
+how much of each layer survives, blending decides what colour comes out where both are
+present.
+
+Premultiplied versus straight is the one implementation detail worth knowing, because it
+leaks. In straight alpha the RGB channels hold the colour as painted and the alpha sits
+beside them; in premultiplied alpha the RGB channels have already been multiplied by that
+alpha, which makes the compositing step cheaper and, more importantly, makes filtering and
+scaling correct, since interpolating a fully transparent pixel that still carries a bright
+colour is what produces the dark or white halo around a badly exported PNG.
+
+Two things to hold on to in practice. [Opacity](/opacity) on an element is not the same as
+alpha on its colour: opacity composites the element's whole rendered result as one group,
+so overlapping children inside it stop showing through each other, while an
+[alpha channel](/alpha-channel) on a background colour composites that one paint. And an
+alpha over an unknown backdrop is not a colour you can check: a border drawn with black at
+12 percent means something different over every surface it lands on, which is why a
+contrast figure has to be computed on the composited result rather than on the value you
+wrote. [Bartosz Ciechanowski's explorable](https://ciechanow.ski/alpha-compositing/) is the
+place to go if the arithmetic is not yet intuitive.

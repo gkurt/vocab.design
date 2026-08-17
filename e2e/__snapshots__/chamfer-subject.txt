@@ -1,0 +1,4 @@
+term:    Chamfer
+scope:   element
+subject: span[aria-hidden=true][data-part=plate-chamfer]
+text:    

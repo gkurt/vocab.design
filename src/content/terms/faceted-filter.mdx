@@ -1,0 +1,56 @@
+---
+name: Faceted filter
+slug: faceted-filter
+category: component
+status: published
+definition: >-
+  A panel of grouped checkboxes and ranges that narrows a result set, each option usually
+  showing how many results it would leave.
+aliases:
+  - name: filter panel
+    source: uxpatterns
+  - name: facets
+    source: community
+  - name: collection select filter
+    source: cloudscape
+relations: {}
+implementations: []
+sources:
+  - title: UX Patterns for Developers
+    url: https://uxpatterns.dev/patterns
+demo: inline
+useWhen: narrowing results by category with counts
+---
+
+This is the control surface, not the technique. [Faceted search](/faceted-search) is the
+idea that a result set can be cut down along several independent attributes at once, and
+that the cuts combine; a faceted filter is the panel you actually click, the one with
+Category, Price and Brand stacked down the side of a results page. The distinction is worth
+keeping because the technique can be delivered other ways (a row of dropdowns, a query
+language, a set of tabs), and because the panel has craft problems of its own that have
+nothing to do with how the index is built.
+
+The counts are what separate a faceted filter from a pile of checkboxes. A number beside an
+option is a promise: tick me and you will have this many results. Keeping that promise
+means each count is measured with every other group's constraints applied but not its own,
+which is why ticking a second brand usually adds results while ticking a second price band
+often does not. It also means an option that would leave nothing must say so. Showing a
+zero and disabling the row teaches the shape of the data; hiding the row makes the panel
+jump around under the reader's hand, and leaving it clickable sends them to an empty
+[no results state](/no-results-state) the panel could have predicted.
+
+Each group needs a decision about how many of its options can be true at once, and the
+control should say which it is. Attributes a thing can have several of (colour, feature,
+brand) are [checkboxes](/checkbox) and combine with OR inside the group; attributes it can
+only have one of (a price band, a delivery speed) are a [radio group](/radio-group) and
+replace rather than add. Between groups the combination is AND, which nobody has ever
+needed explaining but which quietly makes the third or fourth tick feel unpredictable. What
+fixes that feeling is not an explanation, it is the count.
+
+Everything applied has to be visible outside the panel too, because a reader who has
+scrolled the results is looking at a list without knowing why it is short. That is what the
+[applied filters](/applied-filters) row of removable [chips](/chip) above the results is
+for, together with a Clear all that puts everything back in one action. The last question is
+when the results update: filtering as each option is ticked is right when the response is
+instant, and an explicit Apply is right when it is not, or on a small screen where the panel
+arrives as a [bottom sheet](/bottom-sheet) over the results it is about to change.

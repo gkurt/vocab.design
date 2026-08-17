@@ -1,0 +1,4 @@
+term:    Triadic color scheme
+scope:   element
+subject: div.sp-row[data-part=palette][data-pose=[data-scheme=triadic]][data-scheme=triadic]
+text:    

@@ -1,0 +1,4 @@
+term:    Layout margins
+scope:   element
+subject: div[data-margin=16][data-part=content]
+text:    Berth transfer Confirm

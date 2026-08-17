@@ -1,0 +1,4 @@
+term:    Chorded shortcut
+scope:   element
+subject: div.sp-surface[data-part=chord][data-state=none]
+text:    Ctrl + Shift + K Nothing held All of them arrive on one keydown, which is what m

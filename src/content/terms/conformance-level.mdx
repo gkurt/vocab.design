@@ -1,0 +1,66 @@
+---
+name: Conformance level
+slug: conformance-level
+category: accessibility
+status: published
+definition: >-
+  The A, AA, or AAA tier a WCAG success criterion sits in, and the tier a product
+  claims, which is what people mean when they say a design is AA.
+aliases:
+  - name: level A
+    source: wcag
+  - name: level AA
+    source: wcag
+  - name: double-A
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Conformance"
+    url: https://www.w3.org/TR/WCAG22/#conformance
+  - title: "W3C Accessibility Guidelines (WCAG) 3.0, Working Draft"
+    url: https://www.w3.org/TR/wcag-3.0/
+demo: inline
+useWhen: someone says the target is AA and you need the tiers
+---
+
+Every success criterion in WCAG 2.2 carries one of three levels, and the level is a
+property of the criterion rather than a score anybody earns. Contrast (Minimum), 1.4.3, is
+AA. Contrast (Enhanced), 1.4.6, is AAA. Non-text Content, 1.1.1, is A. Claiming a
+conformance level means claiming that the page satisfies every criterion at that level and
+at every level below it, so an AA claim covers all the A criteria too. There is no partial
+credit in the standard: a page that misses one AA criterion does not conform at AA, however
+many others it passes.
+
+The tiers are not a quality ladder, which is the misreading that causes the most trouble in
+practice. AAA is a different set of criteria, gathered because they could not be required of
+all content, and WCAG says plainly that AAA conformance is not recommended as a general
+policy for a whole site, because some content cannot satisfy every AAA criterion. Sign
+language interpretation for every prerecorded video, 1.2.6, is AAA for exactly that reason.
+So a team that meets a few AAA criteria has not reached a higher grade, it has done more
+than AA asked for in those places, which is worth doing and is not the same claim.
+
+AA is the practical target because that is where regulation points. The tier you are being
+asked for is almost always AA on a specific version of WCAG, and the version matters:
+2.2 added criteria that 2.1 does not have, including Target Size (Minimum), 2.5.8, at AA.
+The design consequences show up early. Body text at 4.5 to 1 and large text at 3 to 1 is
+1.4.3 at AA, interface components and graphics at 3 to 1 is
+[non-text contrast](/non-text-contrast) 1.4.11 at AA,
+[reflow](/reflow) at 1.4.10 and [text spacing](/text-spacing) at 1.4.12 are both AA, and a
+visible [focus ring](/focus-ring) is Focus Visible 2.4.7 at AA. Note that
+[APCA](/apca), the contrast model being explored for the next generation of the guidelines,
+is not a WCAG 2.2 conformance method: a design tuned to it still has to pass 1.4.3 to make
+an AA claim.
+
+WCAG 3 will change the shape of all this, but not yet. It is still a Working Draft, its
+conformance model is one of the open questions its editors are asking reviewers about, and
+the bronze, silver, and gold ratings floated in an earlier draft are not in the current one.
+Anyone writing a target into a contract today is writing a WCAG 2.2 level. The other half of
+the standard's vocabulary worth knowing when reading a claim is the accessibility supported
+requirement and the full pages rule: conformance is claimed for whole pages, so a component
+library cannot conform on its own, which is why a design system's own claim is always about
+what it makes possible rather than what a product has achieved.

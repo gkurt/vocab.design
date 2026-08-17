@@ -1,0 +1,4 @@
+term:    Color interpolation
+scope:   element
+subject: div[data-mode=srgb][data-part=ramp]
+text:    

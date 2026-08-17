@@ -1,0 +1,59 @@
+---
+name: Drill-down navigation
+slug: drill-down-navigation
+category: pattern
+status: published
+definition: >-
+  Going deeper into a hierarchy one level at a time inside the same panel, each level
+  replacing the last and offering a way back up.
+aliases:
+  - name: panel stack
+    source: blueprint
+  - name: nested panel navigation
+    source: community
+  - name: push navigation
+    source: community
+  - name: drilldown
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Blueprint: Panel stack'
+    url: https://blueprintjs.com/docs/#core/components/panel-stack
+demo: inline
+useWhen: a hierarchy is too deep to show all at once
+---
+
+Drill-down navigation spends one panel on a hierarchy of any depth. Choosing a category
+replaces the list with that category's contents, choosing again replaces it once more,
+and a control in the header takes the reader back up one level, usually carrying the
+name of the level it returns to. It is the native shape of phone navigation, which is
+where most people learn it: a settings app, a file browser, a menu inside a shop. It
+works on a narrow screen because it never needs to show two levels at once, and it works
+on a deep tree because the panel does not care how far down it is.
+
+The cost is memory. Only the current level is on screen, so comparing two things that
+live in different branches means walking up and back down, and a reader dropped into a
+deep level has nothing on screen telling them how they got there. That is why the header
+does so much work in a good implementation: it names the level you are on, and the back
+control names the level above rather than just pointing an arrow at it. Slide the panels
+in the direction of travel, keep the panel width fixed so nothing reflows on the way, and
+restore the scroll position of a level when the reader comes back to it, since landing at
+the top of a long list they had already scrolled is the most common small betrayal here.
+
+Three neighbours are easy to confuse with it. [Breadcrumbs](/breadcrumbs) show the whole
+path without moving anyone: they answer "where am I" while a drill-down answers "take me
+in", and the two pair well because breadcrumbs supply exactly the context the panel
+stack lost. [Tabs](/tabs) sit flat beside each other and are for parallel views of one
+thing, not for levels of a tree. Miller columns keep every level on screen at once,
+which is the desktop trade: more width for less memory. And
+[list detail](/list-detail) is what a drill-down becomes when the window gets wide
+enough to show the parent and the child together, which is why responsive
+implementations often ship both and switch between them at a breakpoint.
+
+Keep the tree shallow enough that the pattern stays pleasant, since every level is a tap
+and a wait, and depth is the thing readers give up on. Make the back control go up the
+hierarchy rather than back through history, because those two diverge the moment someone
+arrives from search. And on the web, give each level a URL of its own: a panel stack
+that lives only in memory turns the browser's own back button into a way out of the
+whole app.

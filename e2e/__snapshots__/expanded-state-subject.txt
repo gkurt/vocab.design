@@ -1,0 +1,4 @@
+term:    Expanded state
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[aria-controls=details][aria-expanded=true][data-part=trigger-disclosure][type=button]
+text:    Shipping details

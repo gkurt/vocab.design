@@ -1,0 +1,35 @@
+import { steps } from '#src/stage/choreography.ts';
+
+// Two levels down by row, two levels back up by the header control. Depth is read off
+// the stack itself, and the pass ends at the root the specimen mounts in (SPEC §8).
+export default steps([
+  { wait: 600 },
+  { assert: { selector: '[data-part=stack][data-depth="0"]', state: 'visible' } },
+  { assert: { selector: '[data-part=cat-mains]', state: 'visible' } },
+  { assert: { selector: '[data-part=back]', state: 'hidden' } },
+  { wait: 600 },
+  { moveTo: '[data-part=cat-mains]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=stack][data-depth="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=dish-0]', state: 'visible' } },
+  { assert: { selector: '[data-part=back]', state: 'visible' } },
+  { wait: 800 },
+  { moveTo: '[data-part=dish-0]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=stack][data-depth="2"]', state: 'visible' } },
+  { assert: { selector: '[data-part=detail]', state: 'visible' } },
+  { assert: { selector: '[data-part=add]', state: 'visible' } },
+  { wait: 1200 },
+  { moveTo: '[data-part=back]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=stack][data-depth="1"]', state: 'visible' } },
+  { wait: 700 },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=stack][data-depth="0"]', state: 'visible' } },
+  { assert: { selector: '[data-part=back]', state: 'hidden' } },
+  { wait: 800 },
+]);

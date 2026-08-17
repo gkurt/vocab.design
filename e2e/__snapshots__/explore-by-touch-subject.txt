@@ -1,0 +1,4 @@
+term:    Explore by touch
+scope:   element
+subject: div[data-part=screen][data-reading=none]
+text:    Messages Priya Raman 2 new Marcus Bell Yesterday Team standup Mon Compose

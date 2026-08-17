@@ -1,0 +1,4 @@
+term:    Split-flap animation
+scope:   element
+subject: div[data-part=cell-2]
+text:    S

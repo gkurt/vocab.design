@@ -1,0 +1,4 @@
+term:    Generative UI
+scope:   element
+subject: section.sp-surface[data-part=result][data-range=month]
+text:    Spending by category, March March Q1 Groceries 412.60 Transport 88.20 Assembled 

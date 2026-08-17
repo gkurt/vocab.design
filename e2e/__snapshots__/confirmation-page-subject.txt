@@ -1,0 +1,4 @@
+term:    Confirmation page
+scope:   element
+subject: section.sp-surface[data-part=receipt]
+text:    Order placed Order reference K7Q-4218-MB Cotton overshirt, size M. 82.50 paid by

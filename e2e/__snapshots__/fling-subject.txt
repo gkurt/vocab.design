@@ -1,0 +1,4 @@
+term:    Fling
+scope:   element
+subject: div.sp-surface[data-carry=idle][data-part=surface]
+text:    1 Harbour lights 2 Slow ferry 3 Nightjar 4 Paper boats 5 Tin roof 6 Low tide 7 H

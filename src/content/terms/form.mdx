@@ -1,0 +1,66 @@
+---
+name: Form
+slug: form
+category: component
+status: published
+definition: >-
+  A grouping of controls a reader fills in and submits together, carrying the labels,
+  validation and submit affordance for the whole set.
+aliases:
+  - name: form layout
+    source: ant-design
+  - name: input form
+    source: community
+relations: {}
+implementations:
+  - system: radix
+    name: Form
+    url: https://www.radix-ui.com/primitives/docs/components/form
+sources:
+  - title: "The Component Gallery: Form"
+    url: https://component.gallery/components/form/
+  - title: "Radix Primitives: Form"
+    url: https://www.radix-ui.com/primitives/docs/components/form
+demo: inline
+useWhen: a set of inputs is submitted as one unit
+---
+
+The word names the grouping, not the box you type in. A single [text field](/text-field)
+is a control; a form is the set of controls that go together, plus everything that is true
+of the set rather than of any one member: what it is called, which parts are required, what
+counts as valid, and the one action that commits the lot. That is why a form is a component
+in its own right even though it draws almost nothing of its own. Its job is to make a
+scattered handful of inputs read as a single task with a beginning and an end.
+
+Two neighbours get confused with it, and both are narrower. An [input group](/input-group)
+glues several controls into one visual unit (a currency prefix, a country code beside a
+phone number); it is one answer wearing several parts, where a form is several answers
+under one heading. And treatments like the [floating label](/floating-label) or a
+[forgiving format](/forgiving-format) are decisions about a single field, made the same way
+for every field in the form for consistency's sake, not properties of the grouping. The
+form is the level at which you decide how many questions belong on one screen at all, which
+is the argument [one thing per page](/one-thing-per-page) and the [wizard](/wizard) are
+both having, and where a long one usually ends at a [check answers](/check-answers) screen:
+the whole form read back before it is committed.
+
+Validation is where a form earns or loses its reader. Say what is required before they
+start, with a visible [required field indicator](/required-field-indicator) rather than a
+rule buried in the small print, and put the reason for a rejection in an
+[error message](/error-message) next to the field that caused it, marked up so the field
+itself reports its [invalid state](/invalid-state) to a screen reader and not only to an
+eye. When several fields fail at once, an [error summary](/error-summary) at the top,
+linking down to each one, saves a reader hunting. Disabling the submit button before anyone
+has tried is the version to avoid: it hides the reason and leaves the reader poking at a
+dead control. Holding it after a rejected attempt, with the errors already on screen and
+the button re-arming the moment they are fixed, is a different move, because by then the
+interface has said why.
+
+Everything else is craft that compounds. Labels stay visible above their fields and stay
+[associated](/label-association) with them in the markup, so a tap on the label reaches the
+input and a screen reader reads the pair. [Helper text](/helper-text) goes before the field
+rather than after it, where it can still change what someone types. The submit button names
+the outcome ("Create account", "Book the room") instead of saying "Submit", and the form
+never quietly loses what was typed, which is what an [unsaved changes
+guard](/unsaved-changes-guard) is for. [Radix
+Primitives](https://www.radix-ui.com/primitives/docs/components/form) is worth reading for
+how much of this the platform will do on its own once the markup is right.

@@ -1,0 +1,4 @@
+term:    Wide gamut
+scope:   element
+subject: div.sp-swatch[data-hue=red][data-part=swatch-p3]
+text:    

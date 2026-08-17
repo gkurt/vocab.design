@@ -1,0 +1,4 @@
+term:    Terrazzo
+scope:   element
+subject: div[data-part=ground]
+text:    Poured, not printed Offcuts of stone set in cement, then ground flat. The scatte

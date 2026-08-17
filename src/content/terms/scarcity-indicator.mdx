@@ -1,0 +1,60 @@
+---
+name: Scarcity indicator
+slug: scarcity-indicator
+category: pattern
+status: published
+definition: >-
+  A label reporting how little of something is left, in stock, in seats, or in time,
+  placed beside the action it is meant to accelerate.
+aliases:
+  - name: low stock warning
+    source: community
+  - name: limited availability
+    source: community
+  - name: only N left
+    source: community
+  - name: scarcity
+    source: ui-patterns
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Scarcity'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: only two left in stock, printed next to the buy button
+---
+
+A scarcity indicator is a count, published where a decision is being made. "3 left in
+this size." "2 seats at this fare." "Booking closes in 40 minutes." It is one of the few
+pieces of merchandising copy that is genuinely useful to the reader: someone weighing a
+purchase is trying to work out whether they can come back tomorrow, and the count
+answers exactly that question. It is placed beside the action rather than in the product
+details because it is only relevant at the moment of committing, and it belongs to the
+specific thing being bought, not to the catalogue.
+
+One sentence divides this from its counterfeit. An honest indicator reports a number the
+seller actually has. [Fake scarcity](/fake-scarcity) manufactures pressure from nothing,
+and [fake urgency](/fake-urgency) does the same to the clock. Four practical tests
+separate them, and all four are about whether the number is attached to something real.
+It moves when the world moves and holds still when the world does not, so a refresh
+never reseeds it. It names its unit and its scope, which is why "3 left in size M" is a
+claim and "high demand" is not. It can reach zero and say so, since a count that never
+runs out was never counting. And the interface would still print it if the news were
+bad, which is the honesty question underneath the other three.
+
+Because the truthful version and the manipulative version look identical in a
+screenshot, most of the design work is in the plumbing rather than the styling. Read the
+figure from inventory at request time, scope it to the variant the reader is looking at,
+and let sold out be a first-class state rather than a disappearance. Keep the warning
+colour for the case that is genuinely running out, and remember it cannot carry the
+meaning alone: the words have to say it too. Reserve the line's space in the layout so
+the count arriving does not shove the buy button under the reader's thumb, and announce
+it politely rather than interrupting, since it is a status and not an error. Where the
+constraint is time rather than quantity, the same rules apply to a
+[countdown timer](/countdown-timer): a real deadline, or none.
+
+The commercial argument for restraint is that the honest indicator is the one that keeps
+working. A count that is right teaches the reader that this shop's numbers mean
+something, which is worth more on the second visit than a percentage point of conversion
+on the first. Once every listing on a site says "only 2 left", the sentence has been
+spent, and nothing is left to say on the day there really are only two.

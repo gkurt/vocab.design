@@ -1,0 +1,4 @@
+term:    Widget
+scope:   element
+subject: div[aria-label=Calendar widget][data-part=widget][data-size=small][role=group]
+text:    TUE 17 09:30 Site visit

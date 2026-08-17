@@ -1,0 +1,4 @@
+term:    Switch access
+scope:   element
+subject: div.sp-surface[data-part=group][data-state=scanning]
+text:    Email field step 1 Remember me step 2 Forgot password step 3 Sign in step 4

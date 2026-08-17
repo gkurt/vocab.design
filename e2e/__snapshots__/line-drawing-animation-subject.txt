@@ -1,0 +1,4 @@
+term:    Line drawing animation
+scope:   element
+subject: g[data-part=route][fill=none][stroke-linecap=round][stroke-linejoin=round]
+text:    

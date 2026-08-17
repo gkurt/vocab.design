@@ -1,0 +1,4 @@
+term:    Alpha compositing
+scope:   element
+subject: div[data-op=over][data-part=stack]
+text:    

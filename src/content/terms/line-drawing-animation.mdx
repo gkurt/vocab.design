@@ -1,0 +1,58 @@
+---
+name: Line drawing animation
+slug: line-drawing-animation
+category: motion
+status: published
+definition: >-
+  An SVG stroke that appears to draw itself by animating its dash offset along its own length, used
+  for signatures, check marks and illustrated line art.
+aliases:
+  - name: self-drawing SVG
+    source: community
+  - name: stroke-dashoffset animation
+    source: css
+  - name: path drawing
+    source: community
+  - name: draw-on animation
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'CSS-Tricks: how SVG line animation works'
+    url: https://css-tricks.com/svg-line-animation-works/
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+demo: inline
+useWhen: a mark should look drawn rather than revealed
+---
+
+The trick is one number, and it is the path's own length. Ask the element for it with
+`getTotalLength()`, then set `stroke-dasharray` to that number: the stroke now has a single dash
+exactly as long as the path and a single gap exactly as long again, so it still looks solid. Now set
+`stroke-dashoffset` to the same number, which slides that dash entirely off the front of the path
+and leaves the gap covering everything. Nothing is painted. Animate the offset down to zero and the
+dash slides back on from the start, one end fixed and the other travelling, which is exactly what a
+pen looks like. No masks, no clipping, no second copy of the artwork.
+
+That is why it reads as drawing rather than as uncovering. A [reveal](/reveal-animation) grows a
+window over content that is already whole, so the shape of the opening is what moves. Here the mark
+genuinely has a leading end that advances along the line the illustrator drew, in the direction they
+drew it, which the eye reads as a hand. It also means direction is a real design decision: a
+signature that unspools from its last letter backwards is unmistakably wrong, and the fix is to
+reverse the path data rather than to add anything.
+
+Three details separate a convincing one. Multiple strokes should arrive in sequence rather than all
+at once, which is [stagger](/stagger) doing its usual job, because nobody draws a whole
+illustration simultaneously and a hundred paths appearing together reads as a wipe. A round
+`stroke-linecap` sells the pen, since a butt cap makes the advancing end look cut rather than drawn.
+And the speed is uniform in path length, not in screen distance, so a route with tight curves
+appears to slow down through them, which is usually flattering and occasionally has to be corrected
+by splitting the path.
+
+The nearest relative on this site is [marching ants](/marching-ants), which uses the same two
+properties for the opposite purpose: there the dash pattern is small and repeating and the offset
+travels forever, so the boundary never completes and the motion is the message. Here the pattern is
+the size of the whole path and the offset arrives at zero, once. The caveat both share is that the
+finished state has to carry the meaning on its own. A check mark that only exists while it is being
+drawn is a check mark nobody saw, so under a reduced-motion preference the correct answer is the
+completed path, painted immediately, with the pen left out of it.

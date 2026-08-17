@@ -1,0 +1,4 @@
+term:    Tab stop
+scope:   element
+subject: div.sp-row[aria-label=Formatting][data-part=toolbar][role=toolbar]
+text:    0 -1 -1 -1 -1

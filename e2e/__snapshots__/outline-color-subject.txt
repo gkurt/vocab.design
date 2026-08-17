@@ -1,0 +1,4 @@
+term:    Outline color
+scope:   element
+subject: div[data-part=token-card][data-surface=light]
+text:    Sessions Today12 This week48

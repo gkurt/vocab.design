@@ -1,0 +1,57 @@
+---
+name: Icon
+slug: icon
+category: component
+status: published
+definition: >-
+  A small graphic symbol standing for an action, object or idea, read at a glance and
+  rarely safe to ship without a label.
+aliases:
+  - name: symbol
+    source: community
+  - name: pictogram
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "The Component Gallery: Icon"
+    url: https://component.gallery/components/icon/
+demo: inline
+useWhen: a symbol has to carry meaning in very little space
+---
+
+An icon is a symbol, and symbols are learned rather than deduced. The floppy disk means
+save to people who never owned one, the magnifying glass means search rather than zoom, and
+the three stacked lines mean a menu only because a decade of apps agreed they would. That
+is the honest position: a small handful of glyphs are near universal (close, play, search,
+back), a second handful are conventional inside one product family, and everything else is
+a picture the reader has to be taught. Testing an icon is mostly testing whether the
+meaning was already there, not whether the drawing is pretty.
+
+This entry is about the symbol itself, which is worth separating from the words that
+surround it. An [icon button](/icon-button) is a control that happens to be labelled by an
+icon; an [icon font](/icon-font) is one delivery mechanism for the drawings, and an SVG
+sprite is another; an [icon morph](/icon-morph) is what happens when one symbol animates
+into a second; and a [glyph](/glyph) is the typographic unit an icon font borrows to carry
+them. The symbol is the thing all four have in common, and it can be reasoned about on its
+own: what it depicts, how well that depiction survives being shrunk, and whether anyone
+outside the team recognises it.
+
+Which brings up the label. An icon alone is a guess, and the guess gets worse the further
+the symbol is from the near universal handful, so the default should be a visible text
+label beside or beneath it. Where the space genuinely does not exist, the icon still needs
+a name in the accessibility tree, which is the [alt text](/alt-text) question wearing
+different clothes, and a tooltip is not a substitute because it never appears for a touch
+reader. The mirror case matters too: an icon sitting next to text that already says the
+same thing is a [decorative image](/decorative-image) and should be hidden from assistive
+technology rather than read out twice. Icons also have to meet the three to one
+[non-text contrast](/non-text-contrast) minimum, because the shape is the information.
+
+Drawing them is a system problem, not a per icon one. A set is built on a shared grid with
+one live area, one stroke weight, and one corner radius, so a symbol picked out of the set
+never looks like a visitor. Two consequences follow. Rendering the same drawing at several
+sizes thins or thickens its stroke in real pixels, which is what
+[optical size](/optical-size) exists to correct: a good set ships a redrawn small size
+rather than scaling the large one down. And the drawing's size is not the target's size,
+so an eighteen pixel glyph still needs a hit area that satisfies
+[touch target size](/touch-target-size), padded around it rather than grown into it.

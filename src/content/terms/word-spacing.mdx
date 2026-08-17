@@ -1,0 +1,57 @@
+---
+name: Word spacing
+slug: word-spacing
+category: typography
+status: published
+definition: >-
+  The width of the gaps between words, which justification stretches and which,
+  set too wide, opens rivers down a paragraph.
+aliases:
+  - name: word space
+  - name: interword spacing
+relations: {}
+sources:
+  - title: Word spaces (Practical Typography)
+    url: https://practicaltypography.com/
+demo: inline
+useWhen: the gaps between words, not between letters
+---
+
+The gap between two words is a character, and like every other character in the
+font it was drawn by somebody. Its width is part of the face's fit, typically
+somewhere near a quarter of an em, and it is tuned against the rest of the
+design: a face with tight letterfitting gets a narrower space, a wide face gets a
+broader one. The CSS property named after it does not set that width, it adds to
+it, which is why `word-spacing: 0.3em` means three tenths of an em on top of
+whatever the designer already decided rather than a space three tenths of an em
+wide.
+
+Most of the time the value you should add is zero. The place where the gaps move
+anyway is [justified text](/justified-text), which reaches both margins by
+stretching the word spaces on every line until the last word lands flush, so the
+narrower the [measure](/measure), the more each space has to give. Stretch them
+far enough and two things happen: the paragraph's colour goes patchy, because
+white space is now unevenly distributed through the grey, and gaps on
+consecutive lines start falling under one another until the eye joins them into
+a [river](/river). The fixes are more places to break and less to stretch:
+[hyphenation](/hyphenation) gives the line breaker somewhere else to go, and a
+[rag](/rag) removes the stretching entirely.
+
+It is worth keeping separate from the space between letters. Widening the gaps
+between words separates the words; widening the gaps between letters, which is
+[tracking](/tracking), loosens the words themselves and can make them stop
+reading as units at all. The two failures look alike from a distance and have
+opposite fixes. Nearby is a much older argument about how many spaces follow a
+full stop, where the answer for typeset text is one: the double space is a
+monospace typewriter habit for a machine that could not vary the width of
+anything, and in a proportional face it punches holes in the paragraph. Where a
+space must not break at all, that is a
+[non-breaking space](/non-breaking-space) rather than a spacing decision.
+
+There is an accessibility floor under all of this. WCAG's
+[text spacing](/text-spacing) criterion says a reader must be able to push word
+spacing to at least 0.16em, along with the other spacing knobs, without losing
+content or function, which in practice means a layout that survives being pulled
+apart rather than one that was measured to the pixel. If widening the word
+spaces of a paragraph clips it or hides a button, the fault is in the container,
+not in the reader.

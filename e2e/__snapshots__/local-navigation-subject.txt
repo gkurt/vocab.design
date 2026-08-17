@@ -1,0 +1,4 @@
+term:    Local navigation
+scope:   element
+subject: nav.sp-stack[aria-label=Section][data-part=local][data-section=team]
+text:    Team OverviewMembersBillingAudit log

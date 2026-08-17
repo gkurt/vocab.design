@@ -1,0 +1,4 @@
+term:    Drill-down navigation
+scope:   element
+subject: section.sp-surface[data-depth=0][data-part=stack]
+text:    Menu Menu Starters 4 dishes Mains 6 dishes Desserts 3 dishes

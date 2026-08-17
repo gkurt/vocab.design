@@ -1,0 +1,4 @@
+term:    Pixel density
+scope:   element
+subject: div[data-dpr=1][data-part=plate]
+text:    

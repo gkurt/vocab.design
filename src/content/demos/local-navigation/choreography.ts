@@ -1,0 +1,35 @@
+import { steps } from '#src/stage/choreography.ts';
+
+export default steps([
+  { wait: 400 },
+  // Mount is the Team section: the rail lists that section's pages and says so.
+  { assert: { selector: '[data-part=local][data-section=team]', state: 'visible' } },
+  { assert: { selector: '[data-part=item-overview][data-current]', state: 'visible' } },
+  { assert: { selector: '[data-part=item-audit]', state: 'visible' } },
+  { wait: 1000 },
+  { moveTo: '[data-part=item-members]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=item-members][data-current]', state: 'visible' } },
+  { assert: { selector: '[data-part=item-overview][data-current]', state: 'hidden' } },
+  { wait: 1000 },
+  { moveTo: '[data-part=item-billing]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=item-billing][data-current]', state: 'visible' } },
+  { wait: 1100 },
+  // Change section and the rail is replaced wholesale: that is the whole term.
+  { moveTo: '[data-part=global-library]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=local][data-section=library]', state: 'visible' } },
+  { assert: { selector: '[data-part=item-vessels][data-current]', state: 'visible' } },
+  { assert: { selector: '[data-part=item-billing]', state: 'hidden' } },
+  { wait: 1200 },
+  { moveTo: '[data-part=item-charts]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=item-charts][data-current]', state: 'visible' } },
+  { assert: { selector: '[data-part=local][data-section=library]', state: 'visible' } },
+  { wait: 900 },
+]);

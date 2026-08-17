@@ -1,0 +1,4 @@
+term:    Hand-drawn UI
+scope:   element
+subject: button[data-part=sketch-button][type=button]
+text:    Add

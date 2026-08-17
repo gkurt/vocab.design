@@ -1,0 +1,4 @@
+term:    Motion blur
+scope:   element
+subject: div[data-blur=on][data-part=box][data-pose=[data-blur=on]]
+text:    

@@ -1,0 +1,55 @@
+---
+name: Hanging indent
+slug: hanging-indent
+category: typography
+status: published
+definition: >-
+  A paragraph whose first line starts further left than the rest, so the
+  following lines are indented under it.
+aliases:
+  - name: outdent
+  - name: negative indent
+  - name: reverse indent
+relations: {}
+sources:
+  - title: 'Typography Terms: Glossary (NN/g)'
+    url: https://www.nngroup.com/articles/typography-terms-ux/
+demo: inline
+useWhen: setting bibliographies, definitions, or list labels
+---
+
+A hanging indent turns a paragraph inside out. Instead of pushing the first line
+in, it leaves the first line where it is and pushes everything after it across,
+so the opening words hang out into the margin on their own. The names for it all
+describe the same shape from different angles: outdent, negative indent, reverse
+indent. In CSS it is one declaration and its opposite, a positive inline padding
+on the block and a negative `text-indent` of the same size, which cancel on the
+first line and apply to every line after it.
+
+The reason to do it is scanning rather than decoration. A bibliography is read by
+hunting down the left edge for an author's surname, a glossary by hunting for a
+headword, a contract by hunting for a clause number. Hanging the first line puts
+exactly that word on a clean vertical edge with nothing in front of it, and
+indents the material you are not currently hunting through out of the way. It is
+the same instinct behind a [description list](/description-list) and behind a
+bulleted [list](/list), and browsers already give you the effect for free there:
+`list-style-position: outside`, the default, hangs the marker out to the left of
+the text block for precisely this reason.
+
+The opposite move is a first-line indent, which pushes the opening line in
+instead of out. They are worth keeping straight because they answer different
+questions. A first-line indent says "a new paragraph starts here" inside running
+prose, which is why it and a blank line between paragraphs are alternatives
+rather than partners: doing both marks the same boundary twice. A hanging indent
+says "a new entry starts here" in a list of things you look up, and it is nearly
+useless in continuous prose, where nobody is hunting for anything. A
+[drop cap](/drop-cap) is a third answer to the first question, decorative where
+the indent is quiet.
+
+Two mechanical notes. The negative `text-indent` has to be paired with padding of
+the same size or the first line simply hangs out of its container, where it will
+be clipped by anything with `overflow: hidden` and will collide with whatever is
+beside it. And write the pair in logical properties, `padding-inline-start` with
+`text-indent`, so the whole shape flips with the writing direction rather than
+stranding your indent on the wrong side under
+[RTL mirroring](/rtl-mirroring).

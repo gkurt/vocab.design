@@ -1,0 +1,4 @@
+term:    Dead zone
+scope:   element
+subject: span[data-part=band]
+text:    

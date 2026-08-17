@@ -1,0 +1,4 @@
+term:    Dock magnification
+scope:   element
+subject: div.sp-row[data-mag=off][data-part=dock]
+text:    

@@ -1,0 +1,4 @@
+term:    Legibility
+scope:   element
+subject: span[data-part=glyphs-code][data-set=il1]
+text:    Il1
