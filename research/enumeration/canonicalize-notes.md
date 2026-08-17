@@ -113,6 +113,44 @@ consolidated relations milestone as candidate contrastWith/seeAlso:
   bento-grid/masonry↔card-grid + modular-grid + dashboard-grid,
   optimistic-ui↔offline-indicator, skeleton-screen↔layout-shift + aspect-ratio-box.
 
+## Tags for the relations pass
+
+Decided 2026-08-18: the site gets cross-cutting tags, but they arrive with the
+consolidated relations pass, not before, and never from round agents (same
+consistency argument that keeps relations empty during rounds: a tag applied to 80%
+of its family is worse than no tag). Implementation when the pass runs: a closed
+enum in schema.ts beside CATEGORIES and SYSTEMS, validate-gated, with SPEC and the
+term page updated in the same change. Target 15-25 tags, each earning its place by
+collecting roughly 8+ terms.
+
+The head-term-vs-tag rule: if the family name is itself vocabulary worth a
+definition and a specimen (dark pattern, microinteraction, skeuomorphism), it is a
+HEAD TERM and relations carry the family; a tag is only for a reader-facing facet
+with no definition of its own. Corollary: a tag whose members all share one
+category is just a subcategory and is a weak candidate; tags must cut across
+categories to pay for themselves.
+
+Candidate vocabulary (grow this list as rounds suggest members; assign at the pass):
+
+- dataviz: chart, sparkline, gauge, stat, dashboard-grid, the three palette terms,
+  use-of-color, sonification, plus whatever the dataviz enumeration sweep pools.
+- forms: input-mask, forgiving-format, smart-defaults, stepper, combobox, fieldset,
+  inline-edit, plus the validation/error family.
+- navigation: navigation-rail, tabs, breadcrumbs, pagination, table-of-contents,
+  app-bar, scroll-spy.
+- touch: swipe-to-dismiss, thumb-zone, momentum-scrolling, overscroll,
+  drag-to-reorder, pull-to-refresh.
+- web-platform: view-transition, popover, dialog, forced-colors-mode,
+  focus-visible, the invoker vocabulary when it lands.
+- commerce: mini-cart, quick-view, paywall, metered-paywall, feature-gate,
+  cookie-consent-banner, comparison-table.
+- media: scrubbing, captions, media-controls, typing-indicator territory is NOT
+  media (messaging); decide at the pass.
+- tables: data-table, zebra-striping, expandable-row, treegrid,
+  table-header-association; possibly folds into dataviz, decide at the pass.
+- NOT tags (head terms carry these families): dark-pattern, microinteraction,
+  skeuomorphism, responsive-web-design.
+
 ## Known coverage gaps (follow-up sweeps)
 
 - User wishlist (2026-08-15), shaped and pooled: abbreviation (typography, core,
