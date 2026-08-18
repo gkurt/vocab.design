@@ -25,6 +25,12 @@ Files in this skill directory:
   down, ask the user rather than launching one.
 - Windows quirk: `bun` cannot launch Playwright's chromium (the pipe hangs).
   Repo scripts that drive a browser run under node; `bunx playwright test` is fine.
+- Agent quirk: Astro 7.2 force-backgrounds `astro preview` when it detects an agent, so
+  Playwright aborts with "webServer exited early" and runs nothing. `playwright.config.ts`
+  now sets `ASTRO_PREVIEW_BACKGROUND=1`; set it by hand for any ad-hoc playwright run.
+  Piped through a buffering pipeline this reads as a HANG with an empty log, because the
+  orphaned preview holds stdout open. Run e2e detached to a log file and never under a
+  tool timeout: the full suite is ~18 min and a 10 min cap kills it mid-run.
 
 ## 1. Roster (main session, ~15 min)
 

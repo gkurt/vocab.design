@@ -39,6 +39,16 @@ Playwright's chromium on this machine (the remote-debugging pipe hangs), so a sc
 that drives a browser runs under `node` (import chromium from `@playwright/test`).
 Bun still runs `bun test` and `bun scripts/*.ts`; node-shebanged binaries get Node.
 
+A second environment trap sits beside that one, and it bites agents only. Astro 7.2
+force-backgrounds `astro preview` when the am-i-vibing package detects an agentic
+environment: the server forks off, prints its pid as JSON, and the foreground process
+exits, so Playwright reports `Process from config.webServer exited early` and runs no
+tests at all. `playwright.config.ts` therefore sets `ASTRO_PREVIEW_BACKGROUND=1` on its
+webServer, which is the documented opt-out; set the same variable by hand for any ad-hoc
+`bunx playwright test` or `astro preview`. Piped through a buffering pipeline the failure
+reads as a HANG with an empty log rather than as an error, because the orphaned preview
+server holds the inherited stdout handle open long after Playwright has gone.
+
 Prefer these scripts over ad-hoc commands. Do not prefix them with `bun run` when
 a bare alias exists (`bun check`, `bun typecheck`) — those are whitelisted for
 agent use.

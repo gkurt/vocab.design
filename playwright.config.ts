@@ -45,5 +45,11 @@ export default defineConfig({
     reuseExistingServer: false,
     timeout: 180_000,
     stdout: 'pipe',
+    // Astro 7.2 hands `astro preview` to a background daemon whenever it detects an agentic
+    // environment (it asks the am-i-vibing package): the server forks off, prints its pid, and
+    // the foreground process exits. Playwright reads that as `webServer exited early` and aborts
+    // before the first test, so an agent-driven run of this gate never gets off the ground.
+    // This is the documented opt-out, and it merges over process.env rather than replacing it.
+    env: { ASTRO_PREVIEW_BACKGROUND: '1' },
   },
 });
