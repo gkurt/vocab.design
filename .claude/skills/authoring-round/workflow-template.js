@@ -95,7 +95,7 @@ const verifyPrompt = [
   `You are the verify gate for a 54-term authoring round in ${REPO}. Nine parallel agents just wrote src/content/terms/<slug>.mdx and src/content/demos/<slug>/{demo.ts,choreography.ts} for these slugs: ${authored.join(', ')}. They ran NO static checks, so you run them all, once, and fix what fails.`,
   '',
   'Run in order, fixing failures between runs until each is clean:',
-  '1. `bun validate` (content gates: schema, em-dashes, bare domains in prose, alias collisions, data-subject, bare timers, stage-escape APIs, transitionend waits, ungated script animation, invalid selectors, assert presence). Fix errors in the new files directly. An alias collision is fixed by dropping the alias.',
+  '1. `bun validate` (content gates: schema, em-dashes, bare domains in prose, unresolved prose links, alias collisions, data-subject, bare timers, stage-escape APIs, transitionend waits, ungated script animation, invalid selectors, assert presence). Fix errors in the new files directly. An alias collision is fixed by dropping the alias.',
   '2. `bun typecheck`',
   '3. `bun check` (Biome). THREE warnings are pre-existing and must be left alone: candidates.json file size, and two noDescendingSpecificity warnings in src/kit/motion.css. Fix only NEW problems, with `bun run fix` for mechanical ones.',
   '',

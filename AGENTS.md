@@ -15,7 +15,7 @@ bun run test       # Unit tests (bun test)
 bun run test:e2e   # Specimen smoke tests: builds, serves on 4322, plays every choreography
 bun run test:e2e:new  # Same suites, only for demos without a committed subject snapshot
 bun typecheck      # astro sync + type check (TypeScript 7, native tsc)
-bun validate       # Content gates: schema, relations, symmetry, stubs, demo files
+bun validate       # Content gates: schema, relations, symmetry, prose links, stubs, demo files
 bun run lint       # Lint
 bun run format     # Format
 bun run fix        # Lint + format + autofix

@@ -85,6 +85,12 @@ is **stubs**: a stub entry has only `name`, `slug`, `category`, `definition`, an
 internal links never 404 and every named concept is searchable from day one. Writing a
 relation to a term that doesn't exist yet means creating its stub in the same change.
 
+Prose links are held to the same promise. `bun validate` rejects a markdown link to an
+internal path that is neither a term slug, an alias slug (which redirects), nor one of the
+site's own routes. This matters most while `relations` is deliberately empty pending the
+consolidated graph pass: the cross-references a reader can actually follow are the ones
+written in article prose, and they are plain markdown, so a typo builds clean and ships a 404.
+
 `contrastWith` is held to a discrimination test: an edge earns its place when a person
 describing one term could plausibly reach for the other term's word, not when the
 components merely look alike. Keep the set small. The graph's value is discrimination,

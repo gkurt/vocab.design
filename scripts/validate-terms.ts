@@ -7,7 +7,7 @@ import { slugify } from '#src/lib/slug.ts';
 
 /**
  * Content gates (SPEC §11): schema validation, slug/alias uniqueness, relation
- * integrity + symmetry (stubs exempt), stub minimality, demo file existence, the
+ * integrity + symmetry (stubs exempt), prose link resolution, stub minimality, demo file existence, the
  * things a specimen must carry before the e2e harness can judge it, and the
  * stage-escape rules of SPEC §5-§7 (bare timers, pointer/modal/view-transition
  * escapes, transitionend waits, ungated script animation, invalid selectors).
@@ -25,6 +25,10 @@ const VIEW_TRANSITION_CALL = /\.startViewTransition\s*(\(|\?\.)/;
 const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitionend\s*=/;
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
+/** Routes that are not terms: the index and the two machine-readable exports. */
+const SITE_ROUTES = new Set(['/', '/llms.txt', '/terms.json']);
+/** An internal link in prose. With `relations` held back for the graph pass, these ARE the graph. */
+const PROSE_LINK = /\]\((\/[^)\s]*)\)/g;
 /** A domain named in prose. Sites the prose points a reader at have to be anchors. */
 const BARE_DOMAIN = /\b[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:design|org|com|net|io|dev|app)\b/g;
 
@@ -42,8 +46,20 @@ function bareDomains(body: string): string[] {
   return [...prose.matchAll(BARE_DOMAIN)].map((m) => m[0]);
 }
 
+/**
+ * Internal links in prose. Code is stripped first so an example in a fence is not a
+ * claim about a route; the links themselves are what this rule is about, so unlike
+ * `bareDomains` it keeps them.
+ */
+function proseLinks(body: string): string[] {
+  const prose = body.replace(/```[\s\S]*?```/g, '').replace(/`[^`\n]*`/g, '');
+  return [...prose.matchAll(PROSE_LINK)].flatMap((m) => m[1] ?? []);
+}
+
 const errors: string[] = [];
 const terms = new Map<string, Term>();
+/** Bodies keyed by file, so prose links can be judged once every alias is known. */
+const bodies = new Map<string, string>();
 
 const files = (await readdir(TERMS_DIR)).filter((f) => f.endsWith('.mdx')).sort();
 for (const file of files) {
@@ -55,6 +71,7 @@ for (const file of files) {
     continue;
   }
   const body = text.slice(text.indexOf('---', 3) + 3);
+  bodies.set(file, body);
   for (const domain of bareDomains(body))
     errors.push(`${file}: "${domain}" is named in prose without being a link; anchor it to the actual site (SPEC §2.4)`);
   const result = termSchema.safeParse(parse(frontmatter));
@@ -76,6 +93,22 @@ for (const term of terms.values()) {
     const owner = aliasOwners.get(aliasSlug);
     if (owner) errors.push(`${term.slug}: alias "${alias.name}" already claimed by "${owner}"`);
     aliasOwners.set(aliasSlug, term.slug);
+  }
+}
+
+/**
+ * Prose links resolve (SPEC §2.3). `relations` is held empty until the consolidated
+ * graph pass, so the cross-references a reader can actually follow live in prose, and
+ * nothing else checks them: these are plain markdown links, not collection references,
+ * so a typo builds clean and ships as a 404. Aliases count, since `[slug].astro`
+ * redirects them. Runs after the alias map so a link to an alias is not a false alarm.
+ */
+for (const [file, body] of bodies) {
+  for (const target of proseLinks(body)) {
+    if (SITE_ROUTES.has(target)) continue;
+    const slug = target.replace(/^\//, '').replace(/\/$/, '');
+    if (terms.has(slug) || aliasOwners.has(slug)) continue;
+    errors.push(`${file}: prose links to "${target}", which is not a term, an alias, or a site route (SPEC §2.3)`);
   }
 }
 
