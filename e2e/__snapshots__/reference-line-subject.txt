@@ -1,0 +1,4 @@
+term:    Reference line
+scope:   element
+subject: g[data-kind=target][data-part=reference]
+text:    Target 220 Mean 183 Max 250 Min 150

@@ -1,0 +1,4 @@
+term:    Container color
+scope:   element
+subject: div[data-part=container-panel][data-role=primary][data-tone=90]
+text:    Storage almost full Back up your library before the next sync runs tonight. Mana

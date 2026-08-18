@@ -1,0 +1,64 @@
+---
+name: Knob
+slug: knob
+category: component
+status: published
+definition: >-
+  A round control turned by dragging in an arc, borrowed from hardware and mostly found
+  in audio and creative tools.
+aliases:
+  - name: dial
+    source: community
+  - name: rotary control
+    source: community
+  - name: angle slider
+    source: mantine
+  - name: circular slider
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: User Interface Elements Glossary, NN/g
+    url: https://www.nngroup.com/articles/ui-elements-glossary/
+demo: inline
+useWhen: a dial you turn rather than a track you slide
+---
+
+A knob is a value picked by angle. The reader grabs it and moves in an arc, the pointer
+line swings to follow, and the number changes with the rotation rather than with distance
+across the screen. It is the most literal piece of hardware vocabulary still in wide
+software use, and it survives for a reason: mixing desks, synthesisers, cameras and
+lighting boards are all covered in knobs, so the people who use their software equivalents
+already know what to do with a circle that has a line on it.
+
+The comparison worth making is with a [slider](/slider), and it cuts both ways. A slider
+maps a linear distance, shows its whole range at once, and puts every value on a straight
+path the pointer can follow without changing direction, so it is easy to aim at and easy
+to read at a glance. A knob maps angle instead, which costs almost no width (a dozen
+parameters fit in the space three sliders would need) and gives a gesture the hand already
+knows from hardware, but it is markedly harder to hit accurately, because the useful
+target is a thin ring rather than a wide track and precision falls off as the fingers move
+toward the centre. That trade is why hardware keeps knobs, where the fingers have grip and
+detents to work with, and why most screens should not: on a page with room, a slider is
+the more usable control almost every time.
+
+Turning is only half the design. Decide first whether the knob has end stops or is
+endless: a bounded knob sweeps a fixed arc, usually around 270 degrees with a gap at the
+bottom so the ends are visible, while an endless encoder spins forever and reports
+relative change, which is the right choice when the value has no maximum or the control is
+shared between parameters. Decide next whether the sweep is continuous or stepped into
+detents, since stepping is what makes a knob usable without a read-out. Then give it the
+read-out anyway, in numbers, because an angle is not a value a reader can name. The
+notches printed around the sweep are [tick marks](/tick-marks) doing the same job they do
+on a slider track, which is to say they are the knob's scale rather than the knob itself,
+and a knob with no ticks and no number is decoration.
+
+Implement it as a gesture rather than as a shape. The turn is a
+[rotate gesture](/rotate-gesture) in feel but not in mechanics, since almost every screen
+knob is driven by a single pointer dragging past it rather than by two fingers twisting,
+and a great many are driven vertically, on the sound argument that a straight drag is more
+precise than an arc. Do not act on the first pixel of movement: apply a
+[drag threshold](/drag-threshold) so a click that was meant as a click does not nudge the
+value. And whatever the pointer does, the keyboard has to work too, with arrow keys
+stepping and Home and End reaching the stops, because a control with no linear track still
+has a linear range underneath it and a reader who cannot turn it needs a way in.

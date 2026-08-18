@@ -1,0 +1,4 @@
+term:    Interactive transition
+scope:   element
+subject: div[data-part=sheet][data-state=rested]
+text:    Departures

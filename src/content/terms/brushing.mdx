@@ -1,0 +1,66 @@
+---
+name: Brushing
+slug: brushing
+category: interaction
+status: published
+definition: >-
+  Dragging a selection across one chart to highlight the same records in every linked view.
+aliases:
+  - name: brushing and linking
+    source: community
+  - name: brush selection
+    source: community
+  - name: linked highlighting
+    source: community
+  - name: crossfilter
+    source: community
+relations: {}
+sources:
+  - title: 'Wikipedia: Brushing and linking'
+    url: https://en.wikipedia.org/wiki/Brushing_and_linking
+demo: inline
+useWhen: coordinated views should answer a selection made in any one of them
+---
+
+Brushing is two moves welded together. Drag a rectangle across one [chart](/chart) and it
+marks a range rather than a set of objects: every record whose values fall inside it, named
+by the numbers on the edges instead of by identity. Then the linking half fires, and every
+other view of the same data repaints to show that same subset, so a band drawn on a scatter
+plot becomes a shorter bar in the chart beside it. Richard Becker and William Cleveland
+formalised the technique at Bell Labs in the 1980s, brushing scatterplot matrices so that a
+rectangle dragged over one panel lit the corresponding points in all the others. The full
+name is still brushing and linking, because neither half does anything on its own: a brush
+with nothing linked to it is a highlighter, and a linked view with nothing brushing it never
+changes.
+
+The word to hold it against is [lasso selection](/lasso-selection). A lasso selects objects
+on one canvas, and what it produces is a set of things you are about to act on. A brush
+selects a range, and what it produces is a filter every linked view answers to. That single
+difference explains the rest of the behaviour: a lasso's outline dies with the gesture that
+drew it, while a brush stays on screen afterwards, with handles to widen it and a body to
+slide, because it is a standing query rather than a moment of pointing. [Range
+select](/range-select) is the third neighbour and the flattest of the three, spanning a run
+of an ordered list with Shift and a second click, which yields a set of rows again rather
+than a condition on a dimension.
+
+Most of the craft is in the edges. An empty brush should mean everything rather than
+nothing, so a freshly loaded view starts at its full count and the reader is filtering down
+rather than building up, and clearing therefore has to be its own control: a second drag
+would be indistinguishable from the start of a new brush. Records outside the brush are
+dimmed rather than deleted, because the shape the whole distribution made is the context
+that makes the selection mean anything, and a linked view that empties out has thrown away
+the comparison the reader was making. Update the linked views continuously through the drag
+rather than on release, since the whole appeal is watching a second chart move while your
+hand is still on the first one. And decide early whether a brush is one dimensional (a range
+along an [axis](/axis), which is what most time series want) or two, because the second
+handle set costs more than it usually returns.
+
+Brushing is the interaction [small multiples](/small-multiples) were waiting for: once one
+design is repeated across a dozen panels, a brush in any panel is a question asked of all of
+them at once, which is exactly the coordinated-views idea that dashboards later sold under
+the name crossfilter. The control panel version of the same job is a [faceted
+filter](/faceted-filter), where the ranges are picked from checkboxes and sliders instead of
+drawn, and it is worth shipping both: a brush is a drag over a picture, so it is unavailable
+to anyone not using a pointer. Publish the brushed range as two numeric fields that read and
+write the same state, announce the resulting count in a live region, and the chart becomes a
+convenience rather than the only door.

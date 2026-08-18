@@ -1,0 +1,4 @@
+term:    Hanging punctuation
+scope:   element
+subject: span[data-hung][data-part=quote][data-pose=[data-hung]]
+text:    “

@@ -1,0 +1,4 @@
+term:    Quick return header
+scope:   element
+subject: div.sp-row.sp-row--between[data-at=rest][data-behaviour=quick-return][data-part=header][data-pose=[data-behaviour=quick-return]]
+text:    Statements Feb to Mar

@@ -1,0 +1,4 @@
+term:    Stacking cards
+scope:   element
+subject: section[data-part=card-1][data-state=loose]
+text:    Sunrise 1 of 4

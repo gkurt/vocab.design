@@ -1,0 +1,61 @@
+---
+name: Device posture
+slug: device-posture
+category: layout
+status: published
+definition: >-
+  The physical fold state of a foldable device, such as flat, book or tabletop, which a layout can
+  respond to alongside plain size.
+aliases:
+  - name: tabletop posture
+    source: android
+  - name: book posture
+    source: android
+  - name: folding feature
+    source: android
+  - name: hinge
+    source: community
+  - name: posture
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Learn about foldables, Android Developers"
+    url: https://developer.android.com/develop/adaptive-apps/guides/foldables/learn-about-foldables
+demo: inline
+useWhen: a layout that responds to how the device is folded
+---
+
+On a foldable, the size of the screen is only half of what the layout needs to know. The same
+panel can be laid out flat as one continuous display, held half open like a book with the hinge
+running vertically down the middle, or propped on a desk in tabletop posture with the hinge
+running horizontally so that one half faces the reader and the other lies flat. Android reports
+this as a folding feature carrying an orientation and a state, and those three arrangements are
+the postures worth designing for: flat, book, tabletop. A layout that reads them can put the
+list on one half and the detail on the other in book posture, or keep the video above the fold
+and the transport controls below it in tabletop.
+
+Posture and size are different questions, and the sharpest way to keep them apart is against
+[window size class](/window-size-class): a size class says how much room there is, while a
+posture says what shape the device is currently being held in, and two devices in the same size
+class can be in entirely different postures. Read the other way, a size class cannot tell you
+that there is a hinge across the middle of your list, so an app that only reads width will
+cheerfully centre its primary action on the one strip of screen a reader cannot press. Both are
+inputs to the same [adaptive layout](/adaptive-layout) decision, and neither substitutes for the
+other.
+
+Two practical consequences follow. The hinge is an occlusion, not a decoration, so it wants the
+same treatment as a [safe area](/safe-area): reserve it, split content either side of it, and
+never leave a control sitting on top of it. And posture changes while the app is running, as
+often as a reader opens or closes the device, so it belongs in the same reactive path as a
+rotation rather than in a decision made once at launch. Tabletop posture also moves where the
+hands are: with the lower half resting on the table, the [thumb zone](/thumb-zone) is that lower
+half, which is exactly why controls belong there and content belongs above.
+
+Finally, the boundary with windowing. A posture is the hardware's shape, while
+[multi-window mode](/multi-window-mode) is the software's division of whatever shape the
+hardware currently has, so a book posture app can also be sharing its half of the screen with
+something else. Most apps do not need three bespoke posture layouts. Honouring the hinge and
+letting the existing responsive rules do the rest covers the majority of cases, and a
+posture-specific arrangement earns its place only where the fold genuinely gives the content a
+better home than a width rule would.

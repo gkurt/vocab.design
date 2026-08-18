@@ -1,0 +1,63 @@
+---
+name: Dragging alternative
+slug: dragging-alternative
+category: accessibility
+status: published
+definition: >-
+  A second, non-dragging route to anything a drag can do, such as arrow keys or a move-to menu on
+  a sortable list.
+aliases:
+  - name: dragging movements
+    source: wcag
+  - name: keyboard drag and drop
+    source: community
+  - name: accessible drag and drop
+    source: community
+  - name: move menu
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Dragging Movements"
+    url: https://www.w3.org/TR/WCAG22/#dragging-movements
+demo: inline
+useWhen: a drag is the only way to perform an action
+---
+
+Success criterion 2.5.7, Dragging Movements, is one of the criteria WCAG 2.2 added, and it asks
+for one thing: any function that is operated by dragging must also be operable by a single
+pointer without dragging, unless the dragging is essential to what the function is. Sorting a
+[kanban board](/kanban-board) by hauling cards between columns is the textbook failure, and the
+textbook fix is a move menu on each card that reaches exactly the same state with two taps.
+Reordering, resizing a pane, panning a map, and dropping a file into a
+[drop zone](/drop-zone) are all in scope, and all of them have a tap-sized answer: a menu, a pair
+of arrow buttons, a file picker beside the zone.
+
+The most common misreading is that keyboard access discharges the duty. It does not. The
+criterion names a single pointer, and it exists for people whose pointer is imprecise or
+expensive to hold steady: a tremor, a head-tracker, a mouth stick, someone dragging with one
+finger on a phone in a moving bus. A board that is fully operable from the keyboard, with a
+proper roving [drag handle](/drag-handle) and arrow keys, still fails 2.5.7 for the mouse user
+who cannot reliably hold a button down across 200 pixels. Conversely a control operated by a
+single tap on a track, such as a [slider](/slider) that jumps to the point you click, satisfies
+it without any menu at all, because the drag was never the only route.
+
+Essential is a narrow exception and worth reading narrowly. A signature pad is essential
+dragging: the path is the data. A drawing canvas is essential. Reordering a list is not, because
+the position is the data and the drag was only ever one way to state it. When in doubt, ask
+what the drag produces rather than what it feels like, and see whether that result can be named
+some other way.
+
+The alternative also has to be findable, which is where most retrofits fall down. A move
+command buried behind a long press that nobody discovers is not an alternative anyone reaches,
+and a control small enough to miss reintroduces the problem it was meant to solve, so it owes
+[target spacing](/target-spacing) as well. This criterion sits in a family with
+[pointer cancellation](/pointer-cancellation) and
+[focus not obscured](/focus-not-obscured): each one takes an interaction that works perfectly
+for a steady hand and a settled screen and asks what it costs everyone else. Where the pointer
+itself is the barrier rather than the gesture, the reader is often on
+[switch access](/switch-access), and a menu is the only thing on the board they can use at all.

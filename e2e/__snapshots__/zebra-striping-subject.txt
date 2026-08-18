@@ -1,0 +1,4 @@
+term:    Zebra striping
+scope:   element
+subject: div[aria-hidden=true][data-mode=zebra][data-part=stripes][data-pose=[data-mode=zebra]]
+text:    

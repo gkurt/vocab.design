@@ -1,0 +1,4 @@
+term:    Chartjunk
+scope:   element
+subject: g[data-mode=laden][data-part=junk][data-pose=[data-mode=laden]]
+text:    RECORD!

@@ -1,0 +1,4 @@
+term:    Device posture
+scope:   element
+subject: div[data-part=app][data-posture=flat]
+text:    Harbour survey Detail Controls

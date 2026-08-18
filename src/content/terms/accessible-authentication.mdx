@@ -1,0 +1,62 @@
+---
+name: Accessible authentication
+slug: accessible-authentication
+category: accessibility
+status: published
+definition: >-
+  A sign-in route that never requires a cognitive function test such as recalling a password or
+  solving a puzzle without offering an alternative.
+aliases:
+  - name: cognitive function test
+    source: wcag
+  - name: no CAPTCHA
+    source: community
+  - name: allow paste in password
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Accessible Authentication (Minimum)"
+    url: https://www.w3.org/TR/WCAG22/#accessible-authentication-minimum
+demo: inline
+useWhen: a login demands memory or puzzle solving
+---
+
+Success criterion 3.3.8, Accessible Authentication (Minimum), is Level AA and new in WCAG 2.2.
+It says no step of signing in may require a cognitive function test unless one of three things is
+true: another method is available that does not require one, a mechanism is available to assist
+the reader through it, or the test is recognising objects or identifying non-text content the
+reader themselves provided. A cognitive function test means remembering, transcribing, solving a
+puzzle, or doing arithmetic. Memorising a password is one. Copying a code out of an email by hand
+is one. Reading distorted letters is one.
+
+The single most common failure is also the easiest to fix: a password field that blocks paste.
+Password managers are exactly the mechanism the criterion has in mind, and disabling paste
+removes it, turning a field anybody could fill into a memory test. The same goes for a one-time
+code field that rejects a pasted string, splits into six boxes that eat a paste, or expires
+before somebody using a screen reader can reach it. Allowing paste, allowing autofill, and
+letting the reader see what they typed with a
+[password reveal toggle](/password-reveal-toggle) are the cheap half of compliance. A
+[passkey](/passkey), a [magic link](/magic-link), or a
+[one-time code login](/one-time-code-login) are the better half, because they replace recall with
+possession.
+
+This is where the criterion collides hardest with the [CAPTCHA](/captcha), and the two are worth
+stating in one line each. A captcha exists to prove the visitor is a human rather than a script;
+this criterion says that proof must not be a cognitive function test, which is precisely what
+distorted text is. That leaves image recognition sitting in the exception at AA, so "choose every
+square with a bus" is technically permitted here and is not permitted at all under 3.3.9,
+Accessible Authentication (Enhanced), at AAA. The way out is to stop testing the reader: a
+[honeypot field](/honeypot-field) tests the client instead, and risk scoring or a device signal
+asks nothing of anybody who is genuinely signing in.
+
+It is worth reading beside [redundant entry](/redundant-entry), which pulls the other way on the
+same screen. That criterion lets you ask for a password twice, because confirming one is
+essential; this one says do not make remembering it the only way in. Both are really about the
+same thing, which is that authentication is the point in a product where cognitive load is
+highest, patience is lowest, and failure costs the reader the entire service rather than one
+task.

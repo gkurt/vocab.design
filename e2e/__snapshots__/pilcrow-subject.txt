@@ -1,0 +1,4 @@
+term:    Pilcrow
+scope:   element
+subject: span[data-mark][data-part=pilcrow]
+text:    ¶

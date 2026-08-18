@@ -1,0 +1,4 @@
+term:    Keyboard shortcuts dialog
+scope:   element
+subject: div.sp-dialog[aria-label=Keyboard shortcuts][aria-modal=true][data-open][data-part=dialog][role=dialog]
+text:    Keyboard shortcuts Close Editing Undo CtrlZ Redo CtrlShiftZ Duplicate row CtrlD 

@@ -1,0 +1,50 @@
+---
+name: Data-ink ratio
+slug: data-ink-ratio
+category: aesthetic
+status: published
+definition: >-
+  Tufte's measure of chart economy: the share of ink that would be missed if erased, with
+  everything else a candidate for deletion.
+aliases:
+  - name: data-ink
+  - name: data to ink ratio
+relations: {}
+implementations: []
+sources:
+  - title: 'Wikipedia: Data-ink ratio'
+    url: https://en.wikipedia.org/wiki/Data-ink_ratio
+demo: inline
+useWhen: deciding what a chart can lose before it loses meaning
+---
+
+Tufte defined data-ink as the non-erasable core of a graphic, the ink whose removal would
+take a number with it, and the data-ink ratio as that quantity divided by the total ink the
+[chart](/chart) spends. Two rules follow, and they are the whole method: maximise the
+ratio, within reason, and then revise and edit. In practice you do it by erasure. Take a
+finished chart, delete one thing, and ask what the reader lost. A plot fill, a box frame, a
+legend for a single series, and every other gridline usually cost nothing. The line and the
+dots cost everything.
+
+The word sits next to its complement. The data-ink ratio measures how much of a chart's
+ink carries data; [chartjunk](/chartjunk) names the ink that carries none. One is a number
+you can watch move as you delete, the other is a name for what you are deleting, and
+neither is much use without the other.
+
+Treat the ratio as a heuristic, not a law, because it can be gamed and it can be pushed
+past the point of use. It counts ink, not comprehension, so a chart can score well and
+still be hard to read: erase the [axis](/axis) labels and the ratio improves while the
+reader loses the scale, and strip the gridlines from a plot people are meant to read exact
+values off and you have optimised the measure instead of the chart. Critics have made this
+point since the 1980s, and controlled studies of "minimal" versus embellished charts have
+repeatedly failed to show the clean advantage the rule implies. The defensible version is
+narrower and still worth having: given two charts that answer the reader's question equally
+well, prefer the one that spends less ink saying it.
+
+The form Tufte pushed the idea furthest with is the [sparkline](/sparkline), a chart
+reduced to almost nothing but its marks and set inline with the sentence it belongs to. It
+has no axes, no gridlines, no legend and no frame, and it works because it is not being
+asked for precision: the exact figure is printed beside it in the text, and the picture is
+carrying only the shape of the trend. That is the honest reading of a high ratio. It is not
+that decoration is immoral, it is that every mark should be answering something the reader
+actually asked.

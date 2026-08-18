@@ -1,0 +1,4 @@
+term:    Windows Aero
+scope:   element
+subject: div[data-part=titlebar]
+text:    Documents

@@ -1,0 +1,62 @@
+---
+name: Error bar
+slug: error-bar
+category: component
+status: published
+definition: >-
+  Whiskers on a mark showing the range a value could plausibly take, so a chart does not
+  imply precision it does not have.
+aliases:
+  - name: confidence interval
+  - name: uncertainty band
+  - name: confidence band
+relations: {}
+implementations: []
+sources:
+  - title: 'Fundamentals of Data Visualization: Visualizing uncertainty'
+    url: https://clauswilke.com/dataviz/visualizing-uncertainty.html
+demo: inline
+useWhen: a chart states an estimate and honesty requires showing the spread
+---
+
+A dot on a [chart](/chart) is a claim about a number, and most of the numbers worth
+charting are estimates: a rate measured from a sample, a forecast, a model output. An
+error bar is the rest of that claim, drawn as whiskers running out from the mark to the
+ends of the range the value could plausibly take. It is the only common component whose
+job is to make a chart say less, and it is the cheapest correction available for the
+most persistent lie in data display, which is that a mark drawn to the pixel was measured
+to the pixel.
+
+The bar means nothing until it says what it is. The same whiskers are used for standard
+deviation, standard error, and a confidence interval at some level, and those are three
+different lengths on the same data, differing by more than a factor of two. A chart that
+draws them without a caption saying which one it drew has published an ornament. Put the
+definition in the caption or the label, always, including the interval level: "bars are
+95 per cent confidence intervals" is nine words and it is the difference between a
+figure and a decoration.
+
+Now the misreading, because almost everyone has it backwards. If two intervals do not
+overlap at all, the difference is very likely real at roughly that level of confidence.
+But overlap does not prove the opposite: two 95 per cent intervals can overlap
+substantially while the difference between the two values is still statistically
+significant, so "the bars overlap, therefore nothing is happening" is simply not a valid
+inference. What overlap honestly supports is a weaker and more useful sentence: this
+chart does not settle it. Reach for that sentence rather than for a verdict, and where
+the comparison itself is the point, plot the difference and its interval directly instead
+of asking readers to eyeball two ranges.
+
+Drawing it is mostly restraint. Keep the whisker thinner than the mark and in the mark's
+own colour so it reads as part of the same statement, cap the ends or do not, but do it
+the same way across every panel, and prefer a shaded band to a forest of whiskers when
+the series is continuous, since fifty capped bars along a line are a picket fence rather
+than a range. Where the interval is asymmetric, draw it asymmetric. And note the family
+resemblance to a [truncated axis](/truncated-axis): both terms are about a chart telling
+the truth about magnitude, one by refusing to exaggerate the differences between marks
+and the other by refusing to overstate the certainty of any single one. A
+[reference line](/reference-line) is the natural companion, since the question an interval
+usually answers is whether a value has really cleared the target the line marks, and the
+[axis](/axis) has to be wide enough to hold the whole interval or the bar is clipped into
+a claim it never made. Claus Wilke's
+[chapter on visualizing uncertainty](https://clauswilke.com/dataviz/visualizing-uncertainty.html)
+is the best short treatment of the alternatives, including the case for showing the
+distribution itself rather than two numbers standing in for it.

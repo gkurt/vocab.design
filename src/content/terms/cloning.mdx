@@ -1,0 +1,55 @@
+---
+name: Cloning
+slug: cloning
+category: motion
+status: published
+definition: >-
+  Spawning a new element visibly out of an existing one so the reader can see where it came from,
+  rather than having it arrive from nowhere.
+aliases:
+  - name: object cloning
+    source: community
+  - name: spawn animation
+    source: community
+  - name: clone and move
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "UX Magazine: creating usability with motion, the UX in Motion Manifesto"
+    url: https://uxmag.com/articles/creating-usability-with-motion-the-ux-in-motion-manifesto
+  - title: "The 12 principles of UX in motion"
+    url: https://shengbanx.gitbooks.io/motion-system/content/chapter5.html
+demo: inline
+useWhen: a new object must be traceable to the thing that made it
+---
+
+An object that appears in a list is a fact the reader has to take on trust. An object that visibly
+peels off the thing that made it and flies to the list is a fact they watched happen. Cloning is that
+second version: a duplicate is spawned at the source, travels, and settles into its destination,
+while the original stays exactly where the reader left it. Adding a track to a playlist, saving an
+image to a board, dragging a component out of a palette that never runs out: all of them are one
+object becoming two, and the motion is what says which one the new one is.
+
+The tell that separates it from every other transition in this category is the count. Cloning leaves
+two objects where there was one, and the source is the one that must not move, because the reader's
+next action is probably aimed at it. That is the whole reason the animated copy exists: without it,
+either the source jumps to the destination (a lie, since it is still in the palette) or the new item
+simply materialises in the list (true, but unattributed). A [drag preview](/drag-preview) is the same
+idea under direct manipulation, a clone that follows the pointer instead of flying a scripted path.
+
+This is where it separates from the transitions that carry one element across a change.
+A [view transition](/view-transition) takes an element that exists before and after and animates
+between its two positions, so nothing is duplicated and the source cannot stay behind.
+A [morph transition](/morph-transition) reshapes one element into another, a card into a detail page,
+and the card is spent by the arrival. Cloning deliberately makes a second object precisely so the
+first one can stay put. Mechanically the copy is often a throwaway: a positioned duplicate flown from
+the source's box to the destination's, deleted on arrival, with the real item revealed underneath at
+the same instant. That is the same trick a [FLIP animation](/flip-animation) uses to move things
+cheaply, applied to an object that has no earlier position to invert from.
+
+Three things go wrong in practice. The clone must land on something: a destination that is off screen
+or has not reserved a slot turns the flight into a disappearance. It must be quick, because it is an
+acknowledgement rather than a feature, and anything past roughly three hundred milliseconds starts
+being a thing the reader waits for. And it must survive being done twice in a second, since the
+gesture it confirms is usually one people repeat.

@@ -1,0 +1,4 @@
+term:    Disguised ad
+scope:   element
+subject: div.sp-surface.sp-row[data-disguise=on][data-mode=none][data-part=ad][data-pose=[data-disguise=on]]
+text:    Kew Review · 3 min read The three tools every bookbinder keeps sharp

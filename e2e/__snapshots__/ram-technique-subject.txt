@@ -1,0 +1,4 @@
+term:    RAM technique
+scope:   element
+subject: div.sp-grid[data-cols=3][data-part=grid]
+text:    Tide table Berth plan Survey log Permits

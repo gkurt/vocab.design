@@ -1,0 +1,4 @@
+term:    Static color
+scope:   element
+subject: div.sp-row[data-part=static-pair]
+text:    NORTHWIND #FF5A00 5.9:1 held 400 V #B3170F 6.9:1 held

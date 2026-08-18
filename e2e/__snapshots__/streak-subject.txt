@@ -1,0 +1,4 @@
+term:    Streak
+scope:   element
+subject: span.sp-row[data-mode=kept][data-part=count]
+text:    18 day streak

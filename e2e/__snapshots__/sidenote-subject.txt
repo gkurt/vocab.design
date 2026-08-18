@@ -1,0 +1,4 @@
+term:    Sidenote
+scope:   element
+subject: aside[data-part=note-1][data-place=margin][data-pose=[data-place=margin]]
+text:    1. Level with its own sentence, not at the foot of the page.

@@ -1,0 +1,59 @@
+---
+name: Pilcrow
+slug: pilcrow
+category: typography
+status: published
+definition: >-
+  The paragraph mark, a reversed P with a doubled stem, used to show where a paragraph
+  begins or as a hover anchor beside a heading.
+aliases:
+  - name: paragraph mark
+  - name: paragraph symbol
+  - name: paraph
+  - name: blind P
+relations: {}
+implementations: []
+sources:
+  - title: "Pilcrow (Wikipedia)"
+    url: https://en.wikipedia.org/wiki/Pilcrow
+  - title: "Practical Typography (Matthew Butterick)"
+    url: https://practicaltypography.com/
+demo: inline
+useWhen: naming the paragraph symbol in an editor
+---
+
+The pilcrow is the [glyph](/glyph) at U+00B6, a P turned into a marker: the bowl filled
+in, the stem doubled, the whole thing usually drawn heavier than the text around it. Its
+oldest job is the one its shape still says out loud. Medieval manuscripts ran as
+unbroken blocks of text, and a rubricator went through afterwards in red ink marking
+where each new argument started. The mark was a capital C for `capitulum`, a little
+chapter, which drifted over centuries of copying into the shape we have now. The name
+travelled the same road, from `paragraphos` through Old French to `pylcrafte` and then
+`pilcrow`. Scribes left a gap in the text for the rubricator to fill, and when the red
+ink stopped arriving the gap stayed behind: that abandoned space is where the paragraph
+indent comes from.
+
+That history is the reason the pilcrow and the indent are alternatives rather than
+partners. Both mark the same event, the start of a new paragraph, and both come from the
+same red mark; the indent is literally the hole the mark used to sit in. Setting a
+paragraph with a [first line indent](/first-line-indent) and a visible pilcrow says the
+same thing twice, which is why continuous prose with pilcrows in it, the way a legal
+citation or a Bible sets verses run together, drops the indent entirely and lets the mark
+do all the work.
+
+Interfaces use it in two other ways. Word processors and editors show it as a formatting
+mark: turn marks on and a pilcrow appears at every paragraph break, a dot in every space,
+an arrow at every tab, so a writer can see the structure the characters have rather than
+the shape they happen to make. It is the fastest way to answer "why will this line not
+move", and the marks are drawn without moving the text they annotate, which is what the
+specimen on this page reproduces. The second use is the web's: a pilcrow that appears
+beside a heading on hover, linking to that section. It reads as the paragraph symbol, but
+strictly it is an anchor pointing at the block, which is why the section sign (U+00A7) and
+a plain link icon turn up in the same slot on other sites.
+
+Say the name out loud when you mean the character, because the alternatives are all
+worse. "Paragraph symbol" gets confused with the indent, "reverse P" describes half of
+it, and the thing has been called a paraph, a blind P, and an alinea depending on who is
+speaking. In a design system the pilcrow is normally an icon rather than a typed
+character anyway, since it has to hold its weight at 12 pixels beside a heading, and the
+letterform in most text faces does not.

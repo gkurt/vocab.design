@@ -1,0 +1,4 @@
+term:    Oldstyle figures
+scope:   element
+subject: span[data-figures=oldstyle][data-part=year][data-pose=[data-figures=oldstyle]]
+text:    1867

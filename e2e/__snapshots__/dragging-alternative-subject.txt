@@ -1,0 +1,4 @@
+term:    Dragging alternative
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[data-mode=both][data-part=move-a][data-pose=[data-mode=both]][type=button]
+text:    Move

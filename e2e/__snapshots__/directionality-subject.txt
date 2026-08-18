@@ -1,0 +1,4 @@
+term:    Directionality
+scope:   element
+subject: div[data-from=none][data-level=list][data-mode=directional][data-part=pane][data-pose=[data-mode=directional]][data-state=settled]
+text:    Mailboxes All mail Ferries Receipts

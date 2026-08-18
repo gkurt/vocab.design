@@ -94,6 +94,9 @@ bugs in "complete" specimens every time). The verify agent then gates all 54.
    - an assert on evidence inside a popup the action just closed (mirror onto trigger)
    - a mount-time assert with no room for kit fades (open with a wait)
    - invalid selector syntax and hairline subjects (now validate-gated)
+   - an assert on a wrapper with no box: a group whose children are all absolutely
+     positioned, or one held at `height: 0` to overlay without shifting, measures zero
+     and reads as absent just like a hairline does
    - a demo that answers input by synthesizing more input (`btn.click()` inside a
      click handler): the choreography passes and the TAKEOVER pass fails, because
      it counts the clicks reaching the specimen and wants exactly one

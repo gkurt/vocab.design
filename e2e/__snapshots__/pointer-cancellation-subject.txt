@@ -1,0 +1,4 @@
+term:    Pointer cancellation
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=up-btn][type=button]
+text:    Delete draft

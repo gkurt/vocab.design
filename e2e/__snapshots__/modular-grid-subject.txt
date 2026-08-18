@@ -1,0 +1,4 @@
+term:    Modular grid
+scope:   element
+subject: div.sp-grid[data-config=coarse][data-part=page]
+text:    Harbour Review

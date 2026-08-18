@@ -1,0 +1,4 @@
+term:    Cloning
+scope:   element
+subject: div[data-mode=clone][data-part=flier][data-pose=[data-mode=clone]][data-state=landed]
+text:    FM Fathom

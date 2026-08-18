@@ -1,0 +1,4 @@
+term:    Menu bar extra
+scope:   element
+subject: button.sp-icon-button[aria-expanded=false][aria-haspopup=dialog][aria-label=Backhaul, idle][data-part=item][data-state=idle][type=button]
+text:    

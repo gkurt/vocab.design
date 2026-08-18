@@ -1,0 +1,69 @@
+---
+name: Directionality
+slug: directionality
+category: motion
+status: published
+definition: >-
+  The rule that every movement carries a direction, and that using it consistently tells the reader
+  how the parts of an interface relate.
+aliases:
+  - name: spatial model
+    source: community
+  - name: spatial continuity
+    source: community
+  - name: sense of place
+    source: community
+  - name: forward and backward motion
+    source: material
+  - name: direction-aware transition
+    source: community
+  - name: continuity transition
+    source: community
+relations: {}
+implementations:
+  - system: hig
+    name: Directionality
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+sources:
+  - title: "Apple HIG: Motion"
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+  - title: "Material Design 3: Transitions"
+    url: https://m3.material.io/styles/motion/transitions
+demo: inline
+useWhen: motion should say where a view sits relative to another
+---
+
+A screen cannot arrive without arriving from somewhere. Every transition already carries a direction
+whether or not anyone chose it, and directionality is the decision to make that direction mean
+something: deeper into the hierarchy comes in from one side, back out comes from the other, a sibling
+slides across, a modal rises from the bottom. Do it consistently and the interface acquires a
+geography. The reader stops asking where they are, because the motion has been telling them all
+along, and the back gesture feels like retracing steps rather than issuing a command.
+
+The rule is cheap to state and easy to break. Direction is a property of the *relationship* between
+two views, not of the control that was pressed, so every route to a screen has to move the same way.
+A detail view reached from a list, from a search result, and from a notification all sit in the same
+place in the hierarchy, and if one of them slides in from the left because that control happened to
+be on the left, the geography is now a lie. It also has to be mirrored for right-to-left reading, so
+"forward" is an inline-start to inline-end idea rather than a literal left and right (see
+[RTL mirroring](/rtl-mirroring)). And it does not need much: a
+[push transition](/push-transition) between hierarchy levels and a
+[shared axis](/shared-axis) move between peers cover most of an application, and the
+[easing](/easing) matters less than the consistency.
+
+This is exactly where it must not be confused with
+[origin-aware animation](/origin-aware-animation), which is the other way motion can carry meaning
+and is a different claim. An origin-aware transition starts *from the control that triggered it*, so
+a menu grows out of its own button and a card expands out of the thumbnail that was tapped; the
+direction is local, personal to that one gesture, and it changes with wherever the control happened
+to sit. Directionality encodes *where you are in a hierarchy*, so it is the same whichever control
+you used and it is meaningless without the rest of the system agreeing with it. Both can run at once
+in the same interface, and they answer different questions: one says what you came from, the other
+says where you have gone.
+
+The most convincing evidence for the rule is what happens without it. Animate every navigation the
+same way, in from the right whatever the reader did, and going back feels like going forward again.
+Nothing looks broken and nothing is broken, but the reader loses their sense of place and starts
+checking the header to work out where they ended up. That is the cost of undirected motion, and it is
+also the reason a directionally consistent interface can get away with much subtler transitions than
+an inconsistent one.

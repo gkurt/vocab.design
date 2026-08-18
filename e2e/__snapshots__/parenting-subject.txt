@@ -1,0 +1,4 @@
+term:    Parenting
+scope:   element
+subject: div[data-move=slide][data-part=card][data-state=posed]
+text:    FM HL RS

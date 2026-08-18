@@ -1,0 +1,4 @@
+term:    Multi-window mode
+scope:   element
+subject: div[data-mode=single][data-part=app][data-size=expanded]
+text:    Berths Tides Permits Berth register

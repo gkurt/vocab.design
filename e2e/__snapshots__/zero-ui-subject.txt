@@ -1,0 +1,4 @@
+term:    Zero UI
+scope:   element
+subject: span[data-part=device][data-phase=idle]
+text:    

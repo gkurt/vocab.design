@@ -81,6 +81,28 @@ table-of-contents, "radio button" to radio-group, "tag picker" to combobox
 (tag-input territory), bare "autocomplete" to anything (contested between combobox
 and typeahead; decide at the relations pass, note only).
 
+## RESOLVED: pool entries retired as already-folded aliases (2026-08-18)
+
+Seven candidates removed from `candidates.json` (983 to 976). Each was a duplicate of a
+term already on the site AND already carried as one of that term's aliases, so nothing was
+lost: the names stay searchable and `[slug].astro` still redirects them. They were removed
+rather than authored because writing them would have produced a second page for a concept
+that already has one.
+
+| retired | already an alias of |
+| --- | --- |
+| acrylic | glassmorphism |
+| tone | lightness |
+| contrast-color | on-color |
+| dynamic-color | material-you |
+| increased-contrast | prefers-contrast |
+| peek | quick-view |
+| rubber-banding | overscroll |
+
+The alias membership was asserted per entry before removal, not assumed. This is what lets
+colour, aesthetic and interaction read as genuinely exhausted after round 15 rather than
+carrying three permanently unauthorable residues.
+
 ## Name collisions needing disambiguation prose (live, due when the second sense arrives)
 
 thumb (slider) vs thumbnail; timeline (event list, authored) vs timeline (media

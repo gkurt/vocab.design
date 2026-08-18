@@ -1,0 +1,61 @@
+---
+name: Streak
+slug: streak
+category: pattern
+status: published
+definition: >-
+  A count of consecutive periods in which the reader did the thing, displayed prominently
+  and lost if a period is missed.
+aliases:
+  - name: daily streak
+    source: community
+  - name: streak counter
+    source: community
+  - name: streak freeze
+    source: community
+  - name: chain
+    source: community
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: the running count of consecutive days you kept going
+---
+
+A streak is the cheapest possible progress display: one integer, incremented by showing up.
+It has no target, no percentage, and nothing to complete, which is why it works on a
+newcomer as well as on a veteran. Day one is a streak. What gives the number its weight is
+the rule attached to it, that a single missed period returns it to zero, so the count is
+not a record of what the reader did but a deposit they are holding. The specimen above
+runs the same eighteen days three ways, and the only thing that separates a streak of
+eighteen from a streak of nothing is one square.
+
+The mechanic runs on loss aversion, and that is worth naming rather than dressing up.
+Eighteen days of effort are equally real whether the counter says eighteen or zero, so what
+the reset destroys is not progress, it is a number the interface invented and then made the
+reader responsible for. Used honestly this is a fine motivator: the count is visible, the
+rule is stated in advance, and the reader can decide how much they want to care. Used
+commercially it becomes a lever, because the same mechanic that makes a streak worth
+keeping makes a lost one worth paying to recover. A freeze given away, one or two a month,
+absorbing the day someone was ill, is mercy that costs the product nothing. A freeze sold,
+or a lost streak restorable for a fee, is charging for relief from a loss the design
+manufactured, which is where the nudge stops being a nudge.
+
+The comparison classes sort by what the reader is measured against. A
+[leaderboard](/leaderboard) measures them against other people, so it says nothing useful
+to anyone outside the top of it, while a streak measures them against their own past and
+therefore has something to say on the first day. [Goal gradient](/goal-gradient) and
+[endowed progress](/endowed-progress) are the two nearby motivators that need an endpoint
+to work, a finish line to accelerate toward and a head start to make the line feel closer,
+and a streak deliberately has neither. [Steps left](/steps-left) is the honest counter's
+opposite number: it counts down to something that ends, where a streak counts up to
+nothing and can only ever be lost.
+
+Two details decide whether an implementation is humane. The first is what counts as a
+period, because a streak on a calendar day punishes the reader in a timezone the product
+did not think about and rewards a token gesture at 11:50pm; a rolling window, or a weekly
+quota, measures the habit rather than the clock. The second is how loudly the loss is
+announced. A counter that resets quietly and starts again is a habit tracker. A counter
+that mourns, with a broken glyph and a push notification about the eighteen days the reader
+just threw away, is
+[nagging](/nagging) wearing a number.

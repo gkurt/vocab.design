@@ -1,0 +1,4 @@
+term:    Redundant entry
+scope:   element
+subject: input.sp-input[aria-label=Street][data-part=street]
+text:    

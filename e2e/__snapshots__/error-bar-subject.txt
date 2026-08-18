@@ -1,0 +1,4 @@
+term:    Error bar
+scope:   element
+subject: g[data-part=interval-blue]
+text:    

@@ -1,0 +1,58 @@
+---
+name: Hanging punctuation
+slug: hanging-punctuation
+category: typography
+status: published
+definition: >-
+  Letting quotes, hyphens, and other light marks sit outside the text column so the edge
+  of the text reads as straight to the eye.
+aliases:
+  - name: optical margin alignment
+    source: indesign
+  - name: hung punctuation
+  - name: hanging quotes
+relations: {}
+implementations: []
+sources:
+  - title: "Optical Margin Alignment in InDesign (Fonts.com)"
+    url: https://www.myfonts.com/pages/fontscom-learning-fyti-using-type-tools-optical-margin-alignment-in-indesign/
+  - title: "Hung Punctuation and Optical Margin Alignment (CreativePro)"
+    url: https://creativepro.com/typetalk-hung-punctuation-optical-margin-alignment/
+demo: inline
+useWhen: a quote mark makes the left edge look dented
+---
+
+A column of text has two edges, the one the software measures and the one the reader
+sees. They are not the same. A quotation mark at the start of a line is mostly white
+space with a small mark floating at the top of it, so a line that begins with one starts,
+to the eye, a few points later than the lines around it, and the left edge of the
+paragraph reads as dented. Hanging punctuation fixes it by pushing those light marks out
+of the column entirely: the quote sits in the margin and the letter after it lands on the
+edge with every other first letter. The same correction at the right edge lets hyphens
+and commas hang past the last letter of the line. Gutenberg was doing it in the 1450s,
+which is a useful reminder that this is a compositor's habit, not a CSS feature.
+
+It is one specific case of [optical alignment](/optical-alignment), the general principle
+that the eye aligns edges of mass rather than bounding boxes, so shapes that lie about
+their weight have to be nudged off their measured positions. What makes hanging
+punctuation worth its own word is that the case is narrow enough to be handled
+automatically: the marks are known, the direction is known, and the correction is always
+the same one, which is why page layout software has a switch for it and CSS has a
+property.
+
+The effect is strongest exactly where an edge is meant to be perfect. In
+[justified text](/justified-text) both edges are mathematically flush, so a mark hanging
+inside the column is the only thing spoiling a straight line, and this is the setting
+where hanging punctuation earns its keep the most. In ragged setting it still helps at
+the flush edge, and it changes how the [rag](/rag) on the other side reads by taking the
+lightest characters out of the outline. It matters more as the [measure](/measure) gets
+narrower, since a short line makes every dent a larger fraction of the column.
+
+On the web the property is `hanging-punctuation`, taking `first`, `last`,
+`force-end` and `allow-end`, and after two decades it is still shipping in Safari alone.
+The fallback everybody actually uses is a negative indent on the element that starts with
+the mark, either `text-indent` with a negative value or a negative margin on a span, which
+is exactly what the specimen on this page does: the marks are hung by hand so the guide
+down the text edge shows the difference. That hand method is also the honest one for a
+design system, since it puts the decision on the one block that needs it rather than
+leaving a paragraph looking dented everywhere the property is unsupported.

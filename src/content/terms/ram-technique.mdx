@@ -1,0 +1,58 @@
+---
+name: RAM technique
+slug: ram-technique
+category: layout
+status: published
+definition: >-
+  A grid that decides its own column count from a minimum item width, so the same one line rule
+  works at every screen size without a single breakpoint.
+aliases:
+  - name: RAM
+    source: web-dev
+  - name: repeat auto minmax
+    source: web-dev
+  - name: auto-fit minmax
+    source: community
+  - name: auto-fill
+    source: css
+relations: {}
+implementations: []
+sources:
+  - title: "RAM (Repeat, Auto, Minmax), web.dev layout patterns"
+    url: https://web.dev/patterns/layout/repeat-auto-minmax/
+demo: inline
+useWhen: a grid that reflows with no breakpoints at all
+---
+
+The whole technique is one declaration: `grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))`.
+Three pieces are doing the work. `repeat` asks for a series of identical tracks, `auto-fit` says
+the number of them is not the author's business, and `minmax` gives each track a floor of 200
+pixels and a ceiling of an equal share of whatever is left. The browser then fits as many tracks
+as will hold their minimum and divides the remainder between them. Una Kravets named the pattern
+RAM, for repeat, auto and minmax, in the one line layouts collection on
+[web.dev](https://web.dev/patterns/layout/), and the name stuck because the acronym is the whole
+recipe.
+
+The point is easiest to see against a [breakpoint](/breakpoint). A breakpoint names a width at
+which a rule flips: someone decided that 768 pixels is where two columns become three, and every
+container that does not happen to be the width of the viewport gets that decision applied to it
+anyway. The RAM technique never names a width at all. It states the smallest a card may be and
+lets the count fall out of the arithmetic, which is why the same line is correct on a phone, in
+a sidebar, and on a monitor nobody tested. That also names its limit: if the layout has to change
+in kind rather than in count, one row becoming a stack with a different reading order, no amount
+of minmax will do it and a breakpoint is the right tool.
+
+Two mechanical notes are worth carrying. `auto-fit` and `auto-fill` differ only when there are
+more tracks than items: `auto-fill` keeps the empty tracks and leaves a gap where the missing
+cards would be, while `auto-fit` collapses them so the surviving items stretch to fill the row.
+Reach for `auto-fill` when the empty space is meaningful and `auto-fit` otherwise. And a fixed
+minimum overflows any container narrower than it, so the defensive spelling is
+`minmax(min(100%, 200px), 1fr)`, which lets the track shrink below its own floor rather than
+push a scrollbar onto a small screen.
+
+It answers a different question from a [container query](/container-query): a container query
+lets a component restyle itself according to the room it was given, while the RAM technique needs
+no query at all because the grid algorithm is already reading that room. In practice it is how
+most [card grids](/card-grid) should be built, and it sits comfortably inside whatever
+[layout grid](/layout-grid) the page as a whole agrees on, since the cards divide the space that
+grid handed them rather than negotiating with it.

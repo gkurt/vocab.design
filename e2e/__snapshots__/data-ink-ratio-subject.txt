@@ -1,0 +1,4 @@
+term:    Data-ink ratio
+scope:   element
+subject: g[data-part=marks]
+text:    

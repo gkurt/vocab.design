@@ -1,0 +1,4 @@
+term:    Knob
+scope:   element
+subject: g[data-mode=continuous][data-part=knob]
+text:    

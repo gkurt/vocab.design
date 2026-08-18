@@ -1,0 +1,4 @@
+term:    Accessible authentication
+scope:   element
+subject: div.sp-surface[data-mode=open][data-part=signin][data-pose=[data-mode=open]]
+text:    Sign in to your account Six digit code Paste Paste, a password manager, and auto

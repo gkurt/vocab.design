@@ -1,0 +1,4 @@
+term:    Brushing
+scope:   element
+subject: span[data-part=brush]
+text:    

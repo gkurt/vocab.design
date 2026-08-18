@@ -1,0 +1,4 @@
+term:    Surface tint
+scope:   element
+subject: div.sp-row.sp-row--between[data-mode=tonal][data-part=card-dark-l5][data-pose=[data-tinted]][data-tint=14][data-tinted]
+text:    Level 5 · 12dp +14% · #2E2A38

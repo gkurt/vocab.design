@@ -1,0 +1,4 @@
+term:    Optical kerning
+scope:   element
+subject: span[data-mode=optical][data-part=pair-av][data-pose=[data-mode=optical]]
+text:    AV

@@ -1,0 +1,4 @@
+term:    Semantic zoom
+scope:   element
+subject: div[data-level=years][data-part=zoom]
+text:    2020 to 2025 2020 2021 2022 2023 2024 2025 2024, by month J F M A M J J A S O N 

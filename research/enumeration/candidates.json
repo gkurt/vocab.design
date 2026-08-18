@@ -627,63 +627,6 @@
   ]
  },
  {
-  "name": "Acrylic",
-  "slug": "acrylic",
-  "category": "aesthetic",
-  "definition": "Fluent's semi-transparent material that blurs, tints, and adds noise to whatever sits behind it, used on transient surfaces like flyouts and menus.",
-  "useWhen": "a frosted Windows surface you can see the desktop through",
-  "aliases": [
-   {
-    "name": "acrylic material",
-    "source": "fluent"
-   },
-   {
-    "name": "AcrylicBrush",
-    "source": "winui"
-   },
-   {
-    "name": "background acrylic",
-    "source": "fluent"
-   },
-   {
-    "name": "in-app acrylic",
-    "source": "fluent"
-   }
-  ],
-  "relatedSlugs": [
-   "glassmorphism",
-   "mica",
-   "liquid-glass",
-   "windows-aero"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "Microsoft Learn: Materials used in Windows apps",
-    "url": "https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials"
-   }
-  ],
-  "implementations": [
-   {
-    "systemId": "fluent",
-    "name": "Acrylic",
-    "url": "https://learn.microsoft.com/en-us/windows/apps/design/style/acrylic",
-    "verified": true
-   },
-   {
-    "systemId": "fluent",
-    "name": "Material",
-    "url": "https://fluent2.microsoft.design/material",
-    "verified": true
-   }
-  ],
-  "notes": "Microsoft's recipe is documented explicitly: background, blur, exclusion blend, color tint, noise.",
-  "sweptFrom": [
-   "aesthetic"
-  ]
- },
- {
   "name": "Action list",
   "slug": "action-list",
   "category": "component",
@@ -7669,52 +7612,6 @@
   ]
  },
  {
-  "name": "contrast-color()",
-  "slug": "contrast-color",
-  "category": "color",
-  "definition": "A CSS function that returns a foreground colour guaranteed to contrast with a given background, moving the on-colour decision from the palette into the browser.",
-  "useWhen": "asking the browser for a readable foreground",
-  "aliases": [
-   {
-    "name": "color-contrast()",
-    "source": "css"
-   },
-   {
-    "name": "auto text color",
-    "source": "community"
-   },
-   {
-    "name": "automatic contrast",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "on-color",
-   "contrast-ratio",
-   "color-mix"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "MDN: <color> CSS type",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value"
-   }
-  ],
-  "implementations": [
-   {
-    "systemId": "mdn",
-    "name": "contrast-color()",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value",
-    "verified": true
-   }
-  ],
-  "notes": "Renamed from the earlier color-contrast() proposal; both names are searched.",
-  "sweptFrom": [
-   "color"
-  ]
- },
- {
   "name": "Contrast ratio",
   "slug": "contrast-ratio",
   "category": "color",
@@ -11070,62 +10967,6 @@
   "notes": "Cross-category candidate with accessibility: it is a primary input method for people who cannot click.",
   "sweptFrom": [
    "interaction"
-  ]
- },
- {
-  "name": "Dynamic color",
-  "slug": "dynamic-color",
-  "category": "color",
-  "definition": "A scheme generated at runtime from a source the user controls, such as a wallpaper, so the product's palette is derived on the device rather than shipped.",
-  "useWhen": "the palette is generated on the device, not shipped",
-  "aliases": [
-   {
-    "name": "Material You",
-    "source": "material"
-   },
-   {
-    "name": "wallpaper colors",
-    "source": "android"
-   },
-   {
-    "name": "user-generated color",
-    "source": "material"
-   },
-   {
-    "name": "system accent color",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "seed-color",
-   "hct",
-   "color-harmonization",
-   "color-role"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "Material 3: dynamic color from a user-generated source",
-    "url": "https://m3.material.io/styles/color/dynamic/user-generated-source"
-   }
-  ],
-  "implementations": [
-   {
-    "systemId": "material",
-    "name": "Dynamic color",
-    "url": "https://m3.material.io/styles/color/dynamic/user-generated-source",
-    "verified": true
-   },
-   {
-    "systemId": "material",
-    "name": "dynamicColorScheme (Compose)",
-    "url": "https://developer.android.com/develop/ui/compose/designsystems/material3",
-    "verified": true
-   }
-  ],
-  "sweptFrom": [
-   "color"
   ]
  },
  {
@@ -19049,62 +18890,6 @@
   ],
   "sweptFrom": [
    "layout"
-  ]
- },
- {
-  "name": "Increased contrast preference",
-  "slug": "increased-contrast",
-  "category": "color",
-  "definition": "A user setting asking for stronger separation between foreground and background, which platforms expose so a product can ship a higher contrast palette.",
-  "useWhen": "the reader has asked the system for more contrast",
-  "aliases": [
-   {
-    "name": "prefers-contrast",
-    "source": "css"
-   },
-   {
-    "name": "Increase Contrast",
-    "source": "hig"
-   },
-   {
-    "name": "high contrast theme",
-    "source": "community"
-   },
-   {
-    "name": "contrast level",
-    "source": "material"
-   }
-  ],
-  "relatedSlugs": [
-   "forced-colors-mode",
-   "contrast-ratio",
-   "color-scheme"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "Material 3: color overview (standard, medium and high contrast)",
-    "url": "https://m3.material.io/styles/color/overview"
-   }
-  ],
-  "implementations": [
-   {
-    "systemId": "material",
-    "name": "contrast levels (standard, medium, high)",
-    "url": "https://m3.material.io/styles/color/overview",
-    "verified": true
-   },
-   {
-    "systemId": "mdn",
-    "name": "prefers-contrast",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-contrast",
-    "verified": true
-   }
-  ],
-  "notes": "Cross-category with accessibility. Material ships medium and high contrast palettes alongside light and dark.",
-  "sweptFrom": [
-   "color"
   ]
  },
  {
@@ -29137,44 +28922,6 @@
   ]
  },
  {
-  "name": "Peek",
-  "slug": "peek",
-  "category": "interaction",
-  "definition": "A preview shown while a press is held, which either collapses when the finger lifts or commits to the full view if the press continues.",
-  "useWhen": "a preview that lasts only as long as the press",
-  "aliases": [
-   {
-    "name": "peek and pop",
-    "source": "hig"
-   },
-   {
-    "name": "preview on press",
-    "source": "community"
-   },
-   {
-    "name": "quick look",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "force-touch",
-   "long-press"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "iOS HIG: Gestures (peek)",
-    "url": "https://developer.apple.com/design/human-interface-guidelines/gestures"
-   }
-  ],
-  "implementations": [],
-  "notes": "Merge candidate with hover-card (already on site): peek is the press-held cousin of the hover preview.",
-  "sweptFrom": [
-   "interaction"
-  ]
- },
- {
   "name": "Perceptual duration",
   "slug": "perceptual-duration",
   "category": "motion",
@@ -33900,62 +33647,6 @@
   "notes": "The interesting content is what does not mirror: clocks, media playback controls, and numbers.",
   "sweptFrom": [
    "layout"
-  ]
- },
- {
-  "name": "Rubber banding",
-  "slug": "rubber-banding",
-  "category": "interaction",
-  "definition": "Letting content stretch past its scroll boundary under the finger and spring back on release, so the edge is felt rather than hit.",
-  "useWhen": "the elastic bounce at the end of a scroll",
-  "aliases": [
-   {
-    "name": "elastic scrolling",
-    "source": "community"
-   },
-   {
-    "name": "scroll bouncing",
-    "source": "community"
-   },
-   {
-    "name": "bounce scrolling",
-    "source": "community"
-   },
-   {
-    "name": "overscroll bounce",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "overscroll",
-   "momentum-scrolling",
-   "pull-to-refresh",
-   "scroll-chaining"
-  ],
-  "priority": "tail",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "MDN: overscroll-behavior",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior"
-   },
-   {
-    "title": "Smashing Magazine: Scroll bouncing on your websites",
-    "url": "https://www.smashingmagazine.com/2018/08/scroll-bouncing-websites/"
-   }
-  ],
-  "implementations": [
-   {
-    "systemId": "mdn",
-    "name": "overscroll-behavior",
-    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior",
-    "verified": true
-   }
-  ],
-  "notes": "Android's edge glow is the same idea with a different affordance; treat it as an alias unless the article separates them.",
-  "sweptFrom": [
-   "interaction",
-   "motion"
   ]
  },
  {
@@ -42736,58 +42427,6 @@
   "notes": "The To field of an email client is the example everyone recognises. Strong tail candidate: many names, no agreed one.",
   "sweptFrom": [
    "component"
-  ]
- },
- {
-  "name": "Tone",
-  "slug": "tone",
-  "category": "color",
-  "definition": "A colour with grey mixed in, softer than the pure hue, and in Material's vocabulary the numbered lightness step from 0 to 100 that a palette is built from.",
-  "useWhen": "a muted colour, or a numbered lightness step in Material",
-  "aliases": [
-   {
-    "name": "muted colour",
-    "source": "community"
-   },
-   {
-    "name": "tone value",
-    "source": "material"
-   },
-   {
-    "name": "T in HCT",
-    "source": "material"
-   },
-   {
-    "name": "muted color",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "tint",
-   "shade",
-   "color-ramp",
-   "hct",
-   "lightness"
-  ],
-  "priority": "core",
-  "demo": "inline",
-  "sources": [
-   {
-    "title": "Material 3: how the color system works",
-    "url": "https://m3.material.io/styles/color/system/how-the-system-works"
-   }
-  ],
-  "implementations": [
-   {
-    "systemId": "material",
-    "name": "Tone",
-    "url": "https://m3.material.io/styles/color/system/how-the-system-works",
-    "verified": true
-   }
-  ],
-  "notes": "Two live senses (paint mixing versus Material tone); merge candidate with lightness if canonicalize prefers one entry.",
-  "sweptFrom": [
-   "color"
   ]
  },
  {

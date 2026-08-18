@@ -1,0 +1,4 @@
+term:    Target spacing
+scope:   element
+subject: button.sp-icon-button[aria-label=Star][data-part=tool-star][data-pass][data-pose=[data-pass]][type=button]
+text:    

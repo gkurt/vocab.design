@@ -1,0 +1,4 @@
+term:    Dual axis
+scope:   element
+subject: g[data-axes=dual][data-part=right-axis][data-pose=[data-axes=dual]]
+text:    080160240
