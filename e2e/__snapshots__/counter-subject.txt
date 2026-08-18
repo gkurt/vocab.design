@@ -1,0 +1,4 @@
+term:    Counter
+scope:   element
+subject: ellipse[cx=42][cy=68][data-part=counter][data-weight=regular][rx=18][ry=20]
+text:    

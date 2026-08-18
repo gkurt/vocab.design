@@ -1,0 +1,51 @@
+---
+name: Miller columns
+slug: miller-columns
+category: layout
+status: published
+definition: >-
+  A browsing layout of side-by-side columns where selecting an item in one column fills the next
+  with its children, keeping the whole path visible.
+aliases:
+  - name: column view
+  - name: Finder columns
+  - name: cascading lists
+relations: {}
+implementations: []
+sources:
+  - title: "Wikipedia: Miller columns"
+    url: https://en.wikipedia.org/wiki/Miller_columns
+demo: inline
+useWhen: browsing a deep hierarchy with the path kept visible
+---
+
+Miller columns turn depth into width. Each column is one level of a hierarchy, selecting an
+item fills the column to its right with that item's children, and the set slides sideways as
+the path gets longer. The layout is named after Mark Miller, who described it in the
+mid-1980s, and most people have met it as column view in the macOS Finder, which inherited it
+from NeXTSTEP. The whole idea rests on one property: at any moment, every level of the path
+you are standing on is on screen at once, and so are the siblings you could have chosen at
+each of those levels.
+
+That property is what separates it from the two layouts it is usually weighed against. A
+[treeview](/treeview) nests in place, expanding a node downward so the entire tree, including
+branches nowhere near your path, can be open at the same time. [Drill down
+navigation](/drill-down-navigation) does the opposite and shows one level at a time, replacing
+the view as you descend, which is cheap on a narrow screen and costs you all context. Miller
+columns sit exactly between them: only the current path is expanded, but all of it is, so
+retargeting one level up is a single click on a column that is already in front of you rather
+than a collapse, a back gesture, or a hunt through an outline.
+
+The last column is usually not a list at all. Select a leaf and the final column becomes a
+preview of it, which is why the pattern feels like [list detail](/list-detail) with the
+breadcrumb built into the layout. It is worth being deliberate about that column, because it
+is the only one that answers "is this the thing I wanted" without another click.
+
+The costs are real and mostly about width. Columns are typically a fixed size, so long names
+truncate no matter how much room the window has, and a deep path eventually forces horizontal
+scrolling that some readers find genuinely disorienting. The layout wants a wide window, which
+is why it is rare on phones and why the same file browser that offers column view on a desktop
+falls back to drill down on a handset. It also needs a keyboard model people can guess: left
+and right arrows move between levels, up and down move within one, and anything else will be
+learned by nobody. Reach for it when the hierarchy is deep, wide, and genuinely browsable
+rather than searched, and when a reader will move sideways across it as often as down it.

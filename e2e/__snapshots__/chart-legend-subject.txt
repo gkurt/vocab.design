@@ -1,0 +1,4 @@
+term:    Chart legend
+scope:   element
+subject: div[aria-label=Channels][data-only=all][data-part=legend][data-place=right][role=group]
+text:    Retail Trade Online Show all

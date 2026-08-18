@@ -1,0 +1,4 @@
+term:    Pause, stop, hide
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[data-part=pause][type=button]
+text:    Pause

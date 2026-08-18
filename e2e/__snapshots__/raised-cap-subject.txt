@@ -1,0 +1,4 @@
+term:    Raised cap
+scope:   element
+subject: span[data-mode=raised][data-part=cap][data-pose=[data-raised]][data-raised]
+text:    T

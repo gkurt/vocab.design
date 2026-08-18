@@ -1,0 +1,4 @@
+term:    Reduced transparency
+scope:   element
+subject: div[data-part=panel][data-pose=[data-setting=honoured]][data-setting=honoured]
+text:    Now playing Three tracks left in this queue. Shuffle is off.

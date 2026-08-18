@@ -1,0 +1,4 @@
+term:    Lazy registration
+scope:   element
+subject: div.sp-dialog[aria-label=Keep this playlist][data-open][data-part=prompt][role=dialog]
+text:    Keep this playlist? Late night drive and its 3 tracks come with you and survive 

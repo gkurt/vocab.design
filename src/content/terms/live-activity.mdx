@@ -1,0 +1,62 @@
+---
+name: Live activity
+slug: live-activity
+category: component
+status: published
+definition: >-
+  A persistent, updating view of something in progress, shown in system places like a lock
+  screen so a reader can follow it without opening the app.
+aliases:
+  - name: ongoing activity
+    source: community
+  - name: live notification
+    source: community
+relations: {}
+implementations:
+  - system: hig
+    name: Live Activities
+    url: https://developer.apple.com/design/human-interface-guidelines/live-activities
+sources:
+  - title: 'Apple HIG: Live Activities'
+    url: https://developer.apple.com/design/human-interface-guidelines/live-activities
+demo: inline
+useWhen: a task in progress must be followed outside the app
+---
+
+A live activity is a window onto something that is still happening, opened outside the app
+that owns it. The delivery is four stops away, the match is in the seventieth minute, the
+flight boards in twenty minutes: all of that changes on its own, and all of it is worth
+following without unlocking a phone and finding an app. So the system lends the activity a
+slot, on the lock screen and in a compact form near the top of the display, and the app
+writes into that slot for as long as the thing is going on. When it ends, the activity ends
+with it.
+
+The word to keep it apart from is [push notification](/push-notification). A notification
+announces an event: it fires once, says one thing, and from then on it only gets older, so
+a delivery that has moved twice since is represented by three separate messages nobody
+wanted. A live activity is a state rather than an event. There is one of it, it is rewritten
+in place, and its whole value is that the number the reader sees now is the current number.
+That is also the test for whether something deserves one: if the answer would be the same in
+an hour, send a notification. And when the activity finishes, it should not leave a live
+surface sitting there stale; either it retires or it becomes an entry in the
+[notification center](/notification-center) like anything else.
+
+Two presentations are usually required and they are not the same design. The compact one
+gets a handful of characters and one glyph, so it has to carry the single most useful
+figure and nothing more, which in practice means the time or the count and never the app's
+name. The expanded one has room for a title, a progress indicator, and an action or two,
+and is read deliberately rather than glanced at. Both need to survive the update they exist
+for: numbers set in tabular figures so the layout does not twitch every time a digit
+changes, and no reflow when a label goes from "3 stops" to "Arriving", because a surface
+that jumps while nobody is touching it reads as broken.
+
+The compact form is often described by the shape of the hardware it sits beside, which is
+where the confusion with a [display cutout](/display-cutout) comes from. The cutout is the
+camera housing: a hole in the screen rectangle that a layout has to route around, and it is
+there whether anything is happening or not. A live activity is content that adopts the space
+around that hole while there is something to say, and the same activity has to be designed
+for phones whose housing is a different shape or in a different place. Apple's
+[Live Activities
+guidance](https://developer.apple.com/design/human-interface-guidelines/live-activities) is
+blunt about the consequence, which is that an activity has to be legible in every one of its
+presentations, because the reader does not choose which one they get.

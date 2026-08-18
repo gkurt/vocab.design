@@ -1,0 +1,4 @@
+term:    Chart annotation
+scope:   element
+subject: g[data-kind=callout][data-part=annotation]
+text:    Launch week Orders up 72 per cent Supply outage Target 400

@@ -1,0 +1,4 @@
+term:    Axis
+scope:   element
+subject: g[data-part=axis][data-scale=raw]
+text:    0 2,150 4,300 6,450 8,600

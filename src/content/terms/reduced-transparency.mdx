@@ -1,0 +1,54 @@
+---
+name: Reduced transparency
+slug: reduced-transparency
+category: accessibility
+status: published
+definition: >-
+  A user preference asking for opaque surfaces instead of blur and translucency, honoured by
+  swapping frosted layers for solid fills.
+aliases:
+  - name: prefers-reduced-transparency
+    source: css
+  - name: Reduce Transparency
+    source: hig
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: Using media queries for accessibility"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using_for_accessibility
+demo: inline
+useWhen: frosted panels have to become solid on request
+---
+
+[Vibrancy](/vibrancy) is the effect and reduced transparency is the request that switches it
+off. A frosted panel samples whatever happens to be behind it, so the same label sits on a
+pale wash in one scroll position and on a saturated one two seconds later, and its
+[contrast ratio](/contrast-ratio) moves with it. Apple exposes the request as Reduce
+Transparency in accessibility settings, the web exposes it as the
+`prefers-reduced-transparency` media feature, and both mean the same thing: give me a surface
+whose colour I can count on. Honouring it is not a theme swap. The blur goes, a flat fill
+takes its place, and the layer keeps its position, its size, and its job.
+
+Three preferences share this shape and it is worth seeing them as one family, each a standing
+request on a different axis. [prefers-contrast](/prefers-contrast) asks for more separation
+between foreground and background, so a hairline border becomes a real one and muted text
+goes back to full ink. [prefers-reduced-motion](/prefers-reduced-motion) asks for movement to
+stop being decorative, so a slide becomes a cut. Reduced transparency asks for surfaces to
+stop being conditional. None of the three is a request to make the product ugly, and all
+three are answered badly by simply deleting the affected layer rather than replacing it.
+
+[Glassmorphism](/glassmorphism) is where this bites hardest, because there the translucency
+is the whole aesthetic rather than one panel's finish. A design built on frosted cards has to
+have a second, opaque reading that is still recognisably the same product: same hierarchy,
+same accent, same elevation implied by shadow instead of by see-through depth. Deciding that
+second reading up front is much cheaper than retrofitting it, and it doubles as the fallback
+for browsers with no `backdrop-filter` at all.
+
+The related but separate case is [forced colors mode](/forced-colors-mode), where the
+operating system replaces the palette outright and translucency is discarded along with it.
+Reduced transparency leaves you in charge of the colours and asks only that they be
+unconditional, which is the easier promise to keep and the one worth keeping first.

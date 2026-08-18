@@ -1,0 +1,64 @@
+---
+name: Chart legend
+slug: chart-legend
+category: component
+status: published
+definition: >-
+  The key beside a chart that decodes series colours and symbols into names, and the
+  first thing direct labeling tries to delete.
+aliases:
+  - name: chart key
+  - name: series legend
+relations: {}
+implementations:
+  - system: carbon
+    name: Legends
+    url: https://carbondesignsystem.com/data-visualization/legends/
+  - system: shadcn
+    name: Chart (ChartLegend)
+    url: https://ui.shadcn.com/docs/components/base/chart
+sources:
+  - title: 'Carbon: Legends'
+    url: https://carbondesignsystem.com/data-visualization/legends/
+  - title: 'shadcn/ui: Chart'
+    url: https://ui.shadcn.com/docs/components/base/chart
+demo: inline
+useWhen: naming the colour key of a chart, not a fieldset caption
+---
+
+A legend is a translation table for an encoding. The [chart](/chart) has turned each series
+into a colour or a symbol, and the legend is where that substitution is written down, so a
+reader who sees a violet band can find out that violet means trade. That makes it useful
+and expensive at the same time: every reading costs a trip out of the plot, into the key,
+and back to the mark the reader was looking at, with the mapping held in working memory
+across the round trip. Two series survive that easily. Seven do not, which is why a chart
+with a crowded legend is usually a chart that should have been split.
+
+Placement is a choice about that round trip, and the shorter the trip the better the
+legend works. Above the plot puts the key on the reading path before the marks are looked
+at; beside it, in a column, matches the way a stacked bar or an area chart is read from
+the top down, and letting the order of the entries match the stacking order is what turns
+the legend into a map rather than a list. Inline, in the title line, works when there are
+only two or three series and the sentence can carry them. An interactive legend does more
+than translate: clicking an entry filters, isolates or hides that series, which is
+genuinely useful on a busy plot and needs its state shown on the entry itself, since a
+legend that quietly stops matching the plot is worse than none.
+
+A legend keyed by colour alone fails any reader with a
+[colour vision deficiency](/color-vision-deficiency), and it fails everybody in
+greyscale print, so the [use of colour](/use-of-color) rule applies here with full force:
+give each series a second cue, a fill pattern, a marker shape, a dash style, and repeat
+that cue in the key. Choosing the hues themselves is the job of a
+[categorical palette](/categorical-palette), which is built so that no series reads as
+larger or later than another; picking them by eye tends to produce one colour that shouts
+and two that are the same.
+
+The strongest argument against a legend is [direct labeling](/direct-labeling): put each
+name at the end of its own line or inside its own band and the indirection disappears,
+because the reader never has to hold a mapping at all. The strongest argument for a legend
+is what direct labeling cannot do, which is name series whose marks are too small, too
+crowded, or too intertwined to hold a label of their own, and to give a stacked chart one
+ordered key instead of five repeated sets of names. Reach for labels first and keep the
+legend for the plots where labels will not fit; [Carbon's legend
+guidance](https://carbondesignsystem.com/data-visualization/legends/) treats it the same
+way, as apparatus to be earned rather than furniture to be added.

@@ -1,0 +1,4 @@
+term:    Column resizer
+scope:   element
+subject: span[aria-label=Resize the Customer column][aria-orientation=vertical][data-part=grip][role=separator]
+text:    

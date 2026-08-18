@@ -1,0 +1,62 @@
+---
+name: Faux bold
+slug: faux-bold
+category: typography
+status: published
+definition: >-
+  A bold or italic the browser fakes by smearing or shearing the regular weight,
+  because the real style was never loaded.
+aliases:
+  - name: synthetic bold
+  - name: fake bold
+  - name: faux italic
+  - name: font synthesis
+    source: css
+relations: {}
+sources:
+  - title: CSS fonts module (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts
+demo: inline
+useWhen: your bold looks wrong and blurry
+---
+
+Ask for a style a font file does not contain and the browser will not refuse. It
+manufactures one: a bold by thickening every outline outward, an italic by
+shearing the upright to the right by a fixed angle. Both are cheap tricks
+standing in for drawings that do not exist, and both are worse than the real
+thing in a specific way. A drawn bold redistributes weight, thickening stems more
+than hairlines and shrinking the counters deliberately; a smeared one thickens
+everything equally, so joints clog, counters fill, and the text goes muddy
+exactly at the sizes where it matters. A drawn italic is a different alphabet,
+with a single-storey a and a cursive f; a sheared roman is the same letters
+leaning, which anyone reading it registers as wrong without being able to say
+why.
+
+The usual cause is a [font stack](/font-stack) that loads fewer files than the
+CSS asks for. A [web font](/web-font) shipped as 400 and 700 will be smeared for
+every `font-weight: 600` in the codebase, and a variable file with a weight axis
+but no italic will be sheared for every emphasised run. It happens in the gap as
+well as at the end: while the real file is in flight the
+[fallback font](/fallback-font) is doing the work, and if the fallback has no
+bold, the first paint of every heading is synthetic. Because
+[font weight](/font-weight) in CSS is a number and not a promise, nothing warns
+you. The text is bold-ish, the build is green, and the difference only shows up
+when someone puts the page beside a design.
+
+`font-synthesis` is the switch that stops it. Set `font-synthesis: none` (or the
+narrower `font-synthesis-weight` and `font-synthesis-style`) and the browser
+declines to invent the style: the request lands as the regular face and the
+missing file becomes visible instead of being disguised. That is usually the
+right development posture, since a bug you can see is better than one you cannot,
+even though the honest fix is upstream, either loading the weight or restricting
+the CSS to the weights that exist. Keep it apart from
+[font metric override](/font-metric-override), which is about a fallback taking up
+the wrong amount of space: metric overrides correct a face's size and line box,
+while `font-synthesis` is about a weight or a slant the face does not have at all.
+
+One note on the specimen. Every face this site loads is a variable font with a
+real weight axis, so a bold request here is answered honestly and cannot be made
+to smear; none of them carries an italic file, so an italic request is genuinely
+sheared by the browser. The specimen therefore demonstrates the synthesis that
+actually happens on this page, with the drawn weight beside it for comparison,
+rather than staging a smear that the browser would not produce.

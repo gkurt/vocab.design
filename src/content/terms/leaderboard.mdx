@@ -1,0 +1,59 @@
+---
+name: Leaderboard
+slug: leaderboard
+category: pattern
+status: published
+definition: >-
+  A ranked list of participants by some score, with the reader's own position pinned into
+  view even when it falls outside the visible range.
+aliases:
+  - name: ranking table
+    source: community
+  - name: high score table
+    source: community
+  - name: podium
+    source: community
+  - name: top contributors
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Leaderboard'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: a ranked table with your own row pinned into view
+---
+
+The arcade high score table is the ancestor, and it is worth being precise about the debt.
+A cabinet sitting idle cycled its [attract mode](/attract-mode) and the top ten initials,
+which meant the board was the advertisement: three letters, a number, and the implication
+that the machine remembered you. Everything since is a variation on that, including the
+part most often dropped, which is that the arcade board only ever held ten names and the
+eleventh player saw nothing at all.
+
+That is the design problem a modern leaderboard exists to solve, and the answer is the
+pinned row. A board is two lists stitched together: the top few, which say what excellence
+looks like here, and the reader's own row, dragged into view from wherever it actually sits
+with a marker for the distance between. Without the pin the board is a list of strangers.
+With it, the board is about the reader, and the number that matters is not their rank but
+the gap to the row above them.
+
+Which is where leaderboards go wrong. A global, all-time board is unreachable by
+construction: a newcomer looking at two thousand names between themselves and fourth place
+learns only that the game is over. The scoped views are not a filtering convenience, they
+are the repair. A weekly window resets the accumulated advantage of everyone who started
+earlier; a friends or team scope replaces an unreachable population with a comparison the
+reader can actually act on. The specimen above runs all three, and the only thing that
+really changes is how far the pinned row has to travel to reach the visible top. Ranking is
+also a poor instrument for anything that is not a game: applied to colleagues it manufactures
+a bottom, and someone is always on it. The most humane boards rank effort in a bounded
+window, publish only the top voluntarily, and let the reader see their own position without
+publishing it to anyone else.
+
+Two neighbours share the machinery and not the intent. A [data table](/data-table) is the
+general component underneath, rows of one shape read down columns as well as across, and a
+leaderboard is a data table with a fixed sort, a rank column, and one row that refuses to
+scroll away. [Sort state](/sort-state) is the thing a leaderboard deliberately does not
+give away: an ordinary table invites the reader to re-sort it, while a board's order is the
+content, so the column headers are labels rather than controls and the segmented scope
+picker takes their place.

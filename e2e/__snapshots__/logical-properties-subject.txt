@@ -1,0 +1,4 @@
+term:    Logical properties
+scope:   element
+subject: div[data-mode=ltr][data-part=card]
+text:    HS Card 3

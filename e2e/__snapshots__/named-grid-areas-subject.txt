@@ -1,0 +1,4 @@
+term:    Named grid areas
+scope:   element
+subject: div.sp-grid[data-part=grid][data-template=wide]
+text:    header 1 nav 2 main 3 aside 4 footer 5

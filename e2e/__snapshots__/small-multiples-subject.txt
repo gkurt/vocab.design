@@ -1,0 +1,4 @@
+term:    Small multiples
+scope:   element
+subject: div.sp-grid[data-part=grid][data-scale=shared]
+text:    North 100 West 100 South 100 Coast 100 East 100 Central 100

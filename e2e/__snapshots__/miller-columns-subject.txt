@@ -1,0 +1,4 @@
+term:    Miller columns
+scope:   element
+subject: div[data-depth=2][data-part=columns]
+text:    Library Music Photos Documents Music Albums Playlists Podcasts

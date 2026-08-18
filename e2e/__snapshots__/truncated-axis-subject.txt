@@ -1,0 +1,4 @@
+term:    Truncated axis
+scope:   element
+subject: g[data-mode=truncated][data-part=axis][data-pose=[data-mode=truncated]]
+text:    46.447.248.048.8

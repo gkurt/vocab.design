@@ -1,0 +1,59 @@
+---
+name: Named grid areas
+slug: named-grid-areas
+category: layout
+status: published
+definition: >-
+  Naming regions of a grid and drawing the layout as rows of those names, so items are placed by
+  name instead of by line number.
+aliases:
+  - name: grid-template-areas
+    source: css
+  - name: named template areas
+    source: mdn
+  - name: ascii art grid
+    source: mdn
+  - name: grid area
+    source: css
+relations: {}
+implementations: []
+sources:
+  - title: "Grid template areas, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Grid_template_areas
+demo: inline
+useWhen: placing items by name instead of by number
+---
+
+A grid container can name the regions of its own grid, and then draw the layout as rows of
+those names, one quoted string per row. Each child says which region it wants by name, and
+nothing anywhere counts grid lines. The reason this technique gets called ascii art is that the
+template is a picture of the layout, at a glance, in the stylesheet: a reviewer reading three
+quoted strings knows what the page looks like without opening it. That is unusual for CSS, and
+it is most of why the feature is worth reaching for over the numeric alternative.
+
+The payoff arrives at the second breakpoint. Restating the template with the same names in a
+different arrangement moves every region at once, and no child's own CSS changes at all: the
+sidebar still says it wants the sidebar region, and the region has simply moved. Compare that
+with placing items by line number, where a narrower layout means editing the numbers on every
+child, and one forgotten rule leaves an item spanning into a track that is no longer there.
+The [holy grail layout](/holy-grail-layout) is the standard demonstration, since header, nav,
+main, aside, and footer is exactly the set that wants rearranging on a small screen.
+
+The sharpest thing to understand about it is what it does not touch. Re-placing areas moves
+boxes on the screen without moving anything in the document, so the
+[focus order](/focus-order) stays exactly where the markup left it. A narrow template that
+drops the navigation below the article still tabs into that navigation second, because it is
+still the second element in the source. That can be the correct outcome or a bug, and grid
+gives you no help telling which: if the visual order you have just authored disagrees with the
+reading order, keyboard and screen reader users get the source order and everyone else gets
+your picture. The fix is to reorder the markup, not to add more grid, and it is worth checking
+every template you write rather than only the widest one.
+
+Two mechanical notes. Every row string has to declare the same number of cells, using a period
+for a deliberately empty one, and an area has to be rectangular, so a name cannot be scattered
+into an L shape. Beyond that, named areas coexist happily with the numeric world: each area
+quietly creates line names of its own, so you can span from `main-start` to `aside-end` when a
+decorative element needs to cross regions. They are also not a replacement for a
+[layout grid](/layout-grid) or a [twelve column grid](/twelve-column-grid), which are about the
+shared measure a whole page agrees on. Named areas are how one component states its own
+arrangement inside that.

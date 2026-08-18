@@ -1,0 +1,59 @@
+---
+name: Focus not obscured
+slug: focus-not-obscured
+category: accessibility
+status: published
+definition: >-
+  The requirement that a focused control is not completely hidden by sticky headers, footers,
+  cookie bars, or chat widgets when it receives focus.
+aliases:
+  - name: focus hidden behind sticky header
+    source: community
+  - name: obscured focus
+    source: community
+  - name: scroll-padding for focus
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Focus Not Obscured (Minimum)"
+    url: https://www.w3.org/TR/WCAG22/#focus-not-obscured-minimum
+  - title: "W3C F110: sticky footer or header hiding focused elements"
+    url: https://www.w3.org/WAI/WCAG22/Techniques/failures/F110
+demo: inline
+useWhen: the sticky header swallows the focused control
+---
+
+Criterion 2.4.11 is new in WCAG 2.2 and it exists because of one very common bug. A reader
+tabs down a form, the browser scrolls the next control just barely into view, and something
+docked to the edge of the viewport is sitting on top of it. The Minimum level asks that the
+focused control not be *entirely* hidden. The Enhanced level, 2.4.12, asks that no part of it
+be hidden at all. Between those two sits the honest middle case, a control half covered, which
+passes the first and fails the second, and which is still a control whose label you cannot
+read.
+
+The culprits are always the same four. A [sticky header](/sticky-header) catches focus moving
+up a page. A [sticky footer](/sticky-footer) catches it moving down. A
+[cookie consent banner](/cookie-consent-banner) catches it before anything else has happened,
+which is the worst version because it is the first thing a keyboard reader meets. And a chat
+widget parked in a corner catches whichever control happens to be underneath it. All four are
+positioned out of the flow, so the scroll that brought the control into view knew nothing about
+them.
+
+This is worth holding next to [focus visible](/focus-visible), because the two are easy to
+conflate and one does not imply the other. Focus visible is about drawing an indicator at all,
+and the answer is a ring with enough contrast and area. Focus not obscured is about whether
+anybody can see the ring you drew: a beautiful indicator underneath a docked bar is a failure
+of this criterion and a pass of that one. The rings in the specimen below are all drawn
+identically, and only their position relative to the bar changes.
+
+The fix is structural rather than per-control. Reserve the docked furniture's height on the
+scroll container itself, with `scroll-padding-block-end` for a bottom bar and
+`scroll-padding-block-start` for a top one, so every scroll the browser performs, including the
+one it performs on your behalf when focus moves, stops short of the covered strip. That single
+declaration is usually the whole repair, and it holds for the entire
+[focus order](/focus-order) rather than for the one field somebody noticed.

@@ -1,0 +1,4 @@
+term:    Nagging
+scope:   element
+subject: div.sp-surface[aria-label=Turn on notifications][data-nag=on][data-part=prompt][data-pose=[data-nag=on]][role=dialog]
+text:    Turn on notifications? Ask 3 We will let you know when someone replies to a note

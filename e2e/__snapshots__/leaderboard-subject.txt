@@ -1,0 +1,4 @@
+term:    Leaderboard
+scope:   element
+subject: table.sp-table[data-part=board][data-scope=all-time]
+text:    Rank Rider Points 1 Ravi Sundaram 214,800 2 Mika Lindqvist 198,240 3 Tomas Beck 

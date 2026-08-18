@@ -1,0 +1,4 @@
+term:    Chart description
+scope:   element
+subject: div.sp-surface[data-mode=full][data-part=description][data-pose=[data-mode=full]]
+text:    No text alternative. The figure is announced as an image, and the six values beh

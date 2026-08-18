@@ -1,0 +1,60 @@
+---
+name: Lazy registration
+slug: lazy-registration
+category: pattern
+status: published
+definition: >-
+  Letting someone use a product and accumulate state anonymously, and asking for an account
+  only when that state needs to survive the session.
+aliases:
+  - name: deferred registration
+    source: community
+  - name: anonymous account
+    source: community
+  - name: try before you sign up
+    source: community
+  - name: guest mode
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Lazy Registration'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: you can start using it before making an account
+---
+
+A sign-up form is a bill presented before the meal. Lazy registration moves it to the end,
+where the person has something to lose. The mechanism is an anonymous account created
+silently on first use: a session identity, a local store, a cart or a draft or a playlist
+that behaves exactly like the real thing. Registration is then not a gate but a transfer,
+asked for at the moment the work needs to outlive the tab it was made in, and the work goes
+across with it.
+
+Two things make it work, and skipping either turns it into an ordinary wall with a delay.
+The first is that the anonymous state has to be genuinely usable, not a trial with the
+interesting parts removed. Nothing is at stake in a demo. The second is that the prompt has
+to name what it is protecting: "keep this playlist and its three tracks" is a different
+sentence from "create an account", and it is the only version that answers the question the
+reader is actually asking, which is why now. The specimen above runs the same product both
+ways, and the difference between them is not the form, which is identical. It is whether
+anything exists yet that the form could be for.
+
+There are real costs. Anonymous state has to be migrated on sign-up without loss or
+duplication, which is the part that goes wrong in production and is invisible in mockups.
+It has to expire, which means telling someone their work is temporary before it disappears
+rather than after. And the ask can be deferred so far that it never happens, so the moment
+has to be chosen: the second device, the share link, the checkout, the point where survival
+is the reader's own goal rather than the product's.
+
+[Guest checkout](/guest-checkout) is the near neighbour and the contrast is sharp: guest
+checkout never asks at all, completing the purchase with an email address and no password,
+while lazy registration asks late and brings the accumulated work along as the reason. One
+removes the account from the flow; the other postpones it until it is worth something.
+Reading it another way, guest checkout is a single-transaction answer and lazy registration
+is a continuing-relationship one. The pattern also sits next to two others.
+[Progressive disclosure](/progressive-disclosure) is the same instinct applied to interface
+complexity rather than to identity, revealing what is needed when it is needed. And an
+[onboarding checklist](/onboarding-checklist) is what tends to arrive just after the
+account does, which is a good argument for not spending the reader's patience before they
+have made anything.

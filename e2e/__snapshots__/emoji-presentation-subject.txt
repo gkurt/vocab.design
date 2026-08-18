@@ -1,0 +1,4 @@
+term:    Emoji presentation
+scope:   element
+subject: span[data-mode=text][data-part=mark]
+text:    ⚠

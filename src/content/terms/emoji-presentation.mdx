@@ -1,0 +1,61 @@
+---
+name: Emoji presentation
+slug: emoji-presentation
+category: typography
+status: published
+definition: >-
+  Whether a character that can be either a symbol or an emoji renders as flat
+  text or as a colour emoji, selected by a variation selector or by CSS.
+aliases:
+  - name: text presentation
+  - name: emoji vs text style
+  - name: variation selector
+    source: unicode
+  - name: font-variant-emoji
+    source: css
+relations: {}
+sources:
+  - title: font-variant-emoji (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-emoji
+demo: inline
+useWhen: a symbol turns into an emoji you did not want
+---
+
+A few hundred characters in Unicode have two faces. They were symbols first,
+drawn in a text font as monochrome outlines that take the colour of the
+surrounding type, and later they were adopted into emoji, drawn as small colour
+pictures. U+26A0 is a warning triangle in a UI and a yellow hazard sign in a
+message; U+2764 is a heavy black heart and a red one. Which one appears is
+called the character's presentation, and the important thing about it is that it
+is a property of the rendering, not of the character. The same bytes reach every
+platform and each one decides what to draw, which is why a symbol you chose for
+a toolbar can arrive on someone else's screen as a cartoon.
+
+Unicode's own control is a pair of invisible characters that follow the one they
+apply to: U+FE0E asks for text presentation and U+FE0F asks for emoji. Each
+character also has a default for when neither is present, and the defaults are
+where the surprises live, because a codepoint that defaults to text in the
+standard may still be drawn in colour by a platform that treats it as emoji.
+CSS added a second control, `font-variant-emoji`, taking `text`, `emoji`, or
+`auto`. The two do not compete on equal terms: a variation selector in the string
+outranks the CSS, so a run styled `font-variant-emoji: text` still renders in
+colour where the author left a U+FE0F in the content. That precedence is worth
+knowing before you try to fix an emoji problem in a stylesheet.
+
+Presentation is also a layout question, not only a look. A colour emoji is a
+different [glyph](/glyph) with its own advance width, usually squarer and wider
+than the text form, so flipping presentation changes the width of a line and can
+break the alignment of a row of icons that was set against the text form. It
+changes the colour rules too: the text form inherits `currentColor` and answers
+to a theme, while the emoji form carries its own palette and ignores you
+completely, which is why forced colour modes and dark themes treat the two
+differently.
+
+The practical advice is short. If a character is doing a job in the interface,
+spell out the presentation you want rather than relying on a default: append
+U+FE0E for a symbol you intend to style like text, or use a real icon instead,
+since an icon you draw is the only one whose weight and colour you control. If
+it is content a person typed, leave it alone. And whichever you get, the
+accessible name is the same either way, so a screen reader will read the
+character's Unicode name aloud, which is a good reason to keep decorative ones
+out of labels.

@@ -1,0 +1,4 @@
+term:    Home indicator
+scope:   element
+subject: div[data-mode=inset][data-part=strip]
+text:    

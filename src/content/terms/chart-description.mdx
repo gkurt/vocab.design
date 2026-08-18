@@ -1,0 +1,60 @@
+---
+name: Chart description
+slug: chart-description
+category: accessibility
+status: published
+definition: >-
+  The text alternative for a chart: a summary of the takeaway plus access to the underlying
+  values, not a recital of the pixels.
+aliases:
+  - name: chart alt text
+  - name: accessible chart
+  - name: data table fallback
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "W3C WAI: Complex images"
+    url: https://www.w3.org/WAI/tutorials/images/complex/
+  - title: "Apple HIG: Charts"
+    url: https://developer.apple.com/design/human-interface-guidelines/charts
+demo: inline
+useWhen: a chart needs to work for readers who cannot see it
+---
+
+A [chart](/chart) carries two separate things a text alternative has to deliver, and most
+alternatives deliver neither. The first is the conclusion the chart was drawn to support.
+The second is the numbers that support it. The shape that works is a one line summary
+naming the takeaway ("support tickets fell by a third after the March release") followed by
+real access to the values, normally a [data table](/data-table) sitting beside the figure or
+behind a disclosure, marked up as rows and columns a [screen reader](/screen-reader) can
+walk. The W3C's complex images tutorial calls this pairing a short description plus a long
+description, and it is the only arrangement that survives a chart with more than one series.
+
+[Alt text](/alt-text) is the shorter word for the shorter job, and the two are worth keeping
+apart. Alt text is the string an image carries, and for a chart it can hold the summary half
+at best, which is why a chart description usually cannot live in an attribute at all. Going
+the other way: writing `alt="bar chart of quarterly revenue"` describes the picture, and
+describing the picture is exactly what a chart alternative must not do, because a reader who
+cannot see it did not ask for the pixels to be recited. Say what the chart shows, then hand
+over the numbers. [Audio description](/audio-description) sounds like a relative and is not
+one: that narrates a moving picture in the gaps of its own soundtrack, while a chart
+description is static text that the reader controls the pace of.
+
+None of the chart's own furniture carries across the boundary by itself. An
+[axis](/axis) is a ruled edge with tick labels a reader can see, a
+[chart legend](/chart-legend) is a colour key nobody can hear, and
+[direct labeling](/direct-labeling) puts names next to lines that are also unavailable. A
+[chart annotation](/chart-annotation) is the exception worth exploiting: the note already
+pinned onto the data, saying what to see, is usually the best first draft of the summary
+line, because somebody has already done the work of deciding what the chart is for.
+
+The practical test is to read the alternative aloud with the chart covered. If the listener
+cannot repeat the takeaway, the summary is missing. If they cannot answer a question about a
+specific point, the values are missing. A description that passes both is worth building
+into the page for everyone: sighted readers use the table too, and a
+[sparkline](/sparkline) or a small multiple with a table under it is a better artefact than
+either half alone.

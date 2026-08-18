@@ -1,0 +1,4 @@
+term:    Typography token
+scope:   element
+subject: tr[data-density=default][data-part=row-heading]
+text:    type.heading 17 / 23 600

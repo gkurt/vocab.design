@@ -1,0 +1,4 @@
+term:    Reaction picker
+scope:   element
+subject: div.sp-popover[aria-label=Quick reactions][data-open][data-part=picker][role=group]
+text:    👍 ❤️ 😂 🎉 👀 ✅

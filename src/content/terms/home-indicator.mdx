@@ -1,0 +1,53 @@
+---
+name: Home indicator
+slug: home-indicator
+category: layout
+status: published
+definition: >-
+  The thin bar at the bottom of a gesture driven phone screen, reserved space that app content
+  must not sit beneath.
+aliases:
+  - name: home bar
+    source: community
+  - name: gesture bar
+    source: android
+relations: {}
+implementations: []
+sources:
+  - title: "Layout, Human Interface Guidelines"
+    url: https://developer.apple.com/design/human-interface-guidelines/layout
+demo: inline
+useWhen: the reserved strip at the bottom of a modern phone
+---
+
+When the hardware home button went away, the gesture that replaced it needed somewhere to
+live and something to point at. The home indicator is that something: a short rounded bar
+along the bottom edge, drawn by the system, doing two jobs at once. It is a signifier,
+telling a first time user that swiping up from the bottom edge goes home, and it is a claim
+on space, because the band it sits in belongs to the system rather than to the application
+drawing behind it.
+
+The second job is the one layouts get wrong, and it is not really about the pixels. Touches
+that begin inside that band are the system's before they are yours. A button whose lower
+half sits under the indicator can still be tapped in its upper half and looks perfectly
+fine in a screenshot, but a swipe that starts on it goes home instead of doing whatever the
+button promised. The same trap catches a carousel, a slider, or a swipe-to-dismiss row
+parked at the very bottom of the screen: the control is visible, reachable, in the
+[thumb zone](/thumb-zone), and quietly losing its first gesture to the operating system.
+
+It is worth keeping apart from the [display cutout](/display-cutout), because the two are
+mirror images and only one of them takes input. A cutout eats into the display from the top,
+removing pixels you may still paint but nobody will ever see. A home indicator reserves a
+strip at the bottom that you may paint and that everyone can see, and it swallows a gesture
+that starts there. The [status bar](/status-bar) is the third member of the set and the
+tamest: it claims a band at the top and hands back everything below it. All three arrive as
+part of one number from the platform, the [safe area](/safe-area), which is why the honest
+fix is almost never a hardcoded value.
+
+Two practical notes. Inset from the reported bottom inset rather than from a remembered
+figure: the strip is not the same height on every device, it is zero on a phone that still
+has a home button, and it changes when the device rotates. And full screen content is
+allowed to run underneath it, which is what a video player or a game does, at which point
+the system dims the indicator so it stops competing with the picture. Dimmed is not gone.
+The strip keeps the gesture, so the first swipe up brings the indicator back rather than
+reaching your content, and any control you left down there is still going to lose.

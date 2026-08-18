@@ -1,0 +1,4 @@
+term:    Review cursor
+scope:   element
+subject: span[aria-hidden=true][data-at=n-send][data-part=marker]
+text:    

@@ -1,0 +1,4 @@
+term:    Focus not obscured
+scope:   element
+subject: div.sp-input[data-part=field][data-pose=[data-visible]][data-position=partial][data-sim-focus][data-visible]
+text:    4242 4242 4242

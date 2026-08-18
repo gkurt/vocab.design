@@ -1,0 +1,4 @@
+term:    Multimodal interface
+scope:   element
+subject: div.sp-surface[data-part=task][data-timer=unset]
+text:    00:00 Not set No channel has set it yet

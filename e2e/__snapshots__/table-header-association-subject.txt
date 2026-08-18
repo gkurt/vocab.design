@@ -1,0 +1,4 @@
+term:    Header association
+scope:   element
+subject: td[data-linked][data-part=cell][data-pose=[data-linked]][data-sim-focus][data-written=scope]
+text:    42

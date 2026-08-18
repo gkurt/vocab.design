@@ -1,0 +1,4 @@
+term:    Direct labeling
+scope:   element
+subject: g[data-part=labels]
+text:    HarbourKestrelMeridian

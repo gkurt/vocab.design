@@ -1,0 +1,4 @@
+term:    Chart aspect ratio
+scope:   element
+subject: svg[aria-hidden=true][data-angle=45][data-part=frame][data-shape=banked][preserveAspectRatio=none][viewBox=0 0 100 100]
+text:    

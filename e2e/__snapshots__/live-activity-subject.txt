@@ -1,0 +1,4 @@
+term:    Live activity
+scope:   element
+subject: div.sp-glass[data-live][data-part=activity][data-pose=[data-live]][data-surface=compact]
+text:    12m

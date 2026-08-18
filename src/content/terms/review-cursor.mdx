@@ -1,0 +1,57 @@
+---
+name: Review cursor
+slug: review-cursor
+category: accessibility
+status: published
+definition: >-
+  A second cursor a screen reader user can move over the screen to read text without moving the
+  system focus, so inspecting a region does not disturb the app.
+aliases:
+  - name: NVDA review cursor
+    source: community
+  - name: screen review
+    source: community
+  - name: flat review
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "NVDA User Guide: Review cursor"
+    url: https://download.nvaccess.org/documentation/userGuide.html
+demo: inline
+useWhen: a reader inspects content without leaving the field
+---
+
+A [screen reader](/screen-reader) user has more than one cursor. There is the system focus,
+the one the application knows about, and there is a review cursor that walks the screen
+independently of it. NVDA calls it the review cursor, VoiceOver on macOS reaches the same
+idea through the VoiceOver cursor, and Orca and the Android and iOS readers call the flattened
+version of it flat review. The point of the second cursor is that reading is not
+interaction. A person typing in a message field can send the review cursor up to re-read the
+error above the form, out to the status line, or across to a toolbar label, and come back to
+find the caret exactly where they left it and the application none the wiser.
+
+That independence is what makes it a design constraint rather than a piece of trivia. Content
+that no tab stop ever visits is still read: a timestamp, a helper line, a count in the corner,
+the text inside an [inert](/inert) region that has been made unreachable for interaction but is
+still painted on the screen. So text on screen is text somebody can find, which cuts both
+ways. It rescues information you forgot to make reachable, and it exposes leftovers you thought
+were invisible because nothing could focus them.
+
+Three neighbouring words get swapped for each other and they name three different things.
+[Browse mode](/browse-mode) is the reading mode itself, where the reader takes the keyboard
+and moves through a document with single keys instead of operating controls. The
+[rotor](/rotor) is the dial that chooses what kind of element the next gesture visits, headings
+or links or form controls. A review cursor is neither a mode nor a filter: it is a second
+pointer that reads whatever is under it without telling the application anything happened.
+
+The practical consequence is that a screenshot is not the boundary of your interface for a
+screen reader user, and neither is the tab order. If a label only makes sense next to the
+control it belongs to, someone will read it on its own. If a status only makes sense as an
+update, someone will find it a minute later sitting there as plain text. Writing every string
+so it survives being read alone is the same discipline that makes a good
+[accessible name](/accessible-name), applied to the parts nobody bothers to name.

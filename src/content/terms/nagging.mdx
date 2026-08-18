@@ -1,0 +1,59 @@
+---
+name: Nagging
+slug: nagging
+category: pattern
+status: published
+definition: >-
+  Interrupting a task again and again with the same request, so that agreeing becomes the
+  cheapest way to be left alone.
+aliases:
+  - name: persistent prompt
+    source: community
+  - name: prompt fatigue
+    source: community
+  - name: repeat ask
+    source: community
+  - name: maybe later loop
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Deceptive Design: Nagging'
+    url: https://www.deceptive.design/types
+demo: inline
+useWhen: the same prompt keeps returning until you give in
+---
+
+Nagging is the one deceptive pattern that needs no deception. Nothing in the prompt is a
+lie, the decline button works, and the reader is free to press it as often as they like.
+The trick is arithmetic: refusing costs a small amount of attention every time, agreeing
+costs it once, and a design that returns often enough makes consent the cheaper option.
+What is being measured as a conversion is really a surrender, which is why nagging shows up
+in [Deceptive Design](https://www.deceptive.design/types)'s catalogue of named types rather
+than in a book about persuasion.
+
+The tell is what happens to the answer. A "not now" that is recorded is an answer; a "not
+now" that resets a counter is a delay, and the counter is usually the whole mechanism: ask
+on the third launch, then the fifth, then every session. Notice that the copy in the
+specimen above never gets more aggressive. The third ask is word for word the first. All
+that has changed is the reader, who by then has learned that the only reliable way to make
+the prompt stop is to say yes to it. Platforms have started legislating against exactly
+this, which is the clearest possible sign that it stopped being a design decision: browsers
+now treat a dismissed permission request as a denial that sticks, and mobile app stores
+limit how often a rating prompt may be shown.
+
+The repair is not softer wording. It is remembering, which means treating a refusal as
+durable state, and then moving the request somewhere it can be found when it is wanted. A
+row in Settings asks nothing and is available forever. If the ask genuinely has to come back
+(a trial about to expire, a security setting that matters), it comes back once, at a moment
+the reader can connect to something they were doing, and it says why it has returned.
+
+The nearest neighbour is [permission priming](/permission-priming), and the difference is
+the whole ethics of the thing: priming asks at a moment the reader understands, having just
+done something the permission is obviously for, while nagging asks again because the first
+answer was not the one wanted. Priming spends the request carefully because it only gets
+one; nagging assumes it gets unlimited ones. Below that, nagging is a
+[dark pattern](/dark-pattern) by the standard test, since it works only because the
+interface's interests and the reader's have come apart. And its usual vehicle is the
+[interstitial](/interstitial), the screen that stands between a person and the thing they
+came for, which is what makes the interruption expensive enough to be worth ending.

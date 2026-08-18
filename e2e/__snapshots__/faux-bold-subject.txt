@@ -1,0 +1,4 @@
+term:    Faux bold
+scope:   element
+subject: span[data-faked][data-mode=faux][data-part=line][data-pose=[data-faked]]
+text:    Handgloves

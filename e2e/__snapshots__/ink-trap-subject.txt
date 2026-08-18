@@ -1,0 +1,4 @@
+term:    Ink trap
+scope:   element
+subject: svg[aria-label=The upper right joint of an N, magnified][data-mode=trap][data-part=joint][data-pose=[data-trapped]][data-trapped][height=112][role=img][viewBox=58 58 46 46][width=112]
+text:    
