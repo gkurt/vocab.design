@@ -1,0 +1,4 @@
+term:    Braille display
+scope:   element
+subject: div.sp-surface[data-cells=16][data-el=heading][data-part=strip]
+text:    

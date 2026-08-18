@@ -1,0 +1,62 @@
+---
+name: Yo-yo loop
+slug: yoyo-loop
+category: motion
+status: published
+definition: >-
+  A repeating animation that plays forward then backward instead of jumping back to the start, so a
+  loop has no visible seam.
+aliases:
+  - name: yoyo
+    source: gsap
+  - name: alternate
+    source: css
+  - name: ping-pong
+    source: community
+  - name: boomerang
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "MDN: animation-direction"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction
+demo: inline
+useWhen: a loop must repeat without a snap back to frame one
+---
+
+A repeating animation has to get back to its first frame somehow, and there are only two ways to do
+it. It can cut, which is what a plain loop does: the last frame is followed immediately by the first,
+and unless those two frames happen to match, the cut is a jump. Or it can reverse, playing the whole
+thing backwards and arriving at frame one having passed through every frame in between. CSS spells
+the second one `animation-direction: alternate`, GSAP spells it `yoyo: true`, and video tools that
+ship the effect as a feature call it boomerang or ping-pong. The name to be careful with is
+boomerang, which comes from short looping video and has nothing to do with the
+[mid-century modern](/mid-century-modern) motif of the same name: that boomerang is a shape, not a
+way of repeating.
+
+Whether the cut is visible is the whole question, and it is a question about the artwork rather than
+about the loop. [Marching ants](/marching-ants) restarts hard every single cycle and nobody ever sees
+a seam, because the dashes travel exactly one dash plus one gap and land back on themselves: the last
+frame really is the first frame. That is the special case. A yo-yo is the general answer for
+everything else, for the pulse that has swelled and the card that has drifted upward and every other
+motion whose end state is nowhere near its beginning. It is also the cheapest guarantee that an
+ambient animation leaves the scene where it found it, which matters because an infinite loop that
+drifts is an infinite loop that eventually pushes the layout somewhere nobody designed.
+
+The cost is that reversing a loop also reverses its [easing](/easing). A curve picked for arrival,
+slow at the end so the movement settles, becomes a curve that is slow at the beginning on the way
+back, so the return leg departs sluggishly and slams into the start. This is why the timing function
+paired with a yo-yo is almost always symmetric: `ease-in-out` reads the same run backwards as
+forwards, and anything asymmetric has to be chosen knowing it will be heard twice, once in each
+direction. Two other things change with it. The cycle is twice as long, so a 600 millisecond
+animation set to alternate is a 1.2 second loop. And the turnaround is a moment of genuine zero
+velocity, a held breath at each end, which is why yo-yo motion suits breathing, floating and hovering
+far better than it suits travel.
+
+That last point is also the rule for when not to reach for it. Anything with a direction of travel
+reads as being undone when it runs backwards: a spinner that alternates looks like a machine changing
+its mind, and a marquee that alternates stops being a ticker and becomes a shuttle. Reserve the
+reversal for motion that is genuinely about a range rather than about progress. And alternating is
+not on its own a licence to run forever. Endless motion is still endless motion, so a loop belongs
+behind [prefers-reduced-motion](/prefers-reduced-motion), and the loud ones, of which the
+[glitch aesthetic](/glitch-aesthetic) is the loudest, deserve an end as well as a smooth seam.

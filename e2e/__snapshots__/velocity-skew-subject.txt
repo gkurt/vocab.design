@@ -1,0 +1,4 @@
+term:    Velocity skew
+scope:   element
+subject: div[data-motion=square][data-part=card][data-peak=none][data-versus=none]
+text:    drag me

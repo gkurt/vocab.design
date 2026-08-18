@@ -1,0 +1,4 @@
+term:    Ruby annotation
+scope:   element
+subject: span[data-annotated][data-part=run][data-pose=[data-annotated]]
+text:    図(と)書(しょ)館(かん)

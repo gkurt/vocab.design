@@ -1,0 +1,4 @@
+term:    Goal gradient
+scope:   element
+subject: div[data-part=track][data-stage=far]
+text:    

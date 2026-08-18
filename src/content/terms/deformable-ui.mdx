@@ -1,0 +1,67 @@
+---
+name: Deformable UI
+slug: deformable-ui
+category: aesthetic
+status: published
+definition: >-
+  A style where controls behave like soft matter, squashing under a press and springing back
+  past rest, so the surface reads as jelly, clay, or inflated plastic rather than paint.
+aliases:
+  - name: tactile digital
+    source: uistyleguide
+  - name: squishy UI
+  - name: tactile maximalism
+  - name: jelly UI
+  - name: squish UI
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'UI Style Guide: Tactile digital and deformable UI'
+    url: https://www.uistyleguide.com/style/tactile-digital-deformable-ui
+  - title: 'Buzzvel: The human touch returns, design trends for 2026'
+    url: https://buzzvel.com/blog/design-trends-2026-human-touch
+demo: inline
+useWhen: controls that squash and spring like soft material
+---
+
+The style is defined by behaviour rather than by paint, which is what makes it unusual among
+aesthetic registers. Everything else on this list can be judged from a screenshot; this one
+cannot, because the claim is what the control does while your finger is on it. A button
+squashes wider and shorter under a press, holds that shape for exactly as long as the press
+lasts, then springs back through rest and overshoots slightly before settling. Drag it and it
+leans and stretches after the hand instead of tracking rigidly. The static appearance,
+usually an inflated pastel solid with a lit top edge, is there to make the behaviour
+plausible: an object that looks hard has no business squashing.
+
+Two neighbours make it clearer by contrast. [Neumorphism](/neumorphism) is softness baked
+into the surface as a still image, one undifferentiated material extruded at very low contrast,
+and its controls do not deform at all: press one and a shadow inverts. Round-mate
+[neo-skeuomorphism](/neo-skeuomorphism) is about depicting distinct materials convincingly,
+so a knurled metal dial there stays rigid because metal is rigid. Deformable UI is the case
+where the material chosen is soft, and the honesty of the choice is tested every time you
+touch it. [Claymorphism](/claymorphism) is its closest relative and often its resting state,
+which is why the two are so easily conflated: clay is the look, deformation is the behaviour,
+and plenty of claymorphic interfaces never deform.
+
+Getting it right is mostly a matter of tying the deformation to the input rather than to a
+timer. A squash that plays for a fixed 200 milliseconds regardless of how long the finger
+stays down feels like an animation; a squash that holds until release feels like matter. The
+spring back is where the physical reading is either earned or lost, since a linear return
+reads as a slide and an overshoot of a few percent reads as elasticity. Keep the deformation
+non-uniform, wider as it gets shorter, because volume that appears to be conserved is most of
+what sells the illusion. And keep it small: five to fifteen percent is plenty, and anything
+larger starts to look like a rendering error.
+
+There are real limits. The squash must never change the space the control occupies, so it has
+to be a transform inside a reserved box rather than a size change that pushes its neighbours
+around. Scripted springs are not reachable by a stylesheet, so any of this driven in code has
+to ask about the reader's motion preference first and jump straight to the settled state when
+the answer is yes. Text set inside a deforming element distorts with it, which is why the
+register works best on icon buttons, toggles, tabs, and cards, and worst on anything carrying
+a long label. And it costs attention: a control that performs on every press is delightful
+five times and exhausting on the fiftieth, so it belongs on the one or two actions a screen
+is actually about.

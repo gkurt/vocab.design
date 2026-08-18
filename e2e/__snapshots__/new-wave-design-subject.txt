@@ -1,0 +1,4 @@
+term:    New Wave design
+scope:   element
+subject: span[data-part=poster]
+text:    TYPO BASEL 72 NEW WAVE

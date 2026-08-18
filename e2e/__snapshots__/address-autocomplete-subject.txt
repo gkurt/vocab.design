@@ -1,0 +1,4 @@
+term:    Address autocomplete
+scope:   element
+subject: sp-combobox[data-part=lookup]
+text:    12 Mill Lane, Whitby, YO21 3PU5 Church Street, Whitby, YO22 4DE14 Mill Lane, Whi

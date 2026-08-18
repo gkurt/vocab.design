@@ -1,0 +1,68 @@
+---
+name: Predictive back
+slug: predictive-back
+category: motion
+status: published
+definition: >-
+  A back gesture that reveals the destination underneath while the finger is still down, so the swipe
+  can be finished or abandoned once the reader has seen where it goes.
+aliases:
+  - name: predictive back gesture
+    source: android
+  - name: back preview
+    source: android
+  - name: predictive back animation
+    source: material
+  - name: back-to-home animation
+    source: android
+relations: {}
+implementations:
+  - system: material
+    name: Predictive back
+    url: https://github.com/material-components/material-components-android/blob/master/docs/foundations/PredictiveBack.md
+sources:
+  - title: "Android Developers: predictive back design"
+    url: https://developer.android.com/design/ui/mobile/guides/patterns/predictive-back
+  - title: "Material Components Android: PredictiveBack"
+    url: https://github.com/material-components/material-components-android/blob/master/docs/foundations/PredictiveBack.md
+demo: inline
+useWhen: a back swipe should show its destination before it commits
+---
+
+Going back used to be a bet. You swiped, the screen changed, and only then did you find out whether
+back meant the previous article, the top of the list, or all the way out to the home screen. Android
+13 turned that into a preview: while the finger is still down, the current screen shrinks and slides
+aside and the destination is drawn behind it, so the decision is made after seeing the answer rather
+than before. Let go past the commit point and the navigation happens; let go short of it and the
+screen springs back with nothing having changed. The word Google uses for the state in between is
+progress, a number from nought to one that the gesture reports continuously and the animation is
+driven by.
+
+It is easy to run this together with the two gestures either side of it.
+An [edge swipe](/edge-swipe) is the gesture that starts it, and it is defined purely by where the
+first contact lands: a stroke that begins in the band the system has reserved belongs to the system,
+and one that begins further in belongs to the page. Predictive back is what gets drawn once that
+stroke is under way, which is why one is a rule about origin and the other is a rule about feedback.
+[Swipe to dismiss](/swipe-to-dismiss) looks the same in the hand and means something else entirely:
+it removes the thing being swiped, so what is underneath is simply whatever was already there.
+Predictive back removes nothing. It travels to a place, and the thing revealed is somewhere the
+reader has already been.
+
+Mechanically it is an [exit animation](/exit-animation) with its playhead handed to the finger. The
+gesture supplies progress and the swipe edge, the app maps that progress onto the outgoing screen's
+transform, and a release resolves it in one of two directions. That second half is where a
+[spring animation](/spring-animation) earns its keep, because the return leg starts from whatever
+velocity and position the finger left behind rather than from a standing start, and a fixed duration
+tween will visibly disagree with the hand that just let go. The whole thing also has to be
+interruptible in both directions: a reader who pulls halfway, pushes back, and pulls again is doing
+something completely ordinary, and an animation that can only play forwards will fight them.
+
+Two practical consequences follow. The first is that a preview has to be renderable before it is
+committed to, which is a real constraint on how a back stack is built: something has to be able to
+draw the previous screen while the current one is still alive, whether that is a live view, a cached
+one, or a snapshot. The second is that partial progress is a first-class state rather than a
+transitional one. A screen can sit at forty per cent peeled for as long as a thumb rests there, so
+every value in between has to look deliberate, and anything that only reads correctly at nought and
+one hundred per cent will be caught out. The same rule applies to any web implementation of swipe to
+go back, where the temptation to fire a fixed [page transition](/page-transition) on release, with no
+preview at all, is exactly the blind bet this pattern was invented to end.

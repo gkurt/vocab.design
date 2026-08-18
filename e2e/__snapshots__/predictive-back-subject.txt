@@ -1,0 +1,4 @@
+term:    Predictive back
+scope:   element
+subject: div[data-part=screen][data-pose=:not([data-state=committing])][data-state=rested]
+text:    Ferry timetable

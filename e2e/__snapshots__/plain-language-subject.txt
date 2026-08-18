@@ -1,0 +1,4 @@
+term:    Plain language
+scope:   element
+subject: div.sp-surface[data-part=prose][data-pose=[data-version=plain]][data-version=plain]
+text:    Send your documents within 30 days. If we have not received them by then, we wil

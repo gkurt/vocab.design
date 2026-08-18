@@ -1,0 +1,4 @@
+term:    Signature pad
+scope:   element
+subject: div.sp-surface[data-part=pad][data-state=empty]
+text:    ✕ Draw your signature above the line Captured

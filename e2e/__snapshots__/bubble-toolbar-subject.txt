@@ -1,0 +1,4 @@
+term:    Bubble toolbar
+scope:   element
+subject: div.sp-row.sp-surface[data-open][data-part=bar][data-place=below]
+text:    B I Clear

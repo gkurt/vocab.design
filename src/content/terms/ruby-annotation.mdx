@@ -1,0 +1,60 @@
+---
+name: Ruby annotation
+slug: ruby-annotation
+category: typography
+status: published
+definition: >-
+  Small guide text set beside or above a run of base text, most often to give the
+  pronunciation of East Asian characters.
+aliases:
+  - name: furigana
+    source: community
+  - name: ruby text
+    source: html
+  - name: rubi
+  - name: phonetic guide
+relations: {}
+sources:
+  - title: Ruby (W3C Internationalization)
+    url: https://www.w3.org/International/questions/qa-ruby.en.html
+  - title: HTML Ruby Markup Extensions (W3C)
+    url: https://www.w3.org/TR/html-ruby-extensions/
+demo: inline
+useWhen: annotating characters with their pronunciation
+---
+
+Ruby is a run of small text set alongside a run of ordinary text to say how it
+is read. In Japanese it is called furigana and it is set above horizontal
+text, giving the kana reading of a kanji a reader may not know yet; Traditional
+Chinese uses bopomofo the same way, and the name "ruby" is British printing
+slang for a 5.5 point type size, which is roughly what the annotation was cut
+at. HTML carries it directly: `ruby` wraps the whole thing, `rt` holds the
+annotation, and the annotation lands above the base by default, or below it with
+`ruby-position: under`.
+
+There are two ways to attach a reading to a compound, and they are not
+interchangeable. Mono ruby gives each base character its own annotation, so each
+[glyph](/glyph) is paired with the sound it contributes, which is what a reader
+learning the characters needs. Group ruby gives the whole compound one
+annotation, which is the honest choice when the reading cannot be split cleanly
+between the characters. Both are legal and a page may use each where it fits;
+what is not free is the room, because the annotation is a second line inside the
+line box, and turning ruby on in a paragraph makes every annotated line taller.
+This is why a design that wants ruby has to plan the [leading](/leading) around
+it rather than discovering the extra line at the end.
+
+Ruby is a reading aid with a defined fallback, not decoration. The `rp` element
+holds a parenthesis on either side of the annotation: browsers that render ruby
+hide those characters, and browsers that do not render the whole thing inline as
+`図書館(としょかん)`, which still reads correctly. Nothing about the markup
+depends on the annotation being visually above anything, which is also why a
+screen reader can be told to speak the base, the annotation, or both, and why
+using `rt` for anything other than a genuine annotation of the run it is attached
+to breaks that promise.
+
+The pattern is not only East Asian. The same markup handles pinyin over hanzi,
+a transliteration over a name, a definition over a term in a glossary, and the
+odd editorial gloss in Latin script, and all of them inherit the same
+constraints: the annotation is small, so it has a legibility floor; it is
+attached to a specific run, so it cannot wander; and it costs a line, so it is
+worth asking whether the reader wanted it before every character gets one.

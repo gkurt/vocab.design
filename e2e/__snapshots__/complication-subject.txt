@@ -1,0 +1,4 @@
+term:    Complication
+scope:   element
+subject: span[data-part=comp][data-size=large]
+text:    Steps 7,420

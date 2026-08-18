@@ -1,0 +1,4 @@
+term:    Window size class
+scope:   element
+subject: div[data-class=compact][data-dp=412][data-part=window]
+text:    Berths 412dp

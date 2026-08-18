@@ -1,0 +1,67 @@
+---
+name: Dot grid background
+slug: dot-grid-background
+category: aesthetic
+status: published
+definition: >-
+  A faint repeating field of dots or ruled squares behind content, borrowed from graph paper
+  and canvas tools to suggest an editable surface rather than a page.
+aliases:
+  - name: dot pattern
+    source: magicui
+  - name: grid pattern
+    source: magicui
+  - name: graph paper background
+  - name: dotted background
+  - name: blueprint grid
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 'Magic UI: Dot Pattern'
+    url: https://magicui.design/docs/components/dot-pattern
+  - title: 'Magic UI: Grid Pattern'
+    url: https://magicui.design/docs/components/grid-pattern
+demo: inline
+useWhen: a faint grid or dot field behind the content
+---
+
+The reference is physical and immediately readable: engineering paper, a bullet journal
+page, a cutting mat, a drafting sheet. All of them are surfaces you are expected to put
+things onto, which is why the pattern arrived on screens through canvas tools, whiteboards,
+node editors, and diagramming apps rather than through document design. A page is something
+you read; a gridded field is something you build on, and a product that opens onto one is
+making a promise about what it is for before a single control has been touched. That is the
+whole rhetorical job of the pattern, and it explains why it is now nearly compulsory on
+developer-tool marketing pages that have no canvas anywhere in the product.
+
+Technically it is one repeating background, usually a small radial gradient for dots or a
+pair of linear gradients for ruled squares, tiled at the spacing the layout actually snaps to.
+Tying those two numbers together is the difference between a scaffold and a texture. If
+dragged objects land on the crossings, the field is telling the truth about how the surface
+behaves, and the reader learns the spacing without being told. If the pattern is at 24 pixels
+while the snap is at 8, it is decoration wearing the costume of a system. A second gradient
+pair at five times the spacing gives the major and minor rules of real graph paper, and
+inverting the whole thing onto a dark blue ground gives the blueprint register, which reads
+as a plan rather than as a page.
+
+[Halftone](/halftone) is the neighbour whose dots mean something completely different: a
+halftone is a reproduction technique that builds continuous tone out of dots of varying size,
+so its dots are the image, while a dot grid's dots are a fixed scaffold you align to and are
+never part of the content. [Infinite-canvas](/infinite-canvas) is where the pattern is most
+at home and where it earns its keep, because a boundless surface with nothing printed on it
+gives a reader no way to tell that a pan happened at all. [Baseline-grid](/baseline-grid) is
+the typographic relative, a rhythm for text rather than a field for objects, and the two are
+often at odds: a baseline grid is vertical only and set from the leading, so lining it up with
+a square dot field usually means giving up one of them.
+
+Two practical cautions. Contrast is the whole craft here, since a field that competes with
+the content is worse than no field at all, and the usual failure is a pattern tuned in light
+mode that turns into visible noise when the surface goes dark. Keep it under any text at the
+faintest value that still resolves, and consider fading it out toward the edges with a mask
+so it reads as an infinite surface rather than as a tiled rectangle. And the pattern must be
+a background, not elements: a few hundred absolutely positioned dot divs will cost more to
+lay out than everything else on the page put together.

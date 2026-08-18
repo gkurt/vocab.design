@@ -1,0 +1,4 @@
+term:    Reader mode
+scope:   element
+subject: div.sp-surface[data-part=reader]
+text:    Release notes Release desk · 1 min read Two export formats shipped this week, an

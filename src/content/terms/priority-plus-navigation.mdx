@@ -1,0 +1,59 @@
+---
+name: Priority plus navigation
+slug: priority-plus-navigation
+category: pattern
+status: published
+definition: >-
+  A horizontal menu that keeps as many items visible as fit and moves the rest into a More
+  control, recalculating whenever the available width changes.
+aliases:
+  - name: priority+ navigation
+    source: community
+  - name: priority plus pattern
+    source: community
+  - name: more menu overflow nav
+    source: community
+  - name: adaptive navigation
+    source: community
+  - name: overflow list
+    source: blueprint
+relations: {}
+implementations: []
+sources:
+  - title: 'CSS-Tricks: The Priority+ Navigation Pattern'
+    url: https://css-tricks.com/the-priority-navigation-pattern/
+demo: inline
+useWhen: the nav shows what fits and hides the rest behind More
+---
+
+Priority plus navigation is a rule for spending width. The links are put in priority order,
+the bar shows as many as the room allows, and everything past the cut goes into a More
+control that holds exactly those items, in exactly that order. When the window changes size
+the sum is done again, so the same nav shows six links on a laptop, three on a tablet and
+one beside More on a phone. Brad Frost gave it the name, and the plus is doing real work in
+it: the promise is the top priorities plus a way to reach the rest.
+
+What separates it from every other responsive nav is that the ranking is an explicit design
+decision rather than a side effect of source order. Someone has to say which link is first
+and which is last, and the pattern then makes that judgement visible at every width: the
+narrower the screen, the more clearly the bar states what the product thinks matters. The
+alternative most sites reach for is putting the whole nav behind a
+[hamburger menu](/hamburger-menu) at small sizes, which is cheaper to build and gives back
+nothing at all: on a narrow screen, one visible link plus More still beats zero visible
+links plus a symbol.
+
+The More control is an [overflow menu](/overflow-menu), and that is the mechanism rather
+than the pattern: the overflow menu is a place actions go, priority plus is the rule that
+decides which ones go there and when. Two navigation terms sit nearby and neither one is
+this. [Utility navigation](/utility-navigation) is a set defined by what its links are about,
+the reader's own tools rather than the site's content, and it keeps that identity at every
+width. [Local navigation](/local-navigation) is a set defined by where the reader is
+standing, replaced wholesale when they move section. Priority plus does not care what the
+links are about at all: it only asks how many of them fit.
+
+Three details decide whether an implementation is pleasant or maddening. Recalculate on
+anything that changes the sum, which means text size and font loading as well as window
+width. Add hysteresis so a link does not flicker between the bar and the menu while someone
+drags a window edge across the boundary. And when the page the reader is on has fallen into
+the overflow, mark the More control as current, because a nav that quietly stops showing
+where you are has lost the one job it had.

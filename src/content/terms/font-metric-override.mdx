@@ -1,0 +1,63 @@
+---
+name: Font metric override
+slug: font-metric-override
+category: typography
+status: published
+definition: >-
+  Reshaping a fallback font's size and vertical metrics in CSS so it occupies the
+  same space as the web font and the swap shifts nothing.
+aliases:
+  - name: size-adjust
+    source: css
+  - name: ascent-override
+    source: css
+  - name: descent-override
+    source: css
+  - name: line-gap-override
+    source: css
+  - name: metric compatible fallback
+  - name: adjusted fallback font
+relations: {}
+sources:
+  - title: Framework tools for font fallbacks (Chrome for Developers)
+    url: https://developer.chrome.com/blog/framework-tools-font-fallback/
+  - title: Creating Perfect Font Fallbacks in CSS
+    url: https://www.aleksandrhovhannisyan.com/blog/perfect-font-fallbacks/
+demo: inline
+useWhen: killing the layout jump when a web font lands
+---
+
+Four descriptors on an `@font-face` rule let you reshape a font from the
+stylesheet. `size-adjust` scales every glyph by a percentage, so a narrow
+stand-in can be stretched to take the same room per character.
+`ascent-override`, `descent-override` and `line-gap-override` restate the
+vertical metrics the font declares about itself, which is what decides the
+height of a line box under `line-height: normal`. Together they let a
+[fallback font](/fallback-font) be tuned until it occupies exactly the space
+the real face will, so the moment the real face arrives, nothing moves.
+
+The rule is written against a family the browser already has. You declare a
+second `@font-face` whose `src` is `local("Georgia")` or similar, give it its own
+family name, tune the four descriptors against the real face, and put that name
+in the [font stack](/font-stack) right after the web font. Generators do the
+arithmetic by comparing the two fonts' average character width and their ascent,
+descent and line gap as fractions of the em, and every major framework now ships
+one. The numbers are per pair: the same fallback tuned for one web font is wrong
+for another.
+
+This is the piece that makes a [FOUT](/fout) tolerable. FOUT names the flash:
+the fallback is painted, the web font arrives, and the text is redrawn.
+A metric override does not stop the flash, it stops the flash from moving
+anything, so what the reader sees is the same words changing shape in place
+rather than a page reflowing under their eyes. Adjusting metrics also settles
+an old argument about which fallback to pick: with the descriptors available,
+metric compatibility is something you produce rather than something you have to
+find.
+
+Two cautions. The descriptors reshape the line box, so anything you were
+relying on from the font's own [ascender](/ascender) and
+[descender](/descender) values changes with them, and a wrong override
+introduces the shift it was meant to remove. And the fit is never perfect,
+because `size-adjust` scales a whole face by one number while real faces differ
+letter by letter; the aim is a shift small enough to stop counting, not a
+guarantee of zero.

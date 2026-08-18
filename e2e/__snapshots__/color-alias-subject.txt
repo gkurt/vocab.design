@@ -1,0 +1,4 @@
+term:    Color alias
+scope:   element
+subject: div[data-part=alias-layer]
+text:    color-warning = amber-500 #B45309 color-pending = amber-200 #FCE3A4

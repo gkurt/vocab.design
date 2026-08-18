@@ -1,0 +1,69 @@
+---
+name: Force touch
+slug: force-touch
+category: interaction
+status: published
+definition: >-
+  A press whose depth is part of the input, letting a harder press mean something different
+  from a light one on a pressure sensing surface.
+aliases:
+  - name: 3D Touch
+    source: hig
+  - name: force click
+    source: hig
+  - name: pressure touch
+    source: community
+  - name: deep press
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "iOS HIG: Gestures"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+  - title: "MDN: Force Touch events (non-standard)"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Force_Touch_events
+demo: inline
+useWhen: press depth carries meaning, not just contact
+---
+
+Force touch is a press with a third dimension. The contact reports how hard it is pushing,
+and the interface watches that reading for a line being crossed: past the first threshold a
+preview lifts, past the second the preview commits and becomes the thing itself. Apple
+shipped the idea twice under two names, as Force Touch on the 2015 trackpad and as 3D Touch
+on the iPhone 6s, and gave the two thresholds names that stuck: peek and pop. The specimen
+above has no pressure to read, so it simulates the force curve. The setting parks the press
+at a depth, the gauge travels there on the stage's own clock, and each mark fires as it is
+crossed.
+
+The contrast with [pressure sensitivity](/pressure-sensitivity) is worth stating flatly,
+since the two read the same sensor. Pressure sensitivity maps a continuous force onto a
+continuous property, so every value along the axis means something and the stroke keeps
+getting wider the harder the pen is pushed. Force touch throws almost all of that away: it
+watches the axis for two lines and produces a discrete command, which makes it a button with
+deep travel rather than a dial. That is also why it leans on
+[haptic feedback](/haptic-feedback) harder than any other gesture. Depth is invisible, the
+finger never moves, and without a tick at each threshold a reader cannot tell a press that
+fired from a press that did not.
+
+The web never got a standard for it. WebKit exposed force clicks through non-standard events
+(`webkitmouseforcewillbegin`, `webkitmouseforcedown` and their siblings) plus a
+`webkitForce` reading and two constants naming the thresholds, and nothing else ever
+implemented them. What is standard is `pressure` on a pointer event, which most hardware
+reports as a flat 0.5 for the whole time a button is held, so a threshold built on the web
+is mostly a number the interface cannot trust. Apple retired the hardware too: the iPhone XR
+and everything after it replaced 3D Touch with Haptic Touch, which is a
+[long press](/long-press) wearing the same clothes, and the peek it lifts is now bought with
+time instead of force.
+
+The design lesson survived the hardware. Nothing on a screen announces that a target can be
+pressed harder, so force touch was only ever an accelerator, and everything it reached had
+to have a visible route as well: a row of actions, an overflow menu, a plain tap that opens
+the same record. It also has to be forgiving in both directions, because a firm tapper fires
+peeks nobody asked for and a light one never reaches the first mark at all. The preview a
+peek lifts is a [quick view](/quick-view) by another name, which is the honest way to read
+the whole pattern: a good idea about previewing, delivered through an input almost nobody
+could discover.

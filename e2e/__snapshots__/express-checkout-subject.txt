@@ -1,0 +1,4 @@
+term:    Express checkout
+scope:   element
+subject: div.sp-row[data-part=wallets]
+text:    Kestrel Pay Harbour Pay Tern Wallet

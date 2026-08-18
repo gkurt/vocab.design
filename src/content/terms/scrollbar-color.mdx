@@ -1,0 +1,56 @@
+---
+name: Scrollbar color
+slug: scrollbar-color
+category: color
+status: published
+definition: >-
+  The thumb and track colours of a scrollbar, which a page can set explicitly or leave to the
+  declared colour scheme so the browser draws its own dark variant.
+aliases:
+  - name: scrollbar thumb
+    source: community
+  - name: custom scrollbar
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: scrollbar-color"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-color
+demo: inline
+useWhen: matching the scrollbar to a dark or branded theme
+---
+
+`scrollbar-color` takes two values in a fixed order, thumb then track, and applies them to
+whatever scrollbar the element gets: `scrollbar-color: #7E8698 #EDEFF3`. Its partner property
+is `scrollbar-width`, which chooses between `auto`, `thin` and `none`. Between them they are
+the whole standard styling surface, which is a deliberately small one. The older
+`::-webkit-scrollbar` pseudo-elements let you rebuild the bar out of parts, but they were never
+standardized and Firefox never implemented them, so a page that relies on them is styling for
+some of its readers and not the rest.
+
+The property is worth separating from the [scrollbar](/scrollbar) itself. The scrollbar is the
+component: a track, a thumb, a proportion, and the browser's own behaviour around all three.
+Scrollbar colour is the two-value hook the page is given onto it, and choosing not to use that
+hook is a real option. Declaring `color-scheme: dark` hands the job back to the browser, which
+draws its own dark scrollbar tuned to the platform, keeps overlay behaviour where the platform
+has it, and stays correct when the operating system changes its mind. Reach for explicit
+colours when the surface behind the bar is not the page background at all, a dark sidebar or a
+media panel inside a light document, where the browser has no way to know what the bar is
+sitting on.
+
+The common failure is a thumb tinted to match a brand. A pale brand tint against a paler track
+reads as a decorated gutter rather than as a control, and it will usually land somewhere near
+1.5:1 when [non-text contrast](/non-text-contrast) asks for 3:1 against the adjacent colour.
+The thumb is a target people grab, not decoration, so the same rules that apply to a button's
+edge apply here. `scrollbar-width: none` is the more absolute version of the same mistake:
+the region still scrolls, and the only standing signal that it does has been deleted.
+
+One neighbour that looks similar and is not: a [sliding indicator](/sliding-indicator) is a bar
+the page draws and positions itself, under the tab or segment that is currently chosen, and its
+colour is entirely the author's. A scrollbar thumb is drawn by the browser, reports a position
+nobody chose, and tinting it is close to the only say a page gets. That is why scrollbar colour
+is a colour term rather than a component one.

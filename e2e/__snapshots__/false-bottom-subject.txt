@@ -1,0 +1,4 @@
+term:    False bottom
+scope:   element
+subject: div[data-mode=false][data-part=band][data-pose=[data-mode=false]]
+text:    The Kestrel Review Issue 44, February

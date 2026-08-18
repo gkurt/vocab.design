@@ -1,0 +1,4 @@
+term:    Anti-design
+scope:   element
+subject: div[data-part=card-anti]
+text:    140.00 Bell stool steel!!! 3 heights more info BUY

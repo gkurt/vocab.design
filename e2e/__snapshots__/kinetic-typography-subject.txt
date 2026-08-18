@@ -1,0 +1,4 @@
+term:    Kinetic typography
+scope:   element
+subject: p[data-mode=drop][data-part=phrase]
+text:    Type can drop,stutter, or swell.

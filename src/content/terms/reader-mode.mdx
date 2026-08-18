@@ -1,0 +1,67 @@
+---
+name: Reader mode
+slug: reader-mode
+category: accessibility
+status: published
+definition: >-
+  A browser view that throws away your layout and rebuilds the article as plain text the
+  reader can restyle, which is a verdict on how readable the original was.
+aliases:
+  - name: reader view
+    source: community
+  - name: Immersive Reader
+    source: community
+  - name: reading mode
+    source: community
+  - name: distraction free reading
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Use Immersive Reader in Microsoft Edge, Microsoft Support"
+    url: https://support.microsoft.com/en-US/edge/use-immersive-reader-in-microsoft-edge
+  - title: "mozilla/readability, the library behind Firefox Reader View"
+    url: https://github.com/mozilla/readability
+demo: inline
+useWhen: checking what survives when the design is stripped
+---
+
+Reader mode is the browser deciding it can do a better job of your article than you did.
+Safari, Firefox, Edge and Chrome all ship a version of it, and the mechanic is the same in
+each: a heuristic scores the elements on the page for content density, guesses which subtree
+is the article, extracts the title, byline and body, and re-renders that alone into a single
+measured column. Firefox's version is open source as
+[mozilla/readability](https://github.com/mozilla/readability), which is worth reading if you
+have ever wondered why one of your pages offers the button and another does not. What
+disappears is everything the scorer decided was furniture: the promo bar, the ad rail, the
+share row, the related links, the newsletter box.
+
+The part that matters for design is that this is a reader-side override. You cannot request
+it, you cannot style what comes out, and you cannot opt a page out of it in any way the user
+cannot undo. Once the reader is in there they set the type size, the measure, the typeface
+and the background, and every one of those choices outranks yours. That makes reader mode
+the same shape of thing as [dynamic type](/dynamic-type) and a
+[text spacing](/text-spacing) override: a control the person reading holds and the person
+designing does not.
+
+It also makes it a free audit. Reader mode is built on the document structure rather than on
+the appearance, so what it gets right or wrong is a readout of your markup. A heading that
+was styled rather than marked up does not survive it. Images without
+[alt text](/alt-text) come through as nothing at all. A body split across sibling containers
+comes out with half of itself missing, and a page whose
+[reading order](/reading-order) only works because of CSS placement comes out in the order it
+was actually written in. Open your own article in reader view before shipping it: whatever is
+missing there is missing from the accessibility tree too, and everything downstream of that
+tree inherits the same hole.
+
+There is a family resemblance worth naming, because designers reach for one when they mean
+another. [E-ink aesthetic](/e-ink-aesthetic) is a style that borrows the look of a reading
+device, and [brutalist web design](/brutalist-web-design) is a stance that leaves the browser
+defaults showing on purpose. Both are authored. Reader mode is neither authored nor a style:
+it is the reader taking the page away from you and getting a legible one back, which is worth
+remembering as a benchmark. If a meaningful share of your visitors reach for it on your
+article pages, they have told you something specific about the article pages.

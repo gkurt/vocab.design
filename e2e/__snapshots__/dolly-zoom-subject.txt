@@ -1,0 +1,4 @@
+term:    Dolly and zoom
+scope:   element
+subject: div[data-held=yes][data-move=dolly][data-part=scene][data-state=posed]
+text:    front plane

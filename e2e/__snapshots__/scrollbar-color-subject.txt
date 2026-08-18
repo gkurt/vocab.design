@@ -1,0 +1,4 @@
+term:    Scrollbar color
+scope:   element
+subject: div[data-mode=light][data-part=scroller][data-verdict=pass]
+text:    

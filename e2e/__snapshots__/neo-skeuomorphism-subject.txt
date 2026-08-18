@@ -1,0 +1,4 @@
+term:    Neo-skeuomorphism
+scope:   element
+subject: div.sp-texture[data-part=widget-neo]
+text:    Nightjar Kettle Run 1:48 3:06

@@ -1,0 +1,4 @@
+term:    Dot grid background
+scope:   element
+subject: div[data-part=board][data-register=dots]
+text:    

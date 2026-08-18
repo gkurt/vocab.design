@@ -1,0 +1,4 @@
+term:    Supporting pane
+scope:   element
+subject: div[data-part=support][data-placement=beside]
+text:    Comments RA MK

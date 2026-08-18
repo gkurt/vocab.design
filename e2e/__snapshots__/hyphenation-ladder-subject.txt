@@ -1,0 +1,4 @@
+term:    Hyphenation ladder
+scope:   element
+subject: p[data-laddered][data-mode=default][data-part=column][data-pose=[data-laddered]]
+text:    Com­po­si­tion rooms for­bade the lad­der out­right: con­sec­u­tive hy­phens un­

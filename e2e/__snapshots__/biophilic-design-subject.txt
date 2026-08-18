@@ -1,0 +1,4 @@
+term:    Biophilic design
+scope:   element
+subject: div[data-part=panel]
+text:    Tuesday, early DAYLIGHT LEFT 4 h 20 m Rain 6 mm Soil Damp

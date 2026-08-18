@@ -1,0 +1,4 @@
+term:    View progress timeline
+scope:   element
+subject: div[data-at=running][data-part=card][data-progress=50][data-range=cover]
+text:    Waypoint

@@ -1,0 +1,4 @@
+term:    Containing block
+scope:   element
+subject: span.sp-chip[data-anchor=page][data-part=badge][data-position=absolute]
+text:    absolute

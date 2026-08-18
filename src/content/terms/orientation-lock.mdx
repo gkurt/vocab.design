@@ -1,0 +1,64 @@
+---
+name: Orientation lock
+slug: orientation-lock
+category: accessibility
+status: published
+definition: >-
+  Restricting a screen to portrait or landscape, which strands anyone whose device is fixed in
+  a mount or a wheelchair arm in the orientation the design refused.
+aliases:
+  - name: orientation
+    source: wcag
+  - name: portrait lock
+    source: community
+  - name: landscape lock
+    source: community
+  - name: rotation lock
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Success Criterion 1.3.4 Orientation"
+    url: https://www.w3.org/TR/WCAG22/#orientation
+  - title: "Understanding Success Criterion 1.3.4: Orientation, W3C WAI"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/orientation.html
+demo: inline
+useWhen: a layout only works one way up
+---
+
+WCAG success criterion 1.3.4 says that content does not restrict its view and operation to a
+single display orientation, such as portrait or landscape, unless a specific display
+orientation is essential. It is Level AA, and the word doing the work is essential. A piano
+keyboard, a cheque scanner and a bank of mixing faders have a real claim on landscape. A sign
+up form does not, and neither does a settings screen, a feed, or anything else that got locked
+because nobody drew the other layout.
+
+The reason this is an accessibility criterion rather than a responsive design preference is
+that a great many people do not choose which way up their device is. A phone clamped to a
+wheelchair arm, a tablet on a bed mount, a device on a stand for somebody who cannot hold one:
+in all of those cases the orientation is decided by hardware, once, and cannot be changed by
+turning your wrist. An app that refuses one orientation is not inconveniencing those users, it
+is declining to run for them. The same lock hurts a second group for a different reason:
+somebody reading at a large [dynamic type](/dynamic-type) size often turns the device sideways
+precisely because the extra width is what stops the layout from falling apart.
+
+It helps to say exactly what an orientation lock is not. A window size class describes how much
+room the app has been given and lets you decide what to do with it, while an orientation lock
+refuses to use some of the room the device can offer at all. Designing a different landscape
+layout is not a lock and never was: you are entirely free to lay a screen out differently when
+it is wide, and an [adaptive layout](/adaptive-layout) is exactly the thing that makes locking
+unnecessary. Rotation also changes the [safe area](/safe-area) insets, since the sensor housing
+and the home indicator move to new edges, so a landscape layout that was never built tends to
+be a landscape layout whose insets were never checked either.
+
+The practical version is short. Do not set `screenOrientation` in the manifest or call the
+screen orientation lock API unless you can name the reason out loud. Handle the wide case with
+`@media (orientation: landscape)` or a width query and let the content reflow. Watch for the
+screens where landscape is the good case rather than the awkward one: a
+[comparison table](/comparison-table) with five columns is far more usable turned sideways, and
+locking that screen to portrait takes away the only orientation in which it worked. And test on
+a device you cannot rotate, which is the only way the failure ever feels like what it is.

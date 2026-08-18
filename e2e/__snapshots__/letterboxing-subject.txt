@@ -1,0 +1,4 @@
+term:    Letterboxing
+scope:   element
+subject: div[data-aspect=16-9][data-bars=letterbox][data-fit=contain][data-part=box][data-pose=[data-bars=letterbox], [data-bars=pillarbox]]
+text:    

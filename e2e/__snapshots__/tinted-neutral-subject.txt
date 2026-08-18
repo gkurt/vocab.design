@@ -1,0 +1,4 @@
+term:    Tinted neutral
+scope:   element
+subject: div.sp-row[data-chroma=0.018][data-hue=indigo][data-part=ramp-tinted]
+text:    123456

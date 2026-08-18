@@ -1,0 +1,4 @@
+term:    Color harmonization
+scope:   element
+subject: div.sp-row[data-cap=15][data-part=harmonized]
+text:    hue 12 · #CA435Frotated 15°hue 160 · #239D6Arotated 15°hue 290 · #735CC7rotated 

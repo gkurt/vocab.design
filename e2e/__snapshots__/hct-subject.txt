@@ -1,0 +1,4 @@
+term:    HCT
+scope:   element
+subject: div.sp-swatch[data-contrast=6.46][data-hue=300][data-part=swatch][data-tone=40]
+text:    

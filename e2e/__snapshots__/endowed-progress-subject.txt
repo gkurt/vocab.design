@@ -1,0 +1,4 @@
+term:    Endowed progress
+scope:   element
+subject: div.sp-surface[data-filled=2][data-part=endowed]
+text:    Welcome card 2 of 10 The first two stamps are on us

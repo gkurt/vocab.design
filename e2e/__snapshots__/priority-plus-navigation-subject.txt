@@ -1,0 +1,4 @@
+term:    Priority plus navigation
+scope:   element
+subject: div.sp-row[data-part=nav][data-visible=5]
+text:    1Overview2Orders3Stock4Reports5Settings More

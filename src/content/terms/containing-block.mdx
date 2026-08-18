@@ -1,0 +1,62 @@
+---
+name: Containing block
+slug: containing-block
+category: layout
+status: published
+definition: >-
+  The box an element's percentages and offsets are measured against, which is not always its
+  parent and changes with how the element is positioned.
+aliases:
+  - name: positioning context
+    source: community
+  - name: reference box
+    source: community
+  - name: offset parent
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "CSS Flexible Box Layout Module Level 1"
+    url: https://www.w3.org/TR/css-flexbox-1/
+demo: inline
+useWhen: asking what 100% is actually 100% of
+---
+
+Every percentage and every offset in CSS is measured against some box, and that box is
+the containing block. It is easy to assume the answer is always the parent, and for
+ordinary elements in normal flow it usually is: the parent's content box. The moment an
+element is positioned the rule changes. An absolutely positioned element measures
+against the padding box of its nearest positioned ancestor, skipping every ancestor in
+between that happens to be static. A fixed element measures against the viewport. So
+`width: 50%` and `top: 0` on the same element can be talking about two entirely
+different rectangles, which is why the useful question is never "what is 100%" but
+"100% of what".
+
+The part that catches people out is that positioning is not the only thing that creates
+one. A `transform` on an ancestor makes that ancestor the containing block for its
+absolutely positioned descendants, and it does the same for fixed ones, which is the
+only common way a fixed element stops tracking the viewport. `filter`,
+`backdrop-filter`, `will-change` naming any of those properties, `contain: paint` or
+`layout`, and `container-type` all do it too. None of them look like positioning, which
+is why a fixed header that mysteriously scrolls away is almost always sitting inside
+something with a transform on it, often applied for an animation somewhere else
+entirely. The same properties usually create a [stacking context](/stacking-context) as
+well, and the two are separate things that happen to share triggers: one decides what
+your offsets mean, the other decides what paints in front of what.
+
+[Anchor positioning](/anchor-positioning) is the modern answer to the frustration this
+causes, and the contrast is worth holding onto. Anchor positioning names an element you
+chose and places another element against it, explicitly, across the DOM and without
+either one needing to be an ancestor of the other. A containing block is the box your
+offsets resolve against whether or not you meant to create one, decided by the cascade
+and by whichever ancestor happens to carry a transform today. One is a declaration, the
+other is a consequence.
+
+The same box turns up wherever a layout takes a percentage. A
+[motion path](/motion-path) resolves its own percentage offsets against the containing
+block, so moving a transform up the tree can change where an animation travels without
+touching the animation. A [container query](/container-query) container is a containing
+block, since `container-type` brings containment with it. When something lands in an
+unexpected place, the fastest diagnosis is not to read the element's own rules but to
+walk up its ancestors asking which one is positioned, transformed, filtered or
+contained, because whichever one answers first is the box you are actually working in.

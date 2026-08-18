@@ -1,0 +1,4 @@
+term:    Attract mode
+scope:   element
+subject: div[data-mode=attracting][data-part=screen][data-pose=[data-mode=attracting]]
+text:    Highlights of the collection Twelve rooms, six centuries Touch anywhere to begin

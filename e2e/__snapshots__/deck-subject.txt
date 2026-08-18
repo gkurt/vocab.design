@@ -1,0 +1,4 @@
+term:    Deck
+scope:   element
+subject: p[data-part=deck]
+text:    Three bidders, one signature, and a clause letting the winner set its own fares 

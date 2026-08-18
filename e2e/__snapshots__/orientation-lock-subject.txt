@@ -1,0 +1,4 @@
+term:    Orientation lock
+scope:   element
+subject: div.sp-surface[data-blocked][data-part=view-locked][data-pose=[data-blocked]]
+text:    Inbox Rotate your device

@@ -1,0 +1,4 @@
+term:    Label in name
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm[aria-label=Send message][data-name=contains][data-part=send][data-pose=[data-name=contains]][data-selected][type=button]
+text:    Send

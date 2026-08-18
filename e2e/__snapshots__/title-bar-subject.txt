@@ -1,0 +1,4 @@
+term:    Title bar
+scope:   element
+subject: div.sp-topbar[data-part=bar][data-register=classic]
+text:    Notes on lighting

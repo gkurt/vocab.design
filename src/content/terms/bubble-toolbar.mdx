@@ -1,0 +1,60 @@
+---
+name: Bubble toolbar
+slug: bubble-toolbar
+category: component
+status: published
+definition: >-
+  A small formatting bar that appears floating over a text selection and disappears when the
+  selection is dropped.
+aliases:
+  - name: floating toolbar
+    source: community
+  - name: bubble menu
+    source: community
+  - name: medium editor toolbar
+    source: community
+  - name: text selection popover
+    source: community
+  - name: edit menu
+    source: hig
+relations: {}
+implementations: []
+sources:
+  - title: "ARIA APG: Toolbar pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+useWhen: the toolbar appears over the text you just selected
+---
+
+A bubble toolbar is a formatting bar with no permanent address. It has nothing to say until a
+reader selects a run of text, so it stays out of the page entirely, then arrives beside the
+selection carrying only the commands that make sense for it: bold, italic, a link, sometimes a
+heading level. Drop the selection and it goes again. The pattern was popularised by Medium's
+editor, which is why the alias medium editor toolbar has stuck around long after the editor
+did.
+
+The contrast to hold on to is with the [rich text toolbar](/rich-text-toolbar): that one is
+fixed, always present, and sits above the field whether or not anything is selected, while a
+bubble toolbar is transient and appears at the selection. Both live inside a
+[rich text editor](/rich-text-editor), and plenty of editors ship both, using the fixed bar for
+block level commands (headings, lists, alignment) and the bubble for the inline ones that only
+mean something when a run of characters is chosen. The trade is straightforward: a fixed bar
+costs a strip of vertical space forever, while a bubble costs nothing until it is needed and
+then covers part of what you are reading.
+
+Getting the placement right is most of the work, and it is the same problem
+[anchor positioning](/anchor-positioning) exists to solve. The bar is anchored to the selection
+rectangle rather than to any element in the document, it centres itself on that rectangle, and
+it flips from above to below when the selection sits too close to the top of the viewport to
+leave room. It also has to shift sideways instead of hanging off the edge, and it must not cover
+the very text it is describing, which is why the gap above the selection is bigger than it looks
+like it needs to be. Everything else is [popover](/popover) behaviour: it sits over the content,
+it dismisses on a click outside, and it should not steal the selection it depends on.
+
+That last point is where implementations most often break. Pressing a button in the bar must
+not blur the editor or collapse the selection, or the command has nothing left to act on, which
+is why these bars usually prevent the default on pointer down rather than handling a plain
+click. The keyboard story needs the same care: a bar that only ever appears in response to a
+drag is invisible to anyone selecting with shift and the arrow keys, so the commands inside it
+have to exist as keyboard shortcuts too, and the bar itself should be reachable rather than
+being the only route to bold.

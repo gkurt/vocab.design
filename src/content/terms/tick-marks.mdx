@@ -1,0 +1,60 @@
+---
+name: Tick marks
+slug: tick-marks
+category: component
+status: published
+definition: >-
+  The small notches printed along a slider track that show the discrete stops the handle can
+  land on.
+aliases:
+  - name: stop indicators
+    source: material
+  - name: slider ticks
+    source: community
+  - name: detents
+    source: community
+  - name: scale marks
+    source: community
+relations: {}
+implementations:
+  - system: material
+    name: Stop indicator
+    url: https://m3.material.io/components/sliders/overview
+sources:
+  - title: "Sliders, Material Design 3"
+    url: https://m3.material.io/components/sliders/overview
+demo: inline
+useWhen: naming the notches printed along a slider
+---
+
+Tick marks are the printed scale on a [slider](/slider): a row of small notches along the track
+saying where the values are. Without them a track is a continuous stretch of nothing in
+particular, and the reader has no way to tell whether the control accepts every value in
+between or only five of them. That is the whole job. Tick marks are a scale drawn on a slider,
+and the slider is the control; naming them separately matters because the marks can be added or
+removed without changing anything else about how the control behaves.
+
+The most common misreading is that marking implies snapping. It does not. A slider can print a
+scale and still accept every value between the marks, in which case the notches are a ruler:
+they tell you where 25 is so you can aim at it, and nothing stops you resting at 27. Making the
+handle land on the marks is a separate decision, and the moment you take it the marks stop being
+a scale and become detents, which is the word borrowed from mechanical catches that hold a part
+at fixed positions. The two go together often enough that the same drawing usually means both,
+which is exactly why it is worth saying which one you mean.
+
+Density is where tick marks go wrong. A hundred notches on a three hundred pixel track is a grey
+smear that reads as texture, not as information, and at that point the marks are worse than
+none. The usual repairs are to print only the major stops, to draw a minor mark shorter than a
+major one so the eye can group them, or to drop the marks entirely and let a numeric read-out
+carry the precision instead. Material draws them as stop indicators inside the track and lights
+the ones behind the handle, which is a neat trick: the marks the reader has passed take the
+filled colour, so the scale doubles as a [sliding indicator](/sliding-indicator) of where the
+value sits.
+
+The detent idea is not confined to sliders. [Scroll snap](/scroll-snap) is the same catch
+applied to a scroller, the resting positions of a [bottom sheet](/bottom-sheet) are detents by
+another name, and a [rotate gesture](/rotate-gesture) that clicks to the nearest 15 degrees is
+doing what a marked slider does. Tick marks are simply the case where the stops are printed
+where you can see them, which is why the word turns up in interfaces that want to feel like
+instruments: [cassette futurism](/cassette-futurism) is full of them, because a scale engraved
+next to a control is what hardware does instead of a tooltip.

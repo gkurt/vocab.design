@@ -1,0 +1,4 @@
+term:    Force touch
+scope:   element
+subject: div.sp-list-item[data-part=target][data-stage=rest][role=button][tabindex=0]
+text:    Dana Okafor

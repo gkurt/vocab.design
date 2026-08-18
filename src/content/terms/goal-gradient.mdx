@@ -1,0 +1,55 @@
+---
+name: Goal gradient
+slug: goal-gradient
+category: pattern
+status: published
+definition: >-
+  Effort rising as a visible goal gets closer, which is why interfaces show how little is
+  left rather than how much has been done.
+aliases:
+  - name: goal-gradient effect
+    source: ui-patterns
+  - name: almost there
+    source: community
+  - name: two stamps to go
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Goal-Gradient Effect'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: the interface shows how close you are, not how far you came
+---
+
+The goal gradient is the oldest finding in this corner of the vocabulary and the least
+obvious to design around. Clark Hull described it in the 1930s from animals running a
+maze: the closer the food, the faster the run. People do the same thing with tasks, and
+Ran Kivetz, Oleg Urminsky and Yuhuang Zheng found it on coffee loyalty cards in 2006,
+where the gap between one purchase and the next gets shorter as the card fills up. Effort
+is not flat across a task. It rises as the end comes into view, and it rises because the
+end is visible, which is the part an interface actually controls.
+
+So a design that wants the effect reports the remainder rather than the total. "3 of 10
+collected" is a statement about the past, and it grows. "7 to go" is a statement about the
+distance left, and it shrinks, which is the number a person is actually running toward.
+The intensification that follows is real work rather than decoration: near the goal the
+label sharpens, the fill earns emphasis, and the untaken stretch is drawn as a small named
+quantity instead of as empty track. Far from the goal the same track should be quiet,
+because a bar that shouts at 2 of 10 has nothing left to say at 9.
+
+Three neighbours sit close enough to be worth separating. [Steps left](/steps-left) is the
+same instinct applied to a bounded flow, naming how many screens remain so the task can be
+priced before it is begun. A [progress bar](/progress-bar) is the component the gradient is
+usually drawn on, and it is indifferent to where the fill sits: it reports a fraction, and
+the goal gradient is a claim about what the reader does as that fraction approaches one.
+[Endowed progress](/endowed-progress) is the other half of the pair: the goal gradient is
+about effort rising as the end comes into view, while endowed progress is about where the
+meter is allowed to start.
+
+The effect is easy to counterfeit and the counterfeit is worth naming, because it spends
+the only thing that makes the track work. Keep the units even: a final segment drawn
+shorter than the others is a lie about distance rather than a report of it. Do not
+manufacture nearness by splitting the last step into three, and do not park a bar at 95
+percent while the real work continues. Both buy one burst of effort, once, from a reader
+who will read the next bar differently.

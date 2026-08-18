@@ -1,0 +1,4 @@
+term:    Tick marks
+scope:   element
+subject: span[aria-hidden=true][data-marked][data-part=ticks][data-pose=[data-marked]]
+text:    

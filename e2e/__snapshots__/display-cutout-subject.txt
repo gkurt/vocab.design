@@ -1,0 +1,4 @@
+term:    Display cutout
+scope:   element
+subject: div[data-cutout=notch][data-mode=inset][data-part=content][data-pose=[data-mode=inset]]
+text:    Harbour

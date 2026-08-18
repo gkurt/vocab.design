@@ -1,0 +1,4 @@
+term:    Yo-yo loop
+scope:   element
+subject: span[data-heading=out][data-pace=slow][data-part=yoyo]
+text:    

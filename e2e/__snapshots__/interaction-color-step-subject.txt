@@ -1,0 +1,4 @@
+term:    Interaction color step
+scope:   element
+subject: div[data-part=ramp]
+text:    blue-3 Rest interactive #E7EDFD · L* 93.7 blue-4 Hovered interactive-hover #D6DF

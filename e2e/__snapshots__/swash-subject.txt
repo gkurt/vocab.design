@@ -1,0 +1,4 @@
+term:    Swash
+scope:   element
+subject: svg[aria-label=The word QUARK drawn with swash capitals][data-mode=initial][data-part=line][data-pose=[data-swashed]][data-swashed][height=91][role=img][viewBox=0 0 410 122][width=306]
+text:    

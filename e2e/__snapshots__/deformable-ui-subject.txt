@@ -1,0 +1,4 @@
+term:    Deformable UI
+scope:   element
+subject: button.sp-clay[data-part=squish][type=button]
+text:    Hold me

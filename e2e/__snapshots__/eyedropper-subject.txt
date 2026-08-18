@@ -1,0 +1,4 @@
+term:    Eyedropper
+scope:   element
+subject: button.sp-icon-button[aria-label=Eyedropper][aria-pressed=false][data-armed=false][data-part=dropper][type=button]
+text:    
