@@ -1,0 +1,4 @@
+term:    Page curl
+scope:   element
+subject: div[data-part=page]
+text:    2 3

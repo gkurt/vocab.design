@@ -1,0 +1,4 @@
+term:    Aperture
+scope:   element
+subject: span[data-letter=c][data-part=gap-open]
+text:    

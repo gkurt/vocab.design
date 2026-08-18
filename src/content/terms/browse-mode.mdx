@@ -1,0 +1,67 @@
+---
+name: Browse mode
+slug: browse-mode
+category: accessibility
+status: published
+definition: >-
+  The screen reader mode that intercepts keystrokes for reading and navigation, as opposed
+  to focus or forms mode where keys reach the page.
+aliases:
+  - name: virtual cursor
+    source: jaws
+  - name: virtual mode
+    source: jaws
+  - name: virtual buffer
+    source: community
+  - name: scan mode
+    source: narrator
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Accessibility Developer Guide: Browse and focus modes"
+    url: https://www.accessibility-developer-guide.com/knowledge/screen-readers/desktop/browse-focus-modes/
+  - title: "Understanding screen reader interaction modes, Léonie Watson"
+    url: https://tink.uk/understanding-screen-reader-interaction-modes/
+  - title: "Complete guide to Narrator, Microsoft Support"
+    url: https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1
+demo: inline
+useWhen: explaining why a key press never reached your widget
+---
+
+A desktop [screen reader](/screen-reader) does not simply narrate the page. It builds its
+own copy of the document, and in browse mode it takes the keyboard away from the browser so
+that copy can be read: the arrow keys walk the copy node by node, and single letters become
+jumps (H for the next heading, K for the next link, T for the next table). That is the
+whole reason a blind user can skim, and it is why single letters are the fastest navigation
+on the web for anyone using one. The cost is that while browse mode is on, every ordinary
+key press belongs to the screen reader rather than to your page.
+
+Which means the mode has to come off again, and it does. The other half of the pair goes by
+several names: NVDA calls it focus mode, JAWS calls it forms mode, and both switch into it
+automatically when the reader tabs onto a text field or a combobox, with an audible click to
+say so. Windows Narrator inverts the framing and calls its browsing half scan mode, toggled
+with the Narrator key and Spacebar. In focus mode the keys pass straight through, so H is
+the letter H, and the arrow keys move the caret rather than the reader's cursor. Two
+cursors, then, and only one of them is the browser's: the reader's virtual cursor can sit on
+a paragraph, which is a place [focus](/focus-order) can never be.
+
+The bug this causes is a specific and common one. The switch is driven by role, not by
+appearance, so a custom widget that looks and behaves like a control but never says what it
+is leaves the reader parked in browse mode, where its arrow keys are being eaten before they
+arrive. A `div` with a click handler standing in for a listbox is the classic version: the
+sighted keyboard user finds it works and the screen reader user finds it inert. Giving the
+widget a real role is what flips the mode, which is also the argument for
+[semantic HTML](/semantic-html) over ARIA in the first place, and the reason a wrapper role
+like `application` (which forces the pass-through for everything inside it) is a blunt
+instrument to be used sparingly.
+
+Two design consequences follow. Single-key [keyboard shortcuts](/keyboard-shortcut) on a
+page are almost always a bad idea, because browse mode has already claimed every letter and
+the user has to leave the mode they read in to use yours. And a widget worth building is a
+widget worth giving an authored keyboard interface, since once focus mode is on, nothing
+arrives except what you handle: the [tab stop](/tab-stop) you designed, the arrow behaviour
+you wrote, and the Escape you remembered.

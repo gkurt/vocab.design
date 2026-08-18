@@ -1,0 +1,4 @@
+term:    Variation axis
+scope:   element
+subject: span[data-at=default][data-part=sample]
+text:    Continuum

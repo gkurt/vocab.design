@@ -1,0 +1,62 @@
+---
+name: Wheel picker
+slug: wheel-picker
+category: component
+status: published
+definition: >-
+  A spinning drum of values that snaps to the item under a fixed selection line, the iOS way
+  of choosing from a short list.
+aliases:
+  - name: picker wheel
+    source: hig
+  - name: drum picker
+    source: community
+  - name: spinner picker
+    source: community
+  - name: wheel style date picker
+    source: nngroup
+  - name: slot machine picker
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "User Interface Elements Glossary, NN/g"
+    url: https://www.nngroup.com/articles/ui-elements-glossary/
+demo: inline
+useWhen: the iOS drum you spin to pick a value
+---
+
+The selection line does not move. That is the whole trick of a wheel picker: a fixed band
+sits across the middle of the control, the values scroll under it, and whatever comes to
+rest inside the band is the answer. Neighbouring values stay on screen above and below,
+usually dimmed and foreshortened so the drum reads as a cylinder rather than a list, which
+means the reader can see where they are in the sequence without opening anything. Several
+wheels side by side compose one value out of parts, which is why a time is three drums
+(hour, minute, meridiem) rather than one long list of every minute in the day.
+
+It earns its place on touch. The whole control is one large target sitting under the thumb,
+and picking a value costs a flick rather than a journey to a menu and back, so the hand
+never leaves the place it is already resting. That is also the boundary of its usefulness.
+A drum is only good for a short, ordered, well-known sequence, since the reader cannot see
+more than a few values at once and cannot jump: choosing 1987 from a list of years is a
+long spin, and a wheel of countries is a joke. When the set is long or unordered, a
+[select](/select) or a search field is the honest control, and a calendar month laid out as
+a grid beats a wheel for a date the reader is picking against weekdays, which is why iOS
+ships both and its own [date picker](/date-picker) defaults to the grid.
+
+On the web the mechanism is usually [scroll snap](/scroll-snap): a scrolling column with
+snap points at each item and a mask over the ends, which gets the physics and the
+keyboard for free from the platform. That is worth knowing because the illusion is easy to
+half build. A drum with no snap leaves a value straddling the line, and a drum whose
+neighbours are not visible is just a cropped list. The rest of the craft is the part people
+forget, and it is all accessibility: the wheel needs a real name, its options need to be
+reachable by keyboard and by the arrow keys once focused, and the value has to be
+announced when it changes, because a control whose whole state is a position is invisible
+to anyone not looking at it.
+
+The specimen here is a three column drum with a lit band across the middle. Drag a column
+and the value under the band changes with it, snapping at release. It snaps at rest rather
+than flinging, since a scripted drag lets go with no velocity; a real drum spun by a thumb
+carries momentum and coasts to a stop, which is the one part of the feel a specimen like
+this cannot show. Compare the [time picker](/time-picker), the same job done as two lists
+of cells, where nothing is hidden but nothing is under the thumb either.

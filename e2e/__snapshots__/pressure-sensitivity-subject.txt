@@ -1,0 +1,4 @@
+term:    Pressure sensitivity
+scope:   element
+subject: div[data-level=medium][data-part=stroke]
+text:    

@@ -1,0 +1,66 @@
+---
+name: Scroll container
+slug: scroll-container
+category: layout
+status: published
+definition: >-
+  The element that actually scrolls its overflowing content, distinct from the page, and the
+  box the browser calls the scrollport.
+aliases:
+  - name: scrollport
+    source: css
+  - name: scrolling box
+    source: css
+  - name: overflow container
+    source: community
+  - name: scroll view
+    source: hig
+relations: {}
+implementations: []
+sources:
+  - title: "CSS Overflow Module Level 3"
+    url: https://www.w3.org/TR/css-overflow-3/
+  - title: "CSS scroll snap, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap
+demo: inline
+useWhen: identifying which box is doing the scrolling
+---
+
+Every scrolling surface in an interface belongs to some element, and that element is the
+scroll container. A box becomes one when its `overflow` resolves to something other than
+`visible` or `clip` and its content does not fit, at which point the browser gives it a
+scrollport: the padding box, which is where the content clips and where a scrollbar is
+drawn. The page has one of these too, the viewport scrolling the root element, but the
+useful sense of the word is the one that is not the page. Apple and Android both call the
+thing a scroll view, which is the same object with a different accent.
+
+Naming it matters because almost every scroll term is a property of a container rather
+than of the document. [Scroll snap](/scroll-snap) is declared on the container and obeyed
+by its children. [Momentum scrolling](/momentum-scrolling) is what the container does after
+the finger leaves. [Scroll anchoring](/scroll-anchoring) holds a position inside one,
+[overscroll](/overscroll) is what happens at its ends, [scroll chaining](/scroll-chaining)
+is the question of which container takes over when the first one runs out, and
+[drag autoscroll](/drag-autoscroll) is a container creeping while a drag hovers its edge.
+An [active descendant](/active-descendant) listbox has to scroll its own container to keep
+the active option in view. Debugging any of them starts with the same question: which box
+is doing the scrolling.
+
+Two neighbours are worth keeping apart. A [scrollbar](/scrollbar) is a control a scroll
+container may draw, so the container is the box and the bar is the reporting; a container
+with no bar is still a container. An [infinite canvas](/infinite-canvas) is the arrangement
+that deliberately refuses to be one: it moves a transformed plane behind a fixed viewport
+rather than scrolling a scrollport, which is exactly why it needs a zoom control and a fit
+command where a scrolling panel would just have a bar. The value that catches people out is
+`overflow: hidden`, which still makes a scroll container. It clips at the padding edge and
+it can still be scrolled by script, it simply hands the reader no way to do it, which is why
+`scrollTo` on a hidden box works and a wheel over it does nothing. The value that genuinely
+makes no container at all is `overflow: clip`.
+
+Three consequences follow from the container being a box rather than the page. A sticky
+child sticks to the scrollport, not to the window, so a header that will not stick is
+usually stuck to a container the author forgot was there. Content that only the container
+can reach needs the container itself to be reachable, which is why a bare scrolling `div`
+should carry `tabindex="0"` and a label: without it a keyboard user has nothing to scroll
+with. And because the container captures the wheel, a scroller nested inside another one
+has to decide what happens at its ends, which is the decision `overscroll-behavior` exists
+to state.

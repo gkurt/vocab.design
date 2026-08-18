@@ -1,0 +1,4 @@
+term:    Voice control
+scope:   element
+subject: div.sp-surface[data-mode=labels][data-part=screen]
+text:    New message Draft Send 1 Save draft 2 3

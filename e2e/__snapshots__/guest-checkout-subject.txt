@@ -1,0 +1,4 @@
+term:    Guest checkout
+scope:   element
+subject: button.sp-button.sp-button--sm[data-mode=balanced][data-part=guest][data-pose=[data-mode=balanced]][type=button]
+text:    Continue as guest

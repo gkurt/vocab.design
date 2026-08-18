@@ -1,0 +1,4 @@
+term:    Fieldset
+scope:   element
+subject: fieldset[data-mode=grouped][data-part=delivery][data-pose=[data-mode=grouped]]
+text:    Delivery address Street Postcode

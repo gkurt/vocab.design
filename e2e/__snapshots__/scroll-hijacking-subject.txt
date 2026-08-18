@@ -1,0 +1,4 @@
+term:    Scroll hijacking
+scope:   element
+subject: div.sp-scroll[data-mode=hijacked][data-panel=0][data-part=region][data-pose=[data-mode=hijacked]]
+text:    01 / 04 Cormorant Bay 02 / 04 Salt Pier 03 / 04 Longstone Light 04 / 04 Bell Roc

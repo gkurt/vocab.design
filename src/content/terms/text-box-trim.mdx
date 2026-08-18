@@ -1,0 +1,61 @@
+---
+name: Text box trim
+slug: text-box-trim
+category: typography
+status: published
+definition: >-
+  Cutting the leftover space above and below a line of text so the box hugs the
+  cap height and baseline instead of the font's full ascent and descent.
+aliases:
+  - name: leading-trim
+    source: community
+  - name: text-box-edge
+    source: css
+  - name: capsize
+    source: community
+  - name: cap height trimming
+relations: {}
+sources:
+  - title: CSS text-box-trim (Chrome for Developers)
+    url: https://developer.chrome.com/blog/css-text-box-trim
+  - title: text-box-trim (CSS-Tricks Almanac)
+    url: https://css-tricks.com/almanac/properties/t/text-box-trim/
+demo: inline
+useWhen: you want a label's box to match the letters, not the font
+---
+
+Every line of text carries space the designer did not ask for. A font declares an
+ascent and a descent that have to clear its tallest and deepest glyphs with room
+to spare, and the line box adds half the difference between that content area and
+the [leading](/leading) above the line and half below. So a button label set at
+16px in a 24px line sits in a box several pixels taller than the letters at each
+end, and the padding you then measure is not the padding you see. Text box trim
+cuts that leftover away, so the box ends where the letters do.
+
+The important part of the mechanism is that the extra space is the font's own
+line box, not padding. It is not something a stylesheet added and can therefore
+subtract: it belongs to the text's layout, and it changes with the family, the
+weight and the size. That is why it took a new property rather than a negative
+margin. In CSS the trim is `text-box-trim`, which says which ends to cut
+(`trim-start`, `trim-end`, `trim-both`), and `text-box-edge`, which says what to
+cut down to (`cap alphabetic` is the usual pair, meaning the top of the capitals
+and the [baseline](/baseline)); `text-box` is the shorthand for both. Before it,
+the same result was reached by computing the font's metrics and applying negative
+margins, which is what the Capsize tool does and what most design systems quietly
+shipped inside their text component.
+
+What this buys is that vertical spacing finally means what it says. A 24px gap
+between a heading and its paragraph is 24px of visible white rather than 24px
+minus two half-leadings; a chip's padding is even top and bottom; a label
+centered in a button is actually centered rather than sitting a pixel or two
+high, which is the bug every design system files against itself sooner or later.
+It also makes [cap height](/cap-height) the thing that aligns across a row, so an
+icon and a label line up on the letters instead of on the font.
+
+Trim is not a substitute for line spacing, and this is where it bites. Trimming
+both ends of a multi-line block removes the half-leading outside the block only,
+so the lines inside keep their spacing; but on a single-line label the trim
+removes the visual cushion entirely, and the
+[point size](/point-size) you set now touches its container. The usual answer is
+to trim and then state the space you meant as real padding, which is the whole
+point: the numbers become the ones you can see.

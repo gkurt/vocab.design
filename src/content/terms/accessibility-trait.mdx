@@ -1,0 +1,65 @@
+---
+name: Accessibility trait
+slug: accessibility-trait
+category: accessibility
+status: published
+definition: >-
+  The platform flag on a native view that says what it is and how it behaves, the mobile
+  counterpart to a role plus a state, and the thing a custom control has to set by hand.
+aliases:
+  - name: accessibilityTraits
+    source: uikit
+  - name: UIAccessibilityTraits
+    source: uikit
+  - name: accessibilityRole
+    source: community
+  - name: mobile role
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Deque: What iOS accessibility traits actually do"
+    url: https://www.deque.com/blog/ios-traits/
+  - title: "Semantics in Compose, Android Developers"
+    url: https://developer.android.com/develop/ui/compose/accessibility/semantics
+demo: inline
+useWhen: a custom native control announces as plain text
+---
+
+On the web, what a control is comes from the element or from an ARIA role, and what state
+it is in comes from separate attributes. Native platforms fold both into one list. UIKit
+calls that list `accessibilityTraits`: an option set a view carries, holding values like
+`.button`, `.header`, `.link`, `.image`, `.adjustable`, `.selected` and `.notEnabled`.
+Jetpack Compose spells the kind half as a semantics `Role`, matched in tests as
+`SemanticsProperties.Role`. Either way the trait is not the
+[accessible name](/accessible-name): the name says which thing this is, the trait says
+what kind of thing it is and what state it is in. [Name role value](/name-role-value) is
+the same triple written for the web.
+
+Traits are what an announcement is made of. Deque's walk through the iOS set is specific
+about it: `.button` adds the word button after the label, `.link` adds the word link,
+`.selected` reads out as selected, `.notEnabled` reads out as dimmed, and `.header` both
+reads as header and puts the view in VoiceOver's rotor, which is how a reader jumps
+between sections instead of swiping through every element in one. Setting a trait is
+therefore a claim, not decoration, and a wrong claim costs more than a missing one: a
+`.header` on something that is not a section start fills the rotor with destinations that
+lead nowhere.
+
+The failure this word exists for is a custom control that starts with none. A view drawn
+by hand looks right, answers taps, and announces as plain static text, so a
+[screen reader](/screen-reader) user moving by
+[explore by touch](/explore-by-touch) hears a label with nothing after it: no word saying
+it can be activated, no word saying it is the one currently on. The platform infers
+traits for its own controls and infers nothing for yours, which is why every custom
+control is a place to check. It is the same gap the web has when a `div` is wired up as a
+button without [semantic HTML](/semantic-html) or a role behind it.
+
+A trait is about one element. Its round mate, [accessibility grouping](/accessibility-grouping),
+is about how many elements there are: a trait says what this element is announced as,
+grouping says which elements are announced as one. The two are set on the same view and
+answer different questions, and a card with the right traits on every child can still be
+four stops that mean nothing apart.

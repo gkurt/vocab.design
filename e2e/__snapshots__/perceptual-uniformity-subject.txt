@@ -1,0 +1,4 @@
+term:    Perceptual uniformity
+scope:   element
+subject: div.sp-row[data-hue=blue][data-part=ok-ramp]
+text:    

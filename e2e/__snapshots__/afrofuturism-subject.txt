@@ -1,0 +1,4 @@
+term:    Afrofuturism
+scope:   element
+subject: div[data-part=fragment]
+text:    ORBITAL LINE DEPARTURES 22:40 · Ring station Gate 4, boarding BOARD

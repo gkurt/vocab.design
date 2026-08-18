@@ -1,0 +1,4 @@
+term:    Constructivism
+scope:   element
+subject: span[data-part=composition]
+text:    CONSTRUCT

@@ -1,0 +1,4 @@
+term:    Slash command
+scope:   element
+subject: ul.sp-listbox[aria-label=Commands][data-open][data-part=menu][role=listbox]
+text:    H Heading Large section title Hi Highlight Mark the selection T To-do list Check

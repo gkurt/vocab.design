@@ -1,0 +1,4 @@
+term:    Waveform
+scope:   element
+subject: div[data-at=12][data-part=wave]
+text:    

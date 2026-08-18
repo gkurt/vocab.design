@@ -1,0 +1,4 @@
+term:    Vibrancy
+scope:   element
+subject: div[data-part=material]
+text:    Now playing Side two, track four

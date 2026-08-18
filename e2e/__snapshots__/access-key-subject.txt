@@ -1,0 +1,4 @@
+term:    Access key
+scope:   element
+subject: span[data-part=mn-file]
+text:    F

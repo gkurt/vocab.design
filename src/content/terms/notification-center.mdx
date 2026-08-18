@@ -1,0 +1,56 @@
+---
+name: Notification center
+slug: notification-center
+category: component
+status: published
+definition: >-
+  A panel collecting notifications that were missed or kept, usually opened from a bell with
+  an unread count.
+aliases:
+  - name: notification tray
+    source: community
+  - name: activity center
+    source: community
+  - name: notification drawer
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "UX Patterns for Developers: patterns"
+    url: https://uxpatterns.dev/patterns
+demo: inline
+useWhen: the panel behind the bell icon
+---
+
+A [toast](/toast) is a moment; a notification center is the durable record that outlives
+it. Everything a product wants to tell someone arrives twice: once as an interruption, and
+once as an entry in a list that is still there tomorrow. The interruption may be a toast, a
+[banner](/banner), or a [push notification](/push-notification) delivered by the operating
+system, and all three are transient by design. The center is where they land afterwards, so
+that missing one is an inconvenience rather than a loss.
+
+That framing settles most of the design questions. The bell carries an unread count, which
+is the only thing arguing for the panel to be opened at all, so the count has to mean
+something specific (unseen items, not total items) and has to clear on a rule a reader can
+predict. Entries carry a [relative timestamp](/relative-timestamp), because "4 hours ago"
+is what a person actually wants from a list they are scanning, with the absolute time
+available on hover for the cases where it matters. Volume is managed by grouping: five
+mails from one thread collapse into one row with a count and expand on demand, which keeps
+the list readable without deciding on the reader's behalf that four of them did not
+matter.
+
+An empty center is a good outcome, not a bug, so it deserves a written
+[empty state](/empty-state) rather than a blank rectangle: "You are all caught up" is a
+report, and an unexplained void is a broken panel. The same goes for the panel's height,
+which should not collapse when the last item is cleared. Clearing itself is worth being
+careful about, since "Clear all" and "Mark all read" are different promises and products
+routinely blur them; if clearing destroys the record, that is a deletion and deserves the
+[undo](/undo) any deletion gets.
+
+Two boundaries keep the word useful. It is not an inbox: an inbox is content addressed to
+you, where the messages are the product, while a center is a log of things the system did
+or noticed, and merging the two buries the messages. And it is not the place to confirm
+that something just worked, which belongs on a
+[confirmation page](/confirmation-page) or in a toast at the moment of the action.
+Something that only ever appears in the center is something nobody will read: notify at the
+moment, record for later, and let the reader choose which one they are using.

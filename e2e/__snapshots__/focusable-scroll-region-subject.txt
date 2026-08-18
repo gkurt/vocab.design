@@ -1,0 +1,4 @@
+term:    Focusable scroll region
+scope:   element
+subject: div.sp-scroll[aria-label=Build log][data-focusable][data-part=log][data-pose=[data-focusable]][data-scrolled=0][role=region][tabindex=0]
+text:    12:04:01 resolve registry, 84 packages12:04:02 link node_modules12:04:04 compile

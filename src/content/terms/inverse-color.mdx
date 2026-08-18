@@ -1,0 +1,62 @@
+---
+name: Inverse color
+slug: inverse-color
+category: color
+status: published
+definition: >-
+  A surface and text pair deliberately flipped against the current theme, so a snackbar or
+  tooltip reads as a foreign object that arrived from outside the page.
+aliases:
+  - name: inverseSurface
+    source: material
+  - name: inverted theme
+    source: community
+  - name: reverse color
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Inverse surface, Inverse on surface, Inverse primary
+    url: https://m3.material.io/styles/color/roles
+sources:
+  - title: "Material 3: color roles"
+    url: https://m3.material.io/styles/color/roles
+demo: inline
+useWhen: an element deliberately styled opposite to the theme
+---
+
+Most of an interface agrees with itself. Surfaces are light in the light theme, text is dark
+on them, and every [colour role](/color-role) points at a value that keeps that agreement.
+Inverse colour is the deliberate exception: one element takes the opposite side, so a
+[toast](/toast) on a white page is charcoal with pale text, and the same toast on a dark
+page is near-white with dark text. Material names the trio explicitly, `inverse surface`,
+`inverse on surface` and `inverse primary`, and the last one exists because an action inside
+an inverted element cannot use the ordinary accent: a brand blue tuned for a white
+background disappears on charcoal.
+
+The reason to flip is meaning rather than decoration. A snackbar, a tooltip, and a
+selection popover are all things that arrived from outside the document flow and will leave
+again, and flipping them says so without a border, an arrow, or a shadow that has to fight
+the [surface colour](/surface-color) underneath. It reads as an object laid on top of the
+page rather than a region of it, which is why an inverted panel usually needs no
+[outline colour](/outline-color) at all: the tonal jump is already the boundary.
+
+The trap is deriving the pair instead of defining it. Inverting hex values, or reaching for
+`filter: invert()`, produces a foreground and background whose contrast is an accident: the
+light theme's charcoal-on-white may land at a comfortable ratio while its arithmetic mirror
+lands at four to one, and the accent inverts into a colour nobody chose. Design systems ship
+the inverse pair as named tokens for exactly this reason. Each theme states its own inverse
+surface, its own inverse on-surface, and its own inverse accent, each checked against the
+same [contrast ratio](/contrast-ratio) requirements as the ordinary roles, so the guarantee
+survives the theme switch instead of being recomputed at runtime.
+
+Two limits worth writing down. Inverse is a role, not a mode: an inverted panel does not
+also flip the icons, images or charts inside it, and a component library that swaps a whole
+subtree's theme will produce a snackbar with an inverted illustration in it. And inversion
+is a strong signal that gets weak fast. One inverted element on a page reads as an overlay,
+and three read as a second theme leaking in, which is when a reader stops treating the flip
+as meaningful and starts treating it as noise.

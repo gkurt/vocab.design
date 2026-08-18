@@ -1,0 +1,71 @@
+---
+name: Accessibility grouping
+slug: accessibility-grouping
+category: accessibility
+status: published
+definition: >-
+  Collapsing a cluster of elements, an icon plus a label plus a value, into one thing
+  assistive technology stops at, instead of three stops that mean nothing apart.
+aliases:
+  - name: shouldGroupAccessibilityChildren
+    source: uikit
+  - name: merge semantics
+    source: flutter
+  - name: importantForAccessibility
+    source: android
+  - name: accessibility element
+    source: uikit
+  - name: screen reader focusable
+    source: android
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Semantics in Compose, Android Developers"
+    url: https://developer.android.com/develop/ui/compose/accessibility/semantics
+  - title: "View.ImportantForAccessibility, Microsoft Learn"
+    url: https://learn.microsoft.com/dotnet/api/android.views.view.importantforaccessibility
+  - title: "Accessibility, React Native"
+    url: https://reactnative.dev/docs/accessibility
+demo: inline
+useWhen: a card reads as five fragments instead of one item
+---
+
+A [screen reader](/screen-reader) user moves through a screen one element at a time, and
+the unit they move by is the accessibility element rather than the view. A comment row
+drawn as an avatar, a name, a role and a timestamp is four views, and left alone it is
+four stops: a pair of initials, a name, a job word, and a time with nothing attached to
+it. Grouped, it is one stop whose announcement carries all four pieces in the order they
+are read, which is the same row costing a quarter of the gestures and meaning four times
+as much.
+
+Every platform gives you the switch, under a different name. Compose merges a subtree with
+`Modifier.semantics(mergeDescendants = true) {}`, and its `clickable` and `toggleable`
+modifiers already do it, which is why a tappable card usually behaves correctly before
+anyone thinks about it. The Android view system sets `importantForAccessibility` on the
+node, whose values are `IMPORTANT_FOR_ACCESSIBILITY_AUTO`, `YES`, `NO` and
+`NO_HIDE_DESCENDANTS`, where important means, in the platform's own words, that the view
+fires accessibility events and is reported to accessibility services that query the
+screen. React Native builds the label for you when you do not supply one: on a touchable,
+it is constructed by concatenating all Text node children separated by spaces. The
+composed string is still an [accessible name](/accessible-name), so the same rules apply
+to it, including the order it comes out in and whether that order matches
+[reading order](/reading-order).
+
+This is the screen-reader analogue of a [tab stop](/tab-stop). A tab stop is one position
+the Tab key reaches even when the widget standing there holds many focusable parts; a
+group is that same compression applied to the screen reader's own cursor, which visits far
+more than Tab ever does, since it stops on text and images too. The two are set
+independently and can disagree: a card can be a single tab stop and still be four swipes.
+
+The cost is that grouping throws the internal structure away. A summary row is exactly
+right for it, because there is nothing inside worth reaching separately. A row with an
+avatar that opens a profile, a title that opens the item, and a menu button that opens
+five commands is exactly wrong for it, because collapsing it hides two of the three
+actions from anyone who cannot see them to tap them. Grouping answers how many elements
+there are; its round mate, [accessibility trait](/accessibility-trait), answers what each
+one is announced as, and a card with the right traits on every child can still be four
+stops that mean nothing apart.

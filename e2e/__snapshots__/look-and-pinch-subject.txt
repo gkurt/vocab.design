@@ -1,0 +1,4 @@
+term:    Look and pinch
+scope:   element
+subject: button.sp-button.sp-button--ghost[data-gazed][data-part=tile-play][data-pose=[data-gazed]][type=button]
+text:    Play Resume the film

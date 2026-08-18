@@ -1,0 +1,4 @@
+term:    Accessibility trait
+scope:   element
+subject: button.sp-chip[data-part=control][data-pose=[data-traits]][data-selected][data-traits=button][type=button]
+text:    Unread

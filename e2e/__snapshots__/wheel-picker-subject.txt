@@ -1,0 +1,4 @@
+term:    Wheel picker
+scope:   element
+subject: div.sp-grow[aria-label=Hour][data-part=hour-wheel][data-value=09][role=listbox][tabindex=0]
+text:    010203040506070809101112

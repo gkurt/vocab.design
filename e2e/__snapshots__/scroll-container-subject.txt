@@ -1,0 +1,4 @@
+term:    Scroll container
+scope:   element
+subject: div[aria-label=Berths][data-at=top][data-overflow=auto][data-part=box][data-pose=:not([data-overflow=visible])][tabindex=0]
+text:    Berth 1 Berth 2 Berth 3 Berth 4 Berth 5

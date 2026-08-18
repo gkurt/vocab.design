@@ -1,0 +1,4 @@
+term:    Window controls
+scope:   element
+subject: div[data-part=cluster][data-platform=macos][data-side=left]
+text:    

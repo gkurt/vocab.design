@@ -1,0 +1,4 @@
+term:    Browse mode
+scope:   element
+subject: div.sp-surface[data-mode=browse][data-part=page][data-pose=[data-mode=browse]]
+text:    Release notes Shipped this week: two new export formats. Full changelog Known is

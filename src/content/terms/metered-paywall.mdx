@@ -1,0 +1,56 @@
+---
+name: Metered paywall
+slug: metered-paywall
+category: pattern
+status: published
+definition: >-
+  A paywall that grants a fixed number of free items per period and counts down publicly,
+  so the barrier arrives only after the reader is invested.
+aliases:
+  - name: soft paywall
+    source: community
+  - name: freemium meter
+    source: community
+  - name: article counter
+    source: community
+  - name: leaky paywall
+    source: community
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: you get three free articles a month and a counter says so
+---
+
+A metered paywall is a wall with a count in front of it. The reader gets some fixed
+number of items in some fixed period, three articles a month is the classic shape, and
+the interface says out loud how many are left. Nothing is blocked until the allowance is
+spent, and when it is spent the wall goes up on the next item rather than on the one
+being read. The meter is the whole design: without it the reader has no idea a limit
+exists until they hit it, which is a hard block with extra steps.
+
+Three barriers get confused with each other, and the difference is what is being
+withheld. A [paywall](/paywall) blocks content the reader has already reached and asks
+for payment before they may finish it. A [feature gate](/feature-gate) leaves a
+capability visible inside a product the reader is already using and names the plan that
+unlocks it. A metered paywall sits between them: the content is free until a counted
+allowance runs out, so the same article is open on the first of the month and closed on
+the twentieth. Publishers reach for it because a reader who has read three good pieces
+is a different prospect from a reader who was stopped at the first paragraph.
+
+The honesty of the pattern lives entirely in the count. A meter that says three and
+gives three, resets on a stated date, and shows its remaining balance on every page is a
+promise the reader can plan around. A meter that quietly drops from five to three, or
+that counts a page the reader bounced off in two seconds, or that reads "1 free article
+left" for weeks because the number is decoration rather than state, is a countdown timer
+wearing a meter's clothes. Say the reset date, count only what was actually read, and
+let the number reach zero and stay there rather than resetting on a fresh browser
+session, which teaches readers to clear cookies instead of subscribing.
+
+The wall itself should keep the reader's place. Leaving the headline and the opening
+paragraphs visible behind the panel is not a tease, it is the difference between "you
+have run out" and "you have been ejected", and it lets someone decide about this piece
+rather than about the abstract idea of a subscription. Everything the panel says should
+be checkable: the allowance, how much of it is gone, when it comes back, and what the
+subscription costs. A meter is a public number, and the moment a reader suspects it is
+not the real one, the count stops working as an argument.

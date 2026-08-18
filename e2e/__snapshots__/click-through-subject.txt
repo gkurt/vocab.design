@@ -1,0 +1,4 @@
+term:    Click-through
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=play][type=button]
+text:    Play

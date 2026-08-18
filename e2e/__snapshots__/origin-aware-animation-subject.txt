@@ -1,0 +1,4 @@
+term:    Origin-aware animation
+scope:   element
+subject: div.sp-surface[data-origin=trigger][data-part=panel][data-pose=[data-origin=trigger]]
+text:    Share with Close

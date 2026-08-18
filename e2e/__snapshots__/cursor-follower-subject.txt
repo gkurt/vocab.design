@@ -1,0 +1,4 @@
+term:    Cursor follower
+scope:   element
+subject: span[data-lag=loose][data-part=ring][data-pose=:not([data-lag=instant])]
+text:    

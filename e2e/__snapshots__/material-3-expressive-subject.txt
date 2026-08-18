@@ -1,0 +1,4 @@
+term:    Material 3 Expressive
+scope:   element
+subject: div[data-part=fragment]
+text:    Today Start

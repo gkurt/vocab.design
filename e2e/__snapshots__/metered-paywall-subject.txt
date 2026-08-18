@@ -1,0 +1,4 @@
+term:    Metered paywall
+scope:   element
+subject: div.sp-surface.sp-row[data-left=2][data-part=meter][role=status]
+text:    2 of 3 free articles left this month

@@ -1,0 +1,4 @@
+term:    Chevron
+scope:   element
+subject: svg.sp-icon.sp-icon--chevron[aria-hidden=true][data-dir=right][data-part=chevron][viewBox=0 0 24 24]
+text:    

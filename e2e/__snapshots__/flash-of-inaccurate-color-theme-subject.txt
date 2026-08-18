@@ -1,0 +1,4 @@
+term:    Flash of inaccurate color theme
+scope:   element
+subject: div[data-mode=flash][data-part=page][data-phase=flash][data-pose=[data-phase=flash]]
+text:    Reading list Continue Saved 4 minutes ago

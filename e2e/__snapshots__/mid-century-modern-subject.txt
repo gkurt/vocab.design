@@ -1,0 +1,4 @@
+term:    Mid-century modern
+scope:   element
+subject: div[data-part=fragment]
+text:    NEW ARRIVALS SUNBURST Walnut and brass. RESERVE

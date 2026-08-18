@@ -1,0 +1,4 @@
+term:    Optical alignment
+scope:   element
+subject: span[data-mode=optical][data-part=shape-triangle][data-pose=[data-mode=optical]]
+text:    

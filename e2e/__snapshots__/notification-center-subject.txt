@@ -1,0 +1,4 @@
+term:    Notification center
+scope:   element
+subject: div.sp-surface[data-part=tray]
+text:    Notifications Clear all WA Deploy finished web-app · production 4 min ago PJ Pri

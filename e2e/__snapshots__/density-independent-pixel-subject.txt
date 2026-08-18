@@ -1,0 +1,4 @@
+term:    Density independent pixel
+scope:   element
+subject: button.sp-button[aria-label=New booking][data-part=button-b][type=button]
+text:    

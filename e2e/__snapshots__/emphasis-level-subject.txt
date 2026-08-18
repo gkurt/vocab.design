@@ -1,0 +1,4 @@
+term:    Emphasis level
+scope:   element
+subject: span[data-part=text-brand-medium][data-pose=[data-technique=opacity]][data-technique=opacity]
+text:    Medium emphasis

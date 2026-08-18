@@ -1,0 +1,4 @@
+term:    Accessibility grouping
+scope:   element
+subject: div.sp-surface[data-grouped][data-part=card][data-pose=[data-grouped]][data-sim-focus]
+text:    AL Ada Lovelace Reviewer 2 hours ago

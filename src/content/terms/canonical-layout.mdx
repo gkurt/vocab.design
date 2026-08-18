@@ -1,0 +1,53 @@
+---
+name: Canonical layout
+slug: canonical-layout
+category: layout
+status: published
+definition: >-
+  One of a small set of proven multi pane arrangements a platform recommends, such as list
+  detail, supporting pane and feed, instead of a new layout per screen.
+aliases:
+  - name: canonical layouts
+    source: material
+relations: {}
+implementations: []
+sources:
+  - title: "Canonical layouts, Android Developers"
+    url: https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts
+demo: inline
+useWhen: reaching for a proven arrangement, not a new one
+---
+
+Material publishes a short list of multi pane arrangements it treats as already solved, and
+calls them the canonical layouts: list detail, supporting pane, and feed. The claim being
+made is not that these are the only shapes an application screen can take. It is that three
+of them cover most of what a product actually needs, that each has known behaviour at every
+window size, and that a team is better served picking one than designing a fresh
+arrangement for every screen. The word is worth having because it names a decision that
+usually goes unnamed: which of the known shapes is this screen, asked before any component
+is chosen.
+
+The three are easy to tell apart by what the second pane is for.
+[List detail](/list-detail) puts a list of peers beside the one that is currently open, so
+the pair is a single screen rather than two, and moving through the list never costs a
+navigation. Supporting pane is one main pane with a narrower companion holding things that
+serve it: filters, properties, a comment thread. [Feed layout](/feed-layout) drops the
+second pane entirely and lays out equivalent items in a grid or column, where no position
+outranks another. A screen that does not fit any of them is usually a
+[card grid](/card-grid), a form, or a wizard, all of which are one pane too.
+
+A canonical layout is the arrangement, not the rule that chooses it. That rule is
+[adaptive layout](/adaptive-layout), and the two are designed to be used together: window
+size classes (Material's compact, medium and expanded buckets) decide whether a list detail
+shows both panes at once or one at a time, and whether a supporting pane sits beside the
+main content or drops below it. The arrangement is what you draw; the size class is when
+you draw it.
+
+The practical payoff is that the hard problems come pre-answered. Someone has already
+decided what happens to a list detail on a phone, where the back gesture goes, which pane
+keeps focus when the window narrows, and what the empty state of a detail pane says before
+anything is selected. Inventing a fourth arrangement means answering all of that again, for
+one screen, without the benefit of a reader who has met the pattern in five other
+applications. Components are still chosen separately: a list detail may use a
+[sidebar](/sidebar), a [split view](/split-view), or [tabs](/tabs) to express the same
+arrangement, and none of those choices changes which canonical layout it is.

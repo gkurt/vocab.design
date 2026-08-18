@@ -1,0 +1,4 @@
+term:    Primitive color token
+scope:   element
+subject: div.sp-row[data-part=prim-blue-500]
+text:    blue-500 #3557E8

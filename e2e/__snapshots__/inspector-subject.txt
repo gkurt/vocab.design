@@ -1,0 +1,4 @@
+term:    Inspector
+scope:   element
+subject: div.sp-surface[data-part=rail][data-selection=rect]
+text:    Inspector Rectangle X Y W H Fill #4F6EF2

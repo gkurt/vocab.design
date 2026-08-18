@@ -1,0 +1,4 @@
+term:    Focusable disabled
+scope:   element
+subject: button.sp-button.sp-button--sm[aria-describedby=why-off][aria-disabled=true][data-part=submit][data-pose=[data-soft]][data-soft][type=button]
+text:    Submit order

@@ -1,0 +1,4 @@
+term:    Gooey effect
+scope:   element
+subject: div[data-gap=touching][data-part=blob][data-pose=:not([data-gap=apart])]
+text:    

@@ -1,0 +1,4 @@
+term:    Drag preview
+scope:   element
+subject: div.sp-surface.sp-row[data-carrying=slip][data-part=preview]
+text:    Slipway, close 1 item

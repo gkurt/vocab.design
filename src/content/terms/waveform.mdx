@@ -1,0 +1,59 @@
+---
+name: Waveform
+slug: waveform
+category: component
+status: published
+definition: >-
+  An audio track drawn as a row of amplitude bars, used both to show what is in the file and
+  as the surface you scrub along.
+aliases:
+  - name: audio waveform
+    source: community
+  - name: waveform scrubber
+    source: community
+  - name: voice message bars
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "UX Patterns for Developers: patterns"
+    url: https://uxpatterns.dev/patterns
+demo: inline
+useWhen: audio drawn as bars you can scrub
+---
+
+A waveform is a recording drawn as a picture: the audio is chopped into slices, each slice
+is reduced to one amplitude, and each amplitude becomes a bar, usually mirrored above and
+below a centre line so the shape reads as sound rather than as a chart. What it buys over
+a plain [progress bar](/progress-bar) is that the track stops being uniform. Silence is
+visibly empty, a loud passage is visibly tall, and the reader can aim: the pause before the
+answer, the applause, the three seconds where somebody says the number. On a two minute
+voice message that is the difference between listening again and going straight to the
+part that matters.
+
+It is a control as much as a picture, which is why it usually replaces the
+[scrubber](/scrubber) rather than sitting beside it. The played portion is filled and the
+rest left quiet, a playhead marks the current position, and clicking or dragging anywhere
+along it seeks. That gives the seeking gesture something a plain track cannot: the reader
+aims at a feature they can see instead of at a proportion they have to guess. Everything
+else stays where it was, so the transport controls beside it are still
+[media controls](/media-controls), and in a
+[video player](/video-player) the waveform is one more layer on the same timeline as the
+chapter marks and the buffered band.
+
+The drawing has to be honest, and often is not. A bar is a summary of a slice, and whether
+that summary is the peak or the average changes the picture: peaks look punchy and hide how
+quiet the average is, averages look flat and lose the transients. Worse, plenty of
+messaging apps draw a decorative pattern that has nothing to do with the audio at all,
+which looks fine until someone tries to use it the way a waveform invites them to and
+finds the tall bar is not where the loud part was. If the bars are not measured from the
+sample data, the control is lying, and it is lying about the one thing it exists to say.
+Measure once when the file is uploaded, store the summary, and draw from it, so the same
+recording is drawn the same way every time.
+
+Being a picture of sound, it needs the usual second channel. The elapsed and total times
+belong in text beside it, the seek needs to work from the keyboard in fixed steps, and the
+control needs a name and a spoken position, because a waveform tells a sighted reader
+where they are and tells everyone else nothing. None of that replaces a
+[transcript](/transcript), which is what actually makes speech searchable, and the two work
+well together: the transcript to find the sentence, the waveform to land on it.

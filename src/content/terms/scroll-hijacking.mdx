@@ -1,0 +1,60 @@
+---
+name: Scroll hijacking
+slug: scroll-hijacking
+category: pattern
+status: published
+definition: >-
+  Overriding the browser's scrolling so a wheel turn advances a scripted sequence instead
+  of moving the page by the distance the reader asked for.
+aliases:
+  - name: scrolljacking
+    source: community
+  - name: hijacked scrolling
+    source: community
+  - name: scroll takeover
+    source: community
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: the page takes over what one scroll of the wheel does
+---
+
+Scroll hijacking is what happens when a page cancels the scroll gesture and substitutes
+its own. The mechanism is always roughly the same: a wheel or touch listener calls
+`preventDefault`, the real scroll position stops moving, and script animates something
+else instead, usually one full-height panel sliding into place. The reader turned the
+wheel by some amount and the page answered with a fixed amount of its own, which is the
+definition. The specimen above holds a small section that does exactly that, and lets you
+put the native scroller back beside it for comparison.
+
+The reason this reads as a theft rather than as a feature is that scrolling is direct
+manipulation. A reader has a learned sense of how far one turn of a wheel or one swipe of
+a trackpad moves a page, and they use it constantly to skim, to back up half a paragraph,
+to stop on a figure. Overriding the distance breaks all of it at once: small corrections
+become whole-page jumps, momentum from a trackpad fires several panels, the scrollbar
+stops meaning anything, and reading position is no longer something the reader controls.
+The damage is worst for the people with the least room for it, since a hijacked page
+usually also breaks find-in-page, deep links into a section, keyboard paging, and screen
+reader navigation, all of which assume the document scroller is the real one.
+
+The wish behind it is usually legitimate, and the platform now grants it. If the intent is
+that a section should come to rest at a sensible position rather than half way through an
+image, that is [scroll snap](/scroll-snap): the browser keeps ownership of the gesture,
+CSS declares the rest positions, and one small turn still moves a small amount while a
+release still lands somewhere tidy. If the intent is that an element should stay put while
+its content moves past, that is [scroll pinning](/scroll-pinning). If the intent is depth,
+that is [parallax](/parallax), which drives layers from the scroll position rather than
+replacing it. All three are driven by the reader's scrolling instead of standing in for it,
+and all three keep working with keyboard, find-in-page, and assistive technology because
+the scroller never stopped being the browser's.
+
+If a takeover is genuinely required, and it rarely is, the obligations are heavy. Never
+trap: a reader must be able to leave in the direction they came from, at speed, without
+completing the sequence. Keep the keyboard working, since Page Down and Home are the same
+request as the wheel. Respect a reduced-motion preference by dropping to plain scrolling
+rather than to a faster version of the animation, and remember that a trackpad's
+[momentum scrolling](/momentum-scrolling) will deliver a long tail of events after the
+reader has stopped touching anything, which is why hijacked pages so often overshoot by
+two panels. If any of those cannot be met, the honest version of the design is a page that
+scrolls.

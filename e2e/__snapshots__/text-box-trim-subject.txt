@@ -1,0 +1,4 @@
+term:    Text box trim
+scope:   element
+subject: span[data-edge=cap][data-part=trimmed]
+text:    Cap height

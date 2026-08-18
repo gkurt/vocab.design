@@ -1,0 +1,4 @@
+term:    Mouse gesture
+scope:   element
+subject: div.sp-surface[data-armed=no][data-command=none][data-part=pad]
+text:    

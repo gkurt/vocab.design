@@ -1,0 +1,4 @@
+term:    Additive animation
+scope:   element
+subject: div[data-mode=add][data-part=puck][data-pose=[data-mode=add]]
+text:    

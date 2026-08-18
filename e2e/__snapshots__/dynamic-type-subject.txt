@@ -1,0 +1,4 @@
+term:    Dynamic Type
+scope:   element
+subject: div.sp-stack[data-part=notice][data-step=m]
+text:    Storage almost full 2m ago Backup needs more room before it can finish.

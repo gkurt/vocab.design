@@ -1,0 +1,4 @@
+term:    Save for later
+scope:   element
+subject: div.sp-surface.sp-row[data-part=saved-notebook]
+text:    Field notebook, ruled 9.00 Saved 3 Feb

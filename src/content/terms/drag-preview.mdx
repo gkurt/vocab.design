@@ -1,0 +1,59 @@
+---
+name: Drag preview
+slug: drag-preview
+category: pattern
+status: published
+definition: >-
+  The semi-transparent copy of the dragged item that follows the pointer, sometimes
+  collapsed into a stack when several items move at once.
+aliases:
+  - name: drag overlay
+    source: dnd-kit
+  - name: drag image
+    source: mdn
+  - name: ghost image
+    source: community
+  - name: drag ghost
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "MDN: DataTransfer.setDragImage()"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setDragImage
+demo: inline
+useWhen: the ghost of the item that follows your cursor
+---
+
+A drag preview is the thing in your hand. When a drag starts, the interface makes a copy of
+what was grabbed, floats it over everything else, and keeps it under the pointer until the
+gesture ends. The original usually stays where it was at reduced opacity, so the reader can
+see both what they are carrying and where it came from. The browser makes one for you in
+the HTML drag and drop API, a translucent bitmap of the source element, and `setDragImage`
+lets you supply your own. Most modern libraries skip it entirely and render an overlay
+element instead, because the native one is a snapshot frozen at the moment the drag began
+and cannot change, resize, or say anything new part way through.
+
+The reason it is worth naming separately is the division of labour with its partner. The
+preview answers "what am I carrying"; the [drop indicator](/drop-indicator) answers "where
+will it land". They are different claims made by different parts of the interface, one
+following the pointer and one belonging to the container, and a drag that shows only one of
+them is missing half the feedback. A preview with no indicator leaves the reader guessing
+where the release will put the thing. An indicator with no preview is worse for multi-select,
+where nothing on screen says how many items are moving.
+
+Most of the craft is in restraint. Keep the preview roughly the size and shape of the real
+item so the reader can still read it, and keep the offset the reader grabbed it at, since a
+copy that snaps its centre to the pointer feels like it jumped out of your hand. A degree or
+two of tilt and a raised shadow are enough to say "lifted"; more than that turns the copy
+into a different object. When several items move at once, collapse them into one card with a
+count rather than dragging a bundle of overlapping rectangles, because the count is the only
+part a reader can actually check. And keep the pointer handler cheap: this element moves on
+every pointer event of a continuous gesture, which is one of the few places a
+[throttle](/throttle) genuinely earns its keep.
+
+The preview is also the most pointer-shaped thing in [drag and drop](/drag-and-drop), which
+is exactly why it cannot be the only way the operation is explained. A keyboard equivalent
+of [drag to reorder](/drag-to-reorder) has no floating copy and no pointer, so what the
+preview says visually has to be said in text for a live region: what is being carried, and
+where it currently sits. On touch there is no cursor at all, so the copy has to be offset
+clear of the finger holding it or the reader is dragging something they cannot see.

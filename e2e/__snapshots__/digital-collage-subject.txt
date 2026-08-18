@@ -1,0 +1,4 @@
+term:    Digital collage
+scope:   element
+subject: div[data-part=composition]
+text:    MIXED PASTE no. 14, cut & laid down

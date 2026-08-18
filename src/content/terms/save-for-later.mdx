@@ -1,0 +1,60 @@
+---
+name: Save for later
+slug: save-for-later
+category: pattern
+status: published
+definition: >-
+  Moving an item out of the active list into a parked list that stays associated with the
+  reader, without deleting it or committing to it.
+aliases:
+  - name: wishlist
+    source: community
+  - name: saved items
+    source: community
+  - name: read it later
+    source: community
+  - name: favorites
+    source: ui-patterns
+  - name: watchlist
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "UI Patterns: Favorites"
+    url: https://ui-patterns.com/patterns/favorites
+demo: inline
+useWhen: parking an item without buying or discarding it
+---
+
+Save for later is the third answer to a list. The first two are act on it and get rid of
+it, and both of them are wrong most of the time: the reader is interested but not ready,
+and neither buying nor deleting says that. So the item moves sideways, out of the working
+list and into a parked one that belongs to the reader and survives the session. The
+shopping version keeps it out of the total, the reading version keeps it out of the inbox,
+and the video version keeps it out of tonight's queue, but the move is the same one.
+
+The distinction that matters most is the one against the cart. A cart is an intention to
+buy now: it carries a total, it feeds shipping estimates, it is what the checkout reads,
+and an item sitting in it is a decision that has been made. A saved list is an intention to
+decide later: no total, no urgency, no promise that the price or the stock will hold.
+Collapsing the two, by treating the cart as a general-purpose stash or the saved list as a
+second cart with a checkout button, destroys the only information the split was carrying,
+which is what the reader meant. The reader is telling you something with the choice, and a
+product that ignores it ends up guessing at intent from behaviour it made ambiguous itself.
+
+The mechanics are unglamorous and they are where the pattern is usually lost. Saving is one
+explicit action and it needs an explicit reversal, which is why the row an item leaves is
+the right place for an undo rather than a toast that will be gone before anyone reads it.
+The list has to be honest about what it does not guarantee: say when a saved item is out of
+stock or has changed price, and say it in the list rather than at checkout. Both lists
+should hold their heights while an item crosses between them, because a list that reflows
+under the pointer reads as a mistake rather than as a move. And an unsaved item is only a
+click away from returning, so keep the reverse control where the item landed as well.
+
+The empty version of the list is part of the design, not an afterthought. A saved list a
+reader has never used is the first thing many people see, so it earns a real
+[empty state](/empty-state) explaining what the list is for rather than the word "Empty".
+Naming matters too: "wishlist", "favorites", "watchlist", and "read it later" are the same
+mechanism wearing different promises, and the name sets what the reader expects the list to
+do for them later. If the list will be used to send price-drop mail, the name should not be
+the one that means "I liked this".

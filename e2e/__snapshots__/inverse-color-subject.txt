@@ -1,0 +1,4 @@
+term:    Inverse color
+scope:   element
+subject: div.sp-row.sp-row--between[data-part=snackbar][data-tone=dark]
+text:    Message moved to Archive Undo

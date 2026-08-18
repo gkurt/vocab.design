@@ -1,0 +1,4 @@
+term:    Runt
+scope:   element
+subject: span[data-part=last][data-pose=[data-runt]][data-runt]
+text:    afterwards.

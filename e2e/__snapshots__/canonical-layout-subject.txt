@@ -1,0 +1,4 @@
+term:    Canonical layout
+scope:   element
+subject: div[data-arrangement=list-detail][data-part=pane]
+text:    Berth 2 Transfer notes tools

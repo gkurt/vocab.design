@@ -1,0 +1,59 @@
+---
+name: Cursor follower
+slug: cursor-follower
+category: motion
+status: published
+definition: >-
+  A dot or ring that trails the pointer with a lag and often swells over links, replacing or
+  augmenting the native cursor as a piece of brand motion.
+aliases:
+  - name: custom cursor
+    source: community
+  - name: cursor trail
+    source: community
+  - name: trailing cursor
+    source: community
+  - name: cursor dot
+    source: community
+  - name: blob cursor
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Webflow: a guide to custom cursors'
+    url: https://webflow.com/blog/custom-cursors-guide
+  - title: 'HubSpot: how to use custom animated cursors'
+    url: https://blog.hubspot.com/website/animated-cursor
+demo: inline
+useWhen: the pointer itself is part of the site's personality
+---
+
+The pointer is the one piece of interface the operating system draws, and a cursor follower is a
+site deciding to draw it instead. The usual build is two elements: a small dot that tracks the
+pointer closely and a larger ring that arrives a beat later, so the pair reads as one object with
+weight. The lag is the whole trick. Zero lag gives you a second arrow with no personality, and too
+much lag gives you something the pointer is dragging on a string. The interesting band is roughly
+80 to 250 milliseconds, close enough to feel attached and slow enough to feel physical.
+
+The lag can be written two ways. A CSS transition on `transform` restarts on every pointer move and
+settles toward the newest position, which is cheap, is turned off for free by
+`prefers-reduced-motion`, and is what the specimen below uses. A `requestAnimationFrame` loop that
+eases the follower's position a fixed fraction of the way toward the pointer each frame gives a
+springier result and is what most libraries ship, at the cost of a loop that runs whether or not
+anything is moving. Either way the follower is positioned with `transform`, never with `left` and
+`top`, because the pointer moves far more often than a layout should.
+
+The swell over interactive elements is the part that earns its keep. A ring that grows and softens
+when it crosses a link is doing what [hover](/hover) feedback does, only on the pointer instead of
+on the target, and it survives the fact that the underlying element may be a large image with
+nowhere obvious to put a hover state. The same instinct taken one step further is the
+[magnetic button](/magnetic-button), where the target reaches for the pointer rather than the
+pointer reacting to the target, and the two are often built together on the same portfolio site.
+
+Be honest about the cost. Hiding the native cursor with `cursor: none` throws away pixel-accurate
+aiming, the system's own high-priority compositing, and every cursor shape a reader relies on: the
+I-beam that says this text is selectable, the resize arrows on a column edge, the not-allowed sign
+on a disabled control. It also breaks for anyone whose pointer is enlarged or high-contrast by
+accessibility setting, since the replacement obeys the site rather than the system. The defensible
+version augments rather than replaces (keep the native cursor, add the ring), drops the whole effect
+under `prefers-reduced-motion`, and never runs on touch, where there is no pointer to follow.

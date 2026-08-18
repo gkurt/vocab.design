@@ -1,0 +1,70 @@
+---
+name: Voice control
+slug: voice-control
+category: accessibility
+status: published
+definition: >-
+  Operating an interface by speaking control names or numbered overlays, which makes the
+  visible wording of a control its address.
+aliases:
+  - name: speech input
+    source: community
+  - name: Voice Access
+    source: android
+  - name: Dragon
+    source: community
+  - name: show numbers
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: 2.5.3 Label in Name"
+    url: https://www.w3.org/TR/WCAG22/#label-in-name
+  - title: "Use Voice Control commands on Mac, Apple Support"
+    url: https://support.apple.com/guide/mac-help/use-voice-control-commands-mh40719/mac
+  - title: "Get started with Voice Access, Android Accessibility Help"
+    url: https://support.google.com/accessibility/android/answer/6151848
+demo: inline
+useWhen: the reader clicks by saying the button's name
+---
+
+Someone who cannot use a mouse or a keyboard can still use the interface by talking to it.
+Apple ships this as Voice Control on macOS and iOS, Android as Voice Access, and Windows
+users have had Dragon for decades. The mechanic is always the same: the user says a verb
+and the name of a control, "Click Send", and the software matches the spoken words against
+what it can find in the accessibility layer. That single sentence rearranges the whole
+design problem, because it makes the words printed on a control into its address. A button
+is no longer something you point at. It is something you name.
+
+Which is why one WCAG criterion exists purely for this population. Success criterion 2.5.3
+Label in Name (Level A) requires that for components with a visible text label, the name
+contains the text that is presented visually. The classic failure is an `aria-label` added
+with good intentions that quietly replaces the words on the button: the button reads Save
+draft, the [accessible name](/accessible-name) is "Store changes", and a voice user who
+says "Click Save draft" gets silence. Nothing looks broken, nothing is announced wrongly,
+and the control is simply unreachable. The safe habit is to let the visible text be the
+name, or, where extra context is genuinely needed, to make the name start with the visible
+label rather than substitute for it. The same discipline applies to
+[label association](/label-association): a field a voice user cannot name is a field they
+cannot fill.
+
+For controls that have no words at all, the platforms offer overlays. Apple's Voice Control
+answers "Show names" with a name beside every item, "Show numbers" with a number beside
+every item, and "Show grid" with a numbered grid over the screen for anything the first two
+cannot reach. These work, and they are a real fallback rather than a hack, but they charge
+a lookup on every command: the user has to ask for the overlay, read it, and then speak a
+number that means nothing five seconds later. An icon-only button is a number for
+everybody, every time.
+
+Two neighbouring habits are worth rereading with a voice user in mind.
+[Placeholder as label](/placeholder-as-label) leaves a field with a name that disappears the
+moment there is anything in it, so a correction becomes impossible to aim. And twelve links
+that all read "Read more" are ambiguous to speech in the same way they are ambiguous to a
+[link purpose](/link-purpose) audit, except that here the ambiguity produces a disambiguation
+prompt on every attempt. Distinct, visible, spoken-out-loud wording is the fix for all
+three, which is a pleasant thing about this constraint: it almost never asks for anything
+the sighted pointer user would not also have preferred.
