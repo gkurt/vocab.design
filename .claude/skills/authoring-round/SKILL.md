@@ -20,8 +20,9 @@ Files in this skill directory:
 
 - Read SPEC.md and AGENTS.md first if this session has not.
 - Clean git tree, on `main` (commits go directly to the current branch; never branch).
-- The USER runs the dev server on port 4321. Confirm with a HEAD request to
-  `http://localhost:4321/`. Never start, stop, or restart any dev server; if it is
+- The USER runs the dev server on port 4321. Confirm with a GET request to
+  `http://localhost:4321/` (Astro dev answers HEAD with nothing, so a HEAD probe
+  looks exactly like a server that is down). Never start, stop, or restart any dev server; if it is
   down, ask the user rather than launching one.
 - Windows quirk: `bun` cannot launch Playwright's chromium (the pipe hangs).
   Repo scripts that drive a browser run under node; `bunx playwright test` is fine.
@@ -93,6 +94,9 @@ bugs in "complete" specimens every time). The verify agent then gates all 54.
    - an assert on evidence inside a popup the action just closed (mirror onto trigger)
    - a mount-time assert with no room for kit fades (open with a wait)
    - invalid selector syntax and hairline subjects (now validate-gated)
+   - a demo that answers input by synthesizing more input (`btn.click()` inside a
+     click handler): the choreography passes and the TAKEOVER pass fails, because
+     it counts the clicks reaching the specimen and wants exactly one
 2. **Review the new subject snapshots** (`e2e/__snapshots__/<slug>-subject.txt`):
    every one should be `scope: element` with a sensibly narrow subject; every
    `data-pose` carrier must mount in a state satisfying its pose (the attributes in
