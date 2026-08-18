@@ -13,6 +13,8 @@ live is marked; everything else is kept as the record of what was decided and wh
   existing terms, two added by splits), all slug-unique, with registry ids
   consolidated (css→mdn, uxpatterns-dev→uxpatterns, chrome→chrome-developers,
   tailwind-ui→tailwind-plus, framer-motion→motion; systems.json 114→110).
+- The wishlist shaping (2026-08-15) took the pool to 969; the dataviz sweep
+  (2026-08-18, below) to 983.
 
 ## RESOLVED: duplicate slugs
 
@@ -85,7 +87,10 @@ thumb (slider) vs thumbnail; timeline (event list, authored) vs timeline (media
 editor); chevron/caret (component) vs caret (typography); gutter (grid) vs gutter
 (editor); spinner vs spinbutton; swimlane (horizontal band, constantly misused for
 the vertical column); "ghost text" (inline autocomplete vs AI completion);
-layout-shifter (LukeW) vs layout-shift (CLS, authored). Handled already:
+layout-shifter (LukeW) vs layout-shift (CLS, authored); chart-legend vs fieldset's
+"legend" alias (authored; both articles owe a sentence); chart-annotation vs
+accessibility-annotation (handoff notes) vs ruby-annotation (typography), with bare
+"annotation" deliberately unclaimed. Handled already:
 multi-column-layout vs text-columns (both articles disambiguate), pull-quote vs
 blockquote (article draws it), captions vs caption, focus-visible vs focus-ring,
 neubrutalism spelling, Memphis vs Corporate Memphis, Windows Aero vs Frutiger Aero
@@ -133,7 +138,10 @@ categories to pay for themselves.
 Candidate vocabulary (grow this list as rounds suggest members; assign at the pass):
 
 - dataviz: chart, sparkline, gauge, stat, dashboard-grid, the three palette terms,
-  use-of-color, sonification, plus whatever the dataviz enumeration sweep pools.
+  use-of-color, sonification, plus the 14 records the 2026-08-18 dataviz sweep
+  pooled (axis, chart-legend, reference-line, chart-annotation, error-bar,
+  truncated-axis, dual-axis, direct-labeling, brushing, small-multiples,
+  chart-aspect-ratio, chartjunk, data-ink-ratio, chart-description).
 - forms: input-mask, forgiving-format, smart-defaults, stepper, combobox, fieldset,
   inline-edit, plus the validation/error family.
 - navigation: navigation-rail, tabs, breadcrumbs, pagination, table-of-contents,
@@ -158,6 +166,16 @@ Candidate vocabulary (grow this list as rounds suggest members; assign at the pa
   retina as aliases), chamfer (aesthetic, tail; must disambiguate the bevel term),
   interface-metaphor (pattern, head; reshaped from "figures of speech", whose
   idiom/localization half belongs to plain-language).
+- Dataviz sweep (2026-08-18), shaped and pooled: 14 interface-facing records
+  spanning six categories (see the dataviz tag above for the list). Scope decision:
+  chart TYPES stay out of the pool; the authored chart head term carries the
+  encoding choice, per its own record notes. Rejected as already covered:
+  pattern-fill (use-of-color alias), heatmap-scale (sequential-palette alias),
+  number ticker (count-up-animation), tabular figures (authored). All 22 source
+  URLs verified live 2026-08-18; datawrapper and eagereyes URLs recorded at their
+  post-redirect canonical forms. Honesty terms (truncated-axis, dual-axis) carry
+  data-pose specimen notes; hairline and drag laws noted where they bite
+  (reference-line, brushing).
 - Named gaps with no record anywhere: oversized typography / big type; millennial
   beige / sad beige; plain elevation as its own term; the HTML invoker vocabulary
   (invoker commands / commandfor / interest invokers / dialog closedby, Baseline

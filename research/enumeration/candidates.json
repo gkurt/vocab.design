@@ -46806,5 +46806,549 @@
    "user wishlist 2026-08-15, shaped in canonicalize follow-up",
    "reshaped from \"figures of speech\"; the idiom/localization half belongs to plain-language"
   ]
+ },
+ {
+  "name": "Axis",
+  "slug": "axis",
+  "category": "component",
+  "definition": "The ruled edge of a chart that maps position to value: scale, ticks, and labels that make the marks readable as numbers.",
+  "useWhen": "discussing tick density, label rotation, or what scale a chart hangs on",
+  "aliases": [
+   {
+    "name": "x-axis"
+   },
+   {
+    "name": "y-axis"
+   },
+   {
+    "name": "value axis"
+   },
+   {
+    "name": "category axis"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "truncated-axis",
+   "dual-axis",
+   "reference-line",
+   "chart-aspect-ratio"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Fundamentals of Data Visualization: Coordinate systems and axes",
+    "url": "https://clauswilke.com/dataviz/coordinate-systems-axes.html"
+   },
+   {
+    "title": "Carbon: Axes and labels",
+    "url": "https://carbondesignsystem.com/data-visualization/axes-and-labels/"
+   }
+  ],
+  "implementations": [
+   {
+    "systemId": "carbon",
+    "name": "Axes and labels",
+    "url": "https://carbondesignsystem.com/data-visualization/axes-and-labels/",
+    "verified": true
+   }
+  ],
+  "notes": "Gridlines and tick marks live in this article rather than as their own terms (a resting gridline is a hairline; the stage cannot ring one anyway).",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Chart legend",
+  "slug": "chart-legend",
+  "category": "component",
+  "definition": "The key beside a chart that decodes series colors and symbols into names, and the first thing direct labeling tries to delete.",
+  "useWhen": "naming the color key of a chart, not a fieldset caption",
+  "aliases": [
+   {
+    "name": "chart key"
+   },
+   {
+    "name": "series legend"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "direct-labeling",
+   "categorical-palette"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Carbon: Legends",
+    "url": "https://carbondesignsystem.com/data-visualization/legends/"
+   },
+   {
+    "title": "shadcn/ui: Chart",
+    "url": "https://ui.shadcn.com/docs/components/base/chart"
+   }
+  ],
+  "implementations": [
+   {
+    "systemId": "carbon",
+    "name": "Legends",
+    "url": "https://carbondesignsystem.com/data-visualization/legends/",
+    "verified": true
+   },
+   {
+    "systemId": "shadcn",
+    "name": "Chart (ChartLegend)",
+    "url": "https://ui.shadcn.com/docs/components/base/chart",
+    "verified": true
+   }
+  ],
+  "notes": "Bare \"legend\" belongs to fieldset (authored alias); both articles owe a disambiguation sentence. Contrast with direct-labeling is the teaching.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Reference line",
+  "slug": "reference-line",
+  "category": "component",
+  "definition": "A line drawn at a meaningful value across a chart: a target, a threshold, an average, a before-and-after moment.",
+  "useWhen": "a chart needs a benchmark the eye can compare marks against",
+  "aliases": [
+   {
+    "name": "threshold line"
+   },
+   {
+    "name": "target line"
+   },
+   {
+    "name": "goal line"
+   },
+   {
+    "name": "benchmark line"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "axis",
+   "chart-annotation",
+   "gauge"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Material (M2): Data visualization",
+    "url": "https://m2.material.io/design/communication/data-visualization.html"
+   }
+  ],
+  "notes": "HAIRLINE LAW applies: a 1px line at rest is invisible to the stage, so the specimen draws it at 2px or asserts its label.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Chart annotation",
+  "slug": "chart-annotation",
+  "category": "component",
+  "definition": "A note pinned onto the data itself: a callout, arrow, or highlighted span that tells the reader what to see in the chart.",
+  "useWhen": "the takeaway should be written on the chart, not left to the caption",
+  "aliases": [
+   {
+    "name": "annotation layer"
+   },
+   {
+    "name": "callout label"
+   },
+   {
+    "name": "data annotation"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "direct-labeling",
+   "reference-line"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Datawrapper: Text in data visualizations",
+    "url": "https://www.datawrapper.de/blog/text-in-data-visualizations"
+   }
+  ],
+  "notes": "Disambiguate from accessibility-annotation (handoff spec notes) and ruby-annotation (typography); \"annotation\" stays unclaimed as a bare alias.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Error bar",
+  "slug": "error-bar",
+  "category": "component",
+  "definition": "Whiskers on a mark showing the range a value could plausibly take, so a chart does not imply precision it does not have.",
+  "useWhen": "a chart states an estimate and honesty requires showing the spread",
+  "aliases": [
+   {
+    "name": "confidence interval"
+   },
+   {
+    "name": "uncertainty band"
+   },
+   {
+    "name": "confidence band"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "axis",
+   "truncated-axis"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Fundamentals of Data Visualization: Visualizing uncertainty",
+    "url": "https://clauswilke.com/dataviz/visualizing-uncertainty.html"
+   }
+  ],
+  "notes": "The umbrella (uncertainty display) lives in this article; gradations and bands are variants, not separate terms.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Truncated axis",
+  "slug": "truncated-axis",
+  "category": "pattern",
+  "definition": "Starting a value axis above zero so differences look bigger than they are; honest for lines and dots, a lie for bars.",
+  "useWhen": "judging whether cutting the y-axis exaggerates or clarifies",
+  "aliases": [
+   {
+    "name": "broken axis"
+   },
+   {
+    "name": "axis truncation"
+   },
+   {
+    "name": "cut y-axis"
+   },
+   {
+    "name": "non-zero baseline"
+   },
+   {
+    "name": "zero baseline"
+   }
+  ],
+  "relatedSlugs": [
+   "axis",
+   "chart",
+   "dual-axis",
+   "error-bar"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Calling Bullshit: Misleading axes",
+    "url": "https://www.callingbullshit.org/tools/tools_misleading_axes.html"
+   },
+   {
+    "title": "Fundamentals of Data Visualization: Proportional ink",
+    "url": "https://clauswilke.com/dataviz/proportional-ink.html"
+   }
+  ],
+  "notes": "Prime data-pose specimen: mount at the honest zero baseline, offer the deceptive cut as a captioned counter-example state, like dark-pattern’s checkout. Bare \"baseline\" belongs to typography.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Dual axis",
+  "slug": "dual-axis",
+  "category": "pattern",
+  "definition": "Two value axes sharing one plot so two series can be compared, and a free knob for manufacturing whatever correlation you like.",
+  "useWhen": "someone proposes a second y-axis and the scales question needs asking",
+  "aliases": [
+   {
+    "name": "secondary axis"
+   },
+   {
+    "name": "dual y-axis"
+   },
+   {
+    "name": "two y-axes"
+   },
+   {
+    "name": "combo chart"
+   }
+  ],
+  "relatedSlugs": [
+   "axis",
+   "truncated-axis",
+   "chart"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Datawrapper: Why not to use two axes",
+    "url": "https://www.datawrapper.de/blog/dualaxis"
+   }
+  ],
+  "notes": "Same honesty machinery as truncated-axis; the two are round-mates when authored.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Direct labeling",
+  "slug": "direct-labeling",
+  "category": "pattern",
+  "definition": "Writing series names next to the data instead of in a legend, trading a lookup for a glance.",
+  "useWhen": "few series and room at the line ends make the legend deletable",
+  "aliases": [
+   {
+    "name": "direct labels"
+   },
+   {
+    "name": "data labels"
+   },
+   {
+    "name": "value labels"
+   }
+  ],
+  "relatedSlugs": [
+   "chart-legend",
+   "chart",
+   "chart-annotation"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Fundamentals of Data Visualization: Redundant coding",
+    "url": "https://clauswilke.com/dataviz/redundant-coding.html"
+   }
+  ],
+  "notes": "Contrast pair with chart-legend; author together and cross-link one sentence each way.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Brushing",
+  "slug": "brushing",
+  "category": "interaction",
+  "definition": "Dragging a selection across one chart to highlight the same records in every linked view.",
+  "useWhen": "coordinated views should answer a selection made in any one of them",
+  "aliases": [
+   {
+    "name": "brushing and linking"
+   },
+   {
+    "name": "brush selection"
+   },
+   {
+    "name": "linked highlighting"
+   },
+   {
+    "name": "crossfilter"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "lasso-selection",
+   "data-table",
+   "small-multiples"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Brushing and linking",
+    "url": "https://en.wikipedia.org/wiki/Brushing_and_linking"
+   }
+  ],
+  "notes": "The drag is player-performable (law 4); linked views make a natural two-panel specimen.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Small multiples",
+  "slug": "small-multiples",
+  "category": "layout",
+  "definition": "The same small chart repeated in a grid, once per category, so comparison happens by eye movement instead of overplotting.",
+  "useWhen": "one chart would need too many series to stay readable",
+  "aliases": [
+   {
+    "name": "trellis chart"
+   },
+   {
+    "name": "panel chart"
+   },
+   {
+    "name": "grid of charts"
+   },
+   {
+    "name": "lattice chart"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "dashboard-grid",
+   "sparkline",
+   "card-grid"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Small multiple",
+    "url": "https://en.wikipedia.org/wiki/Small_multiple"
+   }
+  ],
+  "notes": "Alias fence: \"facets\"/\"faceting\" belong to faceted-filter.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Chart aspect ratio",
+  "slug": "chart-aspect-ratio",
+  "category": "layout",
+  "definition": "How wide a chart is for its height, which sets the slopes of its lines; banking to 45 degrees keeps rates of change readable.",
+  "useWhen": "a line chart reads too steep or too flat for the story it tells",
+  "aliases": [
+   {
+    "name": "banking to 45 degrees"
+   },
+   {
+    "name": "banking"
+   }
+  ],
+  "relatedSlugs": [
+   "chart",
+   "aspect-ratio-box",
+   "sparkline",
+   "axis"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "eagereyes: Banking to 45 degrees",
+    "url": "https://eagereyes.org/blog/2013/banking-45-degrees"
+   }
+  ],
+  "notes": "Alias fence: bare \"aspect ratio\" belongs to aspect-ratio-box.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Chartjunk",
+  "slug": "chartjunk",
+  "category": "aesthetic",
+  "definition": "Tufte’s word for ink that decorates a chart without carrying data: 3D bevels, gradient fills, mascots, gridline thickets.",
+  "useWhen": "a chart’s decoration is fighting its data",
+  "aliases": [
+   {
+    "name": "chart junk"
+   },
+   {
+    "name": "non-data ink"
+   }
+  ],
+  "relatedSlugs": [
+   "data-ink-ratio",
+   "chart"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Chartjunk",
+    "url": "https://en.wikipedia.org/wiki/Chartjunk"
+   }
+  ],
+  "notes": "Contrast pair with data-ink-ratio (the vice and the measure); author together. A before/after strip is the natural specimen.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Data-ink ratio",
+  "slug": "data-ink-ratio",
+  "category": "aesthetic",
+  "definition": "Tufte’s measure of chart economy: the share of ink that would be missed if erased, with everything else a candidate for deletion.",
+  "useWhen": "deciding what a chart can lose before it loses meaning",
+  "aliases": [
+   {
+    "name": "data-ink"
+   },
+   {
+    "name": "data to ink ratio"
+   }
+  ],
+  "relatedSlugs": [
+   "chartjunk",
+   "chart"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Data-ink ratio",
+    "url": "https://en.wikipedia.org/wiki/Data-ink_ratio"
+   }
+  ],
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "Chart description",
+  "slug": "chart-description",
+  "category": "accessibility",
+  "definition": "The text alternative for a chart: a summary of the takeaway plus access to the underlying values, not a recital of the pixels.",
+  "useWhen": "a chart needs to work for readers who cannot see it",
+  "aliases": [
+   {
+    "name": "chart alt text"
+   },
+   {
+    "name": "accessible chart"
+   },
+   {
+    "name": "data table fallback"
+   }
+  ],
+  "relatedSlugs": [
+   "alt-text",
+   "long-description",
+   "sonification",
+   "table-header-association",
+   "data-table",
+   "use-of-color"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "W3C WAI: Complex images",
+    "url": "https://www.w3.org/WAI/tutorials/images/complex/"
+   },
+   {
+    "title": "Apple HIG: Charts",
+    "url": "https://developer.apple.com/design/human-interface-guidelines/charts"
+   }
+  ],
+  "notes": "Bare \"alt text\" belongs to alt-text and \"long description\" to long-description; this is the chart-shaped practice above both.",
+  "sweptFrom": [
+   "dataviz sweep 2026-08-18"
+  ]
  }
 ]
