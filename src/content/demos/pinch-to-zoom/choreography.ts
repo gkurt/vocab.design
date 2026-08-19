@@ -23,5 +23,17 @@ export default steps([
   { pinch: { scale: 0.25, ms: 1100 } },
   { wait: 500 },
   { assert: { selector: '[data-part=canvas][data-scale="1"]', state: 'visible' } },
+  { wait: 800 },
+  // The desktop half of the same gesture: a trackpad pinch arrives as ctrl+wheel,
+  // and the zoom anchors at the wheel point exactly as it anchors between fingers.
+  // Five events of -52 compound to exp(0.91), which the readout rounds to 2.5x.
+  { withKey: { key: 'Control', steps: [{ wheel: { y: -260 } }] } },
+  { wait: 500 },
+  { assert: { selector: '[data-part=canvas][data-scale="2.5"]', state: 'visible' } },
+  { wait: 700 },
+  // Close it back down; the clamp snaps the last fraction home.
+  { pinch: { scale: 0.4, ms: 900 } },
+  { wait: 500 },
+  { assert: { selector: '[data-part=canvas][data-scale="1"]', state: 'visible' } },
   { wait: 900 },
 ]);

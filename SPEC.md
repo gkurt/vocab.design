@@ -378,8 +378,9 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   the kit hands the demo, so the picture and the computed scale can never disagree
   (and no force fill during a pinch: it is a spread, not a press). A trackpad
   pinch arrives as a ctrl+wheel event, not as pointers, and stays the demo's own
-  to wire. Rotation and gestures past two contacts are not in the vocabulary yet;
-  terms that need them wait.
+  to wire; the script performs it as a `wheel` step inside a `withKey` Control
+  scope (§8). Rotation and gestures past two contacts are not in the vocabulary
+  yet; terms that need them wait.
 
 ### Non-negotiables
 
@@ -428,7 +429,12 @@ export default steps([
   narrow and a closing one ends narrow), `press` (key), `holdKey`
   (hold a key for N ms: one keydown, the typematic delay, then `repeat: true`
   keydowns at a steady rate until the keyup, the chip counting them as
-  "ArrowRight ×12"), `type` (text), `scroll`, `wait`, `assert`. Nothing
+  "ArrowRight ×12"), `type` (text), `scroll`, `wheel` (a short burst of real
+  WheelEvents at the target, the total delta split across them: the input
+  counterpart of `scroll`, which moves a scroller's position directly and fires
+  no events — a demo that listens for wheel is spoken to with `wheel`, and a
+  trackpad pinch, ctrl+wheel by browser convention, is a wheel inside a `withKey`
+  Control scope), `wait`, `assert`. Nothing
   demo-specific. `hold` ends with
   pointerup and never a click — a long press is not a tap, and a demo that wants the
   tap scripts one; under the touch persona (§7) its pointermove events carry a

@@ -45,6 +45,9 @@ const SUMMON_WAIT_MS = 900;
 const SUMMON_TICK_MS = 80;
 const SCROLL_MS = 420;
 const SCROLL_SLICES = 7;
+/** A wheel step's burst: the total delta split across this many WheelEvents. */
+const WHEEL_TICKS = 5;
+const WHEEL_MS = 350;
 const FX_TTL_MS = 700;
 const DRAG_MOVES = 3;
 /** Extra travel each via waypoint buys a path drag, so a long stroke is not rushed. */
@@ -302,6 +305,7 @@ export class AttractPlayer {
     else if ('holdKey' in step) this.#summonHoldKey(step.holdKey.key, step.holdKey.ms);
     else if ('type' in step) this.#dispatchType(step.type);
     else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
+    else if ('wheel' in step) this.#summonWheel(step.wheel);
   }
 
   /** A withKey scope, fast-forwarded: the bracketing keydown and keyup around the children in one burst. */
@@ -452,6 +456,10 @@ export class AttractPlayer {
       const y = step.scroll.y ?? 0;
       if (y !== 0) this.#fxWheel(y > 0 ? 'down' : 'up');
       if (!(await this.#scroll(step.scroll.x ?? 0, y, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('wheel' in step) {
+      if (!(await this.#wheel(step.wheel, generation))) return false;
       return this.#sleep(STEP_GAP_MS, generation);
     }
     if ('wait' in step) return this.#sleep(step.wait, generation);
@@ -736,6 +744,52 @@ export class AttractPlayer {
   #contactFlash(): void {
     this.#cursor.setAttribute('data-contact', '');
     setTimeout(() => this.#cursor.removeAttribute('data-contact'), PRESS_FLASH_MS);
+  }
+
+  /**
+   * Real wheel input: the total delta split across a burst of WheelEvents at the
+   * current target — the shape a notch or a trackpad flick arrives in, so a demo
+   * compounding per event hears the same total either way. The input counterpart
+   * of #scroll, which moves a scroller's position directly and fires no events.
+   * The event count is kept under reduced motion (a demo may count events); only
+   * the pacing between them collapses. Modifier flags ride along like on every
+   * other event, which is how a withKey Control scope makes this a trackpad pinch.
+   */
+  async #wheel(wheel: { x?: number; y?: number; ms?: number }, generation: number): Promise<boolean> {
+    const el = this.#target;
+    if (!el) return this.#sleep(STEP_GAP_MS, generation);
+    const y = wheel.y ?? 0;
+    if (y !== 0) this.#fxWheel(y > 0 ? 'down' : 'up');
+    const at = aimAt(el);
+    const dur = this.#host.reducedMotion ? 0 : (wheel.ms ?? WHEEL_MS);
+    for (let i = 1; i <= WHEEL_TICKS; i++) {
+      this.#dispatchWheel(el, at, (wheel.x ?? 0) / WHEEL_TICKS, y / WHEEL_TICKS);
+      if (!(await this.#sleep(dur / WHEEL_TICKS, generation))) return false;
+    }
+    return true;
+  }
+
+  /** A wheel, fast-forwarded: the same burst of events with no pacing between them. */
+  #summonWheel(wheel: { x?: number; y?: number; ms?: number }): void {
+    const el = this.#target;
+    if (!el) return;
+    const at = aimAt(el);
+    for (let i = 1; i <= WHEEL_TICKS; i++) this.#dispatchWheel(el, at, (wheel.x ?? 0) / WHEEL_TICKS, (wheel.y ?? 0) / WHEEL_TICKS);
+  }
+
+  #dispatchWheel(el: Element, at: { x: number; y: number }, deltaX: number, deltaY: number): void {
+    el.dispatchEvent(
+      new WheelEvent('wheel', {
+        bubbles: true,
+        cancelable: true,
+        clientX: at.x,
+        clientY: at.y,
+        deltaX,
+        deltaY,
+        deltaMode: 0,
+        ...this.#mods,
+      }),
+    );
   }
 
   /**

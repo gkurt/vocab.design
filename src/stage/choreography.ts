@@ -47,6 +47,16 @@ export type Step =
   | { withKey: { key: string; steps: Step[] } }
   | { type: string }
   | { scroll: { x?: number; y?: number } }
+  /**
+   * Real wheel input at the current target (SPEC §8): the total delta split
+   * across a short burst of WheelEvents, the shape a notch or a trackpad flick
+   * arrives in. The INPUT counterpart of `scroll`, which moves a scroller's
+   * position directly and fires no events: a demo that listens for wheel (a zoom
+   * surface, an overscroll edge) is spoken to with `wheel`. A trackpad pinch is
+   * a ctrl+wheel by browser convention — script it as a wheel inside a
+   * `withKey` Control scope.
+   */
+  | { wheel: { x?: number; y?: number; ms?: number } }
   | { wait: number }
   /** `hidden` is satisfied by an element that is absent as well as one that is not visible. */
   | { assert: { selector: string; state: 'visible' | 'hidden' } };

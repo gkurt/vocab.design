@@ -179,7 +179,8 @@ never fires under reduced motion, so nothing may ever wait on it.
   `#src/kit/touch.ts`: one scale signal for the script's two contacts, a real
   two-finger pinch, and a reader's mouse via Ctrl+drag (a mirrored virtual second
   contact the stage also draws); anchor the response at the centre `onStart`
-  reports. Trackpad pinch arrives as ctrl+wheel and is the demo's own to wire.
+  reports. Trackpad pinch arrives as ctrl+wheel and is the demo's own to wire;
+  the script performs it as a `wheel` step inside a `withKey` Control scope.
   Rotation and gestures past two contacts do not exist yet; terms needing them wait.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
