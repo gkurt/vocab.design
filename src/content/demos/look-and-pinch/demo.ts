@@ -15,10 +15,12 @@ const TILES = [
  * by the hand. The highlight follows wherever the reader is looking, and it does nothing at all
  * on its own: the panel only acts when the pinch lands, which is the whole of the split.
  *
- * **This is a labelled simulation, and it says so on its face.** There is no eye tracker on this
- * page, so the ghost cursor stands in for gaze and its click stands for the pinch. The rest is
- * honest: the highlight moves on arrival and never on departure, since eyes are always somewhere
- * and a gaze that went nowhere would be a lie about how the input works.
+ * The panel is a gaze scope (`data-gaze`, SPEC §7): the script's pointer is drawn as an eye
+ * resting where the reader looks, and its activation as the hand's pinch closing — the input
+ * this term names, portrayed as itself. There is still no eye tracker on this page, so a
+ * reader's own pointer plays the eyes in takeover; the highlight moves on arrival and never
+ * on departure, since eyes are always somewhere and a gaze that went nowhere would be a lie
+ * about how the input works.
  *
  * The subject is the target the eyes are on, so the specimen marks the one the gaze rests on at
  * mount and declares the honest condition in `data-pose`. A ring drawn around a tile nobody is
@@ -48,6 +50,7 @@ export function mount(root: HTMLElement): void {
           <div
             class="sp-surface"
             data-part="panel"
+            data-gaze
             data-committed="none"
             style="position: relative; flex: 0 0 auto; width: ${PANEL.w + 2}px; height: ${PANEL.h + 2}px; display: grid; grid-template-columns: repeat(2, ${TILE.w}px); gap: 16px; padding: 18px; justify-content: center; align-content: center"
           >
@@ -77,7 +80,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          There is no eye tracker here, so the ghost cursor is standing in for the gaze and its click is standing in for the pinch.
+          The eye is the gaze and the closing arcs are the pinch; with no eye tracker here, your own pointer plays the eyes.
         </span>
       </div>
     </div>

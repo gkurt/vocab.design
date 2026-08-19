@@ -384,6 +384,17 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   and a Ctrl+drag swinging around the mirror centre turns the pair for a mouse.
   Gestures past two contacts are not in the vocabulary yet; terms that need them
   wait.
+- **Gaze persona (scripted)**: a `data-gaze` scope is the touch persona's opposite
+  temperament. Events stay exactly a mouse's — hover included, because looking IS
+  hovering — and only the dress changes: the ghost is an eye resting where the
+  reader looks (iris on the hotspot), and an activation is drawn as the hand's
+  pinch, finger and thumb arcs closing on the point the eyes hold. No kit rule
+  hides the native cursor and nothing is mirrored: a reader has no eye tracker,
+  so their own pointer plays the eyes in takeover, which is the honest mapping.
+  A demo inside a gaze scope wires plain pointer and click handlers and needs
+  nothing else. Gaze is designed for looking and committing (moveTo, click);
+  a gaze demo that needs drags or holds is a reason to design their gaze dress
+  first, not to ship them wearing the mouse's.
 
 ### Non-negotiables
 

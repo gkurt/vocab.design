@@ -106,6 +106,15 @@ const GRAB_SVG =
   '<path d="M4.6 10.8 V8.4 a1.45 1.45 0 0 1 2.9 0 V7.2 a1.45 1.45 0 0 1 2.9 0 v.5 a1.45 1.45 0 0 1 2.9 0 v1 a1.45 1.45 0 0 1 2.9 0 v3.9 a4.7 4.7 0 0 1 -4.7 4.7 h-2.2 a4.7 4.7 0 0 1 -4.7 -4.7 z" fill="var(--vd-ink, #1c1a17)" stroke="var(--vd-paper, #fff)" stroke-width="1.2" stroke-linejoin="round"/>' +
   '<path d="M7.5 9 v2 M10.4 8.3 v2.7 M13.3 9.3 v1.7" fill="none" stroke="var(--vd-paper, #fff)" stroke-width="0.9" stroke-linecap="round"/></svg>';
 
+// The gaze persona's eye, centred on the hotspot: an almond outline, an iris with
+// a catchlight. It rests where the reader is looking; stage.css offsets it so the
+// iris sits exactly on the point.
+const EYE_SVG =
+  '<svg class="vd-cursor-eye" viewBox="0 0 24 16" width="24" height="16">' +
+  '<path d="M12 1.5 C6 1.5 2.4 5.8 1.2 8 C2.4 10.2 6 14.5 12 14.5 C18 14.5 21.6 10.2 22.8 8 C21.6 5.8 18 1.5 12 1.5 Z" fill="var(--vd-paper, #fff)" stroke="var(--vd-ink, #1c1a17)" stroke-width="1.5" stroke-linejoin="round"/>' +
+  '<circle cx="12" cy="8" r="3.6" fill="var(--vd-ink, #1c1a17)"/>' +
+  '<circle cx="13.2" cy="6.8" r="1.1" fill="var(--vd-paper, #fff)"/></svg>';
+
 /**
  * Where the pointer rests on an element: its centre, unless the element carries
  * `data-aim`, which parks the pointer just inside its bottom-right corner. On a
@@ -155,7 +164,7 @@ export class AttractPlayer {
     this.#cursor = document.createElement('div');
     this.#cursor.className = 'vd-ghost-cursor';
     this.#cursor.innerHTML =
-      `${CURSOR_SVG}${GRAB_SVG}<span class="vd-cursor-touch"><span class="vd-cursor-force"></span></span>` +
+      `${CURSOR_SVG}${GRAB_SVG}${EYE_SVG}<span class="vd-cursor-touch"><span class="vd-cursor-force"></span></span>` +
       '<span class="vd-cursor-pinch"></span><span class="vd-cursor-pinch vd-cursor-pinch--b"></span>';
     this.#hud = document.createElement('div');
     this.#hud.className = 'vd-key-hud';
@@ -364,15 +373,19 @@ export class AttractPlayer {
    * A step performs as touch when its target sits inside a `data-touch` scope
    * (SPEC §7): the ghost becomes a fingertip contact disc, dispatched pointer
    * events carry `pointerType: 'touch'`, and no hover exists — a finger that is
-   * not pressing is not there at all.
+   * not pressing is not there at all. A `data-gaze` scope is the opposite
+   * temperament: events stay exactly a mouse's (hover included — looking IS
+   * hovering), and only the dress changes: the ghost is an eye resting where the
+   * reader looks, and an activation is drawn as the hand's pinch.
    */
-  #personaFor(el: Element | null): 'mouse' | 'touch' {
-    return el?.closest('[data-touch]') ? 'touch' : 'mouse';
+  #personaFor(el: Element | null): 'mouse' | 'touch' | 'gaze' {
+    if (el?.closest('[data-touch]')) return 'touch';
+    return el?.closest('[data-gaze]') ? 'gaze' : 'mouse';
   }
 
-  #setPersona(persona: 'mouse' | 'touch'): void {
-    if (persona === 'touch') this.#cursor.setAttribute('data-persona', 'touch');
-    else this.#cursor.removeAttribute('data-persona');
+  #setPersona(persona: 'mouse' | 'touch' | 'gaze'): void {
+    if (persona === 'mouse') this.#cursor.removeAttribute('data-persona');
+    else this.#cursor.setAttribute('data-persona', persona);
   }
 
   #setState(state: PlayerState): void {
@@ -412,10 +425,13 @@ export class AttractPlayer {
   async #perform(step: Step, index: number, generation: number, failures: AssertFailure[] | undefined): Promise<boolean> {
     if ('moveTo' in step) return this.#moveTo(step.moveTo, generation);
     if ('click' in step || 'dblclick' in step) {
-      const tap = this.#personaFor(this.#target) === 'touch';
-      this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
-      if (tap) this.#contactFlash();
-      if ('dblclick' in step) setTimeout(() => this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left'), 140);
+      const persona = this.#personaFor(this.#target);
+      // A tap ripples the full ring, a gaze activation closes the hand's pinch,
+      // and a mouse click arcs — three dressings for one dispatched activation.
+      const fx = persona === 'touch' ? 'vd-fx-tap' : persona === 'gaze' ? 'vd-fx-pinch' : 'vd-fx-arc vd-fx-arc--left';
+      this.#fx(fx);
+      if (persona === 'touch') this.#contactFlash();
+      if ('dblclick' in step) setTimeout(() => this.#fx(fx), 140);
       this.#dispatchButton(0, 'dblclick' in step, true);
       return this.#sleep(STEP_GAP_MS, generation);
     }

@@ -183,6 +183,11 @@ never fires under reduced motion, so nothing may ever wait on it.
   the centre turns); anchor the response at the centre `onStart` reports.
   Trackpad pinch arrives as ctrl+wheel and is the demo's own to wire;
   the script performs it as a `wheel` step inside a `withKey` Control scope.
+  A `data-gaze` scope is the opposite temperament: events stay exactly a mouse's
+  (hover included, looking IS hovering) and only the dress changes — the ghost
+  is an eye, activations draw as a closing pinch, and a reader's own pointer
+  plays the eyes (no mirror, no hidden cursor). Designed for looking and
+  committing; gaze drags and holds are undesigned, so a demo needing them waits.
   Gestures past two contacts do not exist yet; terms needing them wait.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has

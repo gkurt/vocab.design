@@ -247,6 +247,10 @@ Resolutions from that audit under the standing rules:
   (aurora-ui, mesh-gradient, hyperreal-3d), and its honest specimen would be a
   WebGL shader demonstrating rendering rather than interface. It belongs as a
   sentence in the future signed-distance-field article, not as a page.
+- Pool hygiene (2026-08-19): removed the stale look-and-pinch record (the term
+  was authored and published while the record stayed behind; its `demo: none`
+  note aged out the same day the gaze persona landed). If a roster collision
+  ever smells like this again, check the terms directory before trusting the pool.
 - Creative-coding probe (2026-08-19): the domain proved already ~90% mined (its
   looks are aesthetics, its defects color terms, its motions motion terms), so
   no domain sweep. Two gaps pooled: identicon (component, core; generative art

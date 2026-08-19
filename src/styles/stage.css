@@ -133,6 +133,19 @@ vd-stage[data-autoplay] .vd-stage-play {
   display: none;
 }
 
+/* Gaze persona (SPEC §7): the ghost is an eye resting where the reader looks,
+   iris on the hotspot. Events stay a mouse's; only the dress changes. */
+.vd-cursor-eye {
+  top: -8px;
+  left: -12px;
+}
+
+.vd-ghost-cursor:not([data-persona="gaze"]) .vd-cursor-eye,
+.vd-ghost-cursor[data-persona="gaze"] .vd-cursor-arrow,
+.vd-ghost-cursor[data-persona="gaze"] .vd-cursor-hand {
+  display: none;
+}
+
 /* Touch persona (SPEC §7): the ghost becomes a fingertip contact disc, centred
    on the hotspot. It floats translucent while travelling, presses into contact
    for taps, holds, and swipes, and its inner fill swells with the reported
@@ -311,6 +324,38 @@ vd-stage[data-autoplay] .vd-stage-play {
   opacity: 0;
   pointer-events: none;
   animation: vd-arc-ripple 0.45s ease-out forwards;
+}
+
+/* A gaze activation: the hand's pinch, drawn as finger and thumb arcs closing
+   on the point the eyes hold — the ripple's opposite, arriving instead of leaving. */
+.vd-fx-pinch {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-left-color: var(--vd-accent);
+  border-right-color: var(--vd-accent);
+  opacity: 0;
+  pointer-events: none;
+  animation: vd-pinch-close 0.4s ease-in forwards;
+}
+
+@keyframes vd-pinch-close {
+  0% {
+    opacity: 0.4;
+    scale: 1.5;
+  }
+  70% {
+    opacity: 1;
+    scale: 0.55;
+  }
+  100% {
+    opacity: 0;
+    scale: 0.5;
+  }
 }
 
 @keyframes vd-arc-ripple {

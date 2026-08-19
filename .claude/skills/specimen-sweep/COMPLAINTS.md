@@ -95,8 +95,10 @@ complete; until then entries only accumulate. Entry format:
       consumer). force-touch, hold-to-confirm, and key-repeat
       (the `holdKey` step's first consumer, plus its focusability bug) already
       rewritten 2026-08-19.
-  (b) NEEDS A PRIMITIVE, add to the backlog and wait: multi-touch (>2 contacts),
-      look-and-pinch (gaze); the two-contact pinch landed 2026-08-19 (`pinch`
+  (b) NEEDS A PRIMITIVE, add to the backlog and wait: multi-touch (>2 contacts);
+      the gaze persona landed 2026-08-19 (`data-gaze`: mouse events dressed as an
+      eye with pinch-close activations, law 27; look-and-pinch rewritten as first
+      consumer, its "labelled simulation" caption retired); the two-contact pinch landed 2026-08-19 (`pinch`
       step + pinchSpread + Ctrl+drag takeover; pinch-to-zoom rewritten as first
       consumer) and rotation joined it the same day (the step's `turn`,
       pinchSpread's second signal; rotate-gesture rewritten as first consumer,

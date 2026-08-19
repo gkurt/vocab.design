@@ -23023,44 +23023,6 @@
   ]
  },
  {
-  "name": "Look and pinch",
-  "slug": "look-and-pinch",
-  "category": "interaction",
-  "definition": "Spatial input where the eyes choose the target and a finger pinch commits the action, so selection and activation come from different body parts.",
-  "useWhen": "gaze selects, hand confirms, no cursor involved",
-  "aliases": [
-   {
-    "name": "gaze and pinch",
-    "source": "community"
-   },
-   {
-    "name": "indirect gesture",
-    "source": "hig"
-   },
-   {
-    "name": "eye tracking selection",
-    "source": "community"
-   }
-  ],
-  "relatedSlugs": [
-   "dwell-activation",
-   "hover",
-   "pinch-to-zoom"
-  ],
-  "priority": "tail",
-  "demo": "none",
-  "sources": [
-   {
-    "title": "Apple Developer: Explore game input in visionOS",
-    "url": "https://developer.apple.com/videos/play/wwdc2024/10094/"
-   }
-  ],
-  "implementations": [],
-  "sweptFrom": [
-   "interaction"
-  ]
- },
- {
   "name": "Lorem ipsum",
   "slug": "lorem-ipsum",
   "category": "typography",
