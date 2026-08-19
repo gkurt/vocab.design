@@ -12,6 +12,28 @@ complete; until then entries only accumulate. Entry format:
 - Verify: what proves the fix (which e2e pass, what the eye checks on 4321).
 ```
 
+## bare-icon-buttons
+
+- Queued: 2026-08-19 · Status: queued
+- Rule: `.sp-icon` is display block, so an icon interpolated bare into a
+  non-flex `.sp-button` breaks its label onto a second line (STAGE_NEWS law 20
+  carries the authoring rule). An icon-and-label button states
+  `display: inline-flex; align-items: center; gap: 6px` inline, or wraps the
+  icon in a flex span.
+- Detector: detectors/bare-icon-buttons.ts. At queue time: 9/849 flagged
+  (accessibility-trait, action-sheet, disclosure, floating-action-button,
+  icon-button, long-press, popover, progressive-disclosure, swipe-actions);
+  light-dismiss was the discovery case, fixed 2026-08-19. Judge question: does
+  the button actually render icon and label on one line (a kit class may
+  already flex it), and is the two-line render ever deliberate?
+- Recipe: add the inline-flex style to the button (the light-dismiss fix);
+  alternative worth deciding at sweep time: make `.sp-button` itself
+  inline-flex with a gap in the kit, which fixes the class everywhere but
+  needs the visual pass over every flagged specimen plus a spot-check of
+  text-only buttons.
+- Verify: the eye on 4321 (this is a paint bug; e2e cannot see it); choreography
+  pass over touched slugs for regressions.
+
 ## input-simulation
 
 - Queued: 2026-08-19 · Status: queued
