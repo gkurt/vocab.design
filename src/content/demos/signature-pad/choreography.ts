@@ -8,9 +8,10 @@ export default steps([
   { assert: { selector: '[data-part=stamp]', state: 'hidden' } },
   { wait: 500 },
 
-  // The stroke follows the hand across the pad.
+  // The stroke follows the hand across the pad, and the hand signs rather than
+  // swipes: one continuous press rising and falling through the waypoints.
   { moveTo: '[data-part=pad-start]' },
-  { drag: { to: '[data-part=pad-end]' } },
+  { drag: { to: '[data-part=pad-end]', via: ['[data-part=pad-mid-a]', '[data-part=pad-mid-b]', '[data-part=pad-mid-c]'] } },
   { wait: 700 },
   { assert: { selector: '[data-part=pad][data-state=signed]', state: 'visible' } },
   { assert: { selector: '[data-part=hint]', state: 'hidden' } },

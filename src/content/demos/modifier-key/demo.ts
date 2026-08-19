@@ -1,5 +1,4 @@
 import { flag, part } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
 
 const FILES = [
   { key: 'brief', name: 'campaign-brief.md', size: '4 KB' },
@@ -14,14 +13,14 @@ const START = 'brief';
 /**
  * Modifier key specimen: a file list where a plain click replaces the selection and a
  * click with the pick modifier held adds to it. The subject is the list, since the term
- * is about what the held key does to a click that lands there; the legend, the readouts,
- * and the simulated modifier are the apparatus around it.
+ * is about what the held key does to a click that lands there; the legend and the
+ * readouts are the apparatus around it.
  *
- * Synthesized clicks carry no modifiers (SPEC §7–8), so the scripted pass arms the
- * modifier through a labelled control with two absolute states. The real key is wired all
- * the same: a reader who takes the stage over and holds Ctrl or Cmd while clicking gets
- * the additive behaviour whatever that control says, which is also why the demo reads
- * `metaKey` and `ctrlKey` together rather than picking a platform.
+ * One wiring answers everything: the demo reads `ctrlKey` and `metaKey` off the click
+ * (both, rather than picking a platform), the script performs the held key with a
+ * `withKey` scope (SPEC §8), and a reader who takes over holds the real key. The legend
+ * chip lights from the same keydown/keyup either way, so the held key is visible while
+ * it is down, scripted or real.
  *
  * Selection paint is a background, so a row joining or leaving the set moves nothing
  * (SPEC §5), and the counts hold their widths.
@@ -73,13 +72,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 8px">
-        <span class="sp-label">Simulated modifier</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="plain">
-          <button class="sp-segment" data-part="mode-plain" value="plain">Plain click</button>
-          <button class="sp-segment" data-part="mode-ctrl" value="ctrl">Ctrl held</button>
-        </sp-segmented>
-      </div>
     </div>
   `;
 
@@ -87,7 +79,6 @@ export function mount(root: HTMLElement): void {
   const readout = part(root, 'readout');
   const count = part(root, 'count');
   const pickKey = part(root, 'key-pick');
-  const mode = part(root, 'mode') as HTMLElement & { value: string };
 
   const chosen = new Set([START]);
 
@@ -108,9 +99,8 @@ export function mount(root: HTMLElement): void {
 
   for (const { key, name } of FILES) {
     part(root, `row-${key}`).addEventListener('click', (event) => {
-      // The real keys first, so takeover behaves like the desktop it borrows from; the
-      // simulated control only stands in for a modifier the player cannot hold.
-      const additive = event.ctrlKey || event.metaKey || mode.value === 'ctrl';
+      // Ctrl and Cmd read together, so the desktop this borrows from can be either.
+      const additive = event.ctrlKey || event.metaKey;
       if (!additive) {
         chosen.clear();
         chosen.add(key);

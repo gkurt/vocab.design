@@ -12,25 +12,35 @@ export default steps([
   { assert: { selector: '[data-part=row-budget][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=row-brief][data-selected]', state: 'hidden' } },
   { wait: 800 },
-  // The modifier is armed through its own control, since a synthesized click carries no
-  // keys at all. Both segments are absolute states, so the pass never flips a toggle.
-  { moveTo: '[data-part=mode-ctrl]' },
-  { wait: 350 },
-  { click: true },
-  { wait: 500 },
-  { moveTo: '[data-part=row-deck]' },
+  // Then the same clicks with the key actually held: the scope brackets them in a real
+  // keydown and keyup, every click inside carries ctrlKey, and the legend chip lights
+  // from the same events a reader's own key sends.
+  {
+    withKey: {
+      key: 'Control',
+      steps: [
+        { wait: 300 },
+        { assert: { selector: '[data-part=key-pick][data-held]', state: 'visible' } },
+        { moveTo: '[data-part=row-deck]' },
+        { wait: 400 },
+        { click: true },
+        { wait: 500 },
+        { assert: { selector: '[data-part=readout][data-mode=add]', state: 'visible' } },
+        { assert: { selector: '[data-part=list][data-count="2"]', state: 'visible' } },
+        { assert: { selector: '[data-part=row-budget][data-selected]', state: 'visible' } },
+        { wait: 700 },
+        { moveTo: '[data-part=row-photo]' },
+        { wait: 400 },
+        { click: true },
+        { wait: 500 },
+        { assert: { selector: '[data-part=list][data-count="3"]', state: 'visible' } },
+        { assert: { selector: '[data-part=row-photo][data-selected]', state: 'visible' } },
+      ],
+    },
+  },
   { wait: 400 },
-  { click: true },
-  { wait: 500 },
-  { assert: { selector: '[data-part=readout][data-mode=add]', state: 'visible' } },
-  { assert: { selector: '[data-part=list][data-count="2"]', state: 'visible' } },
-  { assert: { selector: '[data-part=row-budget][data-selected]', state: 'visible' } },
-  { wait: 800 },
-  { moveTo: '[data-part=row-photo]' },
-  { wait: 400 },
-  { click: true },
-  { wait: 500 },
+  // The key let go: the chip goes out, and the selection the scope built survives it.
+  { assert: { selector: '[data-part=key-pick][data-held]', state: 'hidden' } },
   { assert: { selector: '[data-part=list][data-count="3"]', state: 'visible' } },
-  { assert: { selector: '[data-part=row-photo][data-selected]', state: 'visible' } },
   { wait: 1000 },
 ]);

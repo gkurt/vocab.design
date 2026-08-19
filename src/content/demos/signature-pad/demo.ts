@@ -30,11 +30,11 @@ const clamp = (n: number, low: number, high: number) => Math.max(low, Math.min(h
  * condition is needed.
  *
  * The stroke follows the pointer rather than playing back on a timer: the revealed length of the
- * path is the pointer's own progress across the pad, so there is no scripted animation here to
- * gate on `prefersReducedMotion`, and no timer at all. The authored mark is the compromise a
- * synthesized drag forces, since a scripted pointer travels in a straight line and a signature
- * does not; the stroke's leading edge still tracks the hand horizontally, which is what the
- * demonstration is about. Every state is reached absolutely (sign, Done, Clear) rather than by
+ * path is the pointer's own horizontal progress across the pad, so there is no scripted animation
+ * here to gate on `prefersReducedMotion`, and no timer at all. The scripted hand signs rather
+ * than swipes: the drag runs through the pad-mid via waypoints (invisible aim anchors, SPEC §5),
+ * rising and falling like a signature while the ink's leading edge tracks it horizontally.
+ * Every state is reached absolutely (sign, Done, Clear) rather than by
  * flipping whatever was found (SPEC §8), and both controls keep their box in every state, so
  * nothing moves (SPEC §5).
  */
@@ -82,6 +82,9 @@ export function mount(root: HTMLElement): void {
             </svg>
 
             <span data-part="pad-start" style="position: absolute; left: ${FROM - 8}px; top: 74px; width: 16px; height: 16px"></span>
+            <span data-part="pad-mid-a" style="position: absolute; left: 142px; top: 46px; width: 16px; height: 16px"></span>
+            <span data-part="pad-mid-b" style="position: absolute; left: 222px; top: 90px; width: 16px; height: 16px"></span>
+            <span data-part="pad-mid-c" style="position: absolute; left: 312px; top: 50px; width: 16px; height: 16px"></span>
             <span data-part="pad-end" style="position: absolute; left: ${TO - 8}px; top: 74px; width: 16px; height: 16px"></span>
 
             <span class="sp-chip" data-part="stamp" hidden style="position: absolute; right: 8px; top: 8px; font-size: 11px; cursor: default">Captured</span>

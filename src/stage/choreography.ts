@@ -8,7 +8,13 @@ export type Step =
   | { dblclick: true }
   | { rightClick: true }
   | { middleClick: true }
-  | { drag: { to: string } }
+  /**
+   * Held drag from the current target to `to` (SPEC §8), optionally through `via`
+   * waypoints: one continuous press whose pointer travels the polyline, which is
+   * what lets a gesture stroke, a lasso, or a signature be one stroke instead of
+   * several. Waypoints are data-part selectors like every other target.
+   */
+  | { drag: { to: string; via?: string[] } }
   /**
    * Press and hold the current target for this many ms (SPEC §8). Under the touch
    * persona the reported pressure climbs at a finger's rate (full force at 900 ms),
@@ -31,6 +37,14 @@ export type Step =
    * ended by a keyup. The key chip counts the repeats ("ArrowRight ×12").
    */
   | { holdKey: { key: string; ms: number } }
+  /**
+   * Hold a key across the enclosed steps (SPEC §8): keydown as the scope opens,
+   * keyup as it closes, the key chip held for the duration. Shift, Control, Alt,
+   * and Meta stamp their flag on every event dispatched inside (a click becomes
+   * a Ctrl+click, a drag a Shift+drag); scopes nest for chords. The scope closes
+   * even when the run is cancelled, so a held key can never leak.
+   */
+  | { withKey: { key: string; steps: Step[] } }
   | { type: string }
   | { scroll: { x?: number; y?: number } }
   | { wait: number }

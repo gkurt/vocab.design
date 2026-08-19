@@ -179,8 +179,50 @@ Candidate vocabulary (grow this list as rounds suggest members; assign at the pa
   media (messaging); decide at the pass.
 - tables: data-table, zebra-striping, expandable-row, treegrid,
   table-header-association; possibly folds into dataviz, decide at the pass.
+- auth: magic-link, passkey, social-login, one-time-code-login,
+  lazy-registration, honeypot-field, password-strength-meter, type-to-confirm,
+  captcha; leans pattern-heavy, so it must show cross-category members at the
+  pass or fall to the corollary.
+- platform-registers: ten-foot-ui, ornament, menu-bar-extra, spatial-navigation,
+  mobile-first; cross-category by construction (pattern, component,
+  accessibility). Distinct from web-platform, which is web-API vocabulary.
+- perceived-performance: skeleton-screen, optimistic-ui, lazy-loading,
+  progressive-image-loading, list-virtualization, load-more, spinner and the
+  progress family; cuts pattern, component, and motion. See the head-term gaps
+  below: the phrase itself is vocabulary.
+- a11y: terms filed under other categories that exist substantially for
+  accessibility (roving-tabindex, focusable-scroll-region if it moves,
+  touch-target); cross-category by construction. Pairs with the filing rule
+  below.
 - NOT tags (head terms carry these families): dark-pattern, microinteraction,
   skeuomorphism, responsive-web-design.
+
+Category audit (2026-08-19), recorded so the pass inherits the reasoning: the
+nine categories stand and none get split. Pattern's 97 decompose into topical
+clusters (deceptive, auth, commerce, gamification, perceived-performance,
+input assistance, paradigms) that are all one KIND, a named recurring flow;
+topics overlap where kinds do not (drip-pricing is commerce AND deceptive,
+infinite-scroll is pattern or anti-pattern by the reader), so topical splits
+buy permanent boundary fights and tags or head-term relations carry the
+granularity instead. Component is large but single-kind; tags subdivide it.
+Resolutions from that audit under the standing rules:
+
+- deceptive is NOT a tag: its members sit almost entirely inside pattern (the
+  corollary calls that a subcategory) and dark-pattern is already ruled the
+  head term, so relations carry the family.
+- input assistance folds into the forms candidate (typeahead, did-you-mean,
+  forgiving-format, smart-defaults join it); not its own tag.
+- Head-term gaps the audit surfaced, neither in terms nor pool: GAMIFICATION
+  (streak, leaderboard, endowed-progress, goal-gradient, steps-left orbit it
+  with no head) and PERCEIVED PERFORMANCE (the skeleton-screen family's actual
+  umbrella phrase). Both pass the head-term rule (vocabulary worth a definition
+  and a specimen); pool them before the next round that touches pattern.
+- Accessibility filing rule (the one topical category among kind-categories,
+  kept deliberately): a term that exists BECAUSE of accessibility files under
+  accessibility; a term that merely affects it files under its kind and gets
+  the a11y tag at the pass. The corpus mostly follows this already
+  (roving-tabindex sits in interaction); apply it at the pass rather than
+  migrating now.
 
 ## Known coverage gaps (follow-up sweeps)
 

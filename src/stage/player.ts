@@ -47,6 +47,8 @@ const SCROLL_MS = 420;
 const SCROLL_SLICES = 7;
 const FX_TTL_MS = 700;
 const DRAG_MOVES = 3;
+/** Extra travel each via waypoint buys a path drag, so a long stroke is not rushed. */
+const DRAG_VIA_MS = 300;
 const PRESS_FLASH_MS = 200;
 const HOLD_RAMP_TICKS = 6;
 /** Where a touch contact's pressure ramp starts; a resting finger is not weightless. */
@@ -79,6 +81,14 @@ function holdForce(elapsed: number): number {
 }
 
 const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+/** The keys a withKey scope stamps as event flags; any other key is held without one. */
+const MOD_FLAGS: Partial<Record<string, 'shiftKey' | 'ctrlKey' | 'altKey' | 'metaKey'>> = {
+  Shift: 'shiftKey',
+  Control: 'ctrlKey',
+  Alt: 'altKey',
+  Meta: 'metaKey',
+};
 
 // Tall, narrow arrow with a vertical left edge and a tail, like a real pointer.
 // The tip sits at (4.5, 1.5); stage.css offsets the svg so the tip is the hotspot.
@@ -129,6 +139,8 @@ export class AttractPlayer {
   #hovered: Element | null = null;
   #simFocus: Element | null = null;
   #resumeTimer: ReturnType<typeof setTimeout> | undefined;
+  /** Modifier flags the withKey scopes currently hold, stamped on every event the ghost dispatches. */
+  #mods = { shiftKey: false, ctrlKey: false, altKey: false, metaKey: false };
   /** Attribute spellings the ghost set itself, so it never removes a demo's own. */
   #hoverOwned: Element | null = null;
   #pressOwned: Element | null = null;
@@ -249,37 +261,57 @@ export class AttractPlayer {
     for (const [index, step] of this.#steps.entries()) {
       if (generation !== this.#generation) return false;
       if ('moveTo' in step) {
-        this.#target = this.#host.root().querySelector(step.moveTo);
-        this.#hover(this.#target);
+        this.#summonStep(step);
         continue;
       }
-      if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
-      else if ('hold' in step) this.#summonHold(step.hold);
-      else if ('pinch' in step) this.#summonPinch(step.pinch.scale);
-      else if ('rightClick' in step) this.#dispatchButton(2);
-      else if ('middleClick' in step) this.#dispatchButton(1);
-      else if ('drag' in step) this.#summonDrag(step.drag.to);
-      else if ('press' in step) this.#dispatchKey(step.press);
-      else if ('holdKey' in step) this.#summonHoldKey(step.holdKey.key, step.holdKey.ms);
-      else if ('type' in step) this.#dispatchType(step.type);
-      else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
       // Waits are dropped, except the ones the script itself says are load-bearing:
       // a beat followed by a `visible` assert is often the only reason the subject
       // exists at all (a tooltip, behind its hover delay). Those are polled, capped,
       // and left the instant the subject shows. Every other beat is time the viewer
       // would spend watching nothing arrive.
-      else if ('wait' in step) {
+      if ('wait' in step) {
         if (!this.#expectsVisible(index)) continue;
         for (let left = Math.min(step.wait, SUMMON_WAIT_MS); left > 0; left -= SUMMON_TICK_MS) {
           if (!(await this.#sleep(Math.min(SUMMON_TICK_MS, left), generation))) return false;
           if (revealed()) return true;
         }
         continue;
-      } else continue;
+      }
+      if ('assert' in step) continue;
+      this.#summonStep(step);
       if (!(await this.#sleep(SUMMON_GAP_MS, generation))) return false;
       if (revealed()) return true;
     }
     return true;
+  }
+
+  /** One step, fast-forwarded; summon's loop and a summoned withKey scope both feed it. */
+  #summonStep(step: Step): void {
+    if ('moveTo' in step) {
+      this.#target = this.#host.root().querySelector(step.moveTo);
+      // Persona rules hold in fast-forward too: a finger that is not pressing is not there.
+      this.#hover(this.#personaFor(this.#target) === 'touch' ? null : this.#target);
+    } else if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
+    else if ('hold' in step) this.#summonHold(step.hold);
+    else if ('pinch' in step) this.#summonPinch(step.pinch.scale);
+    else if ('rightClick' in step) this.#dispatchButton(2);
+    else if ('middleClick' in step) this.#dispatchButton(1);
+    else if ('drag' in step) this.#summonDrag(step.drag);
+    else if ('withKey' in step) this.#summonWithKey(step.withKey.key, step.withKey.steps);
+    else if ('press' in step) this.#dispatchKey(step.press);
+    else if ('holdKey' in step) this.#summonHoldKey(step.holdKey.key, step.holdKey.ms);
+    else if ('type' in step) this.#dispatchType(step.type);
+    else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
+  }
+
+  /** A withKey scope, fast-forwarded: the bracketing keydown and keyup around the children in one burst. */
+  #summonWithKey(key: string, steps: Step[]): void {
+    const flag = MOD_FLAGS[key];
+    if (flag) this.#mods[flag] = true;
+    this.#keyEl().dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...this.#mods }));
+    for (const step of steps) this.#summonStep(step);
+    if (flag) this.#mods[flag] = false;
+    this.#keyEl().dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true, cancelable: true, ...this.#mods }));
   }
 
   /** Does the script claim something should be on screen once the step at `from` is over? */
@@ -301,6 +333,7 @@ export class AttractPlayer {
     this.#simFocus = null;
     this.#target = null;
     this.#hovered = null;
+    this.#mods = { shiftKey: false, ctrlKey: false, altKey: false, metaKey: false };
   }
 
   #tryAttract(): void {
@@ -362,58 +395,105 @@ export class AttractPlayer {
   async #play(generation: number, failures: AssertFailure[] | undefined): Promise<void> {
     for (const [index, step] of this.#steps.entries()) {
       if (generation !== this.#generation) return;
-      if ('moveTo' in step) {
-        if (!(await this.#moveTo(step.moveTo, generation))) return;
-      } else if ('click' in step || 'dblclick' in step) {
-        const tap = this.#personaFor(this.#target) === 'touch';
-        this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
-        if (tap) this.#contactFlash();
-        if ('dblclick' in step) setTimeout(() => this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left'), 140);
-        this.#dispatchButton(0, 'dblclick' in step, true);
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('hold' in step) {
-        if (!(await this.#hold(step.hold, generation))) return;
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('pinch' in step) {
-        if (!(await this.#pinch(step.pinch.scale, step.pinch.ms ?? PINCH_MS, generation))) return;
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('rightClick' in step) {
-        this.#fx('vd-fx-arc vd-fx-arc--right');
-        this.#dispatchButton(2);
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('middleClick' in step) {
-        this.#fx('vd-fx-caret vd-fx-caret--up vd-fx-caret--pulse');
-        this.#fx('vd-fx-caret vd-fx-caret--down vd-fx-caret--pulse');
-        this.#dispatchButton(1);
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('drag' in step) {
-        if (!(await this.#drag(step.drag.to, generation))) return;
-      } else if ('press' in step) {
-        this.#showKey(step.press);
-        this.#dispatchKey(step.press);
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('holdKey' in step) {
-        if (!(await this.#holdKey(step.holdKey.key, step.holdKey.ms, generation))) return;
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('type' in step) {
-        if (!(await this.#typewrite(step.type, generation))) return;
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('scroll' in step) {
-        const y = step.scroll.y ?? 0;
-        if (y !== 0) this.#fxWheel(y > 0 ? 'down' : 'up');
-        if (!(await this.#scroll(step.scroll.x ?? 0, y, generation))) return;
-        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
-      } else if ('wait' in step) {
-        if (!(await this.#sleep(step.wait, generation))) return;
-      } else if ('assert' in step && failures) {
-        // `assert` steps are invisible to viewers and load-bearing in CI (SPEC §8).
-        const el = this.#host.root().querySelector<HTMLElement>(step.assert.selector);
-        // `hidden` is satisfied by an absent element as well as an invisible one.
-        const shown = el ? isSeen(el) : false;
-        if (shown !== (step.assert.state === 'visible'))
-          failures.push({ step: index, selector: step.assert.selector, expected: step.assert.state });
+      if (!(await this.#perform(step, index, generation, failures))) return;
+    }
+  }
+
+  /**
+   * One step of the script; #play and #withKey both feed it. Returns false when
+   * this run was cancelled. `index` points a failing assert at a script line; a
+   * step inside a withKey scope reports the scope's own line.
+   */
+  async #perform(step: Step, index: number, generation: number, failures: AssertFailure[] | undefined): Promise<boolean> {
+    if ('moveTo' in step) return this.#moveTo(step.moveTo, generation);
+    if ('click' in step || 'dblclick' in step) {
+      const tap = this.#personaFor(this.#target) === 'touch';
+      this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
+      if (tap) this.#contactFlash();
+      if ('dblclick' in step) setTimeout(() => this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left'), 140);
+      this.#dispatchButton(0, 'dblclick' in step, true);
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('hold' in step) {
+      if (!(await this.#hold(step.hold, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('pinch' in step) {
+      if (!(await this.#pinch(step.pinch.scale, step.pinch.ms ?? PINCH_MS, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('rightClick' in step) {
+      this.#fx('vd-fx-arc vd-fx-arc--right');
+      this.#dispatchButton(2);
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('middleClick' in step) {
+      this.#fx('vd-fx-caret vd-fx-caret--up vd-fx-caret--pulse');
+      this.#fx('vd-fx-caret vd-fx-caret--down vd-fx-caret--pulse');
+      this.#dispatchButton(1);
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('drag' in step) return this.#drag(step.drag, generation);
+    if ('withKey' in step) return this.#withKey(step.withKey.key, step.withKey.steps, index, generation, failures);
+    if ('press' in step) {
+      this.#showKey(step.press);
+      this.#dispatchKey(step.press);
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('holdKey' in step) {
+      if (!(await this.#holdKey(step.holdKey.key, step.holdKey.ms, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('type' in step) {
+      if (!(await this.#typewrite(step.type, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('scroll' in step) {
+      const y = step.scroll.y ?? 0;
+      if (y !== 0) this.#fxWheel(y > 0 ? 'down' : 'up');
+      if (!(await this.#scroll(step.scroll.x ?? 0, y, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('wait' in step) return this.#sleep(step.wait, generation);
+    if ('assert' in step && failures) {
+      // `assert` steps are invisible to viewers and load-bearing in CI (SPEC §8).
+      const el = this.#host.root().querySelector<HTMLElement>(step.assert.selector);
+      // `hidden` is satisfied by an absent element as well as an invisible one.
+      const shown = el ? isSeen(el) : false;
+      if (shown !== (step.assert.state === 'visible'))
+        failures.push({ step: index, selector: step.assert.selector, expected: step.assert.state });
+    }
+    return true;
+  }
+
+  /**
+   * Hold a key across the enclosed steps (SPEC §8): keydown as the scope opens,
+   * keyup as it closes, the chip held for the duration. Shift, Control, Alt, and
+   * Meta stamp their flag on every event dispatched inside, which is how a click
+   * becomes a Ctrl+click and a drag a Shift+drag; other keys are held without a
+   * flag. The flag clears and the keyup fires even when a child step cancels the
+   * run, so a held key can never leak into takeover.
+   */
+  async #withKey(key: string, steps: Step[], index: number, generation: number, failures: AssertFailure[] | undefined): Promise<boolean> {
+    const flag = MOD_FLAGS[key];
+    const chip = this.#showKey(key, true);
+    if (flag) this.#mods[flag] = true;
+    // The browser sets a modifier's own flag on its keydown and clears it before
+    // the keyup, so the scope's bracketing events carry the same shape.
+    this.#keyEl().dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...this.#mods }));
+    let ok = true;
+    for (const step of steps) {
+      if (generation !== this.#generation || !(await this.#perform(step, index, generation, failures))) {
+        ok = false;
+        break;
       }
     }
+    if (flag) this.#mods[flag] = false;
+    this.#keyEl().dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true, cancelable: true, ...this.#mods }));
+    chip.removeAttribute('data-live');
+    chip.setAttribute('data-done', '');
+    setTimeout(() => chip.remove(), FX_TTL_MS);
+    return ok;
   }
 
   async #moveTo(selector: string, generation: number): Promise<boolean> {
@@ -485,40 +565,49 @@ export class AttractPlayer {
 
   #dispatchHover(el: Element, bubbling: string[], direct: string[], pointerType = 'mouse'): void {
     const at = aimAt(el);
-    const base = { cancelable: false, clientX: at.x, clientY: at.y, pointerType };
+    const base = { cancelable: false, clientX: at.x, clientY: at.y, pointerType, ...this.#mods };
     for (const type of bubbling) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: true }));
     for (const type of direct) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: false }));
   }
 
   /**
-   * Held drag: pointer down at the current target, travel, release at `to` (SPEC §8).
-   * The cursor closes into a grab hand for as long as the button is held, and the
-   * release ripples the same arc a click does. Cancellation mid-drag goes through
-   * #cancelRun, which is what lets go of the hand on every abandoned run.
+   * Held drag: pointer down at the current target, travel, release at `to` (SPEC §8),
+   * through the `via` waypoints when the stroke has a shape — one continuous press
+   * either way, since a gesture, a lasso, or a signature is one stroke, not several.
+   * The cursor closes into a grab hand for as long as the button is held, tracing
+   * the same polyline the dispatched moves take, and the release ripples the same
+   * arc a click does. Cancellation mid-drag goes through #cancelRun, which is what
+   * lets go of the hand on every abandoned run.
    */
-  async #drag(toSelector: string, generation: number): Promise<boolean> {
+  async #drag(drag: { to: string; via?: string[] }, generation: number): Promise<boolean> {
     const source = this.#target;
-    const dest = this.#host.root().querySelector(toSelector);
+    const root = this.#host.root();
+    const dest = root.querySelector(drag.to);
     if (!source || !dest) return this.#sleep(STEP_GAP_MS, generation);
-    const from = aimAt(source);
-    const to = aimAt(dest);
+    const via = (drag.via ?? []).map((sel) => root.querySelector(sel)).filter((el): el is Element => el !== null);
+    const stops = [...via, dest].map((el) => aimAt(el));
     const touch = this.#personaFor(source) === 'touch';
     const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
     // A finger swipes as a pressed contact; a mouse drag closes into the grab hand.
     this.#cursor.setAttribute(touch ? 'data-contact' : 'data-grab', '');
+    let from = aimAt(source);
     this.#dispatchPointer(source, 'pointerdown', from, kind);
     // Held for the whole drag: the source shows its pressed paint as long as the
     // hand is closed on it. Released with the pointer, or by #cancelRun.
     this.#press(source);
-    const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
-    this.#placeCursor(to, travel);
-    for (let i = 1; i <= DRAG_MOVES; i++) {
-      if (!(await this.#sleep(Math.max(travel / (DRAG_MOVES + 1), 10), generation))) return false;
-      const t = i / DRAG_MOVES;
-      this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind);
+    const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS + DRAG_VIA_MS * via.length;
+    const leg = travel / stops.length;
+    for (const to of stops) {
+      this.#placeCursor(to, leg);
+      for (let i = 1; i <= DRAG_MOVES; i++) {
+        if (!(await this.#sleep(Math.max(leg / (DRAG_MOVES + 1), 10), generation))) return false;
+        const t = i / DRAG_MOVES;
+        this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind);
+      }
+      from = to;
     }
     if (!(await this.#sleep(120, generation))) return false;
-    this.#dispatchPointer(source, 'pointerup', to, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
+    this.#dispatchPointer(source, 'pointerup', from, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
     this.#releasePress();
     this.#cursor.removeAttribute(touch ? 'data-contact' : 'data-grab');
     this.#fx(touch ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
@@ -669,14 +758,19 @@ export class AttractPlayer {
     return true;
   }
 
-  #summonDrag(toSelector: string): void {
+  #summonDrag(drag: { to: string; via?: string[] }): void {
     const source = this.#target;
-    const dest = this.#host.root().querySelector(toSelector);
+    const root = this.#host.root();
+    const dest = root.querySelector(drag.to);
     if (!source || !dest) return;
-    const to = aimAt(dest);
     const touch = this.#personaFor(source) === 'touch';
     const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
     this.#dispatchPointer(source, 'pointerdown', aimAt(source), kind);
+    for (const sel of drag.via ?? []) {
+      const el = root.querySelector(sel);
+      if (el) this.#dispatchPointer(source, 'pointermove', aimAt(el), kind);
+    }
+    const to = aimAt(dest);
     this.#dispatchPointer(source, 'pointermove', to, kind);
     this.#dispatchPointer(source, 'pointerup', to, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
     this.#target = dest;
@@ -719,7 +813,7 @@ export class AttractPlayer {
     // Right and middle stay mouse gestures even inside a touch scope: a finger has
     // no buttons, and a choreography on a touch surface has no business with them.
     const touch = button === 0 && this.#personaFor(el) === 'touch';
-    const opts = { bubbles: true, cancelable: true, button, clientX: at.x, clientY: at.y };
+    const opts = { bubbles: true, cancelable: true, button, clientX: at.x, clientY: at.y, ...this.#mods };
     const down = touch ? { ...opts, pointerType: 'touch', pressure: 0.5 } : opts;
     const up = touch ? { ...opts, pointerType: 'touch', pressure: 0 } : opts;
     // A real tap wraps its press in the compatibility hover pair; the mirror is
@@ -756,6 +850,7 @@ export class AttractPlayer {
         buttons: type === 'pointerup' ? 0 : 1,
         clientX: at.x,
         clientY: at.y,
+        ...this.#mods,
         ...(kind ?? {}),
       }),
     );
@@ -769,7 +864,7 @@ export class AttractPlayer {
   #dispatchKey(key: string): void {
     if (key === 'Tab') this.#advanceSimFocus();
     const el = this.#keyEl();
-    const opts = { key, bubbles: true, cancelable: true };
+    const opts = { key, bubbles: true, cancelable: true, ...this.#mods };
     el.dispatchEvent(new KeyboardEvent('keydown', opts));
     el.dispatchEvent(new KeyboardEvent('keyup', opts));
   }
@@ -783,7 +878,7 @@ export class AttractPlayer {
    */
   async #holdKey(key: string, ms: number, generation: number): Promise<boolean> {
     const el = this.#keyEl();
-    const opts = { key, bubbles: true, cancelable: true };
+    const opts = { key, bubbles: true, cancelable: true, ...this.#mods };
     const chip = this.#showKey(key, true);
     const retire = (ok: boolean) => {
       chip.removeAttribute('data-live');
@@ -809,7 +904,7 @@ export class AttractPlayer {
   /** A key hold, fast-forwarded: the repeats its duration buys, in one burst. */
   #summonHoldKey(key: string, ms: number): void {
     const el = this.#keyEl();
-    const opts = { key, bubbles: true, cancelable: true };
+    const opts = { key, bubbles: true, cancelable: true, ...this.#mods };
     el.dispatchEvent(new KeyboardEvent('keydown', opts));
     const repeats = Math.max(0, Math.floor((ms - KEY_REPEAT_DELAY_MS) / KEY_REPEAT_INTERVAL_MS));
     for (let i = 0; i < repeats; i++) el.dispatchEvent(new KeyboardEvent('keydown', { ...opts, repeat: true }));

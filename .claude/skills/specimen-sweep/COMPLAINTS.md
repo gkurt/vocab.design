@@ -88,16 +88,18 @@ complete; until then entries only accumulate. Entry format:
   flagged, most legitimate. Judge buckets per slug:
   (a) REWRITE NOW, primitive exists: long-press, spring-loading, jiggle-mode
       (hold-countdown sims the `hold` step replaces), pressure-sensitivity
-      (hold + pressure ramp). force-touch, hold-to-confirm, and key-repeat
+      (hold + pressure ramp); nudge, range-select, access-key, and any other
+      simulated-modifier controls (the `withKey` scope landed 2026-08-19, laws
+      23-24; modifier-key rewritten as its first consumer the same day, and
+      signature-pad's drag gained via waypoints as the path drag's first
+      consumer). force-touch, hold-to-confirm, and key-repeat
       (the `holdKey` step's first consumer, plus its focusability bug) already
       rewritten 2026-08-19.
   (b) NEEDS A PRIMITIVE, add to the backlog and wait: rotate-gesture (rotation is
       not in the pinch step or pinchSpread's signal), multi-touch (>2 contacts),
       look-and-pinch (gaze); the two-contact pinch itself landed 2026-08-19
       (`pinch` step + pinchSpread + Ctrl+drag takeover; pinch-to-zoom rewritten
-      as first consumer, moving it out of this backlog); modifier-key, nudge,
-      range-select, access-key (a modifier held ACROSS other steps, e.g.
-      Shift+drag: `holdKey` holds one key for a duration but cannot span steps);
+      as first consumer, moving it out of this backlog);
       shake-to-undo (device motion: decide at build time whether synthesized
       devicemotion is honest or sensor input counts as environment).
   (c) ENVIRONMENT, skip: simulated viewports (breakpoint, container, fluid-*,

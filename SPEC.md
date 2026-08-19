@@ -414,7 +414,14 @@ export default steps([
 ```
 
 - **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
-  `middleClick`, `drag`, `hold` (press-and-hold for N ms), `pinch` (spread or close
+  `middleClick`, `drag` (held press to a target, optionally through `via` waypoints:
+  one continuous stroke tracing the polyline, which is what lets a gesture, a lasso,
+  or a signature be one stroke instead of several), `withKey` (hold a key across the
+  enclosed steps: keydown as the scope opens, keyup as it closes, the chip held for
+  the duration; Shift, Control, Alt, and Meta stamp their flag on every event
+  dispatched inside, so a click becomes a Ctrl+click and a drag a Shift+drag; scopes
+  nest for chords, and the scope closes even on a cancelled run, so a held key can
+  never leak), `hold` (press-and-hold for N ms), `pinch` (spread or close
   two touch contacts about the current target: two pointerdowns with their own
   pointerIds, moves, two pointerups — the separation ends at exactly `scale` times
   where it began, and never exceeds the stage's span, so an opening pinch starts
