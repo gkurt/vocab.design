@@ -78,14 +78,22 @@ function pinchRig() {
   const el = new EventTarget() as unknown as HTMLElement;
   const starts: { x: number; y: number }[] = [];
   const scales: number[] = [];
+  const turns: number[] = [];
   const ends: number[] = [];
+  const endTurns: number[] = [];
   pinchSpread(el, {
     onStart: (center) => starts.push(center),
-    onPinch: (scale) => scales.push(scale),
-    onEnd: (scale) => ends.push(scale),
+    onPinch: (scale, turn) => {
+      scales.push(scale);
+      turns.push(turn);
+    },
+    onEnd: (scale, turn) => {
+      ends.push(scale);
+      endTurns.push(turn);
+    },
   });
   const fire = (type: string, init: Record<string, unknown>) => el.dispatchEvent(Object.assign(new Event(type), init));
-  return { fire, starts, scales, ends };
+  return { fire, starts, scales, turns, ends, endTurns };
 }
 
 describe('pinchSpread', () => {
@@ -128,6 +136,26 @@ describe('pinchSpread', () => {
     fire('pointerup', { pointerType: 'mouse', pointerId: 1, clientX: 160, clientY: 160 });
     expect(scales).toEqual([]);
     expect(ends).toEqual([]);
+  });
+
+  test('two contacts orbiting report their turn in degrees, clockwise', () => {
+    const { fire, turns, scales, endTurns } = pinchRig();
+    fire('pointerdown', { pointerType: 'touch', pointerId: 1, clientX: 100, clientY: 100 });
+    fire('pointerdown', { pointerType: 'touch', pointerId: 2, clientX: 140, clientY: 100 });
+    // The second finger swings a quarter turn around the first at the same distance.
+    fire('pointermove', { pointerType: 'touch', pointerId: 2, clientX: 100, clientY: 140 });
+    expect(turns.at(-1)).toBeCloseTo(90);
+    expect(scales.at(-1)).toBeCloseTo(1);
+    fire('pointerup', { pointerType: 'touch', pointerId: 2, clientX: 100, clientY: 140 });
+    expect(endTurns).toEqual([90]);
+  });
+
+  test('a Ctrl+drag swinging around the mirror centre turns the pair', () => {
+    const { fire, turns } = pinchRig();
+    fire('pointerdown', { pointerType: 'mouse', ctrlKey: true, pointerId: 1, clientX: 100, clientY: 100 });
+    // From the 45deg base diagonal to straight down off the centre at (79, 79): a 45deg turn.
+    fire('pointermove', { pointerType: 'mouse', pointerId: 1, clientX: 79, clientY: 109 });
+    expect(turns.at(-1)).toBeCloseTo(45);
   });
 
   test('a stray pointerup never ends a gesture it is not part of', () => {

@@ -83,20 +83,30 @@ export function pressureHold(el: HTMLElement, clock: ClockLike, handlers: Pressu
  */
 const MIRROR_HALF = { x: 21, y: 21 };
 
+/** Fold an angle delta into (-180, 180], so a gesture's turn never wraps into a spin. */
+function foldTurn(deg: number): number {
+  const folded = ((deg + 540) % 360) - 180;
+  return folded === -180 ? 180 : folded;
+}
+
 /**
  * The Ctrl+drag pinch model, shared with the stage's TouchMirror so the disc it
- * draws and the scale a demo computes can never disagree. The pressed point is
+ * draws and the signal a demo computes can never disagree. The pressed point is
  * one contact and stays under the pointer; the centre sits MIRROR_HALF away, and
  * the second contact mirrors the pointer across it. Dragging down-right opens
- * the pinch, back up-left closes it.
+ * the pinch, back up-left closes it, and swinging around the centre turns it —
+ * `turn` is the pair's rotation in degrees, clockwise, from where it began.
  */
 export function mirrorPinch(
   down: { x: number; y: number },
   at: { x: number; y: number },
-): { scale: number; center: { x: number; y: number }; other: { x: number; y: number } } {
+): { scale: number; turn: number; center: { x: number; y: number }; other: { x: number; y: number } } {
   const center = { x: down.x - MIRROR_HALF.x, y: down.y - MIRROR_HALF.y };
+  const dx = at.x - center.x;
+  const dy = at.y - center.y;
   return {
-    scale: Math.hypot(at.x - center.x, at.y - center.y) / Math.hypot(MIRROR_HALF.x, MIRROR_HALF.y),
+    scale: Math.hypot(dx, dy) / Math.hypot(MIRROR_HALF.x, MIRROR_HALF.y),
+    turn: foldTurn(((Math.atan2(dy, dx) - Math.atan2(MIRROR_HALF.y, MIRROR_HALF.x)) * 180) / Math.PI),
     center,
     other: { x: 2 * center.x - at.x, y: 2 * center.y - at.y },
   };
@@ -105,10 +115,14 @@ export function mirrorPinch(
 export interface PinchHandlers {
   /** A pinch engaged (second finger down, or a Ctrl+drag began), centred here in client coordinates. */
   onStart?: (center: { x: number; y: number }) => void;
-  /** The live scale, relative to the separation the gesture began at (1 as it engages). */
-  onPinch: (scale: number) => void;
-  /** The gesture ended (a finger lifted, the button released), at the scale it reached. */
-  onEnd: (scale: number) => void;
+  /**
+   * The live signal, relative to where the gesture engaged: `scale` is the
+   * separation ratio (1 as it engages), `turn` the pair's rotation in degrees,
+   * clockwise. A demo uses the half it names and ignores the other.
+   */
+  onPinch: (scale: number, turn: number) => void;
+  /** The gesture ended (a finger lifted, the button released), at the signal it reached. */
+  onEnd: (scale: number, turn: number) => void;
 }
 
 /**
@@ -123,19 +137,23 @@ export interface PinchHandlers {
 export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
   const contacts = new Map<number, { x: number; y: number }>();
   let base = 0;
+  let baseAngle = 0;
   let scale = 1;
+  let turn = 0;
   let mouseFrom: { x: number; y: number } | null = null;
 
-  const spread = () => {
+  const pair = () => {
     const [a, b] = [...contacts.values()];
-    return a && b ? Math.hypot(a.x - b.x, a.y - b.y) : 0;
+    if (!a || !b) return null;
+    return { spread: Math.hypot(a.x - b.x, a.y - b.y), angle: (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI };
   };
   const settle = () => {
     if (base === 0 && !mouseFrom) return;
     base = 0;
     mouseFrom = null;
-    handlers.onEnd(scale);
+    handlers.onEnd(scale, turn);
     scale = 1;
+    turn = 0;
   };
 
   el.addEventListener('pointerdown', (event) => {
@@ -144,8 +162,12 @@ export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
       if (contacts.size >= 2) return;
       contacts.set(event.pointerId, { x: event.clientX, y: event.clientY });
       if (contacts.size < 2) return;
-      base = spread();
+      const engaged = pair();
+      if (!engaged) return;
+      base = engaged.spread;
+      baseAngle = engaged.angle;
       scale = 1;
+      turn = 0;
       const [a, b] = [...contacts.values()];
       if (a && b) handlers.onStart?.({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
       return;
@@ -157,19 +179,23 @@ export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
     if (event.isTrusted) el.setPointerCapture(event.pointerId);
     mouseFrom = { x: event.clientX, y: event.clientY };
     scale = 1;
+    turn = 0;
     handlers.onStart?.(mirrorPinch(mouseFrom, mouseFrom).center);
   });
   el.addEventListener('pointermove', (event) => {
     if (mouseFrom) {
-      scale = mirrorPinch(mouseFrom, { x: event.clientX, y: event.clientY }).scale;
-      handlers.onPinch(scale);
+      ({ scale, turn } = mirrorPinch(mouseFrom, { x: event.clientX, y: event.clientY }));
+      handlers.onPinch(scale, turn);
       return;
     }
     if (!contacts.has(event.pointerId)) return;
     contacts.set(event.pointerId, { x: event.clientX, y: event.clientY });
     if (base === 0) return;
-    scale = spread() / base;
-    handlers.onPinch(scale);
+    const live = pair();
+    if (!live) return;
+    scale = live.spread / base;
+    turn = foldTurn(live.angle - baseAngle);
+    handlers.onPinch(scale, turn);
   });
   for (const type of ['pointerup', 'pointercancel'] as const) {
     el.addEventListener(type, (event) => {

@@ -67,8 +67,8 @@ const KEY_REPEAT_INTERVAL_MS = 90;
 const PINCH_SPAN = 110;
 const PINCH_TICKS = 8;
 const PINCH_MS = 650;
-/** The diagonal the contacts spread on — the same axis the reader's Ctrl+drag mirror uses. */
-const PINCH_AXIS = Math.SQRT1_2;
+/** The diagonal the contacts rest on, in degrees — the same axis the reader's Ctrl+drag mirror uses. */
+const PINCH_BASE_DEG = 45;
 const PINCH_ID_A = 21;
 const PINCH_ID_B = 22;
 
@@ -296,7 +296,7 @@ export class AttractPlayer {
       this.#hover(this.#personaFor(this.#target) === 'touch' ? null : this.#target);
     } else if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
     else if ('hold' in step) this.#summonHold(step.hold);
-    else if ('pinch' in step) this.#summonPinch(step.pinch.scale);
+    else if ('pinch' in step) this.#summonPinch(step.pinch);
     else if ('rightClick' in step) this.#dispatchButton(2);
     else if ('middleClick' in step) this.#dispatchButton(1);
     else if ('drag' in step) this.#summonDrag(step.drag);
@@ -353,6 +353,7 @@ export class AttractPlayer {
     this.#cursor.removeAttribute('data-gesture');
     this.#cursor.style.removeProperty('--vd-force');
     this.#cursor.style.removeProperty('--vd-pinch');
+    this.#cursor.style.removeProperty('--vd-pinch-turn');
     // A run abandoned mid-drag must not hand over a button still painted pressed.
     // Hover is not released here: userIntent keeps it when the real pointer is
     // already inside the hovered element, and a reset remounts everything anyway.
@@ -423,7 +424,7 @@ export class AttractPlayer {
       return this.#sleep(STEP_GAP_MS, generation);
     }
     if ('pinch' in step) {
-      if (!(await this.#pinch(step.pinch.scale, step.pinch.ms ?? PINCH_MS, generation))) return false;
+      if (!(await this.#pinch(step.pinch, generation))) return false;
       return this.#sleep(STEP_GAP_MS, generation);
     }
     if ('rightClick' in step) {
@@ -671,61 +672,79 @@ export class AttractPlayer {
   }
 
   /**
-   * Spread or close two touch contacts about the current target (SPEC §8). Both
-   * contacts dispatch as `pointerType: 'touch'` with their own pointerId — the
-   * two-pointerdown shape a real pinch has on the web, which is what lets
+   * Spread, close, or turn two touch contacts about the current target (SPEC §8).
+   * Both contacts dispatch as `pointerType: 'touch'` with their own pointerId —
+   * the two-pointerdown shape a real pinch has on the web, which is what lets
    * `pinchSpread` read the script and a real pinch through one wiring. The
-   * cursor's twin discs carry the separation (--vd-pinch is its live half).
-   * Duration here is animation, not semantics: the scale is stated, so reduced
-   * motion collapses the move — unlike `hold`, whose length IS the depth.
+   * cursor's twin discs carry the gesture (--vd-pinch is the live half
+   * separation, --vd-pinch-turn the pair's angle). Duration here is animation,
+   * not semantics: the amounts are stated, so reduced motion collapses the
+   * move — unlike `hold`, whose length IS the depth.
    */
-  async #pinch(scale: number, ms: number, generation: number): Promise<boolean> {
+  async #pinch(pinch: { scale?: number; turn?: number; ms?: number }, generation: number): Promise<boolean> {
     const el = this.#target;
     if (!el) return this.#sleep(STEP_GAP_MS, generation);
     const at = aimAt(el);
+    const scale = pinch.scale ?? 1;
+    const turn = pinch.turn ?? 0;
     const from = (scale >= 1 ? PINCH_SPAN / scale : PINCH_SPAN) / 2;
     const to = from * scale;
     // A pinch is touch by nature, whatever scope its target sits in.
     this.#setPersona('touch');
     this.#cursor.setAttribute('data-gesture', 'pinch');
+    const paint = (half: number, deg: number) => {
+      this.#cursor.style.setProperty('--vd-pinch', `${half}px`);
+      this.#cursor.style.setProperty('--vd-pinch-turn', `${PINCH_BASE_DEG + deg}deg`);
+    };
     const retire = () => {
       this.#cursor.removeAttribute('data-gesture');
       this.#cursor.style.removeProperty('--vd-pinch');
+      this.#cursor.style.removeProperty('--vd-pinch-turn');
     };
-    this.#cursor.style.setProperty('--vd-pinch', `${from}px`);
-    this.#dispatchPinch(el, 'pointerdown', at, from);
-    const dur = this.#host.reducedMotion ? 0 : ms;
+    paint(from, 0);
+    this.#dispatchPinch(el, 'pointerdown', at, from, 0);
+    const dur = this.#host.reducedMotion ? 0 : (pinch.ms ?? PINCH_MS);
     for (let i = 1; i <= PINCH_TICKS; i++) {
       if (!(await this.#sleep(Math.max(dur / PINCH_TICKS, 10), generation))) {
         retire();
         return false;
       }
       const half = from + ((to - from) * i) / PINCH_TICKS;
-      this.#cursor.style.setProperty('--vd-pinch', `${half}px`);
-      this.#dispatchPinch(el, 'pointermove', at, half);
+      const deg = (turn * i) / PINCH_TICKS;
+      paint(half, deg);
+      this.#dispatchPinch(el, 'pointermove', at, half, deg);
     }
-    this.#dispatchPinch(el, 'pointerup', at, to);
+    this.#dispatchPinch(el, 'pointerup', at, to, turn);
     retire();
     return true;
   }
 
-  /** One tick of the pinch: both contacts, symmetric about `at` on the gesture's diagonal. */
-  #dispatchPinch(el: Element, type: 'pointerdown' | 'pointermove' | 'pointerup', at: { x: number; y: number }, half: number): void {
+  /** One tick of the pinch: both contacts symmetric about `at`, `deg` clockwise off the base diagonal. */
+  #dispatchPinch(
+    el: Element,
+    type: 'pointerdown' | 'pointermove' | 'pointerup',
+    at: { x: number; y: number },
+    half: number,
+    deg: number,
+  ): void {
     const pressure = type === 'pointerup' ? 0 : 0.5;
-    const contact = (sign: 1 | -1) => ({ x: at.x + sign * half * PINCH_AXIS, y: at.y + sign * half * PINCH_AXIS });
+    const angle = ((PINCH_BASE_DEG + deg) * Math.PI) / 180;
+    const contact = (sign: 1 | -1) => ({ x: at.x + sign * half * Math.cos(angle), y: at.y + sign * half * Math.sin(angle) });
     this.#dispatchPointer(el, type, contact(1), { pointerType: 'touch', pressure, pointerId: PINCH_ID_A, isPrimary: true });
     this.#dispatchPointer(el, type, contact(-1), { pointerType: 'touch', pressure, pointerId: PINCH_ID_B });
   }
 
-  /** A pinch, fast-forwarded: both contacts down, one move to the final spread, up. */
-  #summonPinch(scale: number): void {
+  /** A pinch, fast-forwarded: both contacts down, one move to the final spread and angle, up. */
+  #summonPinch(pinch: { scale?: number; turn?: number; ms?: number }): void {
     const el = this.#target;
     if (!el) return;
     const at = aimAt(el);
+    const scale = pinch.scale ?? 1;
+    const turn = pinch.turn ?? 0;
     const from = (scale >= 1 ? PINCH_SPAN / scale : PINCH_SPAN) / 2;
-    this.#dispatchPinch(el, 'pointerdown', at, from);
-    this.#dispatchPinch(el, 'pointermove', at, from * scale);
-    this.#dispatchPinch(el, 'pointerup', at, from * scale);
+    this.#dispatchPinch(el, 'pointerdown', at, from, 0);
+    this.#dispatchPinch(el, 'pointermove', at, from * scale, turn);
+    this.#dispatchPinch(el, 'pointerup', at, from * scale, turn);
   }
 
   /** A hold, fast-forwarded: down, one move at the depth the hold would reach, up. */

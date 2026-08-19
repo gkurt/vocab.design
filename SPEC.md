@@ -379,8 +379,11 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   (and no force fill during a pinch: it is a spread, not a press). A trackpad
   pinch arrives as a ctrl+wheel event, not as pointers, and stays the demo's own
   to wire; the script performs it as a `wheel` step inside a `withKey` Control
-  scope (§8). Rotation and gestures past two contacts are not in the vocabulary
-  yet; terms that need them wait.
+  scope (§8). Rotation rides the same pair: the `pinch` step's `turn` rotates the
+  contacts, `pinchSpread` reports (scale, turn) so a demo uses the half it names,
+  and a Ctrl+drag swinging around the mirror centre turns the pair for a mouse.
+  Gestures past two contacts are not in the vocabulary yet; terms that need them
+  wait.
 
 ### Non-negotiables
 
@@ -422,11 +425,12 @@ export default steps([
   the duration; Shift, Control, Alt, and Meta stamp their flag on every event
   dispatched inside, so a click becomes a Ctrl+click and a drag a Shift+drag; scopes
   nest for chords, and the scope closes even on a cancelled run, so a held key can
-  never leak), `hold` (press-and-hold for N ms), `pinch` (spread or close
-  two touch contacts about the current target: two pointerdowns with their own
-  pointerIds, moves, two pointerups — the separation ends at exactly `scale` times
-  where it began, and never exceeds the stage's span, so an opening pinch starts
-  narrow and a closing one ends narrow), `press` (key), `holdKey`
+  never leak), `hold` (press-and-hold for N ms), `pinch` (two touch contacts
+  about the current target: two pointerdowns with their own pointerIds, moves,
+  two pointerups — `scale` spreads or closes the pair, the separation ending at
+  exactly that ratio of where it began and never exceeding the stage's span, and
+  `turn` rotates the pair by that many degrees clockwise, either alone or both
+  together), `press` (key), `holdKey`
   (hold a key for N ms: one keydown, the typematic delay, then `repeat: true`
   keydowns at a steady rate until the keyup, the chip counting them as
   "ArrowRight ×12"), `type` (text), `scroll`, `wheel` (a short burst of real

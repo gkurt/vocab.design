@@ -173,15 +173,17 @@ never fires under reduced motion, so nothing may ever wait on it.
   (pass the DemoClock), which turns a real reader's held mouse button into the same
   force signal; the stage likewise draws the reader's own pointer as the disc inside
   a touch scope (the kit hides the native cursor there), so demos never wire cursor
-  styles on touch surfaces. The `pinch` step spreads or closes twin contacts about
-  its target (end/start separation exactly its scale; `ms` is animation, so reduced
-  motion collapses it, unlike `hold`). A pinch-driven demo wires `pinchSpread` from
-  `#src/kit/touch.ts`: one scale signal for the script's two contacts, a real
-  two-finger pinch, and a reader's mouse via Ctrl+drag (a mirrored virtual second
-  contact the stage also draws); anchor the response at the centre `onStart`
-  reports. Trackpad pinch arrives as ctrl+wheel and is the demo's own to wire;
+  styles on touch surfaces. The `pinch` step spreads, closes, or turns twin
+  contacts about its target (end/start separation exactly its `scale`, rotation
+  exactly its `turn` in degrees; `ms` is animation, so reduced motion collapses
+  it, unlike `hold`). A gesture-driven demo wires `pinchSpread` from
+  `#src/kit/touch.ts`: one (scale, turn) signal for the script's two contacts, a
+  real two-finger gesture, and a reader's mouse via Ctrl+drag (a mirrored virtual
+  second contact the stage also draws; dragging outward scales, swinging around
+  the centre turns); anchor the response at the centre `onStart` reports.
+  Trackpad pinch arrives as ctrl+wheel and is the demo's own to wire;
   the script performs it as a `wheel` step inside a `withKey` Control scope.
-  Rotation and gestures past two contacts do not exist yet; terms needing them wait.
+  Gestures past two contacts do not exist yet; terms needing them wait.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

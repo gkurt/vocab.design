@@ -1,4 +1,4 @@
 term:    Rotate gesture
 scope:   element
-subject: div.sp-surface[data-angle=0][data-contacts=0][data-gesture=rest][data-part=canvas]
-text:    1 2
+subject: div.sp-surface[data-angle=0][data-contacts=0][data-gesture=rest][data-part=canvas][data-touch]
+text:    
