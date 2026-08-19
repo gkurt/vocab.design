@@ -81,6 +81,14 @@ and the verify prompt as one subagent after all authors return. Authors do their
 own visual pass against the user's dev server; the verify agent runs
 validate/typecheck/biome once and fixes what fails. Nobody runs e2e but you.
 
+**Refused terms** (STAGE_NEWS law 18): an author who finds a term needs input or
+stage machinery the player does not have returns it unauthored with
+`needs stage primitive: <what>` instead of faking it with a simulation control.
+Collect these in the report, tell the user (building the primitive is a main-session
+or dedicated-session job, like `hold` and the touch persona were), and keep the term
+out of rosters until the primitive lands. Faking the player is exactly what the
+fake-touch sweep is un-doing; never mint new offenders.
+
 **Spend-limit interruption recovery** (has happened twice): inventory which slugs
 have all three files (`terms/<slug>.mdx`, `demos/<slug>/demo.ts`,
 `demos/<slug>/choreography.ts`), then relaunch a finish variant: per-category

@@ -36,9 +36,10 @@ complete; until then entries only accumulate. Entry format:
   its own follow-up sweep after the build.
 - Detector: detectors/fake-touch.ts (recall-tuned: touch vocabulary in slug or
   frontmatter). At queue time: 58 flagged; 'state-picked' entries are the prime
-  offenders (force-touch, long-press, multi-touch, pinch-to-zoom, rotate-gesture,
-  double-tap, shake-to-undo, hold-to-confirm...), 'drag-based' entries already
-  perform the gesture with a mouse and may only need the touch persona; known
+  offenders (long-press, multi-touch, pinch-to-zoom, rotate-gesture, double-tap,
+  shake-to-undo...), 'gesture-based' entries already perform the gesture (drag or
+  hold) and may only need the touch persona; force-touch and hold-to-confirm were
+  rewritten 2026-08-19 as the primitive's first consumers; known
   false positives (hover, icon-button, caret) mention touch incidentally. Judge
   question per slug: is the gesture itself the demonstration, and does the script
   perform it or pick its result?

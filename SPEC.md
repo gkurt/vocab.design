@@ -401,6 +401,13 @@ export default steps([
   tap scripts one; under the touch persona (§7) its pointermove events carry a
   pressure climbing at a finger's rate (full force at 900 ms), so the hold's length
   chooses the depth reached — the signal a force-driven demo reads.
+  **The vocabulary grows before a demo fakes it.** A term whose honest demonstration
+  needs input the player cannot perform is a reason to grow the player — as press
+  duration grew `hold` and pressure grew the touch persona — never to ship a control
+  that impersonates the input (a "simulate the hold" button, tabs for pressure
+  levels). A demo is not authored until the input it needs exists. Simulation
+  controls remain legitimate only for conditions no input could ever perform: a
+  network failure, a server delay, a permission state.
 - **Targets are `data-part` attributes only** — a stable semantic contract that
   survives restyling. Never classes or tag structure. An `assert` may qualify a part
   with a state attribute (`[data-part=seg-day][aria-selected="true"]`), which is how a

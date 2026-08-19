@@ -11,12 +11,17 @@ export default steps([
   { assert: { selector: '[data-part=readout][data-outcome=cancelled]', state: 'visible' } },
   { assert: { selector: '[data-part=receipt]', state: 'hidden' } },
   { wait: 900 },
-  // No step in the vocabulary holds a press, so the committed state is reached through
-  // the labelled simulation control, which runs the same countdown a finger does.
-  { moveTo: '[data-part=sim]' },
-  { wait: 400 },
-  { click: true },
-  { wait: 1400 },
+  // A real hold that gives up early: the fill climbs a third of the way and the
+  // guard refuses that too, which is the guard doing its job.
+  { hold: 350 },
+  { wait: 600 },
+  { assert: { selector: '[data-part=readout][data-outcome=cancelled]', state: 'visible' } },
+  { assert: { selector: '[data-part=receipt]', state: 'hidden' } },
+  { wait: 900 },
+  // Held past the threshold, the same press commits: no simulation, the script
+  // presses the button the way a finger does and outlasts the guard.
+  { hold: 1150 },
+  { wait: 600 },
   { assert: { selector: '[data-part=hold][data-confirmed]', state: 'visible' } },
   { assert: { selector: '[data-part=receipt]', state: 'visible' } },
   { assert: { selector: '[data-part=readout][data-outcome=confirmed]', state: 'visible' } },

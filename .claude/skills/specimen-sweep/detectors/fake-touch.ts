@@ -28,10 +28,10 @@ for (const slug of readdirSync(demos).sort()) {
   // Judge the term by what it IS (frontmatter), not by prose that merely mentions touch.
   const frontmatter = term.slice(0, term.indexOf('\n---', 3));
   if (!TOUCH.test(slug) && !TOUCH.test(frontmatter)) continue;
-  const drags = [...script.matchAll(/\bdrag:/g)].length;
+  const gestures = [...script.matchAll(/\b(drag|hold):/g)].length;
   const picks = [...script.matchAll(/moveTo:\s*(['"`])\[data-part=((?:seg|mode|force|state|tab)-[\w-]+)\]\1/g)].map((m) => m[2]);
-  const evidence = drags
-    ? `drag-based (${drags} drags${picks.length ? `, also picks ${[...new Set(picks)].join(', ')}` : ''})`
+  const evidence = gestures
+    ? `gesture-based (${gestures} drags/holds${picks.length ? `, also picks ${[...new Set(picks)].join(', ')}` : ''})`
     : `state-picked${picks.length ? ` via ${[...new Set(picks)].join(', ')}` : ' (clicks only, no gesture steps)'}`;
   flagged++;
   console.log(`${slug}\t${evidence}`);

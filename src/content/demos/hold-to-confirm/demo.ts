@@ -18,11 +18,10 @@ const TICK_MS = 60;
  * receipt are in the tree from mount and only their attributes change, because rebuilding
  * a node under the finger cancels the gesture halfway through.
  *
- * No step in the choreography vocabulary holds a press (SPEC §8), so the scripted pass
- * reaches the committed state through a labelled simulation control that runs the same
- * countdown a finger does. It is instrumentation, so it is scenery. The button holds one
- * width and the receipt sits in a slot reserved from mount, so committing moves nothing
- * (SPEC §5).
+ * The scripted pass holds the press for real: the `hold` step (SPEC §8) is a pointerdown
+ * that stays down, so the script commits through the same wiring a finger does, and a
+ * short hold is refused by it the same way. The button holds one width and the receipt
+ * sits in a slot reserved from mount, so committing moves nothing (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -74,7 +73,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <button class="sp-button sp-button--ghost sp-button--sm sp-context" type="button" data-part="sim">Simulate a ${HOLD_MS} ms hold</button>
     </div>
   `;
 
@@ -146,6 +144,4 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     event.preventDefault();
     if (!confirmed) say('idle', 'Keys repeat rather than hold: use a pointer');
   });
-
-  part(root, 'sim').addEventListener('click', beginHold);
 }

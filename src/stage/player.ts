@@ -506,7 +506,9 @@ export class AttractPlayer {
    * reads — while the disc's inner fill swells with it. Under the mouse persona
    * the button is simply held at the hardware default (0.5). Ends with pointerup
    * and never a click: a long press is not a tap, and a demo that wants the tap
-   * scripts one.
+   * scripts one. Reduced motion keeps the hold's full duration, unlike `type`:
+   * reduced motion flattens animation, never time, and a duration-guarded demo
+   * (hold-to-confirm) is demonstrated by the time the press takes.
    */
   async #hold(ms: number, generation: number): Promise<boolean> {
     const el = this.#target;
@@ -527,9 +529,9 @@ export class AttractPlayer {
     };
     this.#dispatchPointer(el, 'pointerdown', at, { pointerType: type, pressure: touch ? TOUCH_BASE_FORCE : 0.5 });
     this.#press(el);
-    const ticks = this.#host.reducedMotion ? 1 : HOLD_RAMP_TICKS;
+    const ticks = HOLD_RAMP_TICKS;
     for (let i = 1; i <= ticks; i++) {
-      if (!this.#host.reducedMotion && !(await this.#sleep(ms / ticks, generation))) {
+      if (!(await this.#sleep(ms / ticks, generation))) {
         retire();
         return false;
       }
