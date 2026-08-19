@@ -1,0 +1,4 @@
+term:    Speed dial
+scope:   element
+subject: div.sp-stack[aria-label=Add to this trip][data-open][data-part=fan][role=menu]
+text:    Add note Add receipt Flag for review Share trip

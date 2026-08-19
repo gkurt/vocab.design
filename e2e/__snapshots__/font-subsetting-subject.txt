@@ -1,0 +1,4 @@
+term:    Font subsetting
+scope:   element
+subject: span[data-part=subset][data-pose=[data-subset]][data-ships=latin][data-subset]
+text:    

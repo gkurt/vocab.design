@@ -1,0 +1,58 @@
+---
+name: Lining figures
+slug: lining-figures
+category: typography
+status: published
+definition: >-
+  Numerals all drawn to cap height so they line up evenly with capitals and with
+  each other.
+aliases:
+  - name: titling figures
+  - name: lining numerals
+  - name: lnum
+    source: opentype
+  - name: modern figures
+relations: {}
+sources:
+  - title: Lining Figures
+    url: https://totallytype.com/figures.php
+  - title: "OpenType at Work: Figure Styles (Type Network)"
+    url: https://typenetwork.com/articles/opentype-at-work-figure-styles
+demo: inline
+useWhen: numbers next to capitals or in interface chrome
+---
+
+Lining figures are numerals drawn on one line: every digit starts at the
+[baseline](/baseline) and stops at roughly the
+[cap height](/cap-height), so a row of them makes an even band with no digit
+poking up or hanging down. They are the default in almost every typeface
+released since the nineteenth century, which is why most people have never
+thought about the alternative. Set beside capitals they match, which is exactly
+what a date in a heading, a version number in a badge, or a figure in a table
+of interface chrome wants.
+
+The alternative is [oldstyle figures](/oldstyle-figures), where the digits take
+three different heights: some sit at the x-height, some rise to the ascender,
+and some hang below the baseline like lowercase descenders. Those belong in
+running prose, where a number set at cap height reads as a small shout in the
+middle of a sentence. The rule of thumb is simple: lining where the
+neighbours are capitals, oldstyle where the neighbours are lowercase.
+
+It helps to see the two figure decisions as a grid rather than a list, because
+they are independent. Height is lining against oldstyle. Width is
+[tabular](/tabular-figures) against proportional: tabular gives every digit the
+same advance so columns line up down the page, proportional lets each digit take
+the width its drawing wants. All four combinations exist and are separately
+selectable, so tabular lining is the one for a table of amounts, proportional
+oldstyle the one for a paragraph, and the other two corners have their uses
+too. In CSS they are two independent keywords on `font-variant-numeric`, one
+from each axis, and in OpenType they are the four features `lnum`, `onum`,
+`tnum` and `pnum`.
+
+The catch, as ever with OpenType, is that asking is not the same as receiving.
+`font-variant-numeric: lining-nums` does nothing unless the loaded face carries
+an `lnum` set, and a face whose defaults are already lining has nothing to
+switch to. Georgia is the useful counter-example: its default figures are
+oldstyle, so it is one of the few widely installed faces where turning lining
+figures on visibly changes the page. When the setting appears to do nothing, the
+font is the thing to check before the stylesheet.

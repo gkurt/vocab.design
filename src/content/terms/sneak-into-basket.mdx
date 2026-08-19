@@ -1,0 +1,61 @@
+---
+name: Sneak into basket
+slug: sneak-into-basket
+category: pattern
+status: published
+definition: >-
+  Adding an item the buyer never chose, an insurance, a donation, a warranty, into the cart
+  through a preselected control found earlier in the flow.
+aliases:
+  - name: sneaking
+    source: deceptive-design
+  - name: added extras
+    source: community
+  - name: unwanted add-on
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Deceptive Design: Sneaking'
+    url: https://www.deceptive.design/types
+demo: inline
+useWhen: something you never picked is in your basket
+---
+
+Something is in the basket that the buyer never picked: parcel protection, a warranty, a
+charitable donation, a magazine subscription, a printed certificate. It was not added by
+accident and it was not added at the last step. It was added by a control the buyer passed
+several screens earlier, already switched on, phrased so that agreeing with it looked like
+agreeing with the page. The pattern is named for where it is noticed rather than where it is
+done, which is exactly what makes it work: by the time the line item appears in the summary,
+the screen that put it there is behind a back button.
+
+Two things make it a deception rather than an upsell. The first is the default, which is the
+mechanism: a [preselected opt-in](/preselected-opt-in) makes doing nothing into consent, and
+doing nothing is what most people do on most screens. The second is the distance between the
+choice and its consequence. An offer made in the basket, next to the total it changes, is a
+legitimate offer even when it is a persuasive one; the same offer made three screens earlier
+in a paragraph about delivery dates is a bet that the buyer will not connect the two. Add
+[misdirection](/misdirection), where the eye is pulled toward the continue button and away
+from the checkbox under it, and the extra line arrives with the buyer's technical consent and
+nobody's actual agreement.
+
+It has close relatives worth telling apart, and the distinction is what got added.
+[Drip pricing](/drip-pricing) adds mandatory fees a screen at a time, so the item never
+changes and the price keeps rising; sneaking adds a whole item the buyer could have declined,
+so the basket contains something that was never wanted. [Forced continuity](/forced-continuity) charges for a
+subscription after a trial nobody remembers starting. And where sneaking manufactures a
+purchase, [fake social proof](/fake-social-proof) manufactures the reason for one. All four
+belong to the family the site files under [dark pattern](/dark-pattern), and all four are
+easiest to catch in the [order summary](/order-summary), which is the screen where the total
+finally has to name its parts.
+
+The tests are cheap and they are about defaults, not about wording. Every optional extra
+starts off, so consent is an action rather than an omission. Every extra is offered where its
+cost is visible, next to the total it changes. Every line in the summary can be removed from
+the summary, without a return to the step that added it. And the wording is symmetric, since
+a decline written as a confession is a different pattern doing the same job. Law has caught
+up in places: the EU Consumer Rights Directive bars pre-ticked boxes for extra payments,
+which makes the pattern illegal in that market rather than merely rude, and the catalogue at
+[deceptive.design](https://www.deceptive.design) has tracked it under "sneaking" since the
+term was coined.

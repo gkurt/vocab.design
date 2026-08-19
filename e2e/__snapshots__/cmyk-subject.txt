@@ -1,0 +1,4 @@
+term:    CMYK
+scope:   element
+subject: span[data-mode=all][data-part=stack][data-pose=[data-mode=all]]
+text:    

@@ -1,0 +1,4 @@
+term:    Spotlight hover
+scope:   element
+subject: span[aria-hidden=true][data-part=glow][data-zone=left]
+text:    

@@ -1,0 +1,4 @@
+term:    Identicon
+scope:   element
+subject: span[aria-label=Generated avatar for @nils][data-code=4759][data-handle=nils][data-part=mark-review][role=img]
+text:    

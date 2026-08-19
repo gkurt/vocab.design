@@ -1,0 +1,4 @@
+term:    Scaffold
+scope:   element
+subject: div[aria-hidden=true][data-part=slots][data-slots=38-60-414-186]
+text:    app bar rail body action

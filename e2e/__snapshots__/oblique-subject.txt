@@ -1,0 +1,4 @@
+term:    Oblique
+scope:   element
+subject: span[data-part=line][data-pose=[data-sheared]][data-sheared][data-slant=oblique]
+text:    afterglow

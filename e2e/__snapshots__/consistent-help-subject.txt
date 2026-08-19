@@ -1,0 +1,4 @@
+term:    Consistent help
+scope:   element
+subject: button.sp-chip[data-part=help][data-policy=consistent][data-pose=[data-policy=consistent]][data-where=bar][type=button]
+text:    Help

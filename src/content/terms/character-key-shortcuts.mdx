@@ -1,0 +1,60 @@
+---
+name: Character key shortcuts
+slug: character-key-shortcuts
+category: accessibility
+status: published
+definition: >-
+  Single letter shortcuts that fire without a modifier, which must be switchable off or
+  remappable because speech input and screen readers trigger them by accident.
+aliases:
+  - name: single key shortcut
+    source: community
+  - name: keyboard shortcut conflict
+    source: community
+  - name: aria-keyshortcuts
+    source: aria
+  - name: pass through key
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Character Key Shortcuts"
+    url: https://www.w3.org/TR/WCAG22/#character-key-shortcuts
+demo: inline
+useWhen: a bare letter key does something on the page
+---
+
+Criterion 2.1.4 arrived in WCAG 2.1 at level A, and it is short. If a shortcut is built from
+letters, numbers, punctuation, or symbols alone, then one of three things must be true: the
+shortcut can be turned off, it can be remapped to a combination that includes a non-printing key
+such as Ctrl or Alt, or it is only active while the component it belongs to has focus. Any one
+of the three satisfies the rule. Shipping a bare letter binding with none of them does not.
+
+The reason is that plenty of people put letters on the page without meaning to press keys.
+Somebody using speech input says a sentence and the recognizer emits it a character at a time,
+so every `s` in that sentence is a keystroke your handler will see. Somebody using a screen
+reader in [browse mode](/browse-mode) navigates with bare letters by design: `h` walks headings,
+`b` walks buttons, and those presses reach the page whenever the reader's own layer passes them
+through. Somebody with a tremor rests a finger on a key. In all three cases a page that treats
+one letter as a command runs the command. This is a good reason to read the criterion next to
+[voice control](/voice-control), because voice input is where the failure is loudest and least
+recoverable.
+
+A [keyboard shortcut](/keyboard-shortcut) is the general idea and mostly a good one; this term
+names the narrow slice of it that WCAG regulates. Do not confuse it with
+[access keys](/access-key), the abandoned `accesskey` attribute, which was always a modified
+combination chosen by the browser and failed for entirely different reasons. On the ARIA side,
+`aria-keyshortcuts` is how a control tells assistive technology which keys it answers to, which
+is a declaration rather than a fix: announcing a bare `s` does not make it safe, it just makes
+it findable.
+
+The cheapest compliant design is the third option, scoping the binding to focus, because it keeps
+the speed a power user came for. Gmail's `r` for reply is safe while the caret is in a text field
+and live everywhere else, and that single condition is usually all the code the criterion asks
+for. If the shortcuts have to be global, ship a settings pane that turns them off and lets people
+rebind them, and remember that the pane itself is the accessible feature, not a nicety bolted on
+beside one.

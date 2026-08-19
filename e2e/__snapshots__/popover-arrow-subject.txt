@@ -1,0 +1,4 @@
+term:    Popover arrow
+scope:   element
+subject: span[aria-hidden=true][data-align=start][data-part=arrow][data-side=top]
+text:    

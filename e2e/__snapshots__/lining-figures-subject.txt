@@ -1,0 +1,4 @@
+term:    Lining figures
+scope:   element
+subject: span[data-figures=lining][data-part=year][data-pose=[data-figures=lining]]
+text:    1987

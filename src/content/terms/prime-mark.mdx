@@ -1,0 +1,55 @@
+---
+name: Prime mark
+slug: prime-mark
+category: typography
+status: published
+definition: >-
+  The slanted tick used for feet, inches, minutes, and seconds, which is a
+  different character from either a straight quote or a curly one.
+aliases:
+  - name: primes
+  - name: foot mark
+  - name: inch mark
+  - name: double prime
+relations: {}
+sources:
+  - title: Foot and inch marks (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: Typography Cheatsheet (Typewolf)
+    url: https://www.typewolf.com/cheatsheet
+demo: inline
+useWhen: writing feet and inches, not quoting anyone
+---
+
+A prime is a short mark that leans to the right, and it means a unit: feet,
+minutes of arc, minutes of time. Doubled, it means the next unit down: inches,
+seconds. So a person is 5′ 10″ tall and a coordinate is 40° 44′ 55″ N. It is not
+a punctuation mark and it is not an abbreviation. It is a symbol with its own
+code points, U+2032 for the prime and U+2033 for the double prime, plus a triple
+for the rare third level.
+
+Three different marks get used for this job and only one of them is right. The
+straight tick on the keyboard, U+0027, is the typewriter's apostrophe: upright,
+symmetrical, and standing in for four marks at once because the machine had no
+room for more keys. The curly ones, U+2019 and U+201D, are closing quotation
+marks with comma-shaped tails, and they are what an editor with
+[smart quotes](/smart-quotes) turns your straight ticks into. The prime is the
+third thing: a straight stroke like the typewriter mark, but leaning, and with
+none of the comma-shaped tail a closing quote curls into. Set the three side by
+side at any size above a caption and they stop being confusable.
+
+The confusion is the typewriter's fault and the substitution habit is the
+autocorrect's. Nearly every writing tool now converts a straight tick to a curly
+quote as you type, which is right for prose and exactly wrong for measurements,
+so `5' 10"` becomes `5’ 10”` without asking. The result is a height written with
+two closing quotation marks, which reads to a typographer roughly the way a
+lowercase l used as a numeral one does. If a text field in your product accepts
+measurements, this is worth a rule of its own: leave a tick alone when a digit
+sits immediately before it.
+
+For interface work, the practical advice is to store and render the real
+characters rather than hope the font makes a substitute look acceptable. Most
+text faces draw a proper prime; those that do not fall back to something visibly
+different, which is at least an honest signal. And do not reach for a slanted
+apostrophe from an italic font, which is the traditional hot metal workaround
+and has no meaning in a Unicode world.

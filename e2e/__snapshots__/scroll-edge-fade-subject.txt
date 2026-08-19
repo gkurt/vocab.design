@@ -1,0 +1,4 @@
+term:    Scroll edge fade
+scope:   element
+subject: span[aria-hidden=true][data-part=fade-bottom]
+text:    

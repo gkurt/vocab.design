@@ -1,0 +1,4 @@
+term:    Cluster
+scope:   element
+subject: div[data-lines=4][data-part=cluster][data-width=narrow]
+text:    harbourtide tablesberth 4wintermoorings and anchoragesRNLI

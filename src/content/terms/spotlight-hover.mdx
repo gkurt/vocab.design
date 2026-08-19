@@ -1,0 +1,62 @@
+---
+name: Spotlight hover
+slug: spotlight-hover
+category: motion
+status: published
+definition: >-
+  A soft radial glow centred on the pointer's position inside a card, lighting its surface and
+  border as the cursor moves and going dark when the cursor leaves.
+aliases:
+  - name: spotlight card
+    source: community
+  - name: glowing hover effect
+    source: community
+  - name: mouse-following gradient
+    source: community
+  - name: glow border hover
+    source: community
+  - name: proximity glow
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Frontend Masters: how to build a glowing hover effect that follows the pointer"
+    url: https://frontendmasters.com/blog/glowing-hover-effect/
+  - title: "Cruip: how to create a spotlight card hover effect with Tailwind CSS"
+    url: https://cruip.com/how-to-create-a-spotlight-card-hover-effect-with-tailwind-css/
+demo: inline
+useWhen: a card should light up under the pointer rather than change colour
+---
+
+A spotlight hover puts a soft circle of light on a card and keeps it under the pointer. The
+card is usually dark, the light is usually one accent hue at low opacity, and the whole
+effect fades in when the pointer arrives and out when it leaves. It reads as a physical
+light source passing over a surface, which is why it turns up on pricing tables, feature
+grids, and any place where a page needs its cards to feel touchable without giving each one
+a different colour.
+
+Mechanically it is two custom properties and a gradient. A `pointermove` handler writes the
+pointer's position relative to the card into something like `--x` and `--y`, and a layer
+inside the card paints `radial-gradient(circle at var(--x) var(--y), ...)`. Nothing is
+restyled and no element changes size: the same gradient is simply drawn at a new origin
+every time the pointer reports, which is why this belongs to motion rather than colour.
+The border variant works the same way, with the gradient painted on a ring instead of on
+the surface, usually via a mask or a padded pseudo-element so the light appears to be
+tracing the card's edge. Because the position comes from a custom property rather than
+from a class, one handler can drive a whole grid: each card writes its own two numbers and
+the cards that the pointer is not over simply keep their glow at zero opacity.
+
+The cost to watch is the same one every pointer-driven effect has. A `pointermove` handler
+fires at the pointer's report rate, so anything expensive in it (reading layout, restyling
+neighbours, writing to more than the element in hand) runs dozens of times a second. Write
+the two properties, cache the card's rectangle rather than measuring inside the handler,
+and let the compositor do the rest. There is also nothing here for a keyboard or a touch
+screen, so the glow must never carry information: it is ornament, and the card's real
+affordances have to work with it switched off.
+
+Among neighbours, a [tilt effect](/tilt-effect) answers the same pointer with the same kind
+of maths but moves the card in three dimensions instead of lighting it, and the two are
+often shipped together. A [cursor follower](/cursor-follower) draws something that trails
+the pointer across a whole page rather than lighting one surface it is inside. As a piece of
+vocabulary this is a [microinteraction](/microinteraction) in the strict sense: a small,
+self-contained response to one input, with no state change behind it.

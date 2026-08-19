@@ -1,0 +1,53 @@
+---
+name: Identicon
+slug: identicon
+category: component
+status: published
+definition: >-
+  A generated default avatar derived deterministically from an identifier, so the
+  same account always gets the same abstract pattern without uploading anything.
+aliases:
+  - name: generative avatar
+    source: community
+  - name: default avatar
+    source: community
+  - name: generated avatar
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Wikipedia: Identicon'
+    url: https://en.wikipedia.org/wiki/Identicon
+  - title: 'GitHub blog: Identicons'
+    url: https://github.blog/news-insights/company-news/identicons/
+demo: inline
+useWhen: an account needs a face before the user provides one
+---
+
+An identicon is a picture computed from a string. Hash the identifier (a username, an
+email, an account id), spend the bits on a small pattern and a hue, and you have a mark
+that is stable, unique enough to tell rows apart, and free of any decision the user had
+to make. Nothing is stored and nothing is uploaded: the same handle recomputes to the
+same pattern on every server, in every session, forever.
+
+That is the whole distinction from its neighbours. An [avatar](/avatar) is the slot, and
+the picture in it usually came from the person. An identicon is what fills that slot
+before a picture exists, which is why it reads as a fallback rather than as a portrait,
+and why a wall of them in an [avatar group](/avatar-group) still lets you follow one
+person down a list of commits. Initials are the other common filler and they are not the
+same thing: initials carry meaning from the name, an identicon carries none, which is a
+feature when the identifier is an id nobody should have to read.
+
+Don Park coined the word in 2007 for small patterns generated from a visitor's IP
+address, as a way of giving anonymous commenters a recognisable face. GitHub made the
+form famous a few years later: five columns by five rows of blocks, mirrored down the
+middle so the shape reads as a deliberate emblem rather than as noise, tinted with a hue
+taken from the same hash. Because the left three columns are mirrored into the right
+two, a 5 by 5 identicon only spends fifteen bits on its pattern, which is plenty to
+separate the handful of people on one screen and nowhere near enough to be an identity.
+
+Treat it as a placeholder with manners. It should be recognisable but not authoritative,
+never used as a security signal (two accounts can and do collide), and it should give
+way the moment a real picture arrives. Give it an accessible name from the identifier it
+was made from, not from the shape: the pattern means nothing to anyone who cannot see
+it.

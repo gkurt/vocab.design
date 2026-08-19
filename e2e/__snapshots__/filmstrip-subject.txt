@@ -1,0 +1,4 @@
+term:    Filmstrip
+scope:   element
+subject: div.sp-stack.sp-scroll[aria-label=Frames][data-part=rail][role=listbox]
+text:    

@@ -1,0 +1,60 @@
+---
+name: Oblique
+slug: oblique
+category: typography
+status: published
+definition: >-
+  An upright typeface slanted to the right without redrawing its letters, which
+  is why it lacks the cursive forms a true italic has.
+aliases:
+  - name: slanted
+  - name: sloped roman
+  - name: slnt axis
+    source: opentype
+relations: {}
+sources:
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+  - title: OpenType Design-Variation Axis Tag Registry
+    url: https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg
+demo: inline
+useWhen: distinguishing a slanted roman from a real italic
+---
+
+An oblique is the upright drawing of a typeface, leaning. The letters are the
+same letters: same skeleton, same joins, same two-storey `a`, tipped over by
+some angle between about eight and sixteen degrees. A true
+[italic](/italic) is a second alphabet, drawn from scratch on cursive
+principles, where the `a` closes into a single storey, the `f` grows a
+descender, and the whole line takes on a written rhythm. Both lean. Only one of
+them is a different set of letters.
+
+The distinction is a real one in type design, and it is deliberate on both
+sides. Many grotesques and geometric sans families ship an oblique because a
+cursive companion would fight the drawing: Helvetica's slanted roman is an
+oblique, and so is the one you get from most neo-grotesques. Humanist sans
+families more often ship a true italic, because the calligraphic root is already
+in the upright. A few families ship both, and the choice becomes editorial. What
+you should not do is call something an oblique because it leans; the test is
+whether the letters were redrawn.
+
+Digitally there are two ways to get one. A variable font can carry a slant axis,
+`slnt`, which is a real design axis the designer authorized: the family is drawn
+at zero and at the extreme, and every angle between is interpolated. That is the
+honest oblique, reachable from CSS as `font-style: oblique 12deg` and covered
+under [variation axis](/variation-axis). The other way is a shear applied by
+software to whatever roman it happens to have. That is the same geometry with
+nobody's approval, and when the browser does it because a requested style is
+missing it is the sibling case described under [faux bold](/faux-bold). Note the
+CSS quirk that follows from this: ask for `font-style: oblique` on a family that
+ships a drawn italic and the browser will simply hand you the italic, because
+its font matching treats oblique and italic as the same slot.
+
+The practical reason to know the word is that it names what you are looking at
+when a lean feels mechanical. Sheared letters keep their vertical stress and
+their upright counters, so at text sizes an oblique reads as the roman under
+strain rather than as a voice change, and at large sizes the diagonals go
+slightly wrong: an unadjusted `o` becomes an ellipse tilted the wrong way, and
+round joins thin on one side. If the family gives you an italic, that is usually
+what emphasis in running prose wants. The oblique is for the families that never
+had one.

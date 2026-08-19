@@ -1,0 +1,4 @@
+term:    10-foot UI
+scope:   whole scene
+subject: div.sp-app
+text:    title-safe margin Continue watching Long Field Harbour Nine Bridges Salt Road Wi

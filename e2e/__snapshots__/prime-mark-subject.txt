@@ -1,0 +1,4 @@
+term:    Prime mark
+scope:   element
+subject: span[data-marks=primes][data-part=foot][data-pose=[data-marks=primes]]
+text:    ′

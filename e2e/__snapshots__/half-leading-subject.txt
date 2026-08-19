@@ -1,0 +1,4 @@
+term:    Half-leading
+scope:   element
+subject: span[data-part=band-top]
+text:    

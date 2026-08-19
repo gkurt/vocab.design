@@ -1,0 +1,53 @@
+---
+name: Expandable row
+slug: expandable-row
+category: component
+status: published
+definition: >-
+  A table row that opens to reveal a detail panel beneath it, keeping the row in
+  place instead of navigating away.
+aliases:
+  - name: row expansion
+    source: community
+  - name: detail row
+    source: community
+  - name: sub row
+    source: community
+  - name: drawer row
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Data table, Carbon Design System'
+    url: https://carbondesignsystem.com/components/data-table/usage/
+demo: inline
+useWhen: row detail that opens in place under the row
+---
+
+An expandable row answers the commonest question a table provokes, which is "what is
+actually in this one", without spending a navigation on it. The row keeps its place in the
+sort order and in the reader's memory, and a panel opens under it holding the fields that
+did not earn a column: the tracking number, the line items, the log of what happened when.
+Close it and the table is exactly as it was.
+
+The mechanism is a [disclosure](/disclosure) and the vocabulary comes with it: a control in
+the row, usually a twisty at the start, carrying `aria-expanded` and pointing at the region
+it opens. What makes the pattern its own term is where the region goes. A detail panel
+underneath keeps one reading order and one scroll position, which is why it suits a
+[data table](/data-table) of records people compare. Detail on another surface is a
+different pattern with different costs: [list detail](/list-detail) puts it in a second
+pane and can hold one item open while you scan the rest, and a full page can hold far more
+than a panel should ever try to.
+
+Two rules keep it from feeling broken. Contain the growth: the table gets a fixed region so
+the rows below may move within it while nothing outside the table shifts, because a page
+that jumps when you open a row teaches people not to open rows. And keep the panel a
+summary rather than a second table. Once you find yourself putting a grid inside the
+drawer you have outgrown the pattern and want a real detail view, or a
+[data grid](/data-grid) that can nest rows properly.
+
+Be careful with more than one open at a time. Allowing it turns a table into an accordion
+and makes the vertical distance between two rows depend on what is open above them, which
+breaks scanning and any comparison the table exists for. Most implementations are better
+off holding one row open, and none should hide anything in the panel that a reader needs
+in order to choose between rows.

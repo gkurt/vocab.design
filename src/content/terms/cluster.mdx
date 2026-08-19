@@ -1,0 +1,56 @@
+---
+name: Cluster
+slug: cluster
+category: layout
+status: published
+definition: >-
+  A layout primitive that lays items of differing widths out like words in a paragraph, wrapping
+  to new lines with even gaps in both directions.
+aliases:
+  - name: the cluster
+    source: every-layout
+  - name: tag list
+    source: community
+  - name: wrap group
+    source: community
+  - name: inline group
+    source: community
+sources:
+  - title: "Layouts, Every Layout"
+    url: https://every-layout.dev/layouts/
+demo: inline
+useWhen: tags or buttons of mixed widths that must wrap neatly
+---
+
+A cluster is the arrangement for a group of things whose widths you do not control and cannot
+predict: tags, filter chips, a row of buttons, the categories on an article, the authors of a
+paper. The items are laid out like words in a paragraph, running along the line until they run
+out of room and then continuing on the next one, with the same gap between every pair of
+neighbours whether they are side by side or one above the other. It is named as a primitive in
+[Every Layout](https://every-layout.dev), where the point is that one small rule set handles
+every content length instead of a series of breakpoints guessing at how many items will fit.
+
+The implementation is three declarations: `display: flex`, `flex-wrap: wrap`, and a `gap`. The
+third one is the whole reason the primitive is worth naming. Before `gap` worked in flexbox,
+everyone spaced these rows with margins, and margins get the horizontal gaps right and the
+vertical ones wrong: items that wrap end up either touching or spaced by whatever the line
+height happened to give them, and the last item on each line pushes a trailing margin against
+the container's edge. The workaround was the negative margin trick, an outer wrapper pulled in
+by exactly the gap so the inner overhang cancelled out. `gap` deletes all of that, and it is
+the one place a cluster can still be got wrong today: a row spaced with `margin-right` looks
+identical until it wraps.
+
+The sibling primitive is the [stack](/stack), which runs items down a column with one
+consistent gap and never wraps, and the two together cover most of the spacing a page needs.
+Where a cluster wraps along the inline axis, the [cover](/cover) distributes along the block
+axis. A cluster is usually full of [chips](/chip) or [tags](/tag), and the space it puts
+between them is a [gutter](/gutter) in the general sense, though gutter is normally reserved
+for the columns of a [layout grid](/layout-grid) rather than the gaps in a wrapping row.
+
+Two decisions make or break one in practice. The first is alignment: `justify-content:
+flex-start` is almost always right, because centring a wrapped cluster gives you a ragged
+shape that reads as accidental, and `space-between` stretches the last line into nonsense.
+The second is what happens to an item too wide for the container, which is common with user
+supplied tags: either let it truncate, or let it be as wide as it wants and accept a
+horizontal scroll, but decide, because the default is an item that overflows the container
+silently.

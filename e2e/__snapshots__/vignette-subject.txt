@@ -1,0 +1,4 @@
+term:    Vignette
+scope:   element
+subject: span[aria-hidden=true][data-mode=vignette][data-part=vignette][data-pose=[data-mode=vignette]]
+text:    

@@ -1,0 +1,4 @@
+term:    Hoverable, dismissible, persistent
+scope:   element
+subject: div.sp-popover[data-mode=compliant][data-open][data-part=flyout][data-pose=[data-mode=compliant]][role=tooltip]
+text:    The first part of any claim that you pay yourself, before the insurer pays anyth

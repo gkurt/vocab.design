@@ -1,0 +1,54 @@
+---
+name: Share sheet
+slug: share-sheet
+category: component
+status: published
+definition: >-
+  The system panel of destinations and actions for sending the current item
+  elsewhere, populated by whatever apps are installed.
+aliases:
+  - name: activity view
+    source: hig
+  - name: share dialog
+    source: community
+  - name: share menu
+    source: community
+  - name: web share
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: Apple Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/
+demo: inline
+useWhen: the system panel for sending something onward
+---
+
+The share sheet is the one panel in an app that the app did not write. Your code hands
+the system an item (a link, an image, a file) and the system decides what the reader can
+do with it, drawing a row of destinations from the apps actually installed on that device
+and a list of actions from whatever extensions have registered. Two phones running the
+same app show different sheets, and neither list is yours to curate.
+
+That authorship is the whole difference from an [action sheet](/action-sheet). An action
+sheet holds choices the app itself wrote for something the reader has already started:
+delete, duplicate, discard. A share sheet holds destinations the system supplied for
+something the reader wants to send onward. They often use the same shape, a panel rising
+from the bottom edge over a dimmed screen, which is why the two names get swapped, but
+one is a menu and the other is a directory. A [bottom sheet](/bottom-sheet) is the shape
+alone, with no claim about what is in it, and a [context menu](/context-menu) is the same
+question asked in place rather than in a panel.
+
+Apple's formal name for it is the activity view, which nobody says out loud, and its
+contents are activities: system ones like Copy and Print, app ones like Messages and Mail,
+and third-party extensions. Android calls the same thing a share sheet and builds it from
+an intent. On the web the Web Share API opens the platform's real sheet from a page, which
+is why a website can now put an item into someone's messaging app without knowing which
+one it is, and why the call has to happen inside a user gesture.
+
+Design around the parts you do control. Give the sheet a good preview of the item, since
+that preview is what the reader checks before sending; give the system a title and a URL
+worth showing; and never rebuild the sheet yourself with a hand-picked row of brand icons.
+A homemade share row goes stale the moment someone installs something new, cannot reach
+the apps the reader actually uses, and quietly turns a system affordance into a marketing
+placement.

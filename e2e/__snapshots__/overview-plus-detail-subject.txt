@@ -1,0 +1,4 @@
+term:    Overview plus detail
+scope:   element
+subject: div[aria-label=Overview][data-at=nw][data-part=overview][role=group]
+text:    Overview Drag the box, or scroll the plan. Either one moves the other.

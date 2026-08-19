@@ -1,0 +1,4 @@
+term:    Zoom transition
+scope:   element
+subject: div[data-from=b][data-open][data-part=view][data-state=moving]
+text:    Dune fence Ynyslas, an hour before dark.

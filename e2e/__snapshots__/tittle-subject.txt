@@ -1,0 +1,4 @@
+term:    Tittle
+scope:   element
+subject: span[data-dotted][data-part=marker][data-pose=[data-dotted]]
+text:    

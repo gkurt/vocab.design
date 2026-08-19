@@ -1,0 +1,4 @@
+term:    Pane
+scope:   element
+subject: div[aria-label=Mailboxes][data-band=medium][data-kind=fixed][data-part=pane][data-stated=pane][data-width=156][role=group]
+text:    Mailboxes 156dp H Harbour Board Ferry timetable, winter T Trinity Pilots Draught

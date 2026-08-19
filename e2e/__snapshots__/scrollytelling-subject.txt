@@ -1,0 +1,4 @@
+term:    Scrollytelling
+scope:   element
+subject: figure[data-part=graphic][data-step=1]
+text:    Depth at the quay 8.4 m 1960 1960 8.4 m 1980 6.1 m 2000 3.9 m 2020 1.7 m

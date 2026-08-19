@@ -1,0 +1,4 @@
+term:    Orbit animation
+scope:   element
+subject: span[data-part=satellite][data-speed=steady]
+text:    

@@ -1,0 +1,4 @@
+term:    Atomic live region
+scope:   element
+subject: div.sp-surface[aria-atomic=true][aria-live=polite][data-atomic=true][data-part=region][data-pose=[data-atomic=true]][role=status]
+text:    Flight AA21 Gate B4 Departs 14:20

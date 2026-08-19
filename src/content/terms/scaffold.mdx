@@ -1,0 +1,57 @@
+---
+name: Scaffold
+slug: scaffold
+category: layout
+status: published
+definition: >-
+  The frame that positions an app's persistent regions, its bars, panes and body, so each screen
+  drops content into named slots instead of inventing its own arrangement.
+aliases:
+  - name: layout scaffold
+    source: material
+  - name: app scaffolding
+    source: community
+implementations:
+  - system: material
+    name: Scaffold
+    url: https://m3.material.io/foundations/layout/scaffold/overview
+sources:
+  - title: "Scaffold, Material Design 3"
+    url: https://m3.material.io/foundations/layout/scaffold/overview
+demo: inline
+useWhen: the named slots a screen's parts drop into
+---
+
+A scaffold is the empty frame an app is built inside: a slot for the top bar, a slot for
+navigation, a slot for the body, a slot for the floating action button, and rules about which
+of them appear at which window size. Screens do not lay themselves out. They hand their parts
+to the scaffold by name, and the scaffold decides where those parts sit, how far the body
+insets to clear the bars, and what happens to all of it when the window gets narrow. The word
+arrived in interface vocabulary through toolkits: Flutter's `Scaffold` widget and Material's
+scaffold guidance are the same idea under the same name, and both exist because every app was
+otherwise reinventing the same arrangement once per screen.
+
+The value is consistency you get for free rather than by discipline. When the bars belong to
+the frame instead of to the screen, they cannot drift by two pixels between one screen and the
+next, they cannot be forgotten, and a screen that has no use for one simply leaves that slot
+empty. It also puts adaptive behaviour in one place: the scaffold is what turns a navigation
+bar at the bottom of a phone into a [navigation rail](/navigation-rail) on a tablet and a
+[sidebar](/sidebar) on a desktop, because it is the only thing that knows the window size and
+owns every region at once.
+
+The near neighbour is the [app shell](/app-shell), and the two are easy to confuse because
+both describe the part that stays. An app shell is a runtime idea: the markup, styles and
+script that load once and never reload while views come and go inside it. A scaffold is an
+authoring idea: the slotted frame a toolkit hands you so a screen's parts land in the right
+places. A single-page app usually has both, and a native app usually has only the scaffold.
+Where the scaffold positions regions, a [pane](/pane) is one such region, and a
+[canonical layout](/canonical-layout) is a named arrangement of panes worth reusing across
+screens. The [page header](/page-header) is the content that occupies one of the slots rather
+than the slot itself.
+
+The failure mode is a scaffold too eager to be helpful. Once every screen is obliged to fill
+the same five slots, the screen that genuinely wants a full bleed map or a distraction free
+composer has to fight the frame, and the fight usually ends in a screen that opts out of the
+scaffold entirely and drifts from the rest of the app. A good scaffold makes each slot
+optional, states the insets it applies rather than baking them into the body's padding, and
+leaves an escape hatch for the one screen in ten that is not shaped like the others.

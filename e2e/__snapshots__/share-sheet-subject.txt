@@ -1,0 +1,4 @@
+term:    Share sheet
+scope:   element
+subject: div.sp-surface[aria-label=Share][aria-modal=true][data-part=sheet][role=dialog]
+text:    Tide times, Saturday Field notes, 2 photos Mail Notes Diary Saved Copy link Add 

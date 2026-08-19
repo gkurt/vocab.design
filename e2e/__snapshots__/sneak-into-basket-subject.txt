@@ -1,0 +1,4 @@
+term:    Sneak into basket
+scope:   element
+subject: div.sp-row.sp-row--between[data-mode=sneaky][data-part=sneak-row][data-pose=[data-mode=sneaky]]
+text:    Parcel protection 2.99

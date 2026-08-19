@@ -1,0 +1,4 @@
+term:    Character key shortcuts
+scope:   element
+subject: div.sp-row[data-mode=bare][data-part=legend][data-pose=[data-mode=bare]]
+text:    S Star R Reply

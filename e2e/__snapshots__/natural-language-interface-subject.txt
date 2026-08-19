@@ -1,0 +1,4 @@
+term:    Natural language interface
+scope:   element
+subject: input.sp-input[aria-label=Describe the invoices you want][autocomplete=off][data-part=query][placeholder=Ask for it in your own words][spellcheck=false][type=text]
+text:    

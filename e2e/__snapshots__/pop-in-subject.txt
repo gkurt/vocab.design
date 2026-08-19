@@ -1,0 +1,4 @@
+term:    Pop in
+scope:   element
+subject: span[data-part=medal][data-plays=1][data-state=settled]
+text:    

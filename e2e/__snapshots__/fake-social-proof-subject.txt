@@ -1,0 +1,4 @@
+term:    Fake social proof
+scope:   element
+subject: span.sp-text[data-mode=fabricated][data-part=review-count][data-pose=[data-mode=fabricated]]
+text:    1,284 reviews

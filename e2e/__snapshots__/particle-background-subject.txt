@@ -1,0 +1,4 @@
+term:    Particle background
+scope:   element
+subject: canvas[aria-hidden=true][data-part=field][data-register=constellation][height=176][width=434]
+text:    

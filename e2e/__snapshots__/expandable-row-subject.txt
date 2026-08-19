@@ -1,0 +1,4 @@
+term:    Expandable row
+scope:   element
+subject: tbody[data-part=row-4193]
+text:    Order 4193 Kirkwall Dispatched £240.00 CarrierNorthwind Freight TrackingNW 88213

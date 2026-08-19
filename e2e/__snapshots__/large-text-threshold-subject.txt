@@ -1,0 +1,4 @@
+term:    Large text threshold
+scope:   element
+subject: span[data-part=threshold][data-weight=regular]
+text:    

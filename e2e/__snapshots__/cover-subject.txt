@@ -1,0 +1,4 @@
+term:    Cover
+scope:   element
+subject: div[data-fits=exact][data-length=short][data-part=cover]
+text:    Falmouth Ferries Times The winter crossing runs all year. Sailings leave the pon

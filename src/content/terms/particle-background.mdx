@@ -1,0 +1,74 @@
+---
+name: Particle background
+slug: particle-background
+category: motion
+status: published
+definition: >-
+  An ambient decorative background of many small moving agents: drifting dots, linked
+  constellations, flocks, or starfields animating behind the page content.
+aliases:
+  - name: constellation effect
+    source: community
+  - name: plexus background
+    source: community
+  - name: boids
+    source: community
+  - name: flocking animation
+    source: community
+  - name: starfield
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "particles.js: a lightweight library for particles"
+    url: https://vincentgarreau.com/particles.js/
+  - title: "Craig Reynolds: Boids, background and update"
+    url: https://www.red3d.com/cwr/boids/
+demo: inline
+useWhen: the backdrop is alive with drifting points
+---
+
+A particle background is a field of many small agents animating behind the content of a
+page. The varieties are named after what the field looks like rather than after how it is
+built: drifting dots that wander and wrap at the edges, the plexus or constellation look
+where a line is drawn between any two dots close enough to each other, a starfield
+streaming outward from a vanishing point, a flock that moves as a group. Under all of them
+sits the same loop: a few dozen positions and velocities, stepped once a frame and redrawn,
+usually into a single canvas rather than into a few hundred elements. Nothing in the layout
+depends on the field, which is what separates it from a
+[dot grid background](/dot-grid-background), where the pattern is a scaffold the surface
+actually snaps to. Here the field is decoration, and should be marked as such so assistive
+technology never has to describe it.
+
+The flocking variety has a real pedigree. Craig Reynolds published boids in 1986 as three
+local rules applied by every agent to the neighbours it can see: separation, steer away
+from crowding; alignment, steer toward the average heading of the group; cohesion, steer
+toward the average position of the group. No agent knows the shape of the flock and no
+central authority draws it, yet the group reads as a living thing, which is why the model
+outlived its own field and turned up in film crowds and screen savers alike. Web particle
+backgrounds are almost always simpler than boids. The constellation look needs no steering
+at all, only proximity: each pair of dots within some radius gets a line whose opacity
+falls off with distance, and the illusion of a network doing something comes free.
+
+Three costs decide whether a particle background is a good idea, and all three get worse
+the larger the field is. The first is vestibular: a full viewport of drifting motion behind
+text is the canonical trigger case, so `prefers-reduced-motion` is load-bearing rather than
+polite here, and the honest response is to stop the loop and rest on one static
+arrangement, not to slow it down. The second is power: an animation frame loop redrawing a
+full-page canvas keeps a machine busy for as long as the tab is open, on a page that is
+otherwise sitting still, and a laptop on battery pays for every idle frame. Pause when the
+field scrolls out of view, cap the count, and keep the speed low enough that a single
+frame is not doing much work. The third is contrast: text over a moving field has no
+stable ground underneath it, because the ratio at any given pixel changes as the dots pass
+behind the letters. The fix is not a darker particle colour, it is a plate: give the
+reading surface its own opaque or near-opaque background and let the field stay outside it.
+
+Among its neighbours, [aurora UI](/aurora-ui) is the closest in spirit and the furthest in
+mechanism, a slow wash of blurred colour with no discrete agents in it at all, which makes
+it much cheaper and much less likely to disturb anyone. A [cursor follower](/cursor-follower)
+is the same kind of ornament reduced to one agent and tied to the pointer instead of to a
+clock. A [gooey effect](/gooey-effect) also puts blobs on a page, but they merge and
+separate through a filter rather than wander. Libraries in this corner are numerous and
+mostly interchangeable; [particles.js](https://vincentgarreau.com/particles.js/) is the one
+whose defaults you have already seen, on more startup landing pages than anyone would care
+to count, which is itself a reason to think twice before reaching for the effect.

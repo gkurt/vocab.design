@@ -1,0 +1,4 @@
+term:    Focus appearance
+scope:   element
+subject: span[data-part=ring][data-pose=[data-treatment=solid]][data-treatment=solid]
+text:    

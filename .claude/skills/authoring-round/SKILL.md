@@ -1,14 +1,22 @@
 ---
 name: authoring-round
-description: Run one vocab.design authoring round, 6 new terms per category (54 total), from roster selection through briefs, parallel author agents, gates, e2e, and commit. Use when asked to author a round/batch of terms, "do another round of 6 per category", or to continue filling the candidate pool.
+description: Run one vocab.design authoring round, up to 6 new terms per category (54 at full width, fewer as categories empty), from roster selection through briefs, parallel author agents, gates, e2e, and commit. Use when asked to author a round/batch of terms, "do another round of 6 per category", or to continue filling the candidate pool.
 ---
 
 # Authoring round: 6 terms per category
 
-One round takes the site 54 terms forward: roster from the pool, briefs with demo
-hints, nine parallel author agents (one per category) plus one verify agent, then
-e2e centrally, then a single commit. Ten rounds have run this way; the process
+One round takes the site up to 54 terms forward: roster from the pool, briefs with
+demo hints, one parallel author agent per category plus one verify agent, then
+e2e centrally, then a single commit. Eleven rounds have run this way; the process
 below is the distilled shape, including every failure mode they taught.
+
+**A round is 6 per category only while every category still has 6.** The pool is
+now uneven and draining unevenly: interaction was exhausted before round 16, and
+round 16 emptied color and aesthetic (1 candidate each) while authoring 6 apiece
+elsewhere, for 38 terms across 8 agents. Take the whole of a nearly-empty category
+rather than skipping it, size the agent list to the categories that still have
+terms, and tell a 1-term agent it has one term so it does not pad. Check the real
+shape with `pool-remaining.ts` before promising the user a number.
 
 Files in this skill directory:
 
@@ -36,7 +44,8 @@ Files in this skill directory:
 ## 1. Roster (main session, ~15 min)
 
 1. `bun .claude/skills/authoring-round/pool-remaining.ts` for the per-category pool.
-2. Pick 6 per category. Selection principles, in priority order:
+2. Pick 6 per category, or the whole remainder where fewer are left. Selection
+   principles, in priority order:
    - **Pay prose IOUs**: grep recent articles for "enumerated separately" and named
      cross-references to unauthored terms; an on-site article that NAMES a candidate
      is a debt the candidate's article repays by linking back.
@@ -55,14 +64,28 @@ Files in this skill directory:
 3. **Collision-check every pick AND its likely aliases** against
    `src/content/terms/` (`name:` lines catch both term names and alias names).
    A candidate whose name is already an alias of an existing term is DEAD: swap it
-   and note nothing (the pool was canonicalized 2026-08-15; stragglers still happen).
-   Claimed aliases a surviving pick must not take become fences in its brief hint.
+   and note nothing. Claimed aliases a surviving pick must not take become fences
+   in its brief hint.
+
+   This is now the highest-value step in the roster, not a formality. Do it as a
+   script over the whole pool rather than per pick: slugify every alias name in
+   every term file into a claimed-slug map, then test each candidate slug against
+   it. Round 16 found **19 dead candidates in a 214-term pool**, and they cluster
+   in exactly the wrong place: both of accessibility's core candidates
+   (landmark-region, tab-order) and two of motion's three head/core
+   (shared-element-transition, layout-animation). Priority is no defence.
+   Also eyeball the survivors for near-duplicates the slug test cannot see: a
+   candidate whose *display name* equals an existing term's name is just as dead
+   (motion's `reduced-motion` is the on-site `prefers-reduced-motion`), and the
+   pool's own `notes` field often flags merge candidates. The dead list is worth
+   reporting to the user, since `candidates.json` still carries them.
 
 ## 2. Briefs (main session, ~30 min)
 
-Copy `make-briefs-template.ts` to a scratch directory, fill `PLAN` with the 54
-slugs and hints (hint anatomy is documented in the template), set `OUT` to an
-absolute scratch path, run it with bun from the repo root. It hard-fails on any
+Copy `make-briefs-template.ts` to a scratch directory, fill `PLAN` with the round's
+slugs and hints (hint anatomy is documented in the template; drop the key for any
+category with no terms left), set `OUT` to an absolute scratch path, run it with
+bun from the repo root. It hard-fails on any
 slug already on site or missing from the pool.
 
 ## 3. Author + verify (agents, ~30-45 min)
@@ -76,7 +99,7 @@ Copy `workflow-template.js`, fill the placeholders:
 - Never trim `STAGE_NEWS`; append new laws as rounds teach them, and mirror any
   mechanically-checkable new law into `scripts/validate-terms.ts` as a gate.
 
-Run it with the Workflow tool if available (9 author agents in parallel, then the
+Run it with the Workflow tool if available (one author agent per stocked category, in parallel, then the
 verify agent). Without a Workflow tool, run the same prompts as parallel subagents
 and the verify prompt as one subagent after all authors return. Authors do their
 own visual pass against the user's dev server; the verify agent runs
@@ -97,7 +120,7 @@ agents get only their REMAINING slugs, are told which batch-mates are DONE (read
 them for idiom, do not rewrite), treat partial files as drafts from their earlier
 self, and run the visual sweep over the WHOLE category batch (dead agents may not
 have visually checked their own later terms; the sweep has caught real overflow
-bugs in "complete" specimens every time). The verify agent then gates all 54.
+bugs in "complete" specimens every time). The verify agent then gates the whole round.
 
 ## 4. e2e and commit (main session, ~30 min)
 
@@ -114,6 +137,14 @@ bugs in "complete" specimens every time). The verify agent then gates all 54.
    - a demo that answers input by synthesizing more input (`btn.click()` inside a
      click handler): the choreography passes and the TAKEOVER pass fails, because
      it counts the clicks reaching the specimen and wants exactly one
+   - a mid-flight assert on an element that is fading OUT (STAGE_NEWS law 28). The
+     tell is an identical claim passing inbound and failing outbound, so it reads
+     as flake rather than as a rule; it is not one, and widening the window cannot
+     fix it. Claim the exit through something that stays visible.
+   - an assert whose meaning does not match the element's (STAGE_NEWS law 29): a
+     cumulative claim aimed at a "last event" readout. Look for its twin while
+     fixing it, an assert that passes for a reason the demo's state axis never
+     touched, which is invisible precisely because it is green.
 2. **Review the new subject snapshots** (`e2e/__snapshots__/<slug>-subject.txt`):
    every one should be `scope: element` with a sensibly narrow subject; every
    `data-pose` carrier must mount in a state satisfying its pose (the attributes in

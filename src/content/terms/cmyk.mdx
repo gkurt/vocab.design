@@ -1,0 +1,65 @@
+---
+name: CMYK
+slug: cmyk
+category: color
+status: published
+definition: >-
+  The subtractive print colour model: cyan, magenta and yellow inks plus a key black, mixing
+  by absorbing light, with a gamut narrower than any screen's.
+aliases:
+  - name: process color
+    source: community
+  - name: four-color process
+    source: community
+  - name: CMYK color model
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: CMYK color model"
+    url: https://en.wikipedia.org/wiki/CMYK_color_model
+demo: inline
+useWhen: designing for ink on paper instead of light on glass
+---
+
+A screen adds light. It starts at black and piles red, green and blue on top of one another
+until it arrives at white. Paper does the opposite: it starts white, and every ink laid on it
+removes part of the light the sheet would otherwise have bounced back, so the only direction
+available is darker. Cyan ink absorbs red, magenta absorbs green, yellow absorbs blue, and
+two of them overprinted remove two bands at once, which is why cyan over magenta reads as a
+deep violet rather than as anything in between the two. The fourth ink is black, called key
+because its plate carries the line work, the type and the shadow detail the other three are
+registered against. In theory the three colours already reach black together. In practice
+real inks are impure, so their overlap lands on a heavy near black, uses three times the
+ink, and takes far longer to dry than one pass of black would.
+
+CMYK is a model rather than a [colour space](/color-space). The four numbers say how much of
+each ink to lay down, and they only name a colour once a press, a paper and a set of inks
+have been specified, which is the job of a profile such as SWOP or FOGRA. Two shops printing
+the same `100 0 0 0` will not hand back the same cyan, and the same file on uncoated stock
+comes back duller than on coated, because uncoated paper drinks ink and spreads the dot. This
+is also the line between CMYK and [halftone](/halftone): halftone is *how* a press makes a
+tint at all, by growing and shrinking dots on a lattice, while CMYK is *which* inks those
+dots are made of. Four halftone screens, one per ink, each rotated to its own angle so the
+lattices do not beat against one another.
+
+Four inks reach a good deal less than a display does. Saturated cyans, oranges and greens
+that an [sRGB](/srgb) monitor shows without effort have no ink mix behind them at all, and
+the [gamut](/color-gamut) is narrower again on cheap stock. That little warning triangle in a
+colour picker is usually saying exactly this: the value you chose is outside the destination
+profile and something will be substituted for it. Choosing the substitute deliberately is
+[gamut mapping](/gamut-mapping), and it is worth doing by hand, because the swap is otherwise
+silent and a brand colour that arrives two steps duller was nobody's decision.
+
+For interface work the practical rules are short. Pick brand colours against CMYK first if
+anything will ever be printed, since a colour born on a screen may have no press equivalent
+while one born on press always has a screen equivalent. Expect the printed version to read
+darker and less saturated than the proof on your monitor. Expect small text to be set in the
+key ink alone, because four plates in imperfect register turn a hairline into a coloured
+fringe. And do not carry ink numbers into a stylesheet: CSS has no colour of this kind to
+offer beyond a `device-cmyk()` function still sitting in a draft, so the values have to be
+converted to sRGB by somebody, and doing that conversion knowingly is the difference between
+a palette that survives the trip and one that arrives muddy.

@@ -1,0 +1,4 @@
+term:    Rule of thirds
+scope:   element
+subject: div[aria-hidden=true][data-mode=thirds][data-part=grid][data-pose=[data-mode=thirds]]
+text:    
