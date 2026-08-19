@@ -182,7 +182,13 @@ component library would save — without the branding or churn.
   A demo's own instrumentation is never part of the term. A Replay button, a
   "make the next request fail" switch, and the heading above a list are scenery
   the specimen needs in order to be watchable, and they belong outside the
-  subject. Scenery is wrapped in the `.sp-context` register: accent remaps to a
+  subject. Instrumentation for the *choreography* goes further than scenery: an
+  element that exists so the script can aim at a coordinate (an anchor for a tap
+  that must land inside an invisible region) gets a `data-part` and no paint at
+  all. The ghost cursor is the stage's own annotation; dashed rings marking its
+  stop points annotate the script, not the term, and read as UI the term never
+  had. A demo that wants to teach where input can land draws the region (the
+  term's geometry) or says it in a caption, never the stop points. Scenery is wrapped in the `.sp-context` register: accent remaps to a
   chroma-free neutral and elevation drops to none, while contrast and type stay
   untouched — context must read as *quiet*, never as *disabled* (grey-out is
   itself UI vocabulary). The subject is styled normally — full kit palette, no

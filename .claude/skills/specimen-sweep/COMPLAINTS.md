@@ -12,6 +12,35 @@ complete; until then entries only accumulate. Entry format:
 - Verify: what proves the fix (which e2e pass, what the eye checks on 4321).
 ```
 
+## aim-markers
+
+- Queued: 2026-08-19 · Status: queued
+- Rule: choreography instrumentation is invisible (SPEC §5, STAGE_NEWS law 16).
+  An element that exists so the script can aim at a coordinate (a tap that must
+  land inside an invisible region) gets a `data-part` and NO paint: no dashed
+  ring, no dot, nothing. The ghost cursor is the only visible pointer artifact;
+  drawn stop-point markers annotate the script, not the term, and read as UI the
+  term never had. Dashed geometry that draws the TERM (a slop region, marching
+  ants, a drop zone, a minimum-target outline) is legitimate and stays; only
+  markers of where the pointer will stop go. To teach where input can land, draw
+  the region or say it in a caption.
+- Detector: detectors/aim-markers.ts (recall-tuned). Signals: the dashed-ring
+  style recipe in demo.ts, and choreography moveTo targets with marker-smelling
+  names (dot-/aim-/tap-/mark-/spot-/point-). At queue time: 26/849 flagged; both
+  signals fire on hit-slop, dead-zone, hit-testing, quasimode (near-certain);
+  known false positives carousel and page-indicator (their dots ARE the term).
+  Judge question per slug: is the flagged element a marker of the pointer's stop
+  point, or the term's own geometry / real UI vocabulary?
+- Recipe: keep the anchor element, its `data-part`, size, and position (events
+  must land at the same coordinates; a demo resolving input by coordinate, like
+  hit-slop's elementFromPoint, depends on this and must not gain `data-aim`);
+  strip all paint (transparent border or none). Reword any caption that pointed
+  the reader at the now-invisible marks (hit-slop's "Tap one of the three dots"
+  readout and "Three taps, top to bottom" label). Choreography unchanged.
+- Verify: choreography pass over touched slugs (asserts prove the taps still
+  land); subject snapshots must not change; the eye confirms on 4321 that no
+  stray rings remain and captions still make sense.
+
 ## subject-granularity
 
 - Queued: 2026-08-19 · Status: queued

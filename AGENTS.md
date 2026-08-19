@@ -178,7 +178,8 @@ never fires under reduced motion, so nothing may ever wait on it.
   satisfy it. Prefer designing states so the subject never stops being the term;
   `data-pose` is for demos where the dishonest state is pedagogically required.
   Demo instrumentation (a Replay button, a "make it fail" switch) is scenery, never
-  subject. Marking the top-level wrapper claims the whole scene is the term and
+  subject; an element that exists only so the choreography can aim at a coordinate
+  carries a `data-part` and no paint at all (SPEC §5). Marking the top-level wrapper claims the whole scene is the term and
   **withdraws the identify control** (SPEC §5–6), so reach for it only when no
   narrower element is the answer; `e2e/__snapshots__/<slug>-subject.txt` records
   which way each specimen went.
