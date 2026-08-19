@@ -131,6 +131,9 @@ never fires under reduced motion, so nothing may ever wait on it.
   satisfied by an absent element as well as an invisible one. Scripted input must
   reach a state rather than flip it (SPEC §8): a demo's trigger opens, and dismissal
   is explicit. Toggles are only for demos where the toggling is the term itself.
+  A term whose whole claim is visible at rest ships a still script, waits and asserts
+  only: a hover with no visible consequence is cursor theater, not choreography
+  (SPEC §8).
   `bun run test:e2e` plays each script through the real attract player, so a demo must
   answer synthesized events: nothing may depend on a browser's own default activation
   (`<summary>`, a `<label>` for an input, a form submit). An `assert` is judged the

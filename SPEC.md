@@ -370,6 +370,18 @@ export default steps([
   Escape, click outside) instead of a trigger that toggles. A toggle is right where the
   toggling *is* the term (a chip, a disclosure, a reveal), because there the script
   drives both directions itself and the demonstration is the flip.
+- **A still term ships a still script.** Choreography exists to demonstrate state, and
+  some terms have exactly one: most aesthetics, much of typography, a layout whose
+  whole claim is visible at rest. Those specimens script waits and asserts only. The
+  asserts keep every CI duty (the script remains the smoke test, attract still runs,
+  identify-mid-attract still has a moment to interrupt), while the stage simply rests
+  on the specimen, as it always has under reduced motion. What a still term never gets
+  is cursor theater: a hover with no visible consequence demonstrates nothing, and
+  pointing at parts in sequence is the identify pin's job, not the cursor's. The test
+  cuts both ways, and the demo answers first: before a script goes still, ask whether
+  the term honestly has a second state the demo is failing to show (a column count
+  that reflows, a comparison worth posing). A pointless hover is as often an
+  under-built demo as an over-built script.
 - The player dispatches real synthesized pointer/keyboard events inside the demo root,
   animating the ghost cursor between targets and popping key chips for keyboard steps.
   `moveTo` carries hover with it (enter/leave land when the cursor arrives), since
