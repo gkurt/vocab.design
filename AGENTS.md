@@ -166,7 +166,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   pushing what is below is not.
 - **Subject and context**: every demo marks the element the term names with
   `data-subject`, on the narrowest element that term actually names, and wraps scenery in
-  `.sp-context` (accent goes neutral, elevation drops). Never add emphasis styling to
+  `.sp-context` (accent goes neutral, elevation drops). Narrowest means the
+  feature's own extent, not its canvas: a demo that draws or highlights the
+  feature marks the traced element, and a feature with no element of its own gets
+  one (SPEC §5); identify summons subjects the current state hides. Never add emphasis styling to
   the subject — the stage draws all annotation (pin, identify spotlight) itself.
   A demo whose states include a counter-example the subject itself passes through
   (dark-pattern's fair checkout) declares the honest condition as a selector in

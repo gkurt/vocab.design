@@ -19,7 +19,10 @@ Files in this skill directory:
 - `COMPLAINTS.md` — the ledger: one entry per complaint (rule, detector, fix
   recipe, status)
 - `detectors/*.ts` — one runnable detector per mechanical complaint; run from the
-  repo root with bun; each prints a worklist of `slug<TAB>evidence` lines
+  repo root with bun; each prints a worklist of `slug<TAB>evidence` lines.
+  Browser-probe detectors are `.mjs` run with node instead (bun cannot launch
+  Playwright chromium) and need the user's dev server on 4321; they are still
+  scripts, still zero tokens.
 
 ## Entry point 1: queue a complaint (default, cheap, do this any time)
 

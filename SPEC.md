@@ -167,6 +167,15 @@ component library would save — without the branding or churn.
   small inline SVG icon set. Demos compose from the kit and nothing else.
 - **Subject and context registers.** Every demo marks the element the term names
   with `data-subject`, on the **narrowest** element that the term actually names.
+  Narrowest means the feature's own extent, not its canvas. "The term is a thing
+  this element has" is the wrong test: it justifies any container up to the page
+  (a river is a thing a paragraph has, a paragraph is a thing a column has). When
+  the term names a feature inside an element (a channel of aligned spaces, a gap,
+  a stroke), the subject is the element that traces the feature. A demo that draws
+  or highlights the feature already has that element; a feature with no element of
+  its own is given one, an overlay sized to its extent, rather than ringed by
+  proxy. A subject invisible in the current state is no objection: identify
+  summons what is off stage (§6).
   Reaching for the top-level wrapper is a claim that the whole scene is the term,
   not a default: it withdraws identify (§6), so a demo that grabs the wrapper out
   of convenience loses the affordance that would have pointed at the right thing.
