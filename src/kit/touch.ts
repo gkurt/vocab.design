@@ -4,7 +4,10 @@
  * mouse has no pressure to give, so the same gesture is simulated from hold
  * duration instead. `pressureHold` unifies the two into one force signal, so a
  * demo wires its pressure response once and answers the script, a finger, and a
- * held mouse button identically.
+ * held mouse button identically. `pinchSpread` does the same for the two-contact
+ * pinch: the script's `pinch` step and a real two-finger pinch both arrive as two
+ * pointer streams, and a mouse maps Ctrl+drag onto a virtual mirrored second
+ * contact, so one wiring reports one scale signal for all three.
  */
 
 /** The clock a demo already holds (src/stage/clock.ts), kept structural so the kit does not depend on the stage. */
@@ -71,4 +74,108 @@ export function pressureHold(el: HTMLElement, clock: ClockLike, handlers: Pressu
   el.addEventListener('pointerup', end);
   el.addEventListener('pointercancel', end);
   el.addEventListener('pointerleave', end);
+}
+
+/**
+ * Half the virtual pair's spread when a Ctrl+drag stands in for a second finger,
+ * along the same diagonal the ghost's twin discs use: the pair starts ~59px
+ * apart, so a drag has room to close the pinch as well as open it.
+ */
+const MIRROR_HALF = { x: 21, y: 21 };
+
+/**
+ * The Ctrl+drag pinch model, shared with the stage's TouchMirror so the disc it
+ * draws and the scale a demo computes can never disagree. The pressed point is
+ * one contact and stays under the pointer; the centre sits MIRROR_HALF away, and
+ * the second contact mirrors the pointer across it. Dragging down-right opens
+ * the pinch, back up-left closes it.
+ */
+export function mirrorPinch(
+  down: { x: number; y: number },
+  at: { x: number; y: number },
+): { scale: number; center: { x: number; y: number }; other: { x: number; y: number } } {
+  const center = { x: down.x - MIRROR_HALF.x, y: down.y - MIRROR_HALF.y };
+  return {
+    scale: Math.hypot(at.x - center.x, at.y - center.y) / Math.hypot(MIRROR_HALF.x, MIRROR_HALF.y),
+    center,
+    other: { x: 2 * center.x - at.x, y: 2 * center.y - at.y },
+  };
+}
+
+export interface PinchHandlers {
+  /** A pinch engaged (second finger down, or a Ctrl+drag began), centred here in client coordinates. */
+  onStart?: (center: { x: number; y: number }) => void;
+  /** The live scale, relative to the separation the gesture began at (1 as it engages). */
+  onPinch: (scale: number) => void;
+  /** The gesture ended (a finger lifted, the button released), at the scale it reached. */
+  onEnd: (scale: number) => void;
+}
+
+/**
+ * Report one scale signal for a pinch on `el`, whichever way it arrives: two
+ * touch contacts (the script's `pinch` step and a real two-finger pinch are the
+ * same two pointer streams) are tracked by pointerId and reported as the ratio
+ * of their separation to the one they engaged at; a mouse or pen pressing with
+ * Ctrl held maps the drag onto `mirrorPinch`'s virtual pair. A trackpad pinch
+ * arrives as a ctrl+wheel event, not as pointers, and stays the demo's own to
+ * wire. Purely event geometry — no clock, so a pose freezes it with the events.
+ */
+export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
+  const contacts = new Map<number, { x: number; y: number }>();
+  let base = 0;
+  let scale = 1;
+  let mouseFrom: { x: number; y: number } | null = null;
+
+  const spread = () => {
+    const [a, b] = [...contacts.values()];
+    return a && b ? Math.hypot(a.x - b.x, a.y - b.y) : 0;
+  };
+  const settle = () => {
+    if (base === 0 && !mouseFrom) return;
+    base = 0;
+    mouseFrom = null;
+    handlers.onEnd(scale);
+    scale = 1;
+  };
+
+  el.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch') {
+      // A third finger neither joins nor breaks the gesture the first two hold.
+      if (contacts.size >= 2) return;
+      contacts.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (contacts.size < 2) return;
+      base = spread();
+      scale = 1;
+      const [a, b] = [...contacts.values()];
+      if (a && b) handlers.onStart?.({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
+      return;
+    }
+    if (!event.ctrlKey) return;
+    mouseFrom = { x: event.clientX, y: event.clientY };
+    scale = 1;
+    handlers.onStart?.(mirrorPinch(mouseFrom, mouseFrom).center);
+  });
+  el.addEventListener('pointermove', (event) => {
+    if (mouseFrom) {
+      scale = mirrorPinch(mouseFrom, { x: event.clientX, y: event.clientY }).scale;
+      handlers.onPinch(scale);
+      return;
+    }
+    if (!contacts.has(event.pointerId)) return;
+    contacts.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (base === 0) return;
+    scale = spread() / base;
+    handlers.onPinch(scale);
+  });
+  for (const type of ['pointerup', 'pointercancel'] as const) {
+    el.addEventListener(type, (event) => {
+      // Only a pointer that is part of the gesture may end it.
+      if (event.pointerType === 'touch') {
+        if (contacts.delete(event.pointerId)) settle();
+      } else if (mouseFrom) settle();
+    });
+  }
+  el.addEventListener('pointerleave', (event) => {
+    if (event.pointerType !== 'touch' && mouseFrom) settle();
+  });
 }

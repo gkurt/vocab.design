@@ -359,8 +359,19 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   into contact and swelling at the same rate, so taking over does not swap a finger
   for an arrow. Real fingers are never mirrored, and an iframe's events cannot be
   (none escape the frame), which is acceptable while no touch term is
-  document-scoped. Two-contact gestures (pinch, rotate) are not in the vocabulary
-  yet; terms that need them wait.
+  document-scoped. The pinch is in the vocabulary: the `pinch` step (§8) spreads or
+  closes twin contacts about its target, drawn as twin discs on the ghost, and a
+  demo wires `pinchSpread` from `src/kit/touch.ts` on its gesture surface — one
+  scale signal whether the two pointer streams come from the script or from real
+  fingers, with a reader's mouse mapped on via **Ctrl+drag**: the pressed point is
+  one contact and a virtual second contact mirrors it across a centre just beside
+  the press, so dragging outward opens the pinch and dragging back closes it.
+  TouchMirror draws that mirrored contact as a second disc using the same geometry
+  the kit hands the demo, so the picture and the computed scale can never disagree
+  (and no force fill during a pinch: it is a spread, not a press). A trackpad
+  pinch arrives as a ctrl+wheel event, not as pointers, and stays the demo's own
+  to wire. Rotation and gestures past two contacts are not in the vocabulary yet;
+  terms that need them wait.
 
 ### Non-negotiables
 
@@ -395,7 +406,11 @@ export default steps([
 ```
 
 - **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
-  `middleClick`, `drag`, `hold` (press-and-hold for N ms), `press` (key), `holdKey`
+  `middleClick`, `drag`, `hold` (press-and-hold for N ms), `pinch` (spread or close
+  two touch contacts about the current target: two pointerdowns with their own
+  pointerIds, moves, two pointerups — the separation ends at exactly `scale` times
+  where it began, and never exceeds the stage's span, so an opening pinch starts
+  narrow and a closing one ends narrow), `press` (key), `holdKey`
   (hold a key for N ms: one keydown, the typematic delay, then `repeat: true`
   keydowns at a steady rate until the keyup, the chip counting them as
   "ArrowRight ×12"), `type` (text), `scroll`, `wait`, `assert`. Nothing
@@ -403,7 +418,9 @@ export default steps([
   pointerup and never a click — a long press is not a tap, and a demo that wants the
   tap scripts one; under the touch persona (§7) its pointermove events carry a
   pressure climbing at a finger's rate (full force at 900 ms), so the hold's length
-  chooses the depth reached — the signal a force-driven demo reads.
+  chooses the depth reached — the signal a force-driven demo reads. `pinch`'s `ms`
+  is animation, not semantics — the scale is stated, so reduced motion collapses
+  the move, unlike `hold`, whose length IS the depth it reaches.
   **The vocabulary grows before a demo fakes it.** A term whose honest demonstration
   needs input the player cannot perform is a reason to grow the player — as press
   duration grew `hold` and pressure grew the touch persona — never to ship a control

@@ -46,11 +46,12 @@ Files in this skill directory:
      each way, and the demos must look different.
    - Avoid near-duplicates of existing specimens (a demo that would look like an
      existing one is a smell even when the term is distinct).
-   - **Two-contact gesture terms wait**: the stage speaks single-contact touch
-     (data-touch persona, hold step, pressure; STAGE_NEWS law 17), so pressure,
-     long-press, tap, and swipe terms are authorable. Pinch, rotate, and
-     multi-touch terms stay out of rosters until the persona grows a second
-     contact (the fake-touch entry in the specimen-sweep ledger tracks it).
+   - **Rotate and >2-contact terms wait**: the stage speaks single-contact touch
+     (data-touch persona, hold step, pressure; STAGE_NEWS law 17) and the
+     two-contact pinch (pinch step, pinchSpread, Ctrl+drag takeover; law 21), so
+     pressure, long-press, tap, swipe, and pinch terms are authorable. Rotate and
+     gestures past two contacts stay out of rosters until the vocabulary grows
+     them (the fake-touch entry in the specimen-sweep ledger tracks it).
 3. **Collision-check every pick AND its likely aliases** against
    `src/content/terms/` (`name:` lines catch both term names and alias names).
    A candidate whose name is already an alias of an existing term is DEAD: swap it

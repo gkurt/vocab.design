@@ -16,6 +16,14 @@ export type Step =
    * a click — a long press is not a tap.
    */
   | { hold: number }
+  /**
+   * Spread (scale > 1) or close (scale < 1) two touch contacts about the current
+   * target (SPEC §8): two pointerdowns with their own pointerIds, moves, two
+   * pointerups, with the separation ending at exactly `scale` times where it
+   * began. `ms` is animation, not semantics — the scale is stated, so reduced
+   * motion collapses it, unlike `hold`, whose length IS the depth.
+   */
+  | { pinch: { scale: number; ms?: number } }
   | { press: string }
   /**
    * Hold a key for this many ms with the OS's own repeat shape (SPEC §8): one

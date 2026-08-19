@@ -1,4 +1,4 @@
 term:    Pinch to zoom
 scope:   element
-subject: div.sp-surface[data-part=canvas][data-scale=1]
+subject: div.sp-surface[data-part=canvas][data-scale=1][data-touch]
 text:    Anchored between the fingers

@@ -54,6 +54,18 @@ const TOUCH_BASE_FORCE = 0.3;
 /** A held key's typematic shape: the initial delay, then one repeat per interval. */
 const KEY_REPEAT_DELAY_MS = 500;
 const KEY_REPEAT_INTERVAL_MS = 90;
+/**
+ * A pinch's separation never exceeds this: an opening pinch starts narrow and
+ * ends here, a closing one starts here — so the gesture always fits the stage,
+ * and the end/start ratio is exactly the step's scale either way.
+ */
+const PINCH_SPAN = 110;
+const PINCH_TICKS = 8;
+const PINCH_MS = 650;
+/** The diagonal the contacts spread on — the same axis the reader's Ctrl+drag mirror uses. */
+const PINCH_AXIS = Math.SQRT1_2;
+const PINCH_ID_A = 21;
+const PINCH_ID_B = 22;
 
 /**
  * The pressure a touch hold reports after `elapsed` ms. The ramp is rate-based,
@@ -127,7 +139,9 @@ export class AttractPlayer {
     this.#host = host;
     this.#cursor = document.createElement('div');
     this.#cursor.className = 'vd-ghost-cursor';
-    this.#cursor.innerHTML = `${CURSOR_SVG}${GRAB_SVG}<span class="vd-cursor-touch"><span class="vd-cursor-force"></span></span>`;
+    this.#cursor.innerHTML =
+      `${CURSOR_SVG}${GRAB_SVG}<span class="vd-cursor-touch"><span class="vd-cursor-force"></span></span>` +
+      '<span class="vd-cursor-pinch"></span><span class="vd-cursor-pinch vd-cursor-pinch--b"></span>';
     this.#hud = document.createElement('div');
     this.#hud.className = 'vd-key-hud';
     host.overlay.append(this.#cursor, this.#hud);
@@ -241,6 +255,7 @@ export class AttractPlayer {
       }
       if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
       else if ('hold' in step) this.#summonHold(step.hold);
+      else if ('pinch' in step) this.#summonPinch(step.pinch.scale);
       else if ('rightClick' in step) this.#dispatchButton(2);
       else if ('middleClick' in step) this.#dispatchButton(1);
       else if ('drag' in step) this.#summonDrag(step.drag.to);
@@ -298,7 +313,9 @@ export class AttractPlayer {
     this.#cursor.removeAttribute('data-visible');
     this.#cursor.removeAttribute('data-grab');
     this.#cursor.removeAttribute('data-contact');
+    this.#cursor.removeAttribute('data-gesture');
     this.#cursor.style.removeProperty('--vd-force');
+    this.#cursor.style.removeProperty('--vd-pinch');
     // A run abandoned mid-drag must not hand over a button still painted pressed.
     // Hover is not released here: userIntent keeps it when the real pointer is
     // already inside the hovered element, and a reset remounts everything anyway.
@@ -356,6 +373,9 @@ export class AttractPlayer {
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('hold' in step) {
         if (!(await this.#hold(step.hold, generation))) return;
+        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
+      } else if ('pinch' in step) {
+        if (!(await this.#pinch(step.pinch.scale, step.pinch.ms ?? PINCH_MS, generation))) return;
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('rightClick' in step) {
         this.#fx('vd-fx-arc vd-fx-arc--right');
@@ -553,6 +573,64 @@ export class AttractPlayer {
     return true;
   }
 
+  /**
+   * Spread or close two touch contacts about the current target (SPEC §8). Both
+   * contacts dispatch as `pointerType: 'touch'` with their own pointerId — the
+   * two-pointerdown shape a real pinch has on the web, which is what lets
+   * `pinchSpread` read the script and a real pinch through one wiring. The
+   * cursor's twin discs carry the separation (--vd-pinch is its live half).
+   * Duration here is animation, not semantics: the scale is stated, so reduced
+   * motion collapses the move — unlike `hold`, whose length IS the depth.
+   */
+  async #pinch(scale: number, ms: number, generation: number): Promise<boolean> {
+    const el = this.#target;
+    if (!el) return this.#sleep(STEP_GAP_MS, generation);
+    const at = aimAt(el);
+    const from = (scale >= 1 ? PINCH_SPAN / scale : PINCH_SPAN) / 2;
+    const to = from * scale;
+    // A pinch is touch by nature, whatever scope its target sits in.
+    this.#setPersona('touch');
+    this.#cursor.setAttribute('data-gesture', 'pinch');
+    const retire = () => {
+      this.#cursor.removeAttribute('data-gesture');
+      this.#cursor.style.removeProperty('--vd-pinch');
+    };
+    this.#cursor.style.setProperty('--vd-pinch', `${from}px`);
+    this.#dispatchPinch(el, 'pointerdown', at, from);
+    const dur = this.#host.reducedMotion ? 0 : ms;
+    for (let i = 1; i <= PINCH_TICKS; i++) {
+      if (!(await this.#sleep(Math.max(dur / PINCH_TICKS, 10), generation))) {
+        retire();
+        return false;
+      }
+      const half = from + ((to - from) * i) / PINCH_TICKS;
+      this.#cursor.style.setProperty('--vd-pinch', `${half}px`);
+      this.#dispatchPinch(el, 'pointermove', at, half);
+    }
+    this.#dispatchPinch(el, 'pointerup', at, to);
+    retire();
+    return true;
+  }
+
+  /** One tick of the pinch: both contacts, symmetric about `at` on the gesture's diagonal. */
+  #dispatchPinch(el: Element, type: 'pointerdown' | 'pointermove' | 'pointerup', at: { x: number; y: number }, half: number): void {
+    const pressure = type === 'pointerup' ? 0 : 0.5;
+    const contact = (sign: 1 | -1) => ({ x: at.x + sign * half * PINCH_AXIS, y: at.y + sign * half * PINCH_AXIS });
+    this.#dispatchPointer(el, type, contact(1), { pointerType: 'touch', pressure, pointerId: PINCH_ID_A, isPrimary: true });
+    this.#dispatchPointer(el, type, contact(-1), { pointerType: 'touch', pressure, pointerId: PINCH_ID_B });
+  }
+
+  /** A pinch, fast-forwarded: both contacts down, one move to the final spread, up. */
+  #summonPinch(scale: number): void {
+    const el = this.#target;
+    if (!el) return;
+    const at = aimAt(el);
+    const from = (scale >= 1 ? PINCH_SPAN / scale : PINCH_SPAN) / 2;
+    this.#dispatchPinch(el, 'pointerdown', at, from);
+    this.#dispatchPinch(el, 'pointermove', at, from * scale);
+    this.#dispatchPinch(el, 'pointerup', at, from * scale);
+  }
+
   /** A hold, fast-forwarded: down, one move at the depth the hold would reach, up. */
   #summonHold(ms: number): void {
     const el = this.#target;
@@ -668,7 +746,7 @@ export class AttractPlayer {
     el: Element,
     type: 'pointerdown' | 'pointermove' | 'pointerup',
     at: { x: number; y: number },
-    kind?: { pointerType: string; pressure: number },
+    kind?: { pointerType: string; pressure: number; pointerId?: number; isPrimary?: boolean },
   ): void {
     el.dispatchEvent(
       new PointerEvent(type, {

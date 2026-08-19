@@ -54,12 +54,15 @@ complete; until then entries only accumulate. Entry format:
       (hold + pressure ramp). force-touch, hold-to-confirm, and key-repeat
       (the `holdKey` step's first consumer, plus its focusability bug) already
       rewritten 2026-08-19.
-  (b) NEEDS A PRIMITIVE, add to the backlog and wait: multi-touch, rotate-gesture,
-      look-and-pinch (second contact); modifier-key, nudge, range-select,
-      access-key (a modifier held ACROSS other steps, e.g. Shift+drag: `holdKey`
-      holds one key for a duration but cannot span steps); shake-to-undo (device
-      motion: decide at build time whether synthesized devicemotion is honest or
-      sensor input counts as environment).
+  (b) NEEDS A PRIMITIVE, add to the backlog and wait: rotate-gesture (rotation is
+      not in the pinch step or pinchSpread's signal), multi-touch (>2 contacts),
+      look-and-pinch (gaze); the two-contact pinch itself landed 2026-08-19
+      (`pinch` step + pinchSpread + Ctrl+drag takeover; pinch-to-zoom rewritten
+      as first consumer, moving it out of this backlog); modifier-key, nudge,
+      range-select, access-key (a modifier held ACROSS other steps, e.g.
+      Shift+drag: `holdKey` holds one key for a duration but cannot span steps);
+      shake-to-undo (device motion: decide at build time whether synthesized
+      devicemotion is honest or sensor input counts as environment).
   (c) ENVIRONMENT, skip: simulated viewports (breakpoint, container, fluid-*,
       mobile-first, responsive-web-design, the-fold), system preferences and
       schemes, color-vision-deficiency, captcha, foit/web-font, magic-link,
@@ -76,8 +79,10 @@ complete; until then entries only accumulate. Entry format:
 
 - Queued: 2026-08-19 · Status: queued · Prerequisite MET for single-contact
   (2026-08-19: data-touch persona, hold step with pressure ramp, fingertip disc,
-  pressureHold in src/kit/touch.ts). Pinch/rotate/multi-touch offenders still
-  wait on a second contact; every other offender is sweepable now.
+  pressureHold in src/kit/touch.ts) AND for the two-contact pinch (2026-08-19:
+  `pinch` step, pinchSpread in src/kit/touch.ts, Ctrl+drag takeover mapping with
+  a mirrored second disc; pinch-to-zoom rewritten as first consumer). Rotate and
+  gestures past two contacts still wait; every other offender is sweepable now.
 - Rule: touch is a first-class input, not a mouse pointer in disguise. A term
   whose subject is a touch gesture or touch-specific input (pressure, long-press,
   swipe, pinch, rotate, multi-touch) is demonstrated by PERFORMING the gesture,

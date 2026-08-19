@@ -178,6 +178,40 @@ vd-stage[data-autoplay] .vd-stage-play {
   transition: scale 0.1s linear;
 }
 
+/* A pinch spreads twin contact discs about the hotspot along the finger's
+   diagonal. --vd-pinch is the live half-separation, set by the player each tick;
+   the translate transitions between ticks so the spread reads as one motion. */
+.vd-cursor-pinch {
+  --vd-pinch-sign: 1;
+  position: absolute;
+  top: -11px;
+  left: -11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--vd-ink, #1c1a17);
+  background: color-mix(in oklab, var(--vd-ink, #1c1a17) 14%, transparent);
+  box-shadow: 0 0 0 1px var(--vd-paper, #fff);
+  opacity: 0.95;
+  translate: calc(var(--vd-pinch, 0px) * 0.7071 * var(--vd-pinch-sign)) calc(var(--vd-pinch, 0px) * 0.7071 * var(--vd-pinch-sign));
+  transition: translate 0.1s linear;
+  display: none;
+}
+
+.vd-cursor-pinch--b {
+  --vd-pinch-sign: -1;
+}
+
+.vd-ghost-cursor[data-gesture="pinch"] .vd-cursor-pinch {
+  display: block;
+}
+
+.vd-ghost-cursor[data-gesture="pinch"] .vd-cursor-touch,
+.vd-ghost-cursor[data-gesture="pinch"] .vd-cursor-arrow,
+.vd-ghost-cursor[data-gesture="pinch"] .vd-cursor-hand {
+  display: none;
+}
+
 .vd-ghost-cursor[data-visible] {
   opacity: 1;
 }
