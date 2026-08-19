@@ -12,6 +12,42 @@ complete; until then entries only accumulate. Entry format:
 - Verify: what proves the fix (which e2e pass, what the eye checks on 4321).
 ```
 
+## fake-touch
+
+- Queued: 2026-08-19 · Status: queued · **PREREQUISITE: stage touch machinery**
+- Rule: touch is a first-class input, not a mouse pointer in disguise. A term
+  whose subject is a touch gesture or touch-specific input (pressure, long-press,
+  swipe, pinch, rotate, multi-touch) is demonstrated by PERFORMING the gesture,
+  never by picking its outcomes from a control (force-touch clicking force-firm/
+  force-deep buttons is the canonical offense). The ghost pointer wears a
+  distinct touch graphic for these, specimens or parts are marked touch-native,
+  and a reader on a mouse gets a simulated mapping (hold duration for pressure,
+  drag for swipe) while a reader on a touch screen gets the real thing.
+- Prerequisite build (design intent, decided at build time, amends SPEC §7-8):
+  distinct touch ghost graphic (contact disc, two discs for pinch/rotate); gesture
+  step vocabulary (tap, longPress with duration, swipe/fling, pinch, pressure
+  ramp); a touch-native marker on demos or parts that switches the player's
+  persona; synthesized PointerEvents with pointerType 'touch'; takeover mapping
+  for mouse readers (hold = pressure); e2e passes inherit via the same audit seam.
+  Until this lands the complaint CANNOT be swept: sequence it last or run it as
+  its own follow-up sweep after the build.
+- Detector: detectors/fake-touch.ts (recall-tuned: touch vocabulary in slug or
+  frontmatter). At queue time: 58 flagged; 'state-picked' entries are the prime
+  offenders (force-touch, long-press, multi-touch, pinch-to-zoom, rotate-gesture,
+  double-tap, shake-to-undo, hold-to-confirm...), 'drag-based' entries already
+  perform the gesture with a mouse and may only need the touch persona; known
+  false positives (hover, icon-button, caret) mention touch incidentally. Judge
+  question per slug: is the gesture itself the demonstration, and does the script
+  perform it or pick its result?
+- Recipe (post-build): rewrite state-picked demos so the gesture drives the
+  states (the picker control goes or becomes inspection-only scenery); mark the
+  demo or gesture surface touch-native; choreography performs the gesture with
+  the new steps; keep an honest reduced-motion story (gates already exist).
+  Subject snapshots may change; read the diffs.
+- Verify: choreography + identify-motion + takeover passes over touched slugs;
+  the eye confirms the touch graphic appears on touch-native parts and the
+  mouse-hold simulation works in takeover on 4321.
+
 ## aim-markers
 
 - Queued: 2026-08-19 · Status: queued
