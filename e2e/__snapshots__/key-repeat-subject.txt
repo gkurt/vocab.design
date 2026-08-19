@@ -1,4 +1,4 @@
 term:    Key repeat
 scope:   element
-subject: div.sp-surface[data-index=0][data-part=track][data-phase=idle]
+subject: div.sp-surface[aria-label=Line editor track: hold ArrowRight to repeat][data-index=0][data-part=track][data-phase=idle][role=application][tabindex=0]
 text:    

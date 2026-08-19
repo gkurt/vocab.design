@@ -27,15 +27,17 @@ complete; until then entries only accumulate. Entry format:
 - Detector: detectors/input-simulation.ts (recall-tuned: /simulat/, sim-named
   parts, "pretend", "labelled simulation" in demo.ts). At queue time: 70/849
   flagged, most legitimate. Judge buckets per slug:
-  (a) REWRITE NOW, primitive exists: long-press, spring-loading, key-repeat,
-      jiggle-mode (hold-countdown sims the `hold` step replaces),
-      pressure-sensitivity (hold + pressure ramp). force-touch and
-      hold-to-confirm already rewritten 2026-08-19.
+  (a) REWRITE NOW, primitive exists: long-press, spring-loading, jiggle-mode
+      (hold-countdown sims the `hold` step replaces), pressure-sensitivity
+      (hold + pressure ramp). force-touch, hold-to-confirm, and key-repeat
+      (the `holdKey` step's first consumer, plus its focusability bug) already
+      rewritten 2026-08-19.
   (b) NEEDS A PRIMITIVE, add to the backlog and wait: multi-touch, rotate-gesture,
       look-and-pinch (second contact); modifier-key, nudge, range-select,
-      access-key (a held modifier the player cannot hold: candidate `holdKey`
-      primitive); shake-to-undo (device motion: decide at build time whether
-      synthesized devicemotion is honest or sensor input counts as environment).
+      access-key (a modifier held ACROSS other steps, e.g. Shift+drag: `holdKey`
+      holds one key for a duration but cannot span steps); shake-to-undo (device
+      motion: decide at build time whether synthesized devicemotion is honest or
+      sensor input counts as environment).
   (c) ENVIRONMENT, skip: simulated viewports (breakpoint, container, fluid-*,
       mobile-first, responsive-web-design, the-fold), system preferences and
       schemes, color-vision-deficiency, captcha, foit/web-font, magic-link,

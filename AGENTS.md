@@ -132,6 +132,9 @@ never fires under reduced motion, so nothing may ever wait on it.
   satisfied by an absent element as well as an invisible one. Scripted input must
   reach a state rather than flip it (SPEC §8): a demo's trigger opens, and dismissal
   is explicit. Toggles are only for demos where the toggling is the term itself.
+  A keyboard-driven demo must be drivable by a real keyboard: its control carries
+  `tabindex="0"` so a reader's keys can reach it (the script needs no focus, but
+  the reader does).
   A term whose whole claim is visible at rest ships a still script, waits and asserts
   only: a hover with no visible consequence is cursor theater, not choreography
   (SPEC §8). The vocabulary grows before a demo fakes it: input the player cannot

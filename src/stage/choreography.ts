@@ -17,6 +17,12 @@ export type Step =
    */
   | { hold: number }
   | { press: string }
+  /**
+   * Hold a key for this many ms with the OS's own repeat shape (SPEC §8): one
+   * keydown, the typematic delay, then `repeat: true` keydowns at a steady rate,
+   * ended by a keyup. The key chip counts the repeats ("ArrowRight ×12").
+   */
+  | { holdKey: { key: string; ms: number } }
   | { type: string }
   | { scroll: { x?: number; y?: number } }
   | { wait: number }

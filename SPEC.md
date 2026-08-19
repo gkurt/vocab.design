@@ -395,8 +395,11 @@ export default steps([
 ```
 
 - **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
-  `middleClick`, `drag`, `hold` (press-and-hold for N ms), `press` (key), `type`
-  (text), `scroll`, `wait`, `assert`. Nothing demo-specific. `hold` ends with
+  `middleClick`, `drag`, `hold` (press-and-hold for N ms), `press` (key), `holdKey`
+  (hold a key for N ms: one keydown, the typematic delay, then `repeat: true`
+  keydowns at a steady rate until the keyup, the chip counting them as
+  "ArrowRight ×12"), `type` (text), `scroll`, `wait`, `assert`. Nothing
+  demo-specific. `hold` ends with
   pointerup and never a click — a long press is not a tap, and a demo that wants the
   tap scripts one; under the touch persona (§7) its pointermove events carry a
   pressure climbing at a finger's rate (full force at 900 ms), so the hold's length

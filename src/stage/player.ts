@@ -51,6 +51,9 @@ const PRESS_FLASH_MS = 200;
 const HOLD_RAMP_TICKS = 6;
 /** Where a touch contact's pressure ramp starts; a resting finger is not weightless. */
 const TOUCH_BASE_FORCE = 0.3;
+/** A held key's typematic shape: the initial delay, then one repeat per interval. */
+const KEY_REPEAT_DELAY_MS = 500;
+const KEY_REPEAT_INTERVAL_MS = 90;
 
 /**
  * The pressure a touch hold reports after `elapsed` ms. The ramp is rate-based,
@@ -242,6 +245,7 @@ export class AttractPlayer {
       else if ('middleClick' in step) this.#dispatchButton(1);
       else if ('drag' in step) this.#summonDrag(step.drag.to);
       else if ('press' in step) this.#dispatchKey(step.press);
+      else if ('holdKey' in step) this.#summonHoldKey(step.holdKey.key, step.holdKey.ms);
       else if ('type' in step) this.#dispatchType(step.type);
       else if ('scroll' in step) (this.#target ?? this.#host.root()).scrollBy({ left: step.scroll.x ?? 0, top: step.scroll.y ?? 0 });
       // Waits are dropped, except the ones the script itself says are load-bearing:
@@ -367,6 +371,9 @@ export class AttractPlayer {
       } else if ('press' in step) {
         this.#showKey(step.press);
         this.#dispatchKey(step.press);
+        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
+      } else if ('holdKey' in step) {
+        if (!(await this.#holdKey(step.holdKey.key, step.holdKey.ms, generation))) return;
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('type' in step) {
         if (!(await this.#typewrite(step.type, generation))) return;
@@ -676,11 +683,58 @@ export class AttractPlayer {
     );
   }
 
+  /** Where a key lands: the simulated focus if any, else the pointer's target. */
+  #keyEl(): Element {
+    return this.#simFocus ?? this.#target ?? this.#host.root();
+  }
+
   #dispatchKey(key: string): void {
     if (key === 'Tab') this.#advanceSimFocus();
-    const el = this.#simFocus ?? this.#target ?? this.#host.root();
+    const el = this.#keyEl();
     const opts = { key, bubbles: true, cancelable: true };
     el.dispatchEvent(new KeyboardEvent('keydown', opts));
+    el.dispatchEvent(new KeyboardEvent('keyup', opts));
+  }
+
+  /**
+   * Hold a key with the OS's own repeat shape (SPEC §8): one keydown, the
+   * typematic delay, then `repeat: true` keydowns at a steady rate until the
+   * keyup — the flag an expensive handler checks before acting is real here.
+   * The chip counts the repeats. Duration is semantic, like `hold`'s: reduced
+   * motion keeps it, and the hold's length chooses how many repeats fire.
+   */
+  async #holdKey(key: string, ms: number, generation: number): Promise<boolean> {
+    const el = this.#keyEl();
+    const opts = { key, bubbles: true, cancelable: true };
+    const chip = this.#showKey(key, true);
+    const retire = (ok: boolean) => {
+      chip.removeAttribute('data-live');
+      chip.setAttribute('data-done', '');
+      setTimeout(() => chip.remove(), FX_TTL_MS);
+      return ok;
+    };
+    el.dispatchEvent(new KeyboardEvent('keydown', opts));
+    let elapsed = Math.min(ms, KEY_REPEAT_DELAY_MS);
+    if (!(await this.#sleep(elapsed, generation))) return retire(false);
+    let repeats = 0;
+    while (elapsed + KEY_REPEAT_INTERVAL_MS <= ms) {
+      if (!(await this.#sleep(KEY_REPEAT_INTERVAL_MS, generation))) return retire(false);
+      elapsed += KEY_REPEAT_INTERVAL_MS;
+      repeats += 1;
+      chip.textContent = `${key} ×${repeats}`;
+      el.dispatchEvent(new KeyboardEvent('keydown', { ...opts, repeat: true }));
+    }
+    el.dispatchEvent(new KeyboardEvent('keyup', opts));
+    return retire(true);
+  }
+
+  /** A key hold, fast-forwarded: the repeats its duration buys, in one burst. */
+  #summonHoldKey(key: string, ms: number): void {
+    const el = this.#keyEl();
+    const opts = { key, bubbles: true, cancelable: true };
+    el.dispatchEvent(new KeyboardEvent('keydown', opts));
+    const repeats = Math.max(0, Math.floor((ms - KEY_REPEAT_DELAY_MS) / KEY_REPEAT_INTERVAL_MS));
+    for (let i = 0; i < repeats; i++) el.dispatchEvent(new KeyboardEvent('keydown', { ...opts, repeat: true }));
     el.dispatchEvent(new KeyboardEvent('keyup', opts));
   }
 
