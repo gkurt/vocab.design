@@ -338,6 +338,29 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   paused, and reduced-motion visitors get no attract at all.
 - **Touch**: no hover exists — takeover is tap; attract resumes after the same idle
   beat once interaction stops.
+- **Touch persona (scripted)**: touch is a first-class input, not a mouse pointer in
+  disguise. A demo marks a touch-native surface (or its whole scene) with
+  `data-touch`; any step whose target sits inside that scope performs as touch: the
+  ghost becomes a fingertip contact disc (floating translucent between targets,
+  pressed into contact for taps, holds, and swipes), dispatched pointer events carry
+  `pointerType: 'touch'`, and no hover is dispatched or mirrored — a finger that is
+  not pressing is not there at all. A tap wraps its press in the compatibility
+  over/enter and out/leave pair, exactly as a browser does. During a `hold` the
+  disc's inner fill swells with the reported pressure, which climbs at a finger's
+  rate (full force at 900 ms): a brief hold is a light press, a long one bottoms
+  out. Right and middle clicks stay
+  mouse gestures even inside a touch scope; a choreography on a touch surface has no
+  business with them. For real readers the mapping runs the other way:
+  `pressureHold` in `src/kit/touch.ts` turns a held mouse button (or pressureless
+  touch) into the same rising force signal the scripted ramp produces, on the demo's
+  own clock, so one wiring answers the script, a finger, and a mouse. The reader's
+  pointer is dressed to match: inside a touch scope the kit hides the native cursor
+  and the stage draws the real pointer as the same disc (`TouchMirror`), pressing
+  into contact and swelling at the same rate, so taking over does not swap a finger
+  for an arrow. Real fingers are never mirrored, and an iframe's events cannot be
+  (none escape the frame), which is acceptable while no touch term is
+  document-scoped. Two-contact gestures (pinch, rotate) are not in the vocabulary
+  yet; terms that need them wait.
 
 ### Non-negotiables
 
@@ -372,8 +395,12 @@ export default steps([
 ```
 
 - **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
-  `middleClick`, `drag`, `press` (key), `type` (text), `scroll`, `wait`, `assert`.
-  Nothing demo-specific.
+  `middleClick`, `drag`, `hold` (press-and-hold for N ms), `press` (key), `type`
+  (text), `scroll`, `wait`, `assert`. Nothing demo-specific. `hold` ends with
+  pointerup and never a click — a long press is not a tap, and a demo that wants the
+  tap scripts one; under the touch persona (§7) its pointermove events carry a
+  pressure climbing at a finger's rate (full force at 900 ms), so the hold's length
+  chooses the depth reached — the signal a force-driven demo reads.
 - **Targets are `data-part` attributes only** — a stable semantic contract that
   survives restyling. Never classes or tag structure. An `assert` may qualify a part
   with a state attribute (`[data-part=seg-day][aria-selected="true"]`), which is how a

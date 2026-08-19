@@ -5,32 +5,30 @@ export default steps([
   { wait: 500 },
   { assert: { selector: '[data-part=target][data-stage=rest]', state: 'visible' } },
   { assert: { selector: '[data-part=preview]', state: 'hidden' } },
-  { wait: 500 },
-  // Firm: the press crosses the first mark, and a preview lifts without committing to anything.
-  { moveTo: '[data-part=force-firm]' },
-  { wait: 450 },
-  { click: true },
-  { wait: 900 },
-  { assert: { selector: '[data-part=target][data-stage=peek]', state: 'visible' } },
-  { assert: { selector: '[data-part=preview][data-stage=peek]', state: 'visible' } },
-  { assert: { selector: '[data-part=actions]', state: 'hidden' } },
-  { wait: 900 },
-  // Deep: past the second mark the same preview commits, fills the pane, and offers its actions.
-  { moveTo: '[data-part=force-deep]' },
-  { wait: 450 },
-  { click: true },
-  { wait: 900 },
-  { assert: { selector: '[data-part=target][data-stage=pop]', state: 'visible' } },
+  // A brief hold climbs past the peek mark only: the preview lifts under the finger,
+  // then settles back once the press releases. The crossing leaves its evidence on
+  // the readout, since the peek itself is gone by the time a claim could be judged.
+  { moveTo: '[data-part=target]' },
+  { hold: 500 },
+  { wait: 800 },
+  { assert: { selector: '[data-part=readout][data-last=peek]', state: 'visible' } },
+  { assert: { selector: '[data-part=preview]', state: 'hidden' } },
+  { assert: { selector: '[data-part=target][data-stage=rest]', state: 'visible' } },
+  { wait: 600 },
+  // A long hold bottoms out: past the pop mark the preview commits, fills the pane,
+  // and staying pressed is no longer what keeps it open.
+  { hold: 950 },
+  { wait: 800 },
+  { assert: { selector: '[data-part=readout][data-last=pop]', state: 'visible' } },
   { assert: { selector: '[data-part=preview][data-stage=pop]', state: 'visible' } },
   { assert: { selector: '[data-part=actions]', state: 'visible' } },
-  { wait: 1000 },
-  // Acting on the popped panel dismisses it and hands the press back to rest. The claim is made
-  // on the row, since the button that made it is inside the surface the click just closed.
+  { wait: 900 },
+  // Acting on the popped panel is its dismissal (SPEC §8): explicit, never a toggle.
   { moveTo: '[data-part=archive]' },
   { wait: 450 },
   { click: true },
-  { wait: 1100 },
-  { assert: { selector: '[data-part=target][data-stage=rest]', state: 'visible' } },
-  { assert: { selector: '[data-part=preview]', state: 'hidden' } },
   { wait: 900 },
+  { assert: { selector: '[data-part=preview]', state: 'hidden' } },
+  { assert: { selector: '[data-part=target][data-stage=rest]', state: 'visible' } },
+  { wait: 700 },
 ]);

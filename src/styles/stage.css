@@ -133,8 +133,99 @@ vd-stage[data-autoplay] .vd-stage-play {
   display: none;
 }
 
+/* Touch persona (SPEC §7): the ghost becomes a fingertip contact disc, centred
+   on the hotspot. It floats translucent while travelling, presses into contact
+   for taps, holds, and swipes, and its inner fill swells with the reported
+   pressure (--vd-force, set by the player across a hold). */
+.vd-cursor-touch {
+  position: absolute;
+  top: -11px;
+  left: -11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--vd-ink, #1c1a17);
+  background: color-mix(in oklab, var(--vd-ink, #1c1a17) 14%, transparent);
+  box-shadow: 0 0 0 1px var(--vd-paper, #fff);
+  opacity: 0.55;
+  transition:
+    scale 0.12s ease-out,
+    opacity 0.12s ease-out;
+  display: none;
+}
+
+.vd-ghost-cursor[data-persona="touch"] .vd-cursor-touch {
+  display: block;
+}
+
+.vd-ghost-cursor[data-persona="touch"] .vd-cursor-arrow,
+.vd-ghost-cursor[data-persona="touch"] .vd-cursor-hand {
+  display: none;
+}
+
+.vd-ghost-cursor[data-contact] .vd-cursor-touch {
+  scale: 0.8;
+  opacity: 0.95;
+}
+
+.vd-cursor-force {
+  position: absolute;
+  inset: 1px;
+  border-radius: 50%;
+  background: var(--vd-accent);
+  opacity: 0.55;
+  scale: var(--vd-force, 0);
+  transition: scale 0.1s linear;
+}
+
 .vd-ghost-cursor[data-visible] {
   opacity: 1;
+}
+
+/* The reader's own pointer inside a touch scope (SPEC §7): the kit hides the
+   native cursor there, and the stage draws this disc following the real pointer
+   with no travel easing, since it IS the pointer rather than a ghost. The anchor
+   is 0×0 and only ever translated; the disc is a child, because the individual
+   `scale` property composes BEFORE the `transform` property and scaling the
+   anchor would scale its own translate out from under the pointer. Styled on its
+   own rather than through .vd-cursor-touch so ghost and reader never share a
+   selector. */
+.vd-user-touch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity 0.12s ease-out;
+  z-index: 5;
+}
+
+.vd-user-touch[data-visible] {
+  opacity: 1;
+}
+
+.vd-user-touch-disc {
+  position: absolute;
+  top: -11px;
+  left: -11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--vd-ink, #1c1a17);
+  background: color-mix(in oklab, var(--vd-ink, #1c1a17) 14%, transparent);
+  box-shadow: 0 0 0 1px var(--vd-paper, #fff);
+  opacity: 0.55;
+  transition:
+    scale 0.12s ease-out,
+    opacity 0.12s ease-out;
+}
+
+.vd-user-touch[data-contact] .vd-user-touch-disc {
+  scale: 0.8;
+  opacity: 0.95;
 }
 
 /* Input effects — the click vocabulary (SPEC §8): left/right arcs, held-drag
@@ -170,6 +261,20 @@ vd-stage[data-autoplay] .vd-stage-play {
 
 .vd-fx-arc--held.vd-fx-arc--release {
   animation: vd-arc-ripple 0.35s ease-out forwards;
+}
+
+/* A tap's ripple: the full ring, since a finger has no buttons to disambiguate. */
+.vd-fx-tap {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--vd-accent);
+  opacity: 0;
+  pointer-events: none;
+  animation: vd-arc-ripple 0.45s ease-out forwards;
 }
 
 @keyframes vd-arc-ripple {

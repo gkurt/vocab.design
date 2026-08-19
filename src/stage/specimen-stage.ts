@@ -4,6 +4,7 @@ import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography } from '#src/stage/registry.ts';
 import type { Isolation } from '#src/stage/surface.ts';
 import { createSurface } from '#src/stage/surface.ts';
+import { TouchMirror } from '#src/stage/touch-mirror.ts';
 import { isRevealed } from '#src/stage/visible.ts';
 
 const HOVER_DWELL_MS = 150;
@@ -176,6 +177,12 @@ class VdStage extends HTMLElement {
       },
     });
     this.#player = player;
+
+    // The reader's pointer inside a `data-touch` scope is drawn as a fingertip
+    // disc (SPEC §7); the kit hides the native cursor there. Real events never
+    // leave an iframe, so a framed specimen cannot be mirrored — acceptable while
+    // no touch term is document-scoped, and a reason to revisit if one becomes so.
+    new TouchMirror(surface.events, surface.edge, overlay, surface.offset);
 
     // --- Subject annotation (SPEC §6) ---
     const subject = () => this.#mountRoot?.querySelector<HTMLElement>('[data-subject]') ?? null;

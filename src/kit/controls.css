@@ -1,6 +1,14 @@
 /* Kit controls (SPEC §5): the interactive primitives specimens compose from.
    Stateful behaviour lives in the demos; this file only describes appearance. */
 
+/* A touch surface has no arrow (SPEC §7): the stage draws the reader's pointer
+   as a fingertip disc instead, so the native cursor goes, inline styles included. */
+[data-touch],
+[data-touch] * {
+  /* biome-ignore lint/complexity/noImportantStyles: a touch scope outranks any inline cursor a demo states */
+  cursor: none !important;
+}
+
 .sp-button {
   appearance: none;
   border: 0;

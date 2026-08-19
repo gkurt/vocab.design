@@ -66,6 +66,7 @@ src/kit/kit.ts              # Specimen kit stylesheet, assembled and adopted int
 src/kit/*.css               # tokens · layout · controls · surfaces · motion (--sp-* only)
 src/kit/icons.ts            # Shared inline SVG icon set
 src/kit/motion.ts           # prefersReducedMotion(): the gate a scripted animation asks itself
+src/kit/touch.ts            # pressureHold(): one force signal for script, finger, and held mouse
 src/kit/parts.ts            # part()/partsOf()/flag(): the data-part lookup demos share
 src/kit/segmented.ts        # <sp-segmented>, <sp-combobox>: kit primitives that carry state
 src/kit/combobox.ts         #   (written once against ARIA APG, reused by every demo)
@@ -151,6 +152,17 @@ never fires under reduced motion, so nothing may ever wait on it.
   wiring. A specimen sets the attribute itself only for a state shown with no pointer
   on it (a states row, a posed comparison). Real focus is the exception that stays
   simulated (`data-sim-focus`, SPEC §7).
+- **Touch is a persona, not a costume** (SPEC §7-8). A surface marked `data-touch`
+  makes every step targeting it perform as touch: fingertip disc instead of the
+  arrow, `pointerType: 'touch'` on events, NO hover dispatched or mirrored (never
+  rely on `data-hovered` inside a touch scope). The `hold` step presses for N ms;
+  under the touch persona its `pressure` climbs at a finger's rate (full force at
+  900 ms), so the hold's length chooses the depth, and it ends with pointerup, never
+  a click. Demos answering pressure wire `pressureHold` from `#src/kit/touch.ts`
+  (pass the DemoClock), which turns a real reader's held mouse button into the same
+  force signal; the stage likewise draws the reader's own pointer as the disc inside
+  a touch scope (the kit hides the native cursor there), so demos never wire cursor
+  styles on touch surfaces. Pinch and rotate do not exist yet; terms needing them wait.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

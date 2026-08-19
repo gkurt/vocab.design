@@ -1,6 +1,6 @@
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
+import { pressureHold } from '#src/kit/touch.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
 /** Every box in the scene is stated once and never changes: a threshold firing moves nothing (SPEC §5). */
@@ -12,13 +12,7 @@ const GAUGE_W = 130;
 const PEEK = 0.42;
 const POP = 0.82;
 
-/** Where each setting parks the press: under both marks, between them, past both. */
-const LEVELS = { light: 0.2, firm: 0.58, deep: 0.95 } as const;
-type Level = keyof typeof LEVELS;
-
-const isLevel = (value: string): value is Level => value === 'light' || value === 'firm' || value === 'deep';
-
-/** The simulated curve, one small step per tick, so a setting is travelled to rather than jumped to. */
+/** The released press falls back one small step per tick; the climb is the gesture's own. */
 const TICK_MS = 40;
 const STEP = 0.06;
 /** How long a crossing owns the readout before the stage's own sentence comes back. */
@@ -51,12 +45,9 @@ const SUBJECT = 'dana';
 
 const listRow = ({ key, name, line }: (typeof ROWS)[number]) => {
   const subject = key === SUBJECT;
-  const own = subject ? 'data-part="target" data-subject data-stage="rest" role="button" tabindex="0"' : '';
-  const paint = subject
-    ? 'cursor: pointer; touch-action: none; transition: transform 0.18s var(--sp-ease), background-color 0.18s ease'
-    : '';
+  const own = `data-part="${subject ? 'target' : `row-${key}`}"${subject ? ' data-subject' : ''} data-stage="rest" role="button" tabindex="0"`;
   return `
-    <div class="sp-list-item${subject ? '' : ' sp-context'}" ${own} style="display: block; padding: 6px 8px; ${paint}">
+    <div class="sp-list-item${subject ? '' : ' sp-context'}" ${own} style="display: block; padding: 6px 8px; touch-action: none; transition: transform 0.18s var(--sp-ease), background-color 0.18s ease">
       <span class="sp-text sp-text--ink" style="display: block; font-size: 12px; font-weight: 500; line-height: 1.3">${name}</span>
       <span class="sp-line" style="display: block; width: ${line}px; margin-top: 4px"></span>
     </div>`;
@@ -83,24 +74,25 @@ const markup = ({ key, at, label }: (typeof MARKS)[number]) => `
 `;
 
 /**
- * Force touch specimen: a message row whose press has a depth, with the depth drawn as a gauge
- * carrying the two lines that fire something. Under the first mark a press is just contact. Past
- * it a preview lifts. Past the second the preview commits and fills the pane, and a tick lands at
- * each crossing, because a finger that has not moved has no other way to know it crossed anything.
+ * Force touch specimen: a message row whose press has a depth, performed rather than picked. The
+ * scene is a touch surface (`data-touch`), so the script presses it with a fingertip: a `hold`
+ * step's pressure climbs at a finger's rate, the gauge reads it live, and each mark fires as it is
+ * crossed, with a haptic tick, because a finger that has not moved has no other way to know. A
+ * brief hold crosses only the peek mark and the preview settles back on release; a long hold
+ * bottoms out, and past the pop mark the preview commits and stays for its actions.
  *
- * **This is a labelled simulation, and it says so on its face.** Nothing on this page can press
- * harder: a synthesized pointer carries no force at all and a mouse reports a constant. So the
- * setting parks the press at a depth and the gauge travels there on the clock `mount()` is handed,
- * firing each mark as it passes, which is the one thing about force touch worth watching. The row
- * itself is really wired for anyone who takes the stage over: holding it pushes the force up from
- * wherever the setting left it, and letting go drops it back.
+ * A real reader makes the same gesture through `pressureHold` (SPEC §7): force hardware drives it
+ * with pressure, and a plain mouse or pressureless finger buys depth with time, held on the demo's
+ * own clock. One wiring answers the script, a finger, and a held button; a bare click is down and
+ * up in the same breath and honestly fires nothing.
  *
- * The subject is the row being pressed. The term names the target whose press has a depth, not the
- * preview that depth produces and not the gauge that reads it, and the row is the term in all three
- * states (a light press is as force sensing as a deep one), so there is no dishonest state to
- * declare in `data-pose`. The row gives under the press, which is the term's own behaviour rather
- * than annotation: the stage draws the pin and the spotlight itself. The list beside it, the
- * setting, the gauge and the caption are the scene around it in the context register.
+ * Every row answers a press the same way: the neighbours sit in the context register, quieter but
+ * live, and pressing one of them retargets the preview to it. The subject is the row the script
+ * presses. The term names the target whose press has a depth, not the preview that depth produces
+ * and not the gauge that reads it, and the row is the term in all three states (a light press is
+ * as force sensing as a deep one), so there is no dishonest state to declare in `data-pose`. The
+ * row gives under the press, which is the term's own behaviour rather than annotation: the stage
+ * draws the pin and the spotlight itself. The gauge and the caption are scenery.
  *
  * The preview never covers the row: it lifts into a pane of its own, absolutely positioned and
  * reserved from mount, so peeking and popping move nothing (SPEC §5). The row gives with a
@@ -110,22 +102,13 @@ const markup = ({ key, at, label }: (typeof MARKS)[number]) => `
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 300px">
+      <div class="sp-frame sp-frame--wide" data-touch style="height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Mail</span>
           <span class="sp-text" data-part="readout" style="width: 330px; text-align: right; white-space: nowrap">${STAGES.rest.say}</span>
         </div>
 
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
-          <div class="sp-row sp-context" style="gap: 10px">
-            <span class="sp-label" style="white-space: nowrap">Press force</span>
-            <sp-segmented class="sp-segmented" data-part="force" data-value="light">
-              <button class="sp-segment" type="button" data-part="force-light" value="light">Light</button>
-              <button class="sp-segment" type="button" data-part="force-firm" value="firm">Firm</button>
-              <button class="sp-segment" type="button" data-part="force-deep" value="deep">Deep</button>
-            </sp-segmented>
-          </div>
-
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
           <div class="sp-row" style="gap: 10px; align-items: flex-start">
             <div
               class="sp-surface"
@@ -141,7 +124,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                   class="sp-label"
                   data-part="idle"
                   style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px; text-align: center; line-height: 1.4; transition: opacity 0.18s"
-                >Press past a mark to lift something</span>
+                >Hold a row to press into it</span>
 
                 <div
                   class="sp-surface"
@@ -150,7 +133,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                   style="position: absolute; top: ${PEEK_BOX.top}px; right: ${PEEK_BOX.right}px; bottom: ${PEEK_BOX.bottom}px; left: ${PEEK_BOX.left}px; display: flex; flex-direction: column; gap: 6px; padding: 10px; overflow: hidden; box-shadow: var(--sp-shadow); opacity: 0; visibility: hidden; transition: top 0.22s var(--sp-ease), right 0.22s var(--sp-ease), bottom 0.22s var(--sp-ease), left 0.22s var(--sp-ease), opacity 0.18s, visibility 0.18s"
                 >
                   <span class="sp-label" data-part="stage-name" style="font-size: 11px">${STAGES.peek.name}</span>
-                  <span class="sp-heading" style="font-size: 13px; white-space: nowrap">Dana Okafor</span>
+                  <span class="sp-heading" data-part="preview-name" style="font-size: 13px; white-space: nowrap">Dana Okafor</span>
                   <span class="sp-line" style="display: block; width: 100%"></span>
                   <span class="sp-line" style="display: block; width: 74%"></span>
                   <div
@@ -168,13 +151,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <div class="sp-stack sp-context" style="width: ${GAUGE_W}px; height: ${SCENE.h}px; gap: 6px">
               <div class="sp-row sp-row--between">
                 <span class="sp-label">Force</span>
-                <span class="sp-heading" data-part="value" style="font-size: 15px; font-variant-numeric: tabular-nums">${LEVELS.light.toFixed(2)}</span>
+                <span class="sp-heading" data-part="value" style="font-size: 15px; font-variant-numeric: tabular-nums">0.00</span>
               </div>
               <div style="position: relative; flex: 1 1 auto">
                 <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 14px; border-radius: 999px; background: var(--sp-sunken); overflow: hidden">
                   <div
                     data-part="fill"
-                    style="position: absolute; left: 0; right: 0; bottom: 0; height: ${(LEVELS.light * 100).toFixed(0)}%; border-radius: 999px; background: var(--sp-accent); transition: height 0.09s linear"
+                    style="position: absolute; left: 0; right: 0; bottom: 0; height: 0%; border-radius: 999px; background: var(--sp-accent); transition: height 0.09s linear"
                   ></div>
                 </div>
                 ${MARKS.map(markup).join('')}
@@ -184,21 +167,21 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          No pointer on this page can press harder, so the setting parks the force where a finger would hold it, and holding the row pushes it up from there.
+          The press deepens the longer it is held, which is how a pointer with no force sensor buys depth: a brief hold peeks and settles back, a long one pops and stays.
         </span>
       </div>
     </div>
   `;
 
-  const target = part(root, 'target');
+  const rows = ROWS.map((row) => ({ ...row, el: part(root, row.key === SUBJECT ? 'target' : `row-${row.key}`) }));
   const preview = part(root, 'preview');
+  const previewName = part(root, 'preview-name');
   const actions = part(root, 'actions');
   const idle = part(root, 'idle');
   const stageName = part(root, 'stage-name');
   const readout = part(root, 'readout');
   const value = part(root, 'value');
   const fill = part(root, 'fill');
-  const segmented = part(root, 'force') as HTMLElement & { value: string };
   const marks = MARKS.map((mark) => ({
     ...mark,
     bar: part(root, `mark-${mark.key}`),
@@ -208,11 +191,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const reduced = prefersReducedMotion(root);
 
-  let force = LEVELS.light;
-  let aim = force;
+  let force = 0;
   let stage: Stage = 'rest';
-  let level: Level = 'light';
-  let timer: number | undefined;
+  /** The row under the press: every row answers one, and the preview follows it. */
+  let active = rows.find((row) => row.key === SUBJECT) as (typeof rows)[number];
+  /** Past the pop mark the preview has committed: the finger leaving no longer closes it. */
+  let committed = false;
+  let fallTimer: number | undefined;
   let sayTimer: number | undefined;
 
   const say = (text: string) => {
@@ -225,6 +210,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   /** The tick a threshold owes the finger: a swell on the mark, and the crossing said out loud. */
   const crossed = (mark: (typeof marks)[number]) => {
+    // The evidence an assert can hold onto after the gesture is over (SPEC §8).
+    readout.dataset.last = mark.key;
     say(`Haptic tick at the ${mark.name} mark`);
     // A keyframe set built in script is out of `motion.css`'s reach, so the gate is asked here.
     if (!reduced) mark.bar.animate([{ scale: '1 1' }, { scale: '1.15 3' }, { scale: '1 1' }], { duration: 260, easing: 'ease-out' });
@@ -237,10 +224,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const open = next !== 'rest';
     const popped = next === 'pop';
 
-    target.dataset.stage = next;
+    active.el.dataset.stage = next;
     // The row gives under the press with a transform, so the rows around it hold still (SPEC §5).
-    target.style.transform = next === 'rest' ? 'none' : popped ? 'scale(0.94)' : 'scale(0.97)';
-    target.style.backgroundColor = open ? 'var(--sp-accent-soft)' : 'transparent';
+    active.el.style.transform = next === 'rest' ? 'none' : popped ? 'scale(0.94)' : 'scale(0.97)';
+    active.el.style.backgroundColor = open ? 'var(--sp-accent-soft)' : 'transparent';
 
     preview.dataset.stage = next;
     preview.style.top = `${box.top}px`;
@@ -268,48 +255,65 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       mark.label.style.color = passed ? 'var(--sp-ink)' : 'var(--sp-muted)';
       if (passed && previous < mark.at) crossed(mark);
     }
-    setStage(force >= POP ? 'pop' : force >= PEEK ? 'peek' : 'rest');
+    if (force >= POP) committed = true;
+    // A committed pop no longer follows the force down; only acting on it closes it.
+    setStage(committed ? 'pop' : force >= PEEK ? 'peek' : 'rest');
   };
 
-  const travel = () => {
-    timer = undefined;
-    setForce(force < aim ? Math.min(aim, force + STEP) : Math.max(aim, force - STEP));
-    if (force !== aim) timer = clock.setTimeout(travel, TICK_MS);
+  /** The released press falls back on the clock; the climb only ever comes from the gesture. */
+  const fall = () => {
+    fallTimer = undefined;
+    setForce(force - STEP);
+    if (force > 0) fallTimer = clock.setTimeout(fall, TICK_MS);
+  };
+  const release = () => {
+    clock.clearTimeout(fallTimer);
+    fallTimer = undefined;
+    if (force === 0) return;
+    // Reduced motion gets the destination without the descent.
+    if (reduced) return setForce(0);
+    fallTimer = clock.setTimeout(fall, TICK_MS);
   };
 
-  const press = (depth: number) => {
-    aim = Math.round(depth * 100) / 100;
-    clock.clearTimeout(timer);
-    timer = undefined;
-    if (force === aim) return;
-    // Reduced motion gets the destination without the climb; the crossings still fire in order.
-    if (reduced) return setForce(aim);
-    timer = clock.setTimeout(travel, TICK_MS);
-  };
-
-  segmented.addEventListener('change', () => {
-    if (!isLevel(segmented.value)) return;
-    level = segmented.value;
-    press(LEVELS[level]);
-  });
-
-  // The real wiring, live for a finger: holding the row pushes the press deeper, releasing it
-  // hands the force back to the setting. A synthesized click is down and up in the same breath,
-  // so it borrows a step of depth and gives it straight back, which is the honest answer to one.
-  target.addEventListener('pointerdown', () => press(1));
-  const release = () => press(LEVELS[level]);
-  for (const event of ['pointerup', 'pointerleave', 'pointercancel'] as const) target.addEventListener(event, release);
+  // The gesture is the input: script, finger, and held mouse button all arrive here as one
+  // rising force signal (SPEC §7). A bare click is down and up in the same breath, so it
+  // borrows a flicker of depth and gives it straight back, which is the honest answer to one.
+  // Every row answers a press; the preview follows whichever one the finger is on, and a
+  // press landing on a new row hands the old one, commitment included, back to rest first.
+  for (const row of rows) {
+    pressureHold(row.el, clock, {
+      onForce: (pressed) => {
+        clock.clearTimeout(fallTimer);
+        fallTimer = undefined;
+        if (active !== row) {
+          committed = false;
+          setForce(0);
+          active = row;
+          previewName.textContent = row.name;
+        }
+        setForce(pressed);
+      },
+      onEnd: (reached) => {
+        if (committed) say('Released past the pop: the panel stays open');
+        else if (reached >= PEEK) say('Released before the pop mark: the peek settles back');
+        release();
+      },
+    });
+  }
 
   // A popped panel is dismissed by acting on it, never by a toggle (SPEC §8): either action
-  // returns the press to rest through the setting, so the control and the gauge never disagree.
+  // releases the commitment and hands the scene back to rest.
   const dismiss = (outcome: string) => {
-    segmented.value = 'light';
-    level = 'light';
-    press(LEVELS.light);
+    committed = false;
+    clock.clearTimeout(fallTimer);
+    fallTimer = undefined;
+    setForce(0);
+    setStage('rest');
     say(outcome);
   };
   part(root, 'reply').addEventListener('click', () => dismiss('Reply opened, and the press is released'));
   part(root, 'archive').addEventListener('click', () => dismiss('Archived, and the press is released'));
 
-  setForce(LEVELS.light);
+  setStage('rest');
+  setForce(0);
 }

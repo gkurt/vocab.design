@@ -1,3 +1,4 @@
+import { FORCE_RAMP_MS } from '#src/kit/touch.ts';
 import type { Step } from '#src/stage/choreography.ts';
 import { claim, release } from '#src/stage/scheduler.ts';
 import { isSeen } from '#src/stage/visible.ts';
@@ -47,6 +48,20 @@ const SCROLL_SLICES = 7;
 const FX_TTL_MS = 700;
 const DRAG_MOVES = 3;
 const PRESS_FLASH_MS = 200;
+const HOLD_RAMP_TICKS = 6;
+/** Where a touch contact's pressure ramp starts; a resting finger is not weightless. */
+const TOUCH_BASE_FORCE = 0.3;
+
+/**
+ * The pressure a touch hold reports after `elapsed` ms. The ramp is rate-based,
+ * reaching full force at FORCE_RAMP_MS like the kit's mouse simulation, so the
+ * length of a `hold` step CHOOSES the depth it reaches: a brief hold is a light
+ * press, a long one bottoms out. A duration-normalized ramp would make every
+ * hold end at 1 and no script could ever perform a partial press.
+ */
+function holdForce(elapsed: number): number {
+  return Math.min(1, TOUCH_BASE_FORCE + ((1 - TOUCH_BASE_FORCE) * elapsed) / FORCE_RAMP_MS);
+}
 
 const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
@@ -109,7 +124,7 @@ export class AttractPlayer {
     this.#host = host;
     this.#cursor = document.createElement('div');
     this.#cursor.className = 'vd-ghost-cursor';
-    this.#cursor.innerHTML = CURSOR_SVG + GRAB_SVG;
+    this.#cursor.innerHTML = `${CURSOR_SVG}${GRAB_SVG}<span class="vd-cursor-touch"><span class="vd-cursor-force"></span></span>`;
     this.#hud = document.createElement('div');
     this.#hud.className = 'vd-key-hud';
     host.overlay.append(this.#cursor, this.#hud);
@@ -222,6 +237,7 @@ export class AttractPlayer {
         continue;
       }
       if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
+      else if ('hold' in step) this.#summonHold(step.hold);
       else if ('rightClick' in step) this.#dispatchButton(2);
       else if ('middleClick' in step) this.#dispatchButton(1);
       else if ('drag' in step) this.#summonDrag(step.drag.to);
@@ -256,6 +272,9 @@ export class AttractPlayer {
     return false;
   }
 
+  // Persona is deliberately not reset here: the cursor stays visible across loop
+  // iterations, and snapping back to the arrow for the beat before the first
+  // moveTo re-decides it would flash a mouse pointer at a touch surface.
   #reset(): void {
     this.#releaseHover();
     this.#releasePress();
@@ -274,10 +293,27 @@ export class AttractPlayer {
     this.#generation++;
     this.#cursor.removeAttribute('data-visible');
     this.#cursor.removeAttribute('data-grab');
+    this.#cursor.removeAttribute('data-contact');
+    this.#cursor.style.removeProperty('--vd-force');
     // A run abandoned mid-drag must not hand over a button still painted pressed.
     // Hover is not released here: userIntent keeps it when the real pointer is
     // already inside the hovered element, and a reset remounts everything anyway.
     this.#releasePress();
+  }
+
+  /**
+   * A step performs as touch when its target sits inside a `data-touch` scope
+   * (SPEC §7): the ghost becomes a fingertip contact disc, dispatched pointer
+   * events carry `pointerType: 'touch'`, and no hover exists — a finger that is
+   * not pressing is not there at all.
+   */
+  #personaFor(el: Element | null): 'mouse' | 'touch' {
+    return el?.closest('[data-touch]') ? 'touch' : 'mouse';
+  }
+
+  #setPersona(persona: 'mouse' | 'touch'): void {
+    if (persona === 'touch') this.#cursor.setAttribute('data-persona', 'touch');
+    else this.#cursor.removeAttribute('data-persona');
   }
 
   #setState(state: PlayerState): void {
@@ -308,9 +344,14 @@ export class AttractPlayer {
       if ('moveTo' in step) {
         if (!(await this.#moveTo(step.moveTo, generation))) return;
       } else if ('click' in step || 'dblclick' in step) {
-        this.#fx('vd-fx-arc vd-fx-arc--left');
-        if ('dblclick' in step) setTimeout(() => this.#fx('vd-fx-arc vd-fx-arc--left'), 140);
+        const tap = this.#personaFor(this.#target) === 'touch';
+        this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
+        if (tap) this.#contactFlash();
+        if ('dblclick' in step) setTimeout(() => this.#fx(tap ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left'), 140);
         this.#dispatchButton(0, 'dblclick' in step, true);
+        if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
+      } else if ('hold' in step) {
+        if (!(await this.#hold(step.hold, generation))) return;
         if (!(await this.#sleep(STEP_GAP_MS, generation))) return;
       } else if ('rightClick' in step) {
         this.#fx('vd-fx-arc vd-fx-arc--right');
@@ -352,12 +393,14 @@ export class AttractPlayer {
     const el = this.#host.root().querySelector(selector);
     if (!el) return this.#sleep(STEP_GAP_MS, generation);
     this.#target = el;
+    this.#setPersona(this.#personaFor(el));
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
     this.#placeCursor(aimAt(el), travel);
     this.#cursor.setAttribute('data-visible', '');
     if (!(await this.#sleep(travel, generation))) return false;
-    // Hover lands when the cursor arrives, not when it sets off.
-    this.#hover(el);
+    // Hover lands when the cursor arrives, not when it sets off — and never lands
+    // at all under the touch persona: a finger that is not pressing is not there.
+    this.#hover(this.#personaFor(el) === 'touch' ? null : el);
     return this.#sleep(80, generation);
   }
 
@@ -413,9 +456,9 @@ export class AttractPlayer {
     this.#pressOwned = null;
   }
 
-  #dispatchHover(el: Element, bubbling: string[], direct: string[]): void {
+  #dispatchHover(el: Element, bubbling: string[], direct: string[], pointerType = 'mouse'): void {
     const at = aimAt(el);
-    const base = { cancelable: false, clientX: at.x, clientY: at.y };
+    const base = { cancelable: false, clientX: at.x, clientY: at.y, pointerType };
     for (const type of bubbling) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: true }));
     for (const type of direct) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: false }));
   }
@@ -432,8 +475,11 @@ export class AttractPlayer {
     if (!source || !dest) return this.#sleep(STEP_GAP_MS, generation);
     const from = aimAt(source);
     const to = aimAt(dest);
-    this.#cursor.setAttribute('data-grab', '');
-    this.#dispatchPointer(source, 'pointerdown', from);
+    const touch = this.#personaFor(source) === 'touch';
+    const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
+    // A finger swipes as a pressed contact; a mouse drag closes into the grab hand.
+    this.#cursor.setAttribute(touch ? 'data-contact' : 'data-grab', '');
+    this.#dispatchPointer(source, 'pointerdown', from, kind);
     // Held for the whole drag: the source shows its pressed paint as long as the
     // hand is closed on it. Released with the pointer, or by #cancelRun.
     this.#press(source);
@@ -442,15 +488,78 @@ export class AttractPlayer {
     for (let i = 1; i <= DRAG_MOVES; i++) {
       if (!(await this.#sleep(Math.max(travel / (DRAG_MOVES + 1), 10), generation))) return false;
       const t = i / DRAG_MOVES;
-      this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t });
+      this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind);
     }
     if (!(await this.#sleep(120, generation))) return false;
-    this.#dispatchPointer(source, 'pointerup', to);
+    this.#dispatchPointer(source, 'pointerup', to, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
     this.#releasePress();
-    this.#cursor.removeAttribute('data-grab');
-    this.#fx('vd-fx-arc vd-fx-arc--left');
+    this.#cursor.removeAttribute(touch ? 'data-contact' : 'data-grab');
+    this.#fx(touch ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
     this.#target = dest;
     return this.#sleep(STEP_GAP_MS, generation);
+  }
+
+  /**
+   * Press and hold the current target (SPEC §8). Under the touch persona the
+   * contact's reported pressure climbs at a finger's rate (holdForce), dispatched
+   * as pointermove events at the same spot — the signal a force-driven demo
+   * reads — while the disc's inner fill swells with it. Under the mouse persona
+   * the button is simply held at the hardware default (0.5). Ends with pointerup
+   * and never a click: a long press is not a tap, and a demo that wants the tap
+   * scripts one.
+   */
+  async #hold(ms: number, generation: number): Promise<boolean> {
+    const el = this.#target;
+    if (!el) return this.#sleep(STEP_GAP_MS, generation);
+    const at = aimAt(el);
+    const touch = this.#personaFor(el) === 'touch';
+    const type = touch ? 'touch' : 'mouse';
+    let heldArc: HTMLElement | null = null;
+    if (touch) this.#cursor.setAttribute('data-contact', '');
+    else heldArc = this.#fx('vd-fx-arc vd-fx-arc--left vd-fx-arc--held', true);
+    const retire = () => {
+      this.#cursor.removeAttribute('data-contact');
+      this.#cursor.style.removeProperty('--vd-force');
+      if (heldArc) {
+        heldArc.classList.add('vd-fx-arc--release');
+        setTimeout(() => heldArc?.remove(), FX_TTL_MS);
+      }
+    };
+    this.#dispatchPointer(el, 'pointerdown', at, { pointerType: type, pressure: touch ? TOUCH_BASE_FORCE : 0.5 });
+    this.#press(el);
+    const ticks = this.#host.reducedMotion ? 1 : HOLD_RAMP_TICKS;
+    for (let i = 1; i <= ticks; i++) {
+      if (!this.#host.reducedMotion && !(await this.#sleep(ms / ticks, generation))) {
+        retire();
+        return false;
+      }
+      const force = touch ? holdForce((ms * i) / ticks) : 0.5;
+      if (touch) this.#cursor.style.setProperty('--vd-force', force.toFixed(3));
+      this.#dispatchPointer(el, 'pointermove', at, { pointerType: type, pressure: force });
+    }
+    this.#dispatchPointer(el, 'pointerup', at, { pointerType: type, pressure: 0 });
+    this.#releasePress();
+    retire();
+    if (touch) this.#fx('vd-fx-tap');
+    return true;
+  }
+
+  /** A hold, fast-forwarded: down, one move at the depth the hold would reach, up. */
+  #summonHold(ms: number): void {
+    const el = this.#target;
+    if (!el) return;
+    const at = aimAt(el);
+    const touch = this.#personaFor(el) === 'touch';
+    const type = touch ? 'touch' : 'mouse';
+    this.#dispatchPointer(el, 'pointerdown', at, { pointerType: type, pressure: touch ? TOUCH_BASE_FORCE : 0.5 });
+    this.#dispatchPointer(el, 'pointermove', at, { pointerType: type, pressure: touch ? holdForce(ms) : 0.5 });
+    this.#dispatchPointer(el, 'pointerup', at, { pointerType: type, pressure: 0 });
+  }
+
+  /** The disc presses into contact for a beat — the touch persona's press paint. */
+  #contactFlash(): void {
+    this.#cursor.setAttribute('data-contact', '');
+    setTimeout(() => this.#cursor.removeAttribute('data-contact'), PRESS_FLASH_MS);
   }
 
   /**
@@ -478,9 +587,11 @@ export class AttractPlayer {
     const dest = this.#host.root().querySelector(toSelector);
     if (!source || !dest) return;
     const to = aimAt(dest);
-    this.#dispatchPointer(source, 'pointerdown', aimAt(source));
-    this.#dispatchPointer(source, 'pointermove', to);
-    this.#dispatchPointer(source, 'pointerup', to);
+    const touch = this.#personaFor(source) === 'touch';
+    const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
+    this.#dispatchPointer(source, 'pointerdown', aimAt(source), kind);
+    this.#dispatchPointer(source, 'pointermove', to, kind);
+    this.#dispatchPointer(source, 'pointerup', to, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
     this.#target = dest;
   }
 
@@ -518,9 +629,17 @@ export class AttractPlayer {
     // scripted right-click would report (0, 0) and put the menu in the corner. The
     // ghost is over the target's centre, so that is where the click happened.
     const at = aimAt(el);
+    // Right and middle stay mouse gestures even inside a touch scope: a finger has
+    // no buttons, and a choreography on a touch surface has no business with them.
+    const touch = button === 0 && this.#personaFor(el) === 'touch';
     const opts = { bubbles: true, cancelable: true, button, clientX: at.x, clientY: at.y };
-    el.dispatchEvent(new PointerEvent('pointerdown', opts));
-    el.dispatchEvent(new PointerEvent('pointerup', opts));
+    const down = touch ? { ...opts, pointerType: 'touch', pressure: 0.5 } : opts;
+    const up = touch ? { ...opts, pointerType: 'touch', pressure: 0 } : opts;
+    // A real tap wraps its press in the compatibility hover pair; the mirror is
+    // never engaged for it (see #moveTo), so nothing rests hovered afterwards.
+    if (touch) this.#dispatchHover(el, ['pointerover', 'mouseover'], ['pointerenter', 'mouseenter'], 'touch');
+    el.dispatchEvent(new PointerEvent('pointerdown', down));
+    el.dispatchEvent(new PointerEvent('pointerup', up));
     if (button === 0) {
       el.dispatchEvent(new MouseEvent('click', opts));
       if (double) el.dispatchEvent(new MouseEvent('dblclick', opts));
@@ -529,13 +648,19 @@ export class AttractPlayer {
     } else {
       el.dispatchEvent(new MouseEvent('contextmenu', opts));
     }
+    if (touch) this.#dispatchHover(el, ['pointerout', 'mouseout'], ['pointerleave', 'mouseleave'], 'touch');
     // After the whole sequence, so a demo handler anywhere in it (down, up, or
     // click — claymorphism presses on click) wins the attribute first and the
     // flash's removal can never strip a state the demo is holding on its clock.
     if (flash && button === 0) this.#press(el, PRESS_FLASH_MS);
   }
 
-  #dispatchPointer(el: Element, type: 'pointerdown' | 'pointermove' | 'pointerup', at: { x: number; y: number }): void {
+  #dispatchPointer(
+    el: Element,
+    type: 'pointerdown' | 'pointermove' | 'pointerup',
+    at: { x: number; y: number },
+    kind?: { pointerType: string; pressure: number },
+  ): void {
     el.dispatchEvent(
       new PointerEvent(type, {
         bubbles: true,
@@ -544,6 +669,7 @@ export class AttractPlayer {
         buttons: type === 'pointerup' ? 0 : 1,
         clientX: at.x,
         clientY: at.y,
+        ...(kind ?? {}),
       }),
     );
   }

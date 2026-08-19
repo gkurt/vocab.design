@@ -9,6 +9,13 @@ export type Step =
   | { rightClick: true }
   | { middleClick: true }
   | { drag: { to: string } }
+  /**
+   * Press and hold the current target for this many ms (SPEC §8). Under the touch
+   * persona the reported pressure climbs at a finger's rate (full force at 900 ms),
+   * so the hold's length chooses the depth reached; ends with pointerup and never
+   * a click — a long press is not a tap.
+   */
+  | { hold: number }
   | { press: string }
   | { type: string }
   | { scroll: { x?: number; y?: number } }

@@ -14,7 +14,10 @@ complete; until then entries only accumulate. Entry format:
 
 ## fake-touch
 
-- Queued: 2026-08-19 · Status: queued · **PREREQUISITE: stage touch machinery**
+- Queued: 2026-08-19 · Status: queued · Prerequisite MET for single-contact
+  (2026-08-19: data-touch persona, hold step with pressure ramp, fingertip disc,
+  pressureHold in src/kit/touch.ts). Pinch/rotate/multi-touch offenders still
+  wait on a second contact; every other offender is sweepable now.
 - Rule: touch is a first-class input, not a mouse pointer in disguise. A term
   whose subject is a touch gesture or touch-specific input (pressure, long-press,
   swipe, pinch, rotate, multi-touch) is demonstrated by PERFORMING the gesture,
