@@ -16299,7 +16299,8 @@
    "morph-transition",
    "motion-blur",
    "pulse-animation",
-   "squash-and-stretch"
+   "squash-and-stretch",
+   "signed-distance-field"
   ],
   "priority": "tail",
   "demo": "inline",
@@ -46988,6 +46989,360 @@
   "notes": "Bare \"alt text\" belongs to alt-text and \"long description\" to long-description; this is the chart-shaped practice above both.",
   "sweptFrom": [
    "dataviz sweep 2026-08-18"
+  ]
+ },
+ {
+  "name": "CMYK",
+  "slug": "cmyk",
+  "category": "color",
+  "definition": "The subtractive print color model: cyan, magenta, and yellow inks plus a key black, mixing by absorbing light, with a gamut narrower than any screen's.",
+  "useWhen": "designing for ink on paper instead of light on glass",
+  "aliases": [
+   {
+    "name": "process color",
+    "source": "community"
+   },
+   {
+    "name": "four-color process",
+    "source": "community"
+   },
+   {
+    "name": "CMYK color model"
+   }
+  ],
+  "relatedSlugs": [
+   "gamut-mapping",
+   "color-space",
+   "rgb"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: CMYK color model",
+    "url": "https://en.wikipedia.org/wiki/CMYK_color_model"
+   }
+  ],
+  "implementations": [],
+  "notes": "Screen designers meet it at print handoff: the out-of-gamut warning in a color picker is usually a CMYK boundary. 'Subtractive color' is left unclaimed in case an additive/subtractive pair term is ever wanted.",
+  "sweptFrom": [
+   "wishlist 2026-08-19"
+  ]
+ },
+ {
+  "name": "Natural language interface",
+  "slug": "natural-language-interface",
+  "category": "pattern",
+  "definition": "An interface whose input is ordinary language, typed or spoken: the user states an intent in their own words and the system parses it, instead of picking from controls.",
+  "useWhen": "the input is a sentence, not a selection",
+  "aliases": [
+   {
+    "name": "NLI"
+   },
+   {
+    "name": "natural language UI"
+   },
+   {
+    "name": "NLUI"
+   },
+   {
+    "name": "language user interface"
+   }
+  ],
+  "relatedSlugs": [
+   "command-palette",
+   "voice-user-interface",
+   "chatbot"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Natural-language user interface",
+    "url": "https://en.wikipedia.org/wiki/Natural-language_user_interface"
+   }
+  ],
+  "implementations": [],
+  "notes": "'Conversational interface' is deliberately not claimed as an alias: the chat-shaped, turn-taking pattern is its own possible term, while this is the input paradigm, one-shot included (a search box that accepts intent is an NLI with no conversation).",
+  "sweptFrom": [
+   "wishlist 2026-08-19"
+  ]
+ },
+ {
+  "name": "Scroll edge fade",
+  "slug": "scroll-edge-fade",
+  "category": "pattern",
+  "definition": "A gradient mask at the edge of a scroll container that fades clipped content out, hinting that more lies past the edge without drawing a control.",
+  "useWhen": "showing a list continues past its clipped edge",
+  "aliases": [
+   {
+    "name": "edge fade",
+    "source": "community"
+   },
+   {
+    "name": "scroll fade",
+    "source": "community"
+   },
+   {
+    "name": "overflow fade",
+    "source": "community"
+   },
+   {
+    "name": "fade mask",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "scroll-container",
+   "scrollbar",
+   "carousel",
+   "marquee"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "MDN: mask-image",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-image"
+   },
+   {
+    "title": "Lea Verou: Pure CSS scrolling shadows with background-attachment local",
+    "url": "https://lea.verou.me/blog/2012/04/background-attachment-local/"
+   }
+  ],
+  "implementations": [],
+  "notes": "'Scroll shadow', the shadow-painted variant of the same affordance, is left unclaimed: likely an alias at authoring time, possibly a variantOf if the author finds the usage distinct. The marquee specimen already paints edge fades as scenery.",
+  "sweptFrom": [
+   "wishlist 2026-08-19"
+  ]
+ },
+ {
+  "name": "10-foot UI",
+  "slug": "ten-foot-ui",
+  "category": "pattern",
+  "definition": "The register for screens read from a couch: focus-driven navigation with a remote, oversized type and cards, horizontal rails, and safe margins for TV overscan.",
+  "useWhen": "the screen is across the room and the input is a remote",
+  "aliases": [
+   {
+    "name": "ten-foot experience",
+    "source": "community"
+   },
+   {
+    "name": "TV UI",
+    "source": "community"
+   },
+   {
+    "name": "leanback UI",
+    "source": "android"
+   },
+   {
+    "name": "living-room UI",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "spatial-navigation",
+   "focus-ring",
+   "card",
+   "carousel"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: 10-foot user interface",
+    "url": "https://en.wikipedia.org/wiki/10-foot_user_interface"
+   },
+   {
+    "title": "Android for TV: design guidance",
+    "url": "https://developer.android.com/design/ui/tv"
+   }
+  ],
+  "implementations": [],
+  "notes": "Shaped from the wishlist's 'Game/Console UI': the game half is already covered (diegetic-interface, fictional-user-interface, hud-panel), and 'console UI' is claimed by terminal-aesthetic as the other console, so the uncovered sense is the TV register. Never take 'console UI' as an alias. Slug spells the number out after sixty-thirty-ten-rule's precedent.",
+  "sweptFrom": [
+   "wishlist 2026-08-19"
+  ]
+ },
+ {
+  "name": "Signed distance field",
+  "slug": "signed-distance-field",
+  "category": "typography",
+  "definition": "A texture storing each pixel's distance to a shape's edge rather than its color, so glyphs and icons rendered from it stay crisp at any scale on the GPU.",
+  "useWhen": "text or icons must scale sharply inside a GPU pipeline",
+  "aliases": [
+   {
+    "name": "SDF"
+   },
+   {
+    "name": "distance field",
+    "source": "community"
+   },
+   {
+    "name": "MSDF",
+    "source": "community"
+   },
+   {
+    "name": "multi-channel signed distance field",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "anti-aliasing",
+   "font-rendering",
+   "icon",
+   "gooey-effect"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Chris Green (Valve), SIGGRAPH 2007: Improved alpha-tested magnification for vector textures",
+    "url": "https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf"
+   },
+   {
+    "title": "Wikipedia: Signed distance function",
+    "url": "https://en.wikipedia.org/wiki/Signed_distance_function"
+   }
+  ],
+  "implementations": [],
+  "notes": "Filed under typography because UI meets SDFs at text rendering (game UI, canvas, WebGL); the raymarching and generative senses are wider but not this site’s angle. Demo thought: the same glyph as a bitmap and as an SDF on one zoom ride. Not the gooey effect: that is usually the SVG blur plus alpha-contrast trick, though a smooth-minimum union of SDFs is the shader-land way to the same goo, so the two are cousins under implicit surfaces.",
+  "sweptFrom": [
+   "wishlist 2026-08-19"
+  ]
+ },
+ {
+  "name": "Identicon",
+  "slug": "identicon",
+  "category": "component",
+  "definition": "A generated default avatar derived deterministically from an identifier, so the same account always gets the same abstract pattern without uploading anything.",
+  "useWhen": "an account needs a face before the user provides one",
+  "aliases": [
+   {
+    "name": "generative avatar",
+    "source": "community"
+   },
+   {
+    "name": "default avatar",
+    "source": "community"
+   },
+   {
+    "name": "generated avatar",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "avatar-group",
+   "placeholder-text",
+   "empty-state"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Identicon",
+    "url": "https://en.wikipedia.org/wiki/Identicon"
+   },
+   {
+    "title": "GitHub blog: Identicons",
+    "url": "https://github.blog/news-insights/company-news/identicons/"
+   }
+  ],
+  "implementations": [],
+  "notes": "Don Park coined it in 2007 for IP-hash patterns; GitHub made the 5x5 symmetric-pixel form famous. The seeded determinism is a gift to the specimen: identical on every identify run by construction, and the demo can show the same handle always drawing the same face. Generative art that is pure interface, which is what earned it a record where raymarching was rejected.",
+  "sweptFrom": [
+   "creative-coding probe 2026-08-19"
+  ]
+ },
+ {
+  "name": "Vignette",
+  "slug": "vignette",
+  "category": "aesthetic",
+  "definition": "A gradual darkening toward the edges of an image that pulls the eye to the centre, borrowed from lens falloff and applied deliberately for focus and mood.",
+  "useWhen": "the edges of an image quietly dimmed to hold focus",
+  "aliases": [
+   {
+    "name": "vignetting",
+    "source": "community"
+   },
+   {
+    "name": "lens vignette",
+    "source": "community"
+   },
+   {
+    "name": "edge darkening",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "scrim",
+   "duotone",
+   "hero-image"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Wikipedia: Vignetting",
+    "url": "https://en.wikipedia.org/wiki/Vignetting"
+   }
+  ],
+  "implementations": [],
+  "notes": "The article should draw the scrim boundary: a scrim is functional (text protection, usually one-sided), a vignette is compositional (focus and mood, radially symmetric); UI heroes often carry both and call the pair a vignette.",
+  "sweptFrom": [
+   "creative-coding probe 2026-08-19"
+  ]
+ },
+ {
+  "name": "Particle background",
+  "slug": "particle-background",
+  "category": "motion",
+  "definition": "An ambient decorative background of many small moving agents: drifting dots, linked constellations, flocks, or starfields animating behind the page content.",
+  "useWhen": "the backdrop is alive with drifting points",
+  "aliases": [
+   {
+    "name": "constellation effect",
+    "source": "community"
+   },
+   {
+    "name": "plexus background",
+    "source": "community"
+   },
+   {
+    "name": "boids",
+    "source": "community"
+   },
+   {
+    "name": "flocking animation",
+    "source": "community"
+   },
+   {
+    "name": "starfield",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "aurora-ui",
+   "cursor-follower",
+   "dot-grid-background",
+   "gooey-effect"
+  ],
+  "priority": "core",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "particles.js: a lightweight library for particles",
+    "url": "https://vincentgarreau.com/particles.js/"
+   },
+   {
+    "title": "Craig Reynolds: Boids, background and update",
+    "url": "https://www.red3d.com/cwr/boids/"
+   }
+  ],
+  "implementations": [],
+  "notes": "The umbrella artifact for the agent-driven background; algorithm names ride as aliases after gooey-effect precedent, and boids (Reynolds 1986: separation, alignment, cohesion) gets its paragraph here per the raymarching rule. The interface content is real: prefers-reduced-motion is load-bearing (a full-viewport ambient field is the canonical vestibular offender), it spends CPU and battery while the page is idle, and text over a moving field has no stable contrast ground. Digital rain is deliberately not an alias: it reads as its own icon in the terminal and cyberpunk family.",
+  "sweptFrom": [
+   "creative-coding probe 2026-08-19"
   ]
  }
 ]

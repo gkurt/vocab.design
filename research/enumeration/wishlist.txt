@@ -1,4 +1,0 @@
-- CMYK
-- Natural Language Interface
-- Scroll edge fade
-- Game/Console UI

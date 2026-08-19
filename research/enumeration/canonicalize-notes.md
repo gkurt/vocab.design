@@ -14,7 +14,8 @@ live is marked; everything else is kept as the record of what was decided and wh
   consolidated (css→mdn, uxpatterns-dev→uxpatterns, chrome→chrome-developers,
   tailwind-ui→tailwind-plus, framer-motion→motion; systems.json 114→110).
 - The wishlist shaping (2026-08-15) took the pool to 969; the dataviz sweep
-  (2026-08-18, below) to 983.
+  (2026-08-18, below) to 983; the second wishlist run (2026-08-19, below) added
+  5 more, to 981 (authoring rounds had consumed 7 records in between).
 
 ## RESOLVED: duplicate slugs
 
@@ -188,6 +189,35 @@ Candidate vocabulary (grow this list as rounds suggest members; assign at the pa
   retina as aliases), chamfer (aesthetic, tail; must disambiguate the bevel term),
   interface-metaphor (pattern, head; reshaped from "figures of speech", whose
   idiom/localization half belongs to plain-language).
+- User wishlist (2026-08-19), shaped and pooled (5 records): cmyk (color, core;
+  'subtractive color' left unclaimed for a possible additive/subtractive pair),
+  natural-language-interface (pattern, core; 'conversational interface'
+  deliberately not claimed, it is its own possible chat-shaped term),
+  scroll-edge-fade (pattern, core; 'scroll shadow' left unclaimed, alias or
+  variantOf at authoring time), ten-foot-ui (pattern, core; shaped from the
+  wish "Game/Console UI": the game half is covered by diegetic-interface /
+  fictional-user-interface / hud-panel, and 'console UI' is claimed by
+  terminal-aesthetic as the other console, so the gap is the TV register; slug
+  spells the number out per sixty-thirty-ten-rule), signed-distance-field
+  (typography, tail; filed at the text-rendering angle, not raymarching).
+  Considered and rejected (2026-08-19): raymarching. It names an algorithm, not
+  an interface phenomenon; the looks its output reaches design as are covered
+  (aurora-ui, mesh-gradient, hyperreal-3d), and its honest specimen would be a
+  WebGL shader demonstrating rendering rather than interface. It belongs as a
+  sentence in the future signed-distance-field article, not as a page.
+- Creative-coding probe (2026-08-19): the domain proved already ~90% mined (its
+  looks are aesthetics, its defects color terms, its motions motion terms), so
+  no domain sweep. Two gaps pooled: identicon (component, core; generative art
+  that is pure interface, deterministic by seed so the specimen is stable by
+  construction) and vignette (aesthetic, tail; the article must draw the scrim
+  boundary, functional vs compositional). Algorithm layer stays out per the
+  raymarching rule: perlin/simplex as algorithms, voronoi, flow fields, boids,
+  L-systems, marching squares, feTurbulence. A third gap pooled the same day:
+  particle-background (motion, core), the umbrella artifact for the
+  agent-driven animated background, carrying boids, flocking, constellation,
+  plexus, and starfield as aliases after gooey-effect's precedent of aliasing
+  the implementation; digital rain deliberately excluded (its own icon, in the
+  terminal and cyberpunk family, still unpooled).
 - Dataviz sweep (2026-08-18), shaped and pooled: 14 interface-facing records
   spanning six categories (see the dataviz tag above for the list). Scope decision:
   chart TYPES stay out of the pool; the authored chart head term carries the
