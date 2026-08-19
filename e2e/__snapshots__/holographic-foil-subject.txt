@@ -1,4 +1,4 @@
 term:    Holographic foil
 scope:   element
-subject: div[data-part=card-head]
+subject: div[data-part=card][data-tilt=rest]
 text:    

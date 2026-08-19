@@ -234,6 +234,8 @@ complete; until then entries only accumulate. Entry format:
   scripts that are pure hover tours (no input steps at all). Tooltips and menus
   that assert what the hover reveals do not flag. At queue time: 93/849 specimens,
   mostly typography/aesthetic; pure hover tours are the majority.
+  holographic-foil was rewritten 2026-08-19 at the user's request (option b: the
+  three-angle poster and its hover tour became one card on a draggable orbit).
 - Recipe: per offender, either (a) delete the pointless `moveTo`s, leaving waits
   and asserts that still prove the mount state (add asserts if the script would
   end up empty; an assert-only script is legal and still loops), or (b) grow the

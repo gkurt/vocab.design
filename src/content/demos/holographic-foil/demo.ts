@@ -1,27 +1,31 @@
+import { part } from '#src/kit/parts.ts';
+
 /**
- * Holographic foil specimen: one card surface shown at three simulated viewing angles, so
- * the reader understands the colour is a property of the geometry rather than paint sitting
- * on the card. Each tile carries the same hue sequence, the same conic film and the same
- * metallic sheen; only where the sequence starts and which way it runs changes.
+ * Holographic foil specimen: one card the reader orbits by dragging, so the colour
+ * is demonstrated as a property of the geometry rather than paint sitting on the
+ * card. The tilt drives every layer at once: the card rotates in 3D, and the
+ * spectral bands slide along it (background-position over oversized, repeated
+ * gradients, so the slide is continuous and transitionable), the two colour
+ * passes at different rates, which is the interference feel. The strip below
+ * carries the same repeated sequence and slides in step, which is the honest
+ * part: the order never scrambles, it slides, because it follows the spectrum
+ * rather than taste.
  *
- * A strip under each card reads out the hue order at that angle, which is the honest part:
- * the order never scrambles, it slides, because it follows the spectrum rather than taste.
+ * The paint is inline because the layered gradients and their blend modes are the
+ * term. The kit is a flat, single-accent system with no gradient, no metal and no
+ * blending at all.
  *
- * The paint is inline because the layered gradients and their blend modes are the term. The
- * kit is a flat, single-accent system with no gradient, no metal and no blending at all.
- *
- * The subject is the first card's surface, not the row and not a tile: the term names a
- * finish on a surface (SPEC §5). The two tipped cards beside it are the evidence that the
- * finish is angle dependent, and they, the labels and the caption are scenery. Marking the
- * row instead would have claimed the term is the comparison, which it is not.
- *
- * Every hue, stop and angle comes from a fixed table, so the specimen is identical on every
- * identify run. Static: this is a poster, not a tilt handler, so there is no clock and no
- * scripted motion (a real foil would be driven by device orientation, which the article
- * says belongs behind a reduced-motion check).
+ * The subject is the card surface: the term names a finish on a surface (SPEC §5),
+ * and every tilt state is that finish, so identify is honest wherever it lands.
+ * The grips are aim anchors for the script's drags (SPEC §5: a data-part and no
+ * paint). The drag captures the pointer on a trusted pointerdown (SPEC §7) so a
+ * reader's orbit survives leaving the card, and ends on pointerup or
+ * pointercancel only. The tilt follows input directly — direct manipulation, not
+ * scripted animation — so it needs no reduced-motion gate; the short transitions
+ * that smooth it flatten to instant there like everything else.
  */
 
-/** The spectral sequence, in order. Tipping the card slides the start, it never scrambles. */
+/** The spectral sequence, in order. Tilting the card slides the start, it never scrambles. */
 const HUES = [312, 268, 214, 168, 122, 58, 22, 336] as const;
 
 /** Studio ground: a fixed charcoal in both themes, because foil is judged against a dark. */
@@ -41,146 +45,139 @@ const SHEEN = [
   'rgb(18 22 32 / 0.24) 100%)',
 ].join(' ');
 
-const TW = 136;
-const TH = 156;
+/** How far a drag tilts, and how fast: the window's width overshoots the clamp on purpose. */
+const MAX_TILT = 20;
+const SENS = 0.25;
+/** Below this the card counts as head on; the drags land well past it either way. */
+const REST = 4;
+const CYCLES = 3;
 
-function hueAt(i: number, rotate: number): number {
-  return HUES[(i + rotate) % HUES.length] ?? HUES[0];
-}
-
-/** The banded sweep: the hue sequence laid across the card at the angle it is seen from. */
-function sweep(deg: number, rotate: number): string {
-  const stops = HUES.map((_, i) => {
-    const pos = (i / (HUES.length - 1)) * 100;
-    return `hsl(${hueAt(i, rotate)} 92% 62%) ${pos.toFixed(1)}%`;
-  });
+/** The banded sweep, repeated so background-position has a full cycle of slack each way. */
+function band(deg: number, alpha: number): string {
+  const total = HUES.length * CYCLES;
+  const stops: string[] = [];
+  for (let k = 0; k <= total; k++) {
+    const hue = HUES[k % HUES.length];
+    stops.push(`hsl(${hue} 92% 62% / ${alpha}) ${((k / total) * 100).toFixed(2)}%`);
+  }
   return `linear-gradient(${deg}deg, ${stops.join(', ')})`;
 }
 
-/** The soap-film pass, at a different angle, so the bands do not read as a printed ramp. */
-function film(from: number, rotate: number): string {
-  const stops = HUES.map((_, i) => `hsl(${hueAt(i, rotate)} 86% 62% / 0.62) ${((i / HUES.length) * 360).toFixed(0)}deg`);
-  return `conic-gradient(from ${from}deg at 32% 24%, ${stops.join(', ')}, hsl(${hueAt(0, rotate)} 86% 62% / 0.62) 360deg)`;
+/** The same sequence flattened into countable bands, for the strip under the card. */
+function stripBand(): string {
+  const total = HUES.length * CYCLES;
+  const stops: string[] = [];
+  for (let k = 0; k < total; k++) {
+    const a = ((k / total) * 100).toFixed(2);
+    const b = (((k + 1) / total) * 100).toFixed(2);
+    stops.push(`hsl(${HUES[k % HUES.length]} 90% 62%) ${a}% ${b}%`);
+  }
+  return `linear-gradient(90deg, ${stops.join(', ')})`;
 }
 
 /** Concentric arcs: the CD reference, kept faint so it never reads as one light source. */
 const ARCS = `
-  <svg viewBox="0 0 112 72" width="112" height="72" role="presentation"
+  <svg viewBox="0 0 190 118" width="190" height="118" role="presentation"
        style="position: absolute; inset: 0; display: block; opacity: 0.3; mix-blend-mode: soft-light">
-    <g fill="none" stroke="#ffffff" stroke-width="1.6">
-      <path d="M-14 74a58 58 0 0 1 58-58"/>
-      <path d="M-6 74a50 50 0 0 1 50-50"/>
-      <path d="M2 74a42 42 0 0 1 42-42"/>
-      <path d="M10 74a34 34 0 0 1 34-34"/>
+    <g fill="none" stroke="#ffffff" stroke-width="1.8">
+      <path d="M-20 122a92 92 0 0 1 92-92"/>
+      <path d="M-8 122a80 80 0 0 1 80-80"/>
+      <path d="M4 122a68 68 0 0 1 68-68"/>
+      <path d="M16 122a56 56 0 0 1 56-56"/>
     </g>
   </svg>`;
-
-/** The hue readout under each card: the same sequence, flattened so the slide is countable. */
-function readout(part: string, rotate: number): string {
-  const cells = HUES.map(
-    (_, i) => `<span aria-hidden="true" style="flex: 1 1 0; height: 12px; background: hsl(${hueAt(i, rotate)} 90% 62%)"></span>`,
-  ).join('');
-  return `<div data-part="${part}" style="display: flex; overflow: hidden; border-radius: 3px">${cells}</div>`;
-}
-
-/** One simulated viewing angle: `deg` lays the sweep, `from` starts the conic film, and
-    `rotate` says where in the spectral sequence this angle happens to begin. */
-type View = {
-  part: string;
-  cardPart: string;
-  readPart: string;
-  angle: string;
-  deg: number;
-  from: number;
-  rotate: number;
-  subject?: boolean;
-};
-
-/** One viewing angle: the card, the hue readout, and the angle it is being seen from. */
-function tile({ part, cardPart, readPart, angle, deg, from, rotate, subject }: View): string {
-  return `
-    <div data-part="${part}"
-         style="display: flex; flex-direction: column; gap: 11px; width: ${TW}px; height: ${TH}px; padding: 12px;
-                border-radius: 8px; background: ${GROUND}">
-      <div data-part="${cardPart}"${subject ? ' data-subject' : ''}
-           style="position: relative; width: 112px; height: 72px; overflow: hidden; border-radius: 7px;
-                  background-image: ${SHEEN}, ${film(from, rotate)}, ${sweep(deg, rotate)};
-                  background-blend-mode: normal, soft-light, normal;
-                  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.45), 0 3px 9px rgb(0 0 0 / 0.4)">
-        ${ARCS}
-        <span aria-hidden="true"
-              style="position: absolute; left: 10px; top: 12px; width: 24px; height: 18px; border-radius: 3px;
-                     background: linear-gradient(140deg, #f0d78d, #a9821f)"></span>
-        <span aria-hidden="true"
-              style="position: absolute; left: 10px; bottom: 11px; width: 74px; height: 5px; border-radius: 3px;
-                     background: rgb(28 24 34 / 0.5)"></span>
-        <span aria-hidden="true"
-              style="position: absolute; left: 10px; bottom: 22px; width: 46px; height: 5px; border-radius: 3px;
-                     background: rgb(28 24 34 / 0.34)"></span>
-      </div>
-      ${readout(readPart, rotate)}
-      <span style="margin-top: auto; font-size: 11px; line-height: 1.2; color: #cfd5e2">${angle}</span>
-    </div>`;
-}
-
-/** One column of the tour: the view, then what it is showing. Context is everything but
-    the first, whose card carries the subject: the tipped cards are its evidence. */
-function column(view: View, label: string, note: string): string {
-  const quiet = view.subject ? '' : ' sp-context';
-  return `
-    <div class="sp-stack${quiet}" style="flex: 0 0 ${TW}px; gap: 5px; align-items: stretch">
-      ${tile(view)}
-      <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
-    </div>`;
-}
-
-/** The three views, written out: only where the sequence starts and how it lies changes. */
-const HEAD_ON: View = {
-  part: 'tile-head',
-  cardPart: 'card-head',
-  readPart: 'read-head',
-  angle: 'Head on',
-  deg: 118,
-  from: 208,
-  rotate: 0,
-  subject: true,
-};
-const TIPPED: View = {
-  part: 'tile-tip',
-  cardPart: 'card-tip',
-  readPart: 'read-tip',
-  angle: 'Tipped a little',
-  deg: 104,
-  from: 262,
-  rotate: 3,
-};
-const STEEP: View = {
-  part: 'tile-steep',
-  cardPart: 'card-steep',
-  readPart: 'read-steep',
-  angle: 'Tipped further',
-  deg: 88,
-  from: 316,
-  rotate: 5,
-};
 
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One surface, three angles</span>
+        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One surface, any angle</span>
 
-        <div class="sp-row" data-part="tour" style="gap: 13px; align-items: flex-start; justify-content: center">
-          ${column(HEAD_ON, 'The finish', 'Spectral order over metal.')}
-          ${column(TIPPED, 'Same card', 'The sequence slides along.')}
-          ${column(STEEP, 'Same card', 'It never jumps out of order.')}
+        <div data-part="stage"
+             style="position: relative; display: flex; align-items: center; justify-content: center; height: 168px;
+                    border-radius: 8px; background: ${GROUND}; perspective: 700px; touch-action: none; user-select: none">
+          <div data-part="card" data-subject data-tilt="rest"
+               style="position: relative; width: 190px; height: 118px; overflow: hidden; border-radius: 8px;
+                      cursor: grab; transform: rotateX(0deg) rotateY(0deg);
+                      background-image: ${SHEEN}, ${band(24, 0.62)}, ${band(118, 1)};
+                      background-size: 100% 100%, ${CYCLES * 100}% 100%, ${CYCLES * 100}% 100%;
+                      background-position: 0% 0%, 50% 0%, 50% 0%;
+                      background-blend-mode: normal, soft-light, normal;
+                      transition: transform 0.15s ease-out, background-position 0.15s ease-out;
+                      box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.45), 0 4px 12px rgb(0 0 0 / 0.45)">
+            ${ARCS}
+            <span aria-hidden="true"
+                  style="position: absolute; left: 14px; top: 16px; width: 30px; height: 22px; border-radius: 4px;
+                         background: linear-gradient(140deg, #f0d78d, #a9821f)"></span>
+            <span aria-hidden="true"
+                  style="position: absolute; left: 14px; bottom: 15px; width: 96px; height: 6px; border-radius: 3px;
+                         background: rgb(28 24 34 / 0.5)"></span>
+            <span aria-hidden="true"
+                  style="position: absolute; left: 14px; bottom: 29px; width: 60px; height: 6px; border-radius: 3px;
+                         background: rgb(28 24 34 / 0.34)"></span>
+          </div>
+          <span data-part="grip-left" style="position: absolute; left: 8px; top: 50%; width: 1px; height: 1px"></span>
+          <span data-part="grip-right" style="position: absolute; right: 8px; top: 50%; width: 1px; height: 1px"></span>
+        </div>
+
+        <div class="sp-row" style="gap: 10px; align-items: center; margin-top: 10px">
+          <div data-part="strip" aria-hidden="true"
+               style="flex: 1 1 auto; height: 12px; border-radius: 3px;
+                      background-image: ${stripBand()}; background-size: ${CYCLES * 100}% 100%; background-position: 50% 0;
+                      transition: background-position 0.15s ease-out"></div>
+          <span class="sp-text" data-part="angle" style="width: 118px; margin: 0; font-size: 11px; text-align: right">Head on</span>
         </div>
       </div>
 
       <p class="sp-text sp-context" data-part="caption" style="max-width: 466px; margin: 0; text-align: center">
-        Wavelength separation across the surface, not one light reflected in one spot.
+        Drag the card. The spectral order slides with the angle, it never scrambles.
       </p>
     </div>
   `;
+
+  const card = part(root, 'card');
+  const strip = part(root, 'strip');
+  const angle = part(root, 'angle');
+
+  let rx = 0;
+  let ry = 0;
+
+  const place = () => {
+    card.style.transform = `rotateX(${rx.toFixed(1)}deg) rotateY(${ry.toFixed(1)}deg)`;
+    // The two colour passes slide at different rates: the parallax between them is
+    // the interference feel, and 50% centres both with a full cycle of slack each way.
+    const sweep = 50 + ry * 0.9 + rx * 0.35;
+    const film = 50 + ry * 1.4 - rx * 0.5;
+    card.style.backgroundPosition = `0% 0%, ${film.toFixed(2)}% 0%, ${sweep.toFixed(2)}% 0%`;
+    strip.style.backgroundPosition = `${sweep.toFixed(2)}% 0`;
+    card.dataset.tilt = Math.abs(ry) <= REST ? 'rest' : ry > 0 ? 'right' : 'left';
+    angle.textContent =
+      Math.abs(ry) <= REST && Math.abs(rx) <= REST ? 'Head on' : `Tipped ${Math.abs(Math.round(ry))}° ${ry > 0 ? 'right' : 'left'}`;
+  };
+
+  const clamp = (value: number) => Math.min(MAX_TILT, Math.max(-MAX_TILT, value));
+
+  let held: number | null = null;
+  let start = { x: 0, y: 0, rx: 0, ry: 0 };
+
+  card.addEventListener('pointerdown', (event) => {
+    // Trusted only: the player's synthetic pointer cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
+    held = event.pointerId;
+    start = { x: event.clientX, y: event.clientY, rx, ry };
+    card.style.cursor = 'grabbing';
+  });
+  card.addEventListener('pointermove', (event) => {
+    if (held !== event.pointerId) return;
+    ry = clamp(start.ry + (event.clientX - start.x) * SENS);
+    rx = clamp(start.rx - (event.clientY - start.y) * SENS);
+    place();
+  });
+  const drop = (event: PointerEvent) => {
+    if (held !== event.pointerId) return;
+    held = null;
+    card.style.cursor = 'grab';
+  };
+  card.addEventListener('pointerup', drop);
+  card.addEventListener('pointercancel', drop);
 }
