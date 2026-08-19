@@ -332,7 +332,15 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   pointer arrive in the specimen and never see it land on a control. The ghost also lets go of whatever it was
   hovering, since a pointer that no longer exists cannot still be over a control —
   unless the real pointer has landed inside that same control, where a synthetic leave
-  would contradict the enter the browser has just sent.
+  would contradict the enter the browser has just sent. A demo must survive the
+  takeover it invites: one that holds a drag captures the pointer on a **trusted**
+  pointerdown (`if (event.isTrusted) el.setPointerCapture(event.pointerId)`), so a
+  reader's drag keeps reporting after the pointer leaves the element. The guard is
+  mandatory — the player's synthetic pointers cannot be captured and the call
+  throws — and a captured drag ends on pointerup and pointercancel, never on
+  pointerleave, which does not fire while capture holds. The scripted path never
+  needs capture (events dispatch on the element directly), which is exactly how the
+  missing line hides from CI.
 - **Continuous play**: attract loops for as long as the stage is on screen, with a
   beat between plays. Motion never outlives attention: off-viewport stages are fully
   paused, and reduced-motion visitors get no attract at all.

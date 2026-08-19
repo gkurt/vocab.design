@@ -12,6 +12,43 @@ complete; until then entries only accumulate. Entry format:
 - Verify: what proves the fix (which e2e pass, what the eye checks on 4321).
 ```
 
+## uncaptured-drag
+
+- Queued: 2026-08-19 · Status: queued
+- Rule: a demo that holds a drag (pointerdown, then pointermove tracking until
+  pointerup) must capture the pointer, or a real reader's drag dies the moment
+  the pointer leaves the element: moves stop arriving, the release lands
+  elsewhere, and the demo strands mid-drag. The fix is
+  `if (event.isTrusted) el.setPointerCapture(event.pointerId)` in the pointerdown
+  handler — the isTrusted guard is MANDATORY, because a synthetic pointer (the
+  attract player's) has no active pointer to capture and the call THROWS,
+  killing the handler mid-run and breaking the scripted drag that worked before
+  the fix. Touch pointers capture implicitly on pointerdown's target, so the
+  guard costs them nothing. While captured, boundary events stop firing (the
+  pointer counts as over the capture target), so leave-based cleanup no longer
+  fires mid-drag; a drag must end on pointerup AND pointercancel. Deliberate
+  end-on-leave semantics for a press (pressureHold's hold, which is positional)
+  is not an offense: this rule is about drags, where position is the payload.
+- Detector: detectors/uncaptured-drag.ts (recall-tuned: raw down+move+up
+  listeners in demo.ts, no setPointerCapture). At queue time: 72/849 flagged,
+  the whole drag family (sliders, scrubbers, drag-and-drop, swipes, panners).
+  Judge question per slug: is the pointermove a HELD drag (down starts it, up
+  ends it), and does state track the pointer between them? Hover trackers and
+  press-only demos flagged by accident are skips.
+- Recipe: add the guarded capture line to the pointerdown handler; confirm the
+  move/up listeners live on (or above) the capturing element; add pointercancel
+  beside pointerup where missing; delete leave-handlers that existed only to
+  paper over the missing capture (they no longer fire mid-drag anyway). With 72
+  offenders, shard into parallel batches per the skill (~25 each); the recipe,
+  not shared context, keeps shards consistent. Sweep-time option worth deciding
+  once: a small kit helper (capturedDrag in src/kit) demos wire instead of raw
+  listeners, which would also carry the pointercancel discipline — weigh it
+  against 72 mechanical one-line edits.
+- Verify: choreography + takeover passes over touched slugs (the script path is
+  unaffected — which is exactly why CI never saw the bug); the hand on 4321 for
+  a sample per shard: start a drag, leave the element, keep dragging, release
+  outside; state must track throughout and release cleanly.
+
 ## bare-icon-buttons
 
 - Queued: 2026-08-19 · Status: queued

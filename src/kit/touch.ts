@@ -151,6 +151,10 @@ export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
       return;
     }
     if (!event.ctrlKey) return;
+    // A pinch that drags outward leaves a small surface fast: capture the pointer
+    // so it keeps reporting outside. Trusted only — a synthetic pointer has no
+    // active pointer to capture and the call throws (SPEC §7).
+    if (event.isTrusted) el.setPointerCapture(event.pointerId);
     mouseFrom = { x: event.clientX, y: event.clientY };
     scale = 1;
     handlers.onStart?.(mirrorPinch(mouseFrom, mouseFrom).center);

@@ -135,6 +135,12 @@ never fires under reduced motion, so nothing may ever wait on it.
   A keyboard-driven demo must be drivable by a real keyboard: its control carries
   `tabindex="0"` so a reader's keys can reach it (the script needs no focus, but
   the reader does).
+  A drag-driven demo must survive a real drag: capture the pointer on a trusted
+  pointerdown (`if (event.isTrusted) el.setPointerCapture(event.pointerId)` — the
+  guard is mandatory, synthetic pointers cannot be captured and the call throws),
+  and end the drag on pointerup and pointercancel, never pointerleave (boundary
+  events do not fire while capture holds). The scripted drag needs no capture,
+  which is exactly how the missing line hides from CI.
   A term whose whole claim is visible at rest ships a still script, waits and asserts
   only: a hover with no visible consequence is cursor theater, not choreography
   (SPEC §8). The vocabulary grows before a demo fakes it: input the player cannot
