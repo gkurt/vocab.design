@@ -12,6 +12,42 @@ complete; until then entries only accumulate. Entry format:
 - Verify: what proves the fix (which e2e pass, what the eye checks on 4321).
 ```
 
+## input-simulation
+
+- Queued: 2026-08-19 · Status: queued
+- Rule: the vocabulary grows before a demo fakes it (SPEC §8, STAGE_NEWS law 18).
+  A control that impersonates INPUT (a "Simulate a hold" button, a switch standing
+  in for a gesture the player could perform) is banned: the script performs the
+  gesture with a real step, or the term waits for the primitive it needs.
+  Simulation stays legitimate for ENVIRONMENT: viewport widths, system
+  preferences (prefers-contrast, color schemes), network failures and delays,
+  permission prompts, vision simulations, and the spec-sanctioned simulated focus
+  (`data-sim-focus`) that must never be real. The word "simulated" on a legit
+  specimen is honest labelling, not an offense.
+- Detector: detectors/input-simulation.ts (recall-tuned: /simulat/, sim-named
+  parts, "pretend", "labelled simulation" in demo.ts). At queue time: 70/849
+  flagged, most legitimate. Judge buckets per slug:
+  (a) REWRITE NOW, primitive exists: long-press, spring-loading, key-repeat,
+      jiggle-mode (hold-countdown sims the `hold` step replaces),
+      pressure-sensitivity (hold + pressure ramp). force-touch and
+      hold-to-confirm already rewritten 2026-08-19.
+  (b) NEEDS A PRIMITIVE, add to the backlog and wait: multi-touch, rotate-gesture,
+      look-and-pinch (second contact); modifier-key, nudge, range-select,
+      access-key (a held modifier the player cannot hold: candidate `holdKey`
+      primitive); shake-to-undo (device motion: decide at build time whether
+      synthesized devicemotion is honest or sensor input counts as environment).
+  (c) ENVIRONMENT, skip: simulated viewports (breakpoint, container, fluid-*,
+      mobile-first, responsive-web-design, the-fold), system preferences and
+      schemes, color-vision-deficiency, captcha, foit/web-font, magic-link,
+      permission-priming, widget, and every data-sim-focus mention.
+  Overlaps fake-touch: dedupe at sweep time, one rewrite per specimen.
+- Recipe: bucket (a) follows the hold-to-confirm rewrite shape (delete the sim
+  control, script the real gesture, keep the demo's own wiring); bucket (b) terms
+  are logged as `needs stage primitive: <what>` and left alone; bucket (c) is
+  untouched.
+- Verify: choreography + takeover passes over touched slugs; captions that named
+  the simulation must be reworded with the control's removal.
+
 ## fake-touch
 
 - Queued: 2026-08-19 · Status: queued · Prerequisite MET for single-contact
