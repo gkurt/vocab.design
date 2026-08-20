@@ -501,7 +501,15 @@ export default steps([
   `moveTo` carries hover with it (enter/leave land when the cursor arrives), since
   hover is input a tooltip or a menu genuinely responds to, and `scroll` is animated by
   the player rather than by `scroll-behavior`, which is unreliable and would let a step
-  silently do nothing.
+  silently do nothing. The coordinates between two hovers are input too: while the
+  cursor travels, the player streams interpolated `pointermove` events (one per
+  animation frame, the coalesced rate a real mouse arrives at; `buttons: 0`, so a
+  sweep never reads as a drag) onto the deepest element containing both endpoints,
+  eased to track the drawn ghost, so a demo that answers continuous pointer position (a
+  dock bulging under the pointer, a glow that follows it) responds along the whole path
+  rather than snapping between stops. Hover itself stays discrete at the endpoints, and
+  no sweep is streamed under the touch persona (a finger that is not pressing is not
+  there) or under reduced motion (travel collapses, and the sweep with it).
   Synthesized events never light `:hover` or `:active`, so the player also mirrors its
   own pointer into the kit's attribute spellings: `data-hovered` rests on the element
   under the ghost cursor, and `data-pressed` flashes through a click and holds through

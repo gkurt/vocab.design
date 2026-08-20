@@ -149,6 +149,8 @@ export class AttractPlayer {
   #hud: HTMLElement;
   #target: Element | null = null;
   #hovered: Element | null = null;
+  /** Where the drawn ghost last landed, in specimen coordinates: a travel's start. */
+  #cursorAt: { x: number; y: number } | null = null;
   #simFocus: Element | null = null;
   #resumeTimer: ReturnType<typeof setTimeout> | undefined;
   /** Modifier flags the withKey scopes currently hold, stamped on every event the ghost dispatches. */
@@ -527,13 +529,58 @@ export class AttractPlayer {
     this.#target = el;
     this.#setPersona(this.#personaFor(el));
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
-    this.#placeCursor(aimAt(el), travel);
+    const from = this.#cursorAt;
+    const to = aimAt(el);
+    this.#placeCursor(to, travel);
     this.#cursor.setAttribute('data-visible', '');
-    if (!(await this.#sleep(travel, generation))) return false;
+    // The coordinates BETWEEN two hovers are input too: a dock bulges as the pointer
+    // crosses it, not at the tiles where it happens to pause. Travel streams
+    // pointermoves (buttons: 0, so a sweep can never read as a drag) onto the deepest
+    // element containing both endpoints, one per animation frame — the coalesced rate
+    // a real mouse arrives at — interpolated by elapsed time so a slow frame takes a
+    // bigger step, exactly like a laggy real pointer, and eased to track the drawn
+    // ghost. Hover itself stays discrete at its endpoints, and a finger that is not
+    // pressing still is not there.
+    if (travel > 0 && from && this.#personaFor(el) !== 'touch') {
+      const on = this.#sweepTarget(el);
+      const start = performance.now();
+      for (;;) {
+        await new Promise(requestAnimationFrame);
+        if (generation !== this.#generation) return false;
+        const f = (performance.now() - start) / travel;
+        if (f >= 1) break;
+        const t = 1 - (1 - f) ** 2.5;
+        this.#dispatchSweep(on, { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t });
+      }
+    } else if (!(await this.#sleep(travel, generation))) return false;
     // Hover lands when the cursor arrives, not when it sets off — and never lands
     // at all under the touch persona: a finger that is not pressing is not there.
     this.#hover(this.#personaFor(el) === 'touch' ? null : el);
     return this.#sleep(80, generation);
+  }
+
+  /** Where a travel's interim moves land: the deepest element containing both endpoints. */
+  #sweepTarget(dest: Element): Element {
+    let el: Element | null = this.#hovered?.isConnected ? this.#hovered : dest;
+    while (el && !el.contains(dest)) el = el.parentElement;
+    return el ?? dest;
+  }
+
+  /** One interim travel move: hover vocabulary, so no button held and nothing cancelable. */
+  #dispatchSweep(el: Element, at: { x: number; y: number }): void {
+    if (!el.isConnected) return;
+    el.dispatchEvent(
+      new PointerEvent('pointermove', {
+        bubbles: true,
+        cancelable: false,
+        button: -1,
+        buttons: 0,
+        clientX: at.x,
+        clientY: at.y,
+        pointerType: 'mouse',
+        ...this.#mods,
+      }),
+    );
   }
 
   /**
@@ -624,10 +671,28 @@ export class AttractPlayer {
     const leg = travel / stops.length;
     for (const to of stops) {
       this.#placeCursor(to, leg);
-      for (let i = 1; i <= DRAG_MOVES; i++) {
-        if (!(await this.#sleep(Math.max(leg / (DRAG_MOVES + 1), 10), generation))) return false;
-        const t = i / DRAG_MOVES;
-        this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind);
+      // One move per animation frame while the hand travels the leg, linear in time
+      // (the stroke's velocity profile is input too: a fling reads its release speed
+      // from these deltas, so no easing here), landing exactly on the stop so the
+      // polyline's vertices survive any frame rate. Reduced motion keeps the old
+      // three-beat leg: the vertices still arrive, with room between them for the
+      // demo's clock to breathe.
+      if (leg > 0) {
+        const start = performance.now();
+        for (;;) {
+          await new Promise(requestAnimationFrame);
+          if (generation !== this.#generation) return false;
+          const f = (performance.now() - start) / leg;
+          if (f >= 1) break;
+          this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * f, y: from.y + (to.y - from.y) * f }, kind);
+        }
+        this.#dispatchPointer(source, 'pointermove', to, kind);
+      } else {
+        for (let i = 1; i <= DRAG_MOVES; i++) {
+          if (!(await this.#sleep(10, generation))) return false;
+          const t = i / DRAG_MOVES;
+          this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind);
+        }
       }
       from = to;
     }
@@ -720,15 +785,38 @@ export class AttractPlayer {
     paint(from, 0);
     this.#dispatchPinch(el, 'pointerdown', at, from, 0);
     const dur = this.#host.reducedMotion ? 0 : (pinch.ms ?? PINCH_MS);
-    for (let i = 1; i <= PINCH_TICKS; i++) {
-      if (!(await this.#sleep(Math.max(dur / PINCH_TICKS, 10), generation))) {
-        retire();
-        return false;
+    // One move per animation frame while the fingers travel, linear in time and landing
+    // exactly on the stated spread and angle (the amounts are the semantics). Reduced
+    // motion keeps the old eight-beat gesture: the same moves, with room between them
+    // for the demo's clock to breathe.
+    if (dur > 0) {
+      const start = performance.now();
+      for (;;) {
+        await new Promise(requestAnimationFrame);
+        if (generation !== this.#generation) {
+          retire();
+          return false;
+        }
+        const f = (performance.now() - start) / dur;
+        if (f >= 1) break;
+        const half = from + (to - from) * f;
+        const deg = turn * f;
+        paint(half, deg);
+        this.#dispatchPinch(el, 'pointermove', at, half, deg);
       }
-      const half = from + ((to - from) * i) / PINCH_TICKS;
-      const deg = (turn * i) / PINCH_TICKS;
-      paint(half, deg);
-      this.#dispatchPinch(el, 'pointermove', at, half, deg);
+      paint(to, turn);
+      this.#dispatchPinch(el, 'pointermove', at, to, turn);
+    } else {
+      for (let i = 1; i <= PINCH_TICKS; i++) {
+        if (!(await this.#sleep(10, generation))) {
+          retire();
+          return false;
+        }
+        const half = from + ((to - from) * i) / PINCH_TICKS;
+        const deg = (turn * i) / PINCH_TICKS;
+        paint(half, deg);
+        this.#dispatchPinch(el, 'pointermove', at, half, deg);
+      }
     }
     this.#dispatchPinch(el, 'pointerup', at, to, turn);
     retire();
@@ -871,6 +959,7 @@ export class AttractPlayer {
    * this is the one place the two spaces have to be reconciled.
    */
   #placeCursor(at: { x: number; y: number }, travelMs: number): void {
+    this.#cursorAt = at;
     const overlayRect = this.#host.overlay.getBoundingClientRect();
     const from = this.#host.offset();
     this.#cursor.style.transitionDuration = `${travelMs}ms`;

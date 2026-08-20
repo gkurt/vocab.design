@@ -15,6 +15,10 @@ const FLING_MIN = 0.08;
 const COAST_MIN = 40;
 /** A release long after the last move is a hand that had already stopped moving. */
 const STALE_MS = 250;
+/** How far back the throw is judged. Per-frame input (a real mouse, the player's drag)
+ * ends on a truncated final delta, so a two-sample estimate is noise; a window is how
+ * real momentum implementations read a throw. */
+const VELOCITY_WINDOW_MS = 100;
 
 const SHOTS = [
   'linear-gradient(150deg, #24303d, #4a7290)',
@@ -36,10 +40,10 @@ const MAX = CONTENT - VIEW;
  * the term names what the scrolled surface does with a gesture that has already ended;
  * the ruler under it and the readouts beside it are the instruments watching it.
  *
- * The coast is the demonstration, so it is really computed: the velocity comes from the
- * last sampled move of the gesture (the end of the stroke is what says how hard it was
- * thrown), and a constant deceleration is applied on the stage's clock until the speed
- * runs out. It is an `element.animate`-class move in that CSS cannot gate it, so it asks
+ * The coast is the demonstration, so it is really computed: the velocity is measured
+ * over the stroke's last ~100 ms (the way real momentum scrollers judge a throw, so a
+ * per-frame stream's truncated final delta never decides it alone), and a constant
+ * deceleration is applied on the stage's clock until the speed runs out. It is an `element.animate`-class move in that CSS cannot gate it, so it asks
  * `prefersReducedMotion` itself and lands on the resting offset at once instead. The
  * distance travelled after the lift is stated out loud, because that number is the only
  * thing a stopped-dead scroller could not produce.
@@ -101,9 +105,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   let coasted = 0;
   let timer: number | undefined;
   let held: { x: number; at: number } | undefined;
-  /** The last two samples of the stroke: the throw is judged on the newer pair. */
-  let last = { x: 0, at: 0 };
-  let previous = { x: 0, at: 0 };
+  /** The stroke's recent samples, pruned to the velocity window as it is drawn. */
+  let trail: { x: number; at: number }[] = [];
 
   const clamp = (value: number) => Math.min(MAX, Math.max(0, value));
 
@@ -149,16 +152,17 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     strip.dataset.coast = 'none';
     travelled.textContent = '0 px after the lift';
     held = { x: event.clientX, at: performance.now() };
-    last = { x: event.clientX, at: held.at };
-    previous = last;
+    trail = [{ x: event.clientX, at: held.at }];
     say('drag', 'Holding the strip');
   });
 
   root.addEventListener('pointermove', (event) => {
-    if (!held) return;
-    offset = clamp(offset - (event.clientX - last.x));
-    previous = last;
-    last = { x: event.clientX, at: performance.now() };
+    const prev = trail[trail.length - 1];
+    if (!held || !prev) return;
+    const now = performance.now();
+    offset = clamp(offset - (event.clientX - prev.x));
+    trail.push({ x: event.clientX, at: now });
+    while (trail.length > 2 && now - (trail[1]?.at ?? now) > VELOCITY_WINDOW_MS) trail.shift();
     render();
     say('drag', 'Dragging with the pointer');
   });
@@ -166,10 +170,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const release = () => {
     if (!held) return;
     held = undefined;
-    const span = last.at - previous.at;
-    const stale = performance.now() - last.at > STALE_MS;
+    const newest = trail[trail.length - 1];
+    const oldest = trail[0];
+    if (!newest || !oldest) return settle();
+    const span = newest.at - oldest.at;
+    const stale = performance.now() - newest.at > STALE_MS;
     // Content moves against the pointer, so the offset's velocity is the stroke's negated.
-    const velocity = span > 0 && !stale ? -(last.x - previous.x) / span : 0;
+    const velocity = span > 0 && !stale ? -(newest.x - oldest.x) / span : 0;
     if (Math.abs(velocity) < FLING_MIN) return settle();
     say('coast', 'Let go: the strip keeps going');
     if (!prefersReducedMotion(root)) return coast(velocity);

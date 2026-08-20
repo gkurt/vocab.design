@@ -160,7 +160,11 @@ never fires under reduced motion, so nothing may ever wait on it.
   player mirrors its own pointer into those spellings (hover rests, a press flashes, a
   drag holds), claiming only attributes the demo's handlers did not set and releasing
   only what it claimed, so controls light up under the ghost cursor without any demo
-  wiring. A specimen sets the attribute itself only for a state shown with no pointer
+  wiring. The ghost also streams interpolated `pointermove` events while it travels
+  between hover targets (`buttons: 0`, never a drag; not under touch or reduced
+  motion), so a demo whose term is continuous pointer response listens for moves on
+  its container and reads coordinates; a move listener that should only act mid-press
+  gates on its own pointerdown state, never on merely receiving a move. A specimen sets the attribute itself only for a state shown with no pointer
   on it (a states row, a posed comparison). Real focus is the exception that stays
   simulated (`data-sim-focus`, SPEC §7).
 - **Touch is a persona, not a costume** (SPEC §7-8). A surface marked `data-touch`
