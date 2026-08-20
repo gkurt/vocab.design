@@ -1,0 +1,4 @@
+term:    Switcher
+scope:   element
+subject: div[data-axis=row][data-part=switcher]
+text:    Tides Berths Fuel

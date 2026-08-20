@@ -1,0 +1,4 @@
+term:    Inline autocomplete
+scope:   element
+subject: span[data-part=remainder]
+text:    abulary

@@ -1,0 +1,4 @@
+term:    Ornament
+scope:   element
+subject: div[data-part=ornament]
+text:    Grid Single Info

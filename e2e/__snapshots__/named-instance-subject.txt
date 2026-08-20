@@ -1,0 +1,4 @@
+term:    Named instance
+scope:   element
+subject: span[data-named][data-part=sample][data-pose=[data-named]][data-wght=400]
+text:    Handgloves

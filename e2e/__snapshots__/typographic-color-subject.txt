@@ -1,0 +1,4 @@
+term:    Typographic color
+scope:   element
+subject: p[data-part=col-even]
+text:    Stop reading and look at the block. What you see is not words but a grey field, 

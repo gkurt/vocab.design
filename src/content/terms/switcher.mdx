@@ -1,0 +1,61 @@
+---
+name: Switcher
+slug: switcher
+category: layout
+status: published
+definition: >-
+  A layout primitive that flips between a row and a column at a threshold it works out from its
+  own width, with no media query involved.
+aliases:
+  - name: the switcher
+    source: every-layout
+  - name: flexbox holy albatross
+    source: community
+  - name: container based switch
+    source: community
+relations: {}
+sources:
+  - title: Switcher, W3C Design System
+    url: https://design-system.w3.org/layouts/switcher.html
+demo: inline
+useWhen: side by side until it does not fit, then stacked
+---
+
+A switcher holds its children in a row until the row would be too cramped, then puts every one
+of them on a line of its own. What makes it a primitive rather than a piece of page layout is
+where the decision comes from: the threshold is compared against the container's own width, not
+the viewport's, so the same component behaves correctly in a wide main column and in a narrow
+sidebar without either of them knowing about the other. Set the threshold once, in the
+component, and the arrangement follows the space it was actually given.
+
+The famous implementation is a trick, and it is worth knowing because it predates the tool that
+replaces it. Every child gets `flex-grow: 1` and
+`flex-basis: calc((30rem - 100%) * 999)`, where `100%` resolves against the container. Wider
+than the threshold and the expression goes hugely negative, which flex clamps to zero, so the
+children share the line. Narrower and it goes hugely positive, so each child claims more than
+the line can hold and wraps onto its own. Heydon Pickering named this the holy albatross, and
+its 999 is a deliberate absurdity: the number only has to be big enough to be unreachable. A
+[container query](/container-query) expresses the same intent by asking directly, and where the
+support floor allows it that is the version to write. The trick remains useful in email, in
+older engines, and as the shortest possible answer, which is why the name is still in
+circulation.
+
+The switcher's siblings on this site are the primitives it was designed alongside. A
+[cluster](/cluster) also wraps, but it wraps item by item as they run out of room, which is a
+different behaviour with a different purpose. A [cover](/cover) is about vertical space rather
+than horizontal. A [stack](/stack) is the column a switcher becomes. The nearest confusion is
+with the [deconstructed pancake](/deconstructed-pancake): a switcher flips all or nothing at one
+threshold, so three items go from three across to three down with nothing in between, while a
+deconstructed pancake wraps progressively and can sit at two across and one below. Which
+behaviour is right depends on whether the items are peers of equal weight (switch) or a
+collection being packed (wrap).
+
+Two cautions. The switch is not free of the content: a threshold picked for three children is
+wrong for five, because the primitive divides the line evenly and the honest question is how
+narrow one child may get, which is why the threshold is usually expressed as roughly the
+minimum comfortable width times the number of children. And the flip is abrupt by design, so it
+must not push the page around as it happens. Give the region the room its tallest arrangement
+needs, or accept that a [layout shift](/layout-shift) lands in the middle of a resize, which
+readers of a live-resizing page notice at once. Compared with a
+[breakpoint](/breakpoint) the switcher trades precision for portability: you lose the ability to
+tune one specific screen, and gain a component that is right everywhere it is dropped.

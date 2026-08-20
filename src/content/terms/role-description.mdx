@@ -1,0 +1,53 @@
+---
+name: Role description
+slug: role-description
+category: accessibility
+status: published
+definition: >-
+  An author supplied name for a widget's role, spoken in place of the stock role name, which
+  overrides the platform wording and misleads easily.
+aliases:
+  - name: aria-roledescription
+    source: aria
+  - name: custom role name
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: aria-roledescription"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-roledescription
+demo: inline
+useWhen: renaming what a widget calls itself out loud
+---
+
+`aria-roledescription` replaces the words a screen reader says for a widget's role. A group
+becomes a "slide reel", a listbox becomes a "colour swatch picker", and the reader's own
+vocabulary for that role is gone for as long as the attribute is there. Note the shape of that
+trade. An [accessible name](/accessible-name) says which thing this is; the role says what kind
+of thing it is; a role description says what kind of thing it is *in your words instead of the
+platform's*.
+
+The attribute changes speech and nothing else. Keyboard behaviour, the accessibility tree, the
+mapped role, the way a [braille display](/braille-display) abbreviates that role: none of it
+moves, and the braille case is the sharpest illustration, because braille role abbreviations are
+short by necessity and a long invented phrase eats the line the content needed. The attribute is
+also not translated. A reader running in Spanish hears its own word for "carousel" until you
+override it, and then hears your English string forever, which is a regression you will not
+notice in your own locale.
+
+That leaves a narrow set of good uses. The strongest is a widget whose stock role name genuinely
+misdescribes it to the user: an ARIA role chosen because it is the closest available mapping, not
+because it is what the thing is. The worst uses invent a name for a widget that already had one
+("photo strip" for a listbox), or actively lie about what the control does, which is the one
+failure mode with no upside at all. A reader told it is standing in a video player will look for
+transport keys that do not exist, and will blame itself when nothing happens.
+
+Reach for it last. The [first rule of ARIA](/first-rule-of-aria) applies in spirit as well as in
+letter here: if the widget needs a different name to be understood, the usual reason is that it
+should have been built as a different widget. When you do use it, keep it to two or three words,
+keep it in the page's language, and check that the word you picked describes something the
+reader can actually do.

@@ -1,0 +1,4 @@
+term:    Set size and position
+scope:   element
+subject: span[data-mode=declared][data-part=count]
+text:    247 of 500

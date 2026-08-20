@@ -1,0 +1,57 @@
+---
+name: Focus plus context
+slug: focus-plus-context
+category: layout
+status: published
+definition: >-
+  A layout that keeps one region in full detail inside its own surroundings, shrinking or
+  dimming the context instead of moving it into a second pane.
+aliases:
+  - name: focus+context
+    source: community
+  - name: detail in place
+    source: community
+relations: {}
+sources:
+  - title: "A Review of Overview+Detail, Zooming, and Focus+Context Interfaces, Cockburn, Karlson and Bederson"
+    url: https://dl.acm.org/doi/10.1145/1456650.1456652
+demo: inline
+useWhen: detail and its surroundings in one view
+---
+
+Focus plus context solves the same problem as a second pane, in one pane. The region the
+reader is working on is given the room it needs to be read properly, and the space that room
+costs is taken from its own neighbours, which compress, quieten, or both. Nothing is replaced
+and nothing scrolls away: the row above and the row below are still there, still in order,
+still legible enough to say where the focused thing sits. The classic implementation distorts
+geometry (the fisheye view, where a magnified centre falls off into a squashed periphery), but
+the pattern does not require distortion. A list whose selected row expands in place while its
+neighbours shrink to a title each is the same idea in a form ordinary interfaces can afford.
+
+The line to draw is against its sibling, [overview plus detail](/overview-plus-detail), which
+solves the problem by splitting the view: the compressed picture goes in one region and the
+detail in another, side by side, and the reader assembles them. Focus plus context refuses the
+split and pays for it by deforming one view instead. Cockburn, Karlson and Bederson's review
+sorts the family into three, and the third is zooming, which separates the two scales in time
+rather than in space. Each gives something up. Two panes cost screen area. Zooming costs the
+reader their sense of place on every transition. Focus plus context costs the context its
+fidelity, because the parts that shrank are no longer showing everything they hold.
+
+Most interfaces meet the pattern without the academic name. An
+[expandable row](/expandable-row) in a table is focus plus context whenever the rows around it
+stay put. An [accordion](/accordion) is the same shape with the compression taken to its limit,
+each unfocused section reduced to its heading alone. [Inline edit](/inline-edit) applies it to a
+single field: the field grows into an editor where it already sits, rather than opening a dialog
+that hides the record being edited. What separates a good one from a jumpy one is the boundary.
+The deformation has to be contained: the focused region takes its space from the container it
+shares with the context, so the total is unchanged and nothing below the whole arrangement
+moves. A version that grows the container instead is not focus plus context, it is a
+[layout shift](/layout-shift) with a selection state.
+
+The compression has a floor, and finding it is the design work. A context row squeezed past
+legibility has stopped being context and become a decorative band, at which point the reader is
+looking at a single detail view with texture around it, and a plain
+[list detail](/list-detail) arrangement would have served them better. Keep enough of each
+neighbour to answer what is next to this, and reach for
+[progressive disclosure](/progressive-disclosure) instead when the honest answer is that only
+one item matters at a time.

@@ -1,0 +1,60 @@
+---
+name: Frozen column
+slug: frozen-column
+category: layout
+status: published
+definition: >-
+  A table column held against the edge while the rest scrolls sideways, so the row's
+  identifying value stays readable.
+aliases:
+  - name: pinned column
+    source: mui
+  - name: locked column
+    source: community
+  - name: freeze panes
+    source: excel
+  - name: frozen header row
+    source: community
+relations: {}
+sources:
+  - title: Data Grid column pinning, MUI X
+    url: https://mui.com/x/react-data-grid/column-pinning/
+demo: inline
+useWhen: a wide table where you lose track of the row
+---
+
+A [data table](/data-table) wider than its container has to scroll sideways, and the moment it
+does the reader loses the one column that told them which row they were reading. A frozen column
+is the fix: one column (sometimes the first two) is held against the leading edge of the
+scrolling region while everything else passes underneath it. The row's identifying value, the
+berth number, the invoice reference, the person's name, stays put and stays legible, so a
+figure eleven columns to the right still belongs to something.
+
+Four vocabularies name this one feature, which is itself the interesting fact. Spreadsheets
+call it freezing, and Excel's menu item is freeze panes, which is where most people meet the
+idea. Component libraries mostly call it pinning: MUI X, AG Grid and their peers expose pinned
+columns, usually to either edge, because pinning also has to answer the case where an actions
+column is held on the right. CSS calls it neither, since the implementation is
+`position: sticky` with an inset, so engineers reading the stylesheet say sticky. Locked is the
+fourth, and it is the one to avoid: locked means read-only in enough table components that a
+locked column reads as a column you cannot edit. The same feature turned ninety degrees is a
+frozen header row, held at the top while the rows scroll past, and a
+[sticky header](/sticky-header) is that pattern generalized beyond tables.
+
+The word that does get confused is sticky, because the technique is shared with a different
+term. A [sticky sidebar](/sticky-sidebar) holds vertically while the page scrolls, so the
+viewport it sticks inside is the window. A frozen column holds horizontally inside its own
+scrolling region, so the viewport it sticks inside is the table's own box. Two axes, two
+viewports, one CSS property, and the failure modes are different: a sticky sidebar can outgrow
+the screen, while a frozen column can eat the screen, which is the constraint worth stating out
+loud. The held column is subtracted from the space the remaining columns share, so freezing two
+wide columns on a phone leaves a scrolling region too narrow to read a single value in.
+
+Three details separate an implementation that works from one that looks right in a screenshot.
+The held cells need an opaque background, or the content sliding underneath shows through them.
+The boundary needs to be drawn, whether as a rule or a small shadow, so the reader can tell a
+held column from a column that merely has not moved yet. And the freezing must not break the
+table's semantics: the column is still a column, still in the same
+[header association](/table-header-association), and a
+[data grid](/data-grid) that reimplements the layout with absolutely positioned divs has to
+hand that structure back deliberately.

@@ -1,0 +1,4 @@
+term:    Rating prompt
+scope:   element
+subject: div.sp-surface[data-answer=none][data-part=prompt]
+text:    Enjoying Trailhead? You have saved five routes this month. Loving it Not really 

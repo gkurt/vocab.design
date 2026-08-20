@@ -1,0 +1,4 @@
+term:    Imposter
+scope:   element
+subject: div.sp-surface[data-mode=imposter][data-part=badge][data-pose=[data-mode=imposter]]
+text:    Closed for winter

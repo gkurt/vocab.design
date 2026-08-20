@@ -1,0 +1,4 @@
+term:    Verbosity
+scope:   element
+subject: p.sp-text.sp-text--ink[data-level=low][data-part=utterance][data-state=spoken]
+text:    “Star”

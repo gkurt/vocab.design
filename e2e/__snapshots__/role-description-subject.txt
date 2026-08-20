@@ -1,0 +1,4 @@
+term:    Role description
+scope:   element
+subject: span[data-part=role][data-source=honest]
+text:    slide reel

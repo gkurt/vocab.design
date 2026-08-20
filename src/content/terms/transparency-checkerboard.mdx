@@ -1,0 +1,70 @@
+---
+name: Transparency checkerboard
+slug: transparency-checkerboard
+category: color
+status: published
+definition: >-
+  The light grey and white checker grid a design tool paints behind transparent regions, a
+  convention so universal that the pattern itself now reads as meaning alpha.
+aliases:
+  - name: transparency grid
+    source: adobe
+  - name: alpha grid
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Transparency (graphic)"
+    url: https://en.wikipedia.org/wiki/Transparency_(graphic)
+  - title: "MDN: conic-gradient() checkerboard example"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/conic-gradient
+demo: inline
+useWhen: showing that a region is transparent rather than white
+---
+
+The grid is not in the file. Where an image has no pixels, or pixels whose
+[alpha channel](/alpha-channel) is zero, there is nothing at all to draw, and a tool
+still has to put something in that space so the reader can see the shape of the hole.
+Every editor answers the same way: two squares of near neutral grey and white,
+alternating on a small lattice, painted behind the artwork and never part of it. Open the
+same file in Photoshop, Figma, Sketch, GIMP or a browser's element inspector and the
+backing looks the same, which is the unusual thing about this convention. It was never
+specified anywhere. It simply became the pattern that means empty.
+
+White would have been the obvious choice and it fails for one reason: a white region and
+an empty region look identical, so the canvas stops being able to answer the question the
+designer is actually asking. Is that white paint, or is that nothing? A checker cannot be
+mistaken for content, because almost no real artwork contains a low contrast two tone
+lattice at that scale, and the eye files it as background rather than as image. The cells
+are kept small and the two greys kept close together so the pattern recedes instead of
+competing, and the payoff is that partial alpha becomes legible too: a region at thirty percent
+[opacity](/opacity) shows the grid faintly through it, so you can read roughly how
+transparent it is before the file is ever placed on a page. Placing it is when the
+question is settled for real, since the transparent region takes the colour of whatever
+sits behind it through [alpha compositing](/alpha-compositing), and the checker is a
+stand in for a background nobody has chosen yet.
+
+Because the convention is so well learned, it has moved out of editors and into product
+interfaces. A colour [swatch](/swatch) showing a fully transparent value is drawn as a
+checker rather than as an empty box. An image upload slot uses it to say the asset it is
+waiting for may have transparency. A colour picker's alpha slider runs its gradient over a
+checker so the low end reads as vanishing rather than as turning white. In CSS the pattern
+is four lines of `conic-gradient` with a `background-size`, so it costs nothing to draw,
+which is part of why it spread. What it should never do is composite into the output: the
+grid belongs to the viewer, not to the artwork, and an exported PNG that has the checker
+baked into it is the classic beginner bug this whole convention exists to prevent.
+
+Not every checkerboard is this term, and the difference is role rather than appearance. A
+chequerboard floor receding to a horizon in [vaporwave](/vaporwave), or a warped checker
+plane in [acid graphics](/acid-graphics), is a decorative motif with a history in op art
+and racing flags; alternating light and dark full width rows down a marketing page are a
+layout rhythm device. Those patterns are content. This one is scaffolding, drawn by the
+software in the places where the file has no colour to offer. The practical consequences
+follow from that: keep the contrast low enough that the grid never competes with the
+artwork sitting on it, keep the cells small, and do not reach for a checker as ornament
+inside a product that also uses it to mean alpha, because a reader who has learned the
+convention will read the ornament as a hole.

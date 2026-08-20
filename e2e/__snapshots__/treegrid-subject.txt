@@ -1,0 +1,4 @@
+term:    Tree grid
+scope:   element
+subject: table.sp-table[aria-activedescendant=cell-north-owner][aria-label=Spend by region][data-open=none][data-part=grid][role=treegrid][tabindex=0]
+text:    Region Owner Spend Change North A. Okafor £41,200 +4% Leeds R. Vance £18,400 +6%

@@ -1,0 +1,4 @@
+term:    Dimensionality
+scope:   element
+subject: div[data-mode=dimensional][data-part=panel][data-pose=[data-mode=dimensional]][data-state=moving]
+text:    Adult fare 26.00 Port fee 7.50 Booking 5.00

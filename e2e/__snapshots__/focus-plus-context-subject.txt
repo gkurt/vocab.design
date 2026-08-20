@@ -1,0 +1,4 @@
+term:    Focus plus context
+scope:   element
+subject: div.sp-surface[aria-pressed=true][data-part=row-3][data-state=focus][role=button]
+text:    Winter mooring fees 14 Nov Winter rates apply from the first of December and are

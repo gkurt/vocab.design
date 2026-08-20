@@ -1,0 +1,4 @@
+term:    Select all across pages
+scope:   element
+subject: div.sp-row[data-part=banner][data-scope=page][role=status]
+text:    All 5 on this page are selected. Select all 1,204 matching Clear selection

@@ -1,0 +1,62 @@
+---
+name: Tree grid
+slug: treegrid
+category: component
+status: published
+definition: >-
+  A table whose rows nest and expand like a tree, so hierarchy and columns of data
+  coexist in one grid.
+aliases:
+  - name: tree table
+    source: community
+  - name: hierarchical table
+    source: community
+  - name: expandable rows table
+    source: community
+relations: {}
+implementations:
+  - system: aria-apg
+    name: Treegrid
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/treegrid/
+sources:
+  - title: 'ARIA APG: Treegrid pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/treegrid/
+demo: inline
+useWhen: a table whose rows contain child rows
+---
+
+A tree grid is the answer to data that is both hierarchical and tabular: a file system
+with sizes and dates, a budget that rolls up by region, an org chart with headcount, a
+build log whose steps contain steps. Expanding a row does not open a panel, it reveals
+more rows, and those rows carry the same columns as their parent. That is the whole of
+the term, and it is what makes totals comparable down the page: the child's spend sits
+in the spend column, directly under the parent's, at the same alignment.
+
+The distinction worth holding on to is against [expandable row](/expandable-row). Both
+put a twisty at the start of a row and both grow the table downward, but what appears is
+different in kind. An expandable row opens a detail panel, a free-form region that can
+hold prose, a map, a couple of fields, anything that did not earn a column. A tree grid
+opens child rows, which are grid cells in the existing columns and nothing else. If what
+you want to reveal has a different shape from the row above it, you want the panel; if it
+has the same shape, you want the tree. A [tree view](/treeview) is the third relative and
+the closest one in structure, but it is a single column of labels, so it can nest freely
+and compare nothing.
+
+Keyboard support is where the pattern earns its ARIA name. A [data table](/data-table)
+needs no special interaction, but a tree grid does: focus moves cell by cell, arrow keys
+walk both axes, Right on a collapsed row expands it and Left collapses it or moves to the
+parent, and Home and End jump to the ends of the row or the grid. The
+[ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/treegrid/) documents all of it, along
+with `role="treegrid"`, `aria-expanded` on the row rather than on the twisty, and
+`aria-level` so a screen reader can say how deep the row sits. This is also the term the
+[first rule of ARIA](/first-rule-of-aria) leaves standing: HTML has no native nesting
+table, so the roles are not a shortcut around markup that would have worked, they are the
+only way to say what the grid is.
+
+Two failure modes are common enough to name. The first is depth: past three levels the
+indent eats the first column and the hierarchy becomes impossible to see, which is
+usually a sign the data wants a filter or a breadcrumb rather than more nesting. The
+second is losing your place. Expanding a row near the bottom pushes everything below it
+out of view, and collapsing a parent while focus sits inside it strands the reader, so
+the implementation has to move focus back to the parent row and keep the expanded state
+when the reader sorts or paginates.

@@ -1,0 +1,4 @@
+term:    Lottie
+scope:   element
+subject: svg[aria-hidden=true][data-part=vector][data-plays=0][data-state=settled][viewBox=0 0 40 40]
+text:    

@@ -1,0 +1,4 @@
+term:    Deconstructed pancake
+scope:   element
+subject: div[data-orphan=natural][data-part=row][data-rows=one][data-width=wide]
+text:    Charts Alerts Exports

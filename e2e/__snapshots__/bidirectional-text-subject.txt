@@ -1,0 +1,4 @@
+term:    Bidirectional text
+scope:   element
+subject: span[data-base=rtl][data-part=run-2][data-pose=[data-base=rtl]]
+text:    CSS Grid

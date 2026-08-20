@@ -1,0 +1,4 @@
+term:    Read receipt
+scope:   element
+subject: span.sp-row[data-part=marker][data-state=sent][role=status]
+text:    Sent 14:32

@@ -1,0 +1,4 @@
+term:    Tabbable
+scope:   element
+subject: div.sp-button.sp-button--quiet.sp-button--sm[aria-label=Sort][data-control=sort][data-part=sort][role=button][tabindex=-1]
+text:    Sort tabindex -1

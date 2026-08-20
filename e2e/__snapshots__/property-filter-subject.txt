@@ -1,0 +1,4 @@
+term:    Property filter
+scope:   element
+subject: div.sp-input[data-free=none][data-part=field][data-step=idle]
+text:    ✕

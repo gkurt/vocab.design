@@ -1,0 +1,60 @@
+---
+name: Named instance
+slug: named-instance
+category: typography
+status: published
+definition: >-
+  A specific point in a variable font's design space that the designer has given a
+  style name, so it can be picked like an ordinary weight.
+aliases:
+  - name: instance
+  - name: static instance
+  - name: predefined instance
+relations: {}
+sources:
+  - title: Designing with Variable Fonts
+    url: https://variablefonts.io/about-variable-fonts/
+  - title: Variations (FontLab manual)
+    url: https://help.fontlab.com/fontlab/7/manual/Variable-Fonts/
+demo: inline
+useWhen: picking a named style out of a variable font
+---
+
+A [variable font](/variable-font) is a continuum. Along its
+[variation axis](/variation-axis) for weight every value from 100 to 900 exists and
+is drawable, which is a lot of freedom and no vocabulary at all. So the designer
+plants flags: this point is Light, this one is Regular, this one Semibold, this one
+Black. Each flag is a named instance, a coordinate in the design space plus a name
+for it, recorded in the font's own tables. Named instances are what a font menu
+lists, what a design tool's style dropdown offers, and what `@font-face` rules and
+CSS keywords resolve to. They are also what a static export produces: pick an
+instance, cut it out of the variable file, and you have the single-weight font
+files the family used to ship as.
+
+The important thing about the flags is how few there are. A weight axis running
+100 to 900 holds 801 integer positions, and a typical family names nine of them.
+Everything between the flags is real, renderable type that no name reaches. Ask
+for `font-variation-settings: 'wght' 520` and the font answers with a drawing that
+sits between Medium and Semibold, and there is nothing to call it. That gap is not
+a defect. It is the whole reason the format exists: a headline can be tuned until
+it optically matches the paragraph under it, and a weight can be interpolated
+during an animation, neither of which a list of nine files can do.
+
+The names are worth respecting anyway, for two reasons. They are the family's own
+editorial judgment about which points are useful, usually spaced so that adjacent
+steps are distinguishable at text sizes rather than evenly spaced in axis units.
+And they are the interoperable currency: a named instance survives a handoff, an
+export, a font menu, and a colleague's machine, while `'wght' 520` survives only
+as long as someone keeps typing it. In CSS the bridge is
+[font-weight](/font-weight), whose keywords and numbers map onto the weight axis
+directly, so `font-weight: 600` usually lands exactly on the instance the family
+calls Semibold.
+
+Two traps. First, an instance name is not a guarantee of position: one family's
+Semibold is 600, another's is 620, and a third calls 600 Demi. Read the font's
+table, do not assume the ladder. Second, a named instance can pin more than one
+axis at once. A family with weight and [optical size](/optical-size) axes may name
+a point Caption Bold, meaning a specific weight and a specific optical size
+together, and picking it sets both. Asking for the weight alone leaves the other
+axis wherever the file's default put it, which is how text set at display optical
+size ends up in a caption.

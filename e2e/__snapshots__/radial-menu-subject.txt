@@ -1,0 +1,4 @@
+term:    Radial menu
+scope:   element
+subject: svg[aria-label=Radial menu of six commands][data-part=ring][height=156][role=img][viewBox=0 0 156 156][width=156]
+text:    Crop Rotate Filter Delete Share Copy None

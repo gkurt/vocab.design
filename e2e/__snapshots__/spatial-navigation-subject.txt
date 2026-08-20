@@ -1,0 +1,4 @@
+term:    Spatial navigation
+scope:   element
+subject: div.sp-surface[data-order=1][data-part=tile-news][data-sim-focus]
+text:    News 1

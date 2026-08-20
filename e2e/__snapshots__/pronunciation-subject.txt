@@ -1,0 +1,4 @@
+term:    Pronunciation
+scope:   element
+subject: span[data-mode=default][data-part=token]
+text:    leed

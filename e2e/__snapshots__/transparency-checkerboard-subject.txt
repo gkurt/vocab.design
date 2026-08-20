@@ -1,0 +1,4 @@
+term:    Transparency checkerboard
+scope:   element
+subject: span[data-part=checker]
+text:    

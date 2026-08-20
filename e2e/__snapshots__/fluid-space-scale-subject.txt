@@ -1,0 +1,4 @@
+term:    Fluid space scale
+scope:   element
+subject: div[data-moved=rest][data-part=ramp][data-viewport=narrow]
+text:    

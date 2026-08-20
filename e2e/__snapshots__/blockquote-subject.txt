@@ -1,0 +1,4 @@
+term:    Blockquote
+scope:   element
+subject: blockquote[data-part=quote]
+text:    People rarely read word by word. They scan, they pick, and they leave. Field Not

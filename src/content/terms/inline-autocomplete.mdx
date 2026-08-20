@@ -1,0 +1,64 @@
+---
+name: Inline autocomplete
+slug: inline-autocomplete
+category: pattern
+status: published
+definition: >-
+  Completing the reader's text inside the field itself, with the guessed remainder selected
+  so the next keystroke replaces it.
+aliases:
+  - name: autocomplete inline
+    source: aria-apg
+  - name: inline completion
+    source: community
+  - name: ghost text
+    source: community
+  - name: type-ahead completion
+    source: community
+  - name: URL bar autofill
+    source: community
+relations: {}
+implementations:
+  - system: aria-apg
+    name: Editable Combobox With Both List and Inline Autocomplete
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-both/
+sources:
+  - title: 'ARIA APG: Combobox pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+demo: inline
+useWhen: the field finishes your word inside the field
+---
+
+Inline autocomplete puts the guess where the typing is. The field shows the whole
+candidate, the part the reader typed followed by the part the field supplied, and the
+supplied part is selected. That selection is the entire mechanism, not decoration. Because
+the remainder is a selected range, the next character typed replaces it rather than landing
+after it, so a reader who ignores the guess never has to delete it; and because it is still
+a range, one press of the right arrow or End collapses the selection and accepts the
+completion as text. Typing forward or typing over are the same gesture, which is why the
+pattern survives fast typists at all.
+
+It is old, and the browser address bar is where most people meet it. The ARIA authoring
+practices treat it as a property of a combobox rather than a pattern of its own, naming the
+inline half "list with inline completion" when a popup list is showing at the same time,
+and requiring that the completion be a selected range so assistive technology reports the
+field's value honestly. The failure mode it exists to avoid is the field that inserts the
+remainder as ordinary text: the reader keeps typing, the letters go after the guess, and
+the value becomes a collision of two words that neither party asked for.
+
+There is a name collision worth being precise about, because it has arrived recently and
+loudly. This entry claims the classic reading: a completion drawn from a known finite set
+(your contacts, your history, a list of countries), inserted into the field, selected. It
+is not the AI suggestion that shows a whole predicted phrase in grey after the cursor and
+waits for Tab. That thing is also called ghost text, and it differs in three ways that
+matter to the reader: it is generated rather than looked up, so it can be wrong in ways a
+list cannot; it is unselected inert text, so a keystroke does not overwrite it; and it is
+accepted with Tab rather than by continuing to type. Both are worth having. Calling them
+the same word makes it impossible to say which one a field is doing, so this site keeps
+"inline autocomplete" for the selected-remainder sense.
+
+The near neighbours are worth keeping apart too. [Typeahead](/typeahead) is the field that
+searches while you type, showing results elsewhere, and needs no completion in the field at
+all. [Mention autocomplete](/mention-autocomplete) triggers on a character inside prose and
+inserts a token rather than letters. Inline autocomplete is the narrow case where the guess
+lives in the value, and the selection is the promise that it is only a guess.

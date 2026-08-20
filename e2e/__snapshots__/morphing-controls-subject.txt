@@ -1,0 +1,4 @@
+term:    Morphing control
+scope:   element
+subject: button.sp-button[aria-label=Play][data-aim][data-part=morph][data-state=paused][type=button]
+text:    

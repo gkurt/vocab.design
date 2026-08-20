@@ -1,0 +1,58 @@
+---
+name: Morphing control
+slug: morphing-controls
+category: pattern
+status: published
+definition: >-
+  One control that changes what it says and does according to state, showing play when
+  paused and pause when playing rather than offering both.
+aliases:
+  - name: state-dependent button
+    source: community
+  - name: multifunctional control
+    source: goodui
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Morphing Controls'
+    url: https://ui-patterns.com/patterns/morphing-controls
+  - title: 'GoodUI: Try multifunctional controls instead of more parts'
+    url: https://goodui.org/
+demo: inline
+useWhen: one button that becomes the next action each time
+---
+
+A morphing control spends one slot on several actions by only ever offering the one that
+applies. A transport bar does not carry a play button and a pause button side by side, with
+one of them permanently useless; it carries a single button that is play while the track is
+stopped, pause while it runs, and replay once it ends. The reader's target never moves, the
+layout never grows, and the control's appearance is a readout of the state as well as an
+invitation, which is why the pattern survives in players, recorders, and follow buttons long
+after the fashion for it passed.
+
+The spine of the idea is the difference from a [toggle button](/toggle-button), and it is
+worth stating precisely because the two look identical in a screenshot. A toggle button
+keeps one name and reports its state separately: it is called "Mute", it stays called
+"Mute", and whether muting is currently on is carried by `aria-pressed`. A morphing control
+changes the name itself, so the state lives in the label and there is no pressed state to
+report. Both are legitimate. Mixing them is not: a button labelled "Mute" that also carries
+`aria-pressed="true"` is announced as "Mute, pressed", which a reader can read either as
+"muting is on" or as "you just pressed this", and nothing on the control settles it.
+
+The cost is memory. A reader who learns that the button in the corner is called Pause has
+learned a name that will not be there next time, which matters most to the people who
+navigate by name: a voice-control user saying "click pause" and a screen-reader user hunting
+the buttons list find a control that has become something else since they last looked.
+Instruction and documentation suffer the same way, since "press Play" is only true half the
+time. The mitigations are ordinary craft, and the specimen above shows the important one:
+the accessible name changes with the glyph, in the same instant, so the announcement and the
+drawing never disagree. Announce the change too, through a live region or by moving nothing
+else, so a reader who cannot see the morph still learns what happened.
+
+Where it goes wrong is when the second action is not the natural successor of the first.
+Play becomes pause because pausing is the only thing anyone wants next. A "Save" button that
+becomes "Delete" once saved is the same mechanism aimed at a destructive action, and the
+muscle memory built by the first press is now pointed at the second: the reader clicks the
+place where the safe thing used to be. The test is whether the sequence of actions is a
+sequence at all. If the reader might want either action at any time, they need two controls,
+and the slot you saved was not worth the ambiguity.

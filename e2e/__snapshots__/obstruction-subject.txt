@@ -1,0 +1,4 @@
+term:    Obstruction
+scope:   element
+subject: div.sp-surface[data-part=path][data-pose=[data-route=obstructed]][data-route=obstructed][data-step=0]
+text:    Reader plan 6.99 a month, renews 4 May. Manage preferences Nothing on this scree

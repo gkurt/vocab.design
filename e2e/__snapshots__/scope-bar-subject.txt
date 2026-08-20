@@ -1,0 +1,4 @@
+term:    Scope bar
+scope:   element
+subject: sp-segmented.sp-segmented[aria-label=Search scope][data-part=bar][data-value=all][role=tablist]
+text:    All Mail Files People

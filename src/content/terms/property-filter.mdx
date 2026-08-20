@@ -1,0 +1,63 @@
+---
+name: Property filter
+slug: property-filter
+category: component
+status: published
+definition: >-
+  A search field that builds structured queries from tokens, letting a reader filter by
+  named properties with operators rather than free text.
+aliases:
+  - name: query builder
+    source: community
+  - name: filter builder
+    source: community
+  - name: search syntax field
+    source: community
+  - name: structured search
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Property filter, Cloudscape Design System'
+    url: https://cloudscape.design/components/property-filter/
+demo: inline
+useWhen: filtering by named fields inside one search box
+---
+
+A property filter is one field doing the work of a whole filter panel. The reader types
+into it and the field offers the properties it knows about, then the operators that
+property allows, then the values it can take, and what lands in the field is a token: a
+compact, editable, removable piece of query that reads `state = open` or
+`updated > 7 days`. Several tokens combine, free text is still allowed alongside them, and
+the whole assembly is one string that can live in a URL. It is the interaction that makes
+power-user search syntax discoverable, because the field teaches the grammar while the
+reader writes it.
+
+The near neighbour is [tag input](/tag-input), and the difference is what the field
+collects. A tag input collects freeform labels: each chip is one value, entered by typing
+whatever you like and pressing Enter. A property filter collects triples, property then
+operator then value, and it will not accept a token it did not offer, because the tokens
+have to mean something to the query behind them. Both look like chips in a box, so the
+name matters. The suggestion machinery underneath is usually a
+[combobox](/combobox), which is the pattern that already knows how to pair a field with a
+list of options.
+
+Against a [faceted filter](/faceted-filter) the trade is space against expressiveness. A
+facet panel shows every dimension at once and every value with a count, so it is
+browsable but wide, and it can rarely express anything but equality. A property filter
+occupies one line and can say more (not equal, greater than, contains, before), but its
+options are invisible until the reader engages with it, so it favours people who already
+know roughly what they are looking for. Whichever you build, echo the current query back
+in a place the reader can act on, whether that is the tokens themselves or a row of
+[applied filters](/applied-filters), and make it easy to remove one part without
+retyping the rest.
+
+The pattern's popular ancestors are text syntaxes rather than components. Search on
+[GitHub](https://github.com) is a query language where `is:open label:bug` is typed by
+hand, and the field grew suggestions afterwards; [Linear](https://linear.app) went the
+other way, giving the query a proper interface where each condition is picked and shown as
+a token. Both approaches share the same failure mode, which is silent rejection: a
+property nobody offered, an operator that particular field cannot take, or a value that
+does not exist, all quietly returning nothing. Explain the empty result, keep a bad token
+visible so it can be corrected, and never let the field lose a query the reader has spent
+four gestures assembling.

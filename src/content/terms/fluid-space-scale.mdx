@@ -1,0 +1,61 @@
+---
+name: Fluid space scale
+slug: fluid-space-scale
+category: layout
+status: published
+definition: >-
+  A spacing ramp whose every step interpolates between a minimum and a maximum viewport, so gaps
+  grow smoothly with the screen instead of jumping at breakpoints.
+aliases:
+  - name: fluid space
+    source: utopia
+  - name: fluid spacing
+    source: community
+  - name: space steps
+    source: utopia
+  - name: one-up pairs
+    source: utopia
+relations: {}
+sources:
+  - title: Fluid Space Calculator, Utopia
+    url: https://utopia.fyi/space/calculator/
+demo: inline
+useWhen: spacing that scales with the screen, not in steps
+---
+
+A [spacing scale](/spacing-scale) is a small set of named gaps, from a hairline to a page
+margin, that a whole interface is built from. A fluid space scale is that set with every step
+expressed as an interpolation rather than a number: each one has a value at a minimum viewport
+and a value at a maximum viewport, and between those two widths it tracks the screen as a
+straight line. `clamp(1.125rem, 0.857rem + 1.19vw, 1.75rem)` is one step of such a ramp. Below
+360 pixels the floor holds, above 1200 the ceiling does, and in between the gap moves
+continuously. The whole scale moves together, so the proportions between the steps survive the
+resize.
+
+The argument is the same one made for [fluid typography](/fluid-typography), and it is the
+argument for adopting both or neither. Spacing set at breakpoints jumps: a section that had 32
+pixels of air at 1023 pixels wide has 48 at 1025, and every element near that boundary shifts at
+once. Worse, type and space are usually declared in different places, so a breakpoint that
+enlarges the headings without enlarging the gaps around them quietly tightens the design at
+exactly the size where it should have opened up. Interpolating both against the same two
+viewports keeps the relationship the designer chose, which is the real product of the approach:
+not smoother resizing, but one design that stays itself at every width.
+
+[Utopia](https://utopia.fyi) is the vocabulary most teams borrow here, and its terms are worth
+knowing because they show up in tokens. Space steps are the named ramp, usually labelled from
+`3xs` to `3xl` around a base of `m`. One-up pairs are the in-between steps that span two named
+ones, `s-m` or `l-xl`, for the gaps that need to sit between two rungs without adding a rung.
+And the calculator's output is plain CSS custom properties, which is the point: the fluid part
+lives in the token definitions, so component code keeps saying `var(--space-m)` and knows
+nothing about viewports.
+
+Two distinctions and one caution. A [modular scale](/modular-scale) is about the ratio between
+the steps, not about the viewport, and a fluid ramp is normally built on one: the ratio decides
+the rungs, the interpolation decides how each rung moves. A [type scale](/type-scale) is the
+same idea applied to font sizes rather than gaps, and it is usually the one built first, with
+space derived from it. The caution is that `vw` in a spacing value has the same accessibility
+trap it has in a type value: a gap defined purely in viewport units does not answer to the
+reader's text size, so keep a `rem` term in the expression and keep the floor in `rem` too.
+A [container query](/container-query) is the better tool when the space belongs to a component
+rather than to the page, since a card in a narrow sidebar wants its own gaps and the viewport
+cannot tell it so.
