@@ -77,6 +77,15 @@ const PINCH_MS = 650;
 const PINCH_BASE_DEG = 45;
 const PINCH_ID_A = 21;
 const PINCH_ID_B = 22;
+/** The half-separation two resting contacts sit at: a pair of fingers, not a pinch mid-flight. */
+const PAIR_HALF = 26;
+/** Beat between the two taps of a double two-finger tap, and the press each tap holds. */
+const PAIR_TAP_MS = 90;
+const SCRUB_REPS = 3;
+const SCRUB_MS = 620;
+/** How far each sideways sweep travels, and how far the pair drifts down over the whole scrub. */
+const SCRUB_REACH = 46;
+const SCRUB_DRIFT = 18;
 
 /**
  * The pressure a touch hold reports after `elapsed` ms. The ramp is rate-based,
@@ -323,6 +332,8 @@ export class AttractPlayer {
     } else if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
     else if ('hold' in step) this.#summonHold(step.hold);
     else if ('pinch' in step) this.#summonPinch(step.pinch);
+    else if ('twoFingerTap' in step) this.#summonTwoFingerTap(step.twoFingerTap);
+    else if ('twoFingerScrub' in step) this.#summonTwoFingerScrub();
     else if ('rightClick' in step) this.#dispatchButton(2);
     else if ('middleClick' in step) this.#dispatchButton(1);
     else if ('drag' in step) this.#summonDrag(step.drag);
@@ -479,6 +490,14 @@ export class AttractPlayer {
     }
     if ('pinch' in step) {
       if (!(await this.#pinch(step.pinch, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('twoFingerTap' in step) {
+      if (!(await this.#twoFingerTap(step.twoFingerTap, generation))) return false;
+      return this.#sleep(STEP_GAP_MS, generation);
+    }
+    if ('twoFingerScrub' in step) {
+      if (!(await this.#twoFingerScrub(step.twoFingerScrub, generation))) return false;
       return this.#sleep(STEP_GAP_MS, generation);
     }
     if ('rightClick' in step) {
@@ -859,6 +878,104 @@ export class AttractPlayer {
     return true;
   }
 
+  /**
+   * Tap two contacts on the current target (SPEC §8): both down, both up, no
+   * travel, `count` times. Dispatched as two `pointerType: 'touch'` streams with
+   * their own pointerIds, the same shape a real two-finger tap has on the web,
+   * so `twoFingerTap` in the kit reads the script and a real pair identically.
+   * The gesture is portrayed as itself; whether assistive technology routes it
+   * natively rather than handing it to the page is the article's business.
+   */
+  async #twoFingerTap(tap: { count?: number }, generation: number): Promise<boolean> {
+    const el = this.#target;
+    if (!el) return this.#sleep(STEP_GAP_MS, generation);
+    const at = aimAt(el);
+    // A two-finger tap is touch by nature, whatever scope its target sits in.
+    this.#setPersona('touch');
+    this.#cursor.setAttribute('data-gesture', 'pinch');
+    this.#cursor.style.setProperty('--vd-pinch', `${PAIR_HALF}px`);
+    this.#cursor.style.setProperty('--vd-pinch-turn', `${PINCH_BASE_DEG}deg`);
+    const retire = () => {
+      this.#cursor.removeAttribute('data-gesture');
+      this.#cursor.style.removeProperty('--vd-pinch');
+      this.#cursor.style.removeProperty('--vd-pinch-turn');
+    };
+    const count = Math.max(1, tap.count ?? 1);
+    for (let i = 0; i < count; i++) {
+      this.#fx('vd-fx-tap');
+      this.#dispatchPinch(el, 'pointerdown', at, PAIR_HALF, 0);
+      if (!(await this.#sleep(PAIR_TAP_MS, generation))) {
+        this.#dispatchPinch(el, 'pointerup', at, PAIR_HALF, 0);
+        retire();
+        return false;
+      }
+      this.#dispatchPinch(el, 'pointerup', at, PAIR_HALF, 0);
+      if (i + 1 < count && !(await this.#sleep(PAIR_TAP_MS, generation))) {
+        retire();
+        return false;
+      }
+    }
+    retire();
+    return true;
+  }
+
+  /**
+   * Scrub two contacts back and forth across the current target (SPEC §8): the
+   * pair presses, sweeps sideways `reps` times while drifting down (the Z the
+   * gesture is described by), and lifts. One continuous press throughout, so a
+   * demo sees one gesture rather than several. Duration is animation, not
+   * semantics: reduced motion collapses the travel to its end point.
+   */
+  async #twoFingerScrub(scrub: { reps?: number; ms?: number }, generation: number): Promise<boolean> {
+    const el = this.#target;
+    if (!el) return this.#sleep(STEP_GAP_MS, generation);
+    const origin = aimAt(el);
+    this.#setPersona('touch');
+    this.#cursor.setAttribute('data-gesture', 'pinch');
+    const reps = Math.max(1, scrub.reps ?? SCRUB_REPS);
+    const paint = (at: { x: number; y: number }) => {
+      this.#cursor.style.setProperty('--vd-pinch', `${PAIR_HALF}px`);
+      this.#cursor.style.setProperty('--vd-pinch-turn', `${PINCH_BASE_DEG}deg`);
+      this.#placeCursor(at, 0);
+    };
+    const retire = () => {
+      this.#cursor.removeAttribute('data-gesture');
+      this.#cursor.style.removeProperty('--vd-pinch');
+      this.#cursor.style.removeProperty('--vd-pinch-turn');
+    };
+    /** Where the pair sits at fraction `f` of the whole scrub: a triangle wave sideways, a drift down. */
+    const pointAt = (f: number) => {
+      const phase = f * reps * 2;
+      const swing = 1 - Math.abs((((phase % 2) + 2) % 2) - 1) * 2;
+      return { x: origin.x + swing * SCRUB_REACH, y: origin.y - SCRUB_DRIFT / 2 + SCRUB_DRIFT * f };
+    };
+    const start = pointAt(0);
+    paint(start);
+    this.#dispatchPinch(el, 'pointerdown', start, PAIR_HALF, 0);
+    const dur = this.#host.reducedMotion ? 0 : (scrub.ms ?? SCRUB_MS);
+    if (dur > 0) {
+      const began = performance.now();
+      for (;;) {
+        await new Promise(requestAnimationFrame);
+        if (generation !== this.#generation) {
+          retire();
+          return false;
+        }
+        const f = (performance.now() - began) / dur;
+        if (f >= 1) break;
+        const at = pointAt(f);
+        paint(at);
+        this.#dispatchPinch(el, 'pointermove', at, PAIR_HALF, 0);
+      }
+    }
+    const end = pointAt(1);
+    paint(end);
+    this.#dispatchPinch(el, 'pointermove', end, PAIR_HALF, 0);
+    this.#dispatchPinch(el, 'pointerup', end, PAIR_HALF, 0);
+    retire();
+    return true;
+  }
+
   /** One tick of the pinch: both contacts symmetric about `at`, `deg` clockwise off the base diagonal. */
   #dispatchPinch(
     el: Element,
@@ -885,6 +1002,28 @@ export class AttractPlayer {
     this.#dispatchPinch(el, 'pointerdown', at, from, 0);
     this.#dispatchPinch(el, 'pointermove', at, from * scale, turn);
     this.#dispatchPinch(el, 'pointerup', at, from * scale, turn);
+  }
+
+  /** A two-finger tap, fast-forwarded: the pair down and up, `count` times, no waiting. */
+  #summonTwoFingerTap(tap: { count?: number }): void {
+    const el = this.#target;
+    if (!el) return;
+    const at = aimAt(el);
+    for (let i = Math.max(1, tap.count ?? 1); i > 0; i--) {
+      this.#dispatchPinch(el, 'pointerdown', at, PAIR_HALF, 0);
+      this.#dispatchPinch(el, 'pointerup', at, PAIR_HALF, 0);
+    }
+  }
+
+  /** A scrub, fast-forwarded: the pair down, one sweep to the far side, up. */
+  #summonTwoFingerScrub(): void {
+    const el = this.#target;
+    if (!el) return;
+    const at = aimAt(el);
+    const to = { x: at.x + SCRUB_REACH, y: at.y + SCRUB_DRIFT / 2 };
+    this.#dispatchPinch(el, 'pointerdown', { x: at.x - SCRUB_REACH, y: at.y - SCRUB_DRIFT / 2 }, PAIR_HALF, 0);
+    this.#dispatchPinch(el, 'pointermove', to, PAIR_HALF, 0);
+    this.#dispatchPinch(el, 'pointerup', to, PAIR_HALF, 0);
   }
 
   /** A hold, fast-forwarded: down, one move at the depth the hold would reach, up. */

@@ -198,6 +198,15 @@ never fires under reduced motion, so nothing may ever wait on it.
   the centre turns); anchor the response at the centre `onStart` reports.
   Trackpad pinch arrives as ctrl+wheel and is the demo's own to wire;
   the script performs it as a `wheel` step inside a `withKey` Control scope.
+  Two further two-contact gestures exist: `twoFingerTap` taps the pair with no
+  travel (`count` times, and a magic tap is two), and `twoFingerScrub` sweeps it
+  sideways and back. Demos wire `twoFingerTap` or `twoFingerScrub` from
+  `#src/kit/touch.ts`; a reader taps the pair with Ctrl held and scrubs with a
+  Ctrl+drag swept side to side, so the no-travel half of the Ctrl mapping is the
+  tap and the travelling half is the pinch, and one element never wires both.
+  Both gestures are portrayed as themselves even though assistive technology
+  consumes the real ones natively and hands a page nothing: that fact belongs in
+  the term's article, never in a costume.
   A `data-gaze` scope is the opposite temperament: events stay exactly a mouse's
   (hover included, looking IS hovering) and only the dress changes — the ghost
   is an eye, activations draw as a closing pinch, and a reader's own pointer

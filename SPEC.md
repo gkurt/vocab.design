@@ -410,6 +410,18 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   scope (§8). Rotation rides the same pair: the `pinch` step's `turn` rotates the
   contacts, `pinchSpread` reports (scale, turn) so a demo uses the half it names,
   and a Ctrl+drag swinging around the mirror centre turns the pair for a mouse.
+  Two more gestures ride the same pair, and both are the twin contacts doing
+  something other than spreading. The `twoFingerTap` step (§8) taps the pair with
+  no travel, `count` times, and a demo wires `twoFingerTap` from the kit: one
+  signal for the script, real fingers, and a reader's **Ctrl+tap** — the no-travel
+  half of the same Ctrl mapping a pinch's drag claims, which is why one element
+  never wires both. The `twoFingerScrub` step sweeps the pair sideways and back,
+  and `twoFingerScrub` in the kit counts the reversals rather than matching a
+  shape, so a scripted scrub, real fingers and a reader's Ctrl+drag swept side to
+  side all arrive as one signal. Both gestures are PORTRAYED as themselves, on the
+  same principle as the rest of this persona: that assistive technology consumes
+  the real versions natively and hands a web page nothing is a fact for the term's
+  article, not a reason the stage may dress the gesture as something else.
   Gestures past two contacts are not in the vocabulary yet; terms that need them
   wait.
 - **Gaze persona (scripted)**: a `data-gaze` scope is the touch persona's opposite
@@ -469,7 +481,10 @@ export default steps([
   two pointerups — `scale` spreads or closes the pair, the separation ending at
   exactly that ratio of where it began and never exceeding the stage's span, and
   `turn` rotates the pair by that many degrees clockwise, either alone or both
-  together), `press` (key), `holdKey`
+  together), `twoFingerTap` (the pair tapped on the target with no travel, `count`
+  times — a magic tap is two), `twoFingerScrub` (the pair swept sideways and back
+  `reps` times with a downward drift, one continuous press throughout),
+  `press` (key), `holdKey`
   (hold a key for N ms: one keydown, the typematic delay, then `repeat: true`
   keydowns at a steady rate until the keyup, the chip counting them as
   "ArrowRight ×12"), `type` (text), `scroll`, `wheel` (a short burst of real
@@ -484,7 +499,9 @@ export default steps([
   pressure climbing at a finger's rate (full force at 900 ms), so the hold's length
   chooses the depth reached — the signal a force-driven demo reads. `pinch`'s `ms`
   is animation, not semantics — the scale is stated, so reduced motion collapses
-  the move, unlike `hold`, whose length IS the depth it reaches.
+  the move, unlike `hold`, whose length IS the depth it reaches. `twoFingerScrub`'s
+  `ms` is animation on the same terms; `twoFingerTap`'s `count` is semantics, since
+  a single tap of the pair is not the gesture a double tap is.
   **The vocabulary grows before a demo fakes it.** A term whose honest demonstration
   needs input the player cannot perform is a reason to grow the player — as press
   duration grew `hold` and pressure grew the touch persona — never to ship a control

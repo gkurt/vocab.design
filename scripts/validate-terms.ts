@@ -140,8 +140,11 @@ for (const term of terms.values()) {
       if (!(await Bun.file(join(DEMOS_DIR, term.slug, piece)).exists())) errors.push(`${term.slug}: demo declared but missing ${piece}`);
     }
     const demoFile = Bun.file(join(DEMOS_DIR, term.slug, 'demo.ts'));
+    /** Kept beyond the block below so the choreography gates can read the demo too. */
+    let demoSource = '';
     if (await demoFile.exists()) {
       const source = await demoFile.text();
+      demoSource = source;
       if (!source.includes('data-subject')) errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
 
       // A pose is the live specimen with its clock held (SPEC §6). A timer taken from
@@ -168,6 +171,11 @@ for (const term of terms.values()) {
       const invalid = script.match(UNQUOTED_DIGIT_SELECTOR);
       if (invalid)
         errors.push(`${term.slug}: choreography selector ${invalid[0]} has an unquoted value starting with a digit; quote it (SPEC §8)`);
+      // Every two-contact gesture performs as touch, so its scene has to say it is a touch
+      // surface: without data-touch the ghost stays an arrow and the demo is a costume (SPEC §7).
+      const pair = script.match(/\b(pinch|twoFingerTap|twoFingerScrub):/)?.[1];
+      if (pair && demoSource && !demoSource.includes('data-touch'))
+        errors.push(`${term.slug}: choreography uses ${pair} but the demo declares no data-touch scope (SPEC §7)`);
     }
   }
 }

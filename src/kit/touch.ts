@@ -209,3 +209,132 @@ export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
     if (event.pointerType !== 'touch' && mouseFrom) settle();
   });
 }
+
+/** How far a two-contact press may drift and still count as a tap rather than a drag. */
+const TAP_SLOP = 10;
+/** How long a two-contact press may last and still count as a tap. */
+const TAP_MAX_MS = 320;
+/** The gap within which a second two-finger tap joins the first as one double tap. */
+const TAP_GAP_MS = 400;
+
+export interface TwoFingerTapHandlers {
+  /** `count` is how many two-finger taps landed in quick succession: 1, then 2, and so on. */
+  onTap: (count: number) => void;
+}
+
+/**
+ * Report a two-finger tap on `el`, whichever way it arrives: the script's
+ * `twoFingerTap` step and a real pair of fingers both land as two touch pointer
+ * streams that go down and up without travelling, and a reader on a mouse taps
+ * the pair with Ctrl held (the same modifier `pinchSpread` reads as a virtual
+ * second contact, and the stage's TouchMirror already draws the twin disc for
+ * it). Consecutive taps within TAP_GAP_MS report a rising count, so a demo can
+ * answer the double tap the platform gesture actually is.
+ *
+ * A tap is the no-travel half of the Ctrl mapping and a pinch is the travelling
+ * half, so a demo wires whichever one its term names, never both on one element.
+ */
+export function twoFingerTap(el: HTMLElement, clock: ClockLike, handlers: TwoFingerTapHandlers): void {
+  const contacts = new Map<number, { x: number; y: number; at: number }>();
+  let travelled = false;
+  let count = 0;
+  let settle: ReturnType<ClockLike['setTimeout']> | undefined;
+
+  const land = () => {
+    count += 1;
+    handlers.onTap(count);
+    clock.clearTimeout(settle);
+    settle = clock.setTimeout(() => {
+      count = 0;
+    }, TAP_GAP_MS);
+  };
+
+  el.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch') {
+      if (contacts.size >= 2) return;
+      contacts.set(event.pointerId, { x: event.clientX, y: event.clientY, at: performance.now() });
+      if (contacts.size === 2) travelled = false;
+      return;
+    }
+    if (!event.ctrlKey) return;
+    // The mouse stands in for both fingers, so one pointer is the whole gesture.
+    contacts.set(event.pointerId, { x: event.clientX, y: event.clientY, at: performance.now() });
+    travelled = false;
+  });
+  el.addEventListener('pointermove', (event) => {
+    const from = contacts.get(event.pointerId);
+    if (!from) return;
+    if (Math.hypot(event.clientX - from.x, event.clientY - from.y) > TAP_SLOP) travelled = true;
+  });
+  const lift = (event: PointerEvent) => {
+    const from = contacts.get(event.pointerId);
+    if (!from) return;
+    contacts.delete(event.pointerId);
+    if (performance.now() - from.at > TAP_MAX_MS) travelled = true;
+    // One tap, however many contacts made it: a pair lifts twice and the gesture is
+    // only over when the last one leaves, so the count rises per TAP, not per finger.
+    if (contacts.size > 0) return;
+    if (!travelled) land();
+    travelled = false;
+  };
+  el.addEventListener('pointerup', lift);
+  el.addEventListener('pointercancel', lift);
+}
+
+/** Direction reversals that make a sideways sweep a scrub rather than a drag. */
+const SCRUB_TURNS = 2;
+/** How far the pair must travel between reversals for one to count. */
+const SCRUB_LEG = 18;
+
+export interface TwoFingerScrubHandlers {
+  /** Fired once the sweep has reversed often enough to be a scrub, not a drag. */
+  onScrub: () => void;
+}
+
+/**
+ * Report a two-finger scrub on `el`: the back-and-forth sideways sweep, counted
+ * by its direction reversals rather than its shape, so the script's
+ * `twoFingerScrub` step, a real pair of fingers, and a reader's Ctrl+drag
+ * swept side to side all arrive as one signal. It fires once per press, at the
+ * reversal that settles it, so a longer scrub does not report twice.
+ */
+export function twoFingerScrub(el: HTMLElement, handlers: TwoFingerScrubHandlers): void {
+  let active = false;
+  let fired = false;
+  let last = 0;
+  let dir = 0;
+  let turns = 0;
+
+  const begin = (x: number) => {
+    active = true;
+    fired = false;
+    last = x;
+    dir = 0;
+    turns = 0;
+  };
+  el.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch' || event.ctrlKey) {
+      if (event.pointerType !== 'touch' && event.isTrusted) el.setPointerCapture(event.pointerId);
+      if (!active) begin(event.clientX);
+    }
+  });
+  el.addEventListener('pointermove', (event) => {
+    if (!active || fired) return;
+    const step = event.clientX - last;
+    if (Math.abs(step) < SCRUB_LEG) return;
+    const way = step > 0 ? 1 : -1;
+    if (dir !== 0 && way !== dir) turns += 1;
+    dir = way;
+    last = event.clientX;
+    if (turns >= SCRUB_TURNS) {
+      fired = true;
+      handlers.onScrub();
+    }
+  });
+  const lift = () => {
+    active = false;
+    fired = false;
+  };
+  el.addEventListener('pointerup', lift);
+  el.addEventListener('pointercancel', lift);
+}

@@ -31,6 +31,21 @@ export type Step =
    * so reduced motion collapses it, unlike `hold`, whose length IS the depth.
    */
   | { pinch: { scale?: number; turn?: number; ms?: number } }
+  /**
+   * Two touch contacts tapped on the current target (SPEC §8): both down, both
+   * up, no travel. `count` taps the pair that many times (a magic tap is two).
+   * The gesture assistive technology routes natively is PORTRAYED here as the
+   * gesture it is, the same way the touch persona portrays a finger; what a web
+   * page can and cannot hear is the article's business, not the player's.
+   */
+  | { twoFingerTap: { count?: number } }
+  /**
+   * Two touch contacts scrubbed back and forth across the current target
+   * (SPEC §8): the pair presses, sweeps sideways `reps` times with a downward
+   * drift (the Z shape the gesture is described by), and lifts. `ms` is
+   * animation, not semantics, so reduced motion collapses the travel.
+   */
+  | { twoFingerScrub: { reps?: number; ms?: number } }
   | { press: string }
   /**
    * Hold a key for this many ms with the OS's own repeat shape (SPEC §8): one

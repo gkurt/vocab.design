@@ -1,0 +1,4 @@
+term:    Escape gesture
+scope:   element
+subject: div.sp-surface[data-open][data-part=sheet]
+text:    Filter MorningEvening Scrub two fingers to dismiss
