@@ -1,0 +1,4 @@
+term:    Busy state
+scope:   element
+subject: div.sp-surface[aria-busy=true][aria-live=polite][data-loading][data-mode=declared][data-part=region][data-pose=[data-mode=declared]][role=status]
+text:    Payers matching “kellerman” loading K Kellerman & Co £12,400 N Northbank Ltd £8,

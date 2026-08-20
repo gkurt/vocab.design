@@ -1,0 +1,4 @@
+term:    Color well
+scope:   element
+subject: button[aria-expanded=false][aria-haspopup=dialog][aria-label=Fill colour][data-aim][data-color=indigo][data-part=well][type=button]
+text:    

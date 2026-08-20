@@ -1,0 +1,4 @@
+term:    Long description
+scope:   element
+subject: p.sp-text.sp-text--ink[data-open][data-part=description]
+text:    Ashby is highest at 74 tonnes, a third of the total, with Corby behind it at 61.

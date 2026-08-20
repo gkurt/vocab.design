@@ -44,12 +44,13 @@ than a bundle, for when you want the tailed `l` without the slashed zero.
 
 Neighbouring features do related but distinct work, and the distinction is worth
 keeping straight. A [ligature](/ligature) fuses two adjacent letters into one
-drawing to fix a collision, and it fires wherever that pair occurs. Contextual
-alternates swap a shape based on what sits beside it, automatically, with no
-decision from you. A [swash](/swash) is a specific kind of alternate, the ornate
-extended one, usually parked in its own `swsh` feature. A stylistic set is the
-only one of the four that is a deliberate editorial choice about the voice of the
-text: nothing is broken, nothing is contextual, you simply prefer the other `a`.
+drawing to fix a collision, and it fires wherever that pair occurs.
+[Contextual alternates](/contextual-alternates) swap a shape based on what sits
+beside it, automatically, with no decision from you. A [swash](/swash) is a
+specific kind of alternate, the ornate extended one, usually parked in its own
+`swsh` feature. A stylistic set is the only one of the four that is a deliberate
+editorial choice about the voice of the text: nothing is broken, nothing is
+contextual, you simply prefer the other `a`.
 
 The trap is asking for a set the file does not have. There is no error, no
 warning, no fallback: the request is silently ignored and the default glyphs

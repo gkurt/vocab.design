@@ -1,0 +1,4 @@
+term:    Trick wording
+scope:   element
+subject: span[data-mode=tricked][data-part=label][data-pose=[data-mode=tricked]]
+text:    Untick this box to not stop receiving partner emails.

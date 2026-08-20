@@ -1,0 +1,57 @@
+---
+name: Color well
+slug: color-well
+category: component
+status: published
+definition: >-
+  The small filled square that shows the current colour and opens a colour picker when
+  pressed.
+aliases:
+  - name: color swatch button
+    source: community
+  - name: colour chip
+    source: community
+  - name: color field
+    source: polaris
+relations: {}
+implementations:
+  - system: polaris
+    name: Color field
+    url: https://shopify.dev/docs/api/app-home/polaris-web-components
+sources:
+  - title: "NameThatUI: element index"
+    url: https://namethatui.com/
+demo: inline
+useWhen: the little colour square that opens a picker
+---
+
+A colour well is the control, not the panel. It is the small filled rectangle sitting in a
+toolbar or beside a form label, it is painted with the value it currently holds, and pressing
+it summons the interface for changing that value. Two jobs, one square: report the current
+colour, and open the thing that edits it. The name comes from AppKit, where `NSColorWell` has
+worked exactly this way since the 1990s, and it is the same word and the same idea as an
+[image well](/image-well): a control that shows its value and accepts a new one.
+
+Three terms get used interchangeably here and they are three different things. A
+[colour picker](/color-picker) is the panel: the saturation field, the hue strip, the eyedropper,
+the hex box. A [swatch](/swatch) is a sample of a colour, usually one of many in a documented
+palette, and pressing one selects it rather than opening anything. The well is the trigger that
+sits between them, and it is the only one of the three that is guaranteed to be showing the
+value in force right now. Say "the well opens the picker, and the picker is full of swatches"
+and everyone in the room knows which thing you mean.
+
+The drawing has conventions worth keeping. A well is normally a rounded square or a short bar,
+outlined so a white or very pale value still reads against the surface behind it, and
+chequerboarded underneath if the value can be transparent, since a 20 percent black over a white
+toolbar looks like a light grey. Where the value can also be typed, the well pairs with a hex
+field and the two update each other, which is the shape Shopify's Polaris ships as its colour
+field. On the web the native `<input type="color">` is a colour well, browser-drawn and
+browser-triggered, which is why teams that need their own palette rebuild it.
+
+Two duties are commonly skipped. The well is a button, so it needs a name that says what colour
+it sets rather than what colour it is showing ("Fill colour", with the current value announced as
+its value), because the paint itself is invisible to a screen reader and the hex string alone
+does not say what it applies to. And the well has to repaint the instant the value changes,
+including while the picker is still open and the user is dragging: a well that only catches up
+when the panel closes leaves the reader with no live feedback at all, which defeats the whole
+point of having the value on screen.

@@ -1,0 +1,54 @@
+---
+name: Column drop
+slug: column-drop
+category: layout
+status: published
+definition: >-
+  A responsive pattern where full height columns peel off one at a time and stack below as the
+  viewport narrows, keeping source order.
+aliases:
+  - name: column drop pattern
+    source: community
+  - name: stacking columns
+    source: community
+relations: {}
+sources:
+  - title: Multi-Device Layout Patterns, LukeW
+    url: https://www.lukew.com/ff/entry.asp?1514=
+demo: inline
+useWhen: columns that stack one by one as space runs out
+---
+
+Column drop is one of the named responsive layout patterns Luke Wroblewski catalogued from
+early responsive sites, alongside mostly fluid, layout shifter, tiny tweaks and
+[off canvas](/off-canvas). Its behaviour is the one the name describes: a multi-column layout
+loses its columns one at a time. At the widest size all of them share the row at full height.
+Cross the first threshold and the last column drops out of the row and reappears below it,
+usually at the full width of the container. Cross the next and another one follows, until every
+column is a stacked band. Nothing is hidden, nothing is reordered, and the reader can find the
+same content in the same sequence at every size.
+
+That last property is what makes the pattern worth naming rather than just implementing. Because
+columns leave in order, source order and visual order stay in agreement, so the page a screen
+reader announces and the page a phone shows are the same page. It also means the pattern is
+cheap to build correctly: a wrapping flex row with per-breakpoint widths, or a grid where a
+column's `grid-column` span widens to the full track at the smaller size, and no reordering
+properties at all. The cost is that the dropped column ends up at the bottom, which is only
+right if it was the least important one. A sidebar of filters that the reader needs before the
+results are useful is an argument for a different pattern, not for reordering this one.
+
+Three neighbours are easy to confuse, and the difference is entirely in how the change arrives.
+A [switcher](/switcher) is all or nothing: at one threshold every child leaves the row together,
+so three items go from three across to three down with nothing in between. A
+[deconstructed pancake](/deconstructed-pancake) wraps rather than drops, packing as many items
+per line as fit and leaving the last one at its natural width rather than stretching it. Column
+drop is the third behaviour: one column at a time, in order, with each dropped column taking the
+full width. In practice you can tell them apart by looking at the intermediate size, because that
+is the only place they differ.
+
+The caution is height. Full-height columns are the pattern's premise, and a column that drops has
+to find a new height as well as a new width, so a layout tuned on three tidy columns can gain a
+lot of vertical run at the middle size. Decide what a dropped column's height should be rather
+than letting it be whatever its content makes it, keep the box it lives in from changing size as
+the arrangement changes, and check the middle breakpoint on a real screen: it is the state
+nobody designs and every reader on a tablet sees.

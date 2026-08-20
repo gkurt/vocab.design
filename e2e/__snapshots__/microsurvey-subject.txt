@@ -1,0 +1,4 @@
+term:    Microsurvey
+scope:   element
+subject: div.sp-surface[data-part=survey][data-state=asking]
+text:    Was this page helpful? Yes Not really Thanks. Recorded against this page and not

@@ -1,0 +1,4 @@
+term:    Ribbon
+scope:   element
+subject: div[data-part=ribbon]
+text:    Home Insert Layout Paste Cut Copy Format Clipboard Styles Bold Italic Colour Fon

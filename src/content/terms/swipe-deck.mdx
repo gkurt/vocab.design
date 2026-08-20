@@ -1,0 +1,53 @@
+---
+name: Swipe deck
+slug: swipe-deck
+category: pattern
+status: published
+definition: >-
+  A stack of cards judged one at a time, each thrown left or right to record a binary
+  decision and reveal the next card underneath.
+aliases:
+  - name: card stack
+    source: community
+  - name: tinder swipe
+    source: community
+  - name: swipe cards
+    source: community
+  - name: yes no deck
+    source: community
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: a stack of cards you swipe left or right to judge
+---
+
+A swipe deck turns a list into a queue of single decisions. Only the top card can be
+acted on, the choice is binary and physical (throw it one way or the other), and the
+reward for deciding is the next card arriving. That loop is why the pattern spread so
+far beyond dating: it is used for triaging photos, sorting expenses, marking flashcards,
+approving shifts, and grading anything where a person can judge an item in a second and
+there are a hundred items to get through.
+
+The card that looks most like it is [swipe actions](/swipe-actions), and the difference
+is what the sideways drag is for. Swipe actions reveal buttons behind a row: the row
+moves partway, the finger lets go, and the row snaps back with the item still in the
+list. A deck card is not revealing anything behind itself. It is leaving, and it takes
+the decision with it, which makes the deck closer to
+[swipe to dismiss](/swipe-to-dismiss) with a second direction and a record kept of which
+way each item went.
+
+No design system documents this. There is no swipe deck in Material, in Human Interface
+Guidelines, or in the ARIA patterns, and the vernacular name comes from the product that
+popularised it: people say a Tinder swipe, or just a card stack, and everyone in the room
+knows the shape being described. That absence is worth knowing when a ticket says
+"make it swipeable", because there is no canonical spec to point at and every team
+re-decides the threshold, the rotation, and what a throw actually commits to.
+
+Two things have to be built beside the gesture. A drag cannot be made with a keyboard, a
+switch, or a voice command, so the deck needs visible yes and no buttons doing exactly
+what the two directions do, and it needs them permanently rather than as a fallback
+nobody can find. And because the interaction is fast, cheap, and irreversible by design,
+it needs [undo](/undo) for the card that went the wrong way: a person moving at one
+decision per second will get one wrong, and without a way back the speed the pattern
+buys is paid for in accuracy.

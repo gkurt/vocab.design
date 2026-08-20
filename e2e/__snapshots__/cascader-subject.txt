@@ -1,0 +1,4 @@
+term:    Cascader
+scope:   element
+subject: div.sp-popover[aria-label=Region][data-levels=2][data-open][data-part=panel][data-pose=[data-levels='2'], [data-levels='3']][role=tree]
+text:    United States Canada Mexico California Texas

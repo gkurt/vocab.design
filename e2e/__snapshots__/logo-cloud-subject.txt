@@ -1,0 +1,4 @@
+term:    Logo cloud
+scope:   element
+subject: div[data-inks=six][data-part=strip]
+text:    

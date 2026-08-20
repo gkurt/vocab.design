@@ -1,0 +1,53 @@
+---
+name: Notification digest
+slug: notification-digest
+category: pattern
+status: published
+definition: >-
+  Collecting many similar alerts into one summary rather than delivering each, so the count
+  rises but the number of interruptions does not.
+aliases:
+  - name: notification grouping
+    source: community
+  - name: notification bundling
+    source: community
+  - name: batched notifications
+    source: community
+  - name: summary notification
+    source: android
+  - name: notification summary
+    source: hig
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: many alerts arrive as one grouped summary
+---
+
+A digest separates two numbers that products tend to treat as one: how many things
+happened, and how many times the person was interrupted. Six comments on a thread are six
+events either way. Delivered one at a time they are six buzzes, six banners, and six
+chances to lose whatever the reader was doing. Delivered as one row reading six new
+comments, with the latest one quoted underneath, they are a single interruption carrying
+the same information.
+
+Both platform names are live, and they mean slightly different mechanics. Android groups
+alerts by key and posts a summary notification that stands for the group, so the
+individual items still exist and can be expanded. Apple's notification summary works on
+the clock instead: it holds non-urgent alerts and delivers them together at times the
+reader picks. A team saying "let's digest these" may mean either, which is worth settling
+early, because grouping is a display decision and batching is a delivery schedule.
+
+The design work is in the summary line. One row has to say how many, from where, and
+enough of the newest item to judge whether it is worth opening, and it has to do that
+without becoming a paragraph. The count is the easy half. The peek is the half that
+decides whether the digest is useful or merely quiet, since a summary that says only "6
+new comments" moves the reading work into the app rather than removing it.
+
+The word to keep it apart from is [toast](/toast), which describes one transient message
+the product shows itself, in its own window, about something the reader just did. A
+digest is about traffic arriving from elsewhere and how much of the reader's attention it
+is allowed to cost. Urgency is the one thing digesting must respect: an alert that is
+genuinely time-critical is not a candidate, and a
+[push notification](/push-notification) held back for four hours because it looked like
+chatter is a bug the reader cannot see.

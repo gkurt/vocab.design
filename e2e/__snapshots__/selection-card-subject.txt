@@ -1,0 +1,4 @@
+term:    Selection card
+scope:   element
+subject: button[aria-checked=true][data-part=card-standard][data-plan=standard][role=radio][type=button]
+text:    Standard $12 10 projects, 8 editors per editor, monthly

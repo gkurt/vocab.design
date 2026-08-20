@@ -1,0 +1,4 @@
+term:    Vertical writing mode
+scope:   element
+subject: div[data-mode=vertical][data-part=passage][data-pose=[data-vertical=yes]][data-vertical=yes]
+text:    この見本はCSSで2024年に組まれた縦組みです

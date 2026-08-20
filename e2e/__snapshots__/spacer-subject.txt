@@ -1,0 +1,4 @@
+term:    Spacer
+scope:   element
+subject: span[data-part=spacer][data-role=filler][data-size=236]
+text:    

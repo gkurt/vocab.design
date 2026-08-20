@@ -1,0 +1,4 @@
+term:    Input purpose
+scope:   element
+subject: div.sp-stack[data-mode=declared][data-part=purpose][data-pose=[data-mode=declared]]
+text:    name email postal-code

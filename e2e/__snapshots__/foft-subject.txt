@@ -1,0 +1,4 @@
+term:    FOFT
+scope:   element
+subject: span[data-part=run-italic][data-stage=fallback]
+text:    an italic

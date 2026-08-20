@@ -1,0 +1,54 @@
+---
+name: Petite caps
+slug: petite-caps
+category: typography
+status: published
+definition: >-
+  Capitals drawn to exactly x-height, shorter than small caps, so they sit flush with
+  the lowercase around them.
+aliases:
+  - name: petite capitals
+  - name: pcap
+    source: opentype
+relations: {}
+sources:
+  - title: OpenType font features (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts
+demo: inline
+useWhen: you need caps that match x-height exactly
+---
+
+Petite caps are capital letterforms drawn to the [x-height](/x-height) of the face
+they belong to, not merely shrunk to it. The stems are redrawn at the weight the
+lowercase around them carries and the letters are widened a little to survive the
+loss of height, exactly as [small caps](/small-caps) are, so the result reads as
+type rather than as a photographic reduction. What makes them petite is the target
+height: the flat top of a petite `A` lands on the same line as the top of an `x`.
+
+That single number is the whole difference from small caps, and it changes what
+each is for. A small cap is drawn slightly taller than x-height, commonly five to
+fifteen percent, because it has to hold its own beside full
+[cap-height](/cap-height) letters: a small-caps heading or a run of small caps set
+as its own line of text. Petite caps have the opposite job. Set an acronym in
+small caps inside a paragraph and it still reads as a slightly raised, slightly
+louder run. Set it in petite caps and it stops announcing itself, because nothing
+in the line is taller than anything else. That is why the feature exists at all,
+and why it is most useful for abbreviations, units, and currency codes buried in
+running text.
+
+The CSS is `font-variant-caps: petite-caps`, with `all-petite-caps` for text that
+is already uppercase, and the underlying OpenType tags are `pcap` and `c2pc`. The
+catch is supply. Almost no font ships a real petite-caps set, including the faces
+this site loads and every widely installed system face, and the specified fallback
+when `pcap` is missing is small caps: a browser substitutes the small-caps set,
+or synthesises one by scaling the capitals, and reports nothing. Two stylesheets
+asking for different things then render identically, which is the same silent
+failure every [OpenType feature](/opentype-features) request carries.
+
+So treat petite caps as a decision about a specific typeface rather than a
+property of text. Check the family's own feature list first, and if `pcap` is
+absent, either use small caps and accept the slight lift, or set the height
+yourself: capitals at a reduced font size, tracked out a touch, with the size
+chosen so the cap height matches the x-height of the surrounding line. The
+specimen above does exactly that for its third sample, because no browser here
+honours the real request, and the caption says so.

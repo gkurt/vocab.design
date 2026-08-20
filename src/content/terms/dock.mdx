@@ -1,0 +1,56 @@
+---
+name: Dock
+slug: dock
+category: component
+status: published
+definition: >-
+  A persistent strip of application icons anchored to a screen edge, holding launchers,
+  running apps and pinned items in one row.
+aliases:
+  - name: taskbar
+    source: community
+  - name: app dock
+    source: community
+  - name: launcher bar
+    source: community
+  - name: shelf
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "NameThatUI: element index"
+    url: https://namethatui.com/
+demo: inline
+useWhen: the persistent row of app icons at a screen edge
+---
+
+A dock is the operating system's own strip of application icons, pinned to one edge of the
+screen and outliving every window on it. Three kinds of thing share the row: launchers a
+person pinned there deliberately, applications that happen to be running right now, and
+whatever else the platform lets you drop in (a folder, a file, a minimised window). The
+strip is the same control in all three cases, which is why a separator usually sits between
+the pinned section and the temporary one: without it there is no way to see which icons will
+still be there tomorrow.
+
+The naming is a genuine cross-platform mess and worth learning in full. It is the dock on
+macOS, iPadOS and most Linux desktops, the taskbar on Windows, and the shelf on ChromeOS.
+Windows also puts a clock and a notification area in the same strip, which macOS keeps in
+the [menu bar](/menu-bar) instead, so the two are not quite the same component even though
+they occupy the same edge. Web and mobile products borrow the shape freely: a
+[bottom navigation](/bottom-navigation) bar looks like a dock and is not one, because its
+items are places inside a single app rather than applications.
+
+Against a [toolbar](/toolbar) the split is about scope. A toolbar carries commands that act
+on the document in front of you and dies with that window; a dock switches between
+applications and belongs to the shell. Against a menu bar it is about shape: a menu bar is a
+hierarchy of every command an app has, opened one menu at a time, while a dock is a flat row
+where each icon is one target. An [app shell](/app-shell) that keeps a persistent left rail
+of product areas is closer to a dock than to either, and calling it one is fair.
+
+The state a dock has to carry is small but load-bearing: which items are pinned, which are
+running (conventionally a dot or a line under the icon), and which is frontmost. Launching
+an app is the moment all of that becomes visible, since an icon can move from launcher to
+running app without moving position at all. The row's hover behaviour is a separate term:
+[dock magnification](/dock-magnification) is the bell curve that swells the icons under the
+pointer, an effect macOS ships turned off, and a strip with it disabled is still very much a
+dock.

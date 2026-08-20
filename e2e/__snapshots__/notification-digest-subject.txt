@@ -1,0 +1,4 @@
+term:    Notification digest
+scope:   element
+subject: div.sp-surface.sp-row[data-part=digest]
+text:    6 new comments on Ferry timetable Priya: Sent the link to everyone 6

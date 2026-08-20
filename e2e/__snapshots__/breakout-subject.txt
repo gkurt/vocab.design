@@ -1,0 +1,4 @@
+term:    Breakout
+scope:   element
+subject: figure[data-fit=between][data-part=figure][data-pose=[data-fit=between]]
+text:    

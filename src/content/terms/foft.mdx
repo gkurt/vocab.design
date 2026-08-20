@@ -1,0 +1,53 @@
+---
+name: FOFT
+slug: foft
+category: typography
+status: published
+definition: >-
+  A loading strategy that shows the roman weight as soon as it arrives and lets the
+  remaining styles swap in afterwards, so the swap happens in stages.
+aliases:
+  - name: flash of faux text
+  - name: critical FOFT
+  - name: staged font loading
+relations: {}
+sources:
+  - title: FOUT, FOIT, FOFT (CSS-Tricks)
+    url: https://css-tricks.com/fout-foit-foft/
+demo: inline
+useWhen: staging a font swap instead of taking it all at once
+---
+
+A family is several files. The roman is one, the italic another, and each weight
+another again, so a page setting body copy in a webfont family is usually waiting
+on three or four downloads before every run of text is in its intended drawing.
+FOFT, the flash of faux text, treats those files as a queue rather than a set: load
+the roman first, show it the moment it lands, and let the italic and the bold
+arrive whenever they arrive. Until they do, the browser fakes them from the roman,
+which is where the name comes from.
+
+The distinction from its two siblings is what the reader sees in the gap.
+[FOIT](/foit) shows nothing at all until the font is ready, buying a still page
+with a blank one. [FOUT](/fout) shows a fallback face immediately and then sets
+every line again in the real one, so the whole page changes face at once. FOFT
+splits that single swap into stages: the big, jarring change from a fallback family
+to the real one happens once, early, on the roman alone, and the later changes are
+small, local, and confined to the runs that are actually italic or bold. The
+critical FOFT variant goes further, loading a tiny subset of the roman (often
+just the capitals) inline so the first paint is already in the right family, then
+pulling the full roman and the other styles afterwards.
+
+What the faux stage looks like is worth knowing, because it is the price of the
+strategy. A browser asked for a bold it does not have will draw one by thickening
+the roman's outline, which is [faux bold](/faux-bold), and asked for an italic it
+does not have it shears the roman by a fixed angle, an [oblique](/oblique) of the
+upright drawing rather than the family's own italic letters. Both are noticeably
+wrong to anyone looking, and both change the widths of the runs they affect, so
+each late file still costs a small reflow when it lands.
+
+The mechanics are the Font Loading API rather than CSS: request the roman, wait on
+its promise, add a class to the document, and only then request the rest. That
+sequencing is the whole technique, and it is worth it when the family is large and
+the italics and bolds are rare in the content. When there is only a roman to load,
+there are no stages to stage, and `font-display: swap` with a metric-tuned
+[fallback font](/fallback-font) is the simpler answer.

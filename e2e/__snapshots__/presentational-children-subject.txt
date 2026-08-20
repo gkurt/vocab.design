@@ -1,0 +1,4 @@
+term:    Presentational children
+scope:   element
+subject: span[data-part=name]
+text:    Archive 3 messages Frees 40 MB

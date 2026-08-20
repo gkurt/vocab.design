@@ -1,0 +1,4 @@
+term:    Swipe deck
+scope:   element
+subject: div.sp-surface[data-part=card][data-state=resting]
+text:    Harbour steps 25 min walk

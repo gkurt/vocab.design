@@ -1,0 +1,57 @@
+---
+name: Inverted colors
+slug: inverted-colors
+category: accessibility
+status: published
+definition: >-
+  A whole-screen colour inversion applied by the OS, which flips a design nobody tested upside down
+  and turns every shadow into a highlight.
+aliases:
+  - name: Smart Invert
+    source: hig
+  - name: Classic Invert
+    source: hig
+  - name: colour inversion
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: inverted-colors"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/inverted-colors
+demo: inline
+useWhen: the OS inverts your palette and shadows go wrong
+---
+
+Inversion is the bluntest accessibility setting an operating system ships. Every pixel on the way to
+the display is flipped, which turns a white page into a black one at zero cost to the OS and with no
+cooperation from anything running on it. People use it to cut glare, to read in bed, to make low
+vision text stand out, and often because their platform got there years before individual apps had a
+dark theme of any kind.
+
+Because it is a transform rather than a palette, the results are unlike either of its neighbours.
+[Dark mode](/dark-mode) is a second set of colours you designed and tested, so a dark surface stays
+a surface. [Forced colours mode](/forced-colors-mode) throws your palette away and substitutes the
+user's own small set, so you lose control but keep semantics. Inversion keeps your palette and
+negates it, which means every relationship you built survives and every absolute value is wrong.
+Photographs become negatives. Brand colour lands somewhere nobody chose. A shadow is dark paint, so
+it comes back as a bright halo, and the card that was floating above the page now looks lit from
+underneath.
+
+Apple splits the setting in two for exactly this reason. Classic Invert flips everything, media
+included. Smart Invert tries to hold back images, video and interface that is already dark, which
+fixes the photograph problem most of the time and is heuristic all of the time: it reads the
+rendered result, so a photo drawn as a CSS background, or an icon shipped as a bitmap, can be left
+inverted while the picture beside it is spared. Nothing about your markup is consulted, and there
+is no attribute that opts an element out.
+
+The design job is therefore small and mostly about restraint. Do not detect and defeat it: the
+`inverted-colors` media feature exists, is barely supported, and reinverting your own page fights a
+user who asked for this. Instead draw elevation with something other than a dark blur where it
+matters, keep meaning off single absolute colours (see [use of color](/use-of-color)), ship real
+images as `<img>` rather than as backgrounds so Smart Invert can recognise them, and check a screen
+or two under both invert modes the way you would check a dark theme. It takes a minute and it is
+the only way you will see the halo.

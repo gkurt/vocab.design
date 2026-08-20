@@ -1,0 +1,61 @@
+---
+name: Selection card
+slug: selection-card
+category: component
+status: published
+definition: >-
+  A radio or checkbox dressed as a card, where the whole tile is the target and the control
+  itself is small or absent.
+aliases:
+  - name: radio card
+    source: chakra
+  - name: checkbox card
+    source: chakra
+  - name: tiles
+    source: cloudscape
+  - name: choice card
+    source: community
+  - name: option card
+    source: community
+  - name: control card
+    source: blueprint
+relations: {}
+implementations: []
+sources:
+  - title: "Chakra UI: components overview"
+    url: https://chakra-ui.com/docs/components/concepts/overview
+demo: inline
+useWhen: choosing between options drawn as big tiles
+---
+
+A selection card is one option of a choice, drawn as a tile rather than as a line of text with
+a control in front of it. Pricing plans, storage sizes, shipping speeds, onboarding roles:
+anywhere the options need a heading, a price and a line of explanation, a row of tiles reads
+better than a stack of radio labels. The trick is that the tile is not decoration around a
+control, the tile *is* the control. The whole rectangle is the hit area, the small dot or
+check in the corner is only there to say which kind of choice this is, and plenty of
+implementations drop the marker entirely and let the border carry the state.
+
+It is exactly the fusion of two terms already on this site. A [card](/card) is a container: a
+box with elevation, a heading and some content, carrying no semantics about choosing. A
+[radio group](/radio-group) is semantics: a set of mutually exclusive options, one tab stop,
+arrow keys between members, exactly one value. A selection card is the second wearing the
+first. That is also why the plural matters when naming: the component library ships the group
+(Chakra calls them radio cards, Cloudscape calls them tiles) and the single tile is one member
+of it.
+
+Single or multiple decides which control is underneath, and the drawing has to match. Backed
+by radios, picking one tile unpicks the others and there is no way back to nothing; backed by
+[checkboxes](/checkbox), tiles combine and each one toggles on its own. Readers infer which
+they are looking at from the marker shape, so a round dot on a set that turns out to be
+multi-select is a real bug, not a styling detail. Systems that ship both usually name them
+apart for this reason, and Blueprint's "control card" is the generic word for either.
+
+The accessibility duty is the one thing this pattern regularly gets wrong. The tile has to be
+a real control with a real checked state, focusable, announced as checked or not, and
+operable from the keyboard: a `div` with a click handler and a coloured border is silent to
+anyone not looking at it. Keep the marker as the state's second channel so the answer is not
+carried by colour alone, keep every tile the same height so a longer description does not make
+one option look more important, and make the whole tile clickable rather than just its
+heading, since the enormous hit area is the only real advantage this pattern has over a plain
+list.

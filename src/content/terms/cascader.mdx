@@ -1,0 +1,57 @@
+---
+name: Cascader
+slug: cascader
+category: component
+status: published
+definition: >-
+  A select whose options open level by level, each choice narrowing the next, used for country
+  then state then city style data.
+aliases:
+  - name: cascading select
+    source: community
+  - name: dependent dropdowns
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Ant Design: components overview"
+    url: https://ant.design/components/overview/
+demo: inline
+useWhen: choosing down a hierarchy one level at a time
+---
+
+A cascader is one field holding one value, where the value is a path. Press the field, pick a
+country, and the next level appears beside the first already filtered to that country's states;
+pick a state and the cities arrive. The choice commits when a leaf is picked, the panel closes,
+and the field shows the whole path rather than just the last segment. Ant Design shipped the
+name and most people met it there, though the pattern predates the word by decades in address
+forms and category pickers.
+
+Its neighbours are worth separating carefully. A [dropdown](/dropdown) is the loose word for
+any surface that drops from a trigger. A [select](/select) is one flat list of options and one
+value, so the cascader is a select whose option set is a tree. A
+[combobox](/combobox) adds a text field you can type into to filter, which a cascader may also
+do, but typing is not what defines either one. And the layout the open panel uses is
+[Miller columns](/miller-columns), which is the older and more interesting name here: it comes
+from the macOS Finder's column view, by way of NeXTSTEP, and it is the same idea of paying for
+depth in width. The difference is what the thing is for. Miller columns are a browser you live
+inside, and a cascader is a form control that closes when you are done.
+
+The alternative most teams reach for first is a row of separate dependent dropdowns, one per
+level, each disabled until the one before it has a value. That is the same data model with a
+worse interface: three tab stops instead of one, three clicks that each cost a panel opening
+and closing, and no way to see that Ontario is a sibling of Quebec while you are choosing. A
+cascader keeps the levels side by side, which means the siblings at every level of the path you
+have chosen are on screen at once. Where the tree is shallow and small, the dependent
+dropdowns are fine and simpler to build; where it is three levels of dozens, the cascader is
+the reason the pattern exists.
+
+Two things it must get right. The field has to show the full path, not the leaf, because
+"Oakland" alone is ambiguous and the point of the control is that the value has ancestry.
+And reopening has to restore the committed path with every level shown and selected, rather
+than starting again at the first column, since a person reopening a cascader is almost always
+changing one segment. The accessibility story is genuinely hard: the panel is a tree presented
+as columns, so it needs the tree keyboard model (arrows across levels as well as within one)
+and it needs the field to announce the whole path. On narrow screens most implementations give
+up on side-by-side entirely and drill down one column at a time, which is
+[drill-down navigation](/drill-down-navigation) wearing a cascader's clothes.

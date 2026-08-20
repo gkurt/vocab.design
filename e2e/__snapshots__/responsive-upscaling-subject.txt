@@ -1,0 +1,4 @@
+term:    Responsive upscaling
+scope:   element
+subject: div[data-cap=held][data-part=column][data-pose=[data-cap=held]]
+text:    

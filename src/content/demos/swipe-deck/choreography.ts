@@ -1,0 +1,30 @@
+import { steps } from '#src/stage/choreography.ts';
+
+// Two throws, one each way, each a single continuous press that arcs out through a
+// waypoint and releases past the threshold. The card has to be moved to again before the
+// second throw, because a drag leaves the pointer where it landed.
+export default steps([
+  { wait: 600 },
+  { assert: { selector: '[data-part=deck][data-card="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=deck][data-last=none]', state: 'visible' } },
+  { assert: { selector: '[data-part=card][data-state=resting]', state: 'visible' } },
+  { moveTo: '[data-part=card]' },
+  { wait: 400 },
+
+  { drag: { to: '[data-part=throw-left]', via: ['[data-part=arc-left]'] } },
+  { wait: 850 },
+  { assert: { selector: '[data-part=deck][data-skipped="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=deck][data-last=skipped]', state: 'visible' } },
+  { assert: { selector: '[data-part=deck][data-card="2"]', state: 'visible' } },
+  { assert: { selector: '[data-part=card][data-state=resting]', state: 'visible' } },
+  { wait: 900 },
+
+  { moveTo: '[data-part=card]' },
+  { wait: 400 },
+  { drag: { to: '[data-part=throw-right]', via: ['[data-part=arc-right]'] } },
+  { wait: 850 },
+  { assert: { selector: '[data-part=deck][data-saved="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=deck][data-skipped="1"]', state: 'visible' } },
+  { assert: { selector: '[data-part=deck][data-card="3"]', state: 'visible' } },
+  { wait: 1100 },
+]);

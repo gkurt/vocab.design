@@ -1,0 +1,4 @@
+term:    Column drop
+scope:   element
+subject: div[data-drop=inline][data-part=col-3]
+text:    3 Details

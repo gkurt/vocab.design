@@ -1,0 +1,4 @@
+term:    Zero-width space
+scope:   element
+subject: span[data-mode=zwsp][data-part=break][data-pose=[data-mode=zwsp]]
+text:    

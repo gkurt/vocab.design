@@ -1,0 +1,57 @@
+---
+name: Microsurvey
+slug: microsurvey
+category: pattern
+status: published
+definition: >-
+  A one or two question survey placed inside the product at the moment being asked about,
+  answered in place rather than on a separate page.
+aliases:
+  - name: in-app survey
+    source: community
+  - name: one-question survey
+    source: community
+  - name: NPS prompt
+    source: community
+  - name: feedback mechanism
+    source: cloudscape
+  - name: was this helpful
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Cloudscape: Feedback mechanisms"
+    url: https://cloudscape.design/patterns/
+demo: inline
+useWhen: a one-question survey inside the thing it asks about
+---
+
+A microsurvey trades length for context. A full survey can ask thirty questions but has
+to be answered somewhere else, days later, by whoever still cares enough to click a link
+in an email. A microsurvey asks one question, at the foot of the page or the end of the
+task it is about, while the experience being described is still in front of the person
+describing it. The answer is worth more because it is anchored to something specific, and
+it costs a click instead of five minutes.
+
+The canonical instance is the "Was this page helpful?" pair under a documentation page,
+and Cloudscape files the whole family under feedback mechanisms. The variants are all the
+same shape: three faces after a task completes, a thumbs pair under a generated answer, a
+zero to ten scale that a product calls an NPS prompt because that is the number it feeds.
+Whatever the scale, the rule is that the question is asked where the thing happened, and
+answered there too.
+
+That last part is easy to get wrong. Clicking an answer must not open a page, a modal, or
+a new tab: the panel replaces its own question with a thank-you in the box it already
+occupied, so nothing under the reader's eye moves and the survey is over. If a second
+question is genuinely needed, it goes in the same box after the first, and there are two
+questions at most. The moment the reader is taken somewhere to finish answering, the
+response rate collapses and the pattern has stopped being micro.
+
+The two neighbours worth keeping straight are both about who the question serves. A
+[rating prompt](/rating-prompt) asks the reader to rate the product in public, usually in
+a store listing, and is often gated so that only the happy answers get there. A
+microsurvey asks about the thing that just happened and the answer stays private, which
+is why it can be honest about failures. And like any in-product ask it needs a frequency
+cap and a memory: one question per visit at most, never on every page, and never again
+once it has been answered or refused, or it turns into [nagging](/nagging) wearing a
+survey's clothes.

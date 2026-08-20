@@ -1,0 +1,4 @@
+term:    Zigzag layout
+scope:   element
+subject: div[data-part=stack][data-pattern=alternating][data-pose=[data-pattern=alternating]]
+text:    

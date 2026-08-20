@@ -1,0 +1,4 @@
+term:    Situational disability
+scope:   element
+subject: button.sp-button[data-part=skip][type=button]
+text:    Skip intro

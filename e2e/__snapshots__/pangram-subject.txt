@@ -1,0 +1,4 @@
+term:    Pangram
+scope:   element
+subject: p[data-complete=yes][data-count=26][data-part=line][data-pose=[data-complete=yes]]
+text:    The quick brown fox jumps over the lazy dog

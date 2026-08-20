@@ -1,0 +1,4 @@
+term:    Inverted colors
+scope:   element
+subject: div[data-invert=classic][data-part=photo][data-pose=[data-invert=classic]]
+text:    

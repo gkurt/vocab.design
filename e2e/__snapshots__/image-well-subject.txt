@@ -1,0 +1,4 @@
+term:    Image well
+scope:   element
+subject: div[aria-label=Profile picture][data-part=well][data-photo=harbour][role=img]
+text:    Drop here
