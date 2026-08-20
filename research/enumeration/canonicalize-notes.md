@@ -247,6 +247,17 @@ Resolutions from that audit under the standing rules:
   (aurora-ui, mesh-gradient, hyperreal-3d), and its honest specimen would be a
   WebGL shader demonstrating rendering rather than interface. It belongs as a
   sentence in the future signed-distance-field article, not as a page.
+- User wishlist (2026-08-20), one pooled, one resolved into a published term:
+  transparency-checkerboard (color, tail; from the wish "Chequer/Checker",
+  canonicalized to the alpha-indicating tool convention with checkerboard /
+  chequerboard / transparency grid / alpha grid as aliases; both sources
+  verified). Sense fences: the aesthetic motif stays prose inside vaporwave and
+  acid-graphics per the digital-rain rule, and the alternating-content sense
+  belongs to the pooled zigzag-layout, which gained the 'checkerboard layout'
+  alias in the same pass. "Segmented input" turned out to be covered: published
+  pin-input already carried 'segmented code input', now also carries the exact
+  'segmented input' spelling, and the structured-format pool record ceded that
+  alias (its note says why) so the future authoring round cannot collide.
 - Pool hygiene (2026-08-19): removed the stale look-and-pinch record (the term
   was authored and published while the record stayed behind; its `demo: none`
   note aged out the same day the gaze persona landed). If a roster collision

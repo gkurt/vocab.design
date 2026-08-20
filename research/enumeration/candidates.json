@@ -39424,10 +39424,6 @@
   "useWhen": "one value split across several little boxes",
   "aliases": [
    {
-    "name": "segmented input",
-    "source": "community"
-   },
-   {
     "name": "split field",
     "source": "community"
    },
@@ -39469,7 +39465,8 @@
   ],
   "sweptFrom": [
    "pattern"
-  ]
+  ],
+  "notes": "Alias \"segmented input\" ceded to published pin-input 2026-08-20 (the OTP boxes are what that lookup means); this record keeps the split-field pattern sense."
  },
  {
   "name": "Stylistic set",
@@ -46096,6 +46093,10 @@
    {
     "name": "ping pong layout",
     "source": "community"
+   },
+   {
+    "name": "checkerboard layout",
+    "source": "community"
    }
   ],
   "relatedSlugs": [
@@ -47305,6 +47306,58 @@
   "notes": "The umbrella artifact for the agent-driven background; algorithm names ride as aliases after gooey-effect precedent, and boids (Reynolds 1986: separation, alignment, cohesion) gets its paragraph here per the raymarching rule. The interface content is real: prefers-reduced-motion is load-bearing (a full-viewport ambient field is the canonical vestibular offender), it spends CPU and battery while the page is idle, and text over a moving field has no stable contrast ground. Digital rain is deliberately not an alias: it reads as its own icon in the terminal and cyberpunk family.",
   "sweptFrom": [
    "creative-coding probe 2026-08-19"
+  ]
+ },
+ {
+  "name": "Transparency checkerboard",
+  "slug": "transparency-checkerboard",
+  "category": "color",
+  "definition": "The grey and white checker grid a design tool paints behind transparent regions, a convention so universal that the pattern itself now reads as meaning alpha.",
+  "useWhen": "showing that a region is transparent rather than white",
+  "aliases": [
+   {
+    "name": "checkerboard",
+    "source": "community"
+   },
+   {
+    "name": "chequerboard",
+    "source": "community"
+   },
+   {
+    "name": "transparency grid",
+    "source": "adobe"
+   },
+   {
+    "name": "alpha grid",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "swatch"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Transparency (graphic) (Wikipedia)",
+    "url": "https://en.wikipedia.org/wiki/Transparency_(graphic)"
+   },
+   {
+    "title": "conic-gradient() checkerboard example (MDN)",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/conic-gradient"
+   }
+  ],
+  "implementations": [
+   {
+    "systemId": "mdn",
+    "name": "conic-gradient checkerboard",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/conic-gradient",
+    "verified": true
+   }
+  ],
+  "notes": "The alpha-indicating tool convention, not the aesthetic motif: chequerboard floors stay prose inside vaporwave and acid-graphics, and the alternating content rows are zigzag-layout (which now carries the \"checkerboard layout\" alias).",
+  "sweptFrom": [
+   "user wishlist 2026-08-20, shaped in canonicalize follow-up"
   ]
  }
 ]
