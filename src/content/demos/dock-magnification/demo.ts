@@ -46,7 +46,10 @@ const sizeAt = (distance: number) => BASE + PEAK * Math.exp(-((distance / SIGMA)
  * The bulge is computed from real `pointermove` events, so a reader who takes the stage over gets
  * it under their own pointer; the scene carries `data-hover-driven` because hovering IS this term's
  * whole interaction, so resting the pointer on the scene takes the stage over without a click. The
- * player's own pointer mirroring is left alone, since nothing here repaints a hover. Distances are measured against the tiles' resting centres, which are arithmetic
+ * player's own pointer mirroring is left alone, since nothing here repaints a hover. Every pass
+ * ends where it began (the pointer leaves the strip and the row rests flat), so the root declares
+ * `data-loop="keep"`: attract iterations reuse this tree instead of remounting it, and audit proves
+ * the claim by playing the script twice without a remount between. Distances are measured against the tiles' resting centres, which are arithmetic
  * from the layout rather than read back off the tiles: the tiles are the thing being resized, so
  * measuring them would feed last frame's bulge into this one. The dock is anchored to the bottom of
  * the scene and grows upward and outward from there, so a magnified row can move nothing above it
@@ -63,7 +66,7 @@ export function mount(root: HTMLElement): void {
     >${icon(spec.glyph)}</span>`;
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Desktop</span>

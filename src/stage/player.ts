@@ -11,6 +11,8 @@ export interface AssertFailure {
   step: number;
   selector: string;
   expected: 'visible' | 'hidden';
+  /** Set on audit's second lap: a loop-persistent demo whose pass left it dirty. */
+  lap?: number;
 }
 
 export interface AuditResult {
@@ -26,6 +28,10 @@ export interface PlayerHost {
   overlay: HTMLElement;
   /** Destroy-and-remount the demo from its initial state. */
   remount: () => void;
+  /** Has the current mount armed any DemoClock timer? Self-animating demos are
+   * phase-locked to their mount, so they never persist across loop iterations
+   * without declaring it. */
+  clockUsed: () => boolean;
   /**
    * Specimen coordinates to page coordinates (SPEC §6). Zero for shadow DOM; an
    * iframe has a viewport of its own, and the ghost cursor lives in neither.
@@ -233,6 +239,15 @@ export class AttractPlayer {
     onMount?.();
     const failures: AssertFailure[] = [];
     await this.#play(generation, failures);
+    // A loop-persistent demo must prove its second lap starts clean: play again
+    // without the remount, exactly as the attract loop will.
+    if (this.#loopKeep() && generation === this.#generation) {
+      this.#hover(null);
+      this.#reset(false);
+      const second: AssertFailure[] = [];
+      await this.#play(generation, second);
+      for (const failure of second) failures.push({ ...failure, lap: 2 });
+    }
     return { failures, interrupted: generation !== this.#generation };
   }
 
@@ -341,14 +356,30 @@ export class AttractPlayer {
   // Persona is deliberately not reset here: the cursor stays visible across loop
   // iterations, and snapping back to the arrow for the beat before the first
   // moveTo re-decides it would flash a mouse pointer at a touch surface.
-  #reset(): void {
+  #reset(remount = true): void {
     this.#releaseHover();
     this.#releasePress();
-    this.#host.remount();
+    if (remount) this.#host.remount();
     this.#simFocus = null;
     this.#target = null;
     this.#hovered = null;
     this.#mods = { shiftKey: false, ctrlKey: false, altKey: false, metaKey: false };
+  }
+
+  /**
+   * May the demo's tree persist across attract iterations? True when the script
+   * cannot dirty anything (waits and asserts only), or when the demo declares that
+   * its pass ends at its mount state (`data-loop="keep"`), a claim audit() verifies
+   * by playing the script a second lap without the remount between. Persistence is
+   * what lets a reader inspect a specimen in devtools without the node they picked
+   * being rebuilt under them, and lets ambient animations run unbroken. Resuming
+   * after user mode always remounts: a reader's input is unconstrained.
+   */
+  #loopKeep(): boolean {
+    if (this.#host.root().querySelector('[data-loop=keep]')) return true;
+    // A pure script can't dirty state, but a demo running on its own clock is
+    // phase-locked to its mount, so it only persists by declaring it.
+    return this.#steps.every((step) => 'wait' in step || 'assert' in step) && !this.#host.clockUsed();
   }
 
   #tryAttract(): void {
@@ -398,10 +429,15 @@ export class AttractPlayer {
   async #run(): Promise<void> {
     const generation = ++this.#generation;
     this.#setState('attract');
+    // A loop-persistent demo keeps its tree across iterations; the ghost departs at
+    // each pass boundary instead (the leave a real pointer would send), so symmetric
+    // hover state settles before the next lap.
+    const keep = this.#loopKeep();
     for (;;) {
-      this.#reset();
+      this.#reset(!keep);
       await this.#play(generation, undefined);
       if (generation !== this.#generation) return;
+      if (keep) this.#hover(null);
       // Reduced motion never auto-loops: an explicit play runs a single pass.
       if (this.#host.reducedMotion) break;
       if (!(await this.#sleep(LOOP_PAUSE_MS, generation))) return;

@@ -161,6 +161,7 @@ class VdStage extends HTMLElement {
       root: () => this.#mountRoot as HTMLElement,
       overlay,
       remount,
+      clockUsed: () => clock?.used ?? false,
       reducedMotion,
       offset: surface.offset,
       onStateChange: (state) => {

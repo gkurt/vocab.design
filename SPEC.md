@@ -334,7 +334,20 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   the stage without a click, which is the term's honest operation. A `data-gaze` scope
   is hover-driven by definition — looking is hovering. The marking is for surfaces
   where hovering alone is the interaction, never for demos where hover merely
-  decorates a click. **The gesture that takes over is not spent
+  decorates a click.
+- **Loop persistence.** The attract loop remounts the demo between iterations, because
+  mount is the only universal reset for state that lives in a demo's closures. Two
+  cases keep their tree instead, which is what lets a reader inspect a specimen in
+  devtools without the node they picked being rebuilt under them, and lets ambient
+  animation run unbroken: a script of waits and asserts only, on a demo that never
+  armed its clock (a self-animating demo is phase-locked to its mount, so a still
+  script's timings assume the cycle starts there); and a demo declaring
+  `data-loop="keep"`, the claim that its pass ends at its mount state. The declaration
+  is verified, not trusted: the smoke test plays a persistent demo's script twice with
+  no remount between, so a dirty second lap fails CI instead of looping brokenly on
+  the page. The ghost dispatches its trailing leave at each pass boundary, so
+  symmetric hover state settles before the next lap. Resuming after user mode always
+  remounts: a reader's input is unconstrained. **The gesture that takes over is not spent
   taking over**: state is handed to the user as it stands, and the click that woke a
   posed specimen still reaches the control it was aimed at. Waking is a thaw, never a
   remount, for exactly this reason. Merely passing the pointer over the stage,

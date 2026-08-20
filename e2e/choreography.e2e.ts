@@ -19,7 +19,11 @@ for (const { slug, name } of specimens()) {
 
     expect(report.subjects, `${name} must mark exactly one element with data-subject (SPEC §5)`).toBe(1);
     // Reported as text so a failure names the step and selector instead of a diff of objects.
-    expect(report.failures.map((f) => `step ${f.step}: ${f.selector} should be ${f.expected}`)).toEqual([]);
+    expect(
+      report.failures.map(
+        (f) => `step ${f.step}: ${f.selector} should be ${f.expected}${f.lap ? ' (second lap: loop persistence left the demo dirty)' : ''}`,
+      ),
+    ).toEqual([]);
     expect(report.interrupted, 'the run was cancelled part-way, so later asserts went unjudged').toBe(false);
   });
 }

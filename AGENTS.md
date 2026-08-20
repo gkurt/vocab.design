@@ -135,6 +135,12 @@ never fires under reduced motion, so nothing may ever wait on it.
   An animation run has one owner (SPEC §8): a script presses Replay only at rest
   (its opening wait outlasts any mount-time run) and its tail outlasts every run
   it starts, so neither the click nor the loop's remount cuts a run mid-flight.
+  The attract loop remounts between iterations, with two exceptions that keep the
+  tree (SPEC §7): a wait/assert-only script on a demo that never armed its clock
+  persists automatically, and a demo whose pass ends at its mount state may declare
+  `data-loop="keep"`, which the smoke test verifies by playing the script twice
+  with no remount between. Self-animating demos are phase-locked to their mount
+  and never persist undeclared.
   A keyboard-driven demo must be drivable by a real keyboard: its control carries
   `tabindex="0"` so a reader's keys can reach it (the script needs no focus, but
   the reader does).

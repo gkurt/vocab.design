@@ -18,7 +18,17 @@ export class DemoClock {
   #running = new Map<number, { fn: () => void; due: number; handle: ReturnType<typeof globalThis.setTimeout> }>();
   #held = new Map<number, { fn: () => void; left: number }>();
 
+  /**
+   * Has this mount ever armed a timer? A demo that runs on its clock is
+   * phase-locked to its mount, so the attract loop must not quietly persist its
+   * tree across iterations (a still script's waits assume the cycle starts at
+   * mount). Sticky once set: what matters is that the demo self-animates, not
+   * whether a timer happens to be pending right now.
+   */
+  used = false;
+
   setTimeout(fn: () => void, ms: number): number {
+    this.used = true;
     const id = this.#next++;
     if (this.#frozen) this.#held.set(id, { fn, left: ms });
     else this.#start(id, fn, ms);

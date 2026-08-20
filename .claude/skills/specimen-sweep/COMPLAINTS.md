@@ -375,3 +375,39 @@ complete; until then entries only accumulate. Entry format:
   full attract loop per touched demo for teleports (a mover snapping backward
   is the failure; the deliberate stall-payoff jump in compositor-animation's
   scripted mover is the term, not a bug).
+
+## loop-persistence
+
+- Queued: 2026-08-20 · Status: queued (mechanism shipped 2026-08-20)
+- Rule: the attract loop remounts the demo between iterations because mount is
+  the only universal reset for closure state, but a remount rebuilds the tree
+  under a reader inspecting it in devtools and restarts ambient animation. Two
+  persistence paths now exist (SPEC §7, STAGE_NEWS law 35): a wait/assert-only
+  script on a demo that never arms its clock persists AUTOMATICALLY (no marking
+  needed), and a demo whose pass ends at its mount state may declare
+  `data-loop="keep"` on its root, which audit() verifies by playing the script
+  twice with no remount between (a dirty second lap fails with a "second lap"
+  marker in the choreography pass). Never declare it on a demo that
+  self-animates on its clock unless the script is phase-free: a still script's
+  waits assume the cycle starts at mount (tabular-figures is the canonical
+  refusal, caught by the gate on day one). Resume after user mode always
+  remounts. First consumer: dock-magnification (hover in, hover away, the row
+  rests flat).
+- Detector: detectors/loop-persistence.ts (hover-only scripts: steps are
+  moveTo/wait/assert only, the likeliest to be symmetric; reports clock use).
+  At queue time: 103/887 flagged. ORDER MATTERS against cursor-theater (93
+  overlapping hover tours): sweep cursor-theater FIRST, which stills most of
+  these scripts into the automatic bucket (waits and asserts only, no marking);
+  then judge the survivors, whose hover is honest, for the declaration. Judge
+  question per surviving slug: does every hover the script performs undo on
+  leave (sticky-hover and hover-intent style latches and counters do NOT), and
+  if the clock is armed, is the script phase-free?
+- Recipe: add `data-loop="keep"` to the demo's root element and one doc-comment
+  sentence saying the pass ends at its mount state. No other changes: the
+  ghost's trailing leave at each pass boundary settles symmetric hover on its
+  own. The double-lap audit is the proof; a red second lap means the demo was
+  misjudged — remove the declaration rather than bending the demo.
+- Verify: choreography pass over touched slugs (now two laps each for
+  declaring demos); the eye on 4321: watch two full attract iterations, the
+  tree persists (inspect an element, it survives the loop), and the demo's
+  second pass looks identical to its first.
