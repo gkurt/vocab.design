@@ -122,6 +122,17 @@ and the verify prompt as one subagent after all authors return. Authors do their
 own visual pass against the user's dev server; the verify agent runs
 validate/typecheck/biome once and fixes what fails. Nobody runs e2e but you.
 
+Authors also run `AUDIT_PASS`: `vd-stage.audit()` plays a specimen's choreography
+through the real attract player on the dev server and reports the same triple
+`e2e/choreography.e2e.ts` asserts (no failures, exactly one subject, not
+interrupted). Round 17 is why it is in the template: three of seven agents found
+the API unprompted, audited their own specimens, and the round came back
+**96/96 green on the first `test:e2e:new`**, with zero behavioral fixes needed
+for the first time in the process. The other four flew blind and got lucky. It is
+a dev-server pre-check, not the gate (dev injects CSS through JS, so a specimen
+can mount before the stage has its height), so a failure there is always real
+while a pass is only very likely: you still run the full suite.
+
 **Refused terms** (STAGE_NEWS law 18): an author who finds a term needs input or
 stage machinery the player does not have returns it unauthored with
 `needs stage primitive: <what>` instead of faking it with a simulation control.
