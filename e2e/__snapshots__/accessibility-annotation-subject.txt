@@ -1,0 +1,4 @@
+term:    Accessibility annotation
+scope:   element
+subject: div.sp-stack[data-part=notes]
+text:    1 Alt text: “Merino coat, grey, front view”. 2 Heading level 2. Set small, still

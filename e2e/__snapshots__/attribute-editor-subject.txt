@@ -1,0 +1,4 @@
+term:    Attribute editor
+scope:   element
+subject: div[data-part=editor]
+text:    Name Value Add header

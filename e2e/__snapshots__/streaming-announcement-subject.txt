@@ -1,0 +1,4 @@
+term:    Streaming announcement
+scope:   element
+subject: div.sp-surface[aria-busy=true][aria-live=polite][data-mode=staged][data-part=region][data-pose=[data-mode=staged]][data-quiet][role=status]
+text:    Assistant generating A kestrel hovers by holding its head still while the wind m

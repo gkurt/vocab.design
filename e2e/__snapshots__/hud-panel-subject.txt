@@ -1,0 +1,4 @@
+term:    HUD panel
+scope:   element
+subject: div[aria-label=Image tools][data-corner=tr][data-part=hud][role=group]
+text:    Tools none

@@ -1,0 +1,4 @@
+term:    Consistent identification
+scope:   element
+subject: span[data-mode=consistent][data-part=name-2][data-pose=[data-mode=consistent]]
+text:    Save

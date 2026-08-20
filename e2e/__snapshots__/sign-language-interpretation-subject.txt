@@ -1,0 +1,4 @@
+term:    Sign language interpretation
+scope:   element
+subject: div[data-mode=inset][data-part=track]
+text:    

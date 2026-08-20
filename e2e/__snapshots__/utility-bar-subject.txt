@@ -1,0 +1,4 @@
+term:    Utility bar
+scope:   element
+subject: div[data-part=bar]
+text:    Notes History Reminders

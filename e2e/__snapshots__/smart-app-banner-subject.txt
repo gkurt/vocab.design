@@ -1,0 +1,4 @@
+term:    Smart app banner
+scope:   element
+subject: div[data-mode=strip][data-part=banner]
+text:    L Loomly Free, on the App Store Open L Loomly is better in the app Saved recipes

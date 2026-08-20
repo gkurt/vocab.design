@@ -1,0 +1,54 @@
+---
+name: Column offset
+slug: column-offset
+category: layout
+status: published
+definition: >-
+  Pushing a column away from the grid's start so it begins on a later line, leaving deliberate
+  empty tracks rather than an element to fill them.
+aliases:
+  - name: offset column
+    source: bootstrap
+  - name: push and pull columns
+    source: community
+  - name: grid offset
+    source: community
+  - name: indented column
+    source: community
+sources:
+  - title: "Columns, Bootstrap"
+    url: https://getbootstrap.com/docs/5.3/layout/columns/
+demo: inline
+useWhen: starting a column part way across the grid
+---
+
+An offset is the decision that a block should begin part way across the
+[layout grid](/layout-grid), with the tracks before it left empty on purpose. A form
+narrowed to the middle six of twelve columns, a pull quote indented by two, a footer
+column that starts under the third heading: all of them are stated as a starting line
+rather than as a width plus a guess. The distinction worth holding onto is that the
+empty tracks contain nothing at all. There is no filler element, no invisible column,
+nothing to maintain. In CSS grid the whole move is a start line, and every framework's
+offset utility is a wrapper around the same idea.
+
+The older names for it explain a habit that is still around. In the float era, columns
+were laid out in source order and nudged afterwards: an offset class added a left
+margin of so many columns, and a pair of push and pull classes moved a column right or
+left by relative positioning. Push and pull did something offsets do not, which is
+reorder. A column late in the markup could be pulled to the left of one that came
+before it, which was the only practical way to get a sidebar to appear first on a wide
+screen and last on a narrow one.
+
+That trick is where a lasting accessibility problem came from. Moving a column visually
+does not move it in the document, so the order the eye reads and the order the keyboard
+and the screen reader get come apart. This is exactly the risk
+[content choreography](/content-choreography) is about, and it is why
+[focus order](/focus-order) has to be checked against the visual arrangement rather
+than assumed from it. Grid made the reordering easier and the problem no smaller: named
+areas and line numbers will happily lay a page out in an order the markup never had.
+
+Two practical notes. An offset is not the same as centring, and reaching for one where
+`justify-content` or an auto margin would do leaves a layout that only works at one
+column count. And offsets rarely survive a small screen: three empty tracks out of
+twelve is a graceful indent on a desktop and half the reading width on a phone, so an
+offset usually belongs to a breakpoint rather than to a component.

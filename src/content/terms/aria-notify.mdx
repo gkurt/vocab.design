@@ -1,0 +1,56 @@
+---
+name: ARIA notify
+slug: aria-notify
+category: accessibility
+status: published
+definition: >-
+  A proposed API for speaking a message directly to assistive technology, without the live region
+  trick of mutating hidden text and hoping the timing works out.
+aliases:
+  - name: ariaNotify
+    source: wicg
+  - name: notification API
+    source: wicg
+  - name: confetti-free announcement
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WICG AOM: Accessibility (ARIA) Notification API"
+    url: https://wicg.github.io/aom/notification-api.html
+demo: inline
+useWhen: an announcement has no element it belongs to
+---
+
+This one is not shipped. `ariaNotify()` is a proposal in the Web Incubator Community Group's
+accessibility object model work, and no browser exposes it as a stable feature today. It earns a
+record anyway, because it is the thing every [live region](/live-region) workaround is a workaround
+for, and the fastest way to explain what those workarounds cost is to say what a direct call would
+have looked like: one method, one string, no element.
+
+The live region trick works, and it is what you ship, but count what it asks of you. An element has
+to exist in the page *before* the message does, because a region is only watched from the moment it
+is inserted, so a node created and filled in the same tick is often silent. The message has to be
+written as text into that node, which means it is now content: it participates in copy, in find in
+page, in any test that reads the DOM. Two identical announcements in a row are one mutation and one
+utterance, so a "copied" that fires twice speaks once unless you clear the node between. And the
+timing is a guess, since nothing tells you when the last announcement finished being read, which is
+why the polite queue in a busy interface loses messages. [Atomic](/atomic-live-region) settings and
+[busy state](/busy-state) exist to steer a mechanism that was never meant to carry arbitrary
+notifications in the first place.
+
+A notification API removes the element from the story. You call it on a node for context, hand it
+the message, and the platform queues the announcement; there is no hidden text, no mutation to time,
+and nothing in the DOM that a reader could stumble into with a caret. The proposal also carries what
+the live region trick cannot express, including a way to mark related messages so a flood of them
+can be coalesced rather than read one by one.
+
+Until it lands, treat it as vocabulary rather than as a technique. Say "we need an announcement with
+no element it belongs to" and everyone in the room knows which problem you are describing, then
+build it with a [live region](/live-region) and a [status message](/status-message) as usual. When
+you read a proposal thread that calls it the confetti-free announcement, that is the same idea:
+speech that does not require you to keep a piece of the page around to hold it.

@@ -1,0 +1,4 @@
+term:    Diegetic interface
+scope:   element
+subject: div[data-part=readout]
+text:    24/90

@@ -1,0 +1,4 @@
+term:    Tearsheet
+scope:   element
+subject: div.sp-surface[aria-label=Create service][data-open][data-part=sheet-service][data-step=1][role=dialog]
+text:    Create service Step 1 of 2 Service name Region Authentication This service needs

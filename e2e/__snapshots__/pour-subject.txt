@@ -1,0 +1,4 @@
+term:    POUR
+scope:   element
+subject: div.sp-surface[data-mode=perceivable][data-part=card]
+text:    P Perceivable WCAG 1.1.1 Non-text content The photo carries the only picture of 

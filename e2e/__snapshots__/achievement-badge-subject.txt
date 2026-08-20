@@ -1,0 +1,4 @@
+term:    Achievement badge
+scope:   element
+subject: span[data-part=medal-weeks][data-state=locked]
+text:    

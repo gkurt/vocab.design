@@ -1,0 +1,63 @@
+---
+name: Diegetic interface
+slug: diegetic-interface
+category: pattern
+status: published
+definition: >-
+  An interface that exists inside the fiction it serves, so the character can see and use it
+  too, rather than being drawn on top of the world for the player alone.
+aliases:
+  - name: diegetic UI
+  - name: in-world UI
+  - name: non-diegetic UI
+  - name: meta UI
+  - name: spatial game UI
+relations: {}
+implementations: []
+sources:
+  - title: 'TV Tropes: Diegetic Interface'
+    url: https://tvtropes.org/pmwiki/pmwiki.php/Main/DiegeticInterface
+  - title: 'Types of UI in gaming: diegetic, non-diegetic, spatial and meta'
+    url: https://medium.com/@lorenzoardeni/types-of-ui-in-gaming-diegetic-non-diegetic-spatial-and-meta-5024ce6362d0
+  - title: 'Nasty Rodent: diegetic and non-diegetic UI'
+    url: https://nastyrodent.com/diegetic-and-non-diegetic-ui/
+demo: inline
+useWhen: the readout belongs to the world, not the screen
+---
+
+"Diegetic" is borrowed from film theory, where it separates sound that exists in the story
+(a radio the characters can hear) from sound that does not (the score). Applied to
+interfaces it asks one question: does this readout exist for the character, or only for the
+player? An ammunition counter printed on the side of the gun is diegetic. The same number
+floating in the corner of the screen is not. The canonical example is Dead Space, where
+health is a row of segments on the suit's spine and the inventory is a hologram the
+character projects, so the screen never has to be covered to be understood.
+
+The word comes as part of a set, from Erik Fagerholt and Magnus Lorentzon's 2009 thesis,
+which sorts interfaces on two axes: whether the element belongs to the fiction, and whether
+it sits in the world's geometry. That gives four types, and the other three are the aliases
+people reach for when they mean "not this one". **Non-diegetic** is in neither: the
+classic screen-space HUD, drawn flat over the picture, for the player alone. **Spatial**
+sits in the world's geometry but outside the fiction: the highlight around a lootable
+object, the waypoint marker on the ground, things the character cannot see but that respect
+the perspective. **Meta** is inside the fiction but not in the geometry: blood spattering
+the camera, rain beading on the lens, damage that reads as happening to the character rather
+than to the screen. Most games use all four at once, and naming them separately is what lets
+a team argue about one element without relitigating the whole screen.
+
+The appeal is immersion, and the cost is legibility. A counter that respects perspective can
+be at an angle, in shadow, or behind the character's own arm, which is why diegetic designs
+lean on shape and colour more than on small numbers, and why they usually keep one
+non-diegetic fallback for the information that must never be missed. There is an
+accessibility dimension too: a readout that only exists when the camera is pointing the
+right way is unavailable to a player who needs it constantly, so the best implementations
+treat the diegetic version as the default presentation of a fact the game can also state
+plainly.
+
+A [fictional user interface](/fictional-user-interface) is the related craft and not the
+same claim: a FUI is an interface designed to be *watched*, most often in film, and it may
+be pure spectacle with no state behind it, while a diegetic interface is judged by whether
+the player can play through it. Distinguish it also from a [HUD panel](/hud-panel), which
+is a real product's floating readout: the panel is a genuine control surface for a real
+person, whereas a non-diegetic HUD is the fiction's version of that same idea, borrowed by
+games from cockpits and now borrowed back by products.

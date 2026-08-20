@@ -1,0 +1,38 @@
+import { steps } from '#src/stage/choreography.ts';
+
+/**
+ * The same toolbar seen by three readers. Each pick is absolute (SPEC §8), and the proof is that one
+ * unchanged concept code resolves to a different drawing per set, which the glyph attribute carries.
+ */
+export default steps([
+  { wait: 800 },
+  { assert: { selector: '[data-part=deck][data-set=words]', state: 'visible' } },
+  { assert: { selector: '[data-part=word-yes]', state: 'visible' } },
+  { assert: { selector: '[data-part=sym-yes]', state: 'hidden' } },
+  { wait: 500 },
+
+  { moveTo: '[data-part=seg-rounded]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=sym-yes][data-glyph=rounded-yes]', state: 'visible' } },
+  { assert: { selector: '[data-part=sym-ask][data-glyph=rounded-ask]', state: 'visible' } },
+  { assert: { selector: '[data-part=word-yes]', state: 'hidden' } },
+  { assert: { selector: '[data-part=deck][data-set=rounded]', state: 'visible' } },
+  { wait: 1600 },
+
+  { moveTo: '[data-part=seg-line]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=sym-yes][data-glyph=line-yes]', state: 'visible' } },
+  { assert: { selector: '[data-part=sym-yes][data-glyph=rounded-yes]', state: 'hidden' } },
+  { assert: { selector: '[data-part=word-yes]', state: 'hidden' } },
+  { assert: { selector: '[data-part=caption][data-set=line]', state: 'visible' } },
+  { wait: 1600 },
+
+  { moveTo: '[data-part=seg-words]' },
+  { click: true },
+  { wait: 700 },
+  { assert: { selector: '[data-part=word-yes]', state: 'visible' } },
+  { assert: { selector: '[data-part=sym-yes]', state: 'hidden' } },
+  { wait: 700 },
+]);

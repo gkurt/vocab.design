@@ -1,0 +1,4 @@
+term:    Broken grid
+scope:   element
+subject: div[data-broken][data-fit=off-grid][data-part=plate][data-pose=[data-broken]]
+text:    Plate

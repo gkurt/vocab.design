@@ -1,0 +1,4 @@
+term:    Symbol support
+scope:   element
+subject: span[data-glyph=rounded-yes][data-part=sym-yes]
+text:    

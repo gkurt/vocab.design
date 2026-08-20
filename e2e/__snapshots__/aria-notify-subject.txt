@@ -1,0 +1,4 @@
+term:    ARIA notify
+scope:   element
+subject: p.sp-text.sp-text--ink[data-kind=spoken][data-mode=notify][data-part=line-1][data-pose=[data-mode=notify]]
+text:    “Copied to clipboard”

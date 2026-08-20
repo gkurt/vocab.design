@@ -1,0 +1,60 @@
+---
+name: Tearsheet
+slug: tearsheet
+category: component
+status: published
+definition: >-
+  A tall modal anchored to the bottom of the viewport that holds a multi step creation flow,
+  stackable when one flow opens another.
+aliases:
+  - name: full page modal
+    source: community
+  - name: create flow modal
+    source: community
+  - name: full screen dialog
+    source: material
+relations: {}
+implementations:
+  - system: carbon
+    name: Tearsheet
+    url: https://github.com/carbon-design-system/ibm-products/blob/main/packages/ibm-products/src/components/Tearsheet/TearsheetShell.tsx
+sources:
+  - title: "Carbon for IBM Products: TearsheetShell"
+    url: https://github.com/carbon-design-system/ibm-products/blob/main/packages/ibm-products/src/components/Tearsheet/TearsheetShell.tsx
+demo: inline
+useWhen: a full height modal for a creation flow
+---
+
+A tearsheet is a modal that comes up from the bottom of the viewport and takes almost all of
+its height, leaving a strip of the page visible above it. It exists for one job: a creation or
+configuration flow long enough to need several steps, where a normal dialog would be too small
+and a full page navigation would lose the context the person came from. The name is IBM's, from
+Carbon for IBM Products, and it is borrowed from print advertising, where a tearsheet was the
+page torn out of a magazine to prove an ad had run. If you have met the word once and could not
+place it, that is why: outside IBM's products almost nobody uses it.
+
+Placing it against the neighbours is the whole point of learning it. A
+[modal dialog](/modal-dialog) is centred and sized to its content, and is for one decision or
+one short form. A [bottom sheet](/bottom-sheet) also rises from the bottom edge, but it is
+short, it is usually swipeable, and it is a phone pattern. A [drawer](/drawer) comes in from a
+side edge and is for details or settings beside the thing you were looking at. A tearsheet is
+the tall one, anchored to the bottom, for a flow with steps in it. Material's full screen
+dialog is the closest thing in another system, though Material's version usually takes the
+whole viewport rather than leaving a strip.
+
+The stacking behaviour is the part that is genuinely unusual, and it is why the component has a
+shell of its own rather than being a size of dialog. A creation flow often needs a second
+creation flow inside it: you are making a service, and you need an API key that does not exist
+yet. Carbon's tearsheet allows a second one to open over the first, with the sheet behind
+staying visible at the top and slightly stepped back, so the person can see they are two levels
+deep and that the outer flow is still waiting for them. Carbon caps the stack at three, which
+is a good limit to copy: past that nobody can say what finishing the current sheet will return
+them to.
+
+The things that go wrong are focus, dismissal and height. Focus has to be trapped inside the
+frontmost sheet and returned to the trigger when it closes, and with a stack that means keeping
+a return target per level, not one for the whole component. Dismissal should be explicit for a
+creation flow, since a stray click on a scrim can discard a half-finished form: give it Cancel
+and a close control, and confirm before throwing work away. And the height means the body
+scrolls while the header and the footer with the step controls stay put, which is the layout
+worth building first, because everything else about the component depends on it.

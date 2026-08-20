@@ -1,0 +1,59 @@
+---
+name: Achievement badge
+slug: achievement-badge
+category: pattern
+status: published
+definition: >-
+  A collectible marker awarded for a milestone and displayed on a profile, often shown
+  greyed out before it is earned so the set is visible.
+aliases:
+  - name: collectible achievements
+    source: ui-patterns
+  - name: trophy
+    source: community
+  - name: achievement
+    source: community
+  - name: unlock
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: collectible achievements'
+    url: https://ui-patterns.com/patterns
+demo: inline
+useWhen: the collectible award shown on a profile
+---
+
+Keep this apart from a [badge](/badge), which is the small count or status marker that sits
+on an icon or a row. The distinction is tense: a badge describes a state right now (three
+unread, beta, offline) and disappears when that state does. An achievement badge records
+something that happened once, is dated, and cannot be un-earned. That is why the two are
+drawn differently, one a live number attached to a thing and the other a keepsake with a
+name, and why merging them in a design system produces a component that neither reads as a
+count nor as an award.
+
+The pattern's power comes from the set rather than the award. Showing the locked ones,
+greyed out and named, turns a scattered list of things you did into a collection with holes
+in it, and the holes are the motivation: the display *is* the goal, which is why the
+greyed-out state is worth as much design attention as the earned one. It works on the same
+machinery as an [endowed progress](/endowed-progress) bar and a [streak](/streak), and it
+runs the same risk. Rewards that people can see coming shift attention from the activity to
+the reward, so an achievement pinned to something the reader would do anyway is fine, and
+one pinned to something they otherwise would not is a nudge you should be able to defend
+out loud.
+
+Make them mean something. A badge for signing up is a participation trophy and devalues the
+row it sits in; one for a genuinely difficult or rare thing carries information about the
+person, which is what makes it worth displaying. Name them so the name is legible without
+the tooltip ("Five weeks running", not "Iron Chef III"), date them, and say what earned
+them, since an award nobody can explain reads as decoration. Hidden or surprise
+achievements are the exception that proves the rule: they work precisely because the
+collection they belong to is otherwise fully visible.
+
+Three failure modes recur. Retiring a badge from the catalogue while it stays on old
+profiles creates an award that can never be earned again, which is either a nice piece of
+history or an unfair advantage, and you have to choose deliberately. Awarding them
+retroactively floods the reader with a screenful of unlocks that mean nothing, so backfill
+quietly and celebrate only what happens next. And an achievement grid on a
+[leaderboard](/leaderboard) becomes a scoreboard by another name, which is worth wanting or
+worth avoiding, but not worth stumbling into.

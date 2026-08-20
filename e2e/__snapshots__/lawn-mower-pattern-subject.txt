@@ -1,0 +1,4 @@
+term:    Lawn mower pattern
+scope:   element
+subject: svg[aria-hidden=true][data-part=mow][viewBox=0 0 434 133.25]
+text:    1234

@@ -1,0 +1,55 @@
+---
+name: Utility bar
+slug: utility-bar
+category: component
+status: published
+definition: >-
+  A persistent bar docked to the bottom of an application holding small tools that open into
+  panels without leaving the current page.
+aliases:
+  - name: docked utility bar
+    source: lightning
+  - name: docked composer
+    source: lightning
+  - name: app footer bar
+    source: community
+  - name: tool tray
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Salesforce Lightning Design System: components"
+    url: https://www.lightningdesignsystem.com/components/overview/
+demo: inline
+useWhen: tools docked along the bottom of the app
+---
+
+A utility bar is a strip along the bottom edge of an application holding small tools that open
+upward into panels. Notes, a call log, a recent-items list, a chat: things a person needs while
+doing something else, which is the whole point of the component. The panel opens over the page
+without navigating away, the page behind keeps its scroll position and its half-filled form,
+and closing the panel puts you back exactly where you were. Salesforce named it in Lightning
+Design System, where it is the utility bar and its panels are docked composers.
+
+The unnamed version is everywhere. The chat windows docked along the bottom of Gmail and
+Facebook are the same idea: a persistent strip of things you can pop open while continuing to
+read, each one remembering its state when you collapse it. So are the docked panels in a lot of
+developer tools. Most products build it without a name and rebuild it slightly differently on
+the next screen, which is exactly what having a word for it prevents.
+
+Against a [toolbar](/toolbar) the difference is scope, and it is worth being precise. A toolbar
+holds commands that act on what is currently in front of you: bold this text, delete this row.
+A utility bar holds tools that are independent of the current view and would still make sense
+on any other page in the app, which is why it survives navigation while a toolbar does not. A
+[drawer](/drawer) slides in from a side edge and usually takes over the reading position, and it
+is a surface rather than a strip of triggers. A [dock](/dock) is the closest relative in shape,
+but a dock belongs to the operating system and switches between applications, while a utility
+bar belongs to one application and switches between its tools.
+
+The rules that make it work are about persistence and room. Panel state has to survive being
+collapsed, or the component is worse than a modal: a half-typed note that vanishes teaches
+people never to use it again. Only one panel open at a time keeps the bar predictable, and
+opening a second should close the first rather than tile them. The panel overlays the content
+instead of resizing it, since a layout that reflows every time a tool opens is the thing this
+pattern exists to avoid. And keep the bar itself short: three or four tools with labels, not a
+row of unlabelled icons, because a tool nobody can identify is a tool nobody opens.

@@ -1,0 +1,4 @@
+term:    Bypassing pattern
+scope:   element
+subject: div[data-mode=repeated][data-part=trace][data-pose=[data-mode=repeated]]
+text:    

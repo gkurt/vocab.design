@@ -1,0 +1,60 @@
+---
+name: Structured format
+slug: structured-format
+category: pattern
+status: published
+definition: >-
+  Splitting one value across several small fields with fixed shapes, which teaches the
+  expected format but costs the reader extra focus moves.
+aliases:
+  - name: split field
+    source: community
+  - name: multi-part input
+    source: community
+  - name: date input three fields
+    source: govuk
+relations: {}
+implementations: []
+sources:
+  - title: 'UI Patterns: Structured Format'
+    url: https://ui-patterns.com/patterns/StructuredFormat
+  - title: 'GOV.UK Design System: date input'
+    url: https://design-system.service.gov.uk/components/date-input/
+demo: inline
+useWhen: one value split across several little boxes
+---
+
+One value, several boxes: a date as day, month and year, a sort code as three pairs, a card
+expiry as month and year, a phone number as area code and the rest. The shape of the boxes
+is the instruction. Nobody has to be told that the two-character box wants a day, and
+nobody has to guess whether the site wants the month first, because the field is labelled
+and cannot hold anything else. That is the whole argument for the pattern, and for some
+values it is decisive.
+
+Dates are the case where it clearly wins. A single date field has to choose an order, and
+whichever it chooses some readers will enter the other one, silently and wrongly, which is
+worse than an error. The [GOV.UK Design System](https://design-system.service.gov.uk/components/date-input/)
+settles this by making its date input three fields for any date a person already knows,
+such as a date of birth, and reserving the calendar for dates people have to look up. The
+three boxes remove the ambiguity rather than reporting it afterwards, and they let someone
+answer partially ("I know the year") in a way one field cannot.
+
+Card numbers are the case where it is widely regretted. Four boxes of four digits look
+tidy and break almost everything else: paste arrives in the first box and stops, browser
+autofill has no single field to fill, a screen reader announces four unrelated inputs
+instead of one number, and the reader who mistypes digit three has to work out which box
+that was. The better answer for a long value with an obvious internal rhythm is one field
+that formats as you type ([input mask](/input-mask)) or one that accepts whatever the
+reader typed and normalises it ([forgiving format](/forgiving-format)). The test is whether
+the split removes an ambiguity the reader actually has: dates have an order problem, card
+numbers do not.
+
+Two rules of construction if you do split. Each box is a real labelled input, associated
+with its own visible label and grouped under one legend, so the group announces as one
+question (see [label association](/label-association) and [form](/form)); a placeholder
+that says "DD" is not a label. And auto-advance, the jump to the next box when this one is
+full, has to be paired with an equally automatic jump backwards on Backspace, or the reader
+who needs to correct one character is stuck in a box that will not let go. Note the family
+resemblance to [pin input](/pin-input) and the difference: a pin input is one code, one
+character per box, with no meaning attached to the individual boxes, while a structured
+format's boxes each name a different part of the value.

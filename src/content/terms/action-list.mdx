@@ -1,0 +1,53 @@
+---
+name: Action list
+slug: action-list
+category: component
+status: published
+definition: >-
+  A vertical list of commands with icons, descriptions and dividers, the shared body used
+  inside menus, panels and side sheets.
+aliases:
+  - name: action menu
+    source: primer
+  - name: command list
+    source: community
+  - name: menu list
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Design Systems Surf: component index"
+    url: https://designsystems.surf/components
+demo: inline
+useWhen: a list of commands reused inside several surfaces
+---
+
+An action list is the body, not the surface. It is a vertical list whose rows are commands:
+each one has a label, usually a leading icon, sometimes a line of description underneath, and
+dividers grouping the rows into sections. What makes it a component of its own is that the
+same body shows up in several different containers. GitHub's Primer is the clearest example of
+the split in a real system: `ActionList` is the list, `ActionMenu` is a trigger plus a popover
+that happens to contain one, and the same list can equally sit in a side sheet or inline on a
+page with no popover anywhere near it.
+
+That split is worth copying because the two halves have different problems. The surface owns
+placement, dismissal, focus return and whether a scrim is needed. The list owns row anatomy,
+grouping, the order commands appear in, and which ones are destructive. Systems that never
+separate them end up writing the row markup three times, once per container, and the three
+copies drift.
+
+It is not a [menu](/menu-button), and the distinction is more than pedantry. A menu is an
+action list plus a trigger plus popover semantics: `role="menu"`, roving focus, first-letter
+navigation, close on choose, focus returning to the button. An action list sitting inline on a
+page is just a list of buttons and should say so, because a bare `role="menu"` outside a
+popover puts a screen reader into a mode with no way out and no menu to be in. It is not a
+[listbox](/listbox) either: a listbox selects a value that persists, while these rows run
+something and leave nothing selected behind. And it is not a [dropdown](/dropdown), which is
+the loose word people reach for when they mean any of the three.
+
+The craft details are small and mostly about rows. Give a destructive row an icon as well as a
+colour, since colour alone fails a colour blind reader and this is the row where a mistake is
+permanent. Keep descriptions to one line or accept that row heights will differ, which is
+fine, but decide it rather than discovering it. Put dividers between groups that mean
+different things, never every second row, and never let a divider be the only thing announcing
+a group: a section heading in the list is what assistive technology can actually read.

@@ -1,0 +1,4 @@
+term:    Sticky add to cart
+scope:   element
+subject: div.sp-row[data-part=bar]
+text:    Cedar chef's knife, 20cm 84.00 Add to basket

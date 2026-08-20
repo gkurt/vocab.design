@@ -1,0 +1,4 @@
+term:    Compound grid
+scope:   element
+subject: div[data-part=shared]
+text:    

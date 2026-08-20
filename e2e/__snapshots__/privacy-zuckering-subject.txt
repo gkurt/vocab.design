@@ -1,0 +1,4 @@
+term:    Privacy zuckering
+scope:   element
+subject: div.sp-surface[data-mode=steered][data-part=choice][data-pose=[data-mode=steered]]
+text:    Who can see what you cook? Everyone, including search enginesRecommended People 

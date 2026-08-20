@@ -1,0 +1,4 @@
+term:    Action list
+scope:   element
+subject: div.sp-list[data-part=list]
+text:    Duplicate Copy into a new draft Rename Changes the file name only Share Delete

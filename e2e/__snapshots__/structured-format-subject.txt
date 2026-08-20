@@ -1,0 +1,4 @@
+term:    Structured format
+scope:   element
+subject: div.sp-row[data-part=split]
+text:    Day Month Year

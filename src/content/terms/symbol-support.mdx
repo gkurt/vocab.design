@@ -1,0 +1,59 @@
+---
+name: Symbol support
+slug: symbol-support
+category: accessibility
+status: published
+definition: >-
+  Marking a control with a concept code so a reader who uses an augmentative symbol set sees their own
+  familiar picture in place of your icon and wording.
+aliases:
+  - name: WAI-Adapt
+    source: w3c
+  - name: personalization semantics
+    source: w3c
+  - name: AAC symbols
+    source: community
+  - name: adapt-symbol
+    source: w3c
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WAI-Adapt: Symbols Module"
+    url: https://www.w3.org/TR/adapt-symbols/
+  - title: "WAI-Adapt Explainer"
+    url: https://www.w3.org/TR/adapt/
+demo: inline
+useWhen: the words and icons themselves are the barrier
+---
+
+Most accessibility work assumes the words are fine and the problem is reaching them. Symbol support
+is for the readers where the words themselves are the barrier: people who communicate through an
+augmentative and alternative communication symbol set, and who read a screen fluently in pictures
+they have used for years and not at all in your product's vocabulary. For them a button labelled
+"Submit" beside an unfamiliar glyph is not a small friction, it is an unreadable control.
+
+The mechanism is a concept code rather than a picture. You mark the control with the identifier of
+the concept it means, taken from a symbol registry, and the reader's own software substitutes the
+symbol they know. The author supplies meaning, the reader supplies the rendering, so the same page
+resolves to one set of pictures for one reader and a different set for another. That division is the
+whole idea, and it is why shipping your own picture instead does not solve the problem: a picture
+you chose is a picture they have to learn.
+
+This is a draft, not a platform feature. The specification is the W3C's WAI-Adapt work, whose symbols
+module defines the attribute, and which grew out of the earlier personalization semantics effort. No
+browser or assistive technology implements it broadly today, and it is worth knowing by name anyway,
+because it is the only vocabulary the field has for the idea, and because the cognitive
+accessibility gap it addresses is real whether or not the attribute ships. WAI-Adapt also covers
+neighbouring adaptations: marking a control's purpose so a tool can simplify or reorder an interface,
+and marking what is essential versus decorative.
+
+None of this replaces the plain work. A control still needs a correct
+[accessible name](/accessible-name), because a symbol reader is often also a screen reader user, and
+the name is what gets spoken. The wording still needs to be as ordinary as you can make it, which is
+[plain language](/plain-language) doing its usual job. Symbol support sits on top of both: it says
+what a control means in a form that does not depend on reading at all, and if the words underneath
+are jargon, all three layers are wrong in the same place.

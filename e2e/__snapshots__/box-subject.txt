@@ -1,0 +1,4 @@
+term:    Box
+scope:   element
+subject: div[data-drawn][data-mode=boxed][data-part=box][data-pose=[data-drawn]]
+text:    Notifications Email digest Push alerts Sound

@@ -1,0 +1,4 @@
+term:    Sensory characteristics
+scope:   element
+subject: p.sp-text.sp-text--ink[data-mode=sensory][data-part=instruction][data-pose=[data-mode=sensory]]
+text:    To submit, press the round button on the right.

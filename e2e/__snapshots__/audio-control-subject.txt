@@ -1,0 +1,4 @@
+term:    Audio control
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=stop][type=button]
+text:    Stop sound

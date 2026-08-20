@@ -1,0 +1,4 @@
+term:    Commitment pattern
+scope:   element
+subject: div[data-part=read-trace]
+text:    

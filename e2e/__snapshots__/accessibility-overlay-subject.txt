@@ -1,0 +1,4 @@
+term:    Accessibility overlay
+scope:   element
+subject: div.sp-surface[data-part=widget]
+text:    Accessibility Default Big text Contrast

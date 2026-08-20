@@ -1,0 +1,4 @@
+term:    Column offset
+scope:   element
+subject: div[data-offset][data-part=column][data-pose=[data-offset]][data-start=4]
+text:    Form

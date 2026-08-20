@@ -1,0 +1,59 @@
+---
+name: Attribute editor
+slug: attribute-editor
+category: component
+status: published
+definition: >-
+  A repeating row of key and value fields with add and remove controls, used for tags, headers
+  and other open ended pairs.
+aliases:
+  - name: tag editor
+    source: cloudscape
+  - name: key value editor
+    source: community
+  - name: repeater
+    source: community
+  - name: dynamic form rows
+    source: community
+  - name: field array
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Cloudscape Design System: components"
+    url: https://cloudscape.design/components/
+demo: inline
+useWhen: a form section that repeats a row of fields
+---
+
+An attribute editor is the form section for data whose shape you do not know in advance. One
+row is a pair of fields, usually a key and a value, and the section repeats that row as many
+times as the person needs: resource tags, request headers, environment variables, custom
+metadata, query parameters. It comes with an add control at the bottom and a remove control on
+every row, and that is most of the component. Cloudscape names it the attribute editor, most
+form libraries call the same thing a field array, and a lot of teams say repeater, which comes
+from content management systems.
+
+It is not a [fieldset](/fieldset) and it is not a fancier [form](/form) section. A fieldset
+groups related fields that are known at design time; an attribute editor's row count is data,
+which changes what every part of the component has to handle. Labels cannot sit above each
+field once there are six rows of them, so the column heading does that job once and each field
+carries its accessible name invisibly. Validation has to say which row failed, not just which
+field. And the row identity matters: keying rows by array index means removing the second of
+five rows re-labels the three below it, which is how a value ends up attached to the wrong key.
+
+The detail that separates a real implementation from a sketch is focus. Removing a row
+destroys the element that had focus, and a browser's answer to that is to drop focus on the
+document body, which silently strands a keyboard reader in the middle of a form with nothing
+to tab from. The fix is to decide where focus goes before the row leaves and put it there: the
+first field of the row that took its place, the previous row's first field if the removed row
+was the last one, or the add control if the section is now empty. The same discipline applies
+to adding a row, which should move focus into the new row's first field so the person can
+start typing without hunting for it.
+
+The rest of the craft is quieter. Reserve the room the rows take, or the whole page will jump
+each time one is added. Keep a remove control on the last remaining row, or make it clear the
+row is required, rather than leaving a dead button. Let a pasted block of text fill several
+rows at once if the data usually arrives that way, since typing forty tags one field at a time
+is not a real workflow. And announce additions and removals through a live region: without it,
+a screen reader user gets no confirmation that a row they asked for exists.

@@ -1,0 +1,4 @@
+term:    Line focus
+scope:   element
+subject: div[data-at=0][data-part=band][data-width=3]
+text:    
