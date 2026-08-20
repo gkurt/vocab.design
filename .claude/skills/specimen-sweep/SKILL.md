@@ -20,9 +20,8 @@ Files in this skill directory:
   recipe, status)
 - `detectors/*.ts` — one runnable detector per mechanical complaint; run from the
   repo root with bun; each prints a worklist of `slug<TAB>evidence` lines.
-  Browser-probe detectors are `.mjs` run with node instead (bun cannot launch
-  Playwright chromium) and need the user's dev server on 4321; they are still
-  scripts, still zero tokens.
+  Browser-probe detectors are `.mjs` run with node instead, and need the user's
+  dev server on 4321; they are still scripts, still zero tokens.
 
 ## Entry point 1: queue a complaint (default, cheap, do this any time)
 
@@ -44,9 +43,8 @@ Files in this skill directory:
 ## Entry point 2: run the sweep (only when the user says the list is complete)
 
 Preconditions match the authoring-round skill: clean tree on main, the USER runs
-the dev server on 4321 (HEAD-check it; never start/stop one), bun cannot launch
-Playwright chromium (browser probes run under node), and ad-hoc Playwright needs
-`ASTRO_PREVIEW_BACKGROUND=1`.
+the dev server on 4321 (HEAD-check it; never start/stop one), and ad-hoc Playwright
+needs `ASTRO_PREVIEW_BACKGROUND=1`.
 
 1. **Detect (scripts, ~zero tokens).** Run every detector; merge output into one
    worklist grouped by complaint. Report counts to the user before spawning
@@ -60,7 +58,7 @@ Playwright chromium (browser probes run under node), and ad-hoc Playwright needs
    fix recipe, its offender list (paths, not contents), the relevant STAGE_NEWS
    laws only, and the round conventions that still bind (DemoClock timers, no
    measuring after style writes, data-part selectors, kit frozen, no static
-   checks, probe scripts under node against the user's 4321, never left at repo
+   checks, probe scripts against the user's 4321, never left at repo
    root). Fixers run in parallel when their offender sets do not overlap;
    sequence any two complaints that touch the same files. A fixer does the visual
    pass only if its fix changes rendering. Shard a fixer whose offender list

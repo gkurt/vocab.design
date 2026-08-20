@@ -4,7 +4,7 @@ import { chromium } from '@playwright/test';
 /**
  * subject-granularity detector (recall-tuned shortlist for a judge; see
  * COMPLAINTS.md). Browser probe: needs the USER's dev server on 4321 (never
- * start one) and runs under node, not bun (Playwright's pipe hangs under bun).
+ * start one) and runs under node.
  *   node .claude/skills/specimen-sweep/detectors/subject-granularity.mjs
  * Flags per specimen:
  *   (a) orphaned highlight: elements with inline `--sp-accent` paint that sit

@@ -1,8 +1,7 @@
 // Geometry auditor: overflow, clipping, wrapping, overlap, and incidental layout
 // shift, measured live while each specimen plays its own choreography.
 //
-// Unlike the other detectors this one needs a real browser, so it runs under NODE
-// (bun cannot launch Playwright chromium on this machine):
+// Unlike the other detectors this one needs a real browser:
 //
 //   node .claude/skills/specimen-sweep/detectors/stage-geometry.mjs [flags]
 //
@@ -67,7 +66,7 @@ async function waitFor(url, ms) {
     } catch {}
     await new Promise((r) => setTimeout(r, 500));
   }
-  throw new Error(`no server at ${url}`);
+  throw new Error(`no server at ${url} (a stray \`astro preview\` holds the global lock? run \`bunx astro preview stop\`)`);
 }
 
 /** Runs inside the page for one specimen; returns [check, evidence] rows. */
@@ -326,19 +325,32 @@ if (!url) {
   server = spawn(`bunx astro preview --port ${PORT}`, {
     shell: true,
     env: { ...process.env, ASTRO_PREVIEW_BACKGROUND: '1' },
-    stdio: 'ignore',
+    // stderr stays visible: Astro's preview lock is global, not per-port, so a stray
+    // server from any other run refuses this one, and that message is the diagnosis.
+    stdio: ['ignore', 'ignore', 'inherit'],
+    // Own process group, so teardown can take the shell and astro down together.
+    detached: process.platform !== 'win32',
   });
   url = `http://localhost:${PORT}`;
 }
+// Leaking this server poisons every later preview (see the lock note above), so kill the
+// whole group, and do it on the signals a timeout or a Ctrl-C actually sends.
 const stopServer = () => {
   if (!server) return;
-  try {
-    execSync(`taskkill /pid ${server.pid} /T /F`, { stdio: 'ignore' });
-  } catch {}
+  const { pid } = server;
   server = null;
+  try {
+    if (process.platform === 'win32') execSync(`taskkill /pid ${pid} /T /F`, { stdio: 'ignore' });
+    else process.kill(-pid, 'SIGTERM');
+  } catch {}
 };
 process.on('exit', stopServer);
-process.on('SIGINT', () => process.exit(130));
+for (const [signal, code] of [
+  ['SIGINT', 130],
+  ['SIGTERM', 143],
+  ['SIGHUP', 129],
+])
+  process.on(signal, () => process.exit(code));
 
 await waitFor(`${url}/`, 90_000);
 

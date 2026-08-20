@@ -32,8 +32,6 @@ Files in this skill directory:
   `http://localhost:4321/` (Astro dev answers HEAD with nothing, so a HEAD probe
   looks exactly like a server that is down). Never start, stop, or restart any dev server; if it is
   down, ask the user rather than launching one.
-- Windows quirk: `bun` cannot launch Playwright's chromium (the pipe hangs).
-  Repo scripts that drive a browser run under node; `bunx playwright test` is fine.
 - Agent quirk: Astro 7.2 force-backgrounds `astro preview` when it detects an agent, so
   Playwright aborts with "webServer exited early" and runs nothing. `playwright.config.ts`
   now sets `ASTRO_PREVIEW_BACKGROUND=1`; set it by hand for any ad-hoc playwright run.

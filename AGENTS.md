@@ -31,23 +31,22 @@ committed subject snapshot yet (writing those snapshots on its first run), so
 behavioral failures surface in minutes instead of a full-collection pass; the full
 `bun run test:e2e` then runs once, before the commit.
 
-Do not put `[run] bun = true` back in `bunfig.toml`. It symlinks `node` to Bun for
-package.json scripts and everything they spawn, which Playwright's test runner cannot
-survive: its workers never report and `bun run test:e2e` hangs with no output at all.
-The same incompatibility bites ad-hoc scripts: `bun some-script.ts` cannot launch
-Playwright's chromium on this machine (the remote-debugging pipe hangs), so a script
-that drives a browser runs under `node` (import chromium from `@playwright/test`).
-Bun still runs `bun test` and `bun scripts/*.ts`; node-shebanged binaries get Node.
-
-A second environment trap sits beside that one, and it bites agents only. Astro 7.2
-force-backgrounds `astro preview` when the am-i-vibing package detects an agentic
-environment: the server forks off, prints its pid as JSON, and the foreground process
-exits, so Playwright reports `Process from config.webServer exited early` and runs no
-tests at all. `playwright.config.ts` therefore sets `ASTRO_PREVIEW_BACKGROUND=1` on its
-webServer, which is the documented opt-out; set the same variable by hand for any ad-hoc
+One environment trap bites agents only. Astro 7.2 force-backgrounds `astro preview`
+when the am-i-vibing package detects an agentic environment: the server forks off,
+prints its pid as JSON, and the foreground process exits, so Playwright reports
+`Process from config.webServer exited early` and runs no tests at all.
+`playwright.config.ts` therefore sets `ASTRO_PREVIEW_BACKGROUND=1` on its webServer,
+which is the documented opt-out; set the same variable by hand for any ad-hoc
 `bunx playwright test` or `astro preview`. Piped through a buffering pipeline the failure
 reads as a HANG with an empty log rather than as an error, because the orphaned preview
 server holds the inherited stdout handle open long after Playwright has gone.
+
+That orphan is worse than a stale process, because Astro's preview lock is global rather
+than per-port: one stray server makes every later `astro preview` refuse to start on any
+port, so an unrelated gate fails with a confusing "no server at ..." instead of a message
+about the real cause. A run killed partway (a tool timeout, a Ctrl-C) is the usual way to
+strand one. `bunx astro preview stop` clears it, and `ps ax | grep "astro preview"` shows
+whether one is stranded.
 
 Prefer these scripts over ad-hoc commands. Do not prefix them with `bun run` when
 a bare alias exists (`bun check`, `bun typecheck`) — those are whitelisted for
