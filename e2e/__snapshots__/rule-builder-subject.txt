@@ -1,0 +1,4 @@
+term:    Rule builder
+scope:   element
+subject: div[data-clauses=1][data-part=rule]
+text:    Choose a field Rating Play count Genre operator is is at least is not and or Cho

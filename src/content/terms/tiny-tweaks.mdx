@@ -1,0 +1,50 @@
+---
+name: Tiny tweaks
+slug: tiny-tweaks
+category: layout
+status: published
+definition: >-
+  The lightest responsive pattern: a single column design that only adjusts type size, image size
+  and margins as the screen changes.
+aliases:
+  - name: tiny tweaks pattern
+    source: community
+relations: {}
+sources:
+  - title: "Multi-Device Layout Patterns, LukeW"
+    url: https://www.lukew.com/ff/entry.asp?1514
+demo: inline
+useWhen: one column that only nudges type and margins
+---
+
+Tiny tweaks is the smallest of the five multi-device layout patterns Luke Wroblewski catalogued
+from early responsive sites, alongside mostly fluid, [column drop](/column-drop), layout shifter
+and [off canvas](/off-canvas). The layout is one column at every width, and the only things the
+breakpoints change are the numbers: type gets a point or two larger, an image gets taller, the
+margins on either side open up. Nothing moves to a new place, nothing is hidden, nothing is
+reordered. On a phone and on a desktop you are looking at the same arrangement at two sizes.
+
+The pattern gets dismissed as the one where you did not do anything, which is exactly backwards.
+It is the correct answer for content that is honestly a single column: an article, a long form
+story, a documentation page, a signup screen with one field after another. Those layouts have no
+second column to drop and no sidebar to push off canvas, so a pattern that reflows them is
+inventing structure the content does not have. What they do need is attention to the numbers,
+because that is where all the quality is: a [measure](/measure) that stays readable as the
+column widens, [layout margins](/layout-margins) that keep text off the edge of a phone,
+[fluid typography](/fluid-typography) or a [type scale](/type-scale) that steps at the same
+places the layout does.
+
+Because so little changes, the tell of a good implementation is that the change is measurable
+rather than dramatic. State the type size, the image height, and the margin at each size and
+check them, since the eye is bad at noticing a column that is a point too small and very good at
+noticing one it cannot read. That is also the honest test of whether tiny tweaks is still the
+right pattern: if you find yourself wanting a second column, a
+[switcher](/switcher) or a [deconstructed pancake](/deconstructed-pancake) is the mechanism to
+reach for, and [column drop](/column-drop) is the named pattern for losing columns one at a time.
+Those are all about rearranging, which is precisely what this pattern declines to do.
+
+One caution. Tiny tweaks says nothing about whether the column itself is fluid, and the two ideas
+get confused. Mostly fluid, the pattern next to it in the set, lets a multi-column layout stretch
+with the screen and then stacks it at the smallest sizes. Tiny tweaks is single column from the
+start, so the fluidity question reduces to how wide you let one column of text get, which is a
+question about [readability](/readability) rather than about layout.

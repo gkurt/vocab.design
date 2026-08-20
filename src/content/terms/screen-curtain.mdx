@@ -1,0 +1,54 @@
+---
+name: Screen curtain
+slug: screen-curtain
+category: accessibility
+status: published
+definition: >-
+  A screen reader mode that switches the display off entirely while navigation keeps working, used
+  for privacy and by sighted testers checking an audio-only run.
+aliases:
+  - name: VoiceOver screen curtain
+    source: hig
+  - name: blackout mode
+    source: community
+  - name: screen off navigation
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Apple Support: Use Screen Curtain with VoiceOver"
+    url: https://support.apple.com/en-us/111797
+demo: inline
+useWhen: testing whether a flow works with the screen dark
+---
+
+Turn the screen curtain on and the display goes black. Not dimmed, not locked: black, as if the
+backlight had failed, while everything else carries on exactly as before. Focus still moves, gestures
+still land, speech still describes what focus reached. VoiceOver on iOS has had it for years, under
+a three-finger triple tap, and it is one of the few accessibility features that is entirely about
+the eyes of other people rather than the eyes of the person using it.
+
+It exists for two reasons and they have nothing in common. The first is privacy, and it is the
+original one. A blind reader on a bus, in a waiting room, or at a cash machine has a screen that
+faces the world and says nothing to them. Turning it off means a passenger cannot read the message
+being replied to or watch a PIN being typed. The second is battery, a real if smaller benefit on an
+OLED phone read entirely by ear.
+
+The third use is ours. A sighted developer with the curtain on cannot cheat. Every accessibility
+test done by eye is contaminated by the eye: you know the button is there, so you find it, and you
+never notice that its name is "button", that the [screen reader](/screen-reader) never announced the
+error, or that two of the six controls are unreachable. With the display dark and
+[VoiceOver](/voiceover) speaking, a flow either works or it stops, and the place it stops is the bug.
+Half an hour of this teaches more than a week of automated checks, which cannot tell you that a
+label was in the wrong place, only that it existed.
+
+The design lesson is what the curtain proves about the interface, not about the feature. A product
+that survives it is one whose structure carries the meaning: names that say what a control does,
+order that follows the task, state announced when it changes, errors spoken where they happen.
+A product that fails it usually fails on something invisible to a visual audit, like a spinner
+nobody is told about or a step that only makes sense next to a picture. There is nothing to build
+here, which is the point. The curtain is a tool for checking whether everything else was built.

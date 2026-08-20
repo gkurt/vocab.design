@@ -1,0 +1,4 @@
+term:    Comparison prevention
+scope:   element
+subject: div.sp-row[data-mode=prevented][data-part=plans][data-pose=[data-mode=prevented]]
+text:    Starter £7 / month Up to 3 seats Basic exports Email support Team £84 / year Rep

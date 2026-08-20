@@ -1,0 +1,62 @@
+---
+name: Help drawer
+slug: help-drawer
+category: pattern
+status: published
+definition: >-
+  Documentation opened beside the task rather than over it, keeping the form usable while
+  the explanation is read and staying open across steps.
+aliases:
+  - name: help panel
+    source: cloudscape
+  - name: contextual help
+    source: community
+  - name: info panel
+    source: community
+  - name: side sheet help
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Help panel, Cloudscape Design System'
+    url: https://cloudscape.design/components/help-panel/
+  - title: 'Cloudscape: patterns'
+    url: https://cloudscape.design/patterns/
+demo: inline
+useWhen: help opens beside the form instead of on top of it
+---
+
+A help drawer is documentation that opens *next to* the work instead of on top of it. The
+form loses some width, the panel takes that width, and nothing else moves: the field the
+reader was stuck on is still on screen, still focusable, still typeable while the
+explanation sits beside it. That is the whole point of the pattern, and it is why the panel
+also stays open when the reader moves to the next step. Help that has to be dismissed
+before the form can be touched turns "what does this field mean" into a memory test, and
+people answer memory tests wrong.
+
+The name collides with two neighbours, so it is worth being exact. A [drawer](/drawer) and
+an [off-canvas](/off-canvas) panel both slide in *over* the content and expect to be closed
+again; they are navigation and overflow surfaces, and the scene behind them is inert or at
+least ignored. A help drawer occupies layout: the container splits, one side shrinks, and
+both sides remain live. Against a [modal dialog](/modal-dialog) the contrast is sharper
+still, because a modal is defined by taking the whole scene until it is dealt with, which
+is precisely the thing help must not do. If your help surface dims the form behind it, you
+have built a modal with documentation in it.
+
+The design decisions worth arguing about are width and persistence. Width, because the
+drawer has to leave the form usable at its narrowest: reserve the room in the layout and
+size the form for the reduced width rather than letting the panel push controls out of
+reach. Persistence, because the panel is a reading surface, and its content should follow
+the reader's context (a step, a field, a section) while its open state does not. Opening is
+the reader's decision and closing is the reader's decision, and neither should be made for
+them by a step change. This is also why the trigger belongs in a stable spot, the same
+argument as [consistent help](/consistent-help): a help affordance that moves between steps
+is one a stuck person has to hunt for twice.
+
+Cloudscape is the design system that treats this as a first-class piece of layout rather
+than a component someone bolted on, with a help panel slot in the app shell and a
+convention that every page fills it. The pattern shows up under a dozen other names,
+contextual help and info panel among them, and it is the natural home for the long
+explanation that will not fit in a [tooltip](/tooltip) and does not deserve its own page.
+Keep the drawer's prose short anyway. A panel a reader has to scroll while glancing back at
+a field is a documentation page wearing a drawer's clothes.

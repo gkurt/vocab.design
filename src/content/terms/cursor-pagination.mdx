@@ -1,0 +1,59 @@
+---
+name: Cursor pagination
+slug: cursor-pagination
+category: pattern
+status: published
+definition: >-
+  Paging that moves by a pointer into the result set rather than a page number, so newly
+  inserted rows never shift what the next page contains.
+aliases:
+  - name: keyset pagination
+    source: community
+  - name: cursor-based pagination
+    source: community
+  - name: seek pagination
+    source: community
+  - name: next and previous only
+    source: community
+relations: {}
+implementations: []
+sources: []
+demo: inline
+useWhen: the list only offers next and previous, never page numbers
+---
+
+Cursor pagination asks for the next page by naming where the last one stopped, rather than
+by counting how many rows to skip. The request carries a pointer, usually the sort key of
+the final row (`after=2026-04-11T09:14Z`, or an opaque token encoding the same thing), and
+the answer is the rows immediately after it. Offset paging instead says "skip 30, give me
+10", which is a position in a list that is assumed to be holding still. On a feed, an
+inbox, or an audit log, it is not holding still, and every row inserted above the reader's
+position pushes one row down across the boundary. That row is served twice and the row it
+displaced is served never, which is the failure the demonstration above shows: page two
+opens with a post the reader has already read.
+
+The visible consequence is the reason this belongs in an interface vocabulary rather than a
+database one. A cursor cannot jump to page seven, because nobody knows what the seventh
+page starts with until the sixth has been read. So a cursor-paged list offers Next and
+Previous and nothing else: no numbered pages, no last page, and usually no total count
+either, since counting the whole set is the expensive query the design was avoiding. If a
+product wants numbered pages, someone has to accept offsets and their drift, or precompute
+page boundaries and accept that they go stale. This is a trade, not an oversight, and it is
+worth naming out loud in a design review before somebody adds a page number field to the
+mock.
+
+Where it sits among neighbours is mostly a question of who does the paging.
+[Pagination](/pagination) is the numbered control and the mental model of a fixed set.
+[Load more](/load-more) and [infinite scroll](/infinite-scroll) are the two places cursors
+are already the norm without anybody saying the word: both only ever go forward, both are
+appending to what is on screen, and both would be visibly broken by offset drift, since a
+duplicate row appears directly under the original. If your feed occasionally shows a
+repeated item, this is very often why.
+
+Design the empty and the edge honestly. Disable Previous on the first page rather than
+hiding it, so the control does not move. Say "no more results" instead of showing an empty
+page. Keep the cursor in the URL so a page can be shared and reloaded, and treat an expired
+or invalid cursor as a soft failure that resets to the top with an explanation, never as a
+blank screen. And if the list is short and static (a settings table, a small catalogue),
+offsets are fine: this pattern earns its constraints on data that changes while it is being
+read.

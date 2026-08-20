@@ -1,0 +1,4 @@
+term:    Read aloud
+scope:   element
+subject: span[aria-hidden=true][data-part=highlight]
+text:    

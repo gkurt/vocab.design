@@ -1,0 +1,4 @@
+term:    Magazine layout
+scope:   element
+subject: article[data-part=lead][data-pose=[data-rank=lead]][data-rank=lead]
+text:    The long way round

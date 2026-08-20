@@ -1,0 +1,4 @@
+term:    Font smoothing
+scope:   element
+subject: div[data-mode=subpixel][data-part=patch]
+text:    

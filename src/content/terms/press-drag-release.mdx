@@ -1,0 +1,61 @@
+---
+name: Press-drag-release
+slug: press-drag-release
+category: interaction
+status: published
+definition: >-
+  Operating a menu in one gesture: pressing the trigger opens it, dragging moves through the
+  items while the button stays down, and releasing over an item commits it.
+aliases:
+  - name: single-gesture selection
+    source: community
+  - name: press to open, release to select
+    source: community
+  - name: drag-mode menu
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Understanding WCAG 2.5.2: Pointer Cancellation"
+    url: https://www.w3.org/WAI/WCAG21/Understanding/pointer-cancellation.html
+  - title: "Menus (Apple Human Interface Guidelines)"
+    url: https://developer.apple.com/design/human-interface-guidelines/menus
+demo: inline
+useWhen: a menu that answers one continuous press as well as two clicks
+---
+
+Put the pointer on a menu title, press, and the menu appears while the button is still down.
+Keep holding and slide down the list: the highlight follows the pointer from item to item, not
+because anything was clicked but because the press never ended. Let go over the item you want
+and it runs. That is one gesture, a single press with a single release, and for the first
+decade of graphical interfaces it was the only way a menu could be operated at all. The pointer
+was assumed to be a mouse in a hand that was already down.
+
+The two-click habit came later. Mac OS 8 added what Apple called sticky menus: press and
+release on the title without travelling anywhere, and the menu stays up on its own, so a second
+click picks from it at leisure. That mode is now the one most people know, and it is why the
+gesture reads as an easter egg rather than as the design. The interesting claim is that a menu
+should answer both. The same surface serves the reader who lets go by reflex and the reader who
+never lets go, and neither has to be taught which mode they are in, because the difference is
+only whether the button came up before or after the travel.
+
+Two details carry the weight. Releasing away from every item commits nothing, which is the
+escape hatch [pointer cancellation](/pointer-cancellation) asks for by name: a press that landed
+on the wrong title can be slid off and abandoned. And the pointer has to be held. A drag that
+starts on the trigger will leave the trigger immediately, so the implementation takes
+[pointer capture](/pointer-capture) on the press and resolves the item under the pointer by
+coordinate rather than by event target. Skip that and the gesture dies the instant the pointer
+crosses the trigger's edge, which is a bug no click-driven test will ever find.
+
+Set against its neighbours: a [marking menu](/marking-menu) is also answered by a stroke, but
+there the direction is the choice and a confident stroke skips drawing the menu entirely, so
+the gesture replaces the reading. Press-drag-release still asks you to look. A
+[long press](/long-press) is a trigger, the hold that opens something, and it says nothing about
+what the same press does afterwards. Which is also why this gesture belongs to pointers: a
+finger cannot see the highlight it is covering, so touch menus open on tap and are picked on a
+second tap, and the one-gesture path quietly goes away.
+

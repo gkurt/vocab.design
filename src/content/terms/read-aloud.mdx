@@ -1,0 +1,59 @@
+---
+name: Read aloud
+slug: read-aloud
+category: accessibility
+status: published
+definition: >-
+  Speaking a page's own prose with a synthetic voice, highlighting each word as it is spoken. A
+  reading aid for people who can see the screen, not a screen reader.
+aliases:
+  - name: text to speech
+    source: community
+  - name: TTS
+    source: community
+  - name: speak selection
+    source: hig
+  - name: karaoke highlighting
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Microsoft Support: Use Immersive Reader in Microsoft Edge"
+    url: https://support.microsoft.com/en-US/edge/use-immersive-reader-in-microsoft-edge
+demo: inline
+useWhen: distinguishing text to speech from a screen reader
+---
+
+A voice reads the article in order, and the word it is on is highlighted as it goes. Browsers and
+operating systems ship it under several names: Read Aloud, Speak Selection, text to speech, and the
+travelling highlight is often called karaoke highlighting, which is exactly what it looks like. The
+whole feature is one sentence long: the prose, out loud, with your place kept.
+
+The reason it needs its own word is that it keeps getting confused with a
+[screen reader](/screen-reader), and the two do different jobs. A screen reader is how somebody who
+cannot see the page operates it: it announces structure, roles and state, so a reader hears "heading
+level two", "button, collapsed", "list, six items", and navigates by those. Read aloud announces
+none of that. It voices the running text and stops there, for a reader who can see the screen and
+would rather have the words carried. Mixing them up leads teams to build the wrong thing, and the
+expensive version of that mistake is a "listen to this page" button shipped in place of accessible
+names, roles and focus order.
+
+Who it is for is broader than most accessibility features: dyslexic readers, readers with attention
+difficulties, low vision readers who use it alongside magnification, people reading in a second
+language, and anybody whose hands or eyes are busy. Two design consequences follow. Reading order is
+spoken order, so furniture that sits in the middle of the flow (a share bar, a related list, a pull
+quote repeated from below) gets read as part of the article unless it is moved out of it. And prose
+written for assistive technology is prose here too: a [long description](/long-description) under a
+chart is read out like any other paragraph, which is a good reason to write it as prose rather than
+as a list of coordinates.
+
+If you are building the control rather than relying on the platform's, the parts that matter are
+play and pause, a speed setting, a voice setting, and the word highlight itself, because the
+highlight is what lets a reader who drifted find their place again without rewinding. Keep it clear
+of text selection, since a reader following along often wants to select the sentence they just
+heard. Most products should let the browser and the operating system do this and spend the effort on
+the markup underneath, which both features read from.

@@ -1,0 +1,4 @@
+term:    Chrome
+scope:   element
+subject: div[data-part=chrome][data-state=shown]
+text:    

@@ -1,0 +1,4 @@
+term:    Grade
+scope:   element
+subject: span[data-part=grade][data-stop=zero]
+text:    Handgloves

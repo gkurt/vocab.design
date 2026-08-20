@@ -1,0 +1,4 @@
+term:    Watermark
+scope:   element
+subject: div[aria-hidden=true][data-part=mark][data-weight=light]
+text:    DRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFTDRAFT

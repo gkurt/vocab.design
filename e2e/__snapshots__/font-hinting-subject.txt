@@ -1,0 +1,4 @@
+term:    Hinting
+scope:   element
+subject: div[data-part=raster-hinted][data-ppem=11]
+text:    

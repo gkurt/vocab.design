@@ -1,0 +1,4 @@
+term:    Color font
+scope:   element
+subject: span[data-palette=sunrise][data-part=glyph]
+text:    & & &

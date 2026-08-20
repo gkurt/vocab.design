@@ -1,0 +1,4 @@
+term:    Help drawer
+scope:   element
+subject: div[data-open][data-part=help]
+text:    Tax ID Two letters for the country, then nine digits. Group them however the inv

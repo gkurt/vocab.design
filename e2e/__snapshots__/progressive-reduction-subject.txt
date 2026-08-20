@@ -1,0 +1,4 @@
+term:    Progressive reduction
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=control][data-stage=first][type=button]
+text:    Publish draft

@@ -1,0 +1,4 @@
+term:    Friend spam
+scope:   element
+subject: div.sp-surface[data-mode=vague][data-part=ask][data-pose=[data-mode=vague]]
+text:    Find your friends Loomly is better with people you already cook with. Connect yo

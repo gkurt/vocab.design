@@ -1,0 +1,4 @@
+term:    Model selector
+scope:   element
+subject: button.sp-button.sp-button--quiet[aria-expanded=false][aria-haspopup=menu][data-model=lumen][data-part=trigger][type=button]
+text:    Lumen 3

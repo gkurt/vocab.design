@@ -1,0 +1,55 @@
+---
+name: Comparison prevention
+slug: comparison-prevention
+category: pattern
+status: published
+definition: >-
+  Structuring plans or products so their features and prices cannot be lined up, forcing a
+  decision that no side-by-side reading would support.
+aliases:
+  - name: price comparison prevention
+    source: community
+  - name: obfuscated pricing
+    source: community
+  - name: incomparable tiers
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: 'Deceptive Design: comparison prevention'
+    url: https://www.deceptive.design/types/comparison-prevention
+demo: inline
+useWhen: the plans are built so you cannot compare them
+---
+
+Comparison prevention is a deceptive pattern with no lie in it. Every number on the page can
+be accurate and every feature genuinely included, and the page still defeats the reader,
+because the options are arranged so that no two of them can be held against each other. One
+plan is priced monthly and the next annually. One lists seats and the next lists "fair use".
+The feature rows appear in a different order in each column, or one column's detail lives
+behind a link, or the middle tier quietly measures a different unit. Nothing is false. The
+comparison is simply not available.
+
+The tell is asymmetry, not any single claim, which is why the pattern is easy to miss in
+review and easy to prove with a spreadsheet. Ask what question the page is meant to answer
+(usually "which of these is cheapest for me") and then try to answer it by reading across
+rather than down. If answering requires arithmetic, a second tab, or a phone call, the
+arrangement is doing work against the reader. That test also catches the honest version of
+the same mess: a genuinely confusing pricing page built by three teams who never spoke is
+indistinguishable from a deliberate one, and it should be fixed for the same reason.
+
+The instrument this pattern defeats is the [comparison table](/comparison-table), which is
+the whole reason a comparison table exists: one row per attribute, one column per option,
+the same unit all the way across, and the differences visible without a calculation. Build
+that and prevention becomes structurally difficult, because a missing cell or a mismatched
+unit is obvious in the grid. Break it and you have made a decision harder while looking
+generous, which is why Harry Brignull files this beside the rest of the
+[dark patterns](/dark-pattern) rather than under bad information design.
+
+Enforcement has caught up in the places where the money is largest. Unit pricing rules in
+grocery, energy and telecoms exist precisely to force a shared denominator: price per
+hundred grams, per kilowatt hour, per month. Software has no such rule yet, so the honest
+move is voluntary and cheap. Pick one billing period, show the others as a toggle rather
+than a per-plan choice, name every feature the same way in every column, put every plan's
+number on the page including the enterprise one, and state the unit that actually matters
+to a buyer. A reader who can compare and still chooses you has chosen you.

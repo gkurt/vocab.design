@@ -1,0 +1,4 @@
+term:    Press-drag-release
+scope:   element
+subject: div.sp-menu[data-open][data-part=menu]
+text:    Newest first Oldest first Name A to Z Largest first

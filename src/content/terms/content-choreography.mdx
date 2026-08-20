@@ -1,0 +1,55 @@
+---
+name: Content choreography
+slug: content-choreography
+category: layout
+status: published
+definition: >-
+  Deciding how blocks of content reorder and regroup as a layout reflows, so hierarchy survives the
+  collapse from several columns into one.
+aliases:
+  - name: choreographing content
+    source: community
+  - name: content reflow order
+    source: community
+relations: {}
+sources:
+  - title: "Content Choreography, Trent Walton"
+    url: https://trentwalton.com/2011/07/14/content-choreography/
+  - title: "How To Maintain Hierarchy Through Content Choreography, Smashing Magazine"
+    url: https://www.smashingmagazine.com/2013/04/maintain-hierarchy-content-choreography/
+demo: inline
+useWhen: deciding what order stacked blocks land in
+---
+
+Content choreography is Trent Walton's 2011 name for the design work that happens when a
+multi-column layout collapses into one: deciding what order the blocks land in, and which of them
+regroup, so the hierarchy the wide layout expressed with position survives at the narrow size. The
+default answer is that everything stacks in source order, which is a decision too, just not one
+anybody made. A promo box authored inside a sidebar becomes the first thing under the header on a
+phone, and the article it was supposed to sit beside starts halfway down the screen.
+
+The word is deliberately borrowed from dance, because the interesting cases are not single moves
+but sequences. Blocks can swap, merge, split, or drop out of the flow entirely, and getting a good
+narrow layout usually means several of those at once. This is also where it differs from the named
+responsive patterns: [column drop](/column-drop) explicitly keeps source order, dropping columns
+one at a time so the sequence never changes, and a [switcher](/switcher) or a
+[deconstructed pancake](/deconstructed-pancake) is a mechanism that rearranges the row without
+asking what the resulting order means. Content choreography is the choice those patterns decline to
+make.
+
+The mechanics are cheap and the cost is real. CSS grid's explicit placement, flexbox's `order`, and
+grid template areas per breakpoint will put any block anywhere, which means visual order and DOM
+order can drift apart. Keyboard users tab in DOM order and screen readers read in DOM order, so a
+block moved visually to the bottom of a phone layout is still announced near the top. That is a
+[focus order](/focus-order) and [reading order](/reading-order) bug the sighted mouse user never
+sees. The honest fix is to change the source order to the order the narrow layout wants and use
+placement for the wide one instead, since the wide layout usually has both columns visible at once
+and cares less about sequence. Where that is impossible, keep the moves small and check the page
+with the keyboard at every size.
+
+Two practical notes. First, choreography is easiest when a layout has fewer, larger blocks: a page
+of twenty small modules has too many possible orders to reason about, which is an argument for
+consolidating rather than for a cleverer stylesheet. Second, the decision belongs with the content
+rather than with the template, so a component that does not know whether it is a lead or an aside
+cannot be choreographed. That is why the pattern shows up in editorial work first, and why a
+[magazine layout](/magazine-layout) has to answer this question the moment it gets narrow.

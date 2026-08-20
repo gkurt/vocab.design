@@ -1,0 +1,4 @@
+term:    Screen curtain
+scope:   element
+subject: div[aria-hidden=true][data-part=curtain]
+text:    

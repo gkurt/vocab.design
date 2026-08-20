@@ -1,0 +1,4 @@
+term:    Focus delegation
+scope:   element
+subject: div[data-delegated][data-part=pad][data-pose=[data-delegated]]
+text:    the host's own padding, no control here

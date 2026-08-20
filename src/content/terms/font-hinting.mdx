@@ -1,0 +1,59 @@
+---
+name: Hinting
+slug: font-hinting
+category: typography
+status: published
+definition: >-
+  Instructions inside a font that nudge its outlines onto the pixel grid at small
+  sizes so stems stay crisp and even.
+aliases:
+  - name: grid fitting
+  - name: TrueType hinting
+relations: {}
+sources:
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+demo: inline
+useWhen: explaining why type looks fuzzy at small sizes
+---
+
+A glyph is an outline, described in a thousandth-of-an-em coordinate system that
+knows nothing about screens. To draw it at 11 pixels tall, the rasteriser scales
+that outline down and asks which pixels it covers, and the answer is almost always
+fractional: a stem 88 units wide becomes 0.97 pixels of ink straddling two
+columns, so both columns come out grey and the letter looks soft. Worse, the two
+stems of an `n` land at different fractional offsets, so one reads darker than the
+other and the letter looks lopsided. Hinting is the font's own answer to that. It
+is a program shipped inside the file, run at rasterisation time, that moves and
+rounds control points so features land on whole pixels: stems get equal widths,
+the baseline and the x-height snap to pixel boundaries, and the same shape comes
+out even instead of merely small.
+
+Two dialects exist. TrueType hinting is instructions in a stack language, so a
+hinting engineer can be arbitrarily specific, which is why a well hinted TrueType
+face at 11 pixels can look almost drawn rather than sampled. PostScript hinting
+declares the features instead (stem widths, alignment zones) and lets the
+rasteriser do the rounding, which is less work and less control. Either way the
+work is expensive: hinting a text family by hand is a specialist job measured in
+weeks, and [ttfautohint](https://freetype.org/ttfautohint/) exists because most
+projects can only afford the automatic version. The related trick in the outline
+itself is the [ink trap](/ink-trap), which changes the drawing rather than the
+rounding.
+
+The reason this term is now mostly historical is resolution. Hinting matters when
+one stem is one pixel wide, and it stops mattering when it is three. Modern macOS
+ignores TrueType instructions almost entirely and rasterises from the outline in
+a way that preserves the designed shape and lets the edges blur; Windows kept a
+grid-fitted pipeline much longer, which is why the same web font can look tidy on
+one machine and fuzzy on another, and why designers who tested only on a Mac used
+to get bug reports they could not reproduce. As [pixel density](/pixel-density)
+climbed past 2x, the fractional error shrank to something no one can see, and
+hinting quietly stopped being a thing anyone specifies. There is no CSS property
+for it, because it was never the page's decision.
+
+Keep it distinct from its neighbour on the other side of the same pipeline.
+Hinting reshapes the outline before the pixels are computed, so the shape itself
+changes. [Font smoothing](/font-smoothing) leaves the outline alone and decides
+how the edge pixels get shaded, in grey or across a pixel's colored subpixels.
+One is the font's decision, baked into the file; the other is the device's, and
+the only one of the two a stylesheet can still argue with.

@@ -1,0 +1,4 @@
+term:    Quick settings tile
+scope:   element
+subject: button[aria-pressed=false][data-part=tile][data-state=off][type=button]
+text:    Deep Focus Off

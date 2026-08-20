@@ -1,0 +1,59 @@
+---
+name: Chrome
+slug: chrome
+category: layout
+status: published
+definition: >-
+  The parts of a window or app that frame content rather than being content: title bars, toolbars,
+  tab strips and address bars.
+aliases:
+  - name: browser chrome
+    source: community
+  - name: app chrome
+    source: community
+  - name: furniture
+    source: community
+  - name: window decoration
+    source: community
+relations: {}
+sources:
+  - title: "Viewport concepts, MDN"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts
+demo: inline
+useWhen: separating the frame from the thing being framed
+---
+
+Chrome is the furniture around the content. In a browser it is the tab strip, the address bar,
+the back and forward buttons, the window controls, the status text at the bottom: everything that
+belongs to the browser rather than to the page. In an application it is the
+[title bar](/title-bar), the [toolbar](/toolbar), the [sidebar](/sidebar), the
+[status bar](/status-bar), the persistent shell that stays put while what you are working on
+changes inside it. The word is useful precisely because it draws that line. "Move it into the
+chrome" and "keep it out of the chrome" are instructions everyone in a design review understands
+without further explanation.
+
+The name collides with a browser, and that collision is the whole confusion. The word came first:
+it was in use for window furniture long before Google shipped a browser in 2008, and the browser
+was named after the concept, partly as a joke about how little of it there was. So a sentence
+about chrome can be about the frame or about the application, and only context tells you which.
+When it matters, say "browser chrome" or "app chrome" for the frame and capitalise the product.
+This site uses the older sense throughout, including in its own build: the page you are reading
+is styled with chrome tokens, while the specimen below it is styled with kit tokens, two walled
+off design systems for the frame and for the thing being framed.
+
+Chrome is measured as well as named. A viewport is what is left of the window once the chrome has
+taken its share, which is why the same device reports different [viewport](/viewport) sizes in
+different browsers, and why designers talk about a chrome budget on small screens. That budget
+pressure produces most of the patterns around it: a
+[collapsing toolbar](/collapsing-toolbar) that gives its height back as you scroll, a
+[quick return header](/quick-return-header) that comes back on the way up, reader modes that
+strip the page's own furniture, and [edge to edge](/edge-to-edge) layouts that draw content under
+the system's bars instead of beside them. Hiding chrome entirely is a real choice for a game, a
+photo viewer, or a presentation, and a bad one for anything a reader has to navigate: with the
+frame gone there is nowhere to put back, close, or "where am I".
+
+Two nearby words point at different things. [Ornament](/ornament) is decoration that carries no
+function, while chrome is functional by definition: even a title bar you never click tells you
+which window has focus and gives you something to drag. And a [scaffold](/scaffold) is the
+structural container an app's screens are built into, the code-level shell that holds the chrome
+rather than a name for the chrome itself.

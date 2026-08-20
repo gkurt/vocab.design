@@ -1,0 +1,4 @@
+term:    Cursor pagination
+scope:   element
+subject: div.sp-row[data-part=cursor-pager]
+text:    Previous Next

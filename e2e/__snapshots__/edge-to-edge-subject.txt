@@ -1,0 +1,4 @@
+term:    Edge to edge
+scope:   element
+subject: div[data-mode=edge][data-part=canvas][data-pose=[data-mode=edge]]
+text:    

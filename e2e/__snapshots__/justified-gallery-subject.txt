@@ -1,0 +1,4 @@
+term:    Justified gallery
+scope:   element
+subject: div[data-fit=flush][data-part=row-1]
+text:    

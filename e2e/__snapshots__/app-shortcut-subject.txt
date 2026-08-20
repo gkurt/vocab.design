@@ -1,0 +1,4 @@
+term:    App shortcut
+scope:   element
+subject: div.sp-menu[data-app=notes][data-open][data-part=menu][role=menu]
+text:    Notes New note New checklist Scan a page

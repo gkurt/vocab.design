@@ -1,0 +1,4 @@
+term:    Route announcement
+scope:   element
+subject: span.sp-text.sp-text--ink[aria-live=polite][data-part=post][role=status]
+text:    “Statements · Ledger”

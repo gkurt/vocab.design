@@ -1,0 +1,4 @@
+term:    Content choreography
+scope:   element
+subject: div[data-order=choreographed][data-part=promo][data-pose=[data-order=choreographed]]
+text:    Subscribe

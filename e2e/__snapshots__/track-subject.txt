@@ -1,0 +1,4 @@
+term:    Track
+scope:   element
+subject: div.sp-slider-track[data-band=mid][data-part=track]
+text:    

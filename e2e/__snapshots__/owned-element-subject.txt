@@ -1,0 +1,4 @@
+term:    Owned element
+scope:   element
+subject: div[data-part=adopted]
+text:    option Kyiv option Kraków option Kaunas
