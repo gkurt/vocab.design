@@ -79,7 +79,7 @@ function batchPrompt(category) {
     '',
     AUDIT_PASS,
     '',
-    'Static checks are NOT your job: do not run bun validate, typecheck, tests, builds, or lint (the AUDIT PASS above is NOT one of these and is never optional: it is your own probe driving the page's own stage, not a repo script); a dedicated verify phase runs them right after you finish. Be correspondingly careful with the schema and choreography as you write.',
+    'Static checks are NOT your job: do not run bun validate, typecheck, tests, builds, or lint (the AUDIT PASS above is NOT one of these and is never optional: it is your own probe driving the page’s own stage, not a repo script); a dedicated verify phase runs them right after you finish. Be correspondingly careful with the schema and choreography as you write.',
     '',
     'TOKEN DISCIPLINE: one quick WebFetch per implementation URL; drop rows that do not verify; zero rows is legal. Nothing under e2e/. Keep returned notes to a sentence or two per term.',
     '',
