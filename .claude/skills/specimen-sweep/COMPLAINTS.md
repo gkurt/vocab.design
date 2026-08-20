@@ -339,3 +339,39 @@ complete; until then entries only accumulate. Entry format:
   inert to the script); the hand on 4321 for a sample: hover the surface during
   attract, confirm takeover within a beat without a click, confirm the response
   follows the real pointer, leave and confirm attract resumes.
+
+## replay-continuity
+
+- Queued: 2026-08-20 · Status: queued
+- Rule: an animation run has ONE owner at a time, and a script never cuts a run
+  the reader can see (SPEC §8, STAGE_NEWS law 34). Three collisions produce the
+  teleport the complaint names: (a) the demo autoplays a run on mount AND the
+  script clicks Replay on a fixed early beat, so the click lands mid-run and
+  the movers snap back to zero under the reader's eye (compositor-animation:
+  mount starts a 2670 ms run, the script replays at ~1300 ms, inside the run's
+  own stall window); (b) the script ends while a run it started is still
+  mid-flight, so the attract loop's remount cuts the animation instead of a
+  rest state; (c) the demo re-arms its own run on its clock AND the script
+  also replays it, so the two drift in phase and restart each other. The loop
+  remounting at a LANDED state is not an offense: a scene reset at rest reads
+  as a reset, not a jump.
+- Detector: detectors/replay-continuity.ts (recall-tuned: every demo with a
+  replay/restart/again/run/play-named part, plus whether mount calls the same
+  handler the control fires). At queue time: 53/887 flagged, 26 of them
+  collision-prone (mount autoplay through the replay handler), mostly the
+  motion category. Judge question per slug, reading demo.ts and
+  choreography.ts together: can the script's replay click land while a run is
+  mid-flight, and does the script's tail outlast every run it starts?
+- Recipe: prefer the choreography-only fix — open the script with a wait that
+  outlasts the mount run (duration + transition lead + a settling beat) so
+  Replay is pressed at rest, and end with a wait that covers the last run's
+  landing. Where waiting out the mount run makes the loop unreasonably long,
+  drop the mount autoplay instead so the scripted Replay names the only run:
+  the mount state becomes an honest rest (reduced motion then lands or rests
+  deliberately, per the demo's judgment), and the subject snapshot may change
+  — that diff is a claim, read it. A self-looping run (c) loses either its
+  self-loop or its scripted replay, never keeps both.
+- Verify: choreography pass over touched slugs; the eye on 4321 watching one
+  full attract loop per touched demo for teleports (a mover snapping backward
+  is the failure; the deliberate stall-payoff jump in compositor-animation's
+  scripted mover is the term, not a bug).

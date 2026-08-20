@@ -490,6 +490,14 @@ export default steps([
   Escape, click outside) instead of a trigger that toggles. A toggle is right where the
   toggling *is* the term (a chip, a disclosure, a reveal), because there the script
   drives both directions itself and the demonstration is the flip.
+- **An animation run has one owner.** A script never cuts a run the reader can see:
+  where the demo autoplays a run on mount, the script presses Replay only at rest
+  (its opening wait outlasts the mount run), or the demo skips the mount autoplay so
+  the scripted Replay names the only run. The script's tail outlasts every run it
+  starts, so the loop's remount lands on a settled scene rather than cutting one
+  mid-flight; and a demo that re-arms its run on its own clock does not also get
+  scripted Replays. A replay clicked mid-run teleports the movers to zero under the
+  reader's eye, which reads as the specimen breaking, not as the term.
 - **A still term ships a still script.** Choreography exists to demonstrate state, and
   some terms have exactly one: most aesthetics, much of typography, a layout whose
   whole claim is visible at rest. Those specimens script waits and asserts only. The

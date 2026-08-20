@@ -132,6 +132,9 @@ never fires under reduced motion, so nothing may ever wait on it.
   satisfied by an absent element as well as an invisible one. Scripted input must
   reach a state rather than flip it (SPEC §8): a demo's trigger opens, and dismissal
   is explicit. Toggles are only for demos where the toggling is the term itself.
+  An animation run has one owner (SPEC §8): a script presses Replay only at rest
+  (its opening wait outlasts any mount-time run) and its tail outlasts every run
+  it starts, so neither the click nor the loop's remount cuts a run mid-flight.
   A keyboard-driven demo must be drivable by a real keyboard: its control carries
   `tabindex="0"` so a reader's keys can reach it (the script needs no focus, but
   the reader does).
