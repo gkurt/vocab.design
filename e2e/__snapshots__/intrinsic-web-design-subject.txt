@@ -1,0 +1,4 @@
+term:    Intrinsic web design
+scope:   element
+subject: div[data-fit=fits][data-part=item-b][data-pose=[data-fit=fits]]
+text:    Chart harbour-approach-chart.pdf

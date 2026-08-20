@@ -1,0 +1,63 @@
+---
+name: Welcome mat
+slug: welcome-mat
+category: component
+status: published
+definition: >-
+  A full width introduction shown on first entry to a feature, listing what is new or what to
+  set up, with a way to skip it for good.
+aliases:
+  - name: welcome screen
+    source: community
+  - name: what's new modal
+    source: community
+  - name: onboarding splash
+    source: community
+  - name: getting started panel
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "Lightning Design System: components overview"
+    url: https://www.lightningdesignsystem.com/components/overview/
+demo: inline
+useWhen: a first run introduction to a whole feature
+---
+
+A welcome mat is the panel that takes over a feature's content area the first time you open
+that feature, and lists what the feature is or what you have to set up before it will work. It
+is a component, with a name Salesforce gave it in the Lightning Design System and Open UI
+picked up, and its shape is fixed: a heading, a short line of orientation, two to five items
+laid out as a list, one primary action, and an explicit way to never see it again. Because it
+occupies the content area rather than floating over it, it is not a
+[modal dialog](/modal-dialog): nothing is blocked, nothing has to be dismissed before the app
+responds, and the mat itself is what the reader has come to.
+
+The fence worth drawing hardest is against
+[first run experience](/first-run-experience), which is the whole of what a product shows a
+brand new account across every screen: the sign up flow, the sample data, the tour, the
+checklist. A welcome mat is one component inside that vocabulary, and it is scoped to a single
+feature. That scoping is the interesting part, because it means a welcome mat can appear years
+into a subscription: the first time this particular admin opens Alerts, the first time anyone in
+the workspace opens the new billing report. The condition is not "new to the product", it is
+"new to this feature", and the two are tracked separately, per user and per feature, or the mat
+either never fires for existing customers or fires forever.
+
+It is also routinely confused with an [empty state](/empty-state), and the test that separates
+them is which fact the panel is reporting. An empty state means there is no data yet, so it goes
+away the moment the first record exists and comes back if every record is deleted. A welcome mat
+means you have not been here yet, so it goes away when you have been, whether or not there is
+data, which is why a feature full of alerts a teammate configured can still greet a new admin
+with a mat. Build one as the other and you get the familiar bug where power users are told to
+get started with a feature they have used for a year, or where a genuinely empty screen offers
+no explanation because someone already dismissed the introduction.
+
+The way out has to be explicit, and it has to be permanent. "Do not show this again" is a
+promise about state stored somewhere durable, and a mat that reappears on the next session has
+broken it, which is how a helpful component becomes
+[nagging](/nagging). Give it a primary action for the reader who wants to do the setup now, that
+same permanent skip for the reader who does not, and no timer: a panel that dissolves on its own
+takes the choice away. Keep the item list short and each item a real task rather than a feature
+boast, and where the tasks have to be completed in order over several sessions, the right
+component is an [onboarding checklist](/onboarding-checklist) that persists, not a mat that
+introduces itself once and leaves.

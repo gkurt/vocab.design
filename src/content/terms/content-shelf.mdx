@@ -1,0 +1,59 @@
+---
+name: Content shelf
+slug: content-shelf
+category: layout
+status: published
+definition: >-
+  A horizontally scrolling row of cards, one row per category, stacked down the page so each row
+  is browsed sideways.
+aliases:
+  - name: carousel row
+    source: community
+  - name: swimlane
+    source: community
+  - name: reel
+    source: every-layout
+  - name: tray
+    source: community
+  - name: netflix rows
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "The Reel, Every Layout"
+    url: https://every-layout.dev/layouts/reel/
+demo: inline
+useWhen: many categories, each with too many items to stack
+---
+
+A shelf is a row that holds more than it shows. Each row is one category, the row scrolls
+sideways on its own, and the rows stack down the page, so a catalogue of thousands becomes a
+page a reader can skim vertically and then dig into horizontally. The shape is old (a rack of
+records, a shelf of spines) and it earned its place on screen for a practical reason: a grid of
+everything forces one ranking on the whole library, while a stack of shelves lets every
+category keep its own. [Every Layout](https://every-layout.dev/layouts/reel/) calls the
+primitive a reel and gives the minimum honest implementation: a flex row, `overflow-x: auto`,
+and scroll snapping if the items are wide enough to want it.
+
+Three neighbours are worth keeping straight, because the words get swapped constantly. A
+[filmstrip](/filmstrip) is a rail of thumbnails beside a larger view, and picking one changes
+that view; a shelf has no larger view, and picking an item leaves the page. A
+[carousel](/carousel) rotates one item at a time through a single frame, usually on a timer;
+a shelf shows many items at once, moves only when the reader moves it, and never advances by
+itself. And the cards on a shelf are not what makes it a shelf: swap them for
+[thumbnails](/thumbnail) or plain text rows and the pattern is unchanged, because the pattern
+is the row and its sideways reading.
+
+The honest cost is the far end. A shelf hides most of every row behind an edge, and the
+reader's effort per item climbs with its index: item one is seen by nearly everyone, item
+twenty by almost nobody. Stacking twelve shelves does not fix that, it multiplies it, and the
+result is a page with hundreds of items on it and a handful that anyone will ever reach. That
+is fine when the ordering is genuinely good and awful when the shelf is being used to avoid an
+editorial decision. Watch for the pattern where a shelf exists so nothing has to be cut.
+
+Two implementation details decide whether a shelf is usable at all. It must be reachable
+without a pointer that can drag: real focusable items so the keyboard can walk the row, and
+buttons or [pagination](/pagination) affordances so a mouse without a horizontal wheel is not
+stuck. And the edge has to say there is more, through a partly visible next card, a fade, or an
+arrow, because a row that ends flush with its container reads as a row that ends. Scroll snap
+per item makes it feel deliberate; scroll snap per page makes it feel like a carousel again.

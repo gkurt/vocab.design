@@ -1,0 +1,4 @@
+term:    Tree select
+scope:   element
+subject: div[data-part=control]
+text:    Choose a folder Marketing 2 Campaigns 2 Brand assets Engineering 2 Archive

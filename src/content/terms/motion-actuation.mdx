@@ -1,0 +1,57 @@
+---
+name: Motion actuation
+slug: motion-actuation
+category: accessibility
+status: published
+definition: >-
+  Triggering a function by moving the device itself, such as shake to undo, which needs a plain
+  control alternative and an off switch.
+aliases:
+  - name: device motion trigger
+    source: community
+  - name: tilt gesture
+    source: community
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Motion Actuation"
+    url: https://www.w3.org/TR/WCAG22/#motion-actuation
+demo: inline
+useWhen: the gesture is a shake or tilt of the device
+---
+
+Success criterion 2.5.4 covers functions triggered by moving the device or by moving toward it:
+shaking a phone to undo, tilting it to turn a page, waving a hand past a proximity sensor, raising
+a wrist to wake a watch. The criterion asks two things of any such trigger, and the second is the
+one people forget. The function must also be reachable through conventional controls, and the
+motion trigger must be able to be switched off. Both, not either. A gesture with an on-screen
+button but no way to stop the gesture firing still fails, and so does a gesture that can be
+disabled but has no button behind it.
+
+The alternative exists because motion is an input a great many people cannot produce. A phone
+clamped to a wheelchair, a tablet on a stand, a device held in a mount on a desk, or a hand that
+cannot lift and shake the whole thing all leave the motion route unreachable, which makes the
+plain control the only route, so it has to be there. That is the same argument
+[pointer gestures](/pointer-gestures) and [dragging alternative](/dragging-alternative) make one
+level down about paths and drags: the operable function is the requirement, and a particular way of
+performing it never is.
+
+The off switch is there for the opposite failure, motion nobody meant. A tremor, a wheelchair over
+a kerb, a bus, a walk, or a phone in a coat pocket all produce accelerometer data that reads as a
+deliberate shake, and the reader whose hand shakes hardest is the one who gets the undo prompt
+most often. An interruption that arrives repeatedly, unbidden, from a gesture the reader cannot
+stop making is a hard barrier, not an annoyance, which is why the criterion treats the ability to
+turn it off as being as important as the alternative control. Do not rely on the operating system
+to have the setting: iOS has one for [shake to undo](/shake-to-undo), and a shake your own code
+detects from raw motion events is yours to switch off.
+
+Two edges. The criterion exempts motion that is essential to the function, which is why a
+pedometer, a spirit level, and a camera's own shake detection are not caught by it, and it exempts
+triggers implemented through an accessibility-supported interface, since assistive technology can
+already reach those. And it is not a rule against motion input. A shake, a tilt, or a wrist raise
+is a fine shortcut for the people who can make it and want it, in exactly the way a keyboard
+shortcut is: layered on a route everyone has, and switchable, never the only door.

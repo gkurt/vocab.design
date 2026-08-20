@@ -1,0 +1,4 @@
+term:    Gradual engagement
+scope:   element
+subject: div[data-part=tool]
+text:    Shorten a link Shorten The short link lands here, for anyone, signed in or not. 

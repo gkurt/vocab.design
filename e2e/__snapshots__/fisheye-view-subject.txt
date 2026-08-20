@@ -1,0 +1,4 @@
+term:    Fisheye view
+scope:   element
+subject: div[data-part=falloff]
+text:    

@@ -1,0 +1,4 @@
+term:    Layout shifter
+scope:   element
+subject: div[data-part=promo][data-slot=rail]
+text:    Promo

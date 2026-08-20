@@ -1,0 +1,4 @@
+term:    App silhouette
+scope:   element
+subject: div[data-part=silhouette][data-shape=top]
+text:    

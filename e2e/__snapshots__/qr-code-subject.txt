@@ -1,0 +1,4 @@
+term:    QR code
+scope:   element
+subject: div[aria-label=Pairing code, also printed below as K3F 9QX 2M][data-part=code][role=img]
+text:    

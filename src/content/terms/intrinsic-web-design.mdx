@@ -1,0 +1,58 @@
+---
+name: Intrinsic web design
+slug: intrinsic-web-design
+category: layout
+status: published
+definition: >-
+  Building layouts from what the content needs, using grid, flexbox and intrinsic sizing together,
+  instead of imposing a fixed column skeleton.
+aliases:
+  - name: intrinsic layout
+    source: community
+  - name: content out layout
+    source: community
+  - name: intrinsic sizing
+    source: css
+relations: {}
+sources:
+  - title: Designing Intrinsic Layouts, Jen Simmons
+    url: https://talks.jensimmons.com/15TjNW
+demo: inline
+useWhen: naming the era after responsive web design
+---
+
+Intrinsic web design is Jen Simmons's 2018 name for how layout works once grid, flexbox and the
+intrinsic sizing keywords are all available at once. The older habit is extrinsic: choose a
+column skeleton, usually twelve tracks, and pour the content into it, so every width is decided
+before anybody knows what the content is. Intrinsic layout runs the other way. Tracks are sized
+from what they hold, with `min-content`, `max-content`, `fit-content()` and `minmax()` doing the
+deciding, and the parts that should flex are told to flex rather than being assigned a share of
+the grid. A short label takes a short track. A long file name gets the width it needs. Nothing is
+stretched to fill a column it never asked for, and nothing is cut because its column ran out.
+
+The word names an era rather than replacing one. [Responsive web design](/responsive-web-design)
+is still the correct term for the practice of one document serving every screen, and it did not
+stop being true in 2018. What changed underneath it is the toolkit: fluid grids plus flexible
+images plus media queries was a description of what could be built with floats and percentages,
+and intrinsic web design is the description of what can be built with real layout primitives.
+So the two words sit at different levels. Responsive is the goal, intrinsic is how the goal is
+reached now, and a page can perfectly well be responsive and extrinsic, which is what most
+framework grid systems still are.
+
+In practice the shift shows up as fewer [breakpoints](/breakpoint) rather than better ones. A
+[layout grid](/layout-grid) whose tracks come from the content usually needs one or two
+thresholds instead of five, because most of the adaptation happens continuously and the query
+only handles the genuine change of arrangement. Several of the named mechanisms on this site are
+intrinsic thinking in miniature: a [switcher](/switcher) flips a row to a column when the
+available width crosses what the items themselves need, and a
+[deconstructed pancake](/deconstructed-pancake) lets the last item keep its natural width instead
+of stretching it to fill the line. Both are written in terms of the content's own measurements,
+and both are much shorter to write than the media query version.
+
+Two cautions. Content sized tracks are only as good as the content estimate behind them, so a
+`max-content` track holding user data can grow past anything you tested with, and
+`minmax(0, max-content)` or a `fit-content()` cap is usually what you meant. And intrinsic
+sizing makes layout depend on text, which means it depends on the font loading, on translation,
+and on a reader's own text size. That is a feature rather than a bug, but it does mean the honest
+test of an intrinsic layout is running it with a long German compound, a small screen, and the
+reader's own text [resized](/resize-text) larger than you designed with.

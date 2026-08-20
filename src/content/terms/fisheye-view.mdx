@@ -1,0 +1,54 @@
+---
+name: Fisheye view
+slug: fisheye-view
+category: layout
+status: published
+definition: >-
+  A focus plus context display that magnifies whatever has attention and progressively compresses
+  everything further away, like a lens dragged along a list.
+aliases:
+  - name: fisheye distortion
+    source: community
+relations: {}
+implementations: []
+sources:
+  - title: "A Review of Overview+Detail, Zooming, and Focus+Context Interfaces, Cockburn, Karlson and Bederson"
+    url: https://dl.acm.org/doi/10.1145/1456650.1456652
+demo: inline
+useWhen: magnifying one item without hiding the rest
+---
+
+A fisheye view is a lens laid over a list, a graph or a timeline. Whatever has attention is
+drawn at full size, its immediate neighbours a little smaller, theirs smaller again, and by the
+far end of the data the rows are slivers a pixel or two high. The name comes from the camera
+lens, and the geometry is the same: one continuous distortion function, not two zoom levels
+stitched together. Move the attention and the whole distortion travels with it, so the reader
+never loses their place in the way a jump to a new screen loses it. The term entered interface
+work through George Furnas in the mid nineteen eighties and is surveyed, with its cousins, in
+Cockburn, Karlson and Bederson's review of focus plus context interfaces.
+
+The relationship to the neighbours is worth stating exactly, because all three words get used
+for each other. [Focus plus context](/focus-plus-context) is the family: one region in detail,
+the rest kept on screen for orientation. A fisheye is the member of that family whose falloff
+is gradual, which is what separates it from an accordion or an expanding row, where there are
+only two sizes and everything that is not focused is equally small.
+[Dock magnification](/dock-magnification) is a fisheye with about eight items in it: one
+instance, small enough that the compression barely registers and only the bulge is noticed. And
+[overview plus detail](/overview-plus-detail) is the alternative strategy rather than a variant,
+since it keeps two separate views at two scales instead of deforming one.
+
+What a fisheye buys is that nothing has to be thrown away. Thirty rows, or three hundred, all
+stay in the layout, in order, with their position on screen still meaning something, so the
+reader keeps a spatial memory of where things are and can steer the lens by that memory rather
+than by search. It is at its best where the data is dense, the ordering is meaningful, and
+neighbours matter: file trees, gantt bars, waveform editors, a code minimap with a magnified
+band.
+
+The cost is legibility, and it is not a small one. Away from the focus the content is present
+but unreadable, so a fisheye is honest only when the compressed material still carries useful
+signal in its shape (length, colour, density) rather than in its words. Two more traps follow
+from the geometry. Targets keep changing size, so pointing becomes a moving problem and small
+rows are genuinely hard to hit, which is why a fisheye needs a keyboard path and a generous
+motion budget. And the distortion has to be contained: if the deformation pushes on the layout
+around it, every step of the lens shoves the page, and the reader loses exactly the stability
+the technique was chosen for.

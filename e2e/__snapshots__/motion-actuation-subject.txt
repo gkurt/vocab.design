@@ -1,0 +1,4 @@
+term:    Motion actuation
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=undo][type=button]
+text:    Undo

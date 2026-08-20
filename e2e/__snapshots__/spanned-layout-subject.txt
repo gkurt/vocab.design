@@ -1,0 +1,4 @@
+term:    Spanned layout
+scope:   element
+subject: span[aria-hidden=true][data-mode=crossed][data-part=band]
+text:    

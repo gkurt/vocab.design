@@ -1,0 +1,4 @@
+term:    Mini cart
+scope:   element
+subject: div.sp-popover[data-open][data-part=panel]
+text:    Your basket Linen tea towel Quantity 2 18.00 Cedar chopping board Just added 34.

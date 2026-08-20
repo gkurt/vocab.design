@@ -1,0 +1,4 @@
+term:    Mostly fluid
+scope:   element
+subject: div[data-cap=held][data-flow=columns][data-part=grid]
+text:    Harbour Berths Tides Fuel Notices

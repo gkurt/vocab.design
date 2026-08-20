@@ -1,0 +1,4 @@
+term:    Welcome mat
+scope:   element
+subject: div.sp-surface[data-part=mat]
+text:    First time here Set up Alerts Three things to decide, and then this page pages t

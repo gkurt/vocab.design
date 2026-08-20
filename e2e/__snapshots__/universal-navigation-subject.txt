@@ -1,0 +1,4 @@
+term:    Universal navigation
+scope:   element
+subject: div[data-part=universal]
+text:    Northgate University LibraryCareersGive

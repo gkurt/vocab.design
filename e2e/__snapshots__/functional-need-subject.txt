@@ -1,0 +1,4 @@
+term:    Functional need
+scope:   element
+subject: p.sp-text.sp-text--ink[data-framing=need][data-part=statement][data-pose=[data-framing=need]]
+text:    Needs to set a value without a sustained precise drag.
