@@ -47359,5 +47359,51 @@
   "sweptFrom": [
    "user wishlist 2026-08-20, shaped in canonicalize follow-up"
   ]
+ },
+ {
+  "name": "Press-drag-release",
+  "slug": "press-drag-release",
+  "category": "interaction",
+  "definition": "Operating a menu in one gesture: pressing the trigger opens it, dragging moves through the items while the button stays down, and releasing over an item commits it.",
+  "useWhen": "a menu or select should answer one continuous press as well as two clicks",
+  "aliases": [
+   {
+    "name": "single-gesture selection",
+    "source": "community"
+   },
+   {
+    "name": "press to open, release to select",
+    "source": "community"
+   },
+   {
+    "name": "drag-mode menu",
+    "source": "community"
+   }
+  ],
+  "relatedSlugs": [
+   "marking-menu",
+   "spring-loading",
+   "select",
+   "dropdown",
+   "menu-button",
+   "context-menu"
+  ],
+  "priority": "tail",
+  "demo": "inline",
+  "sources": [
+   {
+    "title": "Understanding WCAG 2.5.2 Pointer Cancellation (W3C)",
+    "url": "https://www.w3.org/WAI/WCAG21/Understanding/pointer-cancellation.html"
+   },
+   {
+    "title": "Menus (Apple HIG)",
+    "url": "https://developer.apple.com/design/human-interface-guidelines/menus"
+   }
+  ],
+  "implementations": [],
+  "notes": "The original Macintosh menu-tracking behavior: before Mac OS 8 it was the ONLY way menus worked, and the OS 8 addition of the two-click mode was named \"sticky menus\", which the article uses as the named contrast rather than an alias. Modern natives keep both paths live (macOS selects and menus, iOS long-press context menus with slide-to-select); Radix Select famously reimplemented it for the web. The up-event commit is what WCAG 2.5.2 pointer cancellation blesses: sliding off and releasing is the escape hatch. Fences: marking-menu keeps the radial gesture-as-command sense; long-press is the touch trigger, not the tracking. HIG source verified on URL resolution only (JS-rendered). Demo is performable today: a drag step from the trigger through the open menu to an item IS the gesture, and the two-click sticky path contrasts it in the same specimen; the demo wires pointerdown-open plus pointerup-commit with the law-22 capture guard.",
+  "sweptFrom": [
+   "user request 2026-08-20, shaped in canonicalize follow-up"
+  ]
  }
 ]

@@ -258,6 +258,14 @@ Resolutions from that audit under the standing rules:
   pin-input already carried 'segmented code input', now also carries the exact
   'segmented input' spelling, and the structured-format pool record ceded that
   alias (its note says why) so the future authoring round cannot collide.
+- User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
+  one-gesture menu tracking where pressing opens, dragging travels, releasing
+  commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the
+  named CONTRAST (the Mac OS 8 two-click mode), used in the article and never
+  claimed as an alias. WCAG 2.5.2 pointer cancellation is the standards hook
+  (up-event commit); HIG menus source verified on URL resolution only. Demo is
+  performable with the existing drag step; the demo side needs pointerdown-open
+  plus pointerup-commit wiring with the law-22 capture guard.
 - Pool hygiene (2026-08-19): removed the stale look-and-pinch record (the term
   was authored and published while the record stayed behind; its `demo: none`
   note aged out the same day the gaze persona landed). If a roster collision
