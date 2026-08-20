@@ -15,7 +15,9 @@ aliases:
     source: excel
   - name: frozen header row
     source: community
-relations: {}
+relations:
+  contrastWith: [table-header-association, sticky-header]
+  seeAlso: [column-resizer]
 sources:
   - title: Data Grid column pinning, MUI X
     url: https://mui.com/x/react-data-grid/column-pinning/

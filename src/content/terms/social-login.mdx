@@ -17,7 +17,9 @@ aliases:
     source: community
   - name: federated login
     source: community
-relations: {}
+relations:
+  contrastWith: [passkey, magic-link, one-time-code-login]
+  seeAlso: [guest-checkout, express-checkout]
 implementations: []
 sources:
   - title: "Carbon Design System: Login pattern"

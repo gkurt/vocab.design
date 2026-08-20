@@ -19,7 +19,9 @@ aliases:
     source: community
   - name: suggest
     source: blueprint
-relations: {}
+relations:
+  contrastWith: [combobox, inline-autocomplete, did-you-mean]
+  seeAlso: [address-autocomplete, debounce]
 implementations:
   - system: aria-apg
     name: Editable Combobox With List Autocomplete
