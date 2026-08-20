@@ -58,7 +58,7 @@ const place = (dot: Dot) =>
 
 /** The box the demo draws for the dot: the tittle's own extent, with a little air. */
 const paint = (dot: Dot) =>
-  `position: absolute; ${place(dot)}; border-radius: 4px;` + ' background: color-mix(in oklab, var(--sp-accent) 40%, transparent)';
+  `position: absolute; ${place(dot)}; border-radius: 4px; background: color-mix(in oklab, var(--sp-accent) 40%, transparent)`;
 
 /**
  * Tittle specimen: one letter, very large, with the dot boxed. The marker is an

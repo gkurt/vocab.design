@@ -80,6 +80,23 @@ Files in this skill directory:
    pool's own `notes` field often flags merge candidates. The dead list is worth
    reporting to the user, since `candidates.json` still carries them.
 
+   Round 17 found 20 dead this way, then found **four more the slug test cannot
+   see and one that escaped the roster entirely**. Two failure modes to add to the
+   sweep, both cheap:
+   - **Affix variants.** A candidate that is an existing term plus or minus a
+     trailing noun shares no slug with it: `back-to-top-button` against the
+     published `back-to-top`. This one reached an author agent, which refused it
+     as a duplicate and cost the round a slot. Test each candidate slug with its
+     trailing `-button`, `-bar`, `-menu`, `-view`, `-pattern` stripped, and with
+     the existing slugs' own affixes added.
+   - **Definition duplicates.** Read the DEFINITION of the nearest existing term,
+     not just its name. `bulk-action-bar` died because bulk-actions' definition
+     already says "a bar that appears once a selection exists and reports its
+     count"; `session-timeout` died to timeout-warning, `slash-command-menu` to
+     slash-command, `color-alone` to use-of-color. Four picks, all with distinct
+     slugs, all already written. Grep the candidate's own definition keywords
+     against existing definitions before promising the pick.
+
 ## 2. Briefs (main session, ~30 min)
 
 Copy `make-briefs-template.ts` to a scratch directory, fill `PLAN` with the round's
