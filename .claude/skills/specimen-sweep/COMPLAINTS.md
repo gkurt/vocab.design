@@ -249,3 +249,63 @@ complete; until then entries only accumulate. Entry format:
   visual pass; option (a) does not.
 - Verify: choreography pass over touched slugs; subject snapshots must not change
   under option (a).
+
+## stage-geometry
+
+- Queued: 2026-08-20 · Status: queued
+- Rule: geometry is part of the claim, at every state the choreography visits,
+  not just at mount. The stage body clips its overflow, so an element that
+  escapes it is silently amputated, never merely ugly. A container must hold its
+  content: content wider or taller than its box either spills onto neighbours
+  (overflow visible) or is cut (hidden/clip), and neither is acceptable unless
+  the clipping viewport or the truncation IS the design. Elements must not
+  overlap neighbours they do not mean to. Single-line controls (.sp-button,
+  .sp-chip, .sp-tab in row orientation) hold one line in every state:
+  white-space nowrap, flex 0 0 auto, room sized for the widest state (measured
+  once on mount when only runtime knows it). And per SPEC §5, a state change
+  must not move or resize parts that did not change themselves (no incidental
+  layout shift). Size every box for its largest content at its real rendered
+  size, not for whatever state was on screen while authoring.
+- Detector: detectors/stage-geometry.mjs (recall-tuned; runs under NODE, not
+  bun: it drives Playwright chromium through a full stage.audit() play per
+  specimen, sampling geometry every ~220ms so state-dependent breakage is
+  caught, with 2+-consecutive-sample persistence to drop transition transients.
+  Self-hosts a build+preview on 4323; --base-url reuses a running server,
+  --no-build previews the existing dist, --slugs=a,b,c reruns a subset).
+  Checks: escape (painted element leaves the stage clip box), spill-x/-y
+  (content exceeds a non-scroller box; designed ellipsis exempt), wrap
+  (single-line control folded; flex-column stacks exempt), wrap-row (a
+  flex-wrap row actually broke onto lines), overlap (content-bearing elements
+  intersect substantially; ~abs marks positioned elements for fast judging),
+  layout-shift (a data-part moved or resized 3px+ between stable states while
+  its own attributes, text, and ancestor attributes held still). At queue time:
+  434/887 specimens flagged, 1428 findings — spill-y 473/259 slugs, overlap
+  532/137, spill-x 218/126, layout-shift 141/64, wrap 52/14, wrap-row 12/12,
+  escape 0 (the 320px stage discipline held). Precision is deliberately loose:
+  sampled findings split into real catches (modifier-key's legend shifts 17px
+  and its frame cuts 11px of content; signifier, orphan, combobox shift
+  likewise) and judge-skip classes (popover-arrow's popover floats over the
+  seat map BY DESIGN, pull-to-refresh's rows move because pulling is the term,
+  zoom/rotate canvases are designed clipping viewports, signature-pad's stamp
+  overlays are designed layering). Expect heavy judging: batch per the skill,
+  20-40 specimens per judge, findings grouped by slug. Judge question per
+  finding: is this geometry the term's own claim
+  or designed presentation (a viewport a zoom pans inside, a badge or stamp
+  overlaid by design, honest ellipsis truncation, a marquee mid-travel), or an
+  accident a reader would call broken?
+- Recipe: escape → inset or shrink the offender; demos build to ~476×310 inside
+  the 320px-tall stage (law 7), and absolute decorations stay inside the root.
+  spill (overflow visible) → widen the box, shorten the copy, or reserve the
+  widest state's room. spill (hidden/clip) → content is being cut: give it
+  room, or make truncation honest (ellipsis) only where truncation is fair.
+  wrap → inline-flex + gap + white-space nowrap on the control, widen its row.
+  overlap → find the source (usually a spill or an unreserved absolute) and fix
+  that. layout-shift → SPEC §5: reserve the room, measure once on mount,
+  contain a size change to the control that owns it. These fixes change
+  rendering, so fixers do the visual pass on 4321; shard per the skill when a
+  check's offender list exceeds ~25.
+- Verify: rerun the detector on touched slugs (--slugs=... --no-build) until
+  each finding is fixed or judged designed; choreography e2e pass over touched
+  slugs; the eye on 4321 for a sample per shard. After the sweep, consider
+  promoting the auditor into a permanent e2e pass so this backlog never
+  regrows.

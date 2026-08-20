@@ -213,6 +213,15 @@ component library would save — without the branding or churn.
   owns it, but the line that control sits in, and everything below, holds still —
   usually by keeping the new content out of the cross axis rather than by moving it
   somewhere it would not really live.
+- **The specimen fits its stage.** The stage body clips its overflow, so an element
+  that escapes it is silently amputated, never merely ugly. The same holds one level
+  down: a container holds its content (content larger than its box either spills onto
+  neighbours or is cut, and neither is acceptable unless the clipping viewport or the
+  truncation is itself the design), nothing overlaps a neighbour it does not mean to,
+  and a single-line control (a button, a chip, a tab) stays one line in every state.
+  These are claims about every state the choreography visits, not the mount state
+  alone: size each box for its largest content at its real rendered size, measuring
+  once on mount when only runtime knows it.
 - **Hard demos** (combobox-class accessibility) are implemented properly once, in the
   kit, and reused — never re-derived per demo.
 - **Budgets**: no network requests, no timers while idle, small enough to inline.

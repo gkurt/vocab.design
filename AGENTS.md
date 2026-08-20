@@ -201,7 +201,11 @@ never fires under reduced motion, so nothing may ever wait on it.
   that did not change (SPEC §5). Reserve the room a revealed element will take,
   measuring it once on mount if that is the only way to know it. When the size change
   is itself the term, contain it: widening a control is fair, growing its row or
-  pushing what is below is not.
+  pushing what is below is not. The same discipline sideways (SPEC §5): the stage
+  body clips, so nothing visible may leave it; a container holds its content rather
+  than spilling or cutting it (unless the viewport or truncation is the design); and
+  a single-line control (button, chip, tab) stays one line in every state — size for
+  the widest state, not the one on screen while authoring.
 - **Subject and context**: every demo marks the element the term names with
   `data-subject`, on the narrowest element that term actually names, and wraps scenery in
   `.sp-context` (accent goes neutral, elevation drops). Narrowest means the
