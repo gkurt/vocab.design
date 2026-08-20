@@ -309,3 +309,33 @@ complete; until then entries only accumulate. Entry format:
   slugs; the eye on 4321 for a sample per shard. After the sweep, consider
   promoting the auditor into a permanent e2e pass so this backlog never
   regrows.
+
+## hover-takeover
+
+- Queued: 2026-08-20 · Status: queued
+- Rule: takeover must match the term's own input. A demo operated by hovering
+  alone (a dock that bulges, a proximity glow, a spotlight or tilt that follows
+  the pointer) marks that surface `data-hover-driven`, which makes a reader's
+  150 ms dwell there take the stage over without a click (SPEC §7, STAGE_NEWS
+  law 33): the honest operation of such a term is the reader's own pointer, not
+  a spectator's view of the ghost's. `data-gaze` scopes are hover-driven
+  implicitly (looking is hovering). This is NOT for every demo: where hover
+  merely decorates a click (a button glow) or gates a control's reveal, the
+  default click/dwell-on-interactive rule stands, so a pointer passing across
+  the stage never hijacks the show. The stage mechanism shipped 2026-08-20;
+  dock-magnification is the first consumer.
+- Detector: detectors/hover-takeover.ts (recall-tuned: demo.ts with
+  pointermove/enter/over listeners, no pointerdown listener of its own, no
+  pressureHold/pinchSpread wiring, not already marked). At queue time: 26/887
+  flagged. Judge question per slug: is hovering alone this demo's interaction
+  (a visible, term-central response with no button held)? If yes, which element
+  is the hover surface (the element whose listener drives the response, usually
+  the container the moves are read from)?
+- Recipe: add `data-hover-driven` to the hover surface (the listening
+  container, not each hot child) and one doc-comment sentence saying hovering
+  is the term's interaction. No wiring changes: the stage's dwell does the
+  rest. Skip judged-decorative slugs and note them.
+- Verify: takeover + choreography passes over touched slugs (the attribute is
+  inert to the script); the hand on 4321 for a sample: hover the surface during
+  attract, confirm takeover within a beat without a click, confirm the response
+  follows the real pointer, leave and confirm attract resumes.

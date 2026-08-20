@@ -320,7 +320,10 @@ class VdStage extends HTMLElement {
     // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, a dwell on
     // an interactive element, or a gesture that actually scrolls the specimen. Merely
     // passing the pointer over the stage, or scrolling the page past it, never takes over.
-    const INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex]';
+    // A surface marked data-hover-driven declares hovering itself IS the interaction
+    // (a dock that bulges, a glow that follows), so a dwell there is intent too — and a
+    // gaze scope is hover-driven by definition, since looking is hovering (SPEC §7).
+    const INTERACTIVE = 'a[href], button, input, select, textarea, [tabindex], [data-hover-driven], [data-gaze]';
     let dwell: ReturnType<typeof setTimeout> | undefined;
     // Listened for inside the specimen, never on the canvas around it, because
     // neither isolation boundary lets these out. Shadow DOM prunes pointerover and

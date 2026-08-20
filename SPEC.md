@@ -328,7 +328,13 @@ any ── leaves viewport ──▶ paused; re-entering resumes
 
 - **User intent** (takeover): a click or tap anywhere in the specimen, keyboard focus
   entering it, a >150 ms hover on an interactive element, or a wheel/touch gesture
-  that actually scrolls specimen content. **The gesture that takes over is not spent
+  that actually scrolls specimen content. A demo whose term is *operated by hovering*
+  (a dock that bulges, a glow that follows the pointer) marks that surface
+  `data-hover-driven`: a dwell there is intent too, so the reader's own pointer takes
+  the stage without a click, which is the term's honest operation. A `data-gaze` scope
+  is hover-driven by definition — looking is hovering. The marking is for surfaces
+  where hovering alone is the interaction, never for demos where hover merely
+  decorates a click. **The gesture that takes over is not spent
   taking over**: state is handed to the user as it stands, and the click that woke a
   posed specimen still reaches the control it was aimed at. Waking is a thaw, never a
   remount, for exactly this reason. Merely passing the pointer over the stage,

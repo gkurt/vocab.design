@@ -44,8 +44,9 @@ const sizeAt = (distance: number) => BASE + PEAK * Math.exp(-((distance / SIGMA)
  * definition. The desktop behind it, the baseline guide and the readout are the scene.
  *
  * The bulge is computed from real `pointermove` events, so a reader who takes the stage over gets
- * it under their own pointer; the player's own pointer mirroring is left alone, since nothing here
- * repaints a hover. Distances are measured against the tiles' resting centres, which are arithmetic
+ * it under their own pointer; the scene carries `data-hover-driven` because hovering IS this term's
+ * whole interaction, so resting the pointer on the scene takes the stage over without a click. The
+ * player's own pointer mirroring is left alone, since nothing here repaints a hover. Distances are measured against the tiles' resting centres, which are arithmetic
  * from the layout rather than read back off the tiles: the tiles are the thing being resized, so
  * measuring them would feed last frame's bulge into this one. The dock is anchored to the bottom of
  * the scene and grows upward and outward from there, so a magnified row can move nothing above it
@@ -71,6 +72,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div
             data-part="scene"
+            data-hover-driven
             style="position: relative; width: ${SCENE.w}px; height: ${SCENE.h}px; border-radius: 8px; overflow: hidden;
                    background: linear-gradient(165deg, #2f3b63 0%, #4a5a92 52%, #7d6ba8 100%); touch-action: none"
           >

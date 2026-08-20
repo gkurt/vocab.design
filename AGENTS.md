@@ -164,7 +164,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   between hover targets (`buttons: 0`, never a drag; not under touch or reduced
   motion), so a demo whose term is continuous pointer response listens for moves on
   its container and reads coordinates; a move listener that should only act mid-press
-  gates on its own pointerdown state, never on merely receiving a move. A specimen sets the attribute itself only for a state shown with no pointer
+  gates on its own pointerdown state, never on merely receiving a move. A surface
+  operated by hovering alone (a dock that bulges, a glow that follows) also carries
+  `data-hover-driven`, which makes a reader's dwell there take the stage over without
+  a click (SPEC §7); gaze scopes have this implicitly. A specimen sets the attribute itself only for a state shown with no pointer
   on it (a states row, a posed comparison). Real focus is the exception that stays
   simulated (`data-sim-focus`, SPEC §7).
 - **Touch is a persona, not a costume** (SPEC §7-8). A surface marked `data-touch`
