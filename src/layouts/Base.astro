@@ -40,6 +40,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       >
       <nav class="flex items-center gap-5 text-sm text-muted">
         <a href={pageUrl("/")} class="hover:text-ink">Browse</a>
+        <a href={pageUrl("/tags")} class="hover:text-ink">Facets</a>
         <button
           data-theme-toggle
           class="cursor-pointer hover:text-ink"

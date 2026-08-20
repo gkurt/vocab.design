@@ -18,7 +18,7 @@ aliases:
   - name: netflix rows
     source: community
 relations:
-  contrastWith: [filmstrip, carousel, feed-layout]
+  contrastWith: [filmstrip, carousel, feed-layout, kanban-board]
 implementations: []
 sources:
   - title: "The Reel, Every Layout"
@@ -58,3 +58,9 @@ buttons or [pagination](/pagination) affordances so a mouse without a horizontal
 stuck. And the edge has to say there is more, through a partly visible next card, a fade, or an
 arrow, because a row that ends flush with its container reads as a row that ends. Scroll snap
 per item makes it feel deliberate; scroll snap per page makes it feel like a carousel again.
+
+A note on the borrowed name. "Swimlane" for a shelf comes from process diagrams, where a
+lane is a horizontal band holding everything one actor does, and that is the sense that
+fits here: one band, one category, running sideways. It gets used for the vertical column
+of a [kanban board](/kanban-board) at least as often, which is the opposite axis, so the
+word tells a reader almost nothing on its own. Shelf, row, or tray is unambiguous.

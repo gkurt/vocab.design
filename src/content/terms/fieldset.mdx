@@ -15,6 +15,7 @@ aliases:
     source: community
   - name: field set
     source: community
+tags: [forms]
 relations:
   contrastWith: [group-label, chart-legend, form, input-group]
   seeAlso: [box]
@@ -64,3 +65,8 @@ carries stubborn layout defaults (a `min-inline-size` of `min-content` that resi
 shrinking, and a legend positioned over the border), which is why so many teams reach for a
 `<div>` with a heading and lose the semantics to save a stylesheet fight. Reset the styles
 and keep the element: nothing else attaches a name to a set of controls the way it does.
+
+The word `legend` is spent twice in interface vocabulary, which is worth knowing before
+writing a ticket. Here it is a group's name in markup; on a [chart](/chart) it is the
+[key that decodes the series colours](/chart-legend), a separate component with separate
+problems. Neither sense is wrong, and neither is a good default reading.

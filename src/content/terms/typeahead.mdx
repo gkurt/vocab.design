@@ -19,6 +19,7 @@ aliases:
     source: community
   - name: suggest
     source: blueprint
+tags: [forms, search]
 relations:
   contrastWith: [combobox, inline-autocomplete, did-you-mean]
   seeAlso: [address-autocomplete, debounce]
@@ -68,3 +69,11 @@ the reader meant, so the suggestions are shortcuts and the typed phrase has to r
 submittable even when nothing matched. Getting this backwards produces the two familiar
 bugs: a search that refuses to look for an unusual word, and a form that accepts a
 misspelled city because the picker was only ever a hint.
+
+Bare "autocomplete" is best avoided for this, and this site files it as a name for the
+[combobox](/combobox) instead, following ARIA's own usage: the APG's autocomplete
+patterns are combobox patterns, and the component libraries that ship an Autocomplete
+ship a combobox with suggestions attached. Typeahead is the behaviour of suggesting while
+someone types, which a combobox may have and a plain search box may have too;
+[inline autocomplete](/inline-autocomplete) is the third sense, completing the word
+inside the field rather than listing candidates under it.

@@ -56,8 +56,9 @@ agent use.
 
 ```
 SPEC.md                     # Canonical design doc — read first
-src/lib/schema.ts           # Zod v4 term schema (single source of truth)
+src/lib/schema.ts           # Zod v4 term schema (single source of truth): CATEGORIES, TAGS, SYSTEMS
 src/lib/terms.ts            # getTerms() — the ONE way to read the collection (see gotcha below)
+src/lib/tags.ts             # facets(): the tag blurbs and their membership, derived not stored
 src/lib/slug.ts             # slugify for terms and aliases
 src/content/terms/          # One MDX file per term, frontmatter per schema
 src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
@@ -76,6 +77,7 @@ src/stage/surface.ts        #   the two isolation modes behind one shape; nothin
 src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
+src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
@@ -89,6 +91,16 @@ e2e/__artifacts__/          #   generated: identify stills + the contact sheet
 NOT apply Zod output transforms — defaults never materialize on `getCollection()`
 data. Always read terms via `getTerms()` from `#src/lib/terms.ts`, never
 `getCollection('terms')` directly.
+
+**Gotcha**: adding a field to `termSchema` while `bun run dev` is running poisons
+`.astro/data-store.json`. The content layer captures the collection schema at server
+start, so a term file edited afterwards is re-parsed with the OLD schema, Zod strips the
+new key, and the entry is saved with a FRESH digest. Restarting does not help: the
+digests match, so nothing re-parses, and the field reads as absent (or as its default)
+in dev while `bun run build` is perfectly correct. The tell is a page that renders
+zeroes or empty lists for the new field in dev only. Delete `.astro/data-store.json`
+and restart; `bun validate` and `bun run build` never see this because they parse the
+files themselves.
 
 **Gotcha**: a demo's timers must come from the `DemoClock` its `mount(root, clock)`
 is handed, never from the global scope. Identify's pose is the live specimen with
@@ -250,7 +262,17 @@ never fires under reduced motion, so nothing may ever wait on it.
   narrower element is the answer; `e2e/__snapshots__/<slug>-subject.txt` records
   which way each specimen went.
 - Term relations are validated for integrity and symmetry in CI; a relation to a
-  nonexistent term requires creating that term's stub in the same change.
+  nonexistent term requires creating that term's stub in the same change. `contrastWith`
+  answers a discrimination test (SPEC §2.3): an edge earns its place when someone
+  describing one term could reach for the other term's word, not when the two merely
+  look alike. Hubs stay at eight contrasts at most, or the Which word? table drowns.
+- **Tags are a closed enum, and they arrive complete** (SPEC §2.5). `bun validate` holds
+  every facet to 8+ members spanning 2+ categories, and every term to at most 4 tags.
+  A facet applied to 80% of its family is worse than no facet, so tagging a few terms
+  mid-round is not a partial contribution, it is a regression: grow the facet in one
+  pass over the whole family or leave it alone. Where the family name is itself
+  vocabulary (dark pattern, microinteraction) there is no tag: the head term's members
+  declare `variantOf` and its page derives the family.
 - **Two isolation modes, one shape.** `src/stage/surface.ts` is the only file that knows
   whether a specimen lives in a shadow root or in a document of its own; everything
   above it reads `Surface`. `demo: iframe` generates `/specimen/<slug>/`, which imports

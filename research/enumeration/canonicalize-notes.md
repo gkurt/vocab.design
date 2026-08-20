@@ -34,7 +34,8 @@ expandable-row (component), drag-preview, scroll-hijacking and scrollytelling
 
 Overshoot: the motion sense owns the slug. The typography sense (letterforms passing
 the baseline or cap line) gets a disambiguation sentence in the existing overshoot
-article at the relations pass, not its own term. [PROSE TODO]
+article at the relations pass, not its own term. DONE in the relations pass: the
+article closes with a paragraph handing the static sense to baseline and cap-height.
 
 ## RESOLVED: merge calls (2026-08-15)
 
@@ -79,8 +80,11 @@ collision map caught, left where they are: "flashbar" (callout), "undo snackbar"
 off-canvas trio (off-canvas). Deliberately NOT added: "tab list" to
 segmented-control (tabs territory), bare "menu" to dropdown, bare "anchor" to
 table-of-contents, "radio button" to radio-group, "tag picker" to combobox
-(tag-input territory), bare "autocomplete" to anything (contested between combobox
-and typeahead; decide at the relations pass, note only).
+(tag-input territory). Bare "autocomplete" was the one contested alias left to the
+relations pass, and it RESOLVED to combobox: ARIA's own autocomplete patterns are
+combobox patterns, and the libraries shipping an Autocomplete ship a combobox with
+suggestions. typeahead's article now says so and hands the third sense to
+inline-autocomplete.
 
 ## RESOLVED: pool entries retired as already-folded aliases (2026-08-18)
 
@@ -106,6 +110,15 @@ carrying three permanently unauthorable residues.
 
 ## Name collisions needing disambiguation prose (live, due when the second sense arrives)
 
+Handled in the relations pass, where both senses were already published: chart-legend
+vs fieldset's legend (both articles now carry the sentence), the three annotations
+(chart-annotation names the other two, and bare "annotation" stays unclaimed), thumb
+vs thumbnail (thumbnail hands the slider and scrollbar sense over, since it owns the
+"thumb" alias), swimlane (content-shelf explains the borrowed name and the axis it
+gets confused with). Still waiting on a second sense: spinner vs spinbutton (spinner
+is a stub), timeline (no media-editor term), gutter (no editor term), "ghost text"
+(no AI-completion term).
+
 thumb (slider) vs thumbnail; timeline (event list, authored) vs timeline (media
 editor); chevron/caret (component) vs caret (typography); gutter (grid) vs gutter
 (editor); spinner vs spinbutton; swimlane (horizontal band, constantly misused for
@@ -121,10 +134,15 @@ neubrutalism spelling, Memphis vs Corporate Memphis, Windows Aero vs Frutiger Ae
 authored). Round-two flag on "cover and contain" as a view-progress-timeline alias
 was checked and the record is RIGHT: cover/contain are view-timeline range names.
 
-## Contrast edges for the relations pass
+## Contrast edges for the relations pass (RESOLVED 2026-08-21)
 
-The keep-both decisions above, plus edges the sweeps proposed; feed these to the
-consolidated relations milestone as candidate contrastWith/seeAlso:
+All of the below are wired. The pass took every published term from 851-with-nothing
+to zero: about 3,300 stored edges, mean degree 3.2, authored family by family rather
+than term by term, with contrastWith held to the discrimination test and hubs capped
+at eight (combobox, the most name-contested control in the corpus). dark-pattern was
+implemented as the head term the category audit called for: seventeen deceptive
+patterns declare variantOf and its page derives the family, so nothing is stored
+twice. Kept as the record of what fed the pass:
 
 - honest/deceptive pairs: countdown-timer↔fake-urgency,
   scarcity-indicator↔fake-scarcity, smart-defaults↔preselected-opt-in,
@@ -141,7 +159,48 @@ consolidated relations milestone as candidate contrastWith/seeAlso:
   bento-grid/masonry↔card-grid + modular-grid + dashboard-grid,
   optimistic-ui↔offline-indicator, skeleton-screen↔layout-shift + aspect-ratio-box.
 
-## Tags for the relations pass
+## Tags for the relations pass (SHIPPED 2026-08-21)
+
+Shipped with the pass exactly as specified below: a closed `TAGS` enum in schema.ts
+beside CATEGORIES and SYSTEMS, blurbs in src/lib/tags.ts, gated by `bun validate`
+(8+ members, 2+ categories, at most 4 tags per term, none on stubs), with SPEC §2.5,
+the term page, /tags, /tags/{tag}, llms.txt and terms.json updated in the same change.
+
+The 23 that shipped, with member count and the number of categories each reaches:
+a11y 12/3, ai 11/4, auth 16/3, commerce 23/3, dataviz 24/6, editorial 26/5,
+forms 51/3, gamification 8/2, keyboard 28/3, media 26/6, messaging 20/4,
+navigation 31/5, onboarding 15/2, perceived-performance 20/5, platform-registers
+31/6, scroll 32/5, search 13/2, selection 14/6, tables 15/4, theming 21/3,
+tokens 22/4, touch 40/5, web-platform 41/7. 480 of the 1033 published terms carry at
+least one.
+
+Three arrived that the candidate list below had not named: `scroll` (everything
+downstream of a page being longer than a screen, the widest facet in the corpus after
+touch), `editorial` (the vocabulary the page inherited from print), and `selection`
+(marking what an action will apply to). `tables` stayed its own facet rather than
+folding into dataviz, since a table is not a chart and only two terms sit in both;
+`media` excludes messaging as the note asked; `auth` cleared the corollary with
+component and accessibility members, not just pattern; `deceptive` stayed out, as
+ruled, because dark-pattern carries that family through variantOf.
+
+Two of the 23 are knowingly interim. The category audit ruled GAMIFICATION and
+PERCEIVED PERFORMANCE head-term gaps (both are vocabulary worth a definition and a
+specimen), and the head-term rule says a tag must not exist where a head term does.
+Neither is in terms or in the pool, so `gamification` and `perceived-performance`
+ship as facets to hold the ground. When either is authored, retire its tag in the
+same change: the members declare `variantOf` the new head term instead, exactly as
+the seventeen deceptive patterns do for dark-pattern. Pool both before the next
+round that touches pattern.
+
+One discoverability decision came out of review: readers will hunt the facet list for
+the things that are deliberately NOT facets. `/tags` therefore ends with two more
+sections, both gated by `bun validate`: the four head terms whose families live on
+their own pages (dark-pattern, responsive-web-design, microinteraction, skeuomorphism,
+each shown with its family size derived from incoming edges, and none of them allowed
+to also be a tag), and the nine categories, linking to their groups on the front page.
+A reader searching that page for "dark pattern" or "component" now lands somewhere.
+
+The original framing, kept because the rules are the reusable part:
 
 Decided 2026-08-18: the site gets cross-cutting tags, but they arrive with the
 consolidated relations pass, not before, and never from round agents (same

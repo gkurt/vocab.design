@@ -10,8 +10,10 @@ aliases:
   - name: annotation layer
   - name: callout label
   - name: data annotation
+tags: [dataviz]
 relations:
   contrastWith: [chart-legend, direct-labeling]
+  partOf: [chart]
   seeAlso: [chartjunk]
 implementations: []
 sources:
@@ -45,6 +47,13 @@ printout or a screenshot, and survives being pasted into a slide, which is preci
 the single most important sentence about a chart belongs in an annotation rather than in a
 hover. The practical corollary: never put a finding only in a tooltip, and never put
 per-mark detail only in an annotation.
+
+Bare "annotation" is claimed by three unrelated things and is worth qualifying every
+time. This one is a note drawn on a chart. An
+[accessibility annotation](/accessibility-annotation) is a note on a design file,
+telling a developer what the mockup cannot show. A
+[ruby annotation](/ruby-annotation) is pronunciation set above a run of characters.
+Nothing but the word is shared.
 
 Keep the layer thin. Two or three notes on a plot read as emphasis; eight read as a second
 chart drawn on top of the first, and the marks stop being visible at all. Anchor each note

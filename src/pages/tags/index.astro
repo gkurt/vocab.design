@@ -1,0 +1,119 @@
+---
+import Base from '#src/layouts/Base.astro';
+import { CATEGORIES } from '#src/lib/schema.ts';
+import { facets, HEAD_TERMS } from '#src/lib/tags.ts';
+import { getTerms } from '#src/lib/terms.ts';
+import { pageUrl } from '#src/lib/url.ts';
+
+const terms = await getTerms();
+const all = facets(terms);
+const bySlug = new Map(terms.map((t) => [t.data.slug, t.data]));
+
+// The two things a reader will look for here and not find as a facet: the nine
+// categories, and the families a head term carries (SPEC §2.5). Both get a row.
+const categories = CATEGORIES.map((category) => ({
+  category,
+  count: terms.filter((t) => t.data.category === category && t.data.status !== 'stub').length,
+}));
+
+const heads = HEAD_TERMS.flatMap(({ slug, why }) => {
+  const term = bySlug.get(slug);
+  if (!term) return [];
+  const family = terms.filter(
+    (t) =>
+      t.data.relations.variantOf.includes(slug) || t.data.relations.contrastWith.includes(slug) || t.data.relations.seeAlso.includes(slug),
+  ).length;
+  return [{ slug, why, name: term.name, family }];
+});
+---
+
+<Base
+  title="Facets · vocab.design"
+  description="Cross-cutting facets of the vocabulary: the groupings that cut across categories, from dataviz and forms to touch and theming."
+>
+  <section class="pt-10 pb-10">
+    <h1 class="font-serif text-4xl font-semibold tracking-tight text-balance">
+      Facets
+    </h1>
+    <p class="article mt-5 text-muted">
+      Every term has exactly one category, because a term is one kind of thing.
+      Facets cut the other way: they collect terms that answer to the same
+      concern from wherever they are filed. Where the family name is itself
+      vocabulary, there is no facet and the term's own page carries the family.
+    </p>
+  </section>
+
+  <ul class="grid gap-2 pb-12">
+    {
+      all.map(({ tag, blurb, terms: members }) => (
+        <li>
+          <a
+            href={pageUrl(`/tags/${tag}`)}
+            class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
+          >
+            <span class="font-serif text-lg font-semibold group-hover:text-accent">
+              {tag}
+            </span>
+            <span class="ml-2 text-sm text-muted">{members.length} terms</span>
+            <p class="mt-1 text-sm text-muted">{blurb}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <section class="mb-12">
+    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">
+      Not a facet: a head term carries these
+    </h2>
+    <p class="article mb-4 text-sm text-muted">
+      Dark pattern, microinteraction and the rest are words in their own right,
+      with a definition and a specimen, so a facet would be a second copy of
+      something the term already says. The family lives on the term's page.
+    </p>
+    <ul class="grid gap-2">
+      {
+        heads.map(({ slug, name, why, family }) => (
+          <li>
+            <a
+              href={pageUrl(slug)}
+              class="group block rounded-lg border border-line border-dashed px-5 py-4 hover:border-accent"
+            >
+              <span class="font-serif text-lg font-semibold group-hover:text-accent">
+                {name}
+              </span>
+              <span class="ml-2 text-sm text-muted">{family} related terms</span>
+              <p class="mt-1 text-sm text-muted">{why}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mb-12">
+    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">
+      Not a facet: these are categories
+    </h2>
+    <p class="article mb-4 text-sm text-muted">
+      A category answers what kind of thing a term is, and every term has
+      exactly one, so a category is a filing decision rather than a concern that
+      cuts across. The whole collection is grouped by them on the front page.
+    </p>
+    <ul class="flex flex-wrap gap-2">
+      {
+        categories.map(({ category, count }) => (
+          <li>
+            <a
+              href={pageUrl(`/#${category}`)}
+              class="inline-block rounded-full border border-line px-3 py-1 text-sm text-muted hover:text-ink"
+            >
+              {category}
+              <span class="ml-1 opacity-60">{count}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

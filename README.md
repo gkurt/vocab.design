@@ -4,6 +4,12 @@ A linked visual dictionary of design and UI vocabulary: every term with a live
 specimen, its aliases, and the connections between them. Built on the observation that
 working with AI agents is mostly about knowing the vocabulary and using it correctly.
 
+Every term has one category (what kind of thing it is), any number of cross-cutting
+facets browsable at `/tags`, and a graph of relations: what it contrasts with, what it
+is a variant or part of, what to read next. The contrast edges answer a discrimination
+test rather than a similarity one, so a term's "Which word?" table lists the words a
+person might reach for instead of this one.
+
 [SPEC.md](SPEC.md) is the canonical design document: content model, the two design
 systems, the specimen stage and attract mode, and the content pipeline.
 

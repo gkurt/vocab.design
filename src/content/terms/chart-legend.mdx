@@ -9,8 +9,10 @@ definition: >-
 aliases:
   - name: chart key
   - name: series legend
+tags: [dataviz]
 relations:
   contrastWith: [direct-labeling, fieldset, chart-annotation]
+  partOf: [chart]
 implementations:
   - system: carbon
     name: Legends
@@ -63,3 +65,8 @@ ordered key instead of five repeated sets of names. Reach for labels first and k
 legend for the plots where labels will not fit; [Carbon's legend
 guidance](https://carbondesignsystem.com/data-visualization/legends/) treats it the same
 way, as apparatus to be earned rather than furniture to be added.
+
+One caution about the word. HTML spends `legend` on something else entirely: the first
+child of a [fieldset](/fieldset), which names a group of form controls and has nothing to
+do with colour. Say chart legend or key when the distinction matters, because a ticket
+asking for "a legend" has meant both.

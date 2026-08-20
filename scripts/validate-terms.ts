@@ -2,13 +2,15 @@ import { readdir } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { parse } from 'yaml';
 import * as z from 'zod/v4';
-import { type Term, termSchema } from '#src/lib/schema.ts';
+import { TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
 import { slugify } from '#src/lib/slug.ts';
+import { HEAD_TERMS } from '#src/lib/tags.ts';
 
 /**
  * Content gates (SPEC §11): schema validation, slug/alias uniqueness, relation
- * integrity + symmetry (stubs exempt), prose link resolution, stub minimality, demo file existence, the
- * things a specimen must carry before the e2e harness can judge it, and the
+ * integrity + symmetry (stubs exempt), tag membership floors, prose link resolution,
+ * stub minimality, demo file existence, the things a specimen must carry before the
+ * e2e harness can judge it, and the
  * stage-escape rules of SPEC §5-§7 (bare timers, pointer/modal/view-transition
  * escapes, transitionend waits, ungated script animation, invalid selectors).
  */
@@ -25,9 +27,18 @@ const VIEW_TRANSITION_CALL = /\.startViewTransition\s*(\(|\?\.)/;
 const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitionend\s*=/;
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
-/** Routes that are not terms: the index and the two machine-readable exports. */
-const SITE_ROUTES = new Set(['/', '/llms.txt', '/terms.json']);
-/** An internal link in prose. With `relations` held back for the graph pass, these ARE the graph. */
+/** Routes that are not terms: the index, the tag directory, and the two machine-readable exports. */
+const SITE_ROUTES = new Set(['/', '/tags', '/llms.txt', '/terms.json']);
+/**
+ * Top-level names the site spends on itself. Terms and aliases live at the root, so a
+ * term or alias slugifying to one of these would silently shadow a real route.
+ */
+const RESERVED = new Set(['tags', 'specimen', 'browse', 'glossary', 'search']);
+/** A tag facet earns its place by collecting this many terms; below it, it is noise (SPEC §2.5). */
+const TAG_FLOOR = 8;
+/** More than this on one term is tag soup: the chips stop discriminating anything (SPEC §2.5). */
+const TAGS_PER_TERM = 4;
+/** An internal link in prose. Prose links and `relations` are the two ways a reader crosses the graph. */
 const PROSE_LINK = /\]\((\/[^)\s]*)\)/g;
 /** A domain named in prose. Sites the prose points a reader at have to be anchors. */
 const BARE_DOMAIN = /\b[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:design|org|com|net|io|dev|app)\b/g;
@@ -87,8 +98,10 @@ for (const file of files) {
 
 const aliasOwners = new Map<string, string>();
 for (const term of terms.values()) {
+  if (RESERVED.has(term.slug)) errors.push(`${term.slug}: slug collides with a site route`);
   for (const alias of term.aliases) {
     const aliasSlug = slugify(alias.name);
+    if (RESERVED.has(aliasSlug)) errors.push(`${term.slug}: alias "${alias.name}" slugifies to "${aliasSlug}", a site route`);
     if (terms.has(aliasSlug)) errors.push(`${term.slug}: alias "${alias.name}" collides with the term "${aliasSlug}"`);
     const owner = aliasOwners.get(aliasSlug);
     if (owner) errors.push(`${term.slug}: alias "${alias.name}" already claimed by "${owner}"`);
@@ -97,15 +110,19 @@ for (const term of terms.values()) {
 }
 
 /**
- * Prose links resolve (SPEC §2.3). `relations` is held empty until the consolidated
- * graph pass, so the cross-references a reader can actually follow live in prose, and
- * nothing else checks them: these are plain markdown links, not collection references,
- * so a typo builds clean and ships as a 404. Aliases count, since `[slug].astro`
- * redirects them. Runs after the alias map so a link to an alias is not a false alarm.
+ * Prose links resolve (SPEC §2.3). Nothing else checks them: these are plain markdown
+ * links, not collection references, so a typo builds clean and ships as a 404. Aliases
+ * count, since `[slug].astro` redirects them, and so do tag pages. Runs after the alias
+ * map so a link to an alias is not a false alarm.
  */
 for (const [file, body] of bodies) {
   for (const target of proseLinks(body)) {
     if (SITE_ROUTES.has(target)) continue;
+    const tag = target.match(/^\/tags\/([a-z0-9-]+)\/?$/)?.[1];
+    if (tag) {
+      if (!(TAGS as readonly string[]).includes(tag)) errors.push(`${file}: prose links to "${target}", which is not a tag (SPEC §2.5)`);
+      continue;
+    }
     const slug = target.replace(/^\//, '').replace(/\/$/, '');
     if (terms.has(slug) || aliasOwners.has(slug)) continue;
     errors.push(`${file}: prose links to "${target}", which is not a term, an alias, or a site route (SPEC §2.3)`);
@@ -131,9 +148,13 @@ for (const term of terms.values()) {
 
   if (term.status === 'stub') {
     const hasRelations = Object.values(term.relations).some((r) => r.length > 0);
-    if (hasRelations || term.implementations.length > 0 || term.demo !== 'none')
+    if (hasRelations || term.tags.length > 0 || term.implementations.length > 0 || term.demo !== 'none')
       errors.push(`${term.slug}: stubs carry only name/slug/category/definition (SPEC §2.3)`);
   }
+
+  if (term.tags.length > TAGS_PER_TERM)
+    errors.push(`${term.slug}: ${term.tags.length} tags is soup, keep it to ${TAGS_PER_TERM} (SPEC §2.5)`);
+  if (new Set(term.tags).size !== term.tags.length) errors.push(`${term.slug}: repeats a tag`);
 
   if (term.demo !== 'none') {
     for (const piece of ['demo.ts', 'choreography.ts']) {
@@ -180,6 +201,36 @@ for (const term of terms.values()) {
   }
 }
 
+/**
+ * Tag facets (SPEC §2.5). A tag that collects too few terms is noise, and one whose
+ * members all sit in a single category is a subcategory wearing a tag's clothes: the
+ * cross-cutting reach is the whole reason a tag exists rather than a tenth category.
+ */
+const tagMembers = new Map<Tag, Term[]>(TAGS.map((tag) => [tag, []]));
+for (const term of terms.values()) for (const tag of term.tags) tagMembers.get(tag)?.push(term);
+for (const [tag, members] of tagMembers) {
+  if (members.length < TAG_FLOOR) errors.push(`tag "${tag}": ${members.length} members, needs ${TAG_FLOOR} (SPEC §2.5)`);
+  const categories = new Set(members.map((t) => t.category));
+  if (members.length > 0 && categories.size < 2)
+    errors.push(`tag "${tag}": every member is a ${[...categories][0]}, which makes it a subcategory (SPEC §2.5)`);
+}
+
+/**
+ * Head terms (SPEC §2.5). /tags lists them so a reader hunting the facet list for
+ * "dark pattern" is handed the term, which only works while each one is a real
+ * published page and is not also a tag: a family carried twice is the thing the
+ * head-term rule exists to prevent.
+ */
+for (const { slug } of HEAD_TERMS) {
+  const term = terms.get(slug);
+  if (!term) {
+    errors.push(`head term "${slug}" in src/lib/tags.ts has no entry (SPEC §2.5)`);
+    continue;
+  }
+  if (term.status === 'stub') errors.push(`head term "${slug}" is a stub; /tags points readers at it (SPEC §2.5)`);
+  if ((TAGS as readonly string[]).includes(slug)) errors.push(`"${slug}" is both a head term and a tag; pick one (SPEC §2.5)`);
+}
+
 if (errors.length > 0) {
   console.error(`✗ ${errors.length} content error(s):\n${errors.map((e) => `  - ${e}`).join('\n')}`);
   process.exit(1);
@@ -187,3 +238,4 @@ if (errors.length > 0) {
 console.log(
   `✓ ${terms.size} terms valid (${[...terms.values()].filter((t) => t.status !== 'stub').length} published/draft, ${[...terms.values()].filter((t) => t.status === 'stub').length} stubs)`,
 );
+console.log(`✓ ${TAGS.length} tags valid (${[...terms.values()].filter((t) => t.tags.length > 0).length} terms tagged)`);

@@ -68,6 +68,7 @@ const jsonLd = {
   name: d.name,
   alternateName: d.aliases.map((a) => a.name),
   description: d.definition,
+  keywords: d.tags,
   url: canonicalUrl,
   inDefinedTermSet: {
     '@type': 'DefinedTermSet',
@@ -108,7 +109,20 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
         set:html={JSON.stringify(jsonLd)}
       />
       <article>
-        <p class="text-sm text-muted italic">{d.category}</p>
+        <p class="text-sm text-muted italic">
+          {d.category}
+          {d.tags.map((tag) => (
+            <>
+              {" · "}
+              <a
+                href={pageUrl(`/tags/${tag}`)}
+                class="not-italic hover:text-ink"
+              >
+                {tag}
+              </a>
+            </>
+          ))}
+        </p>
         <h1 class="mt-1 font-serif text-5xl font-semibold tracking-tight">
           {d.name}
         </h1>

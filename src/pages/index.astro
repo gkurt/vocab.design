@@ -27,12 +27,23 @@ const byCategory = CATEGORIES.map((category) => ({
       agents is mostly about knowing the vocabulary; here is where you learn to
       say exactly what you mean.
     </p>
+    <p class="article mt-4 text-sm text-muted">
+      Grouped by category below. For the groupings that cut across categories,
+      dataviz, forms, touch and twenty more, see
+      <a
+        href={pageUrl("/tags")}
+        class="text-accent underline underline-offset-3">the facets</a
+      >.
+    </p>
   </section>
 
   {
     byCategory.map(({ category, terms: group }) => (
       <section class="mb-12">
-        <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">
+        <h2
+          id={category}
+          class="mb-4 scroll-mt-6 text-sm tracking-wide text-muted uppercase"
+        >
           {category}
         </h2>
         <ul class="grid gap-2">

@@ -54,6 +54,7 @@ definition: >-                   # the dictionary line, ≤ 200 chars, one sente
 aliases:
   - name: snackbar
     source: material             # optional: which vocabulary uses this name
+tags: [messaging]                # cross-cutting facets, closed enum, see §2.5
 relations:
   contrastWith: [tooltip, banner, alert-dialog]   # symmetric, CI-enforced
   variantOf: []                                   # directed: this is a variant of X
@@ -74,8 +75,9 @@ useWhen: >-                      # the situation this word is for; powers "Which
 ### 2.2 Categories
 
 `component` · `layout` · `pattern` · `interaction` · `motion` · `typography` · `color`
-· `aesthetic` · `accessibility`. One category per term; cross-cutting membership is
-expressed through relations, not multiple categories.
+· `aesthetic` · `accessibility`. One category per term: a term is one kind of thing.
+Cross-cutting membership is expressed through relations and tags (§2.5), never
+through a second category.
 
 ### 2.3 Relations and the stub policy
 
@@ -86,10 +88,10 @@ internal links never 404 and every named concept is searchable from day one. Wri
 relation to a term that doesn't exist yet means creating its stub in the same change.
 
 Prose links are held to the same promise. `bun validate` rejects a markdown link to an
-internal path that is neither a term slug, an alias slug (which redirects), nor one of the
-site's own routes. This matters most while `relations` is deliberately empty pending the
-consolidated graph pass: the cross-references a reader can actually follow are the ones
-written in article prose, and they are plain markdown, so a typo builds clean and ships a 404.
+internal path that is neither a term slug, an alias slug (which redirects), a tag facet,
+nor one of the site's own routes. Prose links and `relations` are the two ways a reader
+crosses the graph, and only one of them is schema-checked: a prose link is plain markdown,
+so a typo builds clean and ships a 404 unless the gate catches it.
 
 `contrastWith` is held to a discrimination test: an edge earns its place when a person
 describing one term could plausibly reach for the other term's word, not when the
@@ -119,6 +121,46 @@ must (enforced by `bun validate`).
   write `[deceptive.design](https://www.deceptive.design)`. Bare domains and raw
   URLs in article prose are rejected by `bun validate` (code spans exempt).
 
+### 2.5 Tags (cross-cutting facets)
+
+`tags` is a closed enum in `src/lib/schema.ts` beside `CATEGORIES`, with one blurb per
+tag in `src/lib/tags.ts`. A category answers *what kind of thing is this*, and a term
+has exactly one; a facet answers *what concern does this serve*, and a term may have
+several. Facets are browsable at `/tags` and one page each at `/tags/{tag}`.
+
+`/tags` also lists what is deliberately not a facet, because that is what a reader
+will search it for: the head terms whose families live on their own pages, and the
+nine categories. `src/lib/tags.ts` names the head terms and `bun validate` holds each
+to being a real published term that is not also a tag.
+
+Three rules keep the vocabulary from inflating, all gated by `bun validate`:
+
+- **A facet collects at least 8 terms.** Below that it is a note, not a grouping.
+- **A facet spans more than one category.** One whose members all sit in a single
+  category is a subcategory wearing a tag's clothes, and the whole reason tags exist
+  rather than a tenth category is the cross-cutting reach.
+- **At most 4 tags on a term**, and stubs carry none (§2.3). More than four and the
+  chips stop discriminating anything.
+
+**The head-term rule.** If the family name is itself vocabulary, something worth a
+definition and a specimen (dark pattern, microinteraction, skeuomorphism, responsive
+web design), it is a HEAD TERM and relations carry the family: members declare
+`variantOf` and the head term's page derives the list. A tag is only for a
+reader-facing concern with no definition of its own. Corollary: a facet applied to
+80% of its family is worse than no facet, so a tag arrives complete or not at all.
+That is why tags could not come from per-round authoring agents and waited for the
+consolidated relations pass.
+
+A facet may stand in for a head term that does not exist yet (`gamification`,
+`perceived-performance`), which is a debt rather than a design: when the head term is
+authored, its members move to `variantOf` and the tag retires in the same change.
+
+**The accessibility filing rule.** Accessibility is the one topical category among
+kind-categories, kept deliberately. A term that exists BECAUSE of accessibility files
+under `accessibility`; a term that merely affects it files under its kind and carries
+the `a11y` tag. The tag therefore collects the ones that would otherwise be missed,
+not the category's own members.
+
 ## 3. Site architecture
 
 - **Astro 6** static site, content collections over `src/content/terms/`.
@@ -135,6 +177,7 @@ must (enforced by `bun validate`).
 - `/{slug}` — term page, top level (`vocab.design/bento-grid`).
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".
+- `/tags` (the facet directory) · `/tags/{tag}` (one facet, grouped by category).
 - `/browse` (all, grouped by category) · `/{category}` · `/glossary` (A–Z) · `/search`.
 
 ## 4. Chrome design system
@@ -667,7 +710,7 @@ Agent-driven, human-reviewed, in four stages:
    the mechanical gates.
 
 **CI gates on every PR**: Zod schema validation · relation integrity + symmetry +
-stub existence · choreography execution with asserts · demo subject marking
+stub existence · tag membership floors and cross-category reach · choreography execution with asserts · demo subject marking
 (`data-subject`) · no global timers in a demo · identify subject snapshots ·
 takeover reaching the posed specimen · Biome · typecheck · build.
 The identify contact sheet is uploaded on every run. Pipeline entry points live in

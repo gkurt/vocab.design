@@ -188,7 +188,12 @@ bugs in "complete" specimens every time). The verify agent then gates the whole 
 Tell the user: terms count before/after (from `bun validate`'s summary), e2e check
 count, behavioral failures found and how they were fixed (each is a candidate new
 law for STAGE_NEWS), notable agent decisions (subject choices, dropped aliases,
-deviations from briefs), and the remaining pool size. Remind about standing
-deferred work if it has grown: the consolidated relations pass runs once, after
-the pool is exhausted (see research/enumeration/canonicalize-notes.md, section
-"Contrast edges for the relations pass").
+deviations from briefs), and the remaining pool size.
+
+The consolidated relations pass has run (2026-08-21), so a new term no longer ships
+with empty `relations`: author its edges in the round, against the discrimination
+test in SPEC §2.3, and give a term whose family already has a head term a `variantOf`
+rather than a new contrast. Tags are the opposite rule and still hold: a facet
+arrives complete or not at all (SPEC §2.5), so leave `tags` empty unless the round
+covers a whole facet, and record the candidates in
+research/enumeration/canonicalize-notes.md instead.
