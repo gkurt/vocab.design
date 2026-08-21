@@ -33,6 +33,24 @@ export async function getStaticPaths() {
 const { category, terms, reach } = Astro.props;
 const others = CATEGORIES.filter((c) => c !== category);
 
+/**
+ * The category page as what it is: a named set with these terms in it, rather than a page
+ * that happens to carry links. Machine readers are a stated audience (SPEC §10), and the
+ * members are spelled out because a set with no members is a claim with no content. It
+ * is names and links only, which keeps the largest category page under 30KB gzipped.
+ */
+const termSet = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: `${category} terms`,
+  description: CATEGORY_BLURBS[category],
+  url: absoluteUrl(`/browse/${category}`),
+  inDefinedTermSet: { '@type': 'DefinedTermSet', name: 'vocab.design', url: absoluteUrl('/') },
+  // Names and links only. The definitions are already on the page and in each term's own
+  // DefinedTerm markup, and repeating them here would double the page for nothing.
+  hasDefinedTerm: terms.map((t) => ({ '@type': 'DefinedTerm', name: t.data.name, url: absoluteUrl(t.data.slug) })),
+};
+
 const breadcrumbs = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -48,6 +66,11 @@ const breadcrumbs = {
   title={`${category} · vocab.design`}
   description={`${terms.length} ${category} terms. ${CATEGORY_BLURBS[category]}`}
 >
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(termSet)}
+  />
   <script
     slot="head"
     type="application/ld+json"
