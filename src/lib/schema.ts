@@ -51,6 +51,19 @@ export const TAGS = [
 
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'must be a kebab-case slug');
 
+/**
+ * A frontmatter day, which arrives spelled three different ways: the YAML parser hands
+ * over a `Date`, the content-layer store round-trips that through JSON and hands back an
+ * ISO string, and a `Date` built inside Vite's SSR realm fails `instanceof Date` in ours
+ * (`expected date, received Date`). So the value is rebuilt from whatever turned up
+ * rather than type-checked in place, and only a genuinely unreadable one fails.
+ */
+const day = z.preprocess((value) => {
+  if (value === null || value === undefined) return value;
+  const date = new Date(value as string | number | Date);
+  return Number.isNaN(date.getTime()) ? value : date;
+}, z.date());
+
 const relationsSchema = z.object({
   contrastWith: z.array(slug).default([]),
   variantOf: z.array(slug).default([]),
@@ -69,8 +82,8 @@ export const termSchema = z.object({
    * squashed history would silently rewrite the record. The feed orders by `created`,
    * the sitemap's `lastmod` is `modified`, so getting `modified` wrong costs a recrawl.
    */
-  created: z.coerce.date(),
-  modified: z.coerce.date(),
+  created: day,
+  modified: day,
   definition: z.string().min(1).max(200),
   aliases: z.array(z.object({ name: z.string().min(1), source: z.string().optional() })).default([]),
   tags: z.array(z.enum(TAGS)).default([]),
