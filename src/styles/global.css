@@ -66,3 +66,24 @@ body {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* Search hits. Pagefind wraps each match in <mark>, whose browser default is a solid
+   yellow that shouts over the excerpt it is meant to help you read. A faint wash of the
+   accent, with the text left at its own colour, marks the hit without becoming the
+   thing you see first. Both schemes derive from --vd-accent, so the toggle carries it. */
+[data-search-results] mark {
+  background: color-mix(in oklab, var(--vd-accent) 14%, transparent);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+:root[data-theme="dark"] [data-search-results] mark {
+  background: color-mix(in oklab, var(--vd-accent) 22%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-search-results] mark {
+    background: color-mix(in oklab, var(--vd-accent) 22%, transparent);
+  }
+}

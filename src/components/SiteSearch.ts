@@ -135,9 +135,10 @@ export class SiteSearch extends HTMLElement {
     try {
       api = await this.#pagefind();
     } catch {
-      // The index only exists after a production build, so this is the normal state
-      // under `bun run dev`. Say which, rather than reporting a broken search.
-      this.#say('Search needs a built index. Run `bun run build`, then serve dist.');
+      // The index is a build artifact, so a fresh clone has none and dev serves it from
+      // the last build (see src/integrations/pagefind-dev.ts). Name the fix rather than
+      // reporting a broken search.
+      this.#say('No search index yet. Run `bun run build` once, then reload.');
       return;
     }
     const attempt = await this.#searchWithSalvage(api, query);

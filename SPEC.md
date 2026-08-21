@@ -191,7 +191,9 @@ not the category's own members.
 - `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
   that letter, aliases shown resolving to their term; the non-alphabetic bucket is
   `/glossary/other`).
-- `/search` (Pagefind, the one page on the site that needs JavaScript).
+- `/search` (Pagefind, the one page on the site that needs JavaScript). It works in dev
+  too, against the last build's index, which a dev-only integration serves out of
+  `dist/pagefind/`.
 
 Only term pages are indexed. `data-pagefind-body` on the term article is what does it:
 marking a body anywhere makes Pagefind index only marked pages, so the alias redirects,

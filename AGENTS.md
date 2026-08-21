@@ -97,6 +97,7 @@ src/pages/browse/           #   /browse (names by category) + /browse/[category]
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the only page that needs JS (Pagefind, built post-Astro)
 src/components/SiteSearch.ts #  <vd-search>: fetches dist/pagefind/ at runtime, never at build time
+src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro dev` (dev only)
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
@@ -105,6 +106,13 @@ e2e/harness.ts              #   specimen discovery, stage helpers, subject descr
 e2e/__snapshots__/          #   committed: what each specimen identifies as
 e2e/__artifacts__/          #   generated: identify stills + the contact sheet
 ```
+
+`/search` works under `bun run dev`, against the index from the last `bun run build`:
+`src/integrations/pagefind-dev.ts` serves `dist/pagefind/` at `/pagefind/*` in dev only.
+So dev search is real but as stale as the last build, which matters when you have just
+edited a term and it is still findable at its old text. Rebuild to refresh; the middleware
+resolves per request, so a build finishing while dev runs is picked up without a restart.
+A fresh clone has no index at all and `/search` says so.
 
 **Gotcha**: Pagefind's index does not exist at Astro build time, so `<vd-search>` must
 reach it through a dynamic `import()` of a computed specifier marked `/* @vite-ignore */`.
