@@ -6,7 +6,9 @@ working with AI agents is mostly about knowing the vocabulary and using it corre
 
 Every term has one category (what kind of thing it is), any number of cross-cutting
 facets browsable at `/tags`, and a graph of relations: what it contrasts with, what it
-is a variant or part of, what to read next. The contrast edges answer a discrimination
+is a variant or part of, what to read next. There are three ways in: `/browse` for the
+whole vocabulary by category, `/glossary` for every name and alias A to Z, and `/tags`
+for the facets that cut across categories. The contrast edges answer a discrimination
 test rather than a similarity one, so a term's "Which word?" table lists the words a
 person might reach for instead of this one.
 

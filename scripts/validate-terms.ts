@@ -2,7 +2,7 @@ import { readdir } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { parse } from 'yaml';
 import * as z from 'zod/v4';
-import { TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
+import { CATEGORIES, TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
 import { slugify } from '#src/lib/slug.ts';
 import { HEAD_TERMS } from '#src/lib/tags.ts';
 
@@ -28,7 +28,7 @@ const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitio
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
 /** Routes that are not terms: the index, the tag directory, and the two machine-readable exports. */
-const SITE_ROUTES = new Set(['/', '/tags', '/llms.txt', '/terms.json']);
+const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/tags', '/llms.txt', '/terms.json']);
 /**
  * Top-level names the site spends on itself. Terms and aliases live at the root, so a
  * term or alias slugifying to one of these would silently shadow a real route.
@@ -123,6 +123,14 @@ for (const [file, body] of bodies) {
       if (!(TAGS as readonly string[]).includes(tag)) errors.push(`${file}: prose links to "${target}", which is not a tag (SPEC §2.5)`);
       continue;
     }
+    const browsed = target.match(/^\/browse\/([a-z-]+)\/?$/)?.[1];
+    if (browsed) {
+      if (!(CATEGORIES as readonly string[]).includes(browsed))
+        errors.push(`${file}: prose links to "${target}", which is not a category (SPEC §2.2)`);
+      continue;
+    }
+    // The glossary is sliced by first letter, with everything non-alphabetic at /other.
+    if (/^\/glossary\/([a-z]|other)\/?$/.test(target)) continue;
     const slug = target.replace(/^\//, '').replace(/\/$/, '');
     if (terms.has(slug) || aliasOwners.has(slug)) continue;
     errors.push(`${file}: prose links to "${target}", which is not a term, an alias, or a site route (SPEC §2.3)`);

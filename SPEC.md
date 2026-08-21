@@ -186,7 +186,20 @@ not the category's own members.
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".
 - `/tags` (the facet directory) · `/tags/{tag}` (one facet, grouped by category).
-- `/browse` (all, grouped by category) · `/{category}` · `/glossary` (A–Z) · `/search`.
+- `/browse` (all terms by category, names only) · `/browse/{category}` (that category,
+  with definitions, plus the facets it reaches into).
+- `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
+  that letter, aliases shown resolving to their term; the non-alphabetic bucket is
+  `/glossary/other`).
+- `/search`.
+
+Categories live under `/browse/` rather than at the top level, which is a deliberate
+departure from an earlier draft of this section. Terms own the root namespace, so a
+category page at `/{category}` competes with it: `/aesthetic` is already an alias of
+`vaporwave`, and `color`, `motion`, `pattern` and `layout` are all plausible future term
+names that would silently shadow a category route. Two dynamic routes at the root would
+also collide in Astro. The glossary is sliced by letter for size: 1,057 terms plus 3,866
+aliases is 4,923 entries, which is a 440KB page as one list.
 
 ## 4. Chrome design system
 

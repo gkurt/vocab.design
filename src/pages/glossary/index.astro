@@ -1,0 +1,58 @@
+---
+import Base from '#src/layouts/Base.astro';
+import { byLetter, glossaryEntries, LETTERS, letterParam } from '#src/lib/glossary.ts';
+import { getTerms } from '#src/lib/terms.ts';
+import { pageUrl } from '#src/lib/url.ts';
+
+const entries = glossaryEntries(await getTerms());
+const groups = byLetter(entries);
+const letters = LETTERS.map((letter) => ({ letter, count: groups.get(letter)?.length ?? 0 })).filter((l) => l.count > 0);
+const aliasCount = entries.filter((e) => e.canonical).length;
+---
+
+<Base
+  title="Glossary · vocab.design"
+  description={`Every name in the dictionary, A to Z: ${entries.length - aliasCount} terms and ${aliasCount} aliases, each one a spelling the site answers to.`}
+>
+  <section class="pt-10 pb-8">
+    <h1 class="font-serif text-4xl font-semibold tracking-tight text-balance">
+      Glossary
+    </h1>
+    <p class="article mt-5 text-muted">
+      Every name the dictionary answers to, alphabetically: {
+        entries.length - aliasCount
+      } terms and {aliasCount} aliases. An alias is not a footnote here, it is the
+      spelling most people arrive with, so each one is listed under its own letter
+      and takes you to the term it names.
+    </p>
+    <p class="article mt-4 text-sm text-muted">
+      Looking for a kind of thing rather than a name? Try{" "}
+      <a
+        href={pageUrl("/browse")}
+        class="text-accent underline underline-offset-3">browsing by category</a
+      >{" "}or{" "}
+      <a
+        href={pageUrl("/tags")}
+        class="text-accent underline underline-offset-3">the facets</a
+      >.
+    </p>
+  </section>
+
+  <ul class="grid grid-cols-4 gap-2 pb-12 sm:grid-cols-6">
+    {
+      letters.map(({ letter, count }) => (
+        <li>
+          <a
+            href={pageUrl(`/glossary/${letterParam(letter)}`)}
+            class="group block rounded-lg border border-line bg-surface px-3 py-3 text-center hover:border-accent"
+          >
+            <span class="font-serif text-xl font-semibold uppercase group-hover:text-accent">
+              {letter}
+            </span>
+            <span class="mt-0.5 block text-xs text-muted">{count}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

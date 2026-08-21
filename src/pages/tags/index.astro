@@ -98,14 +98,14 @@ const heads = HEAD_TERMS.flatMap(({ slug, why }) => {
     <p class="article mb-4 text-sm text-muted">
       A category answers what kind of thing a term is, and every term has
       exactly one, so a category is a filing decision rather than a concern that
-      cuts across. The whole collection is grouped by them on the front page.
+      cuts across. Each one has its own page under browse.
     </p>
     <ul class="flex flex-wrap gap-2">
       {
         categories.map(({ category, count }) => (
           <li>
             <a
-              href={pageUrl(`/#${category}`)}
+              href={pageUrl(`/browse/${category}`)}
               class="inline-block rounded-full border border-line px-3 py-1 text-sm text-muted hover:text-ink"
             >
               {category}

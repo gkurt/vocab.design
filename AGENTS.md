@@ -22,14 +22,20 @@ bun run fix        # Lint + format + autofix
 bun run checks     # Everything: check + typecheck + test + validate + test:e2e
 ```
 
-`bun run test:e2e` needs a browser once: `bunx playwright install chromium`. It builds
-the site and previews it on 4322, so it never collides with `bun run dev`. Run
-`bun run test:e2e:update` after a deliberate change to what a specimen identifies as,
-and read the diff in `e2e/__snapshots__/` before committing it. After authoring new
-specimens, run `bun run test:e2e:new` first: it plays only the demos that have no
-committed subject snapshot yet (writing those snapshots on its first run), so
-behavioral failures surface in minutes instead of a full-collection pass; the full
-`bun run test:e2e` then runs once, before the commit.
+**CI owns the e2e suite; do not run it locally unless asked.** The full pass is roughly
+45 minutes over 1,057 specimens, and `.github/workflows/ci.yml` already runs
+`bun run test:e2e` on every push, so a local run blocks the session to learn what the
+push learns anyway. Commit on the static gates: `bun validate`, `bun typecheck`,
+`bun check`, `bun run test`. Review what a new specimen identifies as by READING
+`e2e/__snapshots__/<slug>-subject.txt`, which costs nothing.
+
+The one case that genuinely needs a local run is a brand-new specimen, because its
+subject snapshot does not exist until a run writes it: `bun run test:e2e:new` plays only
+those and takes a couple of minutes. Ask before starting it rather than assuming.
+`bun run test:e2e:update` rewrites snapshots after a deliberate change to what a specimen
+identifies as; read the diff before committing it. Either needs a browser once:
+`bunx playwright install chromium`. Both build the site and preview it on 4322, so they
+never collide with `bun run dev`.
 
 One environment trap bites agents only. Astro 7.2 force-backgrounds `astro preview`
 when the am-i-vibing package detects an agentic environment: the server forks off,
@@ -59,6 +65,8 @@ SPEC.md                     # Canonical design doc — read first
 src/lib/schema.ts           # Zod v4 term schema (single source of truth): CATEGORIES, TAGS, SYSTEMS
 src/lib/terms.ts            # getTerms() — the ONE way to read the collection (see gotcha below)
 src/lib/tags.ts             # facets(): the tag blurbs and their membership, derived not stored
+src/lib/categories.ts       # one blurb per category, for the browse pages
+src/lib/glossary.ts         # the A-Z entry list: every term AND every alias, sliced by letter
 src/lib/slug.ts             # slugify for terms and aliases
 src/content/terms/          # One MDX file per term, frontmatter per schema
 src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
@@ -78,6 +86,8 @@ src/stage/frame.ts          #   what a `demo: iframe` specimen document publishe
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
+src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
+src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen

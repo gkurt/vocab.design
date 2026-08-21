@@ -39,8 +39,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         class="font-serif text-lg font-semibold tracking-tight">vocab.design</a
       >
       <nav class="flex items-center gap-5 text-sm text-muted">
-        <a href={pageUrl("/")} class="hover:text-ink">Browse</a>
+        <a href={pageUrl("/browse")} class="hover:text-ink">Browse</a>
         <a href={pageUrl("/tags")} class="hover:text-ink">Facets</a>
+        <a href={pageUrl("/glossary")} class="hover:text-ink">A&ndash;Z</a>
         <button
           data-theme-toggle
           class="cursor-pointer hover:text-ink"
