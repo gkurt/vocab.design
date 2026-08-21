@@ -786,6 +786,11 @@ A build that carries an ID measures wherever it is served, localhost included, w
 the wiring gets checked before a deploy. Those hits carry `debug_mode`, so they arrive in
 DebugView labelled as a test rather than looking like traffic.
 
+The reading of it is a script rather than a dashboard, because GA4 exposes no API for its
+own Explorations, report collections or dashboards, and a report nobody can diff is a report
+nobody maintains. `bun run analytics` asks the whole list through the Data API and prints
+it, which also means the questions themselves are reviewable in a pull request.
+
 Two honest limits. `names_result` is false for an alias hit ("snackbar" finds Toast, whose
 headword does not contain it), so read it as a lead rather than a failure. And Pagefind
 matches loosely enough that a true zero is rare, which makes `search_abandoned` and a deep

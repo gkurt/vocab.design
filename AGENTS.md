@@ -165,9 +165,23 @@ Setting the variable IS opting in, so there is nothing else to switch on. Hits f
 localhost carry `debug_mode`, which puts them in GA's DebugView labelled as a test rather
 than as traffic. The reader's own refusals (GPC, Do Not Track) are never waivable.
 
+The report itself is code, not a console: `bun run analytics` (`scripts/analytics-report.ts`)
+asks the twelve questions that matter through the Data API and prints them. `--now` reads
+realtime, which is how you check that wiring works at all; a bare number of days changes
+the window; `--json` for piping. Auth is the `vocab-analytics` service account impersonated
+through your own `gcloud auth application-default login`, so no key file exists anywhere.
+GA4 has no API for dashboards, Explorations or report collections, so anything built in the
+console cannot be reviewed or diffed: put questions worth keeping in the script.
+
 **Gotcha**: a new event parameter is invisible in the GA UI until it is registered as a
 custom dimension (Admin > Custom definitions). The data is collected either way, so a
 missing report is a settings problem, not a code one.
+
+**Gotcha**: the realtime API is a different schema, not a different date range: it does not
+know `customEvent:` dimensions at all, only built-ins like `eventName`. And the core
+reporting API lags by hours (a freshly registered custom dimension, by up to two days), so
+"no rows" right after firing an event is processing, not a broken query. Realtime is the
+only immediate check.
 
 **Gotcha**: `gtag.js` hijacks `dataLayer.push` once it loads, so reading `window.dataLayer`
 is NOT a reliable way to see what was sent. Verify by replacing `window.gtag` with a
