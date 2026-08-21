@@ -97,7 +97,18 @@ const breadcrumbs = {
   ],
 };
 
-const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')})` : '';
+/**
+ * Google shows roughly 60 characters and rewrites a title it cannot fit, so this spends
+ * the room on the headword and the category and buys ONE alias with whatever is left.
+ * Listing all of them ran to about 100 characters and bought nothing: the aliases are in
+ * the "also called" line, in `alternateName`, and in the article, which is where an alias
+ * query matches from in the first place.
+ */
+const TITLE_ROOM = 60;
+const plain = `${d.name} · ${d.category} · vocab.design`;
+const first = d.aliases[0]?.name;
+const withAlias = first ? `${d.name} (${first}) · ${d.category} · vocab.design` : plain;
+const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
 ---
 
 {
@@ -127,7 +138,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
     </html>
   ) : (
     <Base
-      title={`${d.name}${aka} · ${d.category} · vocab.design`}
+      title={title}
       description={d.definition}
       category={d.category}
     >
