@@ -2,10 +2,58 @@
 name: Neumorphism
 slug: neumorphism
 category: aesthetic
-status: stub
+status: published
 definition: >-
   A style where controls look extruded from or pressed into one background colour, shaped only by soft light and shadow.
-useWhen: controls moulded out of the background itself
 aliases:
   - name: soft UI
+  - name: neumorphic design
+relations:
+  contrastWith: [glassmorphism, claymorphism, neo-skeuomorphism, flat-design]
+implementations: []
+sources:
+  - title: "Neumorphism.io: CSS shadow generator"
+    url: https://neumorphism.io/
+  - title: "Understanding WCAG 2.2: non-text contrast"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html
+demo: inline
+useWhen: controls extruded from one flat background colour
 ---
+
+The recipe is short and unusually exact, which is part of why the style spread so fast.
+Everything on screen is one background colour, the controls included. Each control gets
+two shadows, a light one up and to the left and a dark one down and to the right, as
+though a single soft lamp sits off the top left corner. There are no borders, and no
+fill that differs from the background. Get those right and a button appears to have
+been pushed up out of the surface rather than placed on it. Generators such as
+[neumorphism.io](https://neumorphism.io) exist because the numbers are the whole craft:
+the two shadows have to be tints of the base colour, and a hard edge or a saturated
+shadow breaks the illusion immediately.
+
+The style has exactly one state change, and it is the same trick with the sign flipped.
+Pressing a control moves both shadows inside it, so the light now falls into the top
+left of a hollow and the dark pools at the bottom right, and the shape reads as pressed
+into the surface instead of raised out of it. Extruded and debossed are the two poles
+the whole vocabulary is built from: a switch is a carved track with a raised knob, a
+dial is a raised disc in a carved well. Nothing else about the control moves.
+
+Then the problem the style cannot design its way around. With no border and no fill of
+its own, a control differs from its background by a few percent of luminance in two thin
+gradients. Its [contrast ratio](/contrast-ratio) against the surface behind it is
+essentially 1:1, where WCAG asks for 3:1 on the boundary of any control you are meant to
+find (see [non-text contrast](/non-text-contrast)). It fails in bright sunlight, on a
+cheap panel, at a tilted viewing angle, and for anyone with reduced contrast sensitivity,
+and unlike most contrast failures it cannot be fixed by adjusting a value, because the
+sameness is the aesthetic. Disabled and focus states have nowhere to go either, since the
+only two appearances are already spent on raised and pressed.
+
+That is why it peaked around 2020 and mostly stayed in portfolio shots, calculators and
+music players rather than in products with real content. The tactile idea did survive,
+in relatives that kept the softness and gave up the sameness.
+[Claymorphism](/claymorphism) inflates a pastel solid that is clearly not the background.
+[Neo-skeuomorphism](/neo-skeuomorphism) depicts distinct materials at real contrast, so
+the button is visibly a different substance from the panel. [Deformable
+UI](/deformable-ui) takes the softness into behaviour, where a control squashes under a
+finger rather than merely inverting a shadow. Sorting them by material is the fastest
+way to keep the words apart: [glass](/glassmorphism) is translucent, clay is puffy and
+pastel, and neumorphism is the same colour as the thing it sits on.

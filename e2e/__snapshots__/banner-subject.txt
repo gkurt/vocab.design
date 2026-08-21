@@ -1,0 +1,4 @@
+term:    Banner
+scope:   element
+subject: div.sp-row[data-part=banner]
+text:    Your card expires this month. Update card

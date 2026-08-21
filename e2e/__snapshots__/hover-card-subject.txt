@@ -1,0 +1,4 @@
+term:    Hover card
+scope:   element
+subject: div.sp-popover[aria-label=Riya Kapoor][data-open][data-part=card][role=dialog]
+text:    RK Riya Kapoor @riya Compilers and editor tooling. Follow

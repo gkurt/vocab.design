@@ -87,6 +87,14 @@ is **stubs**: a stub entry has only `name`, `slug`, `category`, `definition`, an
 internal links never 404 and every named concept is searchable from day one. Writing a
 relation to a term that doesn't exist yet means creating its stub in the same change.
 
+A stub is debt, not a resting state, and it outranks the unauthored pool: by the time
+anyone looks, six to nine published articles are already linking to it on the strength
+of a definition with no article behind it. `bun validate` prints the count on every run
+and the roster tool lists them as their own work item, because the site's first 24 stubs
+survived 21 authoring rounds by being invisible to both: none had a record in the
+candidate pool, and the roster filtered by filename, so a stub read as already authored.
+Clear them in a promotion round before authoring new terms.
+
 Prose links are held to the same promise. `bun validate` rejects a markdown link to an
 internal path that is neither a term slug, an alias slug (which redirects), a tag facet,
 nor one of the site's own routes. Prose links and `relations` are the two ways a reader

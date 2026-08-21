@@ -2,8 +2,54 @@
 name: App bar
 slug: app-bar
 category: component
-status: stub
+status: published
 definition: >-
   The persistent bar across the top of an application carrying its title, navigation, and primary actions.
-useWhen: the top bar holding title and primary actions
+aliases:
+  - name: top app bar
+    source: material
+  - name: application bar
+tags: []
+relations:
+  contrastWith: [page-header, toolbar, collapsing-toolbar, navigation-bar, title-bar]
+implementations:
+  - system: material
+    name: Top app bar
+    url: https://m3.material.io/components/top-app-bar/overview
+sources:
+  - title: 'Material Design 3: Top app bar'
+    url: https://m3.material.io/components/top-app-bar/overview
+demo: inline
+useWhen: the app's own top bar, the same on every screen
 ---
+
+An app bar belongs to the application, not to the screen you happen to be on. It is
+the same bar on every screen: the product's name or logo, the way into navigation, and
+the one or two actions that make sense wherever you are, such as search or the account
+menu. Material hardened the word, which is why it is worth using precisely, and why
+its own name for the component is the top app bar.
+
+Three neighbours, one distinction each. A [page header](/page-header) belongs to a
+single page and carries that page's title and that page's actions, so it changes
+completely when you navigate. A [toolbar](/toolbar) acts on the content in front of
+you, the document or the selection, so its buttons mean nothing without something to
+act on. An app bar belongs to the app and stays put. In a real layout you will often
+see all three stacked, and the test for which is which is not where the band sits but
+what changes it: navigating changes the page header, selecting changes the toolbar,
+and nothing on the screen changes the app bar.
+
+What goes in one is short by design. Identity, so the reader always knows which
+product this is. The navigation affordance, which on a narrow screen is usually a
+hamburger and on a wide one may be a row of tabs. One or two persistent actions.
+Everything else, per-page verbs especially, belongs to the page header underneath.
+The bar also has to survive a narrow window without shedding what matters, so plan the
+priority order before the space runs out rather than discovering it at 360 pixels.
+
+Staying put is the whole claim, which is what separates an app bar from a
+[collapsing toolbar](/collapsing-toolbar). A collapsing header trades its height for
+scroll room and shrinks as the content passes under it; an app bar keeps its height
+and its contents while the page scrolls beneath. A bar that scrolls away with the
+content is not an app bar at all, just a band at the top of a long document. The
+smaller print: a bar this persistent is a landmark worth naming, so give it
+`role="banner"` (or a `<header>` at the top level) and label its navigation, since it
+is the one region a reader will try to jump to from anywhere in the product.

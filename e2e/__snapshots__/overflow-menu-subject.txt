@@ -1,0 +1,4 @@
+term:    Overflow menu
+scope:   element
+subject: div.sp-menu[aria-label=More actions][data-open][data-part=menu][role=menu]
+text:    Rename Move to folder Archive Delete

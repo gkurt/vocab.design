@@ -1,0 +1,4 @@
+term:    Meatball menu
+scope:   element
+subject: button.sp-icon-button[aria-expanded=false][aria-haspopup=menu][aria-label=More actions][data-part=trigger]
+text:    

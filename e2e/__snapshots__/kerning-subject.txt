@@ -1,0 +1,4 @@
+term:    Kerning
+scope:   element
+subject: span[data-part=kern-band]
+text:    

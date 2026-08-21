@@ -1,0 +1,4 @@
+term:    Radio group
+scope:   element
+subject: div.sp-surface[aria-labelledby=rg-legend][data-part=group][role=radiogroup]
+text:    Delivery speed Standard Three to five working days Free Express Next working day

@@ -1,0 +1,4 @@
+term:    aria-hidden
+scope:   element
+subject: span[aria-hidden=true][data-part=ornament][data-pose=[aria-hidden="true"]]
+text:    ✦ ✦ ✦

@@ -1,0 +1,4 @@
+term:    Alert dialog
+scope:   element
+subject: div.sp-dialog[aria-describedby=ad-body][aria-labelledby=ad-title][aria-modal=true][data-open][data-part=dialog][role=alertdialog]
+text:    Delete this workspace? 12 projects go with it, for everyone. This cannot be undo

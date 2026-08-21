@@ -1,0 +1,4 @@
+term:    Skip link
+scope:   element
+subject: div.sp-button.sp-button--sm[data-part=skip][data-revealed][data-sim-focus][role=link][tabindex=0]
+text:    Skip to main content

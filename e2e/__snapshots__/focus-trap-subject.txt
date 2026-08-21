@@ -1,0 +1,4 @@
+term:    Focus trap
+scope:   element
+subject: div.sp-dialog[aria-label=Invite people][aria-modal=true][data-open][data-part=dialog][data-pose=[data-trapped]][data-trapped][role=dialog]
+text:    Invite people They will get an email with a link to this workspace. Cancel Send 

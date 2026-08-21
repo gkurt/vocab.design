@@ -1,0 +1,4 @@
+term:    Accordion
+scope:   element
+subject: div.sp-surface[data-part=stack]
+text:    Delivery and returns Free over £40, returned within 30 days. Sizing Runs one siz

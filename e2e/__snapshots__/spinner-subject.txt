@@ -1,0 +1,4 @@
+term:    Spinner
+scope:   element
+subject: span[data-part=spinner]
+text:    

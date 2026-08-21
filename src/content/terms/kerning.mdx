@@ -2,8 +2,54 @@
 name: Kerning
 slug: kerning
 category: typography
-status: stub
+status: published
 definition: >-
   The adjustment of space between two particular letters so the pair reads evenly.
-useWhen: fixing the gap between one pair of letters
+aliases:
+  - name: kern
+  - name: kern pair
+  - name: metric kerning
+relations:
+  contrastWith: [leading, tracking, optical-kerning, word-spacing, ligature]
+sources:
+  - title: 'Kerning (Practical Typography)'
+    url: https://practicaltypography.com/kerning.html
+  - title: 'MDN: font-kerning'
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/font-kerning
+demo: inline
+useWhen: the space between two particular letters
 ---
+
+Kerning is a pair operation. It names two letters and moves them closer together
+or further apart, because the shapes they were drawn with leave a hole or a
+collision when they meet. [Tracking](/tracking) is the other half of the pair
+readers mix up, and the difference is the scope: tracking adds one uniform amount
+to every letter in a run, while kerning is a value that applies to T next to o and
+to nothing else on the line. You kern a pair; you track a line.
+
+Most kerning is already done. The type designer walks the awkward combinations and
+writes a correction for each into the font's kern table, which the shaping engine
+applies whenever those two letters turn up together, so the word "To" in a
+well-made face is already tightened before anyone looks at it. The pairs anyone
+notices are the diagonal or open shape against the round or narrow one: T over o,
+V beside a, Y before e, W against a comma, and capitals standing next to lowercase
+generally. A table typically holds a few hundred of them. What is left over is the
+hand kerning a designer does at poster sizes, one pair at a time, where a table
+tuned for text cannot know how the line will be used.
+
+On the web the table is the whole story. `font-kerning: normal` asks for it,
+`none` switches it off, and `auto` leaves the decision to the browser, which in
+practice means on for the text sizes that matter. Two things quietly remove it.
+Shaping stops at element boundaries, so wrapping one letter of a pair in its own
+span to colour it also throws away the pair's kern, and a
+[font subset](/font-subsetting) that drops the `kern` and `GPOS` data ships a
+face whose corrections are simply gone. Neither failure announces itself: the line just
+looks slightly lumpy at display size.
+
+What no browser offers is the third way. [Optical kerning](/optical-kerning)
+computes the space from the outlines rather than reading it from the table, and
+since no engine implements it, web typography is the font's pairs or nothing. That
+puts the weight back on the face: at 16px a poor pair costs almost nothing, and at
+72px it is the first thing a reader sees, which is why display type is where both
+the font choice and the correction are worth the attention. Body text is better
+served by getting the [leading](/leading) right.

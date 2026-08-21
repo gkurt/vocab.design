@@ -1,0 +1,4 @@
+term:    Dropdown
+scope:   element
+subject: div.sp-menu[aria-label=Sort order][data-open][data-part=panel][role=menu]
+text:    Newest Oldest Priority Assignee

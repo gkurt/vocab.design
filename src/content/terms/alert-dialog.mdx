@@ -2,9 +2,60 @@
 name: Alert dialog
 slug: alert-dialog
 category: component
-status: stub
+status: published
 definition: >-
   A dialog that interrupts the flow to demand acknowledgement or confirmation of a
   consequential action before anything else can continue.
-useWhen: blocking everything until the user confirms
+aliases:
+  - name: alertdialog
+  - name: alert modal
+tags: []
+relations:
+  contrastWith: [modal-dialog, confirmation-dialog, toast, live-region]
+implementations:
+  - system: aria-apg
+    name: Alert and Message Dialogs
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+  - system: radix
+    name: Alert Dialog
+    url: https://www.radix-ui.com/primitives/docs/components/alert-dialog
+sources:
+  - title: 'ARIA Authoring Practices Guide: Alert and Message Dialogs'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+demo: inline
+useWhen: a dialog that announces itself and blocks until answered
 ---
+
+The sharpest line to draw is `role="alertdialog"` against `role="dialog"`. Both open
+a window that takes the page over, and to a sighted reader they look identical. The
+difference is what a screen reader does on arrival: a plain dialog is announced as a
+dialog and then read at the reader's own pace, while an alert dialog is announced at
+once, message and all, the way a live alert would be. The role is therefore a claim
+about consequence, not about content. It says this window appeared because something
+is about to happen, so hear it now rather than when you get to it.
+
+That makes the role narrow. Anything the reader asked for is a plain dialog, however
+important it looks: a settings sheet, a compose window, a form. An alert dialog is for
+the window that arrives because a destructive action is in flight, a session is about
+to expire, or work is about to be lost. Ship one for a routine confirmation and the
+assertive announcement is worth nothing, because a reader who is interrupted every
+time stops treating the interruption as information.
+
+Three words in this vocabulary sit at three different levels, which is why they are so
+easy to blur. [Modal dialog](/modal-dialog) is the container: a window over a scrim
+with focus moved in, focus trapped, Escape wired, and the page behind it inert.
+[Confirmation dialog](/confirmation-dialog) is the pattern: stopping an action part way
+through to ask whether it was meant, with the consequence named in the confirm button.
+Alert dialog is the role the second usually wears inside the first. A confirmation
+dialog is almost always built as an alert dialog, and saying it that way keeps all
+three words useful: the container, the pattern, and the announcement.
+
+The near miss on the other side is the message that does not block. A
+[toast](/toast) reports something that already happened and cleans itself up, and a
+[live region](/live-region) announces without taking focus at all, so both are for
+news rather than for decisions. Reach for an alert dialog only when there is a
+question the product genuinely cannot proceed without. When you do, give it a title
+naming the consequence, a description wired with `aria-describedby` so the announcement
+carries the detail, and initial focus on the safe answer rather than the destructive
+one, because assertive announcements and a pre-aimed Delete button are a bad pairing
+for anyone pressing Enter out of habit.

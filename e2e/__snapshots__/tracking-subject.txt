@@ -1,0 +1,4 @@
+term:    Tracking
+scope:   element
+subject: span[data-part=eyebrow][data-pose=[data-track=set]][data-track=set]
+text:    Spring release

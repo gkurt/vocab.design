@@ -1,0 +1,4 @@
+term:    Duration
+scope:   element
+subject: span[data-part=bar-long]
+text:    

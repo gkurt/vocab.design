@@ -41,7 +41,12 @@ Files in this skill directory:
 
 ## 1. Roster (main session, ~15 min)
 
-1. `bun .claude/skills/authoring-round/pool-remaining.ts` for the per-category pool.
+1. `bun .claude/skills/authoring-round/pool-remaining.ts` for the per-category pool
+   AND the stub backlog, which it now prints as its own list. **Stubs outrank the
+   pool.** A stub is a published page carrying a definition and nothing else, already
+   linked to by six to nine articles, so promoting one repays a debt the site is
+   already visibly carrying. If the stub list is non-empty, the round is a promotion
+   round (see §6) unless the user asked for new terms specifically.
 2. Pick 6 per category, or the whole remainder where fewer are left. Selection
    principles, in priority order:
    - **Pay prose IOUs**: grep recent articles for "enumerated separately" and named
@@ -197,3 +202,42 @@ rather than a new contrast. Tags are the opposite rule and still hold: a facet
 arrives complete or not at all (SPEC §2.5), so leave `tags` empty unless the round
 covers a whole facet, and record the candidates in
 research/enumeration/canonicalize-notes.md instead.
+
+## 6. Promotion rounds
+
+A promotion round finishes stubs instead of authoring new terms. Everything above
+applies, with five differences that all come from the same fact: **the term file
+already exists and is already linked to.**
+
+- **Roster.** The stub list from step 1 IS the roster, so there is no pool selection,
+  but the collision sweep matters MORE rather than less: a stub written as a relation
+  target a year of rounds ago may since have been authored under another name.
+  Check each stub's definition against its nearest published neighbours, not just its
+  slug, and be willing to return one as a merge (an alias on the neighbour) rather
+  than force a page. The 2026-08-21 round checked 24 and merged none, but two
+  (`zero-state` against empty-state, `semantic-color` against color-role) needed the
+  existing graph consulted before they survived.
+- **Briefs.** Per term they carry, beyond the usual: the MANDATORY reciprocations
+  (every symmetric edge a published term already declares at the stub, which symmetry
+  stopped requiring only because it was a stub, and which the gate demands the moment
+  it publishes), the prose IOUs (the articles already linking in, which the new
+  article must agree with and link back to), and a per-term lookalike fence naming the
+  neighbour demo it must not duplicate. Compute the reciprocations mechanically; they
+  are not guessable.
+- **Relations are declared one-sided, on purpose.** Authors write relations ONLY in
+  their own files and never touch another term's frontmatter, because seven agents
+  editing shared neighbours is a lost-write race. `bun validate` then reports one
+  symmetry error per new outbound edge, which is expected, not a failure: the main
+  session closes them centrally afterwards (the closure script is trivial and worth
+  keeping). Check the eight-contrast hub cap after closure, not before: the
+  2026-08-21 round pushed `select` to nine and had to drop its weakest new edge.
+- **Tags are the main session's, not the authors'.** A stub's term usually belongs to
+  a facet that already shipped complete, so leaving it out is the regression the
+  "arrives complete" rule exists to prevent. Assign them centrally, matching how the
+  facet was applied to that term's own family (read the neighbours' tags), rather than
+  letting each agent invent its own reading of the enum.
+- **Editing in place.** Keep `name`, `slug` and `category` byte-identical: other pages
+  link to that slug. A definition may be sharpened only after reading the articles
+  that link in, because their prose was written against it, and a sharpening that
+  makes them false is a regression. Have the verify agent diff all three fields
+  against `git show HEAD:` and report drift.

@@ -1,0 +1,4 @@
+term:    Shimmer
+scope:   element
+subject: span[data-part=band]
+text:    

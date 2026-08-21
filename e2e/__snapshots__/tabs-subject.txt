@@ -1,0 +1,4 @@
+term:    Tabs
+scope:   element
+subject: div.sp-stack[data-part=widget]
+text:    Overview Amenities House rules Loft above the bakery Sleeps four, one bathroom, 

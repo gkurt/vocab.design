@@ -115,9 +115,10 @@ vs fieldset's legend (both articles now carry the sentence), the three annotatio
 (chart-annotation names the other two, and bare "annotation" stays unclaimed), thumb
 vs thumbnail (thumbnail hands the slider and scrollbar sense over, since it owns the
 "thumb" alias), swimlane (content-shelf explains the borrowed name and the axis it
-gets confused with). Still waiting on a second sense: spinner vs spinbutton (spinner
-is a stub), timeline (no media-editor term), gutter (no editor term), "ghost text"
-(no AI-completion term).
+gets confused with). Handled in the stub-promotion round (2026-08-21), the second sense having arrived:
+spinner vs spinbutton (spinner's article hands the spinbutton name to stepper, which
+owns the alias). Still waiting on a second sense: timeline (no media-editor term),
+gutter (no editor term), "ghost text" (no AI-completion term).
 
 thumb (slider) vs thumbnail; timeline (event list, authored) vs timeline (media
 editor); chevron/caret (component) vs caret (typography); gutter (grid) vs gutter
@@ -282,6 +283,58 @@ Resolutions from that audit under the standing rules:
   the a11y tag at the pass. The corpus mostly follows this already
   (roving-tabindex sits in interaction); apply it at the pass rather than
   migrating now.
+
+## Stub promotion (SHIPPED 2026-08-21)
+
+All 24 stubs promoted to published in one round, so `bun validate` now reports 0.
+They were not skipped by judgement, they fell through a seam: 22 were created by the
+pilot commit `51a18b1` and 2 by the scaffold, purely as relation targets under
+SPEC 2.3, all of them BEFORE the enumeration sweep existed, and **0 of the 24 ever
+had a record in candidates.json**, so no round roster could contain one. Compounding
+it, `pool-remaining.ts` built its exclusion set from FILENAMES, so a stub read as
+already authored even if a record had been added later: the exact inverse of the
+look-and-pinch trap recorded above, where the record outlived the file. The round
+process never used the word "stub" and its report format tracked pool drain rather
+than stub debt, so the "24 stubs" line printed by every validate run for two weeks
+was nobody's task. Fixed at the source: `pool-remaining.ts` now reads frontmatter
+status and prints a STUBS work list, and SKILL.md section 6 documents the promotion
+round shape.
+
+Roster notes worth keeping. All 24 survived the collision sweep as distinct terms and
+none merged, but two needed the existing graph consulted before they held:
+`zero-state` against empty-state (which reports an absence) and first-run-experience
+(which happens once), and `semantic-color` against color-role (one system's named
+slot) plus color-token, primitive-color-token and color-ramp. Both were already
+declared as contrasts by terms authored later, which is what settled them. Three
+menu terms landed in one round and stayed distinct by subject: overflow-menu is the
+PANEL, meatball-menu and kebab-menu are their TRIGGERS, dropdown is the dropped panel
+of a value control.
+
+Mechanics that made 7 parallel agents safe on a shared graph: authors declared
+relations only in their own files and never touched a neighbour's frontmatter, so
+validate reported 46 one-sided symmetry errors by design and the main session closed
+them centrally. Closure pushed `select` to nine contrasts, over the eight-contrast
+hub cap, so radio-group's added `select` edge was dropped (its table already carries
+checkbox, group-label, selection-card and segmented-control). Check the cap AFTER
+closure, never before.
+
+Tags were assigned centrally rather than by the agents, because these terms belong
+to facets that had already shipped complete and omitting them is the regression the
+"arrives complete" rule exists to prevent. Ten took tags, matched to how each facet
+was applied to that term's own family: dropdown [forms]; radio-group
+[forms, selection]; spinner and shimmer [perceived-performance]; aria-hidden
+[web-platform]; focus-trap [keyboard]; skip-link [keyboard, navigation];
+table-of-contents [navigation]; zero-state [onboarding]; semantic-color [tokens].
+The other 14 stayed untagged because their nearest siblings are (banner was the close
+call: toast carries messaging, but callout, status-message and cookie-consent-banner
+do not, so it went untagged with the majority).
+
+Implementation rows that failed verification and were dropped, worth not re-trying:
+fluent Overflow and fluent Header/AppBar (JS-rendered storybook shells), fluent
+Shimmer (SPA shell, and the Fluent 2 skeleton path 404s), polaris Banner and polaris
+Spinner (both 301 to a generic docs index), carbon skip-to-content (404), and the
+aria-apg "hiding semantics" page, which turns out to document the presentation role
+rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/.
 
 ## Known coverage gaps (follow-up sweeps)
 

@@ -2,13 +2,72 @@
 name: Spinner
 slug: spinner
 category: component
-status: stub
+status: published
 definition: >-
   An indeterminate loading indicator that shows work is happening without saying how much of it is left.
-useWhen: a wait with no measurable progress
+useWhen: work is happening and nobody knows for how long
 aliases:
+  - name: throbber
+    source: community
   - name: inline loading
     source: carbon
   - name: loading indicator
     source: material
+  - name: activity indicator
+    source: hig
+tags: [perceived-performance]
+relations:
+  contrastWith: [progress-ring, progress-bar, skeleton-screen]
+  seeAlso: [busy-state]
+implementations:
+  - system: material
+    name: Progress indicators
+    url: https://m3.material.io/components/progress-indicators/overview
+  - system: hig
+    name: Progress indicators
+    url: https://developer.apple.com/design/human-interface-guidelines/progress-indicators
+  - system: carbon
+    name: Loading
+    url: https://carbondesignsystem.com/components/loading/usage/
+demo: inline
 ---
+
+Indeterminate is the whole word. A spinner has no value, no denominator and no
+position, and that absence is not a gap in the component, it is what the component
+says: something is running, nobody knows for how long. Everything else follows from
+it. There is nothing to announce as a percentage, nothing to be wrong about, and no
+way for the reader to plan around it.
+
+Which makes the first question the honest one: could this have had a number? If the
+work is bytes of a known total, steps of a known count, or seconds of a known
+duration, the reader deserves a [progress bar](/progress-bar) or a
+[progress ring](/progress-ring), and a spinner in that slot is a determinate
+indicator someone gave up on. The two get confused constantly because a ring that
+spins and a ring that fills are the same drawing at a glance, so the tell is in the
+markup: a determinate control carries `role="progressbar"` with `aria-valuenow`, and a
+spinner carries neither. The second question is duration. A spinner is for a wait of a
+second or two; past that it stops reassuring and starts reading as a page that is
+stuck, and the right answer is usually a [skeleton screen](/skeleton-screen), which
+shows the shape of what is coming instead of the fact that something is.
+
+Assistively, a spinning glyph is nothing at all. It is a decorative shape unless
+something says what it means, so mark the region it belongs to as a
+[busy state](/busy-state) while it is filling, and give the wait an accessible name
+through a `role="status"` line beside the glyph ("Loading your report") rather than
+leaving a bare SVG to speak for itself. Clear both when the work lands, including on
+the error path, because a region left busy is a region assistive technology has stopped
+reading. And the animation is motion like any other: `prefers-reduced-motion` should
+slow or still it, since an endlessly rotating element is exactly the kind of thing that
+setting exists for.
+
+The folk name is worth knowing. Early browsers put an animated logo in the corner that
+turned while the page was loading, and it was called the throbber, a word that survives
+in Mozilla's own source and in enough old bug reports that you will meet it. Spinner,
+loading indicator, and Apple's activity indicator are the current names for the same
+thing, all of them naming the absence of a number.
+
+One collision to keep straight, because the words are a letter apart and mean nothing
+alike. A spinner reports a wait; a spinbutton is a number field with up and down arrows
+that the reader operates, and that control is filed here as the
+[stepper](/stepper), which owns the spinbutton name. If someone hands you a ticket for
+a spinner and the mock has arrows on it, they meant a stepper.

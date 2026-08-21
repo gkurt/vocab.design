@@ -2,11 +2,69 @@
 name: Tabs
 slug: tabs
 category: component
-status: stub
+status: published
 definition: >-
   A set of labelled panels in one region, where selecting a label swaps the panel beneath it.
-useWhen: swapping between panels of content in place
+useWhen: labelled panels in one region, one showing at a time
 aliases:
   - name: tab view
     source: hig
+  - name: tabbed interface
+    source: community
+  - name: tab set
+    source: community
+relations:
+  contrastWith: [segmented-control, scope-bar, accordion, local-navigation]
+  seeAlso: [sliding-indicator, selection-follows-focus]
+implementations:
+  - system: aria-apg
+    name: Tabs pattern
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+  - system: material
+    name: Tabs
+    url: https://m3.material.io/components/tabs/overview
+  - system: carbon
+    name: Tabs
+    url: https://carbondesignsystem.com/components/tabs/usage/
+sources:
+  - title: 'ARIA APG: Tabs pattern'
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+demo: inline
 ---
+
+The word is used for anything that looks like a row of labels, which is why it has
+almost stopped discriminating. The thing that makes a tab set a tab set is the panel.
+There is one region, several panels stacked in it, and a row of labels that says which
+one is currently on top. Take the panel away and the word is wrong: a row of exclusive
+labels that filters or reshapes content already on screen is a
+[segmented control](/segmented-control), and a row of labels under a search field that
+narrows what the query reaches is a [scope bar](/scope-bar). Both of those look like
+tabs and neither of them owns a region.
+
+The keyboard contract is where the pattern is actually specified, and it is the part
+most hand-rolled tab rows get wrong. In the ARIA Authoring Practices Guide the markup
+is three roles: a `tablist` containing `tab` elements, each pointing at its `tabpanel`
+through `aria-controls`, with `aria-selected` on exactly one tab at a time. The whole
+set is one [tab stop](/tab-stop). Tab moves into the row and then straight out of it to
+the panel or to whatever follows, while Left and Right arrows move between the tabs
+themselves, which is what [roving tabindex](/roving-tabindex) exists to arrange. Whether
+arrowing also switches the panel or merely moves the highlight is the one genuine choice
+left, and [selection follows focus](/selection-follows-focus) is the term for it: switch
+as you go when the panels are already in the document, wait for Enter when picking one
+costs a request.
+
+A tab set is not navigation, and this is the distinction that keeps getting lost in
+code. If selecting a label changes the URL, replaces the page, and pushes a history
+entry, what you have built is [local navigation](/local-navigation) wearing tabs, and it
+should be a list of links so the back button, middle click, and open-in-new-tab all
+behave. Real tabs switch a region inside one page. The honest middle ground is a tab set
+that mirrors its current panel into the URL as a query parameter or a fragment, so a
+shared link opens on the right panel without each tab pretending to be a separate
+document.
+
+Two practical constraints. Panels in one region want roughly the same size, because a
+set whose panels differ wildly in height makes the page jump on every switch, and the
+fix is to reserve the tallest panel's room rather than to let the layout resettle each
+time. And a tab set that has to scroll horizontally is usually a sign the content wanted
+a different shape: past about six labels, reach for a sidebar, an
+[accordion](/accordion), or a page of its own.

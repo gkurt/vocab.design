@@ -262,7 +262,12 @@ never fires under reduced motion, so nothing may ever wait on it.
   narrower element is the answer; `e2e/__snapshots__/<slug>-subject.txt` records
   which way each specimen went.
 - Term relations are validated for integrity and symmetry in CI; a relation to a
-  nonexistent term requires creating that term's stub in the same change. `contrastWith`
+  nonexistent term requires creating that term's stub in the same change. A stub is
+  debt with a deadline, not a resting state (SPEC §2.3): it is a published page that
+  other articles already link to, so it outranks the unauthored pool and gets cleared
+  in a promotion round. Symmetry is exempt while either side is a stub, which means
+  promoting one activates every symmetric edge pointing at it: the promoted file has to
+  declare them all back in the same change. `contrastWith`
   answers a discrimination test (SPEC §2.3): an edge earns its place when someone
   describing one term could reach for the other term's word, not when the two merely
   look alike. Hubs stay at eight contrasts at most, or the Which word? table drowns.

@@ -1,0 +1,4 @@
+term:    App bar
+scope:   element
+subject: div.sp-topbar[data-part=bar][role=banner]
+text:    Harbour RK

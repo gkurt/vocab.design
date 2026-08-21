@@ -1,0 +1,4 @@
+term:    Neumorphism
+scope:   element
+subject: button[data-part=button][data-state=raised][type=button]
+text:    Play

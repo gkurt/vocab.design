@@ -1,0 +1,4 @@
+term:    Badge
+scope:   element
+subject: span[data-count=9][data-part=badge]
+text:    9 unread

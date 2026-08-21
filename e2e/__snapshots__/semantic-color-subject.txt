@@ -1,0 +1,4 @@
+term:    Semantic color
+scope:   element
+subject: div.sp-row[data-part=row-danger][data-resolves=red-600][data-token=danger]
+text:    danger red-600 #C2312B

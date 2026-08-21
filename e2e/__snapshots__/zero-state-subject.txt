@@ -1,0 +1,4 @@
+term:    Zero state
+scope:   element
+subject: div.sp-stack[data-part=zero]
+text:    To do Doing Done A board looks like this: three columns, and a card for each pie
