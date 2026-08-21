@@ -1,0 +1,4 @@
+term:    Earcon
+scope:   element
+subject: span[data-event=sent][data-part=figure]
+text:    

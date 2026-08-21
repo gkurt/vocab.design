@@ -1,0 +1,4 @@
+term:    Yellow fade technique
+scope:   element
+subject: div[data-on=tile][data-part=wash][data-wash=full]
+text:    

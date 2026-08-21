@@ -1,0 +1,4 @@
+term:    Feedforward
+scope:   element
+subject: div.sp-surface[data-part=preview]
+text:    If you press this 3 files are deleted 4.2 MB is freed There is no undo

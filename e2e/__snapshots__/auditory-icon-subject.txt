@@ -1,0 +1,4 @@
+term:    Auditory icon
+scope:   element
+subject: span[data-part=wave][data-sound=whoosh]
+text:    

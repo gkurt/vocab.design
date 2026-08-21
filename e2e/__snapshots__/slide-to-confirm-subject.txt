@@ -1,0 +1,4 @@
+term:    Slide to confirm
+scope:   element
+subject: div[data-part=slider][data-state=idle]
+text:    Slide to erase

@@ -1,0 +1,4 @@
+term:    Juiciness
+scope:   element
+subject: button.sp-button[data-mode=juicy][data-part=like][data-pose=[data-mode=juicy]][type=button]
+text:    Like 18

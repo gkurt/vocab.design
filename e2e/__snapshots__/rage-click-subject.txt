@@ -1,0 +1,4 @@
+term:    Rage click
+scope:   element
+subject: span[data-part=burst-past]
+text:    

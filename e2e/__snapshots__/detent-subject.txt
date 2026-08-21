@@ -1,0 +1,4 @@
+term:    Detent
+scope:   element
+subject: span[data-part=well-2]
+text:    
