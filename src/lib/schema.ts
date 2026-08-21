@@ -63,6 +63,14 @@ export const termSchema = z.object({
   slug,
   category: z.enum(CATEGORIES),
   status: z.enum(['stub', 'draft', 'published']),
+  /**
+   * When the entry was first published, and when its content last changed. Both live in
+   * frontmatter rather than being read off git, because a rename, a reformat or a
+   * squashed history would silently rewrite the record. The feed orders by `created`,
+   * the sitemap's `lastmod` is `modified`, so getting `modified` wrong costs a recrawl.
+   */
+  created: z.coerce.date(),
+  modified: z.coerce.date(),
   definition: z.string().min(1).max(200),
   aliases: z.array(z.object({ name: z.string().min(1), source: z.string().optional() })).default([]),
   tags: z.array(z.enum(TAGS)).default([]),

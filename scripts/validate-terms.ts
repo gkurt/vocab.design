@@ -25,6 +25,10 @@ const ESCAPES_STAGE = /\.(requestPointerLock|showModal)\s*\(/;
 const VIEW_TRANSITION_CALL = /\.startViewTransition\s*(\(|\?\.)/;
 /** Nothing may wait on transitionend: it never fires under reduced motion (SPEC §6). */
 const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitionend\s*=/;
+/** Kit custom elements, and the module each one's registration lives in. */
+const KIT_ELEMENTS: Record<string, string> = { 'sp-segmented': 'segmented.ts', 'sp-combobox': 'combobox.ts' };
+/** Comments, stripped before a markup rule reads a demo: naming an element is not using one. */
+const COMMENTS = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
 /** Routes that are not terms: the index, the tag directory, and the two machine-readable exports. */
@@ -49,6 +53,11 @@ const BARE_DOMAIN = /\b[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:design|org|com|ne
  * are stripped first, so the rule judges only bare mentions; raw `https://`
  * URLs left in prose are bare mentions too.
  */
+/** Just the day, so a date error reads as the frontmatter spells it. */
+function day(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
 function bareDomains(body: string): string[] {
   const prose = body
     .replace(/```[\s\S]*?```/g, '')
@@ -154,10 +163,12 @@ for (const term of terms.values()) {
 
   if (term.status === 'published' && !term.useWhen) errors.push(`${term.slug}: published terms need useWhen (SPEC §2.3)`);
 
+  if (term.modified < term.created) errors.push(`${term.slug}: modified ${day(term.modified)} predates created ${day(term.created)}`);
+
   if (term.status === 'stub') {
     const hasRelations = Object.values(term.relations).some((r) => r.length > 0);
     if (hasRelations || term.tags.length > 0 || term.implementations.length > 0 || term.demo !== 'none')
-      errors.push(`${term.slug}: stubs carry only name/slug/category/definition (SPEC §2.3)`);
+      errors.push(`${term.slug}: stubs carry only name/slug/category/definition and their dates (SPEC §2.3)`);
   }
 
   if (term.tags.length > TAGS_PER_TERM)
@@ -190,6 +201,15 @@ for (const term of terms.values()) {
         errors.push(`${term.slug}: demo waits on transitionend, which never fires under reduced motion; time it on the clock (SPEC §6)`);
       if (source.includes('.animate(') && !source.includes('prefersReducedMotion'))
         errors.push(`${term.slug}: demo animates in script without asking prefersReducedMotion (SPEC §6)`);
+
+      // A kit custom element only upgrades where its module has been imported, and one
+      // that never upgrades answers a click with silence: the choreography presses a
+      // segment, the thumb does not move, and the assert fails with nothing to point at.
+      const markup = source.replace(COMMENTS, '');
+      for (const [element, module] of Object.entries(KIT_ELEMENTS)) {
+        if (markup.includes(`<${element}`) && !markup.includes(`kit/${module}`))
+          errors.push(`${term.slug}: demo uses <${element}> without importing #src/kit/${module}, so it never upgrades (SPEC §5)`);
+      }
     }
 
     // A script with nothing to prove passes the smoke test by saying nothing (SPEC §8).

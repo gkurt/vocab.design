@@ -48,6 +48,8 @@ name: Toast                      # headword, display form
 slug: toast                      # kebab-case, unique, = filename
 category: component              # exactly one, see §2.2
 status: published                # stub | draft | published
+created: 2026-08-21              # first published; the feed orders by this
+modified: 2026-08-21             # content last changed; the sitemap's lastmod
 definition: >-                   # the dictionary line, ≤ 200 chars, one sentence
   A short, self-dismissing message that appears at the edge of the screen to
   confirm an action or report a status.
@@ -78,6 +80,14 @@ useWhen: >-                      # the situation this word is for; powers "Which
 · `aesthetic` · `accessibility`. One category per term: a term is one kind of thing.
 Cross-cutting membership is expressed through relations and tags (§2.5), never
 through a second category.
+
+Both dates are authored, not derived. Reading them off git mtimes would look
+self-maintaining and then lie: a rename, a reformat, or a squashed history rewrites
+mtimes without a word of the entry changing, and the sitemap would ask for a recrawl of
+a thousand pages that say exactly what they said before. So `modified` is bumped by
+whoever changed the content, and `bun validate` holds it at or after `created`. A stub
+carries dates like anything else: the day it was published as a stub is the day it
+entered the dictionary.
 
 ### 2.3 Relations and the stub policy
 
