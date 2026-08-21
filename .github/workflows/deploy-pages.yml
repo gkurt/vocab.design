@@ -24,8 +24,9 @@ jobs:
       - run: bun run build
         env:
           NODE_ENV: production
-          SITE: https://gkurt.com
-          BASE_URL: /vocab.design
+          # The apex is the site now, so SITE and BASE_URL are left at their defaults in
+          # astro.config.ts (https://vocab.design and /). public/CNAME carries the domain
+          # into the artifact, so the Pages setting cannot be the only place it lives.
           # Set the repository variable PUBLIC_GA_ID (Settings > Variables) to a GA4
           # measurement ID, G-XXXXXXXXXX. Unset means the deploy carries no analytics at
           # all, which is also what every other build does.

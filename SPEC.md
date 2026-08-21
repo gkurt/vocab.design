@@ -180,7 +180,8 @@ not the category's own members.
 - **Bun** for tooling, `bun test` for unit tests, **Playwright** (`e2e/`) for
   choreography execution and smoke tests.
 - **Search**: Pagefind at build time.
-- **Deploy**: GitHub Pages via Actions, custom domain `vocab.design`.
+- **Deploy**: GitHub Pages via Actions, at the apex `vocab.design` (registered at Vercel,
+  four A records to GitHub's Pages IPs, `public/CNAME` carrying the domain in the artifact).
 
 ### URL scheme
 
