@@ -1,0 +1,50 @@
+---
+import Base from '#src/layouts/Base.astro';
+import { pageUrl } from '#src/lib/url.ts';
+---
+
+<Base
+  title="Not found · vocab.design"
+  description="That page is not in the dictionary. Here are the entries closest to what you asked for."
+>
+  <meta slot="head" name="robots" content="noindex" />
+  <section class="pt-10 pb-12">
+    <h1 class="font-serif text-4xl font-semibold tracking-tight text-balance">
+      Not in the dictionary.
+    </h1>
+    <p class="article mt-5 text-muted">
+      Terms live at the top level, so this was probably a headword that is
+      spelled differently here, or one nobody has written up yet.
+    </p>
+    <a
+      data-search-for
+      hidden
+      href={pageUrl("/search")}
+      class="mt-6 inline-block text-sm underline hover:text-ink"
+    >
+      Search for it instead &rarr;
+    </a>
+  </section>
+
+  <section data-suggestions hidden class="mb-12">
+    <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">
+      Did you mean
+    </h2>
+    <ul class="grid gap-2"></ul>
+  </section>
+
+  <section class="mb-12 text-sm text-muted">
+    Or start from <a
+      href={pageUrl("/browse")}
+      class="underline hover:text-ink">the categories</a
+    >, the <a href={pageUrl("/glossary")} class="underline hover:text-ink"
+      >A&ndash;Z</a
+    >, or the <a href={pageUrl("/tags")} class="underline hover:text-ink"
+      >facets</a
+    >.
+  </section>
+
+  <script>
+    import "#src/components/notfound.ts";
+  </script>
+</Base>

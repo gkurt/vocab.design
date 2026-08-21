@@ -218,6 +218,10 @@ those are equivalent. Under that format Astro reports
   that letter, aliases shown resolving to their term; the non-alphabetic bucket is
   `/glossary/other`).
 - `/rss.xml` (the newest 100 entries, ordered by `created`; the archive is `/glossary`).
+- `/paths.json` (every slug the site answers to, so the 404 page can guess without
+  downloading the 870KB `/terms.json`).
+- `/404` (the one page nobody links to: it reads the URL that missed and suggests the
+  nearest headwords, which GitHub Pages serves for any unknown path).
 - `/search` (Pagefind, the one thing on the site that needs JavaScript). It works in dev
   too, against the last build's index, which a dev-only integration serves out of
   `dist/pagefind/`.
@@ -810,6 +814,8 @@ What is measured, beyond the page views GA collects on its own:
 | `search_open` | the modal was opened, and how: nav, `/`, or Cmd/Ctrl+K |
 | `relation_click` | a graph edge was crossed, by `relation` kind (`which-word`, `contrast`, `variant-of`, `variants`, `part-of`, `contains`, `see-also`, `prose`) |
 | `alias_hit` | which alias a reader arrived by, handed from the redirect page to the term page |
+| `page_not_found` | a URL the dictionary does not answer, with the headword it was `asked` for and how many suggestions came back: zero suggestions is a word we do not have, a suggestion taken is a word we have under another spelling |
+| `not_found_recovered` | which suggestion the reader took, so the guessing can be judged |
 | `page_type`, `term_category` | on every event, because terms live at the root: the URL cannot say what kind of page it is, and never says a term's category |
 
 A query is only reported once it has stood still for a beat, so the property collects
@@ -829,6 +835,10 @@ same question from two sides. GA says which words a reader typed into our own bo
 find; Search Console says which words they typed into Google before arriving, and an
 impression with no click there is a word we rank for and answer badly. Both lists resolve to
 the same action: write the term, or record the alias.
+
+`page_not_found` is the same signal as a failed search arriving by a different door, and
+often a better one: a reader who types `/skeleton-loader` into the address bar has told us
+the alias we are missing in the plainest possible way.
 
 Two honest limits. `names_result` is false for an alias hit ("snackbar" finds Toast, whose
 headword does not contain it), so read it as a lead rather than a failure. And Pagefind
