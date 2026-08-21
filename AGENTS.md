@@ -92,6 +92,7 @@ src/stage/surface.ts        #   the two isolation modes behind one shape; nothin
 src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
+src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
 src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
 src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)

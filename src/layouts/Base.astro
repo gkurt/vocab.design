@@ -30,6 +30,12 @@ const onSearchPage = path.endsWith('/search');
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href={pageUrl("/sitemap-index.xml")} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="vocab.design: new entries"
+      href={pageUrl("/rss.xml")}
+    />
     <Analytics category={category} />
     <script is:inline>
       const theme = localStorage.getItem("theme");

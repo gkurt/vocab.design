@@ -217,6 +217,7 @@ those are equivalent. Under that format Astro reports
 - `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
   that letter, aliases shown resolving to their term; the non-alphabetic bucket is
   `/glossary/other`).
+- `/rss.xml` (the newest 100 entries, ordered by `created`; the archive is `/glossary`).
 - `/search` (Pagefind, the one thing on the site that needs JavaScript). It works in dev
   too, against the last build's index, which a dev-only integration serves out of
   `dist/pagefind/`.

@@ -9,5 +9,5 @@ export const SECTIONS = ['browse', 'glossary', 'search', 'tags'] as const;
 /** The sections, plus the frame documents, which are not pages at all (SPEC §6). */
 export const RESERVED = new Set<string>([...SECTIONS, 'specimen']);
 
-/** Every non-term path prose is allowed to link to: the sections and the two exports. */
-export const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/search', '/tags', '/llms.txt', '/terms.json']);
+/** Every non-term path prose is allowed to link to: the sections, the exports, the feed. */
+export const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/search', '/tags', '/llms.txt', '/terms.json', '/rss.xml']);
