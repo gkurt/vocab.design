@@ -1,0 +1,37 @@
+name: Specimens (manual)
+
+# Manual only. The suite is ~45 minutes over 1,057 specimens, which on a private repo
+# is the whole Actions budget, so it does not run on push or on pull requests. Trigger
+# it from the Actions tab when specimen behaviour actually changed, and scope it with
+# `grep` to spend a minute instead of an hour.
+on:
+  workflow_dispatch:
+    inputs:
+      grep:
+        description: 'Only tests whose title matches (a term slug, or a suite name like "identify"). Blank runs all 1,057.'
+        required: false
+        type: string
+
+jobs:
+  specimens:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - run: bun i
+      - run: bunx playwright install --with-deps chromium
+      # Executes every choreography against the built site and photographs each
+      # specimen with identify engaged (SPEC §8).
+      - run: bun run test:e2e ${{ inputs.grep && format('--grep "{0}"', inputs.grep) || '' }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: identify-contact-sheet
+          path: e2e/__artifacts__
+          if-no-files-found: warn
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: e2e/.report

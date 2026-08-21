@@ -22,12 +22,18 @@ bun run fix        # Lint + format + autofix
 bun run checks     # Everything: check + typecheck + test + validate + test:e2e
 ```
 
-**CI owns the e2e suite; do not run it locally unless asked.** The full pass is roughly
-45 minutes over 1,057 specimens, and `.github/workflows/ci.yml` already runs
-`bun run test:e2e` on every push, so a local run blocks the session to learn what the
-push learns anyway. Commit on the static gates: `bun validate`, `bun typecheck`,
-`bun check`, `bun run test`. Review what a new specimen identifies as by READING
-`e2e/__snapshots__/<slug>-subject.txt`, which costs nothing.
+**Nothing runs the e2e suite automatically. Do not run it unless asked.** A full pass is
+roughly 45 minutes over 1,057 specimens, which is the whole GitHub Actions budget on a
+private repo, so it is not in `ci.yml`: it lives in `.github/workflows/e2e.yml`, manual
+only, with a `grep` input for scoping it to one specimen. `ci.yml` keeps the static
+gates and finishes in about two minutes.
+
+This means the specimen gate only runs when a human asks for it, so be honest in
+reports: say the static gates passed, and do not imply a choreography was executed when
+it was not. Commit on `bun validate`, `bun typecheck`, `bun check`, `bun run test`.
+Review what a new specimen identifies as by READING
+`e2e/__snapshots__/<slug>-subject.txt`, which costs nothing and catches the mistakes
+that matter most (a whole-scene subject, a pose the mount state fails).
 
 The one case that genuinely needs a local run is a brand-new specimen, because its
 subject snapshot does not exist until a run writes it: `bun run test:e2e:new` plays only

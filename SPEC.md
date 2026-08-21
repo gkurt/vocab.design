@@ -730,12 +730,18 @@ Agent-driven, human-reviewed, in four stages:
 4. **Verify** — separate agents fact-check definitions against cited sources; CI runs
    the mechanical gates.
 
-**CI gates on every PR**: Zod schema validation · relation integrity + symmetry +
-stub existence · tag membership floors and cross-category reach · choreography execution with asserts · demo subject marking
-(`data-subject`) · no global timers in a demo · identify subject snapshots ·
-takeover reaching the posed specimen · Biome · typecheck · build.
-The identify contact sheet is uploaded on every run. Pipeline entry points live in
-`scripts/`.
+**CI gates on every PR**: Zod schema validation · relation integrity + symmetry + stub
+existence · tag membership floors and cross-category reach · demo subject marking
+(`data-subject`) · no global timers in a demo · the stage-escape rules · unit tests ·
+Biome · typecheck · build. All of it is static and runs in about two minutes.
+
+**Gates that run only when asked** (`.github/workflows/e2e.yml`, manual): choreography
+execution with asserts · identify subject snapshots · identify mid-attract · takeover
+reaching the posed specimen · the reduced-motion guard. This suite is the project's
+strongest gate and it is deliberately off the automatic path: a full pass is roughly 45
+minutes over 1,057 specimens, which is the entire Actions budget on a private repo. It
+is scoped by `grep` for a single specimen, or run in full before a release. The identify
+contact sheet is uploaded whenever it runs. Pipeline entry points live in `scripts/`.
 
 ## 12. Pilot: 20 terms
 

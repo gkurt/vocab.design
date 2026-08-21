@@ -157,10 +157,10 @@ bugs in "complete" specimens every time). The verify agent then gates the whole 
 
 1. `bun run test:e2e:new` — plays only specimens without a committed subject
    snapshot; first run fail-writes the new snapshots. **Ask before starting it**, and
-   never run the full `bun run test:e2e`: CI runs the full suite on every push, and a
-   45-minute local pass blocks the session for nothing (see AGENTS.md). Fix behavioral
-   failures and re-run targeted until green. The failure taxonomy so far, most common
-   first:
+   never run the full `bun run test:e2e` unasked: nothing runs it automatically any more
+   (`ci.yml` is static gates only, e2e is manual in `e2e.yml`), so a 45-minute pass is
+   45 minutes of the user's session. Fix behavioral failures and re-run targeted until
+   green. The failure taxonomy so far, most common first:
    - an assert timed to the edge of a state window (give it room, aim mid-window)
    - an assert on evidence inside a popup the action just closed (mirror onto trigger)
    - a mount-time assert with no room for kit fades (open with a wait)
@@ -184,7 +184,9 @@ bugs in "complete" specimens every time). The verify agent then gates the whole 
    `data-pose` carrier must mount in a state satisfying its pose (the attributes in
    the snapshot show both). A `whole scene` scope withdraws identify: verify the
    agent noted that decision deliberately.
-3. No full local `bun run test:e2e`. The push runs it; the round does not wait for it.
+3. No full `bun run test:e2e`, locally or in CI. If the round's specimens should be
+   proven before release, say so in the report and let the user trigger the manual
+   Specimens workflow, scoped with `grep` if only some terms changed.
 4. Check for stray files (authors sometimes leave `shot-*.png` or probe scripts at
    the repo root); move them out, never commit them.
 5. Commit everything as `Author an Nth round of 6 terms per category`. The tree

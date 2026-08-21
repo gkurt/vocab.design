@@ -7,6 +7,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# The specimen suite is NOT here: it is ~45 minutes per run, which exhausts the Actions
+# budget on a private repo. It lives in e2e.yml, manual only.
 jobs:
   checks:
     runs-on: ubuntu-latest
@@ -20,24 +22,3 @@ jobs:
       - run: bun validate
       - run: bun run build
 
-  specimens:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: oven-sh/setup-bun@v2
-      - run: bun i
-      - run: bunx playwright install --with-deps chromium
-      # Executes every choreography against the built site and photographs each
-      # specimen with identify engaged (SPEC §8).
-      - run: bun run test:e2e
-      - if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: identify-contact-sheet
-          path: e2e/__artifacts__
-          if-no-files-found: warn
-      - if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: e2e/.report
