@@ -38,6 +38,12 @@ It builds the site and serves it on port 4322, so it never collides with `bun ru
 Each run leaves a contact sheet at `e2e/__artifacts__/identify.html`: every specimen with
 identify engaged, side by side.
 
+Analytics is off unless a build is given one: `PUBLIC_GA_ID=G-XXXXXXXXXX bun run build`
+bakes in a GA4 tag, and without it nothing at all is shipped or loaded. Even with an ID,
+the tag refuses to load under Global Privacy Control, under Do Not Track, and on any
+localhost, so a local production build cannot pollute a property. What it measures, and
+why the failed searches are the interesting part, is [SPEC §10](SPEC.md).
+
 ## Licensing
 
 Code is [MIT](LICENSE). Term content (definitions, articles, and demo compositions as

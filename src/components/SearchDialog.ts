@@ -12,6 +12,8 @@
  * the backdrop, the focus trap and the top layer are not ours to reimplement.
  */
 
+import { track } from '#src/lib/track.ts';
+
 interface Focusable extends HTMLElement {
   focusInput?(): void;
 }
@@ -55,7 +57,7 @@ export class SearchDialog extends HTMLElement {
     const trigger = (event.target as Element | null)?.closest?.('[data-search-open]');
     if (!trigger) return;
     event.preventDefault();
-    void this.#open();
+    void this.#open('nav');
   }
 
   #onKey(event: KeyboardEvent) {
@@ -66,12 +68,14 @@ export class SearchDialog extends HTMLElement {
     // Slash is a character before it is a shortcut: never take it out of a field.
     if (slash && isTyping(event.target)) return;
     event.preventDefault();
-    void this.#open();
+    void this.#open(slash ? 'slash' : 'command');
   }
 
-  async #open() {
+  async #open(via: 'nav' | 'slash' | 'command') {
     const dialog = this.#dialog;
     if (!dialog || dialog.open) return;
+    // Whether the shortcut is worth keeping is a question only the numbers answer.
+    track('search_open', { via });
     dialog.showModal();
     await this.#upgrade();
     // Focus warms the index (the element listens for it), and selecting whatever is

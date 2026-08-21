@@ -1,0 +1,55 @@
+---
+/**
+ * Google Analytics, loaded only when a measurement ID was baked in at build time
+ * (`PUBLIC_GA_ID`). No ID means not a single byte of this ships, which is what makes dev
+ * servers, forks and local previews silent by default.
+ *
+ * The tag is injected by script rather than written as a `<script src>` so the opt-outs
+ * are checked BEFORE anything is fetched: Global Privacy Control, Do Not Track, and any
+ * localhost, which would otherwise pollute the property from a local production build.
+ * `window.gtag` therefore exists only when we are really measuring, and `track()` in
+ * `#src/lib/track.ts` no-ops off exactly that.
+ *
+ * `page_type` and `term_category` ride along on every event via `config`, because the URL
+ * alone cannot say what kind of page it is (terms live at the root) and never says which
+ * category a term belongs to.
+ */
+import { pageType } from '#src/lib/page-type.ts';
+
+interface Props {
+  /** Term pages only: the category is not in the URL, so it has to be passed. */
+  category?: string;
+}
+
+const id = import.meta.env.PUBLIC_GA_ID;
+const params = {
+  page_type: pageType(Astro.url.pathname, import.meta.env.BASE_URL),
+  term_category: Astro.props.category,
+};
+---
+
+{
+  id && (
+    <script define:vars={{ id, params }}>
+      (function () {
+        var nav = navigator;
+        if (nav.globalPrivacyControl === true) return;
+        if (nav.doNotTrack === "1" || window.doNotTrack === "1") return;
+        var host = location.hostname;
+        if (location.protocol === "file:" || host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local"))
+          return;
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag("js", new Date());
+        gtag("config", id, params);
+        var tag = document.createElement("script");
+        tag.async = true;
+        tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+        document.head.appendChild(tag);
+      })();
+    </script>
+  )
+}

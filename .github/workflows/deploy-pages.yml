@@ -26,6 +26,10 @@ jobs:
           NODE_ENV: production
           SITE: https://gkurt.com
           BASE_URL: /vocab.design
+          # Set the repository variable PUBLIC_GA_ID (Settings > Variables) to a GA4
+          # measurement ID, G-XXXXXXXXXX. Unset means the deploy carries no analytics at
+          # all, which is also what every other build does.
+          PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

@@ -100,6 +100,11 @@ src/components/SearchPanel.astro # the search itself, rendered as the page or in
 src/components/SearchDialog.astro #  the modal in the chrome: <vd-search-dialog> + <dialog>
 src/components/SearchDialog.ts #   opens it, and lazy-loads the search on the first open
 src/components/SiteSearch.ts #  <vd-search>: fetches dist/pagefind/ at runtime, never at build time
+src/components/Analytics.astro #  the GA4 loader: nothing at all without PUBLIC_GA_ID
+src/components/analytics.ts #   chrome wiring: relation clicks and the alias handoff
+src/lib/track.ts            #   track(): the one way anything talks to analytics
+src/lib/page-type.ts        #   what kind of page a path is (terms live at the root)
+src/lib/search-signals.ts   #   what "found the right thing" means, and its tests
 src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro dev` (dev only)
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
@@ -136,6 +141,32 @@ field stays a slash.
 `type="search"` input eats the first Escape to clear itself, so the platform's own close
 only happens on the second press, which makes the footer's "Esc to close" a lie exactly
 once per search.
+
+## Analytics
+
+GA4, and only when `PUBLIC_GA_ID` is set at build time (SPEC §10). No ID means not one
+byte ships, which is every build except the deploy: the ID comes from the repository
+variable `PUBLIC_GA_ID`, read in `.github/workflows/deploy-pages.yml`. `window.gtag`
+exists only when the loader's refusals all pass (GPC, Do Not Track, any localhost), so
+`track()` from `#src/lib/track.ts` is a no-op in dev, in a fork, and for a reader who
+opted out. Call it unconditionally; never branch on whether analytics is on.
+
+What is measured and why is SPEC §10. The short version: the searches that FAIL are the
+point, because a query that finds nothing (or only finds something after the salvage pass
+throws half of it away) is a missing alias or a missing term.
+
+**Gotcha**: a new event parameter is invisible in the GA UI until it is registered as a
+custom dimension (Admin > Custom definitions). The data is collected either way, so a
+missing report is a settings problem, not a code one.
+
+**Gotcha**: `gtag.js` hijacks `dataLayer.push` once it loads, so reading `window.dataLayer`
+is NOT a reliable way to see what was sent. Verify by replacing `window.gtag` with a
+recorder instead.
+
+**Gotcha**: an alias page redirects in 0ms and carries no tag, so the alias is handed to
+the term page through `sessionStorage` (written before the meta refresh, read and cleared
+by `analytics.ts`, and only credited when the target slug matches `data-term`). That
+script is emitted only when a measurement ID is set.
 
 **Gotcha**: Pagefind's index does not exist at Astro build time, so `<vd-search>` must
 reach it through a dynamic `import()` of a computed specifier marked `/* @vite-ignore */`.

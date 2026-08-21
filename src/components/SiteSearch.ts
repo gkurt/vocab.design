@@ -20,6 +20,9 @@
  * guest on someone else's page and leaves it alone.
  */
 
+import { droppedWords, namesTopResult } from '#src/lib/search-signals.ts';
+import { track } from '#src/lib/track.ts';
+
 interface PagefindSubResult {
   url: string;
   excerpt: string;
@@ -62,6 +65,12 @@ const MIN_WORD = 2;
 const MAX_SALVAGE_WORDS = 4;
 /** Typing settles before a search fires; Pagefind is fast but the index loads in shards. */
 const DEBOUNCE_MS = 160;
+/**
+ * How long a query has to stand before it is reported. Every settled keystroke runs a
+ * real search, and reporting each one would fill the property with the prefixes of words:
+ * "k", "ke", "keb". A query still on screen after this long is one a reader meant.
+ */
+const REPORT_MS = 1200;
 
 export class SiteSearch extends HTMLElement {
   #api: PagefindApi | null = null;
@@ -80,6 +89,13 @@ export class SiteSearch extends HTMLElement {
   #fullHref = '';
   /** Only the search PAGE owns the address bar; the modal is a guest on someone's page. */
   #syncs = false;
+  /** 'page' or 'modal', so a report can tell a destination from an interruption. */
+  #surface = 'page';
+  #reportTimer: number | undefined;
+  /** The headword of the top hit, for judging how close the match was. */
+  #topResult: string | undefined;
+  /** A reported search nobody has taken a result from yet. */
+  #unanswered: { query: string; results: number } | null = null;
 
   connectedCallback() {
     this.#input = this.querySelector('[data-search-input]') as HTMLInputElement;
@@ -89,11 +105,24 @@ export class SiteSearch extends HTMLElement {
     this.#full = this.querySelector('[data-search-full]');
     this.#fullHref = this.#full?.getAttribute('href') ?? '';
     this.#syncs = this.hasAttribute('data-sync-url');
+    this.#surface = this.dataset.surface ?? 'page';
     if (!this.#input || !this.#status || !this.#list || !this.#more) return;
 
     this.#input.addEventListener('input', () => this.#schedule());
     this.#input.addEventListener('search', () => this.#schedule());
     this.#more.addEventListener('click', () => this.#render(PAGE_SIZE));
+    this.#list.addEventListener('click', (event) => this.#reportClick(event));
+    // A search whose results nobody took is the strongest signal there is that the
+    // vocabulary did not have the word. It can only be counted on the way out: when the
+    // modal closes, or when the page goes away under a reader who gave up.
+    this.closest('dialog')?.addEventListener('close', () => this.#reportUnanswered());
+    window.addEventListener('pagehide', () => this.#reportUnanswered());
+    // Leaving the modal for the full page is the same search continuing, not one given
+    // up on: /search fires its own report from the query it arrives with.
+    this.#full?.addEventListener('click', () => {
+      this.#unanswered = null;
+      clearTimeout(this.#reportTimer);
+    });
 
     // A shared link should show its results, and the query survives a reload. Only where
     // the query is ours: `?q=` on a term page belongs to whatever put it there.
@@ -109,6 +138,7 @@ export class SiteSearch extends HTMLElement {
 
   #schedule() {
     clearTimeout(this.#timer);
+    clearTimeout(this.#reportTimer);
     const query = this.#input.value.trim();
     this.#timer = window.setTimeout(() => void this.#run(query), DEBOUNCE_MS);
   }
@@ -170,11 +200,79 @@ export class SiteSearch extends HTMLElement {
     if (this.#results.length === 0) {
       this.#more.hidden = true;
       this.#say(`Nothing for "${query}". Aliases are indexed, so try the other name for it.`);
+      this.#scheduleReport(query, attempt);
       return;
     }
     const count = `${this.#results.length} ${this.#results.length === 1 ? 'result' : 'results'}`;
     this.#say(attempt.ran ? `${count} for "${attempt.ran}", since the rest of that is not in any article` : count);
     await this.#render(PAGE_SIZE);
+    this.#scheduleReport(query, attempt);
+  }
+
+  /**
+   * What a search is worth knowing about, in three events.
+   *
+   * `search` is every settled query that found something, carrying how close it got:
+   * whether the top hit's headword contains what was typed, and whether the salvage pass
+   * had to drop words to get there.
+   *
+   * `search_no_results` and `search_distant` are the two failures, split out under their
+   * own names so they are visible without building a report: nothing at all, and
+   * something only after dropping words. Both are reading lists for the vocabulary, an
+   * alias to add or a term to write, which is the whole reason for measuring this.
+   */
+  #scheduleReport(query: string, attempt: Attempt) {
+    clearTimeout(this.#reportTimer);
+    this.#reportTimer = window.setTimeout(() => {
+      const results = attempt.results.length;
+      const surface = this.#surface;
+      if (results === 0) {
+        track('search_no_results', { search_term: query, surface, words: query.split(/\s+/).filter(Boolean).length });
+        this.#unanswered = null;
+        return;
+      }
+      const dropped = droppedWords(query, attempt.ran);
+      track('search', {
+        search_term: query,
+        results,
+        surface,
+        top_result: this.#topResult,
+        names_result: namesTopResult(query, this.#topResult),
+        dropped_words: dropped,
+      });
+      if (dropped > 0) {
+        track('search_distant', {
+          search_term: query,
+          ran: attempt.ran,
+          dropped_words: dropped,
+          results,
+          surface,
+          top_result: this.#topResult,
+        });
+      }
+      this.#unanswered = { query, results };
+    }, REPORT_MS);
+  }
+
+  /** Which result was taken, and how far down it was: position IS the relevance test. */
+  #reportClick(event: MouseEvent) {
+    const link = (event.target as Element | null)?.closest?.('a[data-position]');
+    if (!(link instanceof HTMLAnchorElement)) return;
+    this.#unanswered = null;
+    clearTimeout(this.#reportTimer);
+    track('search_result_click', {
+      search_term: this.#input.value.trim(),
+      position: Number(link.dataset.position),
+      result: link.pathname,
+      surface: this.#surface,
+    });
+  }
+
+  #reportUnanswered() {
+    if (!this.#unanswered) return;
+    const { query, results } = this.#unanswered;
+    this.#unanswered = null;
+    track('search_abandoned', { search_term: query, results, surface: this.#surface });
   }
 
   /**
@@ -217,17 +315,20 @@ export class SiteSearch extends HTMLElement {
 
   async #render(count: number) {
     const slice = this.#results.slice(this.#shown, this.#shown + count);
+    const from = this.#shown;
     this.#shown += slice.length;
     const rendered = await Promise.all(slice.map((r) => r.data()));
-    for (const data of rendered) this.#list.append(this.#row(data));
+    if (from === 0) this.#topResult = rendered[0]?.meta.title;
+    for (const [index, data] of rendered.entries()) this.#list.append(this.#row(data, from + index + 1));
     this.#more.hidden = this.#shown >= this.#results.length;
     this.#more.textContent = `Show ${Math.min(PAGE_SIZE, this.#results.length - this.#shown)} more`;
   }
 
-  #row(data: PagefindResultData): HTMLElement {
+  #row(data: PagefindResultData, position: number): HTMLElement {
     const li = document.createElement('li');
     const link = document.createElement('a');
     link.href = data.url;
+    link.dataset.position = String(position);
     link.className = 'group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent';
 
     const name = document.createElement('span');

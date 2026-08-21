@@ -51,14 +51,19 @@ const reverse = (kind: 'variantOf' | 'partOf') =>
 const relationGroups = [
   {
     label: 'Contrast with',
+    kind: 'contrast',
     slugs: d.relations.contrastWith.filter((s) => !tabled.has(s)),
   },
-  { label: 'Variant of', slugs: d.relations.variantOf },
-  { label: 'Variants', slugs: reverse('variantOf') },
-  { label: 'Part of', slugs: d.relations.partOf },
-  { label: 'Contains', slugs: reverse('partOf') },
-  { label: 'See also', slugs: d.relations.seeAlso },
+  { label: 'Variant of', kind: 'variant-of', slugs: d.relations.variantOf },
+  { label: 'Variants', kind: 'variants', slugs: reverse('variantOf') },
+  { label: 'Part of', kind: 'part-of', slugs: d.relations.partOf },
+  { label: 'Contains', kind: 'contains', slugs: reverse('partOf') },
+  { label: 'See also', kind: 'see-also', slugs: d.relations.seeAlso },
 ].filter((group) => group.slugs.length > 0);
+
+// The alias a reader typed cannot be read off the page they land on, so the redirect
+// hands it over (src/components/analytics.ts). Only when there is somewhere to report it.
+const measuring = Boolean(import.meta.env.PUBLIC_GA_ID);
 
 const { Content } = await render(term.entry);
 
@@ -89,6 +94,13 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
           {redirectFrom} → {d.name} · vocab.design
         </title>
         <link rel="canonical" href={canonicalUrl} />
+        {measuring && (
+          <script define:vars={{ handoff: `${redirectFrom}\n${d.slug}` }}>
+            try {
+              sessionStorage.setItem("vd:alias", handoff);
+            } catch (error) {}
+          </script>
+        )}
         <meta http-equiv="refresh" content={`0; url=/${d.slug}`} />
       </head>
       <body>
@@ -102,13 +114,18 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
     <Base
       title={`${d.name}${aka} · ${d.category} · vocab.design`}
       description={d.definition}
+      category={d.category}
     >
       <script
         slot="head"
         type="application/ld+json"
         set:html={JSON.stringify(jsonLd)}
       />
-      <article data-pagefind-body data-pagefind-meta={`category:${d.category}`}>
+      <article
+        data-term={d.slug}
+        data-pagefind-body
+        data-pagefind-meta={`category:${d.category}`}
+      >
         <p class="text-sm text-muted italic">
           {d.category}
           {d.tags.map((tag) => (
@@ -187,6 +204,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
                     <td class="py-2">
                       <a
                         href={pageUrl(row.slug)}
+                        data-rel="which-word"
                         class="text-accent underline underline-offset-3"
                       >
                         {row.name.toLowerCase()}
@@ -210,6 +228,7 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
                     {i > 0 && " · "}
                     <a
                       href={pageUrl(s)}
+                      data-rel={group.kind}
                       class="text-accent underline underline-offset-3"
                     >
                       {bySlug.get(s)?.name ?? s}

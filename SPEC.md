@@ -749,6 +749,43 @@ the concept, and a docs URL.
 - **OG images** generated per term at build (headword + category + definition line).
 - Sitemap, RSS feed of newly published terms.
 
+### Measurement
+
+Analytics belongs in this section because on a dictionary it is a discoverability
+instrument, not a growth one. The question worth money here is not how many people came,
+it is **which words they reached for and did not find**: a query that lands on nothing, or
+only lands after the search throws half of it away, is a missing alias or a missing term,
+and that is the same reading list the pipeline (§11) works from.
+
+Google Analytics 4, loaded only when `PUBLIC_GA_ID` is set at build time. Unset ships
+nothing at all, which is what every build except the deploy does. Three refusals are
+built into the loader, checked before a single byte is fetched: Global Privacy Control,
+Do Not Track, and any localhost (a production build previewed locally must not appear in
+the property). There is no consent banner because there is nothing to consent to beyond
+this: no advertising signals, no user-ID, no cross-site anything.
+
+What is measured, beyond the page views GA collects on its own:
+
+| Event | Says |
+| --- | --- |
+| `search` | a settled query that found something: `results`, whether the top hit's **headword** contains what was typed (`names_result`), how many words the salvage pass had to drop (`dropped_words`), and `surface` (page or modal) |
+| `search_no_results` | nothing matched, even after dropping words |
+| `search_distant` | it only matched after dropping words, with `ran` (what actually ran) |
+| `search_result_click` | which result was taken, and at what `position`: position IS the relevance test |
+| `search_abandoned` | results were shown and nobody took one, reported when the modal closes or the page goes away |
+| `search_open` | the modal was opened, and how: nav, `/`, or Cmd/Ctrl+K |
+| `relation_click` | a graph edge was crossed, by `relation` kind (`which-word`, `contrast`, `variant-of`, `variants`, `part-of`, `contains`, `see-also`, `prose`) |
+| `alias_hit` | which alias a reader arrived by, handed from the redirect page to the term page |
+| `page_type`, `term_category` | on every event, because terms live at the root: the URL cannot say what kind of page it is, and never says a term's category |
+
+A query is only reported once it has stood still for a beat, so the property collects
+searches a reader meant rather than the prefixes of words ("k", "ke", "keb").
+
+Two honest limits. `names_result` is false for an alias hit ("snackbar" finds Toast, whose
+headword does not contain it), so read it as a lead rather than a failure. And Pagefind
+matches loosely enough that a true zero is rare, which makes `search_abandoned` and a deep
+`search_result_click` the more reliable "did not find it" signals.
+
 ## 11. Content pipeline & CI gates
 
 Agent-driven, human-reviewed, in four stages:
