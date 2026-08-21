@@ -1,0 +1,67 @@
+---
+name: Yellow fade technique
+slug: yellow-fade-technique
+category: motion
+status: published
+definition: >-
+  Washing a just-changed element in colour and letting it fade back out, so a change made
+  without a page reload is still noticed where it happened.
+aliases:
+  - name: highlight fade
+    source: community
+  - name: flash highlight
+    source: community
+  - name: highlight on change
+    source: community
+  - name: YFT
+    source: community
+relations:
+  contrastWith: [fade, optimistic-ui]
+  variantOf: [microinteraction]
+  seeAlso: [inline-edit]
+sources:
+  - title: "Signal vs. Noise: Web Interface Design Tip: The Yellow Fade Technique"
+    url: https://signalvnoise.com/archives/000558.php
+demo: inline
+useWhen: showing which thing on the page just changed
+---
+
+The wash is a receipt for something the page did without reloading. 37signals shipped it
+in Basecamp and wrote it up on [Signal vs. Noise](https://signalvnoise.com/archives/000558.php)
+in February 2004, answering a question that updating a page in place had just created: the
+page did not reload, so what changed? A form post used to redraw everything, and the
+reader found their place again by reading the new page. When one row is rewritten where it
+sits, nothing announces it, so the technique paints that row, drains the paint away, and
+leaves the eye parked exactly where the change landed.
+
+Read as a [microinteraction](/microinteraction) the loop is unusually tidy, which is part
+of why the pattern outlived the decade that produced it. The trigger is not something the
+reader did to this element: it is a change arriving, from their own edit somewhere else on
+the page, from a write that finally came back, or from a teammate. The rules decide the
+scope, and the scope is most of the craft, because a wash over the container teaches
+nothing and a wash over the whole list teaches less than nothing. The feedback is the
+wash. The result is the changed content, still sitting there once the colour has gone,
+since the wash points at a record and never was one.
+
+Yellow is in the name and is the least interesting thing about it. What the colour has to
+do is read as marked rather than as broken, at a strength that leaves the text underneath
+legible, and a dark interface needs a different value from the paper-white page Basecamp
+was drawn on. What it must not be is the only signal. Colour alone fails
+[use of color](/use-of-color), and a wash that has finished fading is no signal at all, so
+pair it with something that stays: an edited chip, an icon, a timestamp. Readers who ask
+for [reduced motion](/prefers-reduced-motion) are owed the same information without the
+move, which usually means the highlight simply holds, and holding only works if it was
+legible standing still.
+
+Both neighbouring words are narrower than they look. A [fade](/fade) is the move and
+carries no message; this technique is a fade spending itself on one specific sentence, and
+a flash or a brief outline would say the same sentence differently.
+[Optimistic UI](/optimistic-ui) is a rule about time, that a result may be shown before
+the server has agreed to it, and it says nothing at all about how the reader is meant to
+notice. The two pair naturally, since an optimistic change is exactly the kind that lands
+with no page load behind it, and a [toast](/toast) is what you fall back on when the change
+happened somewhere the reader cannot see. Where the wash earns its keep is
+[inline edit](/inline-edit) and [autosave](/autosave), the two places a page routinely
+changes under its own reader. Where it stops earning is repetition: a wash on every
+keystroke is noise, and an interface that highlights everything has told you only that
+something, somewhere, happened.

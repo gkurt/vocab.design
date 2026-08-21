@@ -41,7 +41,7 @@ export const TAG_BLURBS: Record<Tag, string> = {
 export const HEAD_TERMS: { slug: string; why: string }[] = [
   { slug: 'dark-pattern', why: 'Seventeen deceptive patterns declare it, so its own page lists them.' },
   { slug: 'responsive-web-design', why: "The umbrella over LukeW's five responsive layout patterns." },
-  { slug: 'microinteraction', why: 'The unit the ripples, pulses and lifts are instances of.' },
+  { slug: 'microinteraction', why: 'The loops that are kinds of it and the ripples that are parts of one, both derived on its page.' },
   { slug: 'skeuomorphism', why: 'The claim every revival and reaction to it is measured against.' },
 ];
 

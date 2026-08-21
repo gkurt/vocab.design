@@ -2331,6 +2331,47 @@
     ]
   },
   {
+    "name": "Auditory icon",
+    "slug": "auditory-icon",
+    "category": "interaction",
+    "definition": "A recorded everyday sound standing for an event, so a crumple means delete by resembling the act rather than by convention learned in the interface.",
+    "useWhen": "the sound that reports an event by resembling it",
+    "aliases": [
+      {
+        "name": "everyday sound",
+        "source": "community"
+      },
+      {
+        "name": "sound icon",
+        "source": "community"
+      },
+      {
+        "name": "natural sound cue",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "earcon",
+      "haptic-feedback",
+      "sonification",
+      "interface-metaphor",
+      "skeuomorphism"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wikipedia: Earcon",
+        "url": "https://en.wikipedia.org/wiki/Earcon"
+      }
+    ],
+    "implementations": [],
+    "notes": "Coined by Bill Gaver in 1986; VERIFY before asserting. Wikipedia covers both this and earcon on the Earcon page, so both terms share the source. Round-mate contrast pair with earcon, and the demos must not look alike.",
+    "sweptFrom": [
+      "interaction"
+    ]
+  },
+  {
     "name": "Aurora UI",
     "slug": "aurora-ui",
     "category": "aesthetic",
@@ -9058,6 +9099,60 @@
     ]
   },
   {
+    "name": "Detent",
+    "slug": "detent",
+    "category": "interaction",
+    "definition": "A position a control settles into and resists leaving, so a continuous drag or turn lands on discrete values that can be felt rather than read.",
+    "useWhen": "the position a control sticks at as you drag past it",
+    "aliases": [
+      {
+        "name": "snap point",
+        "source": "community"
+      },
+      {
+        "name": "discrete step",
+        "source": "community"
+      },
+      {
+        "name": "stop point",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "snapping",
+      "tick-marks",
+      "scroll-snap",
+      "knob",
+      "bottom-sheet",
+      "haptic-feedback",
+      "range-slider"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple Developer: UISheetPresentationController.Detent",
+        "url": "https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller/detent"
+      },
+      {
+        "title": "Apple HIG: Sheets",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/sheets"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Sheet detents",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/sheets",
+        "verified": true
+      }
+    ],
+    "notes": "Load-bearing in 13 places across 9 published articles (knob, bottom-sheet, grabber, rotate-gesture, spring-animation, haptic-feedback, tick-marks, modal-presentation, cassette-futurism) with no definition anywhere on site. ALIAS FENCE: do not claim 'notch', it belongs to display-cutout.",
+    "sweptFrom": [
+      "interaction"
+    ]
+  },
+  {
     "name": "Device posture",
     "slug": "device-posture",
     "category": "layout",
@@ -10723,6 +10818,51 @@
     "notes": "On real e-paper the constraints are physical (slow refresh, ghosting, no backlight); as a style on ordinary screens it keeps only the look.",
     "sweptFrom": [
       "aesthetic"
+    ]
+  },
+  {
+    "name": "Earcon",
+    "slug": "earcon",
+    "category": "interaction",
+    "definition": "A brief synthesized sound standing for an event, abstract by design, so a rising figure means success only because the interface taught you it does.",
+    "useWhen": "the abstract tone that reports an event",
+    "aliases": [
+      {
+        "name": "audio cue",
+        "source": "community"
+      },
+      {
+        "name": "UI sound",
+        "source": "community"
+      },
+      {
+        "name": "audio feedback",
+        "source": "community"
+      },
+      {
+        "name": "interface sound",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "auditory-icon",
+      "haptic-feedback",
+      "sonification",
+      "microinteraction",
+      "toast"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wikipedia: Earcon",
+        "url": "https://en.wikipedia.org/wiki/Earcon"
+      }
+    ],
+    "implementations": [],
+    "notes": "The term was coined by D.A. Sumikawa in 1985 (a deliberate pun: icon reads as eye-con, so the ear gets one too) and structured families of tones were formalized by Blattner, Sumikawa and Greenberg in 1989. VERIFY these attributions against the source before asserting them. Round-mate contrast pair with auditory-icon: abstract and learned versus recorded and resembling.",
+    "sweptFrom": [
+      "interaction"
     ]
   },
   {
@@ -12600,6 +12740,48 @@
     ],
     "sweptFrom": [
       "layout"
+    ]
+  },
+  {
+    "name": "Feedforward",
+    "slug": "feedforward",
+    "category": "interaction",
+    "definition": "What an interface says about the result of an act before it is taken, the half of the loop that sits ahead of the action rather than after it.",
+    "useWhen": "telling someone what will happen before they act",
+    "aliases": [
+      {
+        "name": "feed forward",
+        "source": "community"
+      },
+      {
+        "name": "action preview",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "affordance",
+      "signifier",
+      "microinteraction",
+      "drop-indicator",
+      "drag-preview",
+      "helper-text"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "But how, Donald, tell us how? (DIS 2002)",
+        "url": "https://research.tue.nl/en/publications/but-how-donald-tell-us-how-on-the-meaning-of-interaction-design-t"
+      },
+      {
+        "title": "Crossing the bridge over Norman's gulf of execution (CHI 2013)",
+        "url": "https://research.tue.nl/en/publications/crossing-the-bridge-over-normans-gulf-of-execution-revealing-feed"
+      }
+    ],
+    "implementations": [],
+    "notes": "Djajadiningrat, Overbeeke and Wensveen (DIS 2002); Vermeulen et al. (CHI 2013). The neighbourhood is DENSE: affordance appears in 47 term files and signifier in 9, so the article must earn its place by discriminating hard. Affordance is what you CAN do, signifier is where and how you do it, feedforward is what WILL HAPPEN if you do. Verify the second source URL resolves before shipping it.",
+    "sweptFrom": [
+      "interaction"
     ]
   },
   {
@@ -19588,6 +19770,48 @@
     "notes": "Pure long tail: Apple has no official name, the community word is the entry. Good candidate for the 'what is the word for' framing.",
     "sweptFrom": [
       "motion"
+    ]
+  },
+  {
+    "name": "Juiciness",
+    "slug": "juiciness",
+    "category": "interaction",
+    "definition": "Stacking far more feedback on an act than it needs, so one small input wobbles, pops and sings, and the interface feels alive under the hand.",
+    "useWhen": "deliberately excessive feedback for one small act",
+    "aliases": [
+      {
+        "name": "juice",
+        "source": "community"
+      },
+      {
+        "name": "game feel",
+        "source": "community"
+      },
+      {
+        "name": "juicy interface",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "microinteraction",
+      "confetti-burst",
+      "squash-and-stretch",
+      "overshoot",
+      "shake-animation",
+      "haptic-feedback"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Game Developer: Is your game 'juicy' enough?",
+        "url": "https://www.gamedeveloper.com/design/video-is-your-game-juicy-enough-"
+      }
+    ],
+    "implementations": [],
+    "notes": "From game development: the 'Juice it or Lose it' talk by Martin Jonasson and Petri Purho, and the phrase 'maximum output for minimum input'. Game vocabulary is already in scope on site (attract-mode, jiggle-mode, ten-foot-ui, diegetic-interface, fictional-user-interface). HONESTY DUTY: this is the word for what 'add some microinteractions' actually asks for, and the article must say plainly where juiciness is WRONG, namely an act performed forty times a day, and link prefers-reduced-motion.",
+    "sweptFrom": [
+      "interaction"
     ]
   },
   {
@@ -30789,6 +31013,48 @@
     ]
   },
   {
+    "name": "Rage click",
+    "slug": "rage-click",
+    "category": "pattern",
+    "definition": "A burst of repeated clicks on one spot, the shape frustration takes when a control answers nothing, and the analytics signal that goes looking for it.",
+    "useWhen": "the repeated clicking that reports a dead control",
+    "aliases": [
+      {
+        "name": "rage clicking",
+        "source": "community"
+      },
+      {
+        "name": "rage tap",
+        "source": "community"
+      },
+      {
+        "name": "frustration click",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "microinteraction",
+      "ghost-click",
+      "dead-zone",
+      "busy-state",
+      "optimistic-ui",
+      "click-through"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Fullstory: What are Rage Clicks?",
+        "url": "https://www.fullstory.com/blog/rage-clicks/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Digital-experience-analytics vocabulary (Fullstory, Hotjar, Microsoft Clarity, Pendo). Vendors commonly say three or more clicks in a short window, but Fullstory publishes no threshold, so do NOT state a number as universal. DISCRIMINATION: ghost-click and dead-zone are CAUSES, this is the observed behaviour, and the article must say which is which.",
+    "sweptFrom": [
+      "pattern"
+    ]
+  },
+  {
     "name": "Raised cap",
     "slug": "raised-cap",
     "category": "typography",
@@ -35518,6 +35784,48 @@
     ],
     "sweptFrom": [
       "pattern"
+    ]
+  },
+  {
+    "name": "Slide to confirm",
+    "slug": "slide-to-confirm",
+    "category": "interaction",
+    "definition": "A control that commits only once its thumb is dragged the length of its track, so the effort of the gesture is the guard against doing it by accident.",
+    "useWhen": "making one irreversible action need a deliberate drag",
+    "aliases": [
+      {
+        "name": "swipe to confirm",
+        "source": "community"
+      },
+      {
+        "name": "slide to unlock",
+        "source": "community"
+      },
+      {
+        "name": "confirmation slider",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "hold-to-confirm",
+      "type-to-confirm",
+      "dragging-alternative",
+      "press-drag-release",
+      "slider",
+      "pointer-cancellation"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "WCAG 2.2: Understanding SC 2.5.7 Dragging Movements",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements"
+      }
+    ],
+    "implementations": [],
+    "notes": "The completing sibling of hold-to-confirm and type-to-confirm, both published: link and contrast BOTH. MANDATORY honesty duty: WCAG 2.2 SC 2.5.7 requires a non-dragging alternative for this exact control, so the article must link the site's own dragging-alternative and the demo must not pretend the drag is the only way in.",
+    "sweptFrom": [
+      "interaction"
     ]
   },
   {
@@ -44222,6 +44530,52 @@
     "notes": "",
     "sweptFrom": [
       "aesthetic"
+    ]
+  },
+  {
+    "name": "Yellow fade technique",
+    "slug": "yellow-fade-technique",
+    "category": "motion",
+    "definition": "Washing a just-changed element in colour and letting it fade back out, so a change made without a page reload is still noticed where it happened.",
+    "useWhen": "showing which thing on the page just changed",
+    "aliases": [
+      {
+        "name": "highlight fade",
+        "source": "community"
+      },
+      {
+        "name": "flash highlight",
+        "source": "community"
+      },
+      {
+        "name": "highlight on change",
+        "source": "community"
+      },
+      {
+        "name": "YFT",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "microinteraction",
+      "optimistic-ui",
+      "fade",
+      "inline-edit",
+      "autosave",
+      "marching-ants"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Signal vs. Noise: Web Interface Design Tip: The Yellow Fade Technique",
+        "url": "https://signalvnoise.com/archives/000558"
+      }
+    ],
+    "implementations": [],
+    "notes": "37signals, 2004, for Basecamp: the canonical answer to 'the page did not reload, so what changed?'. The site has NO term for this at all today (no highlight-fade, no value-flash, no flash-on-update anywhere). HONESTY DUTY: the colour is not the point and the article must say so, and a fade that is the ONLY signal of a change fails WCAG 1.4.1, so link use-of-color.",
+    "sweptFrom": [
+      "motion"
     ]
   },
   {

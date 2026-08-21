@@ -1,0 +1,67 @@
+---
+name: Detent
+slug: detent
+category: interaction
+status: published
+definition: >-
+  A position a control settles into and resists leaving, so a continuous drag or turn lands
+  on discrete values that can be felt rather than read.
+aliases:
+  - name: discrete step
+    source: community
+  - name: stop point
+    source: community
+relations:
+  contrastWith: [snapping, tick-marks]
+  seeAlso: [microinteraction, knob]
+implementations:
+  - system: hig
+    name: Sheet detents
+    url: https://developer.apple.com/design/human-interface-guidelines/sheets
+sources:
+  - title: "Apple Developer: UISheetPresentationController.Detent"
+    url: https://developer.apple.com/documentation/uikit/uisheetpresentationcontroller/detent
+  - title: "Apple HIG: Sheets"
+    url: https://developer.apple.com/design/human-interface-guidelines/sheets
+demo: inline
+useWhen: the position a control sticks at as you drag past it
+---
+
+The word is machinery. A detent is the spring-loaded ball riding in a groove that holds a
+rotary switch at each of its positions, and what the hand feels is not the position but the
+resistance on either side of it: it takes a little more force to leave than to arrive, so the
+control sits where it was put. Software borrows the mechanism and the feeling. Give a
+continuous gesture a set of detents and the value it produces stops being a fraction and
+becomes one of five things, and the reader can count them with the hand instead of reading
+them off a scale. That is why the term belongs to interaction rather than to layout: it names
+a rule about how a control answers travel, not a mark on a surface.
+
+Three neighbours look like this and are not. [Snapping](/snapping) is about alignment, pulling
+a dragged object flush with a grid or another object's edge, so its stops are wherever the
+scene happens to have edges; a detent's stops are properties of the control and are the same
+every time. [Tick marks](/tick-marks) are printed, and printing is not force: a track can show
+its scale and still accept every value between the notches, which makes the marks a ruler
+rather than a catch. And a [knob](/knob) or a [slider](/slider) is the control itself, while a
+detent is one thing that control may or may not do. The give-away in all three cases is what
+happens as the pointer travels past a stop. If the value pauses and the readout refuses to
+move for a few pixels, there is a detent there. If the handle merely passes a label, there is
+not.
+
+Two design duties come with them. The first is that the resistance has to be reported on some
+channel the reader has, because a stop nobody can feel is just a rounded number: a phone pairs
+each catch with a tick of [haptic feedback](/haptic-feedback), a pointer gets a visible step in
+the readout and often a small jump of the handle, and either way the discreteness should be
+legible without watching the number. The second is escape. A detent strong enough to be felt is
+strong enough to make the values between the stops hard to reach, so a control that needs both
+registers offers a way out: a slower drag, a modifier held down, or a typed field beside the
+track for the exact number. Every value you cannot reach with the gesture has to be reachable
+some other way.
+
+The clearest production example is Apple's, which uses the word literally: a
+[bottom sheet](/bottom-sheet) declares its heights as detents, the sheet's
+[grabber](/grabber) is dragged between them, and letting go anywhere in between settles the
+surface onto the nearest one. The same rule runs under [scroll snap](/scroll-snap) on a
+scroller, under a [rotate gesture](/rotate-gesture) that clicks to level, and under the volume
+control of every piece of audio software that wants to feel like hardware. It is a small,
+old-fashioned idea, and it is most of what separates a control that feels made from one that
+merely works.

@@ -1,0 +1,61 @@
+---
+name: Juiciness
+slug: juiciness
+category: interaction
+status: published
+definition: >-
+  Stacking far more feedback on an act than it needs, so one small input wobbles, pops and
+  sings, and the interface feels alive under the hand.
+aliases:
+  - name: juice
+    source: community
+  - name: juicy interface
+    source: community
+relations:
+  contrastWith: [confetti-burst, squash-and-stretch]
+  seeAlso: [microinteraction, prefers-reduced-motion]
+sources:
+  - title: "Game Developer: Is your game juicy enough?"
+    url: https://www.gamedeveloper.com/design/video-is-your-game-juicy-enough-
+demo: inline
+useWhen: deliberately excessive feedback for one small act
+---
+
+The word comes from game development, and its clearest statement is the talk Martin Jonasson
+and Petri Purho gave called Juice it or Lose it, where they took a plain Breakout clone and
+piled response onto it until it was a pleasure to touch. Their phrase for the principle is
+maximum output for minimum input: one small act from the player, an enormous amount of
+answer from the game. Juicy things, as the write-up of that talk puts it, are things that
+wobble, squirt, bounce around and make little noises. Nothing in the stack is individually
+clever. What makes it juiciness is that there are six of them at once, on an act that would
+have been perfectly usable with one.
+
+That is the definition worth holding onto, because it is what separates the word from every
+individual effect it contains. [Squash and stretch](/squash-and-stretch) is one deformation.
+[Overshoot](/overshoot) is one curve that goes past its mark. A
+[confetti burst](/confetti-burst) is one celebration. Juiciness is the decision to run all of
+them off the same press, along with a count that bumps, a colour that flashes, a ring that
+expands, an [earcon](/earcon), and a tick of [haptic feedback](/haptic-feedback). The layering
+is the technique: each response is cheap and legible on its own, and the pile of them
+converts a click into something that feels like it happened in the world rather than in a
+state machine.
+
+Now the honest part, because this is the word for what a team asking to "add some
+microinteractions" actually wants. Juiciness is a matter of degree, and the correct amount
+is almost never the maximum. It belongs on acts that are rare and worth marking: finishing
+setup, sending the thing, hitting the streak, winning. It is wrong on any act somebody
+performs forty times a day, where every millisecond of performance is a millisecond of
+waiting, and the wobble that delighted on Monday is an obstacle by Thursday. It is wrong
+where precision matters, since a control that squashes under the finger is a control that
+moved. And it is wrong for anyone who has asked it to stop:
+[prefers-reduced-motion](/prefers-reduced-motion) is not a hint here, it is the whole stack
+turned off, with the state change kept and the celebration dropped. Sound and haptics need
+the same escape hatch.
+
+The vocabulary of games is already all over interface design, and this is one of its more
+useful imports, alongside [attract mode](/attract-mode), the
+[diegetic interface](/diegetic-interface) and the deliberate wiggle of
+[jiggle mode](/jiggle-mode). Used as a diagnosis it is sharp: ask how many responses one
+press produces, and whether each of them is doing work. One is often too few, because a
+control with no answer at all reads as broken. Six is a party, and a party is only
+appropriate when there is something to celebrate.
