@@ -28,6 +28,9 @@ const QUOTES = [
  * strip carries `data-hover-driven`: a reader's dwell on it takes the stage over without
  * a click, and the ghost cursor leaving can never unpause a strip the reader is still
  * pointing at (SPEC §7).
+ *
+ * The pause undoes itself on leave, so the pass ends at its mount state: the tree persists
+ * across attract iterations (`data-loop="keep"`) and the strip's own loop runs unbroken.
  */
 export function mount(root: HTMLElement): void {
   const items = QUOTES.map(
@@ -41,7 +44,7 @@ export function mount(root: HTMLElement): void {
   const group = (copy: boolean) => `<div class="sp-marquee-group"${copy ? ' aria-hidden="true"' : ''}>${items}</div>`;
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame sp-frame--wide" style="height: 232px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Markets</span>

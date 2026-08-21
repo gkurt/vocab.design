@@ -1,23 +1,19 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/**
+ * Nothing here answers a pointer, because nothing about a sparkline should: a tiny chart
+ * that needs a tooltip on every point has stopped being one. Every line is on stage from
+ * mount, so the script waits and names the reading instead of touring it (SPEC §8).
+ */
 export default steps([
-  // Every line is on stage from mount, so the pose already shows the term.
+  { wait: 400 },
   { assert: { selector: '[data-part=spark-sessions]', state: 'visible' } },
-  { assert: { selector: '[data-part=spark-errors]', state: 'visible' } },
   { assert: { selector: '[data-part=value-sessions]', state: 'visible' } },
-  { wait: 900 },
-  // A sparkline answers no pointer, so the cursor only walks the reading the panel
-  // is for: the rising line, the number it belongs to, then the flat row beneath.
-  { moveTo: '[data-part=spark-sessions]' },
   { wait: 1100 },
-  { moveTo: '[data-part=value-sessions]' },
-  { wait: 900 },
-  { moveTo: '[data-part=spark-latency]' },
-  { wait: 1000 },
   { assert: { selector: '[data-part=spark-latency]', state: 'visible' } },
-  { moveTo: '[data-part=spark-errors]' },
-  { wait: 1000 },
-  { moveTo: '[data-part=caption]' },
-  { wait: 900 },
+  { assert: { selector: '[data-part=spark-errors]', state: 'visible' } },
+  { assert: { selector: '[data-part=spark-signups]', state: 'visible' } },
+  { wait: 1100 },
   { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 800 },
 ]);

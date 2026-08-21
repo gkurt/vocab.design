@@ -8,11 +8,10 @@ export default steps([
   { assert: { selector: '[data-part=roomy][data-grouped]', state: 'visible' } },
   // The cramped card spends the same gap everywhere, so its groups are not groups.
   { assert: { selector: '[data-part=cramped][data-grouped]', state: 'hidden' } },
-  { moveTo: '[data-part=cramped]' },
-  { wait: 1100 },
-  { moveTo: '[data-part=roomy]' },
-  { wait: 1100 },
+  // Neither card answers a pointer, and the comparison is on stage from mount, so
+  // the script waits and names the groups instead of touring them.
+  { wait: 1400 },
   { assert: { selector: '[data-part=roomy-group-2]', state: 'visible' } },
   { assert: { selector: '[data-part=roomy-group-3]', state: 'visible' } },
-  { wait: 800 },
+  { wait: 900 },
 ]);

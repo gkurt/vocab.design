@@ -1,13 +1,12 @@
 import { steps } from '#src/stage/choreography.ts';
 
 export default steps([
+  { wait: 400 },
   { assert: { selector: '[data-part=screen][data-state="idle"]', state: 'visible' } },
   { assert: { selector: '[data-part=lock]', state: 'hidden' } },
-  { wait: 700 },
-  { moveTo: '[data-part=hex]' },
-  { wait: 700 },
-  { moveTo: '[data-part=field]' },
-  { wait: 700 },
+  { assert: { selector: '[data-part=hex]', state: 'visible' } },
+  // The idle telemetry sits a while, because sitting there computing nothing is the term.
+  { wait: 1600 },
   // Scan always ends locked, whatever state a pass picks the specimen up in.
   { moveTo: '[data-part=scan]' },
   { click: true },

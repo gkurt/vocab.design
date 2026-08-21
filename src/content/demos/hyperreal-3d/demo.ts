@@ -17,6 +17,9 @@
  * demonstrating the kit.
  *
  * Static: a hero image has no states, so there is nothing to animate and no clock to take.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 
 /**
@@ -53,7 +56,7 @@ const BLOB = blob(100, 98, [90, 86, 88, 80, 74, 70, 76, 84]);
 
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 8px 14px">
           <span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 3px; background: var(--sp-accent)"></span>

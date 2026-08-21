@@ -18,6 +18,9 @@
  * the scenery that makes the treatment legible.
  *
  * Static: a developed frame has no states, so there is nothing to animate and no clock.
+ *
+ * A developed frame's pass ends at its mount state, so the tree persists across attract
+ * iterations (`data-loop="keep"`).
  */
 const W = 200;
 const H = 150;
@@ -103,7 +106,7 @@ export function mount(root: HTMLElement): void {
   ].join('');
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 16px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">The same frame, twice</span>
 

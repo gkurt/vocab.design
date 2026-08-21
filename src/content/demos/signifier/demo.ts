@@ -42,10 +42,13 @@ const BARES = ['bare-button', 'bare-link', 'bare-grip'];
  * The kit's own hover paint is left to the stage: the pointer is mirrored into
  * `data-hovered` (SPEC §7), so the signified controls light up under the ghost cursor and
  * the bare ones stay exactly as silent as they are.
+ *
+ * Every cue's readout is cleared by its own leave, so the pass ends at its mount state and the
+ * tree persists across attract iterations (`data-loop="keep"`).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame sp-frame--wide" style="height: 280px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Release 4.2</span>

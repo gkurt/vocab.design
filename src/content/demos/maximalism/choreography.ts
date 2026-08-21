@@ -5,7 +5,8 @@ export default steps([
   { assert: { selector: '[data-part=maximal]', state: 'visible' } },
   { assert: { selector: '[data-part=sticker]', state: 'visible' } },
   { assert: { selector: '[data-part=extra]', state: 'hidden' } },
-  { moveTo: '[data-part=plain]' },
+  // The restrained version beside it is scenery the pass names rather than points at.
+  { assert: { selector: '[data-part=plain]', state: 'visible' } },
   { wait: 800 },
   { moveTo: '[data-part=pile]' },
   { wait: 500 },

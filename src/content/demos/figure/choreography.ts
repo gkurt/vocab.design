@@ -1,19 +1,18 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/**
+ * A figure is a static arrangement and answers no pointer, so the script is waits and
+ * asserts only (SPEC §8). What it proves is the binding the term names: a reference in the
+ * running text, the picture it points at, the caption that numbers it, and the same binding
+ * again around a code listing.
+ */
 export default steps([
+  { wait: 500 },
+  { assert: { selector: '[data-part=xref]', state: 'visible' } },
   { assert: { selector: '[data-part=figure]', state: 'visible' } },
   { assert: { selector: '[data-part=caption]', state: 'visible' } },
-  { wait: 700 },
-  // A figure answers no pointer, so the cursor only walks the reference: from the
-  // number in the running text to the caption that number names.
-  { moveTo: '[data-part=xref]' },
   { wait: 1000 },
-  { moveTo: '[data-part=caption]' },
-  { wait: 1100 },
   { assert: { selector: '[data-part=figure-2]', state: 'visible' } },
-  { moveTo: '[data-part=caption-2]' },
-  { wait: 1000 },
-  // The same binding again, around a listing rather than a picture.
   { assert: { selector: '[data-part=caption-2]', state: 'visible' } },
-  { wait: 900 },
+  { wait: 1000 },
 ]);

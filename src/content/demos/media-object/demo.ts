@@ -6,12 +6,15 @@
  * Below it, in scenery, the same shape with one nested inside its own body: the
  * property that lets a reply chain be built out of the layout it is already made
  * of, shown rather than claimed.
+ *
+ * Nothing here holds state, so the pass ends at its mount state and the tree persists across
+ * attract iterations (`data-loop="keep"`).
  */
 const MEDIA = 'display: flex; align-items: flex-start; gap: 12px';
 
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-window" style="width: 420px">
         <span class="sp-label sp-context">Comments</span>
         <div data-part="media" data-subject style="${MEDIA}; margin-top: 10px">

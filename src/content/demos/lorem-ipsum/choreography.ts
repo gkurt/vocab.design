@@ -1,19 +1,21 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/**
+ * Nothing here responds to a pointer and nothing changes state, so the script is waits and
+ * asserts only (SPEC §8). It holds the placeholder card on stage beside the same layout
+ * carrying the lengths the placeholder was hiding: a one-word name, a role that wraps, and
+ * a bio nobody filled in.
+ */
 export default steps([
+  { wait: 500 },
+  { assert: { selector: '[data-part=card-lorem]', state: 'visible' } },
   { assert: { selector: '[data-part=bio-lorem]', state: 'visible' } },
+  { wait: 1000 },
   { assert: { selector: '[data-part=card-real]', state: 'visible' } },
-  { wait: 800 },
-  // Nothing here responds to a pointer: the cursor reads the placeholder card, then
-  // the same layout holding the lengths the placeholder was hiding.
-  { moveTo: '[data-part=bio-lorem]' },
-  { wait: 1000 },
-  { moveTo: '[data-part=role-real]' },
-  { wait: 1000 },
-  { moveTo: '[data-part=bio-real]' },
-  { wait: 900 },
+  { assert: { selector: '[data-part=name-real]', state: 'visible' } },
+  { assert: { selector: '[data-part=role-real]', state: 'visible' } },
   { assert: { selector: '[data-part=bio-real]', state: 'visible' } },
-  { moveTo: '[data-part=notes]' },
-  { wait: 900 },
+  { wait: 1000 },
   { assert: { selector: '[data-part=notes]', state: 'visible' } },
+  { wait: 800 },
 ]);

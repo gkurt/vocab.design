@@ -8,9 +8,7 @@ export default steps([
   { assert: { selector: '[data-part=review-count][data-mode=fabricated]', state: 'visible' } },
   { assert: { selector: '[data-part=activity]', state: 'visible' } },
   // Long enough for the list to come round again: the same four buyers, in the same order.
-  { wait: 3000 },
-  { moveTo: '[data-part=review-count]' },
-  { wait: 1200 },
+  { wait: 4200 },
   { moveTo: '[data-part=mode-genuine]' },
   { wait: 400 },
   { click: true },

@@ -11,7 +11,7 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=shy][data-width="wide"]', state: 'visible' } },
-  { moveTo: '[data-part=shy]' },
+  // The column answers no pointer, so nothing points at it: the wait is reading time.
   { wait: 1400 },
   { moveTo: '[data-part=seg-narrow]' },
   { click: true },

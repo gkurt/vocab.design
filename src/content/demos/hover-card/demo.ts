@@ -13,10 +13,13 @@ const CLOSE_GRACE = 200;
  * is anchored flush under the mention with the grace period the pointer needs to
  * reach the Follow button: hoverable, dismissible with Escape, and never closing on a
  * timer of its own.
+ *
+ * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="width: 400px; height: 236px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow" data-part="away" style="font-size: 14px">#parser</span></div>
         <div class="sp-body" data-part="stage" style="position: relative">

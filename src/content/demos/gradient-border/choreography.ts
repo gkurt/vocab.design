@@ -4,7 +4,7 @@ export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=card][data-edge=conic]', state: 'visible' } },
   { assert: { selector: '[data-part=plain]', state: 'visible' } },
-  { moveTo: '[data-part=card]' },
+  // The conic edge sits on stage beside its plain twin before either segment is asked for.
   { wait: 900 },
   { moveTo: '[data-part=seg-linear]' },
   { wait: 500 },

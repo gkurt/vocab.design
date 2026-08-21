@@ -22,6 +22,9 @@
  *
  * Static: three widgets set side by side have no states, so there is nothing to animate and
  * no clock to take.
+ *
+ * Three static widgets end the pass at their mount state, so the tree persists across attract
+ * iterations (`data-loop="keep"`).
  */
 const TILE_W = 140;
 const WIDGET_W = 126;
@@ -186,7 +189,7 @@ function column(skin: Skin, label: string, note: string, subject: boolean): stri
 
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One widget, three amounts of matter</span>
 

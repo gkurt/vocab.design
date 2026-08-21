@@ -33,6 +33,9 @@ const ZONES = ['left', 'mid', 'right'] as const;
  * choreography proves the glow moved rather than merely appeared. The fade is a CSS
  * transition, so `motion.css` drops it for a reader who asked for less movement and the light
  * simply is or is not there; nothing waits on `transitionend`.
+ *
+ * The light goes out when the pointer leaves the card, so the pass ends at its mount state and
+ * the tree persists across attract iterations (`data-loop="keep"`).
  */
 export function mount(root: HTMLElement): void {
   const aim = (a: (typeof AIMS)[number]) =>
@@ -40,7 +43,7 @@ export function mount(root: HTMLElement): void {
            style="position: absolute; left: ${a.x - 8}px; top: ${a.y - 8}px; width: 16px; height: 16px; pointer-events: none"></span>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-frame sp-frame--wide" style="height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Plans</span>

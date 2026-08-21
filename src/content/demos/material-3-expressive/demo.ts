@@ -17,6 +17,9 @@
  *
  * The morph frames come from a fixed table of lobe counts and depths, so the specimen is
  * identical on every identify run. Static: a poster has no states, so there is no clock.
+ *
+ * A static tour ends where it began, so the pass ends at its mount state and the tree persists
+ * across attract iterations (`data-loop="keep"`).
  */
 const SURFACE = '#fef7ff';
 const ON_SURFACE = '#1d1b20';
@@ -123,7 +126,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Material, with the volume up</span>
 

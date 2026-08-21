@@ -18,6 +18,9 @@
  * makes the break legible.
  *
  * Static: a printed poster has no states, so there is nothing to animate and no clock to take.
+ *
+ * A printed poster's pass ends at its mount state, so the tree persists across attract
+ * iterations (`data-loop="keep"`).
  */
 const PAPER = '#f2f1ec';
 const INK = '#141414';
@@ -128,7 +131,7 @@ export function mount(root: HTMLElement): void {
     <span aria-hidden="true" style="position: absolute; left: 14px; top: 156px; width: 184px; height: 2px; background: ${INK}"></span>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">The grid, shown and then broken</span>
 

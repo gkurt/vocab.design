@@ -1,17 +1,12 @@
 import { steps } from '#src/stage/choreography.ts';
 
+// The letter is sunk into its own first lines from mount and answers no pointer, so
+// the pass states the cap, the paragraph that wraps it, and the one that does not.
 export default steps([
+  { wait: 450 },
   { assert: { selector: '[data-part=cap]', state: 'visible' } },
   { assert: { selector: '[data-part=opening]', state: 'visible' } },
-  { wait: 1000 },
-  // The cursor reads the way an eye does: the letter first, then the lines that
-  // wrap around it, then the paragraph that gets no mark at all.
-  { moveTo: '[data-part=cap]' },
-  { wait: 1100 },
-  { moveTo: '[data-part=opening]' },
-  { wait: 1000 },
-  { moveTo: '[data-part=follow]' },
-  { wait: 1000 },
-  { assert: { selector: '[data-part=cap]', state: 'visible' } },
-  { wait: 700 },
+  { wait: 1400 },
+  { assert: { selector: '[data-part=follow]', state: 'visible' } },
+  { wait: 1600 },
 ]);

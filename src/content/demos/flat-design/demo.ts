@@ -3,10 +3,13 @@
  * so a solid fill, an edge, and colour carry the whole thing; the scenery copy beside
  * it is the pre-2013 treatment, with a gloss, a bevel, and a shadow on each piece.
  * The comparison is the demonstration, since flat is defined by what it leaves out.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-row" style="align-items: flex-start; gap: 20px">
         <div class="sp-stack" style="gap: 8px">
           <div data-part="flat" data-subject

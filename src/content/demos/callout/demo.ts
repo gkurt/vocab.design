@@ -7,10 +7,13 @@ import { icon } from '#src/kit/icons.ts';
  *
  * Nothing dismisses it and nothing reveals it, which is the point. A callout is
  * written into the content and is there for every reader on every visit.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="height: 250px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Rotating an API key</span></div>
         <div class="sp-body">

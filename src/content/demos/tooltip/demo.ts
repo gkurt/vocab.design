@@ -16,10 +16,13 @@ const LABELS: Record<string, string> = {
  * label serves the whole toolbar, since only one control can be under the
  * pointer. It carries no controls and dies with the pointer, which is the whole
  * distinction from a popover.
+ *
+ * The label dies with the pointer, so the pass ends at its mount state and the tree persists
+ * across attract iterations (`data-loop="keep"`).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="height: 200px">
         <div class="sp-topbar">
           <span class="sp-heading sp-grow sp-context">Draft note</span>

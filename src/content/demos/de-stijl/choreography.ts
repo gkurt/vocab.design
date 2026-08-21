@@ -1,20 +1,16 @@
 import { steps } from '#src/stage/choreography.ts';
 
+// A painting answers no pointer: the unequal tracks and the three primaries are the
+// whole claim, and they are all on stage from mount (SPEC §8).
 export default steps([
+  { wait: 450 },
   { assert: { selector: '[data-part=composition]', state: 'visible' } },
   { assert: { selector: '[data-part=field-red]', state: 'visible' } },
-  { wait: 700 },
-  // A painting answers no pointer: the cursor walks the three primaries in the order the
-  // composition weighs them, largest first, then rests on the white that carries the rest.
-  { moveTo: '[data-part=field-red]' },
-  { wait: 800 },
-  { moveTo: '[data-part=field-blue]' },
-  { wait: 800 },
-  { moveTo: '[data-part=field-yellow]' },
-  { wait: 800 },
-  { moveTo: '[data-part=field-white]' },
-  { wait: 800 },
+  { wait: 1000 },
   { assert: { selector: '[data-part=field-blue]', state: 'visible' } },
   { assert: { selector: '[data-part=field-yellow]', state: 'visible' } },
-  { wait: 600 },
+  { assert: { selector: '[data-part=field-white]', state: 'visible' } },
+  { wait: 1000 },
+  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 1200 },
 ]);

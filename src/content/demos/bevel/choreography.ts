@@ -1,12 +1,13 @@
 import { steps } from '#src/stage/choreography.ts';
 
 export default steps([
+  { wait: 450 },
   { assert: { selector: '[data-part=panel]', state: 'visible' } },
+  // The raised panel and the sunken field are the same pair of tones exchanged, and
+  // both are drawn at mount: they are asserted, not pointed at.
   { assert: { selector: '[data-part=field]', state: 'visible' } },
   { assert: { selector: '[data-part=emboss]', state: 'visible' } },
-  { wait: 700 },
-  { moveTo: '[data-part=field]' },
-  { wait: 800 },
+  { wait: 1400 },
   { moveTo: '[data-part=button]' },
   { wait: 500 },
   { click: true },

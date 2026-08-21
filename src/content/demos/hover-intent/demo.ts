@@ -20,6 +20,9 @@ const MENUS: Record<string, string[]> = {
  * Both panels are drawn out of flow, so a menu arriving never moves the bar it
  * hangs from (SPEC §5), and the dwell is measured on the stage's clock so a pose
  * cannot open the menu while the reader is inspecting the closed trigger.
+ *
+ * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const menu = (key: string) => `
@@ -28,7 +31,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame sp-frame--wide" style="height: 230px">
         <div class="sp-topbar">
           <span class="sp-heading sp-context">Atlas</span>

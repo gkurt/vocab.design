@@ -8,7 +8,9 @@ export default steps([
   { wait: 500 },
   { click: true },
   { wait: 500 },
+  // Following the link is the one thing the fragment does: the rest of the claim is
+  // the default paint, which is read at rest rather than pointed at.
   { assert: { selector: '[data-part=link-archive][data-visited]', state: 'visible' } },
-  { moveTo: '[data-part=caption]' },
+  { assert: { selector: '[data-part=caption]', state: 'visible' } },
   { wait: 1100 },
 ]);

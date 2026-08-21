@@ -17,10 +17,13 @@ const TRACKS = `[full-start] 1fr [content-start] min(${MEASURE}, 100%) [content-
  * `data-bleed` is derived from the boxes themselves: the band is as wide as the
  * page and wider than the column beside it. A choreography cannot see a grid
  * line, and geometry is the only honest proof that the escape happened.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="width: 430px; height: 276px">
         <div
           data-part="page"

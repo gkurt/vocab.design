@@ -18,6 +18,9 @@
  *
  * Everything is placed from fixed tables, never a value drawn at mount, so the identify
  * still is the same on every run. Static: a poster has no states and takes no clock.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 const NIGHT = '#151a4a';
 const GOLD = '#e0a83c';
@@ -150,7 +153,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 10px 14px 11px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Ornament doing structural work</span>
 

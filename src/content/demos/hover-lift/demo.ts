@@ -30,6 +30,9 @@ const RESTING_SHADOW = '0 1px 2px rgb(16 24 40 / 0.09)';
  * rather than by `:hover`, because attract's synthesized pointer is real input
  * the demo has to answer and is not a cursor the browser will light `:hover` for
  * (SPEC §8).
+ *
+ * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   const cards = CARDS.map(
@@ -48,7 +51,7 @@ export function mount(root: HTMLElement): void {
   ).join('');
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-stack" style="gap: 10px">
         <span class="sp-label sp-context" data-part="caption">Recently opened</span>
         <div class="sp-row" style="gap: 12px; padding: 8px 0">${cards}</div>

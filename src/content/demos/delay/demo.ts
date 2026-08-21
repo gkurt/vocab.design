@@ -25,6 +25,9 @@ const PHASES: Record<string, string> = {
  * specimen with the label up instead of watching it appear underneath the reader
  * (SPEC §6). Both tooltips are drawn out of flow into room reserved for them, so a
  * label arriving cannot move the controls it belongs to (SPEC §5).
+ *
+ * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const control = (id: string, note: string, subject: boolean) => `
@@ -34,7 +37,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-window" style="position: relative; width: 380px">
         <span class="sp-heading sp-context" data-part="caption">Time before anything moves</span>
         <div class="sp-row" style="gap: 28px; margin-top: 12px">

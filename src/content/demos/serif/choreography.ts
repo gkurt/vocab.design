@@ -1,17 +1,19 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/*
+ * A still script (SPEC §8): one letter drawn twice, plus the same word in each face.
+ * A letterform is not a control, and walking the comparison with a cursor would
+ * demonstrate nothing the identify pin does not name better.
+ */
 export default steps([
+  // Kit surfaces fade in from mount, so the first claim waits for the scene to land.
+  { wait: 500 },
   { assert: { selector: '[data-part=glyph-serif]', state: 'visible' } },
   { assert: { selector: '[data-part=glyph-sans]', state: 'visible' } },
-  { wait: 800 },
-  // Nothing here answers a pointer: a letterform is not a control, so the cursor
-  // only walks the comparison the way a reader would.
-  { moveTo: '[data-part=glyph-sans]' },
   { wait: 1000 },
-  { moveTo: '[data-part=glyph-serif]' },
-  { wait: 1100 },
-  { moveTo: '[data-part=word-serif]' },
-  { wait: 900 },
   { assert: { selector: '[data-part=word-serif]', state: 'visible' } },
-  { wait: 600 },
+  { assert: { selector: '[data-part=word-sans]', state: 'visible' } },
+  { wait: 900 },
+  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 700 },
 ]);

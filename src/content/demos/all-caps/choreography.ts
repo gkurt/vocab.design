@@ -1,20 +1,13 @@
 import { steps } from '#src/stage/choreography.ts';
 
+// Setting answers no pointer, and all three lines are on stage from mount: the pass
+// states the comparison, cramped beside corrected, and then holds it (SPEC §8).
 export default steps([
+  { wait: 450 },
   { assert: { selector: '[data-part=sample-mixed]', state: 'visible' } },
   { assert: { selector: '[data-part=sample-tight]', state: 'visible' } },
   { assert: { selector: '[data-part=sample-tracked][data-tracking="0.09em"]', state: 'visible' } },
-  { wait: 800 },
-  // Setting answers no pointer: the cursor walks the three lines in the order the
-  // comparison is made, cramped before corrected.
-  { moveTo: '[data-part=sample-mixed]' },
-  { wait: 900 },
-  { moveTo: '[data-part=sample-tight]' },
-  { wait: 1000 },
-  { moveTo: '[data-part=sample-tracked]' },
-  { wait: 1000 },
-  { assert: { selector: '[data-part=sample-tracked]', state: 'visible' } },
-  { moveTo: '[data-part=caption]' },
-  { wait: 800 },
+  { wait: 1400 },
   { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 1600 },
 ]);

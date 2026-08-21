@@ -1,19 +1,19 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/**
+ * A printed tone has no states, so the script is waits and asserts only (SPEC §8). It holds
+ * the ramp on stage with its percentage ticks, then the picture built from the same lattice,
+ * then the dotted shadow the headline drags behind it.
+ */
 export default steps([
+  { wait: 500 },
   { assert: { selector: '[data-part=panel]', state: 'visible' } },
-  { assert: { selector: '[data-part=picture]', state: 'visible' } },
   { assert: { selector: '[data-part=ramp]', state: 'visible' } },
-  { wait: 800 },
-  // A printed screen answers no pointer: the cursor reads the ramp, then the picture
-  // built from the same lattice, then the dotted shadow under the headline.
-  { moveTo: '[data-part=ramp]' },
+  { assert: { selector: '[data-part=ticks]', state: 'visible' } },
   { wait: 1000 },
-  { moveTo: '[data-part=picture]' },
-  { wait: 900 },
-  { moveTo: '[data-part=headline]' },
+  { assert: { selector: '[data-part=picture]', state: 'visible' } },
   { wait: 900 },
   { assert: { selector: '[data-part=headline]', state: 'visible' } },
-  { assert: { selector: '[data-part=ticks]', state: 'visible' } },
-  { wait: 600 },
+  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 800 },
 ]);

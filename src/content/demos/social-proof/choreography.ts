@@ -8,7 +8,7 @@ export default steps([
   { assert: { selector: '[data-part=usage][data-value="12400"]', state: 'visible' } },
   { assert: { selector: '[data-part=faces]', state: 'visible' } },
   { assert: { selector: '[data-part=quote][data-attributed="named"]', state: 'visible' } },
-  { moveTo: '[data-part=cluster]' },
+  { assert: { selector: '[data-part=rating]', state: 'visible' } },
   { wait: 900 },
   { moveTo: '[data-part=mode-vague]' },
   { click: true },

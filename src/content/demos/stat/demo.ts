@@ -9,10 +9,13 @@ const VALUE = 'font-size: 27px; font-weight: 600; line-height: 1.15; font-varian
  * Nothing here moves, so the two neighbours are the demonstration's context and
  * the figures are set in tabular numerals, which is what keeps a live value from
  * reflowing its own row.
+ *
+ * Nothing here holds state, so the pass ends at its mount state and the tree persists across
+ * attract iterations (`data-loop="keep"`).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame sp-frame--wide" style="height: 230px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Overview</span></div>
         <div class="sp-body">

@@ -3,10 +3,13 @@
  * navigation above it and the next section visibly starting below. The subject is
  * the hero section alone; the chrome around it is what gives its size a scale to
  * be read against, so both neighbours are scenery.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="width: 468px; height: 284px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Tern</span>

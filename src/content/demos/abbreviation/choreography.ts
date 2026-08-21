@@ -12,16 +12,15 @@ export default steps([
   { click: true },
   { wait: 600 },
   { assert: { selector: '[data-part=expansions][data-open]', state: 'visible' } },
-  { moveTo: '[data-part=expansions]' },
+  // The panel and the marked-up word answer no pointer, so the open state is read by
+  // asserting it rather than by walking a cursor over it.
   { wait: 1400 },
-  { moveTo: '[data-part=abbr-svg]' },
-  { wait: 1000 },
   { assert: { selector: '[data-part=abbr-svg]', state: 'visible' } },
+  { wait: 1000 },
   { moveTo: '[data-part=hide]' },
   { click: true },
   { wait: 600 },
   { assert: { selector: '[data-part=expansions]', state: 'hidden' } },
-  { moveTo: '[data-part=caption]' },
-  { wait: 800 },
   { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 800 },
 ]);

@@ -8,7 +8,7 @@ export default steps([
   { assert: { selector: '[data-part=opt-insurance][data-mode="preselected"][data-state="checked"]', state: 'visible' } },
   { assert: { selector: '[data-part=opt-offers][data-state="checked"]', state: 'visible' } },
   { assert: { selector: '[data-part=receipt]', state: 'hidden' } },
-  { moveTo: '[data-part=box-insurance]' },
+  { assert: { selector: '[data-part=box-insurance]', state: 'visible' } },
   { wait: 900 },
   { moveTo: '[data-part=pay]' },
   { click: true },

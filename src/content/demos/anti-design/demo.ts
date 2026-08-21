@@ -20,6 +20,9 @@
  * carries contrast against its ground, and the buy control is still the biggest target.
  *
  * Static: a card has no states, so there is nothing to animate and no clock to take.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 const GROUND = '#00e0c8';
 const HOT = '#ff1f8f';
@@ -106,7 +109,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One card, two attitudes</span>
 

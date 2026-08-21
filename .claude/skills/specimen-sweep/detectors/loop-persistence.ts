@@ -26,6 +26,6 @@ for (const slug of readdirSync(DEMOS).sort()) {
   if (!INPUT.test(script)) continue; // pure wait/assert: persists automatically, nothing to declare
   if (INPUT.test(script.replace(HOVER_ONLY, ''))) continue; // more than hover: judged case by case, not here
   flagged++;
-  console.log(`${slug}\thover-only script; clock ${demo.includes('clock.') ? 'ARMED (declare only if script is phase-free)' : 'unused'}`);
+  console.log(`${slug}\thover-only script; clock ${/\bclock\.(setTimeout|clearTimeout)\s*\(/.test(demo) ? 'ARMED (declare only if script is phase-free)' : 'unused'}`);
 }
 console.error(`\n${flagged} flagged`);

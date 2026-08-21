@@ -14,6 +14,9 @@
  * Every tear, angle and placement comes from a fixed hand-written table, and the grain
  * filter carries an explicit seed, so the specimen is identical on every identify run.
  * Static: a pasted-up page has no states, so there is nothing to animate and no clock.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 const PAPER = '#ece3d2';
 const PASTE = '#f7f1e4';
@@ -175,7 +178,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Pasted up, not laid out</span>
 

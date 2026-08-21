@@ -11,6 +11,9 @@ const COMMANDS = [
  *
  * Nothing here reacts, on purpose: a keycap is a legend, so a specimen that let
  * you click one would be demonstrating a button.
+ *
+ * Nothing here holds state, so the pass ends exactly at its mount state and the tree
+ * persists across attract iterations (`data-loop="keep"`).
  */
 export function mount(root: HTMLElement): void {
   const rows = COMMANDS.map(
@@ -22,7 +25,7 @@ export function mount(root: HTMLElement): void {
   ).join('');
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="height: 220px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Atlas</span></div>
         <div class="sp-body">

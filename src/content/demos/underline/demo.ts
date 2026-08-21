@@ -25,6 +25,9 @@ const TUNED = [
  * The subject is the tuned link. The term names the rule, and the narrowest thing
  * that carries one is the text it is drawn under; the untuned line and the hover
  * line are what it is read against.
+ *
+ * The hover line's marker and readout are both restored on leave, so the pass ends at its mount
+ * state and the tree persists across attract iterations (`data-loop="keep"`).
  */
 export function mount(root: HTMLElement): void {
   const line = (name: string, note: string, style: string, subject = false) => `
@@ -37,7 +40,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-window" style="width: 460px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">The rule under a link</span>

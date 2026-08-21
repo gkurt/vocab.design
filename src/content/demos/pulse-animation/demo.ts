@@ -11,6 +11,9 @@ const QUIET = [
  * operate and no timer to keep: the loop is CSS, and it holds the dot's place
  * while it runs. The quiet rows carry the accent into the context register, which
  * is how one line of markup yields both a live dot and a scenery dot.
+ *
+ * Nothing is operated, so the pass ends at its mount state: the tree persists across attract
+ * iterations (`data-loop="keep"`) and the dot's own loop breathes unbroken.
  */
 export function mount(root: HTMLElement): void {
   const quiet = QUIET.map(
@@ -23,7 +26,7 @@ export function mount(root: HTMLElement): void {
   ).join('');
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame" style="width: 340px; height: 226px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Capture</span>

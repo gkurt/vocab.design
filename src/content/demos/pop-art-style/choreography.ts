@@ -1,19 +1,20 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/*
+ * A still script (SPEC §8): a printed panel with its repeats, burst, balloon, and
+ * tail all on stage at rest. Nothing here answers a pointer, so the pass waits and
+ * asserts rather than touring the parts with a cursor.
+ */
 export default steps([
+  // Kit surfaces fade in from mount, so the first claim waits for the scene to land.
+  { wait: 500 },
   { assert: { selector: '[data-part=card]', state: 'visible' } },
-  { assert: { selector: '[data-part=burst]', state: 'visible' } },
-  { assert: { selector: '[data-part=balloon]', state: 'visible' } },
-  { wait: 800 },
-  // A printed panel answers no pointer: the cursor reads it the way an eye does,
-  // repeats, badge, balloon, tail.
-  { moveTo: '[data-part=repeats]' },
-  { wait: 900 },
-  { moveTo: '[data-part=burst]' },
-  { wait: 800 },
-  { moveTo: '[data-part=balloon]' },
-  { wait: 900 },
   { assert: { selector: '[data-part=repeats]', state: 'visible' } },
+  { assert: { selector: '[data-part=burst]', state: 'visible' } },
+  { wait: 900 },
+  { assert: { selector: '[data-part=balloon]', state: 'visible' } },
   { assert: { selector: '[data-part=tail]', state: 'visible' } },
-  { wait: 600 },
+  { wait: 900 },
+  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { wait: 700 },
 ]);

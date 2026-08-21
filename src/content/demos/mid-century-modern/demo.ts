@@ -14,6 +14,9 @@
  * scenery that makes the register legible.
  *
  * Static: a poster has no states, so there is nothing to animate and no clock to take.
+ *
+ * A poster's pass ends at its mount state, so the tree persists across attract iterations
+ * (`data-loop="keep"`).
  */
 const CREAM = '#f2e7d3';
 const PAPER = '#faf3e6';
@@ -112,7 +115,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One period, three moves</span>
 

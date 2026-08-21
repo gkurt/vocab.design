@@ -1,19 +1,17 @@
 import { steps } from '#src/stage/choreography.ts';
 
+/**
+ * The keyword is resolved by the machine, not by the reader: nothing here answers a
+ * pointer and the whole claim is drawn at rest, so the script is waits and asserts only
+ * (SPEC §8). The line is the face the platform chose, the readout names what the
+ * measurement found, and the table says what the keyword means elsewhere.
+ */
 export default steps([
+  { wait: 400 },
   { assert: { selector: '[data-part=specimen]', state: 'visible' } },
   { assert: { selector: '[data-part=readout]', state: 'visible' } },
-  { wait: 900 },
-  // Nothing here answers a pointer: the keyword is resolved by the machine, not
-  // by the reader, so the cursor only reads the line and then the table.
-  { moveTo: '[data-part=specimen]' },
-  { wait: 1100 },
-  { moveTo: '[data-part=readout]' },
-  { wait: 1000 },
-  { moveTo: '[data-part=platforms]' },
-  { wait: 1000 },
+  { wait: 1200 },
   { assert: { selector: '[data-part=platforms]', state: 'visible' } },
-  { moveTo: '[data-part=row-android]' },
-  { wait: 900 },
   { assert: { selector: '[data-part=row-android]', state: 'visible' } },
+  { wait: 1000 },
 ]);

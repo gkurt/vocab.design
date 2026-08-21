@@ -14,6 +14,9 @@ const CARDS = [
  *
  * The third title is longer than its cell on purpose: it is clamped to one line,
  * so the tallest content in a row cannot inflate the row (SPEC §5).
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   const cards = CARDS.map(
@@ -27,7 +30,7 @@ export function mount(root: HTMLElement): void {
   ).join('');
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-window" style="width: 432px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Templates</span>

@@ -9,6 +9,9 @@
  * what is stated inline is the placement in depth, which is. The room is a wash rather than a
  * photograph because a specimen may not fetch anything (SPEC §5). Nothing moves: a panel that
  * drifted would be demonstrating parallax rather than space.
+ *
+ * Nothing is operated and the pills' paint is the stage's own, so the pass ends at its mount
+ * state and the tree persists across attract iterations (`data-loop="keep"`).
  */
 const ROOM =
   'radial-gradient(60% 50% at 22% 18%, rgb(255 236 198 / 0.85), transparent 70%), ' +
@@ -19,7 +22,7 @@ const PILL = 'border-radius: 999px; padding: 8px 16px; font-size: 12px; backgrou
 
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div class="sp-app" style="gap: 10px">
+    <div class="sp-app" data-loop="keep" style="gap: 10px">
       <span class="sp-context" aria-hidden="true" style="position: absolute; inset: 0; background-image: ${ROOM}"></span>
 
       <div data-part="stack" data-subject

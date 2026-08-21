@@ -13,6 +13,9 @@ const TEXT =
  * names one column's width, so the narrowest thing it names is a column and not the
  * comparison. The cramped and over-wide columns are what that column is read against,
  * so they are scenery (SPEC §5). Nothing here changes state, so nothing needs reserving.
+ *
+ * Nothing changes, so the pass ends at its mount state and the tree persists across attract
+ * iterations (`data-loop="keep"`), measurement included.
  */
 export function mount(root: HTMLElement): void {
   const column = (cpl: number, note: string, subject = false) => `
@@ -24,7 +27,7 @@ export function mount(root: HTMLElement): void {
   `;
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-window" data-part="page" style="font-size: 10px; padding: 16px 15px; width: calc(95ch + 30px)">
         <span class="sp-heading sp-context" style="font-size: 14px">One paragraph, three measures</span>
         <div class="sp-stack" style="gap: 12px; margin-top: 12px">

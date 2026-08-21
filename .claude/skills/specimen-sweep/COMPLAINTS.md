@@ -307,7 +307,45 @@ complete; until then entries only accumulate. Entry format:
 
 ## cursor-theater
 
-- Queued: 2026-08-19 · Status: queued
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-22 (88 fixed, 7 skipped)
+- Swept: 95 flagged, 88 stilled or trimmed, 7 judged legitimate. Option (a) throughout;
+  option (b) was never needed, NO demo.ts was touched, and no subject snapshot moved, so
+  the whole complaint turned out to be choreography-only. The repair is mechanical and
+  LOSSLESS: turn each pointless `moveTo` into an `assert` on the same part and keep the
+  wait that followed it, so the pass keeps its pacing, gains claims, and loses the ghost.
+  Do NOT merely delete the steps: the asserts must name the parts the tour used to visit,
+  or the script silently loses coverage the hover was incidentally providing. Stilling
+  found claims the tours had walked straight past (ascender and descender each have a
+  tinted band that IS the term and neither was ever asserted), so this pass left the
+  scripts stronger, not quieter.
+- THE JUDGE QUESTION, corrected. Kit `[data-hovered]` paint EXISTING is not sufficient to
+  make a hover legitimate; the test is whether that hover paint is THE TERM'S OWN CLAIM.
+  A generic affordance (a table row tint, a button brightening) lights up under the ghost
+  without demonstrating anything, and the exemption is per-ELEMENT, not per-script: a tour
+  of six static parts does not become legitimate because one stop happens to be a button
+  (retro-web-design's `guestbook` went too). Exactly these kit classes have visible
+  `[data-hovered]` paint: `sp-button` (plus --ghost/--quiet), `sp-icon-button`,
+  `sp-table tbody tr`, `sp-day`, `sp-chip-remove`, `sp-nav-item`, `sp-menu-item`. These
+  have NONE: `sp-checkbox`, `sp-switch`, `sp-chip`, `sp-segment`, every text class. That
+  is what makes "hover the preselected checkbox" theater and "hover the nav item" honest.
+  Where a legitimate hover is KEPT, assert the mirrored state attribute
+  (`{ assert: '[data-part=play][data-hovered]' }`) rather than bare visibility, which
+  makes the difference reviewable in the script text without opening demo.ts.
+  The offender's own comment is usually the tell: nearly every one carried a line like
+  "a poster answers no pointer, so the cursor reads it motif by motif", admitting the
+  hover causes nothing.
+- Detector misses to fix before re-running: a `pointerenter` handler attached in a LOOP
+  over `part(root, key)` is invisible to it (dwell-activation was flagged though its hover
+  IS the input). Borderline call left as authored: dark-pattern, whose `decline-quiet` is
+  an `.sp-button` overridden inline to transparent, so its brightness hover is weak.
+- Demo-growth candidates, stilled honestly now but each missing a real second state:
+  figure (nothing shows what breaks when a caption is divorced from its content), heading
+  (no state flattening the level treatments), lorem-ipsum (the two cards are posed side by
+  side rather than switched, hiding the reflow), e-ink-aesthetic (a page turn that actually
+  leaves ghosting behind), drop-cap (the same opening without the sunk letter; divider
+  already does this correctly and is the model), system-font (`system-ui` beside a named
+  stack), sans-serif and serif (identical mirrored comparisons that could share one richer
+  specimen), sentence-case (the same screen in title case, a new mode axis).
 - Rule: a still term ships a still script (SPEC §8, STAGE_NEWS law 14). A `moveTo`
   whose target has no visible consequence (no `data-hovered` styling, no handler,
   nothing revealed or asserted from the hover) is cursor theater and demonstrates
@@ -509,7 +547,43 @@ complete; until then entries only accumulate. Entry format:
 
 ## loop-persistence
 
-- Queued: 2026-08-20 · Status: queued (mechanism shipped 2026-08-20)
+- Queued: 2026-08-20 · Status: SWEPT 2026-08-22 (33 declared, 6 skipped)
+- Swept SECOND, exactly as this entry instructed, and the ordering paid: stilling 88
+  scripts in the cursor-theater pass first dropped this list from 105 to 39, because a
+  wait/assert-only script on a clock-free demo persists AUTOMATICALLY with no marking.
+  Of the 39 survivors (all of whose hover had just been judged honest), 33 now declare
+  `data-loop="keep"` and 6 keep remounting. Every declaration was verified by double play
+  in the live page, then again by the real suite: 476 targeted e2e tests passed with zero
+  failures and no snapshot drift.
+- THE LAW THIS TAUGHT, and it is the subtle one: THE PASS-BOUNDARY LEAVE IS NOT A LEAVE
+  FOR THE CONTAINER. `player.#hover(null)` dispatches `pointerleave` on the last hovered
+  ELEMENT only, and enter/leave do not bubble. So a demo that resets on a CONTAINER'S
+  `pointerleave` while its script parks the ghost on an aim mark INSIDE that container
+  never receives its reset, and cannot declare however symmetric the handler pair looks.
+  The test is not "is the reset symmetric" but "does the element the ghost is standing on
+  when the pass ends own the reset". tilt-effect proved it empirically: declared, probed,
+  lap 2 failed on `[data-part=sheen], expected hidden`, declaration removed. Corollary,
+  and it pairs with the hover-takeover entry: the `data-hover-driven` field pattern (aim
+  marks inside the field) ends mid-response BY CONSTRUCTION, so those demos keep
+  remounting.
+- Skips worth knowing: magic-tap, accessible-name, dwell-activation and magnetic-button
+  are latches or leave a changed readout. Note that the double-lap gate would NOT have
+  caught dwell-activation or magnetic-button (every assert still passes on lap 2), which
+  is exactly why the rule names counters, readouts and revealed surfaces rather than
+  trusting a green second lap.
+- OPEN DECISION for the user, the one slug left undeclared for a reason: holy-grail-layout
+  passes all three behavioural tests but its `data-subject` sits on the `.sp-app` root
+  itself (a whole-scene subject), and `describeSubject` in e2e/harness.ts skips only
+  class, style, id and data-subject, so declaring there would rewrite its committed
+  snapshot to `div.sp-app[data-loop=keep]`. `data-loop` is stage bookkeeping and arguably
+  not part of what a specimen identifies as, so the honest fix is to add it to that skip
+  set, which would also let any future whole-scene-subject demo declare. Not done: it
+  changes what every subject snapshot records, which is the user's call.
+- Detector bug FIXED during the sweep: it matched the bare substring `clock.`, so prose
+  ending a sentence with "takes no clock." reported as clock ARMED and three static
+  posters (afrofuturism, constructivism, digital-collage) plus material-3-expressive and
+  retro-film-aesthetic arrived pre-labelled as phase-lock refusals. Now anchored to
+  `clock.setTimeout` / `clock.clearTimeout`.
 - Rule: the attract loop remounts the demo between iterations because mount is
   the only universal reset for closure state, but a remount rebuilds the tree
   under a reader inspecting it in devtools and restarts ambient animation. Two

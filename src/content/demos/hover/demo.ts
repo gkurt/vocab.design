@@ -16,6 +16,9 @@ const SAMPLES = [
  * The live control answers the pointer with an attribute as well as `:hover`,
  * because synthesized input never lights up a pseudo-class (SPEC §7), and the
  * state paints with brightness alone so nothing around it moves (SPEC §5).
+ *
+ * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 export function mount(root: HTMLElement): void {
   const samples = SAMPLES.map(
@@ -27,7 +30,7 @@ export function mount(root: HTMLElement): void {
   ).join('');
 
   root.innerHTML = `
-    <div class="sp-app">
+    <div class="sp-app" data-loop="keep">
       <div class="sp-frame sp-frame--wide" style="height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Pointer state</span>

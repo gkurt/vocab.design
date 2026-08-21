@@ -14,6 +14,9 @@
  * for what it did, not a period slogan.
  *
  * Static: a printed poster has no states, so there is nothing to animate and no clock.
+ *
+ * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
+ * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
 const PAPER = '#eee7d9';
 const RED = '#c62a1f';
@@ -88,7 +91,7 @@ export function mount(root: HTMLElement): void {
     </div>`;
 
   root.innerHTML = `
-    <div class="sp-app" style="gap: 9px">
+    <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">The angle is the argument</span>
 
