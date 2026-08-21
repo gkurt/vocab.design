@@ -155,6 +155,17 @@ What is measured and why is SPEC §10. The short version: the searches that FAIL
 point, because a query that finds nothing (or only finds something after the salvage pass
 throws half of it away) is a missing alias or a missing term.
 
+To check the wiring against the real property, build with the ID and opt localhost in:
+
+```bash
+PUBLIC_GA_ID=G-... bun run build     # then serve dist, e.g. bunx astro preview
+localStorage.setItem('vd:analytics', 'on')   # in the browser console, then reload
+```
+
+Those hits carry `debug_mode`, so they show up live in GA's DebugView and are marked as
+somebody testing. The localhost refusal is the ONLY one that flag waives: it protects the
+property, not a person. GPC and Do Not Track are never waivable.
+
 **Gotcha**: a new event parameter is invisible in the GA UI until it is registered as a
 custom dimension (Admin > Custom definitions). The data is collected either way, so a
 missing report is a settings problem, not a code one.

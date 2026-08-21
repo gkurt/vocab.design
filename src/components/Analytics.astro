@@ -10,6 +10,12 @@
  * `window.gtag` therefore exists only when we are really measuring, and `track()` in
  * `#src/lib/track.ts` no-ops off exactly that.
  *
+ * The localhost refusal is the one that can be waived, because it protects the property
+ * rather than a person: `localStorage.setItem('vd:analytics', 'on')` turns local hits on
+ * for whoever asked, which is how you check event wiring against the real property
+ * without deploying. Those hits carry `debug_mode`, so they land in GA's DebugView and are
+ * recognisable as somebody testing. GPC and Do Not Track are never waivable, by anyone.
+ *
  * `page_type` and `term_category` ride along on every event via `config`, because the URL
  * alone cannot say what kind of page it is (terms live at the root) and never says which
  * category a term belongs to.
@@ -36,8 +42,14 @@ const params = {
         if (nav.globalPrivacyControl === true) return;
         if (nav.doNotTrack === "1" || window.doNotTrack === "1") return;
         var host = location.hostname;
-        if (location.protocol === "file:" || host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local"))
-          return;
+        var local =
+          location.protocol === "file:" || host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local");
+        var opted = false;
+        try {
+          opted = localStorage.getItem("vd:analytics") === "on";
+        } catch (error) {}
+        if (local && !opted) return;
+        if (local) params.debug_mode = true;
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);

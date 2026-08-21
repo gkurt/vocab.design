@@ -781,6 +781,12 @@ What is measured, beyond the page views GA collects on its own:
 A query is only reported once it has stood still for a beat, so the property collects
 searches a reader meant rather than the prefixes of words ("k", "ke", "keb").
 
+The localhost refusal can be waived for a build that carries an ID, with
+`localStorage.setItem('vd:analytics', 'on')`, because that refusal protects the property
+rather than a person: it is how the event wiring gets checked without deploying, and those
+hits carry `debug_mode` so they arrive marked as a test. GPC and Do Not Track are never
+waivable, by anyone.
+
 Two honest limits. `names_result` is false for an alias hit ("snackbar" finds Toast, whose
 headword does not contain it), so read it as a lead rather than a failure. And Pagefind
 matches loosely enough that a true zero is rare, which makes `search_abandoned` and a deep
