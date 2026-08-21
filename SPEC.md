@@ -757,12 +757,13 @@ it is **which words they reached for and did not find**: a query that lands on n
 only lands after the search throws half of it away, is a missing alias or a missing term,
 and that is the same reading list the pipeline (§11) works from.
 
-Google Analytics 4, loaded only when `PUBLIC_GA_ID` is set at build time. Unset ships
-nothing at all, which is what every build except the deploy does. Three refusals are
-built into the loader, checked before a single byte is fetched: Global Privacy Control,
-Do Not Track, and any localhost (a production build previewed locally must not appear in
-the property). There is no consent banner because there is nothing to consent to beyond
-this: no advertising signals, no user-ID, no cross-site anything.
+Google Analytics 4, loaded only when `PUBLIC_GA_ID` is set at build time. That variable is
+the whole gate: unset ships nothing at all, which is what every build except the deploy
+does, and setting it is a deliberate act by whoever ran the build. Two refusals are built
+into the loader and checked before a single byte is fetched, both of them the reader's
+rather than ours: Global Privacy Control and Do Not Track. There is no consent banner
+because there is nothing to consent to beyond this: no advertising signals, no user-ID, no
+cross-site anything.
 
 What is measured, beyond the page views GA collects on its own:
 
@@ -781,11 +782,9 @@ What is measured, beyond the page views GA collects on its own:
 A query is only reported once it has stood still for a beat, so the property collects
 searches a reader meant rather than the prefixes of words ("k", "ke", "keb").
 
-The localhost refusal can be waived for a build that carries an ID, with
-`localStorage.setItem('vd:analytics', 'on')`, because that refusal protects the property
-rather than a person: it is how the event wiring gets checked without deploying, and those
-hits carry `debug_mode` so they arrive marked as a test. GPC and Do Not Track are never
-waivable, by anyone.
+A build that carries an ID measures wherever it is served, localhost included, which is how
+the wiring gets checked before a deploy. Those hits carry `debug_mode`, so they arrive in
+DebugView labelled as a test rather than looking like traffic.
 
 Two honest limits. `names_result` is false for an alias hit ("snackbar" finds Toast, whose
 headword does not contain it), so read it as a lead rather than a failure. And Pagefind

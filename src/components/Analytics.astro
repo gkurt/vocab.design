@@ -1,20 +1,19 @@
 ---
 /**
  * Google Analytics, loaded only when a measurement ID was baked in at build time
- * (`PUBLIC_GA_ID`). No ID means not a single byte of this ships, which is what makes dev
- * servers, forks and local previews silent by default.
+ * (`PUBLIC_GA_ID`). That variable IS the gate: no ID means not a single byte of this
+ * ships, which is what makes dev, CI and forks silent, and setting it is a deliberate act
+ * by whoever ran the build. So a local build carrying an ID measures, on purpose, which
+ * is how the event wiring gets checked without deploying.
  *
- * The tag is injected by script rather than written as a `<script src>` so the opt-outs
- * are checked BEFORE anything is fetched: Global Privacy Control, Do Not Track, and any
- * localhost, which would otherwise pollute the property from a local production build.
- * `window.gtag` therefore exists only when we are really measuring, and `track()` in
- * `#src/lib/track.ts` no-ops off exactly that.
+ * The tag is injected by script rather than written as a `<script src>` so the reader's
+ * refusals are checked BEFORE anything is fetched: Global Privacy Control and Do Not
+ * Track, which are a person's decision and are never waivable. `window.gtag` therefore
+ * exists only when we are really measuring, and `track()` in `#src/lib/track.ts` no-ops
+ * off exactly that.
  *
- * The localhost refusal is the one that can be waived, because it protects the property
- * rather than a person: `localStorage.setItem('vd:analytics', 'on')` turns local hits on
- * for whoever asked, which is how you check event wiring against the real property
- * without deploying. Those hits carry `debug_mode`, so they land in GA's DebugView and are
- * recognisable as somebody testing. GPC and Do Not Track are never waivable, by anyone.
+ * Local hits carry `debug_mode`, so they arrive in GA's DebugView labelled as somebody
+ * testing instead of looking like traffic. That is a label, not a gate.
  *
  * `page_type` and `term_category` ride along on every event via `config`, because the URL
  * alone cannot say what kind of page it is (terms live at the root) and never says which
@@ -42,14 +41,7 @@ const params = {
         if (nav.globalPrivacyControl === true) return;
         if (nav.doNotTrack === "1" || window.doNotTrack === "1") return;
         var host = location.hostname;
-        var local =
-          location.protocol === "file:" || host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local");
-        var opted = false;
-        try {
-          opted = localStorage.getItem("vd:analytics") === "on";
-        } catch (error) {}
-        if (local && !opted) return;
-        if (local) params.debug_mode = true;
+        if (host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local")) params.debug_mode = true;
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);
