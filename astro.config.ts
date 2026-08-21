@@ -32,6 +32,12 @@ function pathOf(url: string): string {
 export default defineConfig({
   site: process.env.SITE || 'https://vocab.design',
   base: process.env.BASE_URL || '/',
+  trailingSlash: 'never',
+  // One spelling per page, and it is the one without the slash. `file` is what makes that
+  // spelling the real 200: the directory format serves /toast/ and redirects /toast to it,
+  // so every canonical URL would have named a redirect. GitHub Pages serves toast.html at
+  // /toast, which is the whole reason this is available to us.
+  build: { format: 'file' },
   integrations: [
     mdx(),
     sitemap({

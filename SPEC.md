@@ -198,6 +198,16 @@ not the category's own members.
 
 ### URL scheme
 
+Every page has exactly one spelling and it carries no trailing slash. That costs a build
+setting (`build.format: 'file'`, so `/toast` is a real 200 rather than a redirect to
+`/toast/`) and it buys one URL per document across the canonical tag, the sitemap, the
+JSON-LD, the search results and the analytics. The root is the one place two spellings
+survive, and they are the same URL by definition: the home page's canonical is
+`https://vocab.design/`, the sitemap normalises it to the empty path, and RFC 3986 says
+those are equivalent. Under that format Astro reports
+`Astro.url.pathname` as the file name (`/toast.html`) and Pagefind indexes files, so
+`canonicalPath()` in `src/lib/url.ts` is what everything naming a page goes through.
+
 - `/{slug}` — term page, top level (`vocab.design/bento-grid`).
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".

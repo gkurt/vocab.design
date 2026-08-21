@@ -5,7 +5,7 @@ import '@fontsource-variable/source-serif-4';
 import '#src/styles/global.css';
 import Analytics from '#src/components/Analytics.astro';
 import SearchDialog from '#src/components/SearchDialog.astro';
-import { pageUrl } from '#src/lib/url.ts';
+import { canonicalPath, pageUrl } from '#src/lib/url.ts';
 
 interface Props {
   title: string;
@@ -15,9 +15,10 @@ interface Props {
 }
 
 const { title, description, category } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = canonicalPath(Astro.url.pathname);
+const canonical = new URL(path, Astro.site);
 // /search is the search, so it gets no modal: the nav link there is just a link to here.
-const onSearchPage = Astro.url.pathname.replace(/\/$/, '').endsWith('/search');
+const onSearchPage = path.endsWith('/search');
 ---
 
 <!doctype html>

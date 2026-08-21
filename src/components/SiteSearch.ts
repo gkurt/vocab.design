@@ -22,6 +22,7 @@
 
 import { droppedWords, namesTopResult } from '#src/lib/search-signals.ts';
 import { track } from '#src/lib/track.ts';
+import { canonicalPath } from '#src/lib/url.ts';
 
 interface PagefindSubResult {
   url: string;
@@ -327,7 +328,7 @@ export class SiteSearch extends HTMLElement {
   #row(data: PagefindResultData, position: number): HTMLElement {
     const li = document.createElement('li');
     const link = document.createElement('a');
-    link.href = data.url;
+    link.href = canonicalPath(data.url);
     link.dataset.position = String(position);
     link.className = 'group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent';
 

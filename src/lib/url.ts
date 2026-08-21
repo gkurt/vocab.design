@@ -10,6 +10,18 @@ export function pageUrl(page: string): string {
   return `${base}${page}`;
 }
 
+/**
+ * The site's own spelling of a page, from a path that carries the file name instead.
+ * Under `build.format: 'file'` Astro reports `Astro.url.pathname` as `/toast.html`, and
+ * Pagefind indexes files so it hands back the same shape, but the page is published as
+ * `/toast` and everything that names it (canonical, analytics, a search result's href)
+ * has to agree on that one spelling.
+ */
+export function canonicalPath(pathname: string): string {
+  const path = pathname.replace(/(?:^|\/)index\.html$/, '/').replace(/\.html$/, '');
+  return path.length > 1 ? path.replace(/\/$/, '') : '/';
+}
+
 export function absoluteUrl(page: string): string {
   return `${env.SITE ?? 'https://vocab.design'}${pageUrl(page)}`;
 }

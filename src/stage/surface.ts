@@ -1,4 +1,5 @@
 import { kitCss } from '#src/kit/kit.ts';
+import { pageUrl } from '#src/lib/url.ts';
 import type { DemoModule } from '#src/stage/demo.ts';
 import type { SpecimenWindow } from '#src/stage/frame.ts';
 import { loadDemo } from '#src/stage/registry.ts';
@@ -68,7 +69,7 @@ async function frameSurface(canvas: HTMLElement, slug: string, name: string): Pr
   frame.className = 'vd-stage-frame';
   // Named for a screen reader, which meets this as one more frame in the page.
   frame.title = `${name} specimen`;
-  frame.src = `/specimen/${slug}/`;
+  frame.src = pageUrl(`/specimen/${slug}`);
   const loaded = new Promise<void>((resolve) => frame.addEventListener('load', () => resolve(), { once: true }));
   canvas.append(frame);
   await loaded;
