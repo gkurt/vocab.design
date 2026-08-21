@@ -20,6 +20,12 @@ const RESTING_SHADOW = '0 1px 2px rgb(16 24 40 / 0.09)';
  * moving without deepening the shadow reads as a slide, deepening without moving
  * reads as the light source jumping.
  *
+ * Hovering alone is the whole interaction here, nothing is ever pressed, so every
+ * card carries `data-hover-driven`: a reader's dwell on one takes the stage over
+ * without a click, and the card they are pointing at is the card that stays up
+ * (SPEC §7). Each card owns its own listeners, so the marking goes on each of them
+ * rather than on the row, which answers no pointer.
+ *
  * State is held on `data-lifted` and driven by `pointerenter`/`pointerleave`
  * rather than by `:hover`, because attract's synthesized pointer is real input
  * the demo has to answer and is not a cursor the browser will light `:hover` for
@@ -31,6 +37,7 @@ export function mount(root: HTMLElement): void {
       <article
         class="sp-surface sp-stack${id === SUBJECT ? '' : ' sp-context'}"
         data-part="card-${id}"
+        data-hover-driven
         ${id === SUBJECT ? 'data-subject' : ''}
         style="width: 108px; gap: 8px; padding: 12px; box-shadow: ${RESTING_SHADOW}; translate: 0 0; transition: translate 0.18s var(--sp-ease), box-shadow 0.22s var(--sp-ease)"
       >

@@ -65,8 +65,11 @@ function metrics(pt: number): Metrics {
  * exactly the number while everything inside it grows by whatever fraction of
  * the body this face happens to use.
  *
- * The subject is the sized word. A point size is a property of a run of type, so
- * the narrowest honest ring is the run itself, not the ruled slot around it. The
+ * The subject is the outlined body box, which is what the point size names: the
+ * height of the body the letters are drawn on, and not the height of anything you
+ * can see. The box has no element of its own in a page of type, so the specimen
+ * gives it one, sized to exactly one em (SPEC §5); a ring around the word would
+ * name the ink instead, which is the reading the term exists to correct. The
  * legend, the read-out and the caption are the demo's own instrumentation
  * (SPEC §5) and stay in the context register; the rules themselves keep the
  * accent, because measuring the body is what the specimen is for. The slot holds
@@ -90,7 +93,10 @@ export function mount(root: HTMLElement): void {
         </div>
         <div data-part="slot" style="position: relative; width: ${SLOT.w}px; height: ${SLOT.h}px; margin-top: 6px">
           <div data-part="guides" style="position: absolute; inset: 0"></div>
-          <span data-part="word" data-subject data-size="24"
+          <span data-part="body" data-subject data-size="24"
+                style="position: absolute; left: 0; border: 2px solid var(--sp-accent); border-radius: 2px;
+                       pointer-events: none"></span>
+          <span data-part="word" data-size="24"
                 style="position: absolute; left: 0; line-height: 1; font-family: ${FAMILY};
                        white-space: nowrap">${WORD}</span>
         </div>
@@ -111,6 +117,7 @@ export function mount(root: HTMLElement): void {
   `;
 
   const word = part(root, 'word');
+  const body = part(root, 'body');
   const guides = part(root, 'guides');
   const readout = part(root, 'readout');
 
@@ -124,6 +131,13 @@ export function mount(root: HTMLElement): void {
     word.style.fontSize = `${m.em}px`;
     word.style.top = `${m.top}px`;
 
+    // The body is the subject, so it is an element of its own rather than a line in the
+    // guide layer: one em tall, exactly the number the picker names.
+    body.dataset.size = String(pt);
+    body.style.width = `${box}px`;
+    body.style.top = `${SLOT.baseline - m.emTop}px`;
+    body.style.height = `${m.em}px`;
+
     const band = (from: number, to: number, mix: number) =>
       `<span style="position: absolute; left: 0; width: ${box}px; top: ${SLOT.baseline - to}px;
              height: ${to - from}px; background: color-mix(in oklab, var(--sp-accent) ${mix}%, transparent)"></span>`;
@@ -131,8 +145,6 @@ export function mount(root: HTMLElement): void {
     guides.innerHTML = [
       band(0, m.x, 14),
       band(m.x, m.cap, 34),
-      `<span style="position: absolute; left: 0; width: ${box}px; top: ${SLOT.baseline - m.emTop}px;
-             height: ${m.em}px; border: 2px solid var(--sp-accent); border-radius: 2px"></span>`,
       `<span style="position: absolute; left: -8px; width: ${box + 24}px; top: ${SLOT.baseline - 1}px;
              height: 2px; background: var(--sp-ink)"></span>`,
     ].join('');

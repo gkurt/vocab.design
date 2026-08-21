@@ -96,7 +96,9 @@ export function mount(root: HTMLElement): void {
       return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
     });
 
-  moving.addEventListener('pointerdown', () => {
+  moving.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) moving.setPointerCapture(event.pointerId);
     carrying = true;
     moving.style.boxShadow = 'var(--sp-shadow)';
     moving.style.opacity = '0.86';

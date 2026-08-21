@@ -173,6 +173,8 @@ export function mount(root: HTMLElement): void {
   let from: { x: number; y: number; ox: number; oy: number } | null = null;
 
   viewport.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) viewport.setPointerCapture((event as PointerEvent).pointerId);
     from = { x: (event as PointerEvent).clientX, y: (event as PointerEvent).clientY, ox: offset.x, oy: offset.y };
     world.style.transition = 'none';
     viewport.style.cursor = 'grabbing';

@@ -20,14 +20,15 @@ type Picker = { elementFromPoint(x: number, y: number): Element | null };
  * laid over that, where clicking one fixed spot reports which of the three actually
  * answered. The subject is the layered stack: the term names the contest between
  * overlapping boxes rather than any one of them, and the stack is the narrowest element
- * that holds the whole contest. The aiming ring, the legend, and the rule control are
- * instrumentation and stay in the context register.
+ * that holds the whole contest. The legend and the rule control are instrumentation and stay
+ * in the context register. The spot both runs aim at is an unpainted anchor, so the ghost
+ * cursor is the only pointer artifact on stage (SPEC §5).
  *
  * The answer is the platform's own, not the demo's: the click handler sits on the stack and
  * asks `elementFromPoint` who is on top at the coordinates the event carried, which is the
  * same walk the browser did to pick the target. That also keeps the specimen honest under
  * attract, where events are dispatched onto an element directly and would otherwise report
- * whatever the script aimed at rather than whatever was really in the way. The aiming ring
+ * whatever the script aimed at rather than whatever was really in the way. The aim anchor
  * is itself taken out of the hit test with `pointer-events: none`, which is the very rule
  * the second state applies to the overlay.
  *
@@ -40,7 +41,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 280px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Gallery</span>
-          <span class="sp-text" data-part="readout" data-hit="none" style="width: 214px; text-align: right; white-space: nowrap">Click the ring</span>
+          <span class="sp-text" data-part="readout" data-hit="none" style="width: 214px; text-align: right; white-space: nowrap">Click the card</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 12px">
           <div
@@ -65,9 +66,8 @@ export function mount(root: HTMLElement): void {
             </span>
             <span class="sp-chip" data-part="badge" data-layer="badge" style="position: absolute; right: 10px; top: 10px; cursor: default">RAW</span>
             <span
-              class="sp-context"
               data-part="aim-photo"
-              style="position: absolute; left: ${AIM.x - 9}px; top: ${AIM.y - 9}px; width: 18px; height: 18px; border-radius: 50%; border: 1px dashed #ffffff; pointer-events: none"
+              style="position: absolute; left: ${AIM.x - 9}px; top: ${AIM.y - 9}px; width: 18px; height: 18px; pointer-events: none"
             ></span>
           </div>
           <div class="sp-row sp-row--between sp-context" style="width: 100%">
@@ -109,6 +109,6 @@ export function mount(root: HTMLElement): void {
     overlay.style.pointerEvents = ignored ? 'none' : '';
     stack.dataset.rule = ignored ? 'none' : 'auto';
     // Each rule is judged from the same starting point, so the two clicks are comparable.
-    say('none', ignored ? 'Overlay ignored: click the ring' : 'Overlay catching: click the ring');
+    say('none', ignored ? 'Overlay ignored: click the card' : 'Overlay catching: click the card');
   });
 }

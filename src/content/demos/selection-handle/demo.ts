@@ -152,6 +152,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   for (const edge of ['start', 'end'] as const) {
     handles[edge].addEventListener('pointerdown', (event) => {
       event.preventDefault();
+      // The grip is dragged across a paragraph far wider than itself, so it captures the
+      // pointer: uncaptured, the moves stop as soon as the drag leaves the grip's own box and
+      // the drop lands on a word it never reached. Synthesized pointers cannot be captured.
+      if (event.isTrusted) handles[edge].setPointerCapture(event.pointerId);
       dragging = edge;
       flag(page, 'data-dragging', true);
       say(`Holding the ${edge} grip`);

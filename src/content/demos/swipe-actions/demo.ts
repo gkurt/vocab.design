@@ -111,6 +111,10 @@ export function mount(root: HTMLElement): void {
 
   row.addEventListener('pointerdown', (event) => {
     if (actions.contains(event.target as Node)) return;
+    // A swipe wanders off a forty-eight pixel row, and the moves and the release are heard on
+    // the row itself, so it captures the pointer: uncaptured, the row strands half open with
+    // its transition off. A synthesized pointer cannot be captured, hence the guard.
+    if (event.isTrusted) row.setPointerCapture(event.pointerId);
     start = event.clientX;
     // Following the finger is the whole gesture, and an eased offset would lag it.
     sheet.style.transition = 'none';

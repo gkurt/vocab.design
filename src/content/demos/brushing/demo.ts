@@ -90,12 +90,12 @@ const inside = (run: Run, box: Box) => {
 
 const clamp = (value: number, low: number, high: number) => Math.min(Math.max(value, low), high);
 
+/** An unpainted anchor the choreography aims at: the ghost cursor is the only pointer artifact. */
 const aim = (name: string, at: { lat: number; mem: number }) => `
   <span
-    class="sp-context"
     data-part="${name}"
     style="position: absolute; z-index: 2; left: ${(px(at.lat) - 6).toFixed(1)}px; top: ${(py(at.mem) - 6).toFixed(1)}px;
-           width: 12px; height: 12px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none"
+           width: 12px; height: 12px; pointer-events: none"
   ></span>`;
 
 const dots = RUNS.map(
@@ -144,9 +144,10 @@ const row = ({ key, label }: { key: string; label: string }) => `
  *
  * The subject is the brush rectangle itself, `data-part="brush"`, since the term names the
  * range that got dragged rather than the chart it was dragged over or the view that answered
- * it. The window chrome, the Clear control and the two aiming rings are instrumentation and
- * sit in the context register; both charts keep the full palette, because a linked view going
- * quiet would dim exactly the half of the term that matters.
+ * it. The window chrome and the Clear control are instrumentation and sit in the context
+ * register; both charts keep the full palette, because a linked view going quiet would dim
+ * exactly the half of the term that matters. The two ends of the scripted drag are unpainted
+ * anchors, since a drawn stop point would annotate the script rather than the term.
  *
  * No brush means every run, not none, so the counts start full and a brush filters down. That
  * is also why the specimen needs no `data-pose`: a rectangle is only ever drawn when there is
@@ -291,6 +292,8 @@ export function mount(root: HTMLElement): void {
   };
 
   plot.addEventListener('pointerdown', (event) => {
+    // A real drag has to survive leaving the plot; a synthetic pointer cannot be captured.
+    if (event.isTrusted) plot.setPointerCapture(event.pointerId);
     origin = at(event);
     drop();
     paint();

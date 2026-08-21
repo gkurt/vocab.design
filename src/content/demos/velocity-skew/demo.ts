@@ -161,6 +161,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointerdown', (event) => {
     if (!card.contains(event.target as Node)) return;
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     dragging = true;
     peak = 0;
     velocity = 0;

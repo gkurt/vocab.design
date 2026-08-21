@@ -23,6 +23,10 @@ const IDLE = 'Nothing announced yet';
  * result lines, and the caption are scenery (SPEC §5). The screen is honest in every state
  * this demo can rest in, so no `data-pose` is needed.
  *
+ * Sweeping is the term, and a sweep holds nothing down, so the screen carries
+ * `data-hover-driven`: a reader's dwell on it takes the stage over without a click, and
+ * what gets announced follows their own pointer rather than the ghost's (SPEC §7).
+ *
  * The row under the finger is found from the pointer's own coordinates against each row's
  * box, which is a read of boxes this demo never restyles, so nothing is measured after a
  * style write (SPEC §5). Both readouts hold their height from mount. A tap reaches "read"
@@ -49,7 +53,7 @@ export function mount(root: HTMLElement): void {
                the subject and a subject is styled normally (SPEC §5). -->
           <div style="flex: 0 0 176px; padding: 7px; border: 2px solid var(--sp-line);
                border-radius: 18px; background: var(--sp-surface)">
-            <div data-part="screen" data-subject data-reading="none"
+            <div data-part="screen" data-subject data-hover-driven data-reading="none"
                  style="height: 194px; border-radius: 12px; background: var(--sp-sunken); overflow: hidden; touch-action: none">
               <div class="sp-row" style="height: 26px; padding: 0 8px; background: var(--sp-surface);
                    border-bottom: 1px solid var(--sp-line)">

@@ -14,11 +14,15 @@ const GESTURES = [
   { shape: 'DR', key: 'close', glyph: '↓→', name: 'Close tab', note: 'down, then right' },
 ];
 
-/** A fixed aiming mark the script grabs, drawn over the page and never on a control. */
+/**
+ * A fixed anchor the script aims at, over the page and never on a control. It carries no
+ * paint at all: a drawn mark would annotate the choreography rather than the term (SPEC §5).
+ */
 const dot = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none"
+    aria-hidden="true"
+    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; pointer-events: none"
   ></span>`;
 
 /**
@@ -28,8 +32,9 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The subject is the pad. The term names the stroke, but a stroke is nothing at rest and a
  * polyline is thinner than the stage can ring, so the narrowest element that is honestly the
- * term is the surface that reads gestures. The page content behind it, the aiming marks, the
- * legend and the readouts are the scene around it in the context register.
+ * term is the surface that reads gestures. The page content behind it, the legend and the
+ * readouts are the scene around it in the context register, and the points the script strokes
+ * between are unpainted anchors.
  *
  * The recognizer is the real one, not a lookup of the three scripted paths. A stroke is reduced
  * to a sequence of cardinal directions as it is drawn, with one threshold for how far the
@@ -77,7 +82,7 @@ export function mount(root: HTMLElement): void {
               </svg>
             </div>
 
-            <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none; z-index: 3">
+            <span style="position: absolute; inset: 0; pointer-events: none; z-index: 3">
               ${dot('start', 150, 44)}
               ${dot('mark-left', 54, 44)}
               ${dot('mark-right', 246, 44)}
@@ -182,7 +187,13 @@ export function mount(root: HTMLElement): void {
   pad.addEventListener('contextmenu', (event) => event.preventDefault());
 
   pad.addEventListener('pointerdown', (event) => {
-    if (event.button === 2 && !armed) return arm(at(event));
+    if (event.button === 2 && !armed) {
+      // A stroke that leaves the pad is still this pad's stroke, so the pointer is captured:
+      // without it the moves stop and the release lands elsewhere, stranding the gesture. The
+      // player's synthesized pointer has nothing to capture and the call throws, hence the guard.
+      if (event.isTrusted) pad.setPointerCapture(event.pointerId);
+      return arm(at(event));
+    }
     if (!armed) say('Nothing armed: hold the right button to draw a gesture');
   });
 

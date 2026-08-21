@@ -129,6 +129,8 @@ export function mount(root: HTMLElement): void {
   let from: { y: number; top: number } | null = null;
 
   slab.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) slab.setPointerCapture((event as PointerEvent).pointerId);
     from = { y: (event as PointerEvent).clientY, top: viewport.scrollTop };
   });
 

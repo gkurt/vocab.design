@@ -315,6 +315,8 @@ export function mount(root: HTMLElement): void {
   };
 
   grip.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) grip.setPointerCapture((event as PointerEvent).pointerId);
     held = true;
     lastAngle = angleAt(event as PointerEvent);
     grip.setAttribute('r', '8');

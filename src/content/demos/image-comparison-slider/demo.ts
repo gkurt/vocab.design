@@ -121,6 +121,8 @@ export function mount(root: HTMLElement): void {
   };
 
   divider.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) divider.setPointerCapture(event.pointerId);
     const rect = divider.getBoundingClientRect();
     grabbed = event.clientX - (rect.left + rect.width / 2);
   });

@@ -12,14 +12,13 @@ const SHOVE = { x: CENTRE.x + 96, y: CENTRE.y };
 
 const DOT = 8;
 
+/** An unpainted anchor for a scripted stroke's end: a drawn stop point would annotate the
+    choreography rather than the term, so only the ghost cursor marks where the pointer went. */
 const dot = (name: string, at: { x: number; y: number }) =>
   `<span
      data-part="${name}"
-     style="position: absolute; left: ${at.x - DOT / 2}px; top: ${at.y - DOT / 2}px; width: ${DOT}px; height: ${DOT}px; border-radius: 50%; background: var(--sp-ink)"
+     style="position: absolute; left: ${at.x - DOT / 2}px; top: ${at.y - DOT / 2}px; width: ${DOT}px; height: ${DOT}px"
    ></span>`;
-
-const tag = (text: string, at: { x: number; y: number }) =>
-  `<span class="sp-label" style="position: absolute; left: ${at.x}px; top: ${at.y}px; font-size: 11px; white-space: nowrap">${text}</span>`;
 
 const distance = (dx: number, dy: number) => Math.round(Math.hypot(dx, dy));
 
@@ -27,8 +26,11 @@ const distance = (dx: number, dy: number) => Math.round(Math.hypot(dx, dy));
  * Drag threshold specimen: a card that ignores pointer travel under eight pixels, with the
  * dead zone drawn around the point the press landed and the distance read out live. The
  * subject is the card, since the threshold is a property of the draggable thing rather
- * than of the board it sits on; the ring, the two aiming dots, and the readouts are
- * instrumentation and stay in the context register.
+ * than of the board it sits on; the ring and the readouts are instrumentation and stay in
+ * the context register, and the two ends the scripted strokes aim at are unpainted anchors,
+ * since a drawn stop point annotates the script rather than the term. The ring carries no
+ * label of its own, because the ring sits over the card and the bar underneath already names
+ * the threshold in numbers that move as the pointer does.
  *
  * Both outcomes are really computed from the pointer, not mimed: a stroke that stays
  * inside the ring ends as a click, and one that leaves it engages the drag. The travel
@@ -67,9 +69,6 @@ export function mount(root: HTMLElement): void {
               ></span>
               ${dot('twitch', TWITCH)}
               ${dot('shove', SHOVE)}
-              ${tag(`${THRESHOLD} px`, { x: CENTRE.x - 40, y: CENTRE.y - 8 })}
-              ${tag(`${distance(TWITCH.x - CENTRE.x, TWITCH.y - CENTRE.y)} px: a twitch`, { x: CENTRE.x + 12, y: CENTRE.y + 8 })}
-              ${tag(`${distance(SHOVE.x - CENTRE.x, SHOVE.y - CENTRE.y)} px: a drag`, { x: SHOVE.x - 24, y: SHOVE.y - 26 })}
             </div>
           </div>
         </div>
@@ -98,6 +97,8 @@ export function mount(root: HTMLElement): void {
   };
 
   card.addEventListener('pointerdown', (event) => {
+    // A real drag has to survive leaving the card; a synthetic pointer cannot be captured.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     // The board is read before anything is written to it, so the ring lands on the point
     // the press actually landed on rather than on a stale box.
     const box = stage.getBoundingClientRect();

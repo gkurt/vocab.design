@@ -1,18 +1,22 @@
 import { part } from '#src/kit/parts.ts';
 
 const TRACK = { w: 388, h: 44 };
-/** The track plus the strip of aiming marks under it, which is the box a press lands in. */
+/** The track plus the strip of unpainted anchors under it, which is the box a press lands in. */
 const AXIS_H = 60;
 const HALF = TRACK.w / 2;
 /** How much of each side of the axis is thrown away, as a fraction of full deflection. */
 const BAND = 0.18;
 const BAND_PX = Math.round(BAND * HALF);
 
-/** A fixed aiming mark the script grabs, parked under the track so the thumb never covers it. */
+/**
+ * A fixed anchor the script grabs, parked under the track so the thumb never covers it. It carries
+ * no paint at all: a drawn stop point would annotate the choreography rather than the term, and the
+ * ghost cursor is the only pointer artifact the stage draws (SPEC §5).
+ */
 const dot = (name: string, x: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${TRACK.h + 1}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-ink); pointer-events: none"
+    style="position: absolute; left: ${x - 7}px; top: ${TRACK.h + 1}px; width: 14px; height: 14px; pointer-events: none"
   ></span>`;
 
 /**
@@ -23,8 +27,8 @@ const dot = (name: string, x: number) => `
  *
  * The subject is the band. The term names the region that is ignored, not the track it is cut
  * out of and not the thumb that crosses it, and the band is a real 72 by 44 box that can carry
- * the ring honestly. The track, the thumb, the readouts, the aiming marks and the output meter
- * are the scene around it and carry the context register.
+ * the ring honestly. The track, the thumb, the readouts and the output meter are the scene around
+ * it and carry the context register.
  *
  * The wiring is a plain track drag: a press anywhere on the axis takes the value under the
  * pointer and a move updates it, so the same code answers the script and a reader who drags
@@ -65,7 +69,7 @@ export function mount(root: HTMLElement): void {
                 style="position: absolute; left: ${HALF}px; top: 6px; width: 14px; height: ${TRACK.h - 12}px; margin-left: -7px; border-radius: 4px; background: var(--sp-ink)"
               ></span>
 
-              <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none">
+              <span style="position: absolute; inset: 0; pointer-events: none">
                 ${dot('mark-centre', HALF)}
                 ${dot('mark-inside', HALF + Math.round(0.12 * HALF))}
                 ${dot('mark-outside', HALF + Math.round(0.62 * HALF))}
@@ -138,6 +142,8 @@ export function mount(root: HTMLElement): void {
   };
 
   axis.addEventListener('pointerdown', (event) => {
+    // A real drag has to survive leaving the axis; a synthetic pointer cannot be captured.
+    if (event.isTrusted) axis.setPointerCapture(event.pointerId);
     holding = true;
     set(event.clientX);
   });

@@ -146,6 +146,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   strip.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) strip.setPointerCapture(event.pointerId);
     clock.clearTimeout(timer);
     timer = undefined;
     coasted = 0;

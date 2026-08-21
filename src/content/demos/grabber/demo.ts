@@ -83,6 +83,8 @@ export function mount(root: HTMLElement): void {
   };
 
   handle.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) handle.setPointerCapture(event.pointerId);
     const rect = sheet.getBoundingClientRect();
     grabbed = event.clientY - rect.top;
     // Following a finger is not an animation: the eased height would lag the drag.

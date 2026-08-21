@@ -183,6 +183,9 @@ export function mount(root: HTMLElement): void {
     anchor = indexAt(pointer.clientX, pointer.clientY);
     head = anchor;
     dragging = true;
+    // Capture keeps the sweep alive past the page's edge. A synthetic pointer has none to
+    // capture and the call would throw, so only a real one asks.
+    if (pointer.isTrusted) page.setPointerCapture(pointer.pointerId);
     paintSelection();
   });
 

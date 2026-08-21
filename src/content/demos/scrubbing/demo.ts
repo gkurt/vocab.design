@@ -143,6 +143,8 @@ export function mount(root: HTMLElement): void {
   };
 
   timeline.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) timeline.setPointerCapture(event.pointerId);
     previews = 0;
     frames.textContent = '0 frames previewed';
     if (event.target === playhead || playhead.contains(event.target as Node)) {

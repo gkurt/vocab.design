@@ -135,7 +135,11 @@ export function mount(root: HTMLElement): void {
   let drag: { row: HTMLElement; from: number; startY: number } | undefined;
 
   for (const { key, title } of TRACKS) {
-    part(root, `grip-${key}`).addEventListener('pointerdown', (event) => {
+    const grip = part(root, `grip-${key}`);
+    grip.addEventListener('pointerdown', (event) => {
+      // Capture keeps the carry alive past the list's edge. A synthetic pointer has none to
+      // capture and the call would throw, so only a real one asks.
+      if (event.isTrusted) grip.setPointerCapture(event.pointerId);
       const row = part(root, `row-${key}`);
       const from = rowsOf().indexOf(row);
       row.style.position = 'relative';

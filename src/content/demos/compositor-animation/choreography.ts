@@ -3,6 +3,14 @@ import { steps } from '#src/stage/choreography.ts';
 export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=mover-gpu]', state: 'visible' } },
+  // The mount plays a trip of its own: 2600 ms after a 70 ms lead, with the stall from
+  // 700 ms to 1700 ms into it. This beat lands inside that stall.
+  { wait: 600 },
+  { assert: { selector: '[data-part=scene][data-thread=busy]', state: 'visible' } },
+  // The rest of the mount's trip, waited out in full, so the Replay below presses at rest
+  // and never cuts a run the reader can see (SPEC §8).
+  { wait: 2000 },
+  { assert: { selector: '[data-part=scene][data-state=landed]', state: 'visible' } },
   // Replay names a run rather than toggling one, so a resumed pass lands where it said.
   { moveTo: '[data-part=replay]' },
   { click: true },

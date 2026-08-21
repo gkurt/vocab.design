@@ -202,6 +202,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       return rest('blocked', 'Nothing further back, so there is nothing to preview.');
     }
     origin = event.clientX;
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) root.setPointerCapture(event.pointerId);
     device.dataset.outcome = 'previewing';
     screen.dataset.state = 'peeling';
     peel(0, 'none');

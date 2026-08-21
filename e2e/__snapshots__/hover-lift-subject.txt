@@ -1,4 +1,4 @@
 term:    Hover lift
 scope:   element
-subject: article.sp-surface.sp-stack[data-part=card-two]
+subject: article.sp-surface.sp-stack[data-hover-driven][data-part=card-two]
 text:    RM Roadmap Edited yesterday

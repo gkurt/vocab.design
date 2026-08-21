@@ -137,6 +137,8 @@ export function mount(root: HTMLElement): void {
   render();
 
   slider.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) slider.setPointerCapture(event.pointerId);
     const target = event.target;
     if (target === thumbs.min || target === thumbs.max) {
       active = target === thumbs.min ? 'min' : 'max';

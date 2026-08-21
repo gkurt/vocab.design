@@ -126,6 +126,8 @@ export function mount(root: HTMLElement): void {
   };
 
   scrubber.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) scrubber.setPointerCapture(event.pointerId);
     if (event.target === playhead) grabbed = event.clientX - positionOf(at);
     else {
       // A press on the track is a seek to the place pressed: the track is the duration,

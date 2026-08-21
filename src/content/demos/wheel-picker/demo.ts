@@ -170,6 +170,8 @@ export function mount(root: HTMLElement): void {
       // No transition while the drum is following the pointer: a drum that eases is a
       // drum the finger has left behind.
       wheel.track.style.transition = 'none';
+      // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+      if (event.isTrusted) wheel.view.setPointerCapture((event as PointerEvent).pointerId);
       held = { wheel, startY: (event as PointerEvent).clientY, startIndex: wheel.index };
     });
 

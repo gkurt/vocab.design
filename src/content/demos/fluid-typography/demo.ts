@@ -129,6 +129,9 @@ export function mount(root: HTMLElement): void {
   render();
 
   slider.addEventListener('pointerdown', (event) => {
+    // Capture keeps the drag alive past the slider's edge. A synthetic pointer has none to
+    // capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) slider.setPointerCapture(event.pointerId);
     if (event.target === thumb) {
       grabbed = event.clientX - positionOf(vw);
       return;

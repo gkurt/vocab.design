@@ -23,12 +23,14 @@ const MODES: Record<string, { indent: boolean; space: boolean; css: string; note
  * marked, an absolute pick rather than a flip, and `both` is the redundant case
  * the note calls out.
  *
- * The subject is the second paragraph, not its first line: the line is not an
- * element, and which words land on it is whatever the wrapping produced, whereas
- * `text-indent` is set on the block. Two of the three states leave that block
- * flush, so the honest condition is declared in `data-pose` (SPEC §6) and the
- * specimen mounts indented. The guide, the declaration, the note and the caption
- * are the demo's own instrumentation and stay outside the subject.
+ * The subject is the indent itself, traced by a box the width of the indent and the
+ * height of one line at the start of the second paragraph. The term names that gap, not
+ * the block that declares it, and a gap has no element of its own, so the demo gives it
+ * one sized to its extent (SPEC §5). It rides inside the paragraph, so no measurement is
+ * needed: the paragraph's own top left corner is where the indent starts. Two of the three
+ * states leave the block flush, which closes the gap to nothing, so the honest condition is
+ * declared in `data-pose` (SPEC §6) and the specimen mounts indented. The guide, the
+ * declaration, the note and the caption are the demo's own instrumentation.
  */
 export function mount(root: HTMLElement): void {
   const body = [
@@ -56,8 +58,14 @@ export function mount(root: HTMLElement): void {
             ${body
               .map(
                 (text, i) => `
-                  <p data-part="para-${i + 1}"${i === 1 ? ' data-subject data-indent data-pose="[data-indent]"' : ''}
-                     style="margin: 0; text-indent: ${i === 0 ? 0 : INDENT}px">${text}</p>`,
+                  <p data-part="para-${i + 1}"${i === 1 ? ' data-indent' : ''}
+                     style="position: relative; margin: 0; text-indent: ${i === 0 ? 0 : INDENT}px">${
+                       i === 1
+                         ? `<span data-part="indent-trace" data-subject data-indent data-pose="[data-indent]" aria-hidden="true"
+                                  style="position: absolute; left: 0; top: 0; width: ${INDENT}px; height: ${LINE}px; pointer-events: none;
+                                         background: color-mix(in oklab, var(--sp-accent) 22%, transparent)"></span>`
+                         : ''
+}${text}</p>`,
               )
               .join('')}
           </div>
@@ -80,6 +88,7 @@ export function mount(root: HTMLElement): void {
   const css = part(root, 'css');
   const note = part(root, 'note');
   const second = part(root, 'para-2');
+  const trace = part(root, 'indent-trace');
   const third = part(root, 'para-3');
 
   const apply = (value: string) => {
@@ -91,6 +100,8 @@ export function mount(root: HTMLElement): void {
       para.style.marginTop = mode.space ? '10px' : '0';
     }
     flag(second, 'data-indent', mode.indent);
+    trace.style.width = mode.indent ? `${INDENT}px` : '0';
+    flag(trace, 'data-indent', mode.indent);
     css.textContent = mode.css;
     note.textContent = mode.note;
   };

@@ -19,17 +19,21 @@ const mark = (name: string, x: number, y: number) => `
  * inside the radius the button translates a fraction of that distance toward the pointer,
  * springing back to zero as soon as the pointer is outside it again.
  *
- * The subject is the button, the narrowest thing the term names. The drawn radius, the
- * two aiming marks, and the readout are instrumentation: they say where the field is and
- * how far the lean went, and they stay in the context register.
+ * The subject is the button, the narrowest thing the term names. The drawn radius is the
+ * term's own geometry, the field the pull is measured in, and the readout is instrumentation
+ * in the context register; the two points the script aims at are one-pixel anchors with no
+ * paint at all, since a drawn stop point annotates the script rather than the term.
  *
  * The lean is really computed from `pointermove` rather than mimed, so a reader who takes
- * the stage over gets the effect under their own pointer. The centre is derived from the
- * field's box and the button's known place in it, never measured off the button itself:
- * the button is the thing being translated, so measuring it would feed its own offset
- * back into the next frame. `data-pull` reports whether the pointer is inside the field
- * whatever the motion preference, while the transform itself is gated, so a reader who
- * asked for less movement gets a button that holds still (SPEC §5).
+ * the stage over gets the effect under their own pointer. Moving a pointer across the field
+ * IS this term's interaction, nothing here is clicked, so the field carries
+ * `data-hover-driven` and a reader's dwell there takes the stage over without a click
+ * (SPEC §7). The centre is derived from the field's box and the button's known place in it,
+ * never measured off the button itself: the button is the thing being translated, so
+ * measuring it would feed its own offset back into the next frame. `data-pull` reports
+ * whether the pointer is inside the field whatever the motion preference, while the transform
+ * itself is gated, so a reader who asked for less movement gets a button that holds still
+ * (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -42,6 +46,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div
             data-part="field"
+            data-hover-driven
             style="position: relative; width: ${FIELD.w}px; height: ${FIELD.h}px; background: var(--sp-surface);
                    border: 1px solid var(--sp-line); border-radius: 6px; overflow: hidden; touch-action: none"
           >

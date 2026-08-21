@@ -186,6 +186,9 @@ export function mount(root: HTMLElement): void {
 
   card.addEventListener('pointerdown', (event) => {
     const box = card.getBoundingClientRect();
+    // The card snaps out from under the pointer, so capture is what keeps the moves and the
+    // release coming here. A synthetic pointer has none to capture and the call would throw.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     grabbed = { dx: event.clientX - box.left, dy: event.clientY - box.top };
   });
 

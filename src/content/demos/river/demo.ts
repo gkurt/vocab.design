@@ -93,18 +93,21 @@ function longestChannel(lines: Gap[][]): Gap[] {
  * same way and both report what was found, so the specimen cannot claim a river
  * the setting does not have.
  *
- * The subject is the justified column on the left. A river is a thing a
- * paragraph has, so the paragraph is the narrowest element that is one; the
- * hyphenated twin, the trace control and the readouts are scenery.
+ * The subject is the trace over the left column, sized to the channel it found.
+ * A river is a thing a paragraph has, which is the wrong test for a subject: the
+ * term names the channel of white, so the ring goes on the element drawing that
+ * channel and not on the column it runs down. The hyphenated twin, the trace
+ * control and the readouts are scenery.
  */
 export function mount(root: HTMLElement): void {
   const well = (name: string, hyphens: string, subject: boolean) => `
     <div class="sp-stack" style="gap: 4px">
       <span class="sp-label sp-context">hyphens: ${hyphens}</span>
       <div style="position: relative; width: ${COLUMN}px; height: ${LINE_PX * LINES}px">
-        <div data-part="trace-${name}" style="position: absolute; inset: 0; pointer-events: none;
-             transition: opacity 0.2s, visibility 0.2s"></div>
-        <p class="sp-text sp-text--ink" data-part="${name}"${subject ? ' data-subject' : ''} lang="en"
+        <div data-part="trace-${name}"${subject ? ' data-subject' : ''}
+             style="position: absolute; left: 0; top: 0; width: ${COLUMN}px; height: ${LINE_PX * LINES}px;
+             pointer-events: none; transition: opacity 0.2s, visibility 0.2s"></div>
+        <p class="sp-text sp-text--ink" data-part="${name}" lang="en"
            style="position: relative; margin: 0; font-family: ${FAMILY}; font-size: 12px; line-height: ${LINE_PX}px;
                   text-align: justify; -webkit-hyphens: ${hyphens}; hyphens: ${hyphens}">${BODY}</p>
       </div>
@@ -134,9 +137,19 @@ export function mount(root: HTMLElement): void {
     const run = longestChannel(gapsByLine(column));
     const trace = part(root, `trace-${name}`);
     if (run.length >= MIN_RUN) {
+      // The trace is pulled in to the channel's own extent, so the element drawing the
+      // river is the size of the river and identify rings the channel, not the column.
+      const left = Math.min(...run.map((gap) => gap.left));
+      const right = Math.max(...run.map((gap) => gap.right));
+      const top = Math.min(...run.map((gap) => gap.line)) * LINE_PX;
+      const bottom = (Math.max(...run.map((gap) => gap.line)) + 1) * LINE_PX;
+      trace.style.left = `${left}px`;
+      trace.style.top = `${top}px`;
+      trace.style.width = `${right - left}px`;
+      trace.style.height = `${bottom - top}px`;
       trace.innerHTML = run
         .map(
-          (gap) => `<span style="position: absolute; left: ${gap.left}px; top: ${gap.line * LINE_PX}px;
+          (gap) => `<span style="position: absolute; left: ${gap.left - left}px; top: ${gap.line * LINE_PX - top}px;
                     width: ${gap.right - gap.left}px; height: ${LINE_PX}px;
                     background: color-mix(in oklab, var(--sp-accent) 24%, transparent)"></span>`,
         )

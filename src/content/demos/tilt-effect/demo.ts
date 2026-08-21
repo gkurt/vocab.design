@@ -22,6 +22,10 @@ const mark = (name: string, x: number, y: number) => `
  * instrumentation: the readout is there so the mapping can be read off the specimen
  * rather than guessed at, and it stays in the context register.
  *
+ * Hovering is this term's whole interaction, nothing here is pressed, so the field carries
+ * `data-hover-driven`: a reader's dwell on it takes the stage over without a click, and the lean
+ * follows their own pointer instead of the ghost's (SPEC §7).
+ *
  * Angles are measured against the field's own box, never the card's, because the card is
  * the thing being rotated and its measured rect moves with the tilt. `data-tilt` names
  * the coarse direction so a script can prove the mapping, and it is set whatever the
@@ -39,6 +43,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div
             data-part="field"
+            data-hover-driven
             style="position: relative; width: ${FIELD.w}px; height: ${FIELD.h}px; background: var(--sp-surface); border: 1px solid var(--sp-line);
                    border-radius: 6px; perspective: 800px; touch-action: none"
           >

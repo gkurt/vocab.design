@@ -1,7 +1,11 @@
 import { steps } from '#src/stage/choreography.ts';
 
+// Both passes run once at mount, six iterations at 260 ms plus the lead and the settle. The
+// opening wait outlasts that, so Run is pressed with every bar standing and no bar is dropped
+// back to zero mid-climb (SPEC §8).
 export default steps([
-  { wait: 600 },
+  { wait: 2200 },
+  { assert: { selector: '[data-part=scene][data-state=settled]', state: 'visible' } },
   { assert: { selector: '[data-part=thrash]', state: 'visible' } },
   // Run names a pass rather than toggling one, so a resumed script lands where it said.
   { moveTo: '[data-part=run]' },

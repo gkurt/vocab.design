@@ -8,16 +8,18 @@ const MIN_H = 80;
 const START_W = 240;
 const START_H = 118;
 
-const mark = (name: string, label: string, x: number, y: number) => `
+/**
+ * A fixed anchor the script drags a grip to. It carries no paint and no label: a drawn mark
+ * would annotate the choreography rather than the term, and the panel's own size and the
+ * readout are what say where a drag arrived (SPEC §5).
+ */
+const mark = (name: string, x: number, y: number) => `
   <div
     data-part="mark-${name}"
     aria-hidden="true"
     style="position: absolute; left: ${x}px; top: ${y}px; translate: -50% -50%; z-index: 2; pointer-events: none;
-           display: flex; flex-direction: column; align-items: center; gap: 2px"
-  >
-    <span style="width: 12px; height: 12px; border: 1px dashed var(--sp-muted); border-radius: 50%"></span>
-    <span style="padding: 0 3px; border-radius: 3px; background: var(--sp-bg); font-size: 9px; color: var(--sp-muted); white-space: nowrap">${label}</span>
-  </div>`;
+           width: 12px; height: 12px"
+  ></div>`;
 
 /**
  * Resize handle specimen: a floating panel with a corner grip and an edge grip, and an
@@ -26,7 +28,8 @@ const mark = (name: string, label: string, x: number, y: number) => `
  * The subject is the corner grip, deliberately the narrowest thing on stage: the term
  * names the small ribbed mark, not the panel it resizes and not the resize itself. The
  * edge grip beside it is a second instance rather than scenery, since it is the same
- * affordance on a different axis; the arena, the guides and the readout are the scene.
+ * affordance on a different axis; the arena and the readout are the scene, and the points the
+ * script drags to are unpainted anchors.
  *
  * The size change is the term, so it is contained (SPEC §5): the panel grows and
  * shrinks inside an arena of fixed size, and the readout below it holds its place while
@@ -49,8 +52,8 @@ export function mount(root: HTMLElement): void {
             data-part="arena"
             style="position: relative; width: ${ARENA_W}px; height: ${ARENA_H}px; border: 1px dashed var(--sp-line); border-radius: 6px"
           >
-            ${mark('grow', 'Bigger', 386, 152)}
-            ${mark('min', 'Past the stop', 108, 44)}
+            ${mark('grow', 386, 152)}
+            ${mark('min', 108, 44)}
 
             <div
               data-part="panel"
@@ -95,7 +98,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-row sp-row--between sp-context">
-            <span class="sp-text" style="font-size: 12px">Drag a grip to a guide. The panel stops at its minimum.</span>
+            <span class="sp-text" style="font-size: 12px">Drag either grip. The panel stops at its minimum.</span>
             <span class="sp-label" data-part="readout" style="width: 92px; text-align: right; font-variant-numeric: tabular-nums"
               >${START_W} x ${START_H}</span
             >
@@ -127,14 +130,18 @@ export function mount(root: HTMLElement): void {
   };
 
   const take = (axis: 'both' | 'x') => (event: PointerEvent) => {
+    // The pointer leaves a sixteen pixel grip on the first frame of any drag worth making, so
+    // the grip captures it: without capture the moves stop there and the release lands on
+    // whatever is underneath, leaving the panel held. Synthesized pointers cannot be captured.
+    if (event.isTrusted) (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
     from = { x: event.clientX, y: event.clientY, w: width, h: height, axis };
   };
 
   part(root, 'corner').addEventListener('pointerdown', take('both'));
   part(root, 'edge').addEventListener('pointerdown', take('x'));
 
-  // The move and the release are listened for on the root, because the pointer leaves
-  // a sixteen pixel grip on the first frame of any drag worth making.
+  // The move and the release are listened for on the root, so one pair of handlers serves
+  // both grips however far a drag runs.
   root.addEventListener('pointermove', (event) => {
     if (!from) return;
     const nextW = from.w + (event.clientX - from.x);

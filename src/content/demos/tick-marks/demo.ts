@@ -173,6 +173,8 @@ export function mount(root: HTMLElement): void {
   });
 
   track.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) track.setPointerCapture((event as PointerEvent).pointerId);
     held = true;
     setValue(valueAt((event as PointerEvent).clientX), mode === 'detents');
   });

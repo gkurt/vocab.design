@@ -158,15 +158,22 @@ export function mount(root: HTMLElement): void {
     draw();
   };
 
+  const hueStrip = part(root, 'hue');
+
+  // Both handlers capture, which is what keeps a drag alive past the field's or the strip's
+  // edge. A synthetic pointer has none to capture and the call would throw, so only a real
+  // one asks.
   field.addEventListener('pointerdown', (event) => {
     active = 'field';
+    if (event.isTrusted) field.setPointerCapture(event.pointerId);
     // A press on the bare field moves the thumb to the pressed point; a press on the
     // thumb picks it up where it stands, which is what makes the drag a drag.
     if (event.target !== fieldThumb) setField(event.clientX, event.clientY);
   });
 
-  part(root, 'hue').addEventListener('pointerdown', (event) => {
+  hueStrip.addEventListener('pointerdown', (event) => {
     active = 'hue';
+    if (event.isTrusted) hueStrip.setPointerCapture(event.pointerId);
     if (event.target !== hueThumb) setHue(event.clientX);
   });
 

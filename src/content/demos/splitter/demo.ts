@@ -82,6 +82,8 @@ export function mount(root: HTMLElement): void {
   };
 
   bar.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) bar.setPointerCapture(event.pointerId);
     const rect = bar.getBoundingClientRect();
     grabbed = event.clientX - (rect.left + rect.width / 2);
   });

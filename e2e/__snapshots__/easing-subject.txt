@@ -1,4 +1,4 @@
 term:    Easing
-scope:   whole scene
-subject: div.sp-app
-text:    Same distance, same 1.1s Play linear ease-out overshoot
+scope:   element
+subject: div[data-part=tracks]
+text:    linear ease-out overshoot

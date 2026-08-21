@@ -100,6 +100,8 @@ export function mount(root: HTMLElement): void {
   };
 
   scrub.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) scrub.setPointerCapture(event.pointerId);
     origin = { x: event.clientX, value };
     scrub.style.background = 'var(--sp-sunken)';
     scrub.style.color = 'var(--sp-ink)';

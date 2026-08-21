@@ -156,6 +156,9 @@ export function mount(root: HTMLElement): void {
 
   card.addEventListener('pointerdown', (event) => {
     if (move.contains(event.target as Node) || menu.contains(event.target as Node)) return;
+    // Capture keeps the drag tracking past the board's edge. A synthetic pointer has none to
+    // capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     drag = { x: event.clientX, y: event.clientY };
     card.style.zIndex = '3';
     card.style.boxShadow = 'var(--sp-shadow)';

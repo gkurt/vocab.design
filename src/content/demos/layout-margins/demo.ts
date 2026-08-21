@@ -32,11 +32,13 @@ const BAND = 'color-mix(in srgb, var(--sp-accent) 16%, var(--sp-sunken))';
  * Layout margins specimen: one surface at three widths, with the reserved band between its
  * edge and its content drawn as tint and stated as a number.
  *
- * The subject is the content container the margins hold in, not the surface around it and
- * not the tinted band: the ring lands on the column, and the inset the term names is the
- * space immediately outside it. The band stays out of the context register because it is
- * the measurement being read, not scenery; the picker, the readout and the legend are the
- * instrumentation and wear the register (SPEC §5).
+ * The subject is the margin itself: the band has no element of its own, since it is drawn
+ * as the surface's own padding, so the specimen gives it one, sized to the left band and
+ * carrying no paint of its own (SPEC §5). Ringing the content column would name the column,
+ * and ringing the surface would name the surface; the term names the reserved strip between
+ * them, and there are exactly two of those, so the ring goes on one. The band stays out of
+ * the context register because it is the measurement being read, not scenery; the picker,
+ * the readout and the legend are the instrumentation and wear the register (SPEC §5).
  *
  * The surface resizes inside a fixed arena, since a width change is the thing being shown
  * and must not push the readout around (SPEC §5). The margin is one padding value written
@@ -58,12 +60,18 @@ export function mount(root: HTMLElement): void {
           <div style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: ${ARENA_W}px; height: ${ARENA_H}px">
             <div
               data-part="surface"
-              style="display: flex; width: ${SIZES.narrow?.width}px; height: 100%; padding: ${SIZES.narrow?.margin}px;
+              style="position: relative; display: flex; width: ${SIZES.narrow?.width}px; height: 100%; padding: ${SIZES.narrow?.margin}px;
                      background: ${BAND}; border: 1px solid var(--sp-line); border-radius: 12px"
             >
+              <span
+                data-part="band"
+                data-subject
+                data-margin="16"
+                aria-hidden="true"
+                style="position: absolute; left: 0; top: 0; bottom: 0; width: ${SIZES.narrow?.margin}px; pointer-events: none"
+              ></span>
               <div
                 data-part="content"
-                data-subject
                 data-margin="16"
                 style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; min-width: 0; padding: 9px 12px;
                        background: var(--sp-surface); border-radius: 6px"
@@ -84,6 +92,7 @@ export function mount(root: HTMLElement): void {
 
   const surface = part(root, 'surface');
   const content = part(root, 'content');
+  const band = part(root, 'band');
   const readout = part(root, 'readout');
 
   const apply = (key: string) => {
@@ -91,6 +100,8 @@ export function mount(root: HTMLElement): void {
     if (!size) return;
     surface.style.width = `${size.width}px`;
     surface.style.padding = `${size.margin}px`;
+    band.style.width = `${size.margin}px`;
+    band.dataset.margin = String(size.margin);
     content.dataset.margin = String(size.margin);
     readout.textContent = size.note;
   };

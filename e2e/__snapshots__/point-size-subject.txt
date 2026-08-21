@@ -1,4 +1,4 @@
 term:    Point size
 scope:   element
-subject: span[data-part=word][data-size=24]
-text:    Hamburg
+subject: span[data-part=body][data-size=24]
+text:    

@@ -1,4 +1,4 @@
-import { part } from '#src/kit/parts.ts';
+import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 /** Three nested boxes at fixed sizes, so only the badge ever moves. */
@@ -52,13 +52,12 @@ const boxLabel = (text: string) =>
  * picker for which ancestor is made into a containing block. The badge's own rules never
  * change, and it lands in three different places.
  *
- * The subject is the badge: the containing block is not a thing you can point at on its own,
- * but the element whose offsets resolve against it is. The picker, the verdict and the caption
- * are scenery in the context register (SPEC §5); the nested boxes cannot wear it, since they are
- * ancestors of the subject, and they do not need it either, because they carry no accent of
- * their own. The dashed outline on the resolved box is the demo's own instrumentation and never
- * lands on the subject. The badge is honestly a positioned element in every state, so no state
- * needs a `data-pose`.
+ * The subject is the resolved box itself, the one the dashed outline is drawn on, and it travels
+ * with the resolution rather than staying where it started: the term names that box, not the
+ * badge whose offsets are measured against it, so the element tracing the feature is the one
+ * that wears it (SPEC §5). Exactly one exists at any moment. The badge is the demo's instrument,
+ * the picker, the verdict and the caption are scenery in the context register, and every state
+ * has an honest containing block, so no state needs a `data-pose`.
  *
  * The nesting is fixed in size, so a pick moves the badge and outlines a different box and
  * nothing else shifts (SPEC §5). The fixed-position state always applies the transform that
@@ -100,7 +99,6 @@ export function mount(root: HTMLElement): void {
                 <span
                   class="sp-chip"
                   data-part="badge"
-                  data-subject
                   data-anchor="page"
                   data-position="absolute"
                   style="position: absolute; right: 8px; bottom: 8px; cursor: default; font-size: 11px;
@@ -149,6 +147,7 @@ export function mount(root: HTMLElement): void {
     badge.textContent = anchor.position;
     for (const [name, el] of Object.entries(boxes)) {
       const resolved = name === anchor.box;
+      flag(el, 'data-subject', resolved);
       el.style.outline = resolved ? '2px dashed var(--sp-accent)' : '';
       el.style.outlineOffset = resolved ? '-1px' : '';
     }

@@ -44,9 +44,9 @@ const rowMarkup = TASKS.map(
  * Drag autoscroll specimen: a backlog taller than its box, where holding a dragged row in the
  * band along the bottom edge makes the list scroll itself until an off-screen row arrives
  * under the pointer. The subject is the scroller, since the term names what the container
- * does with a drag held at its edge rather than the row being carried; the drawn band, the
- * aiming dot, the ruler, and the readouts are instrumentation and stay in the context
- * register.
+ * does with a drag held at its edge rather than the row being carried; the ruler and the
+ * readouts are instrumentation and stay in the context register, while the drawn band is the
+ * term's own geometry and the scripted stroke's end point is an unpainted anchor.
  *
  * Everything is computed from the pointer rather than mimed: the band is a test on the
  * pointer's depth into the last forty pixels, the speed is scaled by that depth, and the
@@ -89,9 +89,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 data-part="zone"
                 style="position: absolute; left: 0; right: 0; bottom: 0; height: ${ZONE}px; border-top: 1px dashed var(--sp-muted); background: rgb(127 132 145 / 0.22); border-bottom-left-radius: var(--sp-radius); border-bottom-right-radius: var(--sp-radius)"
               ></span>
+              <!-- An unpainted anchor for the scripted stroke: a drawn stop point would annotate
+                   the choreography rather than the term (SPEC §5). -->
               <span
                 data-part="drop-dot"
-                style="position: absolute; left: ${DROP_AT.x - 5}px; top: ${DROP_AT.y - 5}px; width: 10px; height: 10px; border-radius: 50%; border: 1px dashed var(--sp-muted)"
+                style="position: absolute; left: ${DROP_AT.x - 5}px; top: ${DROP_AT.y - 5}px; width: 10px; height: 10px"
               ></span>
             </div>
           </div>
@@ -190,6 +192,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   for (const row of items) {
     row.addEventListener('pointerdown', (event) => {
+      // A real drag has to survive leaving the row; a synthetic pointer cannot be captured.
+      if (event.isTrusted) row.setPointerCapture(event.pointerId);
       dragged = row;
       seenAtStart = new Set(order().filter((other) => other.offsetTop + ROW > list.scrollTop && other.offsetTop < list.scrollTop + VIEW.h));
       row.style.opacity = '0.45';

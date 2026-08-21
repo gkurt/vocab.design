@@ -180,6 +180,8 @@ export function mount(root: HTMLElement): void {
   let grab: { dx: number; dy: number } | undefined;
 
   titlebar.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) titlebar.setPointerCapture(event.pointerId);
     const box = win.getBoundingClientRect();
     grab = { dx: event.clientX - box.left, dy: event.clientY - box.top };
   });

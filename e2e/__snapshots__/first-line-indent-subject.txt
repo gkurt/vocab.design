@@ -1,4 +1,4 @@
 term:    First-line indent
 scope:   element
-subject: p[data-indent][data-part=para-2][data-pose=[data-indent]]
-text:    Every paragraph after it opens one indent in. The eye catches that notch and rea
+subject: span[aria-hidden=true][data-indent][data-part=indent-trace][data-pose=[data-indent]]
+text:    

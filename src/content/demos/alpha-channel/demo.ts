@@ -96,11 +96,14 @@ export function mount(root: HTMLElement): void {
 
   const press = (event: PointerEvent) => {
     dragging = true;
+    // Capture keeps the drag alive past the track's edge. A synthetic pointer has none to
+    // capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) track.setPointerCapture(event.pointerId);
     fromPointer(event);
   };
 
-  // The thumb and the track are both grabbable, and neither is ever re-parented, so a
-  // press that arrives on the thumb still has the same element under it on release.
+  // The thumb and the track are both grabbable, and the thumb sits inside the track, so one
+  // capture on the track carries a press that started on either.
   thumb.addEventListener('pointerdown', press);
   track.addEventListener('pointerdown', press);
 

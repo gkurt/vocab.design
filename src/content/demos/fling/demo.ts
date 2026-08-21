@@ -42,11 +42,15 @@ const rows = Array.from({ length: ROWS }, (_, i) => {
     </div>`;
 }).join('');
 
-/** A fixed aiming mark the script grabs, drawn over the surface and never under the finger. */
+/**
+ * A fixed anchor the script grabs, carrying no paint at all: a drawn stop point would annotate
+ * the choreography rather than the term, and the ghost cursor is the only pointer artifact the
+ * stage draws (SPEC §5).
+ */
 const dot = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none"
+    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; pointer-events: none"
   ></span>`;
 
 /**
@@ -55,8 +59,9 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The subject is the surface that carries the momentum. The term names what a contact does
  * to a scrolling surface, and the narrowest element that is the term is the box holding the
- * travel, not the rows riding in it and not the window around it. The readouts, the aiming
- * marks and the two controls are instrumentation in the context register.
+ * travel, not the rows riding in it and not the window around it. The readouts and the two
+ * controls are instrumentation in the context register, and the two ends of the scripted drag
+ * are unpainted anchors.
  *
  * The pointer wiring is real: a press starts a drag, moves track one to one, and the release
  * is judged on the samples from its last 120 ms, exactly as a recognizer judges one.
@@ -90,7 +95,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             style="position: relative; flex: 0 0 auto; width: ${VIEW.w}px; height: ${VIEW.h}px; overflow: hidden; touch-action: none; user-select: none; cursor: grab"
           >
             <div data-part="track" style="position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; transform: translateY(0px)">${rows}</div>
-            <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none">
+            <span style="position: absolute; inset: 0; pointer-events: none">
               ${dot('grip', VIEW.w / 2, 138)}
               ${dot('grip-end', VIEW.w / 2, 48)}
             </span>
@@ -177,6 +182,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   surface.addEventListener('pointerdown', (event) => {
+    // A real drag has to survive leaving the surface; a synthetic pointer cannot be captured.
+    if (event.isTrusted) surface.setPointerCapture(event.pointerId);
     stopCoast();
     dragging = true;
     grabbedAt = event.clientY;

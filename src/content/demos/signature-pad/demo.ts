@@ -159,6 +159,8 @@ export function mount(root: HTMLElement): void {
   };
 
   pad.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) pad.setPointerCapture((event as PointerEvent).pointerId);
     // Starting a stroke always starts a fresh one, whatever state the pad was found in.
     reveal(0);
     setState('empty');

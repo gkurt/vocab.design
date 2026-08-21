@@ -14,7 +14,25 @@ complete; until then entries only accumulate. Entry format:
 
 ## uncaptured-drag
 
-- Queued: 2026-08-19 · Status: queued
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-22 (71 fixed, 0 skipped)
+- Swept: every one of the 71 flagged was a real held drag; zero false positives, the
+  highest-yield entry in this ledger. Laws the sweep proved twice over, worth keeping
+  when the detector is re-pointed at new rounds: (a) capture the PRESSED element even
+  when the move/up listeners are on `root`, because captured events retarget to the
+  capture target and still bubble, so a root listener keeps firing while capturing root
+  itself would swallow presses that were never drags; (b) the capture line goes at the
+  TOP of the handler when early returns decide WHICH thing was grabbed, but AFTER the
+  guard that decides whether a drag starts at all, since capturing a declined drag
+  swallows events for nothing; (c) the rule extends past position: any flag cleared only
+  by pointerup needs the capture that guarantees pointerup arrives (drag-handle left
+  `selecting` set on a release outside root, turning a later hover into a selection).
+  Severity ranks by listener placement: down+move+up all on one small element breaks
+  after ~2px (haptic-feedback, minimap, pull-to-refresh, infinite-canvas, swipe-actions),
+  while root-listening demos only lose the release. OPEN DECISION for the user: two of
+  three shards recommend a kit `capturedDrag(el, {onMove, onEnd})` helper after writing
+  the same five lines 71 times (it would make the pointercancel pairing structural
+  rather than remembered); the third argues call sites differ too much to share. Kit was
+  frozen for the sweep, so nothing was built.
 - Rule: a demo that holds a drag (pointerdown, then pointermove tracking until
   pointerup) must capture the pointer, or a real reader's drag dies the moment
   the pointer leaves the element: moves stop arriving, the release lands
@@ -51,7 +69,19 @@ complete; until then entries only accumulate. Entry format:
 
 ## bare-icon-buttons
 
-- Queued: 2026-08-19 · Status: queued
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-22 (0 fixed, 10 skipped: detector noise)
+- Swept: ALL TEN were false positives, verified by measuring the live shadow DOM rather
+  than by eye (every specimen button computed `display: flex` with a non-zero gap, icon
+  and label tops within 0.8px, single-line heights 26.8 to 31.5px). The only real defect
+  was ever light-dismiss, fixed 2026-08-19. The detector greps `${icon(...)}Label` inside
+  a button and never checks the class list, but four kit classes already supply the flex
+  context and three are routinely co-classed onto `.sp-button` for exactly this:
+  `.sp-menu-item`, `.sp-row`, `.sp-chip`, `.sp-icon-button`. Rewrite the detector to skip
+  buttons carrying any of those before ever re-raising this. The positive authoring rule:
+  prefer adding `sp-row` to a `.sp-button` over stating inline-flex, and state it inline
+  only when the button needs its own direction or sizing. Deliberate icon-over-label
+  tiles (share-sheet, swipe-actions) are a stacked layout, not a broken line, and the kit
+  `.sp-button` class needs NO change.
 - Rule: `.sp-icon` is display block, so an icon interpolated bare into a
   non-flex `.sp-button` breaks its label onto a second line (STAGE_NEWS law 20
   carries the authoring rule). An icon-and-label button states
@@ -162,7 +192,29 @@ complete; until then entries only accumulate. Entry format:
 
 ## aim-markers
 
-- Queued: 2026-08-19 · Status: queued
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-22 (15 fixed, 13 skipped)
+- Swept: 15 anchors stripped to paintless boxes (hit-slop and hit-testing from the clean
+  list; brushing, dead-zone, drag-autoscroll, drag-threshold, fling, lasso-selection,
+  marking-menu, mouse-gesture, orbit, pointer-lock, quasimode, resize-handle, smart-guides
+  from the multi-complaint batch); radial-menu and ripple were already compliant. The
+  precise discriminator, found independently by two fixers and worth building into the
+  detector: DOES ANY CHOREOGRAPHY STEP NAME IT? Every genuine offender was a `moveTo`
+  target; every legitimate dashed shape was either measured by the demo's own code or was
+  the article's geometry (target-spacing's WCAG circles, alpha-compositing's stencil,
+  magnetic-button's attraction radius, ghost-click's hit-tested point, carousel and
+  page-indicator dots). Part naming is the secondary tell: `press-point`, `grip-end`,
+  `drop-dot`, `mark-outside` were all paint. Four recipe refinements the fixes taught:
+  (a) A CAPTION IS PART OF THE MARKER, so copy that named the paint has to be reworded to
+  name the term's own geometry instead of the pointer's itinerary, and an unpainted anchor
+  may never be named in UI copy; (b) preserve the anchor's CENTRE, not just its offsets
+  (resize-handle's ring sat above its box centre, so the replacement kept the -50%
+  translate or the ghost's aim point would have moved); (c) an anchor's NEIGHBOURS can
+  carry the annotation (pointer-lock's dot was dressed as a legend swatch, and the
+  sentence beside it only parsed as its caption); (d) invisible anchors do not belong in
+  `.sp-context`, since that register neutralizes scenery paint and claims paint that no
+  longer exists. Removing the marks exposed two bugs hiding behind them: drag-threshold's
+  "8 px" label sat on top of the card's own text, and smart-guides' 224px nowrap readout
+  was cutting its sentence off at the frame edge (now 304px).
 - Rule: choreography instrumentation is invisible (SPEC §5, STAGE_NEWS law 16).
   An element that exists so the script can aim at a coordinate (a tap that must
   land inside an invisible region) gets a `data-part` and NO paint: no dashed
@@ -191,7 +243,38 @@ complete; until then entries only accumulate. Entry format:
 
 ## subject-granularity
 
-- Queued: 2026-08-19 · Status: queued
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-22 (8 fixed, 53 skipped; 61 flagged after the detector was repaired)
+- Detector was BROKEN at first run and is now fixed: it appended a trailing slash, so
+  every page 404'd under `trailingSlash: 'never'` and it reported all 1065 specimens as
+  offenders ("no [data-subject] found by probe"). It now requests `/<slug>`, asserts
+  `response.ok()`, and waits for `vd-stage`, so that failure can never masquerade as
+  findings again. Real count: 61 (53 orphaned highlight, 6 canvas-sized, 2 iframe).
+- Swept: 8 subjects moved, each verified with Identify in the browser and re-snapshotted.
+  breakout (wide figure to the tinted band it draws for the track), containing-block
+  (positioned badge to the resolved box, travelling with the resolution), easing (whole
+  scene to a new `tracks` wrapper, which RESTORES the withdrawn Identify control),
+  first-line-indent (3-line paragraph to a new 26x18 indent trace), layout-margins
+  (content column to a paintless band on the margin strip), overscroll (canvas-sized
+  scroller to the 432x26 edge glow), point-size (the ink "Hamburg" to a body box one em
+  tall, since the article's whole claim is that the size is the body and NOT the height of
+  anything visible), river (the column to its `trace-rivered` overlay, pulled in to the
+  channel's own 24x85 extent). The 53 skips carry the load-bearing lesson: AN ORPHANED
+  HIGHLIGHT IS NOT EVIDENCE OF A MISPLACED SUBJECT. Paint on PEER INSTANCES of the term
+  (the other kerned pair, the second sidenote, the linked view answering a brush) is the
+  comparison, and the answer is to keep the subject on one instance, never to climb to the
+  container holding them all; conformance-level's 3px marks are scope, chart's legend
+  swatch must keep the bar colour or it stops being a legend. What DOES convict is paint
+  the demo uses to draw the feature itself while the ring sits on the thing carrying it.
+  Two corollaries: "the term is a property of this run or this surface" is the same wrong
+  test as "a thing this element has" whenever the specimen already draws that property as
+  a box (if the specimen draws it, ring the drawing); and when a subject moves onto a
+  state-dependent element, `data-pose` MOVES WITH IT, so the measured state attribute the
+  pose reads must be written to the new subject in the same pass, with a travelling
+  subject set via `flag(el, 'data-subject', ...)` beside the paint rather than as literal
+  markup. A whole-scene subject is sometimes just a missing wrapper (easing had no element
+  between `.sp-app` and its rows); worth checking wherever a subject covers ~100%.
+  Left flagged for a future round: word-spacing, where the only narrower element would be
+  one tinted gap, which names a word space rather than the spacing of a run.
 - Rule: the subject is the feature's own extent, not its canvas (SPEC §5,
   STAGE_NEWS law 15). "The term is a thing this element has" is the wrong test;
   it justifies any container up to the page (a river is a thing a paragraph has).
@@ -253,6 +336,18 @@ complete; until then entries only accumulate. Entry format:
 ## stage-geometry
 
 - Queued: 2026-08-20 · Status: queued
+- 2026-08-22: NOT swept (out of the scope the user chose), and the detector was found
+  BROKEN by the same trailing-slash bug as subject-granularity: it requested `/<slug>/`,
+  which 404s under `trailingSlash: 'never'`, so every specimen died on the 20s
+  `waitForFunction` for `vd-stage` and all 1065 came back `probe-error`. Now fixed (bare
+  `/<slug>` plus a `response.ok()` guard) and confirmed on a subset, where it reproduces
+  the very findings this entry recorded at queue time (modifier-key's legend shifting
+  17px, plus signifier, orphan and combobox). The queue-time counts (434/887, 1428
+  findings) were therefore real but predate the config change; a full run on an IDLE
+  machine is needed to refresh them, since a loaded box is what produced the 20s
+  timeouts. Note also that ~100 specimens were edited by this sweep, so the next run
+  measures a changed corpus. One finding spotted in the subset and left alone as out of
+  scope: point-size reports 57px of content in a 53px box on [word].
 - Rule: geometry is part of the claim, at every state the choreography visits,
   not just at mount. The stage body clips its overflow, so an element that
   escapes it is silently amputated, never merely ugly. A container must hold its
@@ -312,7 +407,24 @@ complete; until then entries only accumulate. Entry format:
 
 ## hover-takeover
 
-- Queued: 2026-08-20 · Status: queued
+- Queued: 2026-08-20 · Status: SWEPT 2026-08-22 (10 fixed, 17 skipped)
+- Swept: `data-hover-driven` added to tilt-effect (perspective field), hover-lift (three
+  cards), marquee (strip), explore-by-touch (screen), focus-follows-mouse (both panes),
+  hoverable-dismissible-persistent (bare span trigger), cursor-follower, magnetic-button,
+  pointer-lock (viewport), spotlight-hover (card). THE MARKING IS INERT ON AN INTERACTIVE
+  ELEMENT, because the stage's dwell already fires on a[href], button, input, select,
+  textarea and [tabindex]: dwell-activation and hover-intent are genuine hover-only terms
+  that need nothing, since their surface is already a button. So the rule belongs on
+  NON-INTERACTIVE surfaces (a scene, a field, a card, a span) and the detector should skip
+  demos whose hover surface is a control. A sharper test than "can the reader take over":
+  CAN THE GHOST CONTRADICT THE READER? An unmarked hover-only demo lets the ghost's
+  synthetic pointerleave stomp the reader's own hover, unpausing a marquee the reader is
+  still pointing at or dropping a lifted card under the cursor.
+- SNAPSHOT SURPRISE, contrary to what this entry predicted: `data-hover-driven` appears
+  INSIDE the recorded subject selector, so marking a surface that happens to be the
+  subject rewrites `<slug>-subject.txt` (explore-by-touch, focus-follows-mouse, hover-lift,
+  marquee, pointer-lock all changed). The attribute is still inert to the script; only the
+  snapshot text moves. Expect and read those diffs next time.
 - Rule: takeover must match the term's own input. A demo operated by hovering
   alone (a dock that bulges, a proximity glow, a spotlight or tilt that follows
   the pointer) marks that surface `data-hover-driven`, which makes a reader's
@@ -342,7 +454,26 @@ complete; until then entries only accumulate. Entry format:
 
 ## replay-continuity
 
-- Queued: 2026-08-20 · Status: queued
+- Queued: 2026-08-20 · Status: SWEPT 2026-08-22 (8 fixed, 48 skipped)
+- Swept: all 8 fixes were choreography-only (recipe 1), so no demo.ts and no subject
+  snapshot changed: compositor-animation (the canonical case, Replay pressed at ~1500ms
+  inside a 2750ms run's own stall window, now at ~4100ms with a `data-thread=busy` assert
+  earning the wait), audio-description, frame-rate, jank, layout-thrashing,
+  ken-burns-effect (a 4880ms drift clicked at ~1330ms), stepped-animation, stories.
+  THE PLAYER'S REAL STEP COSTS, checked against src/stage/player.ts because two shards
+  disagreed: CURSOR_TRAVEL_MS 550 + STEP_GAP_MS 350, so a `moveTo` costs 900ms and a
+  `click` a further 350ms, with LOOP_PAUSE_MS 1400 of grace before the remount. An opening
+  `wait: 600` therefore fires its click at ~1250ms, not 600ms, which is how a 1.6s mount
+  run collides with a script that looks comfortably clear. Three more laws: the number to
+  beat is the demo's SETTLE timeout (lead + duration + settling beat), not the animation
+  duration, and a 60 to 70ms lead hidden in a transition shorthand is exactly the margin a
+  "wait 3000 for a 3000ms run" script loses; "a run" means ANYTHING the demo scheduled on
+  its clock that has not reached its terminal state, since audio-description had no
+  animation at all and it was a 7400ms CUE CHAIN the remount cut; and for a self-advancing
+  demo the tail is bounded by the dwell itself, so `dwell + a beat` is always safe and
+  needs no phase measurement. Verification note for the next sweep: `audit()` REMOUNTS the
+  specimen, so a sampling probe must re-read `stage.specimenRoot` every sample or it
+  reports a detached tree frozen mid-run, which reads as a false teleport.
 - Rule: an animation run has ONE owner at a time, and a script never cuts a run
   the reader can see (SPEC §8, STAGE_NEWS law 34). Three collisions produce the
   teleport the complaint names: (a) the demo autoplays a run on mount AND the

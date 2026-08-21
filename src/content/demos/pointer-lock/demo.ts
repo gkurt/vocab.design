@@ -9,10 +9,16 @@ const SKY = 'linear-gradient(#1b2836 0 52%, #33506b 52%, #4b6b83)';
 const GRID = 'repeating-linear-gradient(90deg, rgb(255 255 255 / 0.14) 0 1px, transparent 1px 40px)';
 const MARKS = 'repeating-linear-gradient(90deg, rgb(255 255 255 / 0.34) 0 2px, transparent 2px 120px)';
 
+/**
+ * A fixed anchor the script travels between. It carries no paint: the drawn pointer and the
+ * heading are what the reader watches, and a drawn mark would annotate the choreography
+ * rather than the term (SPEC §5).
+ */
 const dot = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 4}px; top: ${y - 4}px; width: 8px; height: 8px; border-radius: 50%; background: rgb(255 255 255 / 0.7); pointer-events: none"
+    aria-hidden="true"
+    style="position: absolute; left: ${x - 4}px; top: ${y - 4}px; width: 8px; height: 8px; pointer-events: none"
   ></span>`;
 
 /**
@@ -24,7 +30,12 @@ const dot = (name: string, x: number, y: number) => `
  * The subject is the viewport. The term names what happens to input inside one element, and
  * the viewport is the narrowest thing that both loses its cursor and gains the deltas; the
  * device chrome, the readouts, the engage control and the escape legend are the scene around
- * it and carry the context register.
+ * it and carry the context register, and the points the script travels between are unpainted
+ * anchors.
+ *
+ * The viewport carries `data-hover-driven`: moving a pointer over it with no button down IS
+ * this term's interaction, both halves of it, so a reader's dwell there takes the stage over
+ * without a click (SPEC §7).
  *
  * **The real API is never called here.** `requestPointerLock` would take the reader's actual
  * cursor away from the page this specimen is embedded in, which no exhibit may do, so the
@@ -52,6 +63,7 @@ export function mount(root: HTMLElement): void {
             <div
               data-part="viewport"
               data-subject
+              data-hover-driven
               data-turn="none"
               data-outside="no"
               style="position: relative; flex: 0 0 auto; width: ${VIEW.w}px; height: ${VIEW.h}px; border-radius: var(--sp-radius); overflow: hidden; background: ${SKY}; cursor: crosshair; touch-action: none; user-select: none"
@@ -85,11 +97,8 @@ export function mount(root: HTMLElement): void {
               <div class="sp-divider"></div>
               <span class="sp-label"><span class="sp-kbd">Esc</span> releases</span>
               <div class="sp-row" style="gap: 6px; margin-top: 4px">
-                <span
-                  data-part="dot-out"
-                  style="width: 8px; height: 8px; border-radius: 50%; background: var(--sp-muted)"
-                ></span>
-                <span class="sp-label" style="font-size: 11px">outside the viewport</span>
+                <span data-part="dot-out" aria-hidden="true" style="width: 8px; height: 8px"></span>
+                <span class="sp-label" style="font-size: 11px">Movement arrives out here too</span>
               </div>
             </div>
           </div>

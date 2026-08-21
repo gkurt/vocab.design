@@ -136,6 +136,8 @@ export function mount(root: HTMLElement): void {
   render();
 
   slider.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) slider.setPointerCapture(event.pointerId);
     if (event.target === thumb) {
       grabbed = event.clientX - positionOf(value);
       return;

@@ -104,6 +104,9 @@ export function mount(root: HTMLElement): void {
   let held: { kind: 'move' | 'resize'; x: number; y: number; left: number; top: number; width: number } | undefined;
 
   const take = (kind: 'move' | 'resize', event: PointerEvent) => {
+    // The grip sits inside the card, so one capture on the card carries either grab past the
+    // canvas edge. A synthetic pointer has none to capture and the call would throw.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     held = { kind, x: event.clientX, y: event.clientY, left: card.offsetLeft, top: card.offsetTop, width: card.offsetWidth };
   };
 

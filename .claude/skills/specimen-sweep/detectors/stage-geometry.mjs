@@ -364,7 +364,8 @@ async function worker() {
   while (queue.length) {
     const slug = queue.shift();
     try {
-      await page.goto(`${url}/${slug}/`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      const response = await page.goto(`${url}/${slug}`, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      if (!response?.ok()) throw new Error(`HTTP ${response?.status()} for /${slug} (trailingSlash is 'never')`);
       await page.waitForFunction(() => !!document.querySelector('vd-stage')?.specimenRoot, null, { timeout: 20_000 });
       await page.evaluate(() => document.fonts.ready);
       await page.evaluate(() => document.querySelector('vd-stage iframe')?.contentDocument?.fonts.ready);

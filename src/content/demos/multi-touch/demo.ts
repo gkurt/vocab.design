@@ -165,6 +165,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const live = () => [...contacts.values()];
 
   canvas.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
     clock.clearTimeout(timer);
     contacts.set(event.pointerId, at(event));
     canvas.dataset.contacts = String(contacts.size);

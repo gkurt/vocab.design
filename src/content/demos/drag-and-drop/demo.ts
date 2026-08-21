@@ -90,7 +90,10 @@ export function mount(root: HTMLElement): void {
     });
   };
 
-  card.addEventListener('pointerdown', () => {
+  card.addEventListener('pointerdown', (event) => {
+    // Capture keeps the carry alive once the pointer is over a zone rather than the card. A
+    // synthetic pointer has none to capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     carrying = true;
     flag(card, 'data-dragging', true);
     card.style.boxShadow = 'var(--sp-shadow)';

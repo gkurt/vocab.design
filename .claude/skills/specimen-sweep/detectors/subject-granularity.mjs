@@ -53,8 +53,10 @@ await Promise.all(
     const page = await context.newPage();
     for (let slug = queue.shift(); slug; slug = queue.shift()) {
       try {
-        await page.goto(`${BASE}/${slug}/`, { waitUntil: 'domcontentloaded' });
-        await page.waitForTimeout(400);
+        const response = await page.goto(`${BASE}/${slug}`, { waitUntil: 'domcontentloaded' });
+        if (!response?.ok()) throw new Error(`HTTP ${response?.status()} for /${slug} (trailingSlash is 'never')`);
+        await page.waitForSelector('vd-stage', { timeout: 10_000 });
+        await page.waitForTimeout(600);
         results.set(slug, await page.evaluate(probe));
       } catch (error) {
         results.set(slug, { error: String(error).slice(0, 80) });

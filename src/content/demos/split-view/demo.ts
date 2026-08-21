@@ -81,8 +81,11 @@ export function mount(root: HTMLElement): void {
   });
   select(0);
 
+  const divider = part(root, 'divider');
   let dragging = false;
-  part(root, 'divider').addEventListener('pointerdown', () => {
+  divider.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) divider.setPointerCapture(event.pointerId);
     dragging = true;
   });
   root.addEventListener('pointermove', (event) => {
@@ -95,7 +98,7 @@ export function mount(root: HTMLElement): void {
   root.addEventListener('pointercancel', release);
 
   // A divider that only answers a pointer is a pane only a mouse can resize.
-  part(root, 'divider').addEventListener('keydown', (event) => {
+  divider.addEventListener('keydown', (event) => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     size(list.getBoundingClientRect().width + (event.key === 'ArrowRight' ? 20 : -20));
     event.preventDefault();

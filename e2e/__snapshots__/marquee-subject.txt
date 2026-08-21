@@ -1,4 +1,4 @@
 term:    Marquee
 scope:   element
-subject: div.sp-marquee.sp-surface[data-part=strip]
+subject: div.sp-marquee.sp-surface[data-hover-driven][data-part=strip]
 text:    FTSE 100 +0.4% Brent crude 78.10 Cocoa -2.1% Copper +1.1% Gold 2,318.40 Yen -0.3

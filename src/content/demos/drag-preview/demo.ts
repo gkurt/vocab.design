@@ -167,7 +167,11 @@ export function mount(root: HTMLElement): void {
   let drag: { row: HTMLElement; key: string; top: number; left: number } | undefined;
 
   for (const { key, title } of SHOTS) {
-    part(root, `grip-${key}`).addEventListener('pointerdown', (event) => {
+    const grip = part(root, `grip-${key}`);
+    grip.addEventListener('pointerdown', (event) => {
+      // Capture keeps the carry alive past the list's edge. A synthetic pointer has none to
+      // capture and the call would throw, so only a real one asks.
+      if (event.isTrusted) grip.setPointerCapture(event.pointerId);
       const row = part(root, `row-${key}`);
       // Measured before anything is written, so nothing here reads back a value a
       // transition has not finished delivering (SPEC §5).

@@ -186,6 +186,8 @@ export function mount(root: HTMLElement): void {
   // The divider is the platform's control, and dragging it resizes the app while it runs.
   let grabbed: number | undefined;
   divider.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) divider.setPointerCapture(event.pointerId);
     const rect = divider.getBoundingClientRect();
     grabbed = event.clientX - (rect.left + rect.width / 2);
   });

@@ -157,6 +157,10 @@ export function mount(root: HTMLElement): void {
       return say('inside', `Started ${Math.round(from)} px in: the page keeps it`);
     }
     if (phone.dataset.history !== 'article') return say('none', 'Nothing left to go back to');
+    // Capture keeps the peel tracking, and the release landing here, once the swipe has left the
+    // phone. A synthetic pointer has none to capture and the call would throw, so only a real
+    // one asks.
+    if (event.isTrusted) phone.setPointerCapture(event.pointerId);
     origin = event.clientX;
     say('peeling', 'Peeling the screen back');
   });

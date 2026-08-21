@@ -22,9 +22,12 @@ const NOTES = [
 
 /**
  * Overscroll specimen: a release-notes panel scrolled to its limit, where the
- * content gives a little and the edge answers. The subject is the scroller, since
- * overscroll is what a scroller does with input it has no room for; the frame and
- * the notes inside it are the scenery that gives it something to run out of.
+ * content gives a little and the edge answers. The subject is the edge answer
+ * itself, the band drawn where the input ran out of room: a scroller is a thing
+ * that HAS overscroll, and ringing it would name the list. The band is only on
+ * stage in the moment the limit is reached, which identify summons by playing the
+ * script to the scroll that reaches it (SPEC §6). The frame, the scroller and the
+ * notes inside it are the scenery that gives the input something to run out of.
  *
  * The edge answer is drawn by the demo rather than by the platform. A real rubber
  * band comes from the compositor in response to input the scroller could not use,
@@ -52,11 +55,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
           <div data-part="panel" style="position: relative; flex: 1 1 auto; min-height: 0">
-            <div class="sp-scroll sp-surface" data-part="scroller" data-subject style="height: 100%">
+            <div class="sp-scroll sp-surface" data-part="scroller" style="height: 100%">
               <ul class="sp-list" style="padding: 4px 6px">${notes}</ul>
             </div>
             <div
               data-part="glow"
+              data-subject
               style="position: absolute; left: 1px; right: 1px; bottom: 1px; height: 26px; border-radius: 0 0 var(--sp-radius) var(--sp-radius); background: radial-gradient(120% 100% at 50% 100%, var(--sp-accent), transparent 70%); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; pointer-events: none"
             ></div>
           </div>

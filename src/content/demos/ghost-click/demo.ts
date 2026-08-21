@@ -42,8 +42,10 @@ const row = ({ key, label, subject }: (typeof ROWS)[number]) => `
  *
  * The subject is the destructive row, the control the phantom click activates. The term
  * names an activation nobody aimed at, so the narrowest element it names is the one that
- * receives it; the dashed ring marking the coordinate, the ruler, and the replay control
- * are the apparatus and stay in the context register.
+ * receives it. The dashed ring is not apparatus: it draws the coordinate the held-back click
+ * carries, which is the term's own claim, and it is the box the demo hit-tests through
+ * `elementFromPoint`, so it keeps the accent and stays out of the context register. The ruler
+ * and the replay control are the apparatus and do carry it.
  *
  * The shift is the term, so it is allowed, and it is contained: the panel is clipped and
  * the banner is drawn inside it, so nothing outside the panel moves at all (SPEC §5). Each

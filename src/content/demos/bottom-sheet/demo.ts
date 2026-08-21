@@ -106,6 +106,9 @@ export function mount(root: HTMLElement): void {
 
   handle.addEventListener('pointerdown', (event) => {
     if (sheet.dataset.state === 'closed') return;
+    // Capture keeps the drag alive past the handle's edge. A synthetic pointer has none to
+    // capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) handle.setPointerCapture(event.pointerId);
     grabbed = event.clientY - sheet.getBoundingClientRect().top;
     // Following a finger is not an animation: an eased height would lag the drag.
     sheet.style.transition = 'none';

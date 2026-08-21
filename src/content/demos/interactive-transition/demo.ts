@@ -159,6 +159,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointerdown', (event) => {
     if (!sheet.contains(event.target as Node)) return;
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) root.setPointerCapture(event.pointerId);
     clock.clearTimeout(settling);
     origin = event.clientY;
     scene.dataset.outcome = 'scrubbing';

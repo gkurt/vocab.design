@@ -92,6 +92,10 @@ export function mount(root: HTMLElement): void {
   settle(PAD + COL, PAD + ROW);
 
   card.addEventListener('pointerdown', (event) => {
+    // The card is dragged across the whole field, so it captures the pointer: uncaptured, the
+    // moves stop as soon as the pointer is off the card and the release that decides the cell
+    // never arrives. A synthesized pointer cannot be captured, hence the guard.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     const rect = card.getBoundingClientRect();
     grab = { x: event.clientX - rect.left, y: event.clientY - rect.top };
     flag(card, 'data-dragging', true);

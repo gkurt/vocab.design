@@ -189,7 +189,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     fire('selection');
   };
 
-  thumb.addEventListener('pointerdown', () => {
+  thumb.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) thumb.setPointerCapture(event.pointerId);
     dragging = true;
   });
 

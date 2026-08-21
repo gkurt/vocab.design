@@ -1,4 +1,4 @@
 term:    Breakout
 scope:   element
-subject: figure[data-fit=between][data-part=figure][data-pose=[data-fit=between]]
+subject: div[data-fit=between][data-part=band-breakout][data-pose=[data-fit=between]]
 text:    

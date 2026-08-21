@@ -157,8 +157,11 @@ export function mount(root: HTMLElement): void {
     el.style.outlineOffset = '3px';
   };
 
-  page.addEventListener('pointerdown', () => {
-    if (desk.dataset.where === 'inbox') carrying = true;
+  page.addEventListener('pointerdown', (event) => {
+    if (desk.dataset.where !== 'inbox') return;
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) page.setPointerCapture(event.pointerId);
+    carrying = true;
   });
 
   root.addEventListener('pointermove', (event) => {

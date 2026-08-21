@@ -35,19 +35,22 @@ const tileMarkup = tiles
   )
   .join('');
 
+/** An unpainted anchor for one end of the scripted stroke: a drawn stop point would annotate
+    the choreography rather than the term (SPEC §5). */
 const dot = (name: string, at: { x: number; y: number }) => `
   <span
-    class="sp-context"
     data-part="${name}"
-    style="position: absolute; left: ${at.x - 6}px; top: ${at.y - 6}px; width: 12px; height: 12px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none"
+    style="position: absolute; left: ${at.x - 6}px; top: ${at.y - 6}px; width: 12px; height: 12px; pointer-events: none"
   ></span>`;
 
 /**
  * Lasso selection specimen: a canvas of file tiles where a drag begun on empty space draws a
  * boundary, previews what it currently holds, and commits that set when the pointer comes
  * up. The subject is the boundary itself, since the term names the outline rather than the
- * canvas it is drawn over or the tiles it catches; the aiming dots, the counts, and the hold
- * control are instrumentation and stay in the context register.
+ * canvas it is drawn over or the tiles it catches; the counts and the hold control are
+ * instrumentation and stay in the context register, and both ends of the scripted stroke are
+ * unpainted anchors. A caught tile keeps the accent, because the set the boundary holds is the
+ * other half of what the term does.
  *
  * A boundary exists only while a hand is drawing one, which would leave identify nothing to
  * ring, so the specimen carries a labelled control that parks one for inspection, the same
@@ -140,6 +143,8 @@ export function mount(root: HTMLElement): void {
   canvas.addEventListener('pointerdown', (event) => {
     // A press that lands on a tile is a move, not a lasso: the empty space is the gesture.
     if (event.target instanceof HTMLElement && event.target.closest('[data-part^="tile-"]')) return;
+    // A real stroke has to survive leaving the canvas; a synthetic pointer cannot be captured.
+    if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
     origin = at(event);
     caught.clear();
     paint(true);

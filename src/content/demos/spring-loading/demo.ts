@@ -164,6 +164,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   item.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) item.setPointerCapture(event.pointerId);
     origin = { x: event.clientX, y: event.clientY };
     item.style.cursor = 'grabbing';
     item.style.borderColor = 'var(--sp-ink)';

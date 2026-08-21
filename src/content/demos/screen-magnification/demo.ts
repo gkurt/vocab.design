@@ -163,7 +163,9 @@ export function mount(root: HTMLElement): void {
 
   const pageOrigin = () => (lens.offsetParent as HTMLElement).getBoundingClientRect();
 
-  lens.addEventListener('pointerdown', () => {
+  lens.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) lens.setPointerCapture(event.pointerId);
     dragging = true;
     lens.style.cursor = 'grabbing';
   });

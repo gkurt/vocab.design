@@ -18,11 +18,11 @@ const slop = (name: string) => `
     style="position: absolute; left: ${-SLOP}px; top: ${-SLOP}px; right: ${-SLOP}px; bottom: ${-SLOP}px; border-radius: 8px; border: 1px dashed transparent"
   ></span>`;
 
-/** An aiming mark, drawn as a ring so it never covers the artwork it is aimed at. */
-const dot = (name: string, x: number, y: number) => `
+/** A fixed point the script taps, with no paint of its own (SPEC §5). */
+const aim = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-ink); pointer-events: none"
+    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; pointer-events: none"
   ></span>`;
 
 /** A point the browser resolves against the tree that owns it, shadow root or document. */
@@ -35,14 +35,15 @@ type Picker = { elementFromPoint(x: number, y: number): Element | null };
  * events.
  *
  * The subject is the add button, since the term names a property of one control: the box
- * that answers is its, not the card's. The card, the more button beside it, the aiming dots
- * and the inspection control are the scene around it and carry the context register.
+ * that answers is its, not the card's. The card, the more button beside it and the inspection
+ * control are the scene around it and carry the context register. The three tap points are
+ * unpainted anchors, so the ghost cursor is the only pointer artifact on stage (SPEC §5).
  *
  * The verdict is the platform's, not the demo's. The click handler sits on the card and asks
  * `elementFromPoint` who is really on top at the coordinates the event carried, which is the
  * same walk the browser does to choose a target, and it keeps the specimen honest under
- * attract, where an event dispatched straight onto a dot would otherwise report whatever the
- * script aimed at. The extension itself is an absolutely positioned child pinned with
+ * attract, where an event dispatched straight onto an anchor would otherwise report whatever
+ * the script aimed at. The extension itself is an absolutely positioned child pinned with
  * negative insets, so the region grows without the layout box growing with it.
  *
  * The two buttons are spaced 46 px between centres, two more than the region is wide, which
@@ -56,7 +57,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Album</span>
-          <span class="sp-text" data-part="readout" style="width: 262px; text-align: right; white-space: nowrap">Tap one of the three dots</span>
+          <span class="sp-text" data-part="readout" style="width: 262px; text-align: right; white-space: nowrap">Tap the add button, or near it</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 12px">
           <div
@@ -97,14 +98,14 @@ export function mount(root: HTMLElement): void {
               <span data-part="glyph" style="position: relative; z-index: 1; display: flex">${icon('plus')}</span>
             </button>
 
-            <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none">
-              ${dot('dot-art', CENTRE.x, CENTRE.y)}
-              ${dot('dot-slop', CENTRE.x - 15, CENTRE.y + 13)}
-              ${dot('dot-miss', CENTRE.x, CENTRE.y + 38)}
+            <span style="position: absolute; inset: 0; pointer-events: none">
+              ${aim('dot-art', CENTRE.x, CENTRE.y)}
+              ${aim('dot-slop', CENTRE.x - 15, CENTRE.y + 13)}
+              ${aim('dot-miss', CENTRE.x, CENTRE.y + 38)}
             </span>
           </div>
 
-          <span class="sp-label sp-context">Three taps, top to bottom: on the glyph, in the slop, past it.</span>
+          <span class="sp-label sp-context">A tap in the slop adds too. A tap past the slop does nothing.</span>
 
           <div class="sp-row sp-context" style="gap: 10px">
             <span class="sp-label">Show</span>

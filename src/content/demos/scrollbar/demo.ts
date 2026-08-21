@@ -107,6 +107,8 @@ export function mount(root: HTMLElement): void {
   let from: { y: number; top: number } | null = null;
 
   thumb.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) thumb.setPointerCapture(event.pointerId);
     from = { y: (event as PointerEvent).clientY, top: viewport.scrollTop };
   });
 

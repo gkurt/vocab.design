@@ -32,6 +32,8 @@ export function mount(root: HTMLElement): void {
   let origin: { x: number; y: number; left: number; top: number } | undefined;
 
   panel.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) panel.setPointerCapture(event.pointerId);
     const rect = panel.getBoundingClientRect();
     const bounds = scene.getBoundingClientRect();
     origin = { x: event.clientX, y: event.clientY, left: rect.left - bounds.left, top: rect.top - bounds.top };
@@ -47,8 +49,11 @@ export function mount(root: HTMLElement): void {
     panel.style.top = `${top}px`;
   });
 
-  root.addEventListener('pointerup', () => {
+  const release = () => {
     origin = undefined;
     panel.style.cursor = 'grab';
-  });
+  };
+
+  root.addEventListener('pointerup', release);
+  root.addEventListener('pointercancel', release);
 }

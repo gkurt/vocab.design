@@ -202,8 +202,11 @@ export function mount(root: HTMLElement): void {
     picker.value = 'fixed';
   };
 
-  grip.addEventListener('pointerdown', () => {
+  grip.addEventListener('pointerdown', (event) => {
     held = true;
+    // Capture keeps the drag alive past the grip's edge. A synthetic pointer has none to
+    // capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) grip.setPointerCapture(event.pointerId);
     gripBar.style.background = 'var(--sp-accent)';
     gripBar.style.width = '3px';
     toFixed();

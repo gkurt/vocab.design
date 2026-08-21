@@ -231,6 +231,8 @@ export function mount(root: HTMLElement): void {
     };
 
     slider.addEventListener('pointerdown', (event) => {
+      // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+      if (event.isTrusted) slider.setPointerCapture(event.pointerId);
       if (event.target === thumb) {
         grabbed = event.clientX - positionOf(value[axis.key]);
         return;

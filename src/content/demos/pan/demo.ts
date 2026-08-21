@@ -108,6 +108,8 @@ export function mount(root: HTMLElement): void {
   };
 
   canvas.addEventListener('pointerdown', (event) => {
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
     last = { x: event.clientX, y: event.clientY };
     canvas.style.cursor = 'grabbing';
     render('Holding the survey');

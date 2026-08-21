@@ -20,5 +20,7 @@ export default steps([
   { click: true },
   { wait: 3000 },
   { assert: { selector: '[data-part=bar-4][data-current]', state: 'visible' } },
-  { wait: 900 },
+  // The last card's own dwell is 2.6s of travelling fill, and the tail outlasts it, so the
+  // loop's remount lands on a story that has finished rather than cutting the bar mid-fill.
+  { wait: 2800 },
 ]);

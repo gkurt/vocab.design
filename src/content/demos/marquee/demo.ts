@@ -23,6 +23,11 @@ const QUOTES = [
  * Holding still for a reader is part of the term, and it needs the attribute spelling
  * beside the pseudo-class: attract's synthesized pointer never lights up `:hover`
  * (SPEC §7), so the strip says `data-paused` out loud when the pointer arrives.
+ *
+ * That pause is the only input this specimen answers, and hovering is all of it, so the
+ * strip carries `data-hover-driven`: a reader's dwell on it takes the stage over without
+ * a click, and the ghost cursor leaving can never unpause a strip the reader is still
+ * pointing at (SPEC §7).
  */
 export function mount(root: HTMLElement): void {
   const items = QUOTES.map(
@@ -47,6 +52,7 @@ export function mount(root: HTMLElement): void {
             class="sp-marquee sp-surface"
             data-part="strip"
             data-subject
+            data-hover-driven
             style="flex: 0 0 auto; height: 34px; align-items: center; --sp-marquee-time: 16s; --sp-marquee-gap: 28px"
           >
             <div class="sp-marquee-track" data-part="track">${group(false)}${group(true)}</div>

@@ -1,4 +1,4 @@
 term:    Focus follows mouse
 scope:   element
-subject: div.sp-surface[data-part=pane-notes][data-pose=[data-sim-focus]][data-sim-focus]
+subject: div.sp-surface[data-hover-driven][data-part=pane-notes][data-pose=[data-sim-focus]][data-sim-focus]
 text:    Notes

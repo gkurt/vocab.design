@@ -91,6 +91,8 @@ export function mount(root: HTMLElement): void {
   settle(0);
 
   pager.addEventListener('pointerdown', (event) => {
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) pager.setPointerCapture(event.pointerId);
     start = event.clientX;
     // Following the stroke is what tells a swipe from a control that acts on release.
     track.style.transition = 'none';

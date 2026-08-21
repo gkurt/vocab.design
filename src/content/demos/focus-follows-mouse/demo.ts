@@ -10,6 +10,7 @@ const paneMarkup = (key: string, title: string, hint: string, subject: boolean) 
   <div
     class="sp-surface"
     data-part="pane-${key}"
+    data-hover-driven
     ${subject ? 'data-subject data-pose="[data-sim-focus]"' : ''}
     ${key === 'notes' ? 'data-sim-focus' : ''}
     style="display: flex; flex-direction: column; gap: 8px; width: 204px; height: 138px; padding: 10px 12px"
@@ -40,6 +41,11 @@ const paneMarkup = (key: string, title: string, hint: string, subject: boolean) 
  * ghost cursor is over, which is exactly the claim the term makes. A reader who takes the stage
  * over gets the browser's own focus behaviour, because the browser is click to focus and this
  * specimen is not allowed to argue with it.
+ *
+ * Under this model arriving is the interaction, with nothing pressed, so each window carries
+ * `data-hover-driven`: a reader's dwell on one takes the stage over without a click, which is
+ * the only way to feel a focus model that answers the pointer alone (SPEC §7). The marking goes
+ * on the windows, since each one hears its own pointer, and not on the desk between them.
  *
  * The variant drawn here is the forgiving one: focus stays with the last window entered rather
  * than evaporating when the pointer strays between them, which is what most desktops ship.

@@ -20,6 +20,9 @@ const ZONES = ['left', 'mid', 'right'] as const;
  * The subject is the glow layer, the element that traces the feature the term names (SPEC
  * §5). The card under it, its contents and the caption are the scene.
  *
+ * The card carries `data-hover-driven`: moving a pointer across it IS this term's interaction,
+ * so a reader's dwell there takes the stage over without a click (SPEC §7).
+ *
  * No hover listeners are wired to repaint a control: the stage's player mirrors its own
  * pointer into the kit's attribute spellings already (SPEC §7). The two listeners here are
  * the term's own business, since whether the light is on at all is what the term claims. The
@@ -50,6 +53,7 @@ export function mount(root: HTMLElement): void {
           <div
             class="sp-context"
             data-part="card"
+            data-hover-driven
             style="position: relative; width: ${CARD.w}px; height: ${CARD.h}px; overflow: hidden;
                    border-radius: 12px; border: 1px solid #2a3149; background: #161b2c"
           >

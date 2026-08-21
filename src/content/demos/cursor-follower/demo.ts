@@ -41,13 +41,18 @@ const link = (l: (typeof LINKS)[number]) => `
  * The subject is the ring, the piece that actually trails. `Instant` is the counter-example the
  * control exists to offer, and it is a state the ring itself passes through, so the honest condition
  * is declared in `data-pose` and the mount state (`loose`) satisfies it: a follower with no lag is
- * not following anything (SPEC §6). The links, the texture and the readout are the scene.
+ * not following anything (SPEC §6). The dot is the pair's other half rather than scenery, so it
+ * keeps the accent and stays out of the context register; the only element enclosing both pieces is
+ * the field, which is the canvas and not the term. The links, the texture and the readout are the
+ * scene.
  *
- * The demo listens for one `pointermove` on its root and does the rest of the work there: it never
- * wires hover listeners to repaint a control, because the stage's player mirrors its own pointer
- * into the kit's attribute spellings already (SPEC §7). The swell over a link is read off the same
- * event. Both pieces are clamped inside the field, so nothing can leave the frame, and both mount at
- * the field's centre from a written-down number rather than from a clock or a random draw.
+ * The field carries `data-hover-driven`: moving a pointer across it IS this term's interaction, so a
+ * reader's dwell there takes the stage over without a click (SPEC §7). The demo listens for one
+ * `pointermove` on its root and does the rest of the work there: it never wires hover listeners to
+ * repaint a control, because the stage's player mirrors its own pointer into the kit's attribute
+ * spellings already (SPEC §7). The swell over a link is read off the same event. Both pieces are
+ * clamped inside the field, so nothing can leave the frame, and both mount at the field's centre
+ * from a written-down number rather than from a clock or a random draw.
  *
  * `motion.css` sets `transition: none` under reduced motion, which parks the pair exactly on the
  * pointer with no trail at all; the demo asks `prefersReducedMotion` anyway so the readout says so
@@ -69,6 +74,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body" style="padding: 12px">
           <div
             data-part="field"
+            data-hover-driven
             style="position: relative; width: ${FIELD.w}px; height: ${FIELD.h}px; border-radius: 6px;
                    background: var(--sp-surface); border: 1px solid var(--sp-line); overflow: hidden; cursor: none"
           >

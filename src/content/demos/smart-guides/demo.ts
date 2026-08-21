@@ -76,15 +76,17 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 276px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Board</span>
-          <span class="sp-text" data-part="readout" style="width: 224px; text-align: right; white-space: nowrap">Drag the card near a neighbour</span>
+          <span class="sp-text" data-part="readout" style="width: 304px; text-align: right; white-space: nowrap">Drag the card near a neighbour</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div data-part="canvas" style="position: relative; width: ${CANVAS.w}px; height: ${CANVAS.h}px; background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: 6px; overflow: hidden">
             ${neighbourCards}
+            <!-- Where the script drops the card. An anchor carries no paint: a drawn mark
+                 would annotate the choreography rather than the term (SPEC §5). -->
             <span
-              class="sp-context"
               data-part="target"
-              style="position: absolute; left: 94px; top: 129px; width: 10px; height: 10px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none"
+              aria-hidden="true"
+              style="position: absolute; left: 94px; top: 129px; width: 10px; height: 10px; pointer-events: none"
             ></span>
             <div
               class="sp-surface"
@@ -169,6 +171,10 @@ export function mount(root: HTMLElement): void {
   };
 
   card.addEventListener('pointerdown', (event) => {
+    // A snap moves the card out from under the pointer, so the card captures it: uncaptured,
+    // the moves stop the moment the pointer is off the card and the release never arrives,
+    // leaving it lifted. A synthesized pointer cannot be captured, hence the guard.
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     origin = { x: event.clientX, y: event.clientY, from: { ...at } };
     card.style.cursor = 'grabbing';
     card.style.boxShadow = 'var(--sp-shadow)';

@@ -26,8 +26,8 @@ const TINT = {
   content: 'color-mix(in oklab, var(--sp-accent) 22%, var(--sp-surface))',
 };
 
-const band = (name: string, width: string, tint: string) =>
-  `<div data-part="band-${name}" style="position: absolute; top: 0; bottom: 0; left: 50%; translate: -50% 0; width: ${width}; background: ${tint}"></div>`;
+const band = (name: string, width: string, tint: string, attrs = '') =>
+  `<div data-part="band-${name}" ${attrs} style="position: absolute; top: 0; bottom: 0; left: 50%; translate: -50% 0; width: ${width}; background: ${tint}"></div>`;
 
 const lines = (name: string, widths: number[]) => `
   <div class="sp-stack sp-context" data-part="${name}" style="gap: 5px; width: ${CONTENT}px">
@@ -49,16 +49,18 @@ const legend = (name: string, label: string, tint: string) => `
  * each a real box the full height of the page rather than a hairline (the stage reads a box
  * thinner than about 2px as absent), and the legend names them with their live widths.
  *
- * The subject is the figure sitting in the breakout track, `data-part="figure"`, not the track
- * diagram: the bands are the page's structure, and the term names what claims the wide one.
+ * The subject is the breakout track itself, the band drawn at `data-part="band-breakout"`. The term
+ * names the wider track the page declares, not the element that asks for it, so the band is the
+ * element tracing the feature and the figure sits in the context register as what claims it.
  *
  * `data-fit` is measured, never declared: the demo compares the figure's own box with the
  * column beside it and with the page around it, and says `between`, `full`, or `column`. That
  * is the whole claim of the term, so a recipe that had stopped clamping (or stopped reaching)
  * would be caught by it. Nothing transitions a width here, so the read after the write is the
  * real one (SPEC §5). Narrowing the page clamps the breakout track onto the full one, which is
- * honest behaviour but no longer the term, so the subject declares the roomy state as its
- * `data-pose` and identify refuses to ring the collapsed one (SPEC §6).
+ * honest behaviour but no longer the term, so the band carries the same measured `data-fit` as the
+ * figure and declares the roomy state as its `data-pose`, which is what makes identify refuse to
+ * ring a track that has collapsed onto the page (SPEC §6).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -82,17 +84,16 @@ export function mount(root: HTMLElement): void {
               style="position: relative; width: ${PAGES[0]?.width}px; height: 100%; margin: 0 auto; overflow: hidden"
             >
               ${band('full', '100%', TINT.full)}
-              ${band('breakout', `${BREAKOUT}px`, TINT.breakout)}
+              ${band('breakout', `${BREAKOUT}px`, TINT.breakout, 'data-subject data-fit="between" data-pose="[data-fit=between]"')}
               ${band('content', `${CONTENT}px`, TINT.content)}
 
               <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 8px">
                 ${lines('prose-1', [100, 94, 66])}
 
                 <figure
+                  class="sp-context"
                   data-part="figure"
-                  data-subject
                   data-fit="between"
-                  data-pose="[data-fit=between]"
                   style="display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; width: ${BREAKOUT}px; height: 46px;
                          margin: 0; padding: 7px 9px; background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: 6px"
                 >
@@ -144,8 +145,9 @@ export function mount(root: HTMLElement): void {
     if (!next) return;
     // The breakout track has nowhere to go on a narrow page, so it clamps to the page itself.
     const breakout = Math.min(BREAKOUT, next.width);
+    const track = part(root, 'band-breakout');
     page.style.width = `${next.width}px`;
-    part(root, 'band-breakout').style.width = `${breakout}px`;
+    track.style.width = `${breakout}px`;
     figure.style.width = `${breakout}px`;
 
     // Read back on boxes nothing transitions: the figure's width against the column beside it
@@ -155,6 +157,7 @@ export function mount(root: HTMLElement): void {
     const pageWidth = page.offsetWidth;
     const fit = figureWidth >= pageWidth - 1 ? 'full' : figureWidth > columnWidth + 8 ? 'between' : 'column';
     figure.dataset.fit = fit;
+    track.dataset.fit = fit;
     page.dataset.tracks = fit === 'between' ? 'three' : 'two';
 
     legends.content.textContent = `${columnWidth}px`;

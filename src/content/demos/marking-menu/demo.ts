@@ -30,11 +30,15 @@ const sectors = SECTORS.map(
     >${label}</button>`,
 ).join('');
 
-/** A fixed aiming mark the script grabs, drawn under the ring so it never covers a command. */
+/**
+ * A fixed anchor the script grabs, sitting under the ring and carrying no paint: a drawn stop
+ * point would annotate the choreography rather than the term, and the ghost cursor is the only
+ * pointer artifact the stage draws (SPEC §5).
+ */
 const dot = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-ink); pointer-events: none"
+    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; pointer-events: none"
   ></span>`;
 
 /**
@@ -44,10 +48,11 @@ const dot = (name: string, x: number, y: number) => `
  * is the choice, which is the claim the term rests on.
  *
  * The subject is the ring. The term names the menu, not the canvas it is summoned over and not
- * the command it runs, so the ring is what the pin belongs on. The canvas, its objects, the
- * aiming marks and the echo line are the scene around it in the context register. The ring is
- * off stage at mount, which identify handles by summoning it: the choreography's press is
- * followed by a wait and a visible assert, which is the beat a summon is allowed to poll.
+ * the command it runs, so the ring is what the pin belongs on. The canvas, its objects and the
+ * echo line are the scene around it in the context register, and the two points the script
+ * presses and strokes to are unpainted anchors. The ring is off stage at mount, which identify
+ * handles by summoning it: the choreography's press is followed by a wait and a visible assert,
+ * which is the beat a summon is allowed to poll.
  *
  * The wiring is a real press, and the two paths differ only in when the pointer moves. A press
  * arms a reveal timer on the stage's clock, and travelling past a small radius cancels it,
@@ -81,7 +86,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span style="position: absolute; left: 300px; top: 40px; width: 72px; height: 102px; border-radius: 6px; background: var(--sp-sunken)"></span>
             </span>
 
-            <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none; z-index: 2">
+            <span style="position: absolute; inset: 0; pointer-events: none; z-index: 2">
               ${dot('press-point', CENTRE.x, CENTRE.y)}
               ${dot('mark-north', CENTRE.x, CENTRE.y - RADIUS - 6)}
             </span>
@@ -158,6 +163,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   canvas.addEventListener('pointerdown', (event) => {
     // A press inside the open ring belongs to the command it landed on, not to a new gesture.
     if (ring.contains(event.target as Node)) return;
+    // A real stroke has to survive leaving the canvas; a synthetic pointer cannot be captured.
+    if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
     // Otherwise a press always starts a fresh gesture, so a resumed pass can never press into
     // a state where the press means something else (SPEC §8).
     clock.clearTimeout(timer);

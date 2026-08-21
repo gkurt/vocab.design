@@ -32,5 +32,11 @@ export default steps([
   { assert: { selector: '[data-part=timeline][data-paused]', state: 'visible' } },
   { wait: 1200 },
   { assert: { selector: '[data-part=timeline][data-paused]', state: 'hidden' } },
-  { wait: 800 },
+  // The second gap stops the picture the same way, and then the scene is watched out to
+  // its end: the loop's remount lands on a finished track rather than mid-playback.
+  { wait: 1200 },
+  { assert: { selector: '[data-part=timeline][data-paused]', state: 'visible' } },
+  { wait: 3000 },
+  { assert: { selector: '[data-part=strip][data-ended]', state: 'visible' } },
+  { wait: 700 },
 ]);

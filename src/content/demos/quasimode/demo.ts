@@ -31,11 +31,15 @@ const nodes = NODES.map(
     >${label}</span>`,
 ).join('');
 
-/** A fixed aiming mark the script grabs, drawn over the canvas and never under the finger. */
+/**
+ * A fixed anchor the script aims at, over the canvas and never under the finger. It carries no
+ * paint: a drawn mark would annotate the choreography rather than the term (SPEC §5).
+ */
 const dot = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none; z-index: 4"
+    aria-hidden="true"
+    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; pointer-events: none; z-index: 4"
   ></span>`;
 
 /**
@@ -44,8 +48,9 @@ const dot = (name: string, x: number, y: number) => `
  * things, and the mode badge is there on the press and gone on the release.
  *
  * The subject is the canvas: the term names the surface whose meaning is being changed, not
- * the key that changes it and not the window around it. The key, the readouts, the aiming
- * marks and the legend are instrumentation in the context register.
+ * the key that changes it and not the window around it. The key, the readouts and the legend
+ * are instrumentation in the context register, and the points the script drags between are
+ * unpainted anchors.
  *
  * The keyboard wiring is real. `keydown` on space opens the mode and `keyup` closes it, and
  * the demo answers the code spelling as well as the character, which is what a handler for a
@@ -95,7 +100,7 @@ export function mount(root: HTMLElement): void {
                 style="position: absolute; left: 8px; top: 8px; z-index: 5; cursor: default; background: var(--sp-accent); border-color: var(--sp-accent); color: var(--sp-accent-ink); opacity: 0; visibility: hidden; transition: opacity 0.12s, visibility 0.12s"
               >Pan, while held</span>
 
-              <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none">
+              <span style="position: absolute; inset: 0; pointer-events: none">
                 ${dot('mark-a', 30, 20)}
                 ${dot('mark-b', 196, 150)}
                 ${dot('pan-to', 244, 112)}
@@ -206,12 +211,19 @@ export function mount(root: HTMLElement): void {
   // The stand-in for the physical key: the press opens the mode and the release closes it,
   // through the same two functions the keyboard path calls.
   key.addEventListener('pointerdown', (event) => {
+    // The pan that follows travels far from this control, so the pointer is captured: without
+    // it the moves stop and the release never returns, leaving the mode held open. A
+    // synthesized pointer has nothing to capture and the call throws, hence the guard.
+    if (event.isTrusted) key.setPointerCapture(event.pointerId);
     byKeyControl = true;
     enterMode();
     panning = { x: event.clientX, y: event.clientY, ox: at.x, oy: at.y };
   });
 
   canvas.addEventListener('pointerdown', (event) => {
+    // Both gestures started here (the marquee and the pan) track the pointer until it comes
+    // up, so the canvas keeps it: uncaptured, a drag off the canvas strands mid-gesture.
+    if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
     if (held) {
       panning = { x: event.clientX, y: event.clientY, ox: at.x, oy: at.y };
       return;

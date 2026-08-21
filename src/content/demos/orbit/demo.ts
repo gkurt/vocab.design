@@ -30,11 +30,15 @@ const faces = FACES.map(
     ></span>`,
 ).join('');
 
-/** A fixed aiming mark the script grabs, kept well clear of the model it turns. */
+/**
+ * A fixed anchor the script drags from and to, kept well clear of the model it turns. It
+ * carries no paint: a drawn mark would annotate the choreography, not the term (SPEC §5).
+ */
 const dot = (name: string, x: number, y: number) => `
   <span
     data-part="${name}"
-    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; border-radius: 50%; border: 1px dashed var(--sp-muted); pointer-events: none"
+    aria-hidden="true"
+    style="position: absolute; left: ${x - 7}px; top: ${y - 7}px; width: 14px; height: 14px; pointer-events: none"
   ></span>`;
 
 /**
@@ -44,8 +48,9 @@ const dot = (name: string, x: number, y: number) => `
  * orbit a reader can always get out of and a free tumble.
  *
  * The subject is the model. The term names what the camera is orbiting, not the viewport it is
- * framed in, so the pin belongs on the object itself. The ground, the aiming marks, the two
- * angle readouts and the reset control are the scene around it in the context register.
+ * framed in, so the pin belongs on the object itself. The ground, the two angle readouts and the
+ * reset control are the scene around it in the context register, and the points the script drags
+ * between are unpainted anchors.
  *
  * **The transform is applied to the model because CSS has no camera.** Turning the object by
  * the exact inverse of the camera's rotation produces the identical picture, which is why the
@@ -86,7 +91,7 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: ${CENTRE.x - CUBE / 2}px; top: ${CENTRE.y - CUBE / 2}px; width: ${CUBE}px; height: ${CUBE}px; transform-style: preserve-3d; transform: rotateX(${HOME.elevation}deg) rotateY(${HOME.azimuth}deg)"
             >${faces}</div>
 
-            <span class="sp-context" style="position: absolute; inset: 0; pointer-events: none; z-index: 2">
+            <span style="position: absolute; inset: 0; pointer-events: none; z-index: 2">
               ${dot('grip', 60, 130)}
               ${dot('grip-right', 240, 130)}
               ${dot('grip-up', 60, 30)}
@@ -133,6 +138,10 @@ export function mount(root: HTMLElement): void {
   };
 
   viewport.addEventListener('pointerdown', (event) => {
+    // An orbit that runs past the viewport is still this viewport's orbit, so the pointer is
+    // captured: without it the moves stop at the edge and the release lands somewhere else,
+    // leaving the camera held. A synthesized pointer cannot be captured, hence the guard.
+    if (event.isTrusted) viewport.setPointerCapture(event.pointerId);
     grabbed = { x: event.clientX, y: event.clientY, azimuth, elevation };
     viewport.dataset.clamped = 'no';
     viewport.style.cursor = 'grabbing';

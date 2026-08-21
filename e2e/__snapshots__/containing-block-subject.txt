@@ -1,4 +1,4 @@
 term:    Containing block
 scope:   element
-subject: span.sp-chip[data-anchor=page][data-part=badge][data-position=absolute]
-text:    absolute
+subject: div[data-part=page]
+text:    page card cell absolute

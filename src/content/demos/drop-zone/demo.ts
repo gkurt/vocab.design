@@ -82,7 +82,11 @@ export function mount(root: HTMLElement): void {
     label.textContent = on ? 'Release to upload' : 'Drop a file here';
   };
 
-  part(root, 'file').addEventListener('pointerdown', () => {
+  const file = part(root, 'file');
+  file.addEventListener('pointerdown', (event) => {
+    // Capture keeps the carry reporting once the pointer is over the zone rather than the file.
+    // A synthetic pointer has none to capture and the call would throw, so only a real one asks.
+    if (event.isTrusted) file.setPointerCapture(event.pointerId);
     carrying = true;
   });
 

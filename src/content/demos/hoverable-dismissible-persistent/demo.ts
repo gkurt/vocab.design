@@ -50,6 +50,12 @@ const CONDITIONS = [
  * the ghost cursor identically, and it is what makes the gap variant fail honestly, since
  * the pointer's next landing is simply not the trigger any more.
  *
+ * Nothing here is ever clicked: hovering the word is the whole interaction, so the trigger
+ * carries `data-hover-driven` and a reader's dwell on it takes the stage over (SPEC §7).
+ * Whether the pointer can cross to the panel, and whether the panel is still there when it
+ * arrives, are claims only a reader's own pointer can settle, never a spectator's view of
+ * the ghost's.
+ *
  * The self-closing timer comes from the DemoClock, so a pose can stop it mid-inspection.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
@@ -77,7 +83,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div data-part="scene" style="position: relative; margin-top: 10px; height: 132px">
           <span class="sp-heading sp-context" style="font-size: 12.5px">Motor policy</span>
           <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 18px; gap: 10px">
-            <span data-part="trigger" data-closed="none"
+            <span data-part="trigger" data-closed="none" data-hover-driven
                   style="flex: 0 0 auto; font-size: 12.5px; cursor: help; border-bottom: 2px dotted var(--sp-muted)">Excess</span>
             <span class="sp-text sp-text--ink" style="flex: 0 0 auto; font-size: 12.5px">350</span>
           </div>

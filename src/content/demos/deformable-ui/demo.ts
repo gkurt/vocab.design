@@ -143,6 +143,9 @@ export function mount(root: HTMLElement): void {
 
   squish.addEventListener('pointerdown', (event) => {
     originX = event.clientX;
+    // Capture keeps the lean tracking, and the release landing here, once the hand has pulled
+    // past the shape's edge. A synthetic pointer has none to capture and the call would throw.
+    if (event.isTrusted) squish.setPointerCapture(event.pointerId);
     setDeform(true);
   });
 

@@ -132,6 +132,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     // The pull only belongs to a scroller that has nowhere further up to go.
     if (refreshing || list.scrollTop > 0) return;
     startY = event.clientY;
+    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
+    if (event.isTrusted) list.setPointerCapture(event.pointerId);
     // Following the finger is the whole gesture, and an eased height would lag it.
     indicator.style.transition = 'none';
   });

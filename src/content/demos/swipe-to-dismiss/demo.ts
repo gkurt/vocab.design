@@ -127,6 +127,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   card.addEventListener('pointerdown', (event) => {
     if (card.dataset.state === 'gone' || dismissButton.contains(event.target as Node)) return;
+    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+    if (event.isTrusted) card.setPointerCapture(event.pointerId);
     start = event.clientX;
     // Following the finger is the whole gesture, and an eased offset would lag it.
     card.style.transition = 'none';

@@ -105,8 +105,17 @@ export function mount(root: HTMLElement): void {
     selecting = undefined;
   };
 
+  // Capture is what keeps a held gesture reporting once the pointer has left the part it
+  // started on. A synthetic pointer has none to capture and the call would throw, so only a
+  // real one asks.
+  const capture = (el: HTMLElement, event: PointerEvent) => {
+    if (event.isTrusted) el.setPointerCapture(event.pointerId);
+  };
+
   for (const { key } of TRACKS) {
-    part(root, `grip-${key}`).addEventListener('pointerdown', () => {
+    const grip = part(root, `grip-${key}`);
+    grip.addEventListener('pointerdown', (event) => {
+      capture(grip, event);
       clearSelection();
       dragging = rowOf(key);
       flag(dragging, 'data-dragging', true);
@@ -116,9 +125,11 @@ export function mount(root: HTMLElement): void {
 
     // The row's own text is not a handle: pressing it and moving selects, which is
     // the ability a whole-row drag would have taken away.
-    part(root, `text-${key}`).addEventListener('pointerdown', (event) => {
+    const text = part(root, `text-${key}`);
+    text.addEventListener('pointerdown', (event) => {
+      capture(text, event);
       clearSelection();
-      selecting = event.currentTarget as HTMLElement;
+      selecting = text;
     });
   }
 
