@@ -3,6 +3,7 @@ import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 import '@fontsource-variable/source-serif-4';
 import '#src/styles/global.css';
+import SearchDialog from '#src/components/SearchDialog.astro';
 import { pageUrl } from '#src/lib/url.ts';
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// /search is the search, so it gets no modal: the nav link there is just a link to here.
+const onSearchPage = Astro.url.pathname.replace(/\/$/, '').endsWith('/search');
 ---
 
 <!doctype html>
@@ -42,7 +45,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <a href={pageUrl("/browse")} class="hover:text-ink">Browse</a>
         <a href={pageUrl("/tags")} class="hover:text-ink">Facets</a>
         <a href={pageUrl("/glossary")} class="hover:text-ink">A&ndash;Z</a>
-        <a href={pageUrl("/search")} class="hover:text-ink">Search</a>
+        <a
+          href={pageUrl("/search")}
+          data-search-open={onSearchPage ? undefined : true}
+          aria-current={onSearchPage ? "page" : undefined}
+          class="hover:text-ink">Search</a
+        >
         <button
           data-theme-toggle
           class="cursor-pointer hover:text-ink"
@@ -61,6 +69,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         class="underline hover:text-ink">source</a
       >
     </footer>
+    {!onSearchPage && <SearchDialog />}
     <script>
       document
         .querySelector("[data-theme-toggle]")

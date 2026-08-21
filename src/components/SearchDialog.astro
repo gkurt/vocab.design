@@ -1,0 +1,22 @@
+---
+/**
+ * The wide search modal, in the chrome on every page except /search itself (where the
+ * page IS the search, so a modal over it would be a second copy of the same field).
+ *
+ * The trigger stays a real link to /search: no script, a modified click, or a middle
+ * click all navigate there as they should, and the modal is what happens instead when
+ * the enhancement is live. Nothing here imports the search element, so a reader who
+ * never searches never downloads it (see SearchDialog.ts).
+ */
+import SearchPanel from '#src/components/SearchPanel.astro';
+---
+
+<vd-search-dialog>
+  <dialog data-search-dialog aria-label="Search vocab.design">
+    <SearchPanel variant="dialog" />
+  </dialog>
+</vd-search-dialog>
+
+<script>
+  import "#src/components/SearchDialog.ts";
+</script>

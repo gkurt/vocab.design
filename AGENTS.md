@@ -95,7 +95,10 @@ src/pages/                  # index, [slug] (terms + alias redirects), [slug].md
 src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
 src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
-src/pages/search.astro      #   /search: the only page that needs JS (Pagefind, built post-Astro)
+src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
+src/components/SearchPanel.astro # the search itself, rendered as the page or in the modal
+src/components/SearchDialog.astro #  the modal in the chrome: <vd-search-dialog> + <dialog>
+src/components/SearchDialog.ts #   opens it, and lazy-loads the search on the first open
 src/components/SiteSearch.ts #  <vd-search>: fetches dist/pagefind/ at runtime, never at build time
 src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro dev` (dev only)
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
@@ -113,6 +116,26 @@ So dev search is real but as stale as the last build, which matters when you hav
 edited a term and it is still findable at its old text. Rebuild to refresh; the middleware
 resolves per request, so a build finishing while dev runs is picked up without a restart.
 A fresh clone has no index at all and `/search` says so.
+
+The search has two homes and one implementation. `SearchPanel.astro` renders `<vd-search>`
+either as `/search` (`variant="page"`) or inside the chrome's modal (`variant="dialog"`),
+and the two differ in exactly two ways: the page owns the address bar (`data-sync-url`,
+so a search is a shareable link and survives a reload) while the modal leaves it alone,
+and the modal carries a link out to `/search` whose `?q=` follows the typing. `/search`
+itself renders no modal, because the page already is one.
+
+The nav trigger stays a real `<a href="/search">` marked `data-search-open`:
+`SearchDialog.ts` intercepts a plain left click and leaves a modified or middle click to
+the browser, so "open search in a new tab" works and the link still works with no JS at
+all. That script is the only one the chrome ships on every page besides the theme toggle
+(750 bytes gzipped), and it pulls `SiteSearch.ts` in on the first open, so a reader who
+never searches never downloads the search. `/` and Cmd/Ctrl+K open it; `/` inside any
+field stays a slash.
+
+**Gotcha**: Escape inside the modal is handled in script, not left to `<dialog>`. A
+`type="search"` input eats the first Escape to clear itself, so the platform's own close
+only happens on the second press, which makes the footer's "Esc to close" a lie exactly
+once per search.
 
 **Gotcha**: Pagefind's index does not exist at Astro build time, so `<vd-search>` must
 reach it through a dynamic `import()` of a computed specifier marked `/* @vite-ignore */`.

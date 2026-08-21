@@ -1,15 +1,10 @@
 ---
+import SearchPanel from '#src/components/SearchPanel.astro';
 import Base from '#src/layouts/Base.astro';
 import { getTerms } from '#src/lib/terms.ts';
-import { pageUrl } from '#src/lib/url.ts';
 
 const terms = await getTerms();
 const aliasCount = terms.reduce((n, t) => n + t.data.aliases.length, 0);
-// Pagefind serves its bundle and index from absolute paths, and production is on a
-// subpath, so both are resolved here by the helper that knows the base. Never hand the
-// element a base to concatenate: pageUrl('') is '/', which builds '//pagefind/...'.
-const bundle = pageUrl('/pagefind/pagefind.js');
-const index = pageUrl('/pagefind/');
 ---
 
 <Base
@@ -27,47 +22,7 @@ const index = pageUrl('/pagefind/');
     </p>
   </section>
 
-  <vd-search data-bundle={bundle} data-index={index}>
-    <label class="block">
-      <span class="sr-only">Search terms</span>
-      <input
-        type="search"
-        data-search-input
-        placeholder="segmented control, snackbar, three dots..."
-        autocomplete="off"
-        autocapitalize="off"
-        spellcheck="false"
-        class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-lg outline-none focus-visible:border-accent"
-      />
-    </label>
-    <p
-      data-search-status
-      role="status"
-      aria-live="polite"
-      class="mt-3 min-h-5 text-sm text-muted"
-    >
-    </p>
-    <ul data-search-results class="mt-4 grid gap-2"></ul>
-    <button
-      data-search-more
-      type="button"
-      hidden
-      class="mt-4 w-full cursor-pointer rounded-lg border border-line px-4 py-2 text-sm text-muted hover:border-accent hover:text-ink"
-    >
-    </button>
-    <noscript>
-      <p class="mt-4 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-        Search needs JavaScript, which is the one place on this site that does. Without
-        it, <a
-          href={pageUrl("/glossary")}
-          class="text-accent underline underline-offset-3">the glossary</a
-        > lists every term and alias A to Z, and <a
-          href={pageUrl("/browse")}
-          class="text-accent underline underline-offset-3">browse</a
-        > groups them by category.
-      </p>
-    </noscript>
-  </vd-search>
+  <SearchPanel variant="page" />
 
   <script>
     import "#src/components/SiteSearch.ts";

@@ -1,0 +1,102 @@
+---
+/**
+ * The search machinery itself: input, status line, results, "show more". Rendered twice
+ * on the site and identical in both, because a modal that behaves differently from the
+ * page it shadows is two searches to learn instead of one.
+ *
+ * `page` is /search: the input is a field on a page, the query lives in the URL so a
+ * search is shareable, and there is a no-JS fallback because that page is reachable
+ * without any script running.
+ *
+ * `dialog` is the modal in the chrome: the input is the top edge of the box, the results
+ * scroll under it, and the URL is left alone (a term page must not collect a `?q=`).
+ */
+import { pageUrl } from '#src/lib/url.ts';
+
+interface Props {
+  variant?: 'page' | 'dialog';
+}
+
+const { variant = 'page' } = Astro.props;
+const dialog = variant === 'dialog';
+// Pagefind serves its bundle and index from absolute paths, and production is on a
+// subpath, so both are resolved here by the helper that knows the base. Never hand the
+// element a base to concatenate: pageUrl('') is '/', which builds '//pagefind/...'.
+const bundle = pageUrl('/pagefind/pagefind.js');
+const index = pageUrl('/pagefind/');
+---
+
+<vd-search
+  data-bundle={bundle}
+  data-index={index}
+  data-sync-url={dialog ? undefined : "true"}
+  class={dialog ? "flex min-h-0 flex-1 flex-col" : "block"}
+>
+  <label class={dialog ? "block border-b border-line px-4 py-3" : "block"}>
+    <span class="sr-only">Search terms</span>
+    <input
+      type="search"
+      data-search-input
+      placeholder="segmented control, snackbar, three dots..."
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+      class={dialog
+        ? "w-full bg-transparent text-lg outline-none placeholder:text-muted"
+        : "w-full rounded-lg border border-line bg-surface px-4 py-3 text-lg outline-none focus-visible:border-accent"}
+    />
+  </label>
+  <p
+    data-search-status
+    role="status"
+    aria-live="polite"
+    class={dialog
+      ? "border-b border-line px-4 py-2 text-xs text-muted empty:hidden"
+      : "mt-3 min-h-5 text-sm text-muted"}
+  >
+  </p>
+  <div
+    class={dialog ? "min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3" : "mt-4"}
+  >
+    <ul data-search-results class="grid gap-2"></ul>
+    <button
+      data-search-more
+      type="button"
+      hidden
+      class="mt-4 w-full cursor-pointer rounded-lg border border-line px-4 py-2 text-sm text-muted hover:border-accent hover:text-ink"
+    >
+    </button>
+  </div>
+  {
+    dialog && (
+      <div class="flex items-baseline justify-between gap-4 border-t border-line px-4 py-2 text-xs text-muted">
+        <span>
+          <kbd class="rounded border border-line px-1 font-mono text-[0.7rem]">Esc</kbd> to
+          close
+        </span>
+        <a
+          data-search-full
+          href={pageUrl("/search")}
+          class="underline underline-offset-3 hover:text-ink">Open the search page</a
+        >
+      </div>
+    )
+  }
+  {
+    !dialog && (
+      <noscript>
+        <p class="mt-4 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
+          Search needs JavaScript, which is the one place on this site that does. Without
+          it, <a href={pageUrl("/glossary")} class="text-accent underline underline-offset-3">
+            the glossary
+          </a>{" "}
+          lists every term and alias A to Z, and{" "}
+          <a href={pageUrl("/browse")} class="text-accent underline underline-offset-3">
+            browse
+          </a>{" "}
+          groups them by category.
+        </p>
+      </noscript>
+    )
+  }
+</vd-search>

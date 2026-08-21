@@ -174,7 +174,9 @@ not the category's own members.
 - **Astro 6** static site, content collections over `src/content/terms/`.
 - **Tailwind CSS v4** for chrome styling; specimen kit uses its own plain CSS (§5).
 - **Zero JS by default.** Interactivity ships as custom elements, progressively
-  enhanced; no framework runtime on term pages.
+  enhanced; no framework runtime on term pages. The chrome's own budget is two small
+  scripts on every page (the theme toggle and the search modal's opener), and the search
+  itself loads on the first open.
 - **Bun** for tooling, `bun test` for unit tests, **Playwright** (`e2e/`) for
   choreography execution and smoke tests.
 - **Search**: Pagefind at build time.
@@ -191,9 +193,24 @@ not the category's own members.
 - `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
   that letter, aliases shown resolving to their term; the non-alphabetic bucket is
   `/glossary/other`).
-- `/search` (Pagefind, the one page on the site that needs JavaScript). It works in dev
+- `/search` (Pagefind, the one thing on the site that needs JavaScript). It works in dev
   too, against the last build's index, which a dev-only integration serves out of
   `dist/pagefind/`.
+
+Search is a page and a modal, from one implementation. The page is where a search is
+addressable: `?q=` in the URL, so a search is a link someone can send, a tab someone can
+keep, and a result set that survives a reload. The modal is where a search is an
+interruption: you are reading an article, a word in it is not the word you wanted, and
+the answer should not cost you your place on the page. It is wide (56rem against the
+48rem reading column) because a result is a headword, a category and a sentence of
+excerpt, and the reading column wraps every one of them.
+
+The nav link is the same link either way. It points at `/search`, and the modal is what a
+plain left click does instead: a modified click, a middle click, or no JavaScript at all
+still opens the page, in a new tab when that is what was asked for. `/` and Cmd/Ctrl+K
+open the modal too. The modal never touches the address bar, because it is a guest on
+someone else's page, and it carries the typing out to `/search?q=` for a reader who
+decides they want the page after all.
 
 Only term pages are indexed. `data-pagefind-body` on the term article is what does it:
 marking a body anywhere makes Pagefind index only marked pages, so the alias redirects,

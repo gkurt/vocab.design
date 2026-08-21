@@ -14,6 +14,10 @@
  * 2. The import must be opaque to Vite. A literal dynamic import would be resolved and
  *    bundled at build time, when `dist/pagefind/` does not exist yet, so the build fails.
  *    `@vite-ignore` on a computed specifier is what keeps it a runtime fetch.
+ *
+ * The same element is both the /search page and the chrome's modal (SearchPanel.astro).
+ * `data-sync-url` is what tells them apart: the page owns the address bar, the modal is a
+ * guest on someone else's page and leaves it alone.
  */
 
 interface PagefindSubResult {
@@ -71,20 +75,29 @@ export class SiteSearch extends HTMLElement {
   #status!: HTMLElement;
   #list!: HTMLElement;
   #more!: HTMLButtonElement;
+  /** The modal's way out to /search, kept pointing at whatever is in the box. */
+  #full: HTMLAnchorElement | null = null;
+  #fullHref = '';
+  /** Only the search PAGE owns the address bar; the modal is a guest on someone's page. */
+  #syncs = false;
 
   connectedCallback() {
     this.#input = this.querySelector('[data-search-input]') as HTMLInputElement;
     this.#status = this.querySelector('[data-search-status]') as HTMLElement;
     this.#list = this.querySelector('[data-search-results]') as HTMLElement;
     this.#more = this.querySelector('[data-search-more]') as HTMLButtonElement;
+    this.#full = this.querySelector('[data-search-full]');
+    this.#fullHref = this.#full?.getAttribute('href') ?? '';
+    this.#syncs = this.hasAttribute('data-sync-url');
     if (!this.#input || !this.#status || !this.#list || !this.#more) return;
 
     this.#input.addEventListener('input', () => this.#schedule());
     this.#input.addEventListener('search', () => this.#schedule());
     this.#more.addEventListener('click', () => this.#render(PAGE_SIZE));
 
-    // A shared link should show its results, and the query survives a reload.
-    const initial = new URLSearchParams(location.search).get('q');
+    // A shared link should show its results, and the query survives a reload. Only where
+    // the query is ours: `?q=` on a term page belongs to whatever put it there.
+    const initial = this.#syncs ? new URLSearchParams(location.search).get('q') : null;
     if (initial) {
       this.#input.value = initial;
       void this.#run(initial);
@@ -120,9 +133,17 @@ export class SiteSearch extends HTMLElement {
     return this.#loading;
   }
 
+  /** Called when the modal opens: warms the index (the focus listener) and lets a second
+   * search start by typing instead of by clearing the first one. */
+  focusInput() {
+    this.#input?.focus();
+    this.#input?.select();
+  }
+
   async #run(query: string) {
     const token = ++this.#token;
     this.#syncUrl(query);
+    this.#carryQuery(query);
     if (query.length < 2) {
       this.#results = [];
       this.#list.replaceChildren();
@@ -235,8 +256,15 @@ export class SiteSearch extends HTMLElement {
     this.#status.textContent = message;
   }
 
+  /** Hand the query to the full page, so leaving the modal does not lose the typing. */
+  #carryQuery(query: string) {
+    if (!this.#full) return;
+    this.#full.href = query ? `${this.#fullHref}?q=${encodeURIComponent(query)}` : this.#fullHref;
+  }
+
   /** Keep the URL shareable without adding a history entry per keystroke. */
   #syncUrl(query: string) {
+    if (!this.#syncs) return;
     const url = new URL(location.href);
     if (query) url.searchParams.set('q', query);
     else url.searchParams.delete('q');
