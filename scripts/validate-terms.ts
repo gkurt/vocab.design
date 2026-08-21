@@ -2,6 +2,7 @@ import { readdir } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { parse } from 'yaml';
 import * as z from 'zod/v4';
+import { RESERVED, SITE_ROUTES } from '#src/lib/routes.ts';
 import { CATEGORIES, TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
 import { slugify } from '#src/lib/slug.ts';
 import { HEAD_TERMS } from '#src/lib/tags.ts';
@@ -31,13 +32,6 @@ const KIT_ELEMENTS: Record<string, string> = { 'sp-segmented': 'segmented.ts', '
 const COMMENTS = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
-/** Routes that are not terms: the index, the tag directory, and the two machine-readable exports. */
-const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/search', '/tags', '/llms.txt', '/terms.json']);
-/**
- * Top-level names the site spends on itself. Terms and aliases live at the root, so a
- * term or alias slugifying to one of these would silently shadow a real route.
- */
-const RESERVED = new Set(['tags', 'specimen', 'browse', 'glossary', 'search']);
 /** A tag facet earns its place by collecting this many terms; below it, it is noise (SPEC §2.5). */
 const TAG_FLOOR = 8;
 /** More than this on one term is tag soup: the chips stop discriminating anything (SPEC §2.5). */

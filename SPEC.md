@@ -211,6 +211,14 @@ not the category's own members.
   too, against the last build's index, which a dev-only integration serves out of
   `dist/pagefind/`.
 
+The sitemap is an allowlist, not a dump of what was built. It carries the terms and the
+pages that list them, and nothing else: not the alias redirects, which are four fifths of
+the built pages and every one of them a redirect rather than a document; not the specimen
+frames (§6); and not `/search`, which is a tool. `lastmod` on a term is its `modified`
+day, and on a listing page the newest `modified` in the dictionary, because that is when
+the listing last said something different. A new top-level route has to be named in
+`src/lib/routes.ts` to be listed, which is the trade for never listing junk.
+
 Search is a page and a modal, from one implementation. The page is where a search is
 addressable: `?q=` in the URL, so a search is a link someone can send, a tab someone can
 keep, and a result set that survives a reload. The modal is where a search is an
