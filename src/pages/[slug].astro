@@ -82,6 +82,21 @@ const jsonLd = {
   },
 };
 
+/**
+ * The trail a result shows instead of the raw URL. It says what the page already says
+ * out loud: this word is one of the {category} words, and the category page is one click
+ * up. Nothing deeper exists, because a term is two levels down and no more.
+ */
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'vocab.design', item: absoluteUrl('/') },
+    { '@type': 'ListItem', position: 2, name: d.category, item: absoluteUrl(`/browse/${d.category}`) },
+    { '@type': 'ListItem', position: 3, name: d.name, item: canonicalUrl },
+  ],
+};
+
 const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')})` : '';
 ---
 
@@ -121,13 +136,24 @@ const aka = d.aliases.length > 0 ? ` (${d.aliases.map((a) => a.name).join(', ')}
         type="application/ld+json"
         set:html={JSON.stringify(jsonLd)}
       />
+      <script
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbs)}
+      />
       <article
         data-term={d.slug}
         data-pagefind-body
         data-pagefind-meta={`category:${d.category}`}
       >
         <p class="text-sm text-muted italic">
-          {d.category}
+          <a
+            href={pageUrl(`/browse/${d.category}`)}
+            class="hover:text-ink"
+            data-rel="category"
+          >
+            {d.category}
+          </a>
           {d.tags.map((tag) => (
             <>
               {" · "}

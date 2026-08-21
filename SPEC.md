@@ -812,7 +812,7 @@ What is measured, beyond the page views GA collects on its own:
 | `search_result_click` | which result was taken, and at what `position`: position IS the relevance test |
 | `search_abandoned` | results were shown and nobody took one, reported when the modal closes or the page goes away |
 | `search_open` | the modal was opened, and how: nav, `/`, or Cmd/Ctrl+K |
-| `relation_click` | a graph edge was crossed, by `relation` kind (`which-word`, `contrast`, `variant-of`, `variants`, `part-of`, `contains`, `see-also`, `prose`) |
+| `relation_click` | a graph edge was crossed, by `relation` kind (`which-word`, `contrast`, `variant-of`, `variants`, `part-of`, `contains`, `see-also`, `prose`, `category`) |
 | `alias_hit` | which alias a reader arrived by, handed from the redirect page to the term page |
 | `page_not_found` | a URL the dictionary does not answer, with the headword it was `asked` for and how many suggestions came back: zero suggestions is a word we do not have, a suggestion taken is a word we have under another spelling |
 | `not_found_recovered` | which suggestion the reader took, so the guessing can be judged |

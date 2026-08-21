@@ -4,7 +4,7 @@ import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
 import { CATEGORIES, type Category } from '#src/lib/schema.ts';
 import { facets } from '#src/lib/tags.ts';
 import { getTerms, type TermEntry } from '#src/lib/terms.ts';
-import { pageUrl } from '#src/lib/url.ts';
+import { absoluteUrl, pageUrl } from '#src/lib/url.ts';
 
 interface Props {
   category: Category;
@@ -32,12 +32,27 @@ export async function getStaticPaths() {
 
 const { category, terms, reach } = Astro.props;
 const others = CATEGORIES.filter((c) => c !== category);
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'vocab.design', item: absoluteUrl('/') },
+    { '@type': 'ListItem', position: 2, name: 'Browse', item: absoluteUrl('/browse') },
+    { '@type': 'ListItem', position: 3, name: category, item: absoluteUrl(`/browse/${category}`) },
+  ],
+};
 ---
 
 <Base
   title={`${category} · vocab.design`}
   description={`${terms.length} ${category} terms. ${CATEGORY_BLURBS[category]}`}
 >
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbs)}
+  />
   <section class="pt-10 pb-8">
     <p class="text-sm text-muted italic">category</p>
     <h1 class="mt-1 font-serif text-4xl font-semibold tracking-tight">
