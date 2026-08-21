@@ -166,7 +166,10 @@ localhost carry `debug_mode`, which puts them in GA's DebugView labelled as a te
 than as traffic. The reader's own refusals (GPC, Do Not Track) are never waivable.
 
 The report itself is code, not a console: `bun run analytics` (`scripts/analytics-report.ts`)
-asks the twelve questions that matter through the Data API and prints them. `--now` reads
+asks the questions that matter through the Data API and prints them, GA and Search Console
+side by side, because they are one question from two sides: GA says what readers typed into
+OUR search and did not find, Search Console says what they typed into GOOGLE before
+arriving, where an impression with no click is a word we rank for and answer badly. `--now` reads
 realtime, which is how you check that wiring works at all; a bare number of days changes
 the window; `--json` for piping. Auth is the `vocab-analytics` service account impersonated
 through your own `gcloud auth application-default login`, so no key file exists anywhere.
@@ -176,6 +179,11 @@ console cannot be reviewed or diffed: put questions worth keeping in the script.
 **Gotcha**: a new event parameter is invisible in the GA UI until it is registered as a
 custom dimension (Admin > Custom definitions). The data is collected either way, so a
 missing report is a settings problem, not a code one.
+
+**Gotcha**: Search Console is a separate property (`sc-domain:vocab.design`) verified by a
+DNS TXT record on the domain. Deleting that record unverifies it and silently drops access.
+The `vocab-analytics` service account is an owner, which is why the report can read it; its
+data lags two to three days and has no realtime equivalent, so `--now` skips it.
 
 **Gotcha**: the realtime API is a different schema, not a different date range: it does not
 know `customEvent:` dimensions at all, only built-ins like `eventName`. And the core

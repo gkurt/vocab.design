@@ -792,8 +792,14 @@ DebugView labelled as a test rather than looking like traffic.
 
 The reading of it is a script rather than a dashboard, because GA4 exposes no API for its
 own Explorations, report collections or dashboards, and a report nobody can diff is a report
-nobody maintains. `bun run analytics` asks the whole list through the Data API and prints
-it, which also means the questions themselves are reviewable in a pull request.
+nobody maintains. `bun run analytics` asks the whole list and prints it, which also means the
+questions themselves are reviewable in a pull request.
+
+It reads Search Console in the same breath, because on-site search and Google search are the
+same question from two sides. GA says which words a reader typed into our own box and did not
+find; Search Console says which words they typed into Google before arriving, and an
+impression with no click there is a word we rank for and answer badly. Both lists resolve to
+the same action: write the term, or record the alias.
 
 Two honest limits. `names_result` is false for an alias hit ("snackbar" finds Toast, whose
 headword does not contain it), so read it as a lead rather than a failure. And Pagefind

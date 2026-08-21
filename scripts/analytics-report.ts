@@ -11,6 +11,11 @@
  * Read it as a reading list for the vocabulary, not as traffic numbers. Every failed query
  * is a candidate alias or a term nobody has written yet.
  *
+ * Two sources, one report, because they are the same question from opposite sides. GA says
+ * what readers typed into OUR search and did not find. Search Console says what they typed
+ * into GOOGLE before arriving, which is the vocabulary people reach for when they have not
+ * found us yet: an impression with no click is a word we rank for and answer badly.
+ *
  * Auth is the `vocab-analytics` service account, impersonated through the caller's own
  * gcloud credentials, so no key file exists. Run `gcloud auth application-default login`
  * once; the token is minted per run and never written to disk.
@@ -25,7 +30,8 @@ export {}; // top-level await needs this file to be a module
 
 const PROPERTY = process.env.GA_PROPERTY_ID ?? '551099625';
 const SERVICE_ACCOUNT = process.env.GA_SERVICE_ACCOUNT ?? 'vocab-analytics@vocab-design-506215.iam.gserviceaccount.com';
-const READONLY = 'https://www.googleapis.com/auth/analytics.readonly';
+const SEARCH_CONSOLE_SITE = process.env.SC_SITE ?? 'sc-domain:vocab.design';
+const SCOPES = ['https://www.googleapis.com/auth/analytics.readonly', 'https://www.googleapis.com/auth/webmasters.readonly'];
 /** How many rows of a long tail are worth reading in one sitting. */
 const ROWS = 25;
 
@@ -49,7 +55,34 @@ interface Question {
   /** Extra equality filters on custom dimensions, e.g. names_result = false. */
   where?: Record<string, string>;
   limit?: number;
+  /** Column names, for a source whose rows carry more than a single count. */
+  headers?: string[];
 }
+
+/** Search Console reports four metrics per row and needs its own shape. */
+interface Arrival {
+  title: string;
+  note?: string;
+  dimensions: string[];
+  limit?: number;
+}
+
+const ARRIVALS: Arrival[] = [
+  {
+    title: 'Queries Google sent here',
+    note: 'What people typed before arriving. Impressions with no clicks are words we rank for and apparently answer badly.',
+    dimensions: ['query'],
+  },
+  {
+    title: 'Query to page',
+    note: 'Where each query landed. A query answered by a page that is not the term for it is the missing-alias problem seen from outside.',
+    dimensions: ['query', 'page'],
+  },
+  {
+    title: 'Pages Google shows',
+    dimensions: ['page'],
+  },
+];
 
 /**
  * Realtime is a different schema, not a different date range: it knows nothing about
@@ -167,7 +200,7 @@ async function token(): Promise<string> {
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${caller}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ scope: [READONLY], lifetime: '3600s' }),
+      body: JSON.stringify({ scope: SCOPES, lifetime: '3600s' }),
     },
   );
   const body = (await response.json()) as { accessToken?: string; error?: { message?: string } };
@@ -210,12 +243,61 @@ async function ask(auth: string, question: Question, days: number, realtime: boo
   return report.rows ?? [];
 }
 
-function table(rows: Row[]): string {
+/** YYYY-MM-DD, which is the only date format Search Console accepts. */
+function day(offset: number): string {
+  const date = new Date();
+  date.setUTCDate(date.getUTCDate() - offset);
+  return date.toISOString().slice(0, 10);
+}
+
+/**
+ * Search Console's data lags two or three days and cannot be hurried, so the last rows of
+ * any window are always empty. Nothing is wrong when a fresh property answers with nothing:
+ * a new domain is not crawled on the day it appears.
+ */
+async function arrivals(auth: string, question: Arrival, days: number): Promise<Row[]> {
+  const site = encodeURIComponent(SEARCH_CONSOLE_SITE);
+  const response = await fetch(`https://searchconsole.googleapis.com/webmasters/v3/sites/${site}/searchAnalytics/query`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${auth}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      startDate: day(days),
+      endDate: day(0),
+      dimensions: question.dimensions,
+      rowLimit: question.limit ?? ROWS,
+    }),
+  });
+  const body = (await response.json()) as {
+    rows?: { keys?: string[]; clicks?: number; impressions?: number; ctr?: number; position?: number }[];
+    error?: { message?: string };
+  };
+  if (body.error) throw new Error(body.error.message ?? response.statusText);
+  // Reshaped into the same rows the Data API returns, so one renderer prints both sources.
+  return (body.rows ?? []).map((row) => ({
+    dimensionValues: (row.keys ?? []).map((value) => ({ value })),
+    metricValues: [
+      { value: String(row.clicks ?? 0) },
+      { value: String(row.impressions ?? 0) },
+      { value: `${(100 * (row.ctr ?? 0)).toFixed(1)}%` },
+      { value: (row.position ?? 0).toFixed(1) },
+    ],
+  }));
+}
+
+function table(rows: Row[], headers?: string[]): string {
   if (rows.length === 0) return '  (nothing)';
-  const cells = rows.map((row) => [...(row.dimensionValues ?? []).map((d) => d.value ?? ''), (row.metricValues ?? [])[0]?.value ?? '0']);
-  const widths = cells[0]?.map((_, i) => Math.max(...cells.map((c) => (c[i] ?? '').length))) ?? [];
-  return cells
-    .map((cell) => `  ${cell.map((value, i) => (i === cell.length - 1 ? value.padStart(6) : value.padEnd(widths[i] ?? 0))).join('  ')}`)
+  const cells = rows.map((row) => [
+    ...(row.dimensionValues ?? []).map((d) => d.value ?? ''),
+    ...(row.metricValues ?? []).map((m) => m.value ?? '0'),
+  ]);
+  const metrics = (rows[0]?.metricValues ?? []).length;
+  const body = headers ? [[...headers], ...cells] : cells;
+  const widths = body[0]?.map((_, i) => Math.max(...body.map((c) => (c[i] ?? '').length))) ?? [];
+  return body
+    .map(
+      (cell) =>
+        `  ${cell.map((value, i) => (i >= cell.length - metrics ? value.padStart(Math.max(widths[i] ?? 0, 6)) : value.padEnd(widths[i] ?? 0))).join('  ')}`,
+    )
     .join('\n');
 }
 
@@ -223,6 +305,8 @@ const args = process.argv.slice(2);
 const realtime = args.includes('--now');
 const json = args.includes('--json');
 const days = Number(args.find((a) => /^\d+$/.test(a)) ?? 28);
+
+const SEARCH_METRICS = ['clicks', 'impr', 'ctr', 'pos'];
 
 const auth = await token();
 const answers: { question: Question; rows: Row[]; failed?: string }[] = [];
@@ -236,6 +320,18 @@ for (const question of realtime ? NOW : QUESTIONS) {
   }
 }
 
+// Realtime is a GA-only idea: Search Console has no such thing, so `--now` skips it.
+if (!realtime) {
+  for (const arrival of ARRIVALS) {
+    const question: Question = { ...arrival, headers: [...arrival.dimensions, ...SEARCH_METRICS] };
+    try {
+      answers.push({ question, rows: await arrivals(auth, arrival, days) });
+    } catch (error) {
+      answers.push({ question, rows: [], failed: error instanceof Error ? error.message : String(error) });
+    }
+  }
+}
+
 if (json) {
   console.log(
     JSON.stringify(
@@ -243,7 +339,9 @@ if (json) {
         title: question.title,
         rows: rows.map((row) => ({
           values: (row.dimensionValues ?? []).map((d) => d.value),
-          count: Number((row.metricValues ?? [])[0]?.value ?? 0),
+          metrics: Object.fromEntries(
+            (row.metricValues ?? []).map((m, i) => [question.headers?.slice(-(row.metricValues ?? []).length)[i] ?? 'count', m.value]),
+          ),
         })),
       })),
       null,
@@ -256,7 +354,7 @@ if (json) {
   for (const { question, rows, failed } of answers) {
     console.log(`\n${question.title}`);
     if (question.note) console.log(`  ${question.note}`);
-    console.log(failed ? `  unavailable: ${failed}` : table(rows));
+    console.log(failed ? `  unavailable: ${failed}` : table(rows, question.headers));
   }
-  console.log('\nCustom dimensions take a day or two to appear in non-realtime reports after they are created.\n');
+  console.log('\nGA custom dimensions take a day or two to report after being created, and Search Console lags two to three days.\n');
 }
