@@ -11,6 +11,10 @@ const aliasCount = terms.reduce((n, t) => n + t.data.aliases.length, 0);
   title="Search · vocab.design"
   description={`Search ${terms.length} design and UI terms and ${aliasCount} aliases by name, by definition, or by the words in the articles.`}
 >
+  {/* A search box is a tool, not a document: there is nothing here to rank, and a
+      results page is exactly what Google asks sites to keep out of its index. `follow`
+      because every result it produces IS a page worth crawling. */}
+  <meta slot="head" name="robots" content="noindex,follow" />
   <section class="pt-10 pb-6">
     <h1 class="font-serif text-4xl font-semibold tracking-tight text-balance">
       Search
