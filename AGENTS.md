@@ -10,7 +10,8 @@ change that contradicts SPEC.md needs the spec updated in the same PR.
 
 ```bash
 bun run dev        # Astro dev server (port 4321)
-bun run build      # Static build to dist/
+bun run build      # Static build to dist/, then the Pagefind index into dist/pagefind/
+bun run build:nosearch  # Astro only, for when the index is not what you are iterating on
 bun run test       # Unit tests (bun test)
 bun run test:e2e   # Specimen smoke tests: builds, serves on 4322, plays every choreography
 bun run test:e2e:new  # Same suites, only for demos without a committed subject snapshot
@@ -94,6 +95,8 @@ src/pages/                  # index, [slug] (terms + alias redirects), [slug].md
 src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
 src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
+src/pages/search.astro      #   /search: the only page that needs JS (Pagefind, built post-Astro)
+src/components/SiteSearch.ts #  <vd-search>: fetches dist/pagefind/ at runtime, never at build time
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
@@ -102,6 +105,14 @@ e2e/harness.ts              #   specimen discovery, stage helpers, subject descr
 e2e/__snapshots__/          #   committed: what each specimen identifies as
 e2e/__artifacts__/          #   generated: identify stills + the contact sheet
 ```
+
+**Gotcha**: Pagefind's index does not exist at Astro build time, so `<vd-search>` must
+reach it through a dynamic `import()` of a computed specifier marked `/* @vite-ignore */`.
+A literal path gets resolved and bundled, which fails the build. Both URLs are resolved
+in `search.astro` by `pageUrl` and passed as attributes, never assembled in the element
+from a base: `pageUrl('')` returns `/`, so `${base}/pagefind/pagefind.js` builds
+`//pagefind/...`, a protocol-relative URL that quietly fetches `http://pagefind/`. The
+whole class of bug only shows up in production, where the site is served from a subpath.
 
 **Gotcha**: Astro validates collection entries against a derived JSON schema but does
 NOT apply Zod output transforms — defaults never materialize on `getCollection()`

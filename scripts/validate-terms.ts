@@ -28,7 +28,7 @@ const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitio
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
 /** Routes that are not terms: the index, the tag directory, and the two machine-readable exports. */
-const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/tags', '/llms.txt', '/terms.json']);
+const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/search', '/tags', '/llms.txt', '/terms.json']);
 /**
  * Top-level names the site spends on itself. Terms and aliases live at the root, so a
  * term or alias slugifying to one of these would silently shadow a real route.

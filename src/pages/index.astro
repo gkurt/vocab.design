@@ -87,6 +87,20 @@ const byCategory = CATEGORIES.map((category) => ({
       </li>
       <li>
         <a
+          href={pageUrl("/search")}
+          class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
+        >
+          <span class="font-serif text-lg font-semibold group-hover:text-accent"
+            >Search</span
+          >
+          <p class="mt-1 text-sm text-muted">
+            Full text over every term and article, for when you only half know the
+            word and can describe the thing.
+          </p>
+        </a>
+      </li>
+      <li>
+        <a
           href={pageUrl("/glossary")}
           class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
         >

@@ -191,7 +191,21 @@ not the category's own members.
 - `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
   that letter, aliases shown resolving to their term; the non-alphabetic bucket is
   `/glossary/other`).
-- `/search`.
+- `/search` (Pagefind, the one page on the site that needs JavaScript).
+
+Only term pages are indexed. `data-pagefind-body` on the term article is what does it:
+marking a body anywhere makes Pagefind index only marked pages, so the alias redirects,
+`/browse`, `/glossary`, `/tags` and the unlinked `/specimen` documents fall out without a
+single exclusion rule. Inside a term page the headword is weighted 10, its aliases 8, and
+the definition and `useWhen` 6, while the specimen and the Related list are ignored: a
+specimen's labels are the loudest nonsense in the index, and the Related list is nothing
+but other terms' names, which would make every page match every neighbour's word.
+
+A multi-word query that returns nothing is retried without its vaguest words, because
+Pagefind ANDs every term and a reader describing a thing they cannot name types a
+sentence. "what do you call the little grip dots" matches no page as an AND; the search
+scores each word by how many pages it hits alone, keeps the most selective few, and says
+which words actually ran.
 
 Categories live under `/browse/` rather than at the top level, which is a deliberate
 departure from an earlier draft of this section. Terms own the root namespace, so a
