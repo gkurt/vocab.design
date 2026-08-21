@@ -442,5 +442,24 @@ same change: SPEC.md, README.md, AGENTS.md, llms.txt. Documentation must not go 
 
 ## Releases
 
-None. This is a deployed site, not a published package — no release tooling; `main`
-deploys to GitHub Pages.
+None. This is a deployed site, not a published package: no release tooling. `main` deploys
+to GitHub Pages at the apex `vocab.design`.
+
+Two deploy paths exist and only one costs Actions minutes.
+`.github/workflows/deploy-pages.yml` is the normal one, on every push to `main`.
+`bun run deploy` is the fallback: it builds locally and force-pushes `dist/` as a single
+orphan commit to `gh-pages`, which GitHub's own Pages build picks up. That build keeps
+working when your workflows cannot (it is not billed against the repository's Actions
+budget), which is why it exists.
+
+**Gotcha**: the branch flow needs `.nojekyll` at the root or Jekyll drops every path
+starting with an underscore, which is all of `_astro/`. The site deploys and every
+stylesheet and script 404s. `bun run deploy` writes it; a hand-made branch must too.
+
+**Gotcha**: pointing the Pages source at a branch does not build anything. Only a PUSH to
+that branch does, so switching the source and then waiting looks exactly like a broken
+deploy. `gh api /repos/gkurt/vocab.design/pages` shows which source is live; switching back
+to the workflow is `-f build_type=workflow`.
+
+**Gotcha**: `dist/CNAME` (from `public/CNAME`) is what keeps the custom domain across a
+branch deploy. `bun run deploy` refuses to publish without it.

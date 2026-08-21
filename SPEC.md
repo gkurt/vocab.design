@@ -180,8 +180,11 @@ not the category's own members.
 - **Bun** for tooling, `bun test` for unit tests, **Playwright** (`e2e/`) for
   choreography execution and smoke tests.
 - **Search**: Pagefind at build time.
-- **Deploy**: GitHub Pages via Actions, at the apex `vocab.design` (registered at Vercel,
-  four A records to GitHub's Pages IPs, `public/CNAME` carrying the domain in the artifact).
+- **Deploy**: GitHub Pages at the apex `vocab.design` (registered at Vercel, four A records
+  to GitHub's Pages IPs, `public/CNAME` carrying the domain in the artifact). Two paths:
+  the Actions workflow on every push to `main`, and `bun run deploy`, which publishes a
+  local build through the `gh-pages` branch and keeps working when the Actions budget does
+  not.
 
 ### URL scheme
 
