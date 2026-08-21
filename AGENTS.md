@@ -222,7 +222,10 @@ digests match, so nothing re-parses, and the field reads as absent (or as its de
 in dev while `bun run build` is perfectly correct. The tell is a page that renders
 zeroes or empty lists for the new field in dev only. Delete `.astro/data-store.json`
 and restart; `bun validate` and `bun run build` never see this because they parse the
-files themselves.
+files themselves. A date field fails louder than most (`Invalid input: expected date,
+received Date`) because a `Date` built in Vite's SSR realm is not `instanceof Date` in
+ours, which is why `day` in `src/lib/schema.ts` rebuilds the value instead of checking
+its type.
 
 **Gotcha**: a demo's timers must come from the `DemoClock` its `mount(root, clock)`
 is handed, never from the global scope. Identify's pose is the live specimen with
