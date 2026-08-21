@@ -2,6 +2,14 @@
 import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 import '@fontsource-variable/source-serif-4';
+/**
+ * The serif's latin subset, preloaded by URL. Every heading on the site is set in it, so
+ * on a term page it draws the LCP element, and the browser cannot know it is wanted until
+ * it has parsed the CSS and matched a rule. `?url` hands over the hashed asset the font
+ * stylesheet already points at, so this is a hint about a file that was being fetched
+ * anyway, not a second copy of it.
+ */
+import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import '#src/styles/global.css';
 import Analytics from '#src/components/Analytics.astro';
 import SearchDialog from '#src/components/SearchDialog.astro';
@@ -26,6 +34,13 @@ const onSearchPage = path.endsWith('/search');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="preload"
+      href={serifLatin}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
