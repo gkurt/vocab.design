@@ -13,8 +13,23 @@ export type Step =
    * waypoints: one continuous press whose pointer travels the polyline, which is
    * what lets a gesture stroke, a lasso, or a signature be one stroke instead of
    * several. Waypoints are data-part selectors like every other target.
+   *
+   * `release` says how the contact leaves. The default `rest` settles for a beat
+   * at the destination before lifting, which is a hand that stopped before it let
+   * go. `moving` lifts the instant the travel ends, which is a throw: the moves
+   * are linear in time, so a demo measuring the stroke's last samples reads a real
+   * release speed rather than the zero a settled drag honestly reports. It is the
+   * release that differs and nothing else, so a demo showing both (a drag that
+   * comes to rest beside one that is thrown) scripts one step each.
+   *
+   * `ms` is how long the travel takes, defaulting to the cursor's own pace. For a
+   * settled drag it is only tempo, but paired with `release: 'moving'` it is
+   * semantics like `hold`'s duration: distance over time IS the release speed, and
+   * a throw the player cannot make fast enough is a throw a recognizer will read
+   * as a hand at rest. Reduced motion collapses the travel either way, so a demo
+   * whose term is the throw jumps to its end state there, as it must anyway.
    */
-  | { drag: { to: string; via?: string[] } }
+  | { drag: { to: string; via?: string[]; release?: 'rest' | 'moving'; ms?: number } }
   /**
    * Press and hold the current target for this many ms (SPEC §8). Under the touch
    * persona the reported pressure climbs at a finger's rate (full force at 900 ms),

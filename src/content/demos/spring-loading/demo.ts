@@ -39,9 +39,14 @@ const childRows = CHILDREN.map(
  * Nothing is re-parented between the press and the release, and the item is moved by a
  * transform, so the tree the pointer is on cannot change under it.
  *
- * No step in the vocabulary holds a drag still (SPEC §8), so the held state is reached
- * through a labelled simulation control running the same countdown a hand does. It is
- * instrumentation, so it is scenery.
+ * The dwell is reached by really dwelling. A pointer resting on the folder header starts
+ * the same countdown a carried item does and leaving empties it, so the scripted pass is
+ * a `moveTo` and a `wait` (SPEC §8) with nothing standing in for the pause. Capture holds
+ * for the whole of a reader's drag, so those enter and leave events are the plain hover's;
+ * a drag reads the pointer's own coordinates instead, which is how one countdown answers
+ * both. Hovering the header is therefore the interaction, so it carries
+ * `data-hover-driven` (SPEC §7) and a reader's own dwell there takes the stage over
+ * without a click.
  *
  * The folder's contents are reserved rather than grown into: the panel is the same height
  * open or closed, so springing moves nothing beside or below it (SPEC §5).
@@ -52,7 +57,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Files</span>
-          <span class="sp-text" data-part="readout" style="width: 236px; text-align: right; white-space: nowrap">Drag the file onto a destination</span>
+          <span class="sp-text" data-part="readout" style="width: 296px; text-align: right; white-space: nowrap">Drag the file onto a destination</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; justify-content: center">
           <div style="position: relative; width: 100%; height: ${SCENE.h}px">
@@ -71,6 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             >
               <div
                 data-part="folder-row"
+                data-hover-driven
                 style="position: relative; display: flex; align-items: center; gap: 6px; height: ${ROW_H}px; padding: 0 10px; border-bottom: 1px solid var(--sp-line)"
               >
                 <span data-part="chevron" style="display: flex; color: var(--sp-muted); transition: rotate 0.16s var(--sp-ease)">${icon('chevronRight')}</span>
@@ -98,7 +104,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <button class="sp-button sp-button--ghost sp-button--sm sp-context" type="button" data-part="sim">Simulate a ${DWELL_MS} ms hover over Projects</button>
     </div>
   `;
 
@@ -215,5 +220,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.addEventListener('pointerup', release);
   root.addEventListener('pointercancel', release);
 
-  part(root, 'sim').addEventListener('click', beginDwell);
+  // A pointer that merely rests on the header is the other way in, and the one the script
+  // takes: enter starts the countdown, leaving empties it. A drag never reaches here,
+  // because capture keeps its boundary events away, so the two paths never fight.
+  folderRow.addEventListener('pointerenter', beginDwell);
+  folderRow.addEventListener('pointerleave', () => {
+    if (timer === undefined) return;
+    say(`Left after ${elapsed} ms: the ring emptied`);
+    clearDwell();
+  });
 }

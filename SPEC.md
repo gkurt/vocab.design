@@ -626,7 +626,14 @@ export default steps([
 - **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
   `middleClick`, `drag` (held press to a target, optionally through `via` waypoints:
   one continuous stroke tracing the polyline, which is what lets a gesture, a lasso,
-  or a signature be one stroke instead of several), `withKey` (hold a key across the
+  or a signature be one stroke instead of several; `release` says how the contact
+  leaves, the default `rest` settling for a beat at the destination before lifting
+  and `moving` lifting the instant the travel ends, which is the difference between
+  a hand that stopped and a throw, since the moves are linear in time and a demo
+  reading the stroke's last samples gets a real release speed from one and an honest
+  zero from the other; `ms` sets the travel's duration, mere tempo for a settled drag
+  but semantics for a thrown one, because distance over time IS the speed handed
+  over), `withKey` (hold a key across the
   enclosed steps: keydown as the scope opens, keyup as it closes, the chip held for
   the duration; Shift, Control, Alt, and Meta stamp their flag on every event
   dispatched inside, so a click becomes a Ctrl+click and a drag a Shift+drag; scopes

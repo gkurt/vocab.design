@@ -7,9 +7,7 @@ const ROW = 32;
 const ROWS = 24;
 const MAX = ROWS * ROW - VIEW.h;
 
-/** The throw the simulation makes: the speed the contact left at, and how fast the
- *  surface eats it. Distance carried is FLING_V * TAU. */
-const FLING_V = 1500;
+/** How fast the surface eats a throw: distance carried is the release speed times TAU. */
 const TAU = 0.32;
 const COAST_MS = 1300;
 const TICK_MS = 40;
@@ -59,21 +57,22 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The subject is the surface that carries the momentum. The term names what a contact does
  * to a scrolling surface, and the narrowest element that is the term is the box holding the
- * travel, not the rows riding in it and not the window around it. The readouts and the two
- * controls are instrumentation in the context register, and the two ends of the scripted drag
- * are unpainted anchors.
+ * travel, not the rows riding in it and not the window around it. The readouts and the reset
+ * are instrumentation in the context register, and the two ends of the scripted strokes are
+ * unpainted anchors.
  *
  * The pointer wiring is real: a press starts a drag, moves track one to one, and the release
  * is judged on the samples from its last 120 ms, exactly as a recognizer judges one.
  * A reader who throws the list on a touchscreen therefore gets the coast, and a reader who
  * drags and stops before lifting does not.
  *
- * The player cannot make the gesture, and that is the useful half of the demonstration. Its
- * drag holds still for a beat before it releases, which is precisely a drag that came to rest:
- * the scripted drag is the honest counter-example, and the throw itself is reached through a
- * labelled control that hands the same code path a release velocity. The coast runs on the
- * stage's clock and lands on its rest position under reduced motion, since no CSS rule can
- * reach it.
+ * Both halves are performed, and the release is the only difference between them. A drag
+ * settles for a beat before it lets go, so its last samples carry no speed and the list stops
+ * with the hand; a drag released while still travelling hands over the speed it was moving at.
+ * The script says which it wants (`release: 'moving'`, with `ms` short enough that the stroke
+ * is quick), and the same recognizer judges both, so neither state is asserted into being.
+ * The coast runs on the stage's clock and lands on its rest position under reduced motion,
+ * since no CSS rule can reach it.
  *
  * The surface is a fixed box with a translated track inside it, so a coast moves the rows and
  * nothing else (SPEC §5).
@@ -92,7 +91,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             data-part="surface"
             data-subject
             data-carry="idle"
-            style="position: relative; flex: 0 0 auto; width: ${VIEW.w}px; height: ${VIEW.h}px; overflow: hidden; touch-action: none; user-select: none; cursor: grab"
+            data-touch
+            style="position: relative; flex: 0 0 auto; width: ${VIEW.w}px; height: ${VIEW.h}px; overflow: hidden; touch-action: none; user-select: none"
           >
             <div data-part="track" style="position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; transform: translateY(0px)">${rows}</div>
             <span style="position: absolute; inset: 0; pointer-events: none">
@@ -112,7 +112,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span class="sp-heading" data-part="carried" style="font-variant-numeric: tabular-nums">0 px</span>
             </div>
             <div class="sp-divider"></div>
-            <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="sim-fling">Simulate a ${FLING_V} px/s throw</button>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reset">Back to the top</button>
           </div>
         </div>
@@ -223,8 +222,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointerup', release);
   root.addEventListener('pointercancel', release);
-
-  part(root, 'sim-fling').addEventListener('click', () => coast(FLING_V));
 
   part(root, 'reset').addEventListener('click', () => {
     stopCoast();

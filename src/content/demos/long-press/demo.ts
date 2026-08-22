@@ -42,9 +42,10 @@ const ACTIONS: { key: string; label: string; glyph: IconName; done: string }[] =
  * the menu are in the tree from mount and only their attributes change, because
  * rebuilding the node under the finger cancels the gesture halfway through.
  *
- * There is no hold step in the choreography vocabulary (SPEC §8), so the scripted pass
- * reaches the held state through a labelled simulation control outside the frame. It
- * runs the same countdown the finger does, and it is instrumentation, so it is scenery.
+ * The scripted pass holds the press for real: the `hold` step (SPEC §8) is a pointerdown
+ * that stays down and ends in a pointerup rather than a tap, so the script reaches the
+ * quick actions through the same countdown a finger runs, and a press that gives up
+ * early is read as a tap the same way.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const tiles = THUMBS.map(({ name, wash }, index) => {
@@ -95,7 +96,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <button class="sp-button sp-button--ghost sp-button--sm sp-context" type="button" data-part="sim">Simulate a ${HOLD_MS} ms hold</button>
     </div>
   `;
 
@@ -182,6 +182,4 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const at = event.target as Node;
     if (held && !tile.contains(at) && !menu.contains(at)) dismiss('Dismissed');
   });
-
-  part(root, 'sim').addEventListener('click', beginHold);
 }

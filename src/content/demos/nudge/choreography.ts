@@ -22,18 +22,29 @@ export default steps([
   { wait: 500 },
   { assert: { selector: '[data-part=card][data-y="34"]', state: 'visible' } },
   { wait: 700 },
-  // The modifier is armed as an absolute state, since a synthesized key press cannot
-  // hold Shift down (SPEC §7).
-  { moveTo: '[data-part=mode-big]' },
-  { wait: 300 },
-  { click: true },
-  { wait: 400 },
-  { assert: { selector: '[data-part=readout][data-size="10"]', state: 'visible' } },
-  { moveTo: '[data-part=card]' },
-  { wait: 300 },
-  { press: 'ArrowRight' },
-  { press: 'ArrowRight' },
+  // Shift is really held across the arrows rather than armed by a control: the scope
+  // opens with a keydown and stamps `shiftKey` on every key inside it (SPEC §8), which
+  // is the same flag a reader's own thumb sets.
+  {
+    withKey: {
+      key: 'Shift',
+      steps: [
+        { wait: 400 },
+        { assert: { selector: '[data-part=key-shift][data-held]', state: 'visible' } },
+        { assert: { selector: '[data-part=readout][data-size="10"]', state: 'visible' } },
+        { press: 'ArrowRight' },
+        { press: 'ArrowRight' },
+        { wait: 500 },
+        { assert: { selector: '[data-part=card][data-x="64"]', state: 'visible' } },
+        { wait: 700 },
+      ],
+    },
+  },
   { wait: 500 },
+  // The key let go: the chip goes out, the step is back to one pixel, and the card stays
+  // exactly where the big steps left it.
+  { assert: { selector: '[data-part=key-shift][data-held]', state: 'hidden' } },
+  { assert: { selector: '[data-part=readout][data-size="1"]', state: 'visible' } },
   { assert: { selector: '[data-part=card][data-x="64"]', state: 'visible' } },
-  { wait: 1200 },
+  { wait: 1000 },
 ]);

@@ -28,6 +28,13 @@ const row = (text: string) => `<div class="sp-row" style="gap: 6px"><span class=
  * gesture rather than what the word means. The device, the readout, the legend and the
  * reopen control are the scene around it and carry the context register.
  *
+ * The screen carries the touch persona (`data-touch`), because the gesture is a finger's:
+ * every step aimed inside the device performs as touch, the strokes carry
+ * `pointerType: 'touch'`, no hover is dispatched or mirrored there, and the kit hides the
+ * native cursor, which is why neither the band nor the screen states one. The reopen
+ * control sits outside the device with the rest of the legend, so it stays a control a
+ * pointer clicks rather than a part of the screen.
+ *
  * The origin test is real and is made the way a system makes it, on the coordinate the
  * press landed at rather than on which node it hit, so the three fixed dots are the three
  * strokes worth seeing: one starting inside the screen, one starting at the edge and
@@ -54,7 +61,10 @@ export function mount(root: HTMLElement): void {
             data-outcome="none"
             style="flex: 0 0 auto; padding: 8px; background: var(--sp-ink); border-radius: 26px"
           >
-            <div style="position: relative; width: ${SCREEN.w}px; height: ${SCREEN.h}px; background: var(--sp-sunken); border-radius: 19px; overflow: hidden; touch-action: none; user-select: none">
+            <div
+              data-touch
+              style="position: relative; width: ${SCREEN.w}px; height: ${SCREEN.h}px; background: var(--sp-sunken); border-radius: 19px; overflow: hidden; touch-action: none; user-select: none"
+            >
               <div style="position: absolute; inset: 0; padding: ${TOP_ZONE + 8}px 12px 12px ${ZONE + 8}px">
                 <span class="sp-heading" style="font-size: 13px">Inbox</span>
                 <div class="sp-stack" style="margin-top: 10px; gap: 8px">
@@ -93,7 +103,7 @@ export function mount(root: HTMLElement): void {
               <span
                 data-part="edge-zone"
                 data-subject
-                style="position: absolute; left: 0; top: 0; bottom: 0; width: ${ZONE}px; z-index: 5; display: flex; align-items: center; justify-content: center; background: ${HATCH}; border-right: 1px dashed var(--sp-muted); cursor: ew-resize"
+                style="position: absolute; left: 0; top: 0; bottom: 0; width: ${ZONE}px; z-index: 5; display: flex; align-items: center; justify-content: center; background: ${HATCH}; border-right: 1px dashed var(--sp-muted)"
               >
                 <span class="sp-label" style="writing-mode: vertical-rl; font-size: 10px; letter-spacing: 0.4px">back</span>
                 ${dot('edge-dot', ZONE / 2, SCREEN.h / 2 + 20)}

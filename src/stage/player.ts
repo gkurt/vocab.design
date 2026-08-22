@@ -709,7 +709,7 @@ export class AttractPlayer {
    * arc a click does. Cancellation mid-drag goes through #cancelRun, which is what
    * lets go of the hand on every abandoned run.
    */
-  async #drag(drag: { to: string; via?: string[] }, generation: number): Promise<boolean> {
+  async #drag(drag: { to: string; via?: string[]; release?: 'rest' | 'moving'; ms?: number }, generation: number): Promise<boolean> {
     const source = this.#target;
     const root = this.#host.root();
     const dest = root.querySelector(drag.to);
@@ -725,7 +725,9 @@ export class AttractPlayer {
     // Held for the whole drag: the source shows its pressed paint as long as the
     // hand is closed on it. Released with the pointer, or by #cancelRun.
     this.#press(source);
-    const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS + DRAG_VIA_MS * via.length;
+    // `ms` sets the pace, and paired with `release: 'moving'` it is what makes a throw
+    // fast enough to read as one: distance over this time is the speed handed over.
+    const travel = this.#host.reducedMotion ? 0 : (drag.ms ?? CURSOR_TRAVEL_MS + DRAG_VIA_MS * via.length);
     const leg = travel / stops.length;
     for (const to of stops) {
       this.#placeCursor(to, leg);
@@ -754,7 +756,11 @@ export class AttractPlayer {
       }
       from = to;
     }
-    if (!(await this.#sleep(120, generation))) return false;
+    // A hand that stopped before it let go. `release: 'moving'` skips the beat, so the
+    // samples a recognizer judges the release on still carry the travel's speed: that
+    // difference is the whole distinction between a drag and a throw, and it belongs to
+    // the release rather than to the travel, which is identical either way.
+    if (drag.release !== 'moving' && !(await this.#sleep(120, generation))) return false;
     this.#dispatchPointer(source, 'pointerup', from, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
     this.#releasePress();
     this.#cursor.removeAttribute(touch ? 'data-contact' : 'data-grab');

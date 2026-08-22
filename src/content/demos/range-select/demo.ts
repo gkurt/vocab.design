@@ -1,5 +1,4 @@
 import { flag, part } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
 
 const MESSAGES = [
   { from: 'Ola', subject: 'Sprint notes', date: '09:12' },
@@ -18,9 +17,11 @@ const START = 2;
  * band spanning the run, since that is what the term names: the rows are what it is drawn
  * over, and the list is where it lives.
  *
- * Synthesized clicks carry no modifiers (SPEC §7–8), so the scripted pass arms Shift
- * through a labelled control with two absolute states. A real `Shift` click is wired
- * regardless, so takeover behaves like the mail client this is borrowed from.
+ * One wiring answers everything: the extend is read as `shiftKey` off the click itself,
+ * the scripted pass performs the held key with a `withKey` Shift scope (SPEC §8), and a
+ * reader who takes the stage over holds the real key, so takeover behaves like the mail
+ * client this is borrowed from. The stage draws the held key itself, so the demo carries
+ * no chip of its own for it.
  *
  * The band takes its geometry from the rows at either end rather than re-parenting
  * anything, so extending a range paints over the list without touching its layout
@@ -42,10 +43,15 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 264px">
+      <div class="sp-frame sp-frame--wide" style="height: 270px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Inbox</span>
-          <span class="sp-text" data-part="readout" data-mode="single" style="width: 200px; text-align: right">Anchor set on one message</span>
+          <span
+            class="sp-text"
+            data-part="readout"
+            data-mode="single"
+            style="width: 252px; text-align: right; white-space: nowrap"
+          >Anchor set on one message</span>
         </div>
         <div class="sp-body">
           <div class="sp-surface" data-part="sheet" style="position: relative; overflow: hidden">
@@ -76,13 +82,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 8px">
-        <span class="sp-label">Simulated modifier</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="plain">
-          <button class="sp-segment" data-part="mode-plain" value="plain">Click</button>
-          <button class="sp-segment" data-part="mode-shift" value="shift">Shift click</button>
-        </sp-segmented>
-      </div>
     </div>
   `;
 
@@ -90,7 +89,6 @@ export function mount(root: HTMLElement): void {
   const headBox = part(root, 'head-box');
   const readout = part(root, 'readout');
   const count = part(root, 'count');
-  const mode = part(root, 'mode') as HTMLElement & { value: string };
 
   let anchor = START;
   let focus = START;
@@ -124,9 +122,9 @@ export function mount(root: HTMLElement): void {
 
   for (const [index, message] of MESSAGES.entries()) {
     rowAt(index).addEventListener('click', (event) => {
-      // The real key first, so a reader holding Shift gets a range whatever the
-      // simulation control happens to say.
-      if (event.shiftKey || mode.value === 'shift') {
+      // The key's own flag decides it, so the scripted `withKey` scope and a reader
+      // holding Shift reach the range through one path.
+      if (event.shiftKey) {
         focus = index;
         say('range', `Shift click: ${Math.abs(anchor - index) + 1} messages from the anchor`);
       } else {

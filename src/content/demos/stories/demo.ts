@@ -1,5 +1,4 @@
 import { flag, part } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
 /** How long one card holds before the run moves on by itself. */
@@ -23,21 +22,25 @@ const bar = (n: number) => `
  * not any one card in it: a card on its own is a picture, and what makes it a story
  * is the run it belongs to and the meter that says where in the run you are.
  *
+ * The viewer is a touch surface (`data-touch`), so the script taps and holds it with
+ * a fingertip, which is the grammar's own two inputs: a tap on the right half is the
+ * next card, and a finger held anywhere on the card stops the run where it is and
+ * lets go of it on release. Holding to pause is the term rather than a state to pick,
+ * so the toggling here is the thing being demonstrated (SPEC §8). A reader's own
+ * press does exactly the same, and a tap is a press that ends immediately, so it
+ * borrows the pause for a breath and hands it straight back.
+ *
  * The run is a clock timer, so identify can hold a card open instead of watching it
  * expire (SPEC §6). The bar fills on a transition whose duration is the dwell, and
  * pausing reads where the fill got to and pins it there before restarting it with
  * the time that was left; under reduced motion the transition is gone and the bar
  * simply reads full, which is the honest still of a card that is being held.
- *
- * The pause control is instrumentation, so it is scenery, and it picks a state
- * rather than flipping one (SPEC §8). Hold-to-pause is the real gesture and the
- * article says so; a script cannot hold anything down.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div data-part="viewer" data-subject
-           style="position: relative; width: 178px; height: 252px; border-radius: 14px; overflow: hidden; color: #ffffff; background: ${CARDS[0]?.wash}">
+      <div data-part="viewer" data-subject data-touch
+           style="position: relative; width: 178px; height: 252px; border-radius: 14px; overflow: hidden; color: #ffffff; touch-action: none; background: ${CARDS[0]?.wash}">
         <div class="sp-row" data-part="bars" style="position: absolute; top: 8px; left: 8px; right: 8px; gap: 4px">
           ${CARDS.map((_, i) => bar(i + 1)).join('')}
         </div>
@@ -48,14 +51,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
         <span data-part="caption" style="position: absolute; left: 12px; right: 12px; bottom: 14px; font-size: 13px; line-height: 1.4">${CARDS[0]?.caption}</span>
         <button data-part="prev" type="button" aria-label="Previous card"
-                style="position: absolute; top: 40px; left: 0; bottom: 0; width: 36%; border: 0; background: transparent; cursor: pointer"></button>
+                style="position: absolute; top: 40px; left: 0; bottom: 0; width: 36%; border: 0; background: transparent"></button>
         <button data-part="next" type="button" aria-label="Next card"
-                style="position: absolute; top: 40px; right: 0; bottom: 0; width: 64%; border: 0; background: transparent; cursor: pointer"></button>
+                style="position: absolute; top: 40px; right: 0; bottom: 0; width: 64%; border: 0; background: transparent"></button>
       </div>
-      <sp-segmented class="sp-segmented sp-context" data-part="run" data-value="playing">
-        <button class="sp-segment" data-part="run-playing" value="playing">Playing</button>
-        <button class="sp-segment" data-part="run-paused" value="paused">Paused</button>
-      </sp-segmented>
+      <span class="sp-label sp-context" style="width: 178px; text-align: center; line-height: 1.4">
+        Tap the right side for the next card. Hold the card to stop the run where it is.
+      </span>
     </div>
   `;
 
@@ -126,13 +128,22 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (index > 0) show(index - 1);
   });
 
-  part(root, 'run').addEventListener('change', (event) => {
-    const next = (event as CustomEvent<string>).detail === 'paused';
+  // Hold to pause, which is the grammar's own gesture: the script's `hold`, a finger,
+  // and a reader's held mouse button all arrive as the same press. The halves that
+  // advance the run sit on top of the viewer, so the press is read where it bubbles to.
+  // The pointer is not captured (a press is not a drag), so a press that wanders off
+  // ends at the boundary rather than leaving the run stopped for good.
+  const setPaused = (next: boolean) => {
     if (next === paused) return;
     paused = next;
-    if (paused) hold();
+    flag(viewer, 'data-paused', next);
+    if (next) hold();
     else start(left);
-  });
+  };
+  viewer.addEventListener('pointerdown', () => setPaused(true));
+  for (const type of ['pointerup', 'pointercancel', 'pointerleave'] as const) {
+    viewer.addEventListener(type, () => setPaused(false));
+  }
 
   show(0);
 }

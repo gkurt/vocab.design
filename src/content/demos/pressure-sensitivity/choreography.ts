@@ -5,24 +5,23 @@ export default steps([
   { wait: 500 },
   { assert: { selector: '[data-part=stroke][data-level=medium]', state: 'visible' } },
   { wait: 600 },
-  // The lightest reading the pen could send: the same ribbon, drawn thin all the way through.
-  { moveTo: '[data-part=level-light]' },
-  { wait: 500 },
-  { click: true },
-  { wait: 600 },
+  // The fingertip lands on the paper. Depth comes from the length of the press, so a
+  // brief hold reads light and draws a thin line the whole way across.
+  { moveTo: '[data-part=paper]' },
+  { wait: 400 },
+  { hold: 160 },
+  { wait: 700 },
   { assert: { selector: '[data-part=stroke][data-level=light]', state: 'visible' } },
   { wait: 900 },
-  // The firmest: the swell through the middle of the gesture is the pressure curve made visible.
-  { moveTo: '[data-part=level-firm]' },
-  { wait: 500 },
-  { click: true },
-  { wait: 600 },
+  // A press held to the end of the axis: the swell through the middle of the gesture is
+  // the pressure curve made visible, and the ink keeps what the press reached.
+  { hold: 900 },
+  { wait: 700 },
   { assert: { selector: '[data-part=stroke][data-level=firm]', state: 'visible' } },
-  { wait: 900 },
-  { moveTo: '[data-part=level-medium]' },
-  { wait: 500 },
-  { click: true },
-  { wait: 600 },
+  { wait: 1000 },
+  // Back to the middle of the axis, which is where the paper was found.
+  { hold: 450 },
+  { wait: 700 },
   { assert: { selector: '[data-part=stroke][data-level=medium]', state: 'visible' } },
   { wait: 1100 },
 ]);

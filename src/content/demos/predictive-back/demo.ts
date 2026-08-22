@@ -55,6 +55,12 @@ const page = (index: number, back: boolean) => {
  * honest condition is declared in `data-pose` and the mount state satisfies it (SPEC §6). The
  * device shell, the destination layer, the guides and the read-out are the scene.
  *
+ * The viewport carries the touch persona (`data-touch`), because a back stroke from the edge
+ * is a finger's gesture: every step aimed into the device performs as touch, the drag carries
+ * `pointerType: 'touch'`, no hover is dispatched or mirrored inside it, and the kit hides the
+ * native cursor, which is why the band states none of its own. The reset control sits outside
+ * the device with the read-outs, so it stays a control a pointer clicks.
+ *
  * The drag itself runs with no transition so the screen tracks the pointer rather than lagging it,
  * and only the release animates: a spring-shaped curve home, a plain ease out to commit. The stack
  * is popped on a beat from the stage's clock rather than on `transitionend`, which never fires under
@@ -79,6 +85,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           >
             <div
               data-part="viewport"
+              data-touch
               style="position: relative; width: ${SCREEN.w}px; height: ${SCREEN.h}px; background: var(--sp-sunken);
                      border-radius: 19px; overflow: hidden; touch-action: none; user-select: none"
             >
@@ -100,7 +107,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 data-part="edge-zone"
                 style="position: absolute; left: 0; top: 0; bottom: 0; width: ${ZONE}px; z-index: 4; display: flex;
                        align-items: center; justify-content: center; background: ${HATCH};
-                       border-right: 1px dashed var(--sp-muted); cursor: ew-resize"
+                       border-right: 1px dashed var(--sp-muted)"
               >
                 <span class="sp-label" style="writing-mode: vertical-rl; font-size: 10px; letter-spacing: 0.4px">back</span>
                 ${dot('edge-dot', ZONE / 2, 128)}

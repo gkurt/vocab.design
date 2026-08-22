@@ -225,6 +225,17 @@ for (const term of terms.values()) {
         if (Number(count) < 2 || Number(count) > 3)
           errors.push(`${term.slug}: choreography asks for ${count} contacts; a contact gesture is 2 or 3 fingers (SPEC §8)`);
       }
+      // A thrown drag hands over distance/time, so its travel has to be quick enough to read
+      // as a throw and long enough to sample: too slow and a recognizer honestly calls it a
+      // hand at rest, which is the opposite of what the step was reached for (SPEC §8).
+      for (const [thrown] of script.matchAll(/\{\s*drag:\s*\{[^}]*\}/g)) {
+        if (!thrown.includes(`release: 'moving'`)) continue;
+        const ms = Number(thrown.match(/\bms:\s*(\d+)/)?.[1] ?? Number.NaN);
+        if (Number.isNaN(ms))
+          errors.push(`${term.slug}: a drag released while moving must state its ms, since the travel time is the speed (SPEC §8)`);
+        else if (ms < 80 || ms > 1200)
+          errors.push(`${term.slug}: a thrown drag travels for 80 to 1200 ms; ${ms} ms is not a throw a recognizer reads (SPEC §8)`);
+      }
     }
   }
 }

@@ -12,12 +12,17 @@ export default steps([
   { assert: { selector: '[data-part=tile][data-tapped]', state: 'visible' } },
   { assert: { selector: '[data-part=menu]', state: 'hidden' } },
   { wait: 700 },
-  // No step in the vocabulary holds a press, so the held state is reached through the
-  // labelled simulation control, which runs the same countdown a finger does.
-  { moveTo: '[data-part=sim]' },
-  { wait: 300 },
-  { click: true },
-  { wait: 900 },
+  // A real press that gives up early: the ring climbs most of the way and the lift is
+  // still read as a tap, which is where the threshold lives.
+  { hold: 320 },
+  { wait: 500 },
+  { assert: { selector: '[data-part=tile][data-tapped]', state: 'visible' } },
+  { assert: { selector: '[data-part=menu]', state: 'hidden' } },
+  { wait: 700 },
+  // Held past the threshold, the same press opens the actions: the script presses the
+  // tile the way a finger does rather than standing in for it.
+  { hold: 750 },
+  { wait: 600 },
   { assert: { selector: '[data-part=tile][data-held]', state: 'visible' } },
   { assert: { selector: '[data-part=menu]', state: 'visible' } },
   { wait: 900 },

@@ -103,7 +103,22 @@ complete; until then entries only accumulate. Entry format:
 
 ## input-simulation
 
-- Queued: 2026-08-19 · Status: queued
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-23 (7 fixed, 73 skipped; 80 flagged)
+- 2026-08-23 sweep: 80 flagged and the overwhelming majority were honest labelling, so
+  the shortlist was cut mechanically instead of by judges: strip the documented (c)
+  environment bucket, then grep for the actual offense SHAPE, a CONTROL whose data-part or
+  on-screen label names a simulation. That is a zero-token filter and it left seven.
+  Rewritten: long-press and jiggle-mode (Simulate-a-hold buttons, now real `hold`),
+  spring-loading (Simulate-a-hover, now `moveTo` + `wait` with data-hover-driven on the
+  header), nudge and range-select (Simulated Shift/modifier, now `withKey`),
+  pressure-sensitivity (Light/Medium/Firm picker, now hold LENGTH under a touch scope),
+  fling (Simulate-a-throw, and see the vocabulary growth below). Four that LOOKED like
+  offenders are legitimate and were confirmed one by one rather than trusted: access-key
+  already reads a real altKey (only its focus ring is simulated), pointer-lock cannot call
+  requestPointerLock because it would take the reader's real cursor away from the embedding
+  page, yellow-fade-technique simulates someone else's edit ARRIVING (not input), and
+  first-rule-of-aria already presses real keys, its "keys simulated" caption being about
+  synthesized events not firing a browser's default activation, which IS its comparison.
 - 2026-08-22: BUCKET (b) IS RESOLVED, so nothing in this entry waits on a primitive any
   more. The >2-contact half was built (see fake-touch above, STAGE_NEWS law 41) and
   screen-curtain moves out of (b): its VoiceOver three-finger triple tap is now performable
@@ -161,7 +176,23 @@ complete; until then entries only accumulate. Entry format:
 
 ## fake-touch
 
-- Queued: 2026-08-19 · Status: queued · Prerequisite MET for single-contact
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-23 (11 fixed, 79 skipped; 90 flagged)
+- 2026-08-23 sweep: 90 flagged, judged in three batches of 25. Most were false positives
+  and the judges were right to be strict, because a segmented control choosing a
+  CONFIGURATION (density, layout-margins, thumb-zone, target-spacing, rotor, wipe) is not
+  simulated input. Two buckets of real work came out. GESTURE REWRITES, all four of which
+  cited a blocker that no longer existed: pressure-sensitivity, semantic-zoom (picker
+  standing in for a pinch), stories ("a script cannot hold anything down", when `hold` is
+  the step whose whole point is holding), sticky-hover ("a tap cannot be scripted as a
+  tap"). PERSONA ONLY, where the gesture was already performed with a real drag or dblclick
+  but the surface was never marked data-touch, so the ghost drew an arrow on a specimen
+  whose subject is a finger: tap, double-tap, edge-swipe, predictive-back, pull-to-refresh,
+  plus fling. TWO WERE MISSED BY JUDGES and found by grepping for stale blocker claims
+  instead (`cannot be scripted`, `no touch step`, `player cannot`), which is the cheaper
+  and more reliable instrument for this complaint: sticky-hover and tap. **Run that grep
+  first next time.** A judge reads a demo's comment as its rationale, so a comment that
+  confidently explains why a control is necessary reads as a justification even when the
+  constraint it cites was lifted months ago.
 - 2026-08-22: THE LAST BLOCKER IS GONE. Contact counts up to three now exist (SPEC §7-8,
   STAGE_NEWS law 41): `tap`, `scrub` and `pinch` each carry a `fingers` count, 2 by default
   and 3 at most, with the contacts evenly spaced so the outermost pair still carries the
@@ -643,3 +674,29 @@ complete; until then entries only accumulate. Entry format:
   declaring demos); the eye on 4321: watch two full attract iterations, the
   tree persists (inspect an element, it survives the loop), and the demo's
   second pass looks identical to its first.
+
+## settle-blind release recognizers
+
+- Queued: 2026-08-23 · Status: queued
+- Rule: a demo that judges a pointer RELEASE (a throw, a fling, a swipe past a velocity
+  threshold) must judge it the way a recognizer does, on the samples that are recent AT
+  THE MOMENT OF RELEASE. A demo that instead prunes its sample buffer as each move
+  ARRIVES keeps pre-settle samples alive, so a scripted drag that deliberately came to
+  rest before lifting still reads as a throw and still coasts. That is the opposite of
+  the claim: the whole point of a settled drag is that it hands over nothing.
+- Found while building `drag`'s `release` field (SPEC §8, STAGE_NEWS law 42). fling
+  filters by the clock at release and is correct. momentum-scrolling prunes on arrival
+  and coasts either way, while its own comment claims it judges "the way real momentum
+  scrollers judge a throw", so the claim is currently a little false.
+- Detector: detectors/settle-blind-release.ts (source scan, no dev server). At queue time
+  3/1065 flagged, which is the whole population: fling (correct, filters at release, and
+  its script already throws), momentum-scrolling (prunes on arrival), edge-swipe (no clock
+  filter found, and it may judge by distance rather than speed, so judge before fixing).
+  Question per slug: at release, does it filter by the current clock, or reuse a buffer
+  pruned during movement?
+- Recipe: filter at release (`now - sample.t <= WINDOW`), then script the two strokes
+  as separate steps, a plain `drag` for the hand that stopped and
+  `{ drag: { to, release: 'moving', ms } }` for the throw, and let the demo's own
+  recognizer tell them apart. fling is the reference.
+- Verify: choreography pass; the eye on 4321 confirms the settled stroke stops dead and
+  the thrown one carries.

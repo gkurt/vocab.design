@@ -19,6 +19,12 @@ const PICTURE = `
  * that was touched. The subject is the tile both gestures land on, since the term
  * names what the reader does to it rather than any part of the picture.
  *
+ * The screen carries the touch persona (`data-touch`), because the pair of taps is
+ * a finger's gesture: the script's taps land as a fingertip disc carrying
+ * `pointerType: 'touch'`, no hover is dispatched inside it, and the kit hides the
+ * native cursor, which is why the tile states no cursor of its own: how far the
+ * picture is zoomed reads off the read-out and off `data-zoom` instead.
+ *
  * Both behaviours are wired on the same element, because the pair is only legible
  * beside the single tap it is built out of: the first `click` still fires, and the
  * demo lets it. The zoom reaches a state rather than flipping one (SPEC §8), so a
@@ -34,14 +40,14 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading sp-grow">Harbour</span>
           <span class="sp-label" data-part="readout">Fit</span>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+        <div class="sp-body" data-touch style="display: flex; flex-direction: column; align-items: center; gap: 12px">
           <div
             class="sp-surface"
             data-part="tile"
             data-subject
             role="button"
             tabindex="0"
-            style="position: relative; overflow: hidden; width: 196px; height: 148px; cursor: zoom-in; user-select: none"
+            style="position: relative; overflow: hidden; width: 196px; height: 148px; user-select: none"
           >
             <div
               data-part="photo"
@@ -83,14 +89,12 @@ export function mount(root: HTMLElement): void {
     photo.style.transformOrigin = `${x.toFixed(1)}% ${y.toFixed(1)}%`;
     photo.style.transform = `scale(${ZOOM})`;
     photo.dataset.zoom = String(ZOOM);
-    tile.style.cursor = 'zoom-out';
     say(`Zoomed ${ZOOM}x`);
   });
 
   part(root, 'reset').addEventListener('click', () => {
     photo.style.transform = 'scale(1)';
     photo.dataset.zoom = '1';
-    tile.style.cursor = 'zoom-in';
     say(tile.hasAttribute('data-selected') ? 'Selected' : 'Fit');
   });
 }

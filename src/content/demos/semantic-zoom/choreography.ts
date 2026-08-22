@@ -6,28 +6,29 @@ export default steps([
   { assert: { selector: '[data-part=zoom][data-level=years]', state: 'visible' } },
   { assert: { selector: '[data-part=view-years]', state: 'visible' } },
   { assert: { selector: '[data-part=view-events]', state: 'hidden' } },
-  { wait: 1000 },
-  // One step in: the same record redrawn with a month as the unit.
-  { moveTo: '[data-part=seg-months]' },
-  { click: true },
-  { wait: 900 },
+  { wait: 800 },
+  // Two contacts open on the region. The factor is continuous, the drawing is not: past
+  // its threshold the same record is redrawn with a month as the unit.
+  { moveTo: '[data-part=zoom]' },
+  { wait: 400 },
+  { pinch: { scale: 2.6, ms: 900 } },
+  { wait: 700 },
   { assert: { selector: '[data-part=zoom][data-level=months]', state: 'visible' } },
   { assert: { selector: '[data-part=view-months]', state: 'visible' } },
   { assert: { selector: '[data-part=view-years]', state: 'hidden' } },
-  { wait: 1400 },
-  // Zoomed in: individual entries, each with its own label.
-  { moveTo: '[data-part=seg-events]' },
-  { click: true },
-  { wait: 900 },
+  { wait: 1300 },
+  // Opening it further crosses the next threshold: individual entries, each with its own
+  // label. Nothing was revealed and nothing was scaled, the representation was swapped.
+  { pinch: { scale: 2.2, ms: 900 } },
+  { wait: 700 },
   { assert: { selector: '[data-part=zoom][data-level=events]', state: 'visible' } },
   { assert: { selector: '[data-part=view-events]', state: 'visible' } },
   { assert: { selector: '[data-part=view-months]', state: 'hidden' } },
-  { wait: 1500 },
-  // Back out to years.
-  { moveTo: '[data-part=seg-years]' },
-  { click: true },
-  { wait: 900 },
+  { wait: 1400 },
+  // The way back is the same gesture read the other way, and the floor snaps it home.
+  { pinch: { scale: 0.15, ms: 1000 } },
+  { wait: 700 },
   { assert: { selector: '[data-part=zoom][data-level=years]', state: 'visible' } },
   { assert: { selector: '[data-part=view-years]', state: 'visible' } },
-  { wait: 800 },
+  { wait: 900 },
 ]);

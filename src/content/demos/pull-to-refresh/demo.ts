@@ -38,8 +38,14 @@ const SPRING = 'height 0.2s var(--sp-ease)';
  * of the threshold it springs back with nothing fetched, and the reload is a clock
  * timer, so a pose can hold the spinner still (SPEC §6).
  *
+ * The screen carries the touch persona (`data-touch`), because pulling a scroller past
+ * its own top edge is a finger's gesture: the drag performs as touch with
+ * `pointerType: 'touch'` on every event, no hover is dispatched inside it, and the kit
+ * hides the native cursor, drawing a reader's own pointer as the same fingertip disc.
+ *
  * The gesture is an accelerator, never the only door: the Refresh command in the top
- * bar runs the same reload for a pointer or a keyboard that has nothing to drag with.
+ * bar sits outside that scope, so it stays a control a pointer clicks or a keyboard
+ * reaches, running the same reload for anyone with nothing to drag with.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const rows = NOTES.map(
@@ -57,7 +63,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-heading sp-grow">Harbour watch</span>
           <button class="sp-button sp-button--quiet sp-button--sm" data-part="refresh" type="button">Refresh</button>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; padding: 0; background: var(--sp-surface)">
+        <div class="sp-body" data-touch style="display: flex; flex-direction: column; padding: 0; background: var(--sp-surface)">
           <div
             class="sp-row"
             data-part="indicator"

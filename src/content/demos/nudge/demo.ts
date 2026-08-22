@@ -1,5 +1,4 @@
 import { flag, part, partsOf } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
 
 /** The canvas the card is nudged around, and the two steps the arrows move by. */
 const CANVAS = { w: 320, h: 150 };
@@ -25,14 +24,17 @@ const handles = ['left: -3px; top: -3px', 'right: -3px; top: -3px', 'left: -3px;
 
 /**
  * Nudge specimen: a selected card on a small canvas that moves one pixel per arrow press
- * and ten with the big step armed. The subject is the card, since the term names what the
- * arrow does to the selected object rather than the canvas it does it on; the grid, the
- * legend, and the simulated Shift are the apparatus around it.
+ * and ten with Shift held. The subject is the card, since the term names what the arrow
+ * does to the selected object rather than the canvas it does it on; the grid, the legend,
+ * and the step readout are the apparatus around it.
  *
- * The real modifier is wired: a reader who takes the stage over and holds Shift while
- * pressing an arrow gets the big step whatever the control says. Synthesized key events
- * carry no modifiers (SPEC §7), so the scripted pass arms the same step through a labelled
- * control with two absolute states, which is the only part of the gesture that is mimed.
+ * One wiring answers everything: the big step is read as `shiftKey` off the arrow's own
+ * keydown, the script performs the held key with a `withKey` Shift scope (SPEC §8), and a
+ * reader who takes the stage over holds the real key. The canvas carries `tabindex="0"`
+ * so a reader's keys can reach the demo at all, which is where focus belongs in an editor
+ * anyway: the canvas is focused and the arrows move whatever is selected on it. A held key
+ * is invisible, so the legend chip lights from the same keydown and keyup either way,
+ * scripted or real.
  *
  * The card moves by a transform inside a fixed canvas and every readout holds its width,
  * so a nudge moves the card and nothing else (SPEC §5).
@@ -52,6 +54,10 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div
+            data-part="canvas"
+            tabindex="0"
+            role="group"
+            aria-label="Poster canvas"
             style="position: relative; width: ${CANVAS.w}px; height: ${CANVAS.h}px; border: 1px solid var(--sp-line); border-radius: 6px; background-color: var(--sp-surface); background-image: radial-gradient(var(--sp-line) 1px, transparent 1px); background-size: 10px 10px; background-position: -1px -1px"
           >
             <div
@@ -71,17 +77,11 @@ export function mount(root: HTMLElement): void {
             <span class="sp-row" style="gap: 6px">
               <span class="sp-kbd">Arrow</span>
               <span class="sp-label">${SMALL} px</span>
-              <span class="sp-kbd" style="margin-left: 8px">Shift</span>
+              <span class="sp-kbd" data-part="key-shift" style="margin-left: 8px">Shift</span>
               <span class="sp-kbd">Arrow</span>
               <span class="sp-label">${BIG} px</span>
             </span>
-            <span class="sp-row" style="gap: 8px">
-              <span class="sp-label">Simulated Shift</span>
-              <sp-segmented class="sp-segmented" data-part="mode" data-value="off">
-                <button class="sp-segment" data-part="mode-off" value="off" style="padding: 5px 10px">Released</button>
-                <button class="sp-segment" data-part="mode-big" value="big" style="padding: 5px 10px">Held</button>
-              </sp-segmented>
-            </span>
+            <span class="sp-label" data-part="step" style="width: 92px; text-align: right; font-variant-numeric: tabular-nums">Step ${SMALL} px</span>
           </div>
         </div>
       </div>
@@ -90,17 +90,20 @@ export function mount(root: HTMLElement): void {
 
   const card = part(root, 'card');
   const readout = part(root, 'readout');
-  const mode = part(root, 'mode') as HTMLElement & { value: string };
+  const stepOut = part(root, 'step');
+  const shiftKey = part(root, 'key-shift');
   const at = { ...START };
   let selected = false;
+  let shifted = false;
 
   const draw = () => {
     card.style.transform = `translate(${at.x}px, ${at.y}px)`;
     card.dataset.x = String(at.x);
     card.dataset.y = String(at.y);
-    const step = mode.value === 'big' ? BIG : SMALL;
+    const step = shifted ? BIG : SMALL;
     readout.dataset.size = String(step);
     readout.textContent = selected ? `x ${at.x}, y ${at.y} · step ${step} px` : 'Select the card to nudge it';
+    stepOut.textContent = `Step ${step} px`;
   };
 
   const showHandles = (on: boolean) => {
@@ -119,19 +122,31 @@ export function mount(root: HTMLElement): void {
   card.addEventListener('click', select);
   card.addEventListener('pointerdown', select);
 
+  // A held key is invisible, so the legend answers the real one: the chip lights while
+  // Shift is down and goes out when it is released.
+  const lightShift = (on: boolean) => {
+    shifted = on;
+    shiftKey.style.borderColor = on ? 'var(--sp-accent)' : '';
+    shiftKey.style.color = on ? 'var(--sp-ink)' : '';
+    flag(shiftKey, 'data-held', on);
+    draw();
+  };
+
   root.addEventListener('keydown', (event) => {
+    if (event.key === 'Shift') lightShift(true);
     const move = AXIS[event.key];
     if (!move || !selected) return;
     event.preventDefault();
-    // The real key first, so takeover behaves like the tool this borrows from; the
-    // control only stands in for a modifier the player cannot hold down.
-    const big = event.shiftKey || mode.value === 'big';
-    const next = at[move.axis] + move.sign * (big ? BIG : SMALL);
+    // The key's own flag decides the step, so the scripted `withKey` scope and a reader's
+    // thumb on Shift go through one path.
+    const next = at[move.axis] + move.sign * (event.shiftKey ? BIG : SMALL);
     at[move.axis] = Math.max(0, Math.min(MAX[move.axis], next));
     draw();
   });
 
-  mode.addEventListener('change', draw);
+  root.addEventListener('keyup', (event) => {
+    if (event.key === 'Shift') lightShift(false);
+  });
 
   draw();
 }

@@ -12,9 +12,14 @@ const QUIET = [
 
 /**
  * Tap specimen: a phone screen where one finger down and up on a departure card
- * chooses it, leaving a contact mark where the finger landed. The subject is the
- * card the gesture lands on, since a tap is what the reader does to a target and
- * the target is the only part of the scene the term names.
+ * chooses it, leaving a contact mark where the finger landed. The screen carries
+ * the touch persona (`data-touch`), because a tap is a finger's gesture and
+ * nothing else: every step aimed at it performs as touch, the events carry
+ * `pointerType: 'touch'`, no hover is dispatched, and the kit hides the native
+ * cursor there, so a reader's own pointer is drawn as the same fingertip disc the
+ * script presses with. The subject is the card the gesture lands on, since a tap
+ * is what the reader does to a target and the target is the only part of the
+ * scene the term names.
  *
  * The mark is drawn at the contact point rather than centred, because where the
  * finger touched is the one thing a tap knows that a click on a keyboard does not.
@@ -41,7 +46,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading sp-grow">Ferries</span>
           <span class="sp-label" data-part="readout">Nothing chosen</span>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
+        <div class="sp-body" data-touch style="display: flex; flex-direction: column; gap: 10px">
           <div
             class="sp-surface"
             data-part="card"
@@ -49,7 +54,7 @@ export function mount(root: HTMLElement): void {
             role="button"
             tabindex="0"
             aria-pressed="false"
-            style="position: relative; overflow: hidden; padding: 10px 12px; cursor: pointer; user-select: none"
+            style="position: relative; overflow: hidden; padding: 10px 12px; user-select: none"
           >
             <div class="sp-row sp-row--between">
               <span class="sp-heading">13:40</span>

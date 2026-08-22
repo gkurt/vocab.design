@@ -1,13 +1,19 @@
 import { part } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
+import { pinchSpread } from '#src/kit/touch.ts';
 
 /** The region is held at one box at every level, so only the drawing inside it changes. */
 const REGION_W = 440;
 const REGION_H = 176;
 
+/** The zoom factor the region mounts at, and the range a gesture may take it through. */
+const MIN_Z = 1;
+const MAX_Z = 8;
+
 interface Level {
   key: string;
-  label: string;
+  unit: string;
+  /** The factor at which this drawing takes over. The steps are a ladder, not a slope. */
+  from: number;
   heading: string;
   note: string;
 }
@@ -15,19 +21,22 @@ interface Level {
 const LEVELS: Level[] = [
   {
     key: 'years',
-    label: 'years',
+    unit: 'year',
+    from: MIN_Z,
     heading: '2020 to 2025',
     note: 'Zoomed out: one bar per year. Not the same chart shrunk, a different drawing whose unit is a year.',
   },
   {
     key: 'months',
-    label: 'months',
+    unit: 'month',
+    from: 2.2,
     heading: '2024, by month',
     note: 'One step in and the unit becomes a month. The same record, redrawn, with no pixel scaled to get here.',
   },
   {
     key: 'events',
-    label: 'events',
+    unit: 'entry',
+    from: 4.4,
     heading: 'March 2024',
     note: 'Zoomed in: individual entries, each with its own label. Nothing was revealed, the representation was swapped.',
   },
@@ -64,11 +73,6 @@ const EVENTS: { date: string; title: string }[] = [
   { date: '27 Mar', title: 'Draft plan circulated' },
 ];
 
-const segment = (level: Level) => `
-  <button class="sp-segment" type="button" data-part="seg-${level.key}" value="${level.key}" style="padding: 4px 11px; font-size: 11px">
-    ${level.label}
-  </button>`;
-
 const bars = (rows: { label: string; value: number }[], gap: number) => `
   <div style="display: flex; align-items: flex-end; gap: ${gap}px; flex: 1 1 auto; min-height: 0">
     ${rows
@@ -95,38 +99,46 @@ const view = (key: string, heading: string, body: string) => `
 
 /**
  * Semantic zoom specimen: one project's record drawn three ways, a bar per year, a bar per month,
- * and individual labelled entries, with a picker standing in for the pinch the player cannot make.
+ * and individual labelled entries, with the pinch that moves between them performed rather than
+ * picked.
+ *
+ * The region is a touch surface (`data-touch`), so the script pinches it with two contacts and
+ * the gesture arrives through `pinchSpread` (SPEC §7): one scale signal for the script, for a
+ * real two-finger pinch, for a reader's modifier and drag, and beside it the trackpad's own
+ * pinch, which browsers deliver as a ctrl+wheel. The factor is continuous and the drawing is
+ * not: each level takes over at its own threshold, so opening the pinch far enough steps the
+ * unit from a year to a month to a single entry, and nothing in between is a scaled copy of
+ * anything. The factor is printed as it moves, since a gesture that changes no pixel until it
+ * crosses a line owes the reader that much.
  *
  * The subject is the zooming region, the place whose drawing changes, rather than any one view
  * inside it or the whole scene (SPEC §5). Every level is honestly the term, so no `data-pose`
- * condition is needed. The window chrome, the level picker and the caption are scenery in the
+ * condition is needed. The window chrome, the factor readout and the note are scenery in the
  * context register.
  *
  * The three views are stacked in one box of a fixed size and only one is on stage at a time, so
  * changing level redraws the region and moves nothing around it (SPEC §5). That stacking is also
  * the claim: no view is a scaled copy of another, each is drawn from the same record at its own
- * unit. Each segment names the level it produces rather than stepping from the one it found
- * (SPEC §8).
+ * unit.
  */
 export function mount(root: HTMLElement): void {
   const first = LEVELS[0] as Level;
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 314px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Harbour project, history</span>
-          <sp-segmented class="sp-segmented" data-part="levels" data-value="${first.key}">
-            ${LEVELS.map(segment).join('')}
-          </sp-segmented>
+          <span class="sp-text" data-part="factor" style="width: 168px; text-align: right; white-space: nowrap"></span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 12px">
           <div
             data-part="zoom"
             data-subject
+            data-touch
             data-level="${first.key}"
-            style="position: relative; flex: 0 0 auto; width: ${REGION_W}px; height: ${REGION_H}px; overflow: hidden;
-                   background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)"
+            style="position: relative; flex: 0 0 auto; width: ${REGION_W}px; height: ${REGION_H}px; overflow: hidden; touch-action: none;
+                   user-select: none; background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)"
           >
             ${view('years', LEVELS[0]?.heading ?? '', bars(YEARS, 10))}
             ${view('months', LEVELS[1]?.heading ?? '', bars(MONTHS, 5))}
@@ -146,23 +158,58 @@ export function mount(root: HTMLElement): void {
           </div>
           <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px; width: 442px"></span>
         </div>
+        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
+          Pinch the region with two fingers or a trackpad; a mouse holds Ctrl and drags.
+        </span>
       </div>
     </div>
   `;
 
   const zoom = part(root, 'zoom');
   const readout = part(root, 'readout');
+  const factor = part(root, 'factor');
   const views = LEVELS.map((level) => ({ key: level.key, element: part(root, `view-${level.key}`) }));
 
-  const show = (key: string) => {
-    const level = LEVELS.find((entry) => entry.key === key);
-    if (!level) return;
+  const clamp = (value: number) => Math.min(MAX_Z, Math.max(MIN_Z, value));
+
+  /** The ladder read from the top down, so the deepest threshold the factor has passed wins. */
+  const levelFor = (z: number) => [...LEVELS].reverse().find((level) => z >= level.from) ?? first;
+
+  const show = (z: number) => {
+    const level = levelFor(z);
     zoom.dataset.level = level.key;
-    for (const { key: viewKey, element } of views) element.hidden = viewKey !== level.key;
+    for (const { key, element } of views) element.hidden = key !== level.key;
     readout.textContent = level.note;
+    factor.textContent = `Zoom ${z.toFixed(1)}x, unit: ${level.unit}`;
   };
 
-  part(root, 'levels').addEventListener('change', (event) => show((event as CustomEvent<string>).detail));
+  /** What a gesture measures from, and what it leaves behind: the committed factor. */
+  let held = MIN_Z;
+  /** The factor the live gesture engaged at, so its whole run is read from one place. */
+  let base = MIN_Z;
 
-  show(first.key);
+  pinchSpread(zoom, {
+    onStart: () => {
+      base = held;
+    },
+    onPinch: (scale) => show(clamp(base * scale)),
+    onEnd: (scale) => {
+      held = clamp(base * scale);
+      show(held);
+    },
+  });
+
+  // The trackpad pinch, for real: browsers deliver it as a wheel event with ctrlKey set.
+  zoom.addEventListener(
+    'wheel',
+    (event) => {
+      if (!event.ctrlKey) return;
+      event.preventDefault();
+      held = clamp(held * Math.exp(-event.deltaY * 0.0035));
+      show(held);
+    },
+    { passive: false },
+  );
+
+  show(held);
 }

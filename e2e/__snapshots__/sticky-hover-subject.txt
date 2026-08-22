@@ -1,4 +1,4 @@
 term:    Sticky hover
 scope:   element
-subject: div.sp-surface[data-mode=ungated][data-part=card][data-pose=[data-stuck]][data-stuck]
+subject: div.sp-surface[data-part=card][data-pose=[data-stuck]][data-stuck]
 text:    Harbour, 6am 2.4 MB Save
