@@ -1,4 +1,4 @@
 term:    Spring loading
 scope:   element
-subject: div[data-part=folder]
+subject: div[data-part=folder-tile]
 text:    Work

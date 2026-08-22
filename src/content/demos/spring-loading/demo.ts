@@ -3,37 +3,33 @@ import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
 /**
- * The long press that lifts a tile off the home screen. It is deliberately given no
- * ring and no countdown: a long press is a press held with nothing in hand, and the
- * article keeps it as the contrast to the dwell rather than a second helping of it.
- */
-const LIFT_MS = 500;
-/**
  * The dwell the folder charges for opening, and how often the ring repaints while it runs.
- * Long enough that a drag which merely crosses the tile (about 310 ms of the scripted pass,
- * and less than that from a hand actually going somewhere) never banks the crossing.
+ * Comfortably longer than the time a drag spends crossing the middle cell on its way to the
+ * far corner (about 190 ms), because banking a crossing is the failure the delay exists for.
  */
 const SPRING_MS = 800;
 const TICK_MS = 60;
-/** How far the finger may stray before the lift is abandoned, which is what stops a swipe picking things up. */
-const SLOP_PX = 6;
 
 const SCREEN = { w: 200, h: 240 };
-/** One home-screen tile: a rounded icon with its name under it. */
 const CELL = 48;
-const FOLDER = { x: 76, y: 84 };
-/** The free spot a tile lands on when the drag crosses the folder instead of stopping on it. */
-const FREE = { x: 140, y: 156 };
+
 /**
- * The open folder's box: nearly the whole screen. That size is the argument for the
- * dwell rather than decoration, since a container that opened the instant a drag
- * touched it would bury the home screen on every pass and leave nothing to drag to.
+ * A 3x3 grid with the folder in the MIDDLE cell and the empty spot in the far corner, so the
+ * straight line from the corner tile to the empty one runs right over the folder. Crossing is
+ * then the natural path rather than a detour invented for the demonstration: the drag that
+ * has somewhere else to be goes over the folder because that is where the route lies.
  */
+const COL = [12, 76, 140] as const;
+const ROW = [12, 84, 156] as const;
+const FOLDER = { x: COL[1], y: ROW[1] };
+const FREE = { x: COL[2], y: ROW[2] };
+
+/** The open folder's box: nearly the whole screen, which is the argument for the dwell. */
 const PANEL = { left: 8, top: 8, w: 184, h: 218 };
 /**
- * Shut, the panel is clipped down to the folder tile it grows out of. Clipping is paint
- * and never layout, so the landing slot inside keeps the coordinates the choreography
- * aims at while the folder is still closed, and opening moves nothing (SPEC §5).
+ * Shut, the panel is clipped down to the folder tile it grows out of. Clipping is paint and
+ * never layout, so the landing slot inside keeps the coordinates the choreography aims at
+ * while the folder is still closed, and opening moves nothing beside it (SPEC §5).
  */
 const SHUT_CLIP = [
   `inset(${FOLDER.y - PANEL.top}px`,
@@ -42,7 +38,8 @@ const SHUT_CLIP = [
   `${FOLDER.x - PANEL.left}px round 13px)`,
 ].join(' ');
 
-interface App {
+interface Tile {
+  key: string;
   name: string;
   glyph: IconName;
   wash: string;
@@ -50,23 +47,30 @@ interface App {
   y: number;
 }
 
-/** The home screen around the folder and the dragged tile: scenery, in the context register. */
-const SCENERY: App[] = [
-  { name: 'Music', glyph: 'heart', wash: 'linear-gradient(160deg, #f0736a, #cf4136)', x: 12, y: 12 },
-  { name: 'Alerts', glyph: 'bell', wash: 'linear-gradient(160deg, #5b8def, #2f5bd0)', x: 76, y: 12 },
-  { name: 'Starred', glyph: 'star', wash: 'linear-gradient(160deg, #b48ae0, #7d55bb)', x: 140, y: 12 },
-  { name: 'Search', glyph: 'search', wash: 'linear-gradient(160deg, #4fc3a1, #1f8f74)', x: 12, y: 84 },
-  { name: 'Shared', glyph: 'share', wash: 'linear-gradient(160deg, #61c1e8, #2b8cc0)', x: 140, y: 84 },
-  { name: 'Settings', glyph: 'sliders', wash: 'linear-gradient(160deg, #8b93a5, #5f6779)', x: 12, y: 156 },
+/**
+ * Every tile on the screen picks up, because a home screen where only one icon moves is a
+ * diagram of a home screen rather than one. Notes sits in the corner the scripted drag starts
+ * from; the rest are the scenery it crosses, and any of them can be carried or filed.
+ */
+const TILES: Tile[] = [
+  { key: 'notes', name: 'Notes', glyph: 'pencil', wash: 'linear-gradient(160deg, #f2b134, #d18e12)', x: COL[0], y: ROW[0] },
+  { key: 'music', name: 'Music', glyph: 'heart', wash: 'linear-gradient(160deg, #f0736a, #cf4136)', x: COL[1], y: ROW[0] },
+  { key: 'starred', name: 'Starred', glyph: 'star', wash: 'linear-gradient(160deg, #b48ae0, #7d55bb)', x: COL[2], y: ROW[0] },
+  { key: 'search', name: 'Search', glyph: 'search', wash: 'linear-gradient(160deg, #4fc3a1, #1f8f74)', x: COL[0], y: ROW[1] },
+  { key: 'shared', name: 'Shared', glyph: 'share', wash: 'linear-gradient(160deg, #61c1e8, #2b8cc0)', x: COL[2], y: ROW[1] },
+  { key: 'settings', name: 'Settings', glyph: 'sliders', wash: 'linear-gradient(160deg, #8b93a5, #5f6779)', x: COL[0], y: ROW[2] },
+  { key: 'alerts', name: 'Alerts', glyph: 'bell', wash: 'linear-gradient(160deg, #5b8def, #2f5bd0)', x: COL[1], y: ROW[2] },
 ];
 
-const NOTES_WASH = 'linear-gradient(160deg, #f2b134, #d18e12)';
-/** What the folder already holds, drawn both as its tile preview and as its open grid. */
-const INSIDE: { name: string; glyph: IconName; wash: string; x: number }[] = [
-  { name: 'Mail', glyph: 'inbox', wash: 'linear-gradient(160deg, #5b8def, #2f5bd0)', x: 12 },
-  { name: 'Calendar', glyph: 'calendar', wash: 'linear-gradient(160deg, #ef7c5c, #d1492f)', x: 70 },
-  { name: 'Files', glyph: 'copy', wash: 'linear-gradient(160deg, #4fc3a1, #1f8f74)', x: 128 },
+/** What the folder already holds, drawn as its tile preview and again in its open grid. */
+const INSIDE: { name: string; glyph: IconName; wash: string }[] = [
+  { name: 'Mail', glyph: 'inbox', wash: 'linear-gradient(160deg, #5b8def, #2f5bd0)' },
+  { name: 'Calendar', glyph: 'calendar', wash: 'linear-gradient(160deg, #ef7c5c, #d1492f)' },
+  { name: 'Files', glyph: 'copy', wash: 'linear-gradient(160deg, #4fc3a1, #1f8f74)' },
 ];
+
+/** Where a filed tile lands inside the open folder: the second row of its grid. */
+const LANDING = [12, 70, 128];
 
 const LABEL = [
   'display: block',
@@ -87,45 +91,35 @@ function square(wash: string, glyph: IconName, size = CELL): string {
           >${icon(glyph)}</span>`;
 }
 
-function sceneryTile({ name, glyph, wash, x, y }: App): string {
-  return `
-    <div class="sp-context" style="position: absolute; left: ${x}px; top: ${y}px; width: ${CELL}px">
-      ${square(wash, glyph)}
-      <span style="${LABEL}">${name}</span>
-    </div>`;
-}
-
 /**
- * Spring loading specimen: a phone home screen where a long press lifts a tile, the
- * drag carries it onto a folder, and holding it there springs the folder open over
- * almost the whole screen so the same drag can drop the tile inside. The subject is
- * the folder tile, the container the term names, rather than the tile being carried
- * or the screen they both sit on.
+ * Spring loading specimen: a phone home screen where a drag carrying a tile over a folder
+ * springs the folder open across almost the whole screen, so the same drag can drop the tile
+ * inside without ever being released. The subject is the folder tile, icon and name together,
+ * since that is the container the term names, rather than the tile being carried or the screen
+ * they both sit on. What the drag is tested against is the icon alone (`data-part=folder`), so
+ * a pointer over the NAME below it is not yet over the folder.
  *
- * The screen is a touch surface (`data-touch`), because a home screen is operated by a
- * finger and a phone driven by an arrow would be a costume (SPEC §7). No hover exists
- * inside it, so the dwell is read from the carried pointer's own coordinates plus the
- * clock the stage handed mount(): an empty hand resting on the folder springs nothing,
- * which is the difference between this gesture and a hover-to-open menu.
+ * The screen is a touch surface (`data-touch`), because a home screen is worked by a finger
+ * and a phone driven by an arrow would be a costume (SPEC §7). No hover exists inside it, so
+ * the dwell is read from the carried pointer's own coordinates plus the clock the stage hands
+ * mount(): an empty hand resting on the folder springs nothing, which is exactly what
+ * separates this gesture from a hover-to-open menu.
  *
- * Two waits happen here and the demo keeps them apart on purpose, since the article
- * holds long press up as the neighbouring gesture rather than the same one. The lift is
- * plain: press, and after LIFT_MS the tile simply rises, with no ring and no countdown,
- * and travelling before it completes abandons it exactly as a launcher does. Only the
- * dwell over the folder is paid for on screen, with the filling ring the article asks
- * for, and only the readout's "dwell" wording belongs to it.
+ * There is one wait here and it is the term's. Picking a tile up takes no hold at all: a long
+ * press is a different gesture the article keeps as the contrast, and staging one here would
+ * put two waits side by side and blur the distinction being drawn.
  *
- * Crossing is the other half of the demonstration. A drag that passes over the folder
- * without stopping banks nothing: the ring empties and the folder stays shut, because
- * every folder a drag crosses on its way somewhere else flying open is the failure the
- * delay exists to prevent. Releasing closes what the gesture opened, since the drag
- * opened it rather than the reader.
+ * The grid is arranged so that crossing is the natural path. The folder holds the middle cell
+ * and the free spot the far corner, so a drag from one corner to the other passes over the
+ * folder because that is where the route lies, not because a waypoint was added to make it.
+ * That drag banks nothing: the ring fills part way and empties, the folder stays shut, and the
+ * far corner is still reachable. Only a drag that stops pays the dwell.
  *
- * Nothing is re-parented between the press and the release, and the carried tile moves
- * by transform, so the tree under the finger cannot change mid-gesture. The open folder
- * OVERLAYS the grid: it is absolutely positioned and revealed by clip-path, which is
- * paint rather than layout, so no tile, readout or caption moves by a pixel and the
- * landing slot's coordinates are already true while the folder is shut (SPEC §5).
+ * Releasing closes what the gesture opened, because the drag opened it rather than the reader.
+ * Nothing is re-parented between press and release, and a carried tile moves by transform, so
+ * the tree under the finger cannot change mid-gesture. The open folder OVERLAYS the grid,
+ * revealed by clip-path (paint, never layout), so no tile, readout or caption moves by a pixel
+ * and the landing slot is already where the script aims while the folder is still shut.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const preview = INSIDE.map(
@@ -134,11 +128,41 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         border-radius: 5px; background: ${wash}"></span>`,
   ).join('');
 
-  const held = INSIDE.map(
-    ({ name, glyph, wash, x }) => `
-      <div style="position: absolute; left: ${x}px; top: 40px; width: 44px">
+  const shelf = INSIDE.map(
+    ({ name, glyph, wash }, index) => `
+      <div style="position: absolute; left: ${LANDING[index]}px; top: 40px; width: 44px">
         ${square(wash, glyph, 44)}
         <span style="${LABEL}; color: var(--sp-ink); text-shadow: none">${name}</span>
+      </div>`,
+  ).join('');
+
+  // Three landing places, so a reader who files more than one tile watches each arrive rather
+  // than watching the second vanish. The first is the one the choreography aims at.
+  const landings = LANDING.map(
+    (x, index) => `
+      <div style="position: absolute; left: ${x}px; top: 104px; width: 44px">
+        <span
+          data-part="landing-${index}"
+          style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 13px;
+                 border: 1px dashed var(--sp-line); opacity: ${index === 0 ? 1 : 0.36}"
+        ></span>
+        <span data-part="landing-name-${index}" style="${LABEL}; color: var(--sp-ink); text-shadow: none"></span>
+      </div>`,
+  ).join('');
+
+  const tiles = TILES.map(
+    ({ key, name, glyph, wash, x, y }) => `
+      <div
+        class="sp-context"
+        data-part="app-${key}"
+        data-at="home"
+        style="position: absolute; left: ${x}px; top: ${y}px; width: ${CELL}px; z-index: 4; touch-action: none;
+               user-select: none; transition: opacity 0.2s ease"
+      >
+        <div data-part="lift-${key}" style="transition: transform 0.14s var(--sp-ease), filter 0.14s ease">
+          ${square(wash, glyph)}
+          <span style="${LABEL}">${name}</span>
+        </div>
       </div>`,
   ).join('');
 
@@ -151,7 +175,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             class="sp-label"
             data-part="readout"
             style="width: 300px; text-align: right; font-size: 11px; white-space: nowrap"
-          >Hold a tile to pick it up</span>
+          >Drag a tile across the folder, or stop on it</span>
         </div>
 
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px 12px">
@@ -161,8 +185,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             style="position: relative; flex: 0 0 auto; width: ${SCREEN.w}px; height: ${SCREEN.h}px; border-radius: 16px;
                    overflow: hidden; background: linear-gradient(165deg, #2f3550 0%, #4a4f74 55%, #6f6a95 100%)"
           >
-            ${SCENERY.map(sceneryTile).join('')}
-
             <div
               class="sp-context"
               data-part="free"
@@ -171,11 +193,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ></div>
 
             <div
-              data-part="folder"
+              data-part="folder-tile"
               data-subject
               style="position: absolute; left: ${FOLDER.x}px; top: ${FOLDER.y}px; width: ${CELL}px"
             >
               <span
+                data-part="folder"
                 style="position: relative; display: block; width: ${CELL}px; height: ${CELL}px; border-radius: 13px;
                        background: rgb(255 255 255 / 0.26); box-shadow: 0 2px 6px rgb(16 24 40 / 0.28)"
               >
@@ -183,7 +206,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 <span
                   data-part="folder-added"
                   style="position: absolute; left: 26px; top: 26px; width: 16px; height: 16px; border-radius: 5px;
-                         background: ${NOTES_WASH}; opacity: 0; transition: opacity 0.18s ease"
+                         opacity: 0; transition: opacity 0.18s ease"
                 ></span>
                 <span
                   data-part="ring"
@@ -196,21 +219,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span style="${LABEL}">Work</span>
             </div>
 
-            <div
-              class="sp-context"
-              data-part="app-notes"
-              data-at="home"
-              style="position: absolute; left: 76px; top: 156px; width: ${CELL}px; z-index: 8; touch-action: none;
-                     user-select: none; transition: opacity 0.2s ease"
-            >
-              <div
-                data-part="app-lift"
-                style="transition: transform 0.16s var(--sp-ease), filter 0.16s ease, opacity 0.16s ease"
-              >
-                ${square(NOTES_WASH, 'pencil')}
-                <span style="${LABEL}">Notes</span>
-              </div>
-            </div>
+            ${tiles}
 
             <div
               class="sp-surface"
@@ -224,16 +233,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span class="sp-label" data-part="folder-count" style="position: absolute; right: 12px; top: 12px; font-size: 11px"
                 >3 apps</span
               >
-              ${held}
-              <div
-                data-part="slot"
-                style="position: absolute; left: 12px; top: 104px; display: flex; align-items: center; justify-content: center;
-                       width: 44px; height: 44px; border-radius: 13px; border: 1px dashed var(--sp-line)"
-              >
-                <span data-part="slot-icon" style="display: flex; opacity: 0; transition: opacity 0.18s ease"
-                  >${square(NOTES_WASH, 'pencil', 42)}</span
-                >
-              </div>
+              ${shelf}
+              ${landings}
               <span class="sp-label" style="position: absolute; left: 12px; right: 12px; bottom: 10px; text-align: center; font-size: 11px"
                 >Still holding: let go in here to file it</span
               >
@@ -246,14 +247,14 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
 
           <div class="sp-stack sp-context" style="width: 196px; gap: 9px">
-            <span class="sp-label" style="font-size: 11px">The two waits</span>
+            <span class="sp-label" style="font-size: 11px">Why the wait</span>
             <span class="sp-text" style="font-size: 12px; line-height: 1.45"
-              >A long press picks the tile up. Holding it over the folder is a second, separate wait, and only that one
-              draws a ring while it runs.</span
+              >Open, the folder buries the home screen. One that sprang the moment a drag touched it would swallow every
+              drag that merely crossed it.</span
             >
             <span class="sp-text" style="font-size: 12px; line-height: 1.45"
-              >Open, the folder buries the home screen. A folder that sprang the moment a drag touched it would swallow
-              every drag that crossed it.</span
+              >So crossing banks nothing: the ring fills and empties, and the far corner is still there to drop on. Only
+              stopping pays the dwell.</span
             >
           </div>
         </div>
@@ -261,23 +262,20 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     </div>
   `;
 
-  const app = part(root, 'app-notes');
-  const lift = part(root, 'app-lift');
   const folder = part(root, 'folder');
   const panel = part(root, 'folder-open');
-  const slotIcon = part(root, 'slot-icon');
   const added = part(root, 'folder-added');
   const count = part(root, 'folder-count');
   const free = part(root, 'free');
   const ring = part(root, 'ring');
   const readout = part(root, 'readout');
 
-  let origin: { x: number; y: number } | undefined;
-  let liftTimer: number | undefined;
+  let held: { el: HTMLElement; lift: HTMLElement; tile: Tile; from: string } | undefined;
+  let origin = { x: 0, y: 0 };
   let dwellTimer: number | undefined;
-  let carried = false;
   let elapsed = 0;
   let sprung = false;
+  let filed = 0;
 
   const say = (text: string) => {
     readout.textContent = text;
@@ -321,96 +319,93 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     elapsed = 0;
     ring.style.setProperty('--sp-dwell', '0');
     ring.style.opacity = '1';
-    // Neutral on purpose: at this moment a crossing and an aim are the same event, and
-    // which one it was is the next message's news.
+    // Neutral on purpose: at this moment a crossing and an aim are the same event, and which
+    // one it turned out to be is the next message's news.
     say('Over Work: the dwell is counting');
     dwellTimer = clock.setTimeout(tick, TICK_MS);
   };
 
-  app.addEventListener('pointerdown', (event) => {
-    // Filed away, the tile is inside the folder and no longer on the grid to pick up.
-    if (app.dataset.at === 'folder') return;
-    // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
-    if (event.isTrusted) app.setPointerCapture(event.pointerId);
-    origin = { x: event.clientX, y: event.clientY };
-    carried = false;
-    say('Pressing Notes: not lifted yet');
-    // No ring here. The lift is the neighbouring gesture, and its whole tell is that
-    // the tile rises when the wait is over.
-    liftTimer = clock.setTimeout(() => {
-      liftTimer = undefined;
-      carried = true;
+  const fileAway = (tile: Tile, el: HTMLElement): string => {
+    if (filed >= LANDING.length) return `Work is full: ${tile.name} went back`;
+    const spot = part(root, `landing-${filed}`);
+    spot.innerHTML = square(tile.wash, tile.glyph, 42);
+    spot.style.border = '0';
+    spot.style.opacity = '1';
+    part(root, `landing-name-${filed}`).textContent = tile.name;
+    filed++;
+    const next = root.querySelector<HTMLElement>(`[data-part="landing-${filed}"]`);
+    if (next) next.style.opacity = '1';
+    el.dataset.at = 'folder';
+    el.style.opacity = '0';
+    // The one spare dot on the tile preview, so the folder reads as changed from outside too.
+    added.style.background = tile.wash;
+    added.style.opacity = '1';
+    count.textContent = `${INSIDE.length + filed} apps`;
+    return `Filed ${tile.name}: Work closed itself again`;
+  };
+
+  for (const tile of TILES) {
+    const el = part(root, `app-${tile.key}`);
+    const lift = part(root, `lift-${tile.key}`);
+    el.addEventListener('pointerdown', (event) => {
+      // Filed away, a tile is inside the folder and no longer on the grid to pick up.
+      if (el.dataset.at === 'folder' || held) return;
+      // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
+      if (event.isTrusted) el.setPointerCapture(event.pointerId);
+      // `carried` is a place like any other, so the free spot reads as vacant while the tile
+      // standing on it is in the air: a tile can be picked up and put straight back down.
+      held = { el, lift, tile, from: el.dataset.at ?? 'home' };
+      el.dataset.at = 'carried';
+      origin = { x: event.clientX, y: event.clientY };
+      el.style.zIndex = '8';
       lift.style.transform = 'scale(1.1)';
       lift.style.filter = 'drop-shadow(0 7px 10px rgb(16 24 40 / 0.5))';
-      // Slightly see-through while it is carried, so the target under the finger,
-      // countdown included, is never wholly hidden by the thing being dropped on it.
-      lift.style.opacity = '0.92';
-      say('Long press lifted Notes: now carrying it');
-    }, LIFT_MS);
-  });
+      say(`Carrying ${tile.name}`);
+    });
+  }
 
   root.addEventListener('pointermove', (event) => {
-    if (!origin) return;
-    const dx = event.clientX - origin.x;
-    const dy = event.clientY - origin.y;
-    if (!carried) {
-      // A launcher abandons the pick-up the moment the finger travels, which is what
-      // keeps a fast swipe across the screen from carrying a tile away with it.
-      if (Math.hypot(dx, dy) <= SLOP_PX) return;
-      clock.clearTimeout(liftTimer);
-      liftTimer = undefined;
-      origin = undefined;
-      say('Moved too soon: the long press never finished');
-      return;
-    }
-    app.style.transform = `translate(${dx}px, ${dy}px)`;
+    if (!held) return;
+    held.el.style.transform = `translate(${event.clientX - origin.x}px, ${event.clientY - origin.y}px)`;
     if (within(folder, event.clientX, event.clientY)) return beginDwell();
-    // Crossing a folder on the way somewhere else is the common case, so leaving has to
-    // reset the countdown rather than bank it. A sprung folder stays open: the drag is
-    // inside it now, and only the release closes it.
+    // Crossing on the way somewhere else is the common case, so leaving resets the countdown
+    // rather than banking it. A sprung folder stays open: the drag is inside it now, and only
+    // the release closes it.
     if (dwellTimer !== undefined) {
-      // Reduced motion collapses the travel but never the dwell, so a crossing there is
-      // over before the first tick: report that as what it was rather than as zero.
+      // Reduced motion collapses the travel but never the dwell, so a crossing there is over
+      // before the first tick: report that as what it was rather than as zero.
       say(elapsed ? `Crossed Work in ${elapsed} ms: it stayed shut` : 'Crossed Work without stopping: it stayed shut');
       clearDwell();
     }
   });
 
   const release = (event: PointerEvent) => {
-    clock.clearTimeout(liftTimer);
-    liftTimer = undefined;
-    if (!origin) return;
-    origin = undefined;
-    const wasCarried = carried;
-    carried = false;
-    app.style.transform = '';
+    if (!held) return;
+    const { el, lift, tile, from } = held;
+    held = undefined;
+    el.style.transform = '';
+    el.style.zIndex = '';
     lift.style.transform = '';
     lift.style.filter = '';
-    lift.style.opacity = '';
     // Read the geometry before anything closes, since closing takes the room back.
     const inside = sprung && within(panel, event.clientX, event.clientY);
-    const onFree = within(free, event.clientX, event.clientY);
+    // Occupancy is read off the tiles rather than kept in a flag, so a tile filed away out of
+    // the free spot leaves it open again instead of reserving it forever.
+    const spotFree = !TILES.some(({ key }) => part(root, `app-${key}`).dataset.at === 'free');
+    const onFree = spotFree && within(free, event.clientX, event.clientY);
     const onFolder = within(folder, event.clientX, event.clientY);
-    // What the gesture sprang open, the gesture closes: it was opened by the drag
-    // rather than by the reader.
+    // What the gesture sprang open, the gesture closes: the drag opened it, not the reader.
     if (sprung) spring(false);
-    if (!wasCarried) return;
-    if (inside) {
-      app.dataset.at = 'folder';
-      app.style.opacity = '0';
-      slotIcon.style.opacity = '1';
-      added.style.opacity = '1';
-      count.textContent = '4 apps';
-      return say('Dropped inside Work, and it closed itself again');
-    }
+    if (inside) return say(fileAway(tile, el));
     if (onFree) {
-      app.dataset.at = 'free';
-      app.style.left = `${FREE.x}px`;
-      app.style.top = `${FREE.y}px`;
+      el.dataset.at = 'free';
+      el.style.left = `${FREE.x}px`;
+      el.style.top = `${FREE.y}px`;
       return say('Dropped on the free spot: Work never opened');
     }
+    el.dataset.at = from;
     if (onFolder) return say('Let go on Work before the dwell: still shut');
-    say('Let go on nothing: Notes stayed where it was');
+    say(`Let go on nothing: ${tile.name} stayed put`);
   };
 
   root.addEventListener('pointerup', release);
