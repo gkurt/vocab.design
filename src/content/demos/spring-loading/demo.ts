@@ -392,6 +392,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (!held) return;
     const { el, lift, tile, from } = held;
     held = undefined;
+    // The countdown dies with the gesture that started it. Letting go over the folder used to
+    // leave the timer running, so a drop that never paid the dwell sprang the folder open a
+    // moment later with nothing in hand: `spring(false)` clears it, but only runs when the
+    // folder was already open, which is exactly the case this is not.
+    clearDwell();
     el.style.transform = '';
     el.style.zIndex = '';
     lift.style.transform = '';
