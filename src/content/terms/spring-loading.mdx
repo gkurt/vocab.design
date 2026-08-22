@@ -4,7 +4,7 @@ slug: spring-loading
 category: interaction
 status: published
 created: 2026-08-21
-modified: 2026-08-21
+modified: 2026-08-22
 definition: >-
   Hovering a dragged item over a container until it opens, so a drag can travel through
   nested destinations without being dropped and restarted.
@@ -52,6 +52,14 @@ somewhere else flies open, which is disorienting and slow. Too long and nobody d
 the behaviour at all. Whatever the number, leaving the target before it elapses has to
 cancel cleanly and reset the countdown, since crossing a folder is far more common than
 aiming at one.
+
+A phone home screen is the same mechanic with the stakes raised. Drag an app onto a folder,
+hold, and the folder opens over the whole screen so the app can be dropped inside; let go and
+it closes again. Because the opened folder covers everything, the cost of opening is
+impossible to miss: one that sprang the moment a drag touched it would bury the grid on every
+pass across it, and there would be nowhere left to drag to. Touch also puts the two holds back
+to back, since the drag has to be started by a long press on the app before there is anything
+in hand to hold over the folder.
 
 Long press is the neighbouring gesture and the contrast worth holding onto: a long press
 is a press held in place with nothing in hand, and it usually reveals actions for the thing
