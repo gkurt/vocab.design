@@ -515,7 +515,21 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   pressed into contact for taps, holds, and swipes), dispatched pointer events carry
   `pointerType: 'touch'`, and no hover is dispatched or mirrored — a finger that is
   not pressing is not there at all. A tap wraps its press in the compatibility
-  over/enter and out/leave pair, exactly as a browser does. During a `hold` the
+  over/enter and out/leave pair, exactly as a browser does.
+  **Hover inside a touch scope arrives only from a tap, and then it sticks.** No
+  hover ever comes from travel, for the script or for a reader: the kit guards every
+  one of its `:hover` rules with `:not([data-touch], [data-touch] *)`, so inside a
+  touch scope hover paint is attribute-only, and `:active` stays unguarded because a
+  finger really does press. What a real device does leave behind is a hover stranded
+  by a tap, so the stage lands `data-hovered` on the tapped element and leaves it
+  until a tap somewhere else (`TouchHover`), claiming only what the demo's own
+  handlers did not set and releasing only what it claimed. One `click` listener
+  serves both hands, since the player dispatches a real bubbling click for its `click`
+  step, so the script and the reader cannot disagree; a multi-contact `tap` is a
+  gesture rather than a place a hover could rest, and strands nothing. This is the
+  sticky-hover bug, and it belongs to every touch specimen rather than to one term:
+  a demo inside a touch scope must never wire `pointerenter` to repaint hover, which
+  would hand a reader the one thing a finger cannot do. During a `hold` the
   disc's inner fill swells with the reported pressure, which climbs at a finger's
   rate (full force at 900 ms): a brief hold is a light press, a long one bottoms
   out. Right and middle clicks stay
@@ -626,7 +640,12 @@ export default steps([
 - **Step vocabulary** (complete, small): `moveTo`, `click`, `dblclick`, `rightClick`,
   `middleClick`, `drag` (held press to a target, optionally through `via` waypoints:
   one continuous stroke tracing the polyline, which is what lets a gesture, a lasso,
-  or a signature be one stroke instead of several; `release` says how the contact
+  or a signature be one stroke instead of several, and a waypoint written as
+  `{ at, dwell }` STOPS there for that many ms, dispatching nothing while it waits,
+  because a pointer holding still is what emits no events and that pause is what a
+  spring-loaded container or any drag-and-dwell target listens for, its own clock
+  counting it out; the dwell is semantics rather than tempo, so reduced motion
+  collapses the travel around it but never the pause; `release` says how the contact
   leaves, the default `rest` settling for a beat at the destination before lifting
   and `moving` lifting the instant the travel ends, which is the difference between
   a hand that stopped and a throw, since the moves are linear in time and a demo

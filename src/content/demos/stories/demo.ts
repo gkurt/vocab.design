@@ -72,16 +72,29 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   let left = DWELL_MS;
   let since = 0;
   let timer: number | undefined;
+  /** The deferred write that starts the fill. Held so it can be cancelled: a tap lands a
+   *  pointerup (which restarts the run) and a click (which changes card) in that order, so
+   *  an uncancelled write would arrive after the card had moved on and fill the bar of the
+   *  card just left. Going BACK is where that shows, since forwards the bar it would fill
+   *  is already full. */
+  let paint: number | undefined;
+
+  function stopPaint(): void {
+    clock.clearTimeout(paint);
+    paint = undefined;
+  }
 
   function start(ms: number): void {
     left = ms;
     since = performance.now();
     clock.clearTimeout(timer);
+    stopPaint();
     if (index < last) timer = clock.setTimeout(() => show(index + 1), ms);
     const fill = fills[index];
     if (!fill) return;
     // A tick later, so the width the transition starts from is the one on screen.
-    clock.setTimeout(() => {
+    paint = clock.setTimeout(() => {
+      paint = undefined;
       fill.style.transition = `width ${ms}ms linear`;
       fill.style.width = '100%';
     }, 0);
@@ -90,6 +103,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   function hold(): void {
     clock.clearTimeout(timer);
     timer = undefined;
+    stopPaint();
     left = Math.max(0, left - (performance.now() - since));
     const fill = fills[index];
     if (!fill) return;
@@ -117,6 +131,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     });
     clock.clearTimeout(timer);
     timer = undefined;
+    stopPaint();
     left = DWELL_MS;
     if (!paused) start(DWELL_MS);
   }

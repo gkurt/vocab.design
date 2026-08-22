@@ -2,12 +2,22 @@ import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
-/** The dwell the folder asks for, and how often the ring is repainted while it runs. */
-const DWELL_MS = 560;
+/**
+ * The dwell the folder asks for, and how often the ring is repainted while it runs. Long
+ * enough that a drag which merely crosses the header (about 350 ms of the scripted pass,
+ * and less than that from a hand actually going somewhere) never banks the crossing.
+ */
+const DWELL_MS = 700;
 const TICK_MS = 70;
 
-const SCENE = { w: 436, h: 190 };
+const SCENE_H = 190;
 const FOLDER = { x: 132, y: 45, w: 150, h: 100 };
+/**
+ * What the folder widens to when it springs: far enough right to bury the Archive button
+ * (x 316 to 424) and still inside the scene, which measures 434px on stage. That burial is
+ * the whole argument for the dwell, so this number is load-bearing, not styling.
+ */
+const SPRUNG_W = 292;
 const ROW_H = 36;
 
 const CHILDREN = [
@@ -20,7 +30,7 @@ const childRows = CHILDREN.map(
     <div
       class="sp-list-item"
       data-part="child-${key}"
-      style="position: absolute; left: 8px; top: ${top}px; width: ${FOLDER.w - 16}px; height: 26px; padding: 0 8px; font-size: 12px; background: var(--sp-sunken); border-radius: 5px; opacity: 0; transition: opacity 0.16s ease"
+      style="position: absolute; left: 8px; right: 8px; top: ${top}px; height: 26px; padding: 0 8px; font-size: 12px; background: var(--sp-sunken); border-radius: 5px; opacity: 0; transition: opacity 0.16s ease"
     >
       <span style="display: flex; color: var(--sp-muted)">${icon('copy')}</span>
       <span class="sp-grow" style="min-width: 0">${name}</span>
@@ -29,27 +39,31 @@ const childRows = CHILDREN.map(
 
 /**
  * Spring loading specimen: a file dragged across a shelf of destinations, where holding it
- * over the Projects folder springs the folder open and a drop then lands inside. The
+ * over the Projects folder springs the folder open and the same drag then lands inside. The
  * subject is that folder, header and contents together, since the term names the container
  * that opens under a drag rather than the item being dragged or the shelf they sit on.
  *
- * The dwell is really wired, on the pointer's own position plus a clock timer, and really
- * cancelled by leaving: the scripted drag past the folder on its way to Archive fills the
- * ring part way and empties it again, which is the failure the gesture is mostly made of.
- * Nothing is re-parented between the press and the release, and the item is moved by a
- * transform, so the tree the pointer is on cannot change under it.
+ * The countdown belongs to the drag and to nothing else. It runs off the carried pointer's
+ * own coordinates, so an empty hand resting on the header springs nothing: a folder that
+ * opened under a bare hover would be a different gesture wearing this one's name. Leaving
+ * really cancels it, which is what the pass to Archive shows, the ring filling most of the
+ * way and emptying, because crossing a folder is far more common than aiming at one and
+ * banking the crossing would be the bug. Nothing is re-parented between the press and the
+ * release, and the item is moved by a transform, so the tree the pointer is on cannot
+ * change under it.
  *
- * The dwell is reached by really dwelling. A pointer resting on the folder header starts
- * the same countdown a carried item does and leaving empties it, so the scripted pass is
- * a `moveTo` and a `wait` (SPEC §8) with nothing standing in for the pause. Capture holds
- * for the whole of a reader's drag, so those enter and leave events are the plain hover's;
- * a drag reads the pointer's own coordinates instead, which is how one countdown answers
- * both. Hovering the header is therefore the interaction, so it carries
- * `data-hover-driven` (SPEC §7) and a reader's own dwell there takes the stage over
- * without a click.
+ * The scripted pass performs the dwell rather than standing in for it: one held drag whose
+ * waypoint STOPS on the header (SPEC §8). A stop dispatches nothing at all while it waits,
+ * which is exactly what a pointer holding still emits, and the clock the stage handed
+ * mount() counts the pause out.
  *
- * The folder's contents are reserved rather than grown into: the panel is the same height
- * open or closed, so springing moves nothing beside or below it (SPEC §5).
+ * Springing widens the folder over Archive, and that is the argument for the dwell rather
+ * than decoration: a container that opened the instant a drag touched it would cover its
+ * neighbours on every single pass, and there would be nothing left to reach. The growth is
+ * this term's own claim, so it is allowed, and it is contained (SPEC §5): the panel is
+ * absolutely positioned and OVERLAYS Archive rather than moving it, its height never
+ * changes, its right edge stays inside the scene, and its contents are reserved rather
+ * than grown into, so nothing else in the scene moves.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -60,7 +74,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-text" data-part="readout" style="width: 296px; text-align: right; white-space: nowrap">Drag the file onto a destination</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; justify-content: center">
-          <div style="position: relative; width: 100%; height: ${SCENE.h}px">
+          <div style="position: relative; width: 100%; height: ${SCENE_H}px">
             <div
               class="sp-chip sp-context"
               data-part="item"
@@ -72,11 +86,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               class="sp-surface"
               data-part="folder"
               data-subject
-              style="position: absolute; left: ${FOLDER.x}px; top: ${FOLDER.y}px; width: ${FOLDER.w}px; height: ${FOLDER.h}px"
+              style="position: absolute; left: ${FOLDER.x}px; top: ${FOLDER.y}px; width: ${FOLDER.w}px; height: ${FOLDER.h}px; z-index: 1; transition: width 0.22s var(--sp-ease)"
             >
               <div
                 data-part="folder-row"
-                data-hover-driven
                 style="position: relative; display: flex; align-items: center; gap: 6px; height: ${ROW_H}px; padding: 0 10px; border-bottom: 1px solid var(--sp-line)"
               >
                 <span data-part="chevron" style="display: flex; color: var(--sp-muted); transition: rotate 0.16s var(--sp-ease)">${icon('chevronRight')}</span>
@@ -99,8 +112,14 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <div
               class="sp-surface sp-context"
               data-part="archive"
-              style="position: absolute; left: 316px; top: 46px; width: 108px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 13px"
+              style="position: absolute; left: 316px; top: 46px; width: 108px; height: 34px; z-index: 0; display: flex; align-items: center; justify-content: center; font-size: 13px"
             >Archive</div>
+
+            <span
+              class="sp-label sp-context"
+              data-part="caption"
+              style="position: absolute; left: 8px; right: 8px; bottom: 4px; text-align: center"
+            >Open, Projects covers Archive. That is why only a hold opens it.</span>
           </div>
         </div>
       </div>
@@ -142,6 +161,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     sprung = open;
     clearDwell();
     flag(folder, 'data-sprung', open);
+    // The open folder needs the room its contents ask for, and it takes that room from
+    // Archive: it overlays the button rather than moving it (SPEC §5).
+    folder.style.width = `${open ? SPRUNG_W : FOLDER.w}px`;
     chevron.style.rotate = open ? '90deg' : '';
     hint.style.opacity = open ? '0' : '1';
     for (const { key } of CHILDREN) part(root, `child-${key}`).style.opacity = open ? '1' : '0';
@@ -152,7 +174,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     ring.style.setProperty('--sp-dwell', String(Math.min(elapsed / DWELL_MS, 1)));
     if (elapsed >= DWELL_MS) {
       spring(true);
-      say('Sprang open: the drag can go inside');
+      say('Sprang open, and now it covers Archive');
       return;
     }
     timer = clock.setTimeout(tick, TICK_MS);
@@ -164,7 +186,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     elapsed = 0;
     ring.style.setProperty('--sp-dwell', '0');
     ring.style.opacity = '1';
-    say('Hovering Projects');
+    // Neutral on purpose: at this moment a crossing and an aim are the same event, and
+    // which one it was is the next message's news.
+    say('Over Projects: counting the dwell');
     timer = clock.setTimeout(tick, TICK_MS);
   };
 
@@ -184,9 +208,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     item.style.transform = `translate(${event.clientX - origin.x}px, ${event.clientY - origin.y}px)`;
     if (within(folderRow, event.clientX, event.clientY)) return beginDwell();
     // Crossing a folder on the way somewhere else is the common case, so leaving has to
-    // reset the countdown rather than bank it.
+    // reset the countdown rather than bank it. This is the pass that keeps Archive
+    // reachable: the folder never opened, so it never covered anything.
     if (timer !== undefined) {
-      say(`Left after ${elapsed} ms: the ring emptied`);
+      // Reduced motion collapses the travel but never the dwell, so a crossing there is
+      // over before the first tick: report that as what it was rather than as zero.
+      say(elapsed ? `Crossed in ${elapsed} ms: Projects stayed shut` : 'Crossed without stopping: Projects stayed shut');
       clearDwell();
     }
   });
@@ -199,18 +226,25 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     item.style.borderColor = '';
     item.style.transform = '';
     flag(item, 'data-lifted', false);
+    // Read the geometry before anything closes, since closing takes the room back.
     const child = CHILDREN.find(({ key }) => within(part(root, `child-${key}`), event.clientX, event.clientY));
-    if (sprung && child) {
+    const inside = sprung && within(folder, event.clientX, event.clientY);
+    // The Finder closes what the drag sprang open once the drop is done, because the
+    // gesture opened it rather than the reader: Archive comes back with it.
+    if (sprung) spring(false);
+    if (inside && child) {
       item.dataset.dropped = child.key;
-      // The Finder closes what the drag sprang open once the drop is done.
-      spring(false);
       return say(`Filed in Projects / ${child.name}`);
+    }
+    if (inside) {
+      item.dataset.dropped = 'inside';
+      return say('Dropped in Projects, over where Archive was');
     }
     if (within(archive, event.clientX, event.clientY)) {
       item.dataset.dropped = 'archive';
-      return say('Dropped in Archive, having crossed Projects');
+      return say('Dropped in Archive: nothing sprang open over it');
     }
-    if (within(folderRow, event.clientX, event.clientY)) {
+    if (within(folder, event.clientX, event.clientY)) {
       item.dataset.dropped = 'folder';
       return say('Released before the dwell: dropped on Projects');
     }
@@ -219,14 +253,4 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointerup', release);
   root.addEventListener('pointercancel', release);
-
-  // A pointer that merely rests on the header is the other way in, and the one the script
-  // takes: enter starts the countdown, leaving empties it. A drag never reaches here,
-  // because capture keeps its boundary events away, so the two paths never fight.
-  folderRow.addEventListener('pointerenter', beginDwell);
-  folderRow.addEventListener('pointerleave', () => {
-    if (timer === undefined) return;
-    say(`Left after ${elapsed} ms: the ring emptied`);
-    clearDwell();
-  });
 }

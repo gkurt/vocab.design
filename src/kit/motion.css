@@ -181,7 +181,7 @@
 
 /* A ticker holds still for a reader who is trying to read it. Both spellings, since
    attract's synthesized pointer never lights up :hover (SPEC §7). */
-.sp-marquee:hover .sp-marquee-track,
+.sp-marquee:hover:not(:where([data-touch], [data-touch] *)) .sp-marquee-track,
 .sp-marquee[data-paused] .sp-marquee-track {
   animation-play-state: paused;
 }

@@ -57,9 +57,11 @@ const photo = ({ key, name, size, wash }: (typeof PHOTOS)[number], first: boolea
  * state lands on the tapped card and nothing ever takes it off again. The compatibility
  * enter and leave a touch press carries are ignored on purpose, since the leave is exactly
  * the event a finger never really sends; what clears the paint is a tap somewhere else, which
- * is why tapping the neighbour moves the stranding to it. A pointer is wired properly
- * alongside, enter and leave both, so a reader who takes the stage over gets the honest mouse
- * behaviour.
+ * is why tapping the neighbour moves the stranding to it. Nothing here answers travel at all,
+ * for the script or for a reader: inside a touch scope a mouse is playing a finger, so a
+ * reader's press is this term's tap and their movement is nothing. Handing them the one thing
+ * a finger cannot do, on the specimen whose whole subject is what happens when a finger tries,
+ * would be the costume the persona forbids (SPEC §7).
  *
  * The subject is the first card, not the action row it reveals. The paint that has nothing to
  * clear it belongs to the card, and the stranded actions are the consequence; the neighbour is
@@ -116,29 +118,22 @@ export function mount(root: HTMLElement): void {
     readout.textContent = text;
   };
 
-  // A touch tap, for real. The press itself is what strands the paint, so the hover state
+  // A tap, and only a tap. The press itself is what strands the paint, so the hover state
   // is applied here and no leave is ever honoured: the compatibility pointerleave a touch
   // press carries is the event a finger does not really send, and treating it as one would
   // clear exactly the paint this term is about. What does clear it is a tap elsewhere.
+  //
+  // Every pointer type counts, because this gallery is a touch surface: a reader on a mouse
+  // is playing a finger here (the stage draws their pointer as the disc), so their press is
+  // this term's tap. Nothing answers travel, which is the point. Wiring pointerenter here
+  // would hand a reader the one thing a finger cannot do, on the specimen whose whole
+  // subject is what happens when a finger tries (SPEC §7).
   gallery.addEventListener('pointerdown', (event) => {
-    if (event.pointerType !== 'touch') return;
     if (gallery.dataset.mode === 'gated') return paint(null, 'Gated: the tap strands nothing');
     const hit = cards.find((card) => card.el.contains(event.target as Node));
     if (!hit) return paint(null, 'The hover moved on');
     paint(hit.el, hit === subject ? 'Tapped: nothing will clear this' : 'The hover moved to that card');
   });
-
-  // The real pointer, wired the way the card would really be wired.
-  for (const card of cards) {
-    card.el.addEventListener('pointerenter', (event) => {
-      if (event.pointerType === 'touch') return;
-      paint(card.el, 'Hovered by a pointer');
-    });
-    card.el.addEventListener('pointerleave', (event) => {
-      if (event.pointerType === 'touch') return;
-      paint(null, 'The pointer left, so did the paint');
-    });
-  }
 
   part(root, 'mode').addEventListener('change', (event) => {
     const next: Mode = (event as CustomEvent<string>).detail === 'gated' ? 'gated' : 'ungated';

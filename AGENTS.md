@@ -90,6 +90,7 @@ src/stage/visible.ts        #   isRevealed (summon) vs isSeen (assert): see gotc
 src/stage/clock.ts          #   DemoClock: the only timer a demo may use, so a pose can stop it
 src/stage/surface.ts        #   the two isolation modes behind one shape; nothing above it branches
 src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
+src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, travel never does
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
@@ -286,6 +287,11 @@ never fires under reduced motion, so nothing may ever wait on it.
   and end the drag on pointerup and pointercancel, never pointerleave (boundary
   events do not fire while capture holds). The scripted drag needs no capture,
   which is exactly how the missing line hides from CI.
+  A drag can also DWELL at a waypoint: a `via` entry written as `{ at, dwell }` stops
+  there for that many ms and dispatches nothing while it waits, because a pointer
+  holding still is what emits no events, and that pause is what a spring-loaded
+  container or any drag-and-dwell target counts out on its own clock. It is semantics
+  rather than tempo, so reduced motion collapses the travel around it, never the pause.
   A drag also says how it lets go. `release: 'rest'` (the default) settles for a beat
   before lifting, so a demo judging the stroke's last samples honestly measures no
   speed; `release: 'moving'` lifts mid-travel, which is a throw, and `ms` is the
@@ -315,8 +321,16 @@ never fires under reduced motion, so nothing may ever wait on it.
   between hover targets (`buttons: 0`, never a drag; not under touch or reduced
   motion), so a demo whose term is continuous pointer response listens for moves on
   its container and reads coordinates; a move listener that should only act mid-press
-  gates on its own pointerdown state, never on merely receiving a move. A surface
-  operated by hovering alone (a dock that bulges, a glow that follows) also carries
+  gates on its own pointerdown state, never on merely receiving a move.
+  Inside a `data-touch` scope, hover comes only from a tap and then it sticks: no hover
+  arrives from travel for the script or for a reader, since every kit `:hover` rule is
+  guarded with `:not([data-touch], [data-touch] *)` and hover paint there is
+  attribute-only (`:active` stays unguarded, because a finger really does press). The
+  stage lands `data-hovered` on the tapped element and leaves it until a tap elsewhere
+  (`src/stage/touch-hover.ts`), claiming only what a demo's handlers did not set. So a
+  demo inside a touch scope must never wire `pointerenter` to repaint hover: that hands
+  a reader the one thing a finger cannot do.
+  A surface operated by hovering alone (a dock that bulges, a glow that follows) also carries
   `data-hover-driven`, which makes a reader's dwell there take the stage over without
   a click (SPEC §7); gaze scopes have this implicitly. A specimen sets the attribute itself only for a state shown with no pointer
   on it (a states row, a posed comparison). Real focus is the exception that stays

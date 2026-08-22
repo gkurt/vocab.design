@@ -1,5 +1,5 @@
 import { FORCE_RAMP_MS } from '#src/kit/touch.ts';
-import type { Step } from '#src/stage/choreography.ts';
+import type { Step, Waypoint } from '#src/stage/choreography.ts';
 import { claim, release } from '#src/stage/scheduler.ts';
 import { isSeen } from '#src/stage/visible.ts';
 
@@ -709,13 +709,16 @@ export class AttractPlayer {
    * arc a click does. Cancellation mid-drag goes through #cancelRun, which is what
    * lets go of the hand on every abandoned run.
    */
-  async #drag(drag: { to: string; via?: string[]; release?: 'rest' | 'moving'; ms?: number }, generation: number): Promise<boolean> {
+  async #drag(drag: { to: string; via?: Waypoint[]; release?: 'rest' | 'moving'; ms?: number }, generation: number): Promise<boolean> {
     const source = this.#target;
     const root = this.#host.root();
     const dest = root.querySelector(drag.to);
     if (!source || !dest) return this.#sleep(STEP_GAP_MS, generation);
-    const via = (drag.via ?? []).map((sel) => root.querySelector(sel)).filter((el): el is Element => el !== null);
-    const stops = [...via, dest].map((el) => aimAt(el));
+    const via = (drag.via ?? [])
+      .map((point) => (typeof point === 'string' ? { at: point, dwell: 0 } : point))
+      .map(({ at, dwell }) => ({ el: root.querySelector(at), dwell }))
+      .filter((point): point is { el: Element; dwell: number } => point.el !== null);
+    const stops = [...via.map(({ el, dwell }) => ({ at: aimAt(el), dwell })), { at: aimAt(dest), dwell: 0 }];
     const touch = this.#personaFor(source) === 'touch';
     const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
     // A finger swipes as a pressed contact; a mouse drag closes into the grab hand.
@@ -729,7 +732,7 @@ export class AttractPlayer {
     // fast enough to read as one: distance over this time is the speed handed over.
     const travel = this.#host.reducedMotion ? 0 : (drag.ms ?? CURSOR_TRAVEL_MS + DRAG_VIA_MS * via.length);
     const leg = travel / stops.length;
-    for (const to of stops) {
+    for (const { at: to, dwell } of stops) {
       this.#placeCursor(to, leg);
       // One move per animation frame while the hand travels the leg, linear in time
       // (the stroke's velocity profile is input too: a fling reads its release speed
@@ -755,6 +758,10 @@ export class AttractPlayer {
         }
       }
       from = to;
+      // A pointer holding still emits nothing, which is exactly what a drag-and-dwell
+      // target is listening for: its own clock counts the pause out. Semantics, not
+      // tempo, so reduced motion keeps it while collapsing the travel around it.
+      if (dwell > 0 && !(await this.#sleep(dwell, generation))) return false;
     }
     // A hand that stopped before it let go. `release: 'moving'` skips the beat, so the
     // samples a recognizer judges the release on still carry the travel's speed: that
@@ -1159,7 +1166,7 @@ export class AttractPlayer {
     return true;
   }
 
-  #summonDrag(drag: { to: string; via?: string[] }): void {
+  #summonDrag(drag: { to: string; via?: Waypoint[] }): void {
     const source = this.#target;
     const root = this.#host.root();
     const dest = root.querySelector(drag.to);
@@ -1167,8 +1174,8 @@ export class AttractPlayer {
     const touch = this.#personaFor(source) === 'touch';
     const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
     this.#dispatchPointer(source, 'pointerdown', aimAt(source), kind);
-    for (const sel of drag.via ?? []) {
-      const el = root.querySelector(sel);
+    for (const point of drag.via ?? []) {
+      const el = root.querySelector(typeof point === 'string' ? point : point.at);
       if (el) this.#dispatchPointer(source, 'pointermove', aimAt(el), kind);
     }
     const to = aimAt(dest);

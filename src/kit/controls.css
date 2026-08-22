@@ -9,6 +9,20 @@
   cursor: none !important;
 }
 
+/* A finger cannot hover, so inside a touch scope every :hover in this file is guarded
+   with :not(:where([data-touch], [data-touch] *)) and hover paint becomes attribute-only
+   (SPEC §7). The :where() is load-bearing, not decoration: it has zero specificity, so
+   the guard negates without WEIGHING anything. A bare :not([data-touch], ...) adds an
+   attribute selector's worth, which lifted every hover rule above the state rules that
+   are supposed to outrank it (a current nav item, an open control) and quietly inverted
+   them for a real reader. The guard is for the READER, since the player already withholds hover
+   from its own ghost there: without it a reader's mouse would light up states no
+   finger could reach, on exactly the specimens that exist to show touch. What does
+   arrive on a real device is a hover STRANDED by a tap, which the stage lands as
+   `data-hovered` on the tapped element and leaves until a tap somewhere else, so the
+   attribute spelling carries it and no rule here needs to know. `:active` is
+   deliberately NOT guarded: a finger really does press. */
+
 .sp-button {
   appearance: none;
   border: 0;
@@ -27,7 +41,7 @@
    demo says the same thing out loud, since attract's synthesized input never lights
    up :hover or :active (SPEC §7) and a specimen that lines the three states up side
    by side has no pointer on two of them. */
-.sp-button:hover,
+.sp-button:hover:not(:where([data-touch], [data-touch] *)),
 .sp-button[data-hovered] {
   filter: brightness(1.1);
 }
@@ -58,9 +72,9 @@
    hover is a background, like the icon button's. `data-open` is the same rule for a
    trigger that currently owns a surface: a menu bar title stays lit while its menu
    is down. Selection outranks hover, so a selected ghost button keeps its accent. */
-.sp-button--ghost:not([data-selected]):hover,
+.sp-button--ghost:not([data-selected]):hover:not(:where([data-touch], [data-touch] *)),
 .sp-button--ghost:not([data-selected])[data-hovered],
-.sp-button--quiet:hover,
+.sp-button--quiet:hover:not(:where([data-touch], [data-touch] *)),
 .sp-button--quiet[data-hovered],
 .sp-button--quiet[data-open] {
   background: var(--sp-sunken);
@@ -86,7 +100,7 @@
   cursor: pointer;
 }
 
-.sp-icon-button:hover,
+.sp-icon-button:hover:not(:where([data-touch], [data-touch] *)),
 .sp-icon-button[data-hovered],
 .sp-icon-button[data-open] {
   background: var(--sp-sunken);
@@ -395,7 +409,7 @@
   transition: background-color 0.14s ease;
 }
 
-.sp-table tbody tr:hover,
+.sp-table tbody tr:hover:not(:where([data-touch], [data-touch] *)),
 .sp-table tbody tr[data-hovered] {
   background: var(--sp-sunken);
 }
@@ -437,7 +451,7 @@
   color: var(--sp-muted);
 }
 
-.sp-day:hover,
+.sp-day:hover:not(:where([data-touch], [data-touch] *)),
 .sp-day[data-hovered] {
   background: var(--sp-sunken);
 }
@@ -492,7 +506,7 @@
   cursor: pointer;
 }
 
-.sp-chip-remove:hover,
+.sp-chip-remove:hover:not(:where([data-touch], [data-touch] *)),
 .sp-chip-remove[data-hovered] {
   color: var(--sp-ink);
 }
@@ -571,7 +585,7 @@ sp-combobox {
 
 /* Before the current page, and after it: a nav item answers the pointer like every
    other control, and the item that is current outranks the one under the pointer. */
-.sp-nav-item:hover,
+.sp-nav-item:hover:not(:where([data-touch], [data-touch] *)),
 .sp-nav-item[data-hovered] {
   color: var(--sp-ink);
   background: var(--sp-sunken);

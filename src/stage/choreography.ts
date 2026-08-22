@@ -2,6 +2,17 @@
  * Choreography step vocabulary (SPEC §8). Complete and demo-agnostic — nothing
  * demo-specific may be added here. Targets are `data-part` selectors only.
  */
+
+/**
+ * A drag waypoint (SPEC §8): a target the stroke passes through, or one it STOPS at
+ * for `dwell` ms. A stop dispatches nothing while it waits, because a pointer holding
+ * still is exactly what emits no events, and that pause is what a spring-loaded
+ * container, a hover-to-open menu, or any drag-and-dwell target is listening for. The
+ * dwell is semantics rather than tempo, like `hold`'s duration, so reduced motion
+ * collapses the travel around it but never the pause itself.
+ */
+export type Waypoint = string | { at: string; dwell: number };
+
 export type Step =
   | { moveTo: string }
   | { click: true }
@@ -12,7 +23,9 @@ export type Step =
    * Held drag from the current target to `to` (SPEC §8), optionally through `via`
    * waypoints: one continuous press whose pointer travels the polyline, which is
    * what lets a gesture stroke, a lasso, or a signature be one stroke instead of
-   * several. Waypoints are data-part selectors like every other target.
+   * several. Waypoints are data-part selectors like every other target, and one
+   * written as `{ at, dwell }` stops there for that many ms, which is the
+   * drag-and-dwell a spring-loaded container answers.
    *
    * `release` says how the contact leaves. The default `rest` settles for a beat
    * at the destination before lifting, which is a hand that stopped before it let
@@ -29,7 +42,7 @@ export type Step =
    * as a hand at rest. Reduced motion collapses the travel either way, so a demo
    * whose term is the throw jumps to its end state there, as it must anyway.
    */
-  | { drag: { to: string; via?: string[]; release?: 'rest' | 'moving'; ms?: number } }
+  | { drag: { to: string; via?: Waypoint[]; release?: 'rest' | 'moving'; ms?: number } }
   /**
    * Press and hold the current target for this many ms (SPEC §8). Under the touch
    * persona the reported pressure climbs at a finger's rate (full force at 900 ms),

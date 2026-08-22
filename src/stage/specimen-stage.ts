@@ -4,6 +4,7 @@ import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography } from '#src/stage/registry.ts';
 import type { Isolation } from '#src/stage/surface.ts';
 import { createSurface } from '#src/stage/surface.ts';
+import { TouchHover } from '#src/stage/touch-hover.ts';
 import { TouchMirror } from '#src/stage/touch-mirror.ts';
 import { isRevealed } from '#src/stage/visible.ts';
 
@@ -130,8 +131,14 @@ class VdStage extends HTMLElement {
       if (on) this.dataset.posed = '';
       else delete this.dataset.posed;
     };
+    // Hover as a touch device leaves it: a tap strands one, and only a tap elsewhere
+    // takes it off (SPEC §7). Constructed before the first mount so no tree is ever
+    // built without it, and released on remount so a fresh tree cannot inherit the
+    // last one's stranded hover.
+    const touchHover = new TouchHover(surface.events);
     const remount = () => {
       clock?.stop();
+      touchHover.release();
       this.#mountRoot?.remove();
       const root = surface.doc.createElement('div');
       root.className = 'sp-root';

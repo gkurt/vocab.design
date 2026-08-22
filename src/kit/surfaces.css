@@ -121,7 +121,7 @@
   cursor: pointer;
 }
 
-.sp-menu-item:hover,
+.sp-menu-item:hover:not(:where([data-touch], [data-touch] *)),
 .sp-menu-item[data-hovered],
 .sp-menu-item[data-active] {
   background: var(--sp-sunken);
@@ -368,7 +368,7 @@
 
 /* Clay gives under a press. Paired with a state attribute like every other hover in
    the kit, since attract's synthesized input never lights up :hover or :active. */
-.sp-clay:hover,
+.sp-clay:hover:not(:where([data-touch], [data-touch] *)),
 .sp-clay:active,
 .sp-clay[data-pressed] {
   transform: scale(0.98);
