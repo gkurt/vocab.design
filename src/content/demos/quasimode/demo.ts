@@ -48,8 +48,8 @@ const dot = (name: string, x: number, y: number) => `
  * things, and the mode badge is there on the press and gone on the release.
  *
  * The subject is the canvas: the term names the surface whose meaning is being changed, not
- * the key that changes it and not the window around it. The key, the readouts and the legend
- * are instrumentation in the context register, and the points the script drags between are
+ * the key that changes it and not the window around it. The key cap, the readouts and the
+ * legend are instrumentation in the context register, and the points the script drags between are
  * unpainted anchors.
  *
  * The keyboard wiring is real. `keydown` on space opens the mode and `keyup` closes it, and
@@ -57,12 +57,17 @@ const dot = (name: string, x: number, y: number) => `
  * space bar has to do anyway. A reader who takes the stage over and holds space gets the pan
  * tool for the length of their own hold, and the readout says how long that was.
  *
- * Attract cannot hold a key down: its press step is a keydown and a keyup back to back, which
- * is a tap, and is reported here as one. The hold is therefore reached through a labelled key
- * control whose press opens the mode and whose release closes it, driven by a drag step
- * because a drag is the one thing the player holds down for its whole duration. The control
- * is a stand-in for the physical key and nothing more: it calls the same two functions the
- * real keydown and keyup call.
+ * The hold is performed rather than stood in for. A `withKey` scope holds the key down across
+ * the steps inside it (SPEC §8): keydown as the scope opens, keyup as it closes, so the mode is
+ * opened by a real key, spans a real drag, and ends on a real release. A bare `press` is a
+ * keydown and a keyup back to back, which is a tap and not a hold, and the script plays one of
+ * those too because it is the honest counter-example: the mode is over before it can be used.
+ *
+ * The canvas takes focus (`tabindex="0"`) with a label, because a keyboard demo an actual
+ * keyboard cannot drive is scenery pretending, and scripted keys arrive whichever element has
+ * focus, so without this the reader would have been the only one locked out of the term. It
+ * takes no `role="application"` with it: that hands every key to the page and silences a
+ * screen reader's own navigation, which is a large thing to claim for a pan tool.
  *
  * The badge and the marquee are absolutely positioned over a fixed canvas, and the world moves
  * by a transform, so entering and leaving the mode moves nothing (SPEC §5).
@@ -79,6 +84,8 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack" style="gap: 8px">
             <div
               data-part="canvas"
+              tabindex="0"
+              aria-label="Board canvas: hold Space to pan"
               data-subject
               data-mode="select"
               data-did="none"
@@ -106,17 +113,16 @@ export function mount(root: HTMLElement): void {
                 ${dot('pan-to', 244, 112)}
               </span>
             </div>
-            <span class="sp-label sp-context">Drag to marquee. Hold the key and it pans.</span>
+            <span class="sp-label sp-context">Drag to marquee. Hold Space and it pans.</span>
           </div>
 
           <div class="sp-stack sp-context sp-grow" style="gap: 8px">
-            <button
+            <span
               class="sp-kbd"
-              type="button"
-              data-part="hold-key"
-              style="width: 100%; height: 46px; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer"
-            >Space</button>
-            <span class="sp-label" style="text-align: center; white-space: nowrap">press and hold</span>
+              data-part="key-cap"
+              style="display: flex; align-items: center; justify-content: center; width: 100%; height: 46px; font-size: 13px; font-weight: 500"
+            >Space</span>
+            <span class="sp-label" style="text-align: center; white-space: nowrap">hold it</span>
             <div class="sp-divider"></div>
             <div class="sp-stack" style="gap: 2px">
               <span class="sp-label">Mode</span>
@@ -136,13 +142,12 @@ export function mount(root: HTMLElement): void {
   const world = part(root, 'world');
   const marquee = part(root, 'marquee');
   const chip = part(root, 'mode-chip');
-  const key = part(root, 'hold-key');
+  const cap = part(root, 'key-cap');
   const readout = part(root, 'readout');
   const modeValue = part(root, 'mode-value');
   const heldFor = part(root, 'held-for');
 
   let held = false;
-  let byKeyControl = false;
   let heldSince = 0;
   let panning: { x: number; y: number; ox: number; oy: number } | undefined;
   let picking: { x: number; y: number } | undefined;
@@ -172,9 +177,9 @@ export function mount(root: HTMLElement): void {
     canvas.dataset.mode = 'pan';
     canvas.style.cursor = 'grab';
     modeValue.textContent = 'Pan';
-    key.style.background = 'var(--sp-accent)';
-    key.style.borderColor = 'var(--sp-accent)';
-    key.style.color = 'var(--sp-accent-ink)';
+    cap.style.background = 'var(--sp-accent)';
+    cap.style.borderColor = 'var(--sp-accent)';
+    cap.style.color = 'var(--sp-accent-ink)';
     show(chip, true);
     report('Space down: the canvas means pan while it is held');
   };
@@ -182,16 +187,15 @@ export function mount(root: HTMLElement): void {
   const leaveMode = () => {
     if (!held) return;
     held = false;
-    byKeyControl = false;
     panning = undefined;
     const ms = Math.round(performance.now() - heldSince);
     heldFor.textContent = `${ms} ms`;
     canvas.dataset.mode = 'select';
     canvas.style.cursor = 'crosshair';
     modeValue.textContent = 'Select';
-    key.style.background = '';
-    key.style.borderColor = '';
-    key.style.color = '';
+    cap.style.background = '';
+    cap.style.borderColor = '';
+    cap.style.color = '';
     show(chip, false);
     report(ms < TAP_MS ? 'Tapped, not held: the mode ended with the key' : `Held ${ms} ms, so the mode lasted ${ms} ms`);
   };
@@ -206,18 +210,6 @@ export function mount(root: HTMLElement): void {
 
   root.addEventListener('keyup', (event) => {
     if (isSpace(event)) leaveMode();
-  });
-
-  // The stand-in for the physical key: the press opens the mode and the release closes it,
-  // through the same two functions the keyboard path calls.
-  key.addEventListener('pointerdown', (event) => {
-    // The pan that follows travels far from this control, so the pointer is captured: without
-    // it the moves stop and the release never returns, leaving the mode held open. A
-    // synthesized pointer has nothing to capture and the call throws, hence the guard.
-    if (event.isTrusted) key.setPointerCapture(event.pointerId);
-    byKeyControl = true;
-    enterMode();
-    panning = { x: event.clientX, y: event.clientY, ox: at.x, oy: at.y };
   });
 
   canvas.addEventListener('pointerdown', (event) => {
@@ -271,8 +263,6 @@ export function mount(root: HTMLElement): void {
       canvas.dataset.did = 'selected';
       report(caught === 1 ? 'Marquee took 1 card' : `Marquee took ${caught} cards`);
     }
-    // The release ends the mode, which is the whole of the term: nothing latched, nothing left.
-    if (byKeyControl) leaveMode();
   };
 
   root.addEventListener('pointerup', release);

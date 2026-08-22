@@ -13,13 +13,16 @@ export default steps([
   { assert: { selector: '[data-part=canvas][data-did=selected]', state: 'visible' } },
   { assert: { selector: '[data-part=canvas][data-mode=select]', state: 'visible' } },
   { wait: 900 },
-  // The same drag with the key held down. A drag is the one step the player holds through,
-  // so the hold and the pan are one gesture: the mode opens on the press, the world moves
-  // while it is open, and the release closes it. The pan is the durable evidence that the
-  // mode was on, since the badge is already gone by the time this is judged.
-  { moveTo: '[data-part=hold-key]' },
-  { wait: 500 },
-  { drag: { to: '[data-part=pan-to]' } },
+  // The same drag, with the key really held across it: `withKey` puts the keydown at the open
+  // of the scope and the keyup at its close, so the mode is opened by a key, spans the drag,
+  // and ends when the key comes up. The pan is the durable evidence that the mode was on,
+  // since the badge is already gone by the time this is judged.
+  {
+    withKey: {
+      key: 'Space',
+      steps: [{ moveTo: '[data-part=mark-a]' }, { wait: 400 }, { drag: { to: '[data-part=pan-to]' } }, { wait: 400 }],
+    },
+  },
   { wait: 400 },
   { assert: { selector: '[data-part=canvas][data-did=panned]', state: 'visible' } },
   { assert: { selector: '[data-part=canvas][data-mode=select]', state: 'visible' } },

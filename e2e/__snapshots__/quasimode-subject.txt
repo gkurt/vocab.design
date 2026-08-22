@@ -1,4 +1,4 @@
 term:    Quasimode
 scope:   element
-subject: div[data-did=none][data-mode=select][data-part=canvas]
+subject: div[aria-label=Board canvas: hold Space to pan][data-did=none][data-mode=select][data-part=canvas][tabindex=0]
 text:    Interviews Sign-off Handoff Kickoff Ship it Review Research Notes Retro Wirefram

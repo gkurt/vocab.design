@@ -104,6 +104,24 @@ complete; until then entries only accumulate. Entry format:
 ## input-simulation
 
 - Queued: 2026-08-19 · Status: SWEPT 2026-08-23 (7 fixed, 73 skipped; 80 flagged)
+- 2026-08-23, AFTER the sweep: the user found quasimode still faking its input, so the count
+  above is 8 fixed. It had an on-screen `sp-kbd` BUTTON whose press opened the mode and whose
+  release closed it, dragged from so the player would hold it down, standing in for a held
+  space bar that `withKey` had been able to perform since 2026-08-19. Now a real `withKey`
+  scope brackets the drag, and the button is a legend cap that lights from the real keydown.
+  Two lessons, both worth more than the fix. THE DETECTOR WAS LOOKING FOR THE WRONG WORDS: every
+  sign was simulation VOCABULARY (`simulat`, `sim-*` parts, `pretend`), and quasimode said
+  neither, because an author explaining why a control is NECESSARY reaches for different words
+  ("Attract cannot hold a key down", "a stand-in for the physical key"). The detector now also
+  matches a claim that the player CANNOT do something, plus "stands in for", which lifts it to
+  86 flagged; the dozen new hits are content stand-ins (a photograph, copy, font metrics) and
+  honest claims about focus and measurement, which is the right shape for a recall-tuned sign.
+  And THE STALE-EXCUSE GREP FROM THIS SWEEP WAS TOO NARROW: it caught `player cannot` and
+  `cannot be scripted` but not `Attract cannot`, which is the same sentence with a different
+  subject. Match the subject loosely, since the excuse is what recurs, not the phrasing.
+  Also fixed there: the demo had no `tabindex` anywhere, so a real keyboard could not reach it
+  at all and the fake button was the ONLY way in. That pairing is worth expecting: a demo that
+  fakes an input often never wired the real one for a reader either.
 - 2026-08-23 sweep: 80 flagged and the overwhelming majority were honest labelling, so
   the shortlist was cut mechanically instead of by judges: strip the documented (c)
   environment bucket, then grep for the actual offense SHAPE, a CONTROL whose data-part or
