@@ -461,8 +461,14 @@ any ── leaves viewport ──▶ paused; re-entering resumes
 ```
 
 - **User intent** (takeover): a click or tap anywhere in the specimen, keyboard focus
-  entering it, a >150 ms hover on an interactive element, or a wheel/touch gesture
-  that actually scrolls specimen content. A demo whose term is *operated by hovering*
+  entering it, ANY key pressed inside it, a >150 ms hover on an interactive element,
+  or a wheel/touch gesture that actually scrolls specimen content. Every keydown
+  claims the stage, not just the first, because a reader holding a key is mid-gesture
+  for as long as they hold it: if attract resumes underneath them its own scripted
+  keyup lands in the demo and ends the hold, so a quasimode flickers on and off once
+  per pass. For the same reason the pointer LEAVING a specimen does not hand the stage
+  back while focus is still inside it: a keyboard reader has not left, and keys like
+  Shift do not auto-repeat, so there would be no second keydown to re-claim it. A demo whose term is *operated by hovering*
   (a dock that bulges, a glow that follows the pointer) marks that surface
   `data-hover-driven`: a dwell there is intent too, so the reader's own pointer takes
   the stage without a click, which is the term's honest operation. A `data-gaze` scope

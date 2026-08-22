@@ -325,7 +325,7 @@ class VdStage extends HTMLElement {
       }
       player.userIntent(at);
     };
-    // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus, a dwell on
+    // Takeover is intentional (SPEC §7): a click anywhere, keyboard focus or a key press, a dwell on
     // an interactive element, or a gesture that actually scrolls the specimen. Merely
     // passing the pointer over the stage, or scrolling the page past it, never takes over.
     // A surface marked data-hover-driven declares hovering itself IS the interaction
@@ -353,14 +353,37 @@ class VdStage extends HTMLElement {
     });
     // The pointer leaving the specimen's outermost box, which is the canvas for a
     // shadow root and the document element for a frame.
+    /**
+     * Whether a reader still holds the specimen by the keyboard. A shadow root reports null
+     * when nothing inside it has focus; a document reports its own body, so both spellings of
+     * "nobody is here" have to be answered.
+     */
+    const focusWithin = (): boolean => {
+      const scope = surface.events as EventTarget & { activeElement?: Element | null; body?: Element | null };
+      const active = scope.activeElement ?? null;
+      return active !== null && active !== (scope.body ?? null);
+    };
     surface.edge.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
-      if (!identifyActive) player.userGone();
+      // The pointer wandering off is not the reader leaving when their focus is still in here:
+      // handing the stage back to attract under a keyboard reader is how the script gets to
+      // fight them for the demo.
+      if (!identifyActive && !focusWithin()) player.userGone();
     });
     listen<PointerEvent>('pointerdown', (event) => {
       if (event.isTrusted) takeover(event.composedPath()[0]);
     });
     listen<FocusEvent>('focusin', (event) => {
+      if (event.isTrusted) takeover(event.composedPath()[0]);
+    });
+    // A key is intent too, and it has to be claimed on EVERY keydown rather than only the
+    // first. A reader holding a key down is mid-gesture for as long as they hold it, and if
+    // attract resumes underneath them the script's own keyup lands in the demo and ends the
+    // reader's hold: a quasimode flickers on and off, once per pass. Auto-repeat re-asserts
+    // the claim, and the keys that do not repeat at all (Shift, Control) are why the pointer
+    // leaving must not hand the stage back either. Focus is already inside the specimen here,
+    // since these events are the surface's own.
+    listen<KeyboardEvent>('keydown', (event) => {
       if (event.isTrusted) takeover(event.composedPath()[0]);
     });
     listen<WheelEvent>(

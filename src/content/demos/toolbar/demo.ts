@@ -116,8 +116,17 @@ export function mount(root: HTMLElement): void {
     });
   }
 
+  /** The keys whose browser default is to scroll the page, which a toolbar has taken over. */
+  const ROVING = new Set(['ArrowRight', 'ArrowLeft', 'Home', 'End']);
+
   root.addEventListener('keydown', (event) => {
     const last = items.length - 1;
+    // A reader arrowing along the toolbar would otherwise scroll the page as they went, and
+    // Home or End would throw them to the top or bottom of it. Refused here rather than
+    // globally, so Tab still moves focus and every key this toolbar does not claim is the
+    // browser's. Enter and space are left alone on purpose: on a real button their default IS
+    // activation, so refusing them would be refusing the thing the key is for.
+    if (ROVING.has(event.key)) event.preventDefault();
     if (event.key === 'ArrowRight') return rove(Math.min(index + 1, last), true);
     if (event.key === 'ArrowLeft') return rove(Math.max(index - 1, 0), true);
     if (event.key === 'Home') return rove(0, true);

@@ -280,7 +280,13 @@ never fires under reduced motion, so nothing may ever wait on it.
   and never persist undeclared.
   A keyboard-driven demo must be drivable by a real keyboard: its control carries
   `tabindex="0"` so a reader's keys can reach it (the script needs no focus, but
-  the reader does).
+  the reader does). Making it focusable is half the job: a key the demo claims must
+  have its default refused, or the reader drives the demo and scrolls the page at
+  the same time (space, the arrows, Home, End, PageUp, PageDown all scroll). Refuse
+  per key rather than globally, so Tab still moves focus, and never refuse a key
+  whose default IS the thing being demonstrated: space on a real button activates
+  it, which is the whole of first-rule-of-aria. Synthesized keys scroll nothing, so
+  this defect is invisible to the choreography and to CI.
   A drag-driven demo must survive a real drag: capture the pointer on a trusted
   pointerdown (`if (event.isTrusted) el.setPointerCapture(event.pointerId)` — the
   guard is mandatory, synthetic pointers cannot be captured and the call throws),

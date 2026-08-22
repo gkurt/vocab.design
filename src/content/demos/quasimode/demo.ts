@@ -205,7 +205,12 @@ export function mount(root: HTMLElement): void {
   const isSpace = (event: KeyboardEvent) => event.code === 'Space' || event.key === ' ' || event.key === 'Space';
 
   root.addEventListener('keydown', (event) => {
-    if (isSpace(event)) enterMode();
+    if (!isSpace(event)) return;
+    // Space scrolls the page by default, and the canvas is focusable, so a reader holding it to
+    // pan would ride the page down while they panned. Refused on every keydown the hold
+    // produces, repeats included, rather than only on the first: the default belongs to each.
+    event.preventDefault();
+    enterMode();
   });
 
   root.addEventListener('keyup', (event) => {
