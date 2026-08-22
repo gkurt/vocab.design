@@ -113,7 +113,9 @@ function square(wash: string, glyph: IconName, size = CELL): string {
  * and the free spot the far corner, so a drag from one corner to the other passes over the
  * folder because that is where the route lies, not because a waypoint was added to make it.
  * That drag banks nothing: the ring fills part way and empties, the folder stays shut, and the
- * far corner is still reachable. Only a drag that stops pays the dwell.
+ * far corner is still reachable. Only a drag that stops pays the dwell, and what the dwell buys
+ * is not filing (dropping on the shut folder files the tile perfectly well, as it does in a
+ * launcher and in a file manager) but getting INSIDE, which is the traversal the term is for.
  *
  * Releasing closes what the gesture opened, because the drag opened it rather than the reader.
  * Nothing is re-parented between press and release, and a carried tile moves by transform, so
@@ -247,14 +249,14 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
 
           <div class="sp-stack sp-context" style="width: 196px; gap: 9px">
-            <span class="sp-label" style="font-size: 11px">Why the wait</span>
+            <span class="sp-label" style="font-size: 11px">What the wait buys</span>
             <span class="sp-text" style="font-size: 12px; line-height: 1.45"
-              >Open, the folder buries the home screen. One that sprang the moment a drag touched it would swallow every
-              drag that merely crossed it.</span
+              >Dropping on the folder files the tile with nothing opening. The dwell buys the other thing: getting
+              inside, to place it among what is already there or to carry the drag deeper.</span
             >
             <span class="sp-text" style="font-size: 12px; line-height: 1.45"
-              >So crossing banks nothing: the ring fills and empties, and the far corner is still there to drop on. Only
-              stopping pays the dwell.</span
+              >And it has to be paid for. Open, the folder buries the home screen, so one that sprang the moment a drag
+              touched it would swallow every drag that merely crossed it.</span
             >
           </div>
         </div>
@@ -325,7 +327,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     dwellTimer = clock.setTimeout(tick, TICK_MS);
   };
 
-  const fileAway = (tile: Tile, el: HTMLElement): string => {
+  /**
+   * Filing, whether the folder was open or shut. Dropping ON a shut folder files the tile
+   * too, which is what a launcher and a file manager both do: the dwell is not the price of
+   * filing, it is the price of going INSIDE, to place the tile among what is already there
+   * or to carry the drag on deeper.
+   */
+  const fileAway = (tile: Tile, el: HTMLElement, opened: boolean): string => {
     if (filed >= LANDING.length) return `Work is full: ${tile.name} went back`;
     const spot = part(root, `landing-${filed}`);
     spot.innerHTML = square(tile.wash, tile.glyph, 42);
@@ -341,7 +349,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     added.style.background = tile.wash;
     added.style.opacity = '1';
     count.textContent = `${INSIDE.length + filed} apps`;
-    return `Filed ${tile.name}: Work closed itself again`;
+    if (opened) return `Filed ${tile.name} inside: Work closed itself again`;
+    return `Dropped on Work: ${tile.name} filed without it ever opening`;
   };
 
   for (const tile of TILES) {
@@ -396,15 +405,19 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const onFolder = within(folder, event.clientX, event.clientY);
     // What the gesture sprang open, the gesture closes: the drag opened it, not the reader.
     if (sprung) spring(false);
-    if (inside) return say(fileAway(tile, el));
+    if (inside || onFolder) {
+      const message = fileAway(tile, el, inside);
+      // A full folder hands the tile back, so it keeps the place it was picked up from.
+      if (el.dataset.at !== 'folder') el.dataset.at = from;
+      return say(message);
+    }
+    el.dataset.at = from;
     if (onFree) {
       el.dataset.at = 'free';
       el.style.left = `${FREE.x}px`;
       el.style.top = `${FREE.y}px`;
       return say('Dropped on the free spot: Work never opened');
     }
-    el.dataset.at = from;
-    if (onFolder) return say('Let go on Work before the dwell: still shut');
     say(`Let go on nothing: ${tile.name} stayed put`);
   };
 
