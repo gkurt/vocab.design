@@ -26,12 +26,13 @@ type Result = keyof typeof RESULTS;
  * Two things are given their room at mount (SPEC §5). The control is held at the
  * width of its longest label, so the busy state cannot resize the thing under the
  * pointer, and the result line keeps the height of its longest message, so the
- * outcome arrives without walking the buttons up the window.
+ * outcome arrives without walking the buttons up the window. The window is wide
+ * enough for the row at that widest label, not the one it mounts with.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 320px">
+      <div class="sp-window" style="width: 348px">
         <div class="sp-context">
           <div class="sp-heading">Release notes</div>
           <div class="sp-text" style="margin-top: 4px">4 changes since the last publish</div>

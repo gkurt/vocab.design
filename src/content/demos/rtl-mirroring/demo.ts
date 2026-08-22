@@ -21,13 +21,16 @@ const NOTES: Record<string, string> = {
  *
  * Only the arrow is swapped by hand. Everything else follows `dir` on its own, which is the
  * argument the specimen is making: a layout written in logical terms mirrors itself.
+ *
+ * The frame is as tall as the panel, the legend beside it and the caption under them all
+ * take, so the comparison is never cut at the bottom edge (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const legendItem = (text: string) => `<span class="sp-label">${text}</span>`;
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 312px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Direction</span>
           <sp-segmented class="sp-segmented" data-part="switcher" data-value="rtl">
@@ -35,7 +38,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" type="button" data-part="seg-ltr" value="ltr">ltr</button>
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 16px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px 16px">
           <div class="sp-row" style="align-items: flex-start; gap: 20px">
             <div
               class="sp-surface"

@@ -4,7 +4,7 @@ import { flag, part } from '#src/kit/parts.ts';
 const FRAME_W = 460;
 const FRAME_H = 276;
 const POP_W = 210;
-const POP_H = 76;
+const POP_H = 90;
 /** Space between the anchor and the panel, and the margin the panel keeps off the frame. */
 const GAP = 8;
 const EDGE = 14;
@@ -35,8 +35,9 @@ const clamp = (value: number, low: number, high: number) => Math.min(Math.max(va
  * is hidden at rest, which identify handles by summoning it (SPEC §6), and it is honestly
  * an arrow in every state where it can be seen, so no `data-pose` condition is needed.
  *
- * The panel is out of flow at a fixed size, so opening it moves nothing in the map
- * (SPEC §5), and the placement is computed from the seat's own geometry rather than
+ * The panel is out of flow at a fixed size, sized for the longest detail line any seat
+ * can put in it, so opening it moves nothing in the map and cuts nothing off its own
+ * text (SPEC §5), and the placement is computed from the seat's own geometry rather than
  * written into the markup. A seat press always opens the panel on that seat, so a pass
  * resumed anywhere lands in the same place; dismissal is the panel's own Close, Escape,
  * or a press on the caption below the map (SPEC §8).

@@ -13,8 +13,10 @@ import { readdirSync, readFileSync } from 'node:fs';
 const BUFFER = /\b(samples|history|recent|track(ed)?Points|trail)\b/;
 const SPEED = /\b(velocity|speed|throw|fling|momentum|coast)\b/i;
 const RELEASE = /addEventListener\(\s*'pointer(up|cancel)'/;
-/** Filtering by the clock inside the release path is the honest shape, so it lowers suspicion. */
-const AT_RELEASE = /now\s*-\s*\w+\.t\b|performance\.now\(\)\s*-\s*\w+\.(t|time)\b/;
+/** Filtering by the clock inside the release path is the honest shape, so it lowers suspicion.
+ * Matched on the SHAPE of the comparison rather than on the timestamp's field name, which is
+ * the demo's own choice (`sample.t` in fling, `sample.at` in momentum-scrolling). */
+const AT_RELEASE = /\bnow\s*-\s*\w+\.\w+\s*<=?|performance\.now\(\)\s*-\s*\w+\.\w+\s*<=?/;
 
 let flagged = 0;
 const slugs = readdirSync('src/content/demos').sort();

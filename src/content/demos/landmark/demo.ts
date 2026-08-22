@@ -12,7 +12,13 @@ const REGIONS: Region[] = [
 
 const REST = 'Pick a landmark to move to it';
 
-const BOX = 'border: 1px dashed var(--sp-accent); border-radius: 6px; background: var(--sp-surface); padding: 6px 8px; overflow: hidden';
+/**
+ * Every region is clipped, so its line height is stated rather than left to the font: that is
+ * what makes the auto rows measurable and leaves the 1fr row enough for main, which carries
+ * the most of the five.
+ */
+const BOX =
+  'border: 1px dashed var(--sp-accent); border-radius: 6px; background: var(--sp-surface); padding: 6px 8px; line-height: 1.2; overflow: hidden';
 
 /**
  * Landmark specimen: a page fragment whose five major regions are the real elements
@@ -23,7 +29,8 @@ const BOX = 'border: 1px dashed var(--sp-accent); border-radius: 6px; background
  * at a time, and main is the one a reader is trying to reach. The other four regions
  * and the rotor are scenery, so their outlines go chroma-free with the context accent
  * while main keeps the kit palette. Selecting a landmark only repaints a fill and
- * swaps a border style, so no box in the fragment changes size (SPEC §5).
+ * swaps a border style, so no box in the fragment changes size (SPEC §5), and each
+ * region holds the content it carries rather than clipping it.
  */
 export function mount(root: HTMLElement): void {
   const lines = (widths: number[]) => widths.map((w) => `<div class="sp-line" style="width: ${w}%; margin-top: 5px"></div>`).join('');

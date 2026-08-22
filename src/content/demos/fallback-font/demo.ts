@@ -57,7 +57,9 @@ const probe = (name: string, family: string) =>
  * keep identify out of.
  *
  * Both lines are fixed boxes that clip, so a stand-in set a quarter larger
- * cannot move the caption under it (SPEC §5).
+ * cannot move the caption under it, and both readings are written short enough
+ * to hold the readout's single line, so neither state pushes the caption down
+ * (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -121,8 +123,8 @@ export function mount(root: HTMLElement): void {
     line.dataset.tuned = on ? 'on' : 'off';
     glyphs.style.fontSize = `${(on ? tuned : SIZE).toFixed(1)}px`;
     readout.textContent = on
-      ? `size-adjust: ${percent}%, so ${SIZE}px of stand-in draws at ${tuned.toFixed(1)}px and the x-heights agree.`
-      : `Both lines are set at ${SIZE}px, and the stand-in spends far less of it on its lowercase.`;
+      ? `size-adjust: ${percent}% draws ${SIZE}px as ${tuned.toFixed(1)}px: x-heights agree.`
+      : `Both are set at ${SIZE}px, and the stand-in draws smaller.`;
   };
 
   apply('off');

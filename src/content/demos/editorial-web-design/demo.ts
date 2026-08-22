@@ -9,6 +9,10 @@
  * is sans-only with a single accent on purpose. The pull quote repeats a sentence that is
  * already in the running text, so it is hidden from assistive technology: a reader should
  * hear the line once. Nothing moves, because a spread is read rather than watched.
+ *
+ * The opener is set at the width the stage can hold the whole composition in: a narrower
+ * measure wraps the deck, the pull quote and the running text onto extra lines until the
+ * figure at the foot falls off the bottom of the stage (SPEC §5).
  */
 const SERIF = "Georgia, 'Iowan Old Style', 'Times New Roman', serif";
 const PAPER = '#faf8f4';
@@ -20,7 +24,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 10px">
       <div data-part="opener" data-subject
-           style="width: 268px; padding: 14px; background: ${PAPER}; color: ${INK}; font-family: ${SERIF}; overflow: hidden">
+           style="width: 452px; padding: 12px 14px; background: ${PAPER}; color: ${INK}; font-family: ${SERIF}; overflow: hidden">
 
         <span aria-hidden="true" style="display: block; height: 2px; background: ${INK}"></span>
 
@@ -32,7 +36,7 @@ export function mount(root: HTMLElement): void {
 
         <h2 data-part="headline"
             style="margin: 8px 0 0; font-size: 23px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.06">
-          Twelve miles<br>of weather
+          Twelve miles of weather
         </h2>
 
         <p data-part="deck"
@@ -64,7 +68,7 @@ export function mount(root: HTMLElement): void {
             </div>
             <figure data-part="figure" style="margin: 0">
               <div aria-hidden="true"
-                   style="height: 34px; background-image: linear-gradient(160deg, #8fa9b8, #43606f 62%, #2b3d47)"></div>
+                   style="height: 30px; background-image: linear-gradient(160deg, #8fa9b8, #43606f 62%, #2b3d47)"></div>
               <figcaption style="margin-top: 3px; font-family: var(--sp-font); font-size: 7.5px; letter-spacing: 0.06em; color: ${MUTED}">
                 Fig. 2 Low water, March
               </figcaption>
@@ -74,7 +78,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <p class="sp-text sp-context" data-part="caption"
-         style="max-width: 268px; margin: 0; text-align: center; font-size: 11px">
+         style="max-width: 452px; margin: 0; text-align: center; font-size: 11px">
         Display type, deck, byline rules, columns, a pull quote.
       </p>
     </div>

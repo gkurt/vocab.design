@@ -29,8 +29,8 @@ const stat = (name: string, label: string, value: string) => `
     <span style="font-size: 16px; font-weight: 600; line-height: 1.1">${value}</span>
   </div>`;
 
-const row = (width: number, value: string) => `
-  <div style="display: flex; flex: 0 0 auto; height: 16px; align-items: center; gap: 8px">
+const row = (index: number, width: number, value: string) => `
+  <div data-part="order-${index}" style="display: flex; flex: 0 0 auto; height: 16px; align-items: center; gap: 8px">
     <span class="sp-line" style="flex: 0 0 auto; width: ${width}px; height: 6px"></span>
     <span class="sp-label" style="margin-left: auto; font-size: 11px">${value}</span>
   </div>`;
@@ -46,7 +46,9 @@ const row = (width: number, value: string) => `
  * Both arrangements are honestly the term (a uniform dashboard is still a dashboard grid,
  * just one that has stopped ranking anything), so the subject never stops being what it
  * claims and no `data-pose` is needed. The field keeps its own box across the switch, with
- * fixed tracks, so only the tiles inside it move (SPEC §5).
+ * fixed tracks, so only the tiles inside it move (SPEC §5), and a tile shows what its own
+ * height holds: the order list drops to the one line a single row tile has room for rather
+ * than being cut off inside it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -83,9 +85,9 @@ export function mount(root: HTMLElement): void {
             <div class="sp-surface" data-part="card-list" style="${CARD}">
               <span class="sp-label">Recent orders</span>
               <div style="display: flex; flex: 1 1 auto; flex-direction: column; justify-content: space-between; gap: 10px; min-height: 0; overflow: hidden">
-                ${row(52, '£62')}
-                ${row(40, '£18')}
-                ${row(60, '£145')}
+                ${row(1, 52, '£62')}
+                ${row(2, 40, '£18')}
+                ${row(3, 60, '£145')}
               </div>
             </div>
           </div>
@@ -108,6 +110,10 @@ export function mount(root: HTMLElement): void {
       card.style.gridColumn = `span ${columns}`;
       card.style.gridRow = `span ${rows}`;
     }
+    // A one row tile has the height for a single line, so the order list shows the line that
+    // fits instead of clipping three (SPEC §5). Losing what it cannot hold is what a tile
+    // gives up when it stops outranking anything.
+    for (const index of [2, 3]) part(root, `order-${index}`).style.display = mode === 'sized' ? 'flex' : 'none';
     readout.textContent = note;
   };
 

@@ -17,12 +17,13 @@ const lines = (widths: number[]) => widths.map((width) => `<div class="sp-line" 
  * Every gesture reaches an absolute share (SPEC §8): dragging past either pane's
  * limit lands exactly on that limit, the arrow keys move whole steps from there, and
  * a double click returns the bar to the share it mounted at. The frame, the title
- * bar and the status line hold still while the two panes trade room (SPEC §5).
+ * bar and the status line hold still while the two panes trade room, and the frame is
+ * as tall as the taller pane's content, so neither pane is cut (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 420px; height: 250px">
+      <div class="sp-frame" style="width: 420px; height: 276px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">index.html</span><span class="sp-label">Saved</span></div>
         <div class="sp-row" data-part="split" style="flex: 1 1 auto; gap: 0; min-height: 0; align-items: stretch">
           <div

@@ -56,7 +56,9 @@ const rowMarkup = TASKS.map(
  *
  * The band and the ruler are drawn outside the scroller so they hold still while it moves,
  * the dragged row is dimmed rather than removed, and the insertion marker is a line in the
- * gap between rows, so nothing the drag is not carrying moves (SPEC §5).
+ * gap between rows, so nothing the drag is not carrying moves (SPEC §5). The readout is held
+ * at the width of its longest sentence, the one naming the longest task, so it never runs
+ * back over the heading beside it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -64,7 +66,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 254px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Backlog</span>
-          <span class="sp-text" data-part="readout" data-drop="none" style="width: 236px; text-align: right; white-space: nowrap">Drag a row into the edge band</span>
+          <span class="sp-text" data-part="readout" data-drop="none" style="flex: 0 0 auto; width: 344px; text-align: right; white-space: nowrap">Drag a row into the edge band</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div style="position: relative; width: ${VIEW.w}px; height: ${VIEW.h}px">
@@ -101,7 +103,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-topbar sp-context" style="gap: 10px; border-bottom: 0; border-top: 1px solid var(--sp-line)">
           <span class="sp-label" style="width: 40px">Scroll</span>
           <div class="sp-progress" data-part="ruler" style="width: 96px"><div class="sp-progress-fill" style="--sp-value: 0%; transition: none"></div></div>
-          <span class="sp-label sp-grow" style="text-align: right; white-space: nowrap">The band is the last ${ZONE} px, and the deeper the faster</span>
+          <span class="sp-label sp-grow" style="text-align: right; white-space: nowrap">The band is the last ${ZONE} px, deeper is faster</span>
         </div>
       </div>
     </div>

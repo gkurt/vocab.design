@@ -39,7 +39,8 @@ const band = (value: number) => (value < 34 ? 'low' : value > 66 ? 'high' : 'mid
  * pointerdown so a reader's stroke keeps reporting past the dial's edge, and the press ends on
  * pointerup and pointercancel, never on a boundary event (SPEC §7). The waypoints the script
  * travels through are invisible aim anchors with no paint of their own (SPEC §5). No timers: the
- * value follows the pointer rather than playing back.
+ * value follows the pointer rather than playing back. The header label is kept short enough that
+ * the window holds it beside the picker instead of bleeding past its own edge (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const stop = (name: string, angle: number) => {
@@ -51,7 +52,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Brightness, set by a stroke around the dial</span>
+          <span class="sp-label" style="flex: 0 1 auto; min-width: 0">Brightness, set by a stroke</span>
           <sp-segmented class="sp-segmented" data-part="mode" data-value="both" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-both" value="both"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Gesture and buttons</button>

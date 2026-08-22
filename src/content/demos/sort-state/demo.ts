@@ -44,12 +44,13 @@ function header({ key, label }: { key: ColumnKey; label: string }): string {
  * (SPEC §8): the flip between ascending and descending is the term itself, and the script
  * drives both directions on purpose. Every other press reaches an absolute state, a named
  * column sorted ascending. The arrow's room is reserved in every header and the row count
- * never changes, so sorting moves nothing that did not sort (SPEC §5).
+ * never changes, so sorting moves nothing that did not sort (SPEC §5). The frame holds
+ * the four rows and both readout lines at their full height rather than clipping them.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 246px">
+      <div class="sp-frame sp-frame--wide" style="height: 288px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow" style="font-size: 14px">Project files</span></div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <div class="sp-surface" style="padding: 2px 10px">

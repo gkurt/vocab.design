@@ -51,7 +51,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 356px; height: 250px">
+      <div class="sp-frame" style="width: 356px; height: 284px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Field notes</span>
           <span class="sp-label">Plate 12</span>

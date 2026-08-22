@@ -9,10 +9,17 @@ const RING = 'M6.5 20A13.5 13.5 0 1 1 33.5 20A13.5 13.5 0 1 1 6.5 20';
 const CHECK = 'M13.2 20.4L18.2 25.6L27.4 14.6';
 const INK = '#3f6cd1';
 
-/** The export size of the bitmap, in its own pixels, and the box both marks are shown in. */
-const ART = 40;
+/** The unit grid the paths above are written on, which both renderers scale from. */
+const GRID = 40;
+/**
+ * The export size of the bitmap, in its own pixels, and the box both marks are shown in. The
+ * pane has to hold the largest mark THROUGH the shake, and a square turned thirteen degrees
+ * needs about 1.35 times its own side, so the export size is read off the pane rather than the
+ * pane off the artwork: 3x of 30 swings inside 128, where 3x of 40 would have its corners cut.
+ */
+const ART = 30;
 const PANE = 128;
-const SIZES = { x1: 40, x2: 80, x3: 120 } as const;
+const SIZES = { x1: ART, x2: ART * 2, x3: ART * 3 } as const;
 type Scale = keyof typeof SIZES;
 
 const PLAY_MS = 1150;
@@ -40,8 +47,8 @@ const pane = (label: string, note: string, art: string, context: boolean) => `
  * is no runtime in this page and no JSON to feed it. What it shows is the format's actual claim, and
  * the claim can be shown honestly with two genuine exports of one mark.
  *
- * The left pane is a real raster export: a canvas whose backing store is 40 by 40 pixels, drawn once
- * at mount, so asking the browser to display it at 120 px is a true three times upscale and softens
+ * The left pane is a real raster export: a canvas whose backing store is 30 by 30 pixels, drawn once
+ * at mount, so asking the browser to display it at 90 px is a true three times upscale and softens
  * exactly as a bitmap does. The right pane is the same geometry as vector paths, redrawn by the
  * browser at whatever size it is given. Both are the same path strings, both play the same shake, so
  * the only difference between the panes at 3x is the one the format exists to remove.
@@ -51,8 +58,9 @@ const pane = (label: string, note: string, art: string, context: boolean) => `
  * the term (SPEC §5).
  *
  * Each scale is an absolute state named by its own segment, and Replay always reaches the same
- * state, played (SPEC §8). Both marks are centred in a box sized at mount for the largest of them,
- * so changing scale moves nothing else (SPEC §5), and nothing is measured. `motion.css` cannot reach
+ * state, played (SPEC §8). Both marks are centred in a box that holds the largest of them at the
+ * widest point of its shake, so changing scale moves nothing else and the swing is never cut
+ * (SPEC §5), and nothing is measured. `motion.css` cannot reach
  * an `element.animate` keyframe set, so the demo asks `prefersReducedMotion` itself and leaves both
  * marks at rest, which is the honest answer for a decorative shake; the settle beat comes from the
  * stage's clock so a pose cannot let a play finish under an inspection.
@@ -89,7 +97,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               'shapes, no pixels',
               `<svg
                  data-part="vector" data-subject data-state="settled" data-plays="0"
-                 viewBox="0 0 ${ART} ${ART}" aria-hidden="true"
+                 viewBox="0 0 ${GRID} ${GRID}" aria-hidden="true"
                  style="width: ${start}px; height: ${start}px; display: block; transform-origin: 50% 70%;
                         transition: width 220ms var(--sp-ease), height 220ms var(--sp-ease)"
                >
@@ -124,6 +132,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   // an export rather than a second vector renderer.
   const ctx = canvas.getContext('2d');
   if (ctx) {
+    ctx.scale(ART / GRID, ART / GRID);
     ctx.fillStyle = INK;
     ctx.fill(new Path2D(BADGE));
     ctx.strokeStyle = 'rgb(255 255 255 / 0.75)';

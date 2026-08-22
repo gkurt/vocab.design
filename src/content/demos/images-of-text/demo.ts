@@ -7,7 +7,8 @@ const BANNER_INK = '#ffffff';
 const BANNER_SUB = 'rgb(255 255 255 / 0.74)';
 
 const W = 200;
-const H = 44;
+/** Cut for the two lines the banner carries, headline and date, at their own line heights. */
+const H = 56;
 const ZOOM = 1.4;
 /** The slot is cut for the zoomed banner, so zooming never moves the row below it (SPEC §5). */
 const SLOT = `width: ${Math.ceil(W * ZOOM) + 4}px; height: ${Math.ceil(H * ZOOM) + 2}px`;
@@ -36,6 +37,8 @@ const FACT = 'flex: 1 1 auto; min-width: 0; font-size: 11px';
  * nothing repaints it afterwards, so scaling it has nothing to work with but those pixels.
  * Both banners sit in slots cut for the zoomed size, so changing zoom moves nothing outside
  * them, and each segment reaches its own level rather than flipping the other's (SPEC §8).
+ * The banner's own height is the room its two lines and its padding actually need, so the
+ * live text is never cut by the box that is supposed to be showing it off.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `

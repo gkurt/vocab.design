@@ -29,11 +29,13 @@ type Mode = keyof typeof MOVES;
  * The subject is the panel, since the term names what the movement is done to. The list
  * behind it, the two controls that reach the panel's states, and the switch itself are
  * scenery. The panel is positioned over the scene rather than in its flow, so neither
- * entrance moves anything that did not change (SPEC §5).
+ * entrance moves anything that did not change (SPEC §5). The scene is as tall as the
+ * three rows behind the panel, so the list it plays over is whole rather than cut.
  */
 export function mount(root: HTMLElement): void {
   const rows = ['Unread', 'Flagged', 'Sent'].map(
-    (label) => `<li class="sp-list-item"><span class="sp-grow">${label}</span><span class="sp-label">24</span></li>`,
+    (label) =>
+      `<li class="sp-list-item" style="padding: 6px 10px"><span class="sp-grow">${label}</span><span class="sp-label">24</span></li>`,
   );
 
   root.innerHTML = `
@@ -47,7 +49,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-surface" data-part="scene" data-motion="full"
-             style="position: relative; height: 104px; margin-top: 10px; padding: 4px 8px; background: var(--sp-sunken); overflow: hidden">
+             style="position: relative; height: 118px; margin-top: 10px; padding: 4px 8px; background: var(--sp-sunken); overflow: hidden">
           <ul class="sp-list sp-context" style="margin: 0; padding: 0; list-style: none">${rows.join('')}</ul>
           <div class="sp-surface" data-part="panel" data-subject
                style="position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px 12px; box-shadow: var(--sp-shadow);

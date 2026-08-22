@@ -1,4 +1,4 @@
 term:    Editorial web design
 scope:   element
 subject: div[data-part=opener]
-text:    Sea and land No. 12 Twelve milesof weather The last keeper on a coast that stopp
+text:    Sea and land No. 12 Twelve miles of weather The last keeper on a coast that stop

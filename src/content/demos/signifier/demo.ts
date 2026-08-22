@@ -37,7 +37,9 @@ const BARES = ['bare-button', 'bare-link', 'bare-grip'];
  * one looks like it allows. The readout names what the element under the pointer is saying
  * rather than what it does, which is the distinction the term is for, and the callout
  * labels sit outside the subject because naming a cue is commentary, not part of it. The
- * columns are held to one width so the labels line up under the marks they name.
+ * columns are held to one width so the labels line up under the marks they name, and the
+ * readout is sized for its longest line and held to one, so naming a cue cannot push the
+ * rows below it down (SPEC §5).
  *
  * The kit's own hover paint is left to the stage: the pointer is mirrored into
  * `data-hovered` (SPEC §7), so the signified controls light up under the ghost cursor and
@@ -49,10 +51,10 @@ const BARES = ['bare-button', 'bare-link', 'bare-grip'];
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep">
-      <div class="sp-frame sp-frame--wide" style="height: 280px">
+      <div class="sp-frame sp-frame--wide" style="height: 288px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Release 4.2</span>
-          <span class="sp-text" data-part="readout" data-reads="away" style="width: 234px; text-align: right">Pointer away</span>
+          <span class="sp-text" data-part="readout" data-reads="away" style="width: 320px; text-align: right; white-space: nowrap">Pointer away</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <span class="sp-label sp-context">The same three actions, twice.</span>

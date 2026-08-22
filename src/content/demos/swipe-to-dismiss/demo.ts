@@ -31,8 +31,9 @@ function mark(at: string, label: string, name: string): string {
  * The subject is the swipeable card, not the row that holds it and not the list: the
  * term names the thing that leaves. The ruler under the list is instrumentation and
  * so is the undo strip, both scenery (SPEC §5). The undo strip keeps its slot whether
- * it is showing or not, so nothing outside the list moves; inside the list, the space
- * closing is the term doing its work rather than incidental shift.
+ * it is showing or not, and the ruler is held against the floor of the frame by an auto
+ * margin rather than floating up on the list, so nothing outside the list moves; inside
+ * the list, the space closing is the term doing its work rather than incidental shift.
  *
  * The card also carries a dismiss button, because a gesture cannot be made with a
  * keyboard, a switch, or a voice command, and the pattern is only honest with a
@@ -49,7 +50,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 270px">
+      <div class="sp-frame sp-frame--wide" style="height: 306px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Notifications</span></div>
         <div class="sp-body sp-context" style="display: flex; flex-direction: column; gap: 8px">
           <div class="sp-surface" style="overflow: hidden">
@@ -71,7 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               ${quiet}
             </ul>
           </div>
-          <div class="sp-context" data-part="ruler" style="position: relative; height: 26px">
+          <div class="sp-context" data-part="ruler" style="position: relative; flex: 0 0 auto; margin-top: auto; height: 26px">
             <span style="position: absolute; left: 27%; top: 0; height: 12px; border-left: 1px dashed var(--sp-muted)"></span>
             <span class="sp-label" style="position: absolute; left: 27%; bottom: 0; transform: translateX(-50%); font-size: 10px">threshold</span>
             ${mark('38%', 'short', 'mark-short')}

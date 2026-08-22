@@ -7,6 +7,9 @@ const LOAD_MS = 1500;
  * Skeleton screen specimen: grey shapes standing in for content that is on its
  * way, laid out exactly where the real rows will land. The subject is grey by
  * definition, so the stage's identify control is what points it out.
+ *
+ * The frame is sized for the loaded rows, the taller of the two states it holds, so
+ * the arrival of the real content cuts nothing off the bottom (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const bones = [0, 1, 2]
@@ -38,7 +41,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 220px">
+      <div class="sp-frame sp-frame--wide" style="height: 244px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Activity</span>
           <button class="sp-button sp-button--ghost sp-button--sm" data-part="reload">Reload</button>

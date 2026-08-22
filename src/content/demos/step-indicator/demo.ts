@@ -11,7 +11,8 @@ const STAGES = ['Cart', 'Shipping', 'Payment'] as const;
  * Continue clamps at the last stage rather than wrapping, so a pass resumed part
  * way through can only ever be further along, never back at the start pretending
  * to be finished (SPEC §8). Every stage keeps its width and its marker from mount,
- * so advancing repaints the track without moving it (SPEC §5).
+ * so advancing repaints the track without moving it (SPEC §5), and the panel is tall
+ * enough for its heading, its lines and its buttons rather than for three of the four.
  */
 export function mount(root: HTMLElement): void {
   const stages = STAGES.map(
@@ -41,7 +42,7 @@ export function mount(root: HTMLElement): void {
           <ol class="sp-row" data-part="steps" data-subject aria-label="Checkout progress" style="margin: 0; padding: 0 2px; list-style: none; gap: 8px">
             ${stages}
           </ol>
-          <div class="sp-surface sp-context" style="margin-top: 14px; padding: 12px; height: 118px">
+          <div class="sp-surface sp-context" style="margin-top: 14px; padding: 12px; height: 138px">
             <span class="sp-heading" data-part="panel-title">Cart</span>
             <div class="sp-stack" style="margin-top: 12px; gap: 9px">
               <div class="sp-line" style="width: 92%"></div>

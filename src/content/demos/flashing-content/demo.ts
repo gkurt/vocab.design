@@ -57,7 +57,8 @@ const CAPTION: Record<Rate, string> = {
  *
  * The subject is the region whose rate is being measured, which it honestly is in every resting
  * state, including the refused one where the measurement is what stops it. The picker, the meter
- * and the caption are scenery (SPEC §5), and all three states use the same boxes.
+ * and the caption are scenery (SPEC §5), and all three states use the same boxes, sized for the
+ * longest verdict and the whole meter rather than for the rate the specimen mounts with.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -75,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-row" style="margin-top: 8px; height: 132px; gap: 10px; align-items: stretch">
+        <div class="sp-row" style="margin-top: 8px; height: 152px; gap: 10px; align-items: stretch">
           <div class="sp-surface" data-part="region" data-subject data-rate="slow"
                style="flex: 1 1 auto; min-width: 0; padding: 10px; display: flex; flex-direction: column;
                       gap: 8px; align-items: center">

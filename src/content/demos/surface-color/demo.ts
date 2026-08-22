@@ -70,7 +70,8 @@ const lightness = (hex: string) => {
  * The subject is the stack of planes. The term names those levels rather than the readout
  * that measures them or the scheme control above them, so both of those stay in the context
  * register. Every box is a fixed size and the readouts are tabular, so switching scheme
- * repaints and moves nothing (SPEC §5).
+ * repaints and moves nothing (SPEC §5). The window is sized for the readout column beside
+ * the stack, which needs the whole of a token name and its lightness on one line.
  */
 export function mount(root: HTMLElement): void {
   const start = SCHEMES[START] ?? SCHEMES.light;
@@ -89,7 +90,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 380px">
+      <div class="sp-window" style="width: 420px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Scheme</span>
           <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">

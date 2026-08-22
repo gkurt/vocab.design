@@ -1,4 +1,4 @@
 term:    Whitespace
 scope:   element
 subject: div.sp-surface.sp-stack[data-grouped][data-part=roomy][data-ratio=5.5]
-text:    Kestrel Berth A1, 18 metres Nightly 42.00, water and power included Available To
+text:    Kestrel Berth A1, 18 metres Nightly 42.00, water and power Available Tonight unt

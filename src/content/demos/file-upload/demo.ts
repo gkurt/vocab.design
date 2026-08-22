@@ -15,9 +15,11 @@ const TICK_MS = 260;
  *
  * The chosen row and the prompt it replaces share one reserved box, so a file
  * arriving, transferring, and finishing never moves the control above it or the
- * form below it (SPEC §5). Every route reaches the same state rather than
- * flipping one (SPEC §8): choosing always starts a transfer from nothing, and
- * removing is the explicit way back.
+ * form below it (SPEC §5). The status is held at the width of its longest
+ * reading, "Uploading 100%", so the last tick of the transfer cannot fold the
+ * row onto a second line and walk the remove button down with it. Every route
+ * reaches the same state rather than flipping one (SPEC §8): choosing always
+ * starts a transfer from nothing, and removing is the explicit way back.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -61,7 +63,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               >
                 <div class="sp-row">
                   <span class="sp-text sp-text--ink sp-grow" style="min-width: 0">budget.xlsx</span>
-                  <span class="sp-text" data-part="file-status" style="width: 84px; text-align: right; font-variant-numeric: tabular-nums">Uploading 0%</span>
+                  <span class="sp-text" data-part="file-status" style="flex: 0 0 auto; width: 108px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums">Uploading 0%</span>
                   <button class="sp-icon-button" type="button" data-part="remove" aria-label="Remove budget.xlsx">${icon('close')}</button>
                 </div>
                 <div

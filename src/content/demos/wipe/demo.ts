@@ -40,7 +40,9 @@ const PLATES = [HARBOUR, OFFSHORE];
  * rather than either plate; the picker, the frame, and the caption are scenery.
  *
  * A clip changes what is painted and never what is measured, so both plates stay laid
- * out at full size for the whole span and nothing around them moves (SPEC §5). Each
+ * out at full size for the whole span and nothing around them moves (SPEC §5). The frame
+ * is tall enough for the picker, the slot at its stated height and the caption on the two
+ * lines it takes at this width, so none of them is cut. Each
  * segment resolves to an absolute plate rather than flipping whichever one is showing
  * (SPEC §8). The travel is two CSS transitions started in the same tick with identical
  * linear timing, so `motion.css` flattens both together for a reader who asked for less
@@ -67,7 +69,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 360px; height: 252px">
+      <div class="sp-frame" style="width: 360px; height: 276px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Coast reel</span>
           <span class="sp-label">Plate 2 of 2</span>

@@ -67,7 +67,9 @@ const savedRow = (key: string, name: string, price: string, when: string, hidden
  *
  * Every row in both lists sits in a slot of fixed height, and the undo strip is exactly
  * as tall as the row it replaces, so an item crossing between the lists moves nothing
- * else (SPEC §5).
+ * else (SPEC §5). The note under the frame holds the room its longer wording needs,
+ * measured once at mount, for the same reason: the scene is centred, so a note that
+ * changed height would move the basket above it.
  */
 export function mount(root: HTMLElement): void {
   const basket = ITEMS.map((item) => slot(`${basketRow(item)}${undoRow(item)}`)).join('');
@@ -147,4 +149,10 @@ export function mount(root: HTMLElement): void {
   }
 
   show();
+
+  // The two notes are not the same number of lines, and the scene is centred, so a swap
+  // between them would drift the whole basket up or down. The longer note is the one on
+  // screen at mount, so its room is measured there, in the state it is measured in, and
+  // held for the other (SPEC §5).
+  note.style.height = `${Math.ceil(note.getBoundingClientRect().height)}px`;
 }

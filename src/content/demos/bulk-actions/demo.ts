@@ -18,8 +18,9 @@ const BAR_FADE = 'opacity 0.16s, visibility 0.16s';
  *
  * The bar is drawn over the table's own toolbar rather than beside it, so starting a
  * selection never moves the rows the reader is choosing from, and the mark an action
- * leaves sits in a column reserved from mount (SPEC §5). The header checkbox carries
- * the mixed state, which is the state a two-state box cannot say. Selecting is not a
+ * leaves sits in a column reserved from mount: the chip keeps its box in every row
+ * from the start and is only made visible, so archiving cannot grow a row (SPEC §5).
+ * The header checkbox carries the mixed state, which is the state a two-state box cannot say. Selecting is not a
  * toggle the script flips: each row is checked once, and the selection is spent or
  * cleared explicitly (SPEC §8).
  */
@@ -30,7 +31,7 @@ export function mount(root: HTMLElement): void {
         <td><button class="sp-checkbox" data-part="cb-${id}" data-row="${id}" type="button" role="checkbox" aria-checked="false" aria-label="Select ${name}"></button></td>
         <td class="sp-text--ink">${name}</td>
         <td class="sp-text--ink">${amount}</td>
-        <td style="text-align: right"><span class="sp-chip" data-part="tag-${id}" hidden>Archived</span></td>
+        <td style="text-align: right"><span class="sp-chip" data-part="tag-${id}" style="visibility: hidden">Archived</span></td>
       </tr>`,
   ).join('');
 
@@ -111,7 +112,7 @@ export function mount(root: HTMLElement): void {
 
   part(root, 'archive').addEventListener('click', () => {
     // The command reaches every selected row at once, and spends the selection with it.
-    for (const id of selected) part(root, `tag-${id}`).hidden = false;
+    for (const id of selected) part(root, `tag-${id}`).style.visibility = 'visible';
     selected.clear();
     paint();
   });

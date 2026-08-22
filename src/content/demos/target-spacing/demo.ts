@@ -46,7 +46,8 @@ const CAPTION: Record<State, string> = {
  *
  * The circles are drawn out of flow, so revealing them moves nothing, and the gutter is the one
  * measurement the term is about, so it is the only thing a state change is allowed to move
- * (SPEC §5). No timer is needed.
+ * (SPEC §5). The header holds its title and all three segment names on one line at their real
+ * widths, which is what sets the title's length and the segments' padding. No timer is needed.
  */
 export function mount(root: HTMLElement): void {
   const buttons = TOOLS.map(({ key, name, label }, index) => {
@@ -66,14 +67,14 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The 24 pixel circle test</span>
+          <span class="sp-label" style="flex: 0 0 auto">24 pixel circle test</span>
           <sp-segmented class="sp-segmented" data-part="picker" data-value="spaced">
             <button class="sp-segment" type="button" data-part="seg-shipped" value="shipped"
-                    style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">As shipped</button>
+                    style="padding: 4px 8px; font-size: 11.5px; white-space: nowrap">As shipped</button>
             <button class="sp-segment" type="button" data-part="seg-tested" value="tested"
-                    style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Draw the circles</button>
+                    style="padding: 4px 8px; font-size: 11.5px; white-space: nowrap">Draw the circles</button>
             <button class="sp-segment" type="button" data-part="seg-spaced" value="spaced"
-                    style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Space them out</button>
+                    style="padding: 4px 8px; font-size: 11.5px; white-space: nowrap">Space them out</button>
           </sp-segmented>
         </div>
 

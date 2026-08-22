@@ -6,7 +6,9 @@ import { icon } from '#src/kit/icons.ts';
  * it is scenery: the term is what interrupts the reading, not the reading.
  *
  * Nothing dismisses it and nothing reveals it, which is the point. A callout is
- * written into the content and is there for every reader on every visit.
+ * written into the content and is there for every reader on every visit. The page
+ * is as tall as the reading it holds, so the paragraph the note interrupts still
+ * finishes on screen (SPEC §5).
  *
  * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
  * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
@@ -14,7 +16,7 @@ import { icon } from '#src/kit/icons.ts';
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep">
-      <div class="sp-frame" style="height: 250px">
+      <div class="sp-frame" style="height: 272px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Rotating an API key</span></div>
         <div class="sp-body">
           <p class="sp-prose sp-context" data-part="prose-before" style="margin: 0">

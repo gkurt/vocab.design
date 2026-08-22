@@ -1,12 +1,13 @@
 import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
+/** The picked ones sit at the end, so the act takes the tail and the rows that stay hold their place. */
 const FILES = [
+  { name: 'notes.md', size: '12 KB', picked: false },
+  { name: 'sketch.png', size: '640 KB', picked: false },
   { name: 'Q3 report.pdf', size: '1.4 MB', picked: true },
   { name: 'logo-final.svg', size: '82 KB', picked: true },
-  { name: 'notes.md', size: '12 KB', picked: false },
   { name: 'invoice-118.pdf', size: '2.7 MB', picked: true },
-  { name: 'sketch.png', size: '640 KB', picked: false },
 ];
 
 const DOOMED = FILES.map((f, i) => (f.picked ? i : -1)).filter((i) => i >= 0);
@@ -41,9 +42,9 @@ const rows = FILES.map(
  * Nothing here is wired merely to repaint hover, which the player mirrors by itself
  * (SPEC §7).
  *
- * The panel and the receipt share one slot reserved from mount and the list holds its
- * height whatever is left in it, so a consequence appearing, retreating, or being carried
- * out moves nothing else (SPEC §5).
+ * The panel and the receipt share one slot reserved from mount, the list holds its height
+ * whatever is left in it, and the rows the act takes are the last ones, so a consequence
+ * appearing, retreating, or being carried out moves nothing else (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -55,7 +56,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body" style="display: flex; gap: 12px; align-items: flex-start">
           <div class="sp-surface sp-context" style="flex: 0 0 auto; width: 226px; height: 168px; overflow: hidden">
-            <ul class="sp-list" data-part="list">${rows}</ul>
+            <ul class="sp-list" data-part="list" style="height: 100%">${rows}</ul>
           </div>
           <div class="sp-stack" style="flex: 1 1 auto; gap: 10px">
             <button

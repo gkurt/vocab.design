@@ -17,7 +17,9 @@ const SETTLE = 'height 0.26s var(--sp-ease), transform 0.3s var(--sp-ease), visi
  * The trigger only ever opens, and always to the same detent, so a pass picked up
  * anywhere lands in the same place; dismissal is explicit, by Escape or by the
  * scrim (SPEC §8). The sheet is out of flow, so nothing behind it moves as it
- * rises or changes height (SPEC §5).
+ * rises or changes height (SPEC §5), and its content scrolls inside it rather
+ * than spilling past the bottom edge: at the half detent there is more written
+ * than there is sheet to hold it, which is what the taller detent is for.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -42,15 +44,18 @@ export function mount(root: HTMLElement): void {
           data-state="closed"
           role="dialog"
           aria-label="Blue Bottle"
-          style="position: absolute; left: 0; right: 0; bottom: 0; height: ${DETENTS.half * 100}%; border-radius: 16px 16px 0 0; border-bottom: 0; box-shadow: var(--sp-shadow); transform: translateY(100%); visibility: hidden; transition: ${SETTLE}"
+          style="position: absolute; left: 0; right: 0; bottom: 0; height: ${DETENTS.half * 100}%; display: flex; flex-direction: column; overflow: hidden; border-radius: 16px 16px 0 0; border-bottom: 0; box-shadow: var(--sp-shadow); transform: translateY(100%); visibility: hidden; transition: ${SETTLE}"
         >
           <div
             data-part="handle-area"
-            style="display: flex; align-items: center; justify-content: center; height: 22px; touch-action: none; cursor: grab"
+            style="display: flex; flex: 0 0 auto; align-items: center; justify-content: center; height: 22px; touch-action: none; cursor: grab"
           >
             <span data-part="grabber" style="width: 36px; height: 5px; border-radius: 999px; background: var(--sp-line)"></span>
           </div>
-          <div class="sp-stack" style="gap: 8px; padding: 4px 14px 14px">
+          <div
+            class="sp-stack"
+            style="flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-gutter: stable; gap: 8px; padding: 4px 10px 14px 14px"
+          >
             <div class="sp-row sp-row--between">
               <span class="sp-heading">Blue Bottle</span>
               <span class="sp-text">Open till 6</span>

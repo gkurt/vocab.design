@@ -75,7 +75,8 @@ const ramp = (space: string, from: string, to: string) => `linear-gradient(to ri
  * are three spellings of a value, while a space is only identifiable by what its axes do to
  * arithmetic, which is the pair of strips. The readouts and the pair control stay in the
  * context register. Strips are a fixed height, readout values are tabular and their rows a
- * fixed height, so changing the pair repaints and moves nothing (SPEC §5).
+ * fixed height, so changing the pair repaints and moves nothing (SPEC §5). The axis column is
+ * given the room its longest triple needs on one line, rather than wrapping into the row under it.
  */
 export function mount(root: HTMLElement): void {
   const pair = PAIRS[START] ?? PAIRS.blue;
@@ -87,7 +88,7 @@ export function mount(root: HTMLElement): void {
         <span class="sp-label" style="flex: 0 0 46px; font-size: 10px">${row.key}</span>
         <span class="sp-text" data-part="value-${row.key}"
               style="flex: 0 0 138px; font-size: 11px; color: var(--sp-ink); font-variant-numeric: tabular-nums">${row.text(pair.from)}</span>
-        <span class="sp-text" style="font-size: 10px">${row.axes}</span>
+        <span class="sp-text" style="font-size: 10px; white-space: nowrap">${row.axes}</span>
       </div>`,
   ).join('');
 
@@ -103,7 +104,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 380px">
+      <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Endpoints</span>
           <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">

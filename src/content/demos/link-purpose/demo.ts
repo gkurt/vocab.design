@@ -18,7 +18,8 @@ const CAPTION = {
 
 type Mode = keyof typeof CAPTION;
 
-const LINK_STYLE = 'color: var(--sp-accent); text-decoration: underline; font-size: 12px';
+/** A link name is one unbroken run: a wrapped "Read more" would lay its own box over the row. */
+const LINK_STYLE = 'color: var(--sp-accent); text-decoration: underline; font-size: 12px; white-space: nowrap';
 
 /**
  * Link purpose specimen: three search results whose links carry their destinations, beside the

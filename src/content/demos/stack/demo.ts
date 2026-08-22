@@ -21,11 +21,14 @@ const SOUP = [0, 4, 22, 10];
  * `data-rhythm` is measured, not asserted by hand. The demo reads the gaps between
  * the boxes and says how many distinct ones it found, which is the only claim that
  * could catch a stack whose spacing was even in the markup and not on screen.
+ *
+ * The frame is as tall as the four boxes and the readout together, so neither
+ * arrangement is cut by the window it is shown in (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 400px; height: 262px">
+      <div class="sp-frame" style="width: 400px; height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Spacing</span>
           <sp-segmented class="sp-segmented" data-part="segmented" data-value="stack">

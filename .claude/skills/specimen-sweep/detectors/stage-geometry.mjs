@@ -8,11 +8,14 @@
 //   --base-url=http://localhost:4322   audit an already-running server (skips build+preview)
 //   --no-build                         preview the existing dist/ instead of rebuilding
 //   --slugs=a,b,c                      audit a subset
+//   --min=high|med|low                 keep only findings at or above a severity (default low: everything)
 //
 // Default: builds the site and previews it on 4323 itself (ASTRO_PREVIEW_BACKGROUND=1,
 // the documented opt-out of Astro's agentic auto-backgrounding).
 //
-// Output: one `slug<TAB>check<TAB>evidence` line per persistent finding, recall-tuned.
+// Output: one `slug<TAB>check<TAB>severity<TAB>evidence` line per persistent finding. Still
+// recall-tuned, so severity is the triage: see severity() for what a hand-judged sweep of
+// 1794 findings established about which checks are worth a fixer's time.
 // Checks, sampled every ~220ms across a full stage.audit() play:
 //   escape        a painted element leaves the stage clip box (the stage body, or the frame)
 //   spill-x/-y    a container's content exceeds its box and it is not a designed scroller
@@ -41,6 +44,43 @@ const OVERLAP_STREAK = 4;
 const args = new Map(process.argv.slice(2).map((a) => (a.includes('=') ? a.split(/=(.*)/s, 2) : [a, true])));
 const baseUrl = typeof args.get('--base-url') === 'string' ? args.get('--base-url').replace(/\/$/, '') : null;
 const only = typeof args.get('--slugs') === 'string' ? new Set(args.get('--slugs').split(',')) : null;
+const TIERS = ['high', 'med', 'low'];
+const minTier = typeof args.get('--min') === 'string' && TIERS.includes(args.get('--min')) ? args.get('--min') : 'low';
+
+/**
+ * How likely a finding is to be a real defect rather than design this cannot know about,
+ * calibrated against the 2026-08-22 sweep, where 1794 findings were judged by hand.
+ *
+ * What that sweep established: a folded single-line control was real essentially every
+ * time; content actually CUT by hidden/clip was usually real, while the same overshoot
+ * under overflow visible was usually a two or three pixel descender bleed no reader would
+ * ever notice (533 of 809 spill findings were bleed, not cut); overlap was the weakest
+ * signal of all, since floating menus, badges and stamps overlay by design; and a
+ * flex-wrap row breaking onto lines is generally a `.sp-row--wrap` doing its job.
+ */
+function severity(check, evidence) {
+  if (check === 'escape' || check === 'wrap') return 'high';
+  if (check === 'wrap-row') return 'low';
+  if (check.startsWith('spill')) {
+    const m = evidence.match(/^(\d+)px of content in a (\d+)px box \(overflow-[xy] (\w+)\)/);
+    if (!m) return 'low';
+    const overshoot = Number(m[1]) - Number(m[2]);
+    const cut = m[3] === 'hidden' || m[3] === 'clip';
+    if (cut) return overshoot >= 8 ? 'high' : 'med';
+    return overshoot >= 16 ? 'med' : 'low';
+  }
+  if (check === 'layout-shift') {
+    const m = evidence.match(/(-?\d+),(-?\d+)px/);
+    if (!m) return 'low';
+    const worst = Math.max(Math.abs(Number(m[1])), Math.abs(Number(m[2])));
+    return worst >= 16 ? 'high' : worst >= 8 ? 'med' : 'low';
+  }
+  if (check === 'overlap') {
+    const m = evidence.match(/by (\d+)px2/);
+    return m && Number(m[1]) >= 2000 ? 'med' : 'low';
+  }
+  return 'low';
+}
 
 function specimens() {
   const found = [];
@@ -177,12 +217,25 @@ async function probe({ interval, maxSamples, minStreak, overlapStreak }) {
         if (vis && painted(el, cs)) {
           const out = Math.max(clip.left - vis.left, vis.right - clip.right, clip.top - vis.top, vis.bottom - clip.bottom);
           if (out > 1.5) hit(sample, `escape|${desc(el)}`, `escapes the stage clip by ${Math.round(out)}px: ${desc(el, cs)}`, minStreak);
-          if (directText(el) || REPLACED.has(el.tagName.toLowerCase())) candidates.push({ el, cs, vis });
+          // A rotated box reports an axis-aligned bounding box far larger than its ink, so
+          // it reads as overlapping neighbours it never touches (the 2026-08-22 sweep hit
+          // this on every rotated wrapper). Rotation is rare enough to simply sit out.
+          const rot = cs.transform.match(/^matrix\(([^,]+),\s*([^,]+),\s*([^,]+)/);
+          const rotated = rot ? Math.abs(parseFloat(rot[2])) > 0.01 || Math.abs(parseFloat(rot[3])) > 0.01 : false;
+          // Same problem one step further: an inline run wrapped across lines or columns has
+          // a bounding box spanning every line it touches, so it geometrically intersects
+          // neighbours nothing actually paints over (wrapped text, CJK columns, multicol).
+          const fragmented = cs.display.startsWith('inline') && el.getClientRects().length > 1;
+          if (!rotated && !fragmented && (directText(el) || REPLACED.has(el.tagName.toLowerCase()))) candidates.push({ el, cs, vis });
         }
       }
 
-      // Spills are layout truth whether or not the element paints.
-      if (el instanceof win.HTMLElement && el.clientWidth > 0) {
+      // Spills are layout truth whether or not the element paints. Two boxes are never
+      // holding content in the first place, and both were noisy in the 2026-08-22 sweep: a
+      // visually-hidden span is a 1x1px clip by design (the standard screen-reader
+      // technique), and a slider track is a hairline the thumb is MEANT to stand proud of.
+      const notAContainer = el.clientWidth <= 2 || el.clientHeight <= 2 || el.matches('.sp-slider-track');
+      if (el instanceof win.HTMLElement && el.clientWidth > 0 && !notAContainer) {
         const sx = el.scrollWidth - el.clientWidth;
         const sy = el.scrollHeight - el.clientHeight;
         const scrollerX = cs.overflowX === 'auto' || cs.overflowX === 'scroll';
@@ -195,15 +248,25 @@ async function probe({ interval, maxSamples, minStreak, overlapStreak }) {
       }
 
       // Single-line controls only: a flex-column button is a designed stack, not a fold.
-      if (seen && el.matches('.sp-button, .sp-chip, .sp-tab') && !(cs.display.includes('flex') && cs.flexDirection.startsWith('column'))) {
+      // Count the text's own line boxes rather than inferring a fold from the control's
+      // height, which was this check's whole false-positive problem in the 2026-08-22
+      // sweep: an icon-only button carries no text and a button with an explicit height is
+      // taller than a line box, and neither has folded anything.
+      if (seen && el.matches('.sp-button, .sp-chip, .sp-tab') && (el.textContent ?? '').trim() && !(cs.display.includes('flex') && cs.flexDirection.startsWith('column'))) {
         const lh = parseFloat(cs.lineHeight) || 1.4 * parseFloat(cs.fontSize);
-        const inner =
-          rect.height -
-          parseFloat(cs.paddingTop) -
-          parseFloat(cs.paddingBottom) -
-          parseFloat(cs.borderTopWidth) -
-          parseFloat(cs.borderBottomWidth);
-        if (inner > lh * 1.7) hit(sample, `wrap|${desc(el)}`, `single-line control folded: ${Math.round(inner)}px content vs ${Math.round(lh)}px line: ${desc(el)}`, minStreak);
+        const range = el.ownerDocument.createRange();
+        range.selectNodeContents(el);
+        const tops = Array.from(range.getClientRects())
+          .filter((r) => r.width > 0 && r.height > 0)
+          .map((r) => r.top)
+          .sort((a, b) => a - b);
+        let lines = 0;
+        let last = -1e9;
+        for (const top of tops) {
+          if (top - last > lh * 0.6) lines++;
+          last = top;
+        }
+        if (lines > 1) hit(sample, `wrap|${desc(el)}`, `single-line control folded onto ${lines} lines: ${desc(el)}`, minStreak);
       }
 
       if (seen && cs.display.includes('flex') && cs.flexWrap === 'wrap' && cs.flexDirection.startsWith('row') && el.children.length > 1) {
@@ -227,9 +290,12 @@ async function probe({ interval, maxSamples, minStreak, overlapStreak }) {
         const nth = (partSeen.get(partName) ?? 0) + 1;
         partSeen.set(partName, nth);
         const key = nth === 1 ? partName : `${partName}#${nth}`;
-        // The part's own text is part of its state: a readout that resized because its
-        // words changed is not an incidental shift.
-        let sig = `t=${(el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80)};`;
+        // The part's own content is part of its state: a readout that resized because its
+        // words changed is not an incidental shift, and neither is a listbox that resized
+        // because it filtered its own options. Watching only the container's attributes
+        // reported both as incidental in the 2026-08-22 sweep, so the child count and a
+        // longer slice of the text are in the signature too.
+        let sig = `t=${(el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 160)};c=${el.childElementCount};`;
         for (let n = el; n; n = n.parentElement) {
           sig += n.tagName;
           for (const a of n.attributes) sig += `|${a.name}=${a.value}`;
@@ -389,14 +455,23 @@ await Promise.all(Array.from({ length: Math.min(CONCURRENCY, slugs.length) }, wo
 await browser.close();
 stopServer();
 
-rows.sort((a, b) => a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]));
-for (const row of rows) console.log(row.join('\t'));
+const ranked = rows.map(([slug, check, evidence]) => [slug, check, evidence, check === 'probe-error' ? 'high' : severity(check, evidence)]);
+ranked.sort((a, b) => a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]));
+
+const floor = TIERS.indexOf(minTier);
+const kept = ranked.filter((row) => TIERS.indexOf(row[3]) <= floor);
+for (const [slug, check, evidence, tier] of kept) console.log([slug, check, tier, evidence].join('\t'));
 
 const byCheck = new Map();
+const byTier = new Map();
 const bySlug = new Set();
-for (const [slug, check] of rows) {
+for (const [slug, check, , tier] of kept) {
   byCheck.set(check, (byCheck.get(check) ?? 0) + 1);
+  byTier.set(tier, (byTier.get(tier) ?? 0) + 1);
   bySlug.add(slug);
 }
-console.error(`\n${bySlug.size}/${slugs.length} specimens flagged`);
+console.error(`\n${bySlug.size}/${slugs.length} specimens flagged${minTier === 'low' ? '' : ` at --min=${minTier}`}`);
 for (const [check, n] of [...byCheck].sort((a, b) => b[1] - a[1])) console.error(`  ${check}: ${n}`);
+console.error('  ---');
+for (const tier of TIERS) if (byTier.has(tier)) console.error(`  ${tier}: ${byTier.get(tier)}`);
+if (minTier === 'low' && ranked.length > kept.length) console.error(`\n(--min=high or --min=med narrows this; see severity() for the calibration)`);

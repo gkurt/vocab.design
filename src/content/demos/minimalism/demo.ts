@@ -11,6 +11,9 @@ import { part } from '#src/kit/parts.ts';
  * The decorated card is built from kit tokens rather than colours of its own, so the
  * context register genuinely quiets it: what separates the two is the count of
  * elements, not one of them shouting louder.
+ *
+ * The note under the link keeps room for both of its lines from mount, so reading the
+ * longer one does not grow the quiet card by a few pixels (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -31,7 +34,7 @@ export function mount(root: HTMLElement): void {
                     style="margin-top: 20px; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; font-weight: 500; color: var(--sp-accent); cursor: pointer">
               Start reading
             </button>
-            <div data-part="note" style="min-height: 32px; margin-top: 10px; font-size: 12px; line-height: 1.5; color: var(--sp-muted)">
+            <div data-part="note" style="min-height: 36px; margin-top: 10px; font-size: 12px; line-height: 1.5; color: var(--sp-muted)">
               Free while it stays quiet.
             </div>
           </div>

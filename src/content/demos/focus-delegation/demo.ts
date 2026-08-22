@@ -3,15 +3,16 @@ import '#src/kit/segmented.ts';
 
 type Mode = 'on' | 'off';
 
+/** Written to the width of the box that holds them: one line each, no wrapping (SPEC §5). */
 const ACTIVE = {
   none: 'document.activeElement is <body>. Nothing has been clicked yet.',
-  inner: 'document.activeElement is the input inside <my-field>. The host handed the press on.',
-  nowhere: 'document.activeElement is <body>. The press landed on the host and stopped there.',
+  inner: 'document.activeElement is the input in <my-field>. The host passed it on.',
+  nowhere: 'document.activeElement is <body>. The press stopped at the host.',
 } as const;
 
 const CAPTION = {
-  on: 'A press on the host reaches the control, so the padding is part of the field. Nothing on screen tells the two hosts apart, which is why this ships broken.',
-  off: 'The same press lands on an element that cannot hold focus, so focus goes nowhere: typing does nothing, and the next Tab restarts from the top of the document.',
+  on: 'A press on the host reaches the control, so the padding is part of the field. Nothing tells the two hosts apart.',
+  off: 'The same press lands on an element that cannot hold focus, so typing does nothing and Tab restarts from the top.',
 } as const;
 
 /**

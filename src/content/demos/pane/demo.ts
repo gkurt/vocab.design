@@ -11,7 +11,8 @@ const MIN = 100;
 const MIN_DETAIL = 190;
 const MAX = AVAIL - MIN_DETAIL;
 const DEFAULT_W = 156;
-const FLOAT_INSET = 10;
+/** How far off the surface a floating pane sits, which is also the height it gives up. */
+const FLOAT_INSET = 8;
 /** Drag stops, in pane widths, so a scripted drag lands somewhere nameable. */
 const STOPS = [112, 206];
 
@@ -89,16 +90,18 @@ const band = (width: number) => (width < 130 ? 'narrow' : width > 190 ? 'wide' :
  * The drag is captured on a trusted pointerdown so a reader's own drag survives leaving the
  * strip (SPEC §7), and it is released on pointerup and pointercancel, never pointerleave,
  * which does not fire while capture holds. Nothing here transitions a width, so the offsets
- * the drag writes are the ones the readouts report.
+ * the drag writes are the ones the readouts report. The mailbox rows are cut so all three
+ * fit the pane at its shortest, which is the floating kind, since a list clipped mid-row
+ * would read as the pane's own answer to being narrow.
  */
 export function mount(root: HTMLElement): void {
   const rows = MAIL.map(
     (mail) => `
-      <div class="sp-list-item" data-part="mail-${mail.name.split(' ')[0]?.toLowerCase()}" style="gap: 8px; padding: 5px 9px">
+      <div class="sp-list-item" data-part="mail-${mail.name.split(' ')[0]?.toLowerCase()}" style="gap: 8px; padding: 4px 9px">
         <span class="sp-avatar" style="width: 20px; height: 20px; font-size: 9px">${mail.name.slice(0, 1)}</span>
         <span class="sp-grow" style="overflow: hidden">
-          <span style="display: block; font-weight: 500; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${mail.name}</span>
-          <span class="sp-label" style="display: block; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${mail.line}</span>
+          <span style="display: block; font-weight: 500; font-size: 12px; line-height: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${mail.name}</span>
+          <span class="sp-label" style="display: block; font-size: 11px; line-height: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${mail.line}</span>
         </span>
       </div>`,
   ).join('');

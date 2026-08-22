@@ -5,6 +5,14 @@ type Spacing = { key: 'cramped' | 'roomy'; pad: number; within: number; between:
 const CRAMPED: Spacing = { key: 'cramped', pad: 8, within: 4, between: 4 };
 const ROOMY: Spacing = { key: 'roomy', pad: 16, within: 4, between: 22 };
 
+/**
+ * One box for both cards, sized for the roomy one: it carries the same content with the
+ * space between its groups spent five times over, so it is the card that says how much
+ * room the pair needs. The width holds every line of that content on one line (SPEC §5).
+ */
+const CARD_W = 210;
+const CARD_H = 198;
+
 /** One card's content, set twice: only the spacing differs between the two. */
 function card({ key, pad, within, between }: Spacing, subject: boolean): string {
   return `
@@ -12,7 +20,7 @@ function card({ key, pad, within, between }: Spacing, subject: boolean): string 
       class="sp-surface sp-stack"
       data-part="${key}"
       ${subject ? 'data-subject' : ''}
-      style="width: 186px; height: 172px; padding: ${pad}px; gap: ${between}px"
+      style="width: ${CARD_W}px; height: ${CARD_H}px; padding: ${pad}px; gap: ${between}px"
     >
       <div class="sp-stack" data-part="${key}-group-1" style="gap: ${within}px">
         <span class="sp-heading">Kestrel</span>
@@ -20,7 +28,7 @@ function card({ key, pad, within, between }: Spacing, subject: boolean): string 
       </div>
       <div class="sp-stack" data-part="${key}-group-2" style="gap: ${within}px">
         <span class="sp-label">Nightly</span>
-        <span class="sp-text sp-text--ink">42.00, water and power included</span>
+        <span class="sp-text sp-text--ink">42.00, water and power</span>
       </div>
       <div class="sp-stack" data-part="${key}-group-3" style="gap: ${within}px">
         <span class="sp-label">Available</span>
@@ -39,6 +47,10 @@ function card({ key, pad, within, between }: Spacing, subject: boolean): string 
  * (SPEC §5). Marking the space itself is not available, which is exactly why the term
  * is hard to point at and worth demonstrating.
  *
+ * Both cards take the same box and it is the roomy card's own content that sizes it, spent
+ * gaps included, so the card holds what it carries instead of pushing it into the caption
+ * underneath (SPEC §5). What the cramped card leaves empty at the bottom is the difference.
+ *
  * The claim a static specimen would otherwise leave unproven is measured at mount, on
  * the state it mounts in: the ratio between the space around a group and the space
  * inside it, published as `data-ratio` and flagged as `data-grouped` once the outer
@@ -47,18 +59,18 @@ function card({ key, pad, within, between }: Spacing, subject: boolean): string 
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 470px; height: 286px">
+      <div class="sp-frame" style="width: 470px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Same words, same size, same order</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 18px">
           <div class="sp-stack sp-context" style="gap: 8px">
             ${card(CRAMPED, false)}
-            <span class="sp-label" style="width: 186px">every gap alike, so nothing groups</span>
+            <span class="sp-label" style="width: ${CARD_W}px">every gap alike, so nothing groups</span>
           </div>
           <div class="sp-stack" style="gap: 8px">
             ${card(ROOMY, true)}
-            <span class="sp-label sp-context" style="width: 186px">space carries the grouping</span>
+            <span class="sp-label sp-context" style="width: ${CARD_W}px">space carries the grouping</span>
           </div>
         </div>
       </div>

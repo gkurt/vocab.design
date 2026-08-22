@@ -13,12 +13,17 @@ const TICK_MS = 16;
 /** Below this the release was a stop, not a throw; above this the coast counts as one. */
 const FLING_MIN = 0.08;
 const COAST_MIN = 40;
-/** A release long after the last move is a hand that had already stopped moving. */
-const STALE_MS = 250;
-/** How far back the throw is judged. Per-frame input (a real mouse, the player's drag)
- * ends on a truncated final delta, so a two-sample estimate is noise; a window is how
- * real momentum implementations read a throw. */
+/** How far back the throw is judged, counted from the moment of RELEASE. Per-frame input
+ * (a real mouse, the player's drag) ends on a truncated final delta, so a two-sample
+ * estimate is noise; a window is how real momentum implementations read a throw. Judging
+ * it at the release rather than as samples arrive is what makes a hand that stopped before
+ * it lifted hand over nothing at all. */
 const VELOCITY_WINDOW_MS = 100;
+/** The trail is kept well past the judgement window, so pruning never drops a sample the
+ * release might still want. */
+const TRAIL_KEEP_MS = 400;
+/** Two samples a moment apart measure noise rather than speed. */
+const MIN_SPAN_MS = 12;
 
 const SHOTS = [
   'linear-gradient(150deg, #24303d, #4a7290)',
@@ -35,18 +40,35 @@ const CONTENT = SHOTS.length * (CARD + GAP) - GAP;
 const MAX = CONTENT - VIEW;
 
 /**
+ * Where the scripted strokes press and let go. The cards travel with the throw, so a
+ * stroke aimed at one would not be the same stroke twice: these are fixed to the window,
+ * and they carry no paint of their own (SPEC §5).
+ */
+const marker = (name: string, x: number) => `
+  <span
+    data-part="${name}"
+    style="position: absolute; left: ${x - 7}px; top: 51px; width: 14px; height: 14px; pointer-events: none"
+  ></span>`;
+
+/**
  * Momentum scrolling specimen: a photo strip thrown with a flick, which keeps travelling
  * after the pointer has gone and decelerates to a stop. The subject is the strip, since
  * the term names what the scrolled surface does with a gesture that has already ended;
  * the ruler under it and the readouts beside it are the instruments watching it.
  *
- * The coast is the demonstration, so it is really computed: the velocity is measured
- * over the stroke's last ~100 ms (the way real momentum scrollers judge a throw, so a
- * per-frame stream's truncated final delta never decides it alone), and a constant
- * deceleration is applied on the stage's clock until the speed runs out. It is an `element.animate`-class move in that CSS cannot gate it, so it asks
+ * The coast is the demonstration, so it is really computed: at the release the velocity is
+ * measured over the samples from the last ~100 ms of that moment (the way real momentum
+ * scrollers judge a throw, so a per-frame stream's truncated final delta never decides it
+ * alone), and a constant deceleration is applied on the stage's clock until the speed runs
+ * out. It is an `element.animate`-class move in that CSS cannot gate it, so it asks
  * `prefersReducedMotion` itself and lands on the resting offset at once instead. The
  * distance travelled after the lift is stated out loud, because that number is the only
  * thing a stopped-dead scroller could not produce.
+ *
+ * Judging at the release is the whole of it, so both releases are performed against the
+ * same stroke: a contact that lifts while still travelling hands over the speed it was
+ * moving at, and one that comes to rest first hands over nothing and stops dead. The two
+ * strokes aim at fixed markers on the strip rather than at the cards, which travel.
  *
  * The strip is a fixed window with a transformed track inside it and every readout holds
  * its width, so nothing the throw does moves anything around it (SPEC §5).
@@ -79,6 +101,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               data-part="track"
               style="position: absolute; inset: 6px auto 6px 0; display: flex; gap: ${GAP}px; width: ${CONTENT}px; transform: translateX(0px)"
             >${cards}</div>
+            ${marker('grip', 300)}
+            ${marker('grip-end', 150)}
           </div>
           <div class="sp-row sp-context" style="gap: 10px">
             <div class="sp-progress" data-part="ruler" style="flex: 1 1 auto">
@@ -164,7 +188,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const now = performance.now();
     offset = clamp(offset - (event.clientX - prev.x));
     trail.push({ x: event.clientX, at: now });
-    while (trail.length > 2 && now - (trail[1]?.at ?? now) > VELOCITY_WINDOW_MS) trail.shift();
+    while (trail.length > 2 && now - (trail[0]?.at ?? now) > TRAIL_KEEP_MS) trail.shift();
     render();
     say('drag', 'Dragging with the pointer');
   });
@@ -172,13 +196,17 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const release = () => {
     if (!held) return;
     held = undefined;
-    const newest = trail[trail.length - 1];
-    const oldest = trail[0];
+    // The judgement a recognizer makes, on the samples that are recent AT THE RELEASE: a
+    // contact that stopped before it lifted has no speed left to hand over.
+    const now = performance.now();
+    const recent = trail.filter((sample) => now - sample.at <= VELOCITY_WINDOW_MS);
+    trail = [];
+    const oldest = recent[0];
+    const newest = recent[recent.length - 1];
     if (!newest || !oldest) return settle();
     const span = newest.at - oldest.at;
-    const stale = performance.now() - newest.at > STALE_MS;
     // Content moves against the pointer, so the offset's velocity is the stroke's negated.
-    const velocity = span > 0 && !stale ? -(newest.x - oldest.x) / span : 0;
+    const velocity = span >= MIN_SPAN_MS ? -(newest.x - oldest.x) / span : 0;
     if (Math.abs(velocity) < FLING_MIN) return settle();
     say('coast', 'Let go: the strip keeps going');
     if (!prefersReducedMotion(root)) return coast(velocity);

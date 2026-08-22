@@ -7,18 +7,30 @@ const CLICK_MS = 300;
 const SPAN_MS = 400;
 const TICK_MS = 20;
 
-const ROW_H = 34;
+const ROW_H = 26;
 const ROW_GAP = 4;
 const SHIFT = ROW_H + ROW_GAP;
+const PANEL_PAD = 6;
 /** Where the finger came down, in the panel's own coordinates: fixed for the whole replay. */
 const POINT_X = 24;
-const POINT_Y = 6 + ROW_H + ROW_GAP + ROW_H / 2;
+const POINT_Y = PANEL_PAD + ROW_H + ROW_GAP + ROW_H / 2;
 
 const ROWS = [
   { key: 'delete', label: 'Delete account', subject: true },
   { key: 'dismiss', label: 'Dismiss', subject: false },
   { key: 'solve', label: 'Mark as solved', subject: false },
 ];
+
+/**
+ * The panel is sized for the SHIFTED state, not the resting one: the padded stack of rows
+ * plus the one place the banner pushes it down, plus its own border and a few pixels of
+ * slack. So the bottom row stays on screen through the shift the term is made of, instead
+ * of being clipped by it.
+ */
+const PANEL_H = 2 * PANEL_PAD + SHIFT + ROWS.length * ROW_H + (ROWS.length - 1) * ROW_GAP + 2 + 4;
+/** Everything in the frame that is not the panel: topbar, body padding, gap, ruler. */
+const FRAME_CHROME_H = 128;
+const FRAME_H = PANEL_H + FRAME_CHROME_H;
 
 const row = ({ key, label, subject }: (typeof ROWS)[number]) => `
   <button
@@ -49,12 +61,14 @@ const row = ({ key, label, subject }: (typeof ROWS)[number]) => `
  *
  * The shift is the term, so it is allowed, and it is contained: the panel is clipped and
  * the banner is drawn inside it, so nothing outside the panel moves at all (SPEC §5). Each
- * row reserves the width of its own verdict, so a row being marked shifts no text.
+ * row reserves the width of its own verdict, so a row being marked shifts no text. The
+ * panel's own height is computed from the shifted state rather than the resting one, so the
+ * bottom row stays on screen while the banner holds its place.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 256px">
+      <div class="sp-frame sp-frame--wide" style="height: ${FRAME_H}px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Support</span>
           <span class="sp-text" data-part="readout" style="width: 300px; text-align: right; white-space: nowrap">One touch, waiting to be replayed</span>
@@ -64,11 +78,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             class="sp-surface"
             data-part="panel"
             data-phase="idle"
-            style="position: relative; height: 128px; overflow: hidden"
+            style="position: relative; height: ${PANEL_H}px; overflow: hidden"
           >
             <div
               data-part="rows"
-              style="position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; gap: ${ROW_GAP}px; padding: 6px; transform: translateY(0); transition: transform 0.18s var(--sp-ease)"
+              style="position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; gap: ${ROW_GAP}px; padding: ${PANEL_PAD}px; transform: translateY(0); transition: transform 0.18s var(--sp-ease)"
             >${ROWS.map(row).join('')}</div>
             <div
               class="sp-context"

@@ -14,14 +14,14 @@ const LEVELS: Level[] = [
   {
     part: 'eyebrow',
     chip: 'label',
-    height: 28,
+    height: 24,
     html: 'FIELD NOTES',
     leveled: 'font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--sp-muted)',
   },
   {
     part: 'title',
     chip: 'headline',
-    height: 34,
+    height: 32,
     html: 'Rank before reading',
     leveled: 'font-size: 25px; font-weight: 600; line-height: 1.15; white-space: nowrap',
   },
@@ -35,7 +35,7 @@ const LEVELS: Level[] = [
   {
     part: 'caption',
     chip: 'caption',
-    height: 28,
+    height: 24,
     html: 'Photograph: house archive, 1974',
     leveled: 'font-size: 11px; font-weight: 400; color: var(--sp-muted)',
   },
@@ -59,8 +59,10 @@ const FLAT = 'font-size: 14px; font-weight: 400; line-height: 1.45; letter-spaci
  * ring a column that currently has no hierarchy in it, and the mount state is
  * the levelled one.
  *
- * Every rank sits in a row of its own fixed height, so flattening changes the
- * type inside the rows and moves nothing at all (SPEC §5).
+ * Every rank sits in a row of its own fixed height, sized for whichever of the two
+ * settings is taller, so flattening changes the type inside the rows and moves
+ * nothing at all (SPEC §5). The rows, the gaps and the window's padding together
+ * keep the whole specimen inside the stage rather than running past its floor.
  */
 export function mount(root: HTMLElement): void {
   const chips = LEVELS.map(
@@ -79,7 +81,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 452px">
+      <div class="sp-window" style="width: 452px; padding: 12px 20px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">rank</span>
           <sp-segmented class="sp-segmented" data-part="segmented" data-value="on">
@@ -88,11 +90,11 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-row" style="gap: 16px; margin-top: 12px; align-items: flex-start">
-          <div class="sp-stack sp-context" data-part="chips" style="gap: 8px; width: 84px">${chips}</div>
+          <div class="sp-stack sp-context" data-part="chips" style="gap: 6px; width: 84px">${chips}</div>
           <div class="sp-stack" data-part="column" data-subject data-levels="on" data-pose="[data-levels=on]"
-               style="gap: 8px; width: 296px; font-family: ${FACE}">${rows}</div>
+               style="gap: 6px; width: 296px; font-family: ${FACE}">${rows}</div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
           Flattened, every line is still legible and the page is still correct. What is gone is the
           answer to what is this, which a reader was getting for free before they read anything.
         </p>

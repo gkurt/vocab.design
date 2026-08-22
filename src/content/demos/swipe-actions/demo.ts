@@ -27,7 +27,8 @@ const QUIET = [
  *
  * The offset is a transform on the row's own content, so a revealed row never
  * moves the rows around it (SPEC §5), and the mark an action leaves sits in a slot
- * reserved from the start. The gesture reaches an absolute position: past the
+ * reserved from the start. The frame is tall enough for all four rows at their
+ * stated height, so the list holds its own rather than clipping the last one. The gesture reaches an absolute position: past the
  * commit distance it settles open, and only pressing an action closes it (SPEC §8).
  */
 export function mount(root: HTMLElement): void {
@@ -41,7 +42,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 250px">
+      <div class="sp-frame sp-frame--wide" style="height: 296px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Inbox</span>
           <span class="sp-text" data-part="count" style="width: 92px; text-align: right">Archived: 0</span>

@@ -5,9 +5,10 @@ import type { DemoClock } from '#src/stage/clock.ts';
 /** How long the queue takes to flush once the connection is back. */
 const FLUSH_MS = 600;
 
+/** Two lines for one pill, and the queued one is the shorter, so the notice never relines. */
 const OFFLINE_TEXT = {
   idle: 'Offline. You can keep reading and writing.',
-  queued: 'Offline. 1 message queued, it sends on reconnect.',
+  queued: 'Offline. 1 queued, it sends on reconnect.',
 } as const;
 
 /**
@@ -16,8 +17,10 @@ const OFFLINE_TEXT = {
  * persistent claim about the connection, and the queued message beside it is the
  * consequence the pill is talking about.
  *
- * The pill's room is measured at mount and held whether it is showing or not
- * (SPEC §5), so losing the network never pushes the conversation down the frame.
+ * The pill keeps its room whether it is showing or not, by going invisible rather
+ * than leaving the flow (SPEC §5), so losing the network never pushes the
+ * conversation down the frame. The room is the pill's own and stays right when a web
+ * font lands late, which a pixel count copied at mount would not.
  * The network control is instrumentation, so it is scenery, and it picks a state
  * rather than toggling one (SPEC §8).
  */
@@ -51,21 +54,24 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     </div>
   `;
 
-  const slot = part(root, 'slot');
   const pill = part(root, 'pill');
   const pillText = part(root, 'pill-text');
   const thread = part(root, 'thread');
   const composer = part(root, 'composer') as HTMLInputElement;
 
-  // The notice keeps its room whether it is up or not, so the thread never jumps.
-  slot.style.height = `${slot.offsetHeight}px`;
-  pill.hidden = true;
+  // The notice keeps its room whether it is up or not, so the thread never jumps. It goes
+  // invisible rather than out of the flow, so the room is its own live height: nothing to
+  // measure, and nothing to go stale when the text is relined under it.
+  const show = (on: boolean) => {
+    pill.style.visibility = on ? 'visible' : 'hidden';
+  };
+  show(false);
 
   let online = true;
   let queued: HTMLElement | undefined;
 
   const paint = () => {
-    pill.hidden = online;
+    show(!online);
     pillText.textContent = queued ? OFFLINE_TEXT.queued : OFFLINE_TEXT.idle;
   };
 

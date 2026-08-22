@@ -43,7 +43,11 @@ export default defineConfig({
     // Never reuse. Whatever is already answering on this port is some other build, and
     // a gate that quietly grades the wrong one is worse than a slow gate.
     reuseExistingServer: false,
-    timeout: 180_000,
+    // The command is a full production build (5000+ pages, around two minutes on a quiet
+    // machine) and only then the preview, so a three minute budget leaves the gate to fail
+    // mid-build on any loaded box, which reads as a webServer timeout rather than as the
+    // slow build it is.
+    timeout: 600_000,
     stdout: 'pipe',
     // Astro 7.2 hands `astro preview` to a background daemon whenever it detects an agentic
     // environment (it asks the am-i-vibing package): the server forks off, prints its pid, and

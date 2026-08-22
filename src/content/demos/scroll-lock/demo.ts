@@ -37,7 +37,8 @@ const filters = FILTERS.map(
  * written the way a real one behaves rather than left to `overflow: hidden` alone: the
  * scroller is frozen at the offset it held and put back on any attempt to leave it. The
  * gutter is reserved in both states, so locking the page cannot reflow it, which is the
- * layout jump the article names (SPEC §5).
+ * layout jump the article names (SPEC §5). The readout is as wide as its longest line, so
+ * a report of what the wheel did never bleeds over the control beside it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -46,7 +47,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Chandlery</span>
           <button class="sp-button sp-button--ghost sp-button--sm" data-part="open" type="button">Filters</button>
-          <span class="sp-text" data-part="readout" data-moved="no" style="width: 190px; text-align: right; white-space: nowrap">Wheel over the page</span>
+          <span class="sp-text" data-part="readout" data-moved="no" style="width: 226px; text-align: right; white-space: nowrap">Wheel over the page</span>
         </div>
         <div class="sp-body" style="position: relative; padding: 0; overflow: hidden">
           <div

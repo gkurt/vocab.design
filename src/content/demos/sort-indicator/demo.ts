@@ -22,7 +22,8 @@ const ARROW = { ascending: '↑', descending: '↓' } as const;
  * Every sortable header keeps the arrow's slot at a fixed width from mount and
  * hides the inactive ones rather than emptying them (SPEC §5), so sorting reorders
  * rows without moving a single column edge. "Added" has no slot at all, which is
- * how a header says it cannot be sorted.
+ * how a header says it cannot be sorted. The frame is sized to the whole table and
+ * its caption, so no row is cut by the window it lives in (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const body = ROWS.map(
@@ -47,7 +48,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 250px">
+      <div class="sp-frame sp-frame--wide" style="height: 264px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Library</span></div>
         <div class="sp-body">
           <div class="sp-surface" style="overflow: hidden">

@@ -27,7 +27,9 @@ const TUNED = [
  * line are what it is read against.
  *
  * The hover line's marker and readout are both restored on leave, so the pass ends at its mount
- * state and the tree persists across attract iterations (`data-loop="keep"`).
+ * state and the tree persists across attract iterations (`data-loop="keep"`). The readout keeps
+ * the room both of its sentences take, two lines at this measure, and sets them from the top, so
+ * swapping one for the other moves nothing (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const line = (name: string, note: string, style: string, subject = false) => `
@@ -58,7 +60,7 @@ export function mount(root: HTMLElement): void {
             </span>
           </div>
         </div>
-        <div class="sp-row sp-context" style="height: 18px; margin-top: 12px">
+        <div class="sp-row sp-context" style="align-items: flex-start; height: 40px; margin-top: 12px">
           <span class="sp-text" data-part="readout"></span>
         </div>
       </div>

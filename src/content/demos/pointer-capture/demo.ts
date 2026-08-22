@@ -47,7 +47,9 @@ const slider = (name: string, label: string, extra = '') => `
  * does, and drops any move whose coordinates have left its own box, because without
  * capture those events would have been delivered to whatever was under the pointer
  * instead. Both sliders keep their boxes and the readouts hold their widths, so a wander
- * moves a thumb and nothing else (SPEC §5).
+ * moves a thumb and nothing else (SPEC §5). The twin's caption needs two lines in the
+ * column it is given, so its value sits under it in a stack rather than at a fixed offset
+ * that assumed one.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -70,12 +72,14 @@ export function mount(root: HTMLElement): void {
             </div>
 
             <div class="sp-context">
-              <span class="sp-label" style="position: absolute; left: 0; top: ${LOOSE_Y + LOOSE_H / 2 - 18}px; width: 84px">Without capture</span>
-              <span
-                class="sp-label"
-                data-part="loose-value"
-                style="position: absolute; left: 0; top: ${LOOSE_Y + LOOSE_H / 2}px; width: 84px; color: var(--sp-ink); font-variant-numeric: tabular-nums"
-              >${START}%</span>
+              <div class="sp-stack" style="position: absolute; left: 0; top: ${LOOSE_Y}px; width: 84px; gap: 2px">
+                <span class="sp-label">Without capture</span>
+                <span
+                  class="sp-label"
+                  data-part="loose-value"
+                  style="color: var(--sp-ink); font-variant-numeric: tabular-nums"
+                >${START}%</span>
+              </div>
               <div
                 data-part="loose"
                 data-state="idle"

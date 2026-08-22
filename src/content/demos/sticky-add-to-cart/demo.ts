@@ -7,7 +7,9 @@ import { part } from '#src/kit/parts.ts';
  * The subject is the bar rather than the page or the scroller: the term names the strip
  * that pins itself, and the page around it is scenery (SPEC §5). The page keeps a spacer
  * the height of the bar at the end of its content, so the bar never covers the last line
- * and nothing moves when it arrives (SPEC §5).
+ * and nothing moves when it arrives (SPEC §5). The bar fades in where it belongs rather
+ * than rising from under the shell's floor: parked below the edge it would be paint the
+ * shell has to hold and cannot, so the arrival is opacity alone.
  *
  * `data-buy` is read from geometry rather than from the scroll offset, because what the
  * choreography has to prove is that the real button has actually left the viewport, and
@@ -48,7 +50,7 @@ export function mount(root: HTMLElement): void {
             class="sp-row"
             data-part="bar"
             data-subject
-            style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 46px; padding: 0 10px; gap: 9px; background: var(--sp-surface); border-top: 1px solid var(--sp-line); box-shadow: var(--sp-shadow); opacity: 0; transform: translateY(8px); transition: opacity 0.18s var(--sp-ease), transform 0.18s var(--sp-ease); pointer-events: none"
+            style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 46px; padding: 0 10px; gap: 9px; background: var(--sp-surface); border-top: 1px solid var(--sp-line); box-shadow: var(--sp-shadow); opacity: 0; transition: opacity 0.18s var(--sp-ease); pointer-events: none"
           >
             <span style="flex: 0 0 auto; width: 28px; height: 28px; border-radius: 6px; background: var(--sp-sunken)"></span>
             <span style="flex: 1 1 auto; min-width: 0">
@@ -82,7 +84,6 @@ export function mount(root: HTMLElement): void {
     shell.dataset.buy = gone ? 'offscreen' : 'onscreen';
     shell.dataset.bar = gone ? 'on' : 'off';
     bar.style.opacity = gone ? '1' : '0';
-    bar.style.transform = gone ? 'translateY(0)' : 'translateY(8px)';
     bar.style.pointerEvents = gone ? 'auto' : 'none';
     note.textContent = gone ? NOTE.on : NOTE.off;
   };

@@ -41,7 +41,8 @@ const mix = (t: number) => COLOR.from.map((c, i) => Math.round(lerp(c, COLOR.to[
  * `prefersReducedMotion` itself and lands on the end value with no run at all. The lane holds the
  * card's largest size from mount and the track never changes size, so a width that grows moves
  * nothing (SPEC §5), and the settle beat comes from the stage's clock so a pose stops the run
- * where it stands.
+ * where it stands. The readout is cut for the two lines its longest claim takes (the colour
+ * endpoints, which are the wordiest), not for the one line the number mode fits in.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const tile = (i: number) => `
@@ -65,7 +66,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" data-part="scene" data-mode="number" data-state="rested" style="height: 268px">
+      <div class="sp-frame sp-frame--wide" data-part="scene" data-mode="number" data-state="rested" style="height: 284px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Property</span>
           <sp-segmented class="sp-segmented" data-part="mode" data-value="number">
@@ -97,7 +98,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
 
-          <div class="sp-stack sp-context" data-part="readout" style="gap: 2px; width: 400px; height: 40px">
+          <div class="sp-stack sp-context" data-part="readout" style="gap: 2px; width: 400px; height: 56px">
             <span class="sp-label" data-part="property" style="font-size: 11px">width</span>
             <span class="sp-text sp-text--ink" data-part="claim" style="font-size: 12px; line-height: 1.35">A number has a halfway.</span>
           </div>

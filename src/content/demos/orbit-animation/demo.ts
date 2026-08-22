@@ -41,12 +41,14 @@ const ring = (r: number, name: string) => `
  * needed. `motion.css` cannot reach an `element.animate` keyframe set, so the demo asks
  * `prefersReducedMotion` itself and parks both satellites at written-down angles instead of
  * playing the revolution. Both boxes are absolutely positioned in a scene fixed at mount and
- * the motion is a rotation, so an orbit can never move anything else (SPEC §5).
+ * the motion is a rotation, so an orbit can never move anything else (SPEC §5). The frame is
+ * cut to hold that scene with the body's own padding still around it, so the widest point of
+ * the outer orbit is never grazed by the clip.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 9px">
-      <div class="sp-frame" style="width: 380px; height: 250px">
+      <div class="sp-frame" style="width: 380px; height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Sync</span>
           <sp-segmented class="sp-segmented" data-part="speed" data-value="steady">
@@ -103,7 +105,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 380px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-part="caption" style="max-width: 380px; margin: 0; font-size: 12px; text-align: center">
         <span data-part="note">${SPEEDS.steady?.note}</span>
       </p>
     </div>

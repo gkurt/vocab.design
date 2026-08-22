@@ -38,7 +38,9 @@ const SURVEY = `
  * picked up part-way still agrees with.
  *
  * Panning is a transform inside a fixed window, so nothing around it moves (SPEC §5), and
- * the offsets are tabular so the readout holds its width at every position. Arrow keys
+ * the offsets are tabular so the readout holds its width at every position. The readout
+ * beside them is one nowrap line cut for its longest line, the invitation it opens on, so
+ * the topbar cannot reline and carry the window up with it. Arrow keys
  * and Home pan too, because content reachable only by dragging is unreachable to a reader
  * who cannot drag.
  */
@@ -51,7 +53,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Site survey</span>
           <span class="sp-label" data-part="offset" style="width: 92px; text-align: right; font-variant-numeric: tabular-nums">x ${-start.x} y ${-start.y}</span>
-          <span class="sp-text" data-part="readout" style="width: 176px; text-align: right">Drag the survey to move the view</span>
+          <span class="sp-text" data-part="readout" style="width: 210px; text-align: right; white-space: nowrap">Drag the survey to move the view</span>
         </div>
         <div class="sp-body" style="position: relative; display: flex; align-items: center; justify-content: center">
           <span

@@ -31,17 +31,17 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div data-part="fragment" data-subject
-           style="width: 336px; padding: 12px 14px; background: #ffffff; color: #000000; font-family: 'Times New Roman', Times, serif; font-size: 13px; line-height: 1.35">
+           style="width: 336px; padding: 8px 14px; background: #ffffff; color: #000000; font-family: 'Times New Roman', Times, serif; font-size: 13px; line-height: 1.35">
         <h1 style="margin: 0; font-size: 24px; font-weight: 700; line-height: 1.15">Field Recordings</h1>
         <p style="margin: 5px 0 0">Updated 4 March. Three hundred bytes of CSS, and most of that is the table.</p>
-        <p style="margin: 7px 0 0">
+        <p style="margin: 6px 0 0">
           <a data-part="link-index" style="${LINK}">Index</a>
           |
           <a data-part="link-archive" style="${LINK}">Archive</a>
           |
           <a data-part="link-notes" style="${LINK}">Notes</a>
         </p>
-        <hr style="border: 0; border-top: 1px solid #000000; margin: 9px 0">
+        <hr style="border: 0; border-top: 1px solid #000000; margin: 6px 0">
         <table style="border-collapse: collapse; font-family: inherit; font-size: 12px">
           <thead>
             <tr>
@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
           </thead>
           <tbody>${rows}</tbody>
         </table>
-        <p style="margin: 9px 0 0">
+        <p style="margin: 6px 0 0">
           Files are WAV. Nothing is centred, nothing is rounded, and the links are the
           colour the browser made them.
         </p>

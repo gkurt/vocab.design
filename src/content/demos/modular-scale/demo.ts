@@ -18,14 +18,16 @@ const RATIOS = {
 type RatioKey = keyof typeof RATIOS;
 
 /**
- * Rung heights, largest step first, sized for the widest ratio the control
- * offers. They never change, which is what keeps a steeper scale from growing
- * the ladder and shoving the caption down the frame (SPEC §5).
+ * Rung heights, largest step first, cut for the widest ratio the control offers
+ * (1.5, so 54px by the fourth step) at the leading below, and no taller: the whole
+ * ladder has to fit the stage with its caption. They never change, which is what
+ * keeps a steeper scale from growing the ladder and shoving the caption down the
+ * frame (SPEC §5).
  */
 const RUNGS = [
-  { step: 3, height: 66 },
-  { step: 2, height: 46 },
-  { step: 1, height: 34 },
+  { step: 3, height: 64 },
+  { step: 2, height: 44 },
+  { step: 1, height: 31 },
   { step: 0, height: 26 },
 ];
 
@@ -45,7 +47,9 @@ const sizeAt = (ratio: number, step: number) => BASE * ratio ** step;
  * identify to refuse.
  *
  * Sizes are computed, never measured, and each rung is a fixed box that clips,
- * so switching ratios repaints the ladder without moving anything around it.
+ * so switching ratios repaints the ladder without moving anything around it. The
+ * window is drawn to fit the stage with the caption still on it, since a ladder
+ * whose last rung is cut off by the clip box teaches the wrong thing.
  */
 export function mount(root: HTMLElement): void {
   const rungs = RUNGS.map(
@@ -61,7 +65,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 452px">
+      <div class="sp-window" style="width: 452px; padding: 8px 20px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">base ${BASE}px, ratio</span>
           <sp-segmented class="sp-segmented" data-part="segmented" data-value="minor">
@@ -70,13 +74,13 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" data-part="seg-fifth" value="fifth">1.5</button>
           </sp-segmented>
         </div>
-        <div class="sp-stack" data-part="ladder" data-subject data-ratio="minor" style="gap: 0; margin-top: 12px">
+        <div class="sp-stack" data-part="ladder" data-subject data-ratio="minor" style="gap: 0; margin-top: 6px">
           ${rungs}
         </div>
-        <div class="sp-row sp-context" style="height: 22px; margin-top: 8px">
+        <div class="sp-row sp-context" style="height: 22px; margin-top: 6px">
           <span class="sp-text" data-part="readout"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px; font-size: 12px">
           Nothing here was chosen. Every rung is the one below it multiplied by the ratio, which is why a
           steeper ratio runs out of usable sizes by the fourth step and a shallow one barely separates them.
         </p>

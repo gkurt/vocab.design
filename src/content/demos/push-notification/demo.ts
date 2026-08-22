@@ -22,7 +22,7 @@ const card = (index: number, title: string, body: string, top: number) => `
     <span aria-hidden="true" style="${tile(22, 7)}">${icon('bell')}</span>
     <span class="sp-grow" style="min-width: 0">
       <span style="display: block; font-size: 10px; letter-spacing: 0.05em; opacity: 0.85">RIDGE TRAILS</span>
-      <span style="display: block; font-size: 12px; font-weight: 600; line-height: 1.3">${title}</span>
+      <span style="display: block; font-size: 12px; font-weight: 600; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">${title}</span>
       <span style="display: block; font-size: 11px; line-height: 1.3; opacity: 0.9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">${body}</span>
     </span>
     <button
@@ -44,9 +44,11 @@ const card = (index: number, title: string, body: string, top: number) => `
  * dock and the panel of instrumentation beside the phone are the scene.
  *
  * The cards are placed at fixed positions and fade in where they will sit, so a second
- * arrival never moves the first (SPEC §5). Their motion is a CSS transition rather
- * than a scripted one, which is what puts it under the kit's reduced-motion rule for
- * free. The badge keeps a literal red because that is the platform's own spelling of a
+ * arrival never moves the first (SPEC §5). Title and body each hold one line and truncate
+ * with an ellipsis the way the platform's own cards do, which is what keeps a card at the
+ * height its slot reserved instead of growing down over the one below it. Their motion
+ * is a CSS transition rather than a scripted one, which is what puts it under the kit's
+ * reduced-motion rule for free. The badge keeps a literal red because that is the platform's own spelling of a
  * count nobody has read yet, and the kit reserves its one second hue for measurement.
  *
  * Deliver hands over the next undelivered message rather than toggling anything, so a

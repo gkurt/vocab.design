@@ -449,7 +449,63 @@ complete; until then entries only accumulate. Entry format:
 
 ## stage-geometry
 
-- Queued: 2026-08-20 · Status: queued
+- Queued: 2026-08-20 · Status: SWEPT 2026-08-23 (57 fixed, 2 declined, 445 judged designed; 506 of
+  1065 flagged, 1794 findings)
+- Swept at full scope, every check, no thresholds. The shape held: 15 judges read 506 specimens
+  and returned 40 FIX plus 21 PARTIAL, so the fixers only ever opened 61 files. Of the 172
+  findings actually assigned to a fixer, a fresh build-and-measure clears 158 (92%).
+  THE HEADLINE NUMBER IS NOT THE INTERESTING ONE. 88% of what the probe reported was designed:
+  overlays floating over their scene, designed clipping viewports, font-metric bleed of a few
+  px, decorative art clipped on purpose. The judges paid for themselves several times over, and
+  a future sweep should never hand a fixer raw probe output.
+- Detector false positives found and FIXED in the same change, which is the durable output here:
+  (a) `wrap` inferred a fold from the control's HEIGHT, so every icon-only button and every
+  button with an explicit height was flagged; it now counts the text's own line boxes with a
+  Range, and a control with no text cannot fold. (b) spill counted boxes that were never
+  containers: the `sr-only` 1x1px clip technique reported a huge spill every time, and a 4px
+  slider track reported the thumb it is MEANT to stand proud of. (c) `overlap` used the
+  axis-aligned bounding box, so a rotated wrapper and any inline run wrapped across lines or
+  columns (CJK, multicol) intersected neighbours nothing paints over. (d) `layout-shift`
+  watched only the container's own attributes, so a listbox filtering its own options read as
+  incidental; the signature now carries the child count and a longer text slice.
+  A severity ranking was added from the hand-judged corpus (`--min=high|med|low`), which sorts
+  this run 461 high / 400 med / 933 low.
+- CORRECTION worth carrying forward: `escape: 0` does NOT mean nothing is amputated, and reading
+  it that way is a trap. A specimen taller than the 320px stage clips at `.sp-app`, so it reports
+  as a CUT spill on the root box, never as an escape. Thirteen specimens showed that signature;
+  the judges then found most were small or designed (frutiger-aero's 46px is a decorative sky
+  wash clipped on purpose), leaving four real: brutalist-web-design, modular-scale,
+  typographic-hierarchy, y2k-aesthetic.
+- Two findings are DECLINED and are the author's call, not a fixer's. `bidirectional-text`: the
+  overlap is real but structural, since run-3's leading space is a level-0 neutral that lands
+  after "CSS Grid" while its Hebrew sits at level 1, so the span has two fragments straddling
+  run-4 and its box unions them. Removing the straddle makes the measured order the honest
+  `1-2-4-3`, which contradicts the demo's own `read` copy and the choreography's
+  `[data-seq="1-2-3-4"]` assert: a decision about what the specimen teaches. `solarpunk`: the
+  3618px2 is almost exactly the foot's whole box, the signature of an SVG `<text>`+`<textPath>`
+  reporting an oversized rect; the title runs between y≈44 and y≈122 and the foot is at y≈212,
+  so they cannot meet.
+- Residual, deliberately left: `popover-arrow`'s panel and `prefers-reduced-motion`'s scene each
+  grew their CONTENT by exactly what the box gained when enlarged, which means a child is sized
+  off the box itself and no enlargement can clear it. Both were put back to the fixers' values
+  rather than left arbitrarily bigger for nothing. `lottie` and `orbit-animation` are geometry,
+  not sloppiness: a square rotating about its centre needs a 1.41x bounding box, which does not
+  fit the stage. Nothing painted leaves either scene.
+- Laws the fixers proved, worth teaching before the next authoring round. An element parked
+  OUTSIDE its clipping box by `transform: translateY(100%)` or a negative offset is still
+  scrollable overflow: `overflow: hidden` hides it but `scrollHeight` still counts it, so the
+  honest ways to slide in are to fade in place or to park with `clip-path`, which changes what
+  is painted and never what is measured. `sp-grow` (`flex: 1 1 auto`) used for equal columns
+  splits them by CONTENT width, so any text change redistributes both; `flex-basis: 0` is the
+  one-line fix and may deserve a kit variant. And a flex item with `overflow: hidden` has an
+  automatic minimum size of zero, so it is silently squeezed and clips itself with nothing in
+  the source saying so.
+- THE RULE WAS NEVER MISSING. SPEC §5 already says to size each box for its largest content at
+  its real rendered size, measuring once on mount where only runtime knows it. Every recurring
+  defect here was that rule going unenforced: a readout sized for its mount string rather than
+  the longest verdict its own code produces, four times in one shard alone. So the fix for the
+  BACKLOG is not more prose, it is promoting this auditor to a permanent e2e pass, which is the
+  one thing that would stop it regrowing. Left undone, and worth deciding.
 - 2026-08-22: NOT swept (out of the scope the user chose), and the detector was found
   BROKEN by the same trailing-slash bug as subject-granularity: it requested `/<slug>/`,
   which 404s under `trailingSlash: 'never'`, so every specimen died on the 20s
@@ -695,7 +751,29 @@ complete; until then entries only accumulate. Entry format:
 
 ## settle-blind release recognizers
 
-- Queued: 2026-08-23 · Status: queued
+- Queued: 2026-08-23 · Status: SWEPT 2026-08-22 (1 fixed, 1 already correct, 1 judged skip; 3 flagged)
+- Swept: the detector's 3 were the whole population and each landed in a different place.
+  fling was already right and is the reference. edge-swipe was a false positive of a kind
+  worth remembering: it judges a release by DISTANCE (`travelled >= COMMIT`) and holds no
+  timestamps at all, so the rule simply does not reach it; the detector flags any release
+  handler without a clock filter, which cannot tell a distance recognizer from a blind one.
+  momentum-scrolling was the real offender, and the fix was bigger than the demo, because
+  the bug had been written into the CHOREOGRAPHY too: it played one plain settled `drag`
+  and then asserted `data-coast=some`, so the script certified the false claim every pass.
+  Fixing the recognizer alone would have turned that into a red test rather than a caught
+  bug. The lesson for future entries: when a demo judges something wrongly, check whether
+  its choreography has been taught to expect the wrong answer, because a script written
+  against a buggy demo is evidence of the bug, not of the claim.
+  The demo now filters at the release (`now - sample.at <= VELOCITY_WINDOW_MS`), keeps its
+  trail on a wider retention so pruning can never drop a sample the release still wants,
+  and drops its old `STALE_MS` guard, which the release-time filter subsumes. Its script
+  plays the same 150px stroke twice, differing only in the release, aimed at two unpainted
+  fixed markers because the cards themselves travel with the throw.
+  The detector was repaired in the same pass: its `AT_RELEASE` probe hardcoded the timestamp
+  FIELD NAME (`sample.t`, as fling spells it), so the fixed momentum-scrolling still read as
+  an offender because it spells the field `sample.at`. It now matches the shape of the
+  comparison instead. Worth remembering across this whole ledger: a detector keyed to one
+  demo's naming reports the reference implementation as the only correct one.
 - Rule: a demo that judges a pointer RELEASE (a throw, a fling, a swipe past a velocity
   threshold) must judge it the way a recognizer does, on the samples that are recent AT
   THE MOMENT OF RELEASE. A demo that instead prunes its sample buffer as each move
@@ -718,3 +796,36 @@ complete; until then entries only accumulate. Entry format:
   recognizer tell them apart. fling is the reference.
 - Verify: choreography pass; the eye on 4321 confirms the settled stroke stops dead and
   the thrown one carries.
+
+## ambiguous data-part
+
+- Queued: 2026-08-22 · Status: queued
+- Found during the stage-geometry sweep, by a judge noticing that non-breaking-space carries
+  four sibling spans all named `pair`. That one turned out to be legitimate, which is what
+  makes the entry worth writing: the kit supports a shared name deliberately, so the rule is
+  narrower than "names must be unique".
+- Rule: sharing a `data-part` name across several elements is fine, and `partsOf(root, name)`
+  is the kit helper that reads them all. What is not fine is resolving a shared name as if it
+  were single. `part(root, name)` returns the FIRST match, so a demo reading a duplicated name
+  with the singular helper silently operates on one arbitrary element. Worse, `data-part` is
+  the only selector a choreography may use and a step resolves one element, so a step aiming
+  at a duplicated name is decided by document order rather than by the script: a `click` lands
+  on whichever copy happens to come first, and an `assert` becomes unfalsifiable, since the
+  claim passes if ANY copy satisfies it. Either give the elements distinct names, or read them
+  with `partsOf` and aim the script at a name only one element carries.
+- Detector: detectors/duplicate-parts.ts (source scan, no dev server). Reports a shared name
+  together with what resolves it as single: `part()` when the demo uses the singular helper,
+  `script` when the choreography aims a step at it. A name used only through `partsOf` and
+  never aimed at is working as intended and is not reported. At queue time: 70 specimens, 127
+  findings (57 `part()`, 70 `script`). Precision is untested; the known false-positive shape is
+  a name written twice in two mutually exclusive render branches, where only one exists at a
+  time. A judge should ask, per finding: can both elements exist at once, and if so, is the
+  one the reader resolves the one it means?
+- Recipe: prefer distinct names (`row-before` / `row-after` rather than two `row`s), since that
+  fixes the demo and the script together. Where the elements really are a set, switch the demo
+  to `partsOf` and give the choreography a name that only one element carries, adding an
+  unpainted aim marker if there is nothing suitable. Never leave a script aiming at a name more
+  than one element carries.
+- Verify: choreography pass over touched slugs, which is what would catch a step that had been
+  silently landing on the wrong copy; read any changed subject snapshot, since renaming the
+  part a specimen identifies by can change what it reports as its subject.

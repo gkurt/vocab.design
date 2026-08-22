@@ -16,7 +16,12 @@ const NOTES: Record<string, string> = {
   behind: 'Narrowest: no room beside or below, so the pane waits behind a control and arrives as a sheet.',
 };
 
-/** The sheet at rest: parked below the window's floor, so nothing of it is on stage. */
+/**
+ * The sheet at rest: clipped away at the window's floor, so nothing of it is on stage.
+ * The parking is a clip rather than a translate because a pane pushed below the floor is
+ * still content the window has to hold, and the window's own box is what it cannot leave
+ * (SPEC §5). A clip changes what is painted and never what is measured.
+ */
 const SHEET_CLOSED: Record<string, string> = {
   position: 'absolute',
   width: 'auto',
@@ -24,12 +29,12 @@ const SHEET_CLOSED: Record<string, string> = {
   borderTop: '1px solid var(--sp-line)',
   borderLeft: '0',
   boxShadow: 'var(--sp-shadow)',
-  transform: 'translateY(100%)',
+  clipPath: 'inset(100% 0 0 0)',
   opacity: '0',
   visibility: 'hidden',
 };
 
-const SHEET_OPEN: Record<string, string> = { transform: 'translateY(0)', opacity: '1', visibility: 'visible' };
+const SHEET_OPEN: Record<string, string> = { clipPath: 'inset(0 0 0 0)', opacity: '1', visibility: 'visible' };
 
 /** Geometry per placement. `left/right/bottom` are set once and simply ignored while the pane is static. */
 const PANE_STYLE: Record<string, Record<string, string>> = {
@@ -40,7 +45,7 @@ const PANE_STYLE: Record<string, Record<string, string>> = {
     borderTop: '0',
     borderLeft: '1px solid var(--sp-line)',
     boxShadow: 'none',
-    transform: 'none',
+    clipPath: 'none',
     opacity: '1',
     visibility: 'visible',
   },
@@ -51,7 +56,7 @@ const PANE_STYLE: Record<string, Record<string, string>> = {
     borderTop: '1px solid var(--sp-line)',
     borderLeft: '0',
     boxShadow: 'none',
-    transform: 'none',
+    clipPath: 'none',
     opacity: '1',
     visibility: 'visible',
   },
@@ -83,7 +88,10 @@ const prose = (widths: number[]) =>
  * needs a `data-pose`.
  *
  * The window is a fixed box and each placement gives the pane a stated size, so a size class
- * rearranges the window's interior and moves nothing around it (SPEC §5). Each segment names
+ * rearranges the window's interior and moves nothing around it (SPEC §5). The document is the
+ * one thing that gives room up: it is a scroller, because a pane taking a third of a short
+ * window leaves the document less than it needs, and a document view that scrolls is the
+ * honest answer where one that cut its last lines off is not. Each segment names
  * the placement it produces and the sheet has an explicit open and an explicit close, so a
  * script resumed at any point reaches a state rather than flipping the one it found (SPEC §8).
  */
@@ -124,7 +132,7 @@ export function mount(root: HTMLElement): void {
                   </button>
                 </span>
               </span>
-              <div style="display: flex; flex-direction: column; gap: 7px; flex: 1 1 auto; min-height: 0; overflow: hidden">
+              <div class="sp-scroll" style="display: flex; flex-direction: column; gap: 7px; flex: 1 1 auto; min-height: 0">
                 ${prose([96, 88, 93, 72, 90, 84, 66, 91, 58])}
               </div>
             </div>
@@ -136,7 +144,7 @@ export function mount(root: HTMLElement): void {
               style="display: flex; flex-direction: column; gap: 6px; left: 0; right: 0; bottom: 0; z-index: 1;
                      flex: 0 0 auto; width: ${SIDE_W}px; padding: 8px; overflow: hidden;
                      background: var(--sp-surface); border-left: 1px solid var(--sp-line);
-                     transition: transform 0.26s var(--sp-ease), opacity 0.2s, visibility 0.26s"
+                     transition: clip-path 0.26s var(--sp-ease), opacity 0.2s, visibility 0.26s"
             >
               <span style="display: flex; align-items: center; gap: 6px; flex: 0 0 auto; height: 20px">
                 <span class="sp-label sp-grow">Comments</span>

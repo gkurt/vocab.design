@@ -8,7 +8,8 @@ import { part } from '#src/kit/parts.ts';
  * built from three plain spans, since a demo has no pseudo-elements to draw with.
  *
  * The card is the subject and the sky behind it is scenery: the treatment is what the
- * term names, not the backdrop it is traditionally shown over.
+ * term names, not the backdrop it is traditionally shown over. The sky's orbs are held
+ * inside it rather than hung over its floor, so the stage has nothing to amputate.
  */
 export function mount(root: HTMLElement): void {
   const chrome =
@@ -20,7 +21,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-context" data-part="sky" aria-hidden="true"
            style="position: absolute; inset: 0; background-image: radial-gradient(circle at 78% 12%, rgb(255 255 255 / 0.85) 0 8%, transparent 40%), linear-gradient(180deg, #6fc2f5, #b9e6ff 52%, #e9f7ff)">
         <span style="position: absolute; left: 8%; top: 62%; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, rgb(255 255 255 / 0.9), rgb(146 214 255 / 0.35) 58%, rgb(90 170 230 / 0.25)); filter: blur(1px)"></span>
-        <span style="position: absolute; right: 6%; bottom: -24px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 30% 26%, rgb(255 255 255 / 0.8), rgb(160 224 255 / 0.3) 60%, rgb(80 160 220 / 0.2))"></span>
+        <span style="position: absolute; right: 6%; bottom: 0; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 30% 26%, rgb(255 255 255 / 0.8), rgb(160 224 255 / 0.3) 60%, rgb(80 160 220 / 0.2))"></span>
       </div>
 
       <div data-part="card" data-subject

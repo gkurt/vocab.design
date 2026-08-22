@@ -17,7 +17,9 @@ const FIRST = PRODUCTS[0];
  *
  * Dismissal is explicit (close, or the primary action taken), never a toggle on the
  * row's own button, so a pass picked up anywhere opens rather than closes (SPEC §8).
- * The panel is absolutely positioned, so nothing under it moves when it appears.
+ * The panel is absolutely positioned, so nothing under it moves when it appears, and the
+ * bag counter is set in tabular figures, so taking the action cannot nudge the filter chip
+ * beside it (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const rows = PRODUCTS.map(
@@ -40,7 +42,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Kitchen</span>
           <span class="sp-chip" data-part="filter" data-selected>In stock</span>
-          <span class="sp-row sp-text" data-part="bag" data-count="0" style="gap: 6px">${icon('inbox')}<span data-part="bag-text">Bag 0</span></span>
+          <span class="sp-row sp-text" data-part="bag" data-count="0" style="gap: 6px; font-variant-numeric: tabular-nums">${icon('inbox')}<span data-part="bag-text">Bag 0</span></span>
         </div>
         <div class="sp-body sp-context">
           <ul class="sp-list" data-part="list" style="gap: 8px">${rows}</ul>

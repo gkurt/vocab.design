@@ -23,7 +23,9 @@ const START = 'brief';
  * it is down, scripted or real.
  *
  * Selection paint is a background, so a row joining or leaving the set moves nothing
- * (SPEC §5), and the counts hold their widths.
+ * (SPEC §5), and the counts hold their widths. The readout is one nowrap line cut for the
+ * longest verdict it can reach (the longest filename, dropped), since a second line there
+ * would push the topbar down onto the list the term is about.
  */
 export function mount(root: HTMLElement): void {
   const rows = FILES.map(
@@ -48,7 +50,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 252px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Assets</span>
-          <span class="sp-text" data-part="readout" data-mode="start" style="width: 210px; text-align: right">One row selected</span>
+          <span class="sp-text" data-part="readout" data-mode="start" style="width: 270px; text-align: right; white-space: nowrap">One row selected</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <ul
