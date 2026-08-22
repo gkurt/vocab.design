@@ -5,7 +5,7 @@ export default steps([
   { assert: { selector: '[data-part=screen][data-result=open]', state: 'visible' } },
   { assert: { selector: '[data-part=sheet]', state: 'visible' } },
   { moveTo: '[data-part=sheet]' },
-  { twoFingerScrub: { reps: 3 } },
+  { scrub: { reps: 3 } },
   { wait: 600 },
   // The claim lands on the screen, which stays: the sheet is the thing that left.
   { assert: { selector: '[data-part=screen][data-result=dismissed]', state: 'visible' } },
@@ -17,7 +17,7 @@ export default steps([
   { wait: 500 },
   { assert: { selector: '[data-part=screen][data-result=open]', state: 'visible' } },
   { moveTo: '[data-part=sheet]' },
-  { twoFingerScrub: { reps: 3 } },
+  { scrub: { reps: 3 } },
   { wait: 600 },
   { assert: { selector: '[data-part=screen][data-result=stranded]', state: 'visible' } },
   { assert: { selector: '[data-part=gone]', state: 'visible' } },

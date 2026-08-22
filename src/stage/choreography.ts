@@ -23,29 +23,36 @@ export type Step =
    */
   | { hold: number }
   /**
-   * Two touch contacts about the current target (SPEC §8): two pointerdowns with
-   * their own pointerIds, moves, two pointerups. `scale` spreads (> 1) or closes
-   * (< 1) the pair, the separation ending at exactly that ratio of where it
-   * began; `turn` rotates the pair by that many degrees, clockwise. Either alone
-   * or both together. `ms` is animation, not semantics — the amounts are stated,
-   * so reduced motion collapses it, unlike `hold`, whose length IS the depth.
+   * Touch contacts spread, closed, or turned about the current target (SPEC §8):
+   * one pointerdown per contact with its own pointerId, moves, one pointerup
+   * each. `scale` spreads (> 1) or closes (< 1) them, the OUTERMOST separation
+   * ending at exactly that ratio of where it began; `turn` rotates them by that
+   * many degrees, clockwise. Either alone or both together. `fingers` is the
+   * contact count, 2 by default and at most 3; the contacts sit evenly along the
+   * axis, so the outermost pair always carries the stated scale and a third
+   * contact rides the centre. `ms` is animation, not semantics — the amounts are
+   * stated, so reduced motion collapses it, unlike `hold`, whose length IS the depth.
    */
-  | { pinch: { scale?: number; turn?: number; ms?: number } }
+  | { pinch: { fingers?: number; scale?: number; turn?: number; ms?: number } }
   /**
-   * Two touch contacts tapped on the current target (SPEC §8): both down, both
-   * up, no travel. `count` taps the pair that many times (a magic tap is two).
-   * The gesture assistive technology routes natively is PORTRAYED here as the
-   * gesture it is, the same way the touch persona portrays a finger; what a web
-   * page can and cannot hear is the article's business, not the player's.
+   * Touch contacts tapped together on the current target (SPEC §8): all down,
+   * all up, no travel. `count` taps them that many times (a magic tap is two of
+   * two fingers, VoiceOver's screen curtain three of three). `fingers` is the
+   * contact count, 2 by default and at most 3; it is never 1, because a single
+   * touch tap is a `click` inside a `data-touch` scope. The gesture assistive
+   * technology routes natively is PORTRAYED here as the gesture it is, the same
+   * way the touch persona portrays a finger; what a web page can and cannot
+   * hear is the article's business, not the player's.
    */
-  | { twoFingerTap: { count?: number } }
+  | { tap: { fingers?: number; count?: number } }
   /**
-   * Two touch contacts scrubbed back and forth across the current target
-   * (SPEC §8): the pair presses, sweeps sideways `reps` times with a downward
-   * drift (the Z shape the gesture is described by), and lifts. `ms` is
-   * animation, not semantics, so reduced motion collapses the travel.
+   * Touch contacts scrubbed back and forth across the current target (SPEC §8):
+   * they press, sweep sideways `reps` times with a downward drift (the Z shape
+   * the gesture is described by), and lift. `fingers` is the contact count, 2 by
+   * default and at most 3, never 1. `ms` is animation, not semantics, so reduced
+   * motion collapses the travel.
    */
-  | { twoFingerScrub: { reps?: number; ms?: number } }
+  | { scrub: { fingers?: number; reps?: number; ms?: number } }
   | { press: string }
   /**
    * Hold a key for this many ms with the OS's own repeat shape (SPEC §8): one

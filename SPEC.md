@@ -544,20 +544,34 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   scope (§8). Rotation rides the same pair: the `pinch` step's `turn` rotates the
   contacts, `pinchSpread` reports (scale, turn) so a demo uses the half it names,
   and a Ctrl+drag swinging around the mirror centre turns the pair for a mouse.
-  Two more gestures ride the same pair, and both are the twin contacts doing
-  something other than spreading. The `twoFingerTap` step (§8) taps the pair with
-  no travel, `count` times, and a demo wires `twoFingerTap` from the kit: one
-  signal for the script, real fingers, and a reader's **Ctrl+tap** — the no-travel
-  half of the same Ctrl mapping a pinch's drag claims, which is why one element
-  never wires both. The `twoFingerScrub` step sweeps the pair sideways and back,
-  and `twoFingerScrub` in the kit counts the reversals rather than matching a
-  shape, so a scripted scrub, real fingers and a reader's Ctrl+drag swept side to
-  side all arrive as one signal. Both gestures are PORTRAYED as themselves, on the
-  same principle as the rest of this persona: that assistive technology consumes
-  the real versions natively and hands a web page nothing is a fact for the term's
-  article, not a reason the stage may dress the gesture as something else.
-  Gestures past two contacts are not in the vocabulary yet; terms that need them
-  wait.
+  Two more gestures ride the same contacts, and both are them doing something
+  other than spreading. The `tap` step (§8) taps them with no travel, `count`
+  times, and a demo wires `contactTap` from the kit: one signal for the script,
+  real fingers, and a reader's **Ctrl+tap** — the no-travel half of the same Ctrl
+  mapping a pinch's drag claims, which is why one element never wires both. The
+  `scrub` step sweeps them sideways and back, and `contactScrub` in the kit counts
+  the reversals rather than matching a shape, so a scripted scrub, real fingers and
+  a reader's Ctrl+drag swept side to side all arrive as one signal. These gestures
+  are PORTRAYED as themselves, on the same principle as the rest of this persona:
+  that assistive technology consumes the real versions natively and hands a web
+  page nothing is a fact for the term's article, not a reason the stage may dress
+  the gesture as something else.
+- **Contact counts**: `tap`, `scrub` and `pinch` each carry a `fingers` count, two
+  by default and **three at most**. The contacts sit evenly along the gesture's
+  axis, so the outermost pair always carries the stated scale and an odd third
+  rides the centre, which is where the ghost draws its third disc and where a
+  reader's third contact appears. A count is never one, because a single touch tap
+  is a `click` inside a touch scope, and never more than three, because no term
+  needs it: a demo that would need four contacts waits, exactly as three did.
+  A reader on a mouse stands in for a pair with **Ctrl** and for three with
+  **Ctrl+Shift**, and the count itself is readable through `contactCount` for a
+  term whose claim IS the count rather than any one named gesture. Where the
+  platform swallows the gesture before any document sees it, a demo declares
+  `reader: false` so no mouse mapping is offered: portraying the contacts is
+  honest, but handing a reader a mapping for a handler that cannot work on real
+  hardware is the fake §8 forbids, and the article's prose carries the rest.
+  Nothing in a demo ever paints its own fingers; the stage draws every contact,
+  so drawn dots are double vision.
 - **Gaze persona (scripted)**: a `data-gaze` scope is the touch persona's opposite
   temperament. Events stay exactly a mouse's — hover included, because looking IS
   hovering — and only the dress changes: the ghost is an eye resting where the
@@ -610,14 +624,16 @@ export default steps([
   the duration; Shift, Control, Alt, and Meta stamp their flag on every event
   dispatched inside, so a click becomes a Ctrl+click and a drag a Shift+drag; scopes
   nest for chords, and the scope closes even on a cancelled run, so a held key can
-  never leak), `hold` (press-and-hold for N ms), `pinch` (two touch contacts
-  about the current target: two pointerdowns with their own pointerIds, moves,
-  two pointerups — `scale` spreads or closes the pair, the separation ending at
-  exactly that ratio of where it began and never exceeding the stage's span, and
-  `turn` rotates the pair by that many degrees clockwise, either alone or both
-  together), `twoFingerTap` (the pair tapped on the target with no travel, `count`
-  times — a magic tap is two), `twoFingerScrub` (the pair swept sideways and back
-  `reps` times with a downward drift, one continuous press throughout),
+  never leak), `hold` (press-and-hold for N ms), `pinch` (touch contacts
+  about the current target: one pointerdown per contact with its own pointerId,
+  moves, one pointerup each — `scale` spreads or closes them, the OUTERMOST
+  separation ending at exactly that ratio of where it began and never exceeding
+  the stage's span, and `turn` rotates them by that many degrees clockwise, either
+  alone or both together), `tap` (the contacts tapped on the target with no travel,
+  `count` times — a magic tap is two of two, VoiceOver's screen curtain three of
+  three), `scrub` (the contacts swept sideways and back `reps` times with a
+  downward drift, one continuous press throughout), each carrying an optional
+  `fingers` count (two by default, three at most, never one: see §7),
   `press` (key), `holdKey`
   (hold a key for N ms: one keydown, the typematic delay, then `repeat: true`
   keydowns at a steady rate until the keyup, the chip counting them as
@@ -633,16 +649,22 @@ export default steps([
   pressure climbing at a finger's rate (full force at 900 ms), so the hold's length
   chooses the depth reached — the signal a force-driven demo reads. `pinch`'s `ms`
   is animation, not semantics — the scale is stated, so reduced motion collapses
-  the move, unlike `hold`, whose length IS the depth it reaches. `twoFingerScrub`'s
-  `ms` is animation on the same terms; `twoFingerTap`'s `count` is semantics, since
-  a single tap of the pair is not the gesture a double tap is.
+  the move, unlike `hold`, whose length IS the depth it reaches. `scrub`'s
+  `ms` is animation on the same terms; `tap`'s `count` is semantics, since
+  a single tap of the contacts is not the gesture a double tap is, and `fingers` is
+  semantics everywhere, since the count is what a surface distinguishes.
   **The vocabulary grows before a demo fakes it.** A term whose honest demonstration
   needs input the player cannot perform is a reason to grow the player — as press
   duration grew `hold` and pressure grew the touch persona — never to ship a control
   that impersonates the input (a "simulate the hold" button, tabs for pressure
   levels). A demo is not authored until the input it needs exists. Simulation
   controls remain legitimate only for conditions no input could ever perform: a
-  network failure, a server delay, a permission state.
+  network failure, a server delay, a permission state. **Device motion belongs to
+  that carve-out.** A shake is read from a sensor rather than made by a pointer or a
+  key, so a labelled control driving it is the legitimate kind of simulation and not
+  a costume worn by an input; shake-to-undo and motion-actuation are settled on those
+  terms rather than waiting for a primitive. The line is what the input IS, not
+  whether the stage could technically synthesize an event for it.
 - **Targets are `data-part` attributes only** — a stable semantic contract that
   survives restyling. Never classes or tag structure. An `assert` may qualify a part
   with a state attribute (`[data-part=seg-day][aria-selected="true"]`), which is how a

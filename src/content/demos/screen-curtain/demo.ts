@@ -1,5 +1,6 @@
 import { flag, part } from '#src/kit/parts.ts';
-import '#src/kit/segmented.ts';
+import { contactTap } from '#src/kit/touch.ts';
+import type { DemoClock } from '#src/stage/clock.ts';
 
 type Mode = 'off' | 'on';
 
@@ -11,25 +12,34 @@ const STOPS = [
 ] as const;
 
 const CAPTION = {
-  off: 'The display is on, so the walk can be watched as well as heard. Press the arrow key to move to the next control.',
-  on: 'The display is off, not dimmed. The same three presses reach the same three controls and say the same three things, with nothing on screen at all.',
+  off: 'The display is on, so the walk can be watched as well as heard. Triple tap the screen with three fingers to switch it off.',
+  on: 'The display is off, not dimmed. The same three presses reach the same three controls and say the same three things. Tap again to bring it back.',
 } as const;
 
 /**
- * Screen curtain specimen: a wallet screen walked control by control, with a pick between the
- * display being on and the display being switched off entirely. The transcript keeps moving either
- * way, which is the whole claim: the curtain takes away the picture and nothing else.
+ * Screen curtain specimen: a wallet screen walked control by control, with the display switched off
+ * and back on by the gesture that really does it, a three-finger triple tap on the screen. The
+ * transcript keeps moving either way, which is the whole claim: the curtain takes away the picture
+ * and nothing else.
  *
  * The subject is the curtain, the surface that blacks the display out. It exists only while the
  * curtain is on, so every state it is on stage in is honest and no `data-pose` is needed; in the
  * other state identify summons it (SPEC §6). The screen, its controls, the transcript, the key
  * legend and the caption are scenery.
  *
+ * The gesture is PORTRAYED as itself: `contactTap` from the kit reads the script's `tap` step and a
+ * real three-finger triple tap through one wiring (SPEC §7), and one gesture reaches both named
+ * states, because toggling is what the platform gesture does and here the toggling IS the term. It
+ * passes `reader: false`, because VoiceOver consumes the three-finger triple tap before any document
+ * sees it, so a mouse mapping would hand the reader a handler no real hardware can reach; that fact
+ * is the article's to state. Nothing here draws a contact: the stage draws the ghost's discs and a
+ * reader's own fingers (SPEC §7).
+ *
  * Focus is simulated (`data-sim-focus`), because attract mode never moves real focus (SPEC §7); the
  * screen carries `tabindex="0"` so a reader can focus it and drive the same walk with a real arrow
- * key. No timers: every state here is reached by a press.
+ * key.
  */
-export function mount(root: HTMLElement): void {
+export function mount(root: HTMLElement, clock: DemoClock): void {
   const line = (index: number, said: string) => `
     <p class="sp-text sp-text--ink" data-part="line-${index + 1}"
        style="margin: 0; height: 16px; line-height: 16px; font-size: 11.5px; white-space: nowrap;
@@ -38,19 +48,15 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; min-height: 20px">
           <span class="sp-label" style="flex: 0 0 auto">VoiceOver, walking one screen</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="off" style="flex: 0 0 auto">
-            <button class="sp-segment" type="button" data-part="seg-off" value="off"
-                    style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Curtain off</button>
-            <button class="sp-segment" type="button" data-part="seg-on" value="on"
-                    style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Curtain on</button>
-          </sp-segmented>
+          <span class="sp-label" style="flex: 0 0 auto; font-size: 10px; white-space: nowrap">Three-finger triple tap: display off</span>
         </div>
 
         <div class="sp-row" style="align-items: stretch; gap: 12px; margin-top: 10px">
-          <div class="sp-frame" data-part="screen" tabindex="0"
-               style="position: relative; flex: 0 0 auto; width: 202px; height: 158px; overflow: hidden">
+          <div class="sp-frame" data-part="screen" data-curtain="off" data-touch tabindex="0"
+               style="position: relative; flex: 0 0 auto; width: 202px; height: 158px; overflow: hidden;
+                      touch-action: none; user-select: none">
             <div class="sp-topbar sp-context" style="padding: 6px 10px">
               <span class="sp-heading sp-grow" style="font-size: 12px">Wallet</span>
               <span class="sp-label" style="font-size: 10px">&#163;412.90</span>
@@ -91,6 +97,7 @@ export function mount(root: HTMLElement): void {
     </div>
   `;
 
+  const screen = part(root, 'screen');
   const curtain = part(root, 'curtain');
   const caption = part(root, 'caption');
   const controls = STOPS.map((stop) => part(root, stop.part));
@@ -111,6 +118,18 @@ export function mount(root: HTMLElement): void {
     for (const said of lines) said.style.opacity = '0';
   };
 
+  const show = (mode: Mode) => {
+    const on = mode === 'on';
+    screen.dataset.curtain = mode;
+    curtain.style.opacity = on ? '1' : '0';
+    curtain.style.visibility = on ? 'visible' : 'hidden';
+    caption.dataset.mode = mode;
+    caption.textContent = CAPTION[mode];
+    // Each performance replays the same walk from its start in the new state, rather than leaving
+    // the transcript wherever the last one stopped (SPEC §8).
+    rewind();
+  };
+
   // The arrow key rather than Tab: a real reader's Tab belongs to the page, and this walk is the
   // one a screen reader performs. Keys land on the element the player last touched and bubble here.
   root.addEventListener('keydown', (event) => {
@@ -119,15 +138,14 @@ export function mount(root: HTMLElement): void {
     walk();
   });
 
-  part(root, 'mode').addEventListener('change', (event) => {
-    const mode = (event as CustomEvent<string>).detail as Mode;
-    const on = mode === 'on';
-    curtain.style.opacity = on ? '1' : '0';
-    curtain.style.visibility = on ? 'visible' : 'hidden';
-    caption.dataset.mode = mode;
-    caption.textContent = CAPTION[mode];
-    // The pick replays the same walk from the start in the new state, rather than leaving the
-    // transcript wherever the last one stopped (SPEC §8).
-    rewind();
+  // Three contacts, three taps, on the screen itself: the gesture the platform gives this mode, and
+  // the same one takes the display back. `reader: false` because VoiceOver never hands it to a page.
+  contactTap(screen, clock, {
+    fingers: 3,
+    reader: false,
+    onTap: (count: number) => {
+      if (count !== 3) return;
+      show(screen.dataset.curtain === 'on' ? 'off' : 'on');
+    },
   });
 }

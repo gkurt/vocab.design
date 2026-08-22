@@ -15,8 +15,12 @@ const NOTE_LINES = ['Ask about the boiler', 'Bring the parcel slip'];
  * is the answer to the gesture, and the panel beside the phone is instrumentation, so both
  * stay outside the subject and the panel sits in the context register.
  *
- * A shake cannot be synthesized by the player (SPEC §7–8), so a labelled control drives the
- * scripted path: it runs the same rattle and the same alert the real gesture would. The
+ * A shake is a SENSOR CONDITION rather than an input a pointer or a key can make, so the
+ * labelled control here is the legitimate kind of simulation (SPEC §8): the same carve-out
+ * that covers a network failure, a server delay or a permission state, none of which any
+ * gesture could perform either. It runs the same rattle and the same alert the real gesture
+ * would, and the honest label is what keeps it a simulation of a condition rather than a
+ * costume worn by an input. The
  * rattle is an `element.animate`, out of reach of the kit's motion sheet, so it asks
  * `prefersReducedMotion` itself and lands on a static tilt instead of playing the move.
  *

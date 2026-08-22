@@ -1,63 +1,55 @@
-import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
-import type { DemoClock } from '#src/stage/clock.ts';
+import { contactCount, pinchSpread } from '#src/kit/touch.ts';
 
 const CANVAS = { w: 300, h: 150 };
-const CENTRE = { x: CANVAS.w / 2, y: CANVAS.h / 2 };
-
-/** The whole mapping in two numbers: the gap two resting fingers hold, and what it means. */
-const BASE_GAP = 120;
-const OPEN_GAP = 264;
 const MAX_SCALE = 2.6;
 
-const DOT = 26;
-const STEP_MS = 30;
-const STEPS = 14;
-
-const contact = (name: string, label: string) => `
-  <span
-    data-part="dot-${name}"
-    style="position: absolute; left: 0; top: 0; width: ${DOT}px; height: ${DOT}px; margin: ${-DOT / 2}px 0 0 ${-DOT / 2}px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid #ffffff; background: rgb(255 255 255 / 0.28); color: #ffffff; font-size: 11px; font-weight: 600; pointer-events: none"
-  >${label}</span>`;
+/** What the surface makes of each contact count: the whole point of the term. */
+const READING: Record<number, string> = {
+  0: 'No contacts',
+  1: 'One contact: a pan, not a pinch',
+  2: 'Two contacts: pinching',
+  3: 'Three contacts: not a pinch',
+};
 
 /**
- * Multi-touch specimen: a photo canvas carrying two drawn contacts, where the distance
- * between them is the scale of the picture. The subject is the canvas: the term names the
- * surface that can tell two contacts apart rather than either contact or the window around
- * it, and the canvas is the narrowest element that holds the pair and the mapping at once.
- * The topbar, the gap readout, and the two simulation buttons are instrumentation and stay
- * in the context register.
+ * Multi-touch specimen: a photo surface that reports how many contacts are down and
+ * changes what it does with them. The subject is the canvas, because the term names the
+ * surface that can tell contact counts apart rather than any one contact or the window
+ * around it. The topbar, the readout and the resolved-count label are instrumentation and
+ * stay in the context register.
  *
- * The two-pointer wiring is real, keyed by `pointerId` exactly as a gesture recognizer
- * keys it, so a reader on a touchscreen who takes the stage over gets the actual pinch:
- * with two live contacts the dots follow the fingers and the scale follows the distance.
- * One contact says so and changes nothing, which is the honest answer a mouse gets.
+ * The count IS the claim, so the demo reads it from `contactCount` rather than inferring
+ * it from a gesture it did not ask for, and it holds the highest count it resolved in
+ * `data-last` so the distinction survives the fingers lifting. Two contacts pinch through
+ * `pinchSpread`; three deliberately do NOT, which is what distinguishing counts means.
  *
- * The player has one cursor, so the scripted path reaches the spread and closed states
- * through labelled simulation controls (the long-press idiom), each of which drives the
- * gap to an absolute value rather than toggling it. The step loop runs on the stage's
- * clock and jumps to its end state under reduced motion, since no CSS rule can reach it.
+ * Nothing here draws a finger. The stage draws every contact, the ghost's discs for the
+ * script and the reader's own mirrored pair for a hand (SPEC §7), so painted dots would be
+ * double vision. A reader on a mouse stands in for a pair with Ctrl and for three with
+ * Ctrl and Shift.
  *
  * The picture scales by a transform inside a clipped canvas and every readout holds its
  * width, so zooming moves nothing but the photograph (SPEC §5).
  */
-export function mount(root: HTMLElement, clock: DemoClock): void {
+export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="height: 244px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Photos</span>
-          <span class="sp-text" data-part="readout" style="width: 220px; text-align: right; white-space: nowrap">Two contacts resting</span>
+          <span class="sp-text" data-part="readout" style="width: 220px; text-align: right; white-space: nowrap">No contacts</span>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+        <div class="sp-body" data-touch style="display: flex; flex-direction: column; align-items: center; gap: 8px">
           <div
             class="sp-surface"
             data-part="canvas"
             data-subject
             data-contacts="0"
+            data-last="0"
             data-gesture="rest"
             data-scale="1.00"
-            style="position: relative; width: ${CANVAS.w}px; height: ${CANVAS.h}px; overflow: hidden; touch-action: none; user-select: none; cursor: crosshair"
+            style="position: relative; width: ${CANVAS.w}px; height: ${CANVAS.h}px; overflow: hidden; touch-action: none; user-select: none"
           >
             <span
               data-part="photo"
@@ -70,148 +62,65 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span style="position: absolute; left: 0; right: 0; top: 86px; height: 2px; background: rgb(255 255 255 / 0.4)"></span>
               <span style="position: absolute; left: 0; right: 0; bottom: 0; height: 54px; background: linear-gradient(rgb(16 24 40 / 0), rgb(16 24 40 / 0.55))"></span>
             </span>
-            <span
-              data-part="span"
-              style="position: absolute; left: 0; top: 0; width: 0; height: 2px; transform-origin: 0 50%; background: rgb(255 255 255 / 0.65); pointer-events: none"
-            ></span>
-            ${contact('a', '1')}${contact('b', '2')}
           </div>
           <span
             class="sp-label sp-context"
-            data-part="gap"
+            data-part="resolved"
             style="width: ${CANVAS.w}px; text-align: center; font-variant-numeric: tabular-nums"
-          >gap ${BASE_GAP} px maps to scale 1.00</span>
+          >The surface has resolved 0 contacts</span>
         </div>
-      </div>
-      <div class="sp-row sp-context">
-        <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="sim-open">Simulate pinch open</button>
-        <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="sim-close">Simulate pinch closed</button>
       </div>
     </div>
   `;
 
   const canvas = part(root, 'canvas');
   const photo = part(root, 'photo');
-  const span = part(root, 'span');
-  const dotA = part(root, 'dot-a');
-  const dotB = part(root, 'dot-b');
   const readout = part(root, 'readout');
-  const gapLabel = part(root, 'gap');
+  const resolved = part(root, 'resolved');
 
-  const contacts = new Map<number, { x: number; y: number }>();
-  let timer: number | undefined;
-  let gap = BASE_GAP;
-  /** The last state the surface committed to, and whether this touch ever had a pair. */
-  let settled = 'rest';
-  let paired = false;
+  /** The committed zoom, which a pinch leaves behind and a three-contact gesture must not touch. */
+  let scale = 1;
+  /** The scale the last gesture left behind, which the live signal is measured against. */
+  let committed = 1;
+  let live = 0;
 
-  const say = (text: string) => {
-    readout.textContent = text;
-  };
-
-  /** Place both contacts, and let the distance between them be the scale. */
-  const draw = (a: { x: number; y: number }, b: { x: number; y: number }) => {
-    gap = Math.hypot(b.x - a.x, b.y - a.y);
-    const scale = Math.min(MAX_SCALE, Math.max(1, gap / BASE_GAP));
-    dotA.style.left = `${a.x}px`;
-    dotA.style.top = `${a.y}px`;
-    dotB.style.left = `${b.x}px`;
-    dotB.style.top = `${b.y}px`;
-    span.style.left = `${a.x}px`;
-    span.style.top = `${a.y - 1}px`;
-    span.style.width = `${Math.round(gap)}px`;
-    span.style.transform = `rotate(${(Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI}deg)`;
+  const paint = () => {
     photo.style.transform = `scale(${scale.toFixed(3)})`;
     canvas.dataset.scale = scale.toFixed(2);
-    gapLabel.textContent = `gap ${Math.round(gap)} px maps to scale ${scale.toFixed(2)}`;
   };
 
-  /** The simulated pair: both contacts on the canvas centre line, `wide` apart. */
-  const spread = (wide: number) => {
-    draw({ x: CENTRE.x - wide / 2, y: CENTRE.y }, { x: CENTRE.x + wide / 2, y: CENTRE.y });
-  };
-
-  const settle = (target: number, gesture: string) => {
-    spread(target);
-    settled = gesture;
-    canvas.dataset.gesture = gesture;
-    say(`Pinched ${gesture === 'spread' ? 'open' : 'closed'}: scale ${canvas.dataset.scale}`);
-  };
-
-  const simulate = (target: number, gesture: string) => {
-    clock.clearTimeout(timer);
-    if (prefersReducedMotion(root)) return settle(target, gesture);
-    const from = gap;
-    canvas.dataset.gesture = 'pinching';
-    canvas.dataset.contacts = '2';
-    let step = 0;
-    const tick = () => {
-      step += 1;
-      const t = step / STEPS;
-      const eased = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
-      spread(from + (target - from) * eased);
-      say(`Pinching: ${Math.round(gap)} px apart`);
-      if (step >= STEPS) return settle(target, gesture);
-      timer = clock.setTimeout(tick, STEP_MS);
-    };
-    timer = clock.setTimeout(tick, STEP_MS);
-  };
-
-  const at = (event: PointerEvent) => {
-    const box = canvas.getBoundingClientRect();
-    return { x: event.clientX - box.left, y: event.clientY - box.top };
-  };
-
-  const live = () => [...contacts.values()];
-
-  canvas.addEventListener('pointerdown', (event) => {
-    // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
-    if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
-    clock.clearTimeout(timer);
-    contacts.set(event.pointerId, at(event));
-    canvas.dataset.contacts = String(contacts.size);
-    if (contacts.size < 2) {
-      // A touch landing mid-simulation takes the surface back to its last committed state,
-      // so the readout can never be left claiming a pinch that stopped happening.
-      canvas.dataset.gesture = settled;
-      return say('One contact: a pinch needs two');
-    }
-    paired = true;
-    canvas.dataset.gesture = 'pinching';
-    const [a, b] = live();
-    if (a && b) draw(a, b);
+  contactCount(canvas, {
+    onChange: (count) => {
+      live = count;
+      canvas.dataset.contacts = String(count);
+      // The highest count resolved so far survives the lift, so the distinction the
+      // surface drew is still readable once the fingers are gone.
+      if (count > Number(canvas.dataset.last)) canvas.dataset.last = String(count);
+      canvas.dataset.gesture = count === 0 ? 'rest' : count === 2 ? 'pinch' : count === 1 ? 'pan' : 'three';
+      readout.textContent = READING[Math.min(3, count)] ?? 'Contacts down';
+      resolved.textContent = `The surface has resolved ${canvas.dataset.last} contacts`;
+    },
   });
 
-  root.addEventListener('pointermove', (event) => {
-    if (!contacts.has(event.pointerId)) return;
-    contacts.set(event.pointerId, at(event));
-    if (contacts.size < 2) return;
-    const [a, b] = live();
-    if (a && b) draw(a, b);
-    say(`Pinching: ${Math.round(gap)} px apart`);
+  pinchSpread(canvas, {
+    // The signal is relative to where the gesture engaged, so the response anchors on the
+    // scale committed at that moment rather than compounding every move into the last one.
+    onStart: () => {
+      committed = scale;
+    },
+    onPinch: (ratio) => {
+      // Only a pair is a pinch. Three contacts are a different gesture, so the picture
+      // holds still and the readout says why, which is the term doing its work.
+      if (live !== 2) return;
+      scale = Math.min(MAX_SCALE, Math.max(1, committed * ratio));
+      paint();
+      readout.textContent = `Two contacts: scale ${canvas.dataset.scale}`;
+    },
+    onEnd: () => {
+      committed = scale;
+      if (live === 2) readout.textContent = `Pinched to scale ${canvas.dataset.scale}`;
+    },
   });
 
-  const release = (event: PointerEvent) => {
-    if (!contacts.delete(event.pointerId)) return;
-    canvas.dataset.contacts = String(contacts.size);
-    if (contacts.size > 0) return;
-    // A lone contact never became a gesture, so the surface goes back to saying what it
-    // was saying rather than reporting a pinch nobody made.
-    if (!paired) {
-      canvas.dataset.gesture = settled;
-      return say('One contact lifted: a pinch needs two');
-    }
-    paired = false;
-    settled = gap > BASE_GAP + 20 ? 'spread' : 'closed';
-    canvas.dataset.gesture = settled;
-    say(`Pinched ${settled === 'spread' ? 'open' : 'closed'}: scale ${canvas.dataset.scale}`);
-  };
-
-  root.addEventListener('pointerup', release);
-  root.addEventListener('pointercancel', release);
-
-  part(root, 'sim-open').addEventListener('click', () => simulate(OPEN_GAP, 'spread'));
-  part(root, 'sim-close').addEventListener('click', () => simulate(BASE_GAP, 'closed'));
-
-  spread(BASE_GAP);
+  paint();
 }

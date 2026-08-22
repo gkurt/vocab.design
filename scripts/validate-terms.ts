@@ -214,11 +214,17 @@ for (const term of terms.values()) {
       const invalid = script.match(UNQUOTED_DIGIT_SELECTOR);
       if (invalid)
         errors.push(`${term.slug}: choreography selector ${invalid[0]} has an unquoted value starting with a digit; quote it (SPEC §8)`);
-      // Every two-contact gesture performs as touch, so its scene has to say it is a touch
+      // Every multi-contact gesture performs as touch, so its scene has to say it is a touch
       // surface: without data-touch the ghost stays an arrow and the demo is a costume (SPEC §7).
-      const pair = script.match(/\b(pinch|twoFingerTap|twoFingerScrub):/)?.[1];
+      const pair = script.match(/\b(pinch|tap|scrub):/)?.[1];
       if (pair && demoSource && !demoSource.includes('data-touch'))
         errors.push(`${term.slug}: choreography uses ${pair} but the demo declares no data-touch scope (SPEC §7)`);
+      // A contact count is 2 or 3: one contact is a plain click, and gestures past three
+      // do not exist, so a step asking for either is a demo inventing input (SPEC §8).
+      for (const [, count] of script.matchAll(/\bfingers:\s*(\d+)/g)) {
+        if (Number(count) < 2 || Number(count) > 3)
+          errors.push(`${term.slug}: choreography asks for ${count} contacts; a contact gesture is 2 or 3 fingers (SPEC §8)`);
+      }
     }
   }
 }

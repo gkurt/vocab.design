@@ -1,5 +1,5 @@
 import { part, partsOf } from '#src/kit/parts.ts';
-import { twoFingerScrub } from '#src/kit/touch.ts';
+import { contactScrub } from '#src/kit/touch.ts';
 import '#src/kit/segmented.ts';
 
 type Mode = 'answers' | 'ignores';
@@ -21,8 +21,8 @@ const CAPTION = {
  * It is a sheet in both states, so no `data-pose` is needed; the list, the picker and the
  * caption are scenery.
  *
- * The gesture is PORTRAYED as itself: `twoFingerScrub` from the kit reads the script's
- * `twoFingerScrub` step, a real pair of fingers, and a reader's Ctrl+drag swept side to side
+ * The gesture is PORTRAYED as itself: `contactScrub` from the kit reads the script's
+ * `scrub` step, a real pair of fingers, and a reader's Ctrl+drag swept side to side
  * through one wiring (SPEC §7). The article carries what the demo cannot, which is that no web
  * page can hear this gesture at all.
  */
@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
     for (const el of partsOf(root, 'caption')) el.textContent = CAPTION[mode];
     reset();
   });
-  twoFingerScrub(sheet, { onScrub: scrubbed });
+  contactScrub(sheet, { onScrub: scrubbed });
   reset();
   caption.textContent = CAPTION.answers;
 }

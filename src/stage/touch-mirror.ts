@@ -12,13 +12,18 @@ const TICK_MS = 60;
  * mapping instead: a second disc mirrors the pointer across `mirrorPinch`'s
  * centre — the same geometry `pinchSpread` hands the demo, so the picture and
  * the computed scale can never disagree — and the force fill stays out of it,
- * since a pinch is a spread, not a press. Trusted events only: the player's
+ * since a pinch is a spread, not a press. Ctrl and Shift together stand for three
+ * contacts instead of two: a third disc rides the mirror centre, the same place the
+ * ghost puts its odd contact, so the reader's hand and the script draw the same
+ * gesture. Trusted events only: the player's
  * synthesized input must never draw a second reader. A real finger is never
  * mirrored; the reader's own hand is already on the surface.
  */
 export class TouchMirror {
   #el: HTMLElement;
   #twin: HTMLElement;
+  /** The odd third contact, riding the mirror centre while Ctrl and Shift are held. */
+  #third: HTMLElement;
   #overlay: HTMLElement;
   #offset: () => { x: number; y: number };
   #contact = false;
@@ -28,6 +33,8 @@ export class TouchMirror {
   #at = { x: 0, y: 0 };
   /** Where a Ctrl+drag pinch began; null while the contact is a plain press. */
   #pinchFrom: { x: number; y: number } | null = null;
+  /** Whether Shift joined Ctrl at pointerdown, making the gesture three contacts rather than two. */
+  #trio = false;
 
   constructor(events: EventTarget, edge: Element, overlay: HTMLElement, offset: () => { x: number; y: number }) {
     this.#overlay = overlay;
@@ -41,6 +48,7 @@ export class TouchMirror {
     };
     this.#el = disc();
     this.#twin = disc();
+    this.#third = disc();
 
     const mirrored = (event: Event): event is PointerEvent =>
       event.isTrusted && event instanceof PointerEvent && event.pointerType !== 'touch';
@@ -60,6 +68,7 @@ export class TouchMirror {
     events.addEventListener('pointerdown', (event) => {
       if (!mirrored(event) || !inScope(event)) return;
       this.#pinchFrom = event.ctrlKey ? { x: event.clientX, y: event.clientY } : null;
+      this.#trio = this.#pinchFrom ? event.shiftKey : false;
       this.#follow(event);
       this.#contact = true;
       this.#pressedAt = performance.now();
@@ -67,6 +76,10 @@ export class TouchMirror {
       if (this.#pinchFrom) {
         this.#twin.setAttribute('data-visible', '');
         this.#twin.setAttribute('data-contact', '');
+      }
+      if (this.#trio) {
+        this.#third.setAttribute('data-visible', '');
+        this.#third.setAttribute('data-contact', '');
       }
       this.#tick();
     });
@@ -94,7 +107,10 @@ export class TouchMirror {
     const from = this.#offset();
     const at = (p: { x: number; y: number }) => `translate(${p.x + from.x - overlayRect.left}px, ${p.y + from.y - overlayRect.top}px)`;
     this.#el.style.transform = at(this.#at);
-    if (this.#pinchFrom) this.#twin.style.transform = at(mirrorPinch(this.#pinchFrom, this.#at).other);
+    if (!this.#pinchFrom) return;
+    const pair = mirrorPinch(this.#pinchFrom, this.#at);
+    this.#twin.style.transform = at(pair.other);
+    if (this.#trio) this.#third.style.transform = at(pair.center);
   }
 
   /**
@@ -125,6 +141,9 @@ export class TouchMirror {
     this.#el.style.removeProperty('--vd-force');
     this.#twin.removeAttribute('data-visible');
     this.#twin.removeAttribute('data-contact');
+    this.#trio = false;
+    this.#third.removeAttribute('data-visible');
+    this.#third.removeAttribute('data-contact');
   }
 
   #hide(): void {

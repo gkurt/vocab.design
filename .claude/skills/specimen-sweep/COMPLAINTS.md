@@ -104,6 +104,18 @@ complete; until then entries only accumulate. Entry format:
 ## input-simulation
 
 - Queued: 2026-08-19 · Status: queued
+- 2026-08-22: BUCKET (b) IS RESOLVED, so nothing in this entry waits on a primitive any
+  more. The >2-contact half was built (see fake-touch above, STAGE_NEWS law 41) and
+  screen-curtain moves out of (b): its VoiceOver three-finger triple tap is now performable
+  as `{ tap: { fingers: 3, count: 3 } }`, so its segmented off/on picker is a state picker
+  law 18 bans. The DEVICE MOTION half was resolved the other way, by RULING rather than by
+  building: a shake is read from a sensor rather than made by a pointer or a key, so it
+  belongs to the environment carve-out beside a network failure, a server delay or a
+  permission state (SPEC §8). shake-to-undo keeps its labelled control and motion-actuation
+  keeps its configuration segments; both had comments framing this as a player DEFICIENCY
+  awaiting a primitive, and both now cite the carve-out instead. The test is what the input
+  IS, not whether the stage could synthesize an event for it. Also settled: multi-touch is
+  no longer in (b) either, being the new primitive's first consumer.
 - Rule: the vocabulary grows before a demo fakes it (SPEC §8, STAGE_NEWS law 18).
   A control that impersonates INPUT (a "Simulate a hold" button, a switch standing
   in for a gesture the player could perform) is banned: the script performs the
@@ -150,6 +162,21 @@ complete; until then entries only accumulate. Entry format:
 ## fake-touch
 
 - Queued: 2026-08-19 · Status: queued · Prerequisite MET for single-contact
+- 2026-08-22: THE LAST BLOCKER IS GONE. Contact counts up to three now exist (SPEC §7-8,
+  STAGE_NEWS law 41): `tap`, `scrub` and `pinch` each carry a `fingers` count, 2 by default
+  and 3 at most, with the contacts evenly spaced so the outermost pair still carries the
+  stated scale and an odd third rides the centre. The kit side is `contactTap` and
+  `contactScrub` (renamed from the twoFinger* pair, no aliases kept) plus a new
+  `contactCount` for a term whose claim IS the count. A reader on a mouse stands in for a
+  pair with Ctrl and for three with Ctrl+Shift, and `reader: false` withholds that mapping
+  where the platform swallows the gesture before any document sees it. Four contacts were
+  deliberately NOT built: the unauthored pool has no term that needs them, so that waits
+  exactly as three did. multi-touch was rewritten as the first consumer and PROVEN with
+  audit() before anything else was authored on it (law 37): its two-contact pinch zooms to
+  exactly 1.90 and a three-contact spread of 1.6 leaves the zoom untouched, which is the
+  term (a surface distinguishing counts) demonstrated rather than asserted. Every prior
+  consumer re-audits clean: magic-tap, escape-gesture, pinch-to-zoom, rotate-gesture.
+  So the entry is now sweepable in full, and what remains is the ordinary bucket work.
   (2026-08-19: data-touch persona, hold step with pressure ramp, fingertip disc,
   pressureHold in src/kit/touch.ts) AND for the two-contact pinch and rotate
   (2026-08-19: `pinch` step with scale and turn, pinchSpread reporting both,

@@ -217,7 +217,21 @@ vd-stage[data-autoplay] .vd-stage-play {
   --vd-pinch-sign: -1;
 }
 
+/* The third contact rides the centre, so the outer pair keeps carrying the stated
+   spread whatever the finger count. It appears only when the step asked for three. */
+.vd-cursor-pinch--c {
+  --vd-pinch-sign: 0;
+}
+
 .vd-ghost-cursor[data-gesture="pinch"] .vd-cursor-pinch {
+  display: block;
+}
+
+.vd-ghost-cursor[data-gesture="pinch"] .vd-cursor-pinch--c {
+  display: none;
+}
+
+.vd-ghost-cursor[data-gesture="pinch"][data-contacts="3"] .vd-cursor-pinch--c {
   display: block;
 }
 

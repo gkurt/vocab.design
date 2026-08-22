@@ -1,5 +1,5 @@
 import { part } from '#src/kit/parts.ts';
-import { twoFingerTap } from '#src/kit/touch.ts';
+import { contactTap } from '#src/kit/touch.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
 /**
@@ -13,8 +13,8 @@ import type { DemoClock } from '#src/stage/clock.ts';
  * the ordinary way in every state, so it is not the thing this word is about. Every
  * resting state is an honest one, so no `data-pose` is needed.
  *
- * The gesture is PORTRAYED as itself: `twoFingerTap` from the kit reads the script's
- * `twoFingerTap` step, a real pair of fingers, and a reader's Ctrl+tap through one
+ * The gesture is PORTRAYED as itself: `contactTap` from the kit reads the script's
+ * `tap` step, a real pair of fingers, and a reader's Ctrl+tap through one
  * wiring (SPEC §7). What the article has to say, and the demo cannot, is that VoiceOver
  * routes this gesture natively and a web page never sees the contacts at all.
  */
@@ -68,8 +68,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   answer.addEventListener('click', fire);
   // A magic tap is a DOUBLE two-finger tap, so a single one is not the gesture.
-  twoFingerTap(part(root, 'surface').parentElement as HTMLElement, clock, {
-    onTap: (count) => {
+  contactTap(part(root, 'surface').parentElement as HTMLElement, clock, {
+    onTap: (count: number) => {
       if (count === 1) return say('Two fingers down', 'waiting');
       if (count === 2) fire();
     },

@@ -21,9 +21,10 @@ const CAPTION = {
 
 /**
  * Motion actuation specimen: a note editor whose undo is also wired to a shake of the device. The
- * shake is a declared capability, stated in words and switchable, and never performed: the stage has
- * no device motion to send, and a "simulate shake" control would impersonate an input the player
- * cannot make (SPEC §8). What the criterion actually requires is what the specimen demonstrates, and
+ * shake is a declared capability, stated in words and switchable, and never performed here: device
+ * motion is a sensor condition rather than a pointer or a key, so it belongs to the environment
+ * carve-out (SPEC §8) and this specimen has no need to stage it at all. The two segments pick a
+ * CONFIGURATION, which is a setting rather than an input, so nothing here impersonates a gesture. What the criterion actually requires is what the specimen demonstrates, and
  * both halves are real here: a plain control that does the same undo, and a setting that turns the
  * motion trigger off. The pick removes both, which is the failing configuration.
  *

@@ -133,6 +133,12 @@ export interface PinchHandlers {
  * Ctrl held maps the drag onto `mirrorPinch`'s virtual pair. A trackpad pinch
  * arrives as a ctrl+wheel event, not as pointers, and stays the demo's own to
  * wire. Purely event geometry — no clock, so a pose freezes it with the events.
+ *
+ * With THREE contacts down (a `fingers: 3` step) this still reports the right
+ * scale, because a spread is a uniform scaling about the centre and so every pair
+ * shares one ratio. The centre it reports is the midpoint of the two contacts it
+ * holds rather than of all three, so a demo that anchors on that point should ask
+ * for a pair; a demo that cares about the count reads `contactCount` instead.
  */
 export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
   const contacts = new Map<number, { x: number; y: number }>();
@@ -210,31 +216,48 @@ export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
   });
 }
 
-/** How far a two-contact press may drift and still count as a tap rather than a drag. */
+/** How far a multi-contact press may drift and still count as a tap rather than a drag. */
 const TAP_SLOP = 10;
-/** How long a two-contact press may last and still count as a tap. */
+/** How long a multi-contact press may last and still count as a tap. */
 const TAP_MAX_MS = 320;
-/** The gap within which a second two-finger tap joins the first as one double tap. */
+/** The gap within which a second tap joins the first as one double tap. */
 const TAP_GAP_MS = 400;
 
-export interface TwoFingerTapHandlers {
-  /** `count` is how many two-finger taps landed in quick succession: 1, then 2, and so on. */
+export interface ContactTapHandlers {
+  /** `count` is how many taps landed in quick succession: 1, then 2, and so on. */
   onTap: (count: number) => void;
+  /**
+   * Contacts the gesture is made of: 2 by default, at most 3, never 1 (a single
+   * touch tap is a plain click). A reader on a mouse stands in for the whole
+   * gesture with Ctrl held for a pair, Ctrl and Shift together for three.
+   */
+  fingers?: number;
+  /**
+   * Whether a mouse may stand in for the fingers, true by default. Set it false for a
+   * gesture no page can ever receive, where the platform consumes the contacts before
+   * they reach the document: a mouse mapping there would hand the reader a handler that
+   * cannot work on real hardware, which is the fake to avoid. The gesture is still
+   * PORTRAYED for the script and answered for real fingers; what the platform swallows
+   * belongs in the article's prose.
+   */
+  reader?: boolean;
 }
 
 /**
- * Report a two-finger tap on `el`, whichever way it arrives: the script's
- * `twoFingerTap` step and a real pair of fingers both land as two touch pointer
- * streams that go down and up without travelling, and a reader on a mouse taps
- * the pair with Ctrl held (the same modifier `pinchSpread` reads as a virtual
- * second contact, and the stage's TouchMirror already draws the twin disc for
- * it). Consecutive taps within TAP_GAP_MS report a rising count, so a demo can
- * answer the double tap the platform gesture actually is.
+ * Report a multi-contact tap on `el`, whichever way it arrives: the script's
+ * `tap` step and real fingers both land as touch pointer streams that go down
+ * and up without travelling, and a reader on a mouse stands in for the whole
+ * gesture with Ctrl held for a pair (the same modifier `pinchSpread` reads as a
+ * virtual second contact, and the stage's TouchMirror draws the discs for it) or
+ * Ctrl and Shift together for three. Consecutive taps within TAP_GAP_MS report a
+ * rising count, so a demo can answer the double tap the platform gesture is.
  *
  * A tap is the no-travel half of the Ctrl mapping and a pinch is the travelling
  * half, so a demo wires whichever one its term names, never both on one element.
  */
-export function twoFingerTap(el: HTMLElement, clock: ClockLike, handlers: TwoFingerTapHandlers): void {
+export function contactTap(el: HTMLElement, clock: ClockLike, handlers: ContactTapHandlers): void {
+  const fingers = Math.min(3, Math.max(2, Math.round(handlers.fingers ?? 2)));
+  const reader = handlers.reader ?? true;
   const contacts = new Map<number, { x: number; y: number; at: number }>();
   let travelled = false;
   let count = 0;
@@ -251,13 +274,14 @@ export function twoFingerTap(el: HTMLElement, clock: ClockLike, handlers: TwoFin
 
   el.addEventListener('pointerdown', (event) => {
     if (event.pointerType === 'touch') {
-      if (contacts.size >= 2) return;
+      if (contacts.size >= fingers) return;
       contacts.set(event.pointerId, { x: event.clientX, y: event.clientY, at: performance.now() });
-      if (contacts.size === 2) travelled = false;
+      if (contacts.size === fingers) travelled = false;
       return;
     }
-    if (!event.ctrlKey) return;
-    // The mouse stands in for both fingers, so one pointer is the whole gesture.
+    // Ctrl is the pair, Ctrl and Shift the trio, so the two never answer each other.
+    if (!reader || !event.ctrlKey || event.shiftKey !== (fingers === 3)) return;
+    // The mouse stands in for every finger, so one pointer is the whole gesture.
     contacts.set(event.pointerId, { x: event.clientX, y: event.clientY, at: performance.now() });
     travelled = false;
   });
@@ -271,8 +295,8 @@ export function twoFingerTap(el: HTMLElement, clock: ClockLike, handlers: TwoFin
     if (!from) return;
     contacts.delete(event.pointerId);
     if (performance.now() - from.at > TAP_MAX_MS) travelled = true;
-    // One tap, however many contacts made it: a pair lifts twice and the gesture is
-    // only over when the last one leaves, so the count rises per TAP, not per finger.
+    // One tap, however many contacts made it: a trio lifts three times and the gesture
+    // is only over when the last one leaves, so the count rises per TAP, not per finger.
     if (contacts.size > 0) return;
     if (!travelled) land();
     travelled = false;
@@ -286,19 +310,22 @@ const SCRUB_TURNS = 2;
 /** How far the pair must travel between reversals for one to count. */
 const SCRUB_LEG = 18;
 
-export interface TwoFingerScrubHandlers {
+export interface ContactScrubHandlers {
   /** Fired once the sweep has reversed often enough to be a scrub, not a drag. */
   onScrub: () => void;
+  /** Contacts the gesture is made of: 2 by default, at most 3, never 1. */
+  fingers?: number;
 }
 
 /**
- * Report a two-finger scrub on `el`: the back-and-forth sideways sweep, counted
- * by its direction reversals rather than its shape, so the script's
- * `twoFingerScrub` step, a real pair of fingers, and a reader's Ctrl+drag
- * swept side to side all arrive as one signal. It fires once per press, at the
- * reversal that settles it, so a longer scrub does not report twice.
+ * Report a multi-contact scrub on `el`: the back-and-forth sideways sweep, counted
+ * by its direction reversals rather than its shape, so the script's `scrub` step,
+ * real fingers, and a reader's Ctrl+drag swept side to side (Ctrl and Shift for
+ * three) all arrive as one signal. It fires once per press, at the reversal that
+ * settles it, so a longer scrub does not report twice.
  */
-export function twoFingerScrub(el: HTMLElement, handlers: TwoFingerScrubHandlers): void {
+export function contactScrub(el: HTMLElement, handlers: ContactScrubHandlers): void {
+  const fingers = Math.min(3, Math.max(2, Math.round(handlers.fingers ?? 2)));
   let active = false;
   let fired = false;
   let last = 0;
@@ -313,7 +340,7 @@ export function twoFingerScrub(el: HTMLElement, handlers: TwoFingerScrubHandlers
     turns = 0;
   };
   el.addEventListener('pointerdown', (event) => {
-    if (event.pointerType === 'touch' || event.ctrlKey) {
+    if (event.pointerType === 'touch' || (event.ctrlKey && event.shiftKey === (fingers === 3))) {
       if (event.pointerType !== 'touch' && event.isTrusted) el.setPointerCapture(event.pointerId);
       if (!active) begin(event.clientX);
     }
@@ -334,6 +361,59 @@ export function twoFingerScrub(el: HTMLElement, handlers: TwoFingerScrubHandlers
   const lift = () => {
     active = false;
     fired = false;
+  };
+  el.addEventListener('pointerup', lift);
+  el.addEventListener('pointercancel', lift);
+}
+
+export interface ContactCountHandlers {
+  /**
+   * Fired whenever the number of contacts down on the element changes, with the
+   * live count. Zero means every finger has left.
+   */
+  onChange: (count: number) => void;
+}
+
+/**
+ * Report how many contacts are down on `el`, which is the whole claim of a term
+ * about contact counts rather than about one named gesture. Real fingers each
+ * arrive as their own touch pointer stream and are counted as they land and
+ * leave; the script's `tap`, `pinch` and `scrub` steps place their contacts the
+ * same way, so a script and a hand read identically. A reader on a mouse stands
+ * in for a pair with Ctrl held and for three with Ctrl and Shift, counted as the
+ * gesture they represent rather than as the one pointer they arrive on, because
+ * a mouse has no way to put a second finger down.
+ *
+ * The count is what a surface distinguishes, so a demo reads it directly instead
+ * of inferring it from a gesture it did not ask for.
+ */
+export function contactCount(el: HTMLElement, handlers: ContactCountHandlers): void {
+  const down = new Set<number>();
+  /** A mouse press stands for the whole gesture, so it counts as its contacts, not as one. */
+  let virtual = 0;
+
+  const report = () => handlers.onChange(down.size + virtual);
+
+  el.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch') {
+      down.add(event.pointerId);
+      report();
+      return;
+    }
+    if (!event.ctrlKey) return;
+    if (event.isTrusted) el.setPointerCapture(event.pointerId);
+    virtual = event.shiftKey ? 3 : 2;
+    report();
+  });
+  const lift = (event: PointerEvent) => {
+    if (event.pointerType === 'touch') {
+      if (!down.delete(event.pointerId)) return;
+      report();
+      return;
+    }
+    if (!virtual) return;
+    virtual = 0;
+    report();
   };
   el.addEventListener('pointerup', lift);
   el.addEventListener('pointercancel', lift);

@@ -1,4 +1,4 @@
 term:    Multi-touch
 scope:   element
-subject: div.sp-surface[data-contacts=0][data-gesture=rest][data-part=canvas][data-scale=1.00]
-text:    1 2
+subject: div.sp-surface[data-contacts=0][data-gesture=rest][data-last=0][data-part=canvas][data-scale=1.00]
+text:    
