@@ -22,7 +22,7 @@ const CAPTION = {
  * caption are scenery.
  *
  * The gesture is PORTRAYED as itself: `contactScrub` from the kit reads the script's
- * `scrub` step, a real pair of fingers, and a reader's Ctrl+drag swept side to side
+ * `scrub` step, a real pair of fingers, and a reader's modifier+drag swept side to side
  * through one wiring (SPEC §7). The article carries what the demo cannot, which is that no web
  * page can hear this gesture at all.
  */

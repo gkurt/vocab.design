@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { FORCE_RAMP_MS, mirrorPinch, pinchSpread, pressureHold } from '#src/kit/touch.ts';
+import { FORCE_RAMP_MS, MAX_CONTACTS, mirrorPinch, pinchSpread, pressureHold, readerContacts } from '#src/kit/touch.ts';
 import { DemoClock } from '#src/stage/clock.ts';
 
 const tick = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -178,5 +178,45 @@ describe('mirrorPinch', () => {
     // Dragging back through the centre closes the pinch.
     const closed = mirrorPinch({ x: 100, y: 100 }, { x: 89.5, y: 89.5 });
     expect(closed.scale).toBeCloseTo(0.5);
+  });
+});
+
+describe('readerContacts', () => {
+  const mods = (...held: Array<'ctrl' | 'alt' | 'shift' | 'meta'>) => ({
+    ctrlKey: held.includes('ctrl'),
+    altKey: held.includes('alt'),
+    shiftKey: held.includes('shift'),
+    metaKey: held.includes('meta'),
+  });
+
+  test('a bare pointer is one contact, which is not a gesture', () => {
+    expect(readerContacts(mods())).toBe(1);
+  });
+
+  test('any single modifier stands in for a pair, no key anointed over another', () => {
+    for (const key of ['ctrl', 'alt', 'shift', 'meta'] as const) expect(readerContacts(mods(key))).toBe(2);
+  });
+
+  test('a second modifier adds a finger, whichever two they are', () => {
+    expect(readerContacts(mods('ctrl', 'shift'))).toBe(3);
+    expect(readerContacts(mods('alt', 'meta'))).toBe(3);
+    expect(readerContacts(mods('shift', 'alt'))).toBe(3);
+  });
+
+  test('leaning on more modifiers asks for three rather than a gesture that does not exist', () => {
+    expect(readerContacts(mods('ctrl', 'alt', 'shift'))).toBe(MAX_CONTACTS);
+    expect(readerContacts(mods('ctrl', 'alt', 'shift', 'meta'))).toBe(MAX_CONTACTS);
+  });
+
+  test('an event with no modifier fields at all is not a gesture', () => {
+    // Counting these with Number() reads undefined as NaN, which compares false against
+    // every threshold and so lets a plain press through as a pinch. It cost a test once.
+    expect(readerContacts({})).toBe(1);
+  });
+
+  test('the count is what carries meaning, so Ctrl+Shift keeps meaning three', () => {
+    // The mapping this replaced spelled three as Ctrl+Shift specifically; that spelling
+    // still asks for three, so no reader relearns a gesture they already had.
+    expect(readerContacts(mods('ctrl', 'shift'))).toBe(3);
   });
 });

@@ -15,7 +15,7 @@ const DETENT = 5;
  *
  * The gesture is performed, never picked: the canvas is a touch surface wired through
  * `pinchSpread`, so the script's `pinch` step with a `turn`, a real two-finger twist,
- * and a reader's Ctrl+drag (swinging around the mirror centre) all arrive as one
+ * and a reader's modifier+drag (swinging around the mirror centre) all arrive as one
  * rotation signal. The contacts themselves are drawn by the stage — the ghost's twin
  * discs in attract, the reader's own mirrored pair in takeover — so the demo draws
  * only what the term names: the surface, turning. Cardinal detents apply to the live

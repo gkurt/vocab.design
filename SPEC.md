@@ -533,7 +533,7 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   closes twin contacts about its target, drawn as twin discs on the ghost, and a
   demo wires `pinchSpread` from `src/kit/touch.ts` on its gesture surface — one
   scale signal whether the two pointer streams come from the script or from real
-  fingers, with a reader's mouse mapped on via **Ctrl+drag**: the pressed point is
+  fingers, with a reader's mouse mapped on via **modifier+drag**: the pressed point is
   one contact and a virtual second contact mirrors it across a centre just beside
   the press, so dragging outward opens the pinch and dragging back closes it.
   TouchMirror draws that mirrored contact as a second disc using the same geometry
@@ -543,15 +543,15 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   to wire; the script performs it as a `wheel` step inside a `withKey` Control
   scope (§8). Rotation rides the same pair: the `pinch` step's `turn` rotates the
   contacts, `pinchSpread` reports (scale, turn) so a demo uses the half it names,
-  and a Ctrl+drag swinging around the mirror centre turns the pair for a mouse.
+  and a modifier+drag swinging around the mirror centre turns the pair for a mouse.
   Two more gestures ride the same contacts, and both are them doing something
   other than spreading. The `tap` step (§8) taps them with no travel, `count`
   times, and a demo wires `contactTap` from the kit: one signal for the script,
-  real fingers, and a reader's **Ctrl+tap** — the no-travel half of the same Ctrl
+  real fingers, and a reader's **modifier+tap** — the no-travel half of the same
   mapping a pinch's drag claims, which is why one element never wires both. The
   `scrub` step sweeps them sideways and back, and `contactScrub` in the kit counts
   the reversals rather than matching a shape, so a scripted scrub, real fingers and
-  a reader's Ctrl+drag swept side to side all arrive as one signal. These gestures
+  a reader's modifier+drag swept side to side all arrive as one signal. These gestures
   are PORTRAYED as themselves, on the same principle as the rest of this persona:
   that assistive technology consumes the real versions natively and hands a web
   page nothing is a fact for the term's article, not a reason the stage may dress
@@ -563,8 +563,15 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   reader's third contact appears. A count is never one, because a single touch tap
   is a `click` inside a touch scope, and never more than three, because no term
   needs it: a demo that would need four contacts waits, exactly as three did.
-  A reader on a mouse stands in for a pair with **Ctrl** and for three with
-  **Ctrl+Shift**, and the count itself is readable through `contactCount` for a
+  A reader on a mouse stands in for the contacts by holding MODIFIERS, and what
+  carries the meaning is how many rather than which: **any one modifier** makes the
+  pointer a pair, **any two** make it three, and leaning on more asks for three
+  rather than a gesture that does not exist. Ctrl, Alt, Shift and Meta are
+  interchangeable, because a mouse has no way to put a second finger down and a
+  reader should not have to remember which key was anointed; `readerContacts` in
+  the kit is the single definition, read by the drawn discs and by every handler,
+  so the picture and the count can never disagree. The count itself is readable
+  through `contactCount` for a
   term whose claim IS the count rather than any one named gesture. Where the
   platform swallows the gesture before any document sees it, a demo declares
   `reader: false` so no mouse mapping is offered: portraying the contacts is

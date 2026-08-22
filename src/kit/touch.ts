@@ -6,7 +6,7 @@
  * demo wires its pressure response once and answers the script, a finger, and a
  * held mouse button identically. `pinchSpread` does the same for the two-contact
  * pinch: the script's `pinch` step and a real two-finger pinch both arrive as two
- * pointer streams, and a mouse maps Ctrl+drag onto a virtual mirrored second
+ * pointer streams, and a mouse maps a modifier+drag onto a virtual mirrored second
  * contact, so one wiring reports one scale signal for all three.
  */
 
@@ -77,7 +77,7 @@ export function pressureHold(el: HTMLElement, clock: ClockLike, handlers: Pressu
 }
 
 /**
- * Half the virtual pair's spread when a Ctrl+drag stands in for a second finger,
+ * Half the virtual pair's spread when a modifier+drag stands in for a second finger,
  * along the same diagonal the ghost's twin discs use: the pair starts ~59px
  * apart, so a drag has room to close the pinch as well as open it.
  */
@@ -90,7 +90,7 @@ function foldTurn(deg: number): number {
 }
 
 /**
- * The Ctrl+drag pinch model, shared with the stage's TouchMirror so the disc it
+ * The modifier+drag pinch model, shared with the stage's TouchMirror so the disc it
  * draws and the signal a demo computes can never disagree. The pressed point is
  * one contact and stays under the pointer; the centre sits MIRROR_HALF away, and
  * the second contact mirrors the pointer across it. Dragging down-right opens
@@ -112,8 +112,30 @@ export function mirrorPinch(
   };
 }
 
+/** The most contacts a gesture can be made of. Past three, no term needs it (SPEC §8). */
+export const MAX_CONTACTS = 3;
+
+/**
+ * How many contacts a reader on a mouse is standing in for, read from the modifiers
+ * held: ANY modifier makes the pointer a pair, and each additional one adds a finger,
+ * so Ctrl is two contacts, Ctrl+Alt is three, and Shift+Meta is three just the same.
+ * No modifier is one contact, which is to say not a gesture at all.
+ *
+ * Any modifier rather than one anointed key, because a mouse has no way to put a
+ * second finger down and the reader should not have to remember WHICH key stands in
+ * for one: what carries meaning is HOW MANY are held. The count is capped, so leaning
+ * on a fourth modifier asks for three contacts rather than for a gesture that does
+ * not exist.
+ */
+export function readerContacts(event: Partial<Pick<PointerEvent, 'ctrlKey' | 'altKey' | 'shiftKey' | 'metaKey'>>): number {
+  // Coerced through Boolean rather than Number, because an event built without these
+  // fields at all would otherwise count NaN modifiers and read as a gesture.
+  const held = [event.ctrlKey, event.altKey, event.shiftKey, event.metaKey].filter(Boolean).length;
+  return held === 0 ? 1 : Math.min(MAX_CONTACTS, held + 1);
+}
+
 export interface PinchHandlers {
-  /** A pinch engaged (second finger down, or a Ctrl+drag began), centred here in client coordinates. */
+  /** A pinch engaged (second finger down, or a modifier+drag began), centred here in client coordinates. */
   onStart?: (center: { x: number; y: number }) => void;
   /**
    * The live signal, relative to where the gesture engaged: `scale` is the
@@ -130,7 +152,8 @@ export interface PinchHandlers {
  * touch contacts (the script's `pinch` step and a real two-finger pinch are the
  * same two pointer streams) are tracked by pointerId and reported as the ratio
  * of their separation to the one they engaged at; a mouse or pen pressing with
- * Ctrl held maps the drag onto `mirrorPinch`'s virtual pair. A trackpad pinch
+ * any modifier held maps the drag onto `mirrorPinch`'s virtual pair (see
+ * `readerContacts`). A trackpad pinch
  * arrives as a ctrl+wheel event, not as pointers, and stays the demo's own to
  * wire. Purely event geometry — no clock, so a pose freezes it with the events.
  *
@@ -178,7 +201,7 @@ export function pinchSpread(el: HTMLElement, handlers: PinchHandlers): void {
       if (a && b) handlers.onStart?.({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
       return;
     }
-    if (!event.ctrlKey) return;
+    if (readerContacts(event) < 2) return;
     // A pinch that drags outward leaves a small surface fast: capture the pointer
     // so it keeps reporting outside. Trusted only — a synthetic pointer has no
     // active pointer to capture and the call throws (SPEC §7).
@@ -229,7 +252,7 @@ export interface ContactTapHandlers {
   /**
    * Contacts the gesture is made of: 2 by default, at most 3, never 1 (a single
    * touch tap is a plain click). A reader on a mouse stands in for the whole
-   * gesture with Ctrl held for a pair, Ctrl and Shift together for three.
+   * gesture by holding modifiers: any one for a pair, any two for three (`readerContacts`).
    */
   fingers?: number;
   /**
@@ -247,7 +270,7 @@ export interface ContactTapHandlers {
  * Report a multi-contact tap on `el`, whichever way it arrives: the script's
  * `tap` step and real fingers both land as touch pointer streams that go down
  * and up without travelling, and a reader on a mouse stands in for the whole
- * gesture with Ctrl held for a pair (the same modifier `pinchSpread` reads as a
+ * gesture by holding one modifier for a pair (the same press `pinchSpread` reads as a
  * virtual second contact, and the stage's TouchMirror draws the discs for it) or
  * Ctrl and Shift together for three. Consecutive taps within TAP_GAP_MS report a
  * rising count, so a demo can answer the double tap the platform gesture is.
@@ -280,7 +303,7 @@ export function contactTap(el: HTMLElement, clock: ClockLike, handlers: ContactT
       return;
     }
     // Ctrl is the pair, Ctrl and Shift the trio, so the two never answer each other.
-    if (!reader || !event.ctrlKey || event.shiftKey !== (fingers === 3)) return;
+    if (!reader || readerContacts(event) !== fingers) return;
     // The mouse stands in for every finger, so one pointer is the whole gesture.
     contacts.set(event.pointerId, { x: event.clientX, y: event.clientY, at: performance.now() });
     travelled = false;
@@ -320,7 +343,7 @@ export interface ContactScrubHandlers {
 /**
  * Report a multi-contact scrub on `el`: the back-and-forth sideways sweep, counted
  * by its direction reversals rather than its shape, so the script's `scrub` step,
- * real fingers, and a reader's Ctrl+drag swept side to side (Ctrl and Shift for
+ * real fingers, and a reader's modifier+drag swept side to side (two modifiers for
  * three) all arrive as one signal. It fires once per press, at the reversal that
  * settles it, so a longer scrub does not report twice.
  */
@@ -340,7 +363,7 @@ export function contactScrub(el: HTMLElement, handlers: ContactScrubHandlers): v
     turns = 0;
   };
   el.addEventListener('pointerdown', (event) => {
-    if (event.pointerType === 'touch' || (event.ctrlKey && event.shiftKey === (fingers === 3))) {
+    if (event.pointerType === 'touch' || readerContacts(event) === fingers) {
       if (event.pointerType !== 'touch' && event.isTrusted) el.setPointerCapture(event.pointerId);
       if (!active) begin(event.clientX);
     }
@@ -380,7 +403,7 @@ export interface ContactCountHandlers {
  * arrive as their own touch pointer stream and are counted as they land and
  * leave; the script's `tap`, `pinch` and `scrub` steps place their contacts the
  * same way, so a script and a hand read identically. A reader on a mouse stands
- * in for a pair with Ctrl held and for three with Ctrl and Shift, counted as the
+ * in for a pair with one modifier held and for three with two, counted as the
  * gesture they represent rather than as the one pointer they arrive on, because
  * a mouse has no way to put a second finger down.
  *
@@ -400,9 +423,10 @@ export function contactCount(el: HTMLElement, handlers: ContactCountHandlers): v
       report();
       return;
     }
-    if (!event.ctrlKey) return;
+    const asked = readerContacts(event);
+    if (asked < 2) return;
     if (event.isTrusted) el.setPointerCapture(event.pointerId);
-    virtual = event.shiftKey ? 3 : 2;
+    virtual = asked;
     report();
   });
   const lift = (event: PointerEvent) => {

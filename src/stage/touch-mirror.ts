@@ -1,4 +1,4 @@
-import { FORCE_RAMP_MS, mirrorPinch } from '#src/kit/touch.ts';
+import { FORCE_RAMP_MS, mirrorPinch, readerContacts } from '#src/kit/touch.ts';
 
 const TICK_MS = 60;
 
@@ -8,14 +8,16 @@ const TICK_MS = 60;
  * same fingertip disc the ghost uses: following the pointer with no travel
  * easing (it IS the pointer, not a ghost), pressing into contact on pointerdown,
  * its fill swelling at the same rate `pressureHold` simulates force, or faster
- * when the hardware reports real pressure. A press with Ctrl held is the pinch
- * mapping instead: a second disc mirrors the pointer across `mirrorPinch`'s
+ * when the hardware reports real pressure. A press with any MODIFIER held is the
+ * pinch mapping instead: a second disc mirrors the pointer across `mirrorPinch`'s
  * centre — the same geometry `pinchSpread` hands the demo, so the picture and
  * the computed scale can never disagree — and the force fill stays out of it,
  * since a pinch is a spread, not a press. Ctrl and Shift together stand for three
  * contacts instead of two: a third disc rides the mirror centre, the same place the
  * ghost puts its odd contact, so the reader's hand and the script draw the same
- * gesture. Trusted events only: the player's
+ * gesture. Which modifiers they are does not matter, only how many: one is a pair,
+ * two is three contacts, and `readerContacts` is the single definition both the
+ * drawing here and the kit's handlers read. Trusted events only: the player's
  * synthesized input must never draw a second reader. A real finger is never
  * mirrored; the reader's own hand is already on the surface.
  */
@@ -67,8 +69,11 @@ export class TouchMirror {
     });
     events.addEventListener('pointerdown', (event) => {
       if (!mirrored(event) || !inScope(event)) return;
-      this.#pinchFrom = event.ctrlKey ? { x: event.clientX, y: event.clientY } : null;
-      this.#trio = this.#pinchFrom ? event.shiftKey : false;
+      // Any modifier makes the pointer a pair, and each extra one adds a finger, so the
+      // discs drawn always match the count the kit helpers read from the same event.
+      const asked = readerContacts(event);
+      this.#pinchFrom = asked >= 2 ? { x: event.clientX, y: event.clientY } : null;
+      this.#trio = asked >= 3;
       this.#follow(event);
       this.#contact = true;
       this.#pressedAt = performance.now();

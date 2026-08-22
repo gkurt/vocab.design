@@ -852,16 +852,21 @@ export class AttractPlayer {
     // for the demo's clock to breathe.
     if (dur > 0) {
       const start = performance.now();
+      let half = from;
+      let deg = 0;
       for (;;) {
         await new Promise(requestAnimationFrame);
         if (generation !== this.#generation) {
+          // A cancelled run must not leave the demo believing the fingers are still down:
+          // a reader taking the stage over mid-gesture would inherit phantom contacts.
+          this.#dispatchContacts(el, 'pointerup', at, half, deg, n);
           retire();
           return false;
         }
         const f = (performance.now() - start) / dur;
         if (f >= 1) break;
-        const half = from + (to - from) * f;
-        const deg = turn * f;
+        half = from + (to - from) * f;
+        deg = turn * f;
         paint(half, deg);
         this.#dispatchContacts(el, 'pointermove', at, half, deg, n);
       }
@@ -869,12 +874,13 @@ export class AttractPlayer {
       this.#dispatchContacts(el, 'pointermove', at, to, turn, n);
     } else {
       for (let i = 1; i <= PINCH_TICKS; i++) {
+        const half = from + ((to - from) * i) / PINCH_TICKS;
+        const deg = (turn * i) / PINCH_TICKS;
         if (!(await this.#sleep(10, generation))) {
+          this.#dispatchContacts(el, 'pointerup', at, half, deg, n);
           retire();
           return false;
         }
-        const half = from + ((to - from) * i) / PINCH_TICKS;
-        const deg = (turn * i) / PINCH_TICKS;
         paint(half, deg);
         this.#dispatchContacts(el, 'pointermove', at, half, deg, n);
       }
@@ -967,17 +973,20 @@ export class AttractPlayer {
     const dur = this.#host.reducedMotion ? 0 : (scrub.ms ?? SCRUB_MS);
     if (dur > 0) {
       const began = performance.now();
+      let last = start;
       for (;;) {
         await new Promise(requestAnimationFrame);
         if (generation !== this.#generation) {
+          // Release rather than abandon, so an interrupted scrub leaves no contact down.
+          this.#dispatchContacts(el, 'pointerup', last, PAIR_HALF, 0, n);
           retire();
           return false;
         }
         const f = (performance.now() - began) / dur;
         if (f >= 1) break;
-        const at = pointAt(f);
-        paint(at);
-        this.#dispatchContacts(el, 'pointermove', at, PAIR_HALF, 0, n);
+        last = pointAt(f);
+        paint(last);
+        this.#dispatchContacts(el, 'pointermove', last, PAIR_HALF, 0, n);
       }
     }
     const end = pointAt(1);

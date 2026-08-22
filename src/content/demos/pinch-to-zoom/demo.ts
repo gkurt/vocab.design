@@ -24,7 +24,7 @@ const SCENE = `
  * term names the surface the gesture scales rather than the picture inside it.
  *
  * The gesture is performed, never picked: the choreography's `pinch` step, a real
- * two-finger pinch, and a reader's Ctrl+drag all arrive through `pinchSpread` as
+ * two-finger pinch, and a reader's modifier+drag all arrive through `pinchSpread` as
  * one scale signal, and the trackpad's pinch (a wheel event with ctrlKey set) is
  * wired beside it. The zoom anchors at the reported gesture centre — the content
  * point under the fingers stays under them — with the pan clamped so the scene

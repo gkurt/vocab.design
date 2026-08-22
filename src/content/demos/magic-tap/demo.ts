@@ -14,7 +14,7 @@ import type { DemoClock } from '#src/stage/clock.ts';
  * resting state is an honest one, so no `data-pose` is needed.
  *
  * The gesture is PORTRAYED as itself: `contactTap` from the kit reads the script's
- * `tap` step, a real pair of fingers, and a reader's Ctrl+tap through one
+ * `tap` step, a real pair of fingers, and a reader's modifier+tap through one
  * wiring (SPEC §7). What the article has to say, and the demo cannot, is that VoiceOver
  * routes this gesture natively and a web page never sees the contacts at all.
  */
