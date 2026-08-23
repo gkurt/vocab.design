@@ -103,8 +103,35 @@ complete; until then entries only accumulate. Entry format:
 
 ## input-simulation
 
-- Queued: 2026-08-19 · Status: SWEPT 2026-08-23 (7 fixed, 73 skipped; 80 flagged)
-- 2026-08-23, AFTER the sweep: the user found quasimode still faking its input, so the count
+- Queued: 2026-08-19 · Status: SWEPT 2026-08-23 (9 fixed, 73 skipped; 89 flagged after two
+  detector repairs)
+- 2026-08-23, SECOND miss found, and by the same instrument failing a second way:
+  **mouse-gesture** was latching instead of holding. Its pad armed on a right press and read
+  the stroke on the NEXT right release, so the choreography played `rightClick` → a
+  LEFT-button `drag` → `rightClick`, and an on-screen caption explained the ghost cursor's
+  limitation to the reader. The demo's handlers were always the real thing (right pointerdown
+  arms, moves extend, right pointerup past a travel threshold commits), so the fake lived
+  entirely in the script and in the copy. The blocker was real, unlike quasimode's: nothing in
+  the vocabulary held a button other than the left one. So the player grew a right-button drag
+  (`drag: { to, button: 'right' }`, SPEC §8, STAGE_NEWS law 45): button 2 on the press, every
+  move and the release, the right arc on the ghost, and the `contextmenu` a real right button
+  fires dispatched after the release, so the pad's suppression is now actually exercised
+  instead of assumed. The script is three real strokes, the two-segment gesture being ONE drag
+  with a `via`, which is the whole reason a stroke is a polyline. The latch is gone: a release
+  that never travelled disarms and says so. Middle-button drags were deliberately NOT built,
+  the way four contacts were not.
+  WHY IT HID, and this is the durable part: the detector scanned LINE BY LINE while the
+  sentence wrapped. "The\n * player cannot hold a button across steps" put the subject and the
+  verb on different lines, so no line carried the claim, and the widened `cannot` pattern also
+  demanded `the player` where the wrapped line began with the bare noun. The detector now
+  joins each comment block into one prose unit before testing, matches a bare `player`, and
+  excuses two sentences that are house discipline written en masse (the mandatory
+  pointer-capture guard, ~30 specimens since the uncaptured-drag sweep, and the DemoClock
+  "a pose cannot let the run finish" note) so the widening does not drown itself: 89 flagged,
+  15 of them on the claim rather than the vocabulary. Verified against the pre-fix file, which
+  it now catches twice. It also learned to flag the apparatus named in copy the READER sees
+  (ghost cursor, attract mode), which is what made this one visible at a glance.
+- 2026-08-23, first miss AFTER the sweep: the user found quasimode still faking its input, so the count
   above is 8 fixed. It had an on-screen `sp-kbd` BUTTON whose press opened the mode and whose
   release closed it, dragged from so the player would hold it down, standing in for a held
   space bar that `withKey` had been able to perform since 2026-08-19. Now a real `withKey`
@@ -803,7 +830,27 @@ complete; until then entries only accumulate. Entry format:
 
 ## ambiguous data-part
 
-- Queued: 2026-08-22 · Status: queued
+- Queued: 2026-08-22 · Status: SWEPT 2026-08-23 (0 fixed, 2 judged skip; 70 flagged became 14
+  once the detector stopped counting comments)
+- Swept: the whole complaint dissolved, and both halves of why are worth keeping. THE
+  DETECTOR WAS COUNTING THE DEMO'S OWN DOCUMENTATION: 61 of the 70 specimens spelled the
+  name a second time in a header comment ("The subject is the axis itself,
+  `data-part="axis"`"), which is the house convention for saying what a subject is, not a
+  second element. Stripping comments before counting leaves 14 specimens and 20 findings.
+  Then a live probe answered the half a source scan cannot: `duplicate-parts-live.mjs` plays
+  each flagged specimen and records the most copies of the name that ever coexist. Twelve of
+  the fourteen are never two at once (a name written in both branches of a ternary), proven
+  with motion on as well as off, so the resolution they were accused of getting wrong has
+  only ever had one candidate. The two real ones are both the legitimate set: focal-point
+  drives three `neighbour` elements through one `partsOf` loop, hanging-indent stamps the
+  same `data-indent` on three `entry` items, and both scripts only ever ASSERT on the name,
+  never click or drag it, so no input has ever landed on the wrong copy. Their asserts are
+  weaker than they look (a claim that would still pass if the loop only did the first
+  element) and were left alone deliberately: tightening them changes what the test proves,
+  not what the specimen does. THE LESSON FOR THIS LEDGER, third time now: a recall-tuned
+  source scan must know what part of a file RENDERS. Reading comments as markup here, and
+  reading one line at a time in input-simulation, produced the same failure from opposite
+  directions, one crying wolf 61 times and one silent for eleven months.
 - Found during the stage-geometry sweep, by a judge noticing that non-breaking-space carries
   four sibling spans all named `pair`. That one turned out to be legitimate, which is what
   makes the entry worth writing: the kit supports a shared name deliberately, so the rule is
@@ -817,7 +864,13 @@ complete; until then entries only accumulate. Entry format:
   on whichever copy happens to come first, and an `assert` becomes unfalsifiable, since the
   claim passes if ANY copy satisfies it. Either give the elements distinct names, or read them
   with `partsOf` and aim the script at a name only one element carries.
-- Detector: detectors/duplicate-parts.ts (source scan, no dev server). Reports a shared name
+- Detector (repaired 2026-08-23): detectors/duplicate-parts.ts strips comments before
+  counting, and detectors/duplicate-parts-live.mjs is the companion probe that says whether
+  the copies coexist while the specimen plays (`branch` verdict = false positive,
+  `first-hidden` = the resolved copy is invisible while a later one shows, `coexist` = the
+  resolution is genuinely arbitrary). Run the scan, then the probe, then judge; the probe
+  needs the user's dev server on 4321 and re-derives the shortlist with the same extraction.
+  Original text: detectors/duplicate-parts.ts (source scan, no dev server). Reports a shared name
   together with what resolves it as single: `part()` when the demo uses the singular helper,
   `script` when the choreography aims a step at it. A name used only through `partsOf` and
   never aimed at is working as intended and is not reported. At queue time: 70 specimens, 127

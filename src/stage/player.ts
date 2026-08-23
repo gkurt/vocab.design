@@ -708,8 +708,16 @@ export class AttractPlayer {
    * the same polyline the dispatched moves take, and the release ripples the same
    * arc a click does. Cancellation mid-drag goes through #cancelRun, which is what
    * lets go of the hand on every abandoned run.
+   *
+   * `button: 'right'` holds the right button for the whole stroke instead of the
+   * left, which is what a gesture read off the right button needs. The arc is the
+   * right one, and the release is followed by `contextmenu`, since that is what a
+   * real right button does and suppressing it is the pad's own job.
    */
-  async #drag(drag: { to: string; via?: Waypoint[]; release?: 'rest' | 'moving'; ms?: number }, generation: number): Promise<boolean> {
+  async #drag(
+    drag: { to: string; via?: Waypoint[]; release?: 'rest' | 'moving'; ms?: number; button?: 'right' },
+    generation: number,
+  ): Promise<boolean> {
     const source = this.#target;
     const root = this.#host.root();
     const dest = root.querySelector(drag.to);
@@ -719,12 +727,15 @@ export class AttractPlayer {
       .map(({ at, dwell }) => ({ el: root.querySelector(at), dwell }))
       .filter((point): point is { el: Element; dwell: number } => point.el !== null);
     const stops = [...via.map(({ el, dwell }) => ({ at: aimAt(el), dwell })), { at: aimAt(dest), dwell: 0 }];
-    const touch = this.#personaFor(source) === 'touch';
+    const button = drag.button === 'right' ? 2 : 0;
+    // A right drag stays a mouse gesture even inside a touch scope, exactly as a
+    // rightClick does: a finger has no buttons to hold.
+    const touch = button === 0 && this.#personaFor(source) === 'touch';
     const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
     // A finger swipes as a pressed contact; a mouse drag closes into the grab hand.
     this.#cursor.setAttribute(touch ? 'data-contact' : 'data-grab', '');
     let from = aimAt(source);
-    this.#dispatchPointer(source, 'pointerdown', from, kind);
+    this.#dispatchPointer(source, 'pointerdown', from, kind, button);
     // Held for the whole drag: the source shows its pressed paint as long as the
     // hand is closed on it. Released with the pointer, or by #cancelRun.
     this.#press(source);
@@ -747,14 +758,14 @@ export class AttractPlayer {
           if (generation !== this.#generation) return false;
           const f = (performance.now() - start) / leg;
           if (f >= 1) break;
-          this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * f, y: from.y + (to.y - from.y) * f }, kind);
+          this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * f, y: from.y + (to.y - from.y) * f }, kind, button);
         }
-        this.#dispatchPointer(source, 'pointermove', to, kind);
+        this.#dispatchPointer(source, 'pointermove', to, kind, button);
       } else {
         for (let i = 1; i <= DRAG_MOVES; i++) {
           if (!(await this.#sleep(10, generation))) return false;
           const t = i / DRAG_MOVES;
-          this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind);
+          this.#dispatchPointer(source, 'pointermove', { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t }, kind, button);
         }
       }
       from = to;
@@ -768,10 +779,19 @@ export class AttractPlayer {
     // difference is the whole distinction between a drag and a throw, and it belongs to
     // the release rather than to the travel, which is identical either way.
     if (drag.release !== 'moving' && !(await this.#sleep(120, generation))) return false;
-    this.#dispatchPointer(source, 'pointerup', from, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
+    this.#dispatchPointer(source, 'pointerup', from, touch ? { pointerType: 'touch', pressure: 0 } : undefined, button);
+    // What a real right button does on release, and what a gesture pad has to refuse
+    // for the stroke to be a gesture rather than a menu. Dispatched after the release
+    // so the demo has read its stroke by the time the menu is asked for, which is the
+    // order a browser uses too.
+    if (button === 2) {
+      source.dispatchEvent(
+        new MouseEvent('contextmenu', { bubbles: true, cancelable: true, button, clientX: from.x, clientY: from.y, ...this.#mods }),
+      );
+    }
     this.#releasePress();
     this.#cursor.removeAttribute(touch ? 'data-contact' : 'data-grab');
-    this.#fx(touch ? 'vd-fx-tap' : 'vd-fx-arc vd-fx-arc--left');
+    this.#fx(touch ? 'vd-fx-tap' : `vd-fx-arc vd-fx-arc--${button === 2 ? 'right' : 'left'}`);
     this.#target = dest;
     return this.#sleep(STEP_GAP_MS, generation);
   }
@@ -1166,21 +1186,22 @@ export class AttractPlayer {
     return true;
   }
 
-  #summonDrag(drag: { to: string; via?: Waypoint[] }): void {
+  #summonDrag(drag: { to: string; via?: Waypoint[]; button?: 'right' }): void {
     const source = this.#target;
     const root = this.#host.root();
     const dest = root.querySelector(drag.to);
     if (!source || !dest) return;
-    const touch = this.#personaFor(source) === 'touch';
+    const button = drag.button === 'right' ? 2 : 0;
+    const touch = button === 0 && this.#personaFor(source) === 'touch';
     const kind = touch ? { pointerType: 'touch', pressure: 0.5 } : undefined;
-    this.#dispatchPointer(source, 'pointerdown', aimAt(source), kind);
+    this.#dispatchPointer(source, 'pointerdown', aimAt(source), kind, button);
     for (const point of drag.via ?? []) {
       const el = root.querySelector(typeof point === 'string' ? point : point.at);
-      if (el) this.#dispatchPointer(source, 'pointermove', aimAt(el), kind);
+      if (el) this.#dispatchPointer(source, 'pointermove', aimAt(el), kind, button);
     }
     const to = aimAt(dest);
-    this.#dispatchPointer(source, 'pointermove', to, kind);
-    this.#dispatchPointer(source, 'pointerup', to, touch ? { pointerType: 'touch', pressure: 0 } : undefined);
+    this.#dispatchPointer(source, 'pointermove', to, kind, button);
+    this.#dispatchPointer(source, 'pointerup', to, touch ? { pointerType: 'touch', pressure: 0 } : undefined, button);
     this.#target = dest;
   }
 
@@ -1245,18 +1266,20 @@ export class AttractPlayer {
     if (flash && button === 0) this.#press(el, PRESS_FLASH_MS);
   }
 
+  /** `button` is the mouse button held: 0 for the left, 2 for a right-button drag. */
   #dispatchPointer(
     el: Element,
     type: 'pointerdown' | 'pointermove' | 'pointerup',
     at: { x: number; y: number },
     kind?: { pointerType: string; pressure: number; pointerId?: number; isPrimary?: boolean },
+    button: 0 | 2 = 0,
   ): void {
     el.dispatchEvent(
       new PointerEvent(type, {
         bubbles: true,
         cancelable: true,
-        button: type === 'pointermove' ? -1 : 0,
-        buttons: type === 'pointerup' ? 0 : 1,
+        button: type === 'pointermove' ? -1 : button,
+        buttons: type === 'pointerup' ? 0 : button === 2 ? 2 : 1,
         clientX: at.x,
         clientY: at.y,
         ...this.#mods,

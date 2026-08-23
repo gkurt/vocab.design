@@ -43,10 +43,10 @@ const dot = (name: string, x: number, y: number) => `
  * which is the property that makes gestures usable at all.
  *
  * The right button is what arms the pad, exactly as it would in a browser, and the pad
- * suppresses its own context menu so a real right drag is a gesture rather than a menu. The
- * player cannot hold a button across steps, so the pad latches on the right press and reads the
- * stroke on the next right release: a real right drag runs the identical code path (down, move,
- * up), and the caption says what the latch is for.
+ * suppresses its own context menu so a right drag is a gesture rather than a menu. One press
+ * is one gesture: the button goes down, the stroke is drawn, and the release reads it, which
+ * is the single code path a reader's hand and the script's `drag: { button: 'right' }` both
+ * take. A release that never travelled is not a stroke, so it disarms and says so.
  *
  * The pad, the legend and the readouts all hold fixed boxes, and the trail is painted on an
  * overlay, so drawing and clearing a gesture move nothing (SPEC §5).
@@ -107,7 +107,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          The ghost cursor cannot hold a button across steps, so the pad stays armed from the right press until the right button next comes up.
+          Nothing here is aimed at: the shape of the stroke is the whole command, and the pad keeps the right button from opening a menu.
         </span>
       </div>
     </div>
@@ -205,9 +205,14 @@ export function mount(root: HTMLElement): void {
 
   pad.addEventListener('pointerup', (event) => {
     if (!armed || event.button !== 2) return;
-    // A right press that has not gone anywhere has not decided anything yet, so the pad holds
-    // the gesture open instead of reading an empty stroke.
-    if (travelled < STROKE_MIN) return say('Right button down: draw a stroke before letting go');
+    // A press that never travelled is not a stroke, so the pad ends the gesture with nothing
+    // recognized rather than reading an empty shape.
+    if (travelled < STROKE_MIN) {
+      armed = false;
+      pad.dataset.armed = 'no';
+      command.textContent = 'Nothing yet';
+      return say('The button came up without a stroke, so nothing ran');
+    }
     commit();
   });
 

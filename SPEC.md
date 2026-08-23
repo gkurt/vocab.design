@@ -658,7 +658,13 @@ export default steps([
   reading the stroke's last samples gets a real release speed from one and an honest
   zero from the other; `ms` sets the travel's duration, mere tempo for a settled drag
   but semantics for a thrown one, because distance over time IS the speed handed
-  over), `withKey` (hold a key across the
+  over; `button: 'right'` holds the RIGHT button for the whole stroke instead of the
+  left, which is the only way to perform a gesture a browser reads off that button,
+  every event reporting button 2 and the right bit in `buttons`, the ghost drawing
+  its right arc, and the release followed by the `contextmenu` a real right button
+  fires, so a pad that must refuse the menu is actually asked to; it stays a mouse
+  gesture inside a touch scope exactly as `rightClick` does, and middle waits until a
+  term needs it), `withKey` (hold a key across the
   enclosed steps: keydown as the scope opens, keyup as it closes, the chip held for
   the duration; Shift, Control, Alt, and Meta stamp their flag on every event
   dispatched inside, so a click becomes a Ctrl+click and a drag a Shift+drag; scopes

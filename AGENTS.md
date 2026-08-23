@@ -304,6 +304,11 @@ never fires under reduced motion, so nothing may ever wait on it.
   travel's duration, so distance over time is the speed handed over. A thrown drag
   must state its `ms` and `bun validate` holds it to 80-1200 ms, because a throw the
   player makes too slowly is one a recognizer correctly reads as a hand at rest.
+  A drag also says which button it holds: `button: 'right'` holds the right one for
+  the whole stroke, which is what a gesture read off the right button needs (every
+  event reports button 2, the ghost draws its right arc, and the release is followed
+  by the `contextmenu` a real right button fires, so a pad that must refuse the menu
+  is asked to). It stays a mouse gesture inside a touch scope, as `rightClick` does.
   A term whose whole claim is visible at rest ships a still script, waits and asserts
   only: a hover with no visible consequence is cursor theater, not choreography
   (SPEC §8). The vocabulary grows before a demo fakes it: input the player cannot

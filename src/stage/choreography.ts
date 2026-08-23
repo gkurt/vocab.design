@@ -41,8 +41,17 @@ export type Step =
    * a throw the player cannot make fast enough is a throw a recognizer will read
    * as a hand at rest. Reduced motion collapses the travel either way, so a demo
    * whose term is the throw jumps to its end state there, as it must anyway.
+   *
+   * `button: 'right'` holds the RIGHT button instead of the left for the whole
+   * stroke, which is the only way to perform a gesture a browser reads off the
+   * right button (a mouse-gesture pad, a right-drag marquee). The press, every
+   * move and the release all report button 2 and the right bit in `buttons`, the
+   * ghost draws its right arc, and the release is followed by the `contextmenu`
+   * a real right button fires, so a demo that must suppress the menu is actually
+   * asked to. It stays a mouse gesture inside a touch scope, exactly as
+   * `rightClick` does: a finger has no buttons. Middle waits until a term needs it.
    */
-  | { drag: { to: string; via?: Waypoint[]; release?: 'rest' | 'moving'; ms?: number } }
+  | { drag: { to: string; via?: Waypoint[]; release?: 'rest' | 'moving'; ms?: number; button?: 'right' } }
   /**
    * Press and hold the current target for this many ms (SPEC §8). Under the touch
    * persona the reported pressure climbs at a finger's rate (full force at 900 ms),
