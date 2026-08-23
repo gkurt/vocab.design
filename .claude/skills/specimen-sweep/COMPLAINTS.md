@@ -481,10 +481,14 @@ complete; until then entries only accumulate. Entry format:
   after "CSS Grid" while its Hebrew sits at level 1, so the span has two fragments straddling
   run-4 and its box unions them. Removing the straddle makes the measured order the honest
   `1-2-4-3`, which contradicts the demo's own `read` copy and the choreography's
-  `[data-seq="1-2-3-4"]` assert: a decision about what the specimen teaches. `solarpunk`: the
-  3618px2 is almost exactly the foot's whole box, the signature of an SVG `<text>`+`<textPath>`
-  reporting an oversized rect; the title runs between y≈44 and y≈122 and the foot is at y≈212,
-  so they cannot meet.
+  `[data-seq="1-2-3-4"]` assert: a decision about what the specimen teaches. `solarpunk` needed
+  no decision at all and is a plain skip: the evidence reads `[foot]~abs overlaps svg`, so the
+  flagged pair is an absolutely positioned caption sitting over full-bleed artwork, which is
+  designed layering. Worth recording because the fixer reached a right conclusion through a
+  wrong mechanism, blaming an SVG `<text>`+`<textPath>` reporting an oversized rect: the probe
+  skips every SVG internal already (`isSvgInternal`), so a `<text>` can never be flagged, and
+  only the `<svg>` root itself is ever a candidate. Read the evidence's element before
+  theorising about the geometry.
 - Residual, deliberately left: `popover-arrow`'s panel and `prefers-reduced-motion`'s scene each
   grew their CONTENT by exactly what the box gained when enlarged, which means a child is sized
   off the box itself and no enlargement can clear it. Both were put back to the fixers' values
