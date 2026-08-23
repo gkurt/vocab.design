@@ -1,67 +1,93 @@
 ---
 import Base from '#src/layouts/Base.astro';
 import { CATEGORIES } from '#src/lib/schema.ts';
-import { facets, type TagFacet } from '#src/lib/tags.ts';
+import { type Family, facets, families, type TagFacet } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
-import { pageUrl } from '#src/lib/url.ts';
+import { absoluteUrl, pageUrl } from '#src/lib/url.ts';
 
-interface Props {
-  facet: TagFacet;
-}
+type Props = { facet: TagFacet; family?: never } | { facet?: never; family: Family };
 
 export async function getStaticPaths() {
-  const all = facets(await getTerms());
-  return all.map((facet) => ({ params: { tag: facet.tag }, props: { facet } }));
+  const terms = await getTerms();
+  return [
+    ...facets(terms).map((facet) => ({ params: { tag: facet.tag }, props: { facet } })),
+    // A family's name is a word, so its grouping lives on the term's own page (SPEC §2.5).
+    // The tag-shaped URL still has to resolve: a reader who guesses it, or a link that
+    // generalizes from /tags/{facet}, lands on the page carrying the family, not on a 404.
+    ...families(terms).map((family) => ({ params: { tag: family.slug }, props: { family } })),
+  ];
 }
 
-const { facet } = Astro.props;
+const { facet, family } = Astro.props;
 // A facet's whole point is the categories it reaches across, so it groups by them.
-const byCategory = CATEGORIES.map((category) => ({
-  category,
-  terms: facet.terms.filter((t) => t.data.category === category),
-})).filter((group) => group.terms.length > 0);
+const byCategory = facet
+  ? CATEGORIES.map((category) => ({
+      category,
+      terms: facet.terms.filter((t) => t.data.category === category),
+    })).filter((group) => group.terms.length > 0)
+  : [];
 ---
 
-<Base
-  title={`${facet.tag} · facet · vocab.design`}
-  description={facet.blurb}
->
-  <section class="pt-10 pb-10">
-    <p class="text-sm text-muted italic">facet</p>
-    <h1 class="mt-1 font-serif text-4xl font-semibold tracking-tight">
-      {facet.tag}
-    </h1>
-    <p class="article mt-4 text-lg text-muted">{facet.blurb}</p>
-    <p class="mt-3 text-sm text-muted">
-      {facet.terms.length} terms across {byCategory.length} categories · <a
-        href={pageUrl("/tags")}
-        class="text-accent underline underline-offset-3">all facets</a
-      >
-    </p>
-  </section>
-
-  {
-    byCategory.map(({ category, terms }) => (
-      <section class="mb-12">
-        <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">
-          {category}
-        </h2>
-        <ul class="grid gap-2">
-          {terms.map((t) => (
-            <li>
-              <a
-                href={pageUrl(t.data.slug)}
-                class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
-              >
-                <span class="font-serif text-lg font-semibold group-hover:text-accent">
-                  {t.data.name}
-                </span>
-                <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
+{
+  facet ? (
+    <Base
+      title={`${facet.tag} · facet · vocab.design`}
+      description={facet.blurb}
+    >
+      <section class="pt-10 pb-10">
+        <p class="text-sm text-muted italic">facet</p>
+        <h1 class="mt-1 font-serif text-4xl font-semibold tracking-tight">
+          {facet.tag}
+        </h1>
+        <p class="article mt-4 text-lg text-muted">{facet.blurb}</p>
+        <p class="mt-3 text-sm text-muted">
+          {facet.terms.length} terms across {byCategory.length} categories ·{" "}
+          <a
+            href={pageUrl("/tags")}
+            class="text-accent underline underline-offset-3"
+          >
+            all facets
+          </a>
+        </p>
       </section>
-    ))
-  }
-</Base>
+
+      {byCategory.map(({ category, terms }) => (
+        <section class="mb-12">
+          <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">
+            {category}
+          </h2>
+          <ul class="grid gap-2">
+            {terms.map((t) => (
+              <li>
+                <a
+                  href={pageUrl(t.data.slug)}
+                  class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
+                >
+                  <span class="font-serif text-lg font-semibold group-hover:text-accent">
+                    {t.data.name}
+                  </span>
+                  <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </Base>
+  ) : (
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <title>{family.name} · family · vocab.design</title>
+        <link rel="canonical" href={absoluteUrl(family.slug)} />
+        <meta http-equiv="refresh" content={`0; url=${pageUrl(family.slug)}`} />
+      </head>
+      <body>
+        <p>
+          {family.name} is a term, not a facet: its family lives on{" "}
+          <a href={pageUrl(family.slug)}>its own page</a>.
+        </p>
+      </body>
+    </html>
+  )
+}

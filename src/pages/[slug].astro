@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import SpecimenStage from '#src/components/SpecimenStage.astro';
 import Base from '#src/layouts/Base.astro';
 import { slugify } from '#src/lib/slug.ts';
+import { familyOf, memberOf } from '#src/lib/tags.ts';
 import type { TermEntry } from '#src/lib/terms.ts';
 import { getTerms } from '#src/lib/terms.ts';
 import { absoluteUrl, pageUrl } from '#src/lib/url.ts';
@@ -48,6 +49,18 @@ const reverse = (kind: 'variantOf' | 'partOf') =>
     .map((t) => t.data.slug)
     .sort();
 
+/**
+ * The family this term heads, if it heads one (SPEC §2.5), and the families it belongs to.
+ * Membership is read off the members' own relations, so joining one costs no tag. The
+ * listing renders like a facet page and stays out of the index for the reason Related does:
+ * seventeen member names on one page would make it compete for each of them.
+ */
+const family = familyOf(term, all);
+const memberships = memberOf(term).map((slug) => ({ slug, name: bySlug.get(slug)?.name ?? slug }));
+
+// A head term lists its family in full below, so the rail would say the same edges twice.
+const claimed = new Set(family?.groups.map((group) => group.label) ?? []);
+
 const relationGroups = [
   {
     label: 'Contrast with',
@@ -59,7 +72,7 @@ const relationGroups = [
   { label: 'Part of', kind: 'part-of', slugs: d.relations.partOf },
   { label: 'Contains', kind: 'contains', slugs: reverse('partOf') },
   { label: 'See also', kind: 'see-also', slugs: d.relations.seeAlso },
-].filter((group) => group.slugs.length > 0);
+].filter((group) => group.slugs.length > 0 && !claimed.has(group.label));
 
 // The alias a reader typed cannot be read off the page they land on, so the redirect
 // hands it over (src/components/analytics.ts). Only when there is somewhere to report it.
@@ -165,6 +178,18 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
           >
             {d.category}
           </a>
+          {memberships.map(({ slug, name }) => (
+            <>
+              {" · "}
+              <a
+                href={pageUrl(slug)}
+                class="not-italic hover:text-ink"
+                data-rel="family"
+              >
+                {name.toLowerCase()}
+              </a>
+            </>
+          ))}
           {d.tags.map((tag) => (
             <>
               {" · "}
@@ -251,6 +276,44 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
                 ))}
               </tbody>
             </table>
+          </section>
+        )}
+
+        {family && family.members.length > 0 && (
+          <section class="mt-10" data-pagefind-ignore>
+            <h2 class="text-sm tracking-wide text-muted uppercase">Family</h2>
+            <p class="mt-1 text-sm text-muted">
+              {family.members.length} terms declare {d.name.toLowerCase()} ·{" "}
+              <a
+                href={pageUrl("/tags")}
+                class="text-accent underline underline-offset-3"
+              >
+                all facets
+              </a>
+            </p>
+            {family.groups.map(({ label, terms }) => (
+              <section class="mt-6">
+                <h3 class="mb-3 text-sm tracking-wide text-muted uppercase">
+                  {label}
+                </h3>
+                <ul class="grid gap-2">
+                  {terms.map((t) => (
+                    <li>
+                      <a
+                        href={pageUrl(t.data.slug)}
+                        data-rel="family"
+                        class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
+                      >
+                        <span class="font-serif text-lg font-semibold group-hover:text-accent">
+                          {t.data.name}
+                        </span>
+                        <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
           </section>
         )}
 

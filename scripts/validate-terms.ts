@@ -5,7 +5,7 @@ import * as z from 'zod/v4';
 import { RESERVED, SITE_ROUTES } from '#src/lib/routes.ts';
 import { CATEGORIES, TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
 import { slugify } from '#src/lib/slug.ts';
-import { HEAD_TERMS } from '#src/lib/tags.ts';
+import { FAMILY_EDGES, FAMILY_FLOOR, HEAD_TERMS } from '#src/lib/tags.ts';
 
 /**
  * Content gates (SPEC §11): schema validation, slug/alias uniqueness, relation
@@ -123,7 +123,12 @@ for (const [file, body] of bodies) {
     if (SITE_ROUTES.has(target)) continue;
     const tag = target.match(/^\/tags\/([a-z0-9-]+)\/?$/)?.[1];
     if (tag) {
-      if (!(TAGS as readonly string[]).includes(tag)) errors.push(`${file}: prose links to "${target}", which is not a tag (SPEC §2.5)`);
+      // /tags/{head-term} resolves, but only as a redirect for a guessed URL: prose crosses
+      // the graph by linking the term itself, which is where the family is published.
+      if (HEAD_TERMS.some((h) => h.slug === tag))
+        errors.push(`${file}: prose links to "${target}"; link the term at "/${tag}" (SPEC §2.5)`);
+      else if (!(TAGS as readonly string[]).includes(tag))
+        errors.push(`${file}: prose links to "${target}", which is not a tag (SPEC §2.5)`);
       continue;
     }
     const browsed = target.match(/^\/browse\/([a-z-]+)\/?$/)?.[1];
@@ -270,6 +275,20 @@ for (const { slug } of HEAD_TERMS) {
   if ((TAGS as readonly string[]).includes(slug)) errors.push(`"${slug}" is both a head term and a tag; pick one (SPEC §2.5)`);
 }
 
+/**
+ * The facet floor read from the other side (SPEC §2.5): a grouping this big would earn a
+ * tag if its name were not already a word, so it has to be registered as a head term
+ * instead. Without this the list goes stale silently, because a family grows by an
+ * authoring round adding members and never by anyone editing src/lib/tags.ts.
+ */
+const registered = new Set(HEAD_TERMS.map((head) => head.slug));
+const family = new Map<string, number>();
+for (const term of terms.values())
+  for (const { kind } of FAMILY_EDGES) for (const target of term.relations[kind]) family.set(target, (family.get(target) ?? 0) + 1);
+for (const [slug, size] of family)
+  if (size >= FAMILY_FLOOR && !registered.has(slug))
+    errors.push(`"${slug}" carries a family of ${size}; register it in HEAD_TERMS or split it (SPEC §2.5)`);
+
 if (errors.length > 0) {
   console.error(`✗ ${errors.length} content error(s):\n${errors.map((e) => `  - ${e}`).join('\n')}`);
   process.exit(1);
@@ -278,3 +297,6 @@ console.log(
   `✓ ${terms.size} terms valid (${[...terms.values()].filter((t) => t.status !== 'stub').length} published/draft, ${[...terms.values()].filter((t) => t.status === 'stub').length} stubs)`,
 );
 console.log(`✓ ${TAGS.length} tags valid (${[...terms.values()].filter((t) => t.tags.length > 0).length} terms tagged)`);
+console.log(
+  `✓ ${HEAD_TERMS.length} families valid (${HEAD_TERMS.reduce((total, head) => total + (family.get(head.slug) ?? 0), 0)} members)`,
+);

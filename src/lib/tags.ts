@@ -35,11 +35,15 @@ export const TAG_BLURBS: Record<Tag, string> = {
 /**
  * Families that are NOT facets because their name is itself vocabulary (SPEC §2.5).
  * A reader hunting the facet list for "dark pattern" should be handed the term rather
- * than nothing, so /tags lists these alongside the real facets and says where to go.
- * A head term must not also be a tag; `bun validate` holds that line.
+ * than nothing, so /tags lists these alongside the real facets, and /tags/{slug} redirects
+ * to the term so the tag-shaped URL resolves rather than 404s. What each one carries is
+ * `familyOf`, derived from the members' own relations.
+ *
+ * A head term must not also be a tag, and a family of `FAMILY_FLOOR` or more must be
+ * registered here; `bun validate` holds both lines.
  */
 export const HEAD_TERMS: { slug: string; why: string }[] = [
-  { slug: 'dark-pattern', why: 'Seventeen deceptive patterns declare it, so its own page lists them.' },
+  { slug: 'dark-pattern', why: 'Every deceptive pattern declares it, so its own page lists them.' },
   { slug: 'responsive-web-design', why: "The umbrella over LukeW's five responsive layout patterns." },
   { slug: 'microinteraction', why: 'The loops that are kinds of it and the ripples that are parts of one, both derived on its page.' },
   { slug: 'skeuomorphism', why: 'The claim every revival and reaction to it is measured against.' },
@@ -58,4 +62,71 @@ export function facets(terms: TermEntry[]): TagFacet[] {
     blurb: TAG_BLURBS[tag],
     terms: terms.filter((t) => t.data.tags.includes(tag)).sort((a, b) => a.data.name.localeCompare(b.data.name)),
   }));
+}
+
+/**
+ * The edges that carry a family, read from the head term's side (SPEC §2.5): the terms
+ * that are kinds of it, and the terms that are parts of one. Labelled with the same
+ * words the Related rail uses, so the site has one vocabulary for a reverse edge.
+ */
+export const FAMILY_EDGES = [
+  { kind: 'variantOf', label: 'Variants' },
+  { kind: 'partOf', label: 'Contains' },
+] as const;
+
+/** A family big enough to be a facet, whose name is a word, has to be a head term. */
+export const FAMILY_FLOOR = 8;
+
+export interface FamilyGroup {
+  label: string;
+  terms: TermEntry[];
+}
+
+export interface Family {
+  slug: string;
+  name: string;
+  why: string;
+  groups: FamilyGroup[];
+  members: TermEntry[];
+}
+
+const byName = (a: TermEntry, b: TermEntry) => a.data.name.localeCompare(b.data.name);
+
+/**
+ * The family a head term carries, or undefined when the term is not a head term.
+ * The list is derived from the members' own `variantOf` and `partOf`, never stored, so
+ * authoring a member is the whole of joining a family.
+ *
+ * A registered head term may carry an EMPTY family: skeuomorphism's neighbours contrast
+ * with it rather than being kinds of it, so its page discriminates rather than lists. It
+ * stays a head term because a reader hunting the facet list for the word must still be
+ * handed the term.
+ */
+export function familyOf(head: TermEntry, terms: TermEntry[]): Family | undefined {
+  const entry = HEAD_TERMS.find(({ slug }) => slug === head.data.slug);
+  if (!entry) return undefined;
+  const groups = FAMILY_EDGES.map(({ kind, label }) => ({
+    label,
+    terms: terms.filter((t) => t.data.relations[kind].includes(entry.slug)).sort(byName),
+  })).filter((group) => group.terms.length > 0);
+  return { slug: entry.slug, name: head.data.name, why: entry.why, groups, members: groups.flatMap((g) => g.terms) };
+}
+
+/** Every family, in the order `HEAD_TERMS` declares them. */
+export function families(terms: TermEntry[]): Family[] {
+  const bySlug = new Map(terms.map((t) => [t.data.slug, t]));
+  return HEAD_TERMS.flatMap(({ slug }) => {
+    const head = bySlug.get(slug);
+    const family = head && familyOf(head, terms);
+    return family ? [family] : [];
+  });
+}
+
+/**
+ * The head terms a term declares membership in, for the chip that sits with its tags.
+ * A family behaves like a facet exactly where a reader reads facets, without a term
+ * having to spend one of its four tags on something a relation already records.
+ */
+export function memberOf(term: TermEntry): string[] {
+  return HEAD_TERMS.filter(({ slug }) => FAMILY_EDGES.some(({ kind }) => term.data.relations[kind].includes(slug))).map(({ slug }) => slug);
 }

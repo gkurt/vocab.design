@@ -1,4 +1,4 @@
-import { facets } from '#src/lib/tags.ts';
+import { facets, families } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
 
 export async function GET(): Promise<Response> {
@@ -10,6 +10,9 @@ export async function GET(): Promise<Response> {
   const facetLines = facets(terms).map(
     (f) => `- ${f.tag} (${f.terms.length}) ${f.blurb} Members: ${f.terms.map((t) => t.data.slug).join(', ')}`,
   );
+  const familyLines = families(terms)
+    .filter((f) => f.members.length > 0)
+    .map((f) => `- ${f.slug} (${f.members.length}) ${f.why} Members: ${f.members.map((t) => t.data.slug).join(', ')}`);
   const body = [
     '# vocab.design',
     '',
@@ -25,6 +28,13 @@ export async function GET(): Promise<Response> {
     'A term has exactly one category and any number of facets.',
     '',
     ...facetLines,
+    '',
+    '## Families',
+    '',
+    'A grouping whose own name is a term, so it is published at /{slug} rather than as a facet',
+    'and /tags/{slug} redirects there. Members declare it with variantOf or partOf.',
+    '',
+    ...familyLines,
     '',
     '## Terms',
     '',

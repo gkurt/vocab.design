@@ -71,7 +71,7 @@ agent use.
 SPEC.md                     # Canonical design doc — read first
 src/lib/schema.ts           # Zod v4 term schema (single source of truth): CATEGORIES, TAGS, SYSTEMS
 src/lib/terms.ts            # getTerms() — the ONE way to read the collection (see gotcha below)
-src/lib/tags.ts             # facets(): the tag blurbs and their membership, derived not stored
+src/lib/tags.ts             # facets() and families(): tag blurbs, head terms, membership derived
 src/lib/categories.ts       # one blurb per category, for the browse pages
 src/lib/glossary.ts         # the A-Z entry list: every term AND every alias, sliced by letter
 src/lib/slug.ts             # slugify for terms and aliases
@@ -94,7 +94,7 @@ src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, trave
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
-src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
+src/pages/tags/             #   /tags + /tags/[tag] (a facet) + /tags/[head-term] (to its family)
 src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
@@ -434,6 +434,16 @@ never fires under reduced motion, so nothing may ever wait on it.
   pass over the whole family or leave it alone. Where the family name is itself
   vocabulary (dark pattern, microinteraction) there is no tag: the head term's members
   declare `variantOf` and its page derives the family.
+- **A family groups like a facet and reads like a term** (SPEC §2.5). Storing it in
+  relations rather than in a tag is invisible to a reader, so a family behaves like a
+  facet anyway: the head term's page carries the listing (grouped `Variants` and
+  `Contains`, which then leave the Related rail), `/tags/{head-term}` redirects there,
+  and a member shows the family as a chip beside its facets. All of it is derived from
+  the members' own `variantOf`/`partOf` by `familyOf`/`memberOf` in `src/lib/tags.ts`,
+  so joining a family is an authoring decision and costs none of the four tags. A family
+  of 8 or more must be registered in `HEAD_TERMS`, which `bun validate` enforces: that is
+  the facet floor read from the other side, and the list would go stale silently without
+  it. Prose links the term (`/dark-pattern`), never the redirect.
 - **Two isolation modes, one shape.** `src/stage/surface.ts` is the only file that knows
   whether a specimen lives in a shadow root or in a document of its own; everything
   above it reads `Surface`. `demo: iframe` generates `/specimen/<slug>/`, which imports
