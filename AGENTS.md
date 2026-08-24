@@ -76,6 +76,7 @@ src/lib/terms.ts            # getTerms() — the ONE way to read the collection 
 src/lib/tags.ts             # facets(): tag blurbs, and the three facets that are also terms
 src/lib/categories.ts       # one blurb per category, for the browse pages
 src/lib/glossary.ts         # the A-Z entry list: every term AND every alias, sliced by letter
+src/lib/exhibit.ts          # the front page's window: the `exhibit: true` pool, and the day's pick
 src/lib/slug.ts             # slugify for terms and aliases
 src/content/terms/          # One MDX file per term, frontmatter per schema
 src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
@@ -95,13 +96,16 @@ src/stage/frame.ts          #   what a `demo: iframe` specimen document publishe
 src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, travel never does
 src/stage/highlight.ts      #   the share still's annotation: subject at full strength, rest faded
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
-src/pages/                  # index (THE directory: categories, facets, every name A-Z), [slug]
+src/pages/                  # index (ONE live specimen, then THE directory: categories, facets, A-Z), [slug]
                             #   (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
 src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
 src/pages/browse/           #   /browse/[category] (with definitions); the front page is the directory
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
+src/components/Exhibit.astro # the front page's window: one specimen, re-picked on every reload
+src/components/TermCards.astro #  the listing card: a scaled live preview, headword, definition
+src/components/previews.ts  #   which cards mount a specimen, and which single one plays
 src/components/SearchPanel.astro # the search itself, rendered as the page or in the modal
 src/components/SearchDialog.astro #  the modal in the chrome: <vd-search-dialog> + <dialog>
 src/components/SearchDialog.ts #   opens it, and lazy-loads the search on the first open
@@ -537,6 +541,18 @@ never fires under reduced motion, so nothing may ever wait on it.
   members, and a family of 8 or more must BE one, which is the floor read from the other
   side and the reason the enum cannot go stale as authoring rounds add members. Contrast is
   not membership, which is why skeuomorphism is not one of the three.
+- **Liveness in the listings** (SPEC §3). The front page carries ONE specimen, rotated on
+  every reload from the terms flagged `exhibit: true`; `/browse/{category}` and
+  `/tags/{tag}` render cards whose preview is the real specimen, scaled from its authored
+  720x320 box, mounted only near the viewport (eight at most) and playing only where the
+  reader is pointing. Both obey the one rule the scheduler already had: exactly one
+  specimen animates per page. `exhibit` is curation, set by hand after watching the
+  demonstration; `bun validate` only refuses it on a term with no demo or an unfinished
+  article, and it is the one frontmatter field `terms.json` withholds.
+  A listing does not command the scheduler, it decides which stages ASK: `data-hold` on a
+  stage means mounted and standing still, and moving it is how one card is granted the
+  page. A stage removed from the document tears down and gives back its claim, which is
+  what stops a scrolling list from stranding the stage on a discarded player.
 - **Two isolation modes, one shape.** `src/stage/surface.ts` is the only file that knows
   whether a specimen lives in a shadow root or in a document of its own; everything
   above it reads `Surface`. `demo: iframe` generates `/specimen/<slug>/`, which imports

@@ -7,6 +7,7 @@ export async function GET(): Promise<Response> {
     set: 'vocab.design',
     url: 'https://vocab.design',
     license: 'CC BY 4.0',
-    terms: terms.map((t) => t.data).sort((a, b) => a.slug.localeCompare(b.slug)),
+    // `exhibit` is curation of the front page, not a fact about the word (SPEC §3).
+    terms: terms.map(({ data: { exhibit: _exhibit, ...term } }) => term).sort((a, b) => a.slug.localeCompare(b.slug)),
   });
 }

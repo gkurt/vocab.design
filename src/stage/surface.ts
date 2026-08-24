@@ -45,13 +45,28 @@ export function createSurface(canvas: HTMLElement, slug: string, name: string, i
   return isolation === 'iframe' ? frameSurface(canvas, slug, name) : shadowSurface(canvas, slug);
 }
 
+/**
+ * The kit, parsed once per document rather than once per specimen. A constructed sheet
+ * is shareable between roots, and a list page mounts a dozen specimens: 42KB of CSS
+ * parsed a dozen times is a cost with nothing to show for it.
+ */
+let kitSheet: CSSStyleSheet | undefined;
+
+function sharedKitSheet(): CSSStyleSheet {
+  if (!kitSheet) {
+    kitSheet = new CSSStyleSheet();
+    kitSheet.replaceSync(kitCss);
+  }
+  return kitSheet;
+}
+
 async function shadowSurface(canvas: HTMLElement, slug: string): Promise<Surface | undefined> {
   const demo = await loadDemo(slug);
   if (!demo) return undefined;
-  const shadow = canvas.attachShadow({ mode: 'open' });
-  const sheet = new CSSStyleSheet();
-  sheet.replaceSync(kitCss);
-  shadow.adoptedStyleSheets = [sheet];
+  // A stage torn down and reconnected keeps the root it already has: attachShadow
+  // throws the second time, and the specimen inside it was discarded on teardown.
+  const shadow = canvas.shadowRoot ?? canvas.attachShadow({ mode: 'open' });
+  shadow.adoptedStyleSheets = [sharedKitSheet()];
   return {
     host: shadow,
     doc: document,

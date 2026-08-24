@@ -1,0 +1,70 @@
+---
+import type { TermEntry } from '#src/lib/terms.ts';
+import { pageUrl } from '#src/lib/url.ts';
+import '#src/styles/stage.css';
+
+interface Props {
+  terms: TermEntry[];
+  /** Print the other spellings under the headword: the category listing does, a facet does not. */
+  aliases?: boolean;
+}
+
+/**
+ * The listing card (SPEC §3): a specimen, the headword, and the dictionary line.
+ *
+ * The box is rendered empty and the specimen is mounted into it by
+ * `#src/components/previews.ts`, which is what keeps a 196-card category page to a
+ * handful of live demos. So the card's shape is here and its liveness is there, and a
+ * reader with no JavaScript gets the list they always got with a stage-shaped hole in
+ * each card rather than a broken picture.
+ *
+ * Two columns, because a specimen is authored against the term page's full column and
+ * the preview scales that box down: two across is a halving, which is the largest
+ * reduction that still reads as a demonstration rather than as a texture.
+ */
+const { terms, aliases = false } = Astro.props;
+---
+
+<ul class="grid gap-x-6 gap-y-7 pb-12 sm:grid-cols-2">
+  {
+    terms.map((t) => (
+      <li
+        class="vd-card"
+        data-preview={t.data.demo === "none" ? undefined : t.data.slug}
+        data-preview-name={t.data.name}
+        data-preview-isolation={t.data.demo}
+      >
+        {t.data.demo !== "none" && (
+          <div class="vd-preview mb-3">
+            {/* The picture is a way in to the term, not a specimen to operate: one is
+                driven on its own page, where it has a control bar and room to be read.
+                Hidden from assistive tech because the headword below is the same link,
+                with a name. */}
+            <a
+              class="vd-preview-hit"
+              href={pageUrl(t.data.slug)}
+              aria-hidden="true"
+              tabindex="-1"
+            />
+          </div>
+        )}
+        <a
+          href={pageUrl(t.data.slug)}
+          class="font-serif text-lg font-semibold hover:text-accent"
+        >
+          {t.data.name}
+        </a>
+        {aliases && t.data.aliases.length > 0 && (
+          <span class="ml-2 text-sm text-muted italic">
+            also {t.data.aliases.map((a) => a.name).join(", ")}
+          </span>
+        )}
+        <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  import '#src/components/previews.ts';
+</script>

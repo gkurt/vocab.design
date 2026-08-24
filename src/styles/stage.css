@@ -593,3 +593,60 @@ vd-stage[data-autoplay] .vd-stage-play {
     opacity: 0;
   }
 }
+
+/* --- Card previews (SPEC §3, §7) --------------------------------------------
+   A specimen shown inside a list card. The demo is authored against the term
+   page's column, so a preview keeps that box (720x320) and SCALES it: the
+   geometry a demo was authored for is preserved exactly, and only the reading
+   size changes. `--vd-preview-k` is set per box by the list controller, which is
+   the only thing that knows how wide the card came out.
+
+   The frame and the ground belong to the box rather than to the stage inside it,
+   so the dot grid is the same 16px it is on a term page instead of a scaled-down
+   version of itself, and an unmounted card still looks like a stage. */
+.vd-preview {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 720 / 320;
+  border: 1px solid var(--vd-line);
+  border-radius: 10px;
+  background-color: var(--vd-surface);
+  background-image: radial-gradient(var(--vd-line) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.vd-preview vd-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 720px;
+  transform: scale(var(--vd-preview-k, 0.5));
+  transform-origin: top left;
+}
+
+.vd-preview vd-stage figure {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.vd-preview .vd-stage-body {
+  background-image: none;
+}
+
+/* The whole preview is a link to the term, not a specimen to operate: a card is a
+   poster that moves, and the demo it shows is driven on the term's own page. This
+   also keeps a real pointer off the specimen, so a card never takes the stage over
+   from attract, and the link is hidden from assistive tech because the headword
+   underneath it is the same link with a name. */
+.vd-preview-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+
+.vd-card:hover .vd-preview,
+.vd-card:focus-within .vd-preview {
+  border-color: var(--vd-accent);
+}

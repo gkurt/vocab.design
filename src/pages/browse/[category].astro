@@ -1,4 +1,5 @@
 ---
+import TermCards from '#src/components/TermCards.astro';
 import Base from '#src/layouts/Base.astro';
 import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
 import { CATEGORIES, type Category } from '#src/lib/schema.ts';
@@ -105,28 +106,7 @@ const breadcrumbs = {
     }
   </section>
 
-  <ul class="grid gap-2 pb-12">
-    {
-      terms.map((t) => (
-        <li>
-          <a
-            href={pageUrl(t.data.slug)}
-            class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
-          >
-            <span class="font-serif text-lg font-semibold group-hover:text-accent">
-              {t.data.name}
-            </span>
-            {t.data.aliases.length > 0 && (
-              <span class="ml-2 text-sm text-muted italic">
-                also {t.data.aliases.map((a) => a.name).join(", ")}
-              </span>
-            )}
-            <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <TermCards terms={terms} aliases />
 
   <section class="mb-12 border-t border-line pt-6">
     <h2 class="mb-3 text-sm tracking-wide text-muted uppercase">

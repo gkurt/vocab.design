@@ -293,6 +293,17 @@ for (const [slug, size] of family)
 for (const tag of TERM_TAGS)
   if (!family.has(tag)) errors.push(`term-named facet "${tag}" collects nothing; no term declares it with variantOf or partOf (SPEC §2.5)`);
 
+/**
+ * The front page's window (SPEC §3). `exhibit` is curation, so nothing here judges
+ * whether a specimen is good; it only refuses the two flags that would stand an empty
+ * stage on the front page, where the flagged term has no demo or is not published yet.
+ */
+const exhibited = [...terms.values()].filter((t) => t.exhibit);
+for (const term of exhibited) {
+  if (term.demo === 'none') errors.push(`${term.slug}: exhibit: true with demo: none; there is no specimen to show (SPEC §3)`);
+  if (term.status !== 'published') errors.push(`${term.slug}: exhibit: true while status is "${term.status}"; finish it first (SPEC §3)`);
+}
+
 if (errors.length > 0) {
   console.error(`✗ ${errors.length} content error(s):\n${errors.map((e) => `  - ${e}`).join('\n')}`);
   process.exit(1);
@@ -301,6 +312,7 @@ console.log(
   `✓ ${terms.size} terms valid (${[...terms.values()].filter((t) => t.status !== 'stub').length} published/draft, ${[...terms.values()].filter((t) => t.status === 'stub').length} stubs)`,
 );
 console.log(`✓ ${TAGS.length} tags valid (${[...terms.values()].filter((t) => t.tags.length > 0).length} terms tagged)`);
+console.log(`✓ ${exhibited.length} specimens cleared for the front page`);
 console.log(
   `✓ ${TERM_TAGS.length} of them term-named (${TERM_TAGS.reduce((total, tag) => total + (family.get(tag) ?? 0), 0)} derived members)`,
 );

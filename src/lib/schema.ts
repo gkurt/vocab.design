@@ -99,6 +99,15 @@ export const termSchema = z.object({
   implementations: z.array(z.object({ system: z.enum(SYSTEMS), name: z.string().min(1), url: z.url() })).default([]),
   sources: z.array(z.object({ title: z.string().min(1), url: z.url() })).default([]),
   demo: z.enum(['none', 'inline', 'iframe']).default('none'),
+  /**
+   * May this specimen stand in the window (SPEC §3)? Curation rather than metadata: the
+   * front page shows ONE specimen and rotates it, so the flag is a judgement about the
+   * demonstration, not about the article, and it is set by hand after watching the thing
+   * play. Every term keeps its own specimen either way; this only decides what a first-time
+   * reader is shown before they have chosen anything. Off by default, so a new term joins
+   * the dictionary without joining the shop window.
+   */
+  exhibit: z.boolean().default(false),
   /** The situation this word is for; powers the generated "Which word?" table (SPEC §2.3). */
   useWhen: z.string().min(1).max(90).optional(),
 });

@@ -70,6 +70,7 @@ sources:
   - title: "ARIA APG: alert pattern"
     url: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
 demo: inline                     # none | inline | iframe (see §6)
+exhibit: true                    # optional: cleared for the front page's window (§3)
 useWhen: >-                      # the situation this word is for; powers "Which word?"
   a passing confirmation that cleans up after itself
 ```
@@ -249,14 +250,15 @@ those are equivalent. Under that format Astro reports
 - `/{slug}` — term page, top level (`vocab.design/bento-grid`).
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".
-- `/` — the front page IS the directory. It carries the nine categories, every facet, and
-  the name of every term A to Z in columns, so the whole vocabulary is reachable in one
-  scroll from the one URL everyone already has. There is no `/browse` and no `/tags`
-  index: a directory page above a directory page is a click that says nothing, and the
-  front page had nothing better to spend its length on.
-- `/tags/{tag}` (one facet, grouped by category; three of them are also terms, and carry a
-  bridge to `/{tag}`, §2.5).
-- `/browse/{category}` (that category, with definitions, plus the facets it reaches into).
+- `/` — the front page IS the directory. It carries one live specimen, the nine
+  categories, every facet, and the name of every term A to Z in columns, so the whole
+  vocabulary is reachable in one scroll from the one URL everyone already has. There is no
+  `/browse` and no `/tags` index: a directory page above a directory page is a click that
+  says nothing, and the front page had nothing better to spend its length on.
+- `/tags/{tag}` (one facet, as the same cards, grouped by category; three of them are also
+  terms, and carry a bridge to `/{tag}`, §2.5).
+- `/browse/{category}` (that category, as cards with a live preview and a definition, plus
+  the facets it reaches into).
   Both live under a prefix whose index does not exist, which is deliberate: the prefix is
   what keeps a category or a facet from competing with the term namespace at the root, and
   it stays spent in `src/lib/routes.ts` for exactly that reason.
@@ -285,6 +287,45 @@ which is a tool. `lastmod` on a term is its `modified`
 day, and on a listing page the newest `modified` in the dictionary, because that is when
 the listing last said something different. A new top-level route has to be named in
 `src/lib/routes.ts` to be listed, which is the trade for never listing junk.
+
+### Liveness in the listings
+
+A page that lists terms shows the demonstrations, not just their names. Two mechanisms,
+one rule: **exactly one specimen animates per page** (§7), because a page where six things
+move at once is a page nobody reads.
+
+**The front page's window.** One specimen under the hero, rotated on every reload, drawn
+from the terms flagged `exhibit: true` (§2.1). The flag is curation and nothing else: it
+is set by hand after watching the demonstration play, it is off by default, and it is the
+only editorial judgement in the frontmatter. Every term keeps its specimen either way;
+this decides what a first-time reader is shown before they have chosen anything, which is
+the one place on the site where the vocabulary does not get to speak for itself. `bun
+validate` refuses the flag on a term with no demo or with an unfinished article, and
+`terms.json` omits it, since it is a fact about this site's front page rather than about
+the word.
+
+The rotation is a script, because the site is static and every reader is served the same
+HTML: the built page carries the day's specimen (so a reader with no JavaScript gets one,
+and it moves with each deploy) and the pool is serialized beside it, so the swap happens
+during parse, before the stage upgrades. Nothing renders twice and no specimen is mounted
+and then thrown away. The specimen just shown is remembered for the session, so a reload
+is always a different word.
+
+**Cards in a listing.** `/browse/{category}` and `/tags/{tag}` render each term as a card:
+a framed preview, the headword, the other spellings, the dictionary line. Two columns,
+because a specimen is authored against the term page's full column and the preview keeps
+that box and scales it, so nothing is re-authored and nothing clips: two across is a
+halving, the largest reduction that still reads as a demonstration rather than as a
+texture. The preview is a way in to the term rather than a specimen to operate: a link
+covers it, so a card never takes the stage over from attract, and the demo is driven on
+its own page where it has a control bar and room to be read.
+
+The cost is bounded by the same scheduler that keeps the motion calm. A category page can
+carry 196 cards, so specimens mount as they approach the viewport, evict as they leave, and
+never exceed eight at once; every one of them stands at its first frame, and the one card
+the reader is pointing at or has focused plays, falling back to the one nearest the middle
+of the screen. A card's box is stage-shaped and empty until its specimen arrives, which is
+also what a reader with no JavaScript sees, so the grid holds its shape either way.
 
 Search is a page and a modal, from one implementation. The page is where a search is
 addressable: `?q=` in the URL, so a search is a link someone can send, a tab someone can
@@ -745,9 +786,15 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   scripted pass on request. Interacting wakes the live demo; after the idle beat it
   returns to the pose. This is where a pose is the resting state rather than a moment
   inside identify, so it is also where waking must not cost the reader their click.
-- **One scheduler per page** decides which stage may play: on index pages only the
-  centered or hovered stage animates (others hold their first frame); on a term page
+- **One scheduler per page** decides which stage may play: on a listing page only the
+  centered or pointed-at stage animates (others hold their first frame); on a term page
   the hero stage plays. IntersectionObserver-gated; off-screen stages are fully paused.
+  The scheduler grants the stage; what a listing controls is which stages ASK for it, by
+  moving `data-hold` from one card to another (`src/components/previews.ts`). A held
+  stage is mounted and still: it stops any run, restores a clean mount, and gives the
+  claim back. A stage taken out of the document is discarded rather than parked, and
+  giving up its claim on the way out is what keeps a scrolling list from stranding the
+  stage on a player nobody can reach.
 
 ## 8. Choreography
 

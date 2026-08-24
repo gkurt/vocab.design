@@ -67,9 +67,36 @@ class VdStage extends HTMLElement {
   #player: AttractPlayer | undefined;
   #mountRoot: HTMLElement | undefined;
   #ready: Promise<void> | undefined;
+  /** Everything #setup wired to something outside this element, in the order to undo it. */
+  #teardown: (() => void)[] = [];
+
+  static observedAttributes = ['data-hold'];
 
   connectedCallback(): void {
     this.#ready ??= this.#setup();
+  }
+
+  /**
+   * A stage taken out of the document is discarded, not parked: a list page mounts
+   * previews as they approach the viewport and evicts them as they leave (SPEC §7).
+   * The scheduler claim is the part that must not leak, since one held by a player
+   * nobody can reach again means no stage on the page ever plays.
+   */
+  disconnectedCallback(): void {
+    for (const undo of this.#teardown.splice(0)) undo();
+    this.#player = undefined;
+    this.#mountRoot = undefined;
+    // A reconnected stage sets itself up again; the shadow root it already has is reused.
+    this.#ready = undefined;
+  }
+
+  /**
+   * `data-hold` means "stand still even though you are on screen" (SPEC §7): the
+   * declarative half of the player's hold, so a list page can nominate which of its
+   * previews plays by moving one attribute, before or after the stage has set itself up.
+   */
+  attributeChangedCallback(name: string): void {
+    if (name === 'data-hold') this.#player?.hold(this.dataset.hold !== undefined);
   }
 
   /**
@@ -121,8 +148,14 @@ class VdStage extends HTMLElement {
       surface.flag('data-theme', dark ? 'dark' : 'light');
     };
     syncTheme();
-    new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncTheme);
+    const themeObserver = new MutationObserver(syncTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    const scheme = matchMedia('(prefers-color-scheme: dark)');
+    scheme.addEventListener('change', syncTheme);
+    this.#teardown.push(
+      () => themeObserver.disconnect(),
+      () => scheme.removeEventListener('change', syncTheme),
+    );
 
     surface.flag('data-state', 'idle');
 
@@ -153,6 +186,7 @@ class VdStage extends HTMLElement {
       setPosed(false);
     };
     remount();
+    this.#teardown.push(() => clock?.stop());
 
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -189,6 +223,9 @@ class VdStage extends HTMLElement {
       },
     });
     this.#player = player;
+    this.#teardown.push(() => player.destroy());
+    // The attribute may have arrived before this element had a player to tell.
+    if (this.dataset.hold !== undefined) player.hold(true);
 
     // The reader's pointer inside a `data-touch` scope is drawn as a fingertip
     // disc (SPEC §7); the kit hides the native cursor there. Real events never
@@ -442,6 +479,7 @@ class VdStage extends HTMLElement {
       { threshold: 0.4 },
     );
     observer.observe(this);
+    this.#teardown.push(() => observer.disconnect());
 
     if (reducedMotion) void enterPose();
   }

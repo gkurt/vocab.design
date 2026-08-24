@@ -162,6 +162,8 @@ export class AttractPlayer {
   #state: PlayerState = 'idle';
   #generation = 0;
   #visible = false;
+  /** On screen but not allowed to play: a list page grants attract to one card (SPEC §7). */
+  #held = false;
   #cursor: HTMLElement;
   #hud: HTMLElement;
   #target: Element | null = null;
@@ -198,6 +200,42 @@ export class AttractPlayer {
   viewportEnter(): void {
     this.#visible = true;
     if (this.#state === 'idle' || this.#state === 'paused') this.#tryAttract();
+  }
+
+  /**
+   * Hold, or stop holding, the specimen's first frame (SPEC §7). The page scheduler
+   * decides which of several waiting stages plays; this decides which ones ASK, which
+   * is what a list of specimens needs: everything on screen mounts and stands still,
+   * and the one card the reader points at (or the one nearest the centre) is released
+   * to play. Releasing a hold does not seize the stage, it only rejoins the queue, and
+   * taking one out restores a clean mount rather than freezing a half-played script.
+   */
+  hold(on: boolean): void {
+    if (this.#held === on) return;
+    this.#held = on;
+    if (!on) {
+      this.#tryAttract();
+      return;
+    }
+    if (this.#state === 'attract') {
+      this.#cancelRun();
+      this.#reset();
+      this.#setState(this.#visible ? 'idle' : 'paused');
+    }
+    release(this);
+  }
+
+  /**
+   * Give up the stage and everything running on it, for good: the specimen is being
+   * discarded (a list page evicts previews as they scroll away). Releasing the claim is
+   * the part that cannot be skipped, since a scheduler still holding a dead player's
+   * claim never grants the stage to anyone again.
+   */
+  destroy(): void {
+    clearTimeout(this.#resumeTimer);
+    this.#cancelRun();
+    this.#visible = false;
+    release(this);
   }
 
   viewportLeave(): void {
@@ -397,7 +435,7 @@ export class AttractPlayer {
   }
 
   #tryAttract(): void {
-    if (this.#host.reducedMotion || !this.#visible || this.#steps.length === 0) return;
+    if (this.#held || this.#host.reducedMotion || !this.#visible || this.#steps.length === 0) return;
     if (claim(this, () => this.#tryAttract())) void this.#run();
   }
 

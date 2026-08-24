@@ -6,8 +6,9 @@ working with AI agents is mostly about knowing the vocabulary and using it corre
 
 Every term has one category (what kind of thing it is), any number of cross-cutting
 facets, and a graph of relations: what it contrasts with, what it is a variant or part of,
-what to read next. The front page is the directory: the nine categories, every facet, and
-the name of every term A to Z. From there, `/browse/{category}` lists one category with
+what to read next. The front page carries one live specimen, re-picked on every reload,
+and then the directory: the nine categories, every facet, and the name of every term A to
+Z. A category or facet listing shows the demonstrations too, one card per term. From there, `/browse/{category}` lists one category with
 definitions, `/tags/{tag}` lists one facet, `/glossary` carries every name and alias A to
 Z, and `/search` is full text over every article, narrowable to a category or a facet.
 A few facets are words in their own right (dark pattern, microinteraction), so they have
