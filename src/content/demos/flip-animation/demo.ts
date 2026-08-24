@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -85,11 +86,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     for (const animation of card.getAnimations()) animation.cancel();
     card.style.transform = 'none';
 
-    // First: where it is, read before anything is written.
-    const first = card.getBoundingClientRect();
+    // First: where it is, read before anything is written, and in the specimen's own
+    // pixels, because the difference is about to be written back as a transform (SPEC §5).
+    const first = localBox(card, root);
     target.append(card);
     // Last: where the real layout put it. One pass, and every read is done with.
-    const last = card.getBoundingClientRect();
+    const last = localBox(card, root);
 
     const dx = first.left - last.left;
     const dy = first.top - last.top;

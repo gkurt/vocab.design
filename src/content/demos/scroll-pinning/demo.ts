@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The pinned figure's own height, and the scroll distance the pin is allowed to spend. */
@@ -116,7 +117,7 @@ export function mount(root: HTMLElement): void {
   const sync = () => {
     // How far the scroller has eaten into the section, and how far it may: the pin lasts
     // exactly the height the section has beyond the figure it holds.
-    const passed = page.getBoundingClientRect().top - section.getBoundingClientRect().top;
+    const passed = -localBox(section, page).top;
     const travel = section.offsetHeight - figure.offsetHeight;
     const pinned = passed > 0.5 && passed < travel - 0.5;
     const p = Math.min(Math.max(passed / travel, 0), 1);

@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -61,7 +62,7 @@ export function mount(root: HTMLElement): void {
   const lineHeight = Number.parseFloat(view.getComputedStyle(carried).lineHeight) || 18;
 
   const report = () => {
-    const lines = Math.max(1, Math.round(carried.getBoundingClientRect().height / lineHeight));
+    const lines = Math.max(1, Math.round(localSize(carried).height / lineHeight));
     carried.dataset.lines = String(lines);
     flag(widow, 'data-stranded', lines === 1);
     readout.textContent = lines === 1 ? STRANDED : CARRIED;

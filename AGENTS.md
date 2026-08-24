@@ -496,7 +496,11 @@ never fires under reduced motion, so nothing may ever wait on it.
   two `getBoundingClientRect()` calls; `offsetWidth`/`offsetLeft` already are specimen
   pixels, and a ratio of an element against itself is scale-free. The tell is invisible
   at a desktop width and plain on a phone: an indicator at half the offset, a menu at half
-  the pointer's distance, a readout printing half the px. A DRAG is the case that bites,
+  the pointer's distance, a readout printing half the px. The subtler half of the rule is
+  the OTHER operand: a length the demo declares (a fold at 178px, a trigger 24px into a
+  pane, a detent at 40px) is in specimen pixels, so comparing it against a client rect
+  mixes the two spaces and the threshold silently moves. Measure the box, not the page.
+  A DRAG is the case that bites,
   because a phone is the one scaled stage a reader really operates: `event.clientX` minus
   a remembered `clientX` is a page distance, and writing it back as a translate moves the
   thing at a fraction of the finger's speed (`src/content/demos/detent/demo.ts` reads the

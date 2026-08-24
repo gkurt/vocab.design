@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** The measure the page is set to, and the one the band refuses. */
@@ -54,6 +55,6 @@ export function mount(root: HTMLElement): void {
   const band = part(root, 'band');
   const lede = part(root, 'lede');
 
-  const width = (el: HTMLElement) => el.getBoundingClientRect().width;
+  const width = (el: HTMLElement) => localSize(el).width;
   flag(band, 'data-bleed', width(band) >= page.clientWidth - 1 && width(band) > width(lede) + 8);
 }

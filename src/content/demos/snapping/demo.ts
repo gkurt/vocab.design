@@ -118,9 +118,9 @@ export function mount(root: HTMLElement): void {
 
   const release = (event: PointerEvent) => {
     if (!grab) return;
-    const rect = canvas.getBoundingClientRect();
-    const left = event.clientX - rect.left - grab.x;
-    const top = event.clientY - rect.top - grab.y;
+    const at = localPoint(event, canvas);
+    const left = at.x - grab.x;
+    const top = at.y - grab.y;
     grab = undefined;
     flag(card, 'data-dragging', false);
     card.style.boxShadow = '';

@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
@@ -146,10 +147,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   like.addEventListener('click', () => {
     // Measured before anything is written, never after a style write (AGENTS.md): the
     // sparks have to leave from the control that was actually pressed.
-    const layer = sparks.getBoundingClientRect();
-    const source = like.getBoundingClientRect();
-    const originX = source.left + source.width / 2 - layer.left;
-    const originY = source.top + source.height / 2 - layer.top;
+    const source = localBox(like, sparks);
+    const originX = source.left + source.width / 2;
+    const originY = source.top + source.height / 2;
 
     likes += 1;
     count.textContent = String(likes);

@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -137,7 +138,7 @@ export function mount(root: HTMLElement): void {
     const whole = rows.filter((row) => row.getBoundingClientRect().bottom <= box.bottom + 1).length;
     content.dataset.fold = content.scrollHeight > content.clientHeight + 1 ? 'clipped' : 'clear';
     values.bar.textContent = present ? `universal bar ${BAR_H}px` : 'universal bar removed';
-    values.content.textContent = `content ${Math.round(box.height)}px`;
+    values.content.textContent = `content ${Math.round(localSize(content).height)}px`;
     values.rows.textContent = `rows ${whole} of ${rows.length}`;
     note.textContent = present
       ? "Two bars: the parent org above, the subsite's own nav below."

@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const SECTIONS = [
@@ -49,10 +50,10 @@ export function mount(root: HTMLElement): void {
   const items = SECTIONS.map((section) => part(root, `nav-${section.id}`));
 
   const sync = () => {
-    const threshold = pane.getBoundingClientRect().top + 24;
+    // Twenty-four pixels into the pane, in the specimen's own (SPEC §5).
     let current = SECTIONS[0]?.id;
     for (const section of SECTIONS) {
-      if (part(root, `section-${section.id}`).getBoundingClientRect().top <= threshold) current = section.id;
+      if (localBox(part(root, `section-${section.id}`), pane).top <= 24) current = section.id;
     }
     // The last section can be too short to ever reach the threshold: at the end
     // of the scroll, it is the one being read.
@@ -66,7 +67,7 @@ export function mount(root: HTMLElement): void {
   // The nav still navigates: spying is what it does on the way back.
   SECTIONS.forEach((section) => {
     part(root, `nav-${section.id}`).addEventListener('click', () => {
-      const offset = part(root, `section-${section.id}`).getBoundingClientRect().top - pane.getBoundingClientRect().top;
+      const offset = localBox(part(root, `section-${section.id}`), pane).top;
       pane.scrollBy({ top: offset, behavior: 'smooth' });
     });
   });

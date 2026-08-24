@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** Where the first screenful ends, measured from the top of the simulated viewport. */
@@ -59,12 +60,13 @@ export function mount(root: HTMLElement): void {
   const blockEls = BLOCKS.map((_, i) => part(root, `block-${i}`));
 
   const sync = () => {
-    const line = page.getBoundingClientRect().top + FOLD;
+    // The fold is a length the specimen declares, so the blocks are measured in the same
+    // pixels rather than in whatever the page is drawing them at (SPEC §5).
     let above = 0;
     let cut = 0;
     for (const block of blockEls) {
-      const rect = block.getBoundingClientRect();
-      const side = rect.bottom <= line ? 'above' : rect.top >= line ? 'below' : 'cut';
+      const rect = localBox(block, page);
+      const side = rect.top + rect.height <= FOLD ? 'above' : rect.top >= FOLD ? 'below' : 'cut';
       block.dataset.side = side;
       if (side === 'above') above++;
       if (side === 'cut') cut++;

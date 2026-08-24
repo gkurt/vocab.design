@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -119,7 +120,7 @@ export function mount(root: HTMLElement): void {
     }
 
     // Measured, not declared: the box the empty element actually occupies.
-    const size = gutter ? spacer.offsetWidth : Math.round(spacer.getBoundingClientRect().width);
+    const size = gutter ? spacer.offsetWidth : Math.round(localSize(spacer).width);
     spacer.dataset.size = String(size);
     note.textContent = gutter
       ? `A ${size}px channel, and the bar above is spaced by an auto margin instead.`

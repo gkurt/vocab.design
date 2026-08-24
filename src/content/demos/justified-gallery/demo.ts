@@ -1,3 +1,4 @@
+import { localBox, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -169,16 +170,16 @@ export function mount(root: HTMLElement): void {
 
     // Read back on boxes nothing transitions: does the top row share a height and land flush?
     if (justified) {
-      const rowBox = row1.getBoundingClientRect();
-      const boxes = [...row1.children].map((child) => child.getBoundingClientRect());
+      const rowBox = localSize(row1);
+      const boxes = [...row1.children].map((child) => localBox(child, row1));
       const first = boxes[0];
       const last = boxes[boxes.length - 1];
       const shared = boxes.every((box) => Math.abs(box.height - (first?.height ?? 0)) < 1);
-      const flush = !!first && !!last && Math.abs(first.left - rowBox.left) < 1 && Math.abs(last.right - rowBox.right) < 1;
+      const flush = !!first && !!last && Math.abs(first.left) < 1 && Math.abs(last.left + last.width - rowBox.width) < 1;
       row1.dataset.fit = shared && flush ? 'flush' : 'loose';
       note.textContent = `Four shapes scaled to one ${Math.round(first?.height ?? 0)}px row, flush at both edges. The last one pays the rounding error.`;
     } else {
-      const bottoms = columnEls.map((column) => Math.round(column.getBoundingClientRect().height));
+      const bottoms = columnEls.map((column) => Math.round(localSize(column).height));
       const ragged = Math.max(...bottoms) - Math.min(...bottoms);
       columns.dataset.edge = ragged > 4 ? 'ragged' : 'level';
       note.textContent = `Masonry instead: equal column widths, heights left alone, and a bottom edge ${ragged}px out of level.`;

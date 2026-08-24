@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 type Entry = { id: string; title: string; number: string; sub?: boolean; lines: number };
@@ -59,10 +60,10 @@ export function mount(root: HTMLElement): void {
   const pane = part(root, 'doc');
 
   const sync = (): void => {
-    const threshold = pane.getBoundingClientRect().top + 24;
+    // Twenty-four pixels into the pane, in the specimen's own (SPEC §5).
     let top = ENTRIES[0]?.id;
     for (const entry of ENTRIES) {
-      if (part(root, `section-${entry.id}`).getBoundingClientRect().top <= threshold) top = entry.id;
+      if (localBox(part(root, `section-${entry.id}`), pane).top <= 24) top = entry.id;
     }
     if (top) pane.setAttribute('data-top', top);
   };
@@ -71,7 +72,7 @@ export function mount(root: HTMLElement): void {
 
   for (const entry of ENTRIES) {
     part(root, `entry-${entry.id}`).addEventListener('click', () => {
-      const offset = part(root, `section-${entry.id}`).getBoundingClientRect().top - pane.getBoundingClientRect().top;
+      const offset = localBox(part(root, `section-${entry.id}`), pane).top;
       pane.scrollBy({ top: offset, behavior: 'smooth' });
     });
   }

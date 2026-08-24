@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -128,10 +129,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (burst.dataset.burst !== 'idle') return;
     // Measured before anything is written, and never after a style write (AGENTS.md):
     // the burst has to leave from the control that was pressed.
-    const layer = burst.getBoundingClientRect();
-    const source = finish.getBoundingClientRect();
-    const originX = source.left + source.width / 2 - layer.left;
-    const originY = source.top + source.height / 2 - layer.top;
+    const source = localBox(finish, burst);
+    const originX = source.left + source.width / 2;
+    const originY = source.top + source.height / 2;
 
     burst.dataset.burst = 'fired';
     finish.setAttribute('aria-disabled', 'true');

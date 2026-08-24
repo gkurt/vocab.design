@@ -1,3 +1,4 @@
+import { displayScale } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -38,6 +39,10 @@ function gaps(column: HTMLElement): Gap[] {
   const node = column.firstChild;
   if (!(node instanceof Text)) return [];
   const origin = column.getBoundingClientRect();
+  // The gaps are tinted by writing lengths, so they are measured as the specimen's own
+  // pixels rather than as the page's (SPEC §5). A Range has no offsetParent to measure
+  // against, which is why this is the scale rather than `localBox`.
+  const scale = displayScale(column);
   const range = document.createRange();
   const found: Gap[] = [];
   for (let i = 0; i < node.data.length; i++) {
@@ -45,12 +50,13 @@ function gaps(column: HTMLElement): Gap[] {
     range.setStart(node, i);
     range.setEnd(node, i + 1);
     const rect = range.getBoundingClientRect();
+    const width = rect.width / scale;
     // A space that fell at a line break collapses to nothing and is not a gap.
-    if (rect.width < 2) continue;
+    if (width < 2) continue;
     found.push({
-      left: rect.left - origin.left,
-      top: Math.round((rect.top - origin.top) / LINE) * LINE,
-      width: rect.width,
+      left: (rect.left - origin.left) / scale,
+      top: Math.round((rect.top - origin.top) / scale / LINE) * LINE,
+      width,
     });
   }
   return found;

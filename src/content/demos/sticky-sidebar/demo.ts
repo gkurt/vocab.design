@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** The inset the card is asked to hold at, and the tolerance a rounded rect deserves. */
@@ -74,7 +75,7 @@ export function mount(root: HTMLElement): void {
   const card = part(root, 'card');
 
   const sync = () => {
-    const offset = card.getBoundingClientRect().top - page.getBoundingClientRect().top;
+    const offset = localBox(card, page).top;
     flag(card, 'data-stuck', Math.abs(offset - TOP) < SLOP);
     flag(card, 'data-released', offset < TOP - SLOP);
   };

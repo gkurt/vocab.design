@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** How much of the scroll each layer is allowed to answer. The front layer answers all of it. */
@@ -104,7 +105,7 @@ export function mount(root: HTMLElement): void {
   const mid = part(root, 'layer-mid');
   const front = part(root, 'layer-front');
 
-  const gapNow = () => front.getBoundingClientRect().top - back.getBoundingClientRect().top;
+  const gapNow = () => localBox(front, back).top;
   const resting = gapNow();
 
   const sync = () => {

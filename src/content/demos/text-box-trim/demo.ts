@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -82,7 +83,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       removed.textContent = 'this browser has not shipped the property yet';
       return;
     }
-    const gap = reference.getBoundingClientRect().height - trimmed.getBoundingClientRect().height;
+    const gap = localSize(reference).height - localSize(trimmed).height;
     removed.textContent = `${Math.round(gap)}px of leftover removed`;
   };
 

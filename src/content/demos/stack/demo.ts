@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -68,9 +69,12 @@ export function mount(root: HTMLElement): void {
   const measure = () => {
     const gaps = new Set<number>();
     for (let i = 1; i < items.length; i++) {
-      const above = items[i - 1]?.getBoundingClientRect();
-      const box = items[i]?.getBoundingClientRect();
-      if (above && box) gaps.add(Math.round(box.top - above.bottom));
+      const previous = items[i - 1];
+      const item = items[i];
+      if (!previous || !item) continue;
+      const above = localBox(previous, column);
+      const box = localBox(item, column);
+      gaps.add(Math.round(box.top - (above.top + above.height)));
     }
     column.dataset.rhythm = gaps.size === 1 ? 'even' : 'ragged';
   };

@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -131,7 +132,7 @@ export function mount(root: HTMLElement): void {
     flag(lines, 'hidden', mode.vertical);
 
     /* What the Latin run actually became, read off the layout the browser produced. */
-    const box = latin.getBoundingClientRect();
+    const box = localSize(latin);
     latin.dataset.lay = box.height <= box.width ? 'across' : box.height > SIZE * 2.4 ? 'upright' : 'sideways';
   };
 

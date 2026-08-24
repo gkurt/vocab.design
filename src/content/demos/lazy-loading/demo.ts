@@ -1,3 +1,4 @@
+import { localBox, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -97,10 +98,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   const sweep = () => {
-    const fold = feed.getBoundingClientRect().bottom + APPROACH_PX;
+    const fold = localSize(feed).height + APPROACH_PX;
     for (const shot of shots) {
       if (shot.fig.dataset.state !== 'deferred') continue;
-      if (shot.media.getBoundingClientRect().top > fold) continue;
+      if (localBox(shot.media, feed).top > fold) continue;
       fetchShot(shot);
     }
   };

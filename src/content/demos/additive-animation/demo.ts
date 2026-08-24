@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
@@ -98,7 +99,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   /** Read off the live element, a settle beat after the move, never in the tick that wrote it. */
-  const settle = () => publish(Math.round(puck.getBoundingClientRect().left - lane.getBoundingClientRect().left));
+  const settle = () => publish(Math.round(localBox(puck, lane).left));
 
   const nudge = () => {
     clock.clearTimeout(settling);

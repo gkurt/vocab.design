@@ -1,3 +1,4 @@
+import { localBox, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const ENTER_MS = 420;
@@ -76,11 +77,11 @@ export function mount(root: HTMLElement): void {
   const counter = part(root, 'counter');
 
   const sync = () => {
-    const line = page.getBoundingClientRect().bottom - MARGIN;
+    const line = localSize(page).height - MARGIN;
     for (const card of CARDS) {
       const el = part(root, `card-${card.id}`);
       if (el.dataset.played !== undefined) continue;
-      if (el.getBoundingClientRect().top > line) continue;
+      if (localBox(el, page).top > line) continue;
       // Played once, and never unplayed: the cue is spent the moment it is used.
       el.dataset.played = '';
       el.style.opacity = '1';

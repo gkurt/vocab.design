@@ -595,7 +595,10 @@ component library would save — without the branding or churn.
   measurement lands at a fraction of the distance, and a printed measurement is a
   fraction of the number. A demo that measures therefore asks `#src/kit/measure.ts` for
   `localBox`, `localSize`, `localPoint` or the `displayScale` behind them, rather than
-  subtracting two client rects. `offsetLeft`/`offsetWidth` are already in specimen pixels
+  subtracting two client rects. The same holds for what a measurement is compared
+  against: a length the demo declares is in specimen pixels, so a threshold, a fold line
+  or a detent measured off a client rect mixes the two spaces and moves as the page
+  scales. `offsetLeft`/`offsetWidth` are already in specimen pixels
   and need nothing. A ratio of an element against itself (a pointer's position along its
   own track) needs nothing either, since the scale cancels; a distance in pixels does
   not, and a pointer drag is the case that bites: a phone is a scaled stage a reader can

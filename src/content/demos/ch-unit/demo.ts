@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -84,8 +85,11 @@ export function mount(root: HTMLElement): void {
   const readout = part(root, 'readout');
 
   /* The two readings, taken on the mounted state and never repeated after a write. */
-  const sansCh = part(root, 'unit').getBoundingClientRect().width;
-  const serifCh = (serif.firstElementChild as HTMLElement | null)?.getBoundingClientRect().width ?? sansCh;
+  const sansCh = localSize(part(root, 'unit')).width;
+  const serifCh = (() => {
+    const first = serif.firstElementChild;
+    return first ? localSize(first).width : sansCh;
+  })();
 
   const apply = (value: string) => {
     if (!IS_COUNT(value)) return;

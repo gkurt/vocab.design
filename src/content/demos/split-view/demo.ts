@@ -1,4 +1,4 @@
-import { localPoint } from '#src/kit/measure.ts';
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const ITEMS = [
@@ -101,7 +101,7 @@ export function mount(root: HTMLElement): void {
   // A divider that only answers a pointer is a pane only a mouse can resize.
   divider.addEventListener('keydown', (event) => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-    size(list.getBoundingClientRect().width + (event.key === 'ArrowRight' ? 20 : -20));
+    size(localSize(list).width + (event.key === 'ArrowRight' ? 20 : -20));
     event.preventDefault();
   });
 }

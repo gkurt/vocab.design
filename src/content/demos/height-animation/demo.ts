@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const OPEN_MS = 420;
@@ -76,7 +77,7 @@ export function mount(root: HTMLElement): void {
   const trigger = part(root, 'trigger');
 
   // Measured in the state it mounts in, once, before anything has been written.
-  const target = Math.round(grows.getBoundingClientRect().height);
+  const target = Math.round(localSize(grows).height);
 
   const set = (open: boolean) => {
     grows.style.height = open ? `${target}px` : '0px';
