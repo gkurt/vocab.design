@@ -268,6 +268,10 @@ those are equivalent. Under that format Astro reports
   both correct a misspelling without downloading the 870KB `/terms.json`).
 - `/404` (the one page nobody links to: it reads the URL that missed and suggests the
   nearest headwords, which GitHub Pages serves for any unknown path).
+- `/specimen/{slug}` · `/capture/{slug}`: not pages. The first is the inside of a
+  specimen `<iframe>` (§6), the second is the set a share image is photographed on (§10).
+  Both are unlinked, `noindex` and out of the sitemap, and both namespaces are spent in
+  `src/lib/routes.ts` so no term slug can shadow one.
 - `/search` (Pagefind, the one thing on the site that needs JavaScript). It works in dev
   too, against the last build's index, which a dev-only integration serves out of
   `dist/pagefind/`. Also the fallback for the two deleted directories: a category or a
@@ -276,7 +280,8 @@ those are equivalent. Under that format Astro reports
 The sitemap is an allowlist, not a dump of what was built. It carries the terms and the
 pages that list them, and nothing else: not the alias redirects, which are four fifths of
 the built pages and every one of them a redirect rather than a document; not the specimen
-frames (§6); and not `/search`, which is a tool. `lastmod` on a term is its `modified`
+frames (§6); not the capture set the share images are shot from (§10); and not `/search`,
+which is a tool. `lastmod` on a term is its `modified`
 day, and on a listing page the newest `modified` in the dictionary, because that is when
 the listing last said something different. A new top-level route has to be named in
 `src/lib/routes.ts` to be listed, which is the trade for never listing junk.
@@ -313,8 +318,8 @@ are derived.
 
 Only term pages are indexed. `data-pagefind-body` on the term article is what does it:
 marking a body anywhere makes Pagefind index only marked pages, so the alias redirects,
-the front page, the listings and the unlinked `/specimen` documents fall out without a
-single exclusion rule. Inside a term page the headword is weighted 10, its aliases 8, and
+the front page, the listings and the unlinked `/specimen` and `/capture` documents fall
+out without a single exclusion rule. Inside a term page the headword is weighted 10, its aliases 8, and
 the definition and `useWhen` 6, while the specimen and the Related list are ignored: a
 specimen's labels are the loudest nonsense in the index, and the Related list is nothing
 but other terms' names, which would make every page match every neighbour's word.
@@ -552,6 +557,15 @@ never styling inside it:
   and the loop picks up again on release. A pose is only ever taken while the summon
   that produced it still owns the demo; if attract has already resumed, the pose is
   abandoned rather than freezing the live specimen out of its own run.
+
+The stage has one further mode and it has no reader at all: **capture**, the stage on a
+`/capture/{slug}` page, which holds the pose for a camera (§10). It is the same element
+doing the same work, minus everyone to do it for: no control bar, no attract loop, and
+nobody to hand the demo over to. It poses on mount, fades the canvas around the subject
+in place of the ring and the pin, and says `data-capture-ready` when the picture is ready
+to take. Marking it on the stage rather than reimplementing the pose in a script is the
+point: a share image that summoned its subject differently from identify would be a
+picture of a specimen the site does not have.
 
 ## 7. Attract mode
 
@@ -958,8 +972,41 @@ the concept, and a docs URL.
   `DefinedTermSet`.
 - **Agents**: `llms.txt` at the root; every term also served as raw markdown at
   `/{slug}.md`; full dataset export at `/terms.json`.
-- **OG images** generated per term at build (headword + category + definition line).
+- **Share images**: one per term, and the term's own specimen is the picture (below).
 - Sitemap, RSS feed of newly published terms.
+
+### Share images
+
+A term's share image is its specimen, photographed in the pose identify holds: the
+subject summoned, the demo's clock frozen, and the rest of the canvas faded back around
+it. A dictionary entry whose whole claim is "here is the thing, live" would be
+misrepresented by a text card with the headword set large on a coloured field, which is
+what the rest of the web ships. The picture is the demo.
+
+The annotation is deliberately not identify's ink. No accent ring, because a border is
+read as chrome once it is the only mark on a still. No subject pin, because the caption
+already prints the headword. No scrim, because identify's dark sheet outside the ring
+photographs as a rectangle of dead pixels with a hole in it. What is left is light: the
+subject at full strength, everything else faded toward the stage's own ground, with a
+floor under the fade so the surrounding UI stays readable as context. A whole-scene
+subject (§5) fades nothing, which is the honest picture of "all of it".
+
+The frame is 1200x630 with the specimen above and a caption band under it carrying the
+category, the headword, and the site's name. Dark, because a share image cannot follow
+the reader's theme and social clients are mostly dark. A page with no specimen (the
+directory, the glossary, a category or facet listing, /search, the 404) falls back to one
+site card.
+
+The set is shot from real pages: `/capture/{slug}` renders the frame at 800x420 CSS
+pixels, `bun run og` photographs it at a device scale of 1.5, and the PNGs are committed
+under `public/og/`. Those pages are unlinked, `noindex`, and out of the sitemap; they are
+a set, not documents. Reduced motion is emulated for the reason the identify stills use
+it: attract never runs, kit animation is off, and a script-driven demo jumps to its end
+state, so the shutter falls on the same moment every time.
+
+Nothing gates the images. A demo can change under its own picture and no check will say
+so, which is the trade for a set this size costing no CI: re-shoot a term whose demo you
+edited, and re-shoot all of them after a change to the kit.
 
 ### Measurement
 

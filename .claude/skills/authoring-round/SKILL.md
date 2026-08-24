@@ -189,7 +189,12 @@ bugs in "complete" specimens every time). The verify agent then gates the whole 
    Specimens workflow, scoped with `grep` if only some terms changed.
 4. Check for stray files (authors sometimes leave `shot-*.png` or probe scripts at
    the repo root); move them out, never commit them.
-5. Commit everything as `Author an Nth round of 6 terms per category`. The tree
+5. `bun run og --build` shoots the share images (SPEC §10). It builds, then
+   photographs every specimen that has no image yet, which after a round is exactly
+   the new terms: seconds of shooting on top of the build. Not optional. A term page
+   names `/og/<slug>.png` whether or not the file exists, so a new term without one
+   ships a broken link preview, and nothing anywhere checks for it.
+6. Commit everything as `Author an Nth round of 6 terms per category`. The tree
    must be clean after.
 
 ## 5. Report

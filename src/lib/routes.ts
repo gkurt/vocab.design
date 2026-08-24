@@ -9,8 +9,11 @@ export const SECTIONS = ['browse', 'glossary', 'search', 'tags'] as const;
    exists any more (the front page is the directory), but `/browse/{category}` and
    `/tags/{tag}` still live under them, so both names stay spent. */
 
-/** The sections, plus the frame documents, which are not pages at all (SPEC §6). */
-export const RESERVED = new Set<string>([...SECTIONS, 'specimen']);
+/**
+ * The sections, plus the two namespaces that are not pages at all: the frame documents
+ * (SPEC §6) and the capture set the share images are shot from (SPEC §10).
+ */
+export const RESERVED = new Set<string>([...SECTIONS, 'specimen', 'capture']);
 
 /**
  * Every non-term path prose is allowed to link to: the pages, the exports, the feed.

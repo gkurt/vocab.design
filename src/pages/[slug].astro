@@ -80,6 +80,19 @@ const relationGroups = [
 // hands it over (src/components/analytics.ts). Only when there is somewhere to report it.
 const measuring = Boolean(import.meta.env.PUBLIC_GA_ID);
 
+/**
+ * The share image (SPEC §10): this term's own specimen, photographed in identify's
+ * pose. A term with no demo hands over nothing and the layout falls back to the site
+ * card, which is the honest picture of a page with no specimen on it.
+ */
+const share =
+  d.demo === 'none'
+    ? undefined
+    : {
+        image: `/og/${d.slug}.png`,
+        alt: `The vocab.design specimen for ${d.name.toLowerCase()}, with the term itself picked out of the demonstration.`,
+      };
+
 const { Content } = await render(term.entry);
 
 const jsonLd = {
@@ -156,6 +169,8 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
       title={title}
       description={d.definition}
       category={d.category}
+      image={share?.image}
+      imageAlt={share?.alt}
     >
       <script
         slot="head"

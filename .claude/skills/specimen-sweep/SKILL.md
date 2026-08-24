@@ -72,7 +72,12 @@ needs `ASTRO_PREVIEW_BACKGROUND=1`.
    Review any changed subject snapshots deliberately (a sweep that changes what a
    specimen identifies as is making a claim; read the diff). Then ONE full
    `bun run test:e2e` before the commit.
-6. **Commit once**: `Sweep specimens: <short complaint list>`. Mark every swept
+6. **Re-shoot the share images** for every specimen the sweep touched, since each
+   one's committed picture is now of the old demo (SPEC §10):
+   `bun run og --build <slug> <slug> ...` (named slugs are always re-shot), or
+   `bun run og --build --force` for the whole set when the sweep touched the kit
+   (about 40 seconds of shooting).
+7. **Commit once**: `Sweep specimens: <short complaint list>`. Mark every swept
    entry in `COMPLAINTS.md` with the date and final offender count in the same
    commit. Report per complaint: offenders found, fixed, judged-skip, plus any
    new law a fix taught.

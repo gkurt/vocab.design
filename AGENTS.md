@@ -17,6 +17,7 @@ bun run test:e2e   # Specimen smoke tests: builds, serves on 4322, plays every c
 bun run test:e2e:new  # Same suites, only for demos without a committed subject snapshot
 bun typecheck      # astro sync + type check (TypeScript 7, native tsc)
 bun validate       # Content gates: schema, relations, symmetry, prose links, stubs, demo files
+bun run og         # Share images: shoot every specimen missing one (SPEC §10)
 bun run lint       # Lint
 bun run format     # Format
 bun run fix        # Lint + format + autofix
@@ -91,6 +92,7 @@ src/stage/clock.ts          #   DemoClock: the only timer a demo may use, so a p
 src/stage/surface.ts        #   the two isolation modes behind one shape; nothing above it branches
 src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
 src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, travel never does
+src/stage/highlight.ts      #   the share still's annotation: subject at full strength, rest faded
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index (THE directory: categories, facets, every name A-Z), [slug]
                             #   (terms + alias redirects), [slug].md, terms.json, llms.txt
@@ -111,7 +113,11 @@ src/lib/search-signals.ts   #   what "found the right thing" means, and its test
 src/lib/nearest.ts          #   the nearest spelling to what was typed: 404 and search share it
 src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro dev` (dev only)
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
+src/pages/capture/[slug]    #   the share image's set: the stage at 800x420, posed, no controls
+src/pages/capture/site-card #   the one fallback card, for every page with no specimen
+public/og/                  #   committed: 1,065 share images plus site.png, shot by `bun run og`
 scripts/validate-terms.ts   # Content gates run by `bun validate`
+scripts/og-images.ts        # `bun run og`: shoots the capture pages into public/og/*.png
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
 e2e/*.e2e.ts                # Choreography · identify snapshots · identify mid-attract · takeover · reduced-motion guard (SPEC §8)
 e2e/harness.ts              #   specimen discovery, stage helpers, subject description
@@ -156,6 +162,53 @@ field stays a slash.
 `type="search"` input eats the first Escape to clear itself, so the platform's own close
 only happens on the second press, which makes the footer's "Esc to close" a lie exactly
 once per search.
+
+## Share images
+
+Every term page's `og:image` is its own specimen, photographed in the pose identify holds
+(SPEC §10). `/capture/{slug}` is the set: the same `<vd-stage>` in capture mode, laid out
+at 800x420 with a caption band, posing on mount and fading the canvas around the subject
+instead of ringing and pinning it. `bun run og` shoots those pages at a device scale of
+1.5 into `public/og/{slug}.png`, which the build copies through untouched.
+
+```bash
+bun run og                     # every specimen with no image yet, plus the site card
+bun run og --build             # build first (needed after any source change), then shoot
+bun run og toast dark-mode     # just these, always re-shot
+bun run og --force             # the whole set: 1,066 images, about 40 seconds
+```
+
+The images are COMMITTED (86MB over 1,066 files) and nothing gates them. That is the
+deliberate trade for a set this size costing no CI minutes, and it puts two obligations on
+whoever edits a demo:
+
+- **A new specimen needs a shot**, in the same change. A term page names `/og/{slug}.png`
+  whether or not the file is there, so an unshot term ships a broken link preview.
+- **An edited demo needs a re-shot**, in the same change (`bun run og --build <slug>`).
+  No check will ever tell you the picture is of last week's demo.
+
+The pose comes from the stage rather than from the script: capture mode calls the same
+`enterPose` identify does, so a share image cannot summon its subject differently from the
+site. What differs is only the annotation (`src/stage/highlight.ts`).
+
+**Gotcha**: the shooting needs a BUILT site (`dist/capture/*.html`), because the script
+serves `dist/` itself rather than driving `astro preview`: Astro's preview lock is global
+and a stranded server breaks every later gate (see the e2e note above). `--build` runs the
+build for you; without it you are photographing whatever was built last, which after an
+edit is the old demo.
+
+**Gotcha**: reduced motion is emulated, exactly as the identify stills do it, so the
+shutter always falls on the same moment. A demo that animates in script therefore
+photographs in its END state. If a still looks like it skipped the demonstration, that is
+why, and the fix is the demo's reduced-motion path, not the camera.
+
+**Gotcha**: a demo whose content overflows the stage body is clipped in its picture too,
+because the capture frame is 344px tall against the term page's 320px and no taller. The
+still is not lying; go and look at the term page.
+
+**Gotcha**: JPEG is not smaller here (measured: q88 came out level with PNG or larger).
+The dotted stage ground and the fade's gradients are exactly what JPEG spends bits on, so
+PNG stays.
 
 ## Analytics
 

@@ -6,32 +6,47 @@ interface Props {
   name: string;
   /** Isolation mode (SPEC §6): a shadow root, or a specimen document of its own. */
   isolation: 'inline' | 'iframe';
+  /**
+   * Shot rather than read (SPEC §10): the stage on a capture page, which holds the
+   * pose for a camera. No control bar, because nothing on a still can be pressed.
+   */
+  capture?: boolean;
 }
 
-const { slug, name, isolation } = Astro.props;
+const { slug, name, isolation, capture } = Astro.props;
 ---
 
-<vd-stage data-slug={slug} data-name={name} data-isolation={isolation} data-state="idle">
+<vd-stage
+  data-slug={slug}
+  data-name={name}
+  data-isolation={isolation}
+  data-state="idle"
+  data-capture={capture ? "" : undefined}
+>
   <figure>
     <div class="vd-stage-body">
       <div data-stage-canvas></div>
       <div data-stage-overlay aria-hidden="true"></div>
     </div>
-    <div class="vd-stage-bar">
-      <span class="vd-stage-controls">
-        <button data-stage-identify type="button" title={`Point out the ${name.toLowerCase()}`}>⌖ Identify</button>
-      </span>
-      <button data-stage-replay type="button" title="Play the demonstration">
-        <span class="vd-stage-autoplay">
-          <svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"
-            ><rect x="1.4" y="1" width="2.6" height="8" rx="0.7"></rect><rect x="6" y="1" width="2.6" height="8" rx="0.7"></rect></svg
-          >Playing
-        </span>
-        <span class="vd-stage-play">
-          <svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="M2.2 1.1 8.5 5 2.2 8.9Z"></path></svg>Play
-        </span>
-      </button>
-    </div>
+    {
+      !capture && (
+        <div class="vd-stage-bar">
+          <span class="vd-stage-controls">
+            <button data-stage-identify type="button" title={`Point out the ${name.toLowerCase()}`}>⌖ Identify</button>
+          </span>
+          <button data-stage-replay type="button" title="Play the demonstration">
+            <span class="vd-stage-autoplay">
+              <svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"
+                ><rect x="1.4" y="1" width="2.6" height="8" rx="0.7"></rect><rect x="6" y="1" width="2.6" height="8" rx="0.7"></rect></svg
+              >Playing
+            </span>
+            <span class="vd-stage-play">
+              <svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="M2.2 1.1 8.5 5 2.2 8.9Z"></path></svg>Play
+            </span>
+          </button>
+        </div>
+      )
+    }
   </figure>
 </vd-stage>
 

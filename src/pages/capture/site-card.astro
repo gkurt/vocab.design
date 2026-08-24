@@ -1,0 +1,96 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource-variable/source-serif-4';
+import '#src/styles/global.css';
+import { facets } from '#src/lib/tags.ts';
+import { getTerms } from '#src/lib/terms.ts';
+
+/**
+ * The share image every page without a specimen falls back to (SPEC §10): the
+ * index, the glossary, a category or facet listing, /search, the 404. Shot by
+ * `bun run og --site` into `public/og/site.png`, from the same 800x420 set the
+ * term captures use, so the two read as one family.
+ *
+ * The counts are the live ones rather than a hand-typed boast, which is the whole
+ * reason this is a page: re-shoot it and it is true again.
+ */
+const terms = await getTerms();
+const published = terms.filter((t) => t.data.status !== 'stub');
+const aliases = terms.reduce((n, t) => n + t.data.aliases.length, 0);
+const populated = facets(terms).filter((f) => f.terms.length > 0);
+---
+
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>vocab.design share image</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <p class="mark">vocab.design</p>
+    <h1>The words interfaces are made of.</h1>
+    <p class="line">
+      A linked dictionary of design and UI vocabulary, with a live specimen on
+      every page.
+    </p>
+    <p class="counts">
+      {published.length} terms · {aliases} aliases · {populated.length} facets
+    </p>
+  </body>
+</html>
+
+<style>
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    width: 800px;
+    height: 420px;
+    margin: 0;
+    padding: 56px 60px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* The stage's own texture, so the site card and the specimen stills share a ground. */
+    background-image: radial-gradient(var(--vd-line) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .mark {
+    margin: 0 0 20px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vd-accent);
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 15ch;
+    font-family: var(--font-serif);
+    font-size: 54px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  .line {
+    margin: 20px 0 0;
+    max-width: 46ch;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--vd-muted);
+  }
+
+  .counts {
+    margin: 22px 0 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--vd-muted);
+  }
+</style>

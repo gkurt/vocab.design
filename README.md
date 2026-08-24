@@ -43,6 +43,12 @@ It builds the site and serves it on port 4322, so it never collides with `bun ru
 Each run leaves a contact sheet at `e2e/__artifacts__/identify.html`: every specimen with
 identify engaged, side by side.
 
+Every term page's link preview is its own specimen, photographed in the pose the identify
+control holds: the subject picked out, the rest of the canvas faded back. The pictures are
+committed under `public/og/`, and `bun run og --build` re-shoots the ones that are missing
+(`--force` for all 1,066, about 40 seconds). What the frame is and why it is not a text
+card is [SPEC §10](SPEC.md).
+
 Analytics is off unless a build is given one: `PUBLIC_GA_ID=G-XXXXXXXXXX bun run build`
 bakes in a GA4 tag, and without it nothing at all is shipped or loaded. Even with an ID,
 the tag refuses to load under Global Privacy Control, under Do Not Track, and on any

@@ -20,11 +20,23 @@ interface Props {
   description: string;
   /** Term pages only: analytics groups by category, which is nowhere in the URL. */
   category?: string;
+  /**
+   * The share image, site-relative (SPEC §10). A term page hands over its own
+   * specimen's still; everything else falls through to the site card, because a
+   * link preview with no picture is a link preview nobody looks at.
+   */
+  image?: string;
+  /** What the share image shows, for a reader whose client reads the alt out. */
+  imageAlt?: string;
 }
 
-const { title, description, category } = Astro.props;
+const { title, description, category, image, imageAlt } = Astro.props;
 const path = canonicalPath(Astro.url.pathname);
 const canonical = new URL(path, Astro.site);
+// Crawlers resolve neither a relative image nor a protocol-relative one, so this is the
+// one place on the site that must name the absolute URL of an asset.
+const shareImage = new URL(pageUrl(image ?? '/og/site.png'), Astro.site);
+const shareAlt = imageAlt ?? 'vocab.design: a linked dictionary of design and UI vocabulary, with a live specimen on every page.';
 // /search is the search, so it gets no modal: the nav link there is just a link to here.
 const onSearchPage = path.endsWith('/search');
 ---
@@ -44,6 +56,19 @@ const onSearchPage = path.endsWith('/search');
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {/* A term is a document about one word, so it is an article; every listing and tool
+        page is the site talking about itself. Derived from whether a category came in
+        rather than from a second prop that could disagree with the first. */}
+    <meta property="og:type" content={category ? "article" : "website"} />
+    <meta property="og:site_name" content="vocab.design" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={shareAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="sitemap" href={pageUrl("/sitemap-index.xml")} />
     <link
       rel="alternate"

@@ -43,6 +43,20 @@ vd-stage figure {
   z-index: 2;
 }
 
+/* A capture stage (SPEC §10) is furniture-free: the figure's hairline and corner
+   belong to a page a reader scrolls past, while a share image is cropped to the
+   specimen itself. The height comes from the capture page, which owns the frame it
+   is composing rather than the 320px a term page gives the stage. */
+vd-stage[data-capture] figure {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+vd-stage[data-capture] .vd-stage-body {
+  height: var(--vd-capture-height, 320px);
+}
+
 /* Identify (and the controls that will join it) sit at the left; the play control is
    pinned right. The empty run between them is what lets the play label change width
    without moving anything. */

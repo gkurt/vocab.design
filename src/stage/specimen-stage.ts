@@ -1,4 +1,5 @@
 import { DemoClock } from '#src/stage/clock.ts';
+import { fadeToSubject } from '#src/stage/highlight.ts';
 import type { AuditResult } from '#src/stage/player.ts';
 import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography } from '#src/stage/registry.ts';
@@ -104,6 +105,9 @@ class VdStage extends HTMLElement {
     if (!slug || !canvas || !overlay) return;
 
     const isolation: Isolation = this.dataset.isolation === 'iframe' ? 'iframe' : 'inline';
+    // A capture stage exists to be photographed once (SPEC §10): the demo, posed as
+    // identify poses it, with no controls, no attract loop and nobody to hand it to.
+    const capture = this.dataset.capture !== undefined;
     const [surface, choreography] = await Promise.all([
       createSurface(canvas, slug, this.dataset.name ?? slug, isolation),
       loadChoreography(slug),
@@ -209,7 +213,9 @@ class VdStage extends HTMLElement {
     pin.textContent = this.dataset.name ?? slug;
     const spotlight = document.createElement('div');
     spotlight.className = 'vd-spotlight';
-    if (pointable) overlay.append(spotlight, pin);
+    // A capture stage draws neither: the still says which part is the term with light
+    // instead of with ink (src/stage/highlight.ts), and the caption prints the headword.
+    if (pointable && !capture) overlay.append(spotlight, pin);
 
     /**
      * Pose the specimen (SPEC §6): summon the subject if needed, then hold the
@@ -234,6 +240,23 @@ class VdStage extends HTMLElement {
       await posing;
       posing = undefined;
     };
+
+    // --- OG capture (SPEC §10) ---
+    // The share image is this specimen photographed in identify's pose: the subject
+    // summoned, the clock frozen, the rest of the canvas faded back. Nothing below
+    // this point is wired, because none of it has anyone to answer: attract never
+    // starts (no observer), there is no pointer to take the stage over with, and the
+    // controls are not rendered. `data-capture-ready` is what the shutter waits for.
+    if (capture) {
+      // Type settles before anything is measured: the subject's box is text-shaped,
+      // and a mask cut around the fallback font is cut around the wrong element.
+      await surface.doc.fonts?.ready;
+      await enterPose();
+      const el = subject();
+      if (el && pointable) fadeToSubject(canvas, el, surface.offset);
+      this.dataset.captureReady = '';
+      return;
+    }
 
     /** `rect` is the ring's box, in overlay coordinates. */
     const placePin = (rect: { left: number; top: number; width: number; height: number }) => {

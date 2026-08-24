@@ -1,0 +1,115 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource-variable/source-serif-4';
+import '#src/styles/global.css';
+import SpecimenStage from '#src/components/SpecimenStage.astro';
+import { getTerms } from '#src/lib/terms.ts';
+
+/**
+ * The camera's view of a specimen (SPEC §10). One page per term with a demo, laid
+ * out at exactly the share image's shape and photographed by `bun run og` into
+ * `public/og/<slug>.png`. Unlinked, out of the sitemap, and never a document a
+ * reader is meant to land on: it is a set, not a page.
+ *
+ * It exists as a real route rather than as instructions inside the capture script
+ * because the frame is a design, and a design has to be reviewable in a browser.
+ * Open /capture/toast at 800x420 and you are looking at the picture.
+ *
+ * The stage is the same <vd-stage> a term page mounts, in capture mode: the demo
+ * posed exactly as identify poses it (subject summoned, clock frozen) with the
+ * canvas faded back around the subject instead of ringed and pinned.
+ */
+export async function getStaticPaths() {
+  const terms = await getTerms();
+  return terms
+    .filter((term) => term.data.demo !== 'none')
+    .map((term) => ({
+      params: { slug: term.data.slug },
+      props: { name: term.data.name, category: term.data.category, isolation: term.data.demo as 'inline' | 'iframe' },
+    }));
+}
+
+interface Props {
+  name: string;
+  category: string;
+  isolation: 'inline' | 'iframe';
+}
+
+const { slug } = Astro.params;
+const { name, category, isolation } = Astro.props;
+---
+
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>{name} share image</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  {/* The shutter shoots an 800x420 viewport at a device scale of 1.5, which is the
+      1200x630 a link preview wants. Laying the page out at these numbers rather than
+      at 1200x630 is what keeps the specimen near the width it was authored against,
+      so a demo is photographed at home rather than stretched into a billboard. */}
+  <body style="--vd-capture-height: 344px">
+    <div class="og-stage">
+      <SpecimenStage slug={slug} name={name} isolation={isolation} capture />
+    </div>
+    <div class="og-caption">
+      <div>
+        <p class="og-category">{category}</p>
+        <p class="og-name">{name}</p>
+      </div>
+      <p class="og-mark">vocab.design</p>
+    </div>
+  </body>
+</html>
+
+<style>
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    width: 800px;
+    height: 420px;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .og-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 76px;
+    padding: 0 30px;
+    border-top: 1px solid var(--vd-line);
+  }
+
+  .og-category {
+    margin: 0 0 5px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--vd-muted);
+  }
+
+  .og-name {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .og-mark {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 14px;
+    color: var(--vd-muted);
+    white-space: nowrap;
+  }
+</style>
