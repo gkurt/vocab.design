@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The threshold the primitive compares against its OWN inner width, and nothing else. */
@@ -112,7 +113,7 @@ export function mount(root: HTMLElement): void {
   let from: { x: number; width: number } | null = null;
 
   handle.addEventListener('pointerdown', (event) => {
-    from = { x: event.clientX, width: switcher.offsetWidth };
+    from = { x: localPoint(event, root).x, width: switcher.offsetWidth };
     // Mandatory and invisible to every scripted pass: without it a reader's drag stops the
     // moment the pointer leaves the handle. Guarded, because a synthetic pointer cannot be
     // captured and the call would throw (SPEC §7).
@@ -121,7 +122,7 @@ export function mount(root: HTMLElement): void {
 
   handle.addEventListener('pointermove', (event) => {
     if (!from) return;
-    resize(from.width + (event.clientX - from.x));
+    resize(from.width + (localPoint(event, root).x - from.x));
   });
 
   const release = () => {

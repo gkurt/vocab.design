@@ -1,3 +1,4 @@
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** Detents as fractions of the frame: the two heights the sheet is allowed to rest at. */
@@ -85,16 +86,17 @@ export function mount(root: HTMLElement): void {
   handle.addEventListener('pointerdown', (event) => {
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) handle.setPointerCapture(event.pointerId);
-    const rect = sheet.getBoundingClientRect();
-    grabbed = event.clientY - rect.top;
+    grabbed = localPoint(event, sheet).y;
     // Following a finger is not an animation: the eased height would lag the drag.
     sheet.style.transition = 'none';
   });
 
   root.addEventListener('pointermove', (event) => {
     if (grabbed === undefined) return;
-    const frame = screen.getBoundingClientRect();
-    const height = Math.min(Math.max(frame.bottom - (event.clientY - grabbed), 40), DETENTS.full * frame.height);
+    // The sheet's height is written as a length, so the pointer is read as one: page
+    // pixels here would drag the sheet at a fraction of the finger's travel (SPEC §5).
+    const frame = localSize(screen).height;
+    const height = Math.min(Math.max(frame - (localPoint(event, screen).y - grabbed), 40), DETENTS.full * frame);
     sheet.style.height = `${height}px`;
   });
 

@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const ITEMS = [
@@ -89,7 +90,7 @@ export function mount(root: HTMLElement): void {
     dragging = true;
   });
   root.addEventListener('pointermove', (event) => {
-    if (dragging) size(event.clientX - split.getBoundingClientRect().left);
+    if (dragging) size(localPoint(event, split).x);
   });
   const release = () => {
     dragging = false;

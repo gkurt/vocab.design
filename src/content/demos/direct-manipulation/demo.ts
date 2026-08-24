@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const MIN_W = 48;
@@ -107,7 +108,7 @@ export function mount(root: HTMLElement): void {
     // The grip sits inside the card, so one capture on the card carries either grab past the
     // canvas edge. A synthetic pointer has none to capture and the call would throw.
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    held = { kind, x: event.clientX, y: event.clientY, left: card.offsetLeft, top: card.offsetTop, width: card.offsetWidth };
+    held = { kind, ...localPoint(event, root), left: card.offsetLeft, top: card.offsetTop, width: card.offsetWidth };
   };
 
   // The grip's own press is not a move: it is read first and the card's handler
@@ -121,8 +122,9 @@ export function mount(root: HTMLElement): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!held) return;
-    if (held.kind === 'move') place(held.left + (event.clientX - held.x), held.top + (event.clientY - held.y));
-    else widen(held.width + (event.clientX - held.x));
+    const at = localPoint(event, root);
+    if (held.kind === 'move') place(held.left + (at.x - held.x), held.top + (at.y - held.y));
+    else widen(held.width + (at.x - held.x));
   });
 
   const drop = () => {

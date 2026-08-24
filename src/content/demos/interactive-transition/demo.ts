@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -162,7 +163,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) root.setPointerCapture(event.pointerId);
     clock.clearTimeout(settling);
-    origin = event.clientY;
+    origin = localPoint(event, root).y;
     scene.dataset.outcome = 'scrubbing';
     scene.dataset.partway = 'no';
     sheet.dataset.state = 'held';
@@ -172,7 +173,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointermove', (event) => {
     if (origin === undefined) return;
-    draw(detent + (origin - event.clientY) / TRAVEL, false);
+    draw(detent + (origin - localPoint(event, root).y) / TRAVEL, false);
     if (Math.abs(progress - detent) > 0.12) scene.dataset.partway = 'seen';
     report('Scrubbed to here and still under the finger. Either end is still available.');
   });

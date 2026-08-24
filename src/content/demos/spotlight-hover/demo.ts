@@ -1,3 +1,4 @@
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const CARD = { w: 330, h: 172 };
@@ -116,9 +117,8 @@ export function mount(root: HTMLElement): void {
       darken();
       return;
     }
-    const box = card.getBoundingClientRect();
-    const x = event.clientX - box.left;
-    const y = event.clientY - box.top;
+    const box = localSize(card);
+    const { x, y } = localPoint(event, card);
     glow.style.setProperty('--x', `${x}px`);
     glow.style.setProperty('--y', `${y}px`);
     glow.style.opacity = '1';

@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -162,14 +163,15 @@ export function mount(root: HTMLElement): void {
     if ((event.target as Element | null)?.closest('button')) return;
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) bar.setPointerCapture((event as PointerEvent).pointerId);
-    held = { x: (event as PointerEvent).clientX, y: (event as PointerEvent).clientY, dx: offset.x, dy: offset.y };
+    held = { ...localPoint(event as PointerEvent, root), dx: offset.x, dy: offset.y };
   });
 
   root.addEventListener('pointermove', (event) => {
     if (!held) return;
+    const at = localPoint(event as PointerEvent, root);
     offset = {
-      x: clamp(held.dx + (event as PointerEvent).clientX - held.x, 34),
-      y: clamp(held.dy + (event as PointerEvent).clientY - held.y, 18),
+      x: clamp(held.dx + at.x - held.x, 34),
+      y: clamp(held.dy + at.y - held.y, 18),
     };
     windowEl.style.translate = `${offset.x}px ${offset.y}px`;
   });

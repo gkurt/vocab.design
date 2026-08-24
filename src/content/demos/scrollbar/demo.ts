@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const SECTIONS: [string, number][] = [
@@ -109,7 +110,7 @@ export function mount(root: HTMLElement): void {
   thumb.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) thumb.setPointerCapture(event.pointerId);
-    from = { y: (event as PointerEvent).clientY, top: viewport.scrollTop };
+    from = { y: localPoint(event as PointerEvent, root).y, top: viewport.scrollTop };
   });
 
   thumb.addEventListener('pointermove', (event) => {
@@ -117,7 +118,7 @@ export function mount(root: HTMLElement): void {
     const trackH = track.clientHeight;
     const travel = trackH - thumb.clientHeight;
     if (travel <= 0) return;
-    const moved = ((event as PointerEvent).clientY - from.y) / travel;
+    const moved = (localPoint(event as PointerEvent, root).y - from.y) / travel;
     viewport.scrollTop = Math.min(Math.max(from.top + moved * span(), 0), span());
   });
 

@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** How far the pointer has to leave the trigger before the press counts as a drag. */
@@ -202,7 +203,7 @@ export function mount(root: HTMLElement): void {
     // A real drag has to keep reporting after the pointer leaves the trigger. Synthetic
     // pointers have no capture to take and the call throws, so the guard is mandatory.
     if (event.isTrusted) trigger.setPointerCapture(event.pointerId);
-    origin = { x: event.clientX, y: event.clientY };
+    origin = localPoint(event, root);
     travelled = false;
     swept.clear();
     // A press reaches the open state rather than flipping it, so a resumed pass can never
@@ -216,7 +217,8 @@ export function mount(root: HTMLElement): void {
 
   trigger.addEventListener('pointermove', (event) => {
     if (!origin) return;
-    if (Math.hypot(event.clientX - origin.x, event.clientY - origin.y) >= MOVE_MIN) {
+    const at = localPoint(event, root);
+    if (Math.hypot(at.x - origin.x, at.y - origin.y) >= MOVE_MIN) {
       travelled = true;
       scene.dataset.mode = 'dragging';
     }

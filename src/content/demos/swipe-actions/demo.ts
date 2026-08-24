@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** How far the row slides once the gesture has committed, and the point of no return. */
@@ -116,14 +117,14 @@ export function mount(root: HTMLElement): void {
     // the row itself, so it captures the pointer: uncaptured, the row strands half open with
     // its transition off. A synthesized pointer cannot be captured, hence the guard.
     if (event.isTrusted) row.setPointerCapture(event.pointerId);
-    start = event.clientX;
+    start = localPoint(event, root).x;
     // Following the finger is the whole gesture, and an eased offset would lag it.
     sheet.style.transition = 'none';
   });
 
   row.addEventListener('pointermove', (event) => {
     if (start === undefined) return;
-    setReveal(start - event.clientX);
+    setReveal(start - localPoint(event, root).x);
   });
 
   const release = () => {

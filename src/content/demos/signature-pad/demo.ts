@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** One authored signature, so the same mark is drawn on every run (SPEC §8). Coordinates are
@@ -153,10 +154,7 @@ export function mount(root: HTMLElement): void {
     ink.style.strokeDashoffset = String(length * (1 - progress));
   };
 
-  const progressAt = (clientX: number) => {
-    const box = pad.getBoundingClientRect();
-    return (clientX - box.left - FROM) / (TO - FROM);
-  };
+  const progressAt = (event: PointerEvent) => (localPoint(event, pad).x - FROM) / (TO - FROM);
 
   pad.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
@@ -165,12 +163,12 @@ export function mount(root: HTMLElement): void {
     reveal(0);
     setState('empty');
     drawing = true;
-    reveal(progressAt((event as PointerEvent).clientX));
+    reveal(progressAt(event as PointerEvent));
   });
 
   root.addEventListener('pointermove', (event) => {
     if (!drawing) return;
-    reveal(progressAt((event as PointerEvent).clientX));
+    reveal(progressAt(event as PointerEvent));
     if (progress > 0.02 && pad.dataset.state === 'empty') setState('signed');
   });
 

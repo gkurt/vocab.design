@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -175,14 +176,15 @@ export function mount(root: HTMLElement): void {
   viewport.addEventListener('pointerdown', (event) => {
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) viewport.setPointerCapture((event as PointerEvent).pointerId);
-    from = { x: (event as PointerEvent).clientX, y: (event as PointerEvent).clientY, ox: offset.x, oy: offset.y };
+    from = { ...localPoint(event as PointerEvent, root), ox: offset.x, oy: offset.y };
     world.style.transition = 'none';
     viewport.style.cursor = 'grabbing';
   });
 
   viewport.addEventListener('pointermove', (event) => {
     if (!from) return;
-    offset = { x: from.ox + ((event as PointerEvent).clientX - from.x), y: from.oy + ((event as PointerEvent).clientY - from.y) };
+    const at = localPoint(event as PointerEvent, root);
+    offset = { x: from.ox + (at.x - from.x), y: from.oy + (at.y - from.y) };
     render();
   });
 

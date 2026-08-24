@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 type Row = { w: number; head?: boolean; blank?: boolean };
@@ -131,14 +132,14 @@ export function mount(root: HTMLElement): void {
   slab.addEventListener('pointerdown', (event) => {
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) slab.setPointerCapture((event as PointerEvent).pointerId);
-    from = { y: (event as PointerEvent).clientY, top: viewport.scrollTop };
+    from = { y: localPoint(event as PointerEvent, root).y, top: viewport.scrollTop };
   });
 
   slab.addEventListener('pointermove', (event) => {
     if (!from) return;
     const travel = map.clientHeight - slabH;
     if (travel <= 0) return;
-    const moved = ((event as PointerEvent).clientY - from.y) / travel;
+    const moved = (localPoint(event as PointerEvent, root).y - from.y) / travel;
     viewport.scrollTop = Math.min(Math.max(from.top + moved * span(), 0), span());
   });
 

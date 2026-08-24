@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const ROW = 24;
@@ -172,7 +173,7 @@ export function mount(root: HTMLElement): void {
       wheel.track.style.transition = 'none';
       // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
       if (event.isTrusted) wheel.view.setPointerCapture((event as PointerEvent).pointerId);
-      held = { wheel, startY: (event as PointerEvent).clientY, startIndex: wheel.index };
+      held = { wheel, startY: localPoint(event as PointerEvent, root).y, startIndex: wheel.index };
     });
 
     wheel.view.addEventListener('keydown', (event) => {
@@ -190,7 +191,7 @@ export function mount(root: HTMLElement): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!held) return;
-    const offset = (event as PointerEvent).clientY - held.startY;
+    const offset = localPoint(event as PointerEvent, root).y - held.startY;
     // The content follows the finger, so dragging up brings later values into the band.
     const next = clamp(held.wheel, held.startIndex - Math.round(offset / ROW));
     held.wheel.track.style.transform = `translateY(${-held.startIndex * ROW + offset}px)`;

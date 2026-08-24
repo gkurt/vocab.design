@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -299,7 +300,7 @@ export function mount(root: HTMLElement): void {
     layout();
   };
 
-  const offsetOf = (event: PointerEvent) => event.clientX - windowEl.getBoundingClientRect().left - RAIL - (kind.floats ? FLOAT_INSET : 0);
+  const offsetOf = (event: PointerEvent) => localPoint(event, windowEl).x - RAIL - (kind.floats ? FLOAT_INSET : 0);
 
   splitter.addEventListener('pointerdown', (event) => {
     held = true;

@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /**
@@ -164,13 +165,14 @@ export function mount(root: HTMLElement): void {
     // Trusted only: the player's synthetic pointer cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
     held = event.pointerId;
-    start = { x: event.clientX, y: event.clientY, rx, ry };
+    start = { ...localPoint(event, root), rx, ry };
     card.style.cursor = 'grabbing';
   });
   card.addEventListener('pointermove', (event) => {
     if (held !== event.pointerId) return;
-    ry = clamp(start.ry + (event.clientX - start.x) * SENS);
-    rx = clamp(start.rx - (event.clientY - start.y) * SENS);
+    const at = localPoint(event, root);
+    ry = clamp(start.ry + (at.x - start.x) * SENS);
+    rx = clamp(start.rx - (at.y - start.y) * SENS);
     place();
   });
   const drop = (event: PointerEvent) => {

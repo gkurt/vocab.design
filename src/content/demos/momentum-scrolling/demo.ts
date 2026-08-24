@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -177,8 +178,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     coasted = 0;
     strip.dataset.coast = 'none';
     travelled.textContent = '0 px after the lift';
-    held = { x: event.clientX, at: performance.now() };
-    trail = [{ x: event.clientX, at: held.at }];
+    held = { x: localPoint(event, root).x, at: performance.now() };
+    trail = [{ x: held.x, at: held.at }];
     say('drag', 'Holding the strip');
   });
 
@@ -186,8 +187,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const prev = trail[trail.length - 1];
     if (!held || !prev) return;
     const now = performance.now();
-    offset = clamp(offset - (event.clientX - prev.x));
-    trail.push({ x: event.clientX, at: now });
+    const x = localPoint(event, root).x;
+    offset = clamp(offset - (x - prev.x));
+    trail.push({ x, at: now });
     while (trail.length > 2 && now - (trail[0]?.at ?? now) > TRAIL_KEEP_MS) trail.shift();
     render();
     say('drag', 'Dragging with the pointer');

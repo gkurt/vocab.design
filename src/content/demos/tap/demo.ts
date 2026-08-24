@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
@@ -95,12 +96,12 @@ export function mount(root: HTMLElement): void {
   card.addEventListener('pointerdown', (event) => {
     flag(card, 'data-pressed', true);
     if (prefersReducedMotion(root)) return;
-    const rect = card.getBoundingClientRect();
+    const at = localPoint(event, card);
     const mark = document.createElement('span');
     mark.style.cssText = [
       'position: absolute',
-      `left: ${event.clientX - rect.left - FLASH_PX / 2}px`,
-      `top: ${event.clientY - rect.top - FLASH_PX / 2}px`,
+      `left: ${at.x - FLASH_PX / 2}px`,
+      `top: ${at.y - FLASH_PX / 2}px`,
       `width: ${FLASH_PX}px`,
       `height: ${FLASH_PX}px`,
       'border-radius: 50%',

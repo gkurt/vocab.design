@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The window onto the survey, and the survey itself: the difference is the room to pan. */
@@ -112,7 +113,7 @@ export function mount(root: HTMLElement): void {
   canvas.addEventListener('pointerdown', (event) => {
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) canvas.setPointerCapture(event.pointerId);
-    last = { x: event.clientX, y: event.clientY };
+    last = localPoint(event, root);
     canvas.style.cursor = 'grabbing';
     render('Holding the survey');
   });
@@ -121,8 +122,9 @@ export function mount(root: HTMLElement): void {
     if (!last) return;
     // The delta is taken from the previous point, so the spot under the pointer stays
     // under the pointer for the whole gesture: that is what makes it a pan.
-    moveBy(event.clientX - last.x, event.clientY - last.y, 'Panning');
-    last = { x: event.clientX, y: event.clientY };
+    const at = localPoint(event, root);
+    moveBy(at.x - last.x, at.y - last.y, 'Panning');
+    last = at;
   });
 
   const release = () => {

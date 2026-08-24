@@ -1,5 +1,6 @@
 import type { IconName } from '#src/kit/icons.ts';
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 
@@ -143,10 +144,9 @@ export function mount(root: HTMLElement): void {
   };
 
   scene.addEventListener('pointermove', (event: PointerEvent) => {
-    const box = scene.getBoundingClientRect();
-    const y = event.clientY - box.top;
-    if (y < SCENE.h - REACH) return rest();
-    magnify(event.clientX - box.left);
+    const at = localPoint(event, scene);
+    if (at.y < SCENE.h - REACH) return rest();
+    magnify(at.x);
   });
 
   // The pointer leaving the desktop entirely is a release, and the row goes home.

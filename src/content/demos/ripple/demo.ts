@@ -1,3 +1,4 @@
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -63,9 +64,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   surface.addEventListener('pointerdown', (event: PointerEvent) => {
-    const rect = surface.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    const rect = localSize(surface);
+    const { x, y } = localPoint(event, surface);
     // Reach the furthest corner, or the far edge of the control stays unwashed.
     const radius = Math.max(
       Math.hypot(x, y),

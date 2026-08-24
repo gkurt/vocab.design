@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The screen, the band the system has booked along its left side, and the commit point. */
@@ -161,7 +162,7 @@ export function mount(root: HTMLElement): void {
   root.addEventListener('pointerdown', (event) => {
     if (!phone.contains(event.target as Node)) return;
     // The origin test the system itself makes: where the contact landed, not what it hit.
-    const from = event.clientX - zone.getBoundingClientRect().left;
+    const from = localPoint(event, zone).x;
     if (from > ZONE) {
       origin = undefined;
       return say('inside', `Started ${Math.round(from)} px in: the page keeps it`);
@@ -171,13 +172,13 @@ export function mount(root: HTMLElement): void {
     // phone. A synthetic pointer has none to capture and the call would throw, so only a real
     // one asks.
     if (event.isTrusted) phone.setPointerCapture(event.pointerId);
-    origin = event.clientX;
+    origin = localPoint(event, zone).x;
     say('peeling', 'Peeling the screen back');
   });
 
   root.addEventListener('pointermove', (event) => {
     if (origin === undefined) return;
-    place(event.clientX - origin, false);
+    place(localPoint(event, zone).x - origin, false);
     say('peeling', `Peeled ${Math.round(carried)} px of ${COMMIT}`);
   });
 

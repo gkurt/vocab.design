@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 
@@ -90,9 +91,9 @@ export function mount(root: HTMLElement): void {
   };
 
   field.addEventListener('pointermove', (event: PointerEvent) => {
-    const box = field.getBoundingClientRect();
-    const dx = event.clientX - box.left - CENTRE.x;
-    const dy = event.clientY - box.top - CENTRE.y;
+    const at = localPoint(event, field);
+    const dx = at.x - CENTRE.x;
+    const dy = at.y - CENTRE.y;
     const distance = Math.hypot(dx, dy);
     if (distance > RADIUS) return settle(0, 0, false, distance);
     const scale = Math.min(PULL, CAP / Math.max(distance, 1));

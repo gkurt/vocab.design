@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -170,7 +171,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     clock.clearTimeout(timer);
     showRing(false);
     canvas.dataset.path = 'none';
-    origin = { x: event.clientX, y: event.clientY };
+    origin = localPoint(event, root);
     report('Holding: the ring is on its way');
     timer = clock.setTimeout(() => {
       timer = undefined;
@@ -182,8 +183,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!origin) return;
-    const dx = event.clientX - origin.x;
-    const dy = event.clientY - origin.y;
+    const at = localPoint(event, root);
+    const dx = at.x - origin.x;
+    const dy = at.y - origin.y;
     // Moving off the press outruns the menu: the reveal is cancelled and the stroke stands in
     // for it, which is the whole of the expert path.
     if (Math.hypot(dx, dy) >= MOVE_MIN && timer !== undefined) {
@@ -199,7 +201,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (!origin) return;
     const from = origin;
     origin = undefined;
-    const heading = headingOf(event.clientX - from.x, event.clientY - from.y);
+    const at = localPoint(event, root);
+    const heading = headingOf(at.x - from.x, at.y - from.y);
     if (heading) return commit(heading, open ? 'ring' : 'mark');
     // Let go without going anywhere: the ring is pinned open rather than thrown away, so a
     // press that turned out to be a tap still ends with the commands on screen.

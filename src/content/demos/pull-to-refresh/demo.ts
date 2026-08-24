@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -137,7 +138,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   list.addEventListener('pointerdown', (event) => {
     // The pull only belongs to a scroller that has nowhere further up to go.
     if (refreshing || list.scrollTop > 0) return;
-    startY = event.clientY;
+    startY = localPoint(event, root).y;
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) list.setPointerCapture(event.pointerId);
     // Following the finger is the whole gesture, and an eased height would lag it.
@@ -146,7 +147,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   list.addEventListener('pointermove', (event) => {
     if (startY === undefined) return;
-    setPull(event.clientY - startY);
+    setPull(localPoint(event, root).y - startY);
   });
 
   const release = () => {

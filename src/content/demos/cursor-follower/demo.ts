@@ -1,3 +1,4 @@
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
@@ -136,8 +137,9 @@ export function mount(root: HTMLElement): void {
   const clamp = (value: number, max: number) => Math.min(Math.max(value, PAD), max - PAD);
 
   root.addEventListener('pointermove', (event) => {
-    const box = field.getBoundingClientRect();
-    at = { x: clamp(event.clientX - box.left, box.width), y: clamp(event.clientY - box.top, box.height) };
+    const box = localSize(field);
+    const pointer = localPoint(event, field);
+    at = { x: clamp(pointer.x, box.width), y: clamp(pointer.y, box.height) };
     // The swell is the term's own business, read off the move the demo already has: no listener
     // is added merely to light a control the player would light itself.
     over = event.target instanceof Element && event.target.closest('[data-link]') !== null;

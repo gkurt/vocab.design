@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The drawing box inside the viewport's border. */
@@ -142,7 +143,7 @@ export function mount(root: HTMLElement): void {
     // captured: without it the moves stop at the edge and the release lands somewhere else,
     // leaving the camera held. A synthesized pointer cannot be captured, hence the guard.
     if (event.isTrusted) viewport.setPointerCapture(event.pointerId);
-    grabbed = { x: event.clientX, y: event.clientY, azimuth, elevation };
+    grabbed = { ...localPoint(event, root), azimuth, elevation };
     viewport.dataset.clamped = 'no';
     viewport.style.cursor = 'grabbing';
     say('Holding the camera on its sphere');
@@ -150,9 +151,10 @@ export function mount(root: HTMLElement): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!grabbed) return;
-    azimuth = grabbed.azimuth + (event.clientX - grabbed.x) * AZIMUTH_PER_PX;
+    const at = localPoint(event, root);
+    azimuth = grabbed.azimuth + (at.x - grabbed.x) * AZIMUTH_PER_PX;
     // Up is a higher camera, so the drag's downward axis is inverted before it is applied.
-    const wanted = grabbed.elevation - (event.clientY - grabbed.y) * ELEVATION_PER_PX;
+    const wanted = grabbed.elevation - (at.y - grabbed.y) * ELEVATION_PER_PX;
     elevation = Math.max(-ELEVATION_LIMIT, Math.min(ELEVATION_LIMIT, wanted));
     const clamped = Math.abs(wanted) > ELEVATION_LIMIT;
     viewport.dataset.clamped = clamped ? 'yes' : 'no';

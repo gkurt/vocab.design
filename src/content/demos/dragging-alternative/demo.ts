@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -159,14 +160,15 @@ export function mount(root: HTMLElement): void {
     // Capture keeps the drag tracking past the board's edge. A synthetic pointer has none to
     // capture and the call would throw, so only a real one asks.
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    drag = { x: event.clientX, y: event.clientY };
+    drag = localPoint(event, root);
     card.style.zIndex = '3';
     card.style.boxShadow = 'var(--sp-shadow)';
   });
 
   root.addEventListener('pointermove', (event) => {
     if (!drag) return;
-    card.style.translate = `${event.clientX - drag.x}px ${event.clientY - drag.y}px`;
+    const at = localPoint(event, root);
+    card.style.translate = `${at.x - drag.x}px ${at.y - drag.y}px`;
   });
 
   // The release point decides the column, because a drag's pointerup is dispatched on the card

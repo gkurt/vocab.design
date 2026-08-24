@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -154,18 +155,18 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     timer = clock.setTimeout(advance, STEP_MS);
   });
 
-  /** The band's box, taken when the press lands: scrubbing is the marker following the pointer. */
-  let scrub: DOMRect | undefined;
+  /** The band the scrub is measured against: scrubbing is the marker following the pointer. */
+  let scrub: HTMLElement | undefined;
   playhead.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) playhead.setPointerCapture(event.pointerId);
-    scrub = part(root, 'tracks').getBoundingClientRect();
+    scrub = part(root, 'tracks');
     // Scrubbing takes over from playback rather than fighting it.
     stop();
   });
   playhead.addEventListener('pointermove', (event) => {
     if (!scrub) return;
-    pct = Math.min(100, Math.max(0, ((event.clientX - scrub.left - 8) / SCRUB_W) * 100));
+    pct = Math.min(100, Math.max(0, ((localPoint(event, scrub).x - 8) / SCRUB_W) * 100));
     render();
   });
   const release = () => {

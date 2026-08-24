@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -185,9 +186,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (event.isTrusted) surface.setPointerCapture(event.pointerId);
     stopCoast();
     dragging = true;
-    grabbedAt = event.clientY;
+    grabbedAt = localPoint(event, root).y;
     grabbedFrom = offset;
-    samples = [{ t: performance.now(), y: event.clientY }];
+    samples = [{ t: performance.now(), y: grabbedAt }];
     velocity.textContent = '0 px/s';
     carried.textContent = '0 px';
     say('dragging', 'Holding the list, tracking one to one');
@@ -195,8 +196,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!dragging) return;
-    place(grabbedFrom + (grabbedAt - event.clientY));
-    samples.push({ t: performance.now(), y: event.clientY });
+    const y = localPoint(event, root).y;
+    place(grabbedFrom + (grabbedAt - y));
+    samples.push({ t: performance.now(), y });
     say('dragging', `Held at ${Math.round(offset)} px in`);
   });
 

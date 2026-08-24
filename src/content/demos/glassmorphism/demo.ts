@@ -1,3 +1,4 @@
+import { localBox, localPoint, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /**
@@ -34,17 +35,17 @@ export function mount(root: HTMLElement): void {
   panel.addEventListener('pointerdown', (event) => {
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) panel.setPointerCapture(event.pointerId);
-    const rect = panel.getBoundingClientRect();
-    const bounds = scene.getBoundingClientRect();
-    origin = { x: event.clientX, y: event.clientY, left: rect.left - bounds.left, top: rect.top - bounds.top };
+    const rect = localBox(panel, scene);
+    origin = { ...localPoint(event, scene), left: rect.left, top: rect.top };
     panel.style.cursor = 'grabbing';
   });
 
   root.addEventListener('pointermove', (event) => {
     if (!origin) return;
-    const bounds = scene.getBoundingClientRect();
-    const left = Math.min(Math.max(origin.left + event.clientX - origin.x, 0), bounds.width - panel.offsetWidth);
-    const top = Math.min(Math.max(origin.top + event.clientY - origin.y, 0), bounds.height - panel.offsetHeight);
+    const bounds = localSize(scene);
+    const at = localPoint(event, scene);
+    const left = Math.min(Math.max(origin.left + at.x - origin.x, 0), bounds.width - panel.offsetWidth);
+    const top = Math.min(Math.max(origin.top + at.y - origin.y, 0), bounds.height - panel.offsetHeight);
     panel.style.left = `${left}px`;
     panel.style.top = `${top}px`;
   });

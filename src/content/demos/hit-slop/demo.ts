@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox, localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -136,10 +137,13 @@ export function mount(root: HTMLElement): void {
   };
 
   card.addEventListener('click', (event) => {
-    const box = add.getBoundingClientRect();
+    // The distance is REPORTED in pixels, so it is measured in the specimen's own, not
+    // in whatever the page happens to be drawing them at (SPEC §5).
+    const box = localBox(add, card);
+    const at = localPoint(event, card);
     // How far past the artwork the tap landed, on whichever axis it left it by.
     const past = (value: number, from: number) => Math.max(0, Math.abs(value - from) - ART / 2);
-    const out = Math.round(Math.max(past(event.clientX, box.left + box.width / 2), past(event.clientY, box.top + box.height / 2)));
+    const out = Math.round(Math.max(past(at.x, box.left + box.width / 2), past(at.y, box.top + box.height / 2)));
     const found = pick(event.clientX, event.clientY);
     if (!found || !add.contains(found)) return say('none', `${out} px out: past the region`);
     add.setAttribute('data-added', '');

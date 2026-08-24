@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 
@@ -142,7 +143,7 @@ export function mount(root: HTMLElement): void {
   });
 
   squish.addEventListener('pointerdown', (event) => {
-    originX = event.clientX;
+    originX = localPoint(event, root).x;
     // Capture keeps the lean tracking, and the release landing here, once the hand has pulled
     // past the shape's edge. A synthetic pointer has none to capture and the call would throw.
     if (event.isTrusted) squish.setPointerCapture(event.pointerId);
@@ -153,7 +154,7 @@ export function mount(root: HTMLElement): void {
   // leaned shape stays inside the slot reserved for it.
   squish.addEventListener('pointermove', (event) => {
     if (!deformed) return;
-    const lean = Math.max(-LEAN_MAX, Math.min(LEAN_MAX, (event.clientX - originX) * 0.14));
+    const lean = Math.max(-LEAN_MAX, Math.min(LEAN_MAX, (localPoint(event, root).x - originX) * 0.14));
     squish.style.transform = `${SQUASH} skewX(${(-lean * 0.7).toFixed(1)}deg) translateX(${(lean * 0.5).toFixed(1)}px)`;
   });
 

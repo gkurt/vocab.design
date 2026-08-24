@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -127,10 +128,7 @@ export function mount(root: HTMLElement): void {
   };
 
   /** Which gap the pointer is nearest: 0 is above the first row, length is below the last. */
-  const slotFor = (y: number) => {
-    const top = list.getBoundingClientRect().top + PAD;
-    return Math.max(0, Math.min(TRACKS.length, Math.round((y - top) / STRIDE)));
-  };
+  const slotFor = (y: number) => Math.max(0, Math.min(TRACKS.length, Math.round((y - PAD) / STRIDE)));
 
   let drag: { row: HTMLElement; from: number; startY: number } | undefined;
 
@@ -146,7 +144,7 @@ export function mount(root: HTMLElement): void {
       row.style.zIndex = '1';
       row.style.boxShadow = 'var(--sp-shadow)';
       flag(row, 'data-lifted', true);
-      drag = { row, from, startY: event.clientY };
+      drag = { row, from, startY: localPoint(event, list).y };
       showLine(from, true);
       readout.textContent = `Carrying ${title}`;
     });
@@ -157,8 +155,9 @@ export function mount(root: HTMLElement): void {
     if (!held) return;
     // Only the carried row moves. Its neighbours hold still, because here the line is
     // what says where the drop lands.
-    held.row.style.translate = `0 ${event.clientY - held.startY}px`;
-    const slot = slotFor(event.clientY);
+    const y = localPoint(event, list).y;
+    held.row.style.translate = `0 ${y - held.startY}px`;
+    const slot = slotFor(y);
     showLine(slot, true);
     const above = rowsOf()[slot - 1];
     const title = TITLES.get(above?.dataset.key ?? '');

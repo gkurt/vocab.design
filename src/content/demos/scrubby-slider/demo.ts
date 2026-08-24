@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The value's range, and how many pixels of travel one unit costs. */
@@ -102,7 +103,7 @@ export function mount(root: HTMLElement): void {
   scrub.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) scrub.setPointerCapture(event.pointerId);
-    origin = { x: event.clientX, value };
+    origin = { x: localPoint(event, root).x, value };
     scrub.style.background = 'var(--sp-sunken)';
     scrub.style.color = 'var(--sp-ink)';
     readout.textContent = 'Scrubbing';
@@ -110,7 +111,7 @@ export function mount(root: HTMLElement): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!origin) return;
-    const dx = event.clientX - origin.x;
+    const dx = localPoint(event, root).x - origin.x;
     const trend = dx > 0 ? 'up' : dx < 0 ? 'down' : 'none';
     const next = origin.value + dx / PX_PER_UNIT;
     apply(next, trend, `Scrubbed ${Math.round(dx)} px`);

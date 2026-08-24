@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The plan, drawn once at full size and once shrunk: same markup, one scale factor apart. */
@@ -144,7 +145,7 @@ export function mount(root: HTMLElement): void {
   let from: { x: number; y: number; left: number; top: number } | null = null;
 
   box.addEventListener('pointerdown', (event) => {
-    from = { x: event.clientX, y: event.clientY, left: detail.scrollLeft, top: detail.scrollTop };
+    from = { ...localPoint(event, root), left: detail.scrollLeft, top: detail.scrollTop };
     box.style.cursor = 'grabbing';
     // Mandatory and invisible to every scripted pass: without it a reader's drag stops the
     // moment the pointer leaves the box. Guarded, because a synthetic pointer cannot be
@@ -154,8 +155,9 @@ export function mount(root: HTMLElement): void {
 
   box.addEventListener('pointermove', (event) => {
     if (!from) return;
-    if (travelX > 0) detail.scrollLeft = from.left + ((event.clientX - from.x) / travelX) * maxScrollX();
-    if (travelY > 0) detail.scrollTop = from.top + ((event.clientY - from.y) / travelY) * maxScrollY();
+    const at = localPoint(event, root);
+    if (travelX > 0) detail.scrollLeft = from.left + ((at.x - from.x) / travelX) * maxScrollX();
+    if (travelY > 0) detail.scrollTop = from.top + ((at.y - from.y) / travelY) * maxScrollY();
   });
 
   const release = () => {

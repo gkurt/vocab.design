@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -154,7 +155,8 @@ export function mount(root: HTMLElement): void {
   };
 
   /** Which gap the pointer is nearest: 0 is above the first row, length is below the last. */
-  const slotFor = (y: number, top: number) => Math.max(0, Math.min(SHOTS.length, Math.round((y - top - PAD) / STRIDE)));
+  /** `y` is the pointer in the list's own pixels, which is where the preview is placed too. */
+  const slotFor = (y: number) => Math.max(0, Math.min(SHOTS.length, Math.round((y - PAD) / STRIDE)));
 
   /** The parked copy identify is given something to ring: a fixed row, at a fixed offset. */
   const pose = () => {
@@ -164,7 +166,7 @@ export function mount(root: HTMLElement): void {
     note.textContent = NOTE.held;
   };
 
-  let drag: { row: HTMLElement; key: string; top: number; left: number } | undefined;
+  let drag: { row: HTMLElement; key: string } | undefined;
 
   for (const { key, title } of SHOTS) {
     const grip = part(root, `grip-${key}`);
@@ -173,12 +175,12 @@ export function mount(root: HTMLElement): void {
       // capture and the call would throw, so only a real one asks.
       if (event.isTrusted) grip.setPointerCapture(event.pointerId);
       const row = part(root, `row-${key}`);
-      // Measured before anything is written, so nothing here reads back a value a
-      // transition has not finished delivering (SPEC §5).
-      const box = list.getBoundingClientRect();
-      drag = { row, key, top: box.top, left: box.left };
+      // The pointer in the list's own pixels, which is the box the preview is placed in
+      // and the space the rows are measured in (SPEC §5).
+      const at = localPoint(event, list);
+      drag = { row, key };
       lift(row, true);
-      showPreview(key, { x: event.clientX - box.left - GRAB.x, y: event.clientY - box.top - GRAB.y });
+      showPreview(key, { x: at.x - GRAB.x, y: at.y - GRAB.y });
       readout.textContent = `Carrying ${title}`;
     });
   }
@@ -186,8 +188,9 @@ export function mount(root: HTMLElement): void {
   root.addEventListener('pointermove', (event) => {
     const held = drag;
     if (!held) return;
-    showPreview(held.key, { x: event.clientX - held.left - GRAB.x, y: event.clientY - held.top - GRAB.y });
-    const slot = slotFor(event.clientY, held.top);
+    const at = localPoint(event, list);
+    showPreview(held.key, { x: at.x - GRAB.x, y: at.y - GRAB.y });
+    const slot = slotFor(at.y);
     const above = rowsOf()[slot - 1];
     const title = TITLES.get(above?.dataset.key ?? '');
     readout.textContent = slot === 0 || !title ? 'Would land at the top' : `Would land under ${title}`;
@@ -198,7 +201,7 @@ export function mount(root: HTMLElement): void {
     if (!held) return;
     drag = undefined;
     lift(held.row, false);
-    const slot = slotFor(event.clientY, held.top);
+    const slot = slotFor(localPoint(event, list).y);
     const order = rowsOf();
     const before = order[slot];
     if (before !== held.row) {

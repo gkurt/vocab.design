@@ -1,4 +1,5 @@
 import { type IconName, icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -365,7 +366,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       // standing on it is in the air: a tile can be picked up and put straight back down.
       held = { el, lift, tile, from: el.dataset.at ?? 'home' };
       el.dataset.at = 'carried';
-      origin = { x: event.clientX, y: event.clientY };
+      origin = localPoint(event, root);
       el.style.zIndex = '8';
       lift.style.transform = 'scale(1.1)';
       lift.style.filter = 'drop-shadow(0 7px 10px rgb(16 24 40 / 0.5))';
@@ -375,7 +376,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!held) return;
-    held.el.style.transform = `translate(${event.clientX - origin.x}px, ${event.clientY - origin.y}px)`;
+    const at = localPoint(event, root);
+    held.el.style.transform = `translate(${at.x - origin.x}px, ${at.y - origin.y}px)`;
     if (within(folder, event.clientX, event.clientY)) return beginDwell();
     // Crossing on the way somewhere else is the common case, so leaving resets the countdown
     // rather than banking it. A sprung folder stays open: the drag is inside it now, and only

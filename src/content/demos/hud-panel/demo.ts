@@ -1,5 +1,6 @@
 import type { IconName } from '#src/kit/icons.ts';
 import { icon } from '#src/kit/icons.ts';
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const HUD = { w: 152, h: 94 };
@@ -132,7 +133,7 @@ export function mount(root: HTMLElement): void {
   const grip = part(root, 'grip');
   const readout = part(root, 'readout');
 
-  const place = (x: number, y: number, box: DOMRect) => {
+  const place = (x: number, y: number, box: { width: number; height: number }) => {
     const left = Math.min(Math.max(0, x), box.width - HUD.w);
     const top = Math.min(Math.max(0, y), box.height - HUD.h);
     hud.style.left = `${left}px`;
@@ -141,20 +142,21 @@ export function mount(root: HTMLElement): void {
     hud.dataset.corner = `${top + HUD.h / 2 < box.height / 2 ? 't' : 'b'}${side}`;
   };
 
-  /** The canvas box and the grab offset, both taken when the press lands. */
-  let box: DOMRect | undefined;
+  /** The canvas box and the grab offset, both taken when the press lands, in the
+      specimen's own pixels: the panel is placed by writing a length (SPEC §5). */
+  let box: { width: number; height: number } | undefined;
   let offset = { x: 0, y: 0 };
   grip.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) grip.setPointerCapture(event.pointerId);
-    box = canvas.getBoundingClientRect();
-    const panel = hud.getBoundingClientRect();
-    offset = { x: event.clientX - panel.left, y: event.clientY - panel.top };
+    box = localSize(canvas);
+    offset = localPoint(event, hud);
     grip.style.cursor = 'grabbing';
   });
   grip.addEventListener('pointermove', (event) => {
     if (!box) return;
-    place(event.clientX - box.left - offset.x, event.clientY - box.top - offset.y, box);
+    const at = localPoint(event, canvas);
+    place(at.x - offset.x, at.y - offset.y, box);
   });
   // Ends on up and cancel, never on leave: boundary events do not fire while capture holds.
   const release = () => {

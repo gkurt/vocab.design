@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** One page, and how far a stroke has to carry before the surface completes the move. */
@@ -93,7 +94,7 @@ export function mount(root: HTMLElement): void {
   pager.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) pager.setPointerCapture(event.pointerId);
-    start = event.clientX;
+    start = localPoint(event, root).x;
     // Following the stroke is what tells a swipe from a control that acts on release.
     track.style.transition = 'none';
     pager.style.cursor = 'grabbing';
@@ -101,7 +102,7 @@ export function mount(root: HTMLElement): void {
 
   pager.addEventListener('pointermove', (event) => {
     if (start === undefined) return;
-    const travelled = event.clientX - start;
+    const travelled = localPoint(event, root).x - start;
     // Resistance at the ends: there is no page to bring on, so the surface gives less.
     const held = (index === 0 && travelled > 0) || (index === PAGES.length - 1 && travelled < 0);
     offset(-index * PAGE_W + (held ? travelled / 3 : travelled));
@@ -109,7 +110,7 @@ export function mount(root: HTMLElement): void {
 
   const release = (event: PointerEvent) => {
     if (start === undefined) return;
-    const travelled = event.clientX - start;
+    const travelled = localPoint(event, root).x - start;
     start = undefined;
     track.style.transition = PAGE_EASE;
     pager.style.cursor = 'grab';

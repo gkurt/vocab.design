@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 
@@ -83,9 +84,9 @@ export function mount(root: HTMLElement): void {
   const clamp = (n: number) => Math.min(Math.max(n, -1), 1);
 
   field.addEventListener('pointermove', (event: PointerEvent) => {
-    const box = field.getBoundingClientRect();
-    const nx = clamp((event.clientX - box.left - CENTRE.x) / (CARD.w / 2));
-    const ny = clamp((event.clientY - box.top - CENTRE.y) / (CARD.h / 2));
+    const at = localPoint(event, field);
+    const nx = clamp((at.x - CENTRE.x) / (CARD.w / 2));
+    const ny = clamp((at.y - CENTRE.y) / (CARD.h / 2));
     const rotateY = nx * MAX;
     const rotateX = -ny * MAX;
 

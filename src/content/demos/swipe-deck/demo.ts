@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -160,14 +161,14 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     // A real drag has to keep reporting after the pointer leaves the card. Synthetic
     // pointers have no capture to take and the call throws, so the guard is mandatory.
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    start = event.clientX;
+    start = localPoint(event, root).x;
     card.style.transition = 'none';
     card.dataset.state = 'dragging';
   });
 
   card.addEventListener('pointermove', (event) => {
     if (start === undefined) return;
-    place(event.clientX - start);
+    place(localPoint(event, root).x - start);
   });
 
   const release = () => {

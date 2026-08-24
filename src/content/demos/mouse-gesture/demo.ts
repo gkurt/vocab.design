@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The drawing box inside the pad's border, which is also the trail's coordinate space. */
@@ -130,8 +131,8 @@ export function mount(root: HTMLElement): void {
 
   /** Pointer coordinates in the pad's drawing box, with its border taken off both axes. */
   const at = (event: PointerEvent) => {
-    const rect = pad.getBoundingClientRect();
-    return { x: event.clientX - rect.left - pad.clientLeft, y: event.clientY - rect.top - pad.clientTop };
+    const point = localPoint(event, pad);
+    return { x: point.x - pad.clientLeft, y: point.y - pad.clientTop };
   };
 
   const draw = () => {

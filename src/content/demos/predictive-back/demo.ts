@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -199,7 +200,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     clock.clearTimeout(settling);
     device.dataset.preview = 'none';
     // The origin test a system makes: the coordinate the contact landed at, not the node it hit.
-    const from = event.clientX - zone.getBoundingClientRect().left;
+    const from = localPoint(event, zone).x;
     if (from > ZONE) {
       origin = undefined;
       return rest('inside', `Started ${Math.round(from)} px in: the page keeps that stroke.`);
@@ -208,7 +209,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       origin = undefined;
       return rest('blocked', 'Nothing further back, so there is nothing to preview.');
     }
-    origin = event.clientX;
+    origin = localPoint(event, zone).x;
     // Captured, or a reader dragging past the edge loses the stroke; a synthetic pointer has none to capture.
     if (event.isTrusted) root.setPointerCapture(event.pointerId);
     device.dataset.outcome = 'previewing';
@@ -219,7 +220,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.addEventListener('pointermove', (event) => {
     if (origin === undefined) return;
-    peel((event.clientX - origin) / COMMIT, 'none');
+    peel((localPoint(event, zone).x - origin) / COMMIT, 'none');
     if (progress > 0.2) device.dataset.preview = 'seen';
     report(`Peeled ${Math.round(progress * COMMIT)} px of ${COMMIT}.`);
   });

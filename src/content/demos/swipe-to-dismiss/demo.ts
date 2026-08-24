@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -130,7 +131,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (card.dataset.state === 'gone' || dismissButton.contains(event.target as Node)) return;
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    start = event.clientX;
+    start = localPoint(event, root).x;
     // Following the finger is the whole gesture, and an eased offset would lag it.
     card.style.transition = 'none';
     card.dataset.state = 'dragging';
@@ -138,7 +139,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   card.addEventListener('pointermove', (event) => {
     if (start === undefined) return;
-    setOffset(event.clientX - start);
+    setOffset(localPoint(event, root).x - start);
   });
 
   const release = () => {

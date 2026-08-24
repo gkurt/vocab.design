@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The room the panel may take, and the stops it is held at. */
@@ -134,7 +135,7 @@ export function mount(root: HTMLElement): void {
     // the grip captures it: without capture the moves stop there and the release lands on
     // whatever is underneath, leaving the panel held. Synthesized pointers cannot be captured.
     if (event.isTrusted) (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
-    from = { x: event.clientX, y: event.clientY, w: width, h: height, axis };
+    from = { ...localPoint(event, root), w: width, h: height, axis };
   };
 
   part(root, 'corner').addEventListener('pointerdown', take('both'));
@@ -144,8 +145,9 @@ export function mount(root: HTMLElement): void {
   // both grips however far a drag runs.
   root.addEventListener('pointermove', (event) => {
     if (!from) return;
-    const nextW = from.w + (event.clientX - from.x);
-    const nextH = from.axis === 'x' ? from.h : from.h + (event.clientY - from.y);
+    const at = localPoint(event, root);
+    const nextW = from.w + (at.x - from.x);
+    const nextH = from.axis === 'x' ? from.h : from.h + (at.y - from.y);
     set(nextW, nextH, from.axis);
   });
 

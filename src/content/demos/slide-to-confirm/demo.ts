@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
@@ -167,7 +168,7 @@ export function mount(root: HTMLElement): void {
     // A real drag has to keep reporting once the pointer leaves a 42 px thumb. Synthetic
     // pointers have no capture to take and the call throws, so the guard is mandatory.
     if (event.isTrusted) thumb.setPointerCapture(event.pointerId);
-    origin = { x: event.clientX, at };
+    origin = { x: localPoint(event, root).x, at };
     slider.dataset.state = 'sliding';
     fill.style.transition = 'none';
     thumb.style.cursor = 'grabbing';
@@ -176,7 +177,7 @@ export function mount(root: HTMLElement): void {
 
   thumb.addEventListener('pointermove', (event) => {
     if (!origin) return;
-    place(origin.at + (event.clientX - origin.x));
+    place(origin.at + (localPoint(event, root).x - origin.x));
     const reached = Math.round(((at - START) / RANGE) * 100);
     say('sliding', `${reached}% along, still nothing done`);
   });

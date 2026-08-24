@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -175,7 +176,7 @@ export function mount(root: HTMLElement): void {
     // the moves stop the moment the pointer is off the card and the release never arrives,
     // leaving it lifted. A synthesized pointer cannot be captured, hence the guard.
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    origin = { x: event.clientX, y: event.clientY, from: { ...at } };
+    origin = { ...localPoint(event, root), from: { ...at } };
     card.style.cursor = 'grabbing';
     card.style.boxShadow = 'var(--sp-shadow)';
     flag(card, 'data-lifted', true);
@@ -185,8 +186,9 @@ export function mount(root: HTMLElement): void {
   root.addEventListener('pointermove', (event) => {
     const held = origin;
     if (!held) return;
-    at.x = Math.max(0, Math.min(CANVAS.w - CARD.w, held.from.x + event.clientX - held.x));
-    at.y = Math.max(0, Math.min(CANVAS.h - CARD.h, held.from.y + event.clientY - held.y));
+    const now = localPoint(event, root);
+    at.x = Math.max(0, Math.min(CANVAS.w - CARD.w, held.from.x + now.x - held.x));
+    at.y = Math.max(0, Math.min(CANVAS.h - CARD.h, held.from.y + now.y - held.y));
     const mx = bestMatch('x', at.x);
     const my = bestMatch('y', at.y);
     if (mx) at.x += mx.delta;

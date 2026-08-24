@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -166,7 +167,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     dragging = true;
     peak = 0;
     velocity = 0;
-    lastX = event.clientX;
+    lastX = localPoint(event, root).x;
     lastAt = performance.now();
     paint();
     note.textContent = 'Holding. Speed, not distance, is what the shape reads.';
@@ -177,8 +178,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (!dragging) return;
     const now = performance.now();
     const dt = Math.max(now - lastAt, 8);
-    const dx = event.clientX - lastX;
-    lastX = event.clientX;
+    const at = localPoint(event, root).x;
+    const dx = at - lastX;
+    lastX = at;
     lastAt = now;
     x = clamp(x + dx, MIN_X, MAX_X);
     velocity = clamp(dx / dt, -2, 2);
