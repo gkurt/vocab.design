@@ -16,18 +16,24 @@ export const CATEGORIES = [
 export const SYSTEMS = ['aria-apg', 'material', 'hig', 'fluent', 'carbon', 'polaris', 'radix', 'base-ui', 'shadcn'] as const;
 
 /**
- * Cross-cutting facets, closed on purpose (SPEC §2.5). A tag is a reader-facing
- * grouping with no definition of its own: where the family name is itself
- * vocabulary (dark pattern, microinteraction, skeuomorphism, responsive web
- * design) relations carry the family and no tag exists. `bun validate` holds
- * every tag to its minimum membership and to spanning more than one category,
- * so a facet that is really a subcategory fails rather than ships.
+ * Cross-cutting facets, closed on purpose (SPEC §2.5). Most are reader-facing
+ * groupings with no definition of their own, and `bun validate` holds those to a
+ * minimum membership and to spanning more than one category, so a facet that is
+ * really a subcategory fails rather than ships.
+ *
+ * Three are TERM-NAMED facets (dark-pattern, microinteraction,
+ * responsive-web-design): the tag is also a term with a definition and a
+ * specimen, its membership is derived from the members' own relations rather
+ * than declared here, and the two floors do not apply because the name is the
+ * concept rather than a filing convenience. `TERM_TAGS` in src/lib/tags.ts is
+ * the list, and no term may declare one in its frontmatter.
  */
 export const TAGS = [
   'a11y',
   'ai',
   'auth',
   'commerce',
+  'dark-pattern',
   'dataviz',
   'editorial',
   'forms',
@@ -35,10 +41,12 @@ export const TAGS = [
   'keyboard',
   'media',
   'messaging',
+  'microinteraction',
   'navigation',
   'onboarding',
   'perceived-performance',
   'platform-registers',
+  'responsive-web-design',
   'scroll',
   'search',
   'selection',

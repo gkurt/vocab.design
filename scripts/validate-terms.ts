@@ -5,7 +5,7 @@ import * as z from 'zod/v4';
 import { RESERVED, SITE_ROUTES } from '#src/lib/routes.ts';
 import { CATEGORIES, TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
 import { slugify } from '#src/lib/slug.ts';
-import { FAMILY_EDGES, FAMILY_FLOOR, HEAD_TERMS } from '#src/lib/tags.ts';
+import { FAMILY_EDGES, FAMILY_FLOOR, isTermTag, TERM_TAGS } from '#src/lib/tags.ts';
 
 /**
  * Content gates (SPEC §11): schema validation, slug/alias uniqueness, relation
@@ -123,12 +123,7 @@ for (const [file, body] of bodies) {
     if (SITE_ROUTES.has(target)) continue;
     const tag = target.match(/^\/tags\/([a-z0-9-]+)\/?$/)?.[1];
     if (tag) {
-      // /tags/{head-term} resolves, but only as a redirect for a guessed URL: prose crosses
-      // the graph by linking the term itself, which is where the family is published.
-      if (HEAD_TERMS.some((h) => h.slug === tag))
-        errors.push(`${file}: prose links to "${target}"; link the term at "/${tag}" (SPEC §2.5)`);
-      else if (!(TAGS as readonly string[]).includes(tag))
-        errors.push(`${file}: prose links to "${target}", which is not a tag (SPEC §2.5)`);
+      if (!(TAGS as readonly string[]).includes(tag)) errors.push(`${file}: prose links to "${target}", which is not a tag (SPEC §2.5)`);
       continue;
     }
     const browsed = target.match(/^\/browse\/([a-z-]+)\/?$/)?.[1];
@@ -249,10 +244,16 @@ for (const term of terms.values()) {
  * Tag facets (SPEC §2.5). A tag that collects too few terms is noise, and one whose
  * members all sit in a single category is a subcategory wearing a tag's clothes: the
  * cross-cutting reach is the whole reason a tag exists rather than a tenth category.
+ *
+ * Both floors exempt a term-named facet, whose name is a defined term rather than a
+ * filing convenience, so neither objection applies to it: dark pattern's members are all
+ * `pattern` and responsive web design's are all `layout`. They answer to their own two
+ * rules below instead.
  */
 const tagMembers = new Map<Tag, Term[]>(TAGS.map((tag) => [tag, []]));
 for (const term of terms.values()) for (const tag of term.tags) tagMembers.get(tag)?.push(term);
 for (const [tag, members] of tagMembers) {
+  if (isTermTag(tag)) continue;
   if (members.length < TAG_FLOOR) errors.push(`tag "${tag}": ${members.length} members, needs ${TAG_FLOOR} (SPEC §2.5)`);
   const categories = new Set(members.map((t) => t.category));
   if (members.length > 0 && categories.size < 2)
@@ -260,34 +261,37 @@ for (const [tag, members] of tagMembers) {
 }
 
 /**
- * Head terms (SPEC §2.5). /tags lists them so a reader hunting the facet list for
- * "dark pattern" is handed the term, which only works while each one is a real
- * published page and is not also a tag: a family carried twice is the thing the
- * head-term rule exists to prevent.
+ * Term-named facets (SPEC §2.5): a tag that is also a term. The tag half only works while
+ * the term half is a real published page, and the derivation only stays honest while
+ * nobody declares one by hand, which would record membership twice and let the two drift.
  */
-for (const { slug } of HEAD_TERMS) {
-  const term = terms.get(slug);
+for (const tag of TERM_TAGS) {
+  const term = terms.get(tag);
   if (!term) {
-    errors.push(`head term "${slug}" in src/lib/tags.ts has no entry (SPEC §2.5)`);
+    errors.push(`term-named facet "${tag}" has no term entry; every facet in TERM_TAGS is a word first (SPEC §2.5)`);
     continue;
   }
-  if (term.status === 'stub') errors.push(`head term "${slug}" is a stub; /tags points readers at it (SPEC §2.5)`);
-  if ((TAGS as readonly string[]).includes(slug)) errors.push(`"${slug}" is both a head term and a tag; pick one (SPEC §2.5)`);
+  if (term.status === 'stub') errors.push(`term-named facet "${tag}" is a stub; its page carries the definition (SPEC §2.5)`);
+  for (const other of terms.values())
+    if (other.tags.includes(tag))
+      errors.push(`${other.slug}: declares "${tag}", which is derived from variantOf/partOf and must not be declared (SPEC §2.5)`);
 }
 
 /**
  * The facet floor read from the other side (SPEC §2.5): a grouping this big would earn a
- * tag if its name were not already a word, so it has to be registered as a head term
- * instead. Without this the list goes stale silently, because a family grows by an
- * authoring round adding members and never by anyone editing src/lib/tags.ts.
+ * tag even if its name were not a word, so it has to be one. Without this the enum goes
+ * stale silently, because a family grows by an authoring round adding members and never
+ * by anyone editing src/lib/schema.ts.
  */
-const registered = new Set(HEAD_TERMS.map((head) => head.slug));
 const family = new Map<string, number>();
 for (const term of terms.values())
   for (const { kind } of FAMILY_EDGES) for (const target of term.relations[kind]) family.set(target, (family.get(target) ?? 0) + 1);
 for (const [slug, size] of family)
-  if (size >= FAMILY_FLOOR && !registered.has(slug))
-    errors.push(`"${slug}" carries a family of ${size}; register it in HEAD_TERMS or split it (SPEC §2.5)`);
+  if (size >= FAMILY_FLOOR && !isTermTag(slug))
+    errors.push(`"${slug}" carries a family of ${size}; add it to TAGS and TERM_TAGS or split it (SPEC §2.5)`);
+// And the same rule the other way: a facet that collects nothing is not a facet.
+for (const tag of TERM_TAGS)
+  if (!family.has(tag)) errors.push(`term-named facet "${tag}" collects nothing; no term declares it with variantOf or partOf (SPEC §2.5)`);
 
 if (errors.length > 0) {
   console.error(`✗ ${errors.length} content error(s):\n${errors.map((e) => `  - ${e}`).join('\n')}`);
@@ -298,5 +302,5 @@ console.log(
 );
 console.log(`✓ ${TAGS.length} tags valid (${[...terms.values()].filter((t) => t.tags.length > 0).length} terms tagged)`);
 console.log(
-  `✓ ${HEAD_TERMS.length} families valid (${HEAD_TERMS.reduce((total, head) => total + (family.get(head.slug) ?? 0), 0)} members)`,
+  `✓ ${TERM_TAGS.length} of them term-named (${TERM_TAGS.reduce((total, tag) => total + (family.get(tag) ?? 0), 0)} derived members)`,
 );

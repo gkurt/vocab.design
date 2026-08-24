@@ -1,26 +1,24 @@
 ---
 import Base from '#src/layouts/Base.astro';
 import { CATEGORIES } from '#src/lib/schema.ts';
-import { facets, families } from '#src/lib/tags.ts';
+import { facets } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
 import { pageUrl } from '#src/lib/url.ts';
 
 const terms = await getTerms();
 const all = facets(terms);
 
-// The other two groupings a reader will look for here: the families a head term
-// carries, and the nine categories (SPEC §2.5). Both get a row of their own.
+// The other grouping a reader will look for here and not find as a facet: the nine
+// categories, which are a filing decision rather than a concern that cuts across.
 const categories = CATEGORIES.map((category) => ({
   category,
   count: terms.filter((t) => t.data.category === category && t.data.status !== 'stub').length,
 }));
-
-const heads = families(terms);
 ---
 
 <Base
   title="Facets · vocab.design"
-  description="Every grouping in the vocabulary: the facets that cut across categories, from dataviz and forms to touch and theming, and the families a head term carries."
+  description="Cross-cutting facets of the vocabulary: the groupings that cut across categories, from dark pattern and dataviz to touch and theming."
 >
   <section class="pt-10 pb-10">
     <h1 class="font-serif text-4xl font-semibold tracking-tight text-balance">
@@ -29,62 +27,30 @@ const heads = families(terms);
     <p class="article mt-5 text-muted">
       Every term has exactly one category, because a term is one kind of thing.
       Facets cut the other way: they collect terms that answer to the same
-      concern from wherever they are filed. Families are the third kind of
-      grouping, for when the name of the group is itself a word worth defining.
+      concern from wherever they are filed. A few are words in their own right,
+      with a definition and a specimen as well as a page of members.
     </p>
   </section>
 
   <ul class="grid gap-2 pb-12">
     {
-      all.map(({ tag, blurb, terms: members }) => (
+      all.map(({ tag, label, blurb, term, terms: members }) => (
         <li>
           <a
             href={pageUrl(`/tags/${tag}`)}
             class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
           >
             <span class="font-serif text-lg font-semibold group-hover:text-accent">
-              {tag}
+              {label}
             </span>
             <span class="ml-2 text-sm text-muted">{members.length} terms</span>
+            {term && <span class="ml-2 text-sm text-muted italic">also a term</span>}
             <p class="mt-1 text-sm text-muted">{blurb}</p>
           </a>
         </li>
       ))
     }
   </ul>
-
-  <section class="mb-12">
-    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">Families</h2>
-    <p class="article mb-4 text-sm text-muted">
-      Dark pattern, microinteraction and the rest are words in their own right,
-      with a definition and a specimen, so a facet would be a second copy of
-      something the term already says. They group like a facet and read like a
-      term: the family lives on the term's own page, and its members declare it
-      rather than carrying a tag.
-    </p>
-    <ul class="grid gap-2">
-      {
-        heads.map(({ slug, name, why, members }) => (
-          <li>
-            <a
-              href={pageUrl(slug)}
-              class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
-            >
-              <span class="font-serif text-lg font-semibold group-hover:text-accent">
-                {name}
-              </span>
-              {members.length > 0 && (
-                <span class="ml-2 text-sm text-muted">
-                  {members.length} terms
-                </span>
-              )}
-              <p class="mt-1 text-sm text-muted">{why}</p>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
 
   <section class="mb-12">
     <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">

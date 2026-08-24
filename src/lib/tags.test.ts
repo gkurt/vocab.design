@@ -1,105 +1,143 @@
 import { describe, expect, test } from 'bun:test';
 import { TAGS } from '#src/lib/schema.ts';
-import { FAMILY_FLOOR, families, familyOf, HEAD_TERMS, memberOf, TAG_BLURBS } from '#src/lib/tags.ts';
+import { derivedTags, FAMILY_FLOOR, facets, familyOf, isTermTag, TAG_BLURBS, TERM_TAGS } from '#src/lib/tags.ts';
 import type { TermEntry } from '#src/lib/terms.ts';
 
-type Edges = { variantOf?: string[]; partOf?: string[]; contrastWith?: string[]; seeAlso?: string[] };
+type Fields = { tags?: string[]; variantOf?: string[]; partOf?: string[]; contrastWith?: string[] };
 
-/** Only the fields a family reads, so a schema change elsewhere cannot silently pass this. */
-function term(slug: string, name: string, edges: Edges = {}): TermEntry {
+/** Only the fields a facet reads, so a schema change elsewhere cannot silently pass this. */
+function term(slug: string, name: string, { tags = [], ...edges }: Fields = {}): TermEntry {
   return {
     data: {
       slug,
       name,
       category: 'pattern',
       definition: `${name}, defined.`,
+      tags,
       relations: { variantOf: [], partOf: [], contrastWith: [], seeAlso: [], ...edges },
     },
   } as unknown as TermEntry;
 }
 
-// The real head terms, so a rename in HEAD_TERMS fails here rather than rendering nothing.
-const [DARK, , MICRO, SKEUO] = HEAD_TERMS.map((head) => head.slug) as [string, string, string, string];
+// The real facets, so a rename in TERM_TAGS fails here rather than rendering nothing.
+const [DARK, MICRO] = TERM_TAGS;
 
 const collection = [
   term(DARK, 'Dark pattern'),
   term(MICRO, 'Microinteraction'),
-  term(SKEUO, 'Skeuomorphism', { contrastWith: ['flat-design'] }),
   term('nagging', 'Nagging', { variantOf: [DARK] }),
-  term('confirmshaming', 'Confirmshaming', { variantOf: [DARK] }),
+  term('confirmshaming', 'Confirmshaming', { variantOf: [DARK], tags: ['commerce'] }),
   term('ripple', 'Ripple', { partOf: [MICRO] }),
-  term('pull-to-refresh', 'Pull to refresh', { variantOf: [MICRO] }),
-  term('flat-design', 'Flat design', { contrastWith: [SKEUO] }),
+  term('pull-to-refresh', 'Pull to refresh', { variantOf: [MICRO], tags: ['touch', 'scroll'] }),
+  term('flat-design', 'Flat design', { contrastWith: [DARK] }),
+  term('inline-validation', 'Inline validation', { tags: ['forms'] }),
 ];
 
-const head = (slug: string) => collection.find((t) => t.data.slug === slug) as TermEntry;
+const entry = (slug: string) => collection.find((t) => t.data.slug === slug) as TermEntry;
+const facet = (tag: string) => facets(collection).find((f) => f.tag === tag);
 
-describe('familyOf', () => {
-  test('collects the members that declare the head term, name-sorted', () => {
-    const family = familyOf(head(DARK), collection);
-    expect(family?.members.map((t) => t.data.slug)).toEqual(['confirmshaming', 'nagging']);
+describe('facets', () => {
+  test('a term-named facet collects the terms whose relations declare it, never its `tags`', () => {
+    // None of these three carries `tags: [dark-pattern]`, and `bun validate` rejects one
+    // that does: the relation is the single record of membership (SPEC §2.5).
+    expect(facet(DARK)?.terms.map((t) => t.data.slug)).toEqual(['confirmshaming', 'nagging']);
   });
 
-  test('splits kinds from parts, in the words the Related rail uses', () => {
-    const family = familyOf(head(MICRO), collection);
-    expect(family?.groups.map((g) => [g.label, g.terms.map((t) => t.data.slug)])).toEqual([
+  test('an ordinary facet still collects what declares it in frontmatter', () => {
+    expect(facet('forms')?.terms.map((t) => t.data.slug)).toEqual(['inline-validation']);
+    expect(facet('touch')?.terms.map((t) => t.data.slug)).toEqual(['pull-to-refresh']);
+  });
+
+  test('contrasting with a term-named facet is not being in it', () => {
+    expect(facet(DARK)?.terms.map((t) => t.data.slug)).not.toContain('flat-design');
+  });
+
+  test('a term-named facet reads as its word and carries the term the word is defined on', () => {
+    expect(facet(DARK)?.label).toBe('dark pattern');
+    expect(facet(DARK)?.term?.data.slug).toBe(DARK);
+  });
+
+  test('an ordinary facet reads as the tag and has no term behind it', () => {
+    expect(facet('perceived-performance')?.label).toBe('perceived-performance');
+    expect(facet('perceived-performance')?.term).toBeUndefined();
+  });
+
+  test('every tag in the enum gets a row, in the enum order', () => {
+    expect(facets(collection).map((f) => f.tag)).toEqual([...TAGS]);
+  });
+
+  test('the facet a term names does not collect that term itself', () => {
+    expect(facet(DARK)?.terms.map((t) => t.data.slug)).not.toContain(DARK);
+  });
+});
+
+describe('familyOf', () => {
+  test('the same members, split into kinds and parts, in the words the Related rail uses', () => {
+    expect(familyOf(entry(MICRO), collection)?.groups.map((g) => [g.label, g.terms.map((t) => t.data.slug)])).toEqual([
       ['Variants', ['pull-to-refresh']],
       ['Contains', ['ripple']],
     ]);
   });
 
-  test('a term that is not a head term has no family at all', () => {
-    expect(familyOf(head('nagging'), collection)).toBeUndefined();
+  test('an empty group is dropped rather than headed with nothing under it', () => {
+    expect(familyOf(entry(DARK), collection)?.groups.map((g) => g.label)).toEqual(['Variants']);
   });
 
-  test('a head term whose neighbours only contrast with it carries an empty family', () => {
-    // Skeuomorphism: the page discriminates rather than lists, and it stays a head term
-    // so a reader hunting the facet list for the word is still handed the term (SPEC §2.5).
-    const family = familyOf(head(SKEUO), collection);
-    expect(family?.members).toEqual([]);
-    expect(family?.groups).toEqual([]);
+  test('it agrees with the facet page about who the members are', () => {
+    const members = familyOf(entry(MICRO), collection)
+      ?.members.map((t) => t.data.slug)
+      .sort();
+    expect(members).toEqual(
+      facet(MICRO)
+        ?.terms.map((t) => t.data.slug)
+        .sort(),
+    );
   });
 
-  test('an empty group is dropped rather than rendered as a heading with nothing under it', () => {
-    expect(familyOf(head(DARK), collection)?.groups.map((g) => g.label)).toEqual(['Variants']);
-  });
-});
-
-describe('families', () => {
-  test('every registered head term present in the collection, in declaration order', () => {
-    expect(families(collection).map((f) => f.slug)).toEqual([DARK, MICRO, SKEUO]);
+  test('a term that does not name a facet has no family at all', () => {
+    expect(familyOf(entry('nagging'), collection)).toBeUndefined();
   });
 
-  test('a head term missing from the collection is skipped, never rendered as a blank row', () => {
-    expect(families(collection.filter((t) => t.data.slug !== DARK)).map((f) => f.slug)).toEqual([MICRO, SKEUO]);
+  test('it is empty only for a partial collection, which validate rules out for real ones', () => {
+    expect(familyOf(entry(DARK), [entry(DARK)])?.members).toEqual([]);
   });
 });
 
-describe('memberOf', () => {
-  test('names the family a term declares, for the chip beside its tags', () => {
-    expect(memberOf(head('nagging'))).toEqual([DARK]);
-    expect(memberOf(head('ripple'))).toEqual([MICRO]);
+describe('derivedTags', () => {
+  test('names the term-named facets a term is in, for the chips beside its declared tags', () => {
+    expect(derivedTags(entry('nagging'))).toEqual([DARK]);
+    expect(derivedTags(entry('ripple'))).toEqual([MICRO]);
   });
 
-  test('contrasting with a head term is not joining its family', () => {
-    expect(memberOf(head('flat-design'))).toEqual([]);
+  test('contrast is not membership', () => {
+    expect(derivedTags(entry('flat-design'))).toEqual([]);
   });
 
-  test('a head term is not a member of itself', () => {
-    expect(memberOf(head(DARK))).toEqual([]);
+  test('a term-named facet is not in itself', () => {
+    expect(derivedTags(entry(DARK))).toEqual([]);
+  });
+
+  test('an ordinary tag is never derived: it is declared or it is absent', () => {
+    expect(derivedTags(entry('inline-validation'))).toEqual([]);
   });
 });
 
-describe('the closed enum and the head terms', () => {
-  test('every tag has a blurb, which is the whole of its editorial content', () => {
+describe('the closed enum', () => {
+  test('every tag has a blurb, which is its whole editorial content on the facet page', () => {
     for (const tag of TAGS) expect(TAG_BLURBS[tag]).toBeTruthy();
   });
 
-  test('no head term is also a tag: a family carried twice is what the rule prevents', () => {
-    for (const { slug } of HEAD_TERMS) expect(TAGS as readonly string[]).not.toContain(slug);
+  test('every term-named facet is a tag in the enum', () => {
+    for (const tag of TERM_TAGS) expect(TAGS as readonly string[]).toContain(tag);
   });
 
-  test('the family floor is the facet floor, read from the other side', () => {
+  test('isTermTag answers for the enum and for anything else', () => {
+    expect(isTermTag(DARK)).toBe(true);
+    expect(isTermTag('forms')).toBe(false);
+    expect(isTermTag('skeuomorphism')).toBe(false);
+  });
+
+  test('the floor that forces a family into the enum is the facet floor', () => {
     expect(FAMILY_FLOOR).toBe(8);
   });
 });

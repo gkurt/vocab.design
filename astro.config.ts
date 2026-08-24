@@ -53,11 +53,8 @@ export default defineConfig({
       filter: (page) => {
         const path = pathOf(page);
         if (path === '') return true;
-        const [section, rest] = path.split('/') as [string, ...string[]];
+        const [section] = path.split('/') as [string, ...string[]];
         if (section === 'search') return false;
-        // /tags/{term-slug} is a family redirect to the term's own page (SPEC §2.5), which
-        // is where the family is published: the same reason the alias redirects are dropped.
-        if (section === 'tags' && rest && days.has(rest)) return false;
         return (SECTIONS as readonly string[]).includes(section) || days.has(path);
       },
       serialize: (item) => {

@@ -8,8 +8,9 @@ Every term has one category (what kind of thing it is), any number of cross-cutt
 facets browsable at `/tags`, and a graph of relations: what it contrasts with, what it
 is a variant or part of, what to read next. There are four ways in: `/browse` for the
 whole vocabulary by category, `/glossary` for every name and alias A to Z, `/tags` for
-the facets that cut across categories and the families a head term carries, and
-`/search` for full text over every article.
+the facets that cut across categories, and `/search` for full text over every article.
+A few facets are words in their own right (dark pattern, microinteraction), so they have
+a definition and a specimen as well as a page of members.
 Search is also a modal from any page (the nav link, `/` or Cmd/Ctrl+K), and it is the one
 thing on the site that needs JavaScript. The contrast edges answer a discrimination
 test rather than a similarity one, so a term's "Which word?" table lists the words a

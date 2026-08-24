@@ -1,4 +1,4 @@
-import { facets, families } from '#src/lib/tags.ts';
+import { facets } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
 
 export async function GET(): Promise<Response> {
@@ -8,11 +8,9 @@ export async function GET(): Promise<Response> {
     .sort((a, b) => a.data.slug.localeCompare(b.data.slug))
     .map((t) => `- [${t.data.name}](https://vocab.design/${t.data.slug}.md): ${t.data.definition}`);
   const facetLines = facets(terms).map(
-    (f) => `- ${f.tag} (${f.terms.length}) ${f.blurb} Members: ${f.terms.map((t) => t.data.slug).join(', ')}`,
+    (f) =>
+      `- ${f.tag} (${f.terms.length})${f.term ? ' [also a term]' : ''} ${f.blurb} Members: ${f.terms.map((t) => t.data.slug).join(', ')}`,
   );
-  const familyLines = families(terms)
-    .filter((f) => f.members.length > 0)
-    .map((f) => `- ${f.slug} (${f.members.length}) ${f.why} Members: ${f.members.map((t) => t.data.slug).join(', ')}`);
   const body = [
     '# vocab.design',
     '',
@@ -26,15 +24,10 @@ export async function GET(): Promise<Response> {
     '',
     'Cross-cutting groupings, listed at /tags and one page each at /tags/{facet}.',
     'A term has exactly one category and any number of facets.',
+    'A facet marked [also a term] is a term too, at /{facet}: its members are derived from',
+    'their own variantOf/partOf relations rather than declared, and are never in `tags`.',
     '',
     ...facetLines,
-    '',
-    '## Families',
-    '',
-    'A grouping whose own name is a term, so it is published at /{slug} rather than as a facet',
-    'and /tags/{slug} redirects there. Members declare it with variantOf or partOf.',
-    '',
-    ...familyLines,
     '',
     '## Terms',
     '',

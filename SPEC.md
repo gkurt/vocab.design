@@ -146,9 +146,8 @@ tag in `src/lib/tags.ts`. A category answers *what kind of thing is this*, and a
 has exactly one; a facet answers *what concern does this serve*, and a term may have
 several. Facets are browsable at `/tags` and one page each at `/tags/{tag}`.
 
-`/tags` lists the other two groupings a reader will look for there: the families a
-head term carries, and the nine categories. `src/lib/tags.ts` names the head terms and
-`bun validate` holds each to being a real published term that is not also a tag.
+`/tags` also lists the one grouping a reader will look for there and not find as a facet:
+the nine categories, which are a filing decision rather than a concern that cuts across.
 
 Three rules keep the vocabulary from inflating, all gated by `bun validate`:
 
@@ -159,50 +158,56 @@ Three rules keep the vocabulary from inflating, all gated by `bun validate`:
 - **At most 4 tags on a term**, and stubs carry none (§2.3). More than four and the
   chips stop discriminating anything.
 
-**The head-term rule.** If the family name is itself vocabulary, something worth a
-definition and a specimen (dark pattern, microinteraction, skeuomorphism, responsive
-web design), it is a HEAD TERM and relations carry the family: members declare
-`variantOf` and the head term's page derives the list. A tag is only for a
-reader-facing concern with no definition of its own. Corollary: a facet applied to
-80% of its family is worse than no facet, so a tag arrives complete or not at all.
-That is why tags could not come from per-round authoring agents and waited for the
-consolidated relations pass.
+Corollary of the first two: a facet applied to 80% of its family is worse than no facet,
+so a tag arrives complete or not at all. That is why tags could not come from per-round
+authoring agents and waited for the consolidated relations pass.
 
-**A family groups like a facet and reads like a term.** The rule above says where the
-family is STORED; it does not excuse the family from behaving like a grouping, because a
-reader looking for the deceptive patterns has no way to know which of the two mechanisms
-the site chose. So a family is a facet everywhere a facet is one, and a term everywhere a
-term is:
+**Term-named facets.** Three facets are also terms, with a definition, an article and a
+specimen of their own: `dark-pattern`, `microinteraction`, `responsive-web-design`.
+`TERM_TAGS` in `src/lib/tags.ts` is the list. A reader hunting the facet list for "dark
+pattern" has no way to know whether the site filed the deceptive patterns as a tag or as
+a relation, and should not have to: it is both. What makes this affordable rather than
+duplicative is that only ONE of the two halves is stored.
 
-- **The head term's page carries the listing**, grouped as `Variants` and `Contains`
-  (the same words the Related rail uses for those reverse edges) with each member's
-  definition, the way `/tags/{tag}` groups by category. Those two groups then leave the
-  rail, since a page saying the same edges twice is the duplication the rule exists to
-  prevent. The listing is out of the search index for the reason Related is: seventeen
-  member names on one page would make it compete for each of them.
-- **`/tags/{head-term}` resolves**, as a redirect to that page with `rel=canonical`, the
-  same shape an alias redirect has and out of the sitemap for the same reason. A reader
-  who guesses the URL, or a link that generalizes from `/tags/{facet}`, lands on the
-  family rather than on the 404. Prose still links the term itself; `bun validate` says so.
-- **A member carries the family as a chip**, in the line where it carries its category
-  and its facets, derived from its own `variantOf` or `partOf`. Reading as a word
-  (`dark pattern`) rather than as a slug is the whole of the visible difference, and
-  membership costs none of the four tags.
+- **Membership is derived, never declared.** A term is in a term-named facet when its own
+  `variantOf` or `partOf` names it (`FAMILY_EDGES`): its kinds, and the parts of one. So
+  the fact is recorded once, joining is an authoring decision rather than a tagging one,
+  no member spends one of its four tag slots, and the two records cannot drift.
+  `bun validate` rejects a term that declares one in frontmatter.
+- **Both pages carry the members, grouped differently.** `/tags/{tag}` groups by
+  category, like any facet, and carries a bridge to the term ("also a term", with the
+  definition and specimen on its page). The term's own page groups the same members by
+  the relation that joins them, `Variants` and `Contains`, which is the one cut the facet
+  page cannot show. Those two groups then leave its Related rail, since a page stating
+  the same edges twice is real duplication where two orderings of a list are not. The
+  listing is out of the search index for the reason Related is: seventeen member names on
+  one page would make it compete for each of them.
+- **A member wears the facet as a chip**, in the line carrying its category and its
+  declared tags, linking to `/tags/{tag}`. It reads as its word (`dark pattern`) rather
+  than as a slug, which is the whole of the visible difference from an ordinary facet.
 
-A family is `variantOf` and `partOf` read inbound, `FAMILY_EDGES` in `src/lib/tags.ts`:
-its kinds, and the parts of one. A registered head term may carry an EMPTY family and
-still belong on the list, because a reader hunting the facet list for the word must be
-handed the term either way: skeuomorphism's neighbours contrast with it rather than being
-kinds of it, so its page discriminates in the Which word? table instead of listing.
+**The two facet floors do not apply to a term-named facet**, and this is the point of the
+distinction rather than an exception to it. Both floors exist to stop a category
+subdivision from posing as a cross-cutting concern, and a name that is itself a defined
+term is the concept, not a filing convenience: dark pattern's seventeen members are all
+`pattern` and responsive web design's five are all `layout`, and both are still real
+words that readers look up. Ordinary facets stay held to both.
 
-A family of 8 or more must be registered in `HEAD_TERMS`, which is the facet floor read
-from the other side: a grouping that size would earn a tag if its name were not already a
-word. `bun validate` enforces it, because a family grows when an authoring round adds a
-member and never when someone edits `src/lib/tags.ts`.
+Two rules replace them, and `bun validate` enforces both. A term-named facet must
+actually collect members, so the list cannot slide into being signage for words a reader
+might mistake for a facet. And **a family of 8 or more must BE a term-named facet**,
+which is the facet floor read from the other side: a grouping that size would earn a tag
+even if its name were not a word. That gate matters because a family grows when an
+authoring round adds a member and never when someone edits the enum.
 
-A facet may stand in for a head term that does not exist yet (`gamification`,
-`perceived-performance`), which is a debt rather than a design: when the head term is
-authored, its members move to `variantOf` and the tag retires in the same change.
+Contrast is not membership, which is why skeuomorphism is not one of the three: every one
+of its neighbours contrasts with it rather than being a kind of it, so its page
+discriminates in the Which word? table instead of listing, and a facet that collects
+nothing is not a facet.
+
+A facet may stand in for a term that does not exist yet (`gamification`,
+`perceived-performance`), which is a debt rather than a design: when the term is authored,
+its members move to `variantOf` and the tag becomes term-named in the same change.
 
 **The accessibility filing rule.** Accessibility is the one topical category among
 kind-categories, kept deliberately. A term that exists BECAUSE of accessibility files
@@ -242,8 +247,8 @@ those are equivalent. Under that format Astro reports
 - `/{slug}` — term page, top level (`vocab.design/bento-grid`).
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".
-- `/tags` (the directory of groupings) · `/tags/{tag}` (one facet, grouped by category) ·
-  `/tags/{head-term}` (a redirect to the term whose page carries the family, §2.5).
+- `/tags` (the facet directory) · `/tags/{tag}` (one facet, grouped by category; three of
+  them are also terms, and carry a bridge to `/{tag}`, §2.5).
 - `/browse` (all terms by category, names only) · `/browse/{category}` (that category,
   with definitions, plus the facets it reaches into).
 - `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
@@ -260,9 +265,8 @@ those are equivalent. Under that format Astro reports
 
 The sitemap is an allowlist, not a dump of what was built. It carries the terms and the
 pages that list them, and nothing else: not the alias redirects, which are four fifths of
-the built pages and every one of them a redirect rather than a document; not the family
-redirects under `/tags`, for that same reason; not the specimen frames (§6); and not
-`/search`, which is a tool. `lastmod` on a term is its `modified`
+the built pages and every one of them a redirect rather than a document; not the specimen
+frames (§6); and not `/search`, which is a tool. `lastmod` on a term is its `modified`
 day, and on a listing page the newest `modified` in the dictionary, because that is when
 the listing last said something different. A new top-level route has to be named in
 `src/lib/routes.ts` to be listed, which is the trade for never listing junk.

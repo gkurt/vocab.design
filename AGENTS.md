@@ -71,7 +71,7 @@ agent use.
 SPEC.md                     # Canonical design doc — read first
 src/lib/schema.ts           # Zod v4 term schema (single source of truth): CATEGORIES, TAGS, SYSTEMS
 src/lib/terms.ts            # getTerms() — the ONE way to read the collection (see gotcha below)
-src/lib/tags.ts             # facets() and families(): tag blurbs, head terms, membership derived
+src/lib/tags.ts             # facets(): tag blurbs, and the three facets that are also terms
 src/lib/categories.ts       # one blurb per category, for the browse pages
 src/lib/glossary.ts         # the A-Z entry list: every term AND every alias, sliced by letter
 src/lib/slug.ts             # slugify for terms and aliases
@@ -94,7 +94,7 @@ src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, trave
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
-src/pages/tags/             #   /tags + /tags/[tag] (a facet) + /tags/[head-term] (to its family)
+src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
 src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
@@ -428,22 +428,22 @@ never fires under reduced motion, so nothing may ever wait on it.
   describing one term could reach for the other term's word, not when the two merely
   look alike. Hubs stay at eight contrasts at most, or the Which word? table drowns.
 - **Tags are a closed enum, and they arrive complete** (SPEC §2.5). `bun validate` holds
-  every facet to 8+ members spanning 2+ categories, and every term to at most 4 tags.
-  A facet applied to 80% of its family is worse than no facet, so tagging a few terms
-  mid-round is not a partial contribution, it is a regression: grow the facet in one
-  pass over the whole family or leave it alone. Where the family name is itself
-  vocabulary (dark pattern, microinteraction) there is no tag: the head term's members
-  declare `variantOf` and its page derives the family.
-- **A family groups like a facet and reads like a term** (SPEC §2.5). Storing it in
-  relations rather than in a tag is invisible to a reader, so a family behaves like a
-  facet anyway: the head term's page carries the listing (grouped `Variants` and
-  `Contains`, which then leave the Related rail), `/tags/{head-term}` redirects there,
-  and a member shows the family as a chip beside its facets. All of it is derived from
-  the members' own `variantOf`/`partOf` by `familyOf`/`memberOf` in `src/lib/tags.ts`,
-  so joining a family is an authoring decision and costs none of the four tags. A family
-  of 8 or more must be registered in `HEAD_TERMS`, which `bun validate` enforces: that is
-  the facet floor read from the other side, and the list would go stale silently without
-  it. Prose links the term (`/dark-pattern`), never the redirect.
+  every ordinary facet to 8+ members spanning 2+ categories, and every term to at most 4
+  tags. A facet applied to 80% of its family is worse than no facet, so tagging a few
+  terms mid-round is not a partial contribution, it is a regression: grow the facet in one
+  pass over the whole family or leave it alone.
+- **Three facets are also terms** (SPEC §2.5): `dark-pattern`, `microinteraction`,
+  `responsive-web-design`, listed in `TERM_TAGS` in `src/lib/tags.ts`. Membership is
+  DERIVED from the members' own `variantOf`/`partOf` and never declared, so `bun validate`
+  rejects a term carrying one in frontmatter; a member joins by authoring the relation and
+  spends none of its four tags. `/tags/{tag}` groups them by category and bridges to the
+  term; the term's page groups the same members by relation (`Variants`, `Contains`), which
+  then leave its Related rail. The two facet floors are waived for these, because a name
+  that is a defined term is the concept rather than a filing convenience (dark pattern's 17
+  members are all `pattern`). Two gates replace them: a term-named facet must collect
+  members, and a family of 8 or more must BE one, which is the floor read from the other
+  side and the reason the enum cannot go stale as authoring rounds add members. Contrast is
+  not membership, which is why skeuomorphism is not one of the three.
 - **Two isolation modes, one shape.** `src/stage/surface.ts` is the only file that knows
   whether a specimen lives in a shadow root or in a document of its own; everything
   above it reads `Surface`. `demo: iframe` generates `/specimen/<slug>/`, which imports
