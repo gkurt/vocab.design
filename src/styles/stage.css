@@ -657,20 +657,23 @@ vd-stage[data-autoplay] .vd-stage-play {
    and a reader who wants to know which part is the term hovers the thing that says the
    demonstration is running. Hidden unless the stage is in attract, so it never claims a
    held specimen is playing. */
+/* The badge is a mark in the corner rather than a chip on top of the specimen: no
+   plate, no blur, and the ink kept soft, because it annotates the picture and must
+   not become the first thing in it. The padding is the difference between what is
+   drawn and what can be hit, so the target stays reachable at this size. */
 .vd-playing {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0;
+  right: 0;
   z-index: 4;
   display: flex;
   align-items: flex-end;
   gap: 2px;
-  height: 22px;
-  padding: 0 6px;
+  box-sizing: border-box;
+  height: 20px;
+  padding: 5px;
   border: 0;
-  border-radius: 6px;
-  background: color-mix(in oklab, var(--vd-surface) 82%, transparent);
-  backdrop-filter: blur(3px);
+  background: none;
   opacity: 0;
   /* Hidden rather than transparent: a transparent button is still a tab stop, and a
      listing would otherwise put eight invisible ones in the reader's way. */
@@ -682,13 +685,20 @@ vd-stage[data-autoplay] .vd-stage-play {
 
 vd-stage[data-state="attract"] .vd-playing,
 vd-stage[data-posed] .vd-playing {
-  opacity: 1;
+  opacity: 0.55;
   visibility: visible;
+}
+
+/* Asking what it is brings it up to full strength, which is also the moment it stops
+   being an annotation and starts being a control. */
+vd-stage .vd-playing:hover,
+vd-stage .vd-playing:focus-visible {
+  opacity: 1;
 }
 
 .vd-playing span {
   width: 2px;
-  height: 5px;
+  height: 4px;
   border-radius: 1px;
   background: var(--vd-muted);
   animation: vd-playing-bar 900ms ease-in-out infinite alternate;
@@ -710,10 +720,10 @@ vd-stage[data-posed] .vd-playing {
 
 @keyframes vd-playing-bar {
   from {
-    height: 4px;
+    height: 3px;
   }
   to {
-    height: 12px;
+    height: 10px;
   }
 }
 
@@ -726,7 +736,7 @@ vd-stage[data-posed] .vd-playing span {
 @media (prefers-reduced-motion: reduce) {
   .vd-playing span {
     animation: none;
-    height: 9px;
+    height: 7px;
   }
 }
 

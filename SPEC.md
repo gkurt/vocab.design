@@ -322,7 +322,11 @@ that box and scales it, so nothing is re-authored and nothing clips: two across 
 halving, the largest reduction that still reads as a demonstration rather than as a
 texture. The preview is a way in to the term rather than a specimen to operate: a link
 covers it, so a card never takes the stage over from attract, and the demo is driven on
-its own page where it has a control bar and room to be read.
+its own page where it has a control bar and room to be read. The card holding the stage
+says so with three small bars in its corner, drawn as soft ink on the picture rather than
+as a chip over it: it annotates the frame and must not become the first thing in it. It is
+also the card's one control, since hovering or focusing it points the term out inside the
+specimen, which is the identify affordance a term page keeps in its control bar.
 
 The cost is bounded by the same scheduler that keeps the motion calm. A category page can
 carry 196 cards, so specimens mount as they approach the viewport, evict as they leave, and
