@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { exhibitOfDay, exhibits } from '#src/lib/exhibit.ts';
+import { exhibits, exhibitWindow, playable, WINDOW_SIZE } from '#src/lib/exhibit.ts';
 import type { TermEntry } from '#src/lib/terms.ts';
 
 type Fields = { exhibit?: boolean; status?: string; demo?: string };
@@ -32,18 +32,67 @@ describe('exhibits', () => {
   });
 });
 
-describe('exhibitOfDay', () => {
-  const pool = exhibits([term('a', 'Alpha'), term('b', 'Beta'), term('c', 'Gamma')]);
+describe('playable', () => {
+  test('is every published term with a specimen, flagged or not', () => {
+    const pool = playable([term('toast', 'Toast', { exhibit: false }), term('modal', 'Modal'), term('stub', 'Stub', { status: 'stub' })]);
+    expect(pool.map((e) => e.slug)).toEqual(['modal', 'toast']);
+  });
+});
 
-  test('walks the pool as the days pass, and comes back around', () => {
-    expect([0, 1, 2, 3].map((d) => exhibitOfDay(pool, d)?.slug)).toEqual(['a', 'b', 'c', 'a']);
+describe('exhibitWindow', () => {
+  const many = (n: number) => Array.from({ length: n }, (_, i) => term(`t${i}`, `Term ${String(i).padStart(2, '0')}`, { exhibit: false }));
+
+  test('prefers the curated pool whenever anything is curated', () => {
+    const window = exhibitWindow([...many(30), term('toast', 'Toast')], 0);
+    expect(window.map((e) => e.slug)).toEqual(['toast']);
+  });
+
+  test('falls back to the vocabulary, so an uncurated front page still opens a specimen', () => {
+    expect(exhibitWindow(many(30), 0)).toHaveLength(WINDOW_SIZE);
+  });
+
+  test('takes them at a stride, so a row is a sample of the list and not a page of it', () => {
+    // 30 terms, twelve picks: every other one, rather than the first twelve.
+    expect(exhibitWindow(many(30), 0).map((e) => e.slug)).toEqual([
+      't0',
+      't2',
+      't4',
+      't6',
+      't8',
+      't10',
+      't12',
+      't14',
+      't16',
+      't18',
+      't20',
+      't22',
+    ]);
+  });
+
+  test('turns the whole row over between deploys', () => {
+    const terms = many(30);
+    const a = exhibitWindow(terms, 0).map((e) => e.slug);
+    const b = exhibitWindow(terms, 1).map((e) => e.slug);
+    expect(a.some((slug) => b.includes(slug))).toBe(false);
+  });
+
+  test('wraps rather than running out at the end of the list', () => {
+    const window = exhibitWindow(many(30), 25);
+    expect(window).toHaveLength(WINDOW_SIZE);
+    expect(new Set(window.map((e) => e.slug)).size).toBe(WINDOW_SIZE);
+  });
+
+  test('a pool no bigger than the row is the whole pool, rotated', () => {
+    const window = exhibitWindow(many(5), 1);
+    expect(window.map((e) => e.slug)).toEqual(['t1', 't2', 't3', 't4', 't0']);
   });
 
   test('is stable for one day, so two builds of one source agree', () => {
-    expect(exhibitOfDay(pool, 20_000)).toBe(exhibitOfDay(pool, 20_000));
+    const terms = many(30);
+    expect(exhibitWindow(terms, 20_000).map((e) => e.slug)).toEqual(exhibitWindow(terms, 20_000).map((e) => e.slug));
   });
 
-  test('an empty pool has nothing to show', () => {
-    expect(exhibitOfDay([], 7)).toBeUndefined();
+  test('nothing to show is an empty window, not a crash', () => {
+    expect(exhibitWindow([], 7)).toEqual([]);
   });
 });

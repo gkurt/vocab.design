@@ -26,7 +26,7 @@
  * decide all of this run on a debounce rather than on every scroll event.
  */
 
-import '#src/stage/specimen-stage.ts';
+import { previewStage } from '#src/components/preview-stage.ts';
 
 /** How many specimens may be mounted at once, however long the list is. */
 const MAX_MOUNTED = 8;
@@ -85,26 +85,7 @@ if (roots.length > 0) {
 
   const mount = (card: Card) => {
     if (card.stage) return;
-    const stage = document.createElement('vd-stage');
-    stage.dataset.slug = card.slug;
-    stage.dataset.name = card.name;
-    stage.dataset.isolation = card.isolation;
-    stage.dataset.state = 'idle';
-    // Mounted holding, always: being granted is a separate decision, taken below.
-    stage.dataset.hold = '';
-    // No control bar: a card has no room for one, and the demo is driven on its own page.
-    // What it gets instead is the badge, which says this is the specimen playing and points
-    // the term out when a reader hovers it. The overlay is a child of the stage rather than
-    // of the body, because only the body is scaled and the stage draws in page coordinates.
-    stage.innerHTML =
-      '<div class="vd-preview-scale"><figure><div class="vd-stage-body"><div data-stage-canvas></div></div></figure></div>' +
-      '<div data-stage-overlay aria-hidden="true"></div>' +
-      `<button class="vd-playing" type="button" title="Point out the ${card.name.toLowerCase()}" aria-label="Playing: point out the ${card.name.toLowerCase()}"><span></span><span></span><span></span></button>`;
-    const badge = stage.querySelector<HTMLElement>('.vd-playing');
-    badge?.addEventListener('pointerenter', () => stage.setAttribute('data-identify', ''));
-    badge?.addEventListener('pointerleave', () => stage.removeAttribute('data-identify'));
-    badge?.addEventListener('focus', () => stage.setAttribute('data-identify', ''));
-    badge?.addEventListener('blur', () => stage.removeAttribute('data-identify'));
+    const stage = previewStage(card);
     // The specimen has finished saying what it has to say (SPEC §7). If it has had its
     // four seconds and the reader is not standing here, the stage moves down the page.
     stage.addEventListener('vd-pass', () => {

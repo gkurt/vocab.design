@@ -1,5 +1,5 @@
 ---
-import Exhibit from '#src/components/Exhibit.astro';
+import Carousel from '#src/components/Carousel.astro';
 import Base from '#src/layouts/Base.astro';
 import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
 import { LETTERS, letterOf } from '#src/lib/glossary.ts';
@@ -55,7 +55,7 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
     </p>
   </section>
 
-  <Exhibit />
+  <Carousel />
 
   <section class="mb-12">
     <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">By category</h2>

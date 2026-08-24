@@ -756,3 +756,71 @@ vd-stage[data-posed] .vd-playing span {
 .vd-card:focus-within {
   border-color: var(--vd-accent);
 }
+
+/* --- The front page's carousel (SPEC §3) -------------------------------------
+   A row of half-size specimens that moves over by one card whenever the one in the
+   middle finishes a pass, with the card that has left sent round to the back. The
+   window clips, which is what cuts a card at each edge and says the row carries on in
+   both directions: there is no first card to scroll back to and no last one to reach. */
+.vd-carousel {
+  --vd-carousel-gap: 16px;
+  /* Half of the authored 720, so a specimen reads at exactly the size the listing shows
+     it at. Below that width the column decides, and the scale follows it down. */
+  --vd-carousel-card: min(360px, 100%);
+}
+
+.vd-carousel-window {
+  overflow: hidden;
+}
+
+.vd-carousel-track {
+  display: flex;
+  gap: var(--vd-carousel-gap);
+  /* Two offsets, and only one of them moves: the base centres the second card in the
+     window and is re-measured on resize, while the shift is the slide itself. Resetting
+     the shift with the transition off is what lets the row land back where it started
+     around a rotated set of cards. */
+  transform: translate3d(calc(var(--vd-carousel-x, 0px) + var(--vd-carousel-shift, 0px)), 0, 0);
+}
+
+.vd-carousel-track[data-sliding] {
+  transition: transform 520ms cubic-bezier(0.33, 0.05, 0.2, 1);
+}
+
+.vd-carousel-card {
+  flex: 0 0 var(--vd-carousel-card);
+  width: var(--vd-carousel-card);
+}
+
+/* The card holding the stage is the one being read; the rest of the row is the row.
+   Nothing is dimmed to make that point, since a specimen at rest already reads as
+   waiting, but the centred card carries the accent when the reader arrives at it. */
+.vd-carousel-card:hover {
+  border-color: var(--vd-accent);
+}
+
+/* One line for the headword and two for the definition, whatever the term: a row of
+   cards that answers to a different height each is a row that jumps every time it
+   moves. */
+.vd-carousel-name {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.vd-carousel-definition {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 3em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-carousel-track[data-sliding] {
+    transition: none;
+  }
+}

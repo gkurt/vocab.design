@@ -70,7 +70,7 @@ sources:
   - title: "ARIA APG: alert pattern"
     url: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
 demo: inline                     # none | inline | iframe (see §6)
-exhibit: true                    # optional: cleared for the front page's window (§3)
+exhibit: true                    # optional: cleared for the front page's carousel (§3)
 useWhen: >-                      # the situation this word is for; powers "Which word?"
   a passing confirmation that cleans up after itself
 ```
@@ -294,22 +294,36 @@ A page that lists terms shows the demonstrations, not just their names. Two mech
 one rule: **exactly one specimen animates per page** (§7), because a page where six things
 move at once is a page nobody reads.
 
-**The front page's window.** One specimen under the hero, rotated on every reload, drawn
-from the terms flagged `exhibit: true` (§2.1). The flag is curation and nothing else: it
-is set by hand after watching the demonstration play, it is off by default, and it is the
-only editorial judgement in the frontmatter. Every term keeps its specimen either way;
-this decides what a first-time reader is shown before they have chosen anything, which is
-the one place on the site where the vocabulary does not get to speak for itself. `bun
-validate` refuses the flag on a term with no demo or with an unfinished article, and
-`terms.json` omits it, since it is a fact about this site's front page rather than about
-the word.
+**The front page's carousel.** A row of specimens under the hero at half size, one of
+them centred and playing. When that one finishes a pass the row moves over by one card
+and the card that has left goes round to the back, so the row has no first card and no
+last one and cannot be scrolled to an end: it is the listing's rotation turned on its
+side, obeying the same two rules (§7). The stage changes hands only at a pass boundary,
+and never before a specimen has had four seconds. A reader at the row stops it where it
+is, and it moves on at the next boundary after they leave.
 
-The rotation is a script, because the site is static and every reader is served the same
-HTML: the built page carries the day's specimen (so a reader with no JavaScript gets one,
-and it moves with each deploy) and the pool is serialized beside it, so the swap happens
-during parse, before the stage upgrades. Nothing renders twice and no specimen is mounted
-and then thrown away. The specimen just shown is remembered for the session, so a reload
-is always a different word.
+Which dozen terms are in the row is decided at build time, because the site is static and
+every reader is served the same HTML. The order is the only thing the script decides: it
+shuffles the row during parse, before the deferred module upgrades anything, so the front
+page opens on a different specimen every time without ever rendering one term and then
+replacing it with another. The dozen are taken at a stride across the vocabulary rather
+than as a slice of it, since the list is alphabetical and a slice is twelve terms that
+begin with the same two letters. Every pick moves with the build's day number, so the row
+turns over between deploys instead of being frozen on whichever terms sort first.
+
+What it draws from is the pool flagged `exhibit: true` (§2.1) whenever anything is
+flagged, and the vocabulary itself when nothing is. The flag is curation and nothing else:
+it is set by hand after watching the demonstration play, it is off by default, and it is
+the only editorial judgement in the frontmatter. But an empty pool is not a reason for the
+front page to show nothing, and a site whose whole claim is that every term has a specimen
+can afford to open one at random; flagging a single term is what narrows the row to the
+flagged ones. `bun validate` refuses the flag on a term with no demo or with an unfinished
+article, and `terms.json` omits it, since it is a fact about this site's front page rather
+than about the word.
+
+Only the middle of the row is alive: the centred card, its two neighbours, and the one
+about to slide in. That is four mounted demos for a dozen terms, and the rest of the row
+is markup waiting its turn.
 
 **Cards in a listing.** `/browse/{category}` and `/tags/{tag}` render each term as a card:
 one bordered object, the preview flush at its top with a hairline where the words begin,

@@ -1,0 +1,85 @@
+---
+import { exhibitWindow } from '#src/lib/exhibit.ts';
+import { getTerms } from '#src/lib/terms.ts';
+import { pageUrl } from '#src/lib/url.ts';
+import '#src/styles/stage.css';
+
+/**
+ * The front page's carousel (SPEC §3): a row of specimens at half size, one of them
+ * playing, going round for as long as the reader is here.
+ *
+ * The dozen terms in the row are chosen at build time, because the site is static and
+ * every reader is served the same HTML. What the script decides is the ORDER: it shuffles
+ * the row during parse, so the front page opens on a different specimen every time
+ * without the page rendering one term and then replacing it with another. The cards
+ * themselves are markup, and the specimens are mounted into the ones near the middle by
+ * `#src/components/carousel.ts`, which is what keeps twelve terms down to four live demos.
+ */
+const cards = exhibitWindow(await getTerms(), Math.floor(Date.now() / 86_400_000)).map((e) => ({
+  ...e,
+  // Resolved at build time, never assembled in the script from a base (SPEC §10).
+  href: pageUrl(e.slug),
+}));
+---
+
+{
+  cards.length > 0 && (
+    <section class="vd-carousel mb-12" data-carousel>
+      <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">Specimens</h2>
+      <div class="vd-carousel-window" data-carousel-window>
+        <div class="vd-carousel-track" data-carousel-track>
+          {cards.map((card) => (
+            <article
+              class="vd-card vd-carousel-card overflow-hidden rounded-lg border border-line bg-surface"
+              data-slug={card.slug}
+              data-name={card.name}
+              data-isolation={card.demo}
+            >
+              <div class="vd-preview">
+                {/* The picture is a way in to the term, not a specimen to operate: one is
+                    driven on its own page, where it has a control bar and room to be read.
+                    Hidden from assistive tech because the headword below is the same link,
+                    with a name. */}
+                <a class="vd-preview-hit" href={card.href} aria-hidden="true" tabindex="-1" />
+              </div>
+              <div class="px-4 py-3">
+                <a
+                  href={card.href}
+                  class="vd-carousel-name font-serif text-lg font-semibold hover:text-accent"
+                >
+                  {card.name}
+                </a>
+                <p class="vd-carousel-definition mt-1 text-sm text-muted">{card.definition}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* Classic and inline, so it runs during parse, before the deferred module upgrades
+          anything: at this moment the cards are markup and no stage has been mounted, so
+          reordering them costs nothing and is never seen. */}
+      <script is:inline>
+        (function () {
+          var track = document.querySelector('[data-carousel-track]');
+          if (!track) return;
+          var cards = Array.prototype.slice.call(track.children);
+          if (cards.length < 2) return;
+          for (var i = cards.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var swap = cards[i];
+            cards[i] = cards[j];
+            cards[j] = swap;
+          }
+          // Appending a node already in the track MOVES it, so the row ends up in exactly
+          // this order rather than doubled.
+          for (var k = 0; k < cards.length; k++) track.appendChild(cards[k]);
+        })();
+      </script>
+    </section>
+  )
+}
+
+<script>
+  import '#src/components/carousel.ts';
+</script>
