@@ -11,9 +11,11 @@
  * pass of its choreography AND has been playing for at least MIN_PLAY_MS. Both halves
  * matter: the pass boundary is what stops a demonstration being cut off mid-sentence,
  * and the floor is what stops a two-second demo from being a flicker on the way past
- * (a short script simply loops until its four seconds are up). The rotation covers what
- * is on screen and nothing else, so it never plays to an empty room, and a specimen
- * arriving in the viewport is what starts it again when nothing is playing.
+ * (a short script simply loops until its four seconds are up). The rotation covers the
+ * cards that are really on screen and nothing else, so it never plays to an empty room:
+ * scrolling a quarter of the playing card away hands the stage on at once, without
+ * waiting for a boundary, and a specimen arriving in the viewport is what starts the
+ * rotation again when nothing is playing.
  *
  * A reader's pointer outranks all of it: the card under it takes the stage at once and
  * keeps it until the pointer leaves, and the rotation then carries on from that card
@@ -36,8 +38,14 @@ const SETTLE_MS = 180;
 const AUTHORED_WIDTH = 720;
 /** The stage is nobody's for less than this: below it a demonstration is a flicker. */
 const MIN_PLAY_MS = 4000;
-/** How much of a preview has to be on screen for it to be worth playing to. */
-const IN_VIEW = 0.5;
+/**
+ * How much of a preview has to be showing for it to be in the rotation. A quarter of it
+ * off screen is enough to move the stage on: a demonstration half out of the frame is
+ * one the reader is already leaving, and the card they have scrolled to is the one worth
+ * playing. It is a floor for arriving as well as for leaving, so a card creeping in at
+ * the bottom edge cannot take the stage before it is really there.
+ */
+const IN_VIEW = 0.75;
 
 interface Card {
   /** The card, which is what a reader points at: the headword and the definition too. */
@@ -154,7 +162,7 @@ if (roots.length > 0) {
   };
 
   /**
-   * On screen enough to be played to: half the picture, or half the screen when the
+   * On screen enough to be played to: IN_VIEW of the picture, or of the screen when the
    * picture is the taller of the two. A card showing a sliver at the edge is not
    * somewhere a demonstration should be spent.
    */
@@ -175,10 +183,10 @@ if (roots.length > 0) {
    */
   const advance = () => {
     const line = queue();
-    if (line.length === 0) {
-      grant(undefined);
-      return;
-    }
+    // Nowhere to send it. The specimen that has the stage keeps it rather than the page
+    // going still over a scroll position where nothing is quite on screen; its own
+    // observer has already paused it if it is out of the frame altogether.
+    if (line.length === 0) return;
     const at = granted ? line.indexOf(granted) : -1;
     grant(line[(at + 1) % line.length]);
   };
@@ -199,9 +207,9 @@ if (roots.length > 0) {
       grant(pointed);
       return;
     }
-    // The rotation owns the choice while its specimen is still on screen. Scrolling
-    // past it, or arriving with nothing playing at all, is what puts the stage back at
-    // the top of the visible list.
+    // The rotation owns the choice while its specimen is still on screen. Scrolling a
+    // quarter of it away, or arriving with nothing playing at all, is what puts the
+    // stage back at the top of the visible list.
     if (granted && queue().includes(granted)) return;
     advance();
   };

@@ -562,10 +562,12 @@ never fires under reduced motion, so nothing may ever wait on it.
   stage means mounted and standing still, and moving it is how one card is granted the
   page. A stage removed from the document tears down and gives back its claim, which is
   what stops a scrolling list from stranding the stage on a discarded player.
-  Which card holds it is a ROTATION in document order over the cards at least half on
-  screen (SPEC §3): the stage moves on at a pass boundary, once the specimen has had four
-  seconds, so a short script loops rather than flickering past and a long one is never cut
-  off. The boundary arrives as a `vd-pass` event on the stage, which is the player's
+  Which card holds it is a ROTATION in document order over the cards at least three
+  quarters on screen (SPEC §3): the stage moves on at a pass boundary, once the specimen
+  has had four seconds, so a short script loops rather than flickering past and a long one
+  is never cut off. Scrolling a quarter of the playing card away moves it on immediately
+  instead, but only ever to another card: with nothing else qualifying, the one holding
+  the stage keeps it. The boundary arrives as a `vd-pass` event on the stage, which is the player's
   `onPass` host hook; a specimen that never reaches one (no script, a chunk still loading)
   is moved on by the same four-second watchdog. A pointer or focus on a card outranks the
   rotation and pins it there, and the rotation resumes FROM that card. Reduced motion does

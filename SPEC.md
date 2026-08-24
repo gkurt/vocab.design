@@ -344,12 +344,16 @@ four seconds are up rather than being a flicker on the way past. A specimen that
 reaches a boundary (no choreography, or a chunk still loading) is moved on by the same
 four-second clock, so nothing can stall the page.
 
-Everything is decided by what a reader can see. Only the cards at least half on screen are
-in the rotation, so it never plays to an empty room, and a specimen arriving in the
-viewport is what starts it up again: on arrival at a page, or after a scroll takes the
-playing card away, the stage goes to the topmost visible card. It does not interrupt a
-demonstration that is still on screen to greet a newcomer, because a scroll brings several
-cards in at once and the rotation is already on its way to them.
+Everything is decided by what a reader can see. A card is in the rotation while at least
+three quarters of it is showing, which is a floor for arriving as well as for leaving: a
+card creeping in at the bottom edge cannot take the stage before it is really there, and
+scrolling a quarter of the playing card away hands the stage on at once, without waiting
+for a boundary. A demonstration half out of the frame is one the reader has already left.
+The stage goes to the topmost card that qualifies, on arrival at a page and after every
+scroll. It does not interrupt a demonstration that is still on screen to greet a newcomer,
+because a scroll brings several cards in at once and the rotation is already on its way to
+them. And it only ever hands over to somewhere: at a scroll position where nothing
+qualifies, the card holding the stage keeps it rather than the page going still.
 
 The reader's pointer outranks all of it. Hovering or focusing a card gives it the stage at
 once and it keeps it until the pointer leaves, however long that is; the rotation then
