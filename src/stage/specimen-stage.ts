@@ -70,7 +70,10 @@ class VdStage extends HTMLElement {
   /** Everything #setup wired to something outside this element, in the order to undo it. */
   #teardown: (() => void)[] = [];
 
-  static observedAttributes = ['data-hold'];
+  /** Set while a listing's badge is asking for identify, so the closure can answer late. */
+  #identify: ((on: boolean) => void) | undefined;
+
+  static observedAttributes = ['data-hold', 'data-identify'];
 
   connectedCallback(): void {
     this.#ready ??= this.#setup();
@@ -84,6 +87,7 @@ class VdStage extends HTMLElement {
    */
   disconnectedCallback(): void {
     for (const undo of this.#teardown.splice(0)) undo();
+    this.#identify = undefined;
     this.#player = undefined;
     this.#mountRoot = undefined;
     // A reconnected stage sets itself up again; the shadow root it already has is reused.
@@ -97,6 +101,9 @@ class VdStage extends HTMLElement {
    */
   attributeChangedCallback(name: string): void {
     if (name === 'data-hold') this.#player?.hold(this.dataset.hold !== undefined);
+    // Identify from outside the stage: a listing card has no control bar, so the badge
+    // that says the specimen is playing is also what points the term out (SPEC §3).
+    else if (name === 'data-identify') this.#identify?.(this.dataset.identify !== undefined);
   }
 
   /**
@@ -350,6 +357,13 @@ class VdStage extends HTMLElement {
       identifyHold = autoplay;
       void enterPose().then(place);
     };
+
+    // A whole-scene subject has no part to point at, so the request is refused rather
+    // than answered with a ring around the frame the specimen already sits in (SPEC §5).
+    this.#identify = (on) => {
+      if (pointable) setIdentify(on);
+    };
+    if (this.dataset.identify !== undefined) this.#identify(true);
 
     const identifyButton = this.querySelector<HTMLElement>('[data-stage-identify]');
     if (!pointable) identifyButton?.remove();
