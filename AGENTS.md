@@ -92,10 +92,11 @@ src/stage/surface.ts        #   the two isolation modes behind one shape; nothin
 src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
 src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, travel never does
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
-src/pages/                  # index, [slug] (terms + alias redirects), [slug].md, terms.json, llms.txt
+src/pages/                  # index (THE directory: categories, facets, every name A-Z), [slug]
+                            #   (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
-src/pages/tags/             #   /tags directory + /tags/[tag], one page per cross-cutting facet
-src/pages/browse/           #   /browse (names by category) + /browse/[category] (with definitions)
+src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
+src/pages/browse/           #   /browse/[category] (with definitions); the front page is the directory
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
 src/components/SearchPanel.astro # the search itself, rendered as the page or in the modal
@@ -107,6 +108,7 @@ src/components/analytics.ts #   chrome wiring: relation clicks and the alias han
 src/lib/track.ts            #   track(): the one way anything talks to analytics
 src/lib/page-type.ts        #   what kind of page a path is (terms live at the root)
 src/lib/search-signals.ts   #   what "found the right thing" means, and its tests
+src/lib/nearest.ts          #   the nearest spelling to what was typed: 404 and search share it
 src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro dev` (dev only)
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 scripts/validate-terms.ts   # Content gates run by `bun validate`
@@ -130,6 +132,17 @@ and the two differ in exactly two ways: the page owns the address bar (`data-syn
 so a search is a shareable link and survives a reload) while the modal leaves it alone,
 and the modal carries a link out to `/search` whose `?q=` follows the typing. `/search`
 itself renders no modal, because the page already is one.
+
+Both carry two filters, category and facet, each defaulting to All and each rendered from
+its closed enum rather than from Pagefind's `filters()`. A filter with an empty box is a
+listing of that facet, which is what replaced the deleted `/browse` and `/tags` indexes.
+The index side is two attributes on the term page: `data-pagefind-filter` for the category
+on the article, and one per facet on the chip that already names it, since an explicit
+value ignores the element's own text and repeated keys aggregate into a list.
+
+**Gotcha**: `dialog[data-search-dialog]` must state its `display` under `[open]`. A closed
+`<dialog>` is `display: none` by UA default, and an unconditional `display: flex` beats
+that, which renders the whole search panel inline at the foot of every page in the chrome.
 
 The nav trigger stays a real `<a href="/search">` marked `data-search-open`:
 `SearchDialog.ts` intercepts a plain left click and leaves a modified or middle click to
@@ -201,6 +214,14 @@ recorder instead.
 the term page through `sessionStorage` (written before the meta refresh, read and cleared
 by `analytics.ts`, and only credited when the target slug matches `data-term`). That
 script is emitted only when a measurement ID is set.
+
+A search that finds nothing is retried twice before it is reported as a failure: once as
+a misspelling, once with its vaguest words dropped (SPEC §3). The spellings come from
+`/paths.json` and the matching from `src/lib/nearest.ts`, the same pair the 404 page uses
+to answer `/skeumorphism`, and the dictionary is fetched only once a search has already
+failed. Misspellings are never content: there is no frontmatter field for them, because
+typos are unbounded and the vocabulary is not. A typo that recurs in the analytics
+(`search_corrected`) earns a real alias, which is a different thing with its own page.
 
 **Gotcha**: Pagefind's index does not exist at Astro build time, so `<vd-search>` must
 reach it through a dynamic `import()` of a computed specifier marked `/* @vite-ignore */`.

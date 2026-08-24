@@ -73,6 +73,17 @@ export function isTermTag(tag: string): boolean {
   return (TERM_TAGS as readonly string[]).includes(tag);
 }
 
+/**
+ * How a facet reads in the chrome. A term-named facet reads as its word, because that is
+ * what it is (`dark pattern`, never `dark-pattern`); an ordinary tag has no word of its
+ * own, so it reads as the tag, the same spelling a term page's chip carries. Derivable
+ * from the tag alone, so anything listing the facets can label them without loading the
+ * collection to find the named term.
+ */
+export function tagLabel(tag: string): string {
+  return isTermTag(tag) ? tag.replaceAll('-', ' ') : tag;
+}
+
 /** Whether a term declares membership of `tag`, which is what derived membership reads. */
 function declares(term: TermEntry, tag: string): boolean {
   return FAMILY_EDGES.some(({ kind }) => term.data.relations[kind].includes(tag));
@@ -97,7 +108,7 @@ export function facets(terms: TermEntry[]): TagFacet[] {
     const named = isTermTag(tag);
     const term = named ? bySlug.get(tag) : undefined;
     const members = named ? terms.filter((t) => declares(t, tag)) : terms.filter((t) => t.data.tags.includes(tag));
-    return { tag, label: term ? term.data.name.toLowerCase() : tag, blurb: TAG_BLURBS[tag], term, terms: members.sort(byName) };
+    return { tag, label: tagLabel(tag), blurb: TAG_BLURBS[tag], term, terms: members.sort(byName) };
   });
 }
 

@@ -56,34 +56,55 @@ const onSearchPage = path.endsWith('/search');
       const theme = localStorage.getItem("theme");
       if (theme === "light" || theme === "dark")
         document.documentElement.dataset.theme = theme;
+      // Which modifier the search chord is spelled with. Set here rather than in the
+      // deferred script so the header paints the right key once: both spellings are real
+      // text in the markup and CSS hides the wrong one, so there is nothing to reflow.
+      document.documentElement.dataset.chord = /mac|iphone|ipad|ipod/i.test(
+        navigator.platform || navigator.userAgent,
+      )
+        ? "apple"
+        : "other";
     </script>
     <slot name="head" />
   </head>
   <body>
-    <header
-      class="mx-auto flex max-w-3xl items-baseline justify-between gap-4 px-5 py-6"
-    >
-      <a
-        href={pageUrl("/")}
-        class="font-serif text-lg font-semibold tracking-tight">vocab.design</a
+    {/* The chrome's one piece of furniture, and it stays out of the way: transparent and
+        borderless while the page is at rest, solid with a hairline under it the moment
+        anything has scrolled beneath. The sentinel above it is what answers "has it": a
+        few pixels pinned to the top of the document, whose leaving the viewport IS the
+        header being stuck. It takes no room, because it is out of flow. */}
+    <div class="vd-header-sentinel" aria-hidden="true"></div>
+    <div data-header class="sticky top-0 z-40">
+      <header
+        class="mx-auto flex max-w-3xl items-baseline justify-between gap-4 px-5 py-4"
       >
-      <nav class="flex items-center gap-5 text-sm text-muted">
-        <a href={pageUrl("/browse")} class="hover:text-ink">Browse</a>
-        <a href={pageUrl("/tags")} class="hover:text-ink">Facets</a>
-        <a href={pageUrl("/glossary")} class="hover:text-ink">A&ndash;Z</a>
         <a
-          href={pageUrl("/search")}
-          data-search-open={onSearchPage ? undefined : true}
-          aria-current={onSearchPage ? "page" : undefined}
-          class="hover:text-ink">Search</a
+          href={pageUrl("/")}
+          class="font-serif text-lg font-semibold tracking-tight">vocab.design</a
         >
-        <button
-          data-theme-toggle
-          class="cursor-pointer hover:text-ink"
-          title="Toggle theme">◐</button
-        >
-      </nav>
-    </header>
+        <nav class="flex items-center gap-4 text-sm text-muted sm:gap-5">
+          <a href={pageUrl("/glossary")} class="hover:text-ink">A&ndash;Z</a>
+          <a
+            href={pageUrl("/search")}
+            data-search-open={onSearchPage ? undefined : true}
+            aria-current={onSearchPage ? "page" : undefined}
+            class="group inline-flex items-baseline gap-1.5 hover:text-ink"
+          >
+            Search
+            <kbd class="vd-chord">
+              <span class="vd-chord-apple">&#8984;</span><span
+                class="vd-chord-other">Ctrl&nbsp;</span
+              >K
+            </kbd>
+          </a>
+          <button
+            data-theme-toggle
+            class="cursor-pointer hover:text-ink"
+            title="Toggle theme">◐</button
+          >
+        </nav>
+      </header>
+    </div>
     <main class="mx-auto max-w-3xl px-5 pt-6 pb-24">
       <slot />
     </main>
@@ -98,6 +119,23 @@ const onSearchPage = path.endsWith('/search');
     {!onSearchPage && <SearchDialog />}
     <script>
       import "#src/components/analytics.ts";
+
+      // Solid-when-stickied, from the one fact CSS cannot ask for on its own: whether
+      // anything has scrolled past. An observer on the sentinel rather than a scroll
+      // listener, because the question is about layout and the observer answers it from
+      // layout: it is right however the page got where it is, a reader's wheel, a
+      // restored position, an anchor, or a reflow that moved the ground underneath.
+      const header = document.querySelector("[data-header]");
+      const sentinel = document.querySelector(".vd-header-sentinel");
+      // Two small care points, both about the shape of the API rather than about this
+      // header: one delivery can carry several records for the same target, and only the
+      // newest describes where the page is now; and the observer is held in a variable,
+      // because an unreferenced one may be collected out from under its own observation.
+      const stuck = new IntersectionObserver((entries) => {
+        const latest = entries.at(-1);
+        if (latest) header?.toggleAttribute("data-stuck", !latest.isIntersecting);
+      });
+      if (header && sentinel) stuck.observe(sentinel);
 
       document
         .querySelector("[data-theme-toggle]")

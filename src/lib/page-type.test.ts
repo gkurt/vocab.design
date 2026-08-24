@@ -5,12 +5,10 @@ describe('pageType', () => {
   test('names each shape of page', () => {
     expect(pageType('/')).toBe('home');
     expect(pageType('/toast')).toBe('term');
-    expect(pageType('/browse')).toBe('browse');
     expect(pageType('/browse/component')).toBe('category');
     expect(pageType('/glossary')).toBe('glossary');
     expect(pageType('/glossary/s')).toBe('letter');
     expect(pageType('/glossary/other')).toBe('letter');
-    expect(pageType('/tags')).toBe('facets');
     expect(pageType('/tags/a11y')).toBe('facet');
     expect(pageType('/search')).toBe('search');
   });
@@ -18,7 +16,7 @@ describe('pageType', () => {
   test('reads through a trailing slash, which is how the site is served', () => {
     expect(pageType('/toast/')).toBe('term');
     expect(pageType('/browse/component/')).toBe('category');
-    expect(pageType('/tags/')).toBe('facets');
+    expect(pageType('/tags/a11y/')).toBe('facet');
   });
 
   test('strips the base, or the home page of a subpath deploy reads as a term', () => {

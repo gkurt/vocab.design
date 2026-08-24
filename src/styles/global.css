@@ -49,6 +49,75 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* The sticky header. Transparent over a page at rest so the chrome recedes (SPEC §4),
+   and solid the moment anything has scrolled beneath it, because type over type is the
+   one thing a header must never be. `[data-stuck]` comes from the chrome's own script:
+   whether the page has scrolled is the single fact CSS cannot ask for. */
+
+/* The sentinel the observer watches: a few pixels at the top of the document, out of
+   flow so it takes no room, and tall enough that a rubber-band overscroll does not
+   flicker the header on and off at the boundary. */
+.vd-header-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 4px;
+  pointer-events: none;
+}
+
+[data-header] {
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+[data-header][data-stuck] {
+  background: var(--vd-paper);
+  border-bottom-color: var(--vd-line);
+}
+
+/* An in-page anchor has to clear the header it would otherwise land under. */
+html {
+  scroll-padding-top: 4.5rem;
+}
+
+/* The search chord, in the header beside the word. Both spellings ship as real text and
+   the wrong one is hidden, so the key is selectable, readable to a screen reader, and
+   settled before first paint (`data-chord` is set in the head). No attribute at all means
+   no JavaScript, and Apple's glyph is the better guess for a reader browsing a design
+   site with it off. */
+.vd-chord {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--vd-muted);
+  border: 1px solid var(--vd-line);
+  border-radius: 0.25rem;
+  padding: 0.1875rem 0.3125rem;
+  white-space: nowrap;
+}
+
+.vd-chord-other {
+  display: none;
+}
+
+:root[data-chord="other"] .vd-chord-apple {
+  display: none;
+}
+
+:root[data-chord="other"] .vd-chord-other {
+  display: inline;
+}
+
+/* A phone has no keyboard to press it with. */
+@media (max-width: 30rem) {
+  .vd-chord {
+    display: none;
+  }
+}
+
 /* Term article prose — dictionary voice. */
 .article {
   font-family: var(--font-serif);
@@ -65,6 +134,55 @@ body {
   color: var(--vd-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* The search's two filter selects. Native `<select>`, because the whole widget is a
+   closed list of one choice and the platform already owns that: keyboard, type-ahead,
+   and a touch picker on a phone. `appearance: none` to get the chrome's own shape, with
+   the caret drawn from two gradients so no asset ships for it, and `color-scheme` so the
+   dropdown the browser opens is painted in the theme the page is in. `[data-active]`
+   comes from the element: a filter that is narrowing something has to look unlike All. */
+.vd-select {
+  appearance: none;
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--vd-muted);
+  background-color: var(--vd-surface);
+  border: 1px solid var(--vd-line);
+  border-radius: 9999px;
+  padding: 0.25rem 1.75rem 0.25rem 0.75rem;
+  cursor: pointer;
+  color-scheme: light;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    right 0.85rem center,
+    right 0.6rem center;
+  background-size:
+    0.3rem 0.3rem,
+    0.3rem 0.3rem;
+  background-repeat: no-repeat;
+}
+
+:root[data-theme="dark"] .vd-select {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .vd-select {
+    color-scheme: dark;
+  }
+}
+
+.vd-select:hover,
+.vd-select:focus-visible {
+  border-color: var(--vd-accent);
+  color: var(--vd-ink);
+}
+
+.vd-select[data-active] {
+  border-color: var(--vd-accent);
+  color: var(--vd-ink);
 }
 
 /* Search hits. Pagefind wraps each match in <mark>, whose browser default is a solid
@@ -92,7 +210,10 @@ body {
    of excerpt, and the reading column (48rem) makes every one of them wrap. Top-anchored
    rather than centred, so the box does not jump as results arrive. */
 dialog[data-search-dialog] {
-  display: flex;
+  /* `[open]` is load-bearing: a closed dialog is display:none by UA default, and stating
+     `display: flex` unconditionally beats that, which renders the whole search panel
+     inline at the foot of every page it is in the chrome of. */
+  display: none;
   flex-direction: column;
   width: min(56rem, calc(100vw - 2rem));
   max-width: none;
@@ -118,6 +239,10 @@ dialog[data-search-dialog]::backdrop {
    the results should not take the article with it. */
 html:has(dialog[data-search-dialog][open]) {
   overflow: hidden;
+}
+
+dialog[data-search-dialog][open] {
+  display: flex;
 }
 
 /* A phone has no room to spare: the box takes the screen it is given, minus a margin

@@ -144,10 +144,12 @@ must (enforced by `bun validate`).
 `tags` is a closed enum in `src/lib/schema.ts` beside `CATEGORIES`, with one blurb per
 tag in `src/lib/tags.ts`. A category answers *what kind of thing is this*, and a term
 has exactly one; a facet answers *what concern does this serve*, and a term may have
-several. Facets are browsable at `/tags` and one page each at `/tags/{tag}`.
+several. Every facet is listed on the front page, with one page each at `/tags/{tag}`, and
+either is also a filter on the search (§3).
 
-`/tags` also lists the one grouping a reader will look for there and not find as a facet:
-the nine categories, which are a filing decision rather than a concern that cuts across.
+The front page carries the categories in the same breath, because they are the grouping a
+reader looking for a facet will reach for first: a category is a filing decision rather
+than a concern that cuts across, and seeing both lists side by side is what says so.
 
 Three rules keep the vocabulary from inflating, all gated by `bun validate`:
 
@@ -221,8 +223,8 @@ not the category's own members.
 - **Tailwind CSS v4** for chrome styling; specimen kit uses its own plain CSS (§5).
 - **Zero JS by default.** Interactivity ships as custom elements, progressively
   enhanced; no framework runtime on term pages. The chrome's own budget is two small
-  scripts on every page (the theme toggle and the search modal's opener), and the search
-  itself loads on the first open.
+  scripts on every page (the theme toggle plus the header's stuck flag, and the search
+  modal's opener), and the search itself loads on the first open.
 - **Bun** for tooling, `bun test` for unit tests, **Playwright** (`e2e/`) for
   choreography execution and smoke tests.
 - **Search**: Pagefind at build time.
@@ -247,21 +249,29 @@ those are equivalent. Under that format Astro reports
 - `/{slug}` — term page, top level (`vocab.design/bento-grid`).
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".
-- `/tags` (the facet directory) · `/tags/{tag}` (one facet, grouped by category; three of
-  them are also terms, and carry a bridge to `/{tag}`, §2.5).
-- `/browse` (all terms by category, names only) · `/browse/{category}` (that category,
-  with definitions, plus the facets it reaches into).
+- `/` — the front page IS the directory. It carries the nine categories, every facet, and
+  the name of every term A to Z in columns, so the whole vocabulary is reachable in one
+  scroll from the one URL everyone already has. There is no `/browse` and no `/tags`
+  index: a directory page above a directory page is a click that says nothing, and the
+  front page had nothing better to spend its length on.
+- `/tags/{tag}` (one facet, grouped by category; three of them are also terms, and carry a
+  bridge to `/{tag}`, §2.5).
+- `/browse/{category}` (that category, with definitions, plus the facets it reaches into).
+  Both live under a prefix whose index does not exist, which is deliberate: the prefix is
+  what keeps a category or a facet from competing with the term namespace at the root, and
+  it stays spent in `src/lib/routes.ts` for exactly that reason.
 - `/glossary` (the A–Z letter index) · `/glossary/{letter}` (every term AND alias under
   that letter, aliases shown resolving to their term; the non-alphabetic bucket is
   `/glossary/other`).
 - `/rss.xml` (the newest 100 entries, ordered by `created`; the archive is `/glossary`).
-- `/paths.json` (every slug the site answers to, so the 404 page can guess without
-  downloading the 870KB `/terms.json`).
+- `/paths.json` (every slug the site answers to, so the 404 page and the search box can
+  both correct a misspelling without downloading the 870KB `/terms.json`).
 - `/404` (the one page nobody links to: it reads the URL that missed and suggests the
   nearest headwords, which GitHub Pages serves for any unknown path).
 - `/search` (Pagefind, the one thing on the site that needs JavaScript). It works in dev
   too, against the last build's index, which a dev-only integration serves out of
-  `dist/pagefind/`.
+  `dist/pagefind/`. Also the fallback for the two deleted directories: a category or a
+  facet is a filter there, so the listing they offered is still a URL.
 
 The sitemap is an allowlist, not a dump of what was built. It carries the terms and the
 pages that list them, and nothing else: not the alias redirects, which are four fifths of
@@ -282,23 +292,59 @@ excerpt, and the reading column wraps every one of them.
 The nav link is the same link either way. It points at `/search`, and the modal is what a
 plain left click does instead: a modified click, a middle click, or no JavaScript at all
 still opens the page, in a new tab when that is what was asked for. `/` and Cmd/Ctrl+K
-open the modal too. The modal never touches the address bar, because it is a guest on
+open the modal too, and the chord is printed beside the word in the header rather than
+left to be discovered. The modal never touches the address bar, because it is a guest on
 someone else's page, and it carries the typing out to `/search?q=` for a reader who
 decides they want the page after all.
 
+Both carry the same two filters, **category** and **facet**, each defaulting to All. They
+are native `<select>`s over the two closed enums (§2.2, §2.5) rather than Pagefind's own
+`filters()`, so the row renders with the page instead of after a round trip, and they are
+what makes the deleted directories no loss: a facet with no query typed is that facet's
+listing, ranked by nothing and paged like any other result set. On `/search` they join the
+query in the URL (`?q=&category=&tag=`), so a narrowed search is still a link someone can
+send; in the modal they ride out to the page on the same parameters.
+
+The index carries them without a second pass: `data-pagefind-filter` for the category on
+the term article, and one for each facet on the chip that already names it, since an
+explicit filter value ignores the element's own text and repeated keys aggregate into a
+list. Derived membership (§2.5) therefore filters correctly for free, because the chips
+are derived.
+
 Only term pages are indexed. `data-pagefind-body` on the term article is what does it:
 marking a body anywhere makes Pagefind index only marked pages, so the alias redirects,
-`/browse`, `/glossary`, `/tags` and the unlinked `/specimen` documents fall out without a
+the front page, the listings and the unlinked `/specimen` documents fall out without a
 single exclusion rule. Inside a term page the headword is weighted 10, its aliases 8, and
 the definition and `useWhen` 6, while the specimen and the Related list are ignored: a
 specimen's labels are the loudest nonsense in the index, and the Related list is nothing
 but other terms' names, which would make every page match every neighbour's word.
 
-A multi-word query that returns nothing is retried without its vaguest words, because
-Pagefind ANDs every term and a reader describing a thing they cannot name types a
-sentence. "what do you call the little grip dots" matches no page as an AND; the search
-scores each word by how many pages it hits alone, keeps the most selective few, and says
-which words actually ran.
+A query that returns nothing is retried, twice, and told about either time.
+
+First as a misspelling, because the thing a reader types here IS a name and a name is a
+thing you can get one letter wrong. `skeumorphism` is not a failed search, it is a
+successful one with a vowel in the wrong place, and the site already answered that slip
+at the other door: the same typing in the URL bar reaches the 404 page, which suggests
+the term. So the search box reads the same `/paths.json` through the same matcher
+(`src/lib/nearest.ts`), and the correction is deliberately narrower than the 404's
+suggestions, because a suggestion costs a glance while a correction runs a search on the
+reader's behalf. An edit budget scaled to the length of the word (nothing under four
+characters, where `tab`, `nav` and `lab` are all one edit apart), transposition counted
+as the single slip it is, and no answer at all when two terms are equally close.
+
+Then without its vaguest words, because Pagefind ANDs every term and a reader describing
+a thing they cannot name types a sentence. "what do you call the little grip dots"
+matches no page as an AND; the search scores each word by how many pages it hits alone,
+keeps the most selective few, and says which words actually ran. That per-word pass is
+also where a typo inside a longer question gets fixed, and only there: a word is
+respelled when the corpus has never seen it, never merely because the slugs lack it.
+`grip` is not in any slug and is one edit from `grid`, and a reader who typed it was
+right.
+
+Misspellings are not content. There is no field for them and there will not be one:
+typos are unbounded and the dictionary is 4,923 spellings, so the finite side is the one
+worth writing down. A slip that shows up in the analytics hundreds of times is a spelling
+readers actually believe in, and that one earns a real alias.
 
 Categories live under `/browse/` rather than at the top level, which is a deliberate
 departure from an earlier draft of this section. Terms own the root namespace, so a
@@ -322,6 +368,18 @@ docs site. The chrome must recede so specimens read as the content.
   part-of-speech-style category tag (*component*, *motion*); "also called:" alias line
   styled like pronunciation variants; cross-references as the visible link apparatus.
 - **Tokens**: CSS custom properties under `--vd-*`, mapped into Tailwind v4 `@theme`.
+- **The header is sticky and recedes when it can.** It is transparent and borderless while
+  the page is at rest, so at the top of a document there is no bar at all, and it takes a
+  solid paper background and a single hairline under it the moment anything has scrolled
+  beneath, because type over type is the one thing a header must never be. A thin rule and
+  nothing else: a blurred band under a header is a gradient the reader has to look past,
+  and on a page whose whole job is to be read it costs more than the edge it hides. Whether
+  the page has scrolled is the one fact CSS cannot ask for, so `[data-stuck]` comes from the
+  chrome's own script; both the background and the rule are stylesheet. It is an
+  `IntersectionObserver` on a few pixels pinned to the top of the document rather than a
+  scroll listener, because the question is about layout and the observer answers it from
+  layout: it is right however the page came to be where it is, a reader's wheel, a
+  restored scroll position, a link to an anchor, or a reflow that moved the ground.
 
 ## 5. Specimen kit
 
@@ -910,9 +968,10 @@ What is measured, beyond the page views GA collects on its own:
 
 | Event | Says |
 | --- | --- |
-| `search` | a settled query that found something: `results`, whether the top hit's **headword** contains what was typed (`names_result`), how many words the salvage pass had to drop (`dropped_words`), and `surface` (page or modal) |
-| `search_no_results` | nothing matched, even after dropping words |
+| `search` | a settled query that found something: `results`, whether the top hit's **headword** contains what was typed (`names_result`), how many words the salvage pass had to drop (`dropped_words`), `surface` (page or modal), and the `category` / `tag` it was narrowed to when either filter was off All |
+| `search_no_results` | nothing matched, even after correcting the spelling and dropping words |
 | `search_distant` | it only matched after dropping words, with `ran` (what actually ran) |
+| `search_corrected` | it only matched once respelled, with `corrected` (what actually ran). A misspelling that recurs is a spelling readers believe in, and the answer to that one is an alias |
 | `search_result_click` | which result was taken, and at what `position`: position IS the relevance test |
 | `search_abandoned` | results were shown and nobody took one, reported when the modal closes or the page goes away |
 | `search_open` | the modal was opened, and how: nav, `/`, or Cmd/Ctrl+K |
@@ -923,7 +982,11 @@ What is measured, beyond the page views GA collects on its own:
 | `page_type`, `term_category` | on every event, because terms live at the root: the URL cannot say what kind of page it is, and never says a term's category |
 
 A query is only reported once it has stood still for a beat, so the property collects
-searches a reader meant rather than the prefixes of words ("k", "ke", "keb").
+searches a reader meant rather than the prefixes of words ("k", "ke", "keb"). A filter with
+an empty box is browsing rather than asking, so it reports nothing: there is no query to
+have failed. The filters ride along on the three query events, which is what makes a
+failure legible in the only way that matters here, since "nothing for *grabber* in
+accessibility" is a different reading list from "nothing for *grabber*".
 
 A build that carries an ID measures wherever it is served, localhost included, which is how
 the wiring gets checked before a deploy. Those hits carry `debug_mode`, so they arrive in

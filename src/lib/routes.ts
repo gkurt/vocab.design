@@ -5,9 +5,16 @@
  * left with exactly the alias redirects to drop.
  */
 export const SECTIONS = ['browse', 'glossary', 'search', 'tags'] as const;
+/* `browse` and `tags` are namespace prefixes rather than pages: neither directory index
+   exists any more (the front page is the directory), but `/browse/{category}` and
+   `/tags/{tag}` still live under them, so both names stay spent. */
 
 /** The sections, plus the frame documents, which are not pages at all (SPEC §6). */
 export const RESERVED = new Set<string>([...SECTIONS, 'specimen']);
 
-/** Every non-term path prose is allowed to link to: the sections, the exports, the feed. */
-export const SITE_ROUTES = new Set(['/', '/browse', '/glossary', '/search', '/tags', '/llms.txt', '/terms.json', '/rss.xml']);
+/**
+ * Every non-term path prose is allowed to link to: the pages, the exports, the feed.
+ * `/browse` and `/tags` are absent because neither is a page; a prose link to a category
+ * or a facet names the leaf directly, which `bun validate` checks against the enums.
+ */
+export const SITE_ROUTES = new Set(['/', '/glossary', '/search', '/llms.txt', '/terms.json', '/rss.xml']);

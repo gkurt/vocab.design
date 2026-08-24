@@ -11,6 +11,8 @@
  * `dialog` is the modal in the chrome: the input is the top edge of the box, the results
  * scroll under it, and the URL is left alone (a term page must not collect a `?q=`).
  */
+import { CATEGORIES, TAGS } from '#src/lib/schema.ts';
+import { tagLabel } from '#src/lib/tags.ts';
 import { pageUrl } from '#src/lib/url.ts';
 
 interface Props {
@@ -24,11 +26,25 @@ const dialog = variant === 'dialog';
 // element a base to concatenate: pageUrl('') is '/', which builds '//pagefind/...'.
 const bundle = pageUrl('/pagefind/pagefind.js');
 const index = pageUrl('/pagefind/');
+// Every spelling the site answers to, for correcting a query that found nothing. Same
+// rule as the two above: resolved by the page, because the element must never build a
+// path out of a base string.
+const paths = pageUrl('/paths.json');
+
+/**
+ * The two ways to narrow a search, from the enums rather than from Pagefind's own
+ * `filters()`: both are closed sets (SPEC §2.2, §2.5), the site already treats them as
+ * the source of truth, and reading them here means the row is rendered rather than
+ * assembled after an async round trip. Both default to All, which is a search of
+ * everything and the only state the URL leaves out.
+ */
+const facetOptions = TAGS.map((tag) => ({ tag, label: tagLabel(tag) }));
 ---
 
 <vd-search
   data-bundle={bundle}
   data-index={index}
+  data-paths={paths}
   data-sync-url={dialog ? undefined : "true"}
   data-surface={dialog ? "modal" : "page"}
   class={dialog ? "flex min-h-0 flex-1 flex-col" : "block"}
@@ -47,13 +63,33 @@ const index = pageUrl('/pagefind/');
         : "w-full rounded-lg border border-line bg-surface px-4 py-3 text-lg outline-none focus-visible:border-accent"}
     />
   </label>
+  <div
+    class={dialog
+      ? "flex flex-wrap items-center gap-2 border-b border-line px-4 py-2"
+      : "mt-3 flex flex-wrap items-center gap-2"}
+  >
+    <label>
+      <span class="sr-only">Narrow to a category</span>
+      <select data-search-filter="category" class="vd-select">
+        <option value="">All categories</option>
+        {CATEGORIES.map((category) => <option value={category}>{category}</option>)}
+      </select>
+    </label>
+    <label>
+      <span class="sr-only">Narrow to a facet</span>
+      <select data-search-filter="tag" class="vd-select">
+        <option value="">All facets</option>
+        {facetOptions.map(({ tag, label }) => <option value={tag}>{label}</option>)}
+      </select>
+    </label>
+  </div>
   <p
     data-search-status
     role="status"
     aria-live="polite"
     class={dialog
       ? "border-b border-line px-4 py-2 text-xs text-muted empty:hidden"
-      : "mt-3 min-h-5 text-sm text-muted"}
+      : "mt-3 min-h-5 text-sm text-muted empty:mt-0 empty:min-h-0"}
   >
   </p>
   <div
@@ -91,11 +127,11 @@ const index = pageUrl('/pagefind/');
           it, <a href={pageUrl("/glossary")} class="text-accent underline underline-offset-3">
             the glossary
           </a>{" "}
-          lists every term and alias A to Z, and{" "}
-          <a href={pageUrl("/browse")} class="text-accent underline underline-offset-3">
-            browse
+          lists every term and alias A to Z, and the{" "}
+          <a href={pageUrl("/")} class="text-accent underline underline-offset-3">
+            front page
           </a>{" "}
-          groups them by category.
+          groups them by category and by facet.
         </p>
       </noscript>
     )

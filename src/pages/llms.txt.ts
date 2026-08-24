@@ -22,7 +22,7 @@ export async function GET(): Promise<Response> {
     '',
     '## Facets',
     '',
-    'Cross-cutting groupings, listed at /tags and one page each at /tags/{facet}.',
+    'Cross-cutting groupings, one page each at /tags/{facet} and all of them listed on the front page.',
     'A term has exactly one category and any number of facets.',
     'A facet marked [also a term] is a term too, at /{facet}: its members are derived from',
     'their own variantOf/partOf relations rather than declared, and are never in `tags`.',

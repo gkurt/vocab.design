@@ -5,10 +5,11 @@ specimen, its aliases, and the connections between them. Built on the observatio
 working with AI agents is mostly about knowing the vocabulary and using it correctly.
 
 Every term has one category (what kind of thing it is), any number of cross-cutting
-facets browsable at `/tags`, and a graph of relations: what it contrasts with, what it
-is a variant or part of, what to read next. There are four ways in: `/browse` for the
-whole vocabulary by category, `/glossary` for every name and alias A to Z, `/tags` for
-the facets that cut across categories, and `/search` for full text over every article.
+facets, and a graph of relations: what it contrasts with, what it is a variant or part of,
+what to read next. The front page is the directory: the nine categories, every facet, and
+the name of every term A to Z. From there, `/browse/{category}` lists one category with
+definitions, `/tags/{tag}` lists one facet, `/glossary` carries every name and alias A to
+Z, and `/search` is full text over every article, narrowable to a category or a facet.
 A few facets are words in their own right (dark pattern, microinteraction), so they have
 a definition and a specimen as well as a page of members.
 Search is also a modal from any page (the nav link, `/` or Cmd/Ctrl+K), and it is the one

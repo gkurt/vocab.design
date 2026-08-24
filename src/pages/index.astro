@@ -1,6 +1,7 @@
 ---
 import Base from '#src/layouts/Base.astro';
 import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
+import { LETTERS, letterOf } from '#src/lib/glossary.ts';
 import { CATEGORIES } from '#src/lib/schema.ts';
 import { facets } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
@@ -9,11 +10,28 @@ import { pageUrl } from '#src/lib/url.ts';
 const terms = await getTerms();
 const published = terms.filter((t) => t.data.status !== 'stub');
 const aliasCount = terms.reduce((n, t) => n + t.data.aliases.length, 0);
-const facetCount = facets(terms).filter((f) => f.terms.length > 0).length;
+const populated = facets(terms).filter((f) => f.terms.length > 0);
 const byCategory = CATEGORIES.map((category) => ({
   category,
   count: published.filter((t) => t.data.category === category).length,
 })).filter((group) => group.count > 0);
+
+/**
+ * Every headword, A to Z, in one place. This page IS the directory: there is no /browse
+ * above it and no facet index beside it, so the whole vocabulary has to be readable from
+ * here in one scroll. Names only, sliced by letter and set in columns, because a list
+ * this long is scanned rather than read.
+ *
+ * Terms only, deliberately. The glossary is the list that carries the aliases too, and
+ * repeating 3,888 of them here would bury the words they point at.
+ */
+const named = published.sort((a, b) => a.data.name.localeCompare(b.data.name, 'en', { sensitivity: 'base' }));
+const alphabet = LETTERS.map((letter) => ({
+  letter,
+  terms: named.filter((t) => letterOf(t.data.name) === letter),
+})).filter((group) => group.terms.length > 0);
+
+const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
 
 <Base
@@ -31,18 +49,13 @@ const byCategory = CATEGORIES.map((category) => ({
       say exactly what you mean.
     </p>
     <p class="mt-6 text-sm text-muted">
-      {published.length} terms · {aliasCount} aliases · {facetCount} facets · a
-      specimen on every page
+      {published.length} terms · {aliasCount} aliases · {populated.length} facets
+      · a specimen on every page
     </p>
   </section>
 
   <section class="mb-12">
-    <div class="mb-4 flex items-baseline justify-between gap-4">
-      <h2 class="text-sm tracking-wide text-muted uppercase">By category</h2>
-      <a href={pageUrl("/browse")} class="text-xs text-muted hover:text-ink">
-        browse everything &rarr;
-      </a>
-    </div>
+    <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">By category</h2>
     <ul class="grid gap-2">
       {
         byCategory.map(({ category, count }) => (
@@ -66,63 +79,98 @@ const byCategory = CATEGORIES.map((category) => ({
   </section>
 
   <section class="mb-12">
-    <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">
-      Other ways in
-    </h2>
-    <ul class="grid gap-2">
-      <li>
-        <a
-          href={pageUrl("/tags")}
-          class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
-        >
-          <span class="font-serif text-lg font-semibold group-hover:text-accent"
-            >Facets</span
-          >
-          <span class="ml-2 text-sm text-muted">{facetCount}</span>
-          <p class="mt-1 text-sm text-muted">
-            The groupings that cut across categories: forms, touch, scroll,
-            theming and the rest.
-          </p>
-        </a>
-      </li>
-      <li>
-        <a
-          href={pageUrl("/search")}
-          class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
-        >
-          <span class="font-serif text-lg font-semibold group-hover:text-accent"
-            >Search</span
-          >
-          <p class="mt-1 text-sm text-muted">
-            Full text over every term and article, for when you only half know the
-            word and can describe the thing.
-          </p>
-        </a>
-      </li>
-      <li>
-        <a
-          href={pageUrl("/glossary")}
-          class="group block rounded-lg border border-line bg-surface px-5 py-4 hover:border-accent"
-        >
-          <span class="font-serif text-lg font-semibold group-hover:text-accent"
-            >Glossary</span
-          >
-          <span class="ml-2 text-sm text-muted"
-            >{published.length + aliasCount}</span
-          >
-          <p class="mt-1 text-sm text-muted">
-            A to Z, every term and every alias, because the alias is usually the
-            word you arrived with.
-          </p>
-        </a>
-      </li>
+    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">By facet</h2>
+    <p class="article mb-4 text-sm text-muted">
+      A term has exactly one category, because a term is one kind of thing.
+      Facets cut the other way, collecting terms that answer to the same concern
+      from wherever they are filed. A few are words in their own right, with a
+      definition and a specimen as well as a page of members.
+    </p>
+    <ul class="flex flex-wrap gap-2">
+      {
+        populated.map(({ tag, label, terms: members }) => (
+          <li>
+            <a
+              href={pageUrl(`/tags/${tag}`)}
+              class="inline-block rounded-full border border-line px-3 py-1 text-sm text-muted hover:border-accent hover:text-ink"
+            >
+              {label}
+              <span class="ml-1 opacity-60">{members.length}</span>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 
-  <section class="mb-12 border-t border-line pt-6">
-    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">
-      For agents
-    </h2>
+  <section class="mb-12">
+    <div class="mb-2 flex items-baseline justify-between gap-4">
+      <h2 class="text-sm tracking-wide text-muted uppercase">Every term</h2>
+      <span class="text-xs text-muted">{published.length}</span>
+    </div>
+    <p class="article mb-5 text-sm text-muted">
+      The whole vocabulary, A to Z. Aliases are left out here so the headwords
+      read as a list; the <a
+        href={pageUrl("/glossary")}
+        class="text-accent underline underline-offset-3">glossary</a
+      > carries every spelling the site answers to.
+    </p>
+    <div class="columns-2 gap-x-6 sm:columns-3">
+      {
+        alphabet.map(({ letter, terms: group }) => (
+          <section class="mb-4">
+            <h3
+              id={`letter-${letter === "#" ? "other" : letter}`}
+              class="mb-1 scroll-mt-24 break-after-avoid font-serif text-sm font-semibold uppercase text-muted"
+            >
+              {letter}
+            </h3>
+            <ul>
+              {group.map((t) => (
+                <li class="leading-6">
+                  <a
+                    href={pageUrl(t.data.slug)}
+                    class="text-sm text-muted hover:text-accent"
+                  >
+                    {t.data.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    stubs.length > 0 && (
+      <section class="mb-12">
+        <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">
+          In progress
+        </h2>
+        <p class="article mb-4 text-sm text-muted">
+          These have a definition so links never dead-end. The article and
+          specimen are still to come.
+        </p>
+        <ul class="flex flex-wrap gap-2">
+          {stubs.map((t) => (
+            <li>
+              <a
+                href={pageUrl(t.data.slug)}
+                class="inline-block rounded-full border border-line px-3 py-1 text-sm text-muted hover:text-ink"
+              >
+                {t.data.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="mb-8 border-t border-line pt-6">
+    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">For agents</h2>
     <p class="article text-sm text-muted">
       The whole dictionary is machine-readable: <a
         href={pageUrl("/terms.json")}
@@ -136,4 +184,15 @@ const byCategory = CATEGORIES.map((category) => ({
       >.
     </p>
   </section>
+
+  <p class="text-sm text-muted">
+    <a
+      href={pageUrl("/search")}
+      data-search-open
+      class="underline underline-offset-3 hover:text-ink">Search</a
+    > · <a
+      href={pageUrl("/glossary")}
+      class="underline underline-offset-3 hover:text-ink">Glossary</a
+    >
+  </p>
 </Base>

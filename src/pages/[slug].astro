@@ -167,10 +167,15 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
         type="application/ld+json"
         set:html={JSON.stringify(breadcrumbs)}
       />
+      {/* `data-pagefind-filter` is what lets the search narrow to a category or a facet
+          without a second index. The category sits on the article; each facet rides the
+          chip that already names it, because an explicit value ignores the element's own
+          text and repeated keys aggregate, so the chips ARE the tag filter. */}
       <article
         data-term={d.slug}
         data-pagefind-body
         data-pagefind-meta={`category:${d.category}`}
+        data-pagefind-filter={`category:${d.category}`}
       >
         <p class="text-sm text-muted italic">
           <a
@@ -186,6 +191,7 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
               <a
                 href={pageUrl(`/tags/${tag}`)}
                 class="not-italic hover:text-ink"
+                data-pagefind-filter={`tag:${tag}`}
               >
                 {name.toLowerCase()}
               </a>
@@ -197,6 +203,7 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
               <a
                 href={pageUrl(`/tags/${tag}`)}
                 class="not-italic hover:text-ink"
+                data-pagefind-filter={`tag:${tag}`}
               >
                 {tag}
               </a>

@@ -48,8 +48,12 @@ interface PagefindSearch {
 interface PagefindApi {
   options(opts: Record<string, unknown>): Promise<void>;
   init(): Promise<void>;
-  search(query: string): Promise<PagefindSearch>;
+  /** A null term with filters is "everything in this filter", which is how All works. */
+  search(query: string | null, options?: { filters?: Filters }): Promise<PagefindSearch>;
 }
+
+/** The narrowing in force: `category` and `tag`, each at most one value, each optional. */
+type Filters = Record<string, string>;
 
 /** What a search actually ran, which is not always what was typed. */
 interface Attempt {
@@ -85,6 +89,8 @@ export class SiteSearch extends HTMLElement {
   #status!: HTMLElement;
   #list!: HTMLElement;
   #more!: HTMLButtonElement;
+  /** The category and facet selects, in document order. Both default to All. */
+  #selects: HTMLSelectElement[] = [];
   /** The modal's way out to /search, kept pointing at whatever is in the box. */
   #full: HTMLAnchorElement | null = null;
   #fullHref = '';
@@ -109,8 +115,20 @@ export class SiteSearch extends HTMLElement {
     this.#surface = this.dataset.surface ?? 'page';
     if (!this.#input || !this.#status || !this.#list || !this.#more) return;
 
+    this.#selects = [...this.querySelectorAll<HTMLSelectElement>('[data-search-filter]')];
+
     this.#input.addEventListener('input', () => this.#schedule());
     this.#input.addEventListener('search', () => this.#schedule());
+    // A filter is a click rather than a keystroke, so it runs at once: there is no
+    // half-typed state to wait out, and the debounce would only read as lag.
+    for (const select of this.#selects) {
+      select.addEventListener('change', () => {
+        this.#paintFilters();
+        clearTimeout(this.#timer);
+        clearTimeout(this.#reportTimer);
+        void this.#run(this.#input.value.trim());
+      });
+    }
     this.#more.addEventListener('click', () => this.#render(PAGE_SIZE));
     this.#list.addEventListener('click', (event) => this.#reportClick(event));
     // A search whose results nobody took is the strongest signal there is that the
@@ -126,15 +144,43 @@ export class SiteSearch extends HTMLElement {
     });
 
     // A shared link should show its results, and the query survives a reload. Only where
-    // the query is ours: `?q=` on a term page belongs to whatever put it there.
-    const initial = this.#syncs ? new URLSearchParams(location.search).get('q') : null;
-    if (initial) {
-      this.#input.value = initial;
-      void this.#run(initial);
+    // the query is ours: `?q=` on a term page belongs to whatever put it there. The
+    // filters travel the same way, so a narrowed search is a link someone can send.
+    const params = this.#syncs ? new URLSearchParams(location.search) : new URLSearchParams();
+    const initial = params.get('q') ?? '';
+    for (const select of this.#selects) {
+      const value = params.get(select.dataset.searchFilter ?? '');
+      if (value && [...select.options].some((option) => option.value === value)) select.value = value;
     }
+    this.#paintFilters();
+    if (initial) this.#input.value = initial;
+    if (initial || this.#filters()) void this.#run(initial);
     // Warm the index on first intent rather than on load, so a reader who never
     // searches never pays for it.
     this.#input.addEventListener('focus', () => void this.#pagefind(), { once: true });
+  }
+
+  /** What is narrowing the search, or undefined for All, which is Pagefind's own default. */
+  #filters(): Filters | undefined {
+    const filters: Filters = {};
+    for (const select of this.#selects) {
+      const key = select.dataset.searchFilter;
+      if (key && select.value) filters[key] = select.value;
+    }
+    return Object.keys(filters).length > 0 ? filters : undefined;
+  }
+
+  /** The narrowing in the reader's words, for the status line: "component + forms". */
+  #scope(): string {
+    return this.#selects
+      .filter((select) => select.value)
+      .map((select) => select.selectedOptions[0]?.text ?? select.value)
+      .join(' + ');
+  }
+
+  /** A filter that is narrowing something must not look like the All it started as. */
+  #paintFilters() {
+    for (const select of this.#selects) select.toggleAttribute('data-active', Boolean(select.value));
   }
 
   #schedule() {
@@ -173,9 +219,12 @@ export class SiteSearch extends HTMLElement {
 
   async #run(query: string) {
     const token = ++this.#token;
+    const filters = this.#filters();
     this.#syncUrl(query);
     this.#carryQuery(query);
-    if (query.length < 2) {
+    // A filter on its own is a real search: "every component", "every touch term". Only
+    // an empty box with nothing narrowing it has nothing to run.
+    if (query.length < 2 && !filters) {
       this.#results = [];
       this.#list.replaceChildren();
       this.#more.hidden = true;
@@ -193,19 +242,26 @@ export class SiteSearch extends HTMLElement {
       this.#say('No search index yet. Run `bun run build` once, then reload.');
       return;
     }
-    const attempt = await this.#searchWithSalvage(api, query);
+    const attempt =
+      query.length < 2 ? { results: (await api.search(null, { filters })).results } : await this.#searchWithSalvage(api, query, filters);
     if (token !== this.#token) return; // A later keystroke already owns the results.
     this.#results = attempt.results;
     this.#shown = 0;
     this.#list.replaceChildren();
+    const scope = this.#scope();
     if (this.#results.length === 0) {
       this.#more.hidden = true;
-      this.#say(`Nothing for "${query}". Aliases are indexed, so try the other name for it.`);
+      this.#say(
+        scope
+          ? `Nothing for "${query}" in ${scope}. Widen the filter, or try the other name for it.`
+          : `Nothing for "${query}". Aliases are indexed, so try the other name for it.`,
+      );
       this.#scheduleReport(query, attempt);
       return;
     }
     const count = `${this.#results.length} ${this.#results.length === 1 ? 'result' : 'results'}`;
-    this.#say(attempt.ran ? `${count} for "${attempt.ran}", since the rest of that is not in any article` : count);
+    const within = scope ? ` in ${scope}` : '';
+    this.#say(attempt.ran ? `${count}${within} for "${attempt.ran}", since the rest of that is not in any article` : `${count}${within}`);
     await this.#render(PAGE_SIZE);
     this.#scheduleReport(query, attempt);
   }
@@ -224,11 +280,19 @@ export class SiteSearch extends HTMLElement {
    */
   #scheduleReport(query: string, attempt: Attempt) {
     clearTimeout(this.#reportTimer);
+    // A filter with an empty box is browsing, not asking: there is no query to report.
+    if (query.length < 2) return;
+    const filters = this.#filters() ?? {};
     this.#reportTimer = window.setTimeout(() => {
       const results = attempt.results.length;
       const surface = this.#surface;
       if (results === 0) {
-        track('search_no_results', { search_term: query, surface, words: query.split(/\s+/).filter(Boolean).length });
+        track('search_no_results', {
+          search_term: query,
+          surface,
+          words: query.split(/\s+/).filter(Boolean).length,
+          ...filters,
+        });
         this.#unanswered = null;
         return;
       }
@@ -240,6 +304,7 @@ export class SiteSearch extends HTMLElement {
         top_result: this.#topResult,
         names_result: namesTopResult(query, this.#topResult),
         dropped_words: dropped,
+        ...filters,
       });
       if (dropped > 0) {
         track('search_distant', {
@@ -249,6 +314,7 @@ export class SiteSearch extends HTMLElement {
           results,
           surface,
           top_result: this.#topResult,
+          ...filters,
         });
       }
       this.#unanswered = { query, results };
@@ -287,8 +353,8 @@ export class SiteSearch extends HTMLElement {
    * zero and go first. The reader is told which words actually ran, because showing
    * results for a question nobody asked is worse than showing none.
    */
-  async #searchWithSalvage(api: PagefindApi, query: string): Promise<Attempt> {
-    const first = await api.search(query);
+  async #searchWithSalvage(api: PagefindApi, query: string, filters: Filters | undefined): Promise<Attempt> {
+    const first = await api.search(query, { filters });
     if (first.results.length > 0) return { results: first.results };
 
     const words = query.split(/\s+/).filter((w) => w.length >= MIN_WORD);
@@ -296,7 +362,7 @@ export class SiteSearch extends HTMLElement {
 
     const scored: { word: string; hits: number }[] = [];
     for (const word of words) {
-      const probe = await api.search(word);
+      const probe = await api.search(word, { filters });
       if (probe.results.length > 0) scored.push({ word, hits: probe.results.length });
     }
     if (scored.length === 0) return { results: [] };
@@ -308,7 +374,7 @@ export class SiteSearch extends HTMLElement {
       const kept = new Set(scored.slice(0, keep).map((s) => s.word));
       const ran = words.filter((w) => kept.has(w)).join(' ');
       if (ran === query) continue;
-      const attempt = await api.search(ran);
+      const attempt = await api.search(ran, { filters });
       if (attempt.results.length > 0) return { results: attempt.results, ran };
     }
     return { results: [] };
@@ -358,10 +424,18 @@ export class SiteSearch extends HTMLElement {
     this.#status.textContent = message;
   }
 
-  /** Hand the query to the full page, so leaving the modal does not lose the typing. */
+  /**
+   * Hand the search to the full page, so leaving the modal loses neither the typing nor
+   * the narrowing. Same parameter names the page reads on arrival, which is what makes
+   * the handoff and a pasted link the same thing.
+   */
   #carryQuery(query: string) {
     if (!this.#full) return;
-    this.#full.href = query ? `${this.#fullHref}?q=${encodeURIComponent(query)}` : this.#fullHref;
+    const params = new URLSearchParams();
+    if (query) params.set('q', query);
+    for (const [key, value] of Object.entries(this.#filters() ?? {})) params.set(key, value);
+    const search = params.toString();
+    this.#full.href = search ? `${this.#fullHref}?${search}` : this.#fullHref;
   }
 
   /** Keep the URL shareable without adding a history entry per keystroke. */
@@ -370,6 +444,14 @@ export class SiteSearch extends HTMLElement {
     const url = new URL(location.href);
     if (query) url.searchParams.set('q', query);
     else url.searchParams.delete('q');
+    const filters = this.#filters() ?? {};
+    for (const select of this.#selects) {
+      const key = select.dataset.searchFilter;
+      if (!key) continue;
+      const value = filters[key];
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    }
     history.replaceState(null, '', url);
   }
 }
