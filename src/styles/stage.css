@@ -789,6 +789,60 @@ vd-stage[data-posed] .vd-playing span {
   --vd-carousel-card: min(360px, 100%);
 }
 
+.vd-carousel-frame {
+  position: relative;
+}
+
+/* The two steps, for a column with no peek to reach for: a phone shows one card edge to
+   edge, so the neighbours a wider screen offers are not merely small, they are not there.
+   Drawn over the picture rather than beside the row, at the edge where the card they
+   fetch would be, and only where the controller says the peek has gone: with a peek on
+   screen the neighbour itself is the control, and covering it would take away the
+   modified click that opens a card in a new tab. */
+.vd-carousel-step {
+  display: none;
+}
+
+.vd-carousel[data-edges] .vd-carousel-step {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  /* The picture's own height: the words under it belong to the card, and a strip over
+     them would take the headword's first letters away from the reader's thumb. */
+  height: var(--vd-carousel-picture, 100%);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--vd-muted);
+  cursor: pointer;
+}
+
+.vd-carousel-step--prev {
+  left: 0;
+}
+
+.vd-carousel-step--next {
+  right: 0;
+}
+
+/* The glyph carries its own ground, because what is behind it is a specimen and not a
+   background: enough of the surface to stay legible over any demo, and no more. */
+.vd-carousel-step svg {
+  border-radius: 9999px;
+  padding: 5px;
+  background: color-mix(in oklab, var(--vd-surface) 84%, transparent);
+  box-shadow: 0 0 0 1px var(--vd-line);
+}
+
+.vd-carousel-step:hover,
+.vd-carousel-step:focus-visible {
+  color: var(--vd-ink);
+}
+
 /* The row dissolves at the column's edges rather than being cut off square, so what is
    out there reads as more row and not as a card someone has sliced. The fade is exactly
    as wide as the peek, measured by the controller, which means a column too narrow to

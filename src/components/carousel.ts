@@ -37,6 +37,13 @@ const AUTHORED_WIDTH = 720;
 const FETCH_AFTER = 4;
 /** Ask for another page once the queue is down to this, so it never runs dry mid-row. */
 const QUEUE_LOW = 8;
+/**
+ * A peek narrower than this is not a target: below it the row shows its two steps
+ * instead, because a card the reader cannot reach for is not an offer (SPEC §3).
+ */
+const PEEK_MIN = 28;
+/** The authored box is 720x320, so a card's picture is this much of its width. */
+const PICTURE_RATIO = 320 / 720;
 
 interface Slot {
   root: HTMLElement;
@@ -162,6 +169,12 @@ if (root && frame && track && slots.length > 0) {
     track.style.setProperty('--vd-carousel-x', `${peek - CENTRE * (card + gap())}px`);
     // The edges fade over exactly what shows of the cards out there (SPEC §3).
     frame.style.setProperty('--vd-carousel-fade', `${Math.max(peek, 0)}px`);
+    // With no peek to aim at, the steps take over. They step the same row the same way,
+    // so they are not offered where the neighbours themselves can be reached, and never
+    // to a reader who asked for no motion, whose row does not go round at all.
+    if (rotates && peek < PEEK_MIN && slots.length > 1) root.dataset.edges = '';
+    else delete root.dataset.edges;
+    root.style.setProperty('--vd-carousel-picture', `${card * PICTURE_RATIO}px`);
     for (const slot of slots) slot.box.style.setProperty('--vd-preview-k', `${card / AUTHORED_WIDTH}`);
   };
 
@@ -351,6 +364,12 @@ if (root && frame && track && slots.length > 0) {
     event.preventDefault();
     slide(at > CENTRE ? 1 : -1);
   });
+
+  // The steps are the neighbour click for a row with no visible neighbours, so they do
+  // exactly what clicking one does: bring that side's card to the middle.
+  for (const step of root.querySelectorAll<HTMLElement>('[data-carousel-step]')) {
+    step.addEventListener('click', () => slide(step.dataset.carouselStep === '-1' ? -1 : 1));
+  }
 
   root.addEventListener('pointerenter', () => {
     hovered = true;
