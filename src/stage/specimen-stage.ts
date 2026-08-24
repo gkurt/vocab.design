@@ -216,6 +216,10 @@ class VdStage extends HTMLElement {
       clockUsed: () => clock?.used ?? false,
       reducedMotion,
       offset: surface.offset,
+      // A pass of the choreography is over. Announced on the host element because the
+      // only listener is outside the stage: a listing rotates its one playing specimen
+      // on this boundary (SPEC §3), and nothing inside a stage cares.
+      onPass: () => this.dispatchEvent(new CustomEvent('vd-pass')),
       onStateChange: (state) => {
         this.dataset.state = state;
         // Mirrored inside the specimen so kit animations pause with the player.

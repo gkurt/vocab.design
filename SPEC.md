@@ -326,10 +326,33 @@ its own page where it has a control bar and room to be read.
 
 The cost is bounded by the same scheduler that keeps the motion calm. A category page can
 carry 196 cards, so specimens mount as they approach the viewport, evict as they leave, and
-never exceed eight at once; every one of them stands at its first frame, and the one card
-the reader is pointing at or has focused plays, falling back to the one nearest the middle
-of the screen. A card's box is stage-shaped and empty until its specimen arrives, which is
-also what a reader with no JavaScript sees, so the grid holds its shape either way.
+never exceed eight at once; every one of them stands at its first frame, and one of them
+plays. A card's box is stage-shaped and empty until its specimen arrives, which is also
+what a reader with no JavaScript sees, so the grid holds its shape either way.
+
+**The stage goes round.** Which card plays is a rotation down the page, not a fixed pick:
+the stage passes from specimen to specimen in document order, over the cards on screen and
+no others. It moves on when the specimen holding it reaches the end of a pass of its
+choreography and has been playing for at least four seconds. Both halves are load-bearing.
+The pass boundary is what stops a demonstration being cut off mid-sentence, and it is the
+only moment the stage may change hands, so a short script simply plays again until its
+four seconds are up rather than being a flicker on the way past. A specimen that never
+reaches a boundary (no choreography, or a chunk still loading) is moved on by the same
+four-second clock, so nothing can stall the page.
+
+Everything is decided by what a reader can see. Only the cards at least half on screen are
+in the rotation, so it never plays to an empty room, and a specimen arriving in the
+viewport is what starts it up again: on arrival at a page, or after a scroll takes the
+playing card away, the stage goes to the topmost visible card. It does not interrupt a
+demonstration that is still on screen to greet a newcomer, because a scroll brings several
+cards in at once and the rotation is already on its way to them.
+
+The reader's pointer outranks all of it. Hovering or focusing a card gives it the stage at
+once and it keeps it until the pointer leaves, however long that is; the rotation then
+carries on from that card rather than from wherever it had got to, so a reader who stops
+to watch one term is taken onward from there instead of back. Nothing rotates at all under
+reduced motion, where no specimen plays: passing the stage around would be four seconds of
+remounting, once per card.
 
 Search is a page and a modal, from one implementation. The page is where a search is
 addressable: `?q=` in the URL, so a search is a link someone can send, a tab someone can
@@ -802,15 +825,20 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   scripted pass on request. Interacting wakes the live demo; after the idle beat it
   returns to the pose. This is where a pose is the resting state rather than a moment
   inside identify, so it is also where waking must not cost the reader their click.
-- **One scheduler per page** decides which stage may play: on a listing page only the
-  centered or pointed-at stage animates (others hold their first frame); on a term page
-  the hero stage plays. IntersectionObserver-gated; off-screen stages are fully paused.
-  The scheduler grants the stage; what a listing controls is which stages ASK for it, by
-  moving `data-hold` from one card to another (`src/components/previews.ts`). A held
-  stage is mounted and still: it stops any run, restores a clean mount, and gives the
-  claim back. A stage taken out of the document is discarded rather than parked, and
-  giving up its claim on the way out is what keeps a scrolling list from stranding the
-  stage on a player nobody can reach.
+- **One scheduler per page** decides which stage may play: on a listing page one card
+  animates and the rest hold their first frame; on a term page the hero stage plays.
+  IntersectionObserver-gated; off-screen stages are fully paused. The scheduler grants
+  the stage; what a listing controls is which stages ASK for it, by moving `data-hold`
+  from one card to another (`src/components/previews.ts`). A held stage is mounted and
+  still: it stops any run, restores a clean mount, and gives the claim back. A stage
+  taken out of the document is discarded rather than parked, and giving up its claim on
+  the way out is what keeps a scrolling list from stranding the stage on a player nobody
+  can reach.
+- **A pass boundary is announced, and a listing rotates on it** (§3). The player says so
+  between one pass of the script and the next; a listing takes the hold there, which is
+  what lets the stage move down the page without cutting a demonstration in half. It is
+  the player's only outward signal about the script's shape, and nothing inside a stage
+  listens to it.
 
 ## 8. Choreography
 

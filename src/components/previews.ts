@@ -3,10 +3,21 @@
  *
  * A card carries an empty stage-shaped box. This mounts the real `<vd-stage>` into the
  * boxes near the viewport, holds every one of them at its first frame, and releases
- * exactly one to play: the card the reader is pointing at or has focused, and otherwise
- * the one nearest the middle of the screen. That is the page scheduler's rule from the
- * other side (SPEC §7): the scheduler decides which stage may play, and this decides
- * which ones ask.
+ * exactly one to play. That is the page scheduler's rule from the other side (SPEC §7):
+ * the scheduler decides which stage may play, and this decides which one asks.
+ *
+ * Which one asks is a rotation down the page. The stage passes from specimen to
+ * specimen in document order, and it moves on when the one holding it has finished a
+ * pass of its choreography AND has been playing for at least MIN_PLAY_MS. Both halves
+ * matter: the pass boundary is what stops a demonstration being cut off mid-sentence,
+ * and the floor is what stops a two-second demo from being a flicker on the way past
+ * (a short script simply loops until its four seconds are up). The rotation covers what
+ * is on screen and nothing else, so it never plays to an empty room, and a specimen
+ * arriving in the viewport is what starts it again when nothing is playing.
+ *
+ * A reader's pointer outranks all of it: the card under it takes the stage at once and
+ * keeps it until the pointer leaves, and the rotation then carries on from that card
+ * rather than from wherever it had got to.
  *
  * Everything here is bounded on purpose. A category page can carry 196 cards, so mounted
  * previews are capped and evicted by distance from the viewport, and the passes that
@@ -23,6 +34,10 @@ const MOUNT_MARGIN = '400px 0px';
 const SETTLE_MS = 180;
 /** The authored specimen width a preview scales down from (SPEC §5). */
 const AUTHORED_WIDTH = 720;
+/** The stage is nobody's for less than this: below it a demonstration is a flicker. */
+const MIN_PLAY_MS = 4000;
+/** How much of a preview has to be on screen for it to be worth playing to. */
+const IN_VIEW = 0.5;
 
 interface Card {
   /** The card, which is what a reader points at: the headword and the definition too. */
@@ -56,6 +71,10 @@ if (roots.length > 0) {
     })
     .filter((card): card is Card => card !== undefined);
 
+  // Nothing rotates for a reader who asked for no motion: no specimen plays, so
+  // passing the stage around would be four seconds of remounting, once per card.
+  const rotates = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const mount = (card: Card) => {
     if (card.stage) return;
     const stage = document.createElement('vd-stage');
@@ -78,6 +97,13 @@ if (roots.length > 0) {
     badge?.addEventListener('pointerleave', () => stage.removeAttribute('data-identify'));
     badge?.addEventListener('focus', () => stage.setAttribute('data-identify', ''));
     badge?.addEventListener('blur', () => stage.removeAttribute('data-identify'));
+    // The specimen has finished saying what it has to say (SPEC §7). If it has had its
+    // four seconds and the reader is not standing here, the stage moves down the page.
+    stage.addEventListener('vd-pass', () => {
+      if (!rotates || granted !== card || pointed) return;
+      if (performance.now() - grantedAt < MIN_PLAY_MS) return;
+      advance();
+    });
     card.box.prepend(stage);
     card.stage = stage;
   };
@@ -90,13 +116,35 @@ if (roots.length > 0) {
   };
 
   let granted: Card | undefined;
+  /** When the current specimen took the stage, which is what MIN_PLAY_MS is measured from. */
+  let grantedAt = 0;
+  let watchdog: ReturnType<typeof setTimeout> | undefined;
+
   const grant = (card: Card | undefined) => {
     if (granted === card) return;
+    clearTimeout(watchdog);
     granted?.stage?.setAttribute('data-hold', '');
     granted = card;
+    grantedAt = performance.now();
     if (!card) return;
     mount(card);
     card.stage?.removeAttribute('data-hold');
+    if (rotates) watchdog = setTimeout(() => nudge(card), MIN_PLAY_MS);
+  };
+
+  /**
+   * The rotation cannot rely on the pass boundary alone: a specimen with no
+   * choreography never reaches one, and a chunk still loading has not started. So the
+   * stage is checked once its four seconds are up and moved on if nothing is playing,
+   * and otherwise left to the boundary and asked again later.
+   */
+  const nudge = (card: Card) => {
+    if (granted !== card) return;
+    if (pointed === card || card.stage?.dataset.state === 'attract') {
+      watchdog = setTimeout(() => nudge(card), MIN_PLAY_MS);
+      return;
+    }
+    advance();
   };
 
   /** How far the box is from the middle of the screen, which is what "centred" means here. */
@@ -105,10 +153,34 @@ if (roots.length > 0) {
     return Math.abs(rect.top + rect.height / 2 - innerHeight / 2);
   };
 
-  /** Fully off screen: never granted, however central the arithmetic says it is. */
-  const onScreen = (card: Card) => {
+  /**
+   * On screen enough to be played to: half the picture, or half the screen when the
+   * picture is the taller of the two. A card showing a sliver at the edge is not
+   * somewhere a demonstration should be spent.
+   */
+  const inView = (card: Card) => {
     const rect = card.box.getBoundingClientRect();
-    return rect.bottom > 0 && rect.top < innerHeight;
+    const shown = Math.min(rect.bottom, innerHeight) - Math.max(rect.top, 0);
+    return shown > 0 && shown >= Math.min(rect.height, innerHeight) * IN_VIEW;
+  };
+
+  /** The specimens in the running, in document order: the order the rotation walks. */
+  const queue = () => cards.filter((card) => card.near && inView(card));
+
+  /**
+   * Hand the stage to the next specimen down the page, wrapping at the end. A card that
+   * has scrolled out of the queue is not in the line any more, so this starts from the
+   * top of what IS on screen, which after a scroll is exactly the specimen that just
+   * arrived there.
+   */
+  const advance = () => {
+    const line = queue();
+    if (line.length === 0) {
+      grant(undefined);
+      return;
+    }
+    const at = granted ? line.indexOf(granted) : -1;
+    grant(line[(at + 1) % line.length]);
   };
 
   let pointed: Card | undefined;
@@ -127,8 +199,11 @@ if (roots.length > 0) {
       grant(pointed);
       return;
     }
-    const centred = ranked.find((card) => onScreen(card));
-    grant(centred);
+    // The rotation owns the choice while its specimen is still on screen. Scrolling
+    // past it, or arriving with nothing playing at all, is what puts the stage back at
+    // the top of the visible list.
+    if (granted && queue().includes(granted)) return;
+    advance();
   };
 
   const restack = () => {
@@ -162,13 +237,16 @@ if (roots.length > 0) {
   for (const card of cards) {
     sizer.observe(card.box);
     approach.observe(card.box);
-    // Intent, and the only signal that outranks the centre: the reader is here. Listened
-    // for on the whole card rather than on the picture, because a reader reading the
-    // definition is looking at this term, and the headword is where the keyboard lands.
+    // Intent, and the only signal that outranks the rotation: the reader is here.
+    // Listened for on the whole card rather than on the picture, because a reader
+    // reading the definition is looking at this term, and the headword is where the
+    // keyboard lands.
     const here = () => {
       pointed = card;
       grant(card);
     };
+    // The pointer leaving does not move the stage. The card keeps playing until it
+    // reaches the end of a pass, and the rotation carries on from here.
     const gone = () => {
       if (pointed === card) pointed = undefined;
       restack();

@@ -553,15 +553,23 @@ never fires under reduced motion, so nothing may ever wait on it.
 - **Liveness in the listings** (SPEC §3). The front page carries ONE specimen, rotated on
   every reload from the terms flagged `exhibit: true`; `/browse/{category}` and
   `/tags/{tag}` render cards whose preview is the real specimen, scaled from its authored
-  720x320 box, mounted only near the viewport (eight at most) and playing only where the
-  reader is pointing. Both obey the one rule the scheduler already had: exactly one
-  specimen animates per page. `exhibit` is curation, set by hand after watching the
-  demonstration; `bun validate` only refuses it on a term with no demo or an unfinished
-  article, and it is the one frontmatter field `terms.json` withholds.
+  720x320 box, mounted only near the viewport (eight at most). Both obey the one rule the
+  scheduler already had: exactly one specimen animates per page. `exhibit` is curation, set
+  by hand after watching the demonstration; `bun validate` only refuses it on a term with
+  no demo or an unfinished article, and it is the one frontmatter field `terms.json`
+  withholds.
   A listing does not command the scheduler, it decides which stages ASK: `data-hold` on a
   stage means mounted and standing still, and moving it is how one card is granted the
   page. A stage removed from the document tears down and gives back its claim, which is
   what stops a scrolling list from stranding the stage on a discarded player.
+  Which card holds it is a ROTATION in document order over the cards at least half on
+  screen (SPEC §3): the stage moves on at a pass boundary, once the specimen has had four
+  seconds, so a short script loops rather than flickering past and a long one is never cut
+  off. The boundary arrives as a `vd-pass` event on the stage, which is the player's
+  `onPass` host hook; a specimen that never reaches one (no script, a chunk still loading)
+  is moved on by the same four-second watchdog. A pointer or focus on a card outranks the
+  rotation and pins it there, and the rotation resumes FROM that card. Reduced motion does
+  not rotate at all, since nothing plays and the churn would be pure remounting.
 - **Two isolation modes, one shape.** `src/stage/surface.ts` is the only file that knows
   whether a specimen lives in a shadow root or in a document of its own; everything
   above it reads `Surface`. `demo: iframe` generates `/specimen/<slug>/`, which imports

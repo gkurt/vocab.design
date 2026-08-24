@@ -39,6 +39,13 @@ export interface PlayerHost {
   offset: () => { x: number; y: number };
   reducedMotion: boolean;
   onStateChange?: (state: PlayerState) => void;
+  /**
+   * One pass of the choreography is over and the loop is about to take another
+   * (SPEC §7). The only moment a list page may move the stage on to the next
+   * specimen without cutting a demonstration in half; taking the hold here is
+   * seen by the sleep that follows, so the loop stops of its own accord.
+   */
+  onPass?: () => void;
 }
 
 const CURSOR_TRAVEL_MS = 550;
@@ -217,7 +224,9 @@ export class AttractPlayer {
       this.#tryAttract();
       return;
     }
-    if (this.#state === 'attract') {
+    // Held means standing at the first frame, whoever was driving: a card the reader
+    // poked and walked away from is put back as it was found, not parked mid-demo.
+    if (this.#state === 'attract' || this.#state === 'user') {
       this.#cancelRun();
       this.#reset();
       this.#setState(this.#visible ? 'idle' : 'paused');
@@ -490,6 +499,12 @@ export class AttractPlayer {
       await this.#play(generation, undefined);
       if (generation !== this.#generation) return;
       if (keep) this.#hover(null);
+      // Announced before the pause rather than after it, so a list page rotating to
+      // the next specimen does it in the gap between passes instead of a beat into
+      // the next one. A host that takes the hold here cancels this run, and the
+      // sleep below reports it.
+      this.#host.onPass?.();
+      if (generation !== this.#generation) return;
       // Reduced motion never auto-loops: an explicit play runs a single pass.
       if (this.#host.reducedMotion) break;
       if (!(await this.#sleep(LOOP_PAUSE_MS, generation))) return;
