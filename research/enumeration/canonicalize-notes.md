@@ -15,7 +15,8 @@ live is marked; everything else is kept as the record of what was decided and wh
   tailwind-ui→tailwind-plus, framer-motion→motion; systems.json 114→110).
 - The wishlist shaping (2026-08-15) took the pool to 969; the dataviz sweep
   (2026-08-18, below) to 983; the second wishlist run (2026-08-19, below) added
-  5 more, to 981 (authoring rounds had consumed 7 records in between).
+  5 more, to 981 (authoring rounds had consumed 7 records in between); the
+  2026-08-25 wishlist sweep (below) added 5, taking the pool to 966.
 
 ## RESOLVED: duplicate slugs
 
@@ -370,6 +371,42 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   pin-input already carried 'segmented code input', now also carries the exact
   'segmented input' spelling, and the structured-format pool record ceded that
   alias (its note says why) so the future authoring round cannot collide.
+- User wishlist (2026-08-25), shaped and pooled (5 records, pool 961 to 966):
+  hydration (pattern, core; already load-bearing in ghost-click and
+  flash-of-inaccurate-color-theme with no definition on site, filed at the design
+  angle, the window where a page is painted but answers nothing; MDN has no
+  glossary entry, checked 404, so the SSR entry is the platform source;
+  progressive / selective hydration, islands and resumability left unclaimed),
+  autofill (pattern, core; load-bearing in eight published articles, ALIAS FENCE
+  never claim "autocomplete", which typeahead already rules overloaded and splits
+  three ways, the attribute tokens staying with input-purpose and the SMS
+  one-time-code sense with pin-input), speculative-loading (pattern, core; from
+  the wish "Page prefetching / preloading", canonicalized to MDN's umbrella name
+  because it is the only word holding preconnect, dns-prefetch, preload, prefetch
+  and prerender together, with all four spellings as aliases; contrast is
+  lazy-loading, and magic-link's mail-scanner prefetchers are the same mechanism
+  biting a design), labor-illusion (pattern, core; from the wish "Fake loading
+  bars", taking the researched headword and aliasing the vernacular after
+  endowed-progress's precedent; NOT a fake-* dark-pattern sibling, the finding is
+  that readers preferred the slower transparent search, so the dishonest bar is
+  the article's failure mode; "operational transparency" left unclaimed as the
+  honest half's own possible record; name keeps the cited title's American
+  spelling, "labour illusion" carried as an alias), overloaded-command (pattern, tail;
+  from the wish "Overloaded element", which was ambiguous, so the record claims
+  the one sense with a named source, NN/g 2011, two Home buttons meaning
+  different things). OPEN QUESTION for the human: if "Overloaded element" meant
+  one control carrying several actions by input type (tap vs long press vs
+  secondary click, covered only piecewise today) or nested interactive elements
+  (axe's nested-interactive, a card that is a link with buttons inside), those are
+  separate unpooled records. All eight source URLs verified live 2026-08-25 except
+  the three read from search listings (MDN SSR glossary, react.dev hydrateRoot,
+  web.dev rendering-on-the-web); MDN Glossary/Hydration confirmed absent.
+  REJECTED the same day, by the human: scandinavian-design (shaped, pooled, then
+  pulled). It was the roster gap between mid-century-modern and minimalism on
+  paper, but it is not a look an interface reaches for under that name, and the
+  record would have been a furniture-and-lighting story with no honest
+  implementation to point at. Do not re-pool it from a later aesthetic sweep;
+  hygge and japandi stay unclaimed for the same reason.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the

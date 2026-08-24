@@ -1,5 +1,0 @@
-- Overloaded element
-- Hydration
-- Fake loading bars
-- Autofill
-- Page prefetching / preloading

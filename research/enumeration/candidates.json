@@ -46130,5 +46130,278 @@
     "sweptFrom": [
       "user request 2026-08-20, shaped in canonicalize follow-up"
     ]
+  },
+  {
+    "name": "Hydration",
+    "slug": "hydration",
+    "category": "pattern",
+    "definition": "The pass where script attaches behaviour to server-rendered HTML, turning a page that is already painted and readable into one that answers input.",
+    "useWhen": "the window where a page looks ready but answers nothing",
+    "aliases": [
+      {
+        "name": "rehydration",
+        "source": "community"
+      },
+      {
+        "name": "client-side hydration",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "ghost-click",
+      "flash-of-inaccurate-color-theme",
+      "skeleton-screen",
+      "app-shell",
+      "layout-shift",
+      "rage-click"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Server-side rendering (SSR)",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/SSR"
+      },
+      {
+        "title": "React: hydrateRoot",
+        "url": "https://react.dev/reference/react-dom/client/hydrateRoot"
+      },
+      {
+        "title": "web.dev: Rendering on the Web",
+        "url": "https://web.dev/articles/rendering-on-the-web"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "patterns-dev",
+        "name": "Progressive Hydration",
+        "url": "https://www.patterns.dev/react/progressive-hydration/",
+        "verified": true
+      }
+    ],
+    "notes": "Load-bearing in two published articles with no definition anywhere on site: ghost-click names 'a hydration pass that replaces a button between pointerdown and click' as a whole class of bug, and flash-of-inaccurate-color-theme names 'after hydration' as the ordering that paints the wrong theme first. Reaches design as the dead window, not as an engineering step: the page is painted, the reader presses, nothing answers, which is where rage-click comes from. MDN has no glossary entry for it (checked 2026-08-25, 404), so the SSR entry is the nearest platform source. Left unclaimed as possible terms of their own: progressive hydration, selective hydration, islands architecture, resumability. The specimen is the dead window itself, a control that ignores presses until the pass lands and then answers, which is honest at any speed.",
+    "sweptFrom": [
+      "wishlist 2026-08-25"
+    ]
+  },
+  {
+    "name": "Autofill",
+    "slug": "autofill",
+    "category": "pattern",
+    "definition": "The browser filling a form from values it has already saved, on its own or from a dropdown of the reader's own profile, so a field arrives answered.",
+    "useWhen": "the browser answers the field before the reader does",
+    "aliases": [
+      {
+        "name": "browser autofill",
+        "source": "community"
+      },
+      {
+        "name": "form autofill",
+        "source": "community"
+      },
+      {
+        "name": "autofill suggestions",
+        "source": "community"
+      },
+      {
+        "name": ":autofill",
+        "source": "mdn"
+      }
+    ],
+    "relatedSlugs": [
+      "input-purpose",
+      "address-autocomplete",
+      "inline-autocomplete",
+      "form",
+      "text-field",
+      "password-reveal-toggle",
+      "placeholder-as-label"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: :autofill",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:autofill"
+      },
+      {
+        "title": "MDN: HTML autocomplete attribute",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": ":autofill",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:autofill",
+        "verified": true
+      }
+    ],
+    "notes": "Load-bearing in eight published articles (accessible-authentication, placeholder-as-label, inline-autocomplete, structured-format, semantic-html, input-purpose, address-autocomplete, pin-input) with no definition anywhere on site. ALIAS FENCE: never claim 'autocomplete'. The typeahead article already rules that word overloaded and splits it three ways, the autocomplete ATTRIBUTE and its tokens belong to input-purpose (the declaration), the suggestion-from-live-data sense to typeahead, and the fill-in-the-rest sense to inline-autocomplete. This record is only the browser's own filling from saved values, which is what the eight articles lean on. Design angle for the article: the UA paints its own background on a filled field and refuses most of your styling, the filled value can be longer than any value you designed for, and autocomplete=off no longer stops a password manager. SMS one-time-code filling stays with pin-input.",
+    "sweptFrom": [
+      "wishlist 2026-08-25"
+    ]
+  },
+  {
+    "name": "Speculative loading",
+    "slug": "speculative-loading",
+    "category": "pattern",
+    "definition": "Fetching, or fully rendering, a page before the reader asks for it, on a guess about where they go next, so the navigation is already done when the click lands.",
+    "useWhen": "the next page is fetched before the reader clicks it",
+    "aliases": [
+      {
+        "name": "prefetching",
+        "source": "mdn"
+      },
+      {
+        "name": "preloading",
+        "source": "mdn"
+      },
+      {
+        "name": "prerendering",
+        "source": "mdn"
+      },
+      {
+        "name": "speculation rules",
+        "source": "mdn"
+      },
+      {
+        "name": "instant navigation",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "lazy-loading",
+      "app-shell",
+      "page-transition",
+      "view-transition",
+      "optimistic-ui",
+      "skeleton-screen",
+      "hover-intent",
+      "magic-link"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Speculative loading",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Speculative_loading"
+      },
+      {
+        "title": "MDN: Speculation Rules API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Speculation_Rules_API"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Speculative loading",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Speculative_loading",
+        "verified": true
+      }
+    ],
+    "notes": "Shaped from the wish 'Page prefetching / preloading'. Canonicalized to MDN's own umbrella name, which is the only word that holds preconnect, dns-prefetch, preload, prefetch and prerender together, with the four spellings people actually type kept as aliases. The article has to keep preload apart from prefetch (preload is a priority hint for THIS page's critical resources, prefetch is the next navigation), so a later split is possible if usage demands it, but one record is right while the design decision is shared: what counts as evidence the reader is going there. The design surface is the trigger, hover intent, viewport proximity, or an eager rule, and the cost of guessing wrong, which is bandwidth spent on pages nobody visits and side effects fired on pages nobody saw. Hazard already named on site: the magic-link article describes link prefetchers in mail clients consuming one-time links, which is this mechanism biting a design, so it is the seeAlso rather than a contrast. Contrast is lazy-loading, the exact opposite bet on the same question.",
+    "sweptFrom": [
+      "wishlist 2026-08-25"
+    ]
+  },
+  {
+    "name": "Labor illusion",
+    "slug": "labor-illusion",
+    "category": "pattern",
+    "definition": "Showing the work a system is doing, or stretching it, so the answer feels earned: the search that lists the sites it is checking instead of answering at once.",
+    "useWhen": "a wait made visible so the result feels worked for",
+    "aliases": [
+      {
+        "name": "fake loading bar",
+        "source": "community"
+      },
+      {
+        "name": "faux progress bar",
+        "source": "community"
+      },
+      {
+        "name": "artificial delay",
+        "source": "community"
+      },
+      {
+        "name": "labour illusion",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "endowed-progress",
+      "progress-bar",
+      "spinner",
+      "skeleton-screen",
+      "optimistic-ui",
+      "shimmer",
+      "fake-urgency"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Buell & Norton: The Labor Illusion, Management Science 57(9)",
+        "url": "https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1376"
+      },
+      {
+        "title": "Harvard Business School: The Labor Illusion",
+        "url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=40158"
+      }
+    ],
+    "implementations": [],
+    "notes": "Shaped from the wish 'Fake loading bars'. The vernacular name is the fake progress bar, but the concept underneath it is the researched one, and endowed-progress is the precedent for taking the research headword and aliasing the vernacular so search still lands. HONESTY FENCE, and the reason this is not a fake-* sibling: the labour illusion is not automatically deceptive. A travel search naming the airlines it is querying is real work made visible, and readers valued the slower transparent version over the instant one, which is the finding. The dishonest end, a bar animating against no work at all, is the article's failure mode, not a separate record, and the article should say where it crosses into dark-pattern territory (a wait manufactured to justify a price). Live instance worth citing: the AI assistant's streamed thinking trace. 'Operational transparency' is deliberately left unclaimed, it is Buell and Norton's paired term for the honest half and could be its own record. Spelling: name and slug keep the cited title's American spelling, prose is British per the site, so 'labour illusion' is carried as an alias.",
+    "sweptFrom": [
+      "wishlist 2026-08-25"
+    ]
+  },
+  {
+    "name": "Overloaded command",
+    "slug": "overloaded-command",
+    "category": "pattern",
+    "definition": "One command word or icon wired to different outcomes depending on where it sits, so having used it once teaches the reader nothing about the next one.",
+    "useWhen": "the same label doing different jobs in different places",
+    "aliases": [
+      {
+        "name": "overloaded control",
+        "source": "community"
+      },
+      {
+        "name": "overloaded icon",
+        "source": "nngroup"
+      },
+      {
+        "name": "overloaded button",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "split-button",
+      "context-menu",
+      "icon-button",
+      "signifier",
+      "affordance"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Overloaded vs. Generic Commands (Jakob Nielsen, 2011)",
+        "url": "https://www.nngroup.com/articles/overloaded-vs-generic-commands/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "nngroup",
+        "name": "Overloaded commands",
+        "url": "https://www.nngroup.com/articles/overloaded-vs-generic-commands/",
+        "verified": true
+      }
+    ],
+    "notes": "Shaped from the wish 'Overloaded element', which was ambiguous, so this record claims the one sense with a named source: NN/g's, where two Home buttons or two search fields on one screen mean different things. NEEDS THE HUMAN AT CANONICALIZE: the wish may instead have meant (a) one control carrying several actions selected by input type, tap versus long press versus secondary click, which the site covers only piecewise today (long-press, secondary-click, press-drag-release, split-button) and which would be its own record, or (b) nested interactive elements, axe's nested-interactive rule, a card that is a link with buttons inside it, an accessibility defect term still unpooled. Neither is claimed here. NN/g's paired term 'generic command', the good case where one command means conceptually the same thing everywhere, is the article's contrast and deliberately not a second record.",
+    "sweptFrom": [
+      "wishlist 2026-08-25"
+    ]
   }
 ]
