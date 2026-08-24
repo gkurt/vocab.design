@@ -337,6 +337,22 @@ Only the middle of the row is alive: the centred card, its two neighbours, and t
 about to slide in. That is four mounted demos for a dozen terms, and the rest of the row
 is markup waiting its turn.
 
+**A dozen cards, but not a dozen terms.** A reader who stays past four specimens is sent
+more: a page of `/specimens/{n}.json` is fetched and the cards that have already had their
+turn are re-lettered with it, off screen and unmounted, so the row keeps going round with
+something new in it rather than coming back to the top. The page ships only its dozen, so
+a reader who leaves in the first minute never fetches anything at all.
+
+Paged, and dealt rather than cut. The whole pool as one file is 69KB gzipped against a
+20KB front page, which is a lot to spend on something nobody may watch; a page of sixty is
+five, and sixty specimens is about ten minutes of carousel, so in practice one fetch is
+all there ever is. The pool is dealt into the pages one term at a time, for the same
+reason the built dozen are taken at a stride: cut instead, a page would be sixty terms
+beginning with the same letter. A page is picked at random and shuffled again on arrival,
+because the files are static and two readers watching the same carousel should not be
+watching the same programme. Each entry carries its own link, built with the rest of the
+site's links rather than assembled in the browser from a base (§10).
+
 **Cards in a listing.** `/browse/{category}` and `/tags/{tag}` render each term as a card:
 one bordered object, the preview flush at its top with a hairline where the words begin,
 then the headword, the other spellings, the dictionary line. The boundary is drawn rather

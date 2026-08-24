@@ -1,4 +1,3 @@
-import type { Term } from '#src/lib/schema.ts';
 import type { TermEntry } from '#src/lib/terms.ts';
 
 /**
@@ -9,19 +8,26 @@ import type { TermEntry } from '#src/lib/terms.ts';
 export interface Exhibit {
   slug: string;
   name: string;
-  category: Term['category'];
   definition: string;
   /** Isolation mode, passed through to the stage (SPEC §6). */
   demo: 'inline' | 'iframe';
 }
 
-/** How many specimens the front page's carousel carries (SPEC §3). */
+/** How many specimens the front page's carousel carries in the page itself (SPEC §3). */
 export const WINDOW_SIZE = 12;
+
+/**
+ * How many it fetches at a time once a reader stays long enough to run out (SPEC §3).
+ * Sized against how long a row takes to watch rather than against the file: at six
+ * seconds a specimen this is about ten minutes of carousel for five kilobytes, which is
+ * more than anyone watches, and it leaves enough pages that two readers who do stay are
+ * unlikely to be given the same one.
+ */
+export const PAGE_SIZE = 60;
 
 const card = ({ data }: TermEntry): Exhibit => ({
   slug: data.slug,
   name: data.name,
-  category: data.category,
   definition: data.definition,
   demo: data.demo as 'inline' | 'iframe',
 });
@@ -58,12 +64,39 @@ function from<T>(list: T[], start: number): T[] {
 }
 
 /**
- * What the front page's carousel is built from (SPEC §3): the curated pool when anything
+ * What the front page's carousel draws on (SPEC §3): the curated pool when anything
  * is curated, and otherwise the vocabulary itself. An empty pool is not a reason for the
  * front page to show nothing, and a site whose whole claim is that every term has a
  * specimen can afford to open one at random.
+ */
+export function carouselPool(terms: TermEntry[]): Exhibit[] {
+  const curated = exhibits(terms);
+  return curated.length > 0 ? curated : playable(terms);
+}
+
+/** How many pages the feed is cut into, which is also the stride each page is dealt at. */
+export function feedPages(terms: TermEntry[]): number {
+  return Math.max(1, Math.ceil(carouselPool(terms).length / PAGE_SIZE));
+}
+
+/**
+ * One page of the feed the carousel pulls from when it runs low (SPEC §3), 1-based.
  *
- * The dozen are taken at a stride across the whole list rather than as a slice of it,
+ * The pool is DEALT into the pages rather than cut into them, one term to each page in
+ * turn, for the same reason the page's own dozen are taken at a stride: the pool is
+ * alphabetical, so a page cut out of it would be sixty terms that all begin with the same
+ * letter, and a reader who stays would watch the carousel work its way through the B's.
+ */
+export function feedPage(terms: TermEntry[], page: number): Exhibit[] {
+  const pool = carouselPool(terms);
+  const pages = Math.max(1, Math.ceil(pool.length / PAGE_SIZE));
+  return pool.filter((_, i) => i % pages === (page - 1) % pages);
+}
+
+/**
+ * The dozen the front page is BUILT with (SPEC §3), before the feed adds any.
+ *
+ * They are taken at a stride across the whole list rather than as a slice of it,
  * because the list is alphabetical: a slice is twelve terms that all begin with the same
  * two letters, which reads as a page of the dictionary rather than as a sample of it.
  *
@@ -73,8 +106,7 @@ function from<T>(list: T[], start: number): T[] {
  * instead of being frozen on whichever terms sort first.
  */
 export function exhibitWindow(terms: TermEntry[], day: number): Exhibit[] {
-  const curated = exhibits(terms);
-  const pool = curated.length > 0 ? curated : playable(terms);
+  const pool = carouselPool(terms);
   if (pool.length <= WINDOW_SIZE) return from(pool, day);
   const stride = Math.floor(pool.length / WINDOW_SIZE);
   return Array.from({ length: WINDOW_SIZE }, (_, i) => pool[(day + i * stride) % pool.length]).filter((e): e is Exhibit => e !== undefined);

@@ -100,6 +100,7 @@ src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme)
 src/pages/                  # index (ONE live specimen, then THE directory: categories, facets, A-Z), [slug]
                             #   (terms + alias redirects), [slug].md, terms.json, llms.txt
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
+src/pages/specimens/[page].json.ts # what the front page's carousel pulls once a reader stays
 src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
 src/pages/browse/           #   /browse/[category] (with definitions); the front page is the directory
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
@@ -560,7 +561,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   starting with the same two letters) and shuffled during parse by an inline script. The
   neighbours are faded and the row dissolves at the column's edges; clicking one of them
   centres it (either way round) rather than following its link, which stays the browser's
-  for a modified or middle click.
+  for a modified or middle click. Past four specimens the row FETCHES more, a page of
+  `/specimens/{n}.json` (60 terms, ~5KB gzipped, 18 pages dealt rather than cut), and
+  re-letters the cards that have had their turn while they are off screen. The page itself
+  ships only its dozen, so a reader who leaves early fetches nothing.
   `/browse/{category}` and `/tags/{tag}` render cards whose preview is the real specimen,
   scaled from its authored 720x320 box, mounted only near the viewport (eight at most).
   All of it obeys the one rule the scheduler already had: exactly one specimen animates per

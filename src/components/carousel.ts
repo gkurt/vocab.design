@@ -11,6 +11,12 @@
  * Only the cards near the centre carry a live specimen. The rest of the row is markup
  * waiting its turn, which is what keeps a dozen terms on the front page down to four
  * mounted demos.
+ *
+ * The row is a dozen cards but not a dozen terms. A reader who stays long enough to have
+ * watched a few is sent more: a page of the feed is fetched and the cards that have
+ * already had their turn are re-dressed with it, off screen, so the row keeps going round
+ * with something new in it instead of coming back to the top. The page itself ships only
+ * the dozen, so a reader who leaves in the first minute never pays for the rest.
  */
 
 import { previewStage } from '#src/components/preview-stage.ts';
@@ -23,6 +29,14 @@ const PLAY_FLOOR_MS = 4000;
 const SLIDE_MS = 520;
 /** The authored specimen width a preview scales down from (SPEC §5). */
 const AUTHORED_WIDTH = 720;
+/**
+ * How many specimens a reader watches before the row asks for more. Late enough that the
+ * fetch belongs to someone who is actually watching (four is around half a minute), and
+ * early enough to land before the row has been all the way round.
+ */
+const FETCH_AFTER = 4;
+/** Ask for another page once the queue is down to this, so it never runs dry mid-row. */
+const QUEUE_LOW = 8;
 
 interface Slot {
   root: HTMLElement;
@@ -32,6 +46,17 @@ interface Slot {
   name: string;
   isolation: string;
   stage: HTMLElement | undefined;
+  /** Has this card had its turn in the middle? Only a card that has is worth re-dressing. */
+  shown: boolean;
+}
+
+/** One specimen from the feed, as `/specimens/{page}.json` publishes it. */
+interface Feed {
+  slug: string;
+  name: string;
+  definition: string;
+  demo: string;
+  href: string;
 }
 
 const root = document.querySelector<HTMLElement>('[data-carousel]');
@@ -49,6 +74,7 @@ const slots: Slot[] = [...(track?.children ?? [])]
       name: el.dataset.name ?? '',
       isolation: el.dataset.isolation ?? 'inline',
       stage: undefined,
+      shown: false,
     };
   })
   .filter((slot): slot is Slot => slot !== undefined);
@@ -139,6 +165,93 @@ if (root && frame && track && slots.length > 0) {
     for (const slot of slots) slot.box.style.setProperty('--vd-preview-k', `${card / AUTHORED_WIDTH}`);
   };
 
+  // --- The feed (SPEC §3) ---------------------------------------------------
+  /** Where the pages live and how many there are, both resolved at build time. */
+  const feed = root.dataset.feed;
+  const pages = Number(root.dataset.feedPages ?? 0);
+  /** Specimens fetched and not yet put on a card. */
+  const queue: Feed[] = [];
+  /** Every term the row has carried, so the feed never hands back one already in it. */
+  const carried = new Set(slots.map((slot) => slot.slug));
+  const pulled = new Set<number>();
+  let pulling = false;
+  let watched = 0;
+
+  const shuffled = <T>(list: T[]): T[] => {
+    const out = [...list];
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const swap = out[i] as T;
+      out[i] = out[j] as T;
+      out[j] = swap;
+    }
+    return out;
+  };
+
+  /**
+   * Fetch a page of the feed. A page at random rather than the next one, and shuffled
+   * again on arrival, because the pages are static and two readers watching the same
+   * carousel should not be watching the same programme.
+   */
+  const pull = async () => {
+    const left = Array.from({ length: pages }, (_, i) => i + 1).filter((page) => !pulled.has(page));
+    const page = left[Math.floor(Math.random() * left.length)];
+    if (pulling || !feed || page === undefined) return;
+    pulling = true;
+    pulled.add(page);
+    try {
+      const response = await fetch(`${feed}${page}.json`);
+      const body: unknown = await response.json();
+      const terms = body && typeof body === 'object' && 'terms' in body ? (body as { terms: Feed[] }).terms : [];
+      for (const term of shuffled(Array.isArray(terms) ? terms : [])) {
+        if (carried.has(term.slug)) continue;
+        carried.add(term.slug);
+        queue.push(term);
+      }
+    } catch {
+      // The row keeps going round on what it already has. A carousel is not worth a
+      // retry storm, and the next page is asked for at the next boundary anyway.
+      pulled.delete(page);
+    }
+    pulling = false;
+    refill();
+  };
+
+  /**
+   * Put the queue onto the cards that have had their turn. Only cards out of sight are
+   * re-dressed, and only ones that have already been in the middle, so nothing a reader
+   * has been shown changes under them and nothing they have not seen is thrown away.
+   */
+  const refill = () => {
+    for (const slot of slots.slice(MOUNTED)) {
+      if (!slot.shown) continue;
+      const next = queue.shift();
+      if (!next) return;
+      dress(slot, next);
+    }
+  };
+
+  /** Re-letter a card: a new term in the same box, which is cheaper than a new box. */
+  const dress = (slot: Slot, term: Feed) => {
+    unmount(slot);
+    slot.slug = term.slug;
+    slot.name = term.name;
+    slot.isolation = term.demo;
+    slot.shown = false;
+    slot.root.dataset.slug = term.slug;
+    slot.root.dataset.name = term.name;
+    slot.root.dataset.isolation = term.demo;
+    const name = slot.root.querySelector('.vd-carousel-name');
+    const definition = slot.root.querySelector('.vd-carousel-definition');
+    const hit = slot.root.querySelector('.vd-preview-hit');
+    if (name instanceof HTMLAnchorElement) {
+      name.textContent = term.name;
+      name.href = term.href;
+    }
+    if (definition) definition.textContent = term.definition;
+    if (hit instanceof HTMLAnchorElement) hit.href = term.href;
+  };
+
   /**
    * Which card the row is presenting. The rest are faded back, because a row where every
    * card is equally present is a row with nothing in it: the neighbours are what the
@@ -154,6 +267,8 @@ if (root && frame && track && slots.length > 0) {
     for (const [i, slot] of slots.entries()) (i < MOUNTED ? mount : unmount)(slot);
     markCentre(slots[CENTRE]);
     grant(slots[CENTRE]);
+    const centre = slots[CENTRE];
+    if (centre) centre.shown = true;
   };
 
   /**
@@ -180,6 +295,11 @@ if (root && frame && track && slots.length > 0) {
       delete track.dataset.sliding;
       track.style.setProperty('--vd-carousel-shift', '0px');
       settle();
+      // Somebody is watching this. Ask for more before the row has been all the way
+      // round, and put whatever is already in hand onto the cards that have had a turn.
+      watched += 1;
+      if (watched >= FETCH_AFTER && queue.length < QUEUE_LOW) void pull();
+      refill();
     };
     if (direction > 0) {
       markCentre(slots[CENTRE + 1]);

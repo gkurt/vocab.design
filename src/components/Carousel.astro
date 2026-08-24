@@ -1,5 +1,5 @@
 ---
-import { exhibitWindow } from '#src/lib/exhibit.ts';
+import { exhibitWindow, feedPages } from '#src/lib/exhibit.ts';
 import { getTerms } from '#src/lib/terms.ts';
 import { pageUrl } from '#src/lib/url.ts';
 import '#src/styles/stage.css';
@@ -15,16 +15,24 @@ import '#src/styles/stage.css';
  * themselves are markup, and the specimens are mounted into the ones near the middle by
  * `#src/components/carousel.ts`, which is what keeps twelve terms down to four live demos.
  */
-const cards = exhibitWindow(await getTerms(), Math.floor(Date.now() / 86_400_000)).map((e) => ({
+const terms = await getTerms();
+const cards = exhibitWindow(terms, Math.floor(Date.now() / 86_400_000)).map((e) => ({
   ...e,
   // Resolved at build time, never assembled in the script from a base (SPEC §10).
   href: pageUrl(e.slug),
 }));
+/**
+ * Where the rest of the specimens are, for a reader who stays past these twelve. The
+ * directory ends in a slash and the script appends `{page}.json`, which is the one shape
+ * of assembly that cannot produce the protocol-relative URL a bare base does (SPEC §10).
+ */
+const feed = pageUrl('/specimens/');
+const pages = feedPages(terms);
 ---
 
 {
   cards.length > 0 && (
-    <section class="vd-carousel mb-12" data-carousel>
+    <section class="vd-carousel mb-12" data-carousel data-feed={feed} data-feed-pages={pages}>
       <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">Specimens</h2>
       <div class="vd-carousel-window" data-carousel-window>
         <div class="vd-carousel-track" data-carousel-track>

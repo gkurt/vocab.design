@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { exhibits, exhibitWindow, playable, WINDOW_SIZE } from '#src/lib/exhibit.ts';
+import { exhibits, exhibitWindow, feedPage, feedPages, PAGE_SIZE, playable, WINDOW_SIZE } from '#src/lib/exhibit.ts';
 import type { TermEntry } from '#src/lib/terms.ts';
 
 type Fields = { exhibit?: boolean; status?: string; demo?: string };
@@ -94,5 +94,43 @@ describe('exhibitWindow', () => {
 
   test('nothing to show is an empty window, not a crash', () => {
     expect(exhibitWindow([], 7)).toEqual([]);
+  });
+});
+
+describe('the feed', () => {
+  const many = (n: number) => Array.from({ length: n }, (_, i) => term(`t${i}`, `Term ${String(i).padStart(4, '0')}`, { exhibit: false }));
+
+  test('cuts the pool into as few pages as PAGE_SIZE allows', () => {
+    expect(feedPages(many(PAGE_SIZE * 3))).toBe(3);
+    expect(feedPages(many(PAGE_SIZE * 3 + 1))).toBe(4);
+    expect(feedPages([])).toBe(1);
+  });
+
+  test('deals the pool into the pages rather than cutting it, so a page is a spread', () => {
+    const terms = many(PAGE_SIZE * 3);
+    // Three pages, so page one is every third term from the top of the alphabet.
+    expect(
+      feedPage(terms, 1)
+        .map((e) => e.slug)
+        .slice(0, 3),
+    ).toEqual(['t0', 't3', 't6']);
+    expect(
+      feedPage(terms, 2)
+        .map((e) => e.slug)
+        .slice(0, 3),
+    ).toEqual(['t1', 't4', 't7']);
+  });
+
+  test('every term is on exactly one page', () => {
+    const terms = many(PAGE_SIZE * 3 + 7);
+    const dealt = [1, 2, 3, 4].flatMap((page) => feedPage(terms, page).map((e) => e.slug));
+    expect(dealt).toHaveLength(PAGE_SIZE * 3 + 7);
+    expect(new Set(dealt).size).toBe(dealt.length);
+  });
+
+  test('reads the curated pool when there is one, exactly as the row does', () => {
+    const terms = [...many(80), term('toast', 'Toast')];
+    expect(feedPages(terms)).toBe(1);
+    expect(feedPage(terms, 1).map((e) => e.slug)).toEqual(['toast']);
   });
 });
