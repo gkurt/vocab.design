@@ -557,7 +557,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   pass boundary and the card that left going round to the back, so it never ends. Its
   dozen come from the terms flagged `exhibit: true` when any are flagged and from the
   vocabulary itself when none are, taken at a stride (an alphabetical slice is twelve terms
-  starting with the same two letters) and shuffled during parse by an inline script.
+  starting with the same two letters) and shuffled during parse by an inline script. The
+  neighbours are faded and the row dissolves at the column's edges; clicking one of them
+  centres it (either way round) rather than following its link, which stays the browser's
+  for a modified or middle click.
   `/browse/{category}` and `/tags/{tag}` render cards whose preview is the real specimen,
   scaled from its authored 720x320 box, mounted only near the viewport (eight at most).
   All of it obeys the one rule the scheduler already had: exactly one specimen animates per

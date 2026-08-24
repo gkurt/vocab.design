@@ -132,46 +132,105 @@ if (root && frame && track && slots.length > 0) {
   const place = () => {
     const card = cardWidth();
     if (card === 0) return;
-    track.style.setProperty('--vd-carousel-x', `${(frame.clientWidth - card) / 2 - CENTRE * (card + gap())}px`);
+    const peek = (frame.clientWidth - card) / 2;
+    track.style.setProperty('--vd-carousel-x', `${peek - CENTRE * (card + gap())}px`);
+    // The edges fade over exactly what shows of the cards out there (SPEC §3).
+    frame.style.setProperty('--vd-carousel-fade', `${Math.max(peek, 0)}px`);
     for (const slot of slots) slot.box.style.setProperty('--vd-preview-k', `${card / AUTHORED_WIDTH}`);
+  };
+
+  /**
+   * Which card the row is presenting. The rest are faded back, because a row where every
+   * card is equally present is a row with nothing in it: the neighbours are what the
+   * reader is being offered next, not what they are being shown now.
+   */
+  const markCentre = (centre: Slot | undefined) => {
+    for (const slot of slots) delete slot.root.dataset.centre;
+    if (centre) centre.root.dataset.centre = '';
   };
 
   /** Mount what is at or near the middle, evict the rest, and play the one in the middle. */
   const settle = () => {
     for (const [i, slot] of slots.entries()) (i < MOUNTED ? mount : unmount)(slot);
+    markCentre(slots[CENTRE]);
     grant(slots[CENTRE]);
   };
 
   /**
-   * Move the row over by one card, then send the card that has left round to the back.
-   * The reorder happens with the transition off and the offset reset in the same breath,
-   * so the row lands exactly where it started with new cards in it: that is what makes
-   * the cycle endless rather than a long strip that eventually runs out.
+   * Move the row over by one card, either way, and send the card that leaves round to the
+   * other end. Forwards, the row is offset and the card at the front goes to the back
+   * once it has gone; backwards, the card at the back comes to the front FIRST and the
+   * row is held still while it arrives, so the slide is that offset being animated away.
+   * Either way the row lands exactly where it started around a rotated set of cards,
+   * which is what makes the cycle endless rather than a strip that runs out at one end.
    */
-  const advance = () => {
-    const leaving = slots[0];
+  const slide = (direction: 1 | -1) => {
     // A row of one has nowhere to go: it plays its one specimen, over and over.
-    if (sliding || !rotates || !leaving || slots.length < 2) return;
+    if (sliding || !rotates || slots.length < 2) return;
+    const step = cardWidth() + gap();
+    const leaving = slots[0];
+    const arriving = slots[slots.length - 1];
+    if (step === 0 || !leaving || !arriving) return;
     sliding = true;
     // Nothing plays mid-slide: a specimen demonstrating something while it slides out of
     // the frame is a demonstration nobody can follow.
     grant(undefined);
-    track.dataset.sliding = '';
-    track.style.setProperty('--vd-carousel-shift', `-${cardWidth() + gap()}px`);
-    setTimeout(() => {
+    const done = () => {
       sliding = false;
-      // Its stage goes before the node moves: a custom element taken out of the document
-      // and put back tears itself down and sets itself up again, and the specimen would
-      // be built twice into a canvas that already has one.
-      unmount(leaving);
       delete track.dataset.sliding;
       track.style.setProperty('--vd-carousel-shift', '0px');
-      track.append(leaving.root);
-      slots.shift();
-      slots.push(leaving);
       settle();
-    }, SLIDE_MS + 40);
+    };
+    if (direction > 0) {
+      markCentre(slots[CENTRE + 1]);
+      track.dataset.sliding = '';
+      track.style.setProperty('--vd-carousel-shift', `-${step}px`);
+      setTimeout(() => {
+        // Its stage goes before the node moves: a custom element taken out of the document
+        // and put back tears itself down and sets itself up again, and the specimen would
+        // be built twice into a canvas that already has one.
+        unmount(leaving);
+        track.append(leaving.root);
+        slots.shift();
+        slots.push(leaving);
+        done();
+      }, SLIDE_MS + 40);
+      return;
+    }
+    unmount(arriving);
+    track.prepend(arriving.root);
+    slots.pop();
+    slots.unshift(arriving);
+    // The offset cancels the room the arriving card has just taken at the front, so
+    // nothing appears to move; animating it away is the slide.
+    track.style.setProperty('--vd-carousel-shift', `-${step}px`);
+    mount(arriving);
+    markCentre(slots[CENTRE]);
+    // The offset has to LAND before the transition is armed, or the two writes are
+    // coalesced and the row animates from a position it was never in.
+    void track.offsetWidth;
+    track.dataset.sliding = '';
+    track.style.setProperty('--vd-carousel-shift', '0px');
+    setTimeout(done, SLIDE_MS + 40);
   };
+
+  const advance = () => slide(1);
+
+  /**
+   * A card at the edge of the row is an offer, not a destination: clicking one brings it
+   * to the middle instead of leaving the page, so a reader who has spotted something can
+   * look at it properly first. Once it is in the middle it is a link like any other, and
+   * a modified or middle click is always the browser's, so opening a card in a new tab
+   * works wherever it sits.
+   */
+  track.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const target = event.target instanceof Element ? event.target.closest('.vd-carousel-card') : null;
+    const at = slots.findIndex((slot) => slot.root === target);
+    if (at < 0 || at === CENTRE) return;
+    event.preventDefault();
+    slide(at > CENTRE ? 1 : -1);
+  });
 
   root.addEventListener('pointerenter', () => {
     hovered = true;

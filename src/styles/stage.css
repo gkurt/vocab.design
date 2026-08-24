@@ -769,8 +769,26 @@ vd-stage[data-posed] .vd-playing span {
   --vd-carousel-card: min(360px, 100%);
 }
 
+/* The row dissolves at the column's edges rather than being cut off square, so what is
+   out there reads as more row and not as a card someone has sliced. The fade is exactly
+   as wide as the peek, measured by the controller, which means a column too narrow to
+   show a peek at all fades nothing. */
 .vd-carousel-window {
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--vd-carousel-fade, 0px),
+    #000 calc(100% - var(--vd-carousel-fade, 0px)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--vd-carousel-fade, 0px),
+    #000 calc(100% - var(--vd-carousel-fade, 0px)),
+    transparent
+  );
 }
 
 .vd-carousel-track {
@@ -790,13 +808,21 @@ vd-stage[data-posed] .vd-playing span {
 .vd-carousel-card {
   flex: 0 0 var(--vd-carousel-card);
   width: var(--vd-carousel-card);
+  /* Everything but the card in the middle stands back. The fade crosses over during the
+     slide, so the card arriving in the middle comes up as the one leaving goes down. */
+  opacity: 0.55;
+  transition: opacity 380ms ease;
 }
 
-/* The card holding the stage is the one being read; the rest of the row is the row.
-   Nothing is dimmed to make that point, since a specimen at rest already reads as
-   waiting, but the centred card carries the accent when the reader arrives at it. */
-.vd-carousel-card:hover {
+.vd-carousel-card[data-centre] {
+  opacity: 1;
+}
+
+/* Reaching for a card at the edge brings it up: it is not out of play, it is next. */
+.vd-carousel-card:hover,
+.vd-carousel-card:focus-within {
   border-color: var(--vd-accent);
+  opacity: 1;
 }
 
 /* One line for the headword and two for the definition, whatever the term: a row of

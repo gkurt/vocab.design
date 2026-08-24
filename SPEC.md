@@ -302,6 +302,18 @@ side, obeying the same two rules (§7). The stage changes hands only at a pass b
 and never before a specimen has had four seconds. A reader at the row stops it where it
 is, and it moves on at the next boundary after they leave.
 
+Only the middle card is being shown. The rest of the row stands back, faded, and the row
+dissolves at the column's edges instead of being cut off square: what is out there is more
+row, not a card someone has sliced. The fade is exactly as wide as the peek, so a column
+too narrow to show one fades nothing at all.
+
+A card at the edge is an offer rather than a destination. Clicking one brings it to the
+middle instead of leaving the page, which is what lets a reader who has spotted something
+look at it properly before deciding: the row goes round the other way for a card on the
+left, and the same way it was already going for one on the right. Once a card is in the
+middle it is a link like any other, and a modified or middle click always belongs to the
+browser, so opening a term in a new tab works wherever its card sits.
+
 Which dozen terms are in the row is decided at build time, because the site is static and
 every reader is served the same HTML. The order is the only thing the script decides: it
 shuffles the row during parse, before the deferred module upgrades anything, so the front
