@@ -4,37 +4,17 @@
  * attempt at a headword: near enough to correct, and worth recording either way. What
  * gets typed here and matches nothing is the same signal as a search that finds nothing
  * (SPEC §10), which is to say a missing alias or a missing term.
+ *
+ * The matching itself is `#src/lib/nearest.ts`, shared with the search box: the same slip
+ * arrives at both doors, and only one of them used to answer it.
  */
+import { nearest, type Paths } from '#src/lib/nearest.ts';
 import { track } from '#src/lib/track.ts';
 import { canonicalPath, pageUrl } from '#src/lib/url.ts';
-
-interface Paths {
-  terms: Record<string, string>;
-  aliases: Record<string, string>;
-}
 
 /** Beyond four edits a suggestion stops being a correction and starts being a guess. */
 const MAX_EDITS = 4;
 const SHOWN = 5;
-
-/** Levenshtein, abandoned as soon as the row cannot come back under the cap. */
-function distance(a: string, b: string, cap: number): number {
-  if (Math.abs(a.length - b.length) > cap) return cap + 1;
-  let previous = Array.from({ length: b.length + 1 }, (_, i) => i);
-  for (let i = 1; i <= a.length; i++) {
-    const row = [i];
-    let best = i;
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      const value = Math.min((previous[j] ?? 0) + 1, (row[j - 1] ?? 0) + 1, (previous[j - 1] ?? 0) + cost);
-      row.push(value);
-      if (value < best) best = value;
-    }
-    if (best > cap) return cap + 1;
-    previous = row;
-  }
-  return previous[b.length] ?? cap + 1;
-}
 
 /** The word someone was reaching for, as a slug: the last segment, minus any file name. */
 function asked(pathname: string): string {
@@ -55,24 +35,16 @@ interface Match {
 }
 
 function guess(query: string, paths: Paths): Match[] {
-  const candidates: (Match & { slug: string; score: number })[] = [];
-  const consider = (slug: string, href: string, label: string, note?: string) => {
-    let score = distance(query, slug, MAX_EDITS);
-    // Containment is its own kind of near miss: "grid" is a fair reach at "bento-grid".
-    if (score > MAX_EDITS) {
-      if (!slug.includes(query) && !query.includes(slug)) return;
-      score = MAX_EDITS;
-    }
-    candidates.push({ slug, href, label, note, score });
-  };
-
-  for (const [slug, name] of Object.entries(paths.terms)) consider(slug, slug, name);
-  for (const [slug, target] of Object.entries(paths.aliases)) {
-    const name = paths.terms[target];
-    if (name) consider(slug, target, slug.replace(/-/g, ' '), `another name for ${name}`);
+  const matches: Match[] = [];
+  // Wider than a search correction on purpose: nothing here is auto-run on the reader's
+  // behalf, so a loose suggestion costs a glance, while no suggestion costs the visit.
+  for (const near of nearest(query, paths, { cap: MAX_EDITS, contains: true }).slice(0, SHOWN)) {
+    const name = paths.terms[near.target];
+    if (!name) continue;
+    if (near.slug === near.target) matches.push({ href: near.target, label: name });
+    else matches.push({ href: near.target, label: near.slug.replace(/-/g, ' '), note: `another name for ${name}` });
   }
-
-  return candidates.sort((a, b) => a.score - b.score || a.slug.length - b.slug.length || a.slug.localeCompare(b.slug)).slice(0, SHOWN);
+  return matches;
 }
 
 async function suggest(): Promise<void> {

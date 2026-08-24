@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { droppedWords, namesTopResult } from '#src/lib/search-signals.ts';
+import { droppedWords, matchedTyping, namesTopResult } from '#src/lib/search-signals.ts';
 
 describe('namesTopResult', () => {
   test('a name typed is a name matched, whatever the case', () => {
@@ -38,5 +38,36 @@ describe('droppedWords', () => {
   test('a search that ran as typed dropped nothing', () => {
     expect(droppedWords('grip dots', undefined)).toBe(0);
     expect(droppedWords('grip dots', 'grip dots')).toBe(0);
+  });
+});
+
+describe('matchedTyping', () => {
+  test('the word is really there when Pagefind marked that word', () => {
+    // Column resizer genuinely says "grip", so a reader who typed it was right.
+    expect(matchedTyping('grip', 'column <mark>grip,</mark> resize <mark>gripper.</mark>')).toBe(true);
+  });
+
+  test('a loose match on the last word is not the word', () => {
+    // Pagefind matched `according` for `accordian` and `to` for `tost`, and both came
+    // back with results, which is why a result count cannot be trusted here.
+    expect(matchedTyping('accordian', 'changes what it says and does <mark>according</mark> to')).toBe(false);
+    expect(matchedTyping('tost', 'Back <mark>to</mark> top. also called scroll <mark>to</mark> top')).toBe(false);
+  });
+
+  test('every word has to be there, not just the easy one', () => {
+    expect(matchedTyping('bento grid', '<mark>bento</mark> box layout')).toBe(false);
+    expect(matchedTyping('bento grid', 'a <mark>bento</mark> <mark>grid</mark> of cards')).toBe(true);
+  });
+
+  test('a word half typed is a word being found, not a word misspelled', () => {
+    // Every settled keystroke is a search, so this is most of them, and the correction
+    // pass has to stay out of the way (and off the wire) while someone is still typing.
+    expect(matchedTyping('skeuo', 'realistic UI. <mark>Skeuomorphism</mark> makes')).toBe(true);
+    expect(matchedTyping('bread', 'a <mark>breadcrumbs</mark> trail')).toBe(true);
+  });
+
+  test('nothing marked and nothing typed are both a no', () => {
+    expect(matchedTyping('toast', 'a plain excerpt with no mark in it')).toBe(false);
+    expect(matchedTyping('', '<mark>toast</mark>')).toBe(false);
   });
 });

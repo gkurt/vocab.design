@@ -20,7 +20,8 @@
  * guest on someone else's page and leaves it alone.
  */
 
-import { droppedWords, namesTopResult } from '#src/lib/search-signals.ts';
+import { correction, nearestWord, type Paths, vocabulary } from '#src/lib/nearest.ts';
+import { droppedWords, matchedTyping, namesTopResult } from '#src/lib/search-signals.ts';
 import { track } from '#src/lib/track.ts';
 import { canonicalPath } from '#src/lib/url.ts';
 
@@ -60,6 +61,8 @@ interface Attempt {
   results: PagefindResult[];
   /** Set when words were dropped to get here, so the reader is told. */
   ran?: string;
+  /** Set when the query was misspelled and the dictionary knew the word anyway. */
+  corrected?: string;
 }
 
 /** How many results to render at once. The rest wait behind "show more". */
@@ -84,6 +87,12 @@ export class SiteSearch extends HTMLElement {
   #token = 0;
   #results: PagefindResult[] = [];
   #shown = 0;
+
+  /** The spellings, fetched only for a search that matched something other than the
+   *  words typed. Never on load, and never for a search that is going fine. */
+  #paths: Paths | null = null;
+  #pathsLoading: Promise<Paths | null> | null = null;
+  #words: Set<string> | null = null;
 
   #input!: HTMLInputElement;
   #status!: HTMLElement;
@@ -261,7 +270,7 @@ export class SiteSearch extends HTMLElement {
     }
     const count = `${this.#results.length} ${this.#results.length === 1 ? 'result' : 'results'}`;
     const within = scope ? ` in ${scope}` : '';
-    this.#say(attempt.ran ? `${count}${within} for "${attempt.ran}", since the rest of that is not in any article` : `${count}${within}`);
+    this.#say(`${count}${within}${this.#instead(query, attempt)}`);
     await this.#render(PAGE_SIZE);
     this.#scheduleReport(query, attempt);
   }
@@ -296,16 +305,32 @@ export class SiteSearch extends HTMLElement {
         this.#unanswered = null;
         return;
       }
-      const dropped = droppedWords(query, attempt.ran);
+      // Words are counted as dropped from the query that actually ran, so a search that
+      // was both respelled and shortened is not charged for the respelling as well.
+      const dropped = droppedWords(attempt.corrected ?? query, attempt.ran);
       track('search', {
         search_term: query,
         results,
         surface,
         top_result: this.#topResult,
-        names_result: namesTopResult(query, this.#topResult),
+        names_result: namesTopResult(attempt.corrected ?? query, this.#topResult),
         dropped_words: dropped,
+        corrected: attempt.corrected,
         ...filters,
       });
+      // A misspelling rescued is worth its own name for the same reason a failure is: a
+      // slip that shows up hundreds of times is a spelling readers believe in, and the
+      // fix for that one is an alias in the term's frontmatter, not a wider edit budget.
+      if (attempt.corrected) {
+        track('search_corrected', {
+          search_term: query,
+          corrected: attempt.corrected,
+          results,
+          surface,
+          top_result: this.#topResult,
+          ...filters,
+        });
+      }
       if (dropped > 0) {
         track('search_distant', {
           search_term: query,
@@ -352,32 +377,152 @@ export class SiteSearch extends HTMLElement {
    * the most selective few and drop the rest. Words the collection has never seen score
    * zero and go first. The reader is told which words actually ran, because showing
    * results for a question nobody asked is worse than showing none.
+   *
+   * Before any of that, the query gets two chances to be a word this dictionary knows,
+   * misspelled: `skeumorphism` is not a failed search, it is a successful one with a
+   * vowel in the wrong place, and the site already answers that slip at the other door
+   * (`/skeumorphism` reaches the 404 page, which suggests the term). The spellings come
+   * from `/paths.json` and the matching from `#src/lib/nearest.ts`, shared with it. First
+   * the whole query as one headword, then word by word for a typo inside a longer
+   * question, or for a word that is common here without being a term of its own.
+   *
+   * Both passes hang on `matchedTyping` rather than on a result count, because
+   * Pagefind matches the last word of a query loosely and a typo therefore comes back
+   * looking like a success: `tost` returns 1,060 results topped by "Back to top". Whether
+   * this corpus contains a word can only be read off what the excerpt marked.
    */
   async #searchWithSalvage(api: PagefindApi, query: string, filters: Filters | undefined): Promise<Attempt> {
     const first = await api.search(query, { filters });
-    if (first.results.length > 0) return { results: first.results };
+    if (first.results.length > 0 && (await this.#matched(query, first))) return { results: first.results };
 
-    const words = query.split(/\s+/).filter((w) => w.length >= MIN_WORD);
-    if (words.length < 2) return { results: [] };
-
-    const scored: { word: string; hits: number }[] = [];
-    for (const word of words) {
-      const probe = await api.search(word, { filters });
-      if (probe.results.length > 0) scored.push({ word, hits: probe.results.length });
+    // A headword misspelled is the commonest way to fail here, because the thing a reader
+    // types IS a name (SPEC §1) and `skeuomorphism` has a vowel most people put somewhere
+    // else. Try the whole query as a name the dictionary knows before touching the words
+    // individually, so a two-word term survives a typo in either half.
+    const whole = await this.#respell(query);
+    if (whole) {
+      const attempt = await api.search(whole, { filters });
+      if (attempt.results.length > 0) return { results: attempt.results, corrected: whole };
     }
-    if (scored.length === 0) return { results: [] };
-    scored.sort((a, b) => a.hits - b.hits);
+    const words = query.split(/\s+/).filter((w) => w.length >= MIN_WORD);
+    if (words.length === 0) return { results: first.results };
+
+    // One probe per word does double duty: how much a word narrows anything, and whether
+    // the corpus has that word at all. Only a word it has never marked is safe to
+    // respell, because ordinary English the slugs happen to lack (`grip`, `dots`) sits
+    // one edit from something that is a term, and correcting a reader who was right is
+    // worse than finding nothing. `typograhpy` is the case this pass exists for: no term
+    // is slugged `typography` (it is a category), so the whole-query pass above has
+    // nothing to offer and the word itself is what needs fixing.
+    const spellings = [...words];
+    const scored: { index: number; word: string; hits: number }[] = [];
+    let mended = false;
+    for (const [index, word] of words.entries()) {
+      let probe = await api.search(word, { filters });
+      const known = probe.results.length > 0 && (await this.#matched(word, probe));
+      if (!known) {
+        const fix = await this.#respellWord(word);
+        const retry = fix ? await api.search(fix, { filters }) : null;
+        if (fix && retry && retry.results.length > 0) {
+          spellings[index] = fix;
+          probe = retry;
+          mended = true;
+        }
+      }
+      const spelling = spellings[index];
+      if (spelling && probe.results.length > 0) scored.push({ index, word: spelling, hits: probe.results.length });
+    }
+
+    /** Whatever survives, in the order the reader typed it rather than in scoring order. */
+    const asTyped = (kept: { index: number; word: string }[]) =>
+      [...kept]
+        .sort((a, b) => a.index - b.index)
+        .map((s) => s.word)
+        .join(' ');
+
+    // A mended query is worth running whole before anything is dropped: fixing a spelling
+    // is answering the question asked, and shedding words is answering a smaller one.
+    const corrected = mended ? spellings.join(' ') : undefined;
+    if (corrected) {
+      const attempt = await api.search(corrected, { filters });
+      if (attempt.results.length > 0) return { results: attempt.results, corrected };
+    }
+    // Nothing could be respelled. Whatever Pagefind found loosely is still better than an
+    // empty page, and it is what this search did before any of this existed.
+    if (first.results.length > 0) return { results: first.results };
+    if (words.length < 2 || scored.length === 0) return { results: [] };
 
     // Narrow before widening: more words is a stricter AND, so start from a handful of
     // the most selective and shed one at a time until something lands.
-    for (let keep = Math.min(scored.length, MAX_SALVAGE_WORDS); keep >= 1; keep--) {
-      const kept = new Set(scored.slice(0, keep).map((s) => s.word));
-      const ran = words.filter((w) => kept.has(w)).join(' ');
+    const selective = [...scored].sort((a, b) => a.hits - b.hits);
+    for (let keep = Math.min(selective.length, MAX_SALVAGE_WORDS); keep >= 1; keep--) {
+      const ran = asTyped(selective.slice(0, keep));
       if (ran === query) continue;
       const attempt = await api.search(ran, { filters });
-      if (attempt.results.length > 0) return { results: attempt.results, ran };
+      if (attempt.results.length > 0) return { results: attempt.results, ran, corrected };
     }
     return { results: [] };
+  }
+
+  /**
+   * What ran, when it was not what was typed. A reader who is told "12 results" for a
+   * word they know they misspelled has been quietly overruled, and a reader shown
+   * results for half their sentence has been answered a question they did not ask, so
+   * both rewrites say so in the reader's own words.
+   */
+  #instead(query: string, attempt: Attempt): string {
+    const { corrected, ran } = attempt;
+    if (corrected && ran) return ` for "${ran}", correcting the spelling of "${query}" and dropping the rest`;
+    if (corrected) return ` for "${corrected}", since nothing here is spelled "${query}"`;
+    if (ran) return ` for "${ran}", since the rest of that is not in any article`;
+    return '';
+  }
+
+  /**
+   * Whether a result set is about the words that were typed. Pagefind matches the last
+   * word of a query loosely, so a count of results is not evidence that the word exists:
+   * the excerpt of the top hit is, because `<mark>` surrounds what actually matched. This
+   * is also what keeps the dictionary off the wire for an ordinary search, since a word
+   * half typed matches the start of a marked word and never asks for a correction.
+   */
+  async #matched(query: string, search: PagefindSearch): Promise<boolean> {
+    const top = search.results[0];
+    if (!top) return false;
+    const data = await top.data();
+    return matchedTyping(query, data.excerpt);
+  }
+
+  /** The dictionary of every spelling the site answers to, fetched once and only on a
+   *  search that already found nothing. Never fatal: a failed fetch is one fewer rescue. */
+  #dictionary(): Promise<Paths | null> {
+    if (this.#paths) return Promise.resolve(this.#paths);
+    if (this.#pathsLoading) return this.#pathsLoading;
+    const url = this.dataset.paths;
+    if (!url) return Promise.resolve(null);
+    this.#pathsLoading = fetch(url)
+      .then((response) => response.json() as Promise<Paths>)
+      .then((paths) => {
+        this.#paths = paths;
+        this.#words = vocabulary(paths);
+        return paths;
+      })
+      .catch(() => null);
+    return this.#pathsLoading;
+  }
+
+  /** The whole query as a headword, spelled the way this dictionary spells it. */
+  async #respell(query: string): Promise<string | null> {
+    const paths = await this.#dictionary();
+    if (!paths) return null;
+    const fixed = correction(query, paths);
+    return fixed && fixed.toLowerCase() !== query.toLowerCase() ? fixed : null;
+  }
+
+  /** One word of a longer question, same rule. */
+  async #respellWord(word: string): Promise<string | null> {
+    await this.#dictionary();
+    if (!this.#words) return null;
+    return nearestWord(word, this.#words);
   }
 
   async #render(count: number) {

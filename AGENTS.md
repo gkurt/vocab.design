@@ -215,13 +215,23 @@ the term page through `sessionStorage` (written before the meta refresh, read an
 by `analytics.ts`, and only credited when the target slug matches `data-term`). That
 script is emitted only when a measurement ID is set.
 
-A search that finds nothing is retried twice before it is reported as a failure: once as
-a misspelling, once with its vaguest words dropped (SPEC §3). The spellings come from
+A search that did not find the words typed is retried before it is reported: as a
+misspelling, and then with its vaguest words dropped (SPEC §3). The spellings come from
 `/paths.json` and the matching from `src/lib/nearest.ts`, the same pair the 404 page uses
-to answer `/skeumorphism`, and the dictionary is fetched only once a search has already
-failed. Misspellings are never content: there is no frontmatter field for them, because
-typos are unbounded and the vocabulary is not. A typo that recurs in the analytics
-(`search_corrected`) earns a real alias, which is a different thing with its own page.
+to answer `/skeumorphism`, and the dictionary is fetched only for a search that matched
+something other than what was typed, never on load. Misspellings are never content: there
+is no frontmatter field for them, because typos are unbounded and the vocabulary is not.
+A typo that recurs in the analytics (`search_corrected`) earns a real alias, which is a
+different thing with its own page.
+
+**Gotcha**: Pagefind's result count does not tell you whether a search found anything a
+reader asked for. The last word of a query is matched loosely, so `tost` returns 1,060
+results (it matched `to`) and `accordian` returns four (it matched `according`): a typo
+looks exactly like a success. The only readable evidence of what matched is the `<mark>`
+in the excerpt, which is what `matchedTyping` in `src/lib/search-signals.ts` reads. Any
+future feature that needs to know whether the corpus contains a word has to ask the same
+way, and has to keep the same exemption: a marked word that merely starts with what was
+typed is a reader mid-word, not a slip.
 
 **Gotcha**: Pagefind's index does not exist at Astro build time, so `<vd-search>` must
 reach it through a dynamic `import()` of a computed specifier marked `/* @vite-ignore */`.

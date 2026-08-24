@@ -35,3 +35,30 @@ export function droppedWords(query: string, ran: string | undefined): number {
   const kept = new Set(normalize(ran));
   return normalize(query).filter((word) => !kept.has(word)).length;
 }
+
+/**
+ * Whether Pagefind found the words that were typed, or merely something near them.
+ *
+ * This is the existence test a typo needs, and Pagefind's result count cannot answer it:
+ * the last word of a query is matched loosely, so `tost` comes back with 1,060 results
+ * topped by "Back to top" (it matched `to`) and `accordian` comes back with four (it
+ * matched `according`). A search that fails here does not look like a failure at all.
+ *
+ * The excerpt is where the truth is, because `<mark>` is put around what actually
+ * matched. `grip` marks `grip,` in Column resizer, so the corpus really does have that
+ * word and a reader who typed it was right; `paralax` marks `P.` in Pilcrow, so it does
+ * not, and the word is worth respelling.
+ *
+ * A marked word that merely STARTS with what was typed counts as found, because that is
+ * a reader mid-word rather than a reader who slipped: every settled keystroke runs a
+ * search, so `skeuo` and `skeuomorphis` are searches too, and both are going well.
+ */
+export function matchedTyping(query: string, excerpt: string): boolean {
+  const marked = new Set<string>();
+  for (const match of excerpt.matchAll(/<mark>(.*?)<\/mark>/g)) {
+    for (const word of normalize(match[1] ?? '')) marked.add(word);
+  }
+  const words = normalize(query);
+  if (words.length === 0 || marked.size === 0) return false;
+  return words.every((word) => marked.has(word) || [...marked].some((found) => found.startsWith(word)));
+}

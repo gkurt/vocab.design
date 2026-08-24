@@ -13,7 +13,9 @@ Z, and `/search` is full text over every article, narrowable to a category or a 
 A few facets are words in their own right (dark pattern, microinteraction), so they have
 a definition and a specimen as well as a page of members.
 Search is also a modal from any page (the nav link, `/` or Cmd/Ctrl+K), and it is the one
-thing on the site that needs JavaScript. The contrast edges answer a discrimination
+thing on the site that needs JavaScript. It corrects a misspelled headword against the
+dictionary itself (`skeumorphism` finds skeuomorphism, and says which spelling it ran),
+the same way a mistyped URL is answered by the 404 page. The contrast edges answer a discrimination
 test rather than a similarity one, so a term's "Which word?" table lists the words a
 person might reach for instead of this one.
 

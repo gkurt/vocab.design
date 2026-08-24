@@ -319,32 +319,45 @@ the definition and `useWhen` 6, while the specimen and the Related list are igno
 specimen's labels are the loudest nonsense in the index, and the Related list is nothing
 but other terms' names, which would make every page match every neighbour's word.
 
-A query that returns nothing is retried, twice, and told about either time.
+A search that did not find the words that were typed is retried, and the reader is told
+either way.
 
 First as a misspelling, because the thing a reader types here IS a name and a name is a
 thing you can get one letter wrong. `skeumorphism` is not a failed search, it is a
 successful one with a vowel in the wrong place, and the site already answered that slip
 at the other door: the same typing in the URL bar reaches the 404 page, which suggests
 the term. So the search box reads the same `/paths.json` through the same matcher
-(`src/lib/nearest.ts`), and the correction is deliberately narrower than the 404's
-suggestions, because a suggestion costs a glance while a correction runs a search on the
-reader's behalf. An edit budget scaled to the length of the word (nothing under four
-characters, where `tab`, `nav` and `lab` are all one edit apart), transposition counted
-as the single slip it is, and no answer at all when two terms are equally close.
+(`src/lib/nearest.ts`). The whole query is tried first as one headword, so a two-word
+term survives a typo in either half, and then word by word, which is what catches a word
+that is common here without being a term of its own (`typograhpy`: no term is slugged
+`typography`, it is a category).
 
-Then without its vaguest words, because Pagefind ANDs every term and a reader describing
-a thing they cannot name types a sentence. "what do you call the little grip dots"
-matches no page as an AND; the search scores each word by how many pages it hits alone,
-keeps the most selective few, and says which words actually ran. That per-word pass is
-also where a typo inside a longer question gets fixed, and only there: a word is
-respelled when the corpus has never seen it, never merely because the slugs lack it.
-`grip` is not in any slug and is one edit from `grid`, and a reader who typed it was
-right.
+The correction is deliberately narrower than the 404's suggestions, because a suggestion
+costs a glance while a correction runs a search on the reader's behalf: an edit budget
+scaled to the length of the word (nothing under four characters, where `tab`, `nav` and
+`lab` are all one edit apart), transposition counted as the single slip it is, no answer
+at all when two terms are equally close, and nothing for a word that is merely a prefix
+of a longer one, because that reader is still typing.
+
+**A result count cannot tell you a search failed.** Pagefind matches the last word of a
+query loosely, so a typo comes back looking like a success: `tost` returns 1,060 results
+topped by "Back to top", `accordian` returns four topped by "Morphing control", and
+neither is what anyone asked for. What actually matched is legible only in the excerpt,
+where `<mark>` surrounds it, so that is what both the correction and the reader's own
+eyes go by. It is also the test that keeps a reader who was right from being corrected:
+`grip` marks `grip,` in Column resizer, so the corpus really does have that word, while
+`paralax` marks `P.` in Pilcrow, so it does not.
+
+Then the query is retried without its vaguest words, because Pagefind ANDs every term and
+a reader describing a thing they cannot name types a sentence. "what do you call the
+little grip dots" matches no page as an AND; the search scores each word by how many
+pages it hits alone, keeps the most selective few, and says which words actually ran.
 
 Misspellings are not content. There is no field for them and there will not be one:
 typos are unbounded and the dictionary is 4,923 spellings, so the finite side is the one
-worth writing down. A slip that shows up in the analytics hundreds of times is a spelling
-readers actually believe in, and that one earns a real alias.
+worth writing down. A slip that shows up in the analytics hundreds of times
+(`search_corrected`, §10) is a spelling readers actually believe in, and that one earns a
+real alias.
 
 Categories live under `/browse/` rather than at the top level, which is a deliberate
 departure from an earlier draft of this section. Terms own the root namespace, so a
