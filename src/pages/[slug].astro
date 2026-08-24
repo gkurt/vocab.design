@@ -93,6 +93,9 @@ const share =
         alt: `The vocab.design specimen for ${d.name.toLowerCase()}, with the term itself picked out of the demonstration.`,
       };
 
+/** Absolute, because a crawler resolves neither a relative image nor a protocol-relative one. */
+const shareImageUrl = absoluteUrl(share?.image ?? '/og/site.png');
+
 const { Content } = await render(term.entry);
 
 const jsonLd = {
@@ -148,6 +151,21 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
           {redirectFrom} → {d.name} · vocab.design
         </title>
         <link rel="canonical" href={canonicalUrl} />
+        {/* An alias is what a reader reaches for and therefore what they paste, and no
+            preview crawler follows a client-side meta refresh. Without these, sharing
+            /snackbar produces a bare link where sharing /toast produces the specimen.
+            Every value is the TERM's, `og:url` included, so a share of any of the 3,888
+            alias URLs is attributed to the one page it redirects to. */}
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="vocab.design" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={d.definition} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={shareImageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={share?.alt} />
+        <meta name="twitter:card" content="summary_large_image" />
         {measuring && (
           <script define:vars={{ handoff: `${redirectFrom}\n${d.slug}` }}>
             try {

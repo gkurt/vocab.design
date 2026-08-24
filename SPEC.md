@@ -1005,6 +1005,11 @@ the reader's theme and social clients are mostly dark. A page with no specimen (
 directory, the glossary, a category or facet listing, /search, the 404) falls back to one
 site card.
 
+An alias redirect carries the term's card too, `og:url` included, because an alias is
+what a reader reaches for and therefore what they paste, and no preview crawler follows a
+client-side meta refresh. Sharing `/snackbar` and sharing `/toast` produce the same
+picture and both are attributed to `/toast`.
+
 The set is shot from real pages: `/capture/{slug}` renders the frame at 800x420 CSS
 pixels, `bun run og` photographs it at a device scale of 1.5, and the PNGs are committed
 under `public/og/`. Those pages are unlinked, `noindex`, and out of the sitemap; they are
