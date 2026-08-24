@@ -40,6 +40,7 @@
     "test:e2e:update": "playwright test --update-snapshots",
     "validate": "bun scripts/validate-terms.ts",
     "og": "bun scripts/og-images.ts",
+    "icons": "bun scripts/icons.ts",
     "analytics": "bun scripts/analytics-report.ts",
     "deploy": "bun scripts/deploy-branch.ts",
     "checks": "bun check && bun typecheck && bun run test && bun validate && bun run test:e2e",

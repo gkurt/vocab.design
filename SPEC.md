@@ -973,6 +973,14 @@ the concept, and a docs URL.
 - **Agents**: `llms.txt` at the root; every term also served as raw markdown at
   `/{slug}.md`; full dataset export at `/terms.json`.
 - **Share images**: one per term, and the term's own specimen is the picture (below).
+- **Icons**: `public/favicon.svg` is the drawing (the wordmark's serif v on an accent
+  tile, the one letter that survives 16 pixels), and `bun run icons` rasters the two
+  files an SVG cannot cover: `favicon.ico`, which a browser asks for before it has
+  parsed any HTML and which a static host otherwise answers with the 404 page, and
+  `apple-touch-icon.png` at 180, without which iOS puts a screenshot of the page on a
+  home screen. `theme-color` is declared twice, scoped to the system preference so it
+  is right with no JavaScript, and both are re-stated by the theme toggle for a reader
+  who has overridden their system.
 - Sitemap, RSS feed of newly published terms.
 
 ### Share images

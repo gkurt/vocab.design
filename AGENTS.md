@@ -18,6 +18,7 @@ bun run test:e2e:new  # Same suites, only for demos without a committed subject 
 bun typecheck      # astro sync + type check (TypeScript 7, native tsc)
 bun validate       # Content gates: schema, relations, symmetry, prose links, stubs, demo files
 bun run og         # Share images: shoot every specimen missing one (SPEC §10)
+bun run icons      # Rasters favicon.ico + apple-touch-icon.png from public/favicon.svg
 bun run lint       # Lint
 bun run format     # Format
 bun run fix        # Lint + format + autofix
@@ -116,6 +117,8 @@ src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlink
 src/pages/capture/[slug]    #   the share image's set: the stage at 800x420, posed, no controls
 src/pages/capture/site-card #   the one fallback card, for every page with no specimen
 public/og/                  #   committed: 1,065 share images plus site.png, shot by `bun run og`
+public/favicon.svg          # the icon, and the source the other two are rastered from
+scripts/icons.ts            # `bun run icons`: favicon.ico (16+32) + apple-touch-icon.png
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 scripts/og-images.ts        # `bun run og`: shoots the capture pages into public/og/*.png
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
@@ -209,6 +212,12 @@ still is not lying; go and look at the term page.
 **Gotcha**: JPEG is not smaller here (measured: q88 came out level with PNG or larger).
 The dotted stage ground and the fade's gradients are exactly what JPEG spends bits on, so
 PNG stays.
+
+**The icon set** is the same shape of asset and the same trade. `public/favicon.svg` is
+the drawing; `bun run icons` rasters `favicon.ico` (16 and 32, PNG-in-ICO) and
+`apple-touch-icon.png` (180, opaque, since iOS masks it and transparent corners under
+that mask are a gamble). Edit the SVG and re-run it; nothing checks that the three agree.
+The Apple icon is the only one deliberately drawn over an opaque ground.
 
 ## Analytics
 

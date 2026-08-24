@@ -53,6 +53,27 @@ const onSearchPage = path.endsWith('/search');
       type="font/woff2"
       crossorigin
     />
+    {/* The icon set (SPEC §10). The ICO is first and the SVG second on purpose: a
+        browser that understands neither `sizes` nor SVG takes the ICO, every modern one
+        walks on to the SVG, and Safari takes the Apple icon for a home screen. The ICO
+        also answers the request a browser makes for `/favicon.ico` before it has parsed
+        a byte of this document, which on a static host is otherwise served the 404 page. */}
+    <link rel="icon" href={pageUrl("/favicon.ico")} sizes="32x32" />
+    <link rel="icon" href={pageUrl("/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={pageUrl("/apple-touch-icon.png")} />
+    {/* The colour a mobile browser paints its own chrome. Media-scoped rather than
+        scripted, so it is right for a reader with no JavaScript; the toggle re-states
+        both when a reader has overridden their system theme. */}
+    <meta
+      name="theme-color"
+      content="#faf9f6"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#171512"
+      media="(prefers-color-scheme: dark)"
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -162,6 +183,21 @@ const onSearchPage = path.endsWith('/search');
       });
       if (header && sentinel) stuck.observe(sentinel);
 
+      // The theme-color metas are scoped to the system preference, which is the right
+      // answer until a reader overrides it here. Then both are re-stated with the chosen
+      // scheme's paper, so the browser's own chrome follows the page rather than the OS.
+      // The values are global.css's --vd-paper; there is no way to ask CSS for a token
+      // from a media query that does not apply.
+      const TINT = { light: "#faf9f6", dark: "#171512" };
+      const tint = (theme: "light" | "dark") => {
+        for (const meta of document.querySelectorAll<HTMLMetaElement>(
+          'meta[name="theme-color"]',
+        ))
+          meta.content = TINT[theme];
+      };
+      const chosen = document.documentElement.dataset.theme;
+      if (chosen === "light" || chosen === "dark") tint(chosen);
+
       document
         .querySelector("[data-theme-toggle]")
         ?.addEventListener("click", () => {
@@ -171,6 +207,7 @@ const onSearchPage = path.endsWith('/search');
           const next = now === "dark" ? "light" : "dark";
           root.dataset.theme = next;
           localStorage.setItem("theme", next);
+          tint(next);
         });
     </script>
   </body>
