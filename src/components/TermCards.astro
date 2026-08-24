@@ -21,21 +21,27 @@ interface Props {
  * Two columns, because a specimen is authored against the term page's full column and
  * the preview scales that box down: two across is a halving, which is the largest
  * reduction that still reads as a demonstration rather than as a texture.
+ *
+ * The card is one bordered object, with the picture flush at its top and the words in
+ * the padded half below. A framed picture reads as a thing in its own right, so a
+ * headword merely sitting under one belongs to whichever neighbour is nearer, and on a
+ * ragged two-column grid that is not reliably the term it names. Drawing the boundary
+ * costs a hairline; making proximity carry it alone costs a screenful of air.
  */
 const { terms, aliases = false } = Astro.props;
 ---
 
-<ul class="grid gap-x-6 gap-y-7 pb-12 sm:grid-cols-2">
+<ul class="grid gap-5 pb-12 sm:grid-cols-2">
   {
     terms.map((t) => (
       <li
-        class="vd-card"
+        class="vd-card overflow-hidden rounded-lg border border-line bg-surface"
         data-preview={t.data.demo === "none" ? undefined : t.data.slug}
         data-preview-name={t.data.name}
         data-preview-isolation={t.data.demo}
       >
         {t.data.demo !== "none" && (
-          <div class="vd-preview mb-3">
+          <div class="vd-preview">
             {/* The picture is a way in to the term, not a specimen to operate: one is
                 driven on its own page, where it has a control bar and room to be read.
                 Hidden from assistive tech because the headword below is the same link,
@@ -48,18 +54,20 @@ const { terms, aliases = false } = Astro.props;
             />
           </div>
         )}
-        <a
-          href={pageUrl(t.data.slug)}
-          class="font-serif text-lg font-semibold hover:text-accent"
-        >
-          {t.data.name}
-        </a>
-        {aliases && t.data.aliases.length > 0 && (
-          <span class="ml-2 text-sm text-muted italic">
-            also {t.data.aliases.map((a) => a.name).join(", ")}
-          </span>
-        )}
-        <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
+        <div class="px-5 py-4">
+          <a
+            href={pageUrl(t.data.slug)}
+            class="font-serif text-lg font-semibold hover:text-accent"
+          >
+            {t.data.name}
+          </a>
+          {aliases && t.data.aliases.length > 0 && (
+            <span class="ml-2 text-sm text-muted italic">
+              also {t.data.aliases.map((a) => a.name).join(", ")}
+            </span>
+          )}
+          <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
+        </div>
       </li>
     ))
   }

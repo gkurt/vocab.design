@@ -604,12 +604,14 @@ vd-stage[data-autoplay] .vd-stage-play {
    The frame and the ground belong to the box rather than to the stage inside it,
    so the dot grid is the same 16px it is on a term page instead of a scaled-down
    version of itself, and an unmounted card still looks like a stage. */
+/* Inside a card the frame belongs to the card: the picture is flush at its top, with a
+   hairline where the words begin, so a term is one object rather than a picture beside a
+   paragraph. */
 .vd-preview {
   position: relative;
   overflow: hidden;
   aspect-ratio: 720 / 320;
-  border: 1px solid var(--vd-line);
-  border-radius: 10px;
+  border-bottom: 1px solid var(--vd-line);
   background-color: var(--vd-surface);
   background-image: radial-gradient(var(--vd-line) 1px, transparent 1px);
   background-size: 16px 16px;
@@ -740,7 +742,7 @@ vd-stage[data-posed] .vd-playing span {
   border-radius: inherit;
 }
 
-.vd-card:hover .vd-preview,
-.vd-card:focus-within .vd-preview {
+.vd-card:hover,
+.vd-card:focus-within {
   border-color: var(--vd-accent);
 }

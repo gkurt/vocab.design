@@ -312,7 +312,11 @@ and then thrown away. The specimen just shown is remembered for the session, so 
 is always a different word.
 
 **Cards in a listing.** `/browse/{category}` and `/tags/{tag}` render each term as a card:
-a framed preview, the headword, the other spellings, the dictionary line. Two columns,
+one bordered object, the preview flush at its top with a hairline where the words begin,
+then the headword, the other spellings, the dictionary line. The boundary is drawn rather
+than implied, because a framed picture reads as a thing in its own right: a headword
+merely sitting under one belongs to whichever neighbour is nearer, and on a two-column
+grid of ragged card heights that is not reliably the term it names. Two columns,
 because a specimen is authored against the term page's full column and the preview keeps
 that box and scales it, so nothing is re-authored and nothing clips: two across is a
 halving, the largest reduction that still reads as a demonstration rather than as a
