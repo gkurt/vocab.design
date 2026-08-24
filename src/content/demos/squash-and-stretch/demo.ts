@@ -16,6 +16,11 @@ const DURATION_MS = 1600;
  * Volume is conserved by hand, the way it is in cel animation: every frame that widens
  * the ball flattens it by roughly as much, so it reads as mass being pushed around
  * rather than as an image being resized.
+ *
+ * The bounces lose height the way they lose time: the second hop is under half the first
+ * one's flight and about a fifth of its height, because height goes with the square of
+ * the time in the air. A hop that rises further than the one before it is a ball being
+ * thrown, not dropped, and it is the one thing here that reads as wrong.
  */
 const PATH = [
   { offset: 0, y: 0, sx: 1, sy: 1, easing: 'ease-in' },
@@ -26,7 +31,7 @@ const PATH = [
   { offset: 0.76, y: FALL, sx: 0.94, sy: 1.08, easing: 'ease-out' },
   { offset: 0.8, y: FALL, sx: 1.14, sy: 0.84, easing: 'ease-in' },
   { offset: 0.84, y: FALL, sx: 0.97, sy: 1.04, easing: 'ease-out' },
-  { offset: 0.93, y: FALL * 0.11, sx: 1, sy: 1, easing: 'ease-in' },
+  { offset: 0.93, y: FALL * 0.86, sx: 1, sy: 1, easing: 'ease-in' },
   { offset: 1, y: FALL, sx: 1, sy: 1 },
 ];
 
