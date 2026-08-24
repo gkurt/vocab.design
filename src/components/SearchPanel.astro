@@ -63,19 +63,21 @@ const facetOptions = TAGS.map((tag) => ({ tag, label: tagLabel(tag) }));
         : "w-full rounded-lg border border-line bg-surface px-4 py-3 text-lg outline-none focus-visible:border-accent"}
     />
   </label>
+  {/* One row, always: `min-w-0` is what lets a select shrink past its own text, so a
+      narrow screen elides the wider label instead of dropping the pair onto two lines. */}
   <div
     class={dialog
-      ? "flex flex-wrap items-center gap-2 border-b border-line px-4 py-2"
-      : "mt-3 flex flex-wrap items-center gap-2"}
+      ? "flex items-center gap-2 border-b border-line px-4 py-2"
+      : "mt-3 flex items-center gap-2"}
   >
-    <label>
+    <label class="min-w-0">
       <span class="sr-only">Narrow to a category</span>
       <select data-search-filter="category" class="vd-select">
         <option value="">All categories</option>
         {CATEGORIES.map((category) => <option value={category}>{category}</option>)}
       </select>
     </label>
-    <label>
+    <label class="min-w-0">
       <span class="sr-only">Narrow to a facet</span>
       <select data-search-filter="tag" class="vd-select">
         <option value="">All facets</option>
