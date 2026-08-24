@@ -33,10 +33,11 @@ export interface PlayerHost {
    * without declaring it. */
   clockUsed: () => boolean;
   /**
-   * Specimen coordinates to page coordinates (SPEC §6). Zero for shadow DOM; an
-   * iframe has a viewport of its own, and the ghost cursor lives in neither.
+   * Specimen coordinates to page coordinates (SPEC §6): the identity for shadow DOM;
+   * an iframe has a viewport of its own, drawn wherever the page puts it and at
+   * whatever size the page scales it to, and the ghost cursor lives in neither.
    */
-  offset: () => { x: number; y: number };
+  offset: () => { x: number; y: number; scale: number };
   reducedMotion: boolean;
   onStateChange?: (state: PlayerState) => void;
   /**
@@ -1266,9 +1267,9 @@ export class AttractPlayer {
   #placeCursor(at: { x: number; y: number }, travelMs: number): void {
     this.#cursorAt = at;
     const overlayRect = this.#host.overlay.getBoundingClientRect();
-    const from = this.#host.offset();
+    const { x, y, scale } = this.#host.offset();
     this.#cursor.style.transitionDuration = `${travelMs}ms`;
-    this.#cursor.style.transform = `translate(${at.x + from.x - overlayRect.left}px, ${at.y + from.y - overlayRect.top}px)`;
+    this.#cursor.style.transform = `translate(${at.x * scale + x - overlayRect.left}px, ${at.y * scale + y - overlayRect.top}px)`;
   }
 
   /** Spawn a cursor effect (arc/caret). Non-persistent effects clean themselves up. */

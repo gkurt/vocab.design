@@ -74,12 +74,17 @@ function maskImage(size: { width: number; height: number }, hole: Box): string {
  * A whole-scene subject is the caller's to skip: "all of it" is an answer no
  * highlight can give, and fading nothing is the honest picture of it.
  */
-export function fadeToSubject(canvas: HTMLElement, subject: HTMLElement, offset: () => { x: number; y: number }): void {
+export function fadeToSubject(canvas: HTMLElement, subject: HTMLElement, offset: () => { x: number; y: number; scale: number }): void {
   const canvasRect = canvas.getBoundingClientRect();
   const rect = subject.getBoundingClientRect();
-  const from = offset();
+  const { x, y, scale } = offset();
   const box = highlightBox(
-    { left: rect.left + from.x - canvasRect.left, top: rect.top + from.y - canvasRect.top, width: rect.width, height: rect.height },
+    {
+      left: rect.left * scale + x - canvasRect.left,
+      top: rect.top * scale + y - canvasRect.top,
+      width: rect.width * scale,
+      height: rect.height * scale,
+    },
     canvasRect,
   );
   const mask = maskImage(canvasRect, box);

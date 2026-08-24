@@ -11,6 +11,44 @@ import { isRevealed } from '#src/stage/visible.ts';
 
 const HOVER_DWELL_MS = 150;
 
+/** The box every specimen is authored against (SPEC §5), which is also the reading column. */
+const AUTHORED_WIDTH = 720;
+
+/**
+ * Keep the whole specimen inside a column narrower than the box it was authored for
+ * (SPEC §5). The reading column is exactly 720px, so this is the phone's problem and
+ * nobody else's: below that width the demo would be cut off at both edges, and a
+ * specimen with its sides missing is the one thing a stage may never show.
+ *
+ * The box is SCALED rather than reflowed, exactly as a listing card scales it: a demo
+ * composes against 720x320 and may grow into any of it as its state changes, so the box
+ * is the only measurement that holds for the whole demonstration. `--sp-scale` goes with
+ * it, which is how a demo that measures reads its own pixels back (`#src/kit/measure.ts`),
+ * and the annotation overlay stays outside the transform, in the page's own pixels.
+ *
+ * Applied before the specimen mounts, so a demo measuring itself at mount measures the
+ * scale it will be shown at rather than one applied underneath it a frame later.
+ */
+function fitToColumn(stage: HTMLElement, body: HTMLElement): () => void {
+  let scale = 0;
+  const fit = () => {
+    const width = body.clientWidth;
+    if (width === 0) return;
+    const next = Math.min(1, width / AUTHORED_WIDTH);
+    if (next === scale) return;
+    scale = next;
+    stage.style.setProperty('--vd-stage-k', `${scale}`);
+    if (scale < 1) stage.dataset.fit = '';
+    else delete stage.dataset.fit;
+  };
+  // The body's own height answers to the scale, so only its width is read: a resize
+  // that changed nothing settles on the first callback rather than feeding itself.
+  const observer = new ResizeObserver(fit);
+  observer.observe(body);
+  fit();
+  return () => observer.disconnect();
+}
+
 /** What one run of a specimen's choreography proves, as the CI harness reads it. */
 export interface StageAudit extends AuditResult {
   /** `data-subject` elements present on the fresh mount; must be exactly one (SPEC §5). */
@@ -137,6 +175,11 @@ class VdStage extends HTMLElement {
     const canvas = this.querySelector<HTMLElement>('[data-stage-canvas]');
     const overlay = this.querySelector<HTMLElement>('[data-stage-overlay]');
     if (!slug || !canvas || !overlay) return;
+
+    // A card scales its own preview, from the one width only the listing knows
+    // (`.vd-preview`, SPEC §3); everywhere else the stage measures the column it landed in.
+    const body = canvas.parentElement;
+    if (body && this.dataset.capture === undefined && !this.closest('.vd-preview')) this.#teardown.push(fitToColumn(this, body));
 
     const isolation: Isolation = this.dataset.isolation === 'iframe' ? 'iframe' : 'inline';
     // A capture stage exists to be photographed once (SPEC §10): the demo, posed as
@@ -334,12 +377,12 @@ class VdStage extends HTMLElement {
       const rect = el.getBoundingClientRect();
       // The overlay is chrome and the subject may be in a document of its own, so
       // the ring is placed in page coordinates, not the specimen's (SPEC §6).
-      const from = surface.offset();
+      const { x, y, scale } = surface.offset();
       const box = {
-        left: rect.left + from.x - overlayRect.left - 6,
-        top: rect.top + from.y - overlayRect.top - 6,
-        width: rect.width + 12,
-        height: rect.height + 12,
+        left: rect.left * scale + x - overlayRect.left - 6,
+        top: rect.top * scale + y - overlayRect.top - 6,
+        width: rect.width * scale + 12,
+        height: rect.height * scale + 12,
       };
       spotlight.style.left = `${box.left}px`;
       spotlight.style.top = `${box.top}px`;

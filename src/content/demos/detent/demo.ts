@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -75,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px"
         >
           <div class="sp-surface" style="padding: 16px 20px 12px">
-            <div style="position: relative; width: ${RAIL}px; height: 66px">
+            <div data-part="rail" style="position: relative; width: ${RAIL}px; height: 66px">
               <span
                 style="position: absolute; left: 0; top: 20px; width: ${RAIL}px; height: 30px; border-radius: 9px;
                        background: var(--sp-sunken); box-shadow: inset 0 0 0 1px var(--sp-line)"
@@ -107,6 +108,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   `;
 
   const scene = part(root, 'scene');
+  const rail = part(root, 'rail');
   const thumb = part(root, 'thumb');
   const readout = part(root, 'readout');
   const wellEls = STOPS.map((_, i) => part(root, `well-${i}`));
@@ -170,7 +172,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     // A real drag has to keep reporting once the pointer leaves a 32 px thumb. Synthetic
     // pointers have no capture to take and the call throws, so the guard is mandatory.
     if (event.isTrusted) thumb.setPointerCapture(event.pointerId);
-    origin = { x: event.clientX, centre };
+    // The pointer is read in the rail's own pixels, not the page's: a stage narrower than
+    // the authored box is SCALED, and a drag measured off clientX would move the thumb by
+    // the reader's distance divided by that scale (SPEC §5).
+    origin = { x: localPoint(event, rail).x, centre };
     entries = 0;
     scene.dataset.caught = 'none';
     scene.dataset.settle = 'holding';
@@ -180,7 +185,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   thumb.addEventListener('pointermove', (event) => {
     if (!origin) return;
-    const wanted = origin.centre + (event.clientX - origin.x);
+    const wanted = origin.centre + (localPoint(event, rail).x - origin.x);
     let stuck: number | undefined;
     for (let i = 0; i < STOPS.length; i++) {
       if (Math.abs(wanted - centreOf(i)) <= CATCH) stuck = i;

@@ -27,7 +27,7 @@ export class TouchMirror {
   /** The odd third contact, riding the mirror centre while Ctrl and Shift are held. */
   #third: HTMLElement;
   #overlay: HTMLElement;
-  #offset: () => { x: number; y: number };
+  #offset: () => { x: number; y: number; scale: number };
   #contact = false;
   #pressedAt = 0;
   #timer: ReturnType<typeof setTimeout> | undefined;
@@ -38,7 +38,7 @@ export class TouchMirror {
   /** Whether Shift joined Ctrl at pointerdown, making the gesture three contacts rather than two. */
   #trio = false;
 
-  constructor(events: EventTarget, edge: Element, overlay: HTMLElement, offset: () => { x: number; y: number }) {
+  constructor(events: EventTarget, edge: Element, overlay: HTMLElement, offset: () => { x: number; y: number; scale: number }) {
     this.#overlay = overlay;
     this.#offset = offset;
     const disc = () => {
@@ -109,8 +109,9 @@ export class TouchMirror {
 
   #place(): void {
     const overlayRect = this.#overlay.getBoundingClientRect();
-    const from = this.#offset();
-    const at = (p: { x: number; y: number }) => `translate(${p.x + from.x - overlayRect.left}px, ${p.y + from.y - overlayRect.top}px)`;
+    const { x, y, scale } = this.#offset();
+    const at = (p: { x: number; y: number }) =>
+      `translate(${p.x * scale + x - overlayRect.left}px, ${p.y * scale + y - overlayRect.top}px)`;
     this.#el.style.transform = at(this.#at);
     if (!this.#pinchFrom) return;
     const pair = mirrorPinch(this.#pinchFrom, this.#at);

@@ -487,14 +487,20 @@ never fires under reduced motion, so nothing may ever wait on it.
   to be a kit class. That is the test for whether something belongs in `src/kit/`:
   paint a demo can state inline stays in the demo (the look is that term's own claim),
   while structure, state, and animation the demo cannot express go in the kit.
-- **A demo measures in the specimen's own pixels** (SPEC §5). A listing card shows a
-  specimen at half size by scaling the stage body, and inside a scaled subtree a client
-  rect is in the card's pixels while a written length is in the specimen's. So a demo
-  that measures uses `localBox`/`localSize`/`localPoint` from `#src/kit/measure.ts`
-  instead of subtracting two `getBoundingClientRect()` calls; `offsetWidth`/`offsetLeft`
-  already are specimen pixels, and a ratio of an element against itself is scale-free.
-  The tell is invisible on a term page (scale 1) and obvious in a card: an indicator at
-  half the offset, a menu at half the pointer's distance, a readout printing half the px.
+- **A demo measures in the specimen's own pixels** (SPEC §5). A specimen is shown at
+  less than its authored size in two places: a listing card at half size, and a term page
+  whose column is narrower than the authored 720 (a phone), where `<vd-stage>` measures
+  the column and scales the whole box. Inside a scaled subtree a client rect is in the
+  page's pixels while a written length is in the specimen's. So a demo that measures uses
+  `localBox`/`localSize`/`localPoint` from `#src/kit/measure.ts` instead of subtracting
+  two `getBoundingClientRect()` calls; `offsetWidth`/`offsetLeft` already are specimen
+  pixels, and a ratio of an element against itself is scale-free. The tell is invisible
+  at a desktop width and plain on a phone: an indicator at half the offset, a menu at half
+  the pointer's distance, a readout printing half the px. A DRAG is the case that bites,
+  because a phone is the one scaled stage a reader really operates: `event.clientX` minus
+  a remembered `clientX` is a page distance, and writing it back as a translate moves the
+  thing at a fraction of the finger's speed (`src/content/demos/detent/demo.ts` reads the
+  pointer through `localPoint` for exactly this reason).
 - **Scripted animation gates itself.** `motion.css` cannot reach an `element.animate`
   keyframe set, so a demo that animates in script asks `prefersReducedMotion(root)`
   from `#src/kit/motion.ts` and jumps to the end state instead of playing the move.

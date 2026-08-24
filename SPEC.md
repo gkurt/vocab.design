@@ -314,6 +314,14 @@ left, and the same way it was already going for one on the right. Once a card is
 middle it is a link like any other, and a modified or middle click always belongs to the
 browser, so opening a term in a new tab works wherever its card sits.
 
+A column with no peek has nothing at its edges to reach for, and a phone is exactly that
+column: one card, edge to edge, its neighbours entirely off screen. There the row grows a
+pair of steps, drawn over the picture's own left and right edges, doing precisely what
+clicking a neighbour does. They are shown only while the peek is gone, because with one on
+screen the neighbour itself is the control and covering it would take away the modified
+click that opens a card in a new tab. They are real buttons, so the row can also be
+stepped from the keyboard.
+
 Which dozen terms are in the row is decided at build time, because the site is static and
 every reader is served the same HTML. The order is the only thing the script decides: it
 shuffles the row during parse, before the deferred module upgrades anything, so the front
@@ -578,18 +586,21 @@ component library would save — without the branding or churn.
   owns it, but the line that control sits in, and everything below, holds still —
   usually by keeping the new content out of the cross axis rather than by moving it
   somewhere it would not really live.
-- **A demo measures in its own pixels.** A specimen is authored against 720x320 and a
-  listing card shows it at half that (§3), by scaling the whole stage body. Inside a
-  scaled subtree `getBoundingClientRect` reports the card's pixels while every length the
-  demo writes back is read as the specimen's, so anything positioned from a measurement
-  lands at half the distance, and a printed measurement is half the number. A demo that
-  measures therefore asks `#src/kit/measure.ts` for `localBox`, `localSize`,
-  `localPoint` or the `displayScale` behind them, rather than subtracting two client
-  rects. `offsetLeft`/`offsetWidth` are already in specimen pixels and need nothing. A
-  ratio of an element against itself (a pointer's position along its own track) needs
-  nothing either, since the scale cancels; a distance in pixels does not. None of this
-  shows on a term page, where the scale is 1, which is why it is a rule rather than
-  something the next demo would notice.
+- **A demo measures in its own pixels.** A specimen is authored against 720x320, which
+  is exactly the reading column, and it is shown smaller in two places: a listing card
+  at half size (§3), and a term page on a screen too narrow for the column, where the
+  stage scales the whole box down rather than let the demo be cut off at both edges.
+  Inside a scaled subtree `getBoundingClientRect` reports the page's pixels while every
+  length the demo writes back is read as the specimen's, so anything positioned from a
+  measurement lands at a fraction of the distance, and a printed measurement is a
+  fraction of the number. A demo that measures therefore asks `#src/kit/measure.ts` for
+  `localBox`, `localSize`, `localPoint` or the `displayScale` behind them, rather than
+  subtracting two client rects. `offsetLeft`/`offsetWidth` are already in specimen pixels
+  and need nothing. A ratio of an element against itself (a pointer's position along its
+  own track) needs nothing either, since the scale cancels; a distance in pixels does
+  not, and a pointer drag is the case that bites: a phone is a scaled stage a reader can
+  really put a finger on, so a drag measured off `clientX` moves what it drags at a
+  fraction of the finger's speed.
 - **The specimen fits its stage.** The stage body clips its overflow, so an element
   that escapes it is silently amputated, never merely ugly. The same holds one level
   down: a container holds its content (content larger than its box either spills onto
@@ -598,7 +609,10 @@ component library would save — without the branding or churn.
   and a single-line control (a button, a chip, a tab) stays one line in every state.
   These are claims about every state the choreography visits, not the mount state
   alone: size each box for its largest content at its real rendered size, measuring
-  once on mount when only runtime knows it.
+  once on mount when only runtime knows it. The box a demo composes against never
+  changes: a column too narrow for it (a phone) is answered by the stage scaling the
+  whole 720x320 picture down, never by giving the demo less room, so a specimen is
+  authored once and cut off nowhere.
 - **Hard demos** (combobox-class accessibility) are implemented properly once, in the
   kit, and reused — never re-derived per demo.
 - **Budgets**: no network requests, no timers while idle, small enough to inline.

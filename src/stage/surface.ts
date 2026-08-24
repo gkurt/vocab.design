@@ -35,8 +35,15 @@ export interface Surface {
    * specimen's, which is why this is not the same node as `edge`.
    */
   outside: Node;
-  /** Specimen coordinates to page coordinates. Zero for a shadow root, which shares the page's viewport. */
-  offset: () => { x: number; y: number };
+  /**
+   * Specimen coordinates to page coordinates: `page = specimen * scale + {x, y}`.
+   *
+   * A shadow root shares the page's viewport, so its own boxes come back in page
+   * pixels already and this is the identity. A frame's do not: they are the frame
+   * document's, which knows nothing about the page scaling it down to fit a column
+   * or a card (SPEC §5), so `scale` is how many page pixels one specimen pixel is.
+   */
+  offset: () => { x: number; y: number; scale: number };
   /** Put a stage attribute where the kit reads it: `:host` for a shadow root, `:root` for a document. */
   flag: (name: string, value: string) => void;
 }
@@ -74,7 +81,7 @@ async function shadowSurface(canvas: HTMLElement, slug: string): Promise<Surface
     events: shadow,
     edge: canvas,
     outside: canvas,
-    offset: () => ({ x: 0, y: 0 }),
+    offset: () => ({ x: 0, y: 0, scale: 1 }),
     flag: (attribute, value) => canvas.setAttribute(attribute, value),
   };
 }
@@ -101,7 +108,9 @@ async function frameSurface(canvas: HTMLElement, slug: string, name: string): Pr
     outside: doc,
     offset: () => {
       const rect = frame.getBoundingClientRect();
-      return { x: rect.left, y: rect.top };
+      // The frame's laid-out width against the width it is drawn at: 1 on a term page
+      // wide enough for the specimen, and the page's scale wherever it is not.
+      return { x: rect.left, y: rect.top, scale: frame.offsetWidth > 0 ? rect.width / frame.offsetWidth : 1 };
     },
     flag: (attribute, value) => doc.documentElement.setAttribute(attribute, value),
   };

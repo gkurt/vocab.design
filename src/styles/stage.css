@@ -25,6 +25,26 @@ vd-stage figure {
   inset: 0;
 }
 
+/* A column narrower than the authored 720 (a phone, in practice) scales the specimen
+   down instead of cutting its sides off: the canvas keeps the box the demo composes
+   against and the stage shrinks the whole picture, `--vd-stage-k` coming from the stage
+   itself, which is the only thing that knows how wide the column came out. The overlay
+   is left out of the transform on purpose, because the ring, the pin and the ghost
+   cursor are chrome measured in the page's pixels rather than the specimen's. */
+vd-stage[data-fit] .vd-stage-body {
+  height: calc(320px * var(--vd-stage-k, 1));
+}
+
+vd-stage[data-fit] [data-stage-canvas] {
+  inset: 0 auto auto 0;
+  width: 720px;
+  height: 320px;
+  transform: scale(var(--vd-stage-k, 1));
+  transform-origin: top left;
+  /* What the specimen is told about its own display size (`#src/kit/measure.ts`). */
+  --sp-scale: var(--vd-stage-k, 1);
+}
+
 /* `demo: iframe` (SPEC §6): the specimen document fills the canvas exactly, so a
    frame-scoped demo measures the same box a shadow-scoped one would. */
 .vd-stage-frame {
