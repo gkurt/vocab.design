@@ -1,3 +1,4 @@
+import { localBox, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** No chain in the kit's icon set and the kit is frozen, so the link glyph is drawn against
@@ -94,7 +95,7 @@ export function mount(root: HTMLElement): void {
 
   // Measured once, at mount, in the state it is measured in: the bar's box never changes, and
   // reading it later would be reading it after a style write (SPEC §5).
-  const barBox = bar.getBoundingClientRect();
+  const barBox = localSize(bar);
   const BAR_W = barBox.width;
   const BAR_H = barBox.height;
   const GAP = 8;
@@ -149,18 +150,17 @@ export function mount(root: HTMLElement): void {
   const placeBar = () => {
     const run = selected();
     if (run.length === 0) return closeBar();
-    const pageBox = page.getBoundingClientRect();
-    const boxes = run.map((el) => el.getBoundingClientRect());
-    const left = Math.min(...boxes.map((b) => b.left)) - pageBox.left;
-    const right = Math.max(...boxes.map((b) => b.right)) - pageBox.left;
-    const top = Math.min(...boxes.map((b) => b.top)) - pageBox.top;
-    const bottom = Math.max(...boxes.map((b) => b.bottom)) - pageBox.top;
+    const boxes = run.map((el) => localBox(el, page));
+    const left = Math.min(...boxes.map((b) => b.left));
+    const right = Math.max(...boxes.map((b) => b.left + b.width));
+    const top = Math.min(...boxes.map((b) => b.top));
+    const bottom = Math.max(...boxes.map((b) => b.top + b.height));
 
     const above = top - BAR_H - GAP;
     const flipped = above < 4;
     bar.dataset.place = flipped ? 'below' : 'above';
     bar.style.top = `${flipped ? bottom + GAP : above}px`;
-    bar.style.left = `${clamp((left + right) / 2 - BAR_W / 2, 4, pageBox.width - BAR_W - 4)}px`;
+    bar.style.left = `${clamp((left + right) / 2 - BAR_W / 2, 4, page.offsetWidth - BAR_W - 4)}px`;
     bar.setAttribute('data-open', '');
     bar.style.opacity = '1';
     bar.style.visibility = 'visible';

@@ -1,5 +1,6 @@
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox, localSize } from '#src/kit/measure.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
 /*
@@ -89,7 +90,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const shift = part(root, 'shift');
 
   /** Where the body sits while the real face is in force: the mark everything is judged against. */
-  const bodyTop = () => Math.round(body.getBoundingClientRect().top - page.getBoundingClientRect().top);
+  const bodyTop = () => Math.round(localBox(body, page).top);
 
   // Mounted in the web-font state, so this reading is of the state on screen (AGENTS.md).
   const reference = bodyTop();
@@ -108,7 +109,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   page.append(probe);
   const sizeOf = (family: string) => {
     probe.style.fontFamily = family;
-    const box = probe.getBoundingClientRect();
+    const box = localSize(probe);
     return { width: box.width, line: box.height };
   };
   const web = sizeOf(WEB);

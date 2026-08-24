@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const SECTIONS = [
@@ -105,12 +106,11 @@ export function mount(root: HTMLElement): void {
 
   // Anchored once from the real geometry, on the state the panels mount in: they
   // are out of flow, so this is the only measurement the header ever needs.
-  const frameRect = frame.getBoundingClientRect();
   const top = topbar.offsetHeight + 6;
   for (const { trigger, panel } of sections) {
-    const left = trigger.getBoundingClientRect().left - frameRect.left;
+    const { left } = localBox(trigger, frame);
     panel.style.top = `${top}px`;
-    panel.style.left = `${Math.min(Math.max(left, 10), frameRect.width - panel.offsetWidth - 10)}px`;
+    panel.style.left = `${Math.min(Math.max(left, 10), frame.offsetWidth - panel.offsetWidth - 10)}px`;
   }
 
   /** One panel at a time, named absolutely: null closes the header. */

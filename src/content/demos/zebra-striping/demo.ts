@@ -1,5 +1,6 @@
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 interface Row {
   key: string;
@@ -147,13 +148,12 @@ export function mount(root: HTMLElement): void {
 
   // Measured from the rows as mounted, before a single band is written: the layer has to
   // land exactly on the rows it shades, and a read after a write would be the old value.
-  const railTop = rail.getBoundingClientRect().top;
-  const boxes = ROWS.map((row) => part(root, `row-${row.key}`).getBoundingClientRect());
+  const boxes = ROWS.map((row) => localBox(part(root, `row-${row.key}`), rail));
   const first = boxes[0];
   const last = boxes[boxes.length - 1];
   if (first && last) {
-    stripes.style.top = `${(first.top - railTop).toFixed(1)}px`;
-    stripes.style.height = `${(last.bottom - first.top).toFixed(1)}px`;
+    stripes.style.top = `${first.top.toFixed(1)}px`;
+    stripes.style.height = `${(last.top + last.height - first.top).toFixed(1)}px`;
     bands.innerHTML = boxes
       .map((box, i) =>
         i % 2 === 1

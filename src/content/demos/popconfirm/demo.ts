@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 type Member = { key: string; name: string };
@@ -65,12 +66,11 @@ export function mount(root: HTMLElement): void {
   let pending: Member | undefined;
 
   const anchorTo = (trigger: HTMLElement) => {
-    const frameRect = frame.getBoundingClientRect();
-    const rect = trigger.getBoundingClientRect();
-    const center = rect.left + rect.width / 2 - frameRect.left;
-    const left = Math.min(Math.max(center - BUBBLE_WIDTH + 26, EDGE_MARGIN), frameRect.width - BUBBLE_WIDTH - EDGE_MARGIN);
+    const rect = localBox(trigger, frame);
+    const center = rect.left + rect.width / 2;
+    const left = Math.min(Math.max(center - BUBBLE_WIDTH + 26, EDGE_MARGIN), frame.offsetWidth - BUBBLE_WIDTH - EDGE_MARGIN);
     bubble.style.left = `${left}px`;
-    bubble.style.top = `${rect.bottom - frameRect.top + 8}px`;
+    bubble.style.top = `${rect.top + rect.height + 8}px`;
     bubble.style.setProperty('--sp-arrow-x', `${center - left - 4}px`);
   };
 

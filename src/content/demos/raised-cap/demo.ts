@@ -1,5 +1,6 @@
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 const OPENING =
   'he oldest way to open a page is with a letter too big for the line it starts. ' +
@@ -102,9 +103,12 @@ export function mount(root: HTMLElement): void {
    * baseline it sits on, so one tick in the text reads the first line's baseline
    * and one inside the letter reads the letter's own.
    */
-  const pageTop = page.getBoundingClientRect().top;
-  const baseline = part(root, 'line-tick').getBoundingClientRect().bottom - pageTop;
-  const foot = part(root, 'cap-foot').getBoundingClientRect().bottom - pageTop;
+  const under = (name: string) => {
+    const box = localBox(part(root, name), page);
+    return box.top + box.height;
+  };
+  const baseline = under('line-tick');
+  const foot = under('cap-foot');
   const risen = `${Math.round((baseline - foot) * 10) / 10}px`;
 
   guide.style.top = `${Math.round(baseline) - 1}px`;

@@ -1,6 +1,7 @@
 import { icon } from '#src/kit/icons.ts';
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localPoint } from '#src/kit/measure.ts';
 
 /** The page is drawn in its own fixed coordinate space, so the lens can do arithmetic on it. */
 const PAGE = { w: 424, h: 138 };
@@ -161,7 +162,7 @@ export function mount(root: HTMLElement): void {
 
   draw();
 
-  const pageOrigin = () => (lens.offsetParent as HTMLElement).getBoundingClientRect();
+  const pageOrigin = () => lens.offsetParent as HTMLElement;
 
   lens.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
@@ -172,8 +173,7 @@ export function mount(root: HTMLElement): void {
 
   lens.addEventListener('pointermove', (event) => {
     if (!dragging) return;
-    const origin = pageOrigin();
-    centre = { x: event.clientX - origin.left, y: event.clientY - origin.top };
+    centre = localPoint(event, pageOrigin());
     draw();
   });
 

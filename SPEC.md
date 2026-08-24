@@ -501,6 +501,18 @@ component library would save — without the branding or churn.
   owns it, but the line that control sits in, and everything below, holds still —
   usually by keeping the new content out of the cross axis rather than by moving it
   somewhere it would not really live.
+- **A demo measures in its own pixels.** A specimen is authored against 720x320 and a
+  listing card shows it at half that (§3), by scaling the whole stage body. Inside a
+  scaled subtree `getBoundingClientRect` reports the card's pixels while every length the
+  demo writes back is read as the specimen's, so anything positioned from a measurement
+  lands at half the distance, and a printed measurement is half the number. A demo that
+  measures therefore asks `#src/kit/measure.ts` for `localBox`, `localSize`,
+  `localPoint` or the `displayScale` behind them, rather than subtracting two client
+  rects. `offsetLeft`/`offsetWidth` are already in specimen pixels and need nothing. A
+  ratio of an element against itself (a pointer's position along its own track) needs
+  nothing either, since the scale cancels; a distance in pixels does not. None of this
+  shows on a term page, where the scale is 1, which is why it is a rule rather than
+  something the next demo would notice.
 - **The specimen fits its stage.** The stage body clips its overflow, so an element
   that escapes it is silently amputated, never merely ugly. The same holds one level
   down: a container holds its content (content larger than its box either spills onto

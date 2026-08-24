@@ -1,3 +1,4 @@
+import { displayScale, localBox, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -63,15 +64,20 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const normal = part(root, 'pair-normal');
   const layer = part(root, 'gap-layer');
 
-  /** The x of the boundary between the two letters, relative to the layer. */
+  /**
+   * The x of the boundary between the two letters, relative to the layer, in the
+   * specimen's own pixels: the band drawn from it is a length, and a listing preview
+   * shows this specimen at half size (`#src/kit/measure.ts`).
+   */
   const junction = (pair: HTMLElement): number => {
     const node = pair.firstChild;
+    if (!(node instanceof Text)) return localBox(pair, layer).left;
+    const scale = displayScale(layer);
     const origin = layer.getBoundingClientRect();
-    if (!(node instanceof Text)) return pair.getBoundingClientRect().left - origin.left;
     const range = document.createRange();
     range.setStart(node, 0);
     range.setEnd(node, 1);
-    return range.getBoundingClientRect().right - origin.left;
+    return (range.getBoundingClientRect().right - origin.left) / scale;
   };
 
   const band = document.createElement('span');
@@ -81,9 +87,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   layer.append(band);
 
   const draw = () => {
-    const kern = none.getBoundingClientRect().width - normal.getBoundingClientRect().width;
+    const kern = localSize(none).width - localSize(normal).width;
     const width = Math.max(kern, FLOOR);
-    const top = none.getBoundingClientRect().top - layer.getBoundingClientRect().top;
+    const top = localBox(none, layer).top;
     band.style.left = `${junction(none) - width}px`;
     band.style.top = `${top + SIZE * 0.14}px`;
     band.style.width = `${width}px`;

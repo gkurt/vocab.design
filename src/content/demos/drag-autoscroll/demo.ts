@@ -1,3 +1,4 @@
+import { localBox, localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -139,12 +140,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   /** The row the pointer is on, or the last one it has passed, in the scroller's own box. */
   const rowAt = (y: number): HTMLElement | undefined => {
-    const box = list.getBoundingClientRect();
-    const at = box.top + Math.max(0, Math.min(VIEW.h - 1, y));
+    const at = Math.max(0, Math.min(VIEW.h - 1, y));
     const all = order();
     let found = all[0];
     for (const row of all) {
-      if (row.getBoundingClientRect().top <= at) found = row;
+      if (localBox(row, list).top <= at) found = row;
     }
     return found;
   };
@@ -177,8 +177,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   };
 
   const follow = (clientY: number) => {
-    const box = list.getBoundingClientRect();
-    pointerY = clientY - box.top;
+    pointerY = localPoint({ clientX: 0, clientY }, list).y;
     aim();
     // Dwell inside the band is the trigger, so crossing it on the way somewhere costs
     // nothing: the run only starts once the pointer is still inside on a move.

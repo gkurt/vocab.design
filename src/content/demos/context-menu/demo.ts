@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const FILES = ['Brand guidelines.pdf', 'Q3 roadmap.key', 'Offsite photos'];
@@ -48,9 +49,9 @@ export function mount(root: HTMLElement): void {
 
   /** At the pointer, then pulled back inside the frame rather than clipped by it. */
   const place = (x: number, y: number) => {
-    const rect = frame.getBoundingClientRect();
-    const left = Math.min(x - rect.left, rect.width - menu.offsetWidth - EDGE);
-    const top = Math.min(y - rect.top, rect.height - menu.offsetHeight - EDGE);
+    const point = localPoint({ clientX: x, clientY: y }, frame);
+    const left = Math.min(point.x, frame.offsetWidth - menu.offsetWidth - EDGE);
+    const top = Math.min(point.y, frame.offsetHeight - menu.offsetHeight - EDGE);
     menu.style.left = `${Math.max(left, EDGE)}px`;
     menu.style.top = `${Math.max(top, EDGE)}px`;
   };

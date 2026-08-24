@@ -1,6 +1,7 @@
 import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 type Cell = { key: string; size: number; note: string };
 
@@ -67,12 +68,12 @@ export function mount(root: HTMLElement): void {
       const button = part(root, `target-${cell.key}`);
       const glyph = button.querySelector('svg');
       const zone = part(root, `zone-${cell.key}`);
-      const box = (mode === 'glyph' ? glyph : button)?.getBoundingClientRect();
+      const measured = mode === 'glyph' ? glyph : button;
+      const box = measured ? localBox(measured, stage) : undefined;
       if (!box) continue;
-      const origin = stage.getBoundingClientRect();
       zone.dataset.mode = mode;
-      zone.style.left = `${box.left - origin.left - 3}px`;
-      zone.style.top = `${box.top - origin.top - 3}px`;
+      zone.style.left = `${box.left - 3}px`;
+      zone.style.top = `${box.top - 3}px`;
       zone.style.width = `${box.width + 6}px`;
       zone.style.height = `${box.height + 6}px`;
       // Read off the specimen rather than repeated from the markup: the caption is a

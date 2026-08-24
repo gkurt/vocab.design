@@ -1,5 +1,6 @@
 import { flag, part, partsOf } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 /** The page under the traces, at a size the demo states rather than measures. */
 const PAGE_W = 444;
@@ -87,10 +88,9 @@ export function mount(root: HTMLElement): void {
    * view carries the content being measured.
    */
   const geometry = (parts: HTMLElement[]) => {
-    const pageBox = page.getBoundingClientRect();
     return parts.map((el) => {
-      const box = el.getBoundingClientRect();
-      return { x: box.left - pageBox.left, y: box.top - pageBox.top, w: box.width, h: box.height };
+      const box = localBox(el, page);
+      return { x: box.left, y: box.top, w: box.width, h: box.height };
     });
   };
 

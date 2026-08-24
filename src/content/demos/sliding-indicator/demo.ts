@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const TABS = [
@@ -71,10 +72,10 @@ export function mount(root: HTMLElement): void {
     if (!tab) return;
     const target = part(root, `tab-${tab.id}`);
 
-    // Read first, both boxes, before a single style is written.
-    const box = target.getBoundingClientRect();
-    const railBox = rail.getBoundingClientRect();
-    const left = Math.round(box.left - railBox.left);
+    // Read first, in the rail's own pixels, before a single style is written: a listing
+    // shows this specimen at half size, and these numbers go back out as lengths.
+    const box = localBox(target, rail);
+    const left = Math.round(box.left);
     const width = Math.round(box.width);
 
     indicator.style.transition = animate ? SLIDE : 'none';

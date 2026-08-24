@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const VIEW = { w: 300, h: 176 };
@@ -143,9 +144,9 @@ export function mount(root: HTMLElement): void {
 
   /** Unlocked: a position, clamped by the edges it can reach. */
   const place = (event: PointerEvent) => {
-    const box = viewport.getBoundingClientRect();
-    const x = Math.max(0, Math.min(VIEW.w, event.clientX - box.left));
-    const y = Math.max(0, Math.min(VIEW.h, event.clientY - box.top));
+    const at = localPoint(event, viewport);
+    const x = Math.max(0, Math.min(VIEW.w, at.x));
+    const y = Math.max(0, Math.min(VIEW.h, at.y));
     pointer.style.left = `${x}px`;
     pointer.style.top = `${y}px`;
     if (x === 0 || x === VIEW.w || y === 0 || y === VIEW.h) return say('Unlocked: the cursor stops at the edge');

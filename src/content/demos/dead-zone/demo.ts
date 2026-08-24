@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const TRACK = { w: 388, h: 44 };
@@ -118,8 +119,7 @@ export function mount(root: HTMLElement): void {
   const pct = (value: number) => `${value > 0 ? '+' : ''}${Math.round(value * 100)}%`;
 
   const set = (clientX: number) => {
-    const box = axis.getBoundingClientRect();
-    const x = Math.max(0, Math.min(TRACK.w, clientX - box.left));
+    const x = Math.max(0, Math.min(TRACK.w, localPoint({ clientX, clientY: 0 }, axis).x));
     const raw = (x - HALF) / HALF;
     // Rescaled, not clipped: the first sample past the band emits nearly nothing, and full
     // deflection still emits everything. Clipping would make the axis lurch at the edge.

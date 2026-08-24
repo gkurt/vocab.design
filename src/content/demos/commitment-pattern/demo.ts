@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const PANEL_W = 214;
@@ -65,13 +66,12 @@ export function mount(root: HTMLElement): void {
   const draw = (key: string, indices: number[] | 'all', size: number, opacity: number) => {
     const page = part(root, `${key}-page`);
     const trace = part(root, `${key}-trace`);
-    const pageBox = page.getBoundingClientRect();
     const all = [...part(root, `${key}-text`).querySelectorAll<HTMLElement>('[data-word]')];
     const picked = indices === 'all' ? all : all.filter((_, index) => indices.includes(index));
 
     const spots = picked.map((span) => {
-      const box = span.getBoundingClientRect();
-      return { x: box.left + box.width / 2 - pageBox.left, y: box.top + box.height / 2 - pageBox.top };
+      const box = localBox(span, page);
+      return { x: box.left + box.width / 2, y: box.top + box.height / 2 };
     });
     if (!spots.length) return;
 

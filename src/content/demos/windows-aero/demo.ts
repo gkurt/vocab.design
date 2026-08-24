@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const DESK_W = 476;
@@ -182,15 +183,15 @@ export function mount(root: HTMLElement): void {
   titlebar.addEventListener('pointerdown', (event) => {
     // Mandatory guard: the player's synthetic pointers cannot be captured and the call throws (SPEC §7).
     if (event.isTrusted) titlebar.setPointerCapture(event.pointerId);
-    const box = win.getBoundingClientRect();
-    grab = { dx: event.clientX - box.left, dy: event.clientY - box.top };
+    const at = localPoint(event, win);
+    grab = { dx: at.x, dy: at.y };
   });
 
   titlebar.addEventListener('pointermove', (event) => {
     if (!grab) return;
-    const desk = desktop.getBoundingClientRect();
-    const left = clamp(event.clientX - desk.left - grab.dx, MARGIN, DESK_W - WIN_W - MARGIN);
-    const top = clamp(event.clientY - desk.top - grab.dy, MARGIN, DESK_H - WIN_H - MARGIN);
+    const at = localPoint(event, desktop);
+    const left = clamp(at.x - grab.dx, MARGIN, DESK_W - WIN_W - MARGIN);
+    const top = clamp(at.y - grab.dy, MARGIN, DESK_H - WIN_H - MARGIN);
     win.style.left = `${left}px`;
     win.style.top = `${top}px`;
     win.dataset.at = left > (DESK_W - WIN_W) / 2 ? 'right' : 'left';

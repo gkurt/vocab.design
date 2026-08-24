@@ -1,5 +1,6 @@
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localSize } from '#src/kit/measure.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
 /*
@@ -87,7 +88,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const readout = part(root, 'readout');
 
   /* The one reading, taken on the mounted state and never repeated after a write. */
-  let contentHeight = content.getBoundingClientRect().height;
+  let contentHeight = localSize(content).height;
 
   const draw = (value: Leading) => {
     const px = Math.max(0, Math.round((SIZE * Number(value) - contentHeight) / 2));
@@ -99,7 +100,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   draw('1.8');
   /* The webfont may still be arriving, and the content area is its metric. */
   clock.setTimeout(() => {
-    contentHeight = content.getBoundingClientRect().height;
+    contentHeight = localSize(content).height;
     const value = line.dataset.leading;
     if (value && IS_LEADING(value)) draw(value);
   }, 400);

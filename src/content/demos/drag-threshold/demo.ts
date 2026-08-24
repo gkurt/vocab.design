@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The dead zone itself, in px, and the scene the card is dragged around. */
@@ -101,11 +102,11 @@ export function mount(root: HTMLElement): void {
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
     // The board is read before anything is written to it, so the ring lands on the point
     // the press actually landed on rather than on a stale box.
-    const box = stage.getBoundingClientRect();
+    const at = localPoint(event, stage);
     origin = { x: event.clientX, y: event.clientY };
     crossed = undefined;
-    ring.style.left = `${event.clientX - box.left - THRESHOLD}px`;
-    ring.style.top = `${event.clientY - box.top - THRESHOLD}px`;
+    ring.style.left = `${at.x - THRESHOLD}px`;
+    ring.style.top = `${at.y - THRESHOLD}px`;
     ring.dataset.state = 'live';
     card.dataset.state = 'pressed';
     travel.textContent = `0 px travelled, ${THRESHOLD} px needed`;

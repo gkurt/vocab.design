@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const ROWS = 30;
@@ -165,8 +166,7 @@ export function mount(root: HTMLElement): void {
 
   /** The lens reads the pointer against the column's resting geometry, not against the rows it has deformed. */
   const positionFrom = (clientY: number) => {
-    const box = rowsEl.getBoundingClientRect();
-    const p = ((clientY - box.top) / LIST_H) * ROWS + 0.5;
+    const p = (localPoint({ clientX: 0, clientY }, rowsEl).y / LIST_H) * ROWS + 0.5;
     return Math.min(MAX_P, Math.max(MIN_P, p));
   };
 

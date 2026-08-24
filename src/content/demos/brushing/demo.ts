@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const PLOT_W = 434;
@@ -279,10 +280,10 @@ export function mount(root: HTMLElement): void {
   };
 
   const at = (event: PointerEvent) => {
-    const rect = plot.getBoundingClientRect();
+    const point = localPoint(event, plot);
     return {
-      x: clamp(event.clientX - rect.left, LEFT, PLOT_W - RIGHT),
-      y: clamp(event.clientY - rect.top, TOP, BASE),
+      x: clamp(point.x, LEFT, PLOT_W - RIGHT),
+      y: clamp(point.y, TOP, BASE),
     };
   };
 

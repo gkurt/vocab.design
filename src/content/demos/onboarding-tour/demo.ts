@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const TIP_WIDTH = 202;
@@ -71,17 +72,16 @@ export function mount(root: HTMLElement): void {
   const show = (index: number) => {
     const step = TOUR[index];
     if (!step) return;
-    const frameRect = frame.getBoundingClientRect();
-    const rect = part(root, step.target).getBoundingClientRect();
+    const rect = localBox(part(root, step.target), frame);
     const inset = 4;
-    spot.style.left = `${rect.left - frameRect.left - inset}px`;
-    spot.style.top = `${rect.top - frameRect.top - inset}px`;
+    spot.style.left = `${rect.left - inset}px`;
+    spot.style.top = `${rect.top - inset}px`;
     spot.style.width = `${rect.width + inset * 2}px`;
     spot.style.height = `${rect.height + inset * 2}px`;
 
-    const centred = rect.left - frameRect.left + rect.width / 2 - TIP_WIDTH / 2;
-    tip.style.left = `${Math.min(Math.max(centred, GAP), frameRect.width - TIP_WIDTH - GAP)}px`;
-    tip.style.top = `${rect.bottom - frameRect.top + GAP}px`;
+    const centred = rect.left + rect.width / 2 - TIP_WIDTH / 2;
+    tip.style.left = `${Math.min(Math.max(centred, GAP), frame.offsetWidth - TIP_WIDTH - GAP)}px`;
+    tip.style.top = `${rect.top + rect.height + GAP}px`;
 
     tip.dataset.step = String(index + 1);
     tipCount.textContent = `Step ${index + 1} of ${TOUR.length}`;

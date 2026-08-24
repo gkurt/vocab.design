@@ -128,7 +128,10 @@ export function mount(root: HTMLElement): void {
 
   const sync = () => {
     // The step the reader has arrived at: the last one whose top has crossed the line.
-    const line = page.getBoundingClientRect().top + page.clientHeight * TRIGGER;
+    // Entirely in client pixels, both sides: clientHeight is the specimen's own scale
+    // and a rect is the card's, and a preview shows this specimen at half size.
+    const pageBox = page.getBoundingClientRect();
+    const line = pageBox.top + pageBox.height * TRIGGER;
     let current = 1;
     for (const [i, el] of stepEls.entries()) if (el.getBoundingClientRect().top <= line) current = i + 1;
 

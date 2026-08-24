@@ -1,5 +1,6 @@
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localPoint } from '#src/kit/measure.ts';
 
 /**
  * Dot grid background specimen: a board carrying the field, with a card that lands on the
@@ -185,17 +186,17 @@ export function mount(root: HTMLElement): void {
   part(root, 'segmented').addEventListener('change', (event) => apply((event as CustomEvent<string>).detail));
 
   card.addEventListener('pointerdown', (event) => {
-    const box = card.getBoundingClientRect();
     // The card snaps out from under the pointer, so capture is what keeps the moves and the
     // release coming here. A synthetic pointer has none to capture and the call would throw.
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    grabbed = { dx: event.clientX - box.left, dy: event.clientY - box.top };
+    const grab = localPoint(event, card);
+    grabbed = { dx: grab.x, dy: grab.y };
   });
 
   card.addEventListener('pointermove', (event) => {
     if (!grabbed) return;
-    const boardBox = board.getBoundingClientRect();
-    place(event.clientX - boardBox.left - grabbed.dx, event.clientY - boardBox.top - grabbed.dy);
+    const at = localPoint(event, board);
+    place(at.x - grabbed.dx, at.y - grabbed.dy);
   });
 
   const drop = (): void => {

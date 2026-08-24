@@ -1,5 +1,6 @@
 import { flag, part, partsOf } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 /** The page under the traces, at a size the demo states rather than measures. */
 const PAGE_W = 444;
@@ -89,15 +90,14 @@ export function mount(root: HTMLElement): void {
    * after the view carries the rows being measured.
    */
   const trace = (svg: SVGElement, boxes: HTMLElement[], serpentine: boolean) => {
-    const pageBox = page.getBoundingClientRect();
     const inset = serpentine ? 16 : 6;
     const points: [number, number][] = [];
 
     boxes.forEach((box, index) => {
-      const r = box.getBoundingClientRect();
-      const y = r.top + r.height / 2 - pageBox.top;
-      const left = r.left - pageBox.left + inset;
-      const right = r.right - pageBox.left - inset;
+      const r = localBox(box, page);
+      const y = r.top + r.height / 2;
+      const left = r.left + inset;
+      const right = r.left + r.width - inset;
       if (!serpentine) {
         points.push([left, y]);
         return;

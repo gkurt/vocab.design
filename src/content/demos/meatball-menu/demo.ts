@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox, localSize } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const ITEMS = ['View profile', 'Send message', 'Mute updates', 'Remove from team'];
@@ -63,8 +64,8 @@ export function mount(root: HTMLElement): void {
   // One measurement, at mount, on the state being measured: the closed menu is invisible
   // rather than unlaid-out, and offsetHeight reads its layout box past the scale it rests at.
   const depth = menu.offsetHeight;
-  const foot = anchor.getBoundingClientRect().top + MENU_TOP + depth;
-  const overhang = depth > 0 ? Math.ceil(foot - body.getBoundingClientRect().bottom) : 0;
+  const foot = localBox(anchor, body).top + MENU_TOP + depth;
+  const overhang = depth > 0 ? Math.ceil(foot - localSize(body).height) : 0;
   if (overhang > 0) body.style.paddingBottom = `${overhang}px`;
 
   const setOpen = (open: boolean) => {

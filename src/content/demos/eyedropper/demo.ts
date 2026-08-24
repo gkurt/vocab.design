@@ -1,3 +1,4 @@
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** No pipette in the kit's icon set and the kit is frozen, so the glyph is drawn against
@@ -170,9 +171,10 @@ export function mount(root: HTMLElement): void {
   const sampleAt = (event: MouseEvent): { hex: string; from: string } => {
     const solid = (event.target as Element | null)?.closest('[data-solid]');
     if (solid instanceof HTMLElement) return { hex: solid.dataset.solid ?? START, from: solid.dataset.part ?? 'shape' };
-    const box = art.getBoundingClientRect();
-    const x = clamp(event.clientX - box.left, 0, box.width);
-    const y = clamp(event.clientY - box.top, 0, box.height);
+    const box = localSize(art);
+    const at = localPoint(event, art);
+    const x = clamp(at.x, 0, box.width);
+    const y = clamp(at.y, 0, box.height);
     const index = clamp(Math.floor((y / box.height) * BANDS.length), 0, BANDS.length - 1);
     const stripe = BANDS[index];
     if (!stripe) return { hex: START, from: 'sky' };
@@ -180,9 +182,10 @@ export function mount(root: HTMLElement): void {
   };
 
   const showLoupe = (event: MouseEvent, hex: string) => {
-    const box = art.getBoundingClientRect();
-    loupe.style.left = `${clamp(event.clientX - box.left, 28, box.width - 28)}px`;
-    loupe.style.top = `${clamp(event.clientY - box.top, 28, box.height - 28)}px`;
+    const box = localSize(art);
+    const at = localPoint(event, art);
+    loupe.style.left = `${clamp(at.x, 28, box.width - 28)}px`;
+    loupe.style.top = `${clamp(at.y, 28, box.height - 28)}px`;
     loupe.style.background = hex;
     loupe.style.opacity = '1';
     loupe.style.visibility = 'visible';

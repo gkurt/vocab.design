@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -108,16 +109,17 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       flag(word, 'data-selected', inside);
       word.style.background = inside ? 'var(--sp-accent-soft)' : '';
     }
-    const box = page.getBoundingClientRect();
-    const head = words_[start]?.getBoundingClientRect();
-    const tail = words_[end]?.getBoundingClientRect();
+    const headEl = words_[start];
+    const tailEl = words_[end];
+    const head = headEl && localBox(headEl, page);
+    const tail = tailEl && localBox(tailEl, page);
     if (head) {
-      handles.start.style.left = `${head.left - box.left - GRIP_W / 2}px`;
-      handles.start.style.top = `${(head.top + head.bottom) / 2 - box.top - GRIP_H / 2}px`;
+      handles.start.style.left = `${head.left - GRIP_W / 2}px`;
+      handles.start.style.top = `${head.top + head.height / 2 - GRIP_H / 2}px`;
     }
     if (tail) {
-      handles.end.style.left = `${tail.right - box.left - 4 - GRIP_W / 2}px`;
-      handles.end.style.top = `${(tail.top + tail.bottom) / 2 - box.top - GRIP_H / 2}px`;
+      handles.end.style.left = `${tail.left + tail.width - 4 - GRIP_W / 2}px`;
+      handles.end.style.top = `${tail.top + tail.height / 2 - GRIP_H / 2}px`;
     }
     const span = end - start + 1;
     count.textContent = `${span} word${span === 1 ? '' : 's'}`;

@@ -1,5 +1,6 @@
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localPoint } from '#src/kit/measure.ts';
 
 const CANVAS = { w: 396, h: 168 };
 const TILE = { w: 82, h: 56 };
@@ -135,10 +136,7 @@ export function mount(root: HTMLElement): void {
     lasso.style.opacity = '1';
   };
 
-  const at = (event: PointerEvent) => {
-    const rect = canvas.getBoundingClientRect();
-    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
-  };
+  const at = (event: PointerEvent) => localPoint(event, canvas);
 
   canvas.addEventListener('pointerdown', (event) => {
     // A press that lands on a tile is a move, not a lasso: the empty space is the gesture.

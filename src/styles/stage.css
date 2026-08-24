@@ -624,6 +624,13 @@ vd-stage[data-autoplay] .vd-stage-play {
   inset: 0;
 }
 
+/* What the specimen is told about its own display size (`#src/kit/measure.ts`). A demo
+   that measures one element to place another needs it: client rects come back in the
+   card's pixels, and the length it writes is read in the specimen's. */
+.vd-preview {
+  --sp-scale: var(--vd-preview-k, 0.5);
+}
+
 .vd-preview-scale {
   position: absolute;
   top: 0;

@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const EDGE_MARGIN = 8;
@@ -49,12 +50,11 @@ export function mount(root: HTMLElement): void {
 
   // Anchored once on mount (SPEC §5): the tip is out of flow and its width is fixed,
   // so nothing in the form has to make room for it when it arrives.
-  const frameRect = frame.getBoundingClientRect();
-  const rect = button.getBoundingClientRect();
-  const center = rect.left + rect.width / 2 - frameRect.left;
-  const left = Math.min(Math.max(center - 26, EDGE_MARGIN), frameRect.width - TIP_WIDTH - EDGE_MARGIN);
+  const rect = localBox(button, frame);
+  const center = rect.left + rect.width / 2;
+  const left = Math.min(Math.max(center - 26, EDGE_MARGIN), frame.offsetWidth - TIP_WIDTH - EDGE_MARGIN);
   tip.style.left = `${left}px`;
-  tip.style.top = `${rect.bottom - frameRect.top + 8}px`;
+  tip.style.top = `${rect.top + rect.height + 8}px`;
   tip.style.setProperty('--sp-arrow-x', `${center - left - 4}px`);
 
   const setOpen = (open: boolean) => {

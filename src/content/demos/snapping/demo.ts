@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** The grid the card lands on: one gutter, stated once, so the maths and the dots agree. */
@@ -96,17 +97,16 @@ export function mount(root: HTMLElement): void {
     // moves stop as soon as the pointer is off the card and the release that decides the cell
     // never arrives. A synthesized pointer cannot be captured, hence the guard.
     if (event.isTrusted) card.setPointerCapture(event.pointerId);
-    const rect = card.getBoundingClientRect();
-    grab = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    grab = localPoint(event, card);
     flag(card, 'data-dragging', true);
     card.style.boxShadow = 'var(--sp-shadow)';
   });
 
   root.addEventListener('pointermove', (event) => {
     if (!grab) return;
-    const rect = canvas.getBoundingClientRect();
-    const left = event.clientX - rect.left - grab.x;
-    const top = event.clientY - rect.top - grab.y;
+    const at = localPoint(event as PointerEvent, canvas);
+    const left = at.x - grab.x;
+    const top = at.y - grab.y;
     place(left, top);
     // Say where it would land before it lands there: a snap nobody saw coming reads
     // as the object refusing to go where it was put.

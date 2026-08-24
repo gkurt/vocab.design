@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import { pinchSpread } from '#src/kit/touch.ts';
 
@@ -104,11 +105,12 @@ export function mount(root: HTMLElement): void {
     };
   };
 
-  /** Client coordinates to canvas coordinates. The canvas itself never transforms, so its rect is safe to read. */
-  const toCanvas = (client: { x: number; y: number }) => {
-    const rect = canvas.getBoundingClientRect();
-    return { x: client.x - rect.left, y: client.y - rect.top };
-  };
+  /**
+   * Client coordinates to canvas coordinates. The canvas itself never transforms, so its
+   * rect is safe to read; the scale a listing card draws it at is not the specimen's own,
+   * and everything measured here goes back out as a length.
+   */
+  const toCanvas = (client: { x: number; y: number }) => localPoint({ clientX: client.x, clientY: client.y }, canvas);
 
   const mark = (at: { x: number; y: number }) => {
     anchor.style.left = `${at.x}px`;

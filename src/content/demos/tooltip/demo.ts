@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -51,13 +52,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   /** Anchor under the control, then shift to stay inside the frame rather than be clipped by it. */
   const place = (trigger: HTMLElement) => {
-    const frameRect = frame.getBoundingClientRect();
-    const rect = trigger.getBoundingClientRect();
-    const center = rect.left + rect.width / 2 - frameRect.left;
-    const room = frameRect.width - tooltip.offsetWidth - EDGE_MARGIN;
+    const rect = localBox(trigger, frame);
+    const center = rect.left + rect.width / 2;
+    const room = frame.offsetWidth - tooltip.offsetWidth - EDGE_MARGIN;
     const left = Math.min(Math.max(center - tooltip.offsetWidth / 2, EDGE_MARGIN), room);
     tooltip.style.left = `${left}px`;
-    tooltip.style.top = `${rect.bottom - frameRect.top + 6}px`;
+    tooltip.style.top = `${rect.top + rect.height + 6}px`;
     tooltip.style.setProperty('--sp-arrow-x', `${center - left}px`);
   };
 

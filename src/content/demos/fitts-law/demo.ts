@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** The two constants of the model, which belong to the device and the hand, not to the UI. */
@@ -80,8 +81,10 @@ export function mount(root: HTMLElement): void {
 
   const readout = part(root, 'readout');
 
+  // In specimen pixels, not the card's: the note prints these numbers, and a preview
+  // shows the same demonstration at half the size (`#src/kit/measure.ts`).
   const centre = (el: HTMLElement) => {
-    const box = el.getBoundingClientRect();
+    const box = localBox(el, root);
     return { x: box.left + box.width / 2, y: box.top + box.height / 2, w: box.width };
   };
 

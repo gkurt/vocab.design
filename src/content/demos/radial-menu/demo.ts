@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
@@ -234,10 +235,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     }
     gesture = 'reveal';
     clock.clearTimeout(timer);
-    const rect = canvas.getBoundingClientRect();
     const spot = {
       client: { x: event.clientX, y: event.clientY },
-      local: { x: event.clientX - rect.left, y: event.clientY - rect.top },
+      local: localPoint(event, canvas),
     };
     pending = spot;
     say('Holding, the menu is on its way');

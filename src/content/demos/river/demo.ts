@@ -1,5 +1,6 @@
 import { part, partsOf } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { displayScale } from '#src/kit/measure.ts';
 
 /*
  * A local serif, not the kit's web font. The trace is measured from the lines as
@@ -40,6 +41,9 @@ function gapsByLine(column: HTMLElement): Gap[][] {
   const node = column.firstChild;
   if (!(node instanceof Text)) return [];
   const origin = column.getBoundingClientRect();
+  // A range's rect is in the card's pixels, and LINE_PX and the gaps drawn from these
+  // are in the specimen's, which a listing preview shows at half size.
+  const scale = displayScale(column);
   const range = document.createRange();
   const rows = new Map<number, Gap[]>();
   for (let i = 0; i < node.data.length; i++) {
@@ -48,10 +52,10 @@ function gapsByLine(column: HTMLElement): Gap[][] {
     range.setEnd(node, i + 1);
     const rect = range.getBoundingClientRect();
     // A space that fell at a line break collapses to nothing and is not a gap.
-    if (rect.width < 2) continue;
-    const line = Math.round((rect.top - origin.top) / LINE_PX);
+    if (rect.width < 2 * scale) continue;
+    const line = Math.round((rect.top - origin.top) / scale / LINE_PX);
     const row = rows.get(line) ?? [];
-    row.push({ left: rect.left - origin.left, right: rect.right - origin.left, line });
+    row.push({ left: (rect.left - origin.left) / scale, right: (rect.right - origin.left) / scale, line });
     rows.set(line, row);
   }
   return [...rows.keys()].sort((a, b) => a - b).map((line) => rows.get(line) ?? []);

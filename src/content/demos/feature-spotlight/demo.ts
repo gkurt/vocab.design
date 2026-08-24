@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const BUBBLE_W = 202;
@@ -84,16 +85,15 @@ export function mount(root: HTMLElement): void {
   const status = part(root, 'status');
 
   const aim = () => {
-    const frameRect = frame.getBoundingClientRect();
-    const rect = target.getBoundingClientRect();
+    const rect = localBox(target, frame);
     const inset = 5;
-    spot.style.left = `${rect.left - frameRect.left - inset}px`;
-    spot.style.top = `${rect.top - frameRect.top - inset}px`;
+    spot.style.left = `${rect.left - inset}px`;
+    spot.style.top = `${rect.top - inset}px`;
     spot.style.width = `${rect.width + inset * 2}px`;
     spot.style.height = `${rect.height + inset * 2}px`;
-    const centred = rect.left - frameRect.left + rect.width / 2 - BUBBLE_W / 2;
-    bubble.style.left = `${Math.min(Math.max(centred, GAP), frameRect.width - BUBBLE_W - GAP)}px`;
-    bubble.style.top = `${rect.bottom - frameRect.top + GAP}px`;
+    const centred = rect.left + rect.width / 2 - BUBBLE_W / 2;
+    bubble.style.left = `${Math.min(Math.max(centred, GAP), frame.offsetWidth - BUBBLE_W - GAP)}px`;
+    bubble.style.top = `${rect.top + rect.height + GAP}px`;
   };
 
   /** Raise or clear the announcement. Each control reaches one of these, never both. */

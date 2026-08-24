@@ -1,5 +1,6 @@
 import { flag, part, partsOf } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 /** The page under the trace, at a size the demo states rather than measures. */
 const PAGE_W = 444;
@@ -96,15 +97,14 @@ export function mount(root: HTMLElement): void {
    * carry the text being measured, never after a write to something in flight.
    */
   const draw = (mode: Mode) => {
-    const pageBox = page.getBoundingClientRect();
     const leads = partsOf(list, 'lead');
     const tails = partsOf(list, 'tail');
     const spans = mode === 'repeated' ? tails : leads;
 
     const bars = spans.map((span, index) => {
-      const box = span.getBoundingClientRect();
-      const rowBox = (tails[index] ?? span).getBoundingClientRect();
-      return { left: box.left - pageBox.left, width: box.width, mid: rowBox.top + rowBox.height / 2 - pageBox.top };
+      const box = localBox(span, page);
+      const rowBox = localBox(tails[index] ?? span, page);
+      return { left: box.left, width: box.width, mid: rowBox.top + rowBox.height / 2 };
     });
 
     const left = Math.min(...bars.map((b) => b.left));
@@ -128,11 +128,11 @@ export function mount(root: HTMLElement): void {
 
     // The band the eye jumps over: everything from the text's own left edge to the first
     // fixation. Nothing is skipped once the differing word comes first.
-    const textLeft = leads[0]?.getBoundingClientRect().left ?? pageBox.left;
+    const textLeft = leads[0] ? localBox(leads[0], page).left : 0;
     flag(skipped, 'hidden', mode !== 'repeated');
-    skipped.style.left = `${textLeft - pageBox.left - 6}px`;
+    skipped.style.left = `${textLeft - 6}px`;
     skipped.style.top = `${top - 13}px`;
-    skipped.style.width = `${left - (textLeft - pageBox.left) + 2}px`;
+    skipped.style.width = `${left - textLeft + 2}px`;
     skipped.style.height = `${bottom - top + 26}px`;
   };
 

@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localBox } from '#src/kit/measure.ts';
 import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
@@ -119,10 +120,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const boxes = new Map<string, Box>();
   const measure = () => {
-    const base = layer.getBoundingClientRect();
     for (const [key, el] of Object.entries(rows)) {
-      const r = el.getBoundingClientRect();
-      boxes.set(key, { left: r.left - base.left, top: r.top - base.top, width: r.width, height: r.height });
+      const r = localBox(el, layer);
+      boxes.set(key, { left: r.left, top: r.top, width: r.width, height: r.height });
     }
   };
 

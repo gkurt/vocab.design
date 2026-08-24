@@ -1,3 +1,4 @@
+import { localBox } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const CALLOUT_W = 196;
@@ -90,12 +91,11 @@ export function mount(root: HTMLElement): void {
   const status = part(root, 'status');
 
   const aim = () => {
-    const frameRect = frame.getBoundingClientRect();
-    const rect = anchor.getBoundingClientRect();
-    const centre = rect.left - frameRect.left + rect.width / 2;
-    const left = Math.min(Math.max(centre - CALLOUT_W + 40, GAP), frameRect.width - CALLOUT_W - GAP);
+    const rect = localBox(anchor, frame);
+    const centre = rect.left + rect.width / 2;
+    const left = Math.min(Math.max(centre - CALLOUT_W + 40, GAP), frame.offsetWidth - CALLOUT_W - GAP);
     callout.style.left = `${left}px`;
-    callout.style.top = `${rect.bottom - frameRect.top + GAP}px`;
+    callout.style.top = `${rect.top + rect.height + GAP}px`;
     callout.style.setProperty('--sp-arrow-x', `${Math.round(centre - left - 4)}px`);
   };
 

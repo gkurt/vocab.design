@@ -1,5 +1,6 @@
 import { flag, part, partsOf } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localBox } from '#src/kit/measure.ts';
 
 /** The page under the traces, at a size the demo states rather than measures. */
 const PAGE_W = 444;
@@ -92,10 +93,9 @@ export function mount(root: HTMLElement): void {
    * being measured.
    */
   const plot = (host: HTMLElement, targets: HTMLElement[], size: number) => {
-    const pageBox = page.getBoundingClientRect();
     const spots = targets.map((el) => {
-      const box = el.getBoundingClientRect();
-      return { x: box.left + box.width / 2 - pageBox.left, y: box.top + box.height / 2 - pageBox.top };
+      const box = localBox(el, page);
+      return { x: box.left + box.width / 2, y: box.top + box.height / 2 };
     });
     if (!spots.length) return;
 

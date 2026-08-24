@@ -1,3 +1,4 @@
+import { localPoint } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const CANVAS = { w: 284, h: 172 };
@@ -225,8 +226,7 @@ export function mount(root: HTMLElement): void {
       panning = { x: event.clientX, y: event.clientY, ox: at.x, oy: at.y };
       return;
     }
-    const box = canvas.getBoundingClientRect();
-    picking = { x: event.clientX - box.left, y: event.clientY - box.top };
+    picking = localPoint(event, canvas);
     marquee.style.left = `${picking.x}px`;
     marquee.style.top = `${picking.y}px`;
     marquee.style.width = '0px';
@@ -243,9 +243,7 @@ export function mount(root: HTMLElement): void {
       return;
     }
     if (!picking) return;
-    const box = canvas.getBoundingClientRect();
-    const x = event.clientX - box.left;
-    const y = event.clientY - box.top;
+    const { x, y } = localPoint(event, canvas);
     marquee.style.left = `${Math.min(picking.x, x)}px`;
     marquee.style.top = `${Math.min(picking.y, y)}px`;
     marquee.style.width = `${Math.abs(x - picking.x)}px`;

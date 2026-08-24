@@ -1,4 +1,5 @@
 import { icon } from '#src/kit/icons.ts';
+import { localPoint } from '#src/kit/measure.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 const TASKS = [
@@ -91,8 +92,8 @@ export function mount(root: HTMLElement): void {
   };
 
   const slotFor = (y: number) => {
-    const top = list.getBoundingClientRect().top + PAD;
-    return Math.max(0, Math.min(TASKS.length - 1, Math.floor((y - top) / STRIDE)));
+    const inside = localPoint({ clientX: 0, clientY: y }, list).y - PAD;
+    return Math.max(0, Math.min(TASKS.length - 1, Math.floor(inside / STRIDE)));
   };
 
   let drag: { row: HTMLElement; from: number; startY: number; slot: number } | undefined;

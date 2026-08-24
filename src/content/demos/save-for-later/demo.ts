@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 const ROW_H = 28;
@@ -154,5 +155,5 @@ export function mount(root: HTMLElement): void {
   // between them would drift the whole basket up or down. The longer note is the one on
   // screen at mount, so its room is measured there, in the state it is measured in, and
   // held for the other (SPEC §5).
-  note.style.height = `${Math.ceil(note.getBoundingClientRect().height)}px`;
+  note.style.height = `${Math.ceil(localSize(note).height)}px`;
 }

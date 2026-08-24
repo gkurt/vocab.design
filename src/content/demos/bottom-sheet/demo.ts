@@ -1,3 +1,4 @@
+import { localPoint, localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 /** The two heights the sheet is allowed to rest at, as fractions of the screen. */
@@ -102,7 +103,7 @@ export function mount(root: HTMLElement): void {
   };
 
   const nearest = (height: number): Detent => {
-    const frame = screen.getBoundingClientRect().height;
+    const frame = localSize(screen).height;
     return Math.abs(height - DETENTS.half * frame) <= Math.abs(height - DETENTS.full * frame) ? 'half' : 'full';
   };
 
@@ -114,15 +115,18 @@ export function mount(root: HTMLElement): void {
     // Capture keeps the drag alive past the handle's edge. A synthetic pointer has none to
     // capture and the call would throw, so only a real one asks.
     if (event.isTrusted) handle.setPointerCapture(event.pointerId);
-    grabbed = event.clientY - sheet.getBoundingClientRect().top;
+    grabbed = localPoint(event, sheet).y;
     // Following a finger is not an animation: an eased height would lag the drag.
     sheet.style.transition = 'none';
   });
 
   root.addEventListener('pointermove', (event) => {
     if (grabbed === undefined) return;
-    const frame = screen.getBoundingClientRect();
-    const height = Math.min(Math.max(frame.bottom - (event.clientY - grabbed), 40), DETENTS.full * frame.height);
+    // The sheet's height is a length it writes, so the drag is measured in the pixels the
+    // specimen is laid out in rather than the ones a listing card draws it at.
+    const frame = localSize(screen).height;
+    const point = localPoint(event, screen);
+    const height = Math.min(Math.max(frame - (point.y - grabbed), 40), DETENTS.full * frame);
     sheet.style.height = `${height}px`;
   });
 
@@ -130,7 +134,7 @@ export function mount(root: HTMLElement): void {
     if (grabbed === undefined) return;
     grabbed = undefined;
     sheet.style.transition = SETTLE;
-    settle(nearest(sheet.getBoundingClientRect().height));
+    settle(nearest(localSize(sheet).height));
   };
 
   root.addEventListener('pointerup', release);

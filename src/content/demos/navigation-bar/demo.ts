@@ -1,3 +1,4 @@
+import { localSize } from '#src/kit/measure.ts';
 import { part } from '#src/kit/parts.ts';
 
 interface Section {
@@ -68,7 +69,7 @@ export function mount(root: HTMLElement): void {
   for (const item of items) {
     const wasCurrent = item.hasAttribute('data-current');
     item.setAttribute('data-current', '');
-    const widest = Math.ceil(item.getBoundingClientRect().width);
+    const widest = Math.ceil(localSize(item).width);
     if (widest > 0) item.style.width = `${widest}px`;
     if (!wasCurrent) item.removeAttribute('data-current');
   }

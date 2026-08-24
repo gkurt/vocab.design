@@ -1,5 +1,6 @@
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { displayScale, localSize } from '#src/kit/measure.ts';
 
 /*
  * The term has no ink and no width, so there is nothing in the text to point at:
@@ -63,10 +64,18 @@ function linesOf(el: HTMLElement): Line[] {
   if (!node) return [];
   const range = el.ownerDocument.createRange();
   range.selectNodeContents(node);
-  const rects = [...range.getClientRects()].filter((r) => r.width > 0.5).sort((a, b) => a.top - b.top);
+  // Client rects, in the specimen's own pixels: every width here is compared against a
+  // constant or a prefix measured in them, and a listing shows this specimen at half size.
+  const scale = displayScale(el);
+  const rects = [...range.getClientRects()].map((r) => ({
+    width: r.width / scale,
+    right: r.right / scale,
+    top: r.top / scale,
+    bottom: r.bottom / scale,
+  }));
   const lines: Line[] = [];
   let top = Number.NaN;
-  for (const rect of rects) {
+  for (const rect of rects.filter((r) => r.width > 0.5).sort((a, b) => a.top - b.top)) {
     const line = lines.at(-1);
     if (line && Math.abs(rect.top - top) < 4) {
       line.width += rect.width;
@@ -126,7 +135,7 @@ export function mount(root: HTMLElement): void {
      line box can later be matched to the words it ends with. */
   const prefixes = SEGMENTS.map((_, i) => {
     ruler.textContent = SEGMENTS.slice(0, i + 1).join('');
-    return ruler.getBoundingClientRect().width;
+    return localSize(ruler).width;
   });
   ruler.textContent = SEGMENTS[0];
 
@@ -152,9 +161,11 @@ export function mount(root: HTMLElement): void {
        against the prefixes measured at mount and see what is left over. */
     const nearest = prefixes.reduce((a, b) => (Math.abs(b - first.width) < Math.abs(a - first.width) ? b : a));
     string.dataset.hyphen = first.width - nearest > 4 ? 'yes' : 'no';
+    // `first` is already in specimen pixels; the column's own left edge is not.
     const box = column.getBoundingClientRect();
-    mark.style.left = `${Math.min(first.right - box.left, COLUMN + 18)}px`;
-    mark.style.top = `${first.bottom - box.top - 4}px`;
+    const scale = displayScale(column);
+    mark.style.left = `${Math.min(first.right - box.left / scale, COLUMN + 18)}px`;
+    mark.style.top = `${first.bottom - box.top / scale - 4}px`;
   };
 
   apply('zwsp');

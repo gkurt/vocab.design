@@ -1,5 +1,6 @@
 import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
+import { localPoint } from '#src/kit/measure.ts';
 
 const TABLE_W = 446;
 const ORDER_W = 88;
@@ -218,7 +219,7 @@ export function mount(root: HTMLElement): void {
 
   root.addEventListener('pointermove', (event) => {
     if (!held) return;
-    setWidth((event as PointerEvent).clientX - boundary.getBoundingClientRect().left - ORDER_W);
+    setWidth(localPoint(event as PointerEvent, boundary).x - ORDER_W);
   });
 
   const release = (event: Event) => {
@@ -226,7 +227,7 @@ export function mount(root: HTMLElement): void {
     held = false;
     gripBar.style.background = 'var(--sp-line)';
     gripBar.style.width = '2px';
-    setWidth((event as PointerEvent).clientX - boundary.getBoundingClientRect().left - ORDER_W);
+    setWidth(localPoint(event as PointerEvent, boundary).x - ORDER_W);
   };
 
   root.addEventListener('pointerup', release);
