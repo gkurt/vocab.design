@@ -1,0 +1,4 @@
+term:    Overloaded command
+scope:   element
+subject: button.sp-button.sp-button--quiet.sp-button--sm[data-part=bar-home][type=button]
+text:    Home

@@ -1,0 +1,4 @@
+term:    Hydration
+scope:   element
+subject: button.sp-button.sp-button--ghost.sp-button--sm.sp-row[aria-pressed=false][data-part=like][data-phase=inert][data-pose=[data-phase=inert]]
+text:    18

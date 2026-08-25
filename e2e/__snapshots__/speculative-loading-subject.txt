@@ -1,0 +1,4 @@
+term:    Speculative loading
+scope:   element
+subject: a.sp-nav-item.sp-grow[data-part=covered][role=link][tabindex=0]
+text:    Colour ramps

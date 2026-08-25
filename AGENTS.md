@@ -26,7 +26,7 @@ bun run checks     # Everything: check + typecheck + test + validate + test:e2e
 ```
 
 **Nothing runs the e2e suite automatically. Do not run it unless asked.** A full pass is
-roughly 45 minutes over 1,057 specimens, which is the whole GitHub Actions budget on a
+roughly 45 minutes over 1,070 specimens, which is the whole GitHub Actions budget on a
 private repo, so it is not in `ci.yml`: it lives in `.github/workflows/e2e.yml`, manual
 only, with a `grep` input for scoping it to one specimen. `ci.yml` keeps the static
 gates and finishes in about two minutes.
@@ -124,7 +124,7 @@ src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro d
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 src/pages/capture/[slug]    #   the share image's set: the stage at 800x420, posed, no controls
 src/pages/capture/site-card #   the one fallback card, for every page with no specimen
-public/og/                  #   committed: 1,065 share images plus site.png, shot by `bun run og`
+public/og/                  #   committed: 1,070 share images plus site.png, shot by `bun run og`
 public/favicon.svg          # the icon, and the source the other two are rastered from
 scripts/icons.ts            # `bun run icons`: favicon.ico (16+32) + apple-touch-icon.png
 scripts/validate-terms.ts   # Content gates run by `bun validate`
@@ -186,10 +186,10 @@ instead of ringing and pinning it. `bun run og` shoots those pages at a device s
 bun run og                     # every specimen with no image yet, plus the site card
 bun run og --build             # build first (needed after any source change), then shoot
 bun run og toast dark-mode     # just these, always re-shot
-bun run og --force             # the whole set: 1,066 images, about 40 seconds
+bun run og --force             # the whole set: 1,071 images, about 40 seconds
 ```
 
-The images are COMMITTED (86MB over 1,066 files) and nothing gates them. That is the
+The images are COMMITTED (86MB over 1,071 files) and nothing gates them. That is the
 deliberate trade for a set this size costing no CI minutes, and it puts two obligations on
 whoever edits a demo:
 

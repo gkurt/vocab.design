@@ -1,0 +1,4 @@
+term:    Autofill
+scope:   element
+subject: input.sp-input[aria-label=Email][autocomplete=off][data-part=in-email][data-pose=[data-state=filled]][data-state=filled][type=text]
+text:    

@@ -401,6 +401,9 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   separate unpooled records. All eight source URLs verified live 2026-08-25 except
   the three read from search listings (MDN SSR glossary, react.dev hydrateRoot,
   web.dev rendering-on-the-web); MDN Glossary/Hydration confirmed absent.
+  ALL FIVE AUTHORED the same day, in round 22, which empties the pool: five records
+  pooled and five published, so `pool-remaining.ts` now prints nothing at all and the
+  next round has to be a wishlist or a sweep before it can be a round.
   REJECTED the same day, by the human: scandinavian-design (shaped, pooled, then
   pulled). It was the roster gap between mid-century-modern and minimalism on
   paper, but it is not a look an interface reaches for under that name, and the

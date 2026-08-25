@@ -1,0 +1,4 @@
+term:    Labor illusion
+scope:   element
+subject: div.sp-stack[data-mode=transparent][data-part=worklist][data-pose=[data-mode=transparent]][data-state=idle]
+text:    Meridian queued Kestrel Air queued Nordwind queued Costa Sul queued
