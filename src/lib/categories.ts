@@ -13,6 +13,7 @@ export const CATEGORY_BLURBS: Record<Category, string> = {
   motion: 'Change over time, and the vocabulary for describing it.',
   typography: 'Type, and the measurements and conventions that set it.',
   color: 'Colour as a system: palettes, roles, contrast, and schemes.',
+  surface: 'The finish on a shape: its corners, its edges, its depth, its texture.',
   aesthetic: 'A named visual style, with a period and a set of moves.',
   accessibility: 'Terms that exist so an interface works for everyone.',
 };

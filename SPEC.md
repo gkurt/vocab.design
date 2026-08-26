@@ -10,7 +10,7 @@ correctly. People who can say "segmented control" get one in one prompt; people 
 gap — exhaustively, not selectively.
 
 **Strategy.** Exhaustive coverage (500–1,000 terms across components, layouts, patterns,
-interactions, motion, typography, color, aesthetics, accessibility) and superior
+interactions, motion, typography, color, surfaces, aesthetics, accessibility) and superior
 discoverability (every alias is a search query we answer; machine-readable for agents).
 No gimmick differentiators. The closest existing site, uiterms.com, has 64 terms, no
 cross-linking, and no agent angle; the tail is wide open.
@@ -78,9 +78,30 @@ useWhen: >-                      # the situation this word is for; powers "Which
 ### 2.2 Categories
 
 `component` · `layout` · `pattern` · `interaction` · `motion` · `typography` · `color`
-· `aesthetic` · `accessibility`. One category per term: a term is one kind of thing.
-Cross-cutting membership is expressed through relations and tags (§2.5), never
+· `surface` · `aesthetic` · `accessibility`. One category per term: a term is one kind of
+thing. Cross-cutting membership is expressed through relations and tags (§2.5), never
 through a second category.
+
+Three of them describe how a thing looks rather than what it is, so the line between
+them is worth stating outright, because a term that could be filed in any of the three
+will be filed in a different one by every author who meets it:
+
+- **`color`** answers *which colour it is*: hues, palettes, roles, contrast, schemes.
+- **`surface`** answers *what its edges, depth and finish look like*: the radius, the
+  bevel, the shadow, the grain, the gloss. A value you set.
+- **`aesthetic`** answers *which named look it is citing*: a period, a movement, a
+  scene, with a set of moves that come with the name. A look you cite, not a value you
+  set.
+
+`surface` was carved out of `aesthetic` on 2026-08-26, because the property half of that
+category was never a named style with a period and had nowhere else to go. `color` and
+`typography` had always been property categories, so the two axes with enough property
+terms already had homes and the shape-and-finish axis did not: its terms were being
+filed by whichever facet was most salient to the author that day, which split families
+across categories (`corner-radius` in `aesthetic` against `concentric-corner-radius` in
+`layout`). A family may still straddle the color/surface line honestly: `elevation` is
+depth and `surface-tint` is the colour a raised plane takes, so they are two kinds of
+thing that relations join, not one kind split in half.
 
 Both dates are authored, not derived. Reading them off git mtimes would look
 self-maintaining and then lie: a rename, a reformat, or a squashed history rewrites

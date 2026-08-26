@@ -8,6 +8,7 @@ export const CATEGORIES = [
   'motion',
   'typography',
   'color',
+  'surface',
   'aesthetic',
   'accessibility',
 ] as const;

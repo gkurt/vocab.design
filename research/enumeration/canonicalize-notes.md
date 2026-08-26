@@ -626,6 +626,28 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   an automated fetch while the guide pages answer 200, so probe the deep link, never the
   index). The whole pool's implementation rows still resolve against the registry with
   no dangling ids.
+- CATEGORY MODEL CHANGE (2026-08-26): `surface` carved out of `aesthetic`, taking the
+  enum from nine to ten (SPEC 2.2, which now states the color/surface/aesthetic line
+  outright). 21 terms moved in: the corner and edge words (corner-radius, squircle,
+  chamfer, bevel, concentric-corner-radius, blob-shape), the depth and light words
+  (elevation, long-shadow, gloss, specular-highlight, neon-glow), and the texture and
+  finish words (grainy-gradient, gradient-border, progressive-blur, vignette,
+  letterpress-text, holographic-foil, dot-grid-background, halftone, terrazzo,
+  scanlines). Two more were misfiled in other directions and went with the same pass:
+  visual-hierarchy to layout (a principle, not a look) and deformable-ui to motion
+  (squash and spring is change over time).
+  DELIBERATELY NOT MOVED, so a future sweep does not re-open it: the gradient family
+  (gradient, conic-gradient, mesh-gradient) stays in color, because a gradient's claim
+  is which colours; opacity and blend-mode stay in color as compositing's neighbours;
+  and elevation-overlay and surface-tint stay in color even though elevation itself is
+  now surface, because their claim is which colour a raised plane takes. That last one
+  is the shape of split worth accepting rather than fixing: relations carry a family
+  across a category line, which is what SPEC 2.2 says they are for.
+  CONSEQUENCE FOR THE PIPELINE: scripts/merge-enumeration.ts reads one sweep file per
+  category, so it will warn "missing sweep file: surface.json" until a sweep produces
+  one, and any future shape, edge, depth or finish candidate belongs in that file rather
+  than in aesthetic.json. The old records in candidates.json are all authored, so none
+  were re-filed.
 - ROUND 24 (2026-08-26): all 38 records authored, taking the site from 1,076 to 1,114
   terms and emptying the pool.
   Batched by FAMILY rather than by category, seven batches: graph 5, scheduler 6,
