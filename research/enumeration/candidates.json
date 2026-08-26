@@ -47031,5 +47031,1580 @@
     "sweptFrom": [
       "wishlist 2026-08-26 (second)"
     ]
+  },
+  {
+    "name": "Flowchart",
+    "slug": "flowchart",
+    "category": "component",
+    "definition": "A diagram of steps in boxes joined by arrows, read rather than operated, and now more often generated from a few lines of text than drawn by hand.",
+    "useWhen": "steps in boxes joined by arrows, read not operated",
+    "aliases": [
+      {
+        "name": "flow chart",
+        "source": "community"
+      },
+      {
+        "name": "diagram as code",
+        "source": "mermaid"
+      },
+      {
+        "name": "process diagram",
+        "source": "community"
+      },
+      {
+        "name": "mermaid diagram",
+        "source": "mermaid"
+      }
+    ],
+    "relatedSlugs": [
+      "node-graph",
+      "treeview",
+      "timeline",
+      "chart",
+      "code-editor"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Mermaid: flowchart syntax",
+        "url": "https://mermaid.js.org/syntax/flowchart.html"
+      },
+      {
+        "title": "Mermaid",
+        "url": "https://mermaid.js.org/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mermaid",
+        "name": "Flowchart",
+        "url": "https://mermaid.js.org/syntax/flowchart.html",
+        "verified": true
+      }
+    ],
+    "notes": "The read-only half of the 'Node graph / flowchart' wish, which node-graph deliberately did not claim. FENCE both ways: node-graph is the surface you rearrange and this is the picture you read, so the demo must not become a node editor, and node-graph must not take 'flowchart' as an alias. The record claims 'diagram as code' too, because the interesting modern fact about a flowchart is that nobody positions it: you write the nodes and edges as text and a layout engine places them, which is why the same authoring practice produces sequence, ER, state and gantt diagrams from the same block. If a later pass wants diagram-as-code as its own record, this is the alias to cede, and gantt-chart is already pooled separately. Category call: component rather than pattern, on the same reasoning as chart. SPECIMEN: the honest demonstration is the text and the picture side by side, one changing the other, which also makes the subject the diagram rather than the whole stage.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Node port",
+    "slug": "node-port",
+    "category": "component",
+    "definition": "The typed stub on a node where a wire may land, coloured or shaped by what it accepts, so a connection that would make no sense refuses to complete.",
+    "useWhen": "the stub on a node where a wire connects",
+    "aliases": [
+      {
+        "name": "socket",
+        "source": "blender"
+      },
+      {
+        "name": "node handle",
+        "source": "xyflow"
+      },
+      {
+        "name": "connection point",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "node-graph",
+      "edge-routing",
+      "graph-layout",
+      "drag-handle",
+      "drop-indicator"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "React Flow: Handle",
+        "url": "https://reactflow.dev/api-reference/components/handle"
+      },
+      {
+        "title": "Blender Manual: Node Parts (sockets)",
+        "url": "https://docs.blender.org/manual/en/latest/interface/controls/nodes/parts.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "xyflow",
+        "name": "Handle",
+        "url": "https://reactflow.dev/api-reference/components/handle",
+        "verified": true
+      }
+    ],
+    "notes": "ALIAS FENCES, and they are the reason the headword is the qualified spelling: bare 'handle' belongs to the drag-handle and resize-handle family already published and would be read as a grip, and 'pin' is claimed as an alias of scroll-pinning. So this record takes 'socket' (Blender's word, unambiguous in a UI dictionary) and 'node handle' (React Flow's, qualified), and leaves the bare spellings alone. The design content is TYPE REFUSAL: Blender colour-codes and shapes each socket by the data it carries, so the graph teaches its own rules by which wires will not land, and that refusal is the specimen's whole move. Narrow enough to be tail, but it is the part a demo can actually mark as data-subject when node-graph cannot.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Edge routing",
+    "slug": "edge-routing",
+    "category": "layout",
+    "definition": "How a connector gets from one node to another: a bezier sweep, a right-angled staircase, or a straight line, picked so the crossings stay readable.",
+    "useWhen": "the path a connector takes between two nodes",
+    "aliases": [
+      {
+        "name": "connector routing",
+        "source": "community"
+      },
+      {
+        "name": "edge type",
+        "source": "xyflow"
+      },
+      {
+        "name": "orthogonal routing",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "node-graph",
+      "node-port",
+      "flowchart",
+      "graph-layout"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "React Flow: edge types",
+        "url": "https://reactflow.dev/examples/edges/edge-types"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "xyflow",
+        "name": "Edge types",
+        "url": "https://reactflow.dev/examples/edges/edge-types",
+        "verified": true
+      }
+    ],
+    "notes": "Category call: layout, because the question is geometry (where the line goes and what it goes around), not what the line means. The article's content is the choice between the three routings and what each is good for, plus the two problems every graph hits once it is real: crossings, and where the label sits when the line bends. SPECIMEN: one pair of nodes, the same connection drawn three ways, which is a states row rather than a toggle. Fence: this is the LINE, node-port is its ends, node-graph is the surface. Left unclaimed: obstacle avoidance and edge bundling.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Graph layout",
+    "slug": "graph-layout",
+    "category": "layout",
+    "definition": "Placing the nodes of a wired diagram by algorithm rather than by hand: layered for a flow, radial for a hub, force-directed for a mesh that has no direction.",
+    "useWhen": "nodes placed by algorithm rather than by hand",
+    "aliases": [
+      {
+        "name": "layered layout",
+        "source": "community"
+      },
+      {
+        "name": "force-directed layout",
+        "source": "community"
+      },
+      {
+        "name": "graph layout algorithm",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "node-graph",
+      "flowchart",
+      "edge-routing",
+      "treeview"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "React Flow: layouting",
+        "url": "https://reactflow.dev/learn/layouting/layouting"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "xyflow",
+        "name": "Layouting",
+        "url": "https://reactflow.dev/learn/layouting/layouting",
+        "verified": true
+      }
+    ],
+    "notes": "NAMING FENCE, and it is the whole reason this headword is not the obvious one: the node-graph world calls this 'auto layout' (React Flow's own example page is titled that), but Figma's Auto layout owns that spelling for a completely different thing, the flex-like resizing frame, and Figma's meaning is the far more searched one. So this record takes the graphviz-era name and does NOT claim 'auto layout'. FIGMA'S AUTO LAYOUT IS A SEPARATE UNPOOLED RECORD, named here for the human: nothing on site covers it today, and it is a design-tool term with a real claim on the page that spelling would land on. Design content of this one: an algorithm can only be judged by what a reader can follow, so the article is about which arrangement suits which graph, and the honest cost, which is that re-running the layout moves everything the reader had learned the position of.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Agenda view",
+    "slug": "agenda-view",
+    "category": "component",
+    "definition": "The same events as a chronological list grouped by day, so the next thing is at the top instead of somewhere inside a grid.",
+    "useWhen": "events as a list, with the next thing at the top",
+    "aliases": [
+      {
+        "name": "schedule view",
+        "source": "google"
+      },
+      {
+        "name": "list view",
+        "source": "fullcalendar"
+      },
+      {
+        "name": "up next",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "scheduler",
+      "calendar",
+      "timeline",
+      "activity-feed"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "FullCalendar: List View",
+        "url": "https://fullcalendar.io/docs/list-view"
+      },
+      {
+        "title": "Google Calendar Help: view your day, week, or month",
+        "url": "https://support.google.com/calendar/answer/6110849"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fullcalendar",
+        "name": "List view",
+        "url": "https://fullcalendar.io/docs/list-view",
+        "verified": true
+      }
+    ],
+    "notes": "NAMING TRAP the article has to state: 'agenda view' points at two different things depending on the library and the year. FullCalendar v3 used agendaWeek and agendaDay for the day-and-hour GRID and renamed that to timeGrid in v4, while Google Calendar renamed its chronological LIST from Agenda to Schedule. So the grid sense belongs to the scheduler record and the list sense is this one, and neither may claim the other's spelling. Design content: a list wins on a phone and for 'what is next', a grid wins for 'where is my free hour', which is the choice the view switcher exists for; the list also has to say what an empty day looks like, since a grid shows emptiness for free and a list has to spell it. Fence: activity-feed is a stream of what HAPPENED, this is what is coming.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Gantt chart",
+    "slug": "gantt-chart",
+    "category": "component",
+    "definition": "One row per task with a bar along a time axis, the bar showing when the work runs and lines between bars showing what waits for what.",
+    "useWhen": "tasks as bars on a time axis, with dependencies",
+    "aliases": [
+      {
+        "name": "gantt",
+        "source": "community"
+      },
+      {
+        "name": "project timeline",
+        "source": "community"
+      },
+      {
+        "name": "resource timeline",
+        "source": "mui-x"
+      }
+    ],
+    "relatedSlugs": [
+      "scheduler",
+      "timeline",
+      "trace-viewer",
+      "flame-graph",
+      "agenda-view"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Mermaid: gantt syntax",
+        "url": "https://mermaid.js.org/syntax/gantt.html"
+      },
+      {
+        "title": "Wikipedia: Gantt chart",
+        "url": "https://en.wikipedia.org/wiki/Gantt_chart"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mermaid",
+        "name": "Gantt",
+        "url": "https://mermaid.js.org/syntax/gantt.html",
+        "verified": true
+      }
+    ],
+    "notes": "Clears the dataviz scope rule (chart TYPES stay out of the pool) the same way trace-viewer did: what makes this poolable is not an encoding choice but an interface, rows that can be reordered, bars that can be dragged and resized, and dependency lines that constrain the drag. Named twice by fences before it was pooled, by scheduler and by trace-viewer. FENCES: trace-viewer owns 'waterfall view', the site's timeline term is a line of dated events rather than a plan, and the resource-rows view that scheduler libraries confusingly call a timeline is THIS record's neighbourhood, which is why 'resource timeline' is carried here as an alias. SPECIMEN: four or five rows, two dependency lines, and one bar dragged so a dependent bar moves with it, which is the term's whole claim.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Recurring event",
+    "slug": "recurring-event",
+    "category": "pattern",
+    "definition": "An event stored once as a rule instead of as copies, so every second Tuesday can be edited, skipped for one week, or ended, without touching the rest.",
+    "useWhen": "one event that repeats by a rule",
+    "aliases": [
+      {
+        "name": "recurrence rule",
+        "source": "community"
+      },
+      {
+        "name": "RRULE",
+        "source": "ietf"
+      },
+      {
+        "name": "repeating event",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "scheduler",
+      "calendar",
+      "agenda-view",
+      "date-picker",
+      "time-zone-display"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "RFC 5545: Recurrence Rule (iCalendar)",
+        "url": "https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.5.3"
+      },
+      {
+        "title": "MUI X: React Scheduler component",
+        "url": "https://mui.com/x/react-scheduler/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The design content is the three-way question every edit asks, this event only, this and all following, or all of them, which is one of the few dialogs in software that genuinely cannot be simplified away, plus the exception (a single skipped occurrence) and the end condition (after N, until a date, never). RFC 5545's RRULE is the shared vocabulary underneath every implementation, which is why it is the source rather than any one product. HONEST HAZARD for the article: a rule is not a set of timestamps, so a weekly event crossing a daylight-saving boundary is either the same wall-clock time or the same instant, never both, which is where time-zone-display meets this record. Left unclaimed: the this-and-following dialog as a component of its own.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Drag to create",
+    "slug": "drag-to-create",
+    "category": "interaction",
+    "definition": "Making a new object by dragging out its extent rather than pressing Add: an event drawn across two hours, a frame drawn on a canvas, a range drawn on a chart.",
+    "useWhen": "drawing a new object out at the size you want",
+    "aliases": [
+      {
+        "name": "drag out",
+        "source": "community"
+      },
+      {
+        "name": "draw to create",
+        "source": "community"
+      },
+      {
+        "name": "drag to select time",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "scheduler",
+      "drag-and-drop",
+      "infinite-canvas",
+      "resize-handle",
+      "brushing",
+      "node-graph"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Google Calendar Help: create an event",
+        "url": "https://support.google.com/calendar/answer/72143"
+      },
+      {
+        "title": "FullCalendar: select callback",
+        "url": "https://fullcalendar.io/docs/select-callback"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fullcalendar",
+        "name": "select",
+        "url": "https://fullcalendar.io/docs/select-callback",
+        "verified": true
+      }
+    ],
+    "notes": "Worth its place because interaction was the FIRST category the pool emptied, and this is a real one: a single gesture that both creates the object and sizes it, so there is no separate step where the reader says how big. Fence: brushing (already on site) selects an existing range in a chart and this makes a new object, drag-and-drop moves what exists, resize-handle changes what exists. The article owes the two failure modes: a stray drag that creates an unwanted object (so the object arrives selected and undoable, and a drag under some threshold must be treated as a click), and an empty canvas that gives no hint the gesture exists, which is hidden-gesture's territory. SPECIMEN: law 22 applies (capture on a trusted pointerdown, end on pointerup and pointercancel) and the extent must be read through localPoint, since a phone scales the stage and a half-speed drag would draw a half-size object.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Flame graph",
+    "slug": "flame-graph",
+    "category": "component",
+    "definition": "Stacked bars where width is time spent and depth is call nesting, so the widest plateau rather than the tallest tower is the thing worth fixing.",
+    "useWhen": "nested call stacks with width as time spent",
+    "aliases": [
+      {
+        "name": "flame chart",
+        "source": "chrome-developers"
+      },
+      {
+        "name": "icicle graph",
+        "source": "community"
+      },
+      {
+        "name": "flamegraph",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "trace-viewer",
+      "chart",
+      "gantt-chart",
+      "minimap",
+      "treeview"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Brendan Gregg: Flame Graphs",
+        "url": "https://www.brendangregg.com/flamegraphs.html"
+      },
+      {
+        "title": "Chrome DevTools: Performance panel",
+        "url": "https://developer.chrome.com/docs/devtools/performance"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "chrome-developers",
+        "name": "Flame chart",
+        "url": "https://developer.chrome.com/docs/devtools/performance",
+        "verified": true
+      }
+    ],
+    "notes": "Left unclaimed by trace-viewer, and the DISTINCTION between the two spellings is the article's spine, from Gregg himself: a flame graph MERGES identical stacks and sorts them alphabetically, so the x axis is not time and width is total cost, while a flame chart keeps events in time order, which is what DevTools shows. Both are worth one record because the reading skill is the same and the confusion is universal; the article states which is which rather than pretending they are synonyms. FENCE: 'waterfall view' is trace-viewer's alias, do not take it. Icicle is the same picture drawn downward and is carried as an alias rather than split off. SPECIMEN: five or six frames deep with one wide plateau, and hovering a frame reading out its share, which is the whole interpretive move.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Three-way merge",
+    "slug": "three-way-merge",
+    "category": "component",
+    "definition": "Three versions on screen at once, mine, theirs, and the common ancestor they both came from, with the result edited underneath so a conflict can be decided instead of guessed.",
+    "useWhen": "resolving a conflict against the common ancestor",
+    "aliases": [
+      {
+        "name": "merge editor",
+        "source": "vscode"
+      },
+      {
+        "name": "3-way merge",
+        "source": "community"
+      },
+      {
+        "name": "conflict resolution view",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "diff-viewer",
+      "blame-view",
+      "split-view",
+      "code-editor"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "git-merge-file: three-way merge",
+        "url": "https://git-scm.com/docs/git-merge-file"
+      },
+      {
+        "title": "VS Code: source control overview",
+        "url": "https://code.visualstudio.com/docs/sourcecontrol/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "vscode",
+        "name": "Merge editor",
+        "url": "https://code.visualstudio.com/docs/sourcecontrol/overview",
+        "verified": true
+      }
+    ],
+    "notes": "Left unclaimed by diff-viewer, and it is a different design problem rather than a bigger one: a diff has two sides and a merge has four regions in one screen, three to read and one to write, which is a layout question before it is a code question. The article's content is what the ancestor pane is FOR (it is the only thing that tells you which side changed), the accept-mine / accept-theirs / accept-both controls per conflict, and why accept-both is usually wrong. SPECIMEN: one conflict, three short panes and a result pane, and one accept control changing the result, which keeps the subject the merge view rather than the stage. Fence: diff-viewer owns split versus unified, and this record must not restage that argument.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Blame view",
+    "slug": "blame-view",
+    "category": "component",
+    "definition": "Each line of a file labelled with the change that last touched it, so the file answers who and when rather than what it says.",
+    "useWhen": "every line labelled with its last change",
+    "aliases": [
+      {
+        "name": "git blame",
+        "source": "community"
+      },
+      {
+        "name": "annotate view",
+        "source": "community"
+      },
+      {
+        "name": "line history",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "diff-viewer",
+      "three-way-merge",
+      "code-editor",
+      "minimap",
+      "timeline"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "git-blame",
+        "url": "https://git-scm.com/docs/git-blame"
+      }
+    ],
+    "implementations": [],
+    "notes": "Left unclaimed by diff-viewer. ALIAS FENCE: this file's earlier decision leaves bare 'annotation' unclaimed (chart-annotation named the other senses), so the alias is 'annotate view', never 'annotation'. Design content: a gutter that has to carry three facts per line (who, when, which change) in the width of a scrollbar, which is why every implementation compresses to initials plus a relative date and puts the rest in a hover; the colour axis is age, which is the one honest use of a sequential scale in a code editor. SPECIMEN: eight lines of code with the gutter, one hovered row expanding its detail. Fence: diff-viewer is two versions, this is one file's whole history projected onto its lines.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Hidden gesture",
+    "slug": "hidden-gesture",
+    "category": "interaction",
+    "definition": "An action reachable only by an input the reader has to guess: a swipe, a long press, a two-finger tap, with nothing on screen saying it is there.",
+    "useWhen": "an action only an unadvertised gesture reaches",
+    "aliases": [
+      {
+        "name": "undiscoverable gesture",
+        "source": "community"
+      },
+      {
+        "name": "gesture discoverability",
+        "source": "community"
+      },
+      {
+        "name": "secret gesture",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "signifier",
+      "long-press",
+      "secondary-click",
+      "double-tap",
+      "swipe-actions",
+      "coach-mark",
+      "affordance"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple HIG: Gestures",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures"
+      },
+      {
+        "title": "IxDF: gesture-based interaction",
+        "url": "https://www.interaction-design.org/literature/topics/gesture-interaction"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Gestures",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/gestures",
+        "verified": true
+      }
+    ],
+    "notes": "THIS IS THE ANSWER TO THE 2026-08-25 OPEN QUESTION about 'overloaded element', though at an angle, and the human should know which way it went. The question was whether the wish meant one control carrying several actions selected by input type. The site already covers each input piecewise (long-press, secondary-click, double-tap, swipe-actions, press-drag-release) and sense (b) resolved itself when nested-interactive was published, so what was actually missing was not another input term but the word for the DEFECT they share: an action with no signifier. If the literal 'one control, several actions by input type' record is still wanted, it remains unpooled and this is not it. Design content: the cost is invisible in analytics (a feature nobody finds looks like a feature nobody wants), the remedies are a signifier, a coach-mark once, or a duplicate path in a menu, and the accessibility case is decisive since a gesture with no equivalent control excludes anyone who cannot perform it. SPECIMEN: a row where the same action is reachable two ways, one advertised and one not, at rest, so the demo does not have to fake a discovery.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Subject line",
+    "slug": "subject-line",
+    "category": "pattern",
+    "definition": "The one line a mail is opened or ignored on, written to survive a list that truncates it and shows it wedged between the sender and the preview text.",
+    "useWhen": "the line a mail is opened or ignored on",
+    "aliases": [
+      {
+        "name": "subject",
+        "source": "community"
+      },
+      {
+        "name": "email subject",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "preview-text",
+      "sender-name",
+      "truncation",
+      "line-clamp",
+      "magic-link"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Litmus: The Anatomy of a Good Email",
+        "url": "https://www.litmus.com/blog/the-anatomy-of-a-good-email"
+      },
+      {
+        "title": "Litmus: 18 subject line tips from experts",
+        "url": "https://www.litmus.com/blog/how-to-write-the-perfect-subject-line-infographic"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "litmus",
+        "name": "Subject line",
+        "url": "https://www.litmus.com/blog/the-anatomy-of-a-good-email",
+        "verified": true
+      }
+    ],
+    "notes": "One of three fields in the inbox row, with sender-name and the already pooled preview-text, and Litmus's anatomy piece treats them as one composition, which is the article's frame: the three are read as a single sentence in a list, so writing any of them alone is the mistake. What makes it a design term rather than a copywriting one: the line is set in someone else's type at someone else's width, it truncates at a length the sender cannot know, and the truncation point is where the meaning has to already have landed (front-load, never save the reveal). SPECIMEN: one inbox row at three widths, or two rows where one front-loads and one does not, both at rest.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Sender name",
+    "slug": "sender-name",
+    "category": "pattern",
+    "definition": "The name a mail appears to come from, chosen rather than inherited, because a reader scanning an inbox decides on it before reading a word of the subject.",
+    "useWhen": "the name a mail appears to come from",
+    "aliases": [
+      {
+        "name": "from name",
+        "source": "community"
+      },
+      {
+        "name": "friendly from",
+        "source": "community"
+      },
+      {
+        "name": "display name",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "subject-line",
+      "preview-text",
+      "avatar",
+      "magic-link"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Litmus: The Anatomy of a Good Email",
+        "url": "https://www.litmus.com/blog/the-anatomy-of-a-good-email"
+      }
+    ],
+    "implementations": [],
+    "notes": "The thinnest record in this sweep, and pooled on purpose as the third field of the inbox row (see subject-line, preview-text): it is the one readers act on first and the one senders set once and forget. Design content: person versus brand versus both ('Ana at Vocab'), the trust cost of changing it, and the fact that a client may show an avatar and initials derived from it, so the name is also artwork. FENCE: this is the DISPLAY name in the row, not the address, and not the authentication that makes it trustworthy (SPF, DKIM, DMARC), which is not a design term and stays out. If canonicalize decides the inbox row is one record rather than three, this is the one to fold.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Dark mode email",
+    "slug": "dark-mode-email",
+    "category": "pattern",
+    "definition": "Designing a mail for clients that will invert its palette without asking, where a near-black behaves better than black and a logo needs a ground it survives on.",
+    "useWhen": "a mail whose colours the client may invert",
+    "aliases": [
+      {
+        "name": "email dark mode",
+        "source": "community"
+      },
+      {
+        "name": "dark mode for email",
+        "source": "litmus"
+      }
+    ],
+    "relatedSlugs": [
+      "dark-mode",
+      "color-scheme",
+      "true-black-theme",
+      "bulletproof-button",
+      "forced-colors-mode",
+      "styled-alt-text"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Litmus: the developer guide to coding dark mode emails",
+        "url": "https://www.litmus.com/blog/coding-emails-for-dark-mode"
+      },
+      {
+        "title": "Litmus: Ultimate Guide to Dark Mode for email",
+        "url": "https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "litmus",
+        "name": "Dark mode for email",
+        "url": "https://www.litmus.com/blog/coding-emails-for-dark-mode",
+        "verified": true
+      }
+    ],
+    "notes": "Distinct from the published dark-mode term, which is a preference a site answers, because here the client answers it FOR you and there is no reliable opt-out: some clients honour prefers-color-scheme, some partially invert (backgrounds flipped, brand fills kept), some fully invert including your call to action. The craft is therefore defensive and is what the article is about: mid-tone fills survive inversion where pure values do not, near-black and near-white (Litmus cites values like #0E0E0E and #FEFEFE) dodge the hardcoded triggers that flip exact black and white, transparent PNGs need a stroke or a plate, and dark text on a dark-inverted plate is the failure everyone ships once. Live stake worth citing: Litmus reports over a quarter of opens now happen in dark mode. SPECIMEN: one mail card shown light and inverted side by side at rest, with a naive fill and a mid-tone fill in the same picture.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Table-based layout",
+    "slug": "table-based-layout",
+    "category": "layout",
+    "definition": "Laying a page out in nested tables because the renderer has no box model worth trusting, which is how mail is still built and how the web was built before CSS.",
+    "useWhen": "layout built from nested tables, not CSS boxes",
+    "aliases": [
+      {
+        "name": "nested tables",
+        "source": "community"
+      },
+      {
+        "name": "table layout",
+        "source": "community"
+      },
+      {
+        "name": "email table layout",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "bulletproof-button",
+      "fluid-hybrid",
+      "data-table",
+      "responsive-web-design",
+      "semantic-html"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Campaign Monitor: coding HTML emails",
+        "url": "https://www.campaignmonitor.com/dev-resources/guides/coding-html-emails/"
+      },
+      {
+        "title": "Litmus: understanding responsive and hybrid email design",
+        "url": "https://www.litmus.com/blog/understanding-responsive-and-hybrid-email-design"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "campaign-monitor",
+        "name": "Coding HTML emails",
+        "url": "https://www.campaignmonitor.com/dev-resources/guides/coding-html-emails/",
+        "verified": true
+      }
+    ],
+    "notes": "FENCE against the published data-table, and it is the whole discipline of the record: a data table presents DATA and its markup means something, while this is a table used as scaffolding and means nothing, which is why every layout table takes role='presentation' or it lies to a screen reader. That single line is the accessibility content and the reason the term belongs on this site rather than in a mail-developer handbook. The rest of the article: fixed widths in attributes rather than CSS, cellpadding as the only padding you can rely on, a maximum width around 600px and where that number came from, and the honest history that the web itself was built this way until CSS layout arrived, which is why the phrase reads as an insult on the web and as a fact in mail.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Fluid hybrid",
+    "slug": "fluid-hybrid",
+    "category": "layout",
+    "definition": "A mail layout that reflows with no media query at all: percentage widths held in by max-width, with fixed-width ghost tables that only Outlook can see.",
+    "useWhen": "a mail that reflows without media queries",
+    "aliases": [
+      {
+        "name": "hybrid email design",
+        "source": "litmus"
+      },
+      {
+        "name": "ghost table",
+        "source": "community"
+      },
+      {
+        "name": "fluid email",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "table-based-layout",
+      "responsive-web-design",
+      "container-query",
+      "bulletproof-button",
+      "dark-mode-email"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Email on Acid: a fluid hybrid design primer",
+        "url": "https://www.emailonacid.com/blog/article/email-development/a-fluid-hybrid-design-primer/"
+      },
+      {
+        "title": "Litmus: understanding responsive and hybrid email design",
+        "url": "https://www.litmus.com/blog/understanding-responsive-and-hybrid-email-design"
+      },
+      {
+        "title": "Cerberus: hybrid responsive patterns",
+        "url": "https://www.cerberusemail.com/hybrid-responsive"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "litmus",
+        "name": "Hybrid email design",
+        "url": "https://www.litmus.com/blog/understanding-responsive-and-hybrid-email-design",
+        "verified": true
+      }
+    ],
+    "notes": "The interesting record of the mail set for a layout reader, because it is responsive design solved WITHOUT the tool responsive design is named after: no media query, because a large share of clients drop them, so the reflow is built into the box (percentage widths, max-width ceilings, inline-block cells that wrap on their own) and Outlook is handed fixed-width 'ghost tables' inside an MSO conditional comment so it cannot make its own mess. 'Ghost table' is claimed here as an alias rather than split off, but it is the obvious later record if the article grows. CANONICALIZE QUESTION: responsive-web-design is one of the three term-named facets, so this may want to be a derived member (variantOf) rather than a loose neighbour; that is a relations call at authoring time. Specimen: one card at two widths, reflowing, with the ghost-table half shown as a labelled overlay rather than pretending to be Outlook.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Unsubscribe link",
+    "slug": "unsubscribe-link",
+    "category": "pattern",
+    "definition": "The way out of a mailing list, which the law and the mail clients now both insist is one click, and whose difficulty is the honest measure of a sender.",
+    "useWhen": "the way out of a list, and how hard it is",
+    "aliases": [
+      {
+        "name": "List-Unsubscribe",
+        "source": "ietf"
+      },
+      {
+        "name": "one-click unsubscribe",
+        "source": "ietf"
+      },
+      {
+        "name": "opt out",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "roach-motel",
+      "confirmshaming",
+      "transactional-email",
+      "double-opt-in",
+      "preview-text"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "RFC 8058: one-click unsubscribe",
+        "url": "https://datatracker.ietf.org/doc/html/rfc8058"
+      },
+      {
+        "title": "RFC 2369: List-Unsubscribe header",
+        "url": "https://www.rfc-editor.org/rfc/rfc2369"
+      }
+    ],
+    "implementations": [],
+    "notes": "Pooled as the honest counterpart to two dark patterns already on site: roach-motel is the hard way out and confirmshaming is the guilt on the way, so this record is where a reader lands when the design is fair, and the contrast edges write themselves. The mechanism has moved out of the mail body, which is the fact the article turns on: a List-Unsubscribe header (RFC 2369) plus a POST-based one-click flow (RFC 8058) means the CLIENT now draws the unsubscribe button above the message, so a sender who buries theirs in six-point grey is overruled by Gmail and Apple Mail anyway. Design content: one click means no login, no survey, no preference centre before the exit, and the preference centre is worth naming as the fair version of the same idea (still unpooled).",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Double opt-in",
+    "slug": "double-opt-in",
+    "category": "pattern",
+    "definition": "Asking a new subscriber to confirm from the address they typed, so a list holds only addresses whose owner agreed and a typo never becomes a stranger’s mail.",
+    "useWhen": "a signup confirmed from the address itself",
+    "aliases": [
+      {
+        "name": "confirmed opt-in",
+        "source": "community"
+      },
+      {
+        "name": "subscription confirmation",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "magic-link",
+      "one-time-code-login",
+      "unsubscribe-link",
+      "transactional-email",
+      "permission-priming"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Mailchimp: about double opt-in",
+        "url": "https://mailchimp.com/help/about-double-opt-in/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The same mechanism as magic-link (prove you hold the address by acting from it) put to a different purpose, which is the edge worth writing. Design content is the cost: a confirmation step loses subscribers who never open the confirmation, so the argument is about what a list is FOR, and the honest framing is that the people lost are mostly the ones who would never have read anything. The pattern also answers the typo case, where an address belonging to someone else would otherwise receive mail they never asked for, which is the part that makes it an ethics term rather than a deliverability one. Single opt-in is the named CONTRAST, used in the article and not claimed as an alias.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Transactional email",
+    "slug": "transactional-email",
+    "category": "pattern",
+    "definition": "Mail sent because one person did one thing, a receipt or a reset, which is why it may carry no marketing and why its design is a record rather than a pitch.",
+    "useWhen": "mail triggered by one action, not a campaign",
+    "aliases": [
+      {
+        "name": "triggered email",
+        "source": "community"
+      },
+      {
+        "name": "notification email",
+        "source": "community"
+      },
+      {
+        "name": "system email",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "magic-link",
+      "one-time-code-login",
+      "double-opt-in",
+      "unsubscribe-link",
+      "subject-line"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Postmark: transactional email best practices",
+        "url": "https://postmarkapp.com/guides/transactional-email-best-practices"
+      }
+    ],
+    "implementations": [],
+    "notes": "The category distinction is a legal and a design one at the same time, which is what makes it a term: marketing mail needs consent and an unsubscribe, transactional mail is expected and must not be turned into a campaign (the cross-sell smuggled into a receipt is the failure mode, and it is where this touches dark-pattern territory). Design content: the one fact goes at the top because a mail client shows three lines, the copy is a record the reader will search for months later, and the reset variety is where magic-link and one-time-code-login already live on site. Marketing email is the CONTRAST and stays unclaimed as a possible record of its own.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Styled alt text",
+    "slug": "styled-alt-text",
+    "category": "pattern",
+    "definition": "Alt text given size, colour and weight so a mail whose images are blocked still reads as something designed instead of as a column of grey stubs.",
+    "useWhen": "alt text styled to hold a blocked image's place",
+    "aliases": [
+      {
+        "name": "alt text styling",
+        "source": "litmus"
+      },
+      {
+        "name": "image blocking fallback",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "alt-text",
+      "bulletproof-button",
+      "table-based-layout",
+      "progressive-image-loading",
+      "empty-state"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Litmus: the ultimate guide to styled ALT text in email",
+        "url": "https://www.litmus.com/blog/the-ultimate-guide-to-styled-alt-text-in-email"
+      },
+      {
+        "title": "Litmus: the ultimate guide to email image blocking",
+        "url": "https://www.litmus.com/blog/the-ultimate-guide-to-email-image-blocking"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "litmus",
+        "name": "Styled ALT text",
+        "url": "https://www.litmus.com/blog/the-ultimate-guide-to-styled-alt-text-in-email",
+        "verified": true
+      }
+    ],
+    "notes": "FENCE against the published alt-text term, and the tension is the article: alt-text is the description for a reader who cannot see the image, while this is the same string asked to hold the layout for a reader whose client refused to load it, and one string is doing both jobs at once. That is why the craft is real (declare width and height so the space survives, style the attribute so the fallback keeps the type hierarchy, never let the fallback read as a caption) and why it can go wrong for the accessibility half (copy written to fill a hole is not a description). Image blocking is the condition rather than a second record; 'image blocking' as a headword was considered and rejected because the design decision is the fallback, not the client's setting.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Print stylesheet",
+    "slug": "print-stylesheet",
+    "category": "pattern",
+    "definition": "The rules that decide what a page becomes on paper: navigation dropped, link targets spelled out, backgrounds abandoned, and the content given page margins.",
+    "useWhen": "what a page becomes when it is printed",
+    "aliases": [
+      {
+        "name": "print styles",
+        "source": "community"
+      },
+      {
+        "name": "@media print",
+        "source": "mdn"
+      },
+      {
+        "name": "print view",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "page-break",
+      "orphan",
+      "reader-mode",
+      "forced-colors-mode",
+      "point-size"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Printing",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Printing",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing",
+        "verified": true
+      }
+    ],
+    "notes": "CORRECTION to a claim made earlier today in this file, so it does not propagate: print is NOT a medium with no words on site. page-break, orphan, cmyk, point-size, ink-trap and halftone are all published, and page-break already carries the CSS fragmentation vocabulary. What is missing is only this record, the DECISION of what the page becomes: what is dropped (navigation, share buttons, video), what has to be spelled out (a link is useless on paper unless its target is printed beside it), what has to change colour (a dark theme prints as a black rectangle, and background printing is off by default anyway), and what the reader is actually printing for (a recipe, a boarding pass, a receipt), which is the only thing that decides the rest. Fence: page-break owns where the cut falls, this owns what is on the page at all. Left unclaimed: a paged-media record for @page margins and running headers. SPECIMEN: the same article as screen and as print, side by side at rest, since the stage cannot print.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Time zone display",
+    "slug": "time-zone-display",
+    "category": "pattern",
+    "definition": "Whose clock a time is shown on, the reader's or the event's, and saying which, because a time with no zone beside it is a meeting somebody is going to miss.",
+    "useWhen": "whose clock a time is displayed on",
+    "aliases": [
+      {
+        "name": "local time",
+        "source": "community"
+      },
+      {
+        "name": "secondary time zone",
+        "source": "google"
+      },
+      {
+        "name": "time zone selector",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "scheduler",
+      "recurring-event",
+      "relative-timestamp",
+      "calendar",
+      "agenda-view"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "FullCalendar: timeZone",
+        "url": "https://fullcalendar.io/docs/timeZone"
+      },
+      {
+        "title": "Google Calendar Help: view your day, week, or month",
+        "url": "https://support.google.com/calendar/answer/6110849"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "fullcalendar",
+        "name": "timeZone",
+        "url": "https://fullcalendar.io/docs/timeZone",
+        "verified": true
+      }
+    ],
+    "notes": "WEAKEST HEADWORD IN THIS SWEEP, said plainly so canonicalize can overrule it: nobody says 'time zone display' in conversation. It is pooled under the descriptive spelling with the three things people DO say carried as aliases (local time, secondary time zone, time zone selector), so renaming the record later costs nothing in search terms. The concept is real and unnamed on site: the design decisions are whose zone the time is rendered in, whether the zone is written next to it or assumed, what a second zone column is for, and the abbreviation trap (a three-letter zone code is ambiguous and a UTC offset is not a zone). Meets recurring-event at the daylight-saving boundary, where the same rule is either the same wall clock or the same instant. Fence: relative-timestamp ('3 hours ago') dodges the whole problem, which is exactly why it is the contrast.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Operational transparency",
+    "slug": "operational-transparency",
+    "category": "pattern",
+    "definition": "Showing the work as it happens, the kitchen made visible, so a wait is understood rather than merely endured and the result is trusted more for having been watched.",
+    "useWhen": "letting the reader watch the work happen",
+    "aliases": [
+      {
+        "name": "visible work",
+        "source": "community"
+      },
+      {
+        "name": "showing the work",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "labor-illusion",
+      "progress-bar",
+      "skeleton-screen",
+      "spinner",
+      "typewriter-effect"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "HBR: Operational Transparency (Ryan Buell, 2019)",
+        "url": "https://hbr.org/2019/03/operational-transparency"
+      },
+      {
+        "title": "Buell & Norton: The Labor Illusion, Management Science 57(9)",
+        "url": "https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1376"
+      }
+    ],
+    "implementations": [],
+    "notes": "Buell and Norton's paired term, named in the labor-illusion record and deliberately left for its own page: same mechanism, opposite honesty, which makes the contrast edge between them the point of both articles. This is the half where the work shown is REAL (the search naming the airlines it is querying, the assistant streaming the steps it is taking, the delivery map), and the finding that carries it is that readers preferred the slower transparent version. The article owes the boundary: transparency stops being honest the moment the shown work is padding, which is where labor-illusion takes over, and the boundary is not always obvious even to the team shipping it. The INFORMS row is recorded verified:false because the publisher refuses automated fetches (405/403 on 2026-08-26); the HBR piece answers 200 and is the accessible citation.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Additive colour",
+    "slug": "additive-color",
+    "category": "color",
+    "definition": "Colour made by adding light, where red, green and blue at full strength give white, which is why a screen is at its brightest when it is showing all three.",
+    "useWhen": "colour mixed by adding light, as a screen does",
+    "aliases": [
+      {
+        "name": "light mixing",
+        "source": "community"
+      },
+      {
+        "name": "emissive colour",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "subtractive-color",
+      "srgb",
+      "color-space",
+      "cmyk",
+      "use-of-color"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wikipedia: additive color",
+        "url": "https://en.wikipedia.org/wiki/Additive_color"
+      },
+      {
+        "title": "CSS Color Module Level 4",
+        "url": "https://www.w3.org/TR/css-color-4/"
+      }
+    ],
+    "implementations": [],
+    "notes": "ALIAS FENCE: 'rgb' is already an alias of the published srgb term, so this record must never claim it. The division of labour is principle versus space: srgb is a concrete colour space with a gamut and a transfer function, this is the physics that makes it work that way. Pooled as one half of the pair the cmyk record asked for. Design content, and the reason it is not a physics lesson: the additive model is why a screen cannot show a colour darker than its own black, why two overlapping translucent layers get lighter rather than muddier, and why a designer who learned mixing with paint has to unlearn it (yellow and blue give grey on a screen, not green).",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Subtractive colour",
+    "slug": "subtractive-color",
+    "category": "color",
+    "definition": "Colour made by taking light away, where inks stack towards black and every added layer can only darken, which is why a screen blue cannot be printed.",
+    "useWhen": "colour mixed by removing light, as ink does",
+    "aliases": [
+      {
+        "name": "pigment mixing",
+        "source": "community"
+      },
+      {
+        "name": "ink mixing",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "additive-color",
+      "cmyk",
+      "color-space",
+      "halftone",
+      "duotone"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wikipedia: subtractive color",
+        "url": "https://en.wikipedia.org/wiki/Subtractive_color"
+      }
+    ],
+    "implementations": [],
+    "notes": "The other half of the pair the published cmyk record asked for, and fenced against it the same way additive-color is fenced against srgb: cmyk is the concrete four-ink model with its own gamut, this is the principle that makes ink behave that way. Design content: it explains gamut loss in the direction that hurts (the saturated screen colour that prints muddy), why rich black exists at all, and why halftone and duotone, both already on site, are subtractive tricks rather than colour choices. Keeps the American spelling in the slug for consistency with the site's other color-category slugs while the prose stays British, exactly as labor-illusion did.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Conversational interface",
+    "slug": "conversational-interface",
+    "category": "pattern",
+    "definition": "An interface operated in turns of language rather than by controls, where the transcript is the state and the only visible affordance is a box to type in.",
+    "useWhen": "the interface is a turn-by-turn conversation",
+    "aliases": [
+      {
+        "name": "chat interface",
+        "source": "community"
+      },
+      {
+        "name": "conversational UI",
+        "source": "community"
+      },
+      {
+        "name": "chatbot UI",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "natural-language-interface",
+      "chat-bubble",
+      "typing-indicator",
+      "command-palette",
+      "typewriter-effect"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: chatbots",
+        "url": "https://www.nngroup.com/articles/chatbots/"
+      },
+      {
+        "title": "IxDF: conversational UI",
+        "url": "https://www.interaction-design.org/literature/topics/conversational-ui"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "nngroup",
+        "name": "Chatbots",
+        "url": "https://www.nngroup.com/articles/chatbots/",
+        "verified": true
+      }
+    ],
+    "notes": "Left unclaimed on purpose by natural-language-interface, whose record said it was its own chat-shaped term. FENCE, and the article must open with it: natural-language-interface is the input MODE (ask for what you want in words, from anywhere, including inside an ordinary screen), while this is the SHAPE (a transcript that IS the screen, and nothing else). Design content: with no visible affordances, discoverability moves into starter prompts and suggestion chips; the transcript doubles as undo history and as the only record of what was agreed; scrolling back is the navigation; and the failure mode is the one NN/g keeps measuring, a linear flow that collapses the moment the reader steps out of it. The site already holds the parts (chat-bubble, typing-indicator, streaming-text) with no word for the whole.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Digital rain",
+    "slug": "digital-rain",
+    "category": "aesthetic",
+    "definition": "Columns of glyphs falling and trailing away, green on black, the Matrix screen quoted so often that it now reads as shorthand for a computer thinking.",
+    "useWhen": "falling columns of glyphs, green on black",
+    "aliases": [
+      {
+        "name": "matrix rain",
+        "source": "community"
+      },
+      {
+        "name": "matrix code",
+        "source": "community"
+      },
+      {
+        "name": "falling code",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "terminal-aesthetic",
+      "particle-background",
+      "kinetic-typography",
+      "fictional-user-interface",
+      "monospace"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Wikipedia: Matrix digital rain",
+        "url": "https://en.wikipedia.org/wiki/Matrix_digital_rain"
+      }
+    ],
+    "implementations": [],
+    "notes": "Deliberately excluded by the creative-coding probe on 2026-08-19 ('its own icon, in the terminal and cyberpunk family, still unpooled'), now approved by the human. Category call: aesthetic rather than motion, which is the same call that put it in the terminal family, and the fence against particle-background (motion) is that the latter is the generic animated ground while this is a specific quotation with a fixed palette, a fixed glyph set and a fixed direction. The article owes the attribution (the 1999 film's title sequence, glyphs derived from half-mirrored katakana) and the two duties the site's own rules impose: it is decorative motion, so prefers-reduced-motion gets a still frame, and it is a green-on-black wall, so any text placed on it has a contrast problem the specimen must not pretend away.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Oversized typography",
+    "slug": "oversized-typography",
+    "category": "typography",
+    "definition": "Type set far past reading size so the words carry the layout, the headline doing the work a photograph would otherwise be hired for.",
+    "useWhen": "type so large the words are the layout",
+    "aliases": [
+      {
+        "name": "big type",
+        "source": "community"
+      },
+      {
+        "name": "huge type",
+        "source": "community"
+      },
+      {
+        "name": "bold typography",
+        "source": "community"
+      },
+      {
+        "name": "typography-heavy design",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "typographic-hierarchy",
+      "fluid-typography",
+      "editorial-web-design",
+      "kinetic-typography",
+      "optical-size",
+      "swiss-style"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Designmodo: designing with oversized typography",
+        "url": "https://designmodo.com/oversized-typography/"
+      },
+      {
+        "title": "Matej Latin: how to use huge type on the web",
+        "url": "https://matejlatin.com/blog/how-to-use-huge-type-on-the-web/"
+      }
+    ],
+    "implementations": [],
+    "notes": "Named in this file as a gap with no record anywhere. The site holds the MECHANICS of large type (fluid-typography for the clamp, typographic-hierarchy for the relationships, optical-size for what a face does at size) and no word for the LOOK, which is what several published aesthetics lean on (editorial-web-design, swiss-style, brutalist-web-design). Category call: typography rather than aesthetic, because it is a type decision many aesthetics borrow rather than a style of its own. The article owes the two hazards that separate it from just setting a big number: at display size a text face's own spacing is wrong (negative tracking, optical sizing, and the fact that a display cut exists for this reason), and huge type on a phone is four words per line, so the fluid clamp is not decoration but the thing that keeps it readable.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Elevation",
+    "slug": "elevation",
+    "category": "aesthetic",
+    "definition": "How high a surface sits above the one behind it, expressed as a shadow, a tint, or both, and held to a few named steps so that height means something.",
+    "useWhen": "how high a surface sits above the one behind",
+    "aliases": [
+      {
+        "name": "depth",
+        "source": "community"
+      },
+      {
+        "name": "shadow level",
+        "source": "community"
+      },
+      {
+        "name": "z-height",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "surface-color",
+      "surface-tint",
+      "elevation-overlay",
+      "long-shadow",
+      "flat-design",
+      "hover-lift",
+      "scrim",
+      "pane"
+    ],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Material 3: Elevation",
+        "url": "https://m3.material.io/styles/elevation/overview"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "material",
+        "name": "Elevation",
+        "url": "https://m3.material.io/styles/elevation/overview",
+        "verified": true
+      }
+    ],
+    "notes": "THE LARGEST GAP ON THE PARKED LIST, and the same shape of debt autoplay was: 23 published articles use the word, TWO published terms define themselves against it (elevation-overlay is the dark-theme technique for when shadows fail, surface-tint is height read as a colour shift), flat-design is defined by removing it, and long-shadow, hover-lift, claymorphism and neumorphism all assume it. Nothing defines it. Note also that the site has no drop-shadow or box-shadow term at all, so this record carries the shadow as elevation's mechanism, and a separate drop-shadow record stays unclaimed. Category call: aesthetic, because the depth model is a look a system commits to, while its two colour-side expressions stay in color where they already are; canonicalize may prefer color for family tidiness and the argument is genuinely balanced. Design content: elevation is a SCALE, not a shadow value, which is why it is tokenised in steps and why two surfaces at the same step must never overlap; a shadow says height on light and says almost nothing on dark, which is the whole reason the other two records exist. Priority head: this is a word every design system ships.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Invoker command",
+    "slug": "invoker-command",
+    "category": "pattern",
+    "definition": "A button that names the element it acts on and what to do to it, in markup, so opening a dialog or toggling a popover needs no script at all.",
+    "useWhen": "a button wired to another element in markup",
+    "aliases": [
+      {
+        "name": "commandfor",
+        "source": "mdn"
+      },
+      {
+        "name": "command attribute",
+        "source": "mdn"
+      },
+      {
+        "name": "invokers",
+        "source": "open-ui"
+      }
+    ],
+    "relatedSlugs": [
+      "modal-dialog",
+      "popover",
+      "disclosure",
+      "button",
+      "semantic-html",
+      "interest-invoker"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Invoker Commands API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
+      },
+      {
+        "title": "MDN: button commandfor",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#commandfor"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Invoker Commands API",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API",
+        "verified": true
+      }
+    ],
+    "notes": "Named in this file as the HTML invoker vocabulary belonging with dialog and popover, Baseline 2025-12. What makes it a design term and not an API note: the wiring moves out of script and into markup, so the control is one element for a pointer, a keyboard and a screen reader, with nothing to fail before the reader arrives, and the button stops being a div that someone remembered to make focusable. The article owes what it replaces (a click handler calling showModal), the closed platform set (show-modal, toggle-popover and the rest) versus custom commands, which arrive as events, and the honest limit that a command with no platform meaning still needs script. DIALOG'S closedby ATTRIBUTE IS NOT A RECORD: it is a detail for the modal-dialog article, noted here so nobody pools it separately.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Interest invoker",
+    "slug": "interest-invoker",
+    "category": "pattern",
+    "definition": "A link or button that shows more when a reader shows interest in it, by hovering, focusing, or long pressing, with no click and no script deciding what interest means.",
+    "useWhen": "showing more on interest rather than on a click",
+    "aliases": [
+      {
+        "name": "interesttarget",
+        "source": "open-ui"
+      },
+      {
+        "name": "interest target",
+        "source": "open-ui"
+      },
+      {
+        "name": "hover card trigger",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "tooltip",
+      "hover-card",
+      "popover",
+      "hover-intent",
+      "invoker-command",
+      "long-press"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Open UI: interest invokers explainer",
+        "url": "https://open-ui.org/components/interest-invokers.explainer/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "open-ui",
+        "name": "Interest invokers",
+        "url": "https://open-ui.org/components/interest-invokers.explainer/",
+        "verified": true
+      }
+    ],
+    "notes": "The second half of the invoker gap named in this file. Worth a page of its own rather than a line in invoker-command's, because the interesting part is not the attribute but the DEFINITION OF INTEREST per input, which is a design problem the site already has a term for: hover-intent exists precisely because hover with no delay is a false positive, and the platform is now standardising the delays. The touch answer (a long press, since a finger cannot hover) is the half designers keep getting wrong by wiring pointerenter and shipping a tooltip no phone can open, which is also the stage's own law inside a touch scope. Fences: tooltip and hover-card are WHAT is shown, this is the trigger contract; invoker-command is the click half of the same vocabulary. Status: explainer and early implementation rather than Baseline, so the record must say so or it will read as shippable.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
+  },
+  {
+    "name": "Top shelf",
+    "slug": "top-shelf",
+    "category": "layout",
+    "definition": "The band across the top of a television home screen that the focused app fills with its own content, so an app advertises itself before anyone opens it.",
+    "useWhen": "the focused app fills a band on the TV home screen",
+    "aliases": [
+      {
+        "name": "top shelf extension",
+        "source": "community"
+      },
+      {
+        "name": "featured content area",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "ten-foot-ui",
+      "content-shelf",
+      "hero",
+      "carousel"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple HIG: Top Shelf",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/top-shelf"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Top Shelf",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/top-shelf",
+        "verified": false
+      }
+    ],
+    "notes": "Proposed in this file as either a new layout term or a content-shelf alias, and REJECTED AS AN ALIAS on inspection: content-shelf is a row of cards per category stacked down a page, while the top shelf is one placement on one platform home screen, and the confusion comes from its sectioned style, which contains shelves. Pooled instead as its own tail record in the television register beside ten-foot-ui. Source recorded verified:false because the HIG page answers 200 with no body to an automated fetch, exactly as every other HIG row in this file. The article owes the two styles (an inset banner that rotates images, and sectioned content that is rows of items) and the fact that makes it a design surface rather than a spec detail: the content comes from an app extension, so it is a place your app is seen without anyone opening it, which is a promotional surface you own and cannot control the surroundings of.",
+    "sweptFrom": [
+      "parked items 2026-08-26"
+    ]
   }
 ]

@@ -2258,5 +2258,45 @@
     },
     "tracked": false,
     "notes": "Added for the two mail-medium candidates (preview-text, bulletproof-button), a medium the registry had no source for at all. The rendering-test product is paid; the reference material cited here (client support tables, the preview-text and bulletproof-button guides) is free to read, hence free-docs. Campaign Monitor is the coiner of \"bulletproof button\" and its buttons.cm generator is cited as a source URL rather than as a system, since the tool is one artifact and not a catalog."
+  },
+  {
+    "id": "mermaid",
+    "name": "Mermaid",
+    "vendor": "Mermaid contributors",
+    "kind": "component-library",
+    "docsUrl": "https://mermaid.js.org/",
+    "repoUrl": "https://github.com/mermaid-js/mermaid",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 89949,
+      "npmPackage": "mermaid",
+      "npmWeeklyDownloads": 15046097,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-26"
+    },
+    "tracked": false,
+    "notes": "Added for the flowchart and gantt-chart candidates: text-authored diagrams, which is the modern way both are made and the reason the flowchart record claims the diagram-as-code alias. Its own names for the diagram kinds (flowchart, gantt, sequenceDiagram) are the ones worth citing."
+  },
+  {
+    "id": "campaign-monitor",
+    "name": "Campaign Monitor",
+    "vendor": "Campaign Monitor (Marigold)",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://www.campaignmonitor.com/dev-resources/guides/coding-html-emails/",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-26"
+    },
+    "tracked": false,
+    "notes": "Added for the mail records alongside litmus: the coiner of \"bulletproof button\" (its buttons.cm generator is cited as a source there) and the publisher of the table-based-layout guide. The dev-resources index answers 403 to an automated fetch while the guide pages answer 200, so a future verification pass should probe the deep link, not the index."
   }
 ]

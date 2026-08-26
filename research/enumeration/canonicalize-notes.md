@@ -19,8 +19,9 @@ live is marked; everything else is kept as the record of what was decided and wh
   2026-08-25 wishlist sweep (below) added 5, taking the pool to 966, all five of
   which round 22 authored the same day; the 2026-08-26 sweeps (below) added 3 and then
   3 more, to 972, all of which round 23 authored, emptying the pool completely; the
-  second 2026-08-26 wishlist sweep (below) added 5, so the pool is 977 records with 5
-  unauthored.
+  second 2026-08-26 wishlist sweep (below) added 5, to 977, and the parked-items sweep
+  the same day (below) added 33, so the pool is 1,010 records with 38 unauthored, the
+  largest unauthored backlog since round one.
 
 ## RESOLVED: duplicate slugs
 
@@ -490,6 +491,130 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   dishonest end is already roach-motel), transactional versus marketing mail, double
   opt-in, alt text used as copy for blocked images. Print is the other medium with no
   words at all; noted, not pooled.
+- PARKED ITEMS SWEEP (2026-08-26), shaped and pooled (33 records, pool 977 to 1,010).
+  The human was shown every item this file had ever named and left undecided, and
+  approved all of them except the hydration family, on the grounds that hydration reads
+  as an engineering problem rather than a design one. So this entry is the answer to a
+  backlog rather than to a wish, and every item it does NOT pool is listed at the end.
+  The 33, by family:
+  GRAPH (4, all siblings node-graph named and refused hours earlier): flowchart
+  (component, core; the read-only sense, claiming 'diagram as code' too, since the
+  modern fact about a flowchart is that nobody positions it), node-port (component,
+  tail; headword qualified because bare 'handle' belongs to drag-handle and 'pin' is
+  scroll-pinning's alias, with Blender's typed colour-coded socket as the design
+  content), edge-routing (layout, tail), graph-layout (layout, tail; NAMING FENCE, the
+  node world says 'auto layout' but Figma owns that spelling for the flex-like frame and
+  that meaning is far more searched, so this record takes the graphviz-era name and
+  FIGMA'S AUTO LAYOUT IS NOW A NAMED UNPOOLED RECORD of its own).
+  SCHEDULER (4, siblings scheduler named): agenda-view (component, core; carrying the
+  trap that FullCalendar v3 used 'agenda' for the day-and-hour GRID before renaming it
+  timeGrid, while Google renamed its LIST from Agenda to Schedule, so the word points at
+  two things depending on library and year), gantt-chart (component, core; clears the
+  dataviz chart-TYPES rule the way trace-viewer did, an interface rather than an
+  encoding, and it had been named by two separate fences before it was pooled),
+  recurring-event (pattern, core; RFC 5545 RRULE as the shared vocabulary, the
+  this-event / this-and-following / all dialog as the design content), time-zone-display
+  (pattern, tail; THE WEAKEST HEADWORD IN THE SWEEP, said plainly, nobody speaks it, so
+  local time / secondary time zone / time zone selector are all carried as aliases and
+  renaming it later costs no search terms).
+  DEVELOPER VIEWS (3, siblings trace-viewer and diff-viewer named): flame-graph
+  (component, core; Gregg's flame-graph-versus-flame-chart distinction IS the article,
+  and 'waterfall view' stays trace-viewer's), three-way-merge (component, tail; four
+  regions in one screen, three read and one written, which is a layout problem before it
+  is a code one), blame-view (component, tail; alias is 'annotate view', never bare
+  'annotation', per this file's earlier decision).
+  MAIL (9, taking the medium from two words to eleven): subject-line and sender-name
+  (pattern, core and tail; with the already pooled preview-text these are the three
+  fields of the inbox row, and Litmus's anatomy piece treats them as one composition,
+  which is the frame), dark-mode-email (pattern, core; distinct from the published
+  dark-mode because the CLIENT answers the preference for you and may fully invert your
+  call to action, so the craft is defensive: mid-tones survive, near-black dodges the
+  hardcoded flip, transparent logos need a plate), table-based-layout (layout, core;
+  FENCED against data-table, and role='presentation' is the accessibility content that
+  earns it a page here rather than in a mail handbook), fluid-hybrid (layout, tail;
+  responsive design solved WITHOUT the tool it is named after, no media query at all,
+  with ghost tables for Outlook, and a canonicalize question about whether it should be
+  a derived member of the responsive-web-design facet), unsubscribe-link (pattern, core;
+  the honest counterpart to roach-motel and confirmshaming, and the mechanism has left
+  the mail body since clients now draw their own button from the List-Unsubscribe
+  header), double-opt-in (pattern, core; the same mechanism as magic-link put to a
+  different purpose, with single opt-in as the named contrast and not an alias),
+  transactional-email (pattern, core; a legal and a design distinction at once, and the
+  cross-sell smuggled into a receipt is where it touches dark-pattern territory),
+  styled-alt-text (pattern, tail; FENCED against the published alt-text, and the tension
+  is that one string serves a blocked image and a screen reader at once; 'image
+  blocking' was considered as the headword and rejected because the design decision is
+  the fallback, not the client's setting).
+  MEDIUM CORRECTION, so it does not propagate: print is NOT 'a medium with no words at
+  all', as this file said earlier today. page-break, orphan, cmyk, point-size, ink-trap
+  and halftone are all published. What was missing is one record, print-stylesheet
+  (pattern, core), the decision of what a page BECOMES on paper, fenced against
+  page-break, which owns where the cut falls.
+  THE REST (12): hidden-gesture (interaction, core, and it is THE ANSWER TO THE
+  2026-08-25 'overloaded element' OPEN QUESTION, at an angle: the site already covers
+  each input piecewise and nested-interactive got published, so what was missing was the
+  word for the defect they share, an action with no signifier; if the literal 'one
+  control, several actions by input type' record is still wanted it remains unpooled and
+  this is not it), drag-to-create (interaction, core; the second interaction record in a
+  category the pool emptied first), operational-transparency (pattern, core; the honest
+  half of labor-illusion, contrast edge between them), additive-color and
+  subtractive-color (color, core; the pair cmyk asked for, each fenced as PRINCIPLE
+  against a published SPACE or MODEL, and 'rgb' is srgb's alias so additive must never
+  claim it), conversational-interface (pattern, core; natural-language-interface is the
+  input MODE, this is the SHAPE, a transcript that is the whole screen), digital-rain
+  (aesthetic, tail; excluded by the 2026-08-19 creative-coding probe, now approved),
+  oversized-typography (typography, core; the site had every mechanic of large type and
+  no word for the look), elevation (aesthetic, HEAD, and the largest gap on the list:
+  23 published articles use the word, elevation-overlay and surface-tint both define
+  themselves against it, flat-design is defined by removing it, and nothing defined it;
+  the site has no drop-shadow term either, which stays unclaimed), invoker-command
+  (pattern, core; Baseline 2025-12, and dialog's closedby is a DETAIL for the
+  modal-dialog article, not a record, noted so nobody pools it), interest-invoker
+  (pattern, tail; the interesting part is the platform DEFINING interest per input,
+  which is hover-intent's problem standardised, and the touch answer is the half
+  designers keep getting wrong), top-shelf (layout, tail; see the alias rulings below).
+  THE THREE ALIAS QUESTIONS ARE NOW CLOSED, and two of them are refusals:
+  'disclosure widget' needs nothing, because the published disclosure term already
+  carries 'show hide' (aria-apg) and 'disclosure control' (hig), which is APG's own
+  naming; 'entity title' is NOT a page-header alias, verified from Blueprint's source
+  rather than its JS-rendered docs (EntityTitle is a reusable title block with a
+  configurable heading level, icon, subtitle and tag, used in many contexts), so
+  page-header plus heading already cover it; and 'top shelf' is NOT a content-shelf
+  alias either, since content-shelf is a row of cards per category and the top shelf is
+  one placement on one platform's home screen, its sectioned style being where the
+  confusion came from, so it is pooled as its own record instead.
+  DELIBERATELY NOT POOLED, against the blanket approval, with the reason: millennial
+  beige / sad beige. It is the scandinavian-design case exactly, which this human
+  rejected on 2026-08-25 for being a furniture-and-lighting story with no honest
+  implementation to point at. 'Sad beige' traces to a 2021 TikTok account satirising
+  upscale children's retailers, and the best citations are a dictionary blog and
+  parenting coverage; the interface half of the trend is already held by the published
+  neutral-palette. If it is wanted anyway it needs an interface-facing source that does
+  not exist yet, so it is being refused here rather than pooled thin.
+  STILL UNPOOLED AND NAMED BY THIS SWEEP, for a later decision: the hydration family
+  (progressive and selective hydration, islands architecture, resumability), refused by
+  the human as engineering rather than design; Figma's auto layout; a literal
+  'one control, several actions by input type' record; diagram-as-code as its own record
+  if flowchart ever cedes the alias; ghost table; drop-shadow; marketing email as
+  transactional-email's contrast; the preference centre as the fair version of an
+  unsubscribe; a paged-media record for @page margins and running headers; and obstacle
+  avoidance and edge bundling under edge-routing.
+  VERIFICATION: all 33 slugs and all 93 proposed aliases checked against the 1,076
+  published terms and their 5,162 claimed spellings, no collisions; every relatedSlug on
+  all 33 records resolves to a published term or a pooled record. All 52 distinct source
+  and implementation URLs on the 33 records answered 200 on 2026-08-26, but two carry a
+  caveat worth keeping: the INFORMS labor-illusion paper answers 200 to a browser user
+  agent and 403 to curl with its body behind the publisher either way, which is why
+  operational-transparency also cites the 2019 HBR piece as the readable source, and the
+  Apple HIG Top Shelf page answers 200 with no body at all (JS-rendered), so its row
+  stays verified:false like every other HIG row in this file. The Blender manual behaves
+  the same way in reverse, 200 to curl and 403 to a bot fetch, noted in the earlier
+  entry. Trust numbers for the new systems read from the GitHub and npm
+  APIs the same day. TWO MORE SYSTEMS ADDED (113 to 115): mermaid (MIT, 89.9k stars,
+  15.0M weekly) and campaign-monitor (free-docs; its dev-resources index answers 403 to
+  an automated fetch while the guide pages answer 200, so probe the deep link, never the
+  index). The whole pool's implementation rows still resolve against the registry with
+  no dangling ids.
   All five slugs and all eighteen proposed aliases checked against the 1,076 published
   terms and every alias they claim (5,162 claimed spellings): no collisions. Every
   source URL verified live 2026-08-26, eleven of them, and the Blender manual answers
