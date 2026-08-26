@@ -46403,5 +46403,162 @@
     "sweptFrom": [
       "wishlist 2026-08-25"
     ]
+  },
+  {
+    "name": "Concentric corner radius",
+    "slug": "concentric-corner-radius",
+    "category": "layout",
+    "definition": "Sizing a nested shape's corners so its curve shares a centre with the one outside it, the inner radius being the outer radius less the padding between them.",
+    "useWhen": "the radius an inner shape needs inside a rounded one",
+    "aliases": [
+      {
+        "name": "nested corner radius",
+        "source": "community"
+      },
+      {
+        "name": "corner concentricity",
+        "source": "hig"
+      },
+      {
+        "name": "concentricity",
+        "source": "hig"
+      },
+      {
+        "name": "nested radius",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "squircle",
+      "chamfer",
+      "card",
+      "spacing-scale",
+      "optical-alignment",
+      "layout-margins"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Apple HIG: Layout",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout"
+      },
+      {
+        "title": "Nil Coalescing: Corner concentricity in SwiftUI on iOS 26",
+        "url": "https://nilcoalescing.com/blog/ConcentricRectangleInSwiftUI/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "hig",
+        "name": "Concentricity",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/layout",
+        "verified": false
+      }
+    ],
+    "notes": "One formula and one failure mode: inner = outer minus padding, and equal radii nested inside each other read as a mismatched pair of brackets, the inner curve visibly tighter than the gap it sits in. Apple formalized it at WWDC25 (SwiftUI's ConcentricRectangle derives its radius from its container), which is why the platform word is concentricity; CSS has no such primitive, so on the web it is arithmetic the author does by hand, and that is what the article is for. The HIG source is recorded verified:false, the page is JS-rendered and resolves without a body, exactly as the other two HIG aesthetic rows in this file. GAP THIS LEANS ON: the site has no corner-radius term at all (squircle and chamfer both reference border-radius with nothing to link to, and neither corner-radius nor border-radius is claimed as a slug or an alias). Either pool it as the head term of this small family or expect this article to define it in passing; flagged for the human rather than pooled unasked.",
+    "sweptFrom": [
+      "wishlist 2026-08-26"
+    ]
+  },
+  {
+    "name": "Color coding",
+    "slug": "color-coding",
+    "category": "color",
+    "definition": "Giving each category its own colour so the eye can group and find by hue, which holds only while the set stays small and one colour means one thing everywhere.",
+    "useWhen": "colour standing in for a category the reader must learn",
+    "aliases": [
+      {
+        "name": "colour coding",
+        "source": "community"
+      },
+      {
+        "name": "color-coded",
+        "source": "community"
+      },
+      {
+        "name": "category color",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "categorical-palette",
+      "use-of-color",
+      "status-color",
+      "chart-legend",
+      "semantic-color",
+      "swatch"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Using Color to Enhance Your Design",
+        "url": "https://www.nngroup.com/articles/color-enhance-design/"
+      },
+      {
+        "title": "Christopher Healey: Perception in Visualization",
+        "url": "https://www.csc2.ncsu.edu/faculty/healey/PP/"
+      }
+    ],
+    "implementations": [],
+    "notes": "THE THINNEST OF THE THREE, and the human should decide rather than the author: the neighbourhood is dense and a canonicalize pass may prefer folding this into categorical-palette as an alias. The case for keeping it is that every neighbour owns a different piece and none owns the practice itself: categorical-palette is the PALETTE and lives in charts, use-of-color is the RULE that colour must never be the only carrier, status-color is the fixed outcome set (success, warning, danger, info), chart-legend is the KEY that decodes one chart, semantic-color is the token naming. Colour coding is the encoding scheme itself, and its natural examples are mostly outside charts: calendar categories, log levels, subway lines, syntax highlighting, service colours in a trace. Fences: do not claim 'legend' or 'key' (chart-legend), do not restate WCAG 1.4.1 (use-of-color). The hard number the article should carry is the capacity limit, six to twelve codes before hue stops being a lookup and becomes decoration (Ware, via Healey). Adjacent gap found in the same sweep: syntax-highlighting is not a term and not in the pool.",
+    "sweptFrom": [
+      "wishlist 2026-08-26"
+    ]
+  },
+  {
+    "name": "Trace viewer",
+    "slug": "trace-viewer",
+    "category": "component",
+    "definition": "The view that lays a request's spans on one time axis, each nested under the span that called it, so the bar that is too long or starts too late is the finding.",
+    "useWhen": "reading where one request spent its time, span by span",
+    "aliases": [
+      {
+        "name": "trace view",
+        "source": "community"
+      },
+      {
+        "name": "span waterfall",
+        "source": "community"
+      },
+      {
+        "name": "waterfall view",
+        "source": "community"
+      },
+      {
+        "name": "trace timeline",
+        "source": "community"
+      },
+      {
+        "name": "distributed trace view",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "timeline",
+      "treegrid",
+      "minimap",
+      "expandable-row",
+      "chart",
+      "sparkline"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "OpenTelemetry: Traces",
+        "url": "https://opentelemetry.io/docs/concepts/signals/traces/"
+      },
+      {
+        "title": "Jaeger: Frontend/UI configuration",
+        "url": "https://www.jaegertracing.io/docs/latest/frontend-ui/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The one component in the observability family that is genuinely an interface pattern rather than a chart type, which is why it clears the dataviz sweep's rule that chart TYPES stay out of the pool. Its shape is fixed across every tool that ships it: nested bars on a shared axis, a minimap over the whole trace, colour by service, and a span detail panel, so the article can describe the type rather than one vendor. ALIAS FENCE: masonry already claims 'waterfall layout', so the alias here is 'waterfall view' and never bare 'waterfall'. Left unclaimed as its own possible record: flame graph and flame chart, which are a different picture (stacks aggregated by time spent, not one request in order) and would be a real term rather than an alias. The browser devtools network waterfall is the same interface applied to one page's requests and belongs in the article as the familiar case. Jaeger's source is its UI CONFIG page, which documents the views without formally naming them; the OpenTelemetry page is the one that defines trace and span.",
+    "sweptFrom": [
+      "wishlist 2026-08-26"
+    ]
   }
 ]

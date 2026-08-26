@@ -16,7 +16,9 @@ live is marked; everything else is kept as the record of what was decided and wh
 - The wishlist shaping (2026-08-15) took the pool to 969; the dataviz sweep
   (2026-08-18, below) to 983; the second wishlist run (2026-08-19, below) added
   5 more, to 981 (authoring rounds had consumed 7 records in between); the
-  2026-08-25 wishlist sweep (below) added 5, taking the pool to 966.
+  2026-08-25 wishlist sweep (below) added 5, taking the pool to 966, all five of
+  which round 22 authored the same day; the 2026-08-26 sweep (below) added 3, so the
+  pool is 969 records with 3 unauthored.
 
 ## RESOLVED: duplicate slugs
 
@@ -410,6 +412,25 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   record would have been a furniture-and-lighting story with no honest
   implementation to point at. Do not re-pool it from a later aesthetic sweep;
   hygge and japandi stay unclaimed for the same reason.
+- User wishlist (2026-08-26), shaped and pooled (3 records, pool 966 to 969):
+  concentric-corner-radius (layout, core; from "Concentric border radius", filed as
+  the nesting rule rather than as a look, inner equals outer less the padding, with
+  Apple's WWDC25 word "concentricity" and SwiftUI's ConcentricRectangle as the
+  platform hook and the HIG row recorded verified:false because the page is
+  JS-rendered), color-coding (color, core; the encoding scheme itself, fenced against
+  four neighbours that each own a piece of it, and flagged as the one a canonicalize
+  pass might still fold into categorical-palette), trace-viewer (component, core;
+  nested spans on one time axis, which clears the dataviz rule that chart TYPES stay
+  out because it is an interface pattern rather than a chart, with flame graph and
+  flame chart left unclaimed as their own possible record and 'waterfall view' as the
+  alias since masonry holds 'waterfall layout'). All slugs and every proposed alias
+  checked against the 1,070 published terms and their aliases: no collisions. Five of
+  the six source URLs verified live 2026-08-26; the two Apple pages resolve without a
+  body, as every HIG row in this file does.
+  TWO GAPS NAMED, DELIBERATELY NOT POOLED, because they were not asked for: there is
+  no corner-radius term at all (squircle and chamfer both lean on border-radius with
+  nothing to link to, and neither corner-radius nor border-radius is claimed as slug
+  or alias), and syntax-highlighting is neither a term nor a candidate.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the
