@@ -24,7 +24,7 @@ relations:
   contrastWith: [comparison-table, image-comparison-slider]
   variantOf: []
   partOf: []
-  seeAlso: [trace-viewer, code-editor]
+  seeAlso: [code-editor]
 implementations: []
 sources:
   - title: "VS Code: Staging and committing changes"
@@ -74,7 +74,7 @@ rather than what, annotating each line with the commit that last touched it. An
 by a completely different method: it wipes one image over the other instead of aligning
 anything, because pixels have no lines to correspond. A diff viewer is also not a
 [comparison table](/comparison-table), which sets several options against a shared list of
-features; a diff has exactly two subjects and they are two versions of one thing. Nor is
-it a [trace viewer](/trace-viewer): both are dense two-pane developer views, but a trace
-lays one run of work out against a clock, while a diff's horizontal direction carries no
-measurement at all and exists only to hold two texts level.
+features; a diff has exactly two subjects and they are two versions of one thing. And the
+horizontal direction carries no measurement at all: the two columns exist only to hold
+the versions level, which is why unified can fold them into one and lose nothing except
+the ability to read both at once.

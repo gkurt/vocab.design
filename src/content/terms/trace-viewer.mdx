@@ -24,7 +24,7 @@ relations:
   contrastWith: [timeline, treegrid]
   variantOf: []
   partOf: []
-  seeAlso: [diff-viewer, minimap]
+  seeAlso: [minimap]
 implementations: []
 sources:
   - title: "OpenTelemetry: Traces"
@@ -61,10 +61,10 @@ by service or by minimum duration, and a minimap of the whole trace above the sc
 part so the reader keeps a sense of where in the request they are looking. Selecting a
 span opens its detail beside or below the waterfall, where the attributes live, and that
 panel is what turns a shape into an explanation: the route, the SQL statement, the
-status code, the retry count. A list beside a detail is what a trace viewer has in
-common with a [diff viewer](/diff-viewer), and what separates them is what the
-horizontal direction means: a diff aligns two texts against each other line by line,
-while a trace aligns one run of work against a clock.
+status code, the retry count. The horizontal direction is the discipline the whole
+view rests on: every position along it is a moment, so a bar's left edge states when
+that work began and its length states how long it took, neither of them a layout
+decision anyone is free to make.
 
 Two neighbouring pictures use the same data and answer different questions. A flame
 graph aggregates many samples or many traces by how much time was spent in each stack,

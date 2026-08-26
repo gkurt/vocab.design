@@ -55,7 +55,20 @@ Files in this skill directory:
    - Prefer head/core priority; take tail terms when they complete a family or pair.
    - **Build contrast pairs into one round** (fake-urgency/fake-scarcity,
      frame-rate/jank): round-mates get told to contrast each other in one sentence
-     each way, and the demos must look different.
+     each way, and the demos must look different. Only where the pair is REAL, and
+     that is a decision made at roster time, not at batching time: batching terms
+     together for coordination (shared context, one owner for both sides of an edge,
+     lookalike avoidance) must never come with an instruction to write an edge
+     between them. Round 23 batched trace-viewer with diff-viewer purely because both
+     are dense developer views, told the agent to author them "as a pair, one edge
+     between them written on both sides", and got exactly that: a seeAlso each way
+     plus a sentence in each article inventing a kinship ("both are dense two-pane
+     developer views", "a list beside a detail is what they have in common"). The
+     agent had already half-caught it, downgrading contrastWith to seeAlso because
+     nobody describing a trace viewer reaches for the word diff viewer, which is the
+     discrimination test correctly applied and should have ended in NO edge at all.
+     The user caught the rest. Say "these two are yours, keep them from looking
+     alike" and let the relation earn its place or not exist.
    - Avoid near-duplicates of existing specimens (a demo that would look like an
      existing one is a smell even when the term is distinct).
    - **Rotate and >2-contact terms wait**: the stage speaks single-contact touch
