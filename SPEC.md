@@ -736,10 +736,13 @@ any ── leaves viewport ──▶ paused; re-entering resumes
   for as long as they hold it: if attract resumes underneath them its own scripted
   keyup lands in the demo and ends the hold, so a quasimode flickers on and off once
   per pass. For the same reason the pointer LEAVING a specimen does not hand the stage
-  back while focus is still inside it: a keyboard reader has not left, and keys like
-  Shift do not auto-repeat, so there would be no second keydown to re-claim it. A demo whose term is *operated by hovering*
-  (a dock that bulges, a glow that follows the pointer) marks that surface
-  `data-hover-driven`: a dwell there is intent too, so the reader's own pointer takes
+  back while a keyboard reader is still inside it: they have not left, and keys like
+  Shift do not auto-repeat, so there would be no second keydown to re-claim it. The
+  test for that is `:focus-visible` rather than focus, because a click focuses what it
+  presses: reading focus alone, a reader who poked a button once and moved on would
+  hold the stage for the life of the page and the specimen would never play again.
+  A demo whose term is *operated by hovering* (a dock that bulges, a glow that follows
+  the pointer) marks that surface `data-hover-driven`: a dwell there is intent too, so the reader's own pointer takes
   the stage without a click, which is the term's honest operation. A `data-gaze` scope
   is hover-driven by definition — looking is hovering. The marking is for surfaces
   where hovering alone is the interaction, never for demos where hover merely

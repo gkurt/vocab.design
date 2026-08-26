@@ -478,11 +478,20 @@ class VdStage extends HTMLElement {
      * Whether a reader still holds the specimen by the keyboard. A shadow root reports null
      * when nothing inside it has focus; a document reports its own body, so both spellings of
      * "nobody is here" have to be answered.
+     *
+     * Focus alone does not answer it, because a click focuses what it presses: a reader who
+     * poked a button once and moved on would hold the stage for the rest of the page's life,
+     * and the specimen would never auto-play again. `:focus-visible` is the platform's own
+     * answer to "is this reader driving with the keyboard", and it is the exact one needed
+     * here: a mouse-focused control does not match, and the moment the reader presses a key
+     * on it, it does. That includes the modifiers, which is what a held Shift needs, since
+     * it never auto-repeats and so has no second keydown to re-claim the stage with.
      */
     const focusWithin = (): boolean => {
       const scope = surface.events as EventTarget & { activeElement?: Element | null; body?: Element | null };
       const active = scope.activeElement ?? null;
-      return active !== null && active !== (scope.body ?? null);
+      if (active === null || active === (scope.body ?? null)) return false;
+      return active.matches(':focus-visible');
     };
     surface.edge.addEventListener('pointerleave', () => {
       clearTimeout(dwell);
