@@ -1049,8 +1049,19 @@ export default steps([
   controls under attract.
   Input kinds are disambiguated at the cursor: left click ripples a left arc, right
   click a right arc, a held drag closes the cursor into a grab hand until release
-  (which ripples the click's arc), middle click pulses paired up/down carets, and
-  wheel scrolling ripples carets in the scroll direction.
+  (which ripples the click's arc, letting go from full size rather than snapping back
+  to half of it), middle click pulses paired up/down carets, and wheel scrolling
+  ripples carets in the scroll direction.
+  Every one of these marks is a hairline alive for half a second, which is far less
+  ink than a colour chosen for body text and borders carries, so they are drawn in
+  `--vd-signal` rather than `--vd-accent`: the same rust in the light scheme, and a
+  brighter orange in the dark one, where a thin bright stroke on a dark ground reads
+  dimmer than the same stroke inverted. They are also lit rather than merely coloured,
+  with a paper halo that cuts them off whatever they landed on and a signal-coloured
+  bloom that gives the mark presence, and the ripple holds its brightest frame a beat
+  AFTER it appears: peaking on the opening frame spent the whole of the opacity while
+  the ring was at its smallest, which is what made a click read as a faint thread
+  instead of as a landing.
   The pointer rests on an element's centre, unless the element carries `data-aim`,
   which parks it just inside the bottom-right corner instead: on a small control the
   cursor is the biggest thing on it, and a morphing glyph would perform entirely

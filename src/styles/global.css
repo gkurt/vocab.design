@@ -8,6 +8,9 @@
   --vd-muted: #71695e;
   --vd-line: #e5e1d8;
   --vd-accent: #b34410;
+  /* The ghost's ink (SPEC §8): the accent, but free to run brighter than body text
+     needs to, because a click mark is a 2.5px arc alive for half a second. */
+  --vd-signal: #b34410;
 }
 
 :root[data-theme="dark"] {
@@ -17,6 +20,7 @@
   --vd-muted: #99917f;
   --vd-line: #35312a;
   --vd-accent: #e8763d;
+  --vd-signal: #ff9152;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +31,7 @@
     --vd-muted: #99917f;
     --vd-line: #35312a;
     --vd-accent: #e8763d;
+    --vd-signal: #ff9152;
   }
 }
 

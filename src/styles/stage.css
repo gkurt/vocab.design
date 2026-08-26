@@ -219,7 +219,7 @@ vd-stage[data-autoplay] .vd-stage-play {
   position: absolute;
   inset: 1px;
   border-radius: 50%;
-  background: var(--vd-accent);
+  background: var(--vd-signal);
   opacity: 0.55;
   scale: var(--vd-force, 0);
   transition: scale 0.1s linear;
@@ -326,29 +326,44 @@ vd-stage[data-autoplay] .vd-stage-play {
 }
 
 /* Input effects — the click vocabulary (SPEC §8): left/right arcs, held-drag
-   arc, caret pulses for middle click, travelling carets for wheel. */
+   arc, caret pulses for middle click, travelling carets for wheel.
+
+   Every one of them is a hairline alive for half a second, which is far less ink
+   than the accent was picked for, so they are drawn in --vd-signal and lit rather
+   than merely coloured: a paper halo to cut them off whatever they land on (a dark
+   button, a photograph), and a signal-coloured bloom to give the mark presence at
+   the size it actually reaches. Without the second one a click on a dark ground is
+   a thin dim thread, which is what --vd-signal running brighter than --vd-accent in
+   the dark scheme is for. */
+.vd-fx-arc,
+.vd-fx-tap,
+.vd-fx-pinch,
+.vd-fx-caret {
+  filter: drop-shadow(0 0 1.5px var(--vd-paper)) drop-shadow(0 0 4px color-mix(in oklab, var(--vd-signal) 70%, transparent));
+}
+
 .vd-fx-arc {
   position: absolute;
-  top: -12px;
-  left: -12px;
-  width: 24px;
-  height: 24px;
+  top: -13px;
+  left: -13px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: 2.5px solid transparent;
   opacity: 0;
   pointer-events: none;
 }
 
 .vd-fx-arc--left {
-  border-left-color: var(--vd-accent);
+  border-left-color: var(--vd-signal);
 }
 
 .vd-fx-arc--right {
-  border-right-color: var(--vd-accent);
+  border-right-color: var(--vd-signal);
 }
 
 .vd-fx-arc:not(.vd-fx-arc--held) {
-  animation: vd-arc-ripple 0.45s ease-out forwards;
+  animation: vd-arc-ripple 0.5s ease-out forwards;
 }
 
 .vd-fx-arc--held {
@@ -356,22 +371,25 @@ vd-stage[data-autoplay] .vd-stage-play {
   animation: vd-arc-hold 0.2s ease-out forwards;
 }
 
+/* Let go from where the hold left the arc, at full strength and full size, rather
+   than from the ripple's opening frame: a press that ends by snapping back to half
+   size reads as a second, smaller click. */
 .vd-fx-arc--held.vd-fx-arc--release {
-  animation: vd-arc-ripple 0.35s ease-out forwards;
+  animation: vd-arc-release 0.35s ease-out forwards;
 }
 
 /* A tap's ripple: the full ring, since a finger has no buttons to disambiguate. */
 .vd-fx-tap {
   position: absolute;
-  top: -12px;
-  left: -12px;
-  width: 24px;
-  height: 24px;
+  top: -13px;
+  left: -13px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  border: 2px solid var(--vd-accent);
+  border: 2.5px solid var(--vd-signal);
   opacity: 0;
   pointer-events: none;
-  animation: vd-arc-ripple 0.45s ease-out forwards;
+  animation: vd-arc-ripple 0.5s ease-out forwards;
 }
 
 /* A gaze activation: the hand's pinch, drawn as finger and thumb arcs closing
@@ -384,8 +402,8 @@ vd-stage[data-autoplay] .vd-stage-play {
   height: 24px;
   border-radius: 50%;
   border: 2.5px solid transparent;
-  border-left-color: var(--vd-accent);
-  border-right-color: var(--vd-accent);
+  border-left-color: var(--vd-signal);
+  border-right-color: var(--vd-signal);
   opacity: 0;
   pointer-events: none;
   animation: vd-pinch-close 0.4s ease-in forwards;
@@ -406,14 +424,32 @@ vd-stage[data-autoplay] .vd-stage-play {
   }
 }
 
+/* The mark is brightest a beat AFTER it appears, not on its opening frame: peaking
+   at scale 0.5 spends the whole of the opacity on the smallest the ring ever is,
+   which is what made a click read as a faint thread rather than as a landing. */
 @keyframes vd-arc-ripple {
   0% {
-    opacity: 0.9;
-    scale: 0.5;
+    opacity: 0;
+    scale: 0.45;
+  }
+  16% {
+    opacity: 1;
+    scale: 0.8;
   }
   100% {
     opacity: 0;
-    scale: 1.5;
+    scale: 1.7;
+  }
+}
+
+@keyframes vd-arc-release {
+  0% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1.7;
   }
 }
 
@@ -433,7 +469,7 @@ vd-stage[data-autoplay] .vd-stage-play {
   left: -6px;
   width: 12px;
   height: 12px;
-  border: 2px solid var(--vd-accent);
+  border: 2.5px solid var(--vd-signal);
   border-right: 0;
   border-bottom: 0;
   opacity: 0;
