@@ -1,0 +1,62 @@
+---
+name: Elevation
+slug: elevation
+category: aesthetic
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  How high a surface sits above the one behind it, expressed as a shadow, a tint, or both, and
+  held to a few named steps so that height means something.
+aliases:
+  - name: depth
+    source: community
+  - name: shadow level
+    source: community
+  - name: z-height
+    source: community
+relations:
+  contrastWith: [surface-tint, elevation-overlay, flat-design]
+  seeAlso: [hover-lift]
+implementations:
+  - system: material
+    name: Elevation
+    url: https://m3.material.io/styles/elevation/overview
+sources:
+  - title: "Material 3: Elevation"
+    url: https://m3.material.io/styles/elevation/overview
+demo: inline
+useWhen: how high a surface sits above the one behind
+---
+
+Elevation is a scale, not a shadow value. A design system picks a handful of heights,
+names them, and gives every surface exactly one of them: the page rests at the bottom, a
+card sits a step above it, a floating action button a step above that, a menu or a dialog
+at the top. Because the set is small and closed, height carries information. A reader who
+has seen two steps on one screen can read the third on a screen they have never visited,
+and a component that needs to look higher has to move up the ladder rather than invent its
+own shadow. This is why elevation is tokenised in most systems and why an arbitrary
+`box-shadow` written into one component is a bug: the number nobody else uses says nothing.
+
+The corollary is that two surfaces at the same step must never overlap. At the same height
+there is no cue left to say which of them is in front, so the overlap reads as a rendering
+mistake rather than as a relationship, and the fix is a step rather than a stronger shadow.
+The same logic caps the ladder. Four or five steps is the usual budget, because a scale with
+a dozen rungs is one nobody can read off a single screen.
+
+A shadow is the mechanism, and on a light ground it is a good one. The surface interrupts an
+imagined light, and the further it stands off the page the softer and further away its shadow
+falls, so offset and blur both grow with the step. On a near black ground that mechanism runs
+out: a dark smudge on a dark page has almost nothing left to darken, and the whole ladder
+collapses into one colour. Dark themes therefore say height with lightness instead, either by
+laying a translucent white film over the surface ([elevation overlay](/elevation-overlay)) or
+by mixing the primary colour into it in proportion to the step
+([surface tint](/surface-tint)). Both are the same idea: keep the scale, change the signal.
+
+Elevation is a design decision, not a paint order. A [stacking context](/stacking-context) and
+its `z-index` decide which element paints on top, which is a rendering fact with no opinion
+about how the interface should look; elevation is the vocabulary a system uses to say how high
+a thing is meant to be, and the two often disagree on the same screen. Removing the scale
+altogether is [flat design](/flat-design), whose usability trouble was exactly the missing
+cue, and reaching for it as a response to a pointer is [hover lift](/hover-lift), where a card
+climbing a step is the whole of the feedback.

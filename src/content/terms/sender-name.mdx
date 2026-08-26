@@ -1,0 +1,55 @@
+---
+name: Sender name
+slug: sender-name
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  The name a mail appears to come from, chosen rather than inherited, because a reader
+  scanning an inbox decides on it before reading a word of the subject.
+aliases:
+  - name: from name
+    source: community
+  - name: friendly from
+    source: community
+  - name: display name
+    source: community
+relations:
+  contrastWith: [subject-line, preview-text]
+  seeAlso: [avatar]
+implementations: []
+sources:
+  - title: 'Litmus: The Anatomy of a Good Email'
+    url: https://www.litmus.com/blog/the-anatomy-of-a-good-email
+demo: inline
+useWhen: the name a mail appears to come from
+---
+
+The sender name is the first field a reader uses and the last one a sender thinks about.
+It is set once, in a configuration screen, usually by whoever set up the sending tool,
+and then it introduces every mail the company ever sends. Scanning a list, a person
+resolves the name before the [subject line](/subject-line) has been read at all: the
+decision is recognition, not interest, and a name nobody recognises turns a good subject
+into an unopened row.
+
+Three choices cover almost every case. A person ("Ana Ruiz") reads as correspondence and
+invites a reply, at the cost of being unrecognisable to anyone who does not already know
+Ana. A brand ("Quay Books") is recognised instantly, which is also the risk: it files
+cleanly as marketing. A person at a brand ("Ana at Quay Books") buys recognition and a
+human at once, and it is the longest, which matters in a field that gets less room than
+any other line in the row.
+
+The name is also artwork, because clients derive a picture from it. With no avatar
+published, the initials of the from name become the [avatar](/avatar) in the row, so
+"Quay Books" draws QB and "Ana at Quay Books" draws A. Changing the name therefore
+changes the shape of the thing a reader has learned to spot in a list, which is the real
+cost of a rename: recognition is the asset the field exists to hold, and it resets. Teams
+that must rename usually ship the old name and the new one together for a while, in the
+name field rather than only in the body.
+
+Two fences are worth stating. This is the display name in the row, not the address
+behind it, and a client that shows both is showing two different fields. And whether the
+name can be trusted at all is a separate matter settled by mail authentication rather
+than by design: a from name is a label, it is not evidence, and no amount of care in
+choosing it makes an unauthenticated mail trustworthy.

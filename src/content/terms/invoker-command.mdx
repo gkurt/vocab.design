@@ -1,0 +1,66 @@
+---
+name: Invoker command
+slug: invoker-command
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  A button that names the element it acts on and what to do to it, in markup, so opening a
+  dialog or toggling a popover needs no script at all.
+aliases:
+  - name: commandfor
+    source: mdn
+  - name: command attribute
+    source: mdn
+  - name: invokers
+    source: open-ui
+tags: []
+relations:
+  contrastWith: [interest-invoker, disclosure]
+  seeAlso: [modal-dialog, popover]
+implementations: []
+sources:
+  - title: "MDN: Invoker Commands API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API
+  - title: "MDN: button commandfor"
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#commandfor
+demo: inline
+useWhen: a button wired to another element in markup
+---
+
+An invoker command is two attributes on a `<button>`. `commandfor` names the element the
+button acts on, by id, and `command` names what to do to it: `show-modal` on a
+[modal dialog](/modal-dialog), `close` or `request-close` to send it away, `show-popover`,
+`hide-popover` or `toggle-popover` on a [popover](/popover). That is the whole of the
+wiring, and it has been Baseline since December 2025. What it replaces is the click handler
+every design system wrote a hundred times: query the document for an id, call `showModal()`,
+remember to give focus back on close.
+
+The reason this is a design term rather than an API note is what moves. The relationship
+between a control and the thing it controls is now stated in the same place as the control,
+which means one element answers a pointer, a keyboard and a screen reader without anyone
+deciding to make it do so. A real `<button>` is focusable, is announced as a button, fires
+on Enter and on Space, and takes the platform's own focus return when the dialog it opened
+closes. The div that somebody remembered to give `tabindex` and a `role` was never any of
+those things reliably, and it failed silently for the readers least able to work around it.
+It also means nothing has to load first: markup is parsed before your bundle arrives, so the
+control is live in the moment the reader can see it rather than in the moment hydration
+finishes.
+
+The platform's command names are a closed set, and that is the interesting constraint. A
+`command` value the platform does not recognise does nothing on its own; a value written
+with a leading double dash (`--copy`, `--archive`) is a custom command, and invoking it
+fires a `CommandEvent` on the target element instead. Notice where the listener ends up. The
+thing being acted on hears about it, rather than the button holding a closure that reaches
+across the page, so a component can own its own commands and any number of buttons anywhere
+can invoke them. What has not disappeared is script: a custom command still needs a handler,
+and the honest summary is that the wiring moved and the behaviour did not.
+
+Two fences are worth keeping. Declarative wiring is not an accessible name: a button reading
+`Delete` still has to say what it deletes, and the command attribute tells assistive
+technology nothing about intent. And the term names the control, not the surface. A
+[disclosure](/disclosure) is a control that shows and hides its own content in place, which
+is a shape of interface; an invoker command is how any control says what it operates on,
+including a disclosure's. The `<dialog>` element's own `closedby` attribute belongs to the
+dialog rather than here.

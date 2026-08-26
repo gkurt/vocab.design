@@ -1,0 +1,62 @@
+---
+name: Time zone display
+slug: time-zone-display
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Whose clock a time is shown on, the reader's or the event's, and saying which, because
+  a time with no zone beside it is a meeting somebody is going to miss.
+aliases:
+  - name: local time
+    source: community
+  - name: secondary time zone
+    source: google
+  - name: time zone selector
+    source: community
+relations:
+  contrastWith: [relative-timestamp]
+  seeAlso: [recurring-event, scheduler]
+sources:
+  - title: 'FullCalendar: timeZone'
+    url: https://fullcalendar.io/docs/timeZone
+  - title: 'Google Calendar Help: view your day, week, or month'
+    url: https://support.google.com/calendar/answer/6110849
+demo: inline
+useWhen: whose clock a time is displayed on
+---
+
+Every time an interface prints is on somebody's clock, and the interface either says whose
+or leaves the reader to guess. Three answers are all defensible. Render in the reader's own
+zone, which is what a calendar app does, so "9:30" always means the 9:30 they will
+experience. Render in the event's zone, which is what a conference schedule or a market
+timetable does, because the event has a place and the place is part of the fact. Or render
+both, one primary and one beside it, which is what any tool used across offices ends up
+doing. What is never defensible is printing a bare "9:30" and hoping.
+
+The choice is usually offered as a control, and the control has to be sticky and visible,
+not buried in a settings page: a reader who has switched a schedule into the event's zone
+needs to keep seeing that they did. A second column or a second line, the
+"secondary time zone" of a calendar's settings, is the cheapest way to make a conversion
+unnecessary, and it earns its space in exactly the products where a wrong conversion is
+expensive.
+
+Then there is the label itself, which is where most of this pattern goes wrong. A
+three-letter abbreviation is not an identifier: CST is US Central, China Standard, and Cuba
+Standard time, and IST is India, Israel, and Ireland. A UTC offset is unambiguous for one
+instant and wrong for half the year, because it cannot say what happens when the clocks
+change. Only an IANA zone name (`America/Chicago`) is both exact and durable, which is why
+it is what systems store even when it is too long to show. So the display and the storage
+are usually different strings: keep the name underneath, print the offset or the city, and
+never print an abbreviation as if it settled anything. If the abbreviation must appear, it
+belongs next to something that disambiguates it, which is the general rule for any
+[abbreviation](/abbreviation) in an interface.
+
+The neighbouring pattern dodges the problem entirely, which is what makes it the useful
+contrast. A [relative timestamp](/relative-timestamp) ("3 hours ago") needs no zone at all,
+because a duration is the same length everywhere, and that is precisely why it cannot be
+used for anything in the future that someone has to turn up to. Zones also meet
+[recurring events](/recurring-event) at the daylight-saving boundary, where a weekly rule
+must choose between keeping the wall-clock time and keeping the interval, and the zone the
+rule is anchored in is the only thing that decides.

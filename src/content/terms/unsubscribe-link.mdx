@@ -1,0 +1,60 @@
+---
+name: Unsubscribe link
+slug: unsubscribe-link
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  The way out of a mailing list, which the law and the mail clients now both insist is one
+  click, and whose difficulty is the honest measure of a sender.
+aliases:
+  - name: List-Unsubscribe
+    source: ietf
+  - name: one-click unsubscribe
+    source: ietf
+  - name: opt out
+    source: community
+relations:
+  contrastWith: [roach-motel, confirmshaming, transactional-email]
+  seeAlso: [double-opt-in, transactional-email]
+implementations: []
+sources:
+  - title: 'RFC 8058: one-click unsubscribe'
+    url: https://datatracker.ietf.org/doc/html/rfc8058
+  - title: 'RFC 2369: List-Unsubscribe header'
+    url: https://www.rfc-editor.org/rfc/rfc2369
+demo: inline
+useWhen: the way out of a list, and how hard it is
+---
+
+The interesting thing about the unsubscribe link is that it has left the mail. A sending
+system can declare the exit in a header rather than only in the body, which is what RFC
+2369 added as `List-Unsubscribe`, and RFC 8058 turned that into a single request the
+client can make on the reader's behalf with no page to visit and nothing to confirm. So
+the mail app draws its own unsubscribe control above the message, in its own type, at its
+own size. A sender who set theirs in six point grey between two lines of legalese is
+overruled by Gmail and Apple Mail anyway, and since 2024 the large mailbox providers
+require the header from anyone sending in bulk.
+
+One click means what it says: no sign-in, no password reminder, no survey, no preference
+centre standing in front of the exit. A preference centre is a legitimate thing to offer
+after the fact, or beside a link that already works, and it is a fine answer to "I want
+fewer of these rather than none". It is not an answer to "stop". The test is whether the
+reader is out of the list at the end of the gesture they made, rather than at the end of
+a flow the sender designed.
+
+Everything that goes wrong here is a familiar pattern wearing mail clothes. Requiring a
+login is the [roach motel](/roach-motel): the entrance took an address typed into a box,
+so an exit that needs credentials is deliberately the harder half. A confirmation step
+worded as a reproach is [confirmshaming](/confirmshaming). Both cost more than they
+save, because the reader who cannot leave has a second control available and it is worse:
+marking the mail as spam, which is a judgement on the sending domain and not just on this
+list.
+
+Read the other way round, the difficulty of leaving is the most honest measure available
+of what a sender thinks a list is for. An easy exit keeps only people who want to be
+there, which is the same argument [double opt-in](/double-opt-in) makes at the other end
+of the relationship, and the same reason a
+[transactional email](/transactional-email) needs no unsubscribe at all: nobody has to
+leave a list they were never on.

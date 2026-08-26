@@ -1,0 +1,58 @@
+---
+name: Drag to create
+slug: drag-to-create
+category: interaction
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Making a new object by dragging out its extent rather than pressing Add: an event drawn
+  across two hours, a frame drawn on a canvas, a range drawn on a chart.
+aliases:
+  - name: drag out
+    source: community
+  - name: draw to create
+    source: community
+  - name: drag to select time
+    source: community
+relations:
+  contrastWith: [brushing, drag-and-drop, resize-handle]
+  seeAlso: [drag-threshold, scheduler]
+sources:
+  - title: 'Google Calendar Help: create an event'
+    url: https://support.google.com/calendar/answer/72143
+  - title: 'FullCalendar: select callback'
+    url: https://fullcalendar.io/docs/select-callback
+demo: inline
+useWhen: drawing a new object out at the size you want
+---
+
+Drag to create makes the object and sizes it in the same gesture. Press where it should
+start, pull to where it should end, let go, and the thing exists at exactly that extent.
+There is no separate step where the interface asks how big, because the question was
+answered by the stroke. It is how an event gets drawn across two hours in a
+[scheduler](/scheduler), how a rectangle or an artboard appears on a canvas, and how a
+crop, a selection region or a time range gets made in an editor.
+
+What it buys is one gesture instead of three. The alternative is a button that makes a
+default-sized object, which the reader then has to move and then resize, and each of those
+is a separate act of aiming. The gesture also puts the object where the reader was already
+looking, which a dialog cannot do. That is why it survives in tools where speed matters and
+disappears in tools where objects have no extent worth choosing.
+
+It has two failure modes and both are worth designing for. The first is the accidental
+object: any press on an empty surface is now potentially a creation, so a slipped finger
+leaves litter. The fix is a threshold, which is a [drag threshold](/drag-threshold) doing
+its usual job in an unusual place: under a few pixels of travel the press is a click and
+nothing is made. The second fix is that whatever is made arrives selected and undoable, so
+the reader is one keystroke from having never made it. The other failure mode is
+discoverability, because an empty surface says nothing about the gesture at all. A short
+line of help in the empty state, or a ghost preview appearing as soon as the press moves,
+is usually the whole of the answer.
+
+Three neighbouring gestures are all drags and none of them are this one. [Brushing](/brushing)
+drags across a chart to select a range of data that is already plotted, so nothing new comes
+into existence. [Drag and drop](/drag-and-drop) moves something that already exists from one
+place to another. And a [resize handle](/resize-handle) changes the extent of an existing
+object, which is the second half of this gesture performed later and on its own. The tell for
+this term is that the object was not there before the press.

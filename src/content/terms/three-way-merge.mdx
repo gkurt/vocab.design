@@ -1,0 +1,68 @@
+---
+name: Three-way merge
+slug: three-way-merge
+category: component
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Three versions on screen at once, mine, theirs, and the ancestor they both came from,
+  with the result edited underneath so a conflict is decided rather than guessed.
+aliases:
+  - name: merge editor
+    source: vscode
+  - name: 3-way merge
+    source: community
+  - name: conflict resolution view
+    source: community
+tags: []
+relations:
+  contrastWith: [diff-viewer]
+  variantOf: []
+  partOf: []
+  seeAlso: [code-editor]
+implementations: []
+sources:
+  - title: "git-merge-file: three-way merge"
+    url: https://git-scm.com/docs/git-merge-file
+  - title: "VS Code: source control overview"
+    url: https://code.visualstudio.com/docs/sourcecontrol/overview
+demo: inline
+useWhen: resolving a conflict against the common ancestor
+---
+
+A three-way merge view is a screen with four regions, three of them read and one of them
+written. Two are the versions in dispute, conventionally called mine and theirs, and the
+third is the common ancestor: the last version both sides agreed on before they diverged.
+Underneath sits the result, which is the only editable region and the only one that will
+actually be committed. That is a layout problem before it is a code problem, because four
+panels of monospaced text do not fit a screen at a readable size, which is why real
+implementations shrink the three inputs to the conflicted neighbourhood and give the
+result the room.
+
+The ancestor pane is the whole point and the region people close first to get more space.
+Without it a conflict is two lines that disagree and no way to tell which one is the
+change. With it the arithmetic is trivial: if my line matches the ancestor, I did not
+touch it and theirs is the edit, so take theirs. If neither matches, both sides moved and
+someone has to think. The name three-way is exactly this, and the
+[git-merge-file](https://git-scm.com/docs/git-merge-file) documentation is written in the
+same terms, taking a current, a base, and an other file rather than a before and an after.
+
+Each conflict then gets its controls, and their honesty matters more than their placement.
+Accept mine and accept theirs are cheap to offer and easy to understand. Accept both is
+the one that gets people hurt: it concatenates the two sides in file order, which produces
+text that merges cleanly, fails to compile, and looks resolved in every summary the tool
+prints afterwards. It is right for an append-only region such as a list of imports or a
+changelog, and wrong nearly everywhere else. The corresponding responsibility on the
+design side is to keep the result pane editable rather than treating the three buttons as
+the whole vocabulary, since the correct answer to a genuine conflict is frequently a
+fourth line neither side wrote.
+
+Two neighbours are worth keeping apart. A [diff viewer](/diff-viewer) has two sides and
+exists to be read, and reaching for it here is the usual mistake, because a merge screen
+carries a version that is not a candidate at all and a region that is not a version. And a
+merge view is not the resolution: three-way merging is a text algorithm that runs first and
+succeeds silently on nearly every hunk, so the view only ever shows the remainder the
+algorithm refused to decide. Design it as the exception handler it is, with the count of
+remaining conflicts always visible and a way to walk them one at a time, since a reader
+arrives at this screen knowing how many decisions are left and nothing else.

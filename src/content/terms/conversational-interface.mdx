@@ -1,0 +1,66 @@
+---
+name: Conversational interface
+slug: conversational-interface
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  An interface operated in turns of language rather than by controls, where the transcript is the
+  state and the only visible affordance is a box to type in.
+aliases:
+  - name: chat interface
+    source: community
+  - name: conversational UI
+    source: community
+  - name: chatbot UI
+    source: community
+tags: []
+relations:
+  contrastWith: [natural-language-interface]
+  seeAlso: [chat-bubble, typing-indicator, prompt-input]
+implementations: []
+sources:
+  - title: "NN/g: chatbots"
+    url: https://www.nngroup.com/articles/chatbots/
+  - title: "IxDF: conversational UI"
+    url: https://www.interaction-design.org/literature/topics/conversational-ui
+demo: inline
+useWhen: the interface is a turn-by-turn conversation
+---
+
+Start with the fence, because two words are doing different jobs. A
+[natural language interface](/natural-language-interface) is an input MODE: you ask for what
+you want in words, and it can live anywhere, including inside an entirely ordinary screen
+full of buttons. A conversational interface is a SHAPE: the transcript is the screen, turns
+are the only unit of interaction, and there is nothing else to press. Every chat assistant is
+both. A search field that understands a sentence is only the first.
+
+The shape's defining problem is that it has no affordances. A screen made of controls
+advertises what it can do just by existing, and a text box advertises nothing, so a reader
+looking at a blinking cursor has to guess at both the capability and the phrasing. Everything
+this pattern has learned about discoverability is an answer to that. Starter prompts in the
+empty state, suggestion chips under the last reply, an opening turn that lists what is
+possible in three concrete examples rather than in a claim about being helpful. Those are not
+decoration around the conversation, they are its menu bar, and a build that ships without
+them is asking every reader to invent the interface for themselves.
+
+The transcript is doing more work than it looks like. It is the state, so there is no settings
+panel to consult: what is true is whatever was last agreed, in words, some distance up the
+scroll. It is the undo history, since correcting a turn means saying so rather than pressing
+anything. It is the only record of the agreement, which matters enormously when the
+conversation commits to something (a booking, a refund, a piece of code), and it is the
+navigation, because scrolling back is how a reader returns to a decision. Design it as a
+document, then: quotable, scannable, with each turn's own boundaries clear. The parts have
+their own words, and the site holds them already: a turn is a
+[chat bubble](/chat-bubble), the pause before a reply is a
+[typing indicator](/typing-indicator), and the box is a [prompt input](/prompt-input).
+
+The failure NN/g keeps measuring is worth memorising because it does not look like a failure
+while you are building. A conversation is linear, so it works beautifully for the path the
+team walked through, and collapses the moment the reader steps out of it: a question asked
+two turns early, a change of mind, a request that needs three fields at once. Comparing five
+options in prose is worse than a table. Picking a date in prose is worse than a calendar. The
+strongest conversational interfaces are therefore not purely conversational at all, they hand
+you a control at the point where a control is better, and the judgement about where that
+point falls is most of the design work.

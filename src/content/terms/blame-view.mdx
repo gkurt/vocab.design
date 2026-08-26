@@ -1,0 +1,66 @@
+---
+name: Blame view
+slug: blame-view
+category: component
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Each line of a file labelled with the change that last touched it, so the file answers
+  who and when rather than what it says.
+aliases:
+  - name: git blame
+    source: community
+  - name: annotate view
+    source: community
+  - name: line history
+    source: community
+tags: []
+relations:
+  contrastWith: [diff-viewer]
+  variantOf: []
+  partOf: []
+  seeAlso: [code-editor]
+implementations: []
+sources:
+  - title: git-blame
+    url: https://git-scm.com/docs/git-blame
+demo: inline
+useWhen: every line labelled with its last change
+---
+
+A blame view takes a file's whole history and projects it onto the file, one label per
+line: the change that last touched this line, who made it, and roughly when. The reading
+it is for is almost never accusatory, whatever the name suggests, and older tools call the
+same command annotate for exactly that reason. What a reader actually wants is the reason
+a line exists. The line looks wrong, or looks deliberate in a way that cannot be
+accidental, and the commit behind it is the nearest thing to a comment nobody wrote.
+
+The design problem is that three facts have to fit in a column narrow enough to leave the
+code readable, which is why every implementation compresses in the same order. The author
+becomes initials or a small avatar, the date becomes a relative age (2 d, 3 wk, 2 y)
+because an exact timestamp is never what the first glance is asking, and the commit
+becomes an abbreviated hash. Everything else, the full message, the author's name, the
+pull request, waits behind a hover or a click on the line. The other move is colour, and
+it is the one honest use of a sequential scale inside a code editor: shade the gutter by
+age and the file's own history becomes visible without a word being read, a fresh band
+across the middle of a function meaning it has just been rewritten and a faint stretch
+meaning nobody has needed to touch it in years. The scale earns its place because age is
+the one quantity here that really is ordered.
+
+Two behaviours separate a usable blame view from a decorated one. The first is that
+hovering a line lights every line from the same commit, so a change reads as a change
+rather than as a run of identical labels. The second is being able to step past the
+answer: the line's current commit is often a rename or a reindent, and the useful history
+is the commit before that, which is why viewers offer a way to reblame from the parent and
+[git-blame](https://git-scm.com/docs/git-blame) offers `-w` to ignore whitespace, `-C` to
+follow moved code, and an ignore-revisions file for the day someone ran a formatter across
+the repository. Without those, one mechanical commit erases the authorship of the whole
+file and the view confidently answers every question with the same name.
+
+The near neighbour is the [diff viewer](/diff-viewer), and the split is clean: a diff has
+two versions and answers what changed between them, while a blame view has one version and
+answers, for every line in it, which change arrived last. That also sets the limit of what
+this view can say. It reports the most recent touch and nothing before it, so a line
+rewritten yesterday looks the same age as a line invented yesterday, and the question of
+how a line got to be the way it is belongs to the log rather than to the gutter.

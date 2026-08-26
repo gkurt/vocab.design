@@ -20,8 +20,9 @@ live is marked; everything else is kept as the record of what was decided and wh
   which round 22 authored the same day; the 2026-08-26 sweeps (below) added 3 and then
   3 more, to 972, all of which round 23 authored, emptying the pool completely; the
   second 2026-08-26 wishlist sweep (below) added 5, to 977, and the parked-items sweep
-  the same day (below) added 33, so the pool is 1,010 records with 38 unauthored, the
-  largest unauthored backlog since round one.
+  the same day (below) added 33, taking the pool to 1,010 records with 38 unauthored,
+  the largest unauthored backlog since round one, all 38 of which round 24 authored the
+  same day, so the pool is empty again and pool-remaining.ts prints nothing.
 
 ## RESOLVED: duplicate slugs
 
@@ -491,6 +492,16 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   dishonest end is already roach-motel), transactional versus marketing mail, double
   opt-in, alt text used as copy for blocked images. Print is the other medium with no
   words at all; noted, not pooled.
+  All five slugs and all eighteen proposed aliases checked against the 1,076 published
+  terms and every alias they claim (5,162 claimed spellings): no collisions. Every
+  source URL verified live 2026-08-26, eleven of them, and the Blender manual answers
+  200 to curl while refusing a bot fetch, which is worth knowing before someone marks
+  it dead. THREE SYSTEMS ADDED to systems.json (110 to 113), because a candidate must
+  not reference an id the registry does not hold: xyflow (React Flow, MIT, 38.1k stars,
+  10.97M weekly), fullcalendar (MIT core with paid Premium plugins, 20.6k stars), and
+  litmus (free-docs; the testing product is paid, the guides are not). Trust numbers
+  read from the GitHub and npm APIs on 2026-08-26. The whole pool's implementation rows
+  now resolve against the registry with no dangling ids.
 - PARKED ITEMS SWEEP (2026-08-26), shaped and pooled (33 records, pool 977 to 1,010).
   The human was shown every item this file had ever named and left undecided, and
   approved all of them except the hydration family, on the grounds that hydration reads
@@ -615,16 +626,42 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   an automated fetch while the guide pages answer 200, so probe the deep link, never the
   index). The whole pool's implementation rows still resolve against the registry with
   no dangling ids.
-  All five slugs and all eighteen proposed aliases checked against the 1,076 published
-  terms and every alias they claim (5,162 claimed spellings): no collisions. Every
-  source URL verified live 2026-08-26, eleven of them, and the Blender manual answers
-  200 to curl while refusing a bot fetch, which is worth knowing before someone marks
-  it dead. THREE SYSTEMS ADDED to systems.json (110 to 113), because a candidate must
-  not reference an id the registry does not hold: xyflow (React Flow, MIT, 38.1k stars,
-  10.97M weekly), fullcalendar (MIT core with paid Premium plugins, 20.6k stars), and
-  litmus (free-docs; the testing product is paid, the guides are not). Trust numbers
-  read from the GitHub and npm APIs on 2026-08-26. The whole pool's implementation rows
-  now resolve against the registry with no dangling ids.
+- ROUND 24 (2026-08-26): all 38 records authored, taking the site from 1,076 to 1,114
+  terms and emptying the pool.
+  Batched by FAMILY rather than by category, seven batches: graph 5, scheduler 6,
+  developer views 4, mail inbox 6, mail craft 5, platform 6, look 6. That is the
+  decision worth keeping. The mail words are a family of eleven spanning two
+  categories, so batching by category would have split them across two rounds and
+  minted stubs for the half that waited, and one owner per family also puts both sides
+  of every intra-family discrimination in one head (preview-text against subject-line,
+  additive against subtractive, node-graph against flowchart).
+  Relations were declared ONE-SIDED, in the authors' own files only, and closed
+  centrally afterwards: 93 symmetric edges across 80 published files. That closure is
+  worth scripting rather than doing by hand, and the script has one trap. A membership
+  test written as \b<slug>\b matches a longer slug that merely CONTAINS the short one,
+  because a hyphen is a word boundary, so "elevation" tested true inside
+  "elevation-overlay" and that edge was silently skipped (found by re-running the gate,
+  fixed by hand). Match the list item, never the substring.
+  TAGS: nothing in the round declares one, per the arrives-complete rule, and it leaves
+  three facet candidates. The eleven mail words are the real one: either `messaging`
+  (20 members, "conversations, presence, and things that arrive unannounced") adopts
+  the mail family whole, or the mail family wants a facet of its own, and either way it
+  is one pass over all eleven plus the published neighbours it would otherwise
+  contradict (magic-link, one-time-code-login, roach-motel, confirmshaming), never a
+  mid-round sprinkle. Cheaper and narrower: `media` (26) for autoplay, and
+  `web-platform` (48) for invoker-command and interest-invoker, which name real
+  attributes rather than design ideas.
+  fluid-hybrid declares variantOf: [responsive-web-design], so the term-named facet
+  adopts it by derivation with nothing declared, which is that mechanism working as
+  intended rather than something to fix.
+  VERIFICATION RESIDUE: two implementation rows stay verified:false on URL resolution
+  only, Material 3's Elevation and the HIG's Top Shelf, both JS-rendered pages that
+  answer an automated fetch with no body. Neither article was worded from them.
+  NOT PROVEN: the specimen suite. The static gates are green (1,114 terms valid, 0
+  stubs, typecheck, biome, unit tests) and every author audited its own specimens
+  through vd-stage.audit() on the dev server, but no subject snapshot exists for the 38
+  new specimens until a test:e2e:new run writes one, so what each of them identifies as
+  is recorded nowhere yet.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the

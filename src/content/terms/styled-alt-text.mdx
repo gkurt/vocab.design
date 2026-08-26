@@ -1,0 +1,57 @@
+---
+name: Styled alt text
+slug: styled-alt-text
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Alt text given size, colour and weight so a mail whose images are blocked still reads as
+  something designed instead of as a column of grey stubs.
+aliases:
+  - name: alt text styling
+    source: litmus
+  - name: image blocking fallback
+    source: community
+relations:
+  contrastWith: [alt-text, skeleton-screen]
+  seeAlso: [bulletproof-button]
+sources:
+  - title: "Litmus: the ultimate guide to styled ALT text in email"
+    url: https://www.litmus.com/blog/the-ultimate-guide-to-styled-alt-text-in-email
+  - title: "Litmus: the ultimate guide to email image blocking"
+    url: https://www.litmus.com/blog/the-ultimate-guide-to-email-image-blocking
+demo: inline
+useWhen: alt text styled to hold a blocked image's place
+---
+
+Mail clients have blocked images by default for twenty years, and plenty still do for any sender
+the reader has not written to. So the first render of a mail is routinely the version with no
+pictures in it, and what stands in their place is the `alt` attribute, drawn by the client in
+whatever type it feels like. Left alone that is a line of small default copy where a hero image
+used to be, and a promotion built out of three images becomes three grey stubs. The technique is
+to style the attribute: a `font-size`, a `font-weight`, a `color` and a `line-height` set on the
+`img` itself are inherited by the text the client substitutes, so the fallback keeps the
+hierarchy the picture had.
+
+It only works if the box survives, which is the other half. Declare `width` and `height` as
+attributes as well as in CSS, so the space is reserved whether or not the stylesheet made it
+through, and the fallback has somewhere to sit rather than collapsing to the width of its own
+words. A background colour on the same element gives that reserved box a visible shape, which is
+what turns a hole into a panel. Nothing here needs a second copy of the design: it is the same
+element, styled once, rendering either a picture or a sentence.
+
+The tension is the interesting part, and it is with [alt text](/alt-text) proper. That attribute
+exists to describe the image to a reader who cannot see it, and this technique asks the same
+string to hold a layout for a reader whose client refused to fetch it. Those two jobs pull in
+different directions: copy written to fill a hole ("SPRING SALE, 20% OFF") is a headline rather
+than a description, and copy written as a description reads oddly as a headline. The way out is
+to decide which readers a given image serves. A decorative image takes an empty `alt` and a
+styled background, because a description of nothing is noise; a picture carrying real
+information gets a real description and gets to look plainer when it is missing.
+
+Two things it is not. A [skeleton screen](/skeleton-screen) holds space for content that is
+still coming, and it disappears; a styled fallback holds space for content that may never
+arrive, and it has to be readable indefinitely. And the fallback is not a caption. Set it in the
+picture's own place, in the picture's own weight, or readers learn to skip it exactly as they
+skip a credit line.

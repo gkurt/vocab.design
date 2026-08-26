@@ -1,0 +1,68 @@
+---
+name: Autoplay
+slug: autoplay
+category: pattern
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Playback that starts with no gesture from the reader, which browsers now allow only while
+  the sound is off, so autoplay in practice means a silent moving picture.
+aliases:
+  - name: muted autoplay
+    source: community
+  - name: automatic playback
+    source: community
+  - name: autoplay attribute
+    source: mdn
+  - name: autoplay policy
+    source: chrome-developers
+tags: []
+relations:
+  contrastWith: [audio-control, pause-stop-hide]
+  seeAlso: [captions, video-player]
+implementations: []
+sources:
+  - title: "MDN: Autoplay guide for media and Web Audio APIs"
+    url: https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay
+  - title: "Chrome for Developers: Autoplay policy in Chrome"
+    url: https://developer.chrome.com/blog/autoplay
+  - title: "WebKit: New <video> Policies for iOS"
+    url: https://webkit.org/blog/6784/new-video-policies-for-ios/
+demo: inline
+useWhen: media that starts playing before anyone asked
+---
+
+Autoplay is any feature that begins playback without the reader specifically asking for it,
+whether the request is spelled as an `autoplay` attribute in markup or as a script calling
+`play()`. The word used to describe a promise browsers kept. It no longer does. Sound requires
+user activation, meaning a click, a tap or a keypress inside the page, so an unmuted request is
+refused and the promise `play()` hands back is rejected instead. A muted request is granted.
+That single fork is the whole of the modern policy, and it is why the term has quietly come to
+mean a silent moving picture rather than playback.
+
+The policy rewrote the interfaces around it. Because sound is off, the picture has to carry the
+entire message, which is why feeds ship a text track or burn the words into the frame (see
+[captions](/captions)) and why the poster frame stopped being a formality: it is the only thing
+a reader judges the clip by before deciding to grant the gesture. It is also why a muted loop
+with no controls is a moving image rather than a [video player](/video-player), and why the one
+control such a clip really owes is the one that turns the sound on, since that tap is the
+activation the browser was waiting for. Vendors add a wrinkle worth knowing: a reader who
+watches media on a site often enough may earn autoplay with sound there, so a feature that
+works on your own machine can be refused on everyone else's.
+
+Getting permission is not the same as being welcome. Playback that nobody asked for is motion
+nobody asked for, and the reader who has said so through
+[prefers-reduced-motion](/prefers-reduced-motion) has said it about your hero loop too. The
+sharpest version of the cost is [flashing content](/flashing-content), where an autoplaying
+cut can reach a rate that triggers seizures in a reader who never pressed play. The web's two
+answers are written as success criteria rather than as advice. WCAG 1.4.2 covers sound, and the
+term for satisfying it is [audio control](/audio-control). WCAG 2.2.2 covers anything moving
+for more than five seconds, and the term there is
+[pause, stop, hide](/pause-stop-hide). Autoplay is the behaviour; those two are the remedies,
+and a design that ships the first without either of the others has shipped a defect.
+
+The honest uses are narrow and they share a shape: the reader arrived for the media. A clip
+opened in a [lightbox](/lightbox) may start on its own, because opening it was the gesture. A
+short muted loop standing in for an animated illustration is fair, given a way to stop it. What
+is never fair is sound, on any page, on the strength of a request the reader did not make.

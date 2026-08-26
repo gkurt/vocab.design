@@ -1,0 +1,59 @@
+---
+name: Gantt chart
+slug: gantt-chart
+category: component
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  One row per task with a bar along a time axis, the bar showing when the work runs and
+  lines between bars showing what waits for what.
+aliases:
+  - name: gantt
+    source: community
+  - name: project timeline
+    source: community
+  - name: resource timeline
+    source: mui-x
+relations:
+  contrastWith: [scheduler, timeline, trace-viewer]
+  seeAlso: [resize-handle]
+sources:
+  - title: 'Mermaid: gantt syntax'
+    url: https://mermaid.js.org/syntax/gantt.html
+  - title: 'Wikipedia: Gantt chart'
+    url: https://en.wikipedia.org/wiki/Gantt_chart
+demo: inline
+useWhen: tasks as bars on a time axis, with dependencies
+---
+
+A Gantt chart gives every task a row of its own and draws its work as a bar lying along a
+shared date axis. Where the bar starts is when the task starts, how long it is is how long
+the task takes, and a line from the end of one bar to the start of another says the second
+cannot begin until the first is done. Read down the rows and you have the plan; read across
+a date and you have who is busy on it.
+
+What makes it an interface rather than a picture is that all three of those facts are
+editable in place. A bar is dragged sideways to move the work, pulled by either end to
+change how long it takes (which is a [resize handle](/resize-handle) doing ordinary work in
+an unusual place), and the rows themselves can be reordered or nested under a parent. The
+dependency lines then do the thing worth building the component for: move a bar and
+everything waiting on it moves too, so the plan stays a plan instead of quietly becoming a
+set of dates that contradict each other. A chart that lets a successor slide in front of
+its predecessor has drawn the arrows and thrown away their meaning.
+
+Two smaller decisions decide whether it is readable. The axis needs a unit the plan is
+actually made in, days for a sprint and weeks or months for a year, with the weekend or
+the non-working days marked rather than silently included, since a five day bar that
+crosses a Saturday is not five days of work. And the number of rows on screen has a hard
+ceiling: past a couple of dozen the arrows cross each other more than they connect
+anything, which is the point where a real project tool starts collapsing groups.
+
+Three neighbouring words get borrowed for this shape and none of them fit. The site's
+[timeline](/timeline) is a sequence of dated events, a history rather than a plan, and it
+has no notion of one entry waiting on another. A [trace viewer](/trace-viewer) draws bars
+along an axis too, but the axis is milliseconds and the bars are measurements of something
+that already ran. And a [scheduler](/scheduler) crosses days with hours so that an event
+lands in a slot, where this crosses tasks with dates so that a bar spans several: if the
+two views read alike, one of them has been built wrong. Confusingly, scheduler libraries
+often call the rows-of-resources view a "timeline", and that view belongs here.

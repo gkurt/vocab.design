@@ -1,0 +1,61 @@
+---
+name: Table-based layout
+slug: table-based-layout
+category: layout
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  Laying a page out in nested tables because the renderer has no box model worth trusting, which
+  is how mail is still built and how the web was built before CSS.
+aliases:
+  - name: nested tables
+    source: community
+  - name: table layout
+    source: community
+  - name: email table layout
+    source: community
+relations:
+  contrastWith: [data-table]
+  seeAlso: [presentation-role, fluid-hybrid, bulletproof-button]
+sources:
+  - title: "Campaign Monitor: coding HTML emails"
+    url: https://www.campaignmonitor.com/dev-resources/guides/coding-html-emails/
+  - title: "Litmus: understanding responsive and hybrid email design"
+    url: https://www.litmus.com/blog/understanding-responsive-and-hybrid-email-design
+demo: inline
+useWhen: layout built from nested tables, not CSS boxes
+---
+
+A table used for layout is scaffolding. It holds a header row, a hero, two columns side by side
+and a footer in place, and none of that arrangement is a claim about the content: the rows are
+not records and the columns are not fields. Widths go in attributes rather than in CSS because
+attributes are the part every renderer honours, padding comes from `cellpadding` because padding
+on anything else is optional in the older engines, and a column that has to be a different width
+gets another table inside the cell rather than a box with a margin. The result is deeply nested,
+verbose, and completely predictable, which is the trade being made.
+
+One line separates this from the [data table](/data-table) it is built out of, and it is the
+reason the term belongs on a design site rather than in a mail developer's handbook. A data
+table means something: a screen reader announces its dimensions, offers navigation by row and
+column, and reads the headers that give a cell its context. A layout table means nothing, so
+every one of them takes [`role="presentation"`](/presentation-role) or it lies, announcing "table
+with four rows and two columns" over what is really a header, a picture and a paragraph. The
+markup is identical; the role is the entire difference between scaffolding and a lie.
+
+The web was built this way too, and that history is why the phrase lands as an insult in one
+medium and as a plain fact in the other. Before CSS layout there were spacer GIFs and nested
+tables, and the arrival of floats, then flexbox, then grid made each of them obsolete in turn.
+Mail never got that arrival. Its renderers are a decade or more behind, several of them are not
+browsers at all, and a technique that fails in one popular client fails for a quarter of the
+audience with no way to detect it, so the medium keeps the technique that works everywhere. The
+600 pixel convention comes from the same conservatism: it is roughly what fit in a preview pane
+on a 1024 pixel screen, and it has outlived both the screen and the pane because everything
+downstream was built to expect it.
+
+Two things follow for anyone writing one today. Nesting is not free of the reader: a layout table
+with its role left off is one of the most common accessibility defects in mail, and the fix costs
+one attribute. And the arrangement should not depend on media queries, which a large share of
+clients discard, so the reflow belongs in the box itself. That is what a
+[fluid hybrid](/fluid-hybrid) is, and it is the reason table markup and modern responsive
+thinking end up in the same document.
