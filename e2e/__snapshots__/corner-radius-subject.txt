@@ -1,0 +1,4 @@
+term:    Corner radius
+scope:   element
+subject: svg[aria-hidden=true][data-part=arc][viewBox=0 0 24 24]
+text:    

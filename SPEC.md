@@ -495,7 +495,7 @@ departure from an earlier draft of this section. Terms own the root namespace, s
 category page at `/{category}` competes with it: `/aesthetic` is already an alias of
 `vaporwave`, and `color`, `motion`, `pattern` and `layout` are all plausible future term
 names that would silently shadow a category route. Two dynamic routes at the root would
-also collide in Astro. The glossary is sliced by letter for size: 1,070 terms plus 3,905
+also collide in Astro. The glossary is sliced by letter for size: 1,076 terms plus 3930
 aliases is 4,923 entries, which is a 440KB page as one list.
 
 ## 4. Chrome design system
@@ -1266,7 +1266,7 @@ Biome · typecheck · build. All of it is static and runs in about two minutes.
 execution with asserts · identify subject snapshots · identify mid-attract · takeover
 reaching the posed specimen · the reduced-motion guard. This suite is the project's
 strongest gate and it is deliberately off the automatic path: a full pass is roughly 45
-minutes over 1,070 specimens, which is the entire Actions budget on a private repo. It
+minutes over 1,076 specimens, which is the entire Actions budget on a private repo. It
 is scoped by `grep` for a single specimen, or run in full before a release. The identify
 contact sheet is uploaded whenever it runs. Pipeline entry points live in `scripts/`.
 

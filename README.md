@@ -49,7 +49,7 @@ identify engaged, side by side.
 Every term page's link preview is its own specimen, photographed in the pose the identify
 control holds: the subject picked out, the rest of the canvas faded back. The pictures are
 committed under `public/og/`, and `bun run og --build` re-shoots the ones that are missing
-(`--force` for all 1,071, about 40 seconds). What the frame is and why it is not a text
+(`--force` for all 1,077, about 40 seconds). What the frame is and why it is not a text
 card is [SPEC §10](SPEC.md).
 
 Analytics is off unless a build is given one: `PUBLIC_GA_ID=G-XXXXXXXXXX bun run build`

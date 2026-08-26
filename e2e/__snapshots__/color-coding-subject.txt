@@ -1,0 +1,4 @@
+term:    Color coding
+scope:   element
+subject: span[data-code=2][data-fine=5][data-part=mark-5]
+text:    Design review

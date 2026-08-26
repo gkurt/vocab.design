@@ -1,0 +1,4 @@
+term:    Diff viewer
+scope:   element
+subject: span[data-part=word]
+text:    r.qty

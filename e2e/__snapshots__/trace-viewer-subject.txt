@@ -1,0 +1,4 @@
+term:    Trace viewer
+scope:   element
+subject: span[data-part=bar-inv]
+text:    

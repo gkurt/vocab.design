@@ -1,0 +1,4 @@
+term:    Concentric corner radius
+scope:   element
+subject: svg[aria-hidden=true][data-mode=concentric][data-part=corner][data-pose=[data-mode=concentric]][viewBox=0 0 22 22]
+text:    

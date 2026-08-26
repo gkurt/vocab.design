@@ -1,0 +1,80 @@
+---
+name: Diff viewer
+slug: diff-viewer
+category: component
+status: published
+created: 2026-08-26
+modified: 2026-08-26
+definition: >-
+  The view that puts two versions of a text against each other, side by side or
+  interleaved, marking every line added, removed or changed and aligning what did not.
+aliases:
+  - name: diff view
+    source: community
+  - name: side-by-side diff
+    source: community
+  - name: unified diff
+    source: community
+  - name: split diff
+    source: community
+  - name: code diff
+    source: community
+tags: []
+relations:
+  contrastWith: [comparison-table, image-comparison-slider]
+  variantOf: []
+  partOf: []
+  seeAlso: [trace-viewer, code-editor]
+implementations: []
+sources:
+  - title: "VS Code: Staging and committing changes"
+    url: https://code.visualstudio.com/docs/sourcecontrol/staging-commits
+demo: inline
+useWhen: reading what changed between two versions of a file
+---
+
+A diff viewer answers one question, what changed, and it answers it by refusing to make
+the reader hold two files in their head at once. It takes the before and the after, works
+out which lines correspond, and then marks the ones that do not: added, removed, or
+changed. There are two conventional layouts and every serious viewer offers both. Split,
+also called side by side, gives each version its own column and puts corresponding lines
+on the same visual row. Unified puts one column of text and interleaves the versions,
+each line prefixed by a space, a minus, or a plus, which is the shape a patch file has and
+the shape a narrow screen can afford. [VS Code's source control
+docs](https://code.visualstudio.com/docs/sourcecontrol/staging-commits) call the same pair
+side by side and inline, and switching between them is a per-editor setting rather than a
+per-file one.
+
+The alignment is the part that does real work and the part readers misread. When one side
+gains a line, the other side has nothing to put opposite it, so the viewer inserts a blank
+stretch to keep the following lines level. That padding is not missing content, it is the
+absence of a counterpart, and viewers usually stripe or hatch it precisely because a plain
+empty row reads as deleted text. The same reasoning drives word-level marking inside a
+changed line: a line where one identifier was renamed is technically a removal and an
+addition, and marking the whole line tells the reader nothing they did not already know.
+Marking only the run that differs turns a changed line into a readable sentence about the
+change.
+
+Beyond that the useful features are all about suppressing noise. Long unchanged regions
+collapse to a single expandable rule, since nobody reads two hundred identical lines to
+find the four that moved. Whitespace-only differences get their own switch, because a
+reindent otherwise repaints the whole file. Moved blocks can be detected and drawn as
+moved rather than as a deletion far above an addition. Colour carries the added and
+removed distinction, so the gutter sign has to carry it too: a plus and a minus, or a
+triangle and a bar, are what make the marking survive a colour vision deficiency, a
+printout, and a screenshot pasted into a chat. Syntax colour inside the code is welcome
+but must stay quieter than the change marking, or the two encodings fight and the diff
+loses.
+
+Three neighbours are close enough to be confused with it. A three-way merge view is a
+diff viewer with a third column, showing both sides of a conflict against their common
+ancestor, and it exists to be edited rather than read. A blame view answers who and when
+rather than what, annotating each line with the commit that last touched it. An
+[image comparison slider](/image-comparison-slider) is the picture equivalent and works
+by a completely different method: it wipes one image over the other instead of aligning
+anything, because pixels have no lines to correspond. A diff viewer is also not a
+[comparison table](/comparison-table), which sets several options against a shared list of
+features; a diff has exactly two subjects and they are two versions of one thing. Nor is
+it a [trace viewer](/trace-viewer): both are dense two-pane developer views, but a trace
+lays one run of work out against a clock, while a diff's horizontal direction carries no
+measurement at all and exists only to hold two texts level.

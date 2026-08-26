@@ -440,7 +440,8 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   neighbouring components rather than aliases). All three checked clean against every
   term slug, name and alias; MDN border-radius and both VS Code pages verified live,
   the Material shape page recorded verified:false as another JS-rendered shell.
-  Pool 972, six unauthored, which became round 23.
+  Pool 972, six unauthored, which became round 23, authored the same day: the pool is
+  empty again, and pool-remaining.ts prints nothing.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the

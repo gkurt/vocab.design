@@ -1,0 +1,4 @@
+term:    Syntax highlighting
+scope:   element
+subject: span[data-kind=str][data-lit][data-part=tok-string][data-pose=[data-lit]][data-semantic=str]
+text:    'nothing dropped'
