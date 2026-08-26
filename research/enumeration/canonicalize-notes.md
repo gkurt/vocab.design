@@ -17,8 +17,10 @@ live is marked; everything else is kept as the record of what was decided and wh
   (2026-08-18, below) to 983; the second wishlist run (2026-08-19, below) added
   5 more, to 981 (authoring rounds had consumed 7 records in between); the
   2026-08-25 wishlist sweep (below) added 5, taking the pool to 966, all five of
-  which round 22 authored the same day; the 2026-08-26 sweep (below) added 3, so the
-  pool is 969 records with 3 unauthored.
+  which round 22 authored the same day; the 2026-08-26 sweeps (below) added 3 and then
+  3 more, to 972, all of which round 23 authored, emptying the pool completely; the
+  second 2026-08-26 wishlist sweep (below) added 5, so the pool is 977 records with 5
+  unauthored.
 
 ## RESOLVED: duplicate slugs
 
@@ -442,6 +444,62 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   the Material shape page recorded verified:false as another JS-rendered shell.
   Pool 972, six unauthored, which became round 23, authored the same day: the pool is
   empty again, and pool-remaining.ts prints nothing.
+- User wishlist (2026-08-26, second run), shaped and pooled (5 records, pool 972 to
+  977, and the first records in the pool since round 23 emptied it):
+  node-graph (component, core; from the wish "Node graph / flowchart", which is TWO
+  things, so the record claims the editable one, nodes wired by lines where the wiring
+  is the content, and deliberately does NOT claim "flowchart" as an alias because the
+  read-only diagram sense, a chart rendered from text, Mermaid and diagram-as-code, is
+  a separate record with a different subject and claiming the spelling here would fence
+  it out; React Flow's Handle and Blender's colour-coded socket are the two vocabularies,
+  and the socket refusing an invalid wire is the design content; handle/port, edge
+  routing and auto-layout left unclaimed),
+  autoplay (pattern, core; load-bearing in SIX published articles with no definition
+  anywhere on site, lottie, flashing-content, captions, video-player, lightbox and
+  audio-control, whose definition line is written against it; ALIAS FENCE, never claim
+  "autoplay audio" (audio-control) nor "pause button" or "carousel pause control"
+  (pause-stop-hide), because those two terms are the REMEDIES anchored to WCAG 1.4.2
+  and 2.2.2 while this is the behaviour and its permission regime; canonicalized on
+  MDN's definition, playback begun without the reader specifically asking, and the
+  specimen note warns that synthesized events grant no user activation, so a demo must
+  portray the refusal rather than lean on a media element's real policy),
+  scheduler (component, core; from "Google Calendar style Scheduler component",
+  canonicalized to the libraries' umbrella name, MUI X ships a Scheduler whose
+  components are Event Calendar and Event Timeline, with FullCalendar's "time grid" and
+  the plain "week view" as aliases; DOUBLE FENCE, the published calendar term is
+  deliberately the MONTH grid and owns "month view", "date grid", "mini calendar", and
+  "timeline" in scheduler libraries means the resource-rows view, which is neither the
+  site's timeline nor this record and belongs to an unpooled gantt-chart; agenda view,
+  recurring event, time-zone display and drag-to-create left unclaimed),
+  preview-text and bulletproof-button (both pattern, core and tail, from the vaguest
+  wish, "Something about email HTML?"). That wish turned out to name a whole uncovered
+  MEDIUM rather than a term: 1,076 published terms and not one mail word, and the
+  registry held 110 systems with no mail source either. Two words earn a page on their
+  own strength and are pooled; the rest are named and left for the human. preview-text
+  takes Litmus's own distinction (preview text is what the INBOX prints, preheader is
+  what shows at the top of the mail BODY, and the two are conflated everywhere), with
+  preheader as the alias so the conflated search lands, and its specimen is a still
+  script, two inbox rows at rest, one authored and one scraped, because the scraped
+  default is how "View this email in your browser" ends up as the pitch.
+  bulletproof-button is Campaign Monitor's coinage, buttons.cm still emitting VML in an
+  Outlook conditional comment, and it carries an HONESTY FENCE: never mock a named
+  client's chrome, never impersonate Outlook (SPEC 1), so the demonstration is one
+  construction under two capability regimes side by side, fill honoured and fill
+  refused. MAIL WORDS LEFT UNCLAIMED, for the human before any is pooled: dark mode in
+  mail, table-based layout, hybrid/fluid-hybrid coding, the unsubscribe link (its
+  dishonest end is already roach-motel), transactional versus marketing mail, double
+  opt-in, alt text used as copy for blocked images. Print is the other medium with no
+  words at all; noted, not pooled.
+  All five slugs and all eighteen proposed aliases checked against the 1,076 published
+  terms and every alias they claim (5,162 claimed spellings): no collisions. Every
+  source URL verified live 2026-08-26, eleven of them, and the Blender manual answers
+  200 to curl while refusing a bot fetch, which is worth knowing before someone marks
+  it dead. THREE SYSTEMS ADDED to systems.json (110 to 113), because a candidate must
+  not reference an id the registry does not hold: xyflow (React Flow, MIT, 38.1k stars,
+  10.97M weekly), fullcalendar (MIT core with paid Premium plugins, 20.6k stars), and
+  litmus (free-docs; the testing product is paid, the guides are not). Trust numbers
+  read from the GitHub and npm APIs on 2026-08-26. The whole pool's implementation rows
+  now resolve against the registry with no dangling ids.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the

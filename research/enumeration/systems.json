@@ -2198,5 +2198,65 @@
     },
     "tracked": false,
     "notes": "Surface Duo era dual-screen and foldable layout guidance (spanned layouts, hinge-aware panes). Distinct from the fluent id on purpose."
+  },
+  {
+    "id": "xyflow",
+    "name": "React Flow (xyflow)",
+    "vendor": "xyflow GmbH",
+    "kind": "component-library",
+    "docsUrl": "https://reactflow.dev/",
+    "repoUrl": "https://github.com/xyflow/xyflow",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 38148,
+      "npmPackage": "@xyflow/react",
+      "npmWeeklyDownloads": 10967876,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-26"
+    },
+    "tracked": false,
+    "notes": "Added for the node-graph candidate: the registry held 110 systems and not one node-graph library. Monorepo covers React Flow and Svelte Flow; its own phrase for the concept is \"node-based editors and interactive diagrams\", and its name for a connection point is Handle. Pro subscription exists for support and examples, the library itself is MIT."
+  },
+  {
+    "id": "fullcalendar",
+    "name": "FullCalendar",
+    "vendor": "FullCalendar LLC",
+    "kind": "component-library",
+    "docsUrl": "https://fullcalendar.io/docs",
+    "repoUrl": "https://github.com/fullcalendar/fullcalendar",
+    "availability": "open-source",
+    "license": "MIT",
+    "trust": {
+      "githubStars": 20619,
+      "npmPackage": "fullcalendar",
+      "npmWeeklyDownloads": 261318,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-26"
+    },
+    "tracked": false,
+    "notes": "Added for the scheduler candidate. Core is MIT; the Premium plugins (resource views, the resource timeline) are paid, so a row citing one of those must say so rather than inheriting this availability. Its own names are the ones worth citing: \"TimeGrid view\" for the day-and-hour grid, \"DayGrid view\" for the month grid."
+  },
+  {
+    "id": "litmus",
+    "name": "Litmus",
+    "vendor": "Litmus Software, Inc.",
+    "kind": "pattern-catalog",
+    "docsUrl": "https://www.litmus.com/blog",
+    "repoUrl": null,
+    "availability": "free-docs",
+    "license": null,
+    "trust": {
+      "githubStars": null,
+      "npmPackage": null,
+      "npmWeeklyDownloads": null,
+      "official": false,
+      "maintained": true,
+      "asOf": "2026-08-26"
+    },
+    "tracked": false,
+    "notes": "Added for the two mail-medium candidates (preview-text, bulletproof-button), a medium the registry had no source for at all. The rendering-test product is paid; the reference material cited here (client support tables, the preview-text and bulletproof-button guides) is free to read, hence free-docs. Campaign Monitor is the coiner of \"bulletproof button\" and its buttons.cm generator is cited as a source URL rather than as a system, since the tool is one artifact and not a catalog."
   }
 ]

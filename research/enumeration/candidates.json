@@ -46731,5 +46731,305 @@
     "sweptFrom": [
       "wishlist 2026-08-26"
     ]
+  },
+  {
+    "name": "Node graph",
+    "slug": "node-graph",
+    "category": "component",
+    "definition": "A canvas of boxes wired to each other by lines, where each box does one job and the wiring between them is the thing being built, rearranged by dragging.",
+    "useWhen": "boxes wired by lines, where the wiring is the content",
+    "aliases": [
+      {
+        "name": "node-based editor",
+        "source": "xyflow"
+      },
+      {
+        "name": "node editor",
+        "source": "blender"
+      },
+      {
+        "name": "node-based UI",
+        "source": "xyflow"
+      },
+      {
+        "name": "flow editor",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "infinite-canvas",
+      "pan",
+      "semantic-zoom",
+      "minimap",
+      "dot-grid-background",
+      "treeview",
+      "drag-and-drop"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "React Flow: node-based UIs in React",
+        "url": "https://reactflow.dev/"
+      },
+      {
+        "title": "Blender Manual: Node Editors",
+        "url": "https://docs.blender.org/manual/en/latest/interface/controls/nodes/node_editors.html"
+      },
+      {
+        "title": "Blender Manual: Node Parts (sockets)",
+        "url": "https://docs.blender.org/manual/en/latest/interface/controls/nodes/parts.html"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "xyflow",
+        "name": "React Flow",
+        "url": "https://reactflow.dev/",
+        "verified": true
+      }
+    ],
+    "notes": "Shaped from the wish 'Node graph / flowchart', which is two things, and this record claims the editable one: nodes wired by lines where the wiring IS the content. LEFT UNCLAIMED on purpose: 'flowchart' as a spelling, because the read-only diagram sense (a chart rendered from text, Mermaid and the diagram-as-code family) is a separate record with a different subject, and claiming the alias here would fence it out. Vocabulary from the two authorities: React Flow says 'node-based editors and interactive diagrams' and calls the connection point a Handle; Blender calls the surface a node editor and the connection point a socket, colour-coded by data type so an invalid wire refuses to land, which is the design content of the term (the graph teaches its own rules through what will and will not connect). Neighbours already on site: infinite-canvas is the plane and this is what sits on it, pan and semantic-zoom are how it is navigated, minimap is what stops it getting lost, treeview is the same data when it is a hierarchy rather than a graph. SPECIMEN, and the reason it needs a note: the term names a whole surface, so marking the top-level wrapper would withdraw the identify control (SPEC 5-6). Frame the graph as a panel inside a scene with a scenery toolbar in .sp-context so data-subject can be the graph itself. The stroke is a drag from one socket to another with the wire following the pointer, which is law 22 territory (capture on a trusted pointerdown, release on pointerup and pointercancel) and needs localPoint rather than clientX, since a phone scales the stage. Left unclaimed as possible records of their own: handle / socket / port (the typed connection point), edge routing (bezier versus step versus orthogonal, which React Flow exposes as edge types), and auto-layout.",
+    "sweptFrom": [
+      "wishlist 2026-08-26 (second)"
+    ]
+  },
+  {
+    "name": "Autoplay",
+    "slug": "autoplay",
+    "category": "pattern",
+    "definition": "Playback that starts with no gesture from the reader, which browsers now allow only while the sound is off, so autoplay in practice means a silent moving picture.",
+    "useWhen": "media that starts playing before anyone asked",
+    "aliases": [
+      {
+        "name": "muted autoplay",
+        "source": "community"
+      },
+      {
+        "name": "automatic playback",
+        "source": "community"
+      },
+      {
+        "name": "autoplay attribute",
+        "source": "mdn"
+      },
+      {
+        "name": "autoplay policy",
+        "source": "chrome-developers"
+      }
+    ],
+    "relatedSlugs": [
+      "video-player",
+      "audio-control",
+      "pause-stop-hide",
+      "captions",
+      "prefers-reduced-motion",
+      "lottie",
+      "carousel",
+      "lightbox"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: Autoplay guide for media and Web Audio APIs",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay"
+      },
+      {
+        "title": "Chrome for Developers: Autoplay policy in Chrome",
+        "url": "https://developer.chrome.com/blog/autoplay"
+      },
+      {
+        "title": "WebKit: New <video> Policies for iOS",
+        "url": "https://webkit.org/blog/6784/new-video-policies-for-ios/"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "Autoplay guide",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay",
+        "verified": true
+      },
+      {
+        "systemId": "chrome-developers",
+        "name": "Autoplay policy",
+        "url": "https://developer.chrome.com/blog/autoplay",
+        "verified": true
+      },
+      {
+        "systemId": "webkit",
+        "name": "New <video> Policies for iOS",
+        "url": "https://webkit.org/blog/6784/new-video-policies-for-ios/",
+        "verified": true
+      }
+    ],
+    "notes": "Load-bearing in six published articles with no definition anywhere on site: lottie ('an autoplaying loop is motion nobody asked for'), flashing-content ('an autoplaying hero video with a strobe cut'), captions ('most feeds autoplay muted'), video-player ('Autoplay itself is muted or nothing'), lightbox ('it must not autoplay with sound'), and audio-control, whose definition line is written against autoplaying audio. ALIAS FENCE: never claim 'autoplay audio', which is audio-control's alias, nor 'pause button' or 'carousel pause control', which are pause-stop-hide's. Those two terms are the REMEDIES, each anchored to its WCAG criterion (1.4.2 and 2.2.2); this record is the behaviour and its permission regime, which is what no page defines. Canonicalize on MDN's definition: any feature that begins playback without the reader specifically asking, whether by attribute or by script. The design content is what the policy did to interfaces, since sound needs a gesture: muted by default became the default, which is why social video burns its captions in, why the first frame carries the whole first impression, and why a muted loop with no controls is a moving image rather than a player (video-player's own words). SPECIMEN HAZARD the author needs told: synthesized events do not grant user activation, so a real <video> with sound genuinely will not start under the attract player. That makes a gesture-gated demonstration honest by construction and also makes its passing state depend on a browser policy, so the safer shape is a specimen portraying the refusal itself (playback withheld until a click lands, then allowed) rather than one leaning on a media element's real policy. The term is motion nobody asked for, so the demo owes prefers-reduced-motion a still, by its own subject matter.",
+    "sweptFrom": [
+      "wishlist 2026-08-26 (second)"
+    ]
+  },
+  {
+    "name": "Scheduler",
+    "slug": "scheduler",
+    "category": "component",
+    "definition": "A grid of days crossed with hours where each event is a block in its own slot, so a week's free time is visible and an event is moved by dragging it.",
+    "useWhen": "hours down, days across, events as blocks in the grid",
+    "aliases": [
+      {
+        "name": "event calendar",
+        "source": "mui-x"
+      },
+      {
+        "name": "time grid",
+        "source": "fullcalendar"
+      },
+      {
+        "name": "week view",
+        "source": "community"
+      },
+      {
+        "name": "day view",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "calendar",
+      "date-picker",
+      "date-range-picker",
+      "time-picker",
+      "timeline",
+      "drag-and-drop",
+      "data-table"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MUI X: React Scheduler component",
+        "url": "https://mui.com/x/react-scheduler/"
+      },
+      {
+        "title": "FullCalendar: TimeGrid View",
+        "url": "https://fullcalendar.io/docs/timegrid-view"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mui-x",
+        "name": "Event Calendar",
+        "url": "https://mui.com/x/react-scheduler/",
+        "verified": true
+      },
+      {
+        "systemId": "fullcalendar",
+        "name": "TimeGrid view",
+        "url": "https://fullcalendar.io/docs/timegrid-view",
+        "verified": true
+      }
+    ],
+    "notes": "Shaped from the wish 'Google Calendar style Scheduler component'. Canonicalized to Scheduler, the umbrella name the component libraries use (MUI X ships a Scheduler whose two components are Event Calendar and Event Timeline), with FullCalendar's 'time grid' and the plain 'week view' carried as aliases. FENCE against the published calendar term, which is deliberately the MONTH grid of dates for reading and selecting and already owns 'month view', 'date grid' and 'mini calendar': this record is the day-and-hour grid where the events are the content, and it must never claim 'calendar' or 'month view'. Second fence, subtler: 'timeline' in scheduler libraries means the resource-rows view (rooms or people down the side, time across), which is neither the site's timeline term nor this record, and gantt-chart is unpooled and is where that view belongs. Design content: the time axis and its slot granularity, the all-day band above it, what two overlapping events do (side by side, or stacked behind a plus-two-more), the current-time line, and the fact that creating an event and moving one are both drags. SPECIMEN: 720x320 will not hold seven days of twenty-four hours honestly, so the demo picks a window and labels the axis (three columns, four or five hours) rather than pretending; the subject is the grid, with a view switcher in .sp-context as scenery. Dragging a block moves it inside the grid without pushing the rows below (SPEC 5, no incidental layout shift), and the drag reads the pointer through localPoint. Left unclaimed: agenda view (the same events as a list, a different component), recurring event, time-zone display, and drag-to-create.",
+    "sweptFrom": [
+      "wishlist 2026-08-26 (second)"
+    ]
+  },
+  {
+    "name": "Preview text",
+    "slug": "preview-text",
+    "category": "pattern",
+    "definition": "The line an inbox prints under a subject, written as hidden text at the top of the mail so the client shows those words instead of scraping whatever body copy comes first.",
+    "useWhen": "the line the inbox shows after the subject",
+    "aliases": [
+      {
+        "name": "preheader",
+        "source": "litmus"
+      },
+      {
+        "name": "preheader text",
+        "source": "community"
+      },
+      {
+        "name": "snippet text",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "truncation",
+      "line-clamp",
+      "magic-link",
+      "helper-text"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Litmus: The Ultimate Guide to Email Preview Text",
+        "url": "https://www.litmus.com/blog/the-ultimate-guide-to-preview-text-support"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "litmus",
+        "name": "Preview text",
+        "url": "https://www.litmus.com/blog/the-ultimate-guide-to-preview-text-support",
+        "verified": true
+      }
+    ],
+    "notes": "Shaped from the wish 'Something about email HTML?'. Two things to say before the record itself: the site has 1,076 terms and NOT ONE mail-medium word, so the wish names a whole uncovered medium rather than a term, and this record plus bulletproof-button are the two words in it that earn a page on their own strength. This one is the inbox line, and the naming dispute is recorded in Litmus's own guide: preview text is what the INBOX prints beside or under the subject, preheader text is what shows at the top of the mail BODY, and the two are conflated everywhere. Headword is preview text because the inbox line is the design decision (a mail's third line of copy, competing in a list), with preheader carried as an alias so the conflated search still lands; the visible top-of-body preheader could be a record of its own later. Design content: it is copy written for someone else's list view, unstyled, and truncated at a length you do not control (Litmus advises under 90 characters), and if you do not write it the client scrapes the first text in the body, which is how 'View this email in your browser' and unsubscribe boilerplate end up as the pitch. The technique is hidden text at the top of the mail plus enough padding after it that nothing leaks in behind. SPECIMEN: an inbox of rows where one mail has authored preview text and one has the scraped default, both visible at rest, which makes the script a still one, waits and asserts (SPEC 8: a toggle is only for a demo whose term is the toggling). The subject is the preview line itself and needs an element of its own. Left unclaimed: subject line, sender name, and the mail-medium words listed in the bulletproof-button record.",
+    "sweptFrom": [
+      "wishlist 2026-08-26 (second)"
+    ]
+  },
+  {
+    "name": "Bulletproof button",
+    "slug": "bulletproof-button",
+    "category": "pattern",
+    "definition": "A mail button built to survive a renderer that drops CSS: the fill carried by a cell or box behind the link rather than by a background the client can refuse.",
+    "useWhen": "a button that still reads as one when the CSS is dropped",
+    "aliases": [
+      {
+        "name": "bulletproof email button",
+        "source": "community"
+      },
+      {
+        "name": "VML button",
+        "source": "community"
+      },
+      {
+        "name": "email button",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "button",
+      "button-versus-link",
+      "touch-target",
+      "fallback-font",
+      "forced-colors-mode"
+    ],
+    "priority": "tail",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Campaign Monitor: Bulletproof email buttons (buttons.cm)",
+        "url": "https://buttons.cm/"
+      },
+      {
+        "title": "Litmus: Your Guide to Bulletproof Email Buttons that Work",
+        "url": "https://www.litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "litmus",
+        "name": "Bulletproof buttons",
+        "url": "https://www.litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design",
+        "verified": true
+      }
+    ],
+    "notes": "Shaped from the wish 'Something about email HTML?', the second of two records from it (see preview-text). Coined at Campaign Monitor, whose buttons.cm generator is still the canonical artifact and still emits VML inside an Outlook conditional comment, with Litmus's guide as the reference write-up. The word earns a page because it names a discipline the web has mostly forgotten: build the control so that when the renderer drops your CSS it degrades into something still clickable. The mechanics are a cell or box carrying the fill with the anchor filling it, so the hit area is the whole button rather than the words; the failure it is named against is a background image or CSS padding being dropped, leaving an unstyled link nobody reads as a button. SPECIMEN HONESTY FENCE: never mock a named client's chrome and never impersonate Outlook (SPEC 1, specimens are platonic). The platonic demonstration is one construction under two capability regimes, side by side at rest: fill honoured, and fill refused, where the bulletproof one is still a filled full-cell target and the naive one has collapsed to text. That reads as a states row rather than a toggle. Neighbours on site carrying the same reasoning: fallback-font (degradation for type), forced-colors-mode (a renderer overriding your colours on purpose), touch-target (why the whole cell rather than the words), button-versus-link (a mail button IS an anchor, which is the honest reading of it). Priority is tail deliberately: a real word with a narrow audience. MAIL-MEDIUM WORDS LEFT UNCLAIMED, for the human to accept or refuse before any is pooled: dark mode in mail (clients invert your palette and there is no honest opt-out), table-based layout, hybrid or fluid-hybrid coding, the unsubscribe link (whose dishonest end is already covered by roach-motel), transactional versus marketing mail, double opt-in, and alt text used as copy for blocked images. Print is the other medium with no words at all on site; noted, not pooled.",
+    "sweptFrom": [
+      "wishlist 2026-08-26 (second)"
+    ]
   }
 ]
