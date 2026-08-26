@@ -46560,5 +46560,176 @@
     "sweptFrom": [
       "wishlist 2026-08-26"
     ]
+  },
+  {
+    "name": "Corner radius",
+    "slug": "corner-radius",
+    "category": "aesthetic",
+    "definition": "How far a shape's corners are rounded off, measured as the radius of the circle that replaces the square angle, and the one number that decides how soft a UI reads.",
+    "useWhen": "how rounded a shape's corners are, as one number",
+    "aliases": [
+      {
+        "name": "border-radius",
+        "source": "mdn"
+      },
+      {
+        "name": "rounded corners",
+        "source": "community"
+      },
+      {
+        "name": "corner rounding",
+        "source": "community"
+      },
+      {
+        "name": "shape scale",
+        "source": "material"
+      }
+    ],
+    "relatedSlugs": [
+      "squircle",
+      "chamfer",
+      "concentric-corner-radius",
+      "bevel",
+      "blob-shape",
+      "spacing-scale"
+    ],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "MDN: border-radius",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-radius"
+      },
+      {
+        "title": "Material Design 3: Shape",
+        "url": "https://m3.material.io/styles/shape"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "mdn",
+        "name": "border-radius",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-radius",
+        "verified": true
+      },
+      {
+        "systemId": "material",
+        "name": "Shape scale",
+        "url": "https://m3.material.io/styles/shape",
+        "verified": false
+      }
+    ],
+    "notes": "The head term of a family that was already on site without it: squircle and chamfer BOTH define themselves against border-radius, and neither corner-radius nor border-radius was claimed as a slug or an alias by any of 1,070 terms. Category is aesthetic to keep it with its siblings (squircle, chamfer, bevel, blob-shape) even though its concentric partner is filed under layout, because that one is a nesting rule and this one is a look; say so in both articles. What the article owes: the radius scale as a token set rather than a value picked per component, the pill (any radius at or past half the height, which stops being a corner and becomes a cap), the elliptical form (two radii per corner, which almost nothing uses on purpose), and percentages resolving against the box rather than against each other. ALIAS FENCE: never claim 'squircle' or 'continuous corner radius', continuous curvature is squircle's own claim, and bare 'radius' is deliberately not an alias because it would take a route far too generic for what it means here.",
+    "sweptFrom": [
+      "wishlist 2026-08-26"
+    ]
+  },
+  {
+    "name": "Syntax highlighting",
+    "slug": "syntax-highlighting",
+    "category": "color",
+    "definition": "Colouring code by what each token is, keyword or string or comment or name, so the structure and the typo are visible before a line has actually been read.",
+    "useWhen": "code coloured by token type rather than by meaning",
+    "aliases": [
+      {
+        "name": "syntax colouring",
+        "source": "community"
+      },
+      {
+        "name": "syntax coloring",
+        "source": "community"
+      },
+      {
+        "name": "code highlighting",
+        "source": "community"
+      },
+      {
+        "name": "semantic highlighting",
+        "source": "vscode"
+      }
+    ],
+    "relatedSlugs": [
+      "color-coding",
+      "code-editor",
+      "categorical-palette",
+      "use-of-color",
+      "kbd"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "VS Code: Syntax Highlight Guide",
+        "url": "https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "vscode",
+        "name": "Syntax Highlight Guide",
+        "url": "https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide",
+        "verified": true
+      }
+    ],
+    "notes": "The canonical instance of colour coding, so it wants variantOf color-coding rather than a fresh contrast (both are in the same round; whoever authors them owns both sides of that edge). Category is color because the claim is the encoding, not the type, but flag it if the author finds it reads as a component feature instead. FENCE against code-editor, whose definition ALREADY lists 'syntax colouring' as one of the editor's features: the editor is the widget, this is the convention, and it appears in read-only code blocks, terminals, diff views and docs where no editor exists. Two things the article owes: colour is not the only channel (comments italic, keywords bold, which is also the accessibility answer for a code block that cannot follow use-of-color's rule literally), and the two passes are different, TextMate-style tokenization colouring by lexical shape versus semantic highlighting colouring by what a language server RESOLVED the symbol to be, which is why the same identifier can change colour once the project finishes loading. 'Semantic highlighting' is carried as an alias rather than split off, but it is the obvious later split.",
+    "sweptFrom": [
+      "wishlist 2026-08-26"
+    ]
+  },
+  {
+    "name": "Diff viewer",
+    "slug": "diff-viewer",
+    "category": "component",
+    "definition": "The view that puts two versions of a text against each other, side by side or interleaved, marking every line added, removed or changed and aligning what did not.",
+    "useWhen": "reading what changed between two versions of a file",
+    "aliases": [
+      {
+        "name": "diff view",
+        "source": "community"
+      },
+      {
+        "name": "side-by-side diff",
+        "source": "community"
+      },
+      {
+        "name": "unified diff",
+        "source": "community"
+      },
+      {
+        "name": "split diff",
+        "source": "community"
+      },
+      {
+        "name": "code diff",
+        "source": "community"
+      }
+    ],
+    "relatedSlugs": [
+      "code-editor",
+      "image-comparison-slider",
+      "comparison-table",
+      "syntax-highlighting",
+      "expandable-row"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "VS Code: Staging and committing changes (diff editor views)",
+        "url": "https://code.visualstudio.com/docs/sourcecontrol/staging-commits"
+      }
+    ],
+    "implementations": [
+      {
+        "systemId": "vscode",
+        "name": "Diff editor",
+        "url": "https://code.visualstudio.com/docs/sourcecontrol/staging-commits",
+        "verified": true
+      }
+    ],
+    "notes": "Its own axis is the term: split (two panes, one per version) versus unified (one column, both versions interleaved), and VS Code even switches between them on width, which makes the choice a responsive decision rather than a preference. That axis is what the specimen should show, in absolute picks. The rest of what the article owes: gutter markers and their colour pair, word-level marking inside a changed line versus line-level marking, collapsed runs of unchanged context and why they are collapsible rather than deleted, and alignment gaps opposite an addition, which are the part people misread as missing content. FENCES: image-comparison-slider is the picture equivalent and wipes rather than aligns, comparison-table compares OPTIONS by feature rather than two versions of one thing. Left unclaimed: three-way merge view and blame view, each a real neighbouring component rather than an alias of this one.",
+    "sweptFrom": [
+      "wishlist 2026-08-26"
+    ]
   }
 ]

@@ -427,10 +427,20 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   checked against the 1,070 published terms and their aliases: no collisions. Five of
   the six source URLs verified live 2026-08-26; the two Apple pages resolve without a
   body, as every HIG row in this file does.
-  TWO GAPS NAMED, DELIBERATELY NOT POOLED, because they were not asked for: there is
-  no corner-radius term at all (squircle and chamfer both lean on border-radius with
-  nothing to link to, and neither corner-radius nor border-radius is claimed as slug
-  or alias), and syntax-highlighting is neither a term nor a candidate.
+  THE SAME DAY, at the user's word, three more pooled (969 to 972): the two gaps this
+  sweep had only NAMED, corner-radius (aesthetic, head; filed with its siblings
+  squircle and chamfer, which both define themselves against a border-radius the site
+  never had, while its concentric partner stays in layout as a nesting rule) and
+  syntax-highlighting (color, core; the canonical instance of colour coding, so
+  variantOf rather than a fresh contrast, fenced against code-editor whose own
+  definition already lists syntax colouring as an editor feature, and carrying
+  'semantic highlighting' as an alias that is the obvious later split), plus one the
+  user added, diff-viewer (component, core; split versus unified is the term's own
+  axis and the demo's main move, with three-way merge and blame left unclaimed as
+  neighbouring components rather than aliases). All three checked clean against every
+  term slug, name and alias; MDN border-radius and both VS Code pages verified live,
+  the Material shape page recorded verified:false as another JS-rendered shell.
+  Pool 972, six unauthored, which became round 23.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the
