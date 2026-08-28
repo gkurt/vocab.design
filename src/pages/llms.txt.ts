@@ -22,7 +22,7 @@ export async function GET(): Promise<Response> {
     '',
     '## Tags',
     '',
-    'Cross-cutting groupings, one page each at /tags/{tag} and all of them listed on the front page.',
+    'Cross-cutting groupings, one page each at /tags/{tag}, and a filter on the search.',
     'A term has exactly one category and any number of tags.',
     'A tag marked [also a term] is a term too, at /{tag}: its members are derived from',
     'their own variantOf/partOf relations rather than declared, and are never in `tags`.',

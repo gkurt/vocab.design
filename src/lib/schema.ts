@@ -17,45 +17,75 @@ export const CATEGORIES = [
 export const SYSTEMS = ['aria-apg', 'material', 'hig', 'fluent', 'carbon', 'polaris', 'radix', 'base-ui', 'shadcn'] as const;
 
 /**
- * Cross-cutting facets, closed on purpose (SPEC §2.5). Most are reader-facing
- * groupings with no definition of their own, and `bun validate` holds those to a
- * minimum membership and to spanning more than one category, so a facet that is
- * really a subcategory fails rather than ships.
+ * Cross-cutting facets, closed on purpose (SPEC §2.5). The enum is collision
+ * control rather than curation: without it parallel authors would invent
+ * `mobile`, `mobile-first` and `small-screen` for one concern in a single round.
+ * Adding a tag here is an ordinary authoring move, not a ceremony; what
+ * `bun validate` holds it to is a floor of three members, so a tag nobody else
+ * ever reaches for fails rather than ships.
  *
  * Three are TERM-NAMED facets (dark-pattern, microinteraction,
  * responsive-web-design): the tag is also a term with a definition and a
  * specimen, its membership is derived from the members' own relations rather
- * than declared here, and the two floors do not apply because the name is the
+ * than declared here, and the floor does not apply because the name is the
  * concept rather than a filing convenience. `TERM_TAGS` in src/lib/tags.ts is
  * the list, and no term may declare one in its frontmatter.
  */
 export const TAGS = [
   'a11y',
   'ai',
+  'assistive-tech',
   'auth',
+  'canvas',
   'commerce',
+  'consent',
+  'content-design',
   'dark-pattern',
   'dataviz',
+  'depth',
+  'design-tools',
+  'devtools',
+  'dragging',
   'editorial',
+  'email',
+  'errors',
+  'fonts',
   'forms',
   'gamification',
+  'grids',
+  'i18n',
+  'icons',
+  'illustration',
   'keyboard',
   'media',
+  'menus',
   'messaging',
   'microinteraction',
   'navigation',
   'onboarding',
+  'overlays',
   'perceived-performance',
+  'perception',
   'platform-registers',
+  'pointer',
+  'progress',
   'responsive-web-design',
+  'retro',
+  'screen-size',
   'scroll',
   'search',
   'selection',
+  'sound',
+  'spacing',
   'tables',
+  'text-editing',
   'theming',
+  'time',
   'tokens',
   'touch',
+  'wcag',
   'web-platform',
+  'windowing',
 ] as const;
 
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'must be a kebab-case slug');

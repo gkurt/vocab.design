@@ -32,10 +32,8 @@ const KIT_ELEMENTS: Record<string, string> = { 'sp-segmented': 'segmented.ts', '
 const COMMENTS = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
 const UNQUOTED_DIGIT_SELECTOR = /\[[\w-]+=\d[^\]]*\]/;
-/** A tag facet earns its place by collecting this many terms; below it, it is noise (SPEC §2.5). */
-const TAG_FLOOR = 8;
-/** More than this on one term is tag soup: the chips stop discriminating anything (SPEC §2.5). */
-const TAGS_PER_TERM = 4;
+/** A tag facet earns a page by collecting this many terms; below it, it is a note (SPEC §2.5). */
+const TAG_FLOOR = 3;
 /** An internal link in prose. Prose links and `relations` are the two ways a reader crosses the graph. */
 const PROSE_LINK = /\]\((\/[^)\s]*)\)/g;
 /** A domain named in prose. Sites the prose points a reader at have to be anchors. */
@@ -165,8 +163,6 @@ for (const term of terms.values()) {
       errors.push(`${term.slug}: stubs carry only name/slug/category/definition and their dates (SPEC §2.3)`);
   }
 
-  if (term.tags.length > TAGS_PER_TERM)
-    errors.push(`${term.slug}: ${term.tags.length} tags is soup, keep it to ${TAGS_PER_TERM} (SPEC §2.5)`);
   if (new Set(term.tags).size !== term.tags.length) errors.push(`${term.slug}: repeats a tag`);
 
   if (term.demo !== 'none') {
@@ -241,23 +237,23 @@ for (const term of terms.values()) {
 }
 
 /**
- * Tag facets (SPEC §2.5). A tag that collects too few terms is noise, and one whose
- * members all sit in a single category is a subcategory wearing a tag's clothes: the
- * cross-cutting reach is the whole reason a tag exists rather than a tenth category.
+ * Tag facets (SPEC §2.5). One floor, and it is low: a tag that collects fewer than three
+ * terms is a note rather than a grouping. Everything above it exists, has a page and
+ * filters the search; whether it is also advertised on the front page is a display
+ * question, settled by `CHIP_FLOOR` in src/lib/tags.ts rather than here.
  *
- * Both floors exempt a term-named facet, whose name is a defined term rather than a
- * filing convenience, so neither objection applies to it: dark pattern's members are all
- * `pattern` and responsive web design's are all `layout`. They answer to their own two
- * rules below instead.
+ * There is deliberately no cross-category requirement. It was meant to stop a
+ * subcategory posing as a concern, but the facets that matter most are single-category
+ * (every dark pattern is a `pattern`), so the rule spent its life being exempted.
+ *
+ * The floor exempts a term-named facet, whose name is a defined term rather than a
+ * filing convenience. Those answer to their own two rules below instead.
  */
 const tagMembers = new Map<Tag, Term[]>(TAGS.map((tag) => [tag, []]));
 for (const term of terms.values()) for (const tag of term.tags) tagMembers.get(tag)?.push(term);
 for (const [tag, members] of tagMembers) {
   if (isTermTag(tag)) continue;
   if (members.length < TAG_FLOOR) errors.push(`tag "${tag}": ${members.length} members, needs ${TAG_FLOOR} (SPEC §2.5)`);
-  const categories = new Set(members.map((t) => t.category));
-  if (members.length > 0 && categories.size < 2)
-    errors.push(`tag "${tag}": every member is a ${[...categories][0]}, which makes it a subcategory (SPEC §2.5)`);
 }
 
 /**

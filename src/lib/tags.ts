@@ -10,30 +10,58 @@ import type { TermEntry } from '#src/lib/terms.ts';
 export const TAG_BLURBS: Record<Tag, string> = {
   a11y: 'Terms filed under their own kind that exist because of accessibility.',
   ai: 'The vocabulary of interfaces an assistant drives, or that drive one.',
+  'assistive-tech': 'The software that reads an interface out, and the ways people drive it.',
   auth: 'Signing in, staying in, and proving you are a person.',
+  canvas: 'An unbounded workspace, panned and zoomed, with things placed on it.',
   commerce: 'Choosing, paying, and the pressure applied along the way.',
+  consent: 'Permission asked for, and the ways it is manufactured.',
+  'content-design': 'The words in the interface, chosen as carefully as the pixels.',
   'dark-pattern': 'Every deceptive pattern that declares the term, from confirmshaming to the roach motel.',
   dataviz: 'Charts and the parts they are assembled from.',
+  depth: 'Making a flat screen read as raised, layered, or three dimensional.',
+  'design-tools': 'Vocabulary that comes from the tools designs are drawn in.',
+  devtools: 'Vocabulary that comes from the tools software is built with.',
+  dragging: 'Picking something up, moving it, and letting it go.',
   editorial: 'Vocabulary the page inherited from print and publishing.',
+  email: 'Designing for an inbox, and for the renderers mail arrives in.',
+  errors: 'Something went wrong, and the ways back out of it.',
+  fonts: 'The files type arrives in, and what they can do.',
   forms: 'Assembling a form, filling it in, and telling someone it is wrong.',
   gamification: 'Progress, streaks, and rewards used as motivation.',
+  grids: 'Columns, rows, and the structure a page is laid against.',
+  i18n: 'Scripts, directions, and languages other than the one it was drawn in.',
+  icons: 'Small drawings standing in for words.',
+  illustration: 'Drawn artwork inside an interface, and the styles it is drawn in.',
   keyboard: 'Reaching and driving an interface without a pointer.',
   media: 'Video, audio, images, and the controls and alternatives they need.',
+  menus: 'A list of commands, opened from something.',
   messaging: 'Conversations, presence, and things that arrive unannounced.',
   microinteraction: 'The loops that are kinds of one, and the ripples and toasts that are parts of one.',
   navigation: 'Getting somewhere else, and knowing where you are.',
   onboarding: 'The first run, the empty screen, and teaching in place.',
+  overlays: 'Surfaces that open over the page, and how they give it back.',
   'perceived-performance': 'Making a wait read as shorter than it is.',
+  perception: 'How eyes and attention actually take an interface in.',
   'platform-registers': 'Vocabulary that exists because of one platform: TV, watch, phone, desktop, headset.',
+  pointer: 'What a mouse or a pen can do that a finger cannot.',
+  progress: 'How far along something is, and how much of it is left.',
   'responsive-web-design': "LukeW's layout patterns, the five ways a page reflows as the viewport narrows.",
+  retro: 'Looks borrowed from an earlier era, on purpose.',
+  'screen-size': 'Designing for a screen whose size you do not know.',
   scroll: 'Everything that happens because a page is longer than a screen.',
   search: 'Asking for something by typing, and narrowing what comes back.',
   selection: 'Marking what an action will apply to.',
+  sound: 'Interfaces that are heard: speech, alerts, and audio.',
+  spacing: 'The empty room between things, and the scales it comes from.',
   tables: 'Rows, columns, and reading across both.',
+  'text-editing': 'Writing and editing text in place.',
   theming: 'One interface, more than one palette.',
+  time: 'Dates, clocks, calendars, and saying when.',
   tokens: 'Design decisions stored as names so they can be repointed.',
   touch: 'Input from a finger rather than a cursor.',
+  wcag: 'Terms that are, or come straight from, a WCAG success criterion.',
   'web-platform': 'Terms that name a web platform feature, not a design idea.',
+  windowing: 'Windows, panes, and the frame around an application.',
 };
 
 /**
@@ -68,6 +96,17 @@ export const FAMILY_EDGES = [
 
 /** A grouping this big would earn a tag even if its name were not a word, so it has to be one. */
 export const FAMILY_FLOOR = 8;
+
+/**
+ * How many members a tag needs before the front page advertises it as a chip (SPEC §2.5).
+ * Existence and display are separate questions, and this is the display half: a tag below
+ * it still has a page, still filters the search, and is still reached from every term that
+ * wears it, but the front page is a directory rather than an inventory and would rather
+ * carry twenty broad groupings than eighty chips reading "3".
+ *
+ * It is the old membership floor, kept at the one place it was ever doing work.
+ */
+export const CHIP_FLOOR = 8;
 
 export function isTermTag(tag: string): boolean {
   return (TERM_TAGS as readonly string[]).includes(tag);
@@ -110,6 +149,16 @@ export function facets(terms: TermEntry[]): TagFacet[] {
     const members = named ? terms.filter((t) => declares(t, tag)) : terms.filter((t) => t.data.tags.includes(tag));
     return { tag, label: tagLabel(tag), blurb: TAG_BLURBS[tag], term, terms: members.sort(byName) };
   });
+}
+
+/**
+ * Whether the front page names this tag (SPEC §2.5): broad enough to be worth scanning, or
+ * a word in its own right. A term-named facet is exempt from the display floor for the same
+ * reason it is exempt from the membership floor: a reader looking up "responsive web
+ * design" is looking up a term, and the front page is where the vocabulary is listed.
+ */
+export function isAdvertised(facet: TagFacet): boolean {
+  return facet.terms.length >= CHIP_FLOOR || (facet.term !== undefined && facet.terms.length > 0);
 }
 
 export interface FamilyGroup {

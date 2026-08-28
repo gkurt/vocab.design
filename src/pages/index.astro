@@ -4,7 +4,7 @@ import Base from '#src/layouts/Base.astro';
 import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
 import { LETTERS, letterOf } from '#src/lib/glossary.ts';
 import { CATEGORIES } from '#src/lib/schema.ts';
-import { facets } from '#src/lib/tags.ts';
+import { facets, isAdvertised } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
 import { pageUrl } from '#src/lib/url.ts';
 
@@ -12,6 +12,11 @@ const terms = await getTerms();
 const published = terms.filter((t) => t.data.status !== 'stub');
 const aliasCount = terms.reduce((n, t) => n + t.data.aliases.length, 0);
 const populated = facets(terms).filter((f) => f.terms.length > 0);
+/**
+ * The tags this page names. Every populated tag has a page of its own and filters the
+ * search; the broad ones are the ones worth scanning here (SPEC §2.5).
+ */
+const advertised = populated.filter(isAdvertised);
 const byCategory = CATEGORIES.map((category) => ({
   category,
   count: published.filter((t) => t.data.category === category).length,
@@ -85,7 +90,7 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
     <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">By tag</h2>
     <ul class="flex flex-wrap gap-2">
       {
-        populated.map(({ tag, label, terms: members }) => (
+        advertised.map(({ tag, label, terms: members }) => (
           <li>
             <a
               href={pageUrl(`/tags/${tag}`)}

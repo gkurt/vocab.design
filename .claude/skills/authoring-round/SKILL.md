@@ -270,10 +270,13 @@ deviations from briefs), and the remaining pool size.
 The consolidated relations pass has run (2026-08-21), so a new term no longer ships
 with empty `relations`: author its edges in the round, against the discrimination
 test in SPEC §2.3, and give a term whose family already has a head term a `variantOf`
-rather than a new contrast. Tags are the opposite rule and still hold: a facet
-arrives complete or not at all (SPEC §2.5), so leave `tags` empty unless the round
-covers a whole facet, and record the candidates in
-research/enumeration/canonicalize-notes.md instead.
+rather than a new contrast. Tags are authored too, since the corpus backfill
+(2026-08-29): give every term the tags it belongs to FROM THE ENUM AS IT STANDS, read
+off how the same facet was applied to that term's own family rather than from the tag
+name alone. What a round may not do is grow the enum: a tag invented while authoring
+nine terms is a tag chosen without knowing who else wants it, so record the candidate
+in research/enumeration/canonicalize-notes.md and let it be settled by a pass over the
+whole vocabulary (SPEC §2.5).
 
 ## 6. Promotion rounds
 
@@ -303,10 +306,8 @@ already exists and is already linked to.**
   session closes them centrally afterwards (the closure script is trivial and worth
   keeping). Check the eight-contrast hub cap after closure, not before: the
   2026-08-21 round pushed `select` to nine and had to drop its weakest new edge.
-- **Tags are the main session's, not the authors'.** A stub's term usually belongs to
-  a facet that already shipped complete, so leaving it out is the regression the
-  "arrives complete" rule exists to prevent. Assign them centrally, matching how the
-  facet was applied to that term's own family (read the neighbours' tags), rather than
+- **Tags are the main session's, not the authors'.** Assign them centrally, matching how
+  the facet was applied to that term's own family (read the neighbours' tags), rather than
   letting each agent invent its own reading of the enum.
 - **Editing in place.** Keep `name`, `slug` and `category` byte-identical: other pages
   link to that slug. A definition may be sharpened only after reading the articles

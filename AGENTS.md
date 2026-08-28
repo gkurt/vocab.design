@@ -73,7 +73,7 @@ agent use.
 SPEC.md                     # Canonical design doc — read first
 src/lib/schema.ts           # Zod v4 term schema (single source of truth): CATEGORIES, TAGS, SYSTEMS
 src/lib/terms.ts            # getTerms() — the ONE way to read the collection (see gotcha below)
-src/lib/tags.ts             # facets(): tag blurbs, and the three facets that are also terms
+src/lib/tags.ts             # facets(): tag blurbs, CHIP_FLOOR, the three facets that are also terms
 src/lib/categories.ts       # one blurb per category, for the browse pages
 src/lib/glossary.ts         # the A-Z entry list: every term AND every alias, sliced by letter
 src/lib/exhibit.ts          # the front page's carousel: its pool, and the dozen this build shows
@@ -104,7 +104,7 @@ src/pages/specimens/[page].json.ts # what the front page's carousel pulls once a
 src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
 src/pages/browse/           #   /browse/[category] (with definitions); the front page is the directory
 src/pages/browse.astro      #   /browse itself: a redirect to the front page, not an index
-src/pages/tags.astro        #   /tags likewise; the front page lists every facet
+src/pages/tags.astro        #   /tags likewise; the front page lists the broad facets
 src/pages/random.astro      #   /random: picks a slug in the browser and replaces itself
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
@@ -662,23 +662,32 @@ never fires under reduced motion, so nothing may ever wait on it.
   says tag, matching the URL, the frontmatter field and the Pagefind filter key. `facet`
   is the internal name for the enriched object `facets()` returns (a tag plus its label,
   blurb and members). Do not put it back on a page.
-- **Tags are a closed enum, and they arrive complete** (SPEC §2.5). `bun validate` holds
-  every ordinary facet to 8+ members spanning 2+ categories, and every term to at most 4
-  tags. A facet applied to 80% of its family is worse than no facet, so tagging a few
-  terms mid-round is not a partial contribution, it is a regression: grow the facet in one
-  pass over the whole family or leave it alone.
+- **Tags are a closed enum, but the enum is collision control rather than curation**
+  (SPEC §2.5). Parallel authors with no shared feedback loop invent `mobile`,
+  `mobile-first` and `small-screen` for one concern in a single round; the enum is what
+  makes the second author reach for the first one's word. Adding to it is an ordinary
+  authoring move: name the tag in `src/lib/schema.ts`, write its blurb in
+  `src/lib/tags.ts`, tag the terms. `bun validate` holds a tag to 3 members and no more:
+  no per-term cap, no cross-category requirement (the flagship facets are
+  single-category), and the old floor of 8 now governs only whether the FRONT PAGE
+  advertises the tag as a chip (`CHIP_FLOOR`), not whether it may exist.
+- **Growing the tag set is a corpus pass, never a per-term one** (SPEC §2.5). A tag
+  invented while authoring one term is a tag chosen without knowing who else wants it,
+  which is how 604 of 1,124 terms ended up with no `tags` key at all under the old gates.
+  An authoring round tags from the enum as it stands; changing the enum is its own pass
+  over the whole vocabulary.
 - **Three facets are also terms** (SPEC §2.5): `dark-pattern`, `microinteraction`,
   `responsive-web-design`, listed in `TERM_TAGS` in `src/lib/tags.ts`. Membership is
   DERIVED from the members' own `variantOf`/`partOf` and never declared, so `bun validate`
-  rejects a term carrying one in frontmatter; a member joins by authoring the relation and
-  spends none of its four tags. `/tags/{tag}` groups them by category and bridges to the
-  term; the term's page groups the same members by relation (`Variants`, `Contains`), which
-  then leave its Related rail. The two facet floors are waived for these, because a name
-  that is a defined term is the concept rather than a filing convenience (dark pattern's 17
-  members are all `pattern`). Two gates replace them: a term-named facet must collect
-  members, and a family of 8 or more must BE one, which is the floor read from the other
-  side and the reason the enum cannot go stale as authoring rounds add members. Contrast is
-  not membership, which is why skeuomorphism is not one of the three.
+  rejects a term carrying one in frontmatter; a member joins by authoring the relation.
+  `/tags/{tag}` groups them by category and bridges to the term; the term's page groups the
+  same members by relation (`Variants`, `Contains`), which then leave its Related rail. The
+  membership floor is waived for these, because a name that is a defined term is the
+  concept rather than a filing convenience (dark pattern's 17 members are all `pattern`).
+  Two gates replace it: a term-named facet must collect members, and a family of 8 or more
+  must BE one, which is the display floor read from the other side and the reason the enum
+  cannot go stale as authoring rounds add members. Contrast is not membership, which is why
+  skeuomorphism is not one of the three.
 - **Liveness in the listings** (SPEC §3). The front page carries a CAROUSEL: a dozen
   specimens at half size, one centred and playing, the row moving over by one card at each
   pass boundary and the card that left going round to the back, so it never ends. Its

@@ -175,25 +175,51 @@ user-visible string.
 `tags` is a closed enum in `src/lib/schema.ts` beside `CATEGORIES`, with one blurb per
 tag in `src/lib/tags.ts`. A category answers *what kind of thing is this*, and a term
 has exactly one; a facet answers *what concern does this serve*, and a term may have
-several. Every facet is listed on the front page, with one page each at `/tags/{tag}`, and
-either is also a filter on the search (§3).
+several. Every facet has a page of its own at `/tags/{tag}` and is a filter on the search;
+the front page lists the broad ones (§3, and the display floor below).
+
+The enum is COLLISION CONTROL, not curation. Terms are authored by parallel agents with no
+shared feedback loop, and freeform tagging gets `mobile`, `mobile-first`, `small-screen`
+and `touch-first` invented for one concern inside a single round. What the enum buys is
+that a second author reaches for the name the first one used. Adding to it is therefore an
+ordinary authoring move rather than a schema ceremony: name the tag, write its blurb, tag
+the terms that belong to it.
 
 The front page carries the categories in the same breath, because they are the grouping a
 reader looking for a facet will reach for first: a category is a filing decision rather
 than a concern that cuts across, and seeing both lists side by side is what says so.
 
-Three rules keep the vocabulary from inflating, all gated by `bun validate`:
+One rule gates existence, and it is low: **a facet collects at least three terms**, or it
+is a note rather than a grouping. Stubs carry no tags at all (§2.3). Nothing caps how many
+tags a term wears, and no rule asks a facet to span categories.
 
-- **A facet collects at least 8 terms.** Below that it is a note, not a grouping.
-- **A facet spans more than one category.** One whose members all sit in a single
-  category is a subcategory wearing a tag's clothes, and the whole reason tags exist
-  rather than a tenth category is the cross-cutting reach.
-- **At most 4 tags on a term**, and stubs carry none (§2.3). More than four and the
-  chips stop discriminating anything.
+Both of those were rules once, and both were mistakes worth recording. The 4-tag cap never
+bound: at its deletion the corpus had four terms wearing three tags and none wearing four.
+The cross-category rule was worse than inert. It was meant to stop a subcategory posing as
+a concern, but the facets that matter most are single-category (every dark pattern is a
+`pattern`, every responsive layout pattern a `layout`), so its most important instances
+were exemptions, and a rule whose flagship case needs an exemption is misspecified.
 
-Corollary of the first two: a facet applied to 80% of its family is worse than no facet,
-so a tag arrives complete or not at all. That is why tags could not come from per-round
-authoring agents and waited for the consolidated relations pass.
+The floor of 8 did the real damage, together with the category rule. For an agent authoring
+one term, reaching for an existing tag was cheap and coining a new one meant finding eight
+members across two categories in the same pass, which is a whole-corpus job inside a
+per-term job. So "no tag" became the cheapest rule-abiding move and won by default: 604 of
+1,124 terms, published ones, carried no `tags` key at all. The gates did not produce a
+curated taxonomy, they produced a mostly untagged corpus.
+
+**The display floor.** A tag needs `CHIP_FLOOR` members (8, the old membership floor kept
+at the one place it was ever doing work) before the front page advertises it as a chip.
+Below it a tag still exists, still has its page, still filters the search and is still
+reached from every term that wears it. Splitting existence from display is what lets the
+membership floor sit at three without the front page becoming eighty chips reading "3".
+A term-named facet is exempt and is always named, because a reader looking up
+`responsive web design` is looking up a term and the front page is where terms are listed.
+
+**Tagging is a corpus pass, not a per-term decision.** The tag set is decided against the
+whole vocabulary at once and then applied, for the same convergence reason the enum exists:
+a tag invented while authoring one term is a tag chosen without knowing who else wants it.
+A round that adds terms tags them from the enum as it stands; growing the enum is its own
+pass over everything.
 
 **Term-named facets.** Three facets are also terms, with a definition, an article and a
 specimen of their own: `dark-pattern`, `microinteraction`, `responsive-web-design`.
@@ -205,7 +231,7 @@ duplicative is that only ONE of the two halves is stored.
 - **Membership is derived, never declared.** A term is in a term-named facet when its own
   `variantOf` or `partOf` names it (`FAMILY_EDGES`): its kinds, and the parts of one. So
   the fact is recorded once, joining is an authoring decision rather than a tagging one,
-  no member spends one of its four tag slots, and the two records cannot drift.
+  and the two records cannot drift.
   `bun validate` rejects a term that declares one in frontmatter.
 - **Both pages carry the members, grouped differently.** `/tags/{tag}` groups by
   category, like any facet, and carries a bridge to the term ("also a term", with the
@@ -219,18 +245,16 @@ duplicative is that only ONE of the two halves is stored.
   declared tags, linking to `/tags/{tag}`. It reads as its word (`dark pattern`) rather
   than as a slug, which is the whole of the visible difference from an ordinary facet.
 
-**The two facet floors do not apply to a term-named facet**, and this is the point of the
-distinction rather than an exception to it. Both floors exist to stop a category
-subdivision from posing as a cross-cutting concern, and a name that is itself a defined
-term is the concept, not a filing convenience: dark pattern's seventeen members are all
-`pattern` and responsive web design's five are all `layout`, and both are still real
-words that readers look up. Ordinary facets stay held to both.
+**The membership floor does not apply to a term-named facet**, and this is the point of
+the distinction rather than an exception to it: a name that is itself a defined term is the
+concept, not a filing convenience, and its members are counted from relations nobody edits
+for tagging's sake.
 
-Two rules replace them, and `bun validate` enforces both. A term-named facet must
+Two rules replace it, and `bun validate` enforces both. A term-named facet must
 actually collect members, so the list cannot slide into being signage for words a reader
 might mistake for a facet. And **a family of 8 or more must BE a term-named facet**,
-which is the facet floor read from the other side: a grouping that size would earn a tag
-even if its name were not a word. That gate matters because a family grows when an
+which is the display floor read from the other side: a grouping that size would be
+advertised on the front page if it were a tag, so it has to be one. That gate matters because a family grows when an
 authoring round adds a member and never when someone edits the enum.
 
 Contrast is not membership, which is why skeuomorphism is not one of the three: every one
@@ -282,8 +306,9 @@ those are equivalent. Under that format Astro reports
 - Aliases: static redirect pages (`/snackbar` → `/toast`) with `rel=canonical`;
   the alias also appears in the target page's title metadata and on-page "also called".
 - `/` — the front page IS the directory. It carries one live specimen, the nine
-  categories, every facet, and the name of every term A to Z in columns, so the whole
-  vocabulary is reachable in one scroll from the one URL everyone already has. There is no
+  categories, every facet broad enough to advertise (§2.5), and the name of every term A to
+  Z in columns, so the whole vocabulary is reachable in one scroll from the one URL
+  everyone already has. There is no
   `/browse` and no `/tags` index: a directory page above a directory page is a click that
   says nothing, and the front page had nothing better to spend its length on. `/browse`
   is nevertheless published, as a redirect here: Google indexed the URL before the site
