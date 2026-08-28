@@ -19,18 +19,17 @@ const aliasCount = entries.filter((e) => e.canonical).length;
       Glossary
     </h1>
     <p class="article mt-5 text-muted">
-      Every name the dictionary answers to, alphabetically: {
+      Every name on this site, alphabetically: {
         entries.length - aliasCount
-      } terms and {aliasCount} aliases. An alias is not a footnote here, it is the
-      spelling most people arrive with, so each one is listed under its own letter
-      and takes you to the term it names.
+      } terms and {aliasCount} aliases. Aliases are listed under their own letter
+      and link to the term they name.
     </p>
     <p class="article mt-4 text-sm text-muted">
       Looking for a kind of thing rather than a name? The{" "}
       <a href={pageUrl("/")} class="text-accent underline underline-offset-3">
         front page
       </a>{" "}
-      lists every term by category and by facet.
+      lists every term by category and by tag.
     </p>
   </section>
 

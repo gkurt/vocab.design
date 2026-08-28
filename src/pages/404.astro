@@ -13,8 +13,8 @@ import { pageUrl } from '#src/lib/url.ts';
       Not in the dictionary.
     </h1>
     <p class="article mt-5 text-muted">
-      Terms live at the top level, so this was probably a headword that is
-      spelled differently here, or one nobody has written up yet.
+      We could not find that word. Check the spelling, or search the
+      dictionary.
     </p>
     <a
       data-search-for
@@ -35,11 +35,11 @@ import { pageUrl } from '#src/lib/url.ts';
 
   <section class="mb-12 text-sm text-muted">
     Or start from <a href={pageUrl("/")} class="underline hover:text-ink"
-      >the dictionary</a
-    >, which lists every term by category, by facet and A to Z, or the <a
+      >the front page</a
+    >, which lists every term by category, by tag and A to Z, or the <a
       href={pageUrl("/glossary")}
-      class="underline hover:text-ink">A&ndash;Z</a
-    > with the aliases in it.
+      class="underline hover:text-ink">glossary</a
+    >, which includes every alias.
   </section>
 
   <script>

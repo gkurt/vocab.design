@@ -163,6 +163,15 @@ must (enforced by `bun validate`).
 
 ### 2.5 Tags (cross-cutting facets)
 
+**Naming.** The reader-facing word is **tag**, everywhere on the site: "By tag" on the
+front page, "All tags" in the search filter, `tag` in the eyebrow above `/tags/{tag}`.
+It matches the URL, the frontmatter field and the Pagefind filter key, all of which said
+`tag` all along, so the site no longer carries two words for one thing. **Facet** survives
+as the INTERNAL name only, for the enriched object `facets()` returns (a tag plus its
+label, blurb and members) and in this document, where the distinction from a category is
+the thing being described. Never reintroduce it into a page, a component, or any
+user-visible string.
+
 `tags` is a closed enum in `src/lib/schema.ts` beside `CATEGORIES`, with one blurb per
 tag in `src/lib/tags.ts`. A category answers *what kind of thing is this*, and a term
 has exactly one; a facet answers *what concern does this serve*, and a term may have

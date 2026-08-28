@@ -26,12 +26,12 @@ const byCategory = CATEGORIES.map((category) => ({
 ---
 
 <Base
-  title={`${facet.label} · facet · vocab.design`}
+  title={`${facet.label} · tag · vocab.design`}
   description={facet.blurb}
 >
   <section class="pt-10 pb-10">
     <p class="text-sm text-muted italic">
-      facet{facet.term && " · also a term"}
+      tag{facet.term && " · also a term"}
     </p>
     <h1 class="mt-1 font-serif text-4xl font-semibold tracking-tight">
       {facet.label}
@@ -41,7 +41,7 @@ const byCategory = CATEGORIES.map((category) => ({
       {facet.terms.length} terms across {byCategory.length}{" "}
       {byCategory.length === 1 ? "category" : "categories"} · <a
         href={pageUrl("/")}
-        class="text-accent underline underline-offset-3">all facets</a
+        class="text-accent underline underline-offset-3">all tags</a
       >
     </p>
     {
@@ -54,9 +54,8 @@ const byCategory = CATEGORIES.map((category) => ({
           >
             {facet.term.data.name}
           </a>{" "}
-          is a term as well as a facet, so its own page carries the definition, a
-          specimen, and these same members grouped by the relation that joins
-          them rather than by category.
+          is also a term in its own right. Its page carries the definition, a
+          specimen, and these same members grouped by how they relate to it.
         </p>
       )
     }

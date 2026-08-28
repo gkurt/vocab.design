@@ -268,8 +268,8 @@ export class SiteSearch extends HTMLElement {
       this.#more.hidden = true;
       this.#say(
         scope
-          ? `Nothing for "${query}" in ${scope}. Widen the filter, or try the other name for it.`
-          : `Nothing for "${query}". Aliases are indexed, so try the other name for it.`,
+          ? `No results for "${query}" in ${scope}. Try removing the filter, or another spelling.`
+          : `No results for "${query}". Try another spelling, or describe the thing you mean.`,
       );
       this.#scheduleReport(query, attempt);
       return;
@@ -490,7 +490,7 @@ export class SiteSearch extends HTMLElement {
     const { corrected, ran } = attempt;
     if (corrected && ran) return ` for "${ran}", correcting the spelling of "${query}" and dropping the rest`;
     if (corrected) return ` for "${corrected}", since nothing here is spelled "${query}"`;
-    if (ran) return ` for "${ran}", since the rest of that is not in any article`;
+    if (ran) return ` for "${ran}", since the other words are not in the dictionary`;
     return '';
   }
 

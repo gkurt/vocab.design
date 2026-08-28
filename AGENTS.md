@@ -658,6 +658,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   answers a discrimination test (SPEC §2.3): an edge earns its place when someone
   describing one term could reach for the other term's word, not when the two merely
   look alike. Hubs stay at eight contrasts at most, or the Which word? table drowns.
+- **"Tag" is the reader's word, "facet" is ours** (SPEC §2.5). Every user-visible string
+  says tag, matching the URL, the frontmatter field and the Pagefind filter key. `facet`
+  is the internal name for the enriched object `facets()` returns (a tag plus its label,
+  blurb and members). Do not put it back on a page.
 - **Tags are a closed enum, and they arrive complete** (SPEC §2.5). `bun validate` holds
   every ordinary facet to 8+ members spanning 2+ categories, and every term to at most 4
   tags. A facet applied to 80% of its family is worse than no facet, so tagging a few

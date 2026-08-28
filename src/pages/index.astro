@@ -50,8 +50,8 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
       say exactly what you mean.
     </p>
     <p class="mt-6 text-sm text-muted">
-      {published.length} terms · {aliasCount} aliases · {populated.length} facets
-      · a specimen on every page
+      {published.length} terms · {aliasCount} aliases · {populated.length} tags ·
+      a specimen on every page
     </p>
   </section>
 
@@ -82,13 +82,7 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
   </section>
 
   <section class="mb-12">
-    <h2 class="mb-2 text-sm tracking-wide text-muted uppercase">By facet</h2>
-    <p class="article mb-4 text-sm text-muted">
-      A term has exactly one category, because a term is one kind of thing.
-      Facets cut the other way, collecting terms that answer to the same concern
-      from wherever they are filed. A few are words in their own right, with a
-      definition and a specimen as well as a page of members.
-    </p>
+    <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">By tag</h2>
     <ul class="flex flex-wrap gap-2">
       {
         populated.map(({ tag, label, terms: members }) => (
@@ -112,11 +106,11 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
       <span class="text-xs text-muted">{published.length}</span>
     </div>
     <p class="article mb-5 text-sm text-muted">
-      The whole vocabulary, A to Z. Aliases are left out here so the headwords
-      read as a list; the <a
+      The whole vocabulary, A to Z. For the other names each term goes by, see
+      the <a
         href={pageUrl("/glossary")}
         class="text-accent underline underline-offset-3">glossary</a
-      > carries every spelling the site answers to.
+      >.
     </p>
     <div class="columns-2 gap-x-6 sm:columns-3">
       {
@@ -153,8 +147,8 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
           In progress
         </h2>
         <p class="article mb-4 text-sm text-muted">
-          These have a definition so links never dead-end. The article and
-          specimen are still to come.
+          These terms have a definition. The full article and specimen are
+          still to come.
         </p>
         <ul class="flex flex-wrap gap-2">
           {stubs.map((t) => (

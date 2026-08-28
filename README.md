@@ -5,15 +5,15 @@ specimen, its aliases, and the connections between them. Built on the observatio
 working with AI agents is mostly about knowing the vocabulary and using it correctly.
 
 Every term has one category (what kind of thing it is), any number of cross-cutting
-facets, and a graph of relations: what it contrasts with, what it is a variant or part of,
+tags, and a graph of relations: what it contrasts with, what it is a variant or part of,
 what to read next. The front page carries a carousel of live specimens, in a different
-order every time, and then the directory: the ten categories, every facet, and the name
-of every term A to Z. A category or facet listing shows the demonstrations too, one card per term, with the
+order every time, and then the directory: the ten categories, every tag, and the name
+of every term A to Z. A category or tag listing shows the demonstrations too, one card per term, with the
 stage passing down the page from one to the next (and stopping wherever the pointer
 rests). From there, `/browse/{category}` lists one category with
-definitions, `/tags/{tag}` lists one facet, `/glossary` carries every name and alias A to
-Z, and `/search` is full text over every article, narrowable to a category or a facet.
-A few facets are words in their own right (dark pattern, microinteraction), so they have
+definitions, `/tags/{tag}` lists one tag, `/glossary` carries every name and alias A to
+Z, and `/search` is full text over every article, narrowable to a category or a tag.
+A few tags are words in their own right (dark pattern, microinteraction), so they have
 a definition and a specimen as well as a page of members.
 Following a link swaps the page rather than reloading it, over the platform's own view
 transitions, so the chrome holds still and a term cross-fades in; links are ordinary links

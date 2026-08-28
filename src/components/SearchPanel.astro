@@ -78,9 +78,9 @@ const facetOptions = TAGS.map((tag) => ({ tag, label: tagLabel(tag) }));
       </select>
     </label>
     <label class="min-w-0">
-      <span class="sr-only">Narrow to a facet</span>
+      <span class="sr-only">Narrow to a tag</span>
       <select data-search-filter="tag" class="vd-select">
-        <option value="">All facets</option>
+        <option value="">All tags</option>
         {facetOptions.map(({ tag, label }) => <option value={tag}>{label}</option>)}
       </select>
     </label>
@@ -125,15 +125,15 @@ const facetOptions = TAGS.map((tag) => ({ tag, label: tagLabel(tag) }));
     !dialog && (
       <noscript>
         <p class="mt-4 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-          Search needs JavaScript, which is the one place on this site that does. Without
-          it, <a href={pageUrl("/glossary")} class="text-accent underline underline-offset-3">
+          Search needs JavaScript. Without it, the{" "}
+          <a href={pageUrl("/glossary")} class="text-accent underline underline-offset-3">
             the glossary
           </a>{" "}
           lists every term and alias A to Z, and the{" "}
           <a href={pageUrl("/")} class="text-accent underline underline-offset-3">
             front page
           </a>{" "}
-          groups them by category and by facet.
+          groups them by category and by tag.
         </p>
       </noscript>
     )

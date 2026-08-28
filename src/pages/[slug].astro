@@ -295,8 +295,8 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
 
           {d.status === "stub" && (
             <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-              This entry is in progress. The definition is here so links never
-              dead-end; the full article and specimen are coming.
+              This entry is in progress. The full article and specimen are
+              still to come.
             </p>
           )}
 
@@ -351,12 +351,12 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
           <section class="mt-10" data-pagefind-ignore>
             <h2 class="text-sm tracking-wide text-muted uppercase">Family</h2>
             <p class="mt-1 text-sm text-muted">
-              {family.members.length} terms declare {d.name.toLowerCase()} ·{" "}
+              {family.members.length} terms belong to {d.name.toLowerCase()} ·{" "}
               <a
                 href={pageUrl(`/tags/${family.tag}`)}
                 class="text-accent underline underline-offset-3"
               >
-                the same facet by category
+                see them grouped by category
               </a>
             </p>
             {family.groups.map(({ label, terms }) => (
@@ -414,7 +414,8 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
               Implementations
             </h2>
             <p class="mt-1 text-sm text-muted">
-              Specimens illustrate the concept; for production use, start here.
+              The specimen above shows the idea. To build it, start with one of
+              these.
             </p>
             <table class="mt-3 w-full text-sm">
               <tbody>
