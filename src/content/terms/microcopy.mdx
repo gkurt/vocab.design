@@ -1,0 +1,75 @@
+---
+name: Microcopy
+slug: microcopy
+category: pattern
+status: published
+created: 2026-08-28
+modified: 2026-08-28
+definition: >-
+  An interface's smallest strings: the verb on the button, the line under the field, the
+  sentence when it fails. Short enough to be read every time.
+aliases:
+  - name: UX writing
+    source: nngroup
+  - name: UX copy
+    source: nngroup
+  - name: UI copy
+    source: community
+  - name: interface copy
+    source: community
+  - name: product copy
+    source: community
+relations:
+  contrastWith: [fine-print, plain-language, helper-text]
+implementations:
+  - system: carbon
+    name: Writing style
+    url: https://carbondesignsystem.com/guidelines/content/writing-style/
+sources:
+  - title: 'NN/g: The 3 I''s of Microcopy, Inform, Influence, and Interact'
+    url: https://www.nngroup.com/articles/3-is-of-microcopy/
+  - title: 'NN/g: UX Copy Sizes, Long, Short, and Micro'
+    url: https://www.nngroup.com/articles/ux-copy-sizes/
+  - title: 'NN/g: The 3 C''s of Informational Microcopy'
+    url: https://www.nngroup.com/articles/3-cs-microcopy/
+  - title: 'Kinneret Yifrah, Microcopy: The Complete Guide (2nd edition)'
+    url: https://www.microcopybook.com/
+demo: inline
+useWhen: the words a control needs to be understood, not the prose around it
+---
+
+Microcopy is the copy that is part of the interface rather than published through it. The
+useful boundary is the one the Nielsen Norman Group draws by size and position: strings
+shorter than about three sentences, attached to a control or a state, and read far more
+often than anything a content team would call content. The verb on a button, the line under
+a field, the sentence that appears when a card is declined, the two words in an empty list.
+Nobody sits down to read any of it, and everybody reads all of it, which is why the cost of
+getting it wrong is paid on every session rather than once.
+
+It is a class, not a component, and this dictionary is mostly full of its instances.
+[Helper text](/helper-text) is microcopy under a field before anything has gone wrong. An
+[error message](/error-message) is microcopy after a value has been judged. An
+[empty state](/empty-state) and a [no results state](/no-results-state) are microcopy
+standing in for content that is not there, [placeholder as label](/placeholder-as-label) is
+microcopy doing a job it cannot do, and [confirmshaming](/confirmshaming) is microcopy used
+against the reader. The class is worth naming anyway, because the work of writing all of it
+is one job with one voice, done by one person, and a team with no word for that job tends to
+leave the strings to whoever built the control.
+
+Two neighbours are close enough to be worth separating. [Plain language](/plain-language) is
+a rule about reading level, and it applies to any text at all, a thousand word policy page
+included: it says how the sentence should be written, not which sentences these are.
+Microcopy is a class of strings picked out by their size and their position in the
+interface, and it can be written at any reading level, badly or well. The other edge is
+[fine print](/fine-print), and the difference there is intent: microcopy is written to be
+read every time and sized for it, while fine print is written to be present. Both are short
+interface text, and only one of them wants your attention.
+
+The tell that nobody has done the work is the default string. "Submit" is what a button says
+when it has no idea what it sends; "Invalid input" is what a form says when it knows exactly
+what is wrong and cannot be bothered to say. Replacing them is cheap and it is not really a
+writing problem: the verb on the button should name the thing that happens, the line under
+the field should say the rule before it is broken, and the failure should say what to do
+next. That only happens if the strings are written where they live. Copy drafted in a
+spreadsheet and pasted in later is copy written without the button, and a phrase that reads
+fine in a cell is the phrase that wraps to three lines on a phone.

@@ -1,0 +1,4 @@
+term:    Microcopy
+scope:   element
+subject: span[data-part=verb][data-set=default]
+text:    Submit

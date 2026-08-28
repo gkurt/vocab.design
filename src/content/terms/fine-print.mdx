@@ -1,0 +1,73 @@
+---
+name: Fine print
+slug: fine-print
+category: typography
+status: published
+created: 2026-08-28
+modified: 2026-08-28
+definition: >-
+  Qualifying text set small and set last, carrying the conditions that the larger claim
+  above it leaves out.
+aliases:
+  - name: small print
+    source: community
+  - name: disclaimer
+    source: community
+  - name: legal copy
+    source: community
+  - name: mouseprint
+    source: community
+  - name: mouse print
+    source: community
+relations:
+  contrastWith: [helper-text, microcopy, misdirection]
+implementations: []
+sources:
+  - title: 'FTC Business Guidance: Full Disclosure (2014)'
+    url: https://www.ftc.gov/business-guidance/blog/2014/09/full-disclosure
+  - title: 'FTC: .com Disclosures, How to Make Effective Disclosures in Digital Advertising (2013)'
+    url: https://www.ftc.gov/system/files/documents/plain-language/bus41-dot-com-disclosures-information-about-online-advertising.pdf
+  - title: 'Understanding WCAG 2.2: 1.4.4 Resize Text'
+    url: https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html
+demo: inline
+useWhen: the terms that qualify a claim, set below the threshold of attention
+---
+
+Fine print is a treatment rather than a kind of sentence. What makes a line fine print is
+how it is set and where it sits: a size or two below the body, contrast dropped toward the
+ground, and a position at the bottom of the block, after the thing it qualifies has already
+been read and believed. The content is usually the condition the headline leaves out. Three
+months free, and then the price. Unlimited, up to a limit. Free returns, in the country the
+order shipped from. None of that is dishonest by itself, and a real condition genuinely has
+to be stated somewhere, which is why the honest use of the phrase is simply the definition.
+
+The Federal Trade Commission has the most useful vocabulary for arguing about it, because it
+had to write rules an advertiser could be held to. Its four P's are prominence, presentation,
+placement and proximity: is the qualifier big enough and contrasted enough to be noticed, is
+it worded and formatted so it can be understood, is it somewhere the reader will actually
+reach, and is it near the claim it modifies. The maxim from its 2014 guidance is the shortest
+version of the whole subject: what the headline giveth, the footnote cannot taketh away. A
+qualifier that reverses the claim above it is not a qualifier, whatever size it is set at.
+
+The failure mode is burying a material term, not stating one, and that is where the word
+starts touching [misdirection](/misdirection): a decline sitting under a heading of small
+print reads as small print, and a cancellation clause set at nine grey pixels below the fold
+is a claim the design has decided not to make. The two useful moves are the boring ones.
+Anything that changes what a person is agreeing to travels up next to the claim and gets set
+at a size a reader can hold, so a [form](/form) states the condition in the flow rather than
+leaving it as a rule buried in the small print. Anything that is genuinely reference material
+can stay at the foot, which is the honest job of the band at the bottom of a
+[pancake stack](/pancake-stack). What cannot happen is the material term travelling down there
+to keep the offer looking clean.
+
+Two neighbours are close enough to be worth separating. [Helper text](/helper-text) also sets a
+small line under something, but it is preventative: it states a format before anything has gone
+wrong, and it is the one line of small print near a field that is not qualifying a claim. And
+[microcopy](/microcopy) is the wider class of an interface's short strings, so the edge between
+the two words is whether the design wants them read. Microcopy is written to be read every time
+and sized for it; fine print is written to be present. Set it accessibly regardless, because the
+qualifier is the text most likely to be pinned in place: fixed pixel type that will not survive a
+reader at two hundred percent zoom fails WCAG 1.4.4 whatever the legal department signed off, and
+a line set in an image of text is a condition a screen reader never gets to state at all. Small
+print at the moment of highest attention is a strange trade, which is the objection a
+[floating label](/floating-label) runs into from the other direction.

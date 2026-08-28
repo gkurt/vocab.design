@@ -1,0 +1,71 @@
+---
+name: Wireframe
+slug: wireframe
+category: pattern
+status: published
+created: 2026-08-28
+modified: 2026-08-28
+definition: >-
+  A screen drawn as structure only: blocks where the content goes, a crossed box for an
+  image, ruled lines for text, with no colour or type decided yet.
+aliases:
+  - name: wireframing
+    source: community
+  - name: low-fidelity wireframe
+    source: nngroup
+  - name: lo-fi wireframe
+    source: community
+  - name: wires
+    source: community
+relations:
+  contrastWith: [mockup, prototype, skeleton-screen]
+  seeAlso: [hand-drawn-ui]
+implementations: []
+sources:
+  - title: "NN/g: UX Prototypes, Low Fidelity vs. High Fidelity"
+    url: https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/
+  - title: "NN/g: Prototypes vs Wireframes in UX Projects"
+    url: https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/
+  - title: "Balsamiq: What are wireframes?"
+    url: https://balsamiq.com/learn/articles/what-are-wireframes/
+  - title: "Interaction Design Foundation: Wireframe"
+    url: https://www.interaction-design.org/literature/topics/wireframe
+demo: inline
+useWhen: settling what goes where before deciding how any of it looks
+---
+
+A wireframe is a drawing with a shared shorthand, and the shorthand is most of what the
+word means. A grey rectangle is a region of content whose contents are not the argument
+yet. A box with a diagonal cross through it is an image, borrowed from engineering
+drawings where the cross has meant "this face is flat" for a century. Ruled lines are
+text, with a longer, heavier line for a heading and a stack of shorter ones for a
+paragraph. A rectangle with one short line in it is a control. Nobody has to be told any
+of this, which is the point: the conventions are cheap to draw, cheap to change, and
+carry no opinion about typeface, palette, or copy.
+
+That poverty is deliberate. A picture is argued with at the level of precision it claims,
+so a screen with real type, real colour and pixel-true alignment collects comments about
+type, colour and alignment, while the same layout in grey blocks collects comments about
+whether the steps are in the right order. Keeping the drawing crude keeps the
+conversation on structure: what is on this screen, what is above the fold, what the
+reader is meant to do first. [Hand-drawn UI](/hand-drawn-ui) makes the same promise with
+line quality rather than with content, which is why the two travel together: a wobbling
+stroke says out loud that nothing here is settled.
+
+The comparison worth being precise about is with a
+[skeleton screen](/skeleton-screen), because the two look almost identical and are
+opposites in purpose. A skeleton is the wireframe the reader sees, at runtime, standing in
+for content that is on its way and about to be replaced by it. A wireframe is the one only
+the team sees: it is never shipped, it stands in for content nobody has written yet, and
+it is replaced by a decision rather than by data. If grey blocks are on a production
+screen and a person is looking at them, that is a skeleton, whatever the file was called.
+
+The failure mode is the wireframe that keeps getting more finished. Once a wireframe
+acquires a palette, a typeface and real copy, it has become a [mockup](/mockup) and
+stopped being cheap to throw away, which is the only property that made it useful.
+Adding [lorem ipsum](/lorem-ipsum) is the halfway house and it has the same cost: the
+ruled line said "text of about this much", and a Latin paragraph quietly asserts a
+length nobody has checked. Wireframes are also easy to over-produce. Twenty of them
+describe a flow worse than one [prototype](/prototype) does, because a flow is about
+what follows what, and no still picture can show that.
+

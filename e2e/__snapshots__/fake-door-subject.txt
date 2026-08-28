@@ -1,0 +1,4 @@
+term:    Fake door
+scope:   element
+subject: button.sp-button.sp-button--sm[data-open=false][data-part=door][type=button]
+text:    Schedule weekly

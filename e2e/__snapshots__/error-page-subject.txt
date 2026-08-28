@@ -1,0 +1,4 @@
+term:    Error page
+scope:   element
+subject: div[data-part=page][data-register=plain]
+text:    Page not found If you typed the web address, check it is correct. If you pasted 

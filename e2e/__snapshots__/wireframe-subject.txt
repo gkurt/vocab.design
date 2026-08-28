@@ -1,0 +1,4 @@
+term:    Wireframe
+scope:   element
+subject: div[data-part=drawing]
+text:    

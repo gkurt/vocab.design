@@ -1,0 +1,4 @@
+term:    Prototype
+scope:   element
+subject: div[data-part=board]
+text:    Find a trip ON SCREEN Flights Hotels Search Lisbon ON SCREEN 3 results for Alex 

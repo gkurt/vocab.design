@@ -1,0 +1,4 @@
+term:    Mockup
+scope:   element
+subject: div.sp-surface[data-part=pane][data-pose=[data-state=mockup]][data-state=mockup]
+text:    AD Ana Diaz Payment card expired Recent trips Lisbon 12 Mar Turin 4 Apr Bergen 2

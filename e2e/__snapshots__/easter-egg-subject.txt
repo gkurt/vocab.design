@@ -1,0 +1,4 @@
+term:    Easter egg
+scope:   element
+subject: div.sp-surface[data-part=reward]
+text:    AOPRTGMJ Hi from the four of us who built this. Nothing else lives back here.

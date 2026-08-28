@@ -23,8 +23,9 @@ live is marked; everything else is kept as the record of what was decided and wh
   the same day (below) added 33, taking the pool to 1,010 records with 38 unauthored,
   the largest unauthored backlog since round one, all 38 of which round 24 authored the
   same day, emptying the pool again; the 2026-08-28 wishlist sweep (below) added 8, taking
-  the pool to 1,018 records with those 8 unauthored, which is what pool-remaining.ts now
-  prints. That count is the length of candidates.json, which is APPENDED to and never
+  the pool to 1,018 records with those 8 unauthored, and contribution-graph took it to 1,019
+  the same day; round 25 then authored all 9, emptying the pool again, so pool-remaining.ts
+  prints nothing. That count is the length of candidates.json, which is APPENDED to and never
   regenerated: see the pipeline gotcha filed with the 2026-08-28 entry before running
   scripts/merge-enumeration.ts.
 
@@ -683,11 +684,18 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   VERIFICATION RESIDUE: two implementation rows stay verified:false on URL resolution
   only, Material 3's Elevation and the HIG's Top Shelf, both JS-rendered pages that
   answer an automated fetch with no body. Neither article was worded from them.
-  NOT PROVEN: the specimen suite. The static gates are green (1,114 terms valid, 0
-  stubs, typecheck, biome, unit tests) and every author audited its own specimens
-  through vd-stage.audit() on the dev server, but no subject snapshot exists for the 38
-  new specimens until a test:e2e:new run writes one, so what each of them identifies as
-  is recorded nowhere yet.
+  PROVEN LATE: the specimen suite. The static gates were green on the day (1,114 terms
+  valid, 0 stubs, typecheck, biome, unit tests) and every author audited its own
+  specimens through vd-stage.audit() on the dev server, but the round shipped with no
+  subject snapshot for any of its 38 specimens, so what each identified as was recorded
+  nowhere. The gap was closed on 2026-08-28, when round 25's `test:e2e:new` discovered 47
+  new specimens rather than nine: these 38 plus that round's own. All 38 came back clean,
+  with no behavioural failure anywhere in the choreography, takeover, mid-attract or
+  reduced-motion passes, and their snapshots are committed alongside round 25's.
+  THE LESSON is a process one. `test:e2e:new` finds its work by the ABSENCE of a snapshot,
+  so a round that skips the gate leaves no trace of the omission except a silence that the
+  next round pays for, at four times the size. Run it in the round that authored the
+  specimens.
 - User wishlist (2026-08-28), shaped and pooled (8 records, pool 1,010 to 1,018, and the
   first records since round 24 emptied it). Three wishes, and each one turned out to name
   a family rather than a term, so the round is batched the way round 24 was: by family,
@@ -795,6 +803,94 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   NOT in the site schema's nine tracked SYSTEMS, so error-page's implementation row has to
   become a source when the term file is written. The pool is richer than the schema on
   purpose, and this is the first record in a while where that bites at authoring time.
+- ROUND 25 (2026-08-28): all 9 records authored, taking the site from 1,114 to 1,123 terms
+  and emptying the pool again.
+  BATCHED BY FAMILY, five batches for four categories: words 2 (fine-print, microcopy),
+  ladder 3 (wireframe, mockup, prototype), absence 2 (error-page, fake-door), secret 1
+  (easter-egg), grid 1 (contribution-graph). Round 24's lesson held: batching the ladder by
+  category would have split three terms that define each other, and one owner per family
+  put both sides of every intra-family discrimination in one head.
+  THE ONE THING WORTH COPYING from this round is the IOU sweep at roster time, which cost
+  ten minutes and changed two briefs. Grepping the published corpus for each candidate's
+  own spellings found that mockup was already NAMED in ten articles, all saying the same
+  thing ("looks tidy in a mockup and fails in the hand"), with accessibility-annotation's
+  definition going furthest: annotations exist to spell out "the things a mockup cannot
+  show". That turned mockup from the round's weakest term, which is what it looked like when
+  it was pooled, into a term whose article was already half written by its neighbours, and
+  it set the specimen (the same screen in its best case against the same screen meeting a
+  reader). fine-print had five IOUs, including helper-text's explicit hand-off ("what
+  separates it from every other line of small print near a field"). Every one of those IOUs
+  is now paid in PROSE, not just in a relation: fine-print links all five.
+  TWO FENCES the slug and definition checks could never have found, both written into briefs
+  and both now in the articles: fake-door against feature-gate (a feature gate's locked
+  feature EXISTS behind a paywall, a fake door's does not exist at all) and microcopy
+  against plain-language (a reading-LEVEL rule that applies to any copy, against a class of
+  strings defined by their size and position).
+  SUBJECT DECISIONS worth recording, since two are judgement calls a later round will face
+  again. microcopy marks the verb span on ONE of its three rows rather than the container
+  holding all three: the class has no element, and marking the container would have claimed
+  the scene. prototype marks the BOARD holding both screens rather than either screen or the
+  top-level wrapper, so identify keeps something narrower than the scene to point at.
+  mockup is the round's data-pose carrier (`data-pose="[data-state=mockup]"` on the pane,
+  which mounts in that state), because in the reader's-reality state the pane has stopped
+  being a mockup and identify must refuse to pose it.
+  contribution-graph did the accessibility duty as GitHub's own 2023 answer rather than as a
+  gesture: a real 53x7 table, visually-hidden caption naming range and shape, month `th
+  scope=col` with colspan, weekday `th scope=row` positioned absolutely so a 9px label
+  cannot make an 8px row taller, a full sentence of hidden text per cell, and a roving
+  tabindex whose keys have their defaults refused per key. It also found a real kit trap:
+  `--sp-sunken` is DARKER than the surface in dark mode, so a zero-count square painted with
+  it reads as a hole; level zero is ink-over-surface instead.
+  THE LADDER BATCH DIED mid-response on a connection error, after finishing wireframe and
+  before mockup and prototype. The verify gate, which is not told the round's shape, then did
+  the SPEC 2.3-sanctioned thing and created mockup and prototype as STUBS so wireframe's
+  declared contrasts would resolve. That is correct behaviour in isolation and exactly the
+  debt this family was pooled whole to avoid, so a finish run authored both properly the same
+  day: status flipped, demo inline, name/slug/category byte-identical, the reciprocal
+  contrastWith edges declared back, and the visual and audit passes re-run over ALL THREE
+  ladder specimens rather than just the two new ones, since the agent that wrote wireframe
+  died and may never have checked it (it was clean).
+  A FAILURE MODE FOR THE SKILL: the verify gate should be told how many terms the round has
+  and which slugs, because a gate that finds an unexpected finished term has no way to tell
+  a half-finished round from a stub the round meant to mint. This one reported the discrepancy
+  clearly, which is the only reason it was caught in the same session.
+  RELATIONS were declared BOTH ways by the authors this round rather than one-sided, and it
+  worked: 18 pre-existing files gained a symmetric back-edge and a bumped `modified`, all
+  frontmatter-only, no invented prose kinship (round 23's failure mode), and every hub still
+  under the eight-contrast cap, helper-text highest at seven. `bun validate` reported no
+  symmetry errors at all, so no central closure pass was needed.
+  TAGS: nothing declared, per the arrives-complete rule. The round leaves two candidates.
+  `editorial` (26 members) is the real one: fine-print and microcopy both belong to it on any
+  reading, and so do half a dozen published neighbours it may already carry, so it is one
+  pass over the whole family or nothing. Weaker: `perceived-performance` has no claim here,
+  and the ladder is not a facet, it is three terms that already relate.
+  DEV SERVER TRAP, and every one of the six agents hit it: `astro dev` did NOT pick up newly
+  ADDED content files. Every new term 404'd at its own route for the whole round while
+  `.astro/data-store.json` sat unwritten from hours earlier, and a touch did not refresh it.
+  This is a different fault from the schema-field poisoning already documented in AGENTS.md,
+  which is about a field going missing on an entry that IS served. Agents may not restart a
+  server, so they each found a workaround: a temporary `src/pages/zz-probe/[slug].astro`
+  mounting SpecimenStage directly (needs getStaticPaths, since the project has no server
+  adapter and prerender:false 500s), or borrowing a live stage on a published term's page by
+  disconnecting it, swapping data-slug, clearing the old .sp-root from the shadow root and
+  reconnecting, which re-runs the stage's own setup. Both work and all of them cleaned up
+  after themselves. The cause is not diagnosed yet, so this is recorded as an observation
+  rather than as a gotcha with a fix.
+  PROVEN: the specimen suite. The static gates are green (1,123 terms valid, 0 stubs,
+  typecheck, biome, 126 unit tests) and every author audited its own specimens through
+  vd-stage.audit(), with the grid agent additionally running a negative control (a
+  deliberately wrong data-count that failed as expected, proving the script was really being
+  played). `test:e2e:new` then played 188 tests over 47 specimens, this round's nine plus
+  round 24's 38, which had never been snapshotted: 141 passed and 47 failed, and every one
+  of the 47 was the documented first-run fail-write ("a snapshot doesn't exist"), not a
+  behavioural failure. A second identify pass over the same 47 came back 47 for 47 green.
+  So the round needed no behavioural fix at all, and both rounds that have managed that are
+  rounds where every author audited its own specimens before handing them over.
+  All nine snapshots are `scope: element` on a narrow subject: the qualifier span
+  (fine-print), the verb span (microcopy), the drawing (wireframe), the pane (mockup, which
+  mounts carrying the data-state its own data-pose demands), the board (prototype), the door
+  button (fake-door), the reward surface (easter-egg), the page region (error-page), and the
+  grid table (contribution-graph). Not one of them claimed the whole scene.
 - PIPELINE GOTCHA found while pooling the 2026-08-28 wishlist, and it would have cost a
   future round a day. `scripts/merge-enumeration.ts` DROPS every record whose slug now
   matches a published term, so RUNNING IT REGENERATES candidates.json as the unauthored

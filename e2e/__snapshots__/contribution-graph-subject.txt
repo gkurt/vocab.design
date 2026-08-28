@@ -1,0 +1,4 @@
+term:    Contribution graph
+scope:   element
+subject: table[data-hover-driven][data-part=grid]
+text:    Practice sessions from 9 March 2025 to 11 March 2026, as 53 week columns by 7 we

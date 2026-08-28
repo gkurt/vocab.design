@@ -1,0 +1,75 @@
+---
+name: Error page
+slug: error-page
+category: pattern
+status: published
+created: 2026-08-28
+modified: 2026-08-28
+definition: >-
+  The whole screen a site serves instead of the page that was asked for: what happened,
+  in the reader's words, and the shortest way back to something that works.
+aliases:
+  - name: 404 page
+    source: community
+  - name: page not found
+    source: govuk
+  - name: not found page
+    source: community
+  - name: error screen
+    source: community
+  - name: 500 page
+    source: community
+  - name: server error page
+    source: community
+relations:
+  contrastWith: [error-message, error-summary, no-results-state]
+implementations: []
+sources:
+  - title: 'Nielsen Norman Group: Improving the dreaded 404 error message'
+    url: https://www.nngroup.com/articles/improving-dreaded-404-error-message/
+  - title: 'GOV.UK Design System: Page not found pages'
+    url: https://design-system.service.gov.uk/patterns/page-not-found-pages/
+  - title: 'GOV.UK Design System: Problem with the service pages'
+    url: https://design-system.service.gov.uk/patterns/problem-with-the-service-pages/
+  - title: 'MDN: HTTP 404 Not Found'
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404
+demo: inline
+useWhen: the requested page cannot be served at all, not one field failing
+---
+
+An error page is not a component, it is a whole screen standing in for a screen that
+could not be built. Two things have to happen on it and everything else is decoration:
+the reader learns what happened without being told it was their fault, and they are
+handed the shortest route back to something that works. A search box, one or two links
+to the places most people were probably heading, and little else. The page is a dead end
+by definition, so its only real job is to stop being one.
+
+Two different failures wear this page and want opposite answers. A not-found page means
+the reader asked for something that is not here, usually from an old link or a mistyped
+address, and the way out is to navigate: the page says the address does not lead
+anywhere and offers the search and the home page. A server error page means the site
+itself is broken, the reader did nothing at all, and navigating is useless because the
+next page may fail the same way. Its way out is to wait, ideally with a time to come
+back and somewhere to report it, which is why the GOV.UK Design System keeps its
+"problem with the service" pattern separate from its page-not-found one.
+
+Then the disagreement, which is real and has citations on both sides. The Nielsen
+Norman Group's advice, first published in 1998 and still repeated, is to mitigate total
+failure with novelty: a joke, an illustration, something that makes a dead end
+forgivable. The GOV.UK Design System says the opposite outright. No informal language on
+a page-not-found page, no red warning text, and never print the number 404, because
+someone filing a tax return did not come for a cartoon and does not know what 404 means.
+Both are right about their own reader. Novelty pays where the visit is discretionary and
+the stakes are low, so a magazine, a studio site or a personal project can afford
+charm. It costs where the reader is transacting under obligation or under stress, and
+the only kindness left is being brief and plain. The question is not taste, it is
+whether your reader chose to be here.
+
+Technically it is one page under two contracts. The status code has to be the real one,
+because a friendly page served as 200 tells search engines and monitoring that the
+request succeeded, and the copy has to work for a reader who has never heard of a status
+code. What this word is not: an [error message](/error-message) is the line attached to
+one field, an [error summary](/error-summary) is the block at the top of a form that
+failed, a [no results state](/no-results-state) is a search that matched nothing inside
+a page that worked perfectly, and an [empty state](/empty-state) is a container with
+nothing in it yet. All four happen on a page that loaded. This one replaced the page.
