@@ -2121,5 +2121,27 @@
     ],
     "implementations": [],
     "notes": "Cross-category candidate with layout; recorded here because it is reasoning about input reach, not about grid."
+  },
+  {
+    "name": "Easter egg",
+    "slug": "easter-egg",
+    "category": "interaction",
+    "definition": "A reward hidden behind an action nobody was told about, put there to be found rather than to be used.",
+    "useWhen": "a hidden extra whose whole value is the surprise of finding it",
+    "aliases": [
+      { "name": "easter eggs", "source": "community" },
+      { "name": "hidden feature", "source": "community" },
+      { "name": "secret feature", "source": "community" },
+      { "name": "konami code", "source": "community" }
+    ],
+    "relatedSlugs": ["hidden-gesture", "signifier", "affordance", "confetti-burst", "kawaii-ui"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      { "title": "The Jargon File: Easter egg", "url": "http://www.catb.org/jargon/html/E/Easter-egg.html" },
+      { "title": "Wikipedia: Easter egg (media)", "url": "https://en.wikipedia.org/wiki/Easter_egg_(media)" }
+    ],
+    "implementations": [],
+    "notes": "The concrete half of the 'Humorous / playful UI' wish, filed in interaction rather than pattern so it lands beside the two terms that make it definable. It is hidden-gesture's HONEST INVERSE: that record (pooled and authored in round 24) is the defect, an action with no signifier that the reader needed, and an easter egg is the same mechanism aimed at something the reader never needed, which is why signifier and affordance are the other two edges. The design content is two questions with real answers: it must never be the only route to anything (the accessibility rule, and the reason it is not a hidden-gesture), and one nobody finds is dead code (the discoverability rule, which is what makes the konami code a convention rather than an arbitrary secret). SOURCE CAVEAT worth keeping: catb.org has no working TLS at all, so the Jargon File URL is http and curl over https fails with exit 60, not a 404; do not 'fix' it to https and do not mark it dead. THE VAGUER HALF OF THE WISH IS REFUSED for now, see the notes entry: playful UI, whimsy and delight have no headword with an honest source, and confetti-burst already claims 'delight moment'."
   }
 ]

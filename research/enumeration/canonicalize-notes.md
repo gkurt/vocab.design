@@ -22,7 +22,11 @@ live is marked; everything else is kept as the record of what was decided and wh
   second 2026-08-26 wishlist sweep (below) added 5, to 977, and the parked-items sweep
   the same day (below) added 33, taking the pool to 1,010 records with 38 unauthored,
   the largest unauthored backlog since round one, all 38 of which round 24 authored the
-  same day, so the pool is empty again and pool-remaining.ts prints nothing.
+  same day, emptying the pool again; the 2026-08-28 wishlist sweep (below) added 8, taking
+  the pool to 1,018 records with those 8 unauthored, which is what pool-remaining.ts now
+  prints. That count is the length of candidates.json, which is APPENDED to and never
+  regenerated: see the pipeline gotcha filed with the 2026-08-28 entry before running
+  scripts/merge-enumeration.ts.
 
 ## RESOLVED: duplicate slugs
 
@@ -684,6 +688,134 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   through vd-stage.audit() on the dev server, but no subject snapshot exists for the 38
   new specimens until a test:e2e:new run writes one, so what each of them identifies as
   is recorded nowhere yet.
+- User wishlist (2026-08-28), shaped and pooled (8 records, pool 1,010 to 1,018, and the
+  first records since round 24 emptied it). Three wishes, and each one turned out to name
+  a family rather than a term, so the round is batched the way round 24 was: by family,
+  three of them.
+  WORDS (2 records, from "Fine print"): fine-print (typography, core; the FTC's own
+  doctrine is the design content, the four P's of prominence, presentation, placement and
+  proximity, plus the 2014 maxim that what the headline giveth the footnote cannot taketh
+  away; the honest use IS the definition, since a real condition really does have to be
+  stated somewhere, and burying a material term is the failure mode reached by a contrast
+  edge rather than the thing itself) and microcopy (pattern, HEAD, and the largest hole
+  this sweep found: 1,114 published terms and not one word for the words, while the site
+  already defines a dozen instances of it, error-message, helper-text, empty-state,
+  no-results-state, placeholder-as-label, confirmshaming; 'UX writing' is carried as an
+  alias on Yifrah's own ruling that the two are synonyms, and NN/g's boundary is the one
+  the article should use, copy shorter than three sentences that is read more often than
+  anything else on the screen).
+  ALIAS FENCES on those two are the crowded part. fine-print may never claim 'disclosure'
+  or anything near it, because FIVE published terms already split that family (disclosure
+  the widget, progressive-disclosure, expanded-state, menu-button's 'disclosure button',
+  disclosure-triangle's 'disclosure indicator'), and never 'helper text', 'hint text',
+  'supporting text', 'assistive text' or 'field description', all five of which are
+  helper-text's. microcopy is the CLASS and must never claim its instances for the same
+  reason. 'footnote' is left DELIBERATELY UNCLAIMED as its own possible record, since no
+  published term holds the word and a footnote is an editorial device rather than a legal
+  one.
+  FIDELITY LADDER (3 records, from "Mockup / Mock UI"): wireframe (pattern, HEAD),
+  mockup (pattern, core) and prototype (pattern, core), pooled as a family so that no one
+  of the three has to be authored against an unpooled contrast. The sources agree on the
+  axis and it is worth writing down once: wireframe and mockup differ by FIDELITY and are
+  both static, while only a prototype is interactive.
+  CATEGORY QUESTION, and it is the real finding of that wish: the three are
+  REPRESENTATIONS, and none of the ten categories is about representations. They are filed
+  in pattern as the least-wrong home, and layout was the tempting alternative for
+  wireframe alone until it became clear that taking it would split the family across two
+  categories, which is exactly what round 24 learned not to do. The precedent for filing a
+  non-interface artifact at all is already on site twice: type-specimen is typography and
+  accessibility-annotation is accessibility, both filed by material rather than by kind.
+  If a canonicalize pass wants to move all three, move all three.
+  Three more fences there. hand-drawn-ui already owns 'wireframe aesthetic' and 'lo-fi
+  look', so the LOOK is claimed and wireframe is only the artifact; skeleton-screen owns
+  'skeleton' and 'content placeholder', and the discrimination worth writing is that a
+  skeleton is the wireframe the READER sees at runtime while a wireframe is the one only
+  the team sees; and prototype may never claim 'hotspot', however uniformly every
+  prototyping tool uses the word, because coach-mark carries it already.
+  MOCK UI, taken separately (1 record): fake-door (pattern, core), which is the only part
+  of that wish naming something a reader can actually meet, a control that looks shipped
+  and leads nowhere on purpose. The design content is the reveal, the one part a designer
+  composes, and it is also the line the term must not cross: a signposted fake door is an
+  experiment, a fake door that harvests a card number for a feature that does not exist is
+  deception, so dark-pattern is a CONTRAST and never a parent. The labor-illusion ruling of
+  2026-08-25 already settled the naming half of that (a 'fake-*' word is not automatically
+  a dark-pattern sibling). Its two sources are product-analytics vendor glossaries rather
+  than design catalogs, which is where this vocabulary actually lives.
+  HUMOUR (2 records, from "Humorous / playful UI"): error-page (pattern, core) and
+  easter-egg (interaction, core). Neither is the wish's own word, and that is the point.
+  error-page is the honest home for it, because it arrives with a SOURCED DISAGREEMENT
+  that is the article rather than a footnote to it: NN/g (Nielsen, 1998) advises mitigating
+  total failure with novelty, and the GOV.UK Design System forbids informal language on a
+  page-not-found page outright, forbids red warning text, and forbids ever printing the
+  number 404 at all. Both are right for their own service, and it is the one place on this
+  site where the humour question can be settled with citations instead of taste. Its
+  three-way fence is already half-drawn on site (error-message is the inline message under
+  one field, error-summary the list at the top of a form, no-results-state a search that
+  matched nothing INSIDE a working page) and the 404-versus-5xx split is the record's own
+  axis, cited to both GOV.UK patterns.
+  NAMING on that one: 'Error page' rather than '404 page', because the slug convention
+  spells numbers out (eight-point-grid, twelve-column-grid) and 'four-oh-four-page' is a
+  worse URL than an alias is, so the vernacular spelling is the first alias and the search
+  still lands.
+  easter-egg is filed in interaction rather than pattern so that it lands beside the two
+  terms that make it definable, and it is hidden-gesture's HONEST INVERSE: round 24's
+  record is the defect, an action with no signifier that the reader needed, and an easter
+  egg is the same mechanism aimed at something nobody needed. Its design content is two
+  rules with real answers, that it must never be the only route to anything and that one
+  nobody finds is dead code.
+  THE VAGUE HALF OF THE HUMOUR WISH IS REFUSED, on the scandinavian-design grounds of
+  2026-08-25: playful UI, whimsy and delight have no headword with an honest source to
+  point at, confetti-burst already claims 'delight moment', and kawaii-ui already claims
+  'mascot UI'. Emotional design (Norman, and Walter's hierarchy) is a book concept with no
+  category and is named here rather than pooled. If any of them is wanted anyway it needs
+  a source that is not an agency blog post.
+  LEFT UNPOOLED AND NAMED BY THIS SWEEP, for a later decision: footnote; device mockup or
+  device frame, which is the more-searched sense of the bare word in stock-asset shops and
+  is a different record with different content (bezel, shadow, angle, whether the screen is
+  real), so mockup must never claim either spelling; fidelity itself as the ladder's axis
+  record, which would make an excellent specimen (one screen at three fidelities) and which
+  nobody searches for by name; maintenance page and coming-soon page as error-page's
+  neighbours; and emotional design.
+  VERIFICATION: all 8 slugs and all 39 proposed aliases checked against the 1,114 published
+  terms and every alias they claim, plus every record already in the pool, which is 6,074
+  claimed spellings between them: no collisions. Every relatedSlug on all 8 records resolves
+  to a published term or to another record in this batch. All 23 distinct source and
+  implementation URLs answered 200 on 2026-08-28, with three worth recording anyway. The Jargon
+  File's Easter egg entry is http ONLY: catb.org has no working TLS, so curl over https
+  fails with exit 60 rather than a status, and the URL must not be 'fixed' to https or
+  marked dead. Polaris's Voice and tone page and Material 3's UX writing best practices are
+  both JS-rendered shells that answer 200 with no body (Polaris returns 327KB of framework
+  containing the word 'voice' zero times), so both implementation rows are recorded
+  verified:false exactly as every HIG and Material row in this file is; Carbon's writing
+  style page is real prerendered HTML and is the one verified row. NO SYSTEMS ADDED: govuk,
+  carbon, polaris, material and nngroup were all already in the registry, and Figma is a
+  TOOL rather than one of the registry's five kinds, so its prototyping docs are a source
+  and systems.json stayed at 115.
+  ONE THING TO CARRY FORWARD about the term files themselves: govuk is in systems.json but
+  NOT in the site schema's nine tracked SYSTEMS, so error-page's implementation row has to
+  become a source when the term file is written. The pool is richer than the schema on
+  purpose, and this is the first record in a while where that bites at authoring time.
+- PIPELINE GOTCHA found while pooling the 2026-08-28 wishlist, and it would have cost a
+  future round a day. `scripts/merge-enumeration.ts` DROPS every record whose slug now
+  matches a published term, so RUNNING IT REGENERATES candidates.json as the unauthored
+  remainder rather than as the accumulated pool: it rewrote 1,010 records down to 54 and
+  deleted 48,681 lines. Worse, the 54 were not a pool at all. Eight were this sweep's, and
+  the other 46 were records this file had already RESOLVED BY FOLDING (activity-bar into
+  navigation-rail, flag-object into media-object, focus-restoration into focus-management,
+  scroll-scrubbing into scroll-linked-animation, hotspot into coach-mark's aliases,
+  icon-button-label dropped outright), which never became files and so cannot be recognised
+  as settled by a filename check. `pool-remaining.ts` reads candidates.json, so the next
+  authoring round would have been handed 46 phantom candidates and would have re-authored
+  decisions this file spent a canonicalize pass making.
+  So candidates.json is APPENDED to, not regenerated, which is what every sweep before this
+  one silently did (its first ~950 records are slug-sorted from one early generation and
+  every batch since sits in a block at the end). The merge script stays useful for what it
+  is actually good at, which is the check pass: run it, read the warnings for the records
+  you just wrote, and throw the output file away. This sweep did exactly that, then restored
+  candidates.json from git and appended its 8 records with `sweptFrom` set by hand.
+  The real fix, when someone wants it, is for a folded or dropped record to say so in its
+  own data (a `resolved` field the merge script and pool-remaining both honour) instead of
+  the knowledge living only in this file's prose.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the

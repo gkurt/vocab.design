@@ -48606,5 +48606,328 @@
     "sweptFrom": [
       "parked items 2026-08-26"
     ]
+  },
+  {
+    "name": "Fine print",
+    "slug": "fine-print",
+    "category": "typography",
+    "definition": "Qualifying text set small and set last, carrying the conditions that the larger claim above it leaves out.",
+    "useWhen": "the terms that qualify a claim, set below the threshold of attention",
+    "aliases": [
+          { "name": "small print", "source": "community" },
+          { "name": "disclaimer", "source": "community" },
+          { "name": "legal copy", "source": "community" },
+          { "name": "mouseprint", "source": "community" },
+          { "name": "mouse print", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "plain-language",
+      "readability",
+      "type-scale",
+      "drip-pricing",
+      "cookie-consent-banner",
+      "dark-pattern"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "FTC Business Guidance: Full Disclosure (2014)",
+        "url": "https://www.ftc.gov/business-guidance/blog/2014/09/full-disclosure"
+      },
+      {
+        "title": "FTC: .com Disclosures, How to Make Effective Disclosures in Digital Advertising (2013)",
+        "url": "https://www.ftc.gov/system/files/documents/plain-language/bus41-dot-com-disclosures-information-about-online-advertising.pdf"
+      },
+          { "title": "Understanding WCAG 2.2: 1.4.4 Resize Text", "url": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html" }
+    ],
+    "implementations": [],
+    "notes": "CATEGORY QUESTION for canonicalize: filed in typography because the word names a TREATMENT of text (a size, a contrast, a position), not a recurring answer to a recurring problem, but pattern is arguable and the sibling records in this sweep went there. ALIAS FENCE, and it is a crowded one: never claim 'disclosure' or anything near it, because five published terms already split that family (disclosure the widget, progressive-disclosure, expanded-state, menu-button 'disclosure button', disclosure-triangle 'disclosure indicator'); never claim 'helper text', 'hint text', 'supporting text', 'assistive text' or 'field description' (all five are helper-text's); never 'asterisk convention' (required-field-indicator). The design content is the FTC's four P's, prominence, presentation, placement and proximity, plus the maxim from the 2014 post: what the headline giveth, the footnote cannot taketh away. The honest use IS the definition (a real condition really does have to be stated somewhere), and burying a material term is the failure mode, which is why the dark-pattern edge is a contrast and not the article. 'footnote' left DELIBERATELY UNCLAIMED as its own possible record, since a footnote is an editorial device and no published term holds the word. One alias is a knowing stretch: 'disclaimer' is the CONTENT (a statement limiting liability) where fine print is the TREATMENT, and it is claimed anyway because it is what a reader searches and nothing else holds it, so a canonicalize pass that wants to split the two should take the alias with it.",
+    "sweptFrom": [
+      "typography"
+    ]
+  },
+  {
+    "name": "Microcopy",
+    "slug": "microcopy",
+    "category": "pattern",
+    "definition": "An interface's smallest strings: the verb on the button, the line under the field, the sentence when it fails. Short enough to be read every time.",
+    "useWhen": "the words a control needs to be understood, not the prose around it",
+    "aliases": [
+          { "name": "UX writing", "source": "nngroup" },
+          { "name": "UX copy", "source": "nngroup" },
+          { "name": "UI copy", "source": "community" },
+          { "name": "interface copy", "source": "community" },
+          { "name": "product copy", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "helper-text",
+      "error-message",
+      "empty-state",
+      "plain-language",
+      "placeholder-as-label",
+      "confirmshaming"
+    ],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: The 3 I's of Microcopy, Inform, Influence, and Interact",
+        "url": "https://www.nngroup.com/articles/3-is-of-microcopy/"
+      },
+          { "title": "NN/g: UX Copy Sizes, Long, Short, and Micro", "url": "https://www.nngroup.com/articles/ux-copy-sizes/" },
+          { "title": "NN/g: The 3 C's of Informational Microcopy", "url": "https://www.nngroup.com/articles/3-cs-microcopy/" },
+          { "title": "Kinneret Yifrah, Microcopy: The Complete Guide (2nd edition)", "url": "https://www.microcopybook.com/" }
+    ],
+    "implementations": [
+      {
+        "systemId": "carbon",
+        "name": "Writing style",
+        "url": "https://carbondesignsystem.com/guidelines/content/writing-style/",
+        "verified": true
+      },
+          { "systemId": "polaris", "name": "Voice and tone", "url": "https://polaris.shopify.com/content/voice-and-tone", "verified": false },
+      {
+        "systemId": "material",
+        "name": "UX writing best practices",
+        "url": "https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices",
+        "verified": false
+      }
+    ],
+    "notes": "THE LARGEST HOLE this sweep found: 1,114 published terms and not one word for the words. The site already defines a dozen instances of microcopy (error-message, helper-text, empty-state, no-results-state, placeholder-as-label, confirmshaming) and had no name for the class. FENCE: this is the CLASS, never the instances, so it must never claim 'helper text'/'hint text'/'supporting text' (helper-text), 'inline error'/'validation message' (error-message), or 'placeholder text' (lorem-ipsum). 'UX writing' is carried as an alias on Yifrah's own ruling that the two are synonyms; NN/g's definitional boundary is the useful one for the article, copy shorter than three sentences that is read more often than anything else on the screen. Specimen: one form twice, the platform's default strings against authored ones, which is the whole term in a single still. Both unverified implementation rows are JS-rendered shells that answer 200 with no body (Polaris returns 327KB of framework containing the word 'voice' zero times), exactly like every HIG and Material row in this file; the Carbon row is real prerendered HTML.",
+    "sweptFrom": [
+      "pattern"
+    ]
+  },
+  {
+    "name": "Wireframe",
+    "slug": "wireframe",
+    "category": "pattern",
+    "definition": "A screen drawn as structure only: blocks where the content goes, a crossed box for an image, ruled lines for text, with no colour or type decided yet.",
+    "useWhen": "settling what goes where before deciding how any of it looks",
+    "aliases": [
+          { "name": "wireframing", "source": "community" },
+          { "name": "low-fidelity wireframe", "source": "nngroup" },
+          { "name": "lo-fi wireframe", "source": "community" },
+          { "name": "wires", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "skeleton-screen",
+      "hand-drawn-ui",
+      "lorem-ipsum",
+      "layout-grid",
+      "visual-hierarchy",
+      "mockup"
+    ],
+    "priority": "head",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: UX Prototypes, Low Fidelity vs. High Fidelity",
+        "url": "https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/"
+      },
+      {
+        "title": "NN/g: Prototypes vs Wireframes in UX Projects",
+        "url": "https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/"
+      },
+          { "title": "Balsamiq: What are wireframes?", "url": "https://balsamiq.com/learn/articles/what-are-wireframes/" },
+          { "title": "Interaction Design Foundation: Wireframe", "url": "https://www.interaction-design.org/literature/topics/wireframe" }
+    ],
+    "implementations": [],
+    "notes": "CATEGORY QUESTION for canonicalize, and it is the finding of the whole 'Mockup / Mock UI' wish: the three-word ladder (wireframe, mockup, prototype) is a family of REPRESENTATIONS, and none of the ten categories is about representations. They are filed in pattern together, as the least-wrong home and because round 24's lesson was to keep a family in one category rather than split it; layout was the alternative for this record alone and was refused precisely because it would have split the three. Precedent for filing a non-interface artifact: type-specimen is typography and accessibility-annotation is accessibility, both filed by material rather than by kind. ALIAS FENCE, four of them: hand-drawn-ui owns 'wireframe aesthetic' and 'lo-fi look', so the LOOK is already claimed and this record is only the artifact; skeleton-screen owns 'skeleton' and 'content placeholder'; lorem-ipsum owns 'greeking', 'dummy text' and 'placeholder text'; dot-grid-background owns 'blueprint grid', so never reach for 'blueprint'. The discrimination worth writing is against skeleton-screen: a skeleton is the wireframe the READER sees, at runtime, standing in for content on its way, while a wireframe is the one only the team sees.",
+    "sweptFrom": [
+      "pattern"
+    ]
+  },
+  {
+    "name": "Mockup",
+    "slug": "mockup",
+    "category": "pattern",
+    "definition": "A screen shown as it will look rather than as it will work: colour, type and real copy all settled, and nothing clickable.",
+    "useWhen": "showing what a screen will look like before anything behind it exists",
+    "aliases": [
+          { "name": "mock-up", "source": "community" },
+          { "name": "mock UI", "source": "community" },
+          { "name": "high-fidelity mockup", "source": "nngroup" },
+          { "name": "hi-fi mockup", "source": "community" },
+          { "name": "visual comp", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "wireframe",
+      "prototype",
+      "lorem-ipsum",
+      "type-specimen"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: UX Prototypes, Low Fidelity vs. High Fidelity",
+        "url": "https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/"
+      },
+      {
+        "title": "NN/g: Prototypes vs Wireframes in UX Projects",
+        "url": "https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/"
+      }
+    ],
+    "implementations": [],
+    "notes": "The wish's literal headword, pooled rather than substituted. Its axis against its two siblings is the one the sources agree on: wireframe and mockup differ by FIDELITY and are both static, while only a prototype is interactive, so 'static and finished' is this record's whole claim. Category question is wireframe's, shared. DEVICE MOCKUP LEFT UNCLAIMED, deliberately, and it is the more-searched sense of the bare word in stock-asset shops: a screenshot presented inside a phone or laptop bezel is a marketing artifact with different content (bezel accuracy, shadow, angle, whether the screen is real) and wants its own record, so this one must never claim 'device mockup' or 'device frame'. 'comp' alone was considered as a tail alias and dropped: the print-era word is real but a three-letter alias page is search noise, so only 'visual comp' is claimed. HONESTY NOTE for whoever authors the specimen, per SPEC 1: demonstrate a mockup of a platonic screen, never a mockup of a named product's chrome, which is the same fence bulletproof-button carries.",
+    "sweptFrom": [
+      "pattern"
+    ]
+  },
+  {
+    "name": "Prototype",
+    "slug": "prototype",
+    "category": "pattern",
+    "definition": "A design wired up just enough to be tried: screens linked so that a tap goes somewhere, with nothing real behind the links.",
+    "useWhen": "putting a flow in someone's hands before it is built",
+    "aliases": [
+          { "name": "clickable prototype", "source": "community" },
+          { "name": "interactive prototype", "source": "community" },
+          { "name": "high-fidelity prototype", "source": "nngroup" },
+          { "name": "hi-fi prototype", "source": "community" },
+          { "name": "paper prototype", "source": "nngroup" },
+          { "name": "prototyping", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "wireframe",
+      "mockup",
+      "fake-door",
+      "first-run-experience"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: UX Prototypes, Low Fidelity vs. High Fidelity",
+        "url": "https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/"
+      },
+      {
+        "title": "Figma Help Center: Prototyping in Figma",
+        "url": "https://help.figma.com/hc/en-us/articles/360040451373-Prototyping-in-Figma"
+      }
+    ],
+    "implementations": [],
+    "notes": "The third of the ladder, pooled with its siblings so no one of them has to be authored against an unpooled contrast. ALIAS FENCE: never claim 'hotspot', however much every prototyping tool calls the tappable region that, because coach-mark already carries it (with 'beacon' and 'spotlight tooltip'). Category question is wireframe's, shared. FIDELITY ITSELF LEFT UNCLAIMED as the possible axis record: NN/g's article is definitional about it and it would make an excellent specimen (one screen at three fidelities), but nobody searches 'fidelity' and it would duplicate three records' content, so it is named here rather than pooled. The engineering sense of the word (a throwaway spike, or Object.prototype) is not claimed and not aliased. No design system ships a prototype, so the implementations table is honestly empty; Figma is a TOOL rather than one of the registry's five kinds, so its docs are a source and systems.json needed no new row.",
+    "sweptFrom": [
+      "pattern"
+    ]
+  },
+  {
+    "name": "Fake door",
+    "slug": "fake-door",
+    "category": "pattern",
+    "definition": "A control that looks shipped and leads nowhere, put in the interface on purpose to count how many people want the feature behind it.",
+    "useWhen": "measuring demand for a feature by shipping only its entrance",
+    "aliases": [
+          { "name": "fake door test", "source": "community" },
+          { "name": "fake door testing", "source": "amplitude" },
+          { "name": "painted door", "source": "community" },
+          { "name": "painted door test", "source": "optimizely" }
+    ],
+    "relatedSlugs": [
+      "dark-pattern",
+      "first-run-experience",
+      "empty-state",
+      "gradual-engagement"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "Optimizely optimization glossary: Painted door test",
+        "url": "https://www.optimizely.com/optimization-glossary/painted-door-test/"
+      },
+          { "title": "Amplitude: What is fake door testing?", "url": "https://amplitude.com/explore/experiment/fake-door-testing" }
+    ],
+    "implementations": [],
+    "notes": "The interface-facing half of the 'Mock UI' wish, and the one record in that wish that names something a READER can actually meet. The design content is the reveal, which is the only part of it a designer composes: the click has to land on a page that tells the truth (this does not exist yet, here is what happens next) rather than on a dead end. That is also the line it must not cross, and it is worth stating in the article rather than in a relation: a signposted fake door is an experiment, a fake door that harvests a card number for a feature that does not exist is deception, so dark-pattern is a CONTRAST and never a parent. The labor-illusion ruling of 2026-08-25 already settled the naming half of this (a 'fake-*' word is not automatically a dark-pattern sibling). Both sources are product-analytics vendor glossaries rather than design catalogs, which is where this vocabulary actually lives; neither vendor is in systems.json and neither needs to be, since these are sources and not implementations.",
+    "sweptFrom": [
+      "pattern"
+    ]
+  },
+  {
+    "name": "Easter egg",
+    "slug": "easter-egg",
+    "category": "interaction",
+    "definition": "A reward hidden behind an action nobody was told about, put there to be found rather than to be used.",
+    "useWhen": "a hidden extra whose whole value is the surprise of finding it",
+    "aliases": [
+          { "name": "easter eggs", "source": "community" },
+          { "name": "hidden feature", "source": "community" },
+          { "name": "secret feature", "source": "community" },
+          { "name": "konami code", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "hidden-gesture",
+      "signifier",
+      "affordance",
+      "confetti-burst",
+      "kawaii-ui"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+          { "title": "The Jargon File: Easter egg", "url": "http://www.catb.org/jargon/html/E/Easter-egg.html" },
+          { "title": "Wikipedia: Easter egg (media)", "url": "https://en.wikipedia.org/wiki/Easter_egg_(media)" }
+    ],
+    "implementations": [],
+    "notes": "The concrete half of the 'Humorous / playful UI' wish, filed in interaction rather than pattern so it lands beside the two terms that make it definable. It is hidden-gesture's HONEST INVERSE: that record (pooled and authored in round 24) is the defect, an action with no signifier that the reader needed, and an easter egg is the same mechanism aimed at something the reader never needed, which is why signifier and affordance are the other two edges. The design content is two questions with real answers: it must never be the only route to anything (the accessibility rule, and the reason it is not a hidden-gesture), and one nobody finds is dead code (the discoverability rule, which is what makes the konami code a convention rather than an arbitrary secret). SOURCE CAVEAT worth keeping: catb.org has no working TLS at all, so the Jargon File URL is http and curl over https fails with exit 60, not a 404; do not 'fix' it to https and do not mark it dead. THE VAGUER HALF OF THE WISH IS REFUSED for now, see the notes entry: playful UI, whimsy and delight have no headword with an honest source, and confetti-burst already claims 'delight moment'.",
+    "sweptFrom": [
+      "interaction"
+    ]
+  },
+  {
+    "name": "Error page",
+    "slug": "error-page",
+    "category": "pattern",
+    "definition": "The whole screen a site serves instead of the page that was asked for: what happened, in the reader's words, and the shortest way back to something that works.",
+    "useWhen": "the requested page cannot be served at all, not one field failing",
+    "aliases": [
+          { "name": "404 page", "source": "community" },
+          { "name": "page not found", "source": "govuk" },
+          { "name": "not found page", "source": "community" },
+          { "name": "error screen", "source": "community" },
+          { "name": "500 page", "source": "community" },
+          { "name": "server error page", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "error-message",
+      "error-summary",
+      "no-results-state",
+      "empty-state",
+      "offline-indicator",
+      "plain-language"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "NN/g: Improving the Dreaded 404 Error Message",
+        "url": "https://www.nngroup.com/articles/improving-dreaded-404-error-message/"
+      },
+      {
+        "title": "GOV.UK Design System: Page not found pages",
+        "url": "https://design-system.service.gov.uk/patterns/page-not-found-pages/"
+      },
+      {
+        "title": "GOV.UK Design System: Problem with the service pages",
+        "url": "https://design-system.service.gov.uk/patterns/problem-with-the-service-pages/"
+      },
+          { "title": "MDN: HTTP 404 Not Found", "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404" }
+    ],
+    "implementations": [
+      {
+        "systemId": "govuk",
+        "name": "Page not found pages",
+        "url": "https://design-system.service.gov.uk/patterns/page-not-found-pages/",
+        "verified": true
+      }
+    ],
+    "notes": "THE HONEST HOME for the 'Humorous / playful UI' wish, and it arrives with a SOURCED DISAGREEMENT that is the article rather than a footnote to it: NN/g (Nielsen, 1998) advises mitigating total failure with novelty, and the GOV.UK Design System forbids informal language on a page-not-found page outright, forbids red warning text, and forbids ever printing the number 404 at all. Both are right for their own service, and that is the only place on this site where the humour question can be settled with citations instead of taste. NAMING: 'Error page' rather than '404 page' because the slug convention spells numbers out (eight-point-grid, twelve-column-grid) and 'four-oh-four-page' is a worse URL than an alias, so the vernacular spelling is carried as the first alias and the search still lands. FENCE, a three-way one that is already half-drawn on site: error-message is the inline message under one field, error-summary is the list at the top of a form, no-results-state is a search that matched nothing INSIDE a working page, and this is the page that replaced the page. The 404-versus-5xx split is the record's own axis (you asked for something that is not here, recover by navigating, against we are broken, recover by waiting) and both GOV.UK patterns are cited for it. MAINTENANCE PAGE and COMING SOON PAGE left unclaimed as neighbouring records. govuk is in systems.json but NOT in the site schema's nine tracked SYSTEMS, so that implementation row will have to become a source when the term file is written.",
+    "sweptFrom": [
+      "pattern"
+    ]
   }
 ]

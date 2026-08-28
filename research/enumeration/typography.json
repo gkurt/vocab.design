@@ -2587,5 +2587,35 @@
       }
     ],
     "notes": "Round one caught heading-hierarchy (the outline rule) and typographic-hierarchy (the scale) but not the thing itself. The article should hold the two apart: level is semantic, size is a choice, and they are allowed to disagree."
+  },
+  {
+    "name": "Fine print",
+    "slug": "fine-print",
+    "category": "typography",
+    "definition": "Qualifying text set small and set last, carrying the conditions that the larger claim above it leaves out.",
+    "useWhen": "the terms that qualify a claim, set below the threshold of attention",
+    "aliases": [
+      { "name": "small print", "source": "community" },
+      { "name": "disclaimer", "source": "community" },
+      { "name": "legal copy", "source": "community" },
+      { "name": "mouseprint", "source": "community" },
+      { "name": "mouse print", "source": "community" }
+    ],
+    "relatedSlugs": ["plain-language", "readability", "type-scale", "drip-pricing", "cookie-consent-banner", "dark-pattern"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "FTC Business Guidance: Full Disclosure (2014)",
+        "url": "https://www.ftc.gov/business-guidance/blog/2014/09/full-disclosure"
+      },
+      {
+        "title": "FTC: .com Disclosures, How to Make Effective Disclosures in Digital Advertising (2013)",
+        "url": "https://www.ftc.gov/system/files/documents/plain-language/bus41-dot-com-disclosures-information-about-online-advertising.pdf"
+      },
+      { "title": "Understanding WCAG 2.2: 1.4.4 Resize Text", "url": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html" }
+    ],
+    "implementations": [],
+    "notes": "CATEGORY QUESTION for canonicalize: filed in typography because the word names a TREATMENT of text (a size, a contrast, a position), not a recurring answer to a recurring problem, but pattern is arguable and the sibling records in this sweep went there. ALIAS FENCE, and it is a crowded one: never claim 'disclosure' or anything near it, because five published terms already split that family (disclosure the widget, progressive-disclosure, expanded-state, menu-button 'disclosure button', disclosure-triangle 'disclosure indicator'); never claim 'helper text', 'hint text', 'supporting text', 'assistive text' or 'field description' (all five are helper-text's); never 'asterisk convention' (required-field-indicator). The design content is the FTC's four P's, prominence, presentation, placement and proximity, plus the maxim from the 2014 post: what the headline giveth, the footnote cannot taketh away. The honest use IS the definition (a real condition really does have to be stated somewhere), and burying a material term is the failure mode, which is why the dark-pattern edge is a contrast and not the article. 'footnote' left DELIBERATELY UNCLAIMED as its own possible record, since a footnote is an editorial device and no published term holds the word. One alias is a knowing stretch: 'disclaimer' is the CONTENT (a statement limiting liability) where fine print is the TREATMENT, and it is claimed anyway because it is what a reader searches and nothing else holds it, so a canonicalize pass that wants to split the two should take the alias with it."
   }
 ]
