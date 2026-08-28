@@ -813,9 +813,31 @@ rather than aria-hidden. Carbon's motion URL moved to /elements/motion/overview/
   is actually good at, which is the check pass: run it, read the warnings for the records
   you just wrote, and throw the output file away. This sweep did exactly that, then restored
   candidates.json from git and appended its 8 records with `sweptFrom` set by hand.
-  The real fix, when someone wants it, is for a folded or dropped record to say so in its
-  own data (a `resolved` field the merge script and pool-remaining both honour) instead of
-  the knowledge living only in this file's prose.
+  THE FIX LANDED THE SAME DAY, and it found something bigger on the way in. A `resolved`
+  field now carries the settlement on the record itself (README documents it), all 46 are
+  marked, and both scripts honour it: merge-enumeration skips a resolved record without
+  checking or reporting it, and pool-remaining keeps it off the roster and says how many it
+  skipped. Every one of the 46 sentences was ASSERTED before it was written, against the
+  published term's own aliases or an explicit ruling in this file, rather than assumed: 44
+  fold into a term that literally carries the retired record's NAME as an alias, and the
+  two that do not are recorded as the name collisions they are (`thumb` went to slider,
+  whose anatomy paragraph names thumb, handle and knob, while thumbnail owns the spelling;
+  `sticky-column` went to frozen-column, the table sense it defines, while sticky-sidebar
+  owns the spelling for the layout sense). One record stays a refusal rather than a fold:
+  icon-button-label was dropped outright as a technique of accessible-name.
+  THE BIGGER FINDING: candidates.json is not regenerable from the category files in EITHER
+  direction, and has not been for many rounds. The category files were written once, in the
+  enumeration-phase commit, and never touched again; every sweep since appended to
+  candidates.json alone. So the pool holds 87 records no category file has (the dataviz 14,
+  the mail words, every wishlist batch) while the category files hold 56 the pool retired as
+  they were authored (the round-one pilot terms). The README now says this outright instead
+  of calling candidates.json generated, and merge-enumeration.ts REPORTS by default and
+  writes nothing, with `--write` to regenerate anyway. Its output went from 1,039 issues to
+  3, because a thousand of them were records saying "I got published", which is not an
+  issue: those are counted now, and the twenty that matter are visible again.
+  RECONCILING the two files is left open, deliberately, because it is a taxonomy job rather
+  than a scripting one: someone has to decide whether the category files are stage-1
+  history that should stay frozen, or the source of truth the pool should be rebuilt from.
 - User request (2026-08-20), pooled: press-drag-release (interaction, tail; the
   one-gesture menu tracking where pressing opens, dragging travels, releasing
   commits). Canonicalized to the Mac menu-tracking name; "sticky menus" is the

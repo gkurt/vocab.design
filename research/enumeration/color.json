@@ -439,7 +439,8 @@
         "verified": true
       }
     ],
-    "notes": "Two live senses (paint mixing versus Material tone); merge candidate with lightness if canonicalize prefers one entry."
+    "notes": "Two live senses (paint mixing versus Material tone); merge candidate with lightness if canonicalize prefers one entry.",
+    "resolved": "retired 2026-08-18: already an alias of lightness"
   },
   {
     "name": "Color wheel",
@@ -1588,7 +1589,8 @@
         "verified": true
       }
     ],
-    "notes": "Cross-category with accessibility. Material ships medium and high contrast palettes alongside light and dark."
+    "notes": "Cross-category with accessibility. Material ships medium and high contrast palettes alongside light and dark.",
+    "resolved": "retired 2026-08-18: already an alias of prefers-contrast"
   },
   {
     "name": "Color scheme",
@@ -2668,7 +2670,8 @@
         "url": "https://developer.android.com/develop/ui/compose/designsystems/material3",
         "verified": true
       }
-    ]
+    ],
+    "resolved": "retired 2026-08-18: already an alias of material-you"
   },
   {
     "name": "Seed color",
@@ -3128,7 +3131,8 @@
         "verified": true
       }
     ],
-    "notes": "Renamed from the earlier color-contrast() proposal; both names are searched."
+    "notes": "Renamed from the earlier color-contrast() proposal; both names are searched.",
+    "resolved": "retired 2026-08-18: already an alias of on-color, which carries \"contrast color\""
   },
   {
     "name": "System color keyword",
@@ -3405,7 +3409,8 @@
         "verified": true
       }
     ],
-    "notes": "Cross-category: accessibility. The WCAG URL follows the same pattern as the verified non-text-contrast page but was not fetched this sweep."
+    "notes": "Cross-category: accessibility. The WCAG URL follows the same pattern as the verified non-text-contrast page but was not fetched this sweep.",
+    "resolved": "folded into use-of-color, which carries \"color as the only cue\" and \"greyscale test\""
   },
   {
     "name": "Non-text contrast",

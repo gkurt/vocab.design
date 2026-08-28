@@ -372,7 +372,8 @@
         "verified": true
       }
     ],
-    "notes": "Microsoft's recipe is documented explicitly: background, blur, exclusion blend, color tint, noise."
+    "notes": "Microsoft's recipe is documented explicitly: background, blur, exclusion blend, color tint, noise.",
+    "resolved": "retired 2026-08-18: already an alias of glassmorphism"
   },
   {
     "name": "Mica",

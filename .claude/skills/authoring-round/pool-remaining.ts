@@ -9,6 +9,11 @@ import { readFileSync, readdirSync } from 'node:fs';
  * file, so it read as authored, and none of the 24 had a pool record to be skipped in
  * the first place. Status is the question, not existence, and the stubs get their own
  * work list because that is the only place they can appear.
+ *
+ * A filename check cannot see the other half either: a record FOLDED into another term
+ * never becomes a file, so it reads as unauthored for ever. Those carry `resolved` and
+ * are skipped here, which is the only thing standing between a folded record and a
+ * round's roster.
  */
 const cands = JSON.parse(readFileSync('research/enumeration/candidates.json', 'utf8'));
 
@@ -23,11 +28,17 @@ for (const file of readdirSync(TERMS_DIR).filter((f) => f.endsWith('.mdx'))) {
 }
 
 const byCat: Record<string, { slug: string; priority: string }[]> = {};
+let resolved = 0;
 for (const r of cands) {
+  if (r.resolved) {
+    resolved++;
+    continue;
+  }
   if (published.has(r.slug)) continue;
   if (stubs.some((s) => s.slug === r.slug)) continue;
   (byCat[r.category] ??= []).push({ slug: r.slug, priority: r.priority ?? 'tail' });
 }
+if (resolved > 0) console.log(`(skipped ${resolved} resolved record(s): folded into another term, or dropped)`);
 const order = { head: 0, core: 1, common: 2, tail: 3 } as Record<string, number>;
 if (Object.keys(byCat).length === 0) console.log(`\n== pool exhausted: all ${cands.length} candidates are on site ==`);
 for (const [cat, list] of Object.entries(byCat)) {

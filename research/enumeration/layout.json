@@ -425,7 +425,8 @@
         "verified": true
       }
     ],
-    "notes": "Merge candidate with navigation-rail: same shape, different vocabulary (IDE versus Material). Keep both as aliases of one another if canonicalize agrees."
+    "notes": "Merge candidate with navigation-rail: same shape, different vocabulary (IDE versus Material). Keep both as aliases of one another if canonicalize agrees.",
+    "resolved": "folded into navigation-rail (2026-08-15), which carries \"activity bar\" and \"icon rail\""
   },
   {
     "name": "Status bar",
@@ -2670,7 +2671,8 @@
       }
     ],
     "implementations": [],
-    "notes": "Coined by Harry Roberts. Deep tail; may be better as an alias section inside media-object if canonicalize prefers fewer entries."
+    "notes": "Coined by Harry Roberts. Deep tail; may be better as an alias section inside media-object if canonicalize prefers fewer entries.",
+    "resolved": "folded into media-object (2026-08-15), which carries \"flag object\""
   },
   {
     "name": "Aspect ratio box",
@@ -3221,7 +3223,8 @@
         "verified": true
       }
     ],
-    "notes": "Cross category: recorded from the layout sweep because landmarks map one to one onto layout regions, but accessibility is the right home. Merge candidate with the accessibility sweep. iframe because landmark navigation is document scope."
+    "notes": "Cross category: recorded from the layout sweep because landmarks map one to one onto layout regions, but accessibility is the right home. Merge candidate with the accessibility sweep. iframe because landmark navigation is document scope.",
+    "resolved": "folded into landmark, which carries \"landmark region\""
   },
   {
     "name": "Scrollytelling",
@@ -4994,7 +4997,8 @@
         "verified": true
       }
     ],
-    "notes": "Primer's counterpart to Material's window size classes. Merge candidate with window-size-class: same idea, different platform, and canonicalize should probably keep one with both names."
+    "notes": "Primer's counterpart to Material's window size classes. Merge candidate with window-size-class: same idea, different platform, and canonicalize should probably keep one with both names.",
+    "resolved": "folded into window-size-class, which carries \"viewport range\""
   },
   {
     "name": "Keyline",

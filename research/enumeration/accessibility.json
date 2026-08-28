@@ -263,7 +263,8 @@
         "verified": true
       }
     ],
-    "notes": "Subsumes 'initial focus' (where focus goes when the overlay opens); canonicalize may want both under one entry."
+    "notes": "Subsumes 'initial focus' (where focus goes when the overlay opens); canonicalize may want both under one entry.",
+    "resolved": "folded into focus-management (2026-08-15), which carries \"restore focus\" and \"focus return\""
   },
   {
     "name": "Keyboard trap",
@@ -685,7 +686,8 @@
         "verified": true
       }
     ],
-    "notes": "Merge candidate with accessible-name; kept separate because it is the concrete case people search for."
+    "notes": "Merge candidate with accessible-name; kept separate because it is the concrete case people search for.",
+    "resolved": "dropped from the pool (2026-08-15): it is a technique of accessible-name, not a term"
   },
   {
     "name": "Touch target size",
@@ -782,7 +784,8 @@
         "verified": true
       }
     ],
-    "notes": "Tail gold: the invisible padded rectangle around a 16px icon has no agreed name outside React Native's hitSlop."
+    "notes": "Tail gold: the invisible padded rectangle around a 16px icon has no agreed name outside React Native's hitSlop.",
+    "resolved": "folded into hit-slop, which carries \"touch target expansion\" and \"invisible hit area\""
   },
   {
     "name": "Pointer cancellation",
@@ -1134,7 +1137,8 @@
         "url": "https://primer.style/accessibility/design-guidance/text-resize-and-spacing/",
         "verified": true
       }
-    ]
+    ],
+    "resolved": "folded into text-spacing, which carries \"text spacing override\""
   },
   {
     "name": "Resize text",
@@ -2367,7 +2371,8 @@
     "priority": "tail",
     "demo": "inline",
     "sources": [{ "title": "WCAG 2.2: Abbreviations", "url": "https://www.w3.org/TR/WCAG22/#abbreviations" }],
-    "implementations": []
+    "implementations": [],
+    "resolved": "absorbed by abbreviation, which carries \"acronym expansion\" and \"expansion on first use\""
   },
   {
     "name": "Pronunciation",
@@ -2662,7 +2667,8 @@
     ],
     "implementations": [
       { "systemId": "radix", "name": "FocusGuards", "url": "https://www.npmjs.com/package/@radix-ui/react-focus-guards", "verified": true }
-    ]
+    ],
+    "resolved": "folded into inert, which carries \"focus guard\", with focus-trap carrying \"focus sentinel\""
   },
   {
     "name": "Reading flow",
@@ -3034,7 +3040,8 @@
         "url": "https://lists.w3.org/Archives/Public/public-aria/2015Nov/0021.html"
       }
     ],
-    "implementations": []
+    "implementations": [],
+    "resolved": "folded into accessible-name, which carries \"double speak\""
   },
   {
     "name": "Nested interactive",

@@ -48929,5 +48929,47 @@
     "sweptFrom": [
       "pattern"
     ]
+  },
+  {
+    "name": "Contribution graph",
+    "slug": "contribution-graph",
+    "category": "component",
+    "definition": "A year of days as a grid of week columns, each cell shaded by how much happened that day, so a habit reads as a pattern instead of a number.",
+    "useWhen": "a year of daily activity shown at a glance as one dense grid",
+    "aliases": [
+          { "name": "calendar heatmap", "source": "community" },
+          { "name": "contribution calendar", "source": "github" },
+          { "name": "activity grid", "source": "community" },
+          { "name": "green squares", "source": "community" }
+    ],
+    "relatedSlugs": [
+      "streak",
+      "sequential-palette",
+      "calendar",
+      "use-of-color",
+      "sonification",
+      "achievement-badge"
+    ],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "GitHub Docs: Viewing contributions on your profile",
+        "url": "https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/viewing-contributions-on-your-profile"
+      },
+      {
+        "title": "GitHub Changelog: Accessibility improvements for the contribution graph (2023)",
+        "url": "https://github.blog/changelog/2023-03-02-accessibility-improvements-for-the-contribution-graph/"
+      },
+      {
+        "title": "Adrian Roselli: GitHub Contributions Chart (2018)",
+        "url": "https://adrianroselli.com/2018/02/github-contributions-chart.html"
+      }
+    ],
+    "implementations": [],
+    "notes": "Pooled 2026-08-28 on the user's word, as the ONE version of a 'heatmap' wish that clears the 2026-08-18 dataviz scope rule. Bare heatmap does not and must not be pooled: that sweep refused it twice, once under 'chart TYPES stay out of the pool' and once by name, folding heatmap-scale into sequential-palette's aliases, so the colour decision inside a heatmap already has a home. This record clears the rule the way trace-viewer and flame-graph did, on CONTENT rather than on shape: its article is interface and behaviour rather than encoding. The grid is a calendar, so where the year starts and how weeks column up is a layout decision; the ramp is five discrete steps rather than continuous, and the empty cell against the zero cell is a real choice. The accessibility half is the strongest reason it earns a page and it is documented rather than asserted: 365 shaded squares defeat a screen reader, Roselli wrote the critique in 2018, and GitHub's own 2023 answer was to make it a real table announced as 54 columns by 8 rows with keyboard navigation, which is why use-of-color and sonification (whose alias is 'data table alternative') are edges. And it is the picture that INDUCES a streak, which is the behavioural edge no chart type has. TWO SPELLINGS DELIBERATELY NOT CLAIMED, because both name different things and claiming them would fence out two possible records: 'commit graph' is the revision DAG, the branch-and-merge line drawing, which belongs near node-graph and graph-layout; and 'punch card' is GitHub's own name for the day-by-hour dot grid in Insights, which is a different chart on a different axis pair. 'green squares' IS claimed, as the vernacular a reader actually types, after window-controls' 'traffic lights'.",
+    "sweptFrom": [
+      "component"
+    ]
   }
 ]

@@ -269,7 +269,8 @@
         "verified": true
       }
     ],
-    "notes": ""
+    "notes": "",
+    "resolved": "folded into back-to-top, which carries \"back to top button\""
   },
   {
     "name": "Ghost button",
@@ -310,7 +311,8 @@
     "demo": "inline",
     "sources": [{ "title": "User Interface Elements Glossary, NN/g", "url": "https://www.nngroup.com/articles/ui-elements-glossary/" }],
     "implementations": [],
-    "notes": "The third option between pagination and infinite scroll, and the accessible middle ground. Worth a contrastWith to both."
+    "notes": "The third option between pagination and infinite scroll, and the accessible middle ground. Worth a contrastWith to both.",
+    "resolved": "folded into load-more, which carries \"load more button\""
   },
   {
     "name": "Checkbox",
@@ -425,7 +427,8 @@
         "verified": true
       }
     ],
-    "notes": "Exactly the long tail this site is for. CSS and Windows say thumb, Material says handle, Radix and Ark say Thumb. The MDN row still needs a probe for the pseudo element page."
+    "notes": "Exactly the long tail this site is for. CSS and Windows say thumb, Material says handle, Radix and Ark say Thumb. The MDN row still needs a probe for the pseudo element page.",
+    "resolved": "folded into slider, whose anatomy paragraph names the thumb, handle and knob, while thumbnail owns the \"thumb\" spelling per the 2026-08-18 disambiguation ruling"
   },
   {
     "name": "Track",
@@ -696,7 +699,8 @@
       { "systemId": "cloudscape", "name": "Token group", "url": "https://cloudscape.design/components/", "verified": true },
       { "systemId": "chakra", "name": "Tags Input", "url": "https://chakra-ui.com/docs/components/concepts/overview", "verified": true }
     ],
-    "notes": "The To field of an email client is the example everyone recognises. Strong tail candidate: many names, no agreed one."
+    "notes": "The To field of an email client is the example everyone recognises. Strong tail candidate: many names, no agreed one.",
+    "resolved": "folded into tag-input, which carries \"token field\""
   },
   {
     "name": "PIN input",
@@ -1417,7 +1421,8 @@
       { "title": "Command Palette pattern, UX Patterns for Developers", "url": "https://uxpatterns.dev/patterns/advanced/command-palette" }
     ],
     "implementations": [],
-    "notes": "Popularised by Notion and Slack, and now standard in editors and chat composers. Named by products, not by design systems, so implementation rows need a dedicated probe."
+    "notes": "Popularised by Notion and Slack, and now standard in editors and chat composers. Named by products, not by design systems, so implementation rows need a dedicated probe.",
+    "resolved": "folded into slash-command, which carries \"slash command menu\""
   },
   {
     "name": "Mention",
@@ -1437,7 +1442,8 @@
     "implementations": [
       { "systemId": "ant-design", "name": "Mentions", "url": "https://ant.design/components/overview/", "verified": true }
     ],
-    "notes": ""
+    "notes": "",
+    "resolved": "folded into mention-autocomplete, the same concept under another headword; the bare spellings \"mention\" and \"mentions\" are still unclaimed and a canonicalize pass could add them there"
   },
   {
     "name": "Dock",
@@ -1475,7 +1481,8 @@
     "demo": "inline",
     "sources": [{ "title": "NameThatUI element index", "url": "https://namethatui.com/" }],
     "implementations": [],
-    "notes": "Overlaps the existing badge term. Keep only if the article is really about the OS level count rather than the inline label."
+    "notes": "Overlaps the existing badge term. Keep only if the article is really about the OS level count rather than the inline label.",
+    "resolved": "folded into badge, which carries \"dock badge\" and \"app icon badge\""
   },
   {
     "name": "Wizard",
@@ -2049,7 +2056,8 @@
     "demo": "inline",
     "sources": [{ "title": "TanStack Table", "url": "https://tanstack.com/table/latest" }],
     "implementations": [],
-    "notes": "A technique more than a component, but it is what people search for when their find in page stops working. May belong in pattern."
+    "notes": "A technique more than a component, but it is what people search for when their find in page stops working. May belong in pattern.",
+    "resolved": "folded into list-virtualization, which carries \"virtual scrolling\" and \"windowing\""
   },
   {
     "name": "Card",
@@ -2967,7 +2975,8 @@
       { "systemId": "chakra", "name": "Action Bar", "url": "https://chakra-ui.com/docs/components/concepts/overview", "verified": true },
       { "systemId": "primer", "name": "ActionBar", "url": "https://primer.style/components", "verified": true }
     ],
-    "notes": "Good no-layout-shift demo: the bar has to appear without pushing the table down."
+    "notes": "Good no-layout-shift demo: the bar has to appear without pushing the table down.",
+    "resolved": "folded into bulk-actions, which carries \"bulk action bar\" and \"selection toolbar\""
   },
   {
     "name": "Attribute editor",
@@ -3011,7 +3020,8 @@
     "implementations": [
       { "systemId": "govuk", "name": "Task list", "url": "https://design-system.service.gov.uk/components/", "verified": true }
     ],
-    "notes": "GOV.UK's task list pattern is the reference; SaaS onboarding checklists are the same component with different stakes."
+    "notes": "GOV.UK's task list pattern is the reference; SaaS onboarding checklists are the same component with different stakes.",
+    "resolved": "folded into onboarding-checklist, which carries \"task list\""
   },
   {
     "name": "Show more toggle",
@@ -3079,7 +3089,8 @@
     "demo": "inline",
     "sources": [{ "title": "NameThatUI element index", "url": "https://namethatui.com/" }],
     "implementations": [],
-    "notes": "Merge candidate with split-button. Apple's pop-up vs pull-down button distinction (does it show the current value or a fixed title) is the genuinely useful part."
+    "notes": "Merge candidate with split-button. Apple's pop-up vs pull-down button distinction (does it show the current value or a fixed title) is the genuinely useful part.",
+    "resolved": "folded into split-button, which carries \"combo button\"; Apple's pop-up versus pull-down distinction went into that article"
   },
   {
     "name": "Scrubber",
@@ -3233,7 +3244,8 @@
       { "systemId": "govuk", "name": "Cookie banner", "url": "https://design-system.service.gov.uk/components/", "verified": true },
       { "systemId": "uxpatterns", "name": "Cookie Consent", "url": "https://uxpatterns.dev/patterns", "verified": true }
     ],
-    "notes": "Arguably a pattern rather than a component, but GOV.UK ships it as a component and it is what people search for."
+    "notes": "Arguably a pattern rather than a component, but GOV.UK ships it as a component and it is what people search for.",
+    "resolved": "folded into cookie-consent-banner, which carries \"cookie banner\""
   },
   {
     "name": "Fieldset",
@@ -3699,7 +3711,8 @@
         "verified": true
       }
     ],
-    "notes": "tvOS vocabulary, and the clearest name anywhere for the thing the web keeps calling a card. HIG defines four kinds: cards, caption buttons, monograms and posters. The shared focus growth is the point."
+    "notes": "tvOS vocabulary, and the clearest name anywhere for the thing the web keeps calling a card. HIG defines four kinds: cards, caption buttons, monograms and posters. The shared focus growth is the point.",
+    "resolved": "folded into card, which carries \"lockup\""
   },
   {
     "name": "Ornament",
@@ -3988,5 +4001,37 @@
       }
     ],
     "notes": "Round one caught sparkline and gauge but not the head term above them. The article should carry the encoding choice (position beats angle beats area) rather than a chart type list."
+  },
+  {
+    "name": "Contribution graph",
+    "slug": "contribution-graph",
+    "category": "component",
+    "definition": "A year of days as a grid of week columns, each cell shaded by how much happened that day, so a habit reads as a pattern instead of a number.",
+    "useWhen": "a year of daily activity shown at a glance as one dense grid",
+    "aliases": [
+      { "name": "calendar heatmap", "source": "community" },
+      { "name": "contribution calendar", "source": "github" },
+      { "name": "activity grid", "source": "community" },
+      { "name": "green squares", "source": "community" }
+    ],
+    "relatedSlugs": ["streak", "sequential-palette", "calendar", "use-of-color", "sonification", "achievement-badge"],
+    "priority": "core",
+    "demo": "inline",
+    "sources": [
+      {
+        "title": "GitHub Docs: Viewing contributions on your profile",
+        "url": "https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/viewing-contributions-on-your-profile"
+      },
+      {
+        "title": "GitHub Changelog: Accessibility improvements for the contribution graph (2023)",
+        "url": "https://github.blog/changelog/2023-03-02-accessibility-improvements-for-the-contribution-graph/"
+      },
+      {
+        "title": "Adrian Roselli: GitHub Contributions Chart (2018)",
+        "url": "https://adrianroselli.com/2018/02/github-contributions-chart.html"
+      }
+    ],
+    "implementations": [],
+    "notes": "Pooled 2026-08-28 on the user's word, as the ONE version of a 'heatmap' wish that clears the 2026-08-18 dataviz scope rule. Bare heatmap does not and must not be pooled: that sweep refused it twice, once under 'chart TYPES stay out of the pool' and once by name, folding heatmap-scale into sequential-palette's aliases, so the colour decision inside a heatmap already has a home. This record clears the rule the way trace-viewer and flame-graph did, on CONTENT rather than on shape: its article is interface and behaviour rather than encoding. The grid is a calendar, so where the year starts and how weeks column up is a layout decision; the ramp is five discrete steps rather than continuous, and the empty cell against the zero cell is a real choice. The accessibility half is the strongest reason it earns a page and it is documented rather than asserted: 365 shaded squares defeat a screen reader, Roselli wrote the critique in 2018, and GitHub's own 2023 answer was to make it a real table announced as 54 columns by 8 rows with keyboard navigation, which is why use-of-color and sonification (whose alias is 'data table alternative') are edges. And it is the picture that INDUCES a streak, which is the behavioural edge no chart type has. TWO SPELLINGS DELIBERATELY NOT CLAIMED, because both name different things and claiming them would fence out two possible records: 'commit graph' is the revision DAG, the branch-and-merge line drawing, which belongs near node-graph and graph-layout; and 'punch card' is GitHub's own name for the day-by-hour dot grid in Insights, which is a different chart on a different axis pair. 'green squares' IS claimed, as the vernacular a reader actually types, after window-controls' 'traffic lights'."
   }
 ]

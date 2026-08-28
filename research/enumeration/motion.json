@@ -251,7 +251,8 @@
       },
       { "systemId": "gsap", "name": "Flip", "url": "https://gsap.com/docs/v3/Plugins/Flip/", "verified": true }
     ],
-    "notes": "See flip-animation. Keep both only if the canonicalize step wants the technique and the feature separated."
+    "notes": "See flip-animation. Keep both only if the canonicalize step wants the technique and the feature separated.",
+    "resolved": "absorbed by flip-animation as an alias"
   },
   {
     "name": "Shared element transition",
@@ -289,7 +290,8 @@
         "verified": true
       }
     ],
-    "notes": "'hero animation' is a strong alias for the existing view-transition entry too."
+    "notes": "'hero animation' is a strong alias for the existing view-transition entry too.",
+    "resolved": "folded into view-transition, which carries \"shared element transition\" and \"hero animation\""
   },
   {
     "name": "Container transform",
@@ -704,7 +706,8 @@
         "verified": true
       }
     ],
-    "notes": "Cross-category with the existing view-transition entry; may be better as a section of that page than its own term. Sub-vocabulary worth capturing as aliases there: snapshot, image pair, ::view-transition-group, view-transition-class, transition types."
+    "notes": "Cross-category with the existing view-transition entry; may be better as a section of that page than its own term. Sub-vocabulary worth capturing as aliases there: snapshot, image pair, ::view-transition-group, view-transition-class, transition types.",
+    "resolved": "folded into view-transition (2026-08-15), which carries \"MPA view transition\""
   },
   {
     "name": "Motion choreography",
@@ -1104,7 +1107,8 @@
     "implementations": [
       { "systemId": "gsap", "name": "scrub", "url": "https://gsap.com/docs/v3/Plugins/ScrollTrigger/", "verified": true }
     ],
-    "notes": "Merge candidate with scroll-linked-animation; kept because 'scrub' is the word practitioners actually use."
+    "notes": "Merge candidate with scroll-linked-animation; kept because 'scrub' is the word practitioners actually use.",
+    "resolved": "folded (2026-08-15) into scroll-linked-animation, which carries the alias, while scrubbing owns the gesture word"
   },
   {
     "name": "Scroll pinning",
@@ -1189,7 +1193,8 @@
         "verified": true
       }
     ],
-    "notes": "Cross-category with accessibility; recorded in motion because the demo is a motion demo. WCAG 2.3.3 Animation from Interactions is the related success criterion."
+    "notes": "Cross-category with accessibility; recorded in motion because the demo is a motion demo. WCAG 2.3.3 Animation from Interactions is the related success criterion.",
+    "resolved": "folded into prefers-reduced-motion, which carries \"reduced motion\""
   },
   {
     "name": "Jank",
@@ -1395,7 +1400,8 @@
         "verified": true
       }
     ],
-    "notes": "Android's equivalent is a stretch or edge glow rather than a bounce, which is a nice platform contrast for the article."
+    "notes": "Android's equivalent is a stretch or edge glow rather than a bounce, which is a nice platform contrast for the article.",
+    "resolved": "retired 2026-08-18: already an alias of overscroll, which carries \"bounce scrolling\""
   },
   {
     "name": "Momentum scrolling",

@@ -652,7 +652,8 @@
     "demo": "inline",
     "sources": [],
     "implementations": [],
-    "notes": "Could belong in interaction; recorded here because it is a selection model rather than a gesture."
+    "notes": "Could belong in interaction; recorded here because it is a selection model rather than a gesture.",
+    "resolved": "folded into range-select, which carries \"range selection\""
   },
   {
     "name": "Marquee selection",
@@ -672,7 +673,8 @@
     "demo": "inline",
     "sources": [],
     "implementations": [],
-    "notes": "Prime long-tail entry: several competing names and no authoritative documentation."
+    "notes": "Prime long-tail entry: several competing names and no authoritative documentation.",
+    "resolved": "folded into lasso-selection, which carries \"marquee selection\""
   },
   {
     "name": "Faceted search",
@@ -882,7 +884,8 @@
     "priority": "tail",
     "demo": "inline",
     "sources": [{ "title": "UI Patterns: Inline Hints", "url": "https://ui-patterns.com/patterns" }],
-    "implementations": [{ "systemId": "ui-patterns", "name": "Inline Hints", "url": "https://ui-patterns.com/patterns", "verified": true }]
+    "implementations": [{ "systemId": "ui-patterns", "name": "Inline Hints", "url": "https://ui-patterns.com/patterns", "verified": true }],
+    "resolved": "folded into coach-mark, which carries \"hotspot\" and \"beacon\""
   },
   {
     "name": "Onboarding checklist",
@@ -983,7 +986,8 @@
         "verified": true
       }
     ],
-    "notes": "Reveal mode versus execute mode is the useful distinction: execute fires the action once the swipe passes a threshold."
+    "notes": "Reveal mode versus execute mode is the useful distinction: execute fires the action once the swipe passes a threshold.",
+    "resolved": "folded into swipe-actions, which carries \"swipe to reveal\""
   },
   {
     "name": "Swipe to dismiss",
@@ -1560,7 +1564,8 @@
     "implementations": [
       { "systemId": "govuk", "name": "Show password", "url": "https://design-system.service.gov.uk/patterns/passwords/", "verified": true }
     ],
-    "notes": "The crossed-eye icon means the opposite thing in different products, a genuine and documented ambiguity."
+    "notes": "The crossed-eye icon means the opposite thing in different products, a genuine and documented ambiguity.",
+    "resolved": "folded into password-reveal-toggle, which carries \"reveal password\" and \"show password toggle\""
   },
   {
     "name": "Captcha",
@@ -1876,7 +1881,8 @@
     "demo": "inline",
     "sources": [],
     "implementations": [],
-    "notes": "Accessibility overlap: WCAG 2.2.1 Timing Adjustable is what forces the extend option."
+    "notes": "Accessibility overlap: WCAG 2.2.1 Timing Adjustable is what forces the extend option.",
+    "resolved": "folded into timeout-warning, which carries \"session timeout warning\""
   },
   {
     "name": "Streak",
@@ -2517,7 +2523,8 @@
     "sources": [{ "title": "UI Patterns: Keyboard Shortcuts", "url": "https://ui-patterns.com/patterns" }],
     "implementations": [
       { "systemId": "ui-patterns", "name": "Keyboard Shortcuts", "url": "https://ui-patterns.com/patterns", "verified": true }
-    ]
+    ],
+    "resolved": "folded into keyboard-shortcuts-dialog, which carries \"keyboard shortcut overlay\""
   },
   {
     "name": "Help drawer",
@@ -2805,7 +2812,8 @@
     "sources": [{ "title": "TanStack Table: Column Pinning", "url": "https://tanstack.com/table/latest" }],
     "implementations": [
       { "systemId": "tanstack-table", "name": "Column Pinning", "url": "https://tanstack.com/table/latest", "verified": true }
-    ]
+    ],
+    "resolved": "folded into frozen-column, the table sense this record defines, while sticky-sidebar owns the \"sticky column\" spelling for the layout sense"
   },
   {
     "name": "Comparison table",

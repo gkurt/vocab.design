@@ -541,7 +541,8 @@
     "demo": "inline",
     "sources": [{ "title": "iOS HIG: Gestures (peek)", "url": "https://developer.apple.com/design/human-interface-guidelines/gestures" }],
     "implementations": [],
-    "notes": "Merge candidate with hover-card (already on site): peek is the press-held cousin of the hover preview."
+    "notes": "Merge candidate with hover-card (already on site): peek is the press-held cousin of the hover preview.",
+    "resolved": "retired 2026-08-18: already an alias of quick-view"
   },
   {
     "name": "Pointer capture",
@@ -1086,7 +1087,8 @@
         "verified": true
       }
     ],
-    "notes": "Android's edge glow is the same idea with a different affordance; treat it as an alias unless the article separates them."
+    "notes": "Android's edge glow is the same idea with a different affordance; treat it as an alias unless the article separates them.",
+    "resolved": "retired 2026-08-18: already an alias of overscroll, which carries \"bounce scrolling\""
   },
   {
     "name": "Overscroll",
@@ -1403,7 +1405,8 @@
         "verified": true
       }
     ],
-    "notes": "Cross-category: filed accessibility. Subject is the document's own focus order, so it is a genuine iframe demo."
+    "notes": "Cross-category: filed accessibility. Subject is the document's own focus order, so it is a genuine iframe demo.",
+    "resolved": "folded into focus-order, which carries \"tab order\" and \"tab sequence\""
   },
   {
     "name": "Typeahead",
@@ -1557,7 +1560,8 @@
     "priority": "core",
     "demo": "inline",
     "sources": [{ "title": "Computer Hope: What is a marquee?", "url": "https://www.computerhope.com/jargon/m/marquee.htm" }],
-    "implementations": []
+    "implementations": [],
+    "resolved": "folded into lasso-selection, which carries \"marquee selection\""
   },
   {
     "name": "Lasso selection",
