@@ -1,0 +1,4 @@
+term:    Anti-pattern
+scope:   element
+subject: div.sp-scroll.sp-surface[data-part=list]
+text:    Ask before quitting Confirm before deleting Group messages by thread Mark as rea
