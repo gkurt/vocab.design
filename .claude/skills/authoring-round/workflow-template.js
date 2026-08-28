@@ -17,6 +17,27 @@ export const meta = {
 const REPO = 'FILL: absolute path to this checkout (agents cd nowhere, so a stale path sends them at nothing)'
 const BRIEFS = 'FILL: absolute path to this round\u2019s briefs JSON'
 
+// FILL: paste the ROSTER line the briefs generator prints. A workflow script has no
+// filesystem access, so this literal is the only way the script can know what the round
+// was SUPPOSED to produce, and knowing that is what lets the verify gate tell a
+// half-finished round from a finished one. Round 25 is why it exists: an author agent died
+// mid-response having written one term of a three-term ladder, its `completed` list was
+// therefore empty, and the verify gate (told only what the surviving agents reported) found
+// a published term contrasting two slugs that did not exist. It did the SPEC 2.3-sanctioned
+// thing and minted them as STUBS, which is correct in isolation and exactly the debt the
+// family was batched whole to avoid.
+const ROSTER = {
+  component: [],
+  layout: [],
+  pattern: [],
+  interaction: [],
+  motion: [],
+  typography: [],
+  color: [],
+  aesthetic: [],
+  accessibility: [],
+}
+
 const BATCH_SUMMARY = {
   type: 'object',
   properties: {
@@ -31,9 +52,12 @@ const VERIFY_SUMMARY = {
   properties: {
     clean: { type: 'boolean' },
     fixed: { type: 'array', items: { type: 'string' } },
+    // One line per roster slug that is absent or half-written, so an interrupted round
+    // arrives as data rather than as a sentence inside `notes` that nobody greps for.
+    incomplete: { type: 'array', items: { type: 'string' } },
     notes: { type: 'string' },
   },
-  required: ['clean', 'fixed', 'notes'],
+  required: ['clean', 'fixed', 'incomplete', 'notes'],
 }
 
 // The accumulated laws. NEVER trim these; append new ones as rounds teach them.
@@ -64,7 +88,7 @@ const CATEGORY_GUIDANCE = {
 
 function batchPrompt(category) {
   return [
-    `You are authoring SIX terms for vocab.design (stage 3 of SPEC section 11), in ${REPO}. Category: ${category}. Your briefs are under the "${category}" key in the JSON at ${BRIEFS} (definition, useWhen, aliases, pre-filtered implementations, sources, demo hint per term).`,
+    `You are authoring ${ROSTER[category].length} term(s) for vocab.design (stage 3 of SPEC section 11), in ${REPO}. Category: ${category}. They are, exactly and only: ${ROSTER[category].join(', ')}. Your briefs are under the "${category}" key in the JSON at ${BRIEFS} (definition, useWhen, aliases, pre-filtered implementations, sources, demo hint per term); if that key does not hold exactly those slugs, stop and say so rather than guessing which list is right.`,
     '',
     'Read ONCE before the first term: SPEC.md sections 2, 5, 6, 7, 8; AGENTS.md in full; src/lib/schema.ts (implementations enum is EXACTLY aria-apg, material, hig, fluent, carbon, polaris, radix, base-ui, shadcn); src/stage/choreography.ts; src/kit/*.css and src/kit/icons.ts.',
     STAGE_NEWS,
@@ -88,15 +112,29 @@ function batchPrompt(category) {
 }
 
 phase('Author')
-const CATS = ['component', 'layout', 'pattern', 'interaction', 'motion', 'typography', 'color', 'aesthetic', 'accessibility']
+// Derived from ROSTER, so a category the pool has emptied simply gets no agent instead of
+// one told to author zero terms. The skill's roster step says to size the agent list this
+// way; deriving it means nobody has to remember to.
+const CATS = Object.keys(ROSTER).filter((c) => ROSTER[c].length > 0)
 const results = await parallel(CATS.map((c) => () =>
   agent(batchPrompt(c), { label: `batch:${c}`, phase: 'Author', schema: BATCH_SUMMARY, model: 'opus', agentType: 'general-purpose' })))
 const authored = results.filter(Boolean).flatMap((r) => r.completed)
-log(`authored: ${authored.length}/54`)
+const roster = Object.values(ROSTER).flat()
+const missing = roster.filter((slug) => !authored.includes(slug))
+log(`authored: ${authored.length}/${roster.length}`)
+if (missing.length > 0) log(`NOT reported complete: ${missing.join(', ')}`)
 
 phase('Verify')
 const verifyPrompt = [
-  `You are the verify gate for a 54-term authoring round in ${REPO}. Nine parallel agents just wrote src/content/terms/<slug>.mdx and src/content/demos/<slug>/{demo.ts,choreography.ts} for these slugs: ${authored.join(', ')}. They ran NO static checks, so you run them all, once, and fix what fails.`,
+  `You are the verify gate for an authoring round in ${REPO}. Parallel agents just wrote src/content/terms/<slug>.mdx and src/content/demos/<slug>/{demo.ts,choreography.ts}. They ran NO static checks, so you run them all, once, and fix what fails.`,
+  '',
+  `THE ROUND'S ROSTER is these ${roster.length} slugs, and it is the contract: ${roster.join(', ')}.`,
+  `Of those, ${authored.length} were reported finished: ${authored.join(', ') || 'none'}.`,
+  missing.length > 0
+    ? `${missing.length} were NOT reported finished: ${missing.join(', ')}. An agent that dies mid-response reports nothing, so a slug on this list may be absent, half-written, or in fact complete. Inventory each one (all three files present, status published, demo inline) and say in your notes which. THE ROUND IS INCOMPLETE and the main session has to finish it; your job is to describe the gap precisely, not to close it.`
+    : 'Every roster slug was reported finished, so any absent file is a real surprise and belongs in your notes.',
+  '',
+  'DO NOT MINT A STUB FOR A ROSTER SLUG. When a term on the roster is missing and another term already declares a relation to it, SPEC 2.3 says create the stub, and here that rule is wrong: the roster says a full article was meant to exist, so a stub would silently convert a recoverable interruption into published debt under the gate\u2019s own signature. Leave the dangling relation dangling, let `bun validate` fail on it, and report it. A stub is only ever correct for a slug that is NOT on the roster (an author legitimately reached for a neighbour the round never planned), and even then say so explicitly in your notes.',
   '',
   'Run in order, fixing failures between runs until each is clean:',
   '1. `bun validate` (content gates: schema, em-dashes, bare domains in prose, unresolved prose links, alias collisions, data-subject, bare timers, stage-escape APIs, transitionend waits, ungated script animation, invalid selectors, assert presence). Fix errors in the new files directly. An alias collision is fixed by dropping the alias.',
@@ -105,11 +143,12 @@ const verifyPrompt = [
   '',
   'Rules: read AGENTS.md first; fix in the spirit of the file you are fixing (match its idiom, do not gut a demo to silence a type error); never touch src/kit/, src/stage/, e2e/, or terms that predate this round (EXCEPTION: leave the authors\u2019 own prose-only cross-link edits to pre-existing articles alone if they pass the gates). Do not run e2e, builds, or dev servers: the main session handles those, and the user is running the dev server on 4321 (leave it alone). Report any stray files authors left at the repo root (screenshots, probe scripts) rather than committing around them.',
   '',
-  'Return structured output: clean (all three gates green), fixed (one short line per fix), notes.',
+  'Return structured output: clean (all three gates green), fixed (one short line per fix), incomplete (one line per roster slug that is absent or half-written, empty if none), notes.',
 ].join('\n')
 const verify = await agent(verifyPrompt, { label: 'verify:gates', phase: 'Verify', schema: VERIFY_SUMMARY, model: 'opus', agentType: 'general-purpose' })
 
 return {
   batches: CATS.map((c, i) => ({ category: c, ...(results[i] ?? { completed: [], notes: 'agent failed' }) })),
-  verify: verify ?? { clean: false, fixed: [], notes: 'verify agent failed' },
+  roster: { planned: roster.length, reported: authored.length, missing },
+  verify: verify ?? { clean: false, fixed: [], incomplete: missing, notes: 'verify agent failed' },
 }

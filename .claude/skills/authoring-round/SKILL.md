@@ -20,9 +20,9 @@ shape with `pool-remaining.ts` before promising the user a number.
 
 Files in this skill directory:
 
-- `pool-remaining.ts` — lists the unauthored pool per category
-- `make-briefs-template.ts` — briefs generator to copy and fill
-- `workflow-template.js` — the two-phase agent orchestration to copy and fill
+- `pool-remaining.ts`: lists the unauthored pool per category
+- `make-briefs-template.ts`: briefs generator to copy and fill
+- `workflow-template.js`: the two-phase agent orchestration to copy and fill
 
 ## 0. Preconditions
 
@@ -121,16 +121,41 @@ category with no terms left), set `OUT` to an absolute scratch path, run it with
 bun from the repo root. It hard-fails on any
 slug already on site or missing from the pool.
 
+It also prints a `const ROSTER = {...}` line. **Keep that output**: it goes into the
+workflow script in step 3 verbatim, and it is what lets the verify gate tell a finished
+round from an interrupted one.
+
 ## 3. Author + verify (agents, ~30-45 min)
 
 Copy `workflow-template.js`, fill the placeholders:
 
 - `BRIEFS`: the absolute path from step 2.
+- `ROSTER`: the line step 2 printed, pasted verbatim. It is the round's contract in
+  three places: each author is told its exact slugs and refuses to guess if its briefs
+  disagree, the log names any slug no agent reported, and the verify gate is told the
+  shape of the round rather than inferring it from what survived. A workflow script has
+  no filesystem access, so this literal is the only way the script can know it.
 - `CATEGORY_GUIDANCE`: per-category exemplars, IOUs, and alias fences (anatomy
   documented in the template). This is where roster knowledge becomes agent
   knowledge; skimping here costs e2e failures later.
 - Never trim `STAGE_NEWS`; append new laws as rounds teach them, and mirror any
   mechanically-checkable new law into `scripts/validate-terms.ts` as a gate.
+
+**Smoke-test the filled script before running it**, because a script that fails to parse
+burns the whole launch and reports it as a bare `SyntaxError` with no round attached:
+
+```bash
+node -e 'const s=require("fs").readFileSync(process.argv[1],"utf8").replace(/^export const meta/m,"const meta");new Function(`return (async () => {${s}})()`);console.log("parses")' -- /abs/path/to/rN.js
+```
+
+`node --check` is the wrong tool here, and worse than nothing. A workflow script's real
+evaluation context is an async function body: top-level `await` and a top-level `return`
+are both legal in it, and both are errors to `--check` (as CJS it rejects the `await`, as
+`.mjs` it rejects the `return`). So `--check` fails on every correct script, which trains
+you to dismiss its output, which is how round 25 launched a script whose prompt strings
+contained unescaped backticks. Wrapping the source in a function body parses it the way
+the runner will and reports only real faults. It earned its keep immediately: the first
+run of it over the edited template caught a missing comma in a prompt array.
 
 Run it with the Workflow tool if available (one author agent per stocked category, in parallel, then the
 verify agent). Without a Workflow tool, run the same prompts as parallel subagents
@@ -157,23 +182,48 @@ or dedicated-session job, like `hold` and the touch persona were), and keep the 
 out of rosters until the primitive lands. Faking the player is exactly what the
 fake-touch sweep is un-doing; never mint new offenders.
 
-**Spend-limit interruption recovery** (has happened twice): inventory which slugs
-have all three files (`terms/<slug>.mdx`, `demos/<slug>/demo.ts`,
-`demos/<slug>/choreography.ts`), then relaunch a finish variant: per-category
-agents get only their REMAINING slugs, are told which batch-mates are DONE (read
-them for idiom, do not rewrite), treat partial files as drafts from their earlier
-self, and run the visual sweep over the WHOLE category batch (dead agents may not
-have visually checked their own later terms; the sweep has caught real overflow
-bugs in "complete" specimens every time). The verify agent then gates the whole round.
+**Interrupted-agent recovery** (three times now: twice a spend limit, once an API
+connection lost mid-response): inventory which slugs have all three files
+(`terms/<slug>.mdx`, `demos/<slug>/demo.ts`, `demos/<slug>/choreography.ts`), then
+relaunch a finish variant: per-category agents get only their REMAINING slugs, are told
+which batch-mates are DONE (read them for idiom, do not rewrite), treat partial files as
+drafts from their earlier self, and run the visual sweep over the WHOLE category batch
+(dead agents may not have visually checked their own later terms; the sweep has caught
+real overflow bugs in "complete" specimens every time). The verify agent then gates the
+whole round.
+
+An agent that dies mid-response returns NOTHING, so its finished terms are absent from
+`completed` and invisible to anything reading only the agents' reports. That is what the
+`ROSTER` fill is for. Round 25 is the worked example: an author died having written
+`wireframe` of a three-term fidelity ladder, and the verify gate, told only what the
+surviving agents reported, found a published term contrasting two slugs that did not
+exist. It did the SPEC 2.3-sanctioned thing and minted `mockup` and `prototype` as
+STUBS, which is right in isolation and is exactly the debt the family was batched whole
+to avoid. The gate now knows the roster and is told the opposite rule for slugs on it:
+leave the dangling relation dangling, let `bun validate` fail, and report the gap in its
+`incomplete` field, because a stub there converts a recoverable interruption into
+published debt signed by the gate. A stub is still correct for a slug the round never
+planned, and the gate says so explicitly when it mints one.
 
 ## 4. e2e and commit (main session, ~30 min)
 
-1. `bun run test:e2e:new` — plays only specimens without a committed subject
+1. `bun run test:e2e:new` plays only specimens without a committed subject
    snapshot; first run fail-writes the new snapshots. **Ask before starting it**, and
    never run the full `bun run test:e2e` unasked: nothing runs it automatically any more
    (`ci.yml` is static gates only, e2e is manual in `e2e.yml`), so a 45-minute pass is
    45 minutes of the user's session. Fix behavioral failures and re-run targeted until
-   green. The failure taxonomy so far, most common first:
+   green.
+
+   **Run it in the round that authored the specimens, even if the round is otherwise
+   done.** The gate finds its work by the ABSENCE of a snapshot, so skipping it leaves
+   no trace of the omission: nothing fails, nothing warns, and the round commits
+   looking complete. Round 24 shipped 38 specimens with no record anywhere of what any
+   of them identifies as, and the only reason anyone found out is that round 25's run
+   came back reporting 47 new specimens instead of nine, at four times the wall clock.
+   If the user declines the run, say in the report that the round's specimens are
+   unproven and that the next round will pay for it.
+
+   The failure taxonomy so far, most common first:
    - an assert timed to the edge of a state window (give it room, aim mid-window)
    - an assert on evidence inside a popup the action just closed (mirror onto trigger)
    - a mount-time assert with no room for kit fades (open with a wait)

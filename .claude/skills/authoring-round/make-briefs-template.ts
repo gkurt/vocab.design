@@ -57,3 +57,11 @@ for (const [category, slugs] of Object.entries(PLAN)) {
 if (problems.length) throw new Error(problems.join('; '));
 writeFileSync(OUT, JSON.stringify(out, null, 1));
 console.log('written:', Object.entries(out).map(([k, v]) => `${k} ${(v as unknown[]).length}`).join(' · '));
+
+// The workflow script has no filesystem access, so it cannot read these briefs: the roster
+// has to be a literal in it. Print it ready to paste, because a roster retyped by hand is a
+// roster that drifts, and the whole value of the verify gate knowing the round's shape is
+// that the shape is right.
+const roster = Object.fromEntries(Object.entries(out).map(([k, v]) => [k, (v as { slug: string }[]).map((t) => t.slug)]));
+console.log('\nROSTER for the workflow template, paste it verbatim:');
+console.log(`const ROSTER = ${JSON.stringify(roster, null, 2)}`);
