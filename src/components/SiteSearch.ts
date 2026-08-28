@@ -113,6 +113,9 @@ export class SiteSearch extends HTMLElement {
   /** A reported search nobody has taken a result from yet. */
   #unanswered: { query: string; results: number } | null = null;
 
+  /** Everything this element wired outside itself, so a swapped page takes it away. */
+  #live: AbortController | undefined;
+
   connectedCallback() {
     this.#input = this.querySelector('[data-search-input]') as HTMLInputElement;
     this.#status = this.querySelector('[data-search-status]') as HTMLElement;
@@ -142,9 +145,12 @@ export class SiteSearch extends HTMLElement {
     this.#list.addEventListener('click', (event) => this.#reportClick(event));
     // A search whose results nobody took is the strongest signal there is that the
     // vocabulary did not have the word. It can only be counted on the way out: when the
-    // modal closes, or when the page goes away under a reader who gave up.
-    this.closest('dialog')?.addEventListener('close', () => this.#reportUnanswered());
-    window.addEventListener('pagehide', () => this.#reportUnanswered());
+    // modal closes, when the page goes away under a reader who gave up, or when they
+    // navigate off it, which under the router is a disconnect rather than a `pagehide`
+    // and would otherwise lose exactly the report that matters most.
+    const { signal } = (this.#live = new AbortController());
+    this.closest('dialog')?.addEventListener('close', () => this.#reportUnanswered(), { signal });
+    window.addEventListener('pagehide', () => this.#reportUnanswered(), { signal });
     // Leaving the modal for the full page is the same search continuing, not one given
     // up on: /search fires its own report from the query it arrives with.
     this.#full?.addEventListener('click', () => {
@@ -358,6 +364,16 @@ export class SiteSearch extends HTMLElement {
       result: link.pathname,
       surface: this.#surface,
     });
+  }
+
+  disconnectedCallback() {
+    // Leaving the page IS giving up on the search, so the report goes out before the
+    // listener that would have made it is dropped.
+    this.#reportUnanswered();
+    clearTimeout(this.#timer);
+    clearTimeout(this.#reportTimer);
+    this.#live?.abort();
+    this.#live = undefined;
   }
 
   #reportUnanswered() {
@@ -583,7 +599,15 @@ export class SiteSearch extends HTMLElement {
     this.#full.href = search ? `${this.#fullHref}?${search}` : this.#fullHref;
   }
 
-  /** Keep the URL shareable without adding a history entry per keystroke. */
+  /**
+   * Keep the URL shareable without adding a history entry per keystroke.
+   *
+   * The existing state is carried over rather than replaced. The router keeps its own
+   * bookkeeping there (which entry this is, and where the page was scrolled to), and a
+   * `null` state is the one thing it cannot answer a Back button with: it returns early,
+   * so the address bar would go back to the previous page and the search would stay on
+   * screen. Typing in a field must not cost the reader their history.
+   */
   #syncUrl(query: string) {
     if (!this.#syncs) return;
     const url = new URL(location.href);
@@ -597,7 +621,7 @@ export class SiteSearch extends HTMLElement {
       if (value) url.searchParams.set(key, value);
       else url.searchParams.delete(key);
     }
-    history.replaceState(null, '', url);
+    history.replaceState(history.state, '', url);
   }
 }
 

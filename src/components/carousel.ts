@@ -20,6 +20,7 @@
  */
 
 import { previewStage } from '#src/components/preview-stage.ts';
+import { onPage } from '#src/lib/on-page.ts';
 
 /** The centre, its two neighbours, and the one about to slide into view. */
 const MOUNTED = 4;
@@ -66,27 +67,31 @@ interface Feed {
   href: string;
 }
 
-const root = document.querySelector<HTMLElement>('[data-carousel]');
-const frame = root?.querySelector<HTMLElement>('[data-carousel-window]');
-const track = root?.querySelector<HTMLElement>('[data-carousel-track]');
+// Read when the page arrives, never at import: the front page is one swap away from
+// itself, and a row read once would be the row of a document already gone (SPEC §3).
+onPage((signal) => {
+  const root = document.querySelector<HTMLElement>('[data-carousel]');
+  const frame = root?.querySelector<HTMLElement>('[data-carousel-window]');
+  const track = root?.querySelector<HTMLElement>('[data-carousel-track]');
 
-const slots: Slot[] = [...(track?.children ?? [])]
-  .map((el): Slot | undefined => {
-    const box = el instanceof HTMLElement ? el.querySelector<HTMLElement>('.vd-preview') : null;
-    if (!(el instanceof HTMLElement) || !box) return undefined;
-    return {
-      root: el,
-      box,
-      slug: el.dataset.slug ?? '',
-      name: el.dataset.name ?? '',
-      isolation: el.dataset.isolation ?? 'inline',
-      stage: undefined,
-      shown: false,
-    };
-  })
-  .filter((slot): slot is Slot => slot !== undefined);
+  const slots: Slot[] = [...(track?.children ?? [])]
+    .map((el): Slot | undefined => {
+      const box = el instanceof HTMLElement ? el.querySelector<HTMLElement>('.vd-preview') : null;
+      if (!(el instanceof HTMLElement) || !box) return undefined;
+      return {
+        root: el,
+        box,
+        slug: el.dataset.slug ?? '',
+        name: el.dataset.name ?? '',
+        isolation: el.dataset.isolation ?? 'inline',
+        stage: undefined,
+        shown: false,
+      };
+    })
+    .filter((slot): slot is Slot => slot !== undefined);
 
-if (root && frame && track && slots.length > 0) {
+  if (!root || !frame || !track || slots.length === 0) return;
+
   // Nothing goes round for a reader who asked for no motion: no specimen plays, so the
   // row would be sliding to hand the stage from one still picture to the next.
   const rotates = !matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -102,6 +107,8 @@ if (root && frame && track && slots.length > 0) {
   /** When the centre took the stage, which is what PLAY_FLOOR_MS is measured from. */
   let grantedAt = 0;
   let watchdog: ReturnType<typeof setTimeout> | undefined;
+  /** The slide in flight, if any. Only ever one, since `sliding` gates the next. */
+  let slideTimer: ReturnType<typeof setTimeout> | undefined;
   let sliding = false;
   let hovered = false;
   /** Whether the row is on screen at all: a carousel nobody can see does not turn. */
@@ -158,17 +165,17 @@ if (root && frame && track && slots.length > 0) {
   const cardWidth = () => slots[0]?.root.getBoundingClientRect().width ?? 0;
 
   /**
-   * Put the second card in the middle of the window, so the row is cut at both edges and
-   * says it continues in both directions. Measured rather than derived from the
-   * breakpoints, because the column is fluid and the card stops at 360px.
+   * What the row's width decides. Where the row SITS is not here: the base offset that
+   * centres the second card, and the fade over the peek at each edge, are live CSS
+   * expressions (see stage.css), so the row opens centred with no script at all and
+   * answers a resize on its own. What is left is the two things CSS cannot say: a scale
+   * is a length divided by a length, which calc refuses, and whether the peek is big
+   * enough to be a target is a decision rather than a measurement.
    */
   const place = () => {
     const card = cardWidth();
     if (card === 0) return;
     const peek = (frame.clientWidth - card) / 2;
-    track.style.setProperty('--vd-carousel-x', `${peek - CENTRE * (card + gap())}px`);
-    // The edges fade over exactly what shows of the cards out there (SPEC §3).
-    frame.style.setProperty('--vd-carousel-fade', `${Math.max(peek, 0)}px`);
     // With no peek to aim at, the steps take over. They step the same row the same way,
     // so they are not offered where the neighbours themselves can be reached, and never
     // to a reader who asked for no motion, whose row does not go round at all.
@@ -213,7 +220,7 @@ if (root && frame && track && slots.length > 0) {
     pulling = true;
     pulled.add(page);
     try {
-      const response = await fetch(`${feed}${page}.json`);
+      const response = await fetch(`${feed}${page}.json`, { signal });
       const body: unknown = await response.json();
       const terms = body && typeof body === 'object' && 'terms' in body ? (body as { terms: Feed[] }).terms : [];
       for (const term of shuffled(Array.isArray(terms) ? terms : [])) {
@@ -227,6 +234,9 @@ if (root && frame && track && slots.length > 0) {
       pulled.delete(page);
     }
     pulling = false;
+    // The page may have been swapped away while this was in flight, and the abort lands
+    // here: the row it would be refilling belongs to a document that has gone.
+    if (signal.aborted) return;
     refill();
   };
 
@@ -318,7 +328,7 @@ if (root && frame && track && slots.length > 0) {
       markCentre(slots[CENTRE + 1]);
       track.dataset.sliding = '';
       track.style.setProperty('--vd-carousel-shift', `-${step}px`);
-      setTimeout(() => {
+      slideTimer = setTimeout(() => {
         // Its stage goes before the node moves: a custom element taken out of the document
         // and put back tears itself down and sets itself up again, and the specimen would
         // be built twice into a canvas that already has one.
@@ -344,7 +354,7 @@ if (root && frame && track && slots.length > 0) {
     void track.offsetWidth;
     track.dataset.sliding = '';
     track.style.setProperty('--vd-carousel-shift', '0px');
-    setTimeout(done, SLIDE_MS + 40);
+    slideTimer = setTimeout(done, SLIDE_MS + 40);
   };
 
   const advance = () => slide(1);
@@ -356,44 +366,76 @@ if (root && frame && track && slots.length > 0) {
    * a modified or middle click is always the browser's, so opening a card in a new tab
    * works wherever it sits.
    */
-  track.addEventListener('click', (event) => {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const target = event.target instanceof Element ? event.target.closest('.vd-carousel-card') : null;
-    const at = slots.findIndex((slot) => slot.root === target);
-    if (at < 0 || at === CENTRE) return;
-    event.preventDefault();
-    slide(at > CENTRE ? 1 : -1);
-  });
+  track.addEventListener(
+    'click',
+    (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = event.target instanceof Element ? event.target.closest('.vd-carousel-card') : null;
+      const at = slots.findIndex((slot) => slot.root === target);
+      if (at < 0 || at === CENTRE) return;
+      event.preventDefault();
+      slide(at > CENTRE ? 1 : -1);
+    },
+    { signal },
+  );
 
   // The steps are the neighbour click for a row with no visible neighbours, so they do
   // exactly what clicking one does: bring that side's card to the middle.
   for (const step of root.querySelectorAll<HTMLElement>('[data-carousel-step]')) {
-    step.addEventListener('click', () => slide(step.dataset.carouselStep === '-1' ? -1 : 1));
+    step.addEventListener('click', () => slide(step.dataset.carouselStep === '-1' ? -1 : 1), { signal });
   }
 
-  root.addEventListener('pointerenter', () => {
-    hovered = true;
-  });
+  root.addEventListener(
+    'pointerenter',
+    () => {
+      hovered = true;
+    },
+    { signal },
+  );
   // The row does not move on while the reader is standing at it. It moves at the next
   // boundary after they leave, so a term someone stopped to watch is not snatched away.
-  root.addEventListener('pointerleave', () => {
-    hovered = false;
-  });
-  root.addEventListener('focusin', () => {
-    hovered = true;
-  });
-  root.addEventListener('focusout', () => {
-    hovered = false;
-  });
+  root.addEventListener(
+    'pointerleave',
+    () => {
+      hovered = false;
+    },
+    { signal },
+  );
+  root.addEventListener(
+    'focusin',
+    () => {
+      hovered = true;
+    },
+    { signal },
+  );
+  root.addEventListener(
+    'focusout',
+    () => {
+      hovered = false;
+    },
+    { signal },
+  );
 
-  new IntersectionObserver(
+  const watcher = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) seen = entry.isIntersecting;
     },
     { threshold: 0.25 },
-  ).observe(root);
+  );
+  watcher.observe(root);
 
-  new ResizeObserver(place).observe(frame);
+  const sizer = new ResizeObserver(place);
+  sizer.observe(frame);
   place();
   settle();
-}
+
+  // The page is leaving. The stages tear themselves down with the tree, but the observers
+  // and the timers are ours, and a slide left half finished would otherwise land its
+  // `done` on a row that is not there any more.
+  signal.addEventListener('abort', () => {
+    clearTimeout(watchdog);
+    clearTimeout(slideTimer);
+    watcher.disconnect();
+    sizer.disconnect();
+  });
+});

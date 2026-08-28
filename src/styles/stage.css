@@ -23,6 +23,11 @@ vd-stage figure {
 [data-stage-canvas] {
   position: absolute;
   inset: 0;
+  /* `scrollbar-color` is inherited and inheritance crosses into a shadow root, so the
+     chrome's own bar colour would reach every specimen and paint a light demo's scroller
+     in a dark site's palette. The two systems do not mix (SPEC §4): the kit states its
+     own on `.sp-scroll`, and everything else inside a specimen gets the platform's. */
+  scrollbar-color: auto;
 }
 
 /* A column narrower than the authored 720 (a phone, in practice) scales the specimen
@@ -813,6 +818,16 @@ vd-stage[data-posed] .vd-playing span {
   border-color: var(--vd-accent);
 }
 
+/* The card being photographed for the morph (SPEC §3) has the reader's pointer on it by
+   definition, and their focus too, since they clicked its link. An accent border in the
+   still is a hover frozen into a shape that is on its way to being a page with no border
+   at all, so the card is photographed as it looks at rest. Outranks the carousel's own
+   hover rule as well, which sets the same property. */
+.vd-card[data-morphing]:hover,
+.vd-card[data-morphing]:focus-within {
+  border-color: var(--vd-line);
+}
+
 /* --- The front page's carousel (SPEC §3) -------------------------------------
    A row of half-size specimens that moves over by one card whenever the one in the
    middle finishes a pass, with the card that has left sent round to the back. The
@@ -880,10 +895,12 @@ vd-stage[data-posed] .vd-playing span {
 }
 
 /* The row dissolves at the column's edges rather than being cut off square, so what is
-   out there reads as more row and not as a card someone has sliced. The fade is exactly
-   as wide as the peek, measured by the controller, which means a column too narrow to
-   show a peek at all fades nothing. */
+   out there reads as more row and not as a card someone has sliced. */
 .vd-carousel-window {
+  /* Exactly as wide as the peek, so a column too narrow to show a peek at all fades
+     nothing. Stated here for the same reason the base offset is: the row is cut at both
+     edges from the first paint rather than from the first frame after script. */
+  --vd-carousel-fade: max(0px, (100% - var(--vd-carousel-card)) / 2);
   overflow: hidden;
   -webkit-mask-image: linear-gradient(
     to right,
@@ -901,14 +918,33 @@ vd-stage[data-posed] .vd-playing span {
   );
 }
 
+/* Two offsets, and only one of them moves: the base centres the second card in the
+   window, while the shift is the slide itself. Resetting the shift with the transition
+   off is what lets the row land back where it started around a rotated set of cards.
+
+   The base belongs to CSS and the controller never writes it. Two reasons. The row has to
+   open centred: one that opens flush left and is centred a frame later by script has told
+   the reader that the first thing they saw was wrong. And it is a live expression, so it
+   answers a resize by itself, which means there is no second copy of the arithmetic to
+   drift from this one. It is `left` rather than part of the transform because a percentage
+   in a translate is a share of the element being moved, and this one is a share of the
+   window it moves inside. The card width is the same `min(360px, 100%)` the cards
+   themselves use, and the track is exactly as wide as the window, so both hundred percents
+   are the same number. */
 .vd-carousel-track {
+  --vd-carousel-centre: 1;
+  position: relative;
   display: flex;
   gap: var(--vd-carousel-gap);
-  /* Two offsets, and only one of them moves: the base centres the second card in the
-     window and is re-measured on resize, while the shift is the slide itself. Resetting
-     the shift with the transition off is what lets the row land back where it started
-     around a rotated set of cards. */
-  transform: translate3d(calc(var(--vd-carousel-x, 0px) + var(--vd-carousel-shift, 0px)), 0, 0);
+  left: calc((100% - var(--vd-carousel-card)) / 2 - var(--vd-carousel-centre) * (var(--vd-carousel-card) + var(--vd-carousel-gap)));
+  transform: translate3d(var(--vd-carousel-shift, 0px), 0, 0);
+}
+
+/* A pool of one is a pool of one: it sits in the middle rather than off to the left of
+   an empty row, which is the same call the controller makes for a row too short to have
+   two sides. */
+.vd-carousel-track:not(:has(> * + *)) {
+  --vd-carousel-centre: 0;
 }
 
 .vd-carousel-track[data-sliding] {

@@ -12,7 +12,11 @@ export type Params = Record<string, Value | undefined>;
 
 declare global {
   interface Window {
-    gtag?: (command: 'event', name: string, params?: Params) => void;
+    gtag?: {
+      (command: 'event', name: string, params?: Params): void;
+      /** Parameters every later event carries. The tag's own `config` sets them once. */
+      (command: 'set', params: Params): void;
+    };
   }
 }
 
@@ -26,10 +30,37 @@ export function clip(value: string): string {
 export function track(name: string, params: Params = {}): void {
   const gtag = window.gtag;
   if (!gtag) return;
-  const clean: Params = {};
+  gtag('event', name, clean(params));
+}
+
+/**
+ * A page view for a page the browser never loaded.
+ *
+ * The tag counts one view when it starts up, which under client-side navigation is the
+ * first page of a visit and no other: everything after that is a swapped document in the
+ * same realm, and a reader who reads six terms would be a reader who read one. So a
+ * navigation says so itself. `set` first, because the two parameters that describe the
+ * page are sticky ones from the tag's `config` (SPEC §10) and would otherwise still
+ * describe the page the reader has left, on this view and on every event after it.
+ */
+export function pageView(page: Params): void {
+  const gtag = window.gtag;
+  if (!gtag) return;
+  // Every parameter is stated, the empty ones included, because `set` MERGES: one left
+  // out keeps whatever the page before it had, and a term's category would follow the
+  // reader out onto the listings. Empty rather than absent is also what the tag's own
+  // `config` sends on a cold load, so the two paths report the same shape.
+  const sticky: Params = {};
+  for (const [key, value] of Object.entries(page)) sticky[key] = typeof value === 'string' ? clip(value) : (value ?? '');
+  gtag('set', sticky);
+  gtag('event', 'page_view', { page_location: location.href, page_title: document.title });
+}
+
+function clean(params: Params): Params {
+  const out: Params = {};
   for (const [key, value] of Object.entries(params)) {
     if (value === undefined) continue;
-    clean[key] = typeof value === 'string' ? clip(value) : value;
+    out[key] = typeof value === 'string' ? clip(value) : value;
   }
-  gtag('event', name, clean);
+  return out;
 }

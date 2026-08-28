@@ -38,6 +38,16 @@ export default defineConfig({
   // so every canonical URL would have named a redirect. GitHub Pages serves toast.html at
   // /toast, which is the whole reason this is available to us.
   build: { format: 'file' },
+  /**
+   * Stated rather than inherited. The client router turns prefetching on by itself, and
+   * these are its own defaults written down: a link is fetched when a reader hovers or
+   * focuses it, which on a dictionary is a good bet, since hovering a headword is most of
+   * the way to reading it. `hover` and not `viewport`, because a glossary letter is
+   * hundreds of links and none of them is a prediction. Both are refused for a reader on
+   * a metered or slow connection, and `/random` opts out by hand (it answers differently
+   * every time, so there is nothing to have fetched early).
+   */
+  prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     mdx(),
     sitemap({

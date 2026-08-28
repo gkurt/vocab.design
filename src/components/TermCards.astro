@@ -36,6 +36,7 @@ const { terms, aliases = false } = Astro.props;
     terms.map((t) => (
       <li
         class="vd-card overflow-hidden rounded-lg border border-line bg-surface"
+        data-card-slug={t.data.slug}
         data-preview={t.data.demo === "none" ? undefined : t.data.slug}
         data-preview-name={t.data.name}
         data-preview-isolation={t.data.demo}
@@ -57,6 +58,7 @@ const { terms, aliases = false } = Astro.props;
         <div class="px-5 py-4">
           <a
             href={pageUrl(t.data.slug)}
+            data-card-name
             class="font-serif text-lg font-semibold hover:text-accent"
           >
             {t.data.name}
@@ -66,7 +68,9 @@ const { terms, aliases = false } = Astro.props;
               also {t.data.aliases.map((a) => a.name).join(", ")}
             </span>
           )}
-          <p class="mt-1 text-sm text-muted">{t.data.definition}</p>
+          <p class="mt-1 text-sm text-muted" data-card-definition>
+            {t.data.definition}
+          </p>
         </div>
       </li>
     ))
@@ -75,4 +79,5 @@ const { terms, aliases = false } = Astro.props;
 
 <script>
   import '#src/components/previews.ts';
+  import '#src/components/card-morph.ts';
 </script>

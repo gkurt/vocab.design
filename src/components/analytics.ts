@@ -16,11 +16,17 @@
  *    two that already report themselves are deliberately unmarked: Search fires
  *    `search_open` from `SearchDialog.ts`, and the wordmark is just "go home".
  *
- * Everything here funnels through `track()`, which is a no-op unless the build carries a
- * measurement ID and the reader has not opted out.
+ * 4. That a page was read at all, for every page after the first. The tag counts a view
+ *    when it starts up, and under client-side navigation it starts up once per visit
+ *    rather than once per page (SPEC §10).
+ *
+ * Everything here funnels through `track()` and `pageView()`, which are no-ops unless the
+ * build carries a measurement ID and the reader has not opted out. All of it is wired per
+ * page: the header and the article both arrive again with each swapped document.
  */
 
-import { track } from '#src/lib/track.ts';
+import { onPage } from '#src/lib/on-page.ts';
+import { pageView, track } from '#src/lib/track.ts';
 
 /** Written by the alias redirect page, read once by the term page it points at. */
 const ALIAS_KEY = 'vd:alias';
@@ -41,17 +47,21 @@ function reportAliasHandoff(article: HTMLElement) {
   track('alias_hit', { alias, term });
 }
 
-function wireGraph(article: HTMLElement) {
-  article.addEventListener('click', (event) => {
-    if (event.defaultPrevented) return;
-    const link = (event.target as Element | null)?.closest?.('a');
-    if (!(link instanceof HTMLAnchorElement)) return;
-    // `to` is a path rather than a slug so it joins against GA's own page_path, and the
-    // page the click happened on comes free with the event.
-    const relation = link.dataset.rel ?? (link.closest('.article') && link.origin === location.origin ? 'prose' : undefined);
-    if (!relation) return;
-    track('relation_click', { relation, to: link.pathname });
-  });
+function wireGraph(article: HTMLElement, signal: AbortSignal) {
+  article.addEventListener(
+    'click',
+    (event) => {
+      if (event.defaultPrevented) return;
+      const link = (event.target as Element | null)?.closest?.('a');
+      if (!(link instanceof HTMLAnchorElement)) return;
+      // `to` is a path rather than a slug so it joins against GA's own page_path, and the
+      // page the click happened on comes free with the event.
+      const relation = link.dataset.rel ?? (link.closest('.article') && link.origin === location.origin ? 'prose' : undefined);
+      if (!relation) return;
+      track('relation_click', { relation, to: link.pathname });
+    },
+    { signal },
+  );
 }
 
 /**
@@ -65,20 +75,38 @@ function wireGraph(article: HTMLElement) {
  * report from: it replaces itself before any tag could load, so this click IS the record
  * of it, and a reader who opens `/random` directly is not counted.
  */
-function wireNav(header: HTMLElement) {
-  header.addEventListener('click', (event) => {
-    if (event.defaultPrevented) return;
-    const link = (event.target as Element | null)?.closest?.('a[data-nav]');
-    if (!(link instanceof HTMLAnchorElement)) return;
-    track('nav_click', { to: link.origin === location.origin ? link.pathname : link.hostname });
-  });
+function wireNav(header: HTMLElement, signal: AbortSignal) {
+  header.addEventListener(
+    'click',
+    (event) => {
+      if (event.defaultPrevented) return;
+      const link = (event.target as Element | null)?.closest?.('a[data-nav]');
+      if (!(link instanceof HTMLAnchorElement)) return;
+      track('nav_click', { to: link.origin === location.origin ? link.pathname : link.hostname });
+    },
+    { signal },
+  );
 }
 
-const header = document.querySelector<HTMLElement>('[data-header]');
-if (header) wireNav(header);
+/** Whether this is a swapped page rather than the one the browser itself loaded. */
+let swapped = false;
+document.addEventListener('astro:after-swap', () => {
+  swapped = true;
+});
 
-const article = document.querySelector<HTMLElement>('article[data-term]');
-if (article) {
-  reportAliasHandoff(article);
-  wireGraph(article);
-}
+onPage((signal) => {
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) wireNav(header, signal);
+
+  const article = document.querySelector<HTMLElement>('article[data-term]');
+  if (article) {
+    reportAliasHandoff(article);
+    wireGraph(article, signal);
+  }
+
+  // Only for a page the tag did not count itself. The root element carries what the URL
+  // cannot say, and the swap has already replaced it with the incoming page's answers.
+  if (!swapped) return;
+  const data = document.documentElement.dataset;
+  pageView({ page_type: data.pageType, term_category: data.termCategory });
+});

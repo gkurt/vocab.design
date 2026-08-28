@@ -48,16 +48,24 @@
 }
 
 body {
-  background: var(--vd-paper);
   color: var(--vd-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* The sticky header. Transparent over a page at rest so the chrome recedes (SPEC §4),
-   and solid the moment anything has scrolled beneath it, because type over type is the
-   one thing a header must never be. `[data-stuck]` comes from the chrome's own script:
-   whether the page has scrolled is the single fact CSS cannot ask for. */
+/* The sticky header. It recedes over a page at rest (SPEC §4) and grows a hairline the
+   moment anything has scrolled beneath it, because type over type is the one thing a
+   header must never be. `[data-stuck]` comes from the chrome's own script: whether the
+   page has scrolled is the single fact CSS cannot ask for.
+
+   The GROUND is unconditional, and it has to be. It is `--vd-paper`, which is the body's
+   own colour, so painting it always is indistinguishable from leaving it transparent for
+   a page at rest: the only thing `[data-stuck]` ever really changed was the hairline.
+   Making it conditional cost nothing for years and then cost exactly one thing, when
+   client-side navigation arrived (SPEC §3): during a swap the outgoing page is still
+   being painted underneath while the incoming one is at the top of its scroll, so the
+   header had no ground at the one moment there was something behind it, and a whole
+   table of somebody else's type came through it. */
 
 /* The sentinel the observer watches: a few pixels at the top of the document, out of
    flow so it takes no room, and tall enough that a rubber-band overscroll does not
@@ -72,26 +80,82 @@ body {
 }
 
 [data-header] {
+  background: var(--vd-paper);
   border-bottom: 1px solid transparent;
-  transition:
-    background-color 160ms ease,
-    border-color 160ms ease;
+  transition: border-color 160ms ease;
 }
 
 [data-header][data-stuck] {
-  background: var(--vd-paper);
   border-bottom-color: var(--vd-line);
+}
+
+/* --- Between pages (SPEC §3) -------------------------------------------------
+   The router runs a cross-document view transition, and these are the two things the
+   browser's own defaults get wrong for this site.
+
+   Faster, first. The default quarter of a second is tuned for a photograph sliding into
+   place; here the page is mostly type, and type crossfading is legible for exactly as
+   long as it takes to read that it is crossfading. 160ms is short enough to read as the
+   page having turned rather than as an effect, and long enough that a card travelling
+   half a screen into a headword is still a move you can follow. The `*` is every group,
+   named or not, so the root crossfade and the four card parts are one duration: a morph
+   that outlives the ground it lands on is the thing that reads as slow.
+
+   Then the layering. Transition groups are painted in the order their names were first
+   seen, which puts anything further down the document over the header, and a specimen or
+   an expanding card really does travel under it. Nothing about z-index at rest carries
+   into the transition tree, so the header states its own place there too. */
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 250ms;
+}
+
+::view-transition-group(chrome-header) {
+  z-index: 2;
+}
+
+/* A crossfade between two OPAQUE boxes is translucent in the middle: each is at half
+   strength, so half of what is behind them both shows through, and the page a card is
+   opening into flickers past under its own ground. `plus-lighter` adds the two layers
+   instead of stacking them, which is what makes a card's surface and the page's paper
+   sum back to one surface all the way across. (It is the same trick Astro's own fade
+   uses, and the reason the boxes have to be listed: it is only correct where both sides
+   really are opaque.) Declared as a transition CLASS because every name in the morph
+   carries the term's slug, so there is nothing here that could be written down. */
+.vd-card,
+.vd-preview,
+.vd-solid {
+  view-transition-class: solid;
+}
+
+::view-transition-old(.solid),
+::view-transition-new(.solid) {
+  mix-blend-mode: plus-lighter;
 }
 
 /* An in-page anchor has to clear the header it would otherwise land under. */
 html {
   scroll-padding-top: 4.5rem;
-  /* The gutter is reserved whether or not the page scrolls, so nothing on the site is
-     ever laid out against a width that is about to change: a short page and a long one
-     have the same column, and opening the search modal (which stops the page scrolling
-     underneath it) no longer takes the scrollbar away and shifts the article sideways.
-     Where scrollbars overlay the content, as they do by default on a Mac, it is inert. */
-  scrollbar-gutter: stable;
+  /* The paper is stated on the ROOT rather than on `body`. A background on `body` reaches
+     the canvas only by propagation, and `body`'s own box stops at the root's content box,
+     so anything reserved outside it (the padding below) would be left showing whatever is
+     behind the page. Stated here it covers the whole canvas by definition. */
+  background: var(--vd-paper);
+  /* The bar is always there, so nothing on the site is ever laid out against a width that
+     is about to change: a short page and a long one have the same column, which under
+     client-side navigation (§3) is the difference between a swap and a jolt. This is the
+     old, blunt way of saying it, and it is deliberate: `scrollbar-gutter: stable` reserves
+     room that the TOP LAYER does not cover, so a modal's backdrop stops at the edge of the
+     reserved strip and leaves an undimmed band down the side of a dimmed page (not fixable
+     with `100vw` on the backdrop, which was tried). A real scrollbar has no such edge. */
+  overflow-y: scroll;
+  /* The bar is part of the page, so it is painted in the page's palette and not the
+     operating system's: a light strip down the side of a dark page is the last piece of
+     chrome that never got the theme. The thumb is the muted ink at just over half
+     strength and the track is left transparent, so the bar's room reads as paper and the
+     whole thing flips with the theme by itself, because the token does. */
+  scrollbar-color: color-mix(in oklab, var(--vd-muted) 55%, transparent) transparent;
 }
 
 /* The search chord, in the header beside the word. Both spellings ship as real text and
@@ -293,17 +357,24 @@ dialog[data-search-dialog] {
 }
 
 /* ::backdrop only inherits from its dialog in newer engines, so state a literal colour:
-   this one wants to read the same over either theme's paper anyway. */
+   this one wants to read the same over either theme's paper anyway. It covers the viewport
+   and nothing outside it, which is why the scrollbar's room is given back as the root's own
+   padding rather than reserved beside it (see the lock below). */
 dialog[data-search-dialog]::backdrop {
   background: rgb(0 0 0 / 0.45);
   backdrop-filter: blur(2px);
 }
 
 /* A modal dialog does not stop the page behind it scrolling, and a wheel past the end of
-   the results should not take the article with it. The scrollbar's room is held by the
-   stable gutter declared on `html` above, so the page under the modal keeps its width. */
+   the results should not take the article with it. Stopping the scroll takes the scrollbar
+   away with it, so its room is handed straight back as padding on the same element and the
+   article does not move: the padding is inside the root's own box, which means it is
+   painted with the page's paper and it is inside the viewport the backdrop covers, neither
+   of which is true of a reserved gutter. `--vd-scrollbar` is measured by the dialog while
+   the bar is still there (`SearchDialog.ts`), and is 0px where scrollbars overlay. */
 html:has(dialog[data-search-dialog][open]) {
   overflow: hidden;
+  padding-right: var(--vd-scrollbar, 0px);
 }
 
 dialog[data-search-dialog][open] {

@@ -11,8 +11,10 @@ import '@fontsource-variable/source-serif-4';
  */
 import serifLatin from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import '#src/styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import Analytics from '#src/components/Analytics.astro';
 import SearchDialog from '#src/components/SearchDialog.astro';
+import { pageType } from '#src/lib/page-type.ts';
 import { canonicalPath, pageUrl } from '#src/lib/url.ts';
 
 interface Props {
@@ -32,6 +34,15 @@ interface Props {
 
 const { title, description, category, image, imageAlt } = Astro.props;
 const path = canonicalPath(Astro.url.pathname);
+/**
+ * What kind of page this is, and which category a term belongs to, stated on the root
+ * element (SPEC §10). Analytics needs both on every page and neither is in the URL, and
+ * under the router a swapped page's parameters cannot ride in a script: the head's tag
+ * bootstrap has to be byte-identical on every page so the router runs it exactly once.
+ * The root is the one element whose server-rendered attributes are replaced by each
+ * swap, so this is the place both the head script and `analytics.ts` can read them from.
+ */
+const kind = pageType(path, import.meta.env.BASE_URL);
 const canonical = new URL(path, Astro.site);
 // Crawlers resolve neither a relative image nor a protocol-relative one, so this is the
 // one place on the site that must name the absolute URL of an asset.
@@ -42,7 +53,7 @@ const onSearchPage = path.endsWith('/search');
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-page-type={kind} data-term-category={category}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -97,19 +108,41 @@ const onSearchPage = path.endsWith('/search');
       title="vocab.design: new entries"
       href={pageUrl("/rss.xml")}
     />
-    <Analytics category={category} />
+    <Analytics />
+    {/* Client-side navigation (SPEC §3). Every page that carries the chrome carries the
+        router, and the two documents that do not (the random redirect, and a specimen's
+        own frame) are left to the browser, which is what the router does when the page it
+        fetched does not have it. */}
+    <ClientRouter />
     <script is:inline>
-      const theme = localStorage.getItem("theme");
-      if (theme === "light" || theme === "dark")
-        document.documentElement.dataset.theme = theme;
-      // Which modifier the search chord is spelled with. Set here rather than in the
-      // deferred script so the header paints the right key once: both spellings are real
-      // text in the markup and CSS hides the wrong one, so there is nothing to reflow.
-      document.documentElement.dataset.chord = /mac|iphone|ipad|ipod/i.test(
-        navigator.platform || navigator.userAgent,
-      )
-        ? "apple"
-        : "other";
+      // The reader's own answers to two questions the server could not have known, both
+      // written on the root element. Classic and inline, so they are settled during parse
+      // and the first paint is already right.
+      //
+      // Under the router the root's attributes are REPLACED by each swap: everything the
+      // server rendered comes back with the new page, and everything set here is wiped.
+      // So this is a function, and the swap calls it again. `astro:after-swap` is the one
+      // moment that works, because it runs inside the transition's own DOM update, before
+      // the new page is captured for the animation; anything later is a flash of the
+      // wrong theme on every navigation. It is also why nothing here re-runs on
+      // `astro:page-load`, and why the script is identical on every page: the router
+      // recognises a script it has already executed and leaves this one alone.
+      function vdRoot() {
+        const theme = localStorage.getItem("theme");
+        if (theme === "light" || theme === "dark")
+          document.documentElement.dataset.theme = theme;
+        // Which modifier the search chord is spelled with. Set here rather than in the
+        // deferred script so the header paints the right key once: both spellings are
+        // real text in the markup and CSS hides the wrong one, so there is nothing to
+        // reflow.
+        document.documentElement.dataset.chord = /mac|iphone|ipad|ipod/i.test(
+          navigator.platform || navigator.userAgent,
+        )
+          ? "apple"
+          : "other";
+      }
+      vdRoot();
+      document.addEventListener("astro:after-swap", vdRoot);
     </script>
     <slot name="head" />
   </head>
@@ -120,7 +153,18 @@ const onSearchPage = path.endsWith('/search');
         few pixels pinned to the top of the document, whose leaving the viewport IS the
         header being stuck. It takes no room, because it is out of flow. */}
     <div class="vd-header-sentinel" aria-hidden="true"></div>
-    <div data-header class="sticky top-0 z-40">
+    {/* Named, and not animated. A named element is lifted out of the page's own snapshot
+        and matched with its counterpart on the next page: this one sits at the same place
+        on every page, so there is nothing to animate, and without the name it would be
+        part of the cross-fade and the furniture would blink on every navigation. Not
+        `transition:persist`, which would carry the OLD header across: `aria-current` on
+        the search link is per-page, and stale state there is a lie to a screen reader. */}
+    <div
+      data-header
+      transition:name="chrome-header"
+      transition:animate="none"
+      class="sticky top-0 z-40"
+    >
       <header
         class="vd-header-bar mx-auto flex max-w-3xl items-baseline justify-between gap-4 px-5 py-4"
       >
@@ -136,8 +180,17 @@ const onSearchPage = path.endsWith('/search');
             >A&ndash;Z</a
           >
           {/* Not prefetched and not a canonical document: it answers with a different
-              term every time, so there is nothing to prefetch and nothing to index. */}
-          <a href={pageUrl("/random")} data-nav class="hover:text-ink">Random</a>
+              term every time, so there is nothing to prefetch and nothing to index. And
+              not client-side either: the page it names is a redirect that replaces itself,
+              so the router would fetch a document it must then throw away. `reload` hands
+              the click straight back to the browser. */}
+          <a
+            href={pageUrl("/random")}
+            data-nav
+            data-astro-reload
+            data-astro-prefetch="false"
+            class="hover:text-ink">Random</a
+          >
           <a
             href={pageUrl("/search")}
             data-search-open={onSearchPage ? undefined : true}
@@ -204,50 +257,62 @@ const onSearchPage = path.endsWith('/search');
     {!onSearchPage && <SearchDialog />}
     <script>
       import "#src/components/analytics.ts";
+      import { onPage } from "#src/lib/on-page.ts";
 
-      // Solid-when-stickied, from the one fact CSS cannot ask for on its own: whether
-      // anything has scrolled past. An observer on the sentinel rather than a scroll
-      // listener, because the question is about layout and the observer answers it from
-      // layout: it is right however the page got where it is, a reader's wheel, a
-      // restored position, an anchor, or a reflow that moved the ground underneath.
-      const header = document.querySelector("[data-header]");
-      const sentinel = document.querySelector(".vd-header-sentinel");
-      // Two small care points, both about the shape of the API rather than about this
-      // header: one delivery can carry several records for the same target, and only the
-      // newest describes where the page is now; and the observer is held in a variable,
-      // because an unreferenced one may be collected out from under its own observation.
-      const stuck = new IntersectionObserver((entries) => {
-        const latest = entries.at(-1);
-        if (latest) header?.toggleAttribute("data-stuck", !latest.isIntersecting);
-      });
-      if (header && sentinel) stuck.observe(sentinel);
-
-      // The theme-color metas are scoped to the system preference, which is the right
-      // answer until a reader overrides it here. Then both are re-stated with the chosen
-      // scheme's paper, so the browser's own chrome follows the page rather than the OS.
-      // The values are global.css's --vd-paper; there is no way to ask CSS for a token
-      // from a media query that does not apply.
-      const TINT = { light: "#faf9f6", dark: "#171512" };
-      const tint = (theme: "light" | "dark") => {
-        for (const meta of document.querySelectorAll<HTMLMetaElement>(
-          'meta[name="theme-color"]',
-        ))
-          meta.content = TINT[theme];
-      };
-      const chosen = document.documentElement.dataset.theme;
-      if (chosen === "light" || chosen === "dark") tint(chosen);
-
-      document
-        .querySelector("[data-theme-toggle]")
-        ?.addEventListener("click", () => {
-          const root = document.documentElement;
-          const dark = matchMedia("(prefers-color-scheme: dark)").matches;
-          const now = root.dataset.theme ?? (dark ? "dark" : "light");
-          const next = now === "dark" ? "light" : "dark";
-          root.dataset.theme = next;
-          localStorage.setItem("theme", next);
-          tint(next);
+      // The chrome's own wiring, and every line of it is per-page: the sentinel, the
+      // metas and the toggle all arrive again with each swapped document, so a reference
+      // taken once would be to the first page's furniture for the rest of the visit.
+      onPage((signal) => {
+        // Solid-when-stickied, from the one fact CSS cannot ask for on its own: whether
+        // anything has scrolled past. An observer on the sentinel rather than a scroll
+        // listener, because the question is about layout and the observer answers it from
+        // layout: it is right however the page got where it is, a reader's wheel, a
+        // restored position, an anchor, or a reflow that moved the ground underneath.
+        const header = document.querySelector("[data-header]");
+        const sentinel = document.querySelector(".vd-header-sentinel");
+        // Two small care points, both about the shape of the API rather than about this
+        // header: one delivery can carry several records for the same target, and only
+        // the newest describes where the page is now; and the observer is held in a
+        // variable, because an unreferenced one may be collected out from under its own
+        // observation.
+        const stuck = new IntersectionObserver((entries) => {
+          const latest = entries.at(-1);
+          if (latest)
+            header?.toggleAttribute("data-stuck", !latest.isIntersecting);
         });
+        if (header && sentinel) stuck.observe(sentinel);
+        signal.addEventListener("abort", () => stuck.disconnect());
+
+        // The theme-color metas are scoped to the system preference, which is the right
+        // answer until a reader overrides it here. Then both are re-stated with the
+        // chosen scheme's paper, so the browser's own chrome follows the page rather than
+        // the OS. The values are global.css's --vd-paper; there is no way to ask CSS for
+        // a token from a media query that does not apply. Re-stated per page because the
+        // metas are the incoming document's, media-scoped and fresh.
+        const TINT = { light: "#faf9f6", dark: "#171512" };
+        const tint = (theme: "light" | "dark") => {
+          for (const meta of document.querySelectorAll<HTMLMetaElement>(
+            'meta[name="theme-color"]',
+          ))
+            meta.content = TINT[theme];
+        };
+        const chosen = document.documentElement.dataset.theme;
+        if (chosen === "light" || chosen === "dark") tint(chosen);
+
+        document.querySelector("[data-theme-toggle]")?.addEventListener(
+          "click",
+          () => {
+            const root = document.documentElement;
+            const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+            const now = root.dataset.theme ?? (dark ? "dark" : "light");
+            const next = now === "dark" ? "light" : "dark";
+            root.dataset.theme = next;
+            localStorage.setItem("theme", next);
+            tint(next);
+          },
+          { signal },
+        );
+      });
     </script>
   </body>
 </html>

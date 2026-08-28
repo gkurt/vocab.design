@@ -15,6 +15,9 @@ definitions, `/tags/{tag}` lists one facet, `/glossary` carries every name and a
 Z, and `/search` is full text over every article, narrowable to a category or a facet.
 A few facets are words in their own right (dark pattern, microinteraction), so they have
 a definition and a specimen as well as a page of members.
+Following a link swaps the page rather than reloading it, over the platform's own view
+transitions, so the chrome holds still and a term cross-fades in; links are ordinary links
+and still work with nothing enhanced.
 Search is also a modal from any page (the nav link, `/` or Cmd/Ctrl+K), and it is the one
 thing on the site that needs JavaScript. It corrects a misspelled headword against the
 dictionary itself (`skeumorphism` finds skeuomorphism, and says which spelling it ran),

@@ -28,27 +28,56 @@ export class SearchDialog extends HTMLElement {
   #dialog: HTMLDialogElement | null = null;
   #search: Focusable | null = null;
   #loading: Promise<unknown> | null = null;
+  #live: AbortController | undefined;
 
   connectedCallback() {
     this.#dialog = this.querySelector('dialog');
     this.#search = this.querySelector('vd-search');
     if (!this.#dialog || !this.#search) return;
 
-    document.addEventListener('click', (event) => this.#onClick(event));
-    document.addEventListener('keydown', (event) => this.#onKey(event));
+    // The shortcuts are listened for on the document, so they have to be given up when
+    // this element is: client-side navigation brings a new dialog with each page, and
+    // without this every navigation would leave another Cmd+K handler behind, each one
+    // reaching for a dialog in a tree that is no longer in the document.
+    const { signal } = (this.#live = new AbortController());
+
+    // CAPTURE, and it is not a detail: the client router listens for clicks on this same
+    // document to turn a link into a swap, and its script is in the head while this one is
+    // in the body, so in the bubble phase it always goes first, calls `preventDefault` and
+    // navigates to /search. The modal would never open again. Capturing is how the trigger
+    // is claimed before any router sees it, whatever order the two scripts loaded in.
+    document.addEventListener('click', (event) => this.#onClick(event), { capture: true, signal });
+    document.addEventListener('keydown', (event) => this.#onKey(event), { signal });
     // A modal dialog is its own box, and it carries no padding, so a click that lands on
     // the element itself landed on the backdrop.
-    this.#dialog.addEventListener('click', (event) => {
-      if (event.target === this.#dialog) this.#dialog?.close();
-    });
+    this.#dialog.addEventListener(
+      'click',
+      (event) => {
+        if (event.target === this.#dialog) this.#dialog?.close();
+      },
+      { signal },
+    );
     // Escape is claimed rather than left to the platform, because a `type=search` input
     // eats the first press to clear itself: the footer promises Escape closes, so it
     // closes on the first press wherever the focus sits.
-    this.#dialog.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape') return;
-      event.preventDefault();
-      this.#dialog?.close();
-    });
+    this.#dialog.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key !== 'Escape') return;
+        event.preventDefault();
+        this.#dialog?.close();
+      },
+      { signal },
+    );
+    // A search that has found what it was looking for is over. The modal is in the top
+    // layer, so leaving it open across a navigation would put it in the transition's
+    // picture of the page the reader is leaving, over the page they are arriving at.
+    document.addEventListener('astro:before-preparation', () => this.#dialog?.close(), { signal });
+  }
+
+  disconnectedCallback() {
+    this.#live?.abort();
+    this.#live = undefined;
   }
 
   #onClick(event: MouseEvent) {
@@ -76,6 +105,14 @@ export class SearchDialog extends HTMLElement {
     if (!dialog || dialog.open) return;
     // Whether the shortcut is worth keeping is a question only the numbers answer.
     track('search_open', { via });
+    // How much room the scrollbar is taking, measured while it is still there. Opening
+    // the modal stops the page scrolling underneath, which takes the bar away, and the
+    // stylesheet hands its room straight back as padding so the article does not shift
+    // sideways (`global.css`). Zero wherever scrollbars overlay the content, as they do
+    // by default on a Mac, and the measurement has to happen HERE rather than once at
+    // load, because a page zoom changes the answer.
+    const bar = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--vd-scrollbar', `${Math.max(bar, 0)}px`);
     dialog.showModal();
     await this.#upgrade();
     // Focus warms the index (the element listens for it), and selecting whatever is

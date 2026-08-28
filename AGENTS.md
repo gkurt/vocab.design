@@ -111,6 +111,8 @@ src/pages/search.astro      #   /search: the search as a page (Pagefind, built p
 src/components/Carousel.astro #  the front page's row of specimens: markup, shuffled during parse
 src/components/TermCards.astro #  the listing card: a scaled live preview, headword, definition
 src/components/previews.ts  #   which cards mount a specimen, and which single one plays
+src/components/card-morph.ts #  a card's surface, headword, definition and picture become
+                            #   the page's; every name carries the term's slug
 src/components/carousel.ts  #   the front page's rotation: one card centred, the row going round
 src/components/preview-stage.ts # the stage a card shows: scaled, no controls, one badge
 src/components/SearchPanel.astro # the search itself, rendered as the page or in the modal
@@ -118,8 +120,9 @@ src/components/SearchDialog.astro #  the modal in the chrome: <vd-search-dialog>
 src/components/SearchDialog.ts #   opens it, and lazy-loads the search on the first open
 src/components/SiteSearch.ts #  <vd-search>: fetches dist/pagefind/ at runtime, never at build time
 src/components/Analytics.astro #  the GA4 loader: nothing at all without PUBLIC_GA_ID
-src/components/analytics.ts #   chrome wiring: relation clicks and the alias handoff
-src/lib/track.ts            #   track(): the one way anything talks to analytics
+src/components/analytics.ts #   chrome wiring: relation clicks, the alias handoff, swapped page views
+src/lib/track.ts            #   track()/pageView(): the one way anything talks to analytics
+src/lib/on-page.ts          #   per-page wiring: a module body runs once, a page does not
 src/lib/page-type.ts        #   what kind of page a path is (terms live at the root)
 src/lib/search-signals.ts   #   what "found the right thing" means, and its tests
 src/lib/nearest.ts          #   the nearest spelling to what was typed: 404 and search share it
@@ -341,6 +344,94 @@ received Date`) because a `Date` built in Vite's SSR realm is not `instanceof Da
 ours, which is why `day` in `src/lib/schema.ts` rebuilds the value instead of checking
 its type.
 
+**Gotcha**: a script that reaches into the document must be wired PER PAGE, not per
+import. The router swaps documents inside one realm, so a module body runs once for the
+whole visit: re-inserting `<script type="module" src>` does not re-run a module the
+browser's module map already holds. A `document.querySelector` at module scope is
+therefore the FIRST page's element for the rest of the session, its listeners answer for
+a tree nobody can see, and the page the reader is looking at has nothing wired to it.
+
+Use `onPage()` from `#src/lib/on-page.ts`: read the DOM inside the callback, and register
+everything against the `AbortSignal` it hands you (`addEventListener(..., { signal })`,
+and `signal.addEventListener('abort', ...)` for observers, timers and in-flight fetches).
+Its first run is synchronous, so first-load timing is exactly what it was before the
+router existed; later runs are on `astro:page-load`, and the teardown is on
+`astro:before-swap`.
+
+Two exemptions, and they are narrow. A module whose body only calls
+`customElements.define` is realm-level and correct as it is: the new document's elements
+upgrade on insertion, which is why `specimen-stage.ts` needed no change at all. And a
+custom element wires in `connectedCallback` rather than through `onPage`, but if it
+listens on `document` or `window`, it MUST give that up in `disconnectedCallback`, or
+every navigation leaves another handler behind reaching for a detached tree
+(`SearchDialog.ts` is the worked example).
+
+Nothing tests any of this. The e2e suite drives `page.goto`, which is a fresh document
+every time, so a module that only works on the first page of a visit passes every gate we
+have. The check is by hand: click from page to page and watch whether the thing still
+answers.
+
+**Gotcha**: the router listens for clicks on `document`, so anything else that wants to
+intercept a link click has to get there first. Its script is in the head and a component's
+is in the body, so in the bubble phase the router ALWAYS wins: it calls `preventDefault`
+and swaps, and a handler that guards on `event.defaultPrevented` (as it should) then does
+nothing at all. A listener on `document` therefore has to CAPTURE (`SearchDialog.ts`, or
+the header's Search link opens /search as a page instead of the modal). A listener on an
+element inside the document is already fine, because bubbling reaches it first: the
+carousel's neighbour click prevents default on the track and the router stands down, which
+is why clicking an edge card still slides the row rather than leaving the page.
+
+**Gotcha**: scripts are re-run by TEXT, not by position. The router marks a script it has
+already executed and skips it, keyed on `src` for an external one and on the source text
+for an inline one. So an `is:inline` script with the same text on every page runs once for
+the visit (the theme script relies on this, and re-applies itself from an
+`astro:after-swap` listener instead), and one that has to run again on every visit to its
+page needs `data-astro-rerun` (the carousel's shuffle). A script whose text merely happens
+to VARY per page runs again on some navigations and not others, which is why nothing
+per-page is baked into the analytics bootstrap any more.
+
+**Gotcha**: `astro:after-swap` and `astro:page-load` are not interchangeable. After-swap
+runs inside the transition's own DOM update, BEFORE the new page is captured for the
+animation, so anything that would otherwise flash (the theme on the root element) has to
+happen there. Page-load runs after the swap, after the new document's inline scripts, and
+after the transition's first frame, which is where DOM wiring belongs. The root element's
+attributes are wiped and re-applied from the incoming document by every swap, so anything
+a script put there is lost unless it is re-stated in after-swap.
+
+**Gotcha**: during a swap there is something behind everything. An element that looked
+opaque only because nothing was ever under it is transparent at the one moment it matters:
+the outgoing page is still being painted while the incoming one is at the top of its scroll.
+The header had exactly this defect (its paper ground was conditional on `[data-stuck]`, and
+a whole table of the previous page's type came through it), so the ground is now
+unconditional. Any fixed or sticky chrome added later has to paint its own ground, and a
+reader who reports "things appear over the header" is reporting this, not a z-index.
+
+**Gotcha**: a z-index at rest means nothing during a transition. Transition groups are
+painted in the order their names were first seen, so a named element further down the
+document paints OVER the header however the two are stacked normally. The header states its
+place in the transition tree itself (`::view-transition-group(chrome-header) { z-index: 2 }`
+in `global.css`); anything else named that travels across the header has to be checked
+against it.
+
+**Gotcha**: a crossfade between two OPAQUE boxes is translucent in the middle. Each side is
+at half strength, so half of whatever is behind them both shows through, which on a card
+opening into a page means the outgoing listing flickering past under the card's own ground.
+`mix-blend-mode: plus-lighter` on both sides adds them instead of stacking them. It is only
+correct where both sides really are opaque, so it is opted into with `view-transition-class`
+(`.vd-card`, `.vd-preview`, `.vd-solid`) rather than applied to everything: the names
+themselves carry the term's slug and cannot be written down in a stylesheet.
+
+**Gotcha**: a percentage in a `translate` is a share of THE ELEMENT BEING MOVED, not of what
+it moves inside. The carousel's base offset is a share of the window, so it is `left` on a
+relatively positioned track with the transform left for the slide (`stage.css`). The same
+trap eats `--vd-carousel-card: min(360px, 100%)` if the track ever stops being exactly as
+wide as its window: two hundred percents that look alike would stop being the same number.
+
+**Gotcha**: `history.replaceState(null, ...)` breaks the Back button. The router keeps its
+own bookkeeping in `history.state` (which entry this is, and its scroll position) and
+returns early on a popstate with a null state, so the address bar goes back and the page
+does not. Pass `history.state` through when rewriting the URL, as `SiteSearch.ts` does.
+
 **Gotcha**: a demo's timers must come from the `DemoClock` its `mount(root, clock)`
 is handed, never from the global scope. Identify's pose is the live specimen with
 that clock frozen, not a copy of it, which is what lets the click that ends the pose
@@ -372,9 +463,18 @@ never fires under reduced motion, so nothing may ever wait on it.
 
 - **Astro 6** static site, content collections, Tailwind v4 for chrome, zero JS by
   default; interactivity via vanilla-TS custom elements.
+- **Navigation is client-side** (`<ClientRouter />` in `Base.astro`, SPEC §3), so ONE
+  document lives for the whole visit and a module body runs ONCE. See the gotcha below
+  before writing any script: this is the single most expensive assumption the codebase
+  changed, and nothing in CI catches a violation of it.
 - **Two design systems, deliberately walled off**: chrome tokens (`--vd-*`) vs specimen
   kit tokens (`--sp-*`). Demos compose kit primitives only — never chrome styles, never
-  third-party component libraries.
+  third-party component libraries. The wall has one hole that is not about tokens at all:
+  an INHERITED css property set on the chrome's root reaches every specimen, because
+  inheritance crosses a shadow boundary. `scrollbar-color` is the case in hand, reset on
+  `[data-stage-canvas]` (`stage.css`) so a specimen's scroller is not painted in the page's
+  palette. Anything else inherited and visible (`accent-color`, `color-scheme`,
+  `caret-color`) has to be walled off the same way before it is set on the chrome.
 - **Choreographies double as tests**: every demo ships a declarative script the stage
   plays in attract mode and CI executes as a smoke test. `data-part` attributes are the
   only valid selectors in choreographies; an `assert` may qualify one with a state

@@ -210,75 +210,102 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
         data-pagefind-meta={`category:${d.category}`}
         data-pagefind-filter={`category:${d.category}`}
       >
-        <p class="text-sm text-muted italic">
-          <a
-            href={pageUrl(`/browse/${d.category}`)}
-            class="hover:text-ink"
-            data-rel="category"
-          >
-            {d.category}
-          </a>
-          {derived.map(({ tag, name }) => (
-            <>
-              {" · "}
-              <a
-                href={pageUrl(`/tags/${tag}`)}
-                class="not-italic hover:text-ink"
-                data-pagefind-filter={`tag:${tag}`}
-              >
-                {name.toLowerCase()}
-              </a>
-            </>
-          ))}
-          {d.tags.map((tag) => (
-            <>
-              {" · "}
-              <a
-                href={pageUrl(`/tags/${tag}`)}
-                class="not-italic hover:text-ink"
-                data-pagefind-filter={`tag:${tag}`}
-              >
-                {tag}
-              </a>
-            </>
-          ))}
-        </p>
-        <h1
-          class="mt-1 font-serif text-5xl font-semibold tracking-tight"
-          data-pagefind-weight="10"
-        >
-          {d.name}
-        </h1>
-        {d.aliases.length > 0 && (
-          <p class="mt-3 text-sm text-muted" data-pagefind-weight="8">
-            also called{" "}
-            {d.aliases.map((a, i) => (
+        {/* The block a listing card grows into (SPEC §3). The card is a bordered
+            surface holding a picture, a headword and a definition; here those three are
+            named separately and fly to their own places, so what is left for this box to
+            do is be the SURFACE: it takes the card's ground and spreads it out into the
+            page's. Its own paint is paper, which is what the page is made of, so the
+            morph ends on the real thing rather than on a panel drawn to look like it. */}
+        <div class="vd-solid bg-paper" transition:name={`term-card-${d.slug}`}>
+          <p class="text-sm text-muted italic">
+            <a
+              href={pageUrl(`/browse/${d.category}`)}
+              class="hover:text-ink"
+              data-rel="category"
+            >
+              {d.category}
+            </a>
+            {derived.map(({ tag, name }) => (
               <>
-                {i > 0 && ", "}
-                <span class="text-ink italic">{a.name}</span>
-                {a.source && (
-                  <span data-pagefind-ignore>
-                    {" "}({bySlug.get(a.source)?.name ?? a.source})
-                  </span>
-                )}
+                {" · "}
+                <a
+                  href={pageUrl(`/tags/${tag}`)}
+                  class="not-italic hover:text-ink"
+                  data-pagefind-filter={`tag:${tag}`}
+                >
+                  {name.toLowerCase()}
+                </a>
+              </>
+            ))}
+            {d.tags.map((tag) => (
+              <>
+                {" · "}
+                <a
+                  href={pageUrl(`/tags/${tag}`)}
+                  class="not-italic hover:text-ink"
+                  data-pagefind-filter={`tag:${tag}`}
+                >
+                  {tag}
+                </a>
               </>
             ))}
           </p>
-        )}
-        <p class="article mt-6 text-xl" data-pagefind-weight="6">{d.definition}</p>
-
-        {d.status === "stub" && (
-          <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-            This entry is in progress. The definition is here so links never
-            dead-end; the full article and specimen are coming.
+          {/* Named for the morph in from a listing card (SPEC §3): the card's headword
+              and its picture animate into these two. Every name here carries the SLUG, so
+              a name only ever matches its own term: a card grows into the page it names,
+              while two different terms share no name at all and so have nothing to
+              interpolate, which is what stops one headword from being morphed into
+              another word entirely on the way between two entries. */}
+          {/* `w-fit` is about the morph rather than the layout: the box is what interpolates,
+              and a headline that fills the column is a box eight times wider than the word
+              in it, so the card's line is stretched across the whole measure on the way in.
+              Shrunk to its own text, both sides are the word's own shape and the move is
+              very nearly a plain scale. It changes nothing at rest, since the type is set
+              from the left and wraps against the column either way. */}
+          <h1
+            class="mt-1 w-fit font-serif text-5xl font-semibold tracking-tight"
+            data-pagefind-weight="10"
+            transition:name={`term-headword-${d.slug}`}
+          >
+            {d.name}
+          </h1>
+          {d.aliases.length > 0 && (
+            <p class="mt-3 text-sm text-muted" data-pagefind-weight="8">
+              also called{" "}
+              {d.aliases.map((a, i) => (
+                <>
+                  {i > 0 && ", "}
+                  <span class="text-ink italic">{a.name}</span>
+                  {a.source && (
+                    <span data-pagefind-ignore>
+                      {" "}({bySlug.get(a.source)?.name ?? a.source})
+                    </span>
+                  )}
+                </>
+              ))}
+            </p>
+          )}
+          <p
+            class="article mt-6 text-xl"
+            data-pagefind-weight="6"
+            transition:name={`term-definition-${d.slug}`}
+          >
+            {d.definition}
           </p>
-        )}
 
-        {d.demo !== "none" && (
-          <div class="mt-8" data-pagefind-ignore>
-            <SpecimenStage slug={d.slug} name={d.name} isolation={d.demo} />
-          </div>
-        )}
+          {d.status === "stub" && (
+            <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
+              This entry is in progress. The definition is here so links never
+              dead-end; the full article and specimen are coming.
+            </p>
+          )}
+
+          {d.demo !== "none" && (
+            <div class="vd-solid mt-8" data-pagefind-ignore transition:name={`term-specimen-${d.slug}`}>
+              <SpecimenStage slug={d.slug} name={d.name} isolation={d.demo} />
+            </div>
+          )}
+        </div>
 
         <div class="article mt-8">
           <Content />
@@ -429,6 +456,14 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
           </section>
         )}
       </article>
+
+      {/* The other end of the card morph (SPEC §3). A term page is where the return trip
+          starts, so the module has to be here as well as on the listings: a reader who
+          arrived from a search engine and then follows the category link should get the
+          same move as one who came in from a card. */}
+      <script>
+        import "#src/components/card-morph.ts";
+      </script>
     </Base>
   )
 }

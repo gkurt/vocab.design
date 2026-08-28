@@ -90,11 +90,12 @@ const pages = feedPages(terms);
               <div class="px-4 py-3">
                 <a
                   href={card.href}
+                  data-card-name
                   class="vd-carousel-name font-serif text-lg font-semibold hover:text-accent"
                 >
                   {card.name}
                 </a>
-                <p class="vd-carousel-definition mt-1 text-sm text-muted">{card.definition}</p>
+                <p class="vd-carousel-definition mt-1 text-sm text-muted" data-card-definition>{card.definition}</p>
               </div>
             </article>
           ))}
@@ -104,8 +105,14 @@ const pages = feedPages(terms);
 
       {/* Classic and inline, so it runs during parse, before the deferred module upgrades
           anything: at this moment the cards are markup and no stage has been mounted, so
-          reordering them costs nothing and is never seen. */}
-      <script is:inline>
+          reordering them costs nothing and is never seen.
+
+          `data-astro-rerun` because the router recognises a script by its text and runs
+          it once: this one has the same text on every visit to this page and has to run
+          on each of them, or a reader who comes back to the front page finds the row in
+          the order it was authored in. It still lands before the module, since a swapped
+          page's own scripts run before `astro:page-load`. */}
+      <script is:inline data-astro-rerun>
         (function () {
           var track = document.querySelector('[data-carousel-track]');
           if (!track) return;
@@ -128,4 +135,5 @@ const pages = feedPages(terms);
 
 <script>
   import '#src/components/carousel.ts';
+  import '#src/components/card-morph.ts';
 </script>

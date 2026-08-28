@@ -247,6 +247,7 @@ not the category's own members.
   enhanced; no framework runtime on term pages. The chrome's own budget is two small
   scripts on every page (the theme toggle plus the header's stuck flag, and the search
   modal's opener), and the search itself loads on the first open.
+- **Client-side navigation**, over the platform's own view transitions (see below).
 - **Bun** for tooling, `bun test` for unit tests, **Playwright** (`e2e/`) for
   choreography execution and smoke tests.
 - **Search**: Pagefind at build time.
@@ -319,6 +320,96 @@ day, and on a listing page the newest `modified` in the dictionary, because that
 the listing last said something different. A new top-level route has to be named in
 `src/lib/routes.ts` to be listed, which is the trade for never listing junk.
 
+### Navigation
+
+Navigation is client-side, over the platform's own view transitions: a link swaps the
+document rather than reloading it, so the chrome is never rebuilt, the fonts and the
+stylesheets are never re-parsed, and the page cross-fades instead of blinking white. A
+dictionary is read by following links, which is the whole argument for it. Prefetching
+comes with it, on hover and focus, which on a dictionary is a good bet: hovering a headword
+is most of the way to reading it. Both are refused for a reader on a metered or slow
+connection, and no animation runs at all for a reader who asked for no motion.
+
+Two things are the site's own furniture and hold still across the swap: the header, which
+sits in the same place on every page and is named so the transition matches it rather than
+fading it, and the reader's own choices on the root element (the theme, and which modifier
+the search chord is spelled with), which are re-stated inside the swap, before the new page
+is painted.
+
+**A card becomes the page it names, and gives it back.** A listing card already carries the
+things a term page opens with, so moving between them is not a cut: the headword travels
+from the card's line to the headline, the definition from the card's small print to the
+standfirst, the picture grows from the card's frame to the full stage, and the card's own
+bordered surface spreads out into the page's ground, while everything else cross-fades. The
+term page names its four (`term-headword`, `term-definition`, `term-specimen`, and
+`term-card` for the block the surface becomes) because it has exactly one of each; the card
+side cannot, because a name has to be unique in a document and a listing is up to 207 cards.
+So the names are written onto ONE card and taken off when the animation is over, which is
+also what stops a navigation that never arrived from leaving a name behind to collide with
+the next one.
+
+Every one of those names carries the term's SLUG, which is what keeps the morph honest: a
+name only ever matches its own term. Named by ROLE instead, the four match between any two
+term pages, and the reader watches one headword being bent into a different word, its
+definition stretched from two lines to four, and its specimen sliding to wherever the taller
+definition pushed it. A headword is not a shape; it is a claim, and the entry next door is a
+different one. With the slug in the name two terms share nothing, so each page's parts fade
+on their own and the crossing reads as a page turning, which is what it is.
+
+It goes both ways. Going to a term page it is the card the reader clicked. Coming back it is
+the card for the term being left, named after the swap but before the incoming page is
+photographed, which is the first moment the new page is real enough to MEASURE: so the
+return trip runs only when the card is actually on screen, which is what makes Back feel
+like a return without flinging the headword off the bottom of the page when the term sits at
+30,000px down a list of 207. The front page's row is deliberately not part of the return
+trip: its cards are shuffled and the row is positioned by script that runs after the
+incoming page is photographed, so a card measured then is not where it will be a frame
+later.
+
+What interpolates is the BOX, not the thing in it, which is a rule with two consequences
+worth writing down. A headline that fills its column is a box eight times wider than the
+word inside it, so the card's line arrives stretched across the whole measure; the headword
+is set to its own width instead, which changes nothing at rest and makes the move very
+nearly a plain scale. And the card being photographed has the reader's pointer on it by
+definition, and their focus too, since they clicked its link: it is marked while it wears
+the names so it is photographed as it looks at REST, because an accent border in the still
+is a hover frozen into a shape on its way to being a page with no border at all.
+
+Two of the browser's defaults are overruled. The quarter of a second it animates in is
+tuned for a photograph sliding into place; this page is mostly type, and type cross-fading
+is legible for about as long as it takes to read that it is cross-fading, so every group
+runs at 160ms. And transition groups are painted in the order their names were first seen,
+which puts anything further down the document over the header: nothing about a z-index at
+rest carries into the transition tree, so the header states its place there too, or an
+expanding card travels over the wordmark instead of under it.
+
+A cross-fade between two OPAQUE boxes is translucent in the middle, each at half strength,
+so the page a card is opening into would flicker past under the card's own ground. The
+boxes that really are opaque (a card, its picture, and the two blocks they become) say so
+with a transition class, and their two sides are added rather than stacked.
+
+Three URLs stay the browser's, and each for a reason of its own. `/random` replaces itself
+with a term, so a client-side navigation there would be a document fetched to be thrown
+away. The 3,888 alias pages are meta refreshes with no chrome, so they never carry the
+router in the first place and the browser is handed the click. And a specimen's own frame
+(§6) is a document inside a page, never navigated to.
+
+**What client-side navigation costs, and it is not paid in the chrome.** One document lives
+for the whole visit, so a module body runs ONCE: re-inserting a script the browser has
+already imported does not run it again. Anything that reaches into the document therefore
+has to be *per-page* rather than per-import: read the DOM when the page arrives, and give
+up what was registered when it leaves, or the first page's listeners answer for a tree
+nobody can see and the page in front of the reader has nothing wired to it. `onPage()` in
+`src/lib/on-page.ts` is the one way that is expressed, and its first run is the browser's
+own load, unchanged and no later than it ever was. The rule holds for the whole chrome, for
+the listings, and for analytics, which has to say a page was read because the tag only
+counts the first one (§10).
+
+The specimen stage needs none of this, and that is not luck: `<vd-stage>` already tore
+itself down on disconnect, because a listing evicts previews as they scroll away (§7). A
+custom element that is honest about its own teardown is portable to a swapped document for
+free.
+
 ### Liveness in the listings
 
 A page that lists terms shows the demonstrations, not just their names. Two mechanisms,
@@ -337,6 +428,16 @@ Only the middle card is being shown. The rest of the row stands back, faded, and
 dissolves at the column's edges instead of being cut off square: what is out there is more
 row, not a card someone has sliced. The fade is exactly as wide as the peek, so a column
 too narrow to show one fades nothing at all.
+
+Where the row SITS is stated in CSS and never written by the script. The row has to open
+centred: one that opens flush left and is centred a frame later has told the reader that the
+first thing they saw was wrong, and a reader with no JavaScript is left looking at a row
+that never gets its offer. The offset that centres the second card and the width of the
+edge fade are both a share of the window, which CSS can say and re-answer on a resize by
+itself, so there is no second copy of the arithmetic to drift from the first. What is left
+for the script is the two things CSS cannot say: the specimen's scale, which is a length
+divided by a length, and whether the peek is wide enough to be a target, which is a
+decision rather than a measurement.
 
 A card at the edge is an offer rather than a destination. Clicking one brings it to the
 middle instead of leaving the page, which is what lets a reader who has spotted something
@@ -543,18 +644,40 @@ docs site. The chrome must recede so specimens read as the content.
   part-of-speech-style category tag (*component*, *motion*); "also called:" alias line
   styled like pronunciation variants; cross-references as the visible link apparatus.
 - **Tokens**: CSS custom properties under `--vd-*`, mapped into Tailwind v4 `@theme`.
-- **The header is sticky and recedes when it can.** It is transparent and borderless while
-  the page is at rest, so at the top of a document there is no bar at all, and it takes a
-  solid paper background and a single hairline under it the moment anything has scrolled
-  beneath, because type over type is the one thing a header must never be. A thin rule and
-  nothing else: a blurred band under a header is a gradient the reader has to look past,
-  and on a page whose whole job is to be read it costs more than the edge it hides. Whether
-  the page has scrolled is the one fact CSS cannot ask for, so `[data-stuck]` comes from the
-  chrome's own script; both the background and the rule are stylesheet. It is an
+- **The header is sticky and recedes when it can.** It is borderless while the page is at
+  rest, so at the top of a document there is no bar at all, and it takes a single hairline
+  under it the moment anything has scrolled beneath, because type over type is the one thing
+  a header must never be. A thin rule and nothing else: a blurred band under a header is a
+  gradient the reader has to look past, and on a page whose whole job is to be read it costs
+  more than the edge it hides. Whether the page has scrolled is the one fact CSS cannot ask
+  for, so `[data-stuck]` comes from the chrome's own script; the rule is stylesheet. The
+  paper ground underneath is NOT conditional, and the reason is worth stating: it is the
+  body's own colour, so painting it always looks exactly like painting nothing over a page
+  at rest, while a header with no ground is a header with someone else's type showing
+  through it the moment there is anything behind it, which under client-side navigation
+  (§3) is every swap. It is an
   `IntersectionObserver` on a few pixels pinned to the top of the document rather than a
   scroll listener, because the question is about layout and the observer answers it from
   layout: it is right however the page came to be where it is, a reader's wheel, a
   restored scroll position, a link to an anchor, or a reflow that moved the ground.
+- **The scrollbar is part of the page.** It is painted from the chrome's own palette
+  (`scrollbar-color`: the muted ink at just over half strength, on a transparent track, so
+  the gutter reads as paper), which means it flips with the theme by itself, because the
+  token does. Left to the operating system it is a light strip down the side of a dark page:
+  the last piece of chrome that never got the theme. The property is INHERITED and
+  inheritance crosses into a shadow root, so the stage's canvas resets it (§6): a specimen's
+  scroller is the specimen's, painted from `--sp-*` where the kit provides one and by the
+  platform otherwise, and never from the page's palette. The bar is ALWAYS there
+  (`overflow-y: scroll`), so nothing is ever laid out against a width that is about to
+  change: a short page and a long one have the same column, which under client-side
+  navigation (§3) is the difference between a swap and a jolt. Deliberately the blunt way of
+  saying that rather than `scrollbar-gutter: stable`, because a reserved gutter is room the
+  TOP LAYER does not cover: a modal's backdrop stops at the edge of it and leaves an undimmed
+  band down the side of a dimmed page, and widening the backdrop to `100vw` does not reach it
+  either. Stopping the page scrolling under the modal takes the bar away with it, so its room
+  is handed straight back as padding on the root, which is inside the box the paper paints and
+  inside the viewport the backdrop covers. That is also why the paper is stated on the root
+  rather than on `body`, whose box stops where the padding begins.
 
 ## 5. Specimen kit
 
@@ -1240,7 +1363,7 @@ rather than ours: Global Privacy Control and Do Not Track. There is no consent b
 because there is nothing to consent to beyond this: no advertising signals, no user-ID, no
 cross-site anything.
 
-What is measured, beyond the page views GA collects on its own:
+What is measured, beyond the page views the tag collects on its own:
 
 | Event | Says |
 | --- | --- |
@@ -1256,7 +1379,8 @@ What is measured, beyond the page views GA collects on its own:
 | `nav_click` | a header link was taken, by `to`: a path for the internal ones, a host for the two outbound. Search is absent on purpose, since it already reports itself as `search_open`, and so is the wordmark, which only ever means "go home" |
 | `page_not_found` | a URL the dictionary does not answer, with the headword it was `asked` for and how many suggestions came back: zero suggestions is a word we do not have, a suggestion taken is a word we have under another spelling |
 | `not_found_recovered` | which suggestion the reader took, so the guessing can be judged |
-| `page_type`, `term_category` | on every event, because terms live at the root: the URL cannot say what kind of page it is, and never says a term's category |
+| `page_view` | for every page after the first. The tag counts a view when it starts up, which under client-side navigation (§3) is once per visit rather than once per page: a reader who read six terms would otherwise be a reader who read one |
+| `page_type`, `term_category` | on every event, because terms live at the root: the URL cannot say what kind of page it is, and never says a term's category. Both are read off the root element, which is also what makes the tag's own bootstrap identical on every page and therefore run exactly once |
 
 A query is only reported once it has stood still for a beat, so the property collects
 searches a reader meant rather than the prefixes of words ("k", "ke", "keb"). A filter with

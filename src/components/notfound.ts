@@ -9,6 +9,7 @@
  * arrives at both doors, and only one of them used to answer it.
  */
 import { nearest, type Paths } from '#src/lib/nearest.ts';
+import { onPage } from '#src/lib/on-page.ts';
 import { track } from '#src/lib/track.ts';
 import { canonicalPath, pageUrl } from '#src/lib/url.ts';
 
@@ -47,7 +48,7 @@ function guess(query: string, paths: Paths): Match[] {
   return matches;
 }
 
-async function suggest(): Promise<void> {
+async function suggest(signal: AbortSignal): Promise<void> {
   const section = document.querySelector<HTMLElement>('[data-suggestions]');
   const list = section?.querySelector('ul');
   const query = asked(location.pathname);
@@ -64,9 +65,12 @@ async function suggest(): Promise<void> {
 
   let paths: Paths;
   try {
-    const response = await fetch(pageUrl('/paths.json'));
+    const response = await fetch(pageUrl('/paths.json'), { signal });
     paths = (await response.json()) as Paths;
   } catch {
+    // An abort lands here too, and a page the reader has already left is not a page that
+    // failed to find anything: it is one nobody is waiting on.
+    if (signal.aborted) return;
     track('page_not_found', { path: location.pathname, suggestions: 0 });
     return;
   }
@@ -81,7 +85,7 @@ async function suggest(): Promise<void> {
     link.href = pageUrl(match.href);
     link.textContent = match.label;
     link.className = 'font-serif font-semibold hover:text-accent';
-    link.addEventListener('click', () => track('not_found_recovered', { path: location.pathname, to: match.href }));
+    link.addEventListener('click', () => track('not_found_recovered', { path: location.pathname, to: match.href }), { signal });
     item.append(link);
     if (match.note) {
       const note = document.createElement('span');
@@ -95,4 +99,6 @@ async function suggest(): Promise<void> {
   section.hidden = false;
 }
 
-void suggest();
+// The 404 is a page like any other under the router: a link to a term that has been
+// renamed swaps this in, keeping the URL that missed, so the guessing runs per page.
+onPage((signal) => void suggest(signal));

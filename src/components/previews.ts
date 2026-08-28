@@ -24,9 +24,14 @@
  * Everything here is bounded on purpose. A category page can carry 196 cards, so mounted
  * previews are capped and evicted by distance from the viewport, and the passes that
  * decide all of this run on a debounce rather than on every scroll event.
+ *
+ * All of it is per-page and revocable, because a listing is one swap away from another
+ * listing (SPEC §3): the cards are read when the page arrives, and the observers, the
+ * timers and the two window listeners are dropped as it leaves.
  */
 
 import { previewStage } from '#src/components/preview-stage.ts';
+import { onPage } from '#src/lib/on-page.ts';
 
 /** How many specimens may be mounted at once, however long the list is. */
 const MAX_MOUNTED = 8;
@@ -60,8 +65,10 @@ interface Card {
   near: boolean;
 }
 
-const roots = document.querySelectorAll<HTMLElement>('[data-preview]');
-if (roots.length > 0) {
+onPage((signal) => {
+  const roots = document.querySelectorAll<HTMLElement>('[data-preview]');
+  if (roots.length === 0) return;
+
   const cards: Card[] = [...roots]
     .map((root): Card | undefined => {
       const box = root.querySelector<HTMLElement>('.vd-preview');
@@ -240,12 +247,22 @@ if (roots.length > 0) {
       if (pointed === card) pointed = undefined;
       restack();
     };
-    card.root.addEventListener('pointerenter', here);
-    card.root.addEventListener('pointerleave', gone);
-    card.root.addEventListener('focusin', here);
-    card.root.addEventListener('focusout', gone);
+    card.root.addEventListener('pointerenter', here, { signal });
+    card.root.addEventListener('pointerleave', gone, { signal });
+    card.root.addEventListener('focusin', here, { signal });
+    card.root.addEventListener('focusout', gone, { signal });
   }
 
-  addEventListener('scroll', restack, { passive: true });
-  addEventListener('resize', restack);
-}
+  addEventListener('scroll', restack, { passive: true, signal });
+  addEventListener('resize', restack, { signal });
+
+  // The page is leaving. The stages go with the tree they are in and tear themselves
+  // down, but what is not in the tree has to be dropped by hand: two observers, and two
+  // timers that would otherwise fire into a document nobody is looking at.
+  signal.addEventListener('abort', () => {
+    clearTimeout(watchdog);
+    clearTimeout(settle);
+    sizer.disconnect();
+    approach.disconnect();
+  });
+});

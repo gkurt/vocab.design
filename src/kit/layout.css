@@ -163,6 +163,9 @@
 .sp-scroll {
   overflow: auto;
   scrollbar-width: thin;
+  /* The kit's own palette, so a scroller inside a specimen is the specimen's and follows
+     its light or dark ground rather than the page's. */
+  scrollbar-color: color-mix(in oklab, var(--sp-muted) 55%, transparent) transparent;
   overscroll-behavior: contain;
 }
 

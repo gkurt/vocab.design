@@ -15,32 +15,27 @@
  * Local hits carry `debug_mode`, so they arrive in GA's DebugView labelled as somebody
  * testing instead of looking like traffic. That is a label, not a gate.
  *
- * `page_type` and `term_category` ride along on every event via `config`, because the URL
- * alone cannot say what kind of page it is (terms live at the root) and never says which
- * category a term belongs to.
+ * `page_type` and `term_category` ride along on every event, because the URL alone cannot
+ * say what kind of page it is (terms live at the root) and never says which category a
+ * term belongs to. They are READ FROM THE ROOT ELEMENT rather than baked in here, which
+ * is what makes this script byte-identical on every page of the site: under client-side
+ * navigation the router runs a script it recognises exactly once, so a bootstrap whose
+ * text varied per page would run again on some navigations and not others, and each of
+ * those runs would append a second tag and send a second page_view. The one page_view a
+ * swap DOES need is sent deliberately, from `analytics.ts`.
  */
-import { pageType } from '#src/lib/page-type.ts';
-import { canonicalPath } from '#src/lib/url.ts';
-
-interface Props {
-  /** Term pages only: the category is not in the URL, so it has to be passed. */
-  category?: string;
-}
-
 const id = import.meta.env.PUBLIC_GA_ID;
-const params = {
-  page_type: pageType(canonicalPath(Astro.url.pathname), import.meta.env.BASE_URL),
-  term_category: Astro.props.category,
-};
 ---
 
 {
   id && (
-    <script define:vars={{ id, params }}>
+    <script define:vars={{ id }}>
       (function () {
         var nav = navigator;
         if (nav.globalPrivacyControl === true) return;
         if (nav.doNotTrack === "1" || window.doNotTrack === "1") return;
+        var data = document.documentElement.dataset;
+        var params = { page_type: data.pageType, term_category: data.termCategory || "" };
         var host = location.hostname;
         if (host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local")) params.debug_mode = true;
         window.dataLayer = window.dataLayer || [];
