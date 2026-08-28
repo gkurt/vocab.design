@@ -275,7 +275,9 @@ those are equivalent. Under that format Astro reports
   categories, every facet, and the name of every term A to Z in columns, so the whole
   vocabulary is reachable in one scroll from the one URL everyone already has. There is no
   `/browse` and no `/tags` index: a directory page above a directory page is a click that
-  says nothing, and the front page had nothing better to spend its length on.
+  says nothing, and the front page had nothing better to spend its length on. `/browse`
+  is nevertheless published, as a redirect here: Google indexed the URL before the site
+  was announced and ranks it above every other page, so it must not answer with a 404.
 - `/tags/{tag}` (one facet, as the same cards, grouped by category; three of them are also
   terms, and carry a bridge to `/{tag}`, §2.5).
 - `/browse/{category}` (that category, as cards with a live preview and a definition, plus
@@ -289,6 +291,14 @@ those are equivalent. Under that format Astro reports
 - `/rss.xml` (the newest 100 entries, ordered by `created`; the archive is `/glossary`).
 - `/paths.json` (every slug the site answers to, so the 404 page and the search box can
   both correct a misspelling without downloading the 870KB `/terms.json`).
+- `/random` (a term the reader did not choose, which is the one way into a dictionary that
+  browsing and searching cannot offer: both of those need you to already have a word in
+  mind). The pick is made in the browser, because a page rendered at build time would name
+  the same term until the next deploy, and it uses `location.replace` so Back from the term
+  returns where the reader came from rather than dealing them another one. The slugs ship
+  with the page rather than being fetched from `/paths.json`, which carries every alias and
+  display name and costs 45KB gzipped to answer a question about slugs alone. `noindex` and
+  out of the sitemap, because what it answers is different every time.
 - `/404` (the one page nobody links to: it reads the URL that missed and suggests the
   nearest headwords, which GitHub Pages serves for any unknown path).
 - `/specimen/{slug}` · `/capture/{slug}`: not pages. The first is the inside of a
@@ -1243,6 +1253,7 @@ What is measured, beyond the page views GA collects on its own:
 | `search_open` | the modal was opened, and how: nav, `/`, or Cmd/Ctrl+K |
 | `relation_click` | a graph edge was crossed, by `relation` kind (`which-word`, `contrast`, `variant-of`, `variants`, `part-of`, `contains`, `see-also`, `prose`, `category`) |
 | `alias_hit` | which alias a reader arrived by, handed from the redirect page to the term page |
+| `nav_click` | a header link was taken, by `to`: a path for the internal ones, a host for the two outbound. Search is absent on purpose, since it already reports itself as `search_open`, and so is the wordmark, which only ever means "go home" |
 | `page_not_found` | a URL the dictionary does not answer, with the headword it was `asked` for and how many suggestions came back: zero suggestions is a word we do not have, a suggestion taken is a word we have under another spelling |
 | `not_found_recovered` | which suggestion the reader took, so the guessing can be judged |
 | `page_type`, `term_category` | on every event, because terms live at the root: the URL cannot say what kind of page it is, and never says a term's category |

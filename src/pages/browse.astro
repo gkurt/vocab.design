@@ -1,0 +1,27 @@
+---
+/**
+ * `/browse` is not a directory index and never was (SPEC §3): the front page is the
+ * directory, and a directory page above a directory page is a click that says nothing.
+ * But Google indexed the URL anyway and ranks it better than anything else on the site,
+ * so the one thing it must not do is 404. It redirects the way an alias does, for the
+ * same reason: GitHub Pages serves static files and cannot answer with a 301.
+ *
+ * Kept out of the sitemap by `REDIRECTS` in `#src/lib/routes.ts` — an index of canonical
+ * documents does not list a page whose whole job is to name another one.
+ */
+import { absoluteUrl, pageUrl } from '#src/lib/url.ts';
+
+const home = pageUrl('/');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Browse → vocab.design</title>
+    <link rel="canonical" href={absoluteUrl('/')} />
+    <meta http-equiv="refresh" content={`0; url=${home}`} />
+  </head>
+  <body>
+    <p>The vocabulary is on <a href={home}>the front page</a>, in full.</p>
+  </body>
+</html>

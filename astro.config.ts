@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { pagefindDev } from './src/integrations/pagefind-dev.ts';
-import { SECTIONS } from './src/lib/routes.ts';
+import { REDIRECTS, SECTIONS } from './src/lib/routes.ts';
 
 const TERMS_DIR = 'src/content/terms';
 const base = (process.env.BASE_URL || '/').replace(/\/$/, '');
@@ -45,7 +45,8 @@ export default defineConfig({
        * A sitemap is an index of canonical documents, so this is an allowlist and
        * everything it does not name is dropped. What that removes: the ~3,900 alias URLs,
        * which exist only to redirect to a term and would have made four fifths of the
-       * file redirects; the specimen documents, which are the inside of an <iframe> (SPEC
+       * file redirects, and `/browse`, which redirects to the front page for the same
+       * reason; the specimen documents, which are the inside of an <iframe> (SPEC
        * §6) and must not compete with the page embedding them; and /search, which is a
        * tool rather than a document. Anything genuinely new and top-level has to be added
        * to SECTIONS to be listed, which is the trade for never listing junk.
@@ -53,6 +54,7 @@ export default defineConfig({
       filter: (page) => {
         const path = pathOf(page);
         if (path === '') return true;
+        if (REDIRECTS.has(`/${path}`)) return false;
         const [section] = path.split('/') as [string, ...string[]];
         if (section === 'search') return false;
         return (SECTIONS as readonly string[]).includes(section) || days.has(path);

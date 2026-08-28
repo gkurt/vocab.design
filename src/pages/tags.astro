@@ -1,0 +1,25 @@
+---
+/**
+ * `/tags` is not a facet index and never was (SPEC §3): the front page lists every
+ * facet, and `/tags/{tag}` is where a facet's own members live. It redirects here for
+ * the same reason `/browse` does, and by the same mechanism: a static host cannot answer
+ * with a 301, so the alias pages' meta refresh is what the site has. Unlike `/browse`
+ * nothing has ever linked to or ranked this URL, so this is a guard rather than a
+ * repair, and it costs one file.
+ */
+import { absoluteUrl, pageUrl } from '#src/lib/url.ts';
+
+const home = pageUrl('/');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tags → vocab.design</title>
+    <link rel="canonical" href={absoluteUrl('/')} />
+    <meta http-equiv="refresh" content={`0; url=${home}`} />
+  </head>
+  <body>
+    <p>Every facet is listed on <a href={home}>the front page</a>.</p>
+  </body>
+</html>

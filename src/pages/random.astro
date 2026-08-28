@@ -1,0 +1,46 @@
+---
+/**
+ * `/random` hands the reader a term they did not choose, which is the one way into a
+ * dictionary that browsing and searching cannot offer: both of those need you to already
+ * have a word in mind.
+ *
+ * The pick has to happen in the reader's browser. This is a static site, so a page
+ * rendered at build time would name the same term until the next deploy, which is not
+ * random, it is arbitrary. So the slugs ship with the page and the choice is made on
+ * arrival. They are inlined rather than fetched from `/paths.json`, which is 45KB
+ * gzipped and carries every alias and every display name: this needs the slugs alone,
+ * costs a fraction of that, and spends no round trip before the redirect.
+ *
+ * `location.replace`, never `assign`: the page must not enter history, or Back from a
+ * term lands here and bounces the reader to a different term instead of where they came
+ * from. Kept out of the sitemap by `REDIRECTS` and out of the index by `robots`, because
+ * what it answers is different every time and none of it is its own.
+ */
+import { getTerms } from '#src/lib/terms.ts';
+import { pageUrl } from '#src/lib/url.ts';
+
+const terms = await getTerms();
+const slugs = terms.filter((t) => t.data.status !== 'stub').map((t) => t.data.slug);
+const root = pageUrl('/');
+const glossary = pageUrl('/glossary');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A random term · vocab.design</title>
+    <meta name="robots" content="noindex,follow" />
+    <script define:vars={{ slugs, root }}>
+      var slug = slugs[Math.floor(Math.random() * slugs.length)];
+      location.replace(root.replace(/\/$/, "") + "/" + slug);
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        Picking a term at random needs JavaScript. Every term is listed in
+        <a href={glossary}>the A&ndash;Z</a>.
+      </p>
+    </noscript>
+  </body>
+</html>

@@ -284,10 +284,21 @@ async function arrivals(auth: string, question: Arrival, days: number): Promise<
   }));
 }
 
+/**
+ * GA4 spells "this event did not carry the parameter" two different ways, and which one
+ * it uses changed under us on 2026-08-27: every event-scoped custom dimension in the
+ * property switched from `(not set)` to an empty string on the same day, including ones
+ * the site never sends on a page view. Both mean absent, so both are printed as absent
+ * rather than as an unlabelled row nobody can interpret.
+ */
+function label(value: string | undefined): string {
+  return value === undefined || value === '' ? '(absent)' : value;
+}
+
 function table(rows: Row[], headers?: string[]): string {
   if (rows.length === 0) return '  (nothing)';
   const cells = rows.map((row) => [
-    ...(row.dimensionValues ?? []).map((d) => d.value ?? ''),
+    ...(row.dimensionValues ?? []).map((d) => label(d.value)),
     ...(row.metricValues ?? []).map((m) => m.value ?? '0'),
   ]);
   const metrics = (rows[0]?.metricValues ?? []).length;

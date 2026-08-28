@@ -103,6 +103,9 @@ src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from e
 src/pages/specimens/[page].json.ts # what the front page's carousel pulls once a reader stays
 src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
 src/pages/browse/           #   /browse/[category] (with definitions); the front page is the directory
+src/pages/browse.astro      #   /browse itself: a redirect to the front page, not an index
+src/pages/tags.astro        #   /tags likewise; the front page lists every facet
+src/pages/random.astro      #   /random: picks a slug in the browser and replaces itself
 src/pages/glossary/         #   /glossary (letter index) + /glossary/[letter] (terms and aliases)
 src/pages/search.astro      #   /search: the search as a page (Pagefind, built post-Astro)
 src/components/Carousel.astro #  the front page's row of specimens: markup, shuffled during parse
@@ -153,6 +156,9 @@ itself renders no modal, because the page already is one.
 Both carry two filters, category and facet, each defaulting to All and each rendered from
 its closed enum rather than from Pagefind's `filters()`. A filter with an empty box is a
 listing of that facet, which is what replaced the deleted `/browse` and `/tags` indexes.
+`/browse` and `/tags` still resolve, as redirects to the front page (Google ranks
+`/browse`), and both are kept out of the sitemap by `REDIRECTS` in `src/lib/routes.ts`,
+along with `/random`, which names a different term on every visit.
 The index side is two attributes on the term page: `data-pagefind-filter` for the category
 on the article, and one per facet on the chip that already names it, since an explicit
 value ignores the element's own text and repeated keys aggregate into a list.
@@ -239,6 +245,12 @@ opted out. Call it unconditionally; never branch on whether analytics is on.
 What is measured and why is SPEC §10. The short version: the searches that FAIL are the
 point, because a query that finds nothing (or only finds something after the salvage pass
 throws half of it away) is a missing alias or a missing term.
+
+Header links carry `data-nav` and report as `nav_click` through `to`, the parameter the
+relation events already use, so counting a new link needs no new custom dimension in GA.
+Two are deliberately unmarked: Search reports itself as `search_open`, and the wordmark
+only ever means "go home". `/random` is the one link whose click IS the only record of it,
+since the page replaces itself before any tag could load.
 
 To check the wiring against the real property, build with the ID and serve it:
 

@@ -99,6 +99,52 @@ html {
    settled before first paint (`data-chord` is set in the head). No attribute at all means
    no JavaScript, and Apple's glyph is the better guess for a reader browsing a design
    site with it off. */
+/* The header never wraps, and the wordmark is what yields. The nav is a fixed set of
+   targets that stop being targets if they wrap or shrink, so where both cannot fit, the
+   site's own name gives way: it stays on one line and gets smaller.
+
+   Shrinking the type is not enough on its own. Six nav items cost 227px at the desktop
+   size, which on a 320px screen leaves 37px for a word that needs 80 at any readable
+   size, and a nowrap box that small does not clip, it paints over the nav. So under 30rem
+   the nav gives up some of its own spacing and type too (it has fewer, shorter words to
+   lose it on), and the ellipsis is the guarantee: below any width these numbers did not
+   anticipate, the name truncates instead of colliding. */
+.vd-wordmark {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: clamp(0.75rem, 2.9vw + 0.25rem, 1.125rem);
+}
+
+.vd-nav {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+@media (max-width: 30rem) {
+  .vd-header-bar {
+    gap: 0.5rem;
+  }
+
+  .vd-nav {
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Icon links sit on the text baseline with the words beside them, so the box is sized in
+   `em` and the drawing inherits the colour the link already has. */
+.vd-icon-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.vd-icon-link svg {
+  width: 1.05em;
+  height: 1.05em;
+  fill: currentColor;
+}
+
 .vd-chord {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
