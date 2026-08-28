@@ -1,0 +1,4 @@
+term:    Scheduler
+scope:   element
+subject: div.sp-surface[data-part=scheduler]
+text:    Mon 14Tue 15Wed 16 all-day Offsite 9 AM10 AM11 AM12 PM Design review 9:30 Standu

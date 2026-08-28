@@ -1,0 +1,4 @@
+term:    Agenda view
+scope:   element
+subject: ul.sp-surface.sp-scroll[aria-label=Agenda][data-part=agenda][data-top-day=mon]
+text:    Today · Mon 14 9:30 Design review Next 13:00 Client call 30 min 16:00 Retro 1 hr

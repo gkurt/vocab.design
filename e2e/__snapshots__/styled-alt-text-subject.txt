@@ -1,0 +1,4 @@
+term:    Styled alt text
+scope:   element
+subject: img[alt=Spring sale: 20% off][data-part=styled][data-pose=[data-state=blocked]][data-state=blocked][height=78][src=data:image/png;base64,AAAAAAAAAAAA][width=190]
+text:    

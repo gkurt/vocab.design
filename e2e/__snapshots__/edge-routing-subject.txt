@@ -1,0 +1,4 @@
+term:    Edge routing
+scope:   element
+subject: path[d=M 124 40 C 215 40, 215 124, 306 124][data-part=edge][data-routing=bezier][fill=none][stroke-linecap=round][stroke-width=2.6][stroke=var(--sp-accent)]
+text:    

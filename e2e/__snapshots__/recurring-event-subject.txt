@@ -1,0 +1,4 @@
+term:    Recurring event
+scope:   element
+subject: div[data-exceptions=0][data-part=rule]
+text:    Every second Tuesday at 9:30, until 16 Dec

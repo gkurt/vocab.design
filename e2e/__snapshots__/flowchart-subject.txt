@@ -1,0 +1,4 @@
+term:    Flowchart
+scope:   element
+subject: svg[aria-label=Signup flowchart][data-mode=linear][data-part=diagram][role=img][viewBox=0 0 242 196]
+text:    Submit Validate Save record

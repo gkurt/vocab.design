@@ -1,0 +1,4 @@
+term:    Dark mode email
+scope:   element
+subject: div[data-copy=lost][data-mark=lost][data-mode=partial][data-part=inverted]
+text:    Northwind Your March statement is ready. Northwind Your March statement is ready

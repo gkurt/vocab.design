@@ -1,0 +1,4 @@
+term:    Oversized typography
+scope:   element
+subject: p[data-part=headline-large]
+text:    The tide comes in

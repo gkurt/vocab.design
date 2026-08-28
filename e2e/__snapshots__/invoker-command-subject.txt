@@ -1,0 +1,4 @@
+term:    Invoker command
+scope:   element
+subject: button.sp-button.sp-button--sm[command=show-modal][commandfor=confirm][data-part=invoke][type=button]
+text:    Delete

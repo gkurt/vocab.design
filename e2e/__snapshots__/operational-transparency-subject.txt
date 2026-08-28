@@ -1,0 +1,4 @@
+term:    Operational transparency
+scope:   element
+subject: div[data-part=list]
+text:    Airline fares Agency prices Baggage rules Seat availability

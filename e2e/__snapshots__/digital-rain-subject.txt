@@ -1,0 +1,4 @@
+term:    Digital rain
+scope:   element
+subject: canvas[aria-hidden=true][data-part=field][height=204][width=458]
+text:    

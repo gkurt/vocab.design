@@ -1,0 +1,4 @@
+term:    Unsubscribe link
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=header-unsub][type=button]
+text:    Unsubscribe

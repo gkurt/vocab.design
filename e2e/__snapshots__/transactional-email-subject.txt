@@ -1,0 +1,4 @@
+term:    Transactional email
+scope:   element
+subject: article.sp-surface[data-mode=record][data-part=mail][data-pose=[data-mode=record]]
+text:    Quay Books Today 11:02 Paid, and arriving Friday 12 September Order #4471 · 24.0

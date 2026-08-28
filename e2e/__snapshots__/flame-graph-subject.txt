@@ -1,0 +1,4 @@
+term:    Flame graph
+scope:   element
+subject: div.sp-surface[data-part=flame]
+text:    all stacks render() layout() gc() paint() styles() reflow() mark() raster() matc

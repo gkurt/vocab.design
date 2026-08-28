@@ -1,0 +1,4 @@
+term:    Hidden gesture
+scope:   element
+subject: div.sp-list-item[data-part=row-hidden]
+text:    Studio walkthrough Théo Guérin · 08:02

@@ -1,0 +1,4 @@
+term:    Interest invoker
+scope:   element
+subject: button[data-part=a-trigger][interestfor=a-card][type=button]
+text:    Ada Lovelace

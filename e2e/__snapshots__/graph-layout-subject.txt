@@ -1,0 +1,4 @@
+term:    Graph layout
+scope:   element
+subject: div[aria-label=Six node pipeline graph][data-layout=layered][data-part=graph][data-pose=:not([data-layout=dropped])][role=img]
+text:    Ingest Clean Enrich Join Report Alert

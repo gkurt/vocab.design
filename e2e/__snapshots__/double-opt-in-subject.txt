@@ -1,0 +1,4 @@
+term:    Double opt-in
+scope:   element
+subject: button.sp-button.sp-button--sm[data-part=confirm][type=button]
+text:    Confirm subscription

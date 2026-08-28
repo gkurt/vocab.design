@@ -1,0 +1,4 @@
+term:    Autoplay
+scope:   element
+subject: div[data-part=b-picture][data-state=playing]
+text:    Playing, muted 0:19

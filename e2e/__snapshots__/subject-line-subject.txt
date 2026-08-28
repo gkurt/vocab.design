@@ -1,0 +1,4 @@
+term:    Subject line
+scope:   element
+subject: span.sp-text.sp-text--ink[data-cut=yes][data-load=front][data-part=front-narrow]
+text:    Shipped: order #4471, arrives Friday 12 Sept

@@ -1,0 +1,4 @@
+term:    Preview text
+scope:   element
+subject: span.sp-text[data-part=authored-preview][data-source=written]
+text:    Spring tides on the 9th, the ferry timetable changes on the 14th, and the boatya

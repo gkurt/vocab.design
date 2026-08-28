@@ -1,0 +1,4 @@
+term:    Sender name
+scope:   element
+subject: span.sp-text.sp-text--ink.sp-grow[data-kind=person][data-part=from]
+text:    Ana Ruiz

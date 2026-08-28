@@ -1,0 +1,4 @@
+term:    Fluid hybrid
+scope:   element
+subject: div[data-flow=row][data-part=fluid]
+text:    Northwind weekly Harbour Tides

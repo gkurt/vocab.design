@@ -1,0 +1,4 @@
+term:    Blame view
+scope:   element
+subject: div[data-part=gutter]
+text:    who when which change RL 2 y 0ac93f AB 8 mo 71c0d5 MM 3 wk 4b81e0 MM 3 wk 4b81e0

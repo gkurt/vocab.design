@@ -1,0 +1,4 @@
+term:    Table-based layout
+scope:   element
+subject: table[border=0][cellpadding=8][cellspacing=0][data-part=layout][data-scaffold=off][role=presentation][width=396]
+text:    Northwind weekly Read the issue Northwind, 12 Quay Street

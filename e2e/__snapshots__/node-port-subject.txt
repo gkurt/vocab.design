@@ -1,0 +1,4 @@
+term:    Node port
+scope:   element
+subject: span[data-part=port-in-normal][data-side=in][data-type=vector]
+text:    

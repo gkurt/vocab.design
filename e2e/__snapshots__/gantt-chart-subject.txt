@@ -1,0 +1,4 @@
+term:    Gantt chart
+scope:   element
+subject: div.sp-surface[data-part=chart]
+text:    Task 1234567891011121314 Research Wireframes Visual design Build QA

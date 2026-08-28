@@ -1,0 +1,4 @@
+term:    Time zone display
+scope:   element
+subject: div[data-part=primary][data-zone=london]
+text:    Your time 3:30 PM London, UTC+00:00

@@ -1,0 +1,4 @@
+term:    Bulletproof button
+scope:   element
+subject: table[border=0][cellpadding=11][cellspacing=0][data-mode=kept][data-part=proof][role=presentation]
+text:    Track your order

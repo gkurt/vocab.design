@@ -1,0 +1,4 @@
+term:    Node graph
+scope:   element
+subject: div[aria-label=Import pipeline graph][data-links=3][data-part=graph][role=application]
+text:    Source reads a folder Filter drops duplicates Resize fits to 800px Sink writes a

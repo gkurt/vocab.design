@@ -1,0 +1,4 @@
+term:    Three-way merge
+scope:   element
+subject: div[data-part=merge]
+text:    Mine feature function price(n) { rate = RATE.std return n * rate Base ancestor f

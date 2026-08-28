@@ -1,0 +1,4 @@
+term:    Conversational interface
+scope:   element
+subject: div.sp-scroll[data-part=transcript][role=log]
+text:    I can look at your calendar, draft a reply, or find a file. Free time FridayDraf

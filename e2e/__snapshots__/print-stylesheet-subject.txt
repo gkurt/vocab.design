@@ -1,0 +1,4 @@
+term:    Print stylesheet
+scope:   element
+subject: div[data-part=sheet]
+text:    Sourdough, slowly Feed the starter twelve hours before you mix. The timings live

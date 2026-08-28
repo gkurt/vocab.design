@@ -1,0 +1,4 @@
+term:    Elevation
+scope:   element
+subject: div.sp-row.sp-row--between[data-ground=paper][data-part=card-overlay][data-step=3]
+text:    Overlay a menu, a dialog · 12dp
