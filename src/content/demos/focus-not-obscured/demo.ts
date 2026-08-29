@@ -117,7 +117,7 @@ export function mount(root: HTMLElement): void {
           ${cell('Focus Not Obscured (Enhanced)', 'enhanced', VERDICT.partial.enhanced)}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-position="partial"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-position="partial"
            style="margin: 7px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.partial}</p>
       </div>
     </div>

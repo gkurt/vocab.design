@@ -103,7 +103,7 @@ export function mount(root: HTMLElement): void {
         <p class="sp-text sp-context" style="margin: 9px 0 0; height: 16px; font-size: 11px; line-height: 16px;
                                              white-space: nowrap">The same three codes go to every reader; only the rendering differs.</p>
 
-        <p class="sp-text sp-context" data-part="caption" data-set="words"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-set="words"
            style="margin: 7px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.words}</p>
       </div>
     </div>

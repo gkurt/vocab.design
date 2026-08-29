@@ -141,7 +141,7 @@ export function mount(root: HTMLElement): void {
             ).join('')}
           </div>
           <div class="sp-stack sp-context" style="gap: 2px">
-            <span class="sp-text" data-part="note" style="height: 30px; font-size: 11px; line-height: 15px; overflow: hidden"></span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="height: 30px; font-size: 11px; line-height: 15px; overflow: hidden"></span>
             <span class="sp-label" data-part="cost" data-moved="0" style="height: 15px; font-size: 11px; overflow: hidden"></span>
           </div>
         </div>

@@ -97,7 +97,7 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-surface sp-context" style="flex: 1 1 auto; min-height: 0; padding: 9px 10px">
             <span class="sp-label" style="display: block; font-size: 10px">This person's history with that one control</span>
-            <span class="sp-text sp-text--ink" data-part="note" style="display: block; margin-top: 3px; font-size: 11px; line-height: 1.35">${LEVELS.first.note}</span>
+            <span class="sp-text sp-text--ink" data-stage-verdict data-part="note" style="display: block; margin-top: 3px; font-size: 11px; line-height: 1.35">${LEVELS.first.note}</span>
           </div>
         </div>
       </div>

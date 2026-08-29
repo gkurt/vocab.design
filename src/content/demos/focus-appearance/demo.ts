@@ -129,7 +129,7 @@ export function mount(root: HTMLElement): void {
           ${READOUT.map((row) => cell(row.key, row.label, first[row.key])).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-treatment="solid"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-treatment="solid"
            style="margin: 7px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${first.caption}</p>
       </div>
     </div>

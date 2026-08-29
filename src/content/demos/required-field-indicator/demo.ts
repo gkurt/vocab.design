@@ -40,7 +40,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 476px">
         <div class="sp-row" style="align-items: flex-start; gap: 16px">
           <div data-part="form" data-convention="required" style="width: 200px">
-            <p class="sp-text sp-context" data-part="legend" style="margin: 0; font-size: 11px; height: 30px">${LEGENDS.required}</p>
+            <p class="sp-text sp-context" data-stage-verdict data-part="legend" style="margin: 0; font-size: 11px; height: 30px">${LEGENDS.required}</p>
             <div class="sp-field sp-context" style="margin-top: 4px">
               <span><label class="sp-label" for="vd-rfi-name">Full name</label><span class="sp-label" data-part="mark-name"
                     aria-hidden="true" style="color: var(--sp-accent); font-weight: 700"> *</span></span>

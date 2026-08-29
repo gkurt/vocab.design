@@ -83,7 +83,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <span class="sp-text sp-context" data-part="note" style="width: 452px; height: 30px; flex: 0 0 auto; font-size: 11px; line-height: 1.35">${NOTE.world}</span>
+      <span class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 452px; height: 30px; flex: 0 0 auto; font-size: 11px; line-height: 1.35">${NOTE.world}</span>
     </div>
   `;
 

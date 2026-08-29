@@ -137,7 +137,7 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label" style="font-size: 11px">slot the host gave it</span>
               <span data-part="cells" style="font-size: 13px">${first.cells}</span>
             </div>
-            <p class="sp-text" data-part="note" style="margin: 0; height: 54px; font-size: 12px">${first.note}</p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; height: 54px; font-size: 12px">${first.note}</p>
             <p class="sp-text" style="margin: 0; font-size: 11px">
               Same app, same day. Each size is a different edit, not the big one shrunk.
             </p>

@@ -157,15 +157,14 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <div class="sp-stack sp-context" style="align-items: center; gap: 7px; width: 476px">
-        <sp-segmented data-stage-mode class="sp-segmented" data-part="screens" data-value="inbox" data-axis="Screen">
+              <sp-segmented data-stage-mode class="sp-segmented" data-part="screens" data-value="inbox" data-axis="Screen">
           ${SCREENS.map(
             (screen) => `
             <button class="sp-segment" type="button" data-part="seg-${screen.key}" value="${screen.key}" style="padding: 4px 12px; font-size: 12px">${screen.label}</button>`,
           ).join('')}
         </sp-segmented>
-        <span class="sp-label" data-part="note" role="status" style="height: 16px; width: 452px; font-size: 11px; line-height: 16px; text-align: center"></span>
-      </div>
+        <span class="sp-label" data-stage-verdict data-part="note" role="status" style="height: 16px; width: 452px; font-size: 11px; line-height: 16px; text-align: center"></span>
+      
     </div>
   `;
 

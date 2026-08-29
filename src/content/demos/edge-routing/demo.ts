@@ -103,7 +103,7 @@ export function mount(root: HTMLElement): void {
                      color: var(--sp-muted); font-size: 10px; white-space: nowrap"
             >on error</span>
           </div>
-          <span class="sp-text sp-context" data-part="note" style="height: 30px; font-size: 11px; line-height: 15px; overflow: hidden">${ROUTES[START].note}</span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="note" style="height: 30px; font-size: 11px; line-height: 15px; overflow: hidden">${ROUTES[START].note}</span>
         </div>
       </div>
     </div>

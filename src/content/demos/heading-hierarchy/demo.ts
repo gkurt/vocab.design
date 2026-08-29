@@ -99,7 +99,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-grow">
             <span class="sp-label sp-context">Headings list</span>
             <ul class="sp-list" data-part="outline" data-state="nested" data-subject style="margin-top: 6px; gap: 2px"></ul>
-            <p class="sp-text sp-context" data-part="note" style="margin: 10px 0 0; height: 34px; font-size: 12px"></p>
+            <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 10px 0 0; height: 34px; font-size: 12px"></p>
           </div>
         </div>
       </div>

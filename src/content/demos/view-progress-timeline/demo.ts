@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
             >50%</span>
             <span class="sp-label sp-text--ink" data-part="state" style="font-size: 12px">running</span>
             <span class="sp-divider" style="margin: 2px 0"></span>
-            <span class="sp-text" data-part="note" style="height: 76px; font-size: 11px; line-height: 1.45">${NOTES.cover}</span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="height: 76px; font-size: 11px; line-height: 1.45">${NOTES.cover}</span>
           </div>
         </div>
       </div>

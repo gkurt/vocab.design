@@ -91,7 +91,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <span class="sp-label sp-context" data-part="note" data-state="light" style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; height: 34px; padding: 0 16px; text-align: center; line-height: 1.4; font-size: 11px"
+        <span class="sp-label sp-context" data-stage-verdict data-part="note" data-state="light" style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; height: 34px; padding: 0 16px; text-align: center; line-height: 1.4; font-size: 11px"
           >${WEIGHTS.light.note}</span
         >
       </div>

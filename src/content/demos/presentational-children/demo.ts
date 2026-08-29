@@ -93,7 +93,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             “<span data-part="name" data-subject style="font-weight: 600">${NAME}</span>, button”</p>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="authored"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="authored"
            style="margin: 8px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.authored}</p>
       </div>
     </div>

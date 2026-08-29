@@ -100,13 +100,12 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 272px; height: 34px; font-size: 11px">${NOTE.false}</span>
+              <span class="sp-text" data-stage-verdict data-part="note" style="width: 272px; height: 34px; font-size: 11px">${NOTE.false}</span>
         <sp-segmented data-stage-mode class="sp-segmented" data-axis="Closing band" data-term="false" data-part="pick" data-value="false">
           <button class="sp-segment" data-part="pick-false" value="false" style="padding: 5px 9px; font-size: 12px">False bottom</button>
           <button class="sp-segment" data-part="pick-fixed" value="fixed" style="padding: 5px 9px; font-size: 12px">Continuity cue</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

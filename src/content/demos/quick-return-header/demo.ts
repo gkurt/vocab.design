@@ -92,7 +92,7 @@ export function mount(root: HTMLElement): void {
           <button class="sp-segment" type="button" data-part="mode-quick" value="quick-return" style="padding: 5px 9px; font-size: 12px">Quick return</button>
         </sp-segmented>
       </div>
-      <span class="sp-text sp-context" data-part="note" style="width: 452px; height: 32px; font-size: 11px">${NOTE['quick-return']}</span>
+      <span class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 452px; height: 32px; font-size: 11px">${NOTE['quick-return']}</span>
     </div>
   `;
 

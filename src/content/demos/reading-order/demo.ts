@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
                   style="flex: 0 0 auto">Next</button>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-case="matched"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="matched"
            style="margin: 8px 0 0; height: 32px; font-size: 11px">${CAPTION.matched}</p>
       </div>
     </div>

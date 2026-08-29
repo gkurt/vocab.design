@@ -76,7 +76,7 @@ export function mount(root: HTMLElement): void {
         </sp-segmented>
       </div>
 
-      <p class="sp-text sp-context" data-part="note" style="width: 340px; margin: 0; min-height: 60px">${state?.note}</p>
+      <p class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 340px; margin: 0; min-height: 60px">${state?.note}</p>
     </div>
   `;
 

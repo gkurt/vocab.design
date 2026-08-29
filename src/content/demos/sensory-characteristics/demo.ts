@@ -84,10 +84,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-context" style="align-items: flex-start; gap: 8px; margin-top: 9px; height: 32px">
-          <p class="sp-text" data-stage-verdict data-part="verdict" data-mode="sensory"
+                  <p class="sp-text" data-stage-verdict data-part="verdict" data-mode="sensory"
              style="flex: 1 1 auto; min-width: 0; margin: 0; font-size: 11px; line-height: 1.35">${COPY.sensory.verdict}</p>
-        </div>
+        
       </div>
     </div>
   `;

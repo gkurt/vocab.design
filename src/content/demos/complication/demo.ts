@@ -161,7 +161,7 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label">Room for</span>
               <span class="sp-text sp-text--ink" data-part="slot-grants" style="font-size: 12px">ring, name, value</span>
             </div>
-            <p class="sp-text" data-part="note" style="margin: 0; height: 48px; font-size: 11px; line-height: 1.45">${FAMILIES.modular?.note ?? ''}</p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; height: 48px; font-size: 11px; line-height: 1.45">${FAMILIES.modular?.note ?? ''}</p>
           </div>
         </div>
       </div>

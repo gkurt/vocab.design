@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
              style="display: flex; margin-top: 8px; border-radius: var(--sp-radius); overflow: hidden">${cells}</div>
         <div class="sp-row sp-context" style="gap: 0; margin-top: 4px">${ticks}</div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 10px 0 0; min-height: 40px">${NOTES[START]}</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 10px 0 0; min-height: 40px">${NOTES[START]}</p>
       </div>
     </div>
   `;

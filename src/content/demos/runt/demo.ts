@@ -54,7 +54,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-row--between sp-context" data-part="readout" style="height: 18px; margin-top: 6px">
           <span class="sp-label" data-part="measure" style="font-variant-numeric: tabular-nums"></span>
-          <span class="sp-label" data-part="note" style="color: var(--sp-ink)"></span>
+          <span class="sp-label" data-stage-verdict data-part="note" style="color: var(--sp-ink)"></span>
         </div>
         <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
           Nothing is broken here: the browser filled every line and this is what was left over. A

@@ -103,7 +103,7 @@ export function mount(root: HTMLElement): void {
 
       <span
         class="sp-text sp-context"
-        data-part="note"
+        data-stage-verdict data-part="note"
         data-chrome="shown"
         role="status"
         style="display: block; width: ${WINDOW_W}px; height: 32px; font-size: 12px; line-height: 16px; text-align: center"

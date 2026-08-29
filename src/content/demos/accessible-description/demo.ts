@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
 
                   <span class="sp-text sp-text--ink" data-stage-announce data-part="announced" style="font-size: 12px; white-space: nowrap"></span>
         
-        <p class="sp-text sp-context" data-part="caption" data-case="describedby"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="describedby"
            style="margin: 6px 0 0; height: 30px; font-size: 11px">${STRATEGIES.describedby.caption}</p>
       </div>
     </div>

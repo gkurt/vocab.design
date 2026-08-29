@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
                        letter-spacing: 0.04em; color: #FFFFFF; mix-blend-mode: ${START}">OVERLAP</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 10px 0 0; min-height: 40px">${MODES[START]}</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 10px 0 0; min-height: 40px">${MODES[START]}</p>
       </div>
     </div>
   `;

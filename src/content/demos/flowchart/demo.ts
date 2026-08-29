@@ -154,7 +154,7 @@ export function mount(root: HTMLElement): void {
               </svg>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="note" style="height: 19px; font-size: 11px; overflow: hidden"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="note" style="height: 19px; font-size: 11px; overflow: hidden"></span>
         </div>
       </div>
     </div>

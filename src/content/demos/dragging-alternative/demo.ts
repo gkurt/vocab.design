@@ -82,7 +82,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" data-part="last" data-how="none" style="flex: 0 0 auto; font-size: 10.5px">${HOW.none}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="both"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="both"
            style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">${CAPTION.both}</p>
       </div>
     </div>

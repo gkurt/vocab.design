@@ -68,7 +68,7 @@ export function mount(root: HTMLElement): void {
           ${ITEMS.map(cell).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-case="pass"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="pass"
            style="margin: 10px 0 0; height: 30px; font-size: 11px">${CAPTION.pass}</p>
       </div>
     </div>

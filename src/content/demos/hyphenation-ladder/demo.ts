@@ -103,7 +103,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-stack sp-context" data-part="readout" style="flex: 1 1 auto; gap: 2px">
             <span class="sp-label">longest run of hyphenated lines</span>
             <span data-part="rungs" style="font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums"></span>
-            <span class="sp-text" data-part="note" style="font-size: 12px"></span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="font-size: 12px"></span>
             <p class="sp-text" data-part="caption" style="margin: 10px 0 0">
               Every break is a real one and no line is too long. The property that caps the stack is
               hyphenate-limit-lines, support for it is thin, so the second setting withholds the third

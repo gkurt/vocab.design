@@ -63,7 +63,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="shape" data-mode="chunked"
                 style="font-size: 12px; white-space: nowrap">${VALUES[0]?.shape ?? ''}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" data-case="chunked"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="chunked"
            style="margin: 6px 0 0; height: 30px; font-size: 11px">${CAPTION.chunked}</p>
       </div>
     </div>

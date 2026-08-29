@@ -68,7 +68,7 @@ export function mount(root: HTMLElement): void {
              style="margin: 3px 0 0; height: 17px; line-height: 17px; font-size: 11.5px; white-space: nowrap">${ACTIVE.none}</p>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="on"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="on"
            style="margin: 8px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.on}</p>
       </div>
     </div>

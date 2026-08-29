@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
 
-            <span class="sp-text" data-part="hint" style="display: block; height: 14px; margin-top: 7px; font-size: 10.5px; line-height: 14px">${HINT.split}</span>
+            <span class="sp-text" data-stage-verdict data-part="hint" style="display: block; height: 14px; margin-top: 7px; font-size: 10.5px; line-height: 14px">${HINT.split}</span>
           </div>
 
           <div class="sp-surface sp-context" style="flex: 0 0 auto; padding: 7px 11px">

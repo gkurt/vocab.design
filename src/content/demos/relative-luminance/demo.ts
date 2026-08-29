@@ -117,7 +117,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" style="font-size: 10.5px">channels linearised first</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="note"
+        <p class="sp-text sp-context" data-stage-verdict data-part="note"
            style="margin: 7px 0 0; height: 30px; font-size: 11px; line-height: 1.4">${start.note}</p>
       </div>
     </div>

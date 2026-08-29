@@ -101,7 +101,7 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; height: 238px; gap: 6px">
             <span class="sp-label" data-part="note-title" data-state="mockup" style="font-size: 10px">${NOTE_TITLE.mockup}</span>
-            <p class="sp-text" data-part="note" data-state="mockup"
+            <p class="sp-text" data-stage-verdict data-part="note" data-state="mockup"
                style="margin: 0; flex: 0 0 auto; height: 132px; font-size: 11px; line-height: 1.35">${NOTE.mockup}</p>
             <span class="sp-divider"></span>
             <p class="sp-text" data-part="footnote"

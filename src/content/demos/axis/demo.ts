@@ -169,20 +169,19 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <div class="sp-stack sp-context" style="align-items: center; gap: 8px; width: 476px">
-        <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="${START}" data-axis="Scale">
+              <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="${START}" data-axis="Scale">
           <button class="sp-segment" type="button" data-part="seg-raw" value="raw" style="padding: 4px 10px; font-size: 12px">Data extent</button>
           <button class="sp-segment" type="button" data-part="seg-nice" value="nice" style="padding: 4px 10px; font-size: 12px">Nice scale</button>
           <button class="sp-segment" type="button" data-part="seg-log" value="log" style="padding: 4px 10px; font-size: 12px">Log</button>
         </sp-segmented>
         <span
           class="sp-label"
-          data-part="note"
+          data-stage-verdict data-part="note"
           data-scale="${START}"
           role="status"
           style="height: 15px; font-size: 11px; line-height: 15px; white-space: nowrap; overflow: hidden"
         >${first.note}</span>
-      </div>
+      
     </div>
   `;
 

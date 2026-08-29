@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
               <span class="sp-heading" data-part="name" style="flex: 1 1 auto; min-width: 0; font-size: 13px">Perceivable</span>
             </div>
             <div class="sp-label" data-part="criterion" style="height: 14px; font-size: 10px; white-space: nowrap">${BUCKETS.perceivable.criterion}</div>
-            <p class="sp-text" data-part="why" style="margin: 6px 0 0; height: 68px; font-size: 10.5px; line-height: 1.35">${BUCKETS.perceivable.why}</p>
+            <p class="sp-text" data-stage-verdict data-part="why" style="margin: 6px 0 0; height: 68px; font-size: 10.5px; line-height: 1.35">${BUCKETS.perceivable.why}</p>
             <div class="sp-divider" style="margin: 6px 0 0"></div>
             <div class="sp-row" style="gap: 6px; height: 32px">
               <span style="display: flex; flex: 0 0 auto; color: var(--sp-accent)">${icon('search')}</span>

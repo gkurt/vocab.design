@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="consistent"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="consistent"
            style="margin: 8px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.consistent}</p>
       </div>
     </div>

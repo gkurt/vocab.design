@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" data-part="offer" data-flow="carried" style="flex: 0 0 auto; font-size: 10.5px">Available to select: yes</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-flow="carried"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-flow="carried"
            style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">${CAPTION.carried}</p>
       </div>
     </div>

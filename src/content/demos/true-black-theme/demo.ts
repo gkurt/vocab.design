@@ -97,7 +97,7 @@ export function mount(root: HTMLElement): void {
           ${panel('black', TRUE, 'True black, #000000', true)}
         </div>
 
-        <p class="sp-text sp-context" data-part="note"
+        <p class="sp-text sp-context" data-stage-verdict data-part="note"
            style="margin: 10px 0 0; height: 32px; font-size: 11px; line-height: 1.4">${NOTES[START]}</p>
       </div>
     </div>

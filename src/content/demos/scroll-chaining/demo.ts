@@ -110,7 +110,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
       </div>
-      <span class="sp-label sp-context" data-part="caption">${CAPTION.default}</span>
+      <span class="sp-label sp-context" data-stage-verdict data-part="caption">${CAPTION.default}</span>
     </div>
   `;
 

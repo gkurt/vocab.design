@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${SAY.button}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="button"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="button"
            style="margin: 7px 0 0; height: 34px; font-size: 11px">${CAPTION.button}</p>
       </div>
     </div>

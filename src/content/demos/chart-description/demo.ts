@@ -107,7 +107,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${ANNOUNCE.full}</span>
         
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="full"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="full"
            style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">${CAPTION.full}</p>
       </div>
     </div>

@@ -105,7 +105,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           )}
 
           <span
-            class="sp-text sp-context" data-part="note"
+            class="sp-text sp-context" data-stage-verdict data-part="note"
             style="position: absolute; left: ${SOURCE.x}px; right: ${SOURCE.x}px; top: 200px; height: 32px;
                    font-size: 12px; line-height: 1.35"
           >${NOTES.clone}</span>

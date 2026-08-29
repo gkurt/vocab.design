@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 10px 0 0; min-height: 20px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 10px 0 0; min-height: 20px">
           Luminance decides the position, the ramp decides the colour: ${ramp?.label}.
         </p>
       </div>

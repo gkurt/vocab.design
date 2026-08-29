@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
           )}
         </div>
 
-        <p class="sp-text sp-context" data-part="note"
+        <p class="sp-text sp-context" data-stage-verdict data-part="note"
            style="margin: 10px 0 0; height: 30px; font-size: 11px; line-height: 1.4">${NOTES[START]}</p>
       </div>
     </div>

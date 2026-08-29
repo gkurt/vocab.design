@@ -98,14 +98,13 @@ export function mount(root: HTMLElement): void {
 
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 262px; height: 34px; font-size: 11px">${NOTE.wide}</span>
+              <span class="sp-text" data-stage-verdict data-part="note" style="width: 262px; height: 34px; font-size: 11px">${NOTE.wide}</span>
         <sp-segmented data-stage-mode class="sp-segmented" data-part="pick" data-axis="Width" data-value="wide">
           <button class="sp-segment" data-part="pick-wide" value="wide" style="padding: 5px 9px; font-size: 12px">Wide</button>
           <button class="sp-segment" data-part="pick-medium" value="medium" style="padding: 5px 9px; font-size: 12px">Medium</button>
           <button class="sp-segment" data-part="pick-narrow" value="narrow" style="padding: 5px 9px; font-size: 12px">Narrow</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

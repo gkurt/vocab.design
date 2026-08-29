@@ -64,7 +64,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame" style="width: 312px; height: 252px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Roster</span>
-          <span class="sp-label" data-part="note">siblings, side by side</span>
+          <span class="sp-label" data-stage-verdict data-part="note">siblings, side by side</span>
         </div>
         <div class="sp-body">
           <sp-segmented data-stage-mode class="sp-segmented sp-context" data-part="picker" data-axis="Axis" data-value="x" style="width: 100%">

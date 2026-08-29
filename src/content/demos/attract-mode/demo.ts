@@ -115,7 +115,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <span class="sp-text--ink" data-part="state" style="font-size: 18px; font-weight: 600; line-height: 1.2">Attracting</span>
             <span class="sp-label" data-part="plays" style="font-size: 11px">Reel playing, round 1</span>
             <span class="sp-divider" style="margin: 4px 0"></span>
-            <span class="sp-text" data-part="note" style="height: 90px; font-size: 11px; line-height: 1.45">Nobody is at the kiosk, so it is demonstrating itself. Touching the screen ends the reel, and the touch that ends it is not spent ending it.</span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="height: 90px; font-size: 11px; line-height: 1.45">Nobody is at the kiosk, so it is demonstrating itself. Touching the screen ends the reel, and the touch that ends it is not spent ending it.</span>
           </div>
         </div>
       </div>

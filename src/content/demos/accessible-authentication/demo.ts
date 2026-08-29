@@ -66,7 +66,7 @@ export function mount(root: HTMLElement): void {
                     style="flex: 0 0 auto; font-size: 11px; padding: 3px 9px">Paste</button>
           </div>
 
-          <span class="sp-text sp-context" data-part="note" data-state="waiting"
+          <span class="sp-text sp-context" data-stage-verdict data-part="note" data-state="waiting"
                 style="min-height: 15px; font-size: 10.5px">${NOTE.waiting}</span>
 
           <div class="sp-divider sp-context"></div>

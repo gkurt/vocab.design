@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-text" style="font-size: 12px">52.50</span>
           </div>
 
-          <span class="sp-label sp-context" data-part="caption" style="flex: 0 0 auto; height: 14px; font-size: 11px">${CAPTION.balanced}</span>
+          <span class="sp-label sp-context" data-stage-verdict data-part="caption" style="flex: 0 0 auto; height: 14px; font-size: 11px">${CAPTION.balanced}</span>
 
           <div data-part="area" style="flex: 0 0 auto; height: 124px">${AREA.balanced}</div>
 

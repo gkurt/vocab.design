@@ -114,7 +114,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">Closed by ${CLOSED_BY.none}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="compliant"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="compliant"
            style="margin: 7px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.compliant}</p>
       </div>
     </div>

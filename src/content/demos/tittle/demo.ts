@@ -105,7 +105,7 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-stack sp-context" style="gap: 8px; padding-top: 6px">
             <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${first.read}</span>
-            <p class="sp-text" data-part="note" style="margin: 0; width: 258px; height: 78px">${first.note}</p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; width: 258px; height: 78px">${first.note}</p>
             <span class="sp-label" style="width: 258px">A dot is a contour inside a glyph, so the box around it is the demo's own drawing.</span>
           </div>
         </div>

@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
           <h3 data-part="headline" data-subject data-case="title" data-pose="[data-case=title]"
               style="margin: 0; font-size: 20px; font-weight: 600; line-height: ${LINE_PX}px">${CASES.title?.line}</h3>
         </div>
-        <p class="sp-text sp-context" data-part="note"
+        <p class="sp-text sp-context" data-stage-verdict data-part="note"
            style="margin: 6px 0 0; height: 34px; font-size: 12px; line-height: 17px"></p>
         <div class="sp-divider sp-context" style="margin: 8px 0"></div>
         <div class="sp-stack sp-context" data-part="menu" style="gap: 5px">

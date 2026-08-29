@@ -616,8 +616,15 @@ never fires under reduced motion, so nothing may ever wait on it.
   of the state, not the product's, so it is marked `data-stage-verdict` and the stage draws
   it in the strip above the switch that produced it; a screen reader's utterance is marked
   `data-stage-announce` and drawn in the lane above that, with a speaker that pulses on a
-  change. `bun validate` refuses a `data-part="verdict"` left inside the specimen; the
-  exemption list in `scripts/validate-terms.ts` is the instrument test below.
+  change. A verdict is defined by BEHAVIOUR, never by the part's name: two questions, does
+  the specimen have a mode switch, and does this prose change with it. `owned-element` keys
+  a `CAPTION` record to its switch, which is a verdict however it is spelled, and 204
+  specimens carried one under `caption`, `note` or `legend`. `bun validate` refuses any of
+  them left inside the specimen; the exemption list in `scripts/validate-terms.ts` is the
+  instrument test below. Prose that never changes is a different problem with a different
+  answer: the term's article usually already says it, so it is deleted, not moved.
+  An announcement that is the SUBJECT stays put (`verbosity` marks its utterance
+  `data-subject`), since identify must ring it inside the specimen; only its caption moves.
   A readout stays in the frame ONLY when the demo draws the thing that produces it:
   `braille-display` draws the pin array, `key-sequence` draws the kbd chips and the timeout
   meter, `inline-validation` prints into the field's own slot (and `aria-describedby` points

@@ -985,7 +985,11 @@ complete; until then entries only accumulate. Entry format:
 
 ## author-voice-captions
 
-- Queued: 2026-08-29 · Status: queued (~500 demos carry at least one)
+- Queued: 2026-08-29 · Status: queued (~300 demos, down from ~500)
+- NARROWED 2026-08-29: the 204 whose caption CHANGES with a mode switch are not this
+  complaint at all, they are verdicts under another name, and they shipped. What is left
+  here is prose that never changes, where the fix really is deletion. Do not re-queue the
+  changing ones: `bun validate` now refuses them.
 - Rule: anything in a specimen that is not in the fiction is chrome (SPEC §5.1). A
   caption, note, legend, hint, aside or unmarked explanatory `<p>` is the SITE explaining
   the demo, printed inside a mock product in the mock's own type, which is one more line

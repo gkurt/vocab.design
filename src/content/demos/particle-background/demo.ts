@@ -123,9 +123,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 460px; margin: 0; text-align: center">
-        <span data-part="note">Twenty-six agents, linked when they pass close.</span>
-      </p>
+              <span data-stage-verdict data-part="note">Twenty-six agents, linked when they pass close.</span>
+      
     </div>
   `;
 

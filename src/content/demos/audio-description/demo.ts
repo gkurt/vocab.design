@@ -100,7 +100,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <button class="sp-segment" data-part="seg-extended" value="extended">Extended</button>
             </sp-segmented>
           </div>
-          <p class="sp-text" data-part="caption" data-case="standard"
+          <p class="sp-text" data-stage-verdict data-part="caption" data-case="standard"
              style="margin: 8px 0 0; height: 28px; font-size: 11px">${CAPTION.standard}</p>
         </div>
       </div>

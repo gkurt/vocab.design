@@ -78,7 +78,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; gap: 10px">
-          <p class="sp-text" data-part="caption" data-case="flex-visual"
+          <p class="sp-text" data-stage-verdict data-part="caption" data-case="flex-visual"
              style="margin: 0; flex: 1 1 auto; height: 50px; font-size: 11px">${CAPTION['flex-visual']}</p>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="tab" style="flex: 0 0 auto">Press Tab</button>
         </div>

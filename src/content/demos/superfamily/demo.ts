@@ -123,7 +123,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-context" style="gap: 16px; margin-top: 6px; height: 76px; align-items: center">
           <div data-part="show" data-member="${start}" style="flex: 0 0 auto">${board(start, SHOW, MEMBERS[start].name)}</div>
-          <p class="sp-text" data-part="note" style="margin: 0">${MEMBERS[start].note}</p>
+          <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0">${MEMBERS[start].note}</p>
         </div>
         <div data-part="set" data-subject class="sp-row" style="position: relative; gap: 18px; margin-top: 2px; height: ${Math.round(120 * PANEL)}px; align-items: flex-start">
           ${rule(xRule, 'color-mix(in oklab, var(--sp-accent) 55%, transparent)')}

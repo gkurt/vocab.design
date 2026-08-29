@@ -155,7 +155,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface" data-part="form" data-subject data-pose="[data-mode=split]:not([data-q=review])" data-mode="split" data-q="1"
              style="display: flex; flex-direction: column; gap: 8px; height: 188px; margin-top: 8px; padding: 10px 14px; overflow: hidden"></div>
 
-        <p class="sp-text sp-context" data-part="caption" data-case="split" style="margin: 8px 0 0; height: 32px; font-size: 11px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="split" style="margin: 8px 0 0; height: 32px; font-size: 11px"></p>
       </div>
     </div>
   `;

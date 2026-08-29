@@ -105,9 +105,8 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 380px; margin: 0; font-size: 12px; text-align: center">
-        <span data-part="note">${SPEEDS.steady?.note}</span>
-      </p>
+              <span data-stage-verdict data-part="note">${SPEEDS.steady?.note}</span>
+      
     </div>
   `;
 

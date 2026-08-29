@@ -121,7 +121,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <span class="sp-text sp-context" data-part="note" role="status" style="height: 32px; width: 452px; font-size: 12px; line-height: 16px; text-align: center"></span>
+      <span class="sp-text sp-context" data-stage-verdict data-part="note" role="status" style="height: 32px; width: 452px; font-size: 12px; line-height: 16px; text-align: center"></span>
     </div>
   `;
 

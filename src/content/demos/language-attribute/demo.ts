@@ -82,7 +82,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-stack" style="gap: 6px; margin-top: 10px">
           ${ROWS.map(row).join('')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" data-case="set"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="set"
            style="margin: 8px 0 0; height: 30px; font-size: 11px">${CAPTIONS.set}</p>
       </div>
     </div>

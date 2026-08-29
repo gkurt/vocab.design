@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
           ${cell('Contrast of the panel’s own text', 'ratio', READOUT.honoured.ratio)}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-setting="honoured"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-setting="honoured"
            style="margin: 7px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.honoured}</p>
       </div>
     </div>

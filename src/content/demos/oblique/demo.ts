@@ -90,7 +90,7 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-stack" style="gap: 6px; padding-top: 2px">
             <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${MODES.oblique.read}</span>
-            <p class="sp-text" data-part="note" style="margin: 0; width: 290px; height: 59px">${MODES.oblique.note}</p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; width: 290px; height: 59px">${MODES.oblique.note}</p>
             <span class="sp-label">the pale letter behind is the roman, sheared</span>
           </div>
         </div>

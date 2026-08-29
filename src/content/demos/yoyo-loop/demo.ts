@@ -72,7 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           ${lane('restart', 'normal', 'restarts at frame one', false)}
           ${lane('yoyo', 'alternate', 'plays back the way it came', true)}
           <span
-            class="sp-text sp-context" data-part="note"
+            class="sp-text sp-context" data-stage-verdict data-part="note"
             style="height: 34px; font-size: 12px; line-height: 1.4"
           >Both cross in 1500 ms. Only the top lane has a jump in it with no frames inside.</span>
         </div>

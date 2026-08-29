@@ -891,6 +891,20 @@ look like a feature of the mock. Both are marked in the demo and drawn by the st
 (`data-stage-verdict`, `data-stage-announce`), and both reserve their room whatever the
 current state says, so changing modes never moves the page.
 
+**A verdict is defined by what it does, not by what it is called.** The first pass moved the
+36 elements named `verdict` and left 204 specimens carrying the identical thing under
+`caption`, `note` or `legend`: `owned-element` keys a `CAPTION` record to its switch and reads
+"Same DOM, adopted tree", which is a verdict however it is spelled. The test is two questions.
+Does the specimen have a mode switch, and does this prose CHANGE with it? Prose that answers
+to the exhibit's own control is the exhibit talking. Prose that never changes is a different
+complaint with a different answer: the term's article usually already says it, better and at
+length, so it is deleted rather than moved.
+
+An announcement that is the SUBJECT stays where it is. `verbosity` marks its utterance
+`data-subject`, and identify has to be able to ring it inside the specimen, so only its
+caption moves; the demo then has speech in the frame and a verdict in the strip, which is
+correct rather than inconsistent.
+
 **A readout stays in the frame only when the demo draws the thing that produces it.** This is
 the test, and it is not about wording: restyling the author's voice to look like product UI is
 how the invented brand names happened. `braille-display` draws the pin array, `key-sequence`

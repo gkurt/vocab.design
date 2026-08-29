@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="legend-label" data-convention="block" style="font-size: 10px">
               Marked: ${LABEL.block}
             </span>
-            <p class="sp-text" data-part="legend" data-convention="block"
+            <p class="sp-text" data-stage-verdict data-part="legend" data-convention="block"
                style="margin: 0; height: 74px; font-size: 11px; line-height: 1.35">${NOTES.block}</p>
             <span class="sp-divider"></span>
             <p class="sp-text" data-part="footnote" style="margin: 0; font-size: 10.5px; line-height: 1.35">

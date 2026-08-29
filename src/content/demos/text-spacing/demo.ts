@@ -77,7 +77,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="readout" data-state="off"
                 style="font-size: 12px; white-space: nowrap">${SPACING.off.readout}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" data-case="off"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="off"
            style="margin: 6px 0 0; height: 30px; font-size: 11px">${SPACING.off.caption}</p>
       </div>
     </div>

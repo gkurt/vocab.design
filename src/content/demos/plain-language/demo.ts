@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
           ${cell('Reading level (WCAG 3.1.5)', 'level', DRAFTS.plain.level, '1.7')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-version="plain"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-version="plain"
            style="margin: 8px 0 0; height: 32px; font-size: 11px">${CAPTION.plain}</p>
       </div>
     </div>

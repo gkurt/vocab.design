@@ -228,10 +228,29 @@ for (const term of terms.values()) {
       // A verdict is the author's reading of the state, not the product's, so it belongs in
       // the strip beside the switch that produced it (SPEC §5.1). Printed inside the mock in
       // the mock's own type it is one more line the reader has to work out is not the fiction.
-      if (source.includes('data-part="verdict"') && !source.includes('data-stage-verdict') && !VERDICT_IS_FICTION.has(term.slug))
-        errors.push(
-          `${term.slug}: verdict is drawn inside the specimen; mark it data-stage-verdict so the stage draws it in the strip (SPEC §5.1)`,
-        );
+      //
+      // What counts is BEHAVIOUR, not the part's name. The first version of this gate asked
+      // for `data-part="verdict"` and passed 204 specimens carrying the identical thing under
+      // `caption`, `note` or `legend`: owned-element's CAPTION record is keyed to the switch
+      // and reads "Same DOM, adopted tree", which is a verdict however it is spelled. So the
+      // gate asks the two questions that make one: does the specimen have a mode switch, and
+      // does this prose CHANGE. A caption that never changes is a different complaint, with a
+      // different answer (the article usually already says it, so it is deleted, not moved).
+      //
+      // The part name has to match EXACTLY. A suffix means the element is structural rather
+      // than editorial: chart's `legend-series` is a chart's own legend and gutter's
+      // `legend-gutter` reads "gutter 24px, 3 of them, columns 180px" over the columns it
+      // measures. Both draw the instrument their text comes from, so both are fiction.
+      if (!VERDICT_IS_FICTION.has(term.slug) && !source.includes('data-stage-verdict')) {
+        const voice = [
+          ...source.matchAll(/const (\w+)\s*=\s*part\(root,\s*'(verdict|caption|note|legend|aside|hint|why|footnote|explain)'\)/g),
+        ];
+        const changing = voice.filter(([, binding]) => new RegExp(`\\b${binding}\\.(textContent|innerHTML)\\s*=`).test(source));
+        if (source.includes('data-part="verdict"') || (source.includes('data-stage-mode') && changing.length > 0))
+          errors.push(
+            `${term.slug}: a verdict is drawn inside the specimen; mark it data-stage-verdict so the stage draws it in the strip (SPEC §5.1)`,
+          );
+      }
 
       // A pose is the live specimen with its clock held (SPEC §6). A timer taken from
       // the global scope is one the stage cannot reach: it keeps running under the

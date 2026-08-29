@@ -156,7 +156,7 @@ export function mount(root: HTMLElement): void {
           ${card('inverted', INVERTED[START] ?? LIGHT, true)}
         </div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 9px 0 0; height: 32px; font-size: 12px; line-height: 1.35">${NOTES[START]}</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 9px 0 0; height: 32px; font-size: 12px; line-height: 1.35">${NOTES[START]}</p>
       </div>
     </div>
   `;

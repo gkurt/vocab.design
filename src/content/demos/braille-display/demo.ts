@@ -160,7 +160,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 11.5px; letter-spacing: 0.04em; white-space: nowrap">${ELEMENTS.heading.line}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-el="heading"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-el="heading"
            style="margin: 7px 0 0; height: 32px; font-size: 11px">${CAPTION.heading}</p>
       </div>
     </div>

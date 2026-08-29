@@ -124,7 +124,7 @@ export function mount(root: HTMLElement): void {
 
           <span
             class="sp-text sp-context"
-            data-part="caption"
+            data-stage-verdict data-part="caption"
             data-mode="title"
             style="flex: 0 0 auto; width: 440px; height: 34px; font-size: 12px; line-height: 1.4; text-align: center"
           ></span>

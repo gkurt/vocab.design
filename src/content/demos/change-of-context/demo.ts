@@ -72,7 +72,7 @@ export function mount(root: HTMLElement): void {
              style="margin: 2px 0 0; font-size: 12px; white-space: nowrap">${REGIONS.uk.line}</p>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-case="request"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="request"
            style="margin: 6px 0 0; height: 34px; font-size: 11px">${CAPTION.request}</p>
       </div>
     </div>

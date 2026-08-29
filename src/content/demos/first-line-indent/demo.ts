@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
              declaration must not grow it and push the caption (SPEC §5). -->
         <div class="sp-row sp-row--between sp-context" style="height: 18px; margin-top: 8px">
           <span class="sp-label" data-part="css" style="color: var(--sp-ink); white-space: nowrap"></span>
-          <span class="sp-label" data-part="note" style="white-space: nowrap"></span>
+          <span class="sp-label" data-stage-verdict data-part="note" style="white-space: nowrap"></span>
         </div>
         <p class="sp-text sp-context" data-part="caption" style="margin: 8px 0 0">
           The first paragraph after a heading stays flush. An indent and a blank line are alternatives,

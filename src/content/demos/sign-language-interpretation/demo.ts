@@ -97,7 +97,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="note" data-mode="captions"
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" data-mode="captions"
            style="margin: 9px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${NOTE.captions}</p>
       </div>
     </div>

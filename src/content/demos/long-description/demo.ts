@@ -91,7 +91,6 @@ export function mount(root: HTMLElement): void {
                  style="margin: 2px 0 0; height: 30px; font-size: 11.5px; line-height: 1.3">${MODE.alt.utterance}</p>
             
             <div class="sp-context">
-              <span class="sp-label" style="font-size: 10px">What that carries</span>
               <p class="sp-text" data-stage-verdict data-part="verdict" data-mode="alt"
                  style="margin: 2px 0 0; height: 30px; font-size: 11px; line-height: 1.3">${MODE.alt.verdict}</p>
             </div>

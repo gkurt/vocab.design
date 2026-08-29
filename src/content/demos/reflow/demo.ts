@@ -75,7 +75,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="readout" data-state="reflow"
                 style="font-size: 12px; white-space: nowrap">${STATES.reflow.scrolling}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" data-case="reflow"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="reflow"
            style="margin: 6px 0 0; height: 34px; font-size: 11px">${STATES.reflow.caption}</p>
       </div>
     </div>

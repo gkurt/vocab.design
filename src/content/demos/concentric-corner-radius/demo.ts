@@ -90,7 +90,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="sum" style="color: var(--sp-ink); font-variant-numeric: tabular-nums">
               ${READOUT.concentric.sum}
             </span>
-            <span class="sp-text" data-part="note" style="margin: 0; font-size: 11px; line-height: 1.3; text-align: center">
+            <span class="sp-text" data-stage-verdict data-part="note" style="margin: 0; font-size: 11px; line-height: 1.3; text-align: center">
               ${READOUT.concentric.note}
             </span>
           </div>

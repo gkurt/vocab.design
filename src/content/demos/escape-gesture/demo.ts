@@ -51,7 +51,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--quiet" style="font-size: 11px">the bookings list was left behind too</span>
         </div>
       </div>
-      <p class="sp-text sp-text--quiet" data-part="caption" style="margin: 0; min-height: 30px; font-size: 12px">${CAPTION.answers}</p>
+      <p class="sp-text sp-text--quiet" data-stage-verdict data-part="caption" style="margin: 0; min-height: 30px; font-size: 12px">${CAPTION.answers}</p>
     </div>`;
 
   const sheet = part(root, 'sheet');

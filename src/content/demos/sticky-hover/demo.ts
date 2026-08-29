@@ -83,13 +83,12 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="caption" style="font-size: 11px; width: 236px">${CAPTION.ungated}</span>
+              <span class="sp-text" data-stage-verdict data-part="caption" style="font-size: 11px; width: 236px">${CAPTION.ungated}</span>
         <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="ungated" data-axis="Hover rule" data-term="ungated">
           <button class="sp-segment" data-part="mode-ungated" value="ungated">As written</button>
           <button class="sp-segment" data-part="mode-gated" value="gated">Gated</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

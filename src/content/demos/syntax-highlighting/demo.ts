@@ -135,10 +135,8 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface" data-part="code" data-mode="${START}"
              style="padding: 11px 14px; background: var(--sp-sunken); ${MONO}; color: var(--sp-ink)">${code}</div>
 
-        <div class="sp-stack sp-context" style="gap: 2px; height: 32px">
-          <span class="sp-label" style="font-size: 10px">What the colour came from</span>
-          <span class="sp-text sp-text--ink" data-part="note" data-mode="${START}" style="font-size: 11px; line-height: 15px"></span>
-        </div>
+                  <span class="sp-text sp-text--ink" data-stage-verdict data-part="note" data-mode="${START}" style="font-size: 11px; line-height: 15px"></span>
+        
       </div>
     </div>
   `;

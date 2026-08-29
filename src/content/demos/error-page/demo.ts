@@ -89,13 +89,12 @@ export function mount(root: HTMLElement): void {
 
       </div>
 
-      <div class="sp-row sp-context" style="width: 476px; gap: 12px">
-        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Tone" data-part="picker" data-value="plain">
+              <sp-segmented data-stage-mode class="sp-segmented" data-axis="Tone" data-part="picker" data-value="plain">
           <button class="sp-segment" type="button" data-part="seg-plain" value="plain" style="padding: 4px 12px; font-size: 12px">Plain</button>
           <button class="sp-segment" type="button" data-part="seg-playful" value="playful" style="padding: 4px 12px; font-size: 12px">Playful</button>
         </sp-segmented>
-        <span class="sp-text sp-grow" data-part="note" style="font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${REGISTERS.plain.note}</span>
-      </div>
+        <span class="sp-text sp-grow" data-stage-verdict data-part="note" style="font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${REGISTERS.plain.note}</span>
+      
     </div>
   `;
 

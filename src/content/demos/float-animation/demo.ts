@@ -78,7 +78,7 @@ export function mount(root: HTMLElement): void {
             ${card(CARDS[1] as (typeof CARDS)[number], true)}
             ${card(CARDS[2] as (typeof CARDS)[number], false)}
           </div>
-          <span class="sp-label sp-context" data-part="note" style="font-size: 11px">Subtle: 6px over 3.8s</span>
+          <span class="sp-label sp-context" data-stage-verdict data-part="note" style="font-size: 11px">Subtle: 6px over 3.8s</span>
         </div>
       </div>
     </div>

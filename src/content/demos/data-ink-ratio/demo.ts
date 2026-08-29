@@ -179,7 +179,7 @@ export function mount(root: HTMLElement): void {
 
           <span
             class="sp-label sp-context"
-            data-part="note"
+            data-stage-verdict data-part="note"
             data-level="${START}"
             role="status"
             style="flex: 0 0 auto; width: 444px; height: 15px; font-size: 11px; line-height: 15px; text-align: center;

@@ -103,13 +103,12 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 252px; font-size: 11px">${NOTE.drag}</span>
+              <span class="sp-text" data-stage-verdict data-part="note" style="width: 252px; font-size: 11px">${NOTE.drag}</span>
         <sp-segmented data-stage-mode class="sp-segmented" data-part="hold" data-axis="Preview" data-value="drag">
           <button class="sp-segment" data-part="hold-drag" value="drag" style="padding: 5px 10px">While dragging</button>
           <button class="sp-segment" data-part="hold-on" value="held" style="padding: 5px 10px">Held for inspection</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

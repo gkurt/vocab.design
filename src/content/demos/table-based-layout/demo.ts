@@ -94,9 +94,8 @@ export function mount(root: HTMLElement): void {
           </table>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px">
-          <span class="sp-text" data-part="legend" style="font-size: 11px"></span>
-        </div>
+                  <span class="sp-text" data-stage-verdict data-part="legend" style="font-size: 11px"></span>
+        
       </div>
     </div>
   `;

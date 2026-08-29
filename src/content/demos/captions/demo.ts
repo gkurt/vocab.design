@@ -48,7 +48,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-progress sp-context" data-part="timeline" style="margin-top: 10px; --sp-value: 25%">
           <div class="sp-progress-fill"></div>
         </div>
-        <p class="sp-text sp-context" data-part="note" style="margin: 8px 0 0; height: 18px; font-size: 12px; white-space: nowrap">
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 8px 0 0; height: 18px; font-size: 12px; white-space: nowrap">
           Speaker changes and sound are both cues.
         </p>
       </div>

@@ -165,7 +165,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack sp-context sp-grow" data-part="readout" data-scheme="${START}" style="gap: 6px">
             <span class="sp-label">Lightness</span>
             ${readout}
-            <p class="sp-text" data-part="note" style="margin: 2px 0 0; height: 88px; font-size: 11px">${NOTES[START]}</p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 2px 0 0; height: 88px; font-size: 11px">${NOTES[START]}</p>
           </div>
         </div>
       </div>

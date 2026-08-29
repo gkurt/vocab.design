@@ -88,7 +88,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                     font-size: 11.5px; line-height: 1.35">${LEVEL.low.utterance}</p>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-level="low"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-level="low"
            style="margin: 8px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${LEVEL.low.caption}</p>
       </div>
     </div>

@@ -97,7 +97,7 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-row sp-context" data-part="ramp" style="gap: 4px; margin-top: 10px; align-items: flex-start">${ramp}</div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 8px 0 0; min-height: 17px; font-size: 11px">${NOTES[START]}</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 8px 0 0; min-height: 17px; font-size: 11px">${NOTES[START]}</p>
       </div>
     </div>
   `;

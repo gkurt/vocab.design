@@ -90,7 +90,7 @@ export function mount(root: HTMLElement): void {
           <div style="display: flex; justify-content: center; gap: 24px; flex: 0 0 auto">
             ${phone('a', '1x', false)}${phone('b', '3x', true)}
           </div>
-          <span class="sp-text sp-context" data-part="caption" style="height: 40px; max-width: 428px; text-align: center">${NOTES['3x']}</span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="caption" style="height: 40px; max-width: 428px; text-align: center">${NOTES['3x']}</span>
         </div>
       </div>
     </div>

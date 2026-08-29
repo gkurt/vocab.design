@@ -103,7 +103,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 1 1 auto; min-width: 0; font-size: 11px; text-align: right; white-space: nowrap">${READOUT.hue}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-coding="hue"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-coding="hue"
            style="margin: 6px 0 0; height: 34px; font-size: 11px">${CAPTION.hue}</p>
       </div>
     </div>

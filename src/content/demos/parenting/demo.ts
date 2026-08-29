@@ -94,7 +94,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           ${lane('three siblings, three timings', loose, true)}
           ${lane('one parent, one timing', parented, false)}
           <span
-            class="sp-text sp-context" data-part="note"
+            class="sp-text sp-context" data-stage-verdict data-part="note"
             style="flex: 0 0 auto; height: 30px; font-size: 12px; line-height: 1.3"
           >${NOTES.slide}</span>
         </div>

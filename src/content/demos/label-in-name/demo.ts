@@ -86,7 +86,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${CASES.contains.answer}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-name="contains"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-name="contains"
            style="margin: 7px 0 0; height: 32px; font-size: 11px">${CAPTION.contains}</p>
       </div>
     </div>
