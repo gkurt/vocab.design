@@ -85,7 +85,7 @@ export function mount(root: HTMLElement): void {
                      font-size: 9px; letter-spacing: 0.28em; text-indent: 0.28em; color: ${PLUM}">PARIS MDCCCXCVIII</span>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 234px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 234px; margin: 0; text-align: center">
         Whiplash stems, botanical line, lettering drawn to the arch.
       </p>
     </div>

@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="read" style="cursor: default"></span>
           <span class="sp-label" data-part="gloss">toshokan, "library"</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           Ruby is a reading aid with a fallback, not decoration. The rp elements hold parentheses that
           stay hidden wherever ruby renders, and read as ordinary text wherever it does not.
         </p>

@@ -107,7 +107,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="tint" style="font-size: 10.5px">sampled: ${start.tint}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.4">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.4">
           Same material on both: same blur, same tint, same edge. Only the right panel derives its ink from the
           blurred sample beneath it.
         </p>

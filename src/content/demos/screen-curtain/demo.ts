@@ -91,7 +91,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-mode="off"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="off"
            style="margin: 10px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.off}</p>
       </div>
     </div>

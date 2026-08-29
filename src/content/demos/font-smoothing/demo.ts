@@ -99,7 +99,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px; margin-top: 10px">
           <span class="sp-chip" data-part="readout" style="cursor: default; white-space: nowrap">${MODES[0]?.read ?? ''}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           The two lines are real: greyscale genuinely lays down less ink on this machine. The magnified pixels
           are drawn, because a screenshot keeps no record of the colour stripes that made it.
         </p>

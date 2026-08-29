@@ -80,7 +80,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 424px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 424px; margin: 0; text-align: center">
         Same silhouette either way. Turning the smoothing off is what leaves the edges showing.
       </p>
     </div>

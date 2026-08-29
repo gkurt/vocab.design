@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
               </p>
             </div>
 
-            <p class="sp-text" data-part="caption" style="margin: 0; height: 68px; font-size: 11px">
+            <p class="sp-text" data-stage-verdict data-part="caption" style="margin: 0; height: 68px; font-size: 11px">
               With this mode on, a single tap only reads what it lands on. Every control shifts by one gesture, which is why
               a target too small to sweep over is a target nobody finds.
             </p>

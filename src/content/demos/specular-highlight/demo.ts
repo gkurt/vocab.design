@@ -69,7 +69,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 452px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 452px; margin: 0; text-align: center">
         Size reports the roughness, position reports where the light is.
       </p>
     </div>

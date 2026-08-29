@@ -128,7 +128,7 @@ export function mount(root: HTMLElement): void {
           ${ALIASES.map(componentChip).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption"
            style="margin: 6px 0 0; height: 28px; font-size: 10px; line-height: 1.4"></p>
       </div>
     </div>

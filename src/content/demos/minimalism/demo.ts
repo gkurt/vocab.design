@@ -34,7 +34,7 @@ export function mount(root: HTMLElement): void {
                     style="margin-top: 20px; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; font-weight: 500; color: var(--sp-accent); cursor: pointer">
               Start reading
             </button>
-            <div data-part="note" style="min-height: 36px; margin-top: 10px; font-size: 12px; line-height: 1.5; color: var(--sp-muted)">
+            <div data-stage-verdict data-part="note" style="min-height: 36px; margin-top: 10px; font-size: 12px; line-height: 1.5; color: var(--sp-muted)">
               Free while it stays quiet.
             </div>
           </div>

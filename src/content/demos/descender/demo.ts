@@ -106,7 +106,7 @@ export function mount(root: HTMLElement): void {
           <span data-part="specimen" style="display: inline-block; vertical-align: baseline; width: ${RULE}px;
                 font-family: ${FAMILY}; font-size: ${SIZE}px; line-height: 1.3">${carrier}${word}</span>
         </div>
-        <div class="sp-row sp-row--wrap sp-context" data-part="legend" style="gap: 6px 14px">
+        <div class="sp-row sp-row--wrap sp-context" data-stage-verdict data-part="legend" style="gap: 6px 14px">
           ${key('1px dotted var(--sp-muted)', 'x-height')}
           ${key('1px solid var(--sp-line)', 'baseline')}
           ${key('1px solid var(--sp-accent)', `descender, ${(desc / SIZE).toFixed(2)}em below it`)}

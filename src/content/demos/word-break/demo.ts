@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
             <p class="sp-text" data-part="readout" style="margin: 0; font-size: 12px; height: 72px"></p>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           Break-word waits until a word cannot fit at all. Break-all stops waiting, which is right for a
           column of identifiers and wrong for prose.
         </p>

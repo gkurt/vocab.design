@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 238px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 238px; margin: 0; text-align: center">
         Flat blocks, one light heading running off the edge, no chrome at all.
       </p>
     </div>

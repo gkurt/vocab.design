@@ -84,7 +84,7 @@ export function mount(root: HTMLElement): void {
                 <span class="sp-label" data-part="counter">Step 1 of 3</span>
                 <span
                   class="sp-heading"
-                  data-part="caption"
+                  data-stage-verdict data-part="caption"
                   style="font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
                 >Lay the gravel bed</span>
                 <div class="sp-progress" data-part="spent" style="margin-top: 2px; --sp-value: 0%">

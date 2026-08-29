@@ -74,7 +74,7 @@ export function mount(root: HTMLElement): void {
         <button class="sp-button sp-button--quiet sp-button--sm" type="button" data-part="roll">Roll the band</button>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
         Washed colour, torn tracking band, chroma fringe, and the recorder's own overlay.
       </p>
     </div>

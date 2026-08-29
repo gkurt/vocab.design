@@ -73,7 +73,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
           <div class="sp-row sp-row--between sp-context">
-            <span class="sp-text" data-part="note" style="white-space: nowrap">No percentage, because nothing here knows one</span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="white-space: nowrap">No percentage, because nothing here knows one</span>
             <button class="sp-button sp-button--sm" type="button" data-part="load" style="flex: 0 0 auto">Load report</button>
           </div>
         </div>

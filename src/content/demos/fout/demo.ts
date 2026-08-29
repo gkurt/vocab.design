@@ -73,7 +73,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           ${widthBar('fallback width', FALLBACK, 'var(--sp-line)')}
           ${widthBar('web font width', LOADED, 'var(--sp-muted)')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           The words never go missing, but they never stay put either: the same string is a different
           length in each face, so the swap re-wraps the line and moves everything under it.
         </p>

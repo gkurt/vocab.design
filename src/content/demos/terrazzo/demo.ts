@@ -229,7 +229,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: ${W}px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: ${W}px; margin: 0; text-align: center">
         Angular sections, three sizes, four colours, a plain ground, and no repeat.
       </p>
     </div>

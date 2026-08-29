@@ -141,7 +141,7 @@ export function mount(root: HTMLElement): void {
           ${panel('unhinted', 'outline as scaled')}
           ${panel('hinted', 'hinted onto the grid')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           The pixels are drawn, because this machine's rasteriser ignores hinting. Each cell holds the exact
           ink the outline puts there, so the readouts are measured rather than invented.
         </p>

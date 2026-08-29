@@ -75,7 +75,7 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-row sp-context" style="flex: 0 0 auto; gap: 9px">
             <button class="sp-button sp-button--ghost sp-button--sm" data-part="advance" type="button" style="flex: 0 0 auto; padding: 4px 9px; font-size: 11px; white-space: nowrap">Log a fifth week</button>
-            <span class="sp-text" data-part="note" style="flex: 1 1 auto; font-size: 10.5px; line-height: 1.3">The fifth week is the milestone the dashed marker is waiting for.</span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="flex: 1 1 auto; font-size: 10.5px; line-height: 1.3">The fifth week is the milestone the dashed marker is waiting for.</span>
           </div>
         </div>
       </div>

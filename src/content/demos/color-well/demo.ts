@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
               style="width: 132px; height: 76px; border-radius: 10px; background: ${current?.hex}; transition: background-color 0.16s"
             ></span>
           </div>
-          <span class="sp-label" data-part="caption" style="font-size: 11px">The well is showing the shape's fill</span>
+          <span class="sp-label" data-stage-verdict data-part="caption" style="font-size: 11px">The well is showing the shape's fill</span>
         </div>
       </div>
     </div>

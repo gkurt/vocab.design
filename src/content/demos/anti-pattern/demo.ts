@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-scroll sp-surface" data-part="list" data-subject style="height: 152px">
           <ul class="sp-list">${SHIPPED.map(row).join('')}</ul>
         </div>
-        <span class="sp-text sp-context" data-part="note" data-state="errand" style="display: block; height: 18px; margin-top: 10px; font-size: 11px">
+        <span class="sp-text sp-context" data-stage-verdict data-part="note" data-state="errand" style="display: block; height: 18px; margin-top: 10px; font-size: 11px">
           ${NOTE.errand}
         </span>
       </div>

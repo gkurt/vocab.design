@@ -108,7 +108,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body">
           <div class="sp-surface sp-stack" data-part="panel" style="gap: 0; padding: 6px 12px">${rows}</div>
-          <p class="sp-text sp-context" data-part="caption" style="margin: 10px 2px 0; font-size: 12px">
+          <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 10px 2px 0; font-size: 12px">
             One shared range across all four rows, so a flat line means flat.
           </p>
         </div>

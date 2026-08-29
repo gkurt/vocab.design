@@ -119,7 +119,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 8px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 8px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
           A translucent border is not a colour, it is a recipe, and its answer changes with every surface it lands on.
           A named role is decided once per theme.
         </p>

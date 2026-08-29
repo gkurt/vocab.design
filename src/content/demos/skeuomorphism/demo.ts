@@ -23,7 +23,7 @@ export function mount(root: HTMLElement): void {
 
           <div data-part="paper"
                style="margin-top: 8px; padding: 10px 12px; border-radius: 3px; color: #3b3227; font-size: 13px; line-height: 22px; background-color: #f7f1e0; background-image: repeating-linear-gradient(to bottom, transparent 0 21px, rgb(120 150 190 / 0.4) 21px 22px); box-shadow: inset 0 2px 5px rgb(70 45 20 / 0.35)">
-            <div data-part="note">Ordered the good pencils.</div>
+            <div data-stage-verdict data-part="note">Ordered the good pencils.</div>
             <div>Tide is out at half past six.</div>
           </div>
 

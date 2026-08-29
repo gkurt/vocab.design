@@ -61,7 +61,7 @@ export function mount(root: HTMLElement): void {
         <div data-part="ticks" aria-hidden="true" style="display: flex; margin-top: 4px">${ticks}</div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 292px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 292px; margin: 0; text-align: center">
         Tone is dot size, not ink colour: at reading distance the eye averages the lattice back into grey.
       </p>
     </div>

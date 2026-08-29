@@ -64,7 +64,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 16px 0 0; min-height: 40px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 16px 0 0; min-height: 40px">
           One declaration moved on each control. On the left the parts that said currentColor came with it; on the right they stayed where they were written.
         </p>
       </div>

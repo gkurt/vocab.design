@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="css" style="color: var(--sp-ink); height: 34px"></span>
             <span class="sp-label" data-part="measured" style="height: 18px;
                   font-variant-numeric: tabular-nums"></span>
-            <p class="sp-text" data-part="note" style="margin: 0; font-size: 12px; height: 72px"></p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; font-size: 12px; height: 72px"></p>
           </div>
         </div>
         <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">

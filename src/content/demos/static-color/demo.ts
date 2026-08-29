@@ -138,7 +138,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="count" style="font-size: 9px"></span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption"
            style="margin: 5px 0 0; height: 42px; font-size: 10px; line-height: 1.4">
           The two plates below the card are excluded from the scheme by declaration. Each carries its own ink and its
           own measured ratio, because nothing is deriving an on-colour for a value the theme cannot reach.

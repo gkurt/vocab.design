@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
           <span style="font-weight: 600; font-size: 13px">Invoice 0042</span>
           <span class="sp-text" style="font-size: 13px">Paid on 4 March, Northwind Trading</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           Both lines are 13px. Weight alone says which one is the title.
         </p>
       </div>

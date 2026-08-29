@@ -36,7 +36,7 @@ export function mount(root: HTMLElement): void {
             <span data-part="word-sans" style="font-family: ${SANS}; font-size: 21px">${WORD}</span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           The short strokes closing the top of the stem, the foot, and the end of the leg are the
           serifs. On the face beside it the strokes simply stop.
         </p>

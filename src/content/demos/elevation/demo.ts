@@ -136,7 +136,7 @@ export function mount(root: HTMLElement): void {
           ${STEPS.map(row).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption"
            style="margin: 9px 0 0; height: 30px; font-size: 10px; line-height: 1.45"></p>
       </div>
     </div>

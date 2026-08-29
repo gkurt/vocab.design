@@ -89,7 +89,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${READ.on}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           No face this page can reach substitutes anything for calt, so each contextual form is laid over the
           characters it stands for. What is real is that the pairs change together and the lone hyphen is left
           alone.

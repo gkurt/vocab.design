@@ -110,7 +110,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-text sp-text--ink" data-part="op-name" style="font-size: 11.5px">${start.name}</span>
             ${legend('Backdrop', DEST_PAINT)}
             ${legend('Source', SRC_PAINT)}
-            <p class="sp-text" data-part="note" style="margin: 2px 0 0; height: 58px; font-size: 10.5px; line-height: 1.35">${start.note}</p>
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 2px 0 0; height: 58px; font-size: 10.5px; line-height: 1.35">${start.note}</p>
           </div>
         </div>
 

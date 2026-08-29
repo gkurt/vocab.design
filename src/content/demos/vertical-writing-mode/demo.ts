@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px; margin-top: 6px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.vertical.read}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           Set vertically, the first column is the one at the right edge, and the arrow says which way the
           lines advance.
         </p>

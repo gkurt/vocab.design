@@ -82,7 +82,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 300px; font-size: 11px">${NOTE.before}</span>
+        <span class="sp-text" data-stage-verdict data-part="note" style="width: 300px; font-size: 11px">${NOTE.before}</span>
         <button class="sp-button sp-button--ghost sp-button--sm" data-part="restart" type="button">Start over</button>
       </div>
     </div>

@@ -36,7 +36,7 @@ export function mount(root: HTMLElement): void {
         <span data-part="scanlines" aria-hidden="true"
               style="position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.32) 0 1px, transparent 1px 3px)"></span>
       </div>
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 336px; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 336px; text-align: center">
         One cell per character, one phosphor colour, a block cursor, scanlines over the lot.
       </p>
     </div>

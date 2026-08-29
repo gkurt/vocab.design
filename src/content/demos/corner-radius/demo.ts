@@ -91,7 +91,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 440px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 440px; margin: 0; text-align: center">
         Same box, same fill, same type: one number moving, and the whole register moving with it.
       </p>
     </div>

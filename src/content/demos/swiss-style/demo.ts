@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 252px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 252px; margin: 0; text-align: center">
         Four columns, flush left, one red.
       </p>
     </div>

@@ -99,7 +99,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="margin-top: 6px; height: 26px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${READS.oldstyle}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           Neither face here carries an oldstyle set, so the heights are modelled: the hanging numerals
           are dropped by the difference between the two rules. The widths stay the lining ones.
         </p>

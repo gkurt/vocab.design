@@ -90,7 +90,7 @@ export function mount(root: HTMLElement): void {
               <div style="height: ${TAIL}px"></div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="note" style="flex: 0 0 auto; height: 34px; font-size: 12px; line-height: 1.3">
+          <span class="sp-text sp-context" data-stage-verdict data-part="note" style="flex: 0 0 auto; height: 34px; font-size: 12px; line-height: 1.3">
             Each card stops at its own offset and the next one rides over it, leaving a strip behind.
           </span>
         </div>

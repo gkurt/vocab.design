@@ -102,7 +102,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="range" style="cursor: default">${MODES.latin.range}</span>
           <span class="sp-label" data-part="size" style="color: var(--sp-ink); font-variant-numeric: tabular-nums">${MODES.latin.size}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           Payload figures here are illustrative, not weighed: what a subset saves depends on the face.
         </p>
       </div>

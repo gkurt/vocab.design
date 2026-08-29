@@ -61,7 +61,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <span class="sp-text sp-context" data-part="note" style="flex: 1 1 auto; align-self: flex-start; font-size: 11px; line-height: 1.4">The real button is on screen, so there is nothing for the bar to do yet.</span>
+        <span class="sp-text sp-context" data-stage-verdict data-part="note" style="flex: 1 1 auto; align-self: flex-start; font-size: 11px; line-height: 1.4">The real button is on screen, so there is nothing for the bar to do yet.</span>
       </div>
     </div>
   `;

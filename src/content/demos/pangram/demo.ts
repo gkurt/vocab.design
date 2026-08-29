@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px; margin-top: 8px">
           <span class="sp-chip" data-part="readout" style="cursor: default; font-variant-numeric: tabular-nums"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           Completeness is all the word claims. It says nothing about whether the sentence is a good proof of a
           face, which is why designers reach for other words.
         </p>

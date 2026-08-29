@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
           ${satellites}
           <circle data-part="node-hub" cx="${HUB_NODE[0]}" cy="${HUB_NODE[1]}" r="9" fill="var(--sp-accent)" />
         </svg>
-        <span class="sp-text" data-part="note" style="flex: 1 1 auto; height: 44px; font-size: 11px">${NOTE.hub}</span>
+        <span class="sp-text" data-stage-verdict data-part="note" style="flex: 1 1 auto; height: 44px; font-size: 11px">${NOTE.hub}</span>
       </div>
     </div>
   `;

@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack" data-part="column" data-subject data-levels="on" data-pose="[data-levels=on]"
                style="gap: 6px; width: 296px; font-family: ${FACE}">${rows}</div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           Flattened, every line is still legible and the page is still correct. What is gone is the
           answer to what is this, which a reader was getting for free before they read anything.
         </p>

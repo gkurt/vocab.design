@@ -72,7 +72,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-divider sp-context" style="margin: 14px 0"></div>
         <div class="sp-row sp-context" data-part="widths" style="gap: 4px; justify-content: center">${marks}</div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           A hyphen joins, an en dash spans, and the longest mark breaks a sentence open. Reaching for the
           hyphen in a range is the common slip, and it reads as one compound word rather than as two ends.
         </p>

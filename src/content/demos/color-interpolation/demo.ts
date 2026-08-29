@@ -92,7 +92,7 @@ export function mount(root: HTMLElement): void {
                         background-image: ${ramp(start.method)}"></div>
             <div class="sp-row sp-row--between sp-context" style="gap: 8px">
               <span class="sp-text sp-text--ink" data-part="method" style="font-size: 11px">${start.method}</span>
-              <span class="sp-text" data-part="note" style="font-size: 10.5px">${start.note}</span>
+              <span class="sp-text" data-stage-verdict data-part="note" style="font-size: 10.5px">${start.note}</span>
             </div>
             <div class="sp-row sp-row--between sp-context" style="gap: 8px">
               <span class="sp-text" style="font-size: 10px">${FROM}</span>

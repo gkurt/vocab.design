@@ -48,7 +48,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-surface" data-part="result" style="flex: 0 0 auto; gap: 8px; padding: 8px 10px">
             <span class="sp-text" data-part="result-text">No station chosen</span>
           </div>
-          <span class="sp-label sp-context" data-part="hint" role="status">Type two letters, then pick from what came back.</span>
+          <span class="sp-label sp-context" data-stage-verdict data-part="hint" role="status">Type two letters, then pick from what came back.</span>
         </div>
       </div>
     </div>

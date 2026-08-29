@@ -107,7 +107,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
 
-          <span class="sp-label sp-context" data-part="hint" role="status"
+          <span class="sp-label sp-context" data-stage-verdict data-part="hint" role="status"
                 style="flex: 0 0 auto; height: 18px; font-size: 11px; white-space: nowrap; overflow: hidden">${HINT.idle}</span>
 
         </div>

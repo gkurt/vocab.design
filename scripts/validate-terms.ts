@@ -73,8 +73,13 @@ const SWITCH_IS_SUBJECT = new Set([
  * are on screen; `containing-block` reads "Containing block: the card", a legend naming a box
  * the figure draws. Everything else called a verdict is the site talking about the specimen,
  * and no checkout says "the advertised 42.00 won the click" about itself.
+ *
+ * `type-to-confirm` is `inline-validation`'s case again: a hint beside a field, pointed at by
+ * the input's `aria-describedby`. `onboarding-checklist`'s footnote is the product reassuring
+ * its own user ("All set. Your workspace is ready to use."), which is copy a real checklist
+ * prints, not the site's reading of it.
  */
-const VERDICT_IS_FICTION = new Set(['containing-block', 'inline-validation', 'key-sequence']);
+const VERDICT_IS_FICTION = new Set(['containing-block', 'inline-validation', 'key-sequence', 'onboarding-checklist', 'type-to-confirm']);
 
 /** Comments, stripped before a markup rule reads a demo: naming an element is not using one. */
 const COMMENTS = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;

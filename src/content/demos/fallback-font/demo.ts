@@ -99,7 +99,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 22px; margin-top: 4px">
           <span class="sp-text" data-part="readout"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           The tint is the x-height the real face would have brought, and the dashed rule is the one the
           stand-in brings. Closing that gap is arithmetic, not taste, and it is what stops a swap moving the page.
         </p>

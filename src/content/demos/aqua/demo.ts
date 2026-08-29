@@ -92,7 +92,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 306px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 306px; margin: 0; text-align: center">
         Gel core, specular band, a glow bounced back through the bottom, one dark rim.
       </p>
     </div>

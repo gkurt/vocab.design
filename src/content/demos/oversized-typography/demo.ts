@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
            style="margin: 5px 0 0; font-size: 52px; font-weight: 700; line-height: 0.9;
                   letter-spacing: -0.03em; text-wrap: balance">${WORDS}</p>
 
-        <p class="sp-text sp-context" data-part="caption"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption"
            style="margin: 9px 0 0; font-size: 10px; line-height: 1.45">
           Same words, same face. At this size the tracking is pulled in and the leading set under one line,
           because a text face's own spacing reads loose up here.

@@ -81,7 +81,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption"
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption"
          style="max-width: 458px; margin: 0; text-align: center; font-size: 10px">
         Each column falls at its own speed, the head near white and the trail fading back over nine cells.
       </p>

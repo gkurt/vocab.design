@@ -66,7 +66,7 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: 32px; top: 66px; font-size: 13px; line-height: 1; color: var(--sp-muted)"
             >&#10005;</span>
             <span
-              data-part="hint"
+              data-stage-verdict data-part="hint"
               style="position: absolute; left: 0; right: 0; top: 44px; text-align: center; font-size: 11px; color: var(--sp-muted)"
             >Draw your signature above the line</span>
 

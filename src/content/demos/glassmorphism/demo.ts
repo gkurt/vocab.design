@@ -13,7 +13,7 @@ export function mount(root: HTMLElement): void {
            style="position: absolute; inset: 0; background: linear-gradient(125deg, #4b6ef5, #b154c8 52%, #f2913d)">
         <span style="position: absolute; left: 8%; top: 14%; width: 150px; height: 150px; border-radius: 50%; background: #ffd166; filter: blur(6px); opacity: 0.75"></span>
         <span style="position: absolute; right: 12%; bottom: 10%; width: 120px; height: 120px; border-radius: 50%; background: #22d3ee; filter: blur(4px); opacity: 0.7"></span>
-        <span data-part="caption" style="position: absolute; left: 7%; bottom: 22%; color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">
+        <span data-stage-verdict data-part="caption" style="position: absolute; left: 7%; bottom: 22%; color: #fff; font-size: 22px; font-weight: 600; letter-spacing: -0.01em">
           drag the panel over me
         </span>
       </div>

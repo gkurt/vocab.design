@@ -67,7 +67,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">Nothing selected yet</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 7px 0 0; height: 32px; font-size: 11px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 7px 0 0; height: 32px; font-size: 11px">
           The highlight is the whole interface. Anything four steps down the list costs four waits every single time.
         </p>
       </div>

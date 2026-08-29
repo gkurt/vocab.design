@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
           ${column('on', UNIT)}
           <div class="sp-context">${column('off', OFF_GAP)}</div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           The right-hand column loses the beat at one gap: ${OFF_GAP}px instead of a whole line, and every
           line after it lands between the rules.
         </p>

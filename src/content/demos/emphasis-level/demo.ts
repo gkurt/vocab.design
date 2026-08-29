@@ -136,7 +136,7 @@ export function mount(root: HTMLElement): void {
           ${SURFACES.map(card).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 10px 0 0; height: 46px; font-size: 10.5px; line-height: 1.4">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 10px 0 0; height: 46px; font-size: 10.5px; line-height: 1.4">
           Each ratio is measured against the surface that run is painted on, alpha composited first. AA asks 4.5:1 of
           body text; disabled text is exempt, so it is marked rather than failed.
         </p>

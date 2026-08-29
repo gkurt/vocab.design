@@ -34,7 +34,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-context">${row('sample-tight', 'uppercase, default spacing', 'text-transform: uppercase')}</div>
           ${row('sample-tracked', `uppercase, letter-spacing: ${TRACKING}`, `text-transform: uppercase; letter-spacing: ${TRACKING}`, true)}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           The transform is one line of CSS. The spacing is the part people forget: capitals want more room.
         </p>
       </div>

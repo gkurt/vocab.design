@@ -108,7 +108,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${READOUT.idle}</span>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-level="idle"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-level="idle"
            style="margin: 6px 0 0; height: 34px; font-size: 11px">${CAPTION.idle}</p>
       </div>
     </div>

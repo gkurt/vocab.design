@@ -110,7 +110,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-row sp-context" style="justify-content: center; gap: 8px">${buttons}</div>
-          <p class="sp-text sp-context" data-part="caption" style="margin: 0; text-align: center; font-size: 12px">
+          <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 0; text-align: center; font-size: 12px">
             The arc needs a denominator. Without one, the twin is the honest control.
           </p>
         </div>

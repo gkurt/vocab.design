@@ -77,7 +77,7 @@ export function mount(root: HTMLElement): void {
                 style="font-weight: 600; line-height: 1.15; white-space: nowrap">${HEADING}</span>
         </div>
         <div class="sp-row sp-row--wrap sp-context" data-part="bounds" style="gap: 6px; margin-top: 4px">${bounds}</div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           font-size: clamp(${FLOOR}px, ${FIXED}px + ${PER_VW}vw, ${CEIL}px). The lit term is the one in force:
           the floor and the ceiling hold flat, and between them the size is a straight line.
         </p>

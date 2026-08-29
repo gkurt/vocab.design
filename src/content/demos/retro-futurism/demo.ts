@@ -74,7 +74,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 250px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 250px; margin: 0; text-align: center">
         Atomic motifs, a finned rocket, a fair poster's palette: tomorrow, drawn in 1957.
       </p>
     </div>

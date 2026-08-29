@@ -58,7 +58,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <p data-part="headline" style="margin: 0; font-size: 24px; white-space: nowrap; visibility: hidden">${HEADLINE}</p>
           <p data-part="body" style="margin: 8px 0 0; font-size: 13px; line-height: 1.5; visibility: hidden">${BODY}</p>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           The dashed box is the room the text already occupies. Nothing here is late or wrong, it is simply
           not painted, and a reader on a slow connection sees an empty page rather than a page in progress.
         </p>

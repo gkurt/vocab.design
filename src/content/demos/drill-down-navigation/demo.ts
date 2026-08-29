@@ -105,11 +105,10 @@ export function mount(root: HTMLElement): void {
           </section>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 420px; font-size: 11px; text-align: center">
+              <span class="sp-text" data-stage-verdict data-part="note" style="width: 420px; font-size: 11px; text-align: center">
           One panel, one level at a time. The way back up is the name of the level above.
         </span>
-      </div>
+      
     </div>
   `;
 

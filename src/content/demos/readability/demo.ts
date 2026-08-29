@@ -64,7 +64,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-context" data-part="readout"
              style="gap: 16px; height: 20px; white-space: nowrap; font-variant-numeric: tabular-nums"></div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           Nothing about the typeface changed. Size, measure and leading did, and 45 to 75 characters a
           line is the guidance most typographers converge on rather than a rule.
         </p>

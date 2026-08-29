@@ -107,7 +107,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="note" style="width: 442px; margin: 0">
+      <p class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 442px; margin: 0">
         Paper has no navigation and no way to follow a link, so the print rules drop what cannot
         work there and spell out what can.
       </p>

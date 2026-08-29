@@ -67,7 +67,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-context" data-part="trace" style="gap: 16px; height: 18px;
              font-variant-numeric: tabular-nums"></div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           Only the font size changed. Padding, icon and radius are fractions of it and moved with it;
           the pixel twin keeps the shape it was given.
         </p>

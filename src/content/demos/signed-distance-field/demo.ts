@@ -130,7 +130,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px; margin-top: 8px; justify-content: center">
           <span class="sp-chip" data-part="readout" style="cursor: default; white-space: nowrap">${ZOOMS[0]?.read ?? ''}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           Brightness in the middle tile is distance to the edge, so interpolating it returns a distance rather
           than a blur. Magnify, and the texture is still those texels while the threshold is recomputed per pixel.
         </p>

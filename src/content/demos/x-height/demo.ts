@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
         <div data-part="ruled" data-subject style="margin-top: 2px; font-size: 0; white-space: nowrap">
           ${sample('sample-large', LARGE, 0)}${sample('sample-small', SMALL, 18)}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           Solid line: the baseline, shared. Dashed line: the top of the lowercase x. Both columns
           are set at ${SIZE}px; the face on the left spends more of that size on its lowercase.
         </p>

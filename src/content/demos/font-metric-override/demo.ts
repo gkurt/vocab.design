@@ -71,7 +71,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-chip" data-part="declaration" style="cursor: default"></span>
           <span class="sp-chip" data-part="shift" style="cursor: default; font-variant-numeric: tabular-nums"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           The marks on the right are where the body sat with the real face, and where it sits now. With
           no stylesheet to hold an @font-face rule, the tuned setting states both corrections inline.
         </p>

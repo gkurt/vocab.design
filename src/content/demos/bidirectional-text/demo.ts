@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="order" style="cursor: default; font-variant-numeric: tabular-nums"></span>
           <span class="sp-chip" data-part="readout" style="cursor: default">${BASES.rtl.read}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           Four runs: two Hebrew, one Latin, one numeric. The characters never move, only the sequence they
           are drawn in, and the hyphen at each boundary has no direction of its own to argue with.
         </p>

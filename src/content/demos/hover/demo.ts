@@ -40,7 +40,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-context" data-part="reference" style="gap: 20px; margin-top: 4px">${samples}</div>
           <div class="sp-divider sp-context" style="width: 100%"></div>
           <button class="sp-button" type="button" data-part="live" data-subject>Follow Priya</button>
-          <span class="sp-label sp-context" data-part="note" style="text-align: center">
+          <span class="sp-label sp-context" data-stage-verdict data-part="note" style="text-align: center">
             Touch has no resting pointer, so nothing may live behind this state alone.
           </span>
         </div>

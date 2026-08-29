@@ -114,7 +114,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               Collapsed. Drag the handle up.
             </span>
             <span class="sp-divider"></span>
-            <span class="sp-label" data-part="legend" style="height: 62px; font-size: 11px; line-height: 1.4">
+            <span class="sp-label" data-stage-verdict data-part="legend" style="height: 62px; font-size: 11px; line-height: 1.4">
               Released past halfway, the transition finishes on its own. Released short of it, it runs backwards to the
               detent it came from.
             </span>

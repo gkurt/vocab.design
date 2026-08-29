@@ -116,7 +116,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px; margin-top: 6px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.zwsp.read}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           The tick is this stage's annotation for a character with no extent of its own: it marks where the line
           was allowed to break. Nothing is drawn there, and nothing is added to the width.
         </p>

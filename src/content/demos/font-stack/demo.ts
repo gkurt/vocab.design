@@ -60,7 +60,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 20px">
           <span class="sp-text" data-part="readout">Resolved to Georgia, the first entry in the list.</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           Each entry is tried in turn and the first one available wins. The line changes width and
           x-height every time the chain falls through, which is what a mismatched fallback costs.
         </p>

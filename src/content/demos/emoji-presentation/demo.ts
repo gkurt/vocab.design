@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="readout" style="cursor: default">${READS.text}</span>
           <span class="sp-label">a selector outranks the CSS</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           The colour form is a wider glyph, so the character sits in a fixed slot to keep the line from reflowing.
         </p>
       </div>

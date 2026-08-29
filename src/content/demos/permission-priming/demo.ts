@@ -85,7 +85,7 @@ export function mount(root: HTMLElement): void {
           </section>
 
           <div class="sp-row sp-context" style="flex: 0 0 auto; height: 26px; gap: 10px">
-            <span class="sp-text sp-grow" data-part="note" style="font-size: 11px">${NOTE.asking}</span>
+            <span class="sp-text sp-grow" data-stage-verdict data-part="note" style="font-size: 11px">${NOTE.asking}</span>
             <button class="sp-button sp-button--ghost sp-button--sm" data-part="replay" type="button" style="padding: 4px 10px; font-size: 12px">Replay</button>
           </div>
 

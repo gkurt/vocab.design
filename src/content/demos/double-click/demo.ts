@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Documents</span>
-          <span class="sp-text" data-part="hint">Click selects, double click opens</span>
+          <span class="sp-text" data-stage-verdict data-part="hint">Click selects, double click opens</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           <div class="sp-row" role="listbox" aria-label="Files" data-part="tiles" style="justify-content: center">${tiles}</div>

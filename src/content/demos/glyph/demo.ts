@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
             Two characters,<br />one glyph.
           </span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin: 10px 0 0; font-size: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 10px 0 0; font-size: 12px">
           A codepoint is what gets stored and a glyph is what gets drawn. The two never line up one
           for one, which is why counting either tells you nothing about the other.
         </p>

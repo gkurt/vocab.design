@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 226px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 226px; margin: 0; text-align: center">
         One vertical axis, everything mirrored across it. Fan above, ziggurat below.
       </p>
     </div>

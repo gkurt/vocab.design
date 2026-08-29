@@ -85,7 +85,7 @@ export function mount(root: HTMLElement): void {
         <div data-part="menu" style="margin-top: ${U * 3}px; padding-top: ${U * 2}px; border-top: ${U}px solid #2b3358">${menu}</div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 288px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 288px; margin: 0; text-align: center">
         One four pixel unit for every edge, meters made of cells, and a sprite kept at the size it was drawn.
       </p>
     </div>

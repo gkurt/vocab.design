@@ -118,7 +118,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <span class="sp-text sp-context" data-part="caption" style="width: 452px; height: 30px; font-size: 11px; line-height: 1.35">
+      <span class="sp-text sp-context" data-stage-verdict data-part="caption" style="width: 452px; height: 30px; font-size: 11px; line-height: 1.35">
         The panel takes width from the form instead of covering it, so the field stays typeable while the answer is read, and the step change leaves it open.
       </span>
     </div>

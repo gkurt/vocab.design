@@ -126,7 +126,7 @@ export function mount(root: HTMLElement): void {
 
           <span
             class="sp-label sp-context"
-            data-part="hint"
+            data-stage-verdict data-part="hint"
             data-mode="idle"
             role="status"
             style="height: 15px; font-size: 11px; line-height: 15px; white-space: nowrap; overflow: hidden"

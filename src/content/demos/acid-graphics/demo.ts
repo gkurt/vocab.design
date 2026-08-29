@@ -86,7 +86,7 @@ export function mount(root: HTMLElement): void {
                      letter-spacing: 0.16em; color: ${ACID}">SAT 04 // WAREHOUSE 12</span>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 256px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 256px; margin: 0; text-align: center">
         Chrome type, clashing hues on black, a smiley and a wireframe globe.
       </p>
     </div>

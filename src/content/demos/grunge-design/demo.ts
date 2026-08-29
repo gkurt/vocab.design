@@ -98,7 +98,7 @@ export function mount(root: HTMLElement): void {
                      transform: rotate(-14deg)">PROOF</span>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 254px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 254px; margin: 0; text-align: center">
         Torn foot, out of register masthead, cut letters, nothing on the grid.
       </p>
     </div>

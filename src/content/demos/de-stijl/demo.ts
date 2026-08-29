@@ -39,7 +39,7 @@ export function mount(root: HTMLElement): void {
         ${field('3 / 4 / 4 / 5', YELLOW, 'field-yellow')}
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 250px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 250px; margin: 0; text-align: center">
         Unequal tracks, three primaries, no curve and no diagonal anywhere.
       </p>
     </div>

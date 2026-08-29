@@ -106,7 +106,7 @@ export function mount(root: HTMLElement): void {
           ${TILES.map(tile).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-agree="none"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-agree="none"
            style="margin: 9px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.none}</p>
       </div>
     </div>

@@ -76,7 +76,7 @@ export function mount(root: HTMLElement): void {
                   style="flex: 0 0 auto; font-size: 11.5px">Focus Sort from script</button>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" data-via="none"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-via="none"
            style="margin: 9px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.none}</p>
       </div>
     </div>

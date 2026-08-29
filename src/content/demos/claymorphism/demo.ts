@@ -25,7 +25,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           Log a walk
         </button>
       </div>
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 292px; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 292px; text-align: center">
         Pastel fill, 26px radius, light inside the top edge, shadow tinted toward the fill.
       </p>
     </div>

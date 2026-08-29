@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label">showing</span>
           <span class="sp-label" data-part="names" style="color: var(--sp-ink)"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           Same characters, same size, same colour. Only the drawing changed: a tail on the l, serifs on
           the I, a cut through the zero.
         </p>

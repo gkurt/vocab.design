@@ -122,7 +122,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 340px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 340px; margin: 0; text-align: center">
         One box, two rectangles: the row is the screen.
       </p>
     </div>

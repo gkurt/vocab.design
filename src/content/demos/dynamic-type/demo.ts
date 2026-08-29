@@ -55,7 +55,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label">reader's setting</span>
           <span class="sp-label" data-part="numbers" style="color: var(--sp-ink); font-variant-numeric: tabular-nums"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           The app asks for a role, never a number. At the accessibility step the timestamp leaves the
           title's line rather than shortening it.
         </p>

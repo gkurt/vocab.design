@@ -77,7 +77,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption"
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption"
          style="max-width: 452px; margin: 0; text-align: center; font-size: 11px">
         Display type, deck, byline rules, columns, a pull quote.
       </p>

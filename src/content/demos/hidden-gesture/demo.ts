@@ -72,7 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
       <!-- The caption sits outside the frame on purpose: a line of app copy naming the
            gesture would be the signifier this row is missing. -->
-      <p class="sp-label" data-part="caption" style="margin: 0; width: 448px; font-size: 11px">
+      <p class="sp-label" data-stage-verdict data-part="caption" style="margin: 0; width: 448px; font-size: 11px">
         Both rows star. Only one of them says so.
       </p>
     </div>

@@ -63,7 +63,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 9px">
           ${PANES.map(pane).join('')}
-          <span class="sp-text sp-context" data-part="note" style="margin-top: auto; font-size: 11px; line-height: 1.35">
+          <span class="sp-text sp-context" data-stage-verdict data-part="note" style="margin-top: auto; font-size: 11px; line-height: 1.35">
             The client picks the width, never the sender. Only the line whose meaning arrived before the cut survives it.
           </span>
         </div>

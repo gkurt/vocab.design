@@ -92,7 +92,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="speak">Speak to it</button>
         <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="wave">Wave a hand</button>
       </div>
-      <span class="sp-text sp-context" data-part="note" style="width: 452px; height: 32px; font-size: 11px">${NOTE.idle}</span>
+      <span class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 452px; height: 32px; font-size: 11px">${NOTE.idle}</span>
     </div>
   `;
 

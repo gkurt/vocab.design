@@ -63,7 +63,7 @@ export function mount(root: HTMLElement): void {
           >
             <span
               class="sp-label"
-              data-part="hint"
+              data-stage-verdict data-part="hint"
               style="position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center;
                      font-size: 12px; pointer-events: none"
             >Drag anywhere to draw a frame</span>

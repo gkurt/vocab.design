@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
             <p class="sp-text" data-stage-announce data-part="announced" style="margin: 0; font-size: 12px; height: 54px"></p>
           
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           The three shapes are the kit's own SVG icons standing in for a font's glyphs: this page loads
           no icon font, and a specimen should not pretend it did.
         </p>

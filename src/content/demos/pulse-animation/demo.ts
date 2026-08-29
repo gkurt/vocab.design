@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
             </li>
             ${quiet}
           </ul>
-          <p class="sp-text sp-context" data-part="legend" style="margin: 10px 4px 0">
+          <p class="sp-text sp-context" data-stage-verdict data-part="legend" style="margin: 10px 4px 0">
             Only the live source breathes. It changes size, never position.
           </p>
         </div>

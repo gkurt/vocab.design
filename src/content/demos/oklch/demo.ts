@@ -83,7 +83,7 @@ export function mount(root: HTMLElement): void {
           ${HUES.map((hue) => rowFor('hsl', hue)).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 12px 0 0">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 12px 0 0">
           The same numbers. Only one of the two notations meant the same thing by them.
         </p>
       </div>

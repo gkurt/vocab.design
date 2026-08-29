@@ -144,7 +144,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 9px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 9px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
           The mark on the track is where sRGB runs out. Past it, clamping keeps the chroma and loses the hue; mapping keeps
           the hue and gives up chroma.
         </p>

@@ -87,10 +87,9 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="px-headline" style="font-variant-numeric: tabular-nums"></span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px; height: 60px">
-          <span data-part="note"></span> Every gap in the run moves by the same amount, stated as a fraction
+                  <span data-stage-verdict data-part="note"></span> Every gap in the run moves by the same amount, stated as a fraction
           of the type size.
-        </p>
+        
       </div>
     </div>
   `;

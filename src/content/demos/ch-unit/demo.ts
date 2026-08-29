@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px; margin-top: 6px">
           <span class="sp-chip" data-part="readout" style="cursor: default; font-variant-numeric: tabular-nums"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           One zero, one ch. The upper ruler is the column's own face and ends where the column does; the lower
           one is the same count in a serif.
         </p>

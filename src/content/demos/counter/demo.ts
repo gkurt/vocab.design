@@ -92,7 +92,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="readout" style="cursor: default; font-variant-numeric: tabular-nums"></span>
           <span class="sp-label">outer contour fixed</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           The e has one of each: the lens above the crossbar is enclosed, the gap below it is where the
           stroke stops instead of closing.
         </p>

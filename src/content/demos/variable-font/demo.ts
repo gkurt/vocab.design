@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">${MAX} black</span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           One file answers every value on that line, not just the three picked here. This face ships the
           weight axis alone; width and optical size are registered axes it does not carry.
         </p>

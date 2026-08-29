@@ -72,7 +72,7 @@ export function mount(root: HTMLElement): void {
             style="grid-template-columns: repeat(6, 54px); gap: 8px; flex: 0 0 auto; margin: 0 auto"
           >${seats}</div>
           <span class="sp-grow"></span>
-          <span class="sp-label" data-part="caption" style="flex: 0 0 auto; height: 22px; font-size: 11px; line-height: 22px">
+          <span class="sp-label" data-stage-verdict data-part="caption" style="flex: 0 0 auto; height: 22px; font-size: 11px; line-height: 22px">
             The panel is placed against the room each seat leaves.
           </span>
         </div>

@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
             ${sample('sample-oblique', 'transform: skewX(-12deg)')}
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           In the drawn italic the a drops to a single storey, the e tips its bowl, and the f gains a
           descender. The skewed column leans at the same angle with the roman letters untouched.
         </p>

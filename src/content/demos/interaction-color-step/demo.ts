@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
           ).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 9px 0 0; height: 42px; font-size: 10px; line-height: 1.4">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 9px 0 0; height: 42px; font-size: 10px; line-height: 1.4">
           Each control is painted straight from a rung: no brightness filter, no overlay. Selection outranks hover, so a
           chosen control never brightens again under the pointer and becomes a fifth colour that nobody named.
         </p>

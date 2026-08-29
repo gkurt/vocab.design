@@ -64,7 +64,7 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-row sp-context" style="gap: 10px; width: 100%">
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="load">Load 2 older</button>
-            <span class="sp-label" data-part="caption">Both panels receive the same two items, above the view</span>
+            <span class="sp-label" data-stage-verdict data-part="caption">Both panels receive the same two items, above the view</span>
           </div>
         </div>
       </div>

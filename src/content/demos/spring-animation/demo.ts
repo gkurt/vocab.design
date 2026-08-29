@@ -93,7 +93,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </span>
           ${rail('ease', false)}
         </div>
-        <p class="sp-text sp-context" data-part="legend" style="margin: 14px 0 0">
+        <p class="sp-text sp-context" data-stage-verdict data-part="legend" style="margin: 14px 0 0">
           The spring is told how heavy and how stiff, never how long.
         </p>
       </div>

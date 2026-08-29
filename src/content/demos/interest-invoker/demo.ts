@@ -75,7 +75,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           ${column('a', 'Pointer: a dwell', false, true)}
           ${column('b', 'Touch: a press held', true, false)}
         </div>
-        <p class="sp-text sp-context" data-part="note" style="margin: 12px 0 0">
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 12px 0 0">
           Interest is defined per input: a pointer dwells, a keyboard focuses, a finger presses and
           holds. Escape always gives it up.
         </p>

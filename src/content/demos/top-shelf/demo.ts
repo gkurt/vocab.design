@@ -123,7 +123,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption"
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption"
          style="max-width: 458px; margin: 0; text-align: center; font-size: 10px">
         The remote moves along the row and the band follows: a poster for two of these apps, and rows you can
         open directly for the third.

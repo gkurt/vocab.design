@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
             <div class="sp-text sp-text--ink" style="padding: 6px 8px; font-size: 13px; font-weight: 600">document</div>
             ${NODES.map(row).join('')}
           </div>
-          <p class="sp-text" data-part="hint" style="margin: 10px 0 0; height: 32px; font-size: 11px">
+          <p class="sp-text" data-stage-verdict data-part="hint" style="margin: 10px 0 0; height: 32px; font-size: 11px">
             Role, name, state. Pick a node to see the element it came from.
           </p>
         </div>

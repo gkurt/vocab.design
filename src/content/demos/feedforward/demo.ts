@@ -97,7 +97,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" data-part="caption" style="width: 452px; font-size: 11px; line-height: 1.35; text-align: center">
+      <span class="sp-text sp-context" data-stage-verdict data-part="caption" style="width: 452px; font-size: 11px; line-height: 1.35; text-align: center">
         The panel is not a warning about the button, it is a statement about the result: what will happen, to how many things, and whether it can be taken back.
       </span>
     </div>

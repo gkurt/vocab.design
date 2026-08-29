@@ -96,7 +96,7 @@ export function mount(root: HTMLElement): void {
           </svg>
           <div class="sp-stack" style="gap: 4px">
             <span class="sp-label" data-part="read" style="color: var(--sp-ink)"></span>
-            <p class="sp-text" data-part="caption" style="margin: 0">
+            <p class="sp-text" data-stage-verdict data-part="caption" style="margin: 0">
               The ring, the bowl and the arm never change. A swash is the same letter with its exit
               stroke carried on, so it needs room to travel.
             </p>

@@ -97,7 +97,7 @@ export function mount(root: HTMLElement): void {
             the small caps clear the x-height rule, the petite caps stop on it
           </span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           No browser here honours petite-caps: it renders as small caps. So the middle sample is this face's own
           small-caps set and the petite one is drawn, capitals reduced until their cap height is the x-height.
         </p>

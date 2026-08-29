@@ -94,7 +94,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
         <div class="sp-row sp-row--between sp-context" style="width: 430px">
-          <span class="sp-text" data-part="caption" style="font-size: 12px">Drag the divider, or nudge it with the arrow keys.</span>
+          <span class="sp-text" data-stage-verdict data-part="caption" style="font-size: 12px">Drag the divider, or nudge it with the arrow keys.</span>
           <span class="sp-label" data-part="readout" style="width: 80px; text-align: right; font-variant-numeric: tabular-nums">Original ${START}%</span>
         </div>
       </div>

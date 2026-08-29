@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 30px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${READ.on}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           No face this site loads carries a stylistic set, so the slash, the foot and the tail are drawn on:
           the switch stands for the substitution. What is real is the grouping, and that the O and the I are
           left alone.

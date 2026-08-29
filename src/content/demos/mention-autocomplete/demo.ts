@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-row sp-row--between sp-context" style="height: 30px">
-            <span class="sp-label" data-part="hint" role="status" style="min-width: 0; overflow: hidden; white-space: nowrap">Type @ to bring someone in</span>
+            <span class="sp-label" data-stage-verdict data-part="hint" role="status" style="min-width: 0; overflow: hidden; white-space: nowrap">Type @ to bring someone in</span>
             <button class="sp-button sp-button--sm" type="button" data-part="send">Reply</button>
           </div>
         </div>

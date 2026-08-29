@@ -60,7 +60,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="readout" data-state="mixed"
                 style="font-size: 12px; white-space: nowrap">aria-checked = mixed</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" data-case="mixed"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="mixed"
            style="margin: 6px 0 0; height: 30px; font-size: 11px">${CAPTION.mixed}</p>
       </div>
     </div>

@@ -21,7 +21,7 @@ export function mount(root: HTMLElement): void {
             <ul class="sp-listbox" data-part="listbox">${options}</ul>
           </sp-combobox>
         </div>
-        <p class="sp-text sp-context" data-part="hint" style="margin-top: 10px">Free text in, one value out.</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="hint" style="margin-top: 10px">Free text in, one value out.</p>
       </div>
     </div>
   `;

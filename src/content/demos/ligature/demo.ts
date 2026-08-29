@@ -37,7 +37,7 @@ export function mount(root: HTMLElement): void {
                  style="font-size: 54px; line-height: 1.25; font-variant-ligatures: none">waffle</div>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           This face fuses ff, ffi and ffl. The textbook fi pair it leaves as two letters.
         </p>
       </div>

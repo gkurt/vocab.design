@@ -58,7 +58,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption"
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption"
          style="position: relative; max-width: 272px; margin: 0; text-align: center; font-size: 11px; color: #f3f5fa">
         One glass material, three distances, controls sized for a gaze.
       </p>

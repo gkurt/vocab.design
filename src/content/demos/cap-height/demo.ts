@@ -75,7 +75,7 @@ export function mount(root: HTMLElement): void {
           <span data-part="specimen" style="display: inline-block; vertical-align: baseline; width: ${RULE}px;
                 font-family: ${FAMILY}; font-size: ${SIZE}px; line-height: 1.25">${carrier}${WORD}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           Solid: the baseline. Dotted: the lowercase. Dashed: where the capital stops.
         </p>
         <div class="sp-divider sp-context" style="margin: 10px 0"></div>

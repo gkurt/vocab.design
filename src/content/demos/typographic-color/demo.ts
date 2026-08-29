@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
              style="gap: 14px; align-items: flex-start; height: ${ROW}px; margin-top: 12px; overflow: hidden">
           ${COLUMNS.map(column).join('')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           Same words, same size, three settings. Squinting is how the property is judged, because the grey
           value is not visible while you are still reading.
         </p>

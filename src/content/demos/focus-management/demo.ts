@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-row--between" style="height: 18px; margin-top: 2px">
           <span class="sp-label">Because</span>
-          <span class="sp-text" data-part="why" style="font-size: 12px; white-space: nowrap">${REPORT.idle.why}</span>
+          <span class="sp-text" data-stage-verdict data-part="why" style="font-size: 12px; white-space: nowrap">${REPORT.idle.why}</span>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip">Proper nouns keep theirs</span>
           <span class="sp-chip">Nothing else</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin: 8px 0 0; font-size: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 8px 0 0; font-size: 12px">
           Only "Harbour" keeps a capital, because it is a name and not a word.
         </p>
       </div>

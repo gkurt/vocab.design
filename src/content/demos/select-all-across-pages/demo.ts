@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <div class="sp-context" data-part="caption" style="width: 440px; height: 16px; color: var(--sp-muted); font-size: 11px">The box takes the page. Everything past it has to be asked for.</div>
+      <div class="sp-context" data-stage-verdict data-part="caption" style="width: 440px; height: 16px; color: var(--sp-muted); font-size: 11px">The box takes the page. Everything past it has to be asked for.</div>
     </div>
   `;
 

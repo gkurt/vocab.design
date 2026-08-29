@@ -112,7 +112,7 @@ export function mount(root: HTMLElement): void {
                      font-size: 9px; letter-spacing: 0.26em; text-indent: 0.26em; color: ${INK}">CIVIC GREENHOUSE No. 4</span>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 268px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 268px; margin: 0; text-align: center">
         Daylight instead of neon, plants over the structure, the machinery left on show.
       </p>
     </div>

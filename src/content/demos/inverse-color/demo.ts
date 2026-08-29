@@ -116,7 +116,7 @@ export function mount(root: HTMLElement): void {
           <div data-part="readout-inverse" style="white-space: nowrap"></div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.4">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.4">
           Both themes declare the inverse trio themselves. Nothing here is computed by inverting the ordinary roles.
         </p>
       </div>

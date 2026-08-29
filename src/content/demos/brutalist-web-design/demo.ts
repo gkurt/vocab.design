@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
           colour the browser made them.
         </p>
       </div>
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 336px; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 336px; text-align: center">
         System serif, default blue and purple, a real rule, a bordered table.
       </p>
     </div>

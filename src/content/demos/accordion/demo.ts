@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-surface" data-part="stack" data-subject style="overflow: hidden">
             ${SECTIONS.map(section).join('')}
           </div>
-          <p class="sp-text sp-context" data-part="caption" style="margin: auto 0 0 2px; font-size: 12px">
+          <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: auto 0 0 2px; font-size: 12px">
             One header over one region is a disclosure. A stack of them is this.
           </p>
         </div>

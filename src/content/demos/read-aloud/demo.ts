@@ -64,7 +64,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
              style="margin: 3px 0 0; height: 18px; line-height: 18px; font-size: 11.5px; white-space: nowrap">${READOUT.idle}</p>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption"
            style="margin: 10px 0 0; height: 32px; font-size: 11px; line-height: 1.35">The voice carries the prose in
           reading order and the highlight keeps the reader's place. No heading level, no role and no state is spoken:
           this is a reading aid.</p>

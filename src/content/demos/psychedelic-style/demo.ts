@@ -64,7 +64,7 @@ export function mount(root: HTMLElement): void {
                      text-align: center; font-size: 12px; letter-spacing: 0.16em; color: ${ORANGE}">SAN FRANCISCO</span>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
         Two inks at one lightness buzz along every edge; the words fill the shape.
       </p>
     </div>

@@ -61,7 +61,7 @@ export function mount(root: HTMLElement): void {
             data-subject
             style="padding: 10px 10px 8px"
           >
-            <span class="sp-label" id="rg-legend" data-part="legend" style="display: block; padding: 0 8px 4px">Delivery speed</span>
+            <span class="sp-label" id="rg-legend" data-stage-verdict data-part="legend" style="display: block; padding: 0 8px 4px">Delivery speed</span>
             <div class="sp-stack" style="gap: 2px">${OPTIONS.map(option).join('')}</div>
           </div>
           <p class="sp-text sp-context" data-part="summary" style="margin: auto 0 0 2px; font-size: 12px; white-space: nowrap">

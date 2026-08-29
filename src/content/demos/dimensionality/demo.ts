@@ -117,7 +117,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 460px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 460px; margin: 0; text-align: center">
         Depth is a promise: it folds back into the edge it came out of.
       </p>
     </div>

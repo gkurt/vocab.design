@@ -155,7 +155,7 @@ export function mount(root: HTMLElement): void {
           ${block('ok', 'Even steps of OKLCH lightness', true)}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 10px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 10px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
           Both ramps run between the same two colours. The numbers are the measured CIE lightness of each rung, so the
           gap between them is the claim.
         </p>

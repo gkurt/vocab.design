@@ -61,7 +61,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="note" style="margin: 9px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
+        <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 9px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
           The stripes on the left are hard stops, drawn on purpose. The panel on the right may band too, and that one is your display.
         </p>
       </div>

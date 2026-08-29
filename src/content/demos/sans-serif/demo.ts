@@ -34,7 +34,7 @@ export function mount(root: HTMLElement): void {
             <span data-part="word-serif" style="font-family: ${SERIF}; font-size: 21px">${WORD}</span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           The stems end where they end: no bracket, no flare, no foot. Everything else about the
           two letters, the weight and the width and the skeleton, is a separate decision.
         </p>

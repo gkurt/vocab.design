@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
             ${natives.join('')}
           </span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           Sturdier stems and looser spacing for the small cut, finer stems and a tighter fit for the
           large one. Simulated with the weight axis: the serif this page loads carries wght alone.
         </p>

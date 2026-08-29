@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-stack" data-part="rows" data-subject data-features="off" style="gap: 2px; margin-top: 10px">
           ${ROWS.map(row).join('')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           The text never changes: the string stays "1/2 and 3/4" and only the drawing is swapped.
           A tag the file does not carry fails quietly, which is why a face has to be checked.
         </p>

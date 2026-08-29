@@ -60,7 +60,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-button sp-button--sm" type="button" data-part="show">Show summary</button>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="hide">Hide</button>
           </div>
-          <p class="sp-text sp-context" data-part="legend" style="margin: 0">
+          <p class="sp-text sp-context" data-stage-verdict data-part="legend" style="margin: 0">
             Opacity only. The panel keeps its space either way.
           </p>
         </div>

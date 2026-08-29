@@ -67,7 +67,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="css" style="color: var(--sp-ink); height: 64px; display: block"></span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           The rule marks the indent. Hanging leaves the surname out to its left, which is the whole
           point: the column you scan down has nothing in front of it.
         </p>

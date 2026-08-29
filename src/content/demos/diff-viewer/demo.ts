@@ -160,7 +160,7 @@ export function mount(root: HTMLElement): void {
             <div data-part="body" style="height: ${ROW_H * 8}px"></div>
           </div>
 
-          <p class="sp-label" data-part="caption" style="margin: 0; width: 440px; font-size: 11px">
+          <p class="sp-label" data-stage-verdict data-part="caption" style="margin: 0; width: 440px; font-size: 11px">
             Striped rows are alignment padding, not missing code.
           </p>
         </div>

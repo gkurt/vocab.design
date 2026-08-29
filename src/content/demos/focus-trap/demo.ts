@@ -83,7 +83,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="count" data-where="dialog"
                 style="flex: 0 0 auto; font-size: 12px; white-space: nowrap">3 stops, all inside the dialog</span>
         </div>
-        <p class="sp-text" data-part="caption" data-state="trapped"
+        <p class="sp-text" data-stage-verdict data-part="caption" data-state="trapped"
            style="margin: 4px 0 0; height: 34px; font-size: 11px">${CAPTION.trapped}</p>
       </div>
     </div>

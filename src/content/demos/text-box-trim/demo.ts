@@ -60,7 +60,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-label" data-part="declaration" style="color: var(--sp-ink)"></span>
           <span class="sp-label" data-part="removed" style="font-variant-numeric: tabular-nums"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           The leftover is the font's own line box, not padding: removing it needed a property of its
           own, not a negative margin.
         </p>

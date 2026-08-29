@@ -77,7 +77,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="result" data-state="none"
                 style="font-size: 11px; white-space: nowrap">nothing pressed yet</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" data-case="nested"
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="nested"
            style="margin: 8px 0 0; height: 16px; font-size: 11px; white-space: nowrap">${CAPTIONS.nested}</p>
       </div>
     </div>

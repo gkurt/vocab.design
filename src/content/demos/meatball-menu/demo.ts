@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-line" style="width: 54%"></span>
         </div>
       </div>
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 400px; text-align: center; margin: 0">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 400px; text-align: center; margin: 0">
         Same menu either way: skewered dots make it a kebab, dots lying flat make it a meatball.
       </p>
     </div>

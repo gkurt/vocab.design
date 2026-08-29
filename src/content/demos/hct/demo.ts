@@ -172,7 +172,7 @@ export function mount(root: HTMLElement): void {
           ${AXES.map(axisRow).join('')}
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 9px 0 0; height: 28px; font-size: 10px; line-height: 1.4">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 9px 0 0; height: 28px; font-size: 10px; line-height: 1.4">
           Hue and chroma move the colour without moving the number. Tone is CIE lightness, so it fixes the luminance and the
           contrast follows from tone alone.
         </p>

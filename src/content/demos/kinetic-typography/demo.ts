@@ -71,7 +71,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-row sp-context" data-part="readout" style="height: 24px; margin-top: 4px">
           <span class="sp-chip" data-part="read" style="cursor: default"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           Each verb is animated by the thing it names, and each one ends somewhere legible, because the
           resting frame is what most readers will see.
         </p>

@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="ring" data-at="rest"
                 style="flex: 0 0 auto; font-size: 12px; white-space: nowrap">${RING.rest}</span>
         </div>
-        <p class="sp-text" data-part="caption" data-state="rest"
+        <p class="sp-text" data-stage-verdict data-part="caption" data-state="rest"
            style="margin: 4px 0 0; height: 34px; font-size: 11px">${CAPTION.rest}</p>
       </div>
     </div>

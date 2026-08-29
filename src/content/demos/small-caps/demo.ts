@@ -28,7 +28,7 @@ export function mount(root: HTMLElement): void {
             ${LEAD}<span data-part="run-small" data-subject style="font-variant-caps: all-small-caps">${ACRONYM}</span>${TAIL}
           </p>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 14px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 14px">
           This face carries no small-cap glyphs, so the browser is scaling its capitals. A face
           with true small caps would also thicken the strokes to match the lowercase.
         </p>

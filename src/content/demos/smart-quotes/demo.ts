@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
                   style="font-family: ${FACE}; font-size: 19px; white-space: nowrap"></span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           Four marks, not one: the opening pair leans into the quotation and the closing pair leans out of
           it. The apostrophe is the closing single quote, the same character in a different job.
         </p>

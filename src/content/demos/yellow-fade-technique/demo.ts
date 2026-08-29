@@ -103,7 +103,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               Ravi checks one off
             </button>
           </div>
-          <p class="sp-text sp-context" data-part="legend" style="margin: 0">
+          <p class="sp-text sp-context" data-stage-verdict data-part="legend" style="margin: 0">
             Colour says where; the chip says what.
           </p>
         </div>

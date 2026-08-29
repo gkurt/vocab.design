@@ -92,7 +92,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 28px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.lining.read}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           Both settings are the face's own drawings. Height is one decision and width is another: lining or
           oldstyle, tabular or proportional, and the two combine freely.
         </p>

@@ -89,7 +89,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 )
                 .join('')}
             </div>
-            <p class="sp-text" data-part="note" style="margin: 0; font-size: 11.5px; line-height: 1.5">
+            <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; font-size: 11.5px; line-height: 1.5">
               The support page was replaced in this tab's history rather than added to it, so going back does not
               return to it. That is all this control can promise: it cannot clear a synced history, a monitoring
               app, or a network log.

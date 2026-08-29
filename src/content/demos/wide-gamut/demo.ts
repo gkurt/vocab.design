@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 9px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 9px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">
           On an sRGB display these two blocks are the same colour, because the wider value has already been mapped
           back in. Only a P3 screen separates them.
         </p>

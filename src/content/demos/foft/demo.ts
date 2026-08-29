@@ -110,7 +110,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-row sp-context" style="height: 30px">
           <span class="sp-chip" data-part="readout" style="cursor: default"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           The stages are stated on this stage's own clock, since the files are long since cached. The faked
           styles are what a browser really draws while it waits: the roman sheared, and the roman thickened.
         </p>

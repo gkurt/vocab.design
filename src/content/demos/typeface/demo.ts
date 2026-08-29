@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-stack" data-part="specimen" data-subject style="gap: 7px; margin-top: 12px">
           ${rows}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           The design is one thing, shared by every row. A font is one size and one style of it.
         </p>
       </div>

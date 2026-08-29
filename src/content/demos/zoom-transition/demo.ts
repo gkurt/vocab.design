@@ -111,7 +111,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 380px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 380px; margin: 0; text-align: center">
         Two surfaces, not one: the grid waits under the view it opened.
       </p>
     </div>

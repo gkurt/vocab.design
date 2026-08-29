@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
 
       <!-- The caption sits outside the frame: a line of app copy naming the trigger would
            be the signifier an easter egg is defined by not having. -->
-      <p class="sp-label" data-part="caption" style="margin: 0; width: 460px; font-size: 11px">
+      <p class="sp-label" data-stage-verdict data-part="caption" style="margin: 0; width: 460px; font-size: 11px">
         ${TAPS} presses on the version number. Nothing in this app is behind it.
       </p>
     </div>

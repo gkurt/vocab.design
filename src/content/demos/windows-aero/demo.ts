@@ -168,7 +168,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 476px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 476px; margin: 0; text-align: center">
         Move the window and the frame re-samples whatever is now behind it.
       </p>
     </div>

@@ -82,7 +82,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <p class="sp-text sp-context" data-part="status" role="status"
            style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.4">${STATUS.flash}</p>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 4px 0 0; height: 15px; font-size: 10.5px; line-height: 1.4">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 4px 0 0; height: 15px; font-size: 10.5px; line-height: 1.4">
           The browser frame never repaints. Only the page inside it does.
         </p>
       </div>

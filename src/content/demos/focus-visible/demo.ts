@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">:focus-visible</span>
             <span class="sp-text sp-text--ink" data-part="visible" style="font-size: 12px">${ROUTES.keyboard.visible}</span>
           </div>
-          <p class="sp-text" data-part="note" style="margin: 6px 0 0; height: 18px; font-size: 12px; white-space: nowrap">
+          <p class="sp-text" data-stage-verdict data-part="note" style="margin: 6px 0 0; height: 18px; font-size: 12px; white-space: nowrap">
             ${ROUTES.keyboard.note}
           </p>
         </div>

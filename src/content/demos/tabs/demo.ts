@@ -89,7 +89,7 @@ export function mount(root: HTMLElement): void {
               style="height: 106px; padding: 12px 14px; border-top-left-radius: 0"
             >${PANELS.map(panel).join('')}</div>
           </div>
-          <p class="sp-text sp-context" data-part="caption" style="margin: 12px 0 0; font-size: 12px">
+          <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 12px 0 0; font-size: 12px">
             One region, three panels. The labels only say which one is on top.
           </p>
         </div>

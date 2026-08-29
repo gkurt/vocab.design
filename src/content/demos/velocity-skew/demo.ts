@@ -96,7 +96,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ${cell('stretch', 'scaleX', '1.00')}
           </div>
           <span
-            class="sp-text sp-context" data-part="note"
+            class="sp-text sp-context" data-stage-verdict data-part="note"
             style="flex: 0 0 auto; height: 32px; font-size: 12px; line-height: 1.35"
           >Nothing is animating: the shape is the current speed, and the speed is currently nothing.</span>
         </div>

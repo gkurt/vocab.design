@@ -42,7 +42,7 @@ export function mount(root: HTMLElement): void {
             ${lines('prop')}
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 14px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 14px">
           Every cell above is one character wide, so the decimal points and the last word land in
           the same columns. Below, the same strings with the same spaces land nowhere in particular.
         </p>

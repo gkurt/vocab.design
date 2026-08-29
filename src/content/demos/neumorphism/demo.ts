@@ -62,7 +62,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <p data-part="caption" style="margin: 0; max-width: 400px; text-align: center; font-size: 12.5px;
+      <p data-stage-verdict data-part="caption" style="margin: 0; max-width: 400px; text-align: center; font-size: 12.5px;
                                     line-height: 1.5; color: ${QUIET}">
         One colour for the whole scene. Every control is two shadows of it: light up and to the
         left, dark down and to the right.

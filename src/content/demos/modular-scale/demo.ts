@@ -80,7 +80,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="height: 22px; margin-top: 6px">
           <span class="sp-text" data-part="readout"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px; font-size: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px; font-size: 12px">
           Nothing here was chosen. Every rung is the one below it multiplied by the ratio, which is why a
           steeper ratio runs out of usable sizes by the fourth step and a shallow one barely separates them.
         </p>

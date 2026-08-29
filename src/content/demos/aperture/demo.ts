@@ -113,7 +113,7 @@ export function mount(root: HTMLElement): void {
           ${column('closed', 'terminals curled in')}
           ${column('open', 'terminals cut short')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           One ring, one stem width, two ways of ending it. The tint is the aperture: narrow it far enough
           and the c reads as an o long before the reader notices why.
         </p>

@@ -69,7 +69,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 8px 0 0; height: 34px; font-size: 11px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 8px 0 0; height: 34px; font-size: 11px">
           Two controls, two surfaces, two independent states. A reader hears the state as part of the button, before pressing it.
         </p>
       </div>

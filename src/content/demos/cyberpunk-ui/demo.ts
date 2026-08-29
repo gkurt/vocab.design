@@ -78,7 +78,7 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption"
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption"
          style="max-width: 270px; margin: 0; text-align: center; font-size: 11px">
         Cut corners, two toxic accents, hazard chrome, noir rather than nostalgia.
       </p>

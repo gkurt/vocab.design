@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
         </sp-segmented>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
         One repeating gradient, one pixel dark every three, laid over a picture that is otherwise flat.
       </p>
     </div>

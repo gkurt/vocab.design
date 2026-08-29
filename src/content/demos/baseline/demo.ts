@@ -58,7 +58,7 @@ export function mount(root: HTMLElement): void {
             ${centred('centred-small', 'Handgloves', 22, 130)}${centred('centred-large', 'Rpg', 40, 110)}
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           Solid: the baseline both sizes sit on, descenders crossing below it. Dashed: each centred
           sample's own baseline, a few pixels apart.
         </p>

@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
             </p>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           A short quotation stays in the sentence. Once the marks are too far apart to hold the passage
           together, the shape takes over the job and the marks come off. The source travels with the block.
         </p>

@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
             ${PANES.map(({ key, title, hint }) => paneMarkup(key, title, hint, key === 'notes')).join('')}
           </div>
 
-          <span class="sp-label sp-context" data-part="caption">Keystrokes go to the window with the ring, and nowhere else.</span>
+          <span class="sp-label sp-context" data-stage-verdict data-part="caption">Keystrokes go to the window with the ring, and nowhere else.</span>
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep">
       <div class="sp-window" style="position: relative; width: 380px">
-        <span class="sp-heading sp-context" data-part="caption">Time before anything moves</span>
+        <span class="sp-heading sp-context" data-stage-verdict data-part="caption">Time before anything moves</span>
         <div class="sp-row" style="gap: 28px; margin-top: 12px">
           ${control('delayed', `waits ${DELAY_MS} ms`, true)}
           ${control('instant', 'answers at once', false)}

@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep">
       <div class="sp-stack" style="gap: 10px">
-        <span class="sp-label sp-context" data-part="caption">Recently opened</span>
+        <span class="sp-label sp-context" data-stage-verdict data-part="caption">Recently opened</span>
         <div class="sp-row" style="gap: 12px; padding: 8px 0">${cards}</div>
       </div>
     </div>

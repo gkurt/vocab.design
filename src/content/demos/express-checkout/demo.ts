@@ -103,9 +103,8 @@ export function mount(root: HTMLElement): void {
         </div>
 
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 440px; height: 34px; font-size: 11px">${NOTE.idle}</span>
-      </div>
+              <span class="sp-text" data-stage-verdict data-part="note" style="width: 440px; height: 34px; font-size: 11px">${NOTE.idle}</span>
+      
     </div>
   `;
 

@@ -50,7 +50,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <p data-part="headline" style="margin: 0; font-size: 24px; white-space: nowrap">${HEADLINE}</p>
           <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5">${BODY}</p>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 12px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 12px">
           Nothing is invisible while the file travels: the fallback is read immediately, and every line it
           measured is measured again when the real face arrives.
         </p>

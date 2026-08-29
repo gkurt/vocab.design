@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
           ${pane('grade', 'grade: strokes only', BASE.gradeRead, `-webkit-text-stroke: ${BASE.stroke}`)}
           ${pane('weight', 'weight: the axis people reach for', BASE.weightRead, `font-variation-settings: 'wght' ${BASE.wght}`)}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           No face here carries a GRAD axis, so the grade is drawn by stroking the outlines, which is paint and
           cannot change an advance. The weight pane is real, and the marker it pushes is the reflow.
         </p>

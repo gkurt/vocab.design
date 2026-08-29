@@ -60,7 +60,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">Rows in the document</span>
             <span class="sp-text sp-text--ink" data-part="readout" data-count="0" style="font-size: 12px; white-space: nowrap"></span>
           </div>
-          <span class="sp-text sp-context" data-part="caption" style="flex: 0 0 auto; height: 34px; font-size: 11px">
+          <span class="sp-text sp-context" data-stage-verdict data-part="caption" style="flex: 0 0 auto; height: 34px; font-size: 11px">
             The scrollbar belongs to the whole list. A spacer holds the height of everything not rendered.
           </span>
         </div>

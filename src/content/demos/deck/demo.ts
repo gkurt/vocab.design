@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">12 min read</span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           An eyebrow categorises above the headline; a deck expands below it, carrying facts the
           headline had no room for. Taking it away leaves its space, so nothing under it moves.
         </p>

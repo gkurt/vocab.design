@@ -80,7 +80,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-text sp-text--ink" data-part="name" data-mode="default" data-name="empty"
                   style="flex: 0 0 auto; font-size: 11.5px; font-weight: 600; white-space: nowrap">empty</span>
           </div>
-          <p class="sp-text" data-part="note" data-mode="default"
+          <p class="sp-text" data-stage-verdict data-part="note" data-mode="default"
              style="margin: 5px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${NOTE.default}</p>
         </div>
       </div>

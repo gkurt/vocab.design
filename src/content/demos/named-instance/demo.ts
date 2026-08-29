@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">wght 900</span>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           The ticks are the coordinates this family named. Everything between them is drawable type with
           nothing to call it, which is the freedom the format bought and the vocabulary it cost.
         </p>

@@ -37,7 +37,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 430px">
         ${LEVELS.map(block).join('')}
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 14px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 14px">
           Size and weight say how deep in the outline a section sits.
         </p>
       </div>

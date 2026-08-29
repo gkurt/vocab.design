@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-grid" role="listbox" aria-label="Files" data-part="grid" style="grid-template-columns: repeat(3, 1fr)">
             ${tiles}
           </div>
-          <span class="sp-text sp-context" data-part="legend" style="font-size: 12px">
+          <span class="sp-text sp-context" data-stage-verdict data-part="legend" style="font-size: 12px">
             Primary press selects. Secondary press asks for options.
           </span>
         </div>

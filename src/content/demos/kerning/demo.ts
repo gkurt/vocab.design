@@ -52,7 +52,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-label" style="color: var(--sp-ink)">T + o</span>
           <span class="sp-label" data-part="measured" style="font-variant-numeric: tabular-nums"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px; height: 40px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px; height: 40px">
           The band is the correction, drawn to scale: what this face takes out from between a T and a
           round o, and from no other pair on the line.
         </p>

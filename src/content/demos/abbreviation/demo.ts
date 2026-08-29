@@ -63,7 +63,7 @@ export function mount(root: HTMLElement): void {
               </span>`,
           ).join('')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           The expansion is written on the page, not left to a tooltip: a title attribute is unreachable
           by keyboard, unreachable by touch, and read out inconsistently.
         </p>

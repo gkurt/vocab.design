@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
                      background-image: ${GRAIN}; background-size: 3.1px 2.7px, 4.3px 3.7px"></span>
       </div>
 
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
+      <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
         Two flat inks, a pass each, and the slip between them left in.
       </p>
     </div>

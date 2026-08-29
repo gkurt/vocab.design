@@ -85,7 +85,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="chip-tag" style="cursor: default">tag ${TAG}</span>
           ${chips}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           Registered tags are lowercase and custom ones uppercase. This file carries wght alone: wdth,
           slnt, ital and opsz are registered axes it does not ship.
         </p>
