@@ -1035,3 +1035,44 @@ complete; until then entries only accumulate. Entry format:
 - Verify: as above, plus a check that nothing the demo's code queries was deleted with the
   markup: `sensory-characteristics` kept `part(root, 'mark')` after its icon was removed
   and threw on mount, which the leftover probe caught only as "strip not drawn".
+
+## switchless-contrast
+
+- Queued: 2026-08-30 · Status: queued (55 candidates, roughly half of them real)
+- Rule: a specimen shows the term. When it also shows the term's foil, the two are states
+  of ONE thing and the reader moves between them with the exhibit's own switch, drawn by
+  the stage in the strip (SPEC §5.1). Drawing both at once, side by side with a small word
+  under each, leaves the counter-example on stage at equal weight forever and asks the
+  reader to work out which half is the headword. The pair is also the deceptive-pattern
+  family's spelling read backwards: `With | Without` on a switch says which side is the
+  word, two columns labelled "Straight, one timing" and "Arc, a timing per axis" do not.
+- Worked example: `flat-design`, fixed 2026-08-30. It drew a glossed card beside a flat one;
+  it now draws ONE card and a `Flat design: Without | With` switch restyles it in place,
+  with the treatment described in the strip's verdict lane and `data-pose="[data-mode=flat]"`
+  so identify refuses to pose the glossed state.
+- Detector: `detectors/switchless-contrast.ts` (recall-tuned, 55 as of queueing). Two
+  signals on demos carrying no `data-stage-mode`: a block drawn 2-4 times where the repeat
+  decides which copy is `data-subject` and which is `sp-context` (`anticipation`'s `lane()`,
+  `constructivism`'s `column()`, `debounce`'s `panel()`), and two labels from one antonym
+  pair standing as literal text (`arc-motion`). It cannot see a demo whose repeat is neither
+  (`corner-radius`), and it deliberately shortlists three-way anatomies it cannot tell from
+  foils, which is the judge's first question.
+- Judge: **are these copies a comparison or an anatomy?** An anatomy stays: `chamfer` draws
+  three corner treatments because the term is one of three ways to end a corner, and a states
+  row, a type scale or a swatch set is a single exhibit whose members are not each other's
+  foil. A comparison converts: two copies, one of them the term and the other its absence.
+  A demo whose animation is the point (`squash-and-stretch`, `compositor-animation`) is still
+  a comparison; playing both at once does not make it an anatomy.
+- Recipe: collapse the pair into one element and restyle it from an `<sp-segmented>` marked
+  `data-stage-mode`, `Without | With` in that order (baseline then change). Name the axis with
+  `data-axis`, and add `data-term` where the switch's own value IS the headword, which is the
+  usual case here. Declare `data-pose` on the subject naming the state in which it is still
+  the term, and MOUNT in that state. Move the per-copy words into the strip's verdict lane
+  (`data-stage-verdict`), keyed to the mode, and delete the labels they replace. Reserve any
+  geometry the foil adds: `.sp-bevel`, `.sp-button--ghost` and friends declare a 1px border
+  that `.sp-swatch` and `.sp-button` do not, so the flat state needs `border: 1px solid
+  transparent` or the card grows by 2px as the switch flips (SPEC §5).
+- Verify: `bun validate` (the unkeyed-switch and pose gates both bite here), then measure
+  every part's box in BOTH states and require an empty diff, which is what caught
+  flat-design's 2px. The choreography must reach each segment absolutely, never toggle, and
+  end back on the mount state.
