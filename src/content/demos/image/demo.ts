@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading" style="font-size: 13px">Field notes, Harbour Point</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-axis="State" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-axis="State" data-value="${START}">
             ${Object.keys(STATES)
               .map(
                 (key) =>

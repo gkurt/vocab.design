@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="matched" data-axis="Laid out" data-term="matched">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="matched" data-axis="Laid out" data-term="matched">
             <button class="sp-segment" data-part="seg-matched" value="matched">In source order</button>
             <button class="sp-segment" data-part="seg-reordered" value="reordered">With CSS order</button>
           </sp-segmented>

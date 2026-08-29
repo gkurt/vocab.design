@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Spanned across both screens</span>
-          <sp-segmented class="sp-segmented" data-axis="Layout" data-part="modes" data-value="unaware">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Layout" data-part="modes" data-value="unaware">
             <button class="sp-segment" type="button" data-part="seg-unaware" value="unaware" style="padding: 4px 8px; font-size: 11px">unaware</button>
             <button class="sp-segment" type="button" data-part="seg-avoided" value="avoided" style="padding: 4px 8px; font-size: 11px">avoided</button>
             <button class="sp-segment" type="button" data-part="seg-split" value="split" style="padding: 4px 8px; font-size: 11px">split</button>

@@ -55,7 +55,7 @@ export function mount(root: HTMLElement): void {
         <span class="sp-label">Notes</span>
       </div>
 
-      <sp-segmented class="sp-segmented sp-context" data-part="segmented" data-value="long" data-axis="Shadow">
+      <sp-segmented data-stage-mode class="sp-segmented sp-context" data-part="segmented" data-value="long" data-axis="Shadow">
         <button class="sp-segment" data-part="seg-long" value="long">Long shadow</button>
         <button class="sp-segment" data-part="seg-none" value="none">No shadow</button>
       </sp-segmented>

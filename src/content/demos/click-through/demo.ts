@@ -37,7 +37,7 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div class="sp-row sp-context" style="flex: 0 0 auto; gap: 10px">
-            <sp-segmented class="sp-segmented" data-axis="First click" data-part="mode" data-value="raise">
+            <sp-segmented data-stage-mode class="sp-segmented" data-axis="First click" data-part="mode" data-value="raise">
               <button class="sp-segment" type="button" data-part="mode-raise" value="raise" style="padding: 5px 12px">Raises only</button>
               <button class="sp-segment" type="button" data-part="mode-through" value="through" style="padding: 5px 12px">Clicks through</button>
             </sp-segmented>

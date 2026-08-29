@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 460px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Base direction" data-term="rtl" data-part="segmented" data-value="rtl">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Base direction" data-term="rtl" data-part="segmented" data-value="rtl">
             <button class="sp-segment" data-part="seg-rtl" value="rtl">dir="rtl"</button>
             <button class="sp-segment" data-part="seg-ltr" value="ltr">not declared</button>
           </sp-segmented>

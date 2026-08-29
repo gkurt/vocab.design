@@ -143,7 +143,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 4px; padding-top: 10px">
-            <sp-segmented class="sp-segmented" data-part="modes" data-axis="Content" data-value="${first.key}" style="align-self: flex-start">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-axis="Content" data-value="${first.key}" style="align-self: flex-start">
               ${MODES.map(segment).join('')}
             </sp-segmented>
             <span class="sp-heading" style="margin-top: 10px; font-size: 12px">A swipe that starts in the strip</span>

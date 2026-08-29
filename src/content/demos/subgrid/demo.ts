@@ -56,12 +56,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
-        <div class="sp-topbar sp-context">
-          <sp-segmented class="sp-segmented" data-axis="Card rows" data-term="subgrid" data-part="switcher" data-value="subgrid">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Card rows" data-term="subgrid" data-part="switcher" data-value="subgrid">
             <button class="sp-segment" type="button" data-part="seg-subgrid" value="subgrid">subgrid</button>
             <button class="sp-segment" type="button" data-part="seg-own" value="own">its own rows</button>
           </sp-segmented>
-        </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 12px">
           <div
             data-part="row"

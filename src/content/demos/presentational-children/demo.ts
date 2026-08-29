@@ -72,7 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <span class="sp-grow"></span>
             <span class="sp-label" data-part="nodes" data-mode="authored"
                   style="flex: 0 0 auto; width: 104px; text-align: right; font-size: 10px; white-space: nowrap">6 nodes</span>
-            <sp-segmented class="sp-segmented" data-part="mode" data-axis="View" data-value="authored" style="flex: 0 0 auto">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-axis="View" data-value="authored" style="flex: 0 0 auto">
               <button class="sp-segment" type="button" data-part="seg-authored" value="authored"
                       style="padding: 3px 10px; font-size: 11px; white-space: nowrap">Authored</button>
               <button class="sp-segment" type="button" data-part="seg-computed" value="computed"

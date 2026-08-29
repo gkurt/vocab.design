@@ -24,9 +24,25 @@ const { slug, name, isolation, capture } = Astro.props;
   data-capture={capture ? "" : undefined}
 >
   <figure>
-    <div class="vd-stage-body">
-      <div data-stage-canvas></div>
-      <div data-stage-overlay aria-hidden="true"></div>
+    {/* The overlay wraps the specimen AND the strip below it, because the ghost cursor is
+        drawn in overlay coordinates and has to be able to travel down onto the strip's
+        controls. Everything the overlay draws is measured against its own box, so widening
+        it changes no arithmetic. */}
+    <div class="vd-stage-reach">
+      <div class="vd-stage-body">
+        <div data-stage-canvas></div>
+      </div>
+      {/* The exhibit's own row: what the specimen says, what the state amounts to, and the
+          mode switch. It sits above the control bar and inside the cursor's reach, so it
+          belongs to the demonstration rather than to the chrome that frames it. Hidden until
+          something fills it, so a specimen with nothing to say gets no empty row.
+
+          A capture keeps the row for its CONTENT lanes only (SPEC §10). Without it the still
+          photographs the layout the strip replaced, since the sources are hidden by the same
+          pass that draws their mirrors; with the switch in it, a picture nobody can click
+          would carry a control. */}
+      <div class="vd-stage-strip" data-stage-strip hidden />
+      <div data-stage-overlay aria-hidden="true" />
     </div>
     {
       !capture && (

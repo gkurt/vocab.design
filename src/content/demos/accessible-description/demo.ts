@@ -44,7 +44,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 448px">
         <div class="sp-row sp-row--between sp-context">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Description from" data-value="describedby" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Description from" data-value="describedby" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-describedby" value="describedby">describedby</button>
             <button class="sp-segment" data-part="seg-title" value="title">title</button>
             <button class="sp-segment" data-part="seg-none" value="none">nothing</button>
@@ -77,10 +77,8 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 12px; height: 18px">
-          <span class="sp-label">Announced on arrival</span>
-          <span class="sp-text sp-text--ink" data-part="announced" style="font-size: 12px; white-space: nowrap"></span>
-        </div>
+                  <span class="sp-text sp-text--ink" data-stage-announce data-part="announced" style="font-size: 12px; white-space: nowrap"></span>
+        
         <p class="sp-text sp-context" data-part="caption" data-case="describedby"
            style="margin: 6px 0 0; height: 30px; font-size: 11px">${STRATEGIES.describedby.caption}</p>
       </div>

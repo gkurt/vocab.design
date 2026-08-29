@@ -30,7 +30,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-row sp-row--between sp-context" style="width: 452px; flex: 0 0 auto; justify-content: flex-end">
-        <sp-segmented class="sp-segmented" data-axis="Banner style" data-part="mode" data-value="strip" style="flex: 0 0 auto">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Banner style" data-part="mode" data-value="strip" style="flex: 0 0 auto">
           <button class="sp-segment" data-part="seg-strip" type="button" value="strip" style="padding: 4px 10px; font-size: 11.5px">Strip</button>
           <button class="sp-segment" data-part="seg-full" type="button" value="full" style="padding: 4px 10px; font-size: 11.5px">Full page</button>
         </sp-segmented>

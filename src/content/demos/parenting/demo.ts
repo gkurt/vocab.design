@@ -84,7 +84,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-move="slide" style="height: 286px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Move</span>
-          <sp-segmented class="sp-segmented" data-part="move" data-axis="Transform" data-value="slide">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="move" data-axis="Transform" data-value="slide">
             <button class="sp-segment" type="button" data-part="seg-slide" value="slide">Slide</button>
             <button class="sp-segment" type="button" data-part="seg-scale" value="scale">Scale</button>
           </sp-segmented>

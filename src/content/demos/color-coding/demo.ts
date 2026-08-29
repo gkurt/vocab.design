@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 448px; padding: 12px 12px 11px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label" style="color: var(--sp-ink)">Team week</span>
-          <sp-segmented class="sp-segmented" data-axis="Palette size" data-part="codes" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Palette size" data-part="codes" data-value="${START}">
             <button class="sp-segment" type="button" data-part="seg-4" value="4" style="font-size: 11px; padding: 4px 10px">4 codes</button>
             <button class="sp-segment" type="button" data-part="seg-8" value="8" style="font-size: 11px; padding: 4px 10px">8 codes</button>
             <button class="sp-segment" type="button" data-part="seg-12" value="12" style="font-size: 11px; padding: 4px 10px">12 codes</button>

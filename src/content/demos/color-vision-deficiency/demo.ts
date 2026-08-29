@@ -76,7 +76,7 @@ export function mount(root: HTMLElement): void {
 
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Status coding" data-part="segmented" data-value="hue">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Status coding" data-part="segmented" data-value="hue">
             <button class="sp-segment" data-part="seg-hue" value="hue" style="font-size: 12px">Hue only</button>
             <button class="sp-segment" data-part="seg-redundant" value="redundant" style="font-size: 12px">Hue, shape, word</button>
           </sp-segmented>

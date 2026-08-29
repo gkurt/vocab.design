@@ -67,7 +67,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface sp-context" style="margin-top: 10px; padding: 8px; background: var(--sp-sunken)">
           <div class="sp-row" style="gap: 6px">${stop('stop-continue', 'Continue')}${stop('stop-help', 'Help')}</div>
         </div>
-        <p class="sp-text sp-context" data-part="verdict" style="margin: 10px 0 0; font-size: 11px; height: 18px; white-space: nowrap">
+        <p class="sp-text sp-context" data-stage-verdict data-part="verdict" style="margin: 10px 0 0; font-size: 11px; height: 18px; white-space: nowrap">
           ${CAPTIONS.trapped.verdict}
         </p>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">

@@ -43,7 +43,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" data-part="scope" style="width: 430px; --brand: ${SEEDS[START]}">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Seed token" data-part="segmented" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Seed token" data-part="segmented" data-value="${START}">
             <button class="sp-segment" data-part="seg-indigo" value="indigo">Indigo</button>
             <button class="sp-segment" data-part="seg-teal" value="teal">Teal</button>
             <button class="sp-segment" data-part="seg-crimson" value="crimson">Crimson</button>

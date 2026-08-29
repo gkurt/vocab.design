@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Sign-in" data-term="open" data-part="picker" data-value="open">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Sign-in" data-term="open" data-part="picker" data-value="open">
             <button class="sp-segment" type="button" data-part="seg-memory" value="memory"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Tests your memory</button>
             <button class="sp-segment" type="button" data-part="seg-open" value="open"

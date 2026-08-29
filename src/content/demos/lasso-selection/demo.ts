@@ -87,7 +87,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-row--between sp-context" style="width: 100%">
             <span class="sp-label" style="white-space: nowrap">Rectangle here, freehand originally</span>
             <span class="sp-row" style="gap: 8px">
-              <sp-segmented class="sp-segmented" data-axis="Boundary" data-part="hold" data-value="drag">
+              <sp-segmented data-stage-mode class="sp-segmented" data-axis="Boundary" data-part="hold" data-value="drag">
                 <button class="sp-segment" data-part="hold-drag" value="drag" style="padding: 5px 10px">Dragging</button>
                 <button class="sp-segment" data-part="hold-on" value="held" style="padding: 5px 10px">Held</button>
               </sp-segmented>

@@ -122,7 +122,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context" style="padding: 8px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Units shipped, thousands</span>
-          <sp-segmented class="sp-segmented" data-axis="Version" data-term="laden" data-part="picker" data-value="laden">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Version" data-term="laden" data-part="picker" data-value="laden">
             <button class="sp-segment" type="button" data-part="seg-laden" value="laden" style="padding: 4px 10px; font-size: 12px">
               as delivered
             </button>

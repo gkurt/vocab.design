@@ -33,7 +33,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 430px">
         <div class="sp-row sp-row--between sp-context">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Landing" data-term="field" data-value="field" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Landing" data-term="field" data-value="field" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-field" value="field">First field</button>
             <button class="sp-segment" data-part="seg-delete" value="delete">Delete</button>
             <button class="sp-segment" data-part="seg-dialog" value="dialog">The dialog</button>
@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="verdict" data-case="field"
+        <p class="sp-text sp-context" data-stage-verdict data-part="verdict" data-case="field"
            style="margin: 10px 0 0; height: 18px; font-size: 12px; white-space: nowrap">${LANDINGS.field}</p>
       </div>
     </div>

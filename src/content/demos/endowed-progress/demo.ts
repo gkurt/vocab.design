@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="note" style="width: 264px; height: 34px; font-size: 11px">${NOTE.none}</span>
-        <sp-segmented class="sp-segmented" data-axis="Cups" data-part="pick" data-value="none">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Cups" data-part="pick" data-value="none">
           <button class="sp-segment" data-part="pick-none" value="none" style="padding: 5px 9px; font-size: 12px">0 bought</button>
           <button class="sp-segment" data-part="pick-three" value="three" style="padding: 5px 9px; font-size: 12px">3 bought</button>
           <button class="sp-segment" data-part="pick-six" value="six" style="padding: 5px 9px; font-size: 12px">6 bought</button>

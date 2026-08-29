@@ -61,7 +61,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" data-part="tools" style="gap: 10px">
-        <sp-segmented class="sp-segmented" data-axis="Gaze order" data-part="switcher" data-value="off">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Gaze order" data-part="switcher" data-value="off">
           <button class="sp-segment" type="button" data-part="seg-off" value="off">Hidden</button>
           <button class="sp-segment" type="button" data-part="seg-on" value="on">Numbered</button>
         </sp-segmented>

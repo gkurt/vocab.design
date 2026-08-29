@@ -103,7 +103,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Print preview</span>
-          <sp-segmented class="sp-segmented" data-part="rules" data-value="none" data-axis="Rule">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="rules" data-value="none" data-axis="Rule">
             ${segment('none', 'no rules')}${segment('avoid', 'break-inside')}${segment('before', 'break-before')}
           </sp-segmented>
         </div>

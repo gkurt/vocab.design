@@ -51,7 +51,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Board offers" data-term="both" data-part="offered" data-value="both">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Board offers" data-term="both" data-part="offered" data-value="both">
             <button class="sp-segment" type="button" data-part="seg-drag" value="drag"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Drag only</button>
             <button class="sp-segment" type="button" data-part="seg-both" value="both"

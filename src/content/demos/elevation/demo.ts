@@ -120,7 +120,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 13px 20px 15px">
         <div class="sp-row sp-row--between sp-context" style="height: 30px">
           <span class="sp-label">Elevation scale</span>
-          <sp-segmented class="sp-segmented" data-part="ground" data-axis="Ground" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="ground" data-axis="Ground" data-value="${START}">
             ${Object.entries(GROUNDS)
               .map(
                 ([key, g]) =>

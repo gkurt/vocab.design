@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="gap: 10px">
-        <sp-segmented class="sp-segmented" data-axis="Grain" data-part="amount" data-value="fine">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Grain" data-part="amount" data-value="fine">
           <button class="sp-segment" data-part="grain-none" value="none">None</button>
           <button class="sp-segment" data-part="grain-fine" value="fine">Fine</button>
           <button class="sp-segment" data-part="grain-coarse" value="coarse">Coarse</button>

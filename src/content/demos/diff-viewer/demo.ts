@@ -145,7 +145,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 288px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">total.js</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-axis="Layout" data-value="split">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-axis="Layout" data-value="split">
             <button class="sp-segment" type="button" data-part="seg-split" value="split" style="padding: 4px 10px; font-size: 12px">Split</button>
             <button class="sp-segment" type="button" data-part="seg-unified" value="unified" style="padding: 4px 10px; font-size: 12px">Unified</button>
           </sp-segmented>

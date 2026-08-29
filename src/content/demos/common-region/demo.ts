@@ -73,13 +73,11 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
-        <div class="sp-topbar sp-context">
-          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Grouped by" data-term="region" data-value="region" style="margin-left: auto">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Grouped by" data-term="region" data-value="region" style="margin-left: auto">
             <button class="sp-segment" type="button" data-part="seg-region" value="region">boundary</button>
             <button class="sp-segment" type="button" data-part="seg-spacing" value="spacing">spacing</button>
             <button class="sp-segment" type="button" data-part="seg-conflict" value="conflict">both</button>
           </sp-segmented>
-        </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 12px">
           <div data-part="page" style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 446px; height: 148px; background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)">
             <div class="sp-row" style="gap: 0">

@@ -71,7 +71,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Log pane" data-term="focusable" data-value="focusable" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Log pane" data-term="focusable" data-value="focusable" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-focusable" value="focusable">Focusable</button>
             <button class="sp-segment" data-part="seg-plain" value="plain">Not focusable</button>
           </sp-segmented>

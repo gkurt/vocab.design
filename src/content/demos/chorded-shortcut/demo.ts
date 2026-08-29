@@ -68,7 +68,7 @@ export function mount(root: HTMLElement): void {
               <span class="sp-grow"></span>
               <span
                 class="sp-text sp-text--ink"
-                data-part="verdict"
+                data-stage-verdict data-part="verdict"
                 style="width: 214px; text-align: right; white-space: nowrap; font-size: 12px"
               >Nothing held</span>
             </div>

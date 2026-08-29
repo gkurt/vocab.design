@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Principal element holds</span>
-          <sp-segmented class="sp-segmented" data-part="lengths" data-axis="Length" data-value="short">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="lengths" data-axis="Length" data-value="short">
             ${LENGTHS.map(
               (length) => `
               <button class="sp-segment" type="button" data-part="seg-${length.key}" value="${length.key}" style="padding: 4px 10px; font-size: 11px">${length.label}</button>`,

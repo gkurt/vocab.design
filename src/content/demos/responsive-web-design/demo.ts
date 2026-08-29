@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 470px; height: 302px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Viewport</span>
-          <sp-segmented class="sp-segmented" data-axis="Device" data-part="switcher" data-value="phone">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Device" data-part="switcher" data-value="phone">
             <button class="sp-segment" type="button" data-part="seg-phone" value="phone">phone</button>
             <button class="sp-segment" type="button" data-part="seg-tablet" value="tablet">tablet</button>
             <button class="sp-segment" type="button" data-part="seg-desktop" value="desktop">desktop</button>

@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 9px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Reader gets" data-term="full" data-part="given" data-value="full">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Reader gets" data-term="full" data-part="given" data-value="full">
             <button class="sp-segment" type="button" data-part="seg-none" value="none"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">Nothing</button>
             <button class="sp-segment" type="button" data-part="seg-alt" value="alt"
@@ -103,11 +103,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 6px; height: 16px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Screen reader says</span>
-          <span class="sp-text sp-text--ink" data-part="announce" data-mode="full"
+                  <span class="sp-text sp-text--ink" data-stage-announce data-part="announce" data-mode="full"
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${ANNOUNCE.full}</span>
-        </div>
+        
 
         <p class="sp-text sp-context" data-part="caption" data-mode="full"
            style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">${CAPTION.full}</p>

@@ -84,7 +84,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="What ships" data-value="latin" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="What ships" data-value="latin" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-full" value="full">full face</button>
             <button class="sp-segment" data-part="seg-latin" value="latin">Latin</button>
             <button class="sp-segment" data-part="seg-used" value="used">used only</button>

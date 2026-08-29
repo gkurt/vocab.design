@@ -24,7 +24,7 @@ export function mount(root: HTMLElement): void {
            style="width: 356px; --tk-blue-600: #2f5cf0; --tk-orange-500: #e2622b; --tk-accent: var(--tk-blue-600); --tk-button-bg: var(--tk-accent)">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Theme</span>
-          <sp-segmented class="sp-segmented" data-axis="Palette" data-part="segmented" data-value="aurora">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Palette" data-part="segmented" data-value="aurora">
             <button class="sp-segment" data-part="seg-aurora" value="aurora">Aurora</button>
             <button class="sp-segment" data-part="seg-ember" value="ember">Ember</button>
           </sp-segmented>

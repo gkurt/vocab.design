@@ -48,7 +48,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-grow"></span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-axis="Authored hint" data-value="default">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-axis="Authored hint" data-value="default">
             <button class="sp-segment" type="button" data-part="seg-default" value="default"
                     style="padding: 4px 12px; font-size: 11.5px">None</button>
             <button class="sp-segment" type="button" data-part="seg-hint" value="hint"
@@ -64,11 +64,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-surface" style="margin-top: 10px; padding: 8px 10px">
-          <div class="sp-row sp-row--between" style="gap: 10px">
-            <span class="sp-label">Screen reader voice</span>
-            <span class="sp-label" data-part="verdict"
+                      <span class="sp-label" data-stage-verdict data-part="verdict"
                   style="flex: 0 0 auto; width: 120px; text-align: right; font-size: 10px">${MODE.default.verdict}</span>
-          </div>
+          
           <p class="sp-text sp-text--ink" data-part="utterance" data-state="spoken"
              style="margin: 4px 0 0; height: 22px; line-height: 22px; font-size: 12px;
                     white-space: nowrap">“The old service pipes are lined with <span

@@ -146,7 +146,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 16px">
         <div class="sp-row sp-row--between sp-context" style="height: 30px">
           <span class="sp-label">Register a vehicle</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="split" data-axis="Built" data-term="split">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="split" data-axis="Built" data-term="split">
             <button class="sp-segment" data-part="seg-split" value="split" style="font-size: 12px; padding: 5px 10px">One per page</button>
             <button class="sp-segment" data-part="seg-all" value="all" style="font-size: 12px; padding: 5px 10px">All at once</button>
           </sp-segmented>

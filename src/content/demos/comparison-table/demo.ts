@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 288px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Plans</span>
-          <sp-segmented class="sp-segmented" data-axis="Rows" data-part="mode" data-value="all">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Rows" data-part="mode" data-value="all">
             <button class="sp-segment" type="button" data-part="seg-all" value="all">All features</button>
             <button class="sp-segment" type="button" data-part="seg-diff" value="diff">Differences only</button>
           </sp-segmented>

@@ -34,7 +34,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 380px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">How a shot pulls</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="loaded" data-axis="Image">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="loaded" data-axis="Image">
             <button class="sp-segment" data-part="seg-loaded" value="loaded">Loads</button>
             <button class="sp-segment" data-part="seg-failed" value="failed">Fails</button>
           </sp-segmented>

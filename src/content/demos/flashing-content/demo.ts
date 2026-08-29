@@ -65,7 +65,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Asked for" data-part="picker" data-value="slow">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Asked for" data-part="picker" data-value="slow">
             <button class="sp-segment" type="button" data-part="seg-slow" value="slow"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">0.6 a second</button>
             <button class="sp-segment" type="button" data-part="seg-fast" value="fast"
@@ -85,7 +85,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                         align-items: center; justify-content: center">
               <span data-part="still" hidden style="font-size: 10px; color: #6b6b6b">Still frame</span>
             </div>
-            <span class="sp-text sp-context" data-part="verdict" data-state="slow"
+            <span class="sp-text sp-context" data-stage-verdict data-part="verdict" data-state="slow"
                   style="min-height: 52px; font-size: 10.5px; line-height: 1.35">${VERDICT.slow}</span>
           </div>
 

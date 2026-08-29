@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 448px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="redundant" data-axis="Coded with" data-term="redundant">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="redundant" data-axis="Coded with" data-term="redundant">
             <button class="sp-segment" data-part="seg-redundant" value="redundant">Colour plus a mark</button>
             <button class="sp-segment" data-part="seg-hue" value="hue">Colour only</button>
           </sp-segmented>

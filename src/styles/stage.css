@@ -996,3 +996,188 @@ vd-stage[data-posed] .vd-playing span {
     transition: none;
   }
 }
+
+/* The exhibit's own row, under the specimen and inside the overlay's reach (SPEC §5.1).
+   It holds the mode switch today and is where announcements and instructions will go. The
+   overlay wraps this row as well as the specimen, so the ghost cursor can travel down onto
+   a control here; the row itself paints no dotted ground, because it is the museum talking
+   rather than part of the thing on display. */
+.vd-stage-reach {
+  position: relative;
+}
+
+.vd-stage-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 4px 8px;
+  border-top: 1px solid var(--vd-line);
+  font-size: 12px;
+  color: var(--vd-muted);
+}
+
+.vd-stage-strip__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 26px;
+}
+
+/* What the specimen said. The box is two lines tall from mount and stays two lines tall
+   whatever is put in it: a strip that grew with its own text would shove the whole page
+   about every time a demo spoke, which is the layout shift the stage exists to prevent
+   (SPEC §5). Longer speech is clamped rather than allowed to push. */
+/* The verdict: the author's reading of the state the specimen is in, drawn under the
+   specimen and above the switch that produced it. Two lines are reserved whatever the
+   current state says, so flipping the mode never moves the page (SPEC §5). */
+.vd-stage-verdict {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: calc(2 * 1.35em + 2px);
+  margin: 0;
+  padding: 1px 2px 0;
+  line-height: 1.35;
+  color: var(--vd-muted);
+}
+
+.vd-stage-say {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  height: calc(2 * 1.35em + 4px);
+  padding: 2px 2px 0;
+}
+
+.vd-stage-say__text {
+  margin: 0;
+  overflow: hidden;
+  line-height: 1.35;
+  color: var(--vd-ink);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.vd-stage-say__speaker {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  line-height: 0;
+  color: var(--vd-muted);
+}
+
+.vd-stage-say__speaker svg {
+  fill: currentcolor;
+}
+
+/* The waves rest hidden, so the speaker is a mute glyph until something is spoken: a
+   permanently loud icon says nothing about the moment the words changed. */
+.vd-stage-say__wave {
+  opacity: 0;
+}
+
+.vd-stage-say[data-speaking] .vd-stage-say__speaker {
+  color: var(--vd-ink);
+}
+
+.vd-stage-say[data-speaking] .vd-stage-say__wave {
+  animation: vd-say 0.9s var(--vd-ease, ease-out);
+}
+
+.vd-stage-say[data-speaking] .vd-stage-say__wave--far {
+  animation-delay: 0.12s;
+}
+
+@keyframes vd-say {
+  0% {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  30% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+/* Reduced motion keeps the cue but drops the movement: the waves simply show while the
+   stage counts out the same beat, so the moment of speech is still visible. */
+@media (prefers-reduced-motion: reduce) {
+  .vd-stage-say[data-speaking] .vd-stage-say__wave {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* A still never changes state, so a lane in a capture takes the room its own words need.
+   The reserved height exists to stop a mode change moving the page, and nothing moves in a
+   picture; clamping there would truncate the one sentence the share image is carrying. */
+.vd-stage-strip[data-capture] .vd-stage-verdict,
+.vd-stage-strip[data-capture] .vd-stage-say,
+.vd-stage-strip[data-capture] .vd-stage-say__text {
+  display: block;
+  height: auto;
+  overflow: visible;
+  -webkit-line-clamp: none;
+}
+.vd-stage-strip[data-capture] .vd-stage-say {
+  display: flex;
+}
+
+.vd-stage-strip[hidden] {
+  display: none;
+}
+
+.vd-stage-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Two switches on one strip (a variant and a parameter, say) are two controls, not one row
+   of buttons: the rule keeps a reader from reading across the join. */
+.vd-stage-mode + .vd-stage-mode {
+  margin-left: 4px;
+  padding-left: 12px;
+  border-left: 1px solid var(--vd-line);
+}
+
+.vd-stage-mode__label {
+  padding-right: 4px;
+}
+
+.vd-stage-mode button {
+  appearance: none;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--vd-muted);
+  padding: 3px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Synthesized input lights no pseudo-class, so the attribute the player mirrors is spelled
+   beside `:hover` exactly as the kit's own controls do. Without it the ghost presses a
+   control that never acknowledges the pointer. */
+.vd-stage-mode button:hover,
+.vd-stage-mode button[data-hovered] {
+  color: var(--vd-ink);
+  background: var(--vd-paper);
+}
+
+.vd-stage-mode button[data-pressed] {
+  color: var(--vd-ink);
+  background: var(--vd-line);
+}
+
+.vd-stage-mode button[aria-pressed="true"] {
+  color: var(--vd-ink);
+  background: var(--vd-paper);
+  box-shadow: inset 0 0 0 1px var(--vd-line);
+}

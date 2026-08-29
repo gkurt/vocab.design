@@ -133,7 +133,7 @@ export function mount(root: HTMLElement): void {
               ${stub(port, 'in')}`,
             ).join('')}
           </div>
-          <span class="sp-text sp-context" data-part="verdict" data-state="rest" style="height: 19px; font-size: 11px; overflow: hidden">${VERDICTS.rest}</span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="verdict" data-state="rest" style="height: 19px; font-size: 11px; overflow: hidden">${VERDICTS.rest}</span>
         </div>
       </div>
     </div>

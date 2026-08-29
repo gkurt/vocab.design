@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
             <span style="flex: 1 1 auto; min-width: 0; padding: 3px 9px; border-radius: 999px; background: var(--sp-sunken);
                          color: var(--sp-muted); font-size: 10px; white-space: nowrap; overflow: hidden;
                          text-overflow: ellipsis">news site / release notes</span>
-            <sp-segmented class="sp-segmented" data-part="view" data-axis="View" data-value="page" style="flex: 0 0 auto">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="view" data-axis="View" data-value="page" style="flex: 0 0 auto">
               <button class="sp-segment" data-part="seg-page" value="page"
                       style="padding: 3px 9px; font-size: 11px">Page</button>
               <button class="sp-segment" data-part="seg-reader" value="reader"
@@ -99,11 +99,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 16px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">What is on screen</span>
-          <span class="sp-text sp-text--ink" data-part="verdict" data-view="page"
+                  <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" data-view="page"
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${VERDICT.page}</span>
-        </div>
+        
 
         <p class="sp-text sp-context" data-part="caption" data-view="page"
            style="margin: 6px 0 0; height: 32px; font-size: 11px">${CAPTION.page}</p>

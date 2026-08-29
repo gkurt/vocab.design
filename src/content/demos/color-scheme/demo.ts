@@ -42,14 +42,14 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 380px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="System" data-part="os" data-value="${START_OS}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="System" data-part="os" data-value="${START_OS}">
             <button class="sp-segment" data-part="os-light" value="light">Light</button>
             <button class="sp-segment" data-part="os-dark" value="dark">Dark</button>
           </sp-segmented>
         </div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="color-scheme" data-part="scheme" data-value="${START_SCHEME}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="color-scheme" data-part="scheme" data-value="${START_SCHEME}">
             <button class="sp-segment" data-part="scheme-light" value="light">light</button>
             <button class="sp-segment" data-part="scheme-dark" value="dark">dark</button>
             <button class="sp-segment" data-part="scheme-auto" value="auto">light dark</button>

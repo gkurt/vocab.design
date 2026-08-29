@@ -96,13 +96,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span data-part="activity-text">Amira in Leeds just bought this</span>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="verdict" style="font-size: 11px; width: 292px">${VERDICT.fabricated}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="fabricated" data-axis="Version" data-term="fabricated">
-          <button class="sp-segment" data-part="mode-fabricated" value="fabricated">As shipped</button>
-          <button class="sp-segment" data-part="mode-genuine" value="genuine">Made fair</button>
+              <span class="sp-text" data-stage-verdict data-part="verdict" style="font-size: 11px; width: 292px">${VERDICT.fabricated}</span>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="fabricated" data-axis="Fake social proof" data-term="fabricated">
+          <button class="sp-segment" data-part="mode-fabricated" value="fabricated">With</button>
+          <button class="sp-segment" data-part="mode-genuine" value="genuine">Without</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

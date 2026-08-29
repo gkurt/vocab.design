@@ -90,7 +90,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
       <div class="sp-row sp-context" style="gap: 8px">
-        <sp-segmented class="sp-segmented" data-part="style" data-axis="Style" data-value="slide">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="style" data-axis="Style" data-value="slide">
           <button class="sp-segment" data-part="style-slide" value="slide">Slide</button>
           <button class="sp-segment" data-part="style-fade" value="fade">Crossfade</button>
         </sp-segmented>

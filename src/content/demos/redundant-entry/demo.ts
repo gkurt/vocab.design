@@ -58,7 +58,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">This checkout</span>
-          <sp-segmented class="sp-segmented" data-part="flow" data-axis="Flow" data-value="carried">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="flow" data-axis="Flow" data-value="carried">
             <button class="sp-segment" type="button" data-part="seg-retype" value="retype"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Asks again</button>
             <button class="sp-segment" type="button" data-part="seg-carried" value="carried"

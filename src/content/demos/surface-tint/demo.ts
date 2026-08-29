@@ -99,11 +99,9 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 13px 20px">
-        <div class="sp-row sp-row--between sp-context" style="height: 31px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Height cue" data-term="tonal" data-value="${START}">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Height cue" data-term="tonal" data-value="${START}">
             ${MODES.map((m) => `<button class="sp-segment" data-part="seg-${m.key}" value="${m.key}">${m.name}</button>`).join('')}
           </sp-segmented>
-        </div>
 
         <div class="sp-row" style="gap: 12px; margin-top: 10px; align-items: flex-start">
           ${PLATES.map(plate).join('')}

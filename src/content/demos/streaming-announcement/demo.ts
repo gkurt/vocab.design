@@ -51,7 +51,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Reply generated token by token</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="staged" data-axis="Spoken" data-term="staged" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="staged" data-axis="Spoken" data-term="staged" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-staged" value="staged"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Staged</button>
             <button class="sp-segment" type="button" data-part="seg-naive" value="naive"

@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 440px; padding: 14px 16px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Picker reloads" data-term="request" data-part="segmented" data-value="request">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Picker reloads" data-term="request" data-part="segmented" data-value="request">
             <button class="sp-segment" data-part="seg-request" value="request">On request</button>
             <button class="sp-segment" data-part="seg-input" value="input">On input</button>
           </sp-segmented>

@@ -81,13 +81,12 @@ export function mount(root: HTMLElement): void {
           >${BODY.deceptive}</div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="verdict" style="font-size: 11px; width: 300px">${VERDICT.deceptive}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="deceptive" data-axis="Version" data-term="deceptive">
-          <button class="sp-segment" data-part="mode-deceptive" value="deceptive">As shipped</button>
-          <button class="sp-segment" data-part="mode-fair" value="fair">Made fair</button>
+              <span class="sp-text" data-stage-verdict data-part="verdict" style="font-size: 11px; width: 300px">${VERDICT.deceptive}</span>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="deceptive" data-axis="Dark pattern" data-term="deceptive">
+          <button class="sp-segment" data-part="mode-deceptive" value="deceptive">With</button>
+          <button class="sp-segment" data-part="mode-fair" value="fair">Without</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

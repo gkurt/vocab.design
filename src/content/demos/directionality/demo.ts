@@ -71,7 +71,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-mode="directional" style="height: 286px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Motion</span>
-          <sp-segmented class="sp-segmented" data-axis="Transition" data-term="directional" data-part="mode" data-value="directional">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Transition" data-term="directional" data-part="mode" data-value="directional">
             <button class="sp-segment" type="button" data-part="seg-directional" value="directional">Directional</button>
             <button class="sp-segment" type="button" data-part="seg-undirected" value="undirected">Undirected</button>
           </sp-segmented>

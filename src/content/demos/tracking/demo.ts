@@ -59,7 +59,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">One amount, every letter</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="set" data-axis="Spacing" data-term="set">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="set" data-axis="Spacing" data-term="set">
             <button class="sp-segment" data-part="seg-typed" value="typed">as typed</button>
             <button class="sp-segment" data-part="seg-set" value="set">tracked</button>
           </sp-segmented>

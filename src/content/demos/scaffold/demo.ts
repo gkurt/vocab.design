@@ -158,7 +158,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 7px; width: 476px">
-        <sp-segmented class="sp-segmented" data-part="screens" data-value="inbox" data-axis="Screen">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="screens" data-value="inbox" data-axis="Screen">
           ${SCREENS.map(
             (screen) => `
             <button class="sp-segment" type="button" data-part="seg-${screen.key}" value="${screen.key}" style="padding: 4px 12px; font-size: 12px">${screen.label}</button>`,

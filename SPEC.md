@@ -832,36 +832,74 @@ showing. Three jobs hide behind one control, and only the first is a comparison:
 needs no more than a name. A counter-example needs the reader to know which side is the
 word they came for.
 
-Two attributes on the control carry that, and the kit stylesheet draws both:
+**A mode switch is the exhibit's control, not the mock product's, and placement is what
+says so.** Drawn inside the demo it becomes part of the fiction: 154 of them ended up in
+a simulated application's own title bar, sitting in one row with an invented brand at
+equal weight, so `Marrow` and `Riverside Arena` and `As shipped` all read as furniture of
+the same imaginary product. No wording fixes that, and a legend inside the pill made it
+worse by adding a third competing word to the product's chrome. So the control moves out:
+a demo marks its switch `data-stage-mode` and the stage draws it in the **strip** (§6), in
+chrome rather than kit.
 
-- **`data-axis`** names what the switch changes, rendered as a legend inside the pill and
-  handed to the tablist as its accessible name. Required, because a segment label is the
-  value of something: unkeyed, "As shipped" beside a delivery line reads as a postage
-  option, which is exactly what it did on the drip pricing and sneak into basket
-  specimens. Name what the control switches, not what the scene is: `Version`, not
-  `Checkout`, when the window is already headed Checkout. A legend has to fit inside the pill and an
-  accessible name does not, so a control that writes its own `aria-label` keeps it: the
-  axis is the short visible word, the label is free to be the fuller one ("Scope" in the
-  pill, "Search scope" in the tree).
-- **`data-term`** names the segment the headword points at. The matching segment carries
-  a quiet dot. This is the same claim `data-pose` already makes to the stage, said out
-  loud to the reader, and `bun validate` refuses to let the two disagree.
+What labels it depends on which of the three jobs it is doing. A **counter-example** IS the
+headword, so the headword names it: `Drip pricing: With | Without` cannot be spelled
+differently by the next author, ordered differently, or left ambiguous about which side is
+the word, because no author writes it. A **variant** or a **parameter** is not the word, so
+it keeps its own `data-axis`: `Theme: Light | Dark`, `Width: 300px | 440px`. Naming those
+after the headword would be a lie, and keeping them apart is also what lets one specimen put
+two switches on the strip without both claiming to be the term.
+
+The demo keeps the element and every listener on it, hidden; the stage's control forwards
+to it, and follows it, so a reader's click, the attract script's click and the demo's own
+code all reach the mode the same way.
+
+Two attributes survive on the control, and neither is drawn any more:
+
+- **`data-axis`** is the tablist's accessible name. An author's own `aria-label` outranks
+  it, since a name has no width to answer to ("Scope" in the control, "Search scope" in
+  the tree).
+- **`data-term`** names the segment the headword points at. It is the same claim
+  `data-pose` already makes to the stage, and `bun validate` refuses to let the two
+  disagree. Nothing paints it: a dot beside a label teaches a reader nothing they can
+  learn, while a pair that names itself does.
 
 **Order is baseline, then change.** Every switch reads left to right as without, then
 with. That puts the term FIRST when the term is a defect (a deceptive pattern) and
 SECOND when the term is a feature something turns on (`hyphenation: auto`,
 `text-wrap: balance`, oldstyle figures). The rule was already unanimous across the
-corpus before it was written down, which is why the term's position cannot carry the
-meaning and `data-term` has to.
+corpus before it was written down.
 
-**The deceptive-pattern family spells its pair one way: `As shipped | Made fair`.** The
-enum exists for the same reason the tag enum does. Nineteen specimens had reached for
-twelve spellings (`Made honest`, `Made plain`, `All in`, `One click`, `Even-handed`,
-`Lined up`, `Asked exactly`), because a switch label is invented by whoever is authoring
-that term and read by nobody who has seen the others. The specific claim lives in the
-verdict line beside the switch, which every one of these specimens already carries, so
-the labels can afford to be blunt. The enum stops at that family deliberately: *fair* is
-an ethical word, and a broken heading order or a stuck hover is wrong rather than unfair.
+**The deceptive-pattern family spells its pair one way: `With | Without`.** The enum
+exists for the same reason the tag enum does. Nineteen specimens had reached for twelve
+spellings (`Made honest`, `Made plain`, `All in`, `One click`, `Even-handed`, `Lined up`,
+`Asked exactly`), because a switch label is invented by whoever is authoring that term and
+read by nobody who has seen the others. `As shipped | Made fair` replaced those and was
+itself wrong: release jargon on one side and a moral verdict on the other, neither of
+which answers "with what?". The headword answers it, which is why the labels can be two
+plain words. The specific claim lives in the verdict, drawn in the strip directly above the
+switch that produced it.
+
+**Anything that is not in the fiction is chrome.** The switch was the first case and not the
+only one. A **verdict** ("the advertised 42.00 won the click. Each step adds a fee nobody can
+decline") is the site's reading of the state, not the product's: no checkout says that about
+itself, so printed inside the mock in the mock's own type it is one more line the reader has
+to work out is not part of the scene. It is also an artifact of the mode, which is why it is
+drawn immediately above the control that changed it. An **announcement** moves for the
+opposite reason: a screen reader's speech is not the product's chrome either, and a demo that
+prints it into a panel of its own makes the load-bearing half of an accessibility specimen
+look like a feature of the mock. Both are marked in the demo and drawn by the stage
+(`data-stage-verdict`, `data-stage-announce`), and both reserve their room whatever the
+current state says, so changing modes never moves the page.
+
+**A readout stays in the frame only when the demo draws the thing that produces it.** This is
+the test, and it is not about wording: restyling the author's voice to look like product UI is
+how the invented brand names happened. `braille-display` draws the pin array, `key-sequence`
+draws the kbd chips and the timeout meter its line reports, `inline-validation` prints into
+the field's own slot with `aria-describedby` pointing at it, and `containing-block` reads
+"Containing block: the card", a legend naming a box the figure draws. Those are instruments,
+and their output is fiction. A label asserting an instrument nobody can see is not: "Screen
+reader, polite queue" over a scene with no screen reader in it is a stage direction wearing a
+product's clothes. Either draw the instrument or give the text to chrome.
 
 ## 6. Specimen stage
 
@@ -871,8 +909,35 @@ view-source, and a play control, pinned right, that reads "Playing" behind a pau
 glyph while attract owns the stage, stops the script when clicked, and reads "Play"
 behind a play glyph otherwise), the isolation mode
 (shadow root or iframe), and the attract-mode player. Written once; demos never reimplement any of it. Specimens follow
-the page theme — the stage syncs the kit's light/dark tokens to the chrome's; there is
+the page theme: the stage syncs the kit's light/dark tokens to the chrome's; there is
 no per-stage theme control.
+
+**The strip is the exhibit's own row**, between the specimen and the control bar. It holds
+three lanes, drawn top to bottom in the order the reader needs them: what the specimen SAYS
+(`data-stage-announce`, with a speaker that pulses when the words change, and it is the real
+live region since the demo's own element is hidden and so out of the accessibility tree),
+what the current state AMOUNTS TO (`data-stage-verdict`, no speaker and no live region, since
+it is prose rather than speech), and then the mode switch (§5.1), which sits under the verdict
+because the verdict is what it just did. Every lane reserves its room from mount, so no lane
+resizes as the specimen changes state. A mirror carries the source's own `data-*` across, so a
+choreography that asks for `[data-part=verdict][data-state=offset]` finds it in the strip and
+never falls through to the hidden original. It is deliberately INSIDE the annotation overlay rather than in the control bar below it,
+because the ghost cursor is drawn on that overlay: a choreography can therefore travel
+down onto a control in the strip and press it, by the same `data-part` the demo's own
+hidden segment carries. The player searches the strip first, so a script says "press the
+mode switch" without knowing where the stage chose to draw it. A strip control's box is in
+page pixels while everything else the player aims at is in the specimen's, so the player
+converts at the point it aims and keeps one coordinate space, which is what lets a travel
+that begins in the specimen and ends on the strip interpolate without a jump. A specimen
+with nothing to put there gets no row at all.
+
+Being outside the specimen cuts both ways: every takeover signal is registered on the
+surface, so a control in the strip has to claim the stage and give it back itself. A press
+there is intent exactly as a press inside the demo is, and the pointer leaving the strip
+is the reader leaving exactly as leaving the specimen's edge is. Without the first, attract
+plays on over a reader and the next pass undoes the choice they just made; without the
+second, one press keeps the stage in user mode for the rest of the visit and the
+demonstration never plays again.
 
 **Reset is formalized as destroy-and-remount.** Demos must be cheaply re-creatable from
 initial state; no demo ships custom cleanup logic.

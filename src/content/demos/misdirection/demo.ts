@@ -97,13 +97,12 @@ export function mount(root: HTMLElement): void {
 
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="verdict" style="width: 296px; font-size: 11px">${VERDICT.steered}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="steered" data-axis="Version" data-term="steered">
-          <button class="sp-segment" data-part="mode-steered" value="steered">As shipped</button>
-          <button class="sp-segment" data-part="mode-fair" value="fair">Made fair</button>
+              <span class="sp-text" data-stage-verdict data-part="verdict" style="width: 296px; font-size: 11px">${VERDICT.steered}</span>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="steered" data-axis="Misdirection" data-term="steered">
+          <button class="sp-segment" data-part="mode-steered" value="steered">With</button>
+          <button class="sp-segment" data-part="mode-fair" value="fair">Without</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

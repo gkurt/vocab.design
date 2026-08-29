@@ -121,7 +121,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="heading" data-axis="Element" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="heading" data-axis="Element" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-heading" value="heading"
                     style="padding: 5px 10px; font-size: 12px">Heading</button>
             <button class="sp-segment" data-part="seg-button" value="button"
@@ -146,11 +146,9 @@ export function mount(root: HTMLElement): void {
                   style="font-size: 12px; cursor: default">Add to shopping cart</button>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 17px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Speech says</span>
-          <span class="sp-text sp-text--ink" data-part="speech" data-el="heading"
+                  <span class="sp-text sp-text--ink" data-stage-announce data-part="speech" data-el="heading"
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${ELEMENTS.heading.speech}</span>
-        </div>
+        
 
         <div class="sp-surface" data-part="strip" data-subject data-el="heading" data-cells="16"
              style="width: fit-content; margin: 10px auto 0; padding: 8px 10px; display: flex; gap: 4px;

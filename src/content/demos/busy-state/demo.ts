@@ -57,7 +57,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="aria-busy" data-term="declared" data-part="mode" data-value="declared" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="aria-busy" data-term="declared" data-part="mode" data-value="declared" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-declared" value="declared"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Declared</button>
             <button class="sp-segment" type="button" data-part="seg-omitted" value="omitted"

@@ -66,7 +66,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Revenue, one series</span>
-          <sp-segmented class="sp-segmented" data-axis="Presentation" data-part="mode" data-value="table" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Presentation" data-part="mode" data-value="table" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-table" value="table"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">Table</button>
             <button class="sp-segment" type="button" data-part="seg-summary" value="summary"

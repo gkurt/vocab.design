@@ -40,7 +40,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             aria-describedby="vd-note-remaining"
             style="height: 68px; resize: none; line-height: 1.5"
           ></textarea>
-          <span class="sp-visually-hidden" id="vd-note-remaining" data-part="announcement" role="status"></span>
+          <span class="sp-visually-hidden" id="vd-note-remaining" data-stage-announce data-part="announcement" role="status"></span>
         </div>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 14px">
           <button class="sp-button" data-part="post" type="button">Post note</button>

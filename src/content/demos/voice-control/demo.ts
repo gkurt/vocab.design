@@ -68,7 +68,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Addressed by" data-part="segmented" data-value="labels">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Addressed by" data-part="segmented" data-value="labels">
             <button class="sp-segment" data-part="seg-labels" value="labels">Labels</button>
             <button class="sp-segment" data-part="seg-numbers" value="numbers">Numbers</button>
           </sp-segmented>
@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; gap: 10px">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="speak">Speak next</button>
-          <span class="sp-text sp-text--ink" data-part="said" data-utter="send"
+          <span class="sp-text sp-text--ink" data-stage-announce data-part="said" data-utter="send"
                 style="flex: 0 0 auto; font-size: 12px; white-space: nowrap">${BY_LABEL[0]?.phrase}</span>
         </div>
 

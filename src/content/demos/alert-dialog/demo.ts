@@ -55,7 +55,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <p class="sp-text sp-context" data-part="announce" data-state="idle" role="status" style="max-width: 460px; text-align: center; margin: 0; min-height: 20px">
+      <p class="sp-text sp-context" data-stage-announce data-part="announce" data-state="idle" role="status" style="max-width: 460px; text-align: center; margin: 0; min-height: 20px">
         ${IDLE}
       </p>
     </div>

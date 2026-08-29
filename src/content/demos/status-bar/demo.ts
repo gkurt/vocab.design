@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 470px; height: 292px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">App chrome</span>
-          <sp-segmented class="sp-segmented" data-axis="Theme" data-part="switcher" data-value="dark">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Theme" data-part="switcher" data-value="dark">
             <button class="sp-segment" type="button" data-part="seg-dark" value="dark">dark</button>
             <button class="sp-segment" type="button" data-part="seg-light" value="light">light</button>
           </sp-segmented>

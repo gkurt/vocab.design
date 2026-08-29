@@ -76,7 +76,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 272px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Viewport</span>
-          <sp-segmented class="sp-segmented" data-part="viewports" data-axis="Width" data-value="narrow">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="viewports" data-axis="Width" data-value="narrow">
             ${VIEWPORTS.map(
               (viewport) => `
               <button class="sp-segment" type="button" data-part="seg-${viewport.key}" value="${viewport.key}" style="padding: 4px 11px; font-size: 11px">${viewport.width}px</button>`,

@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-context sp-row" style="gap: 8px">
-        <sp-segmented class="sp-segmented" data-axis="Raster" data-part="switcher" data-value="on">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Raster" data-part="switcher" data-value="on">
           <button class="sp-segment" type="button" data-part="seg-on" value="on">Over</button>
           <button class="sp-segment" type="button" data-part="seg-off" value="off">Off</button>
         </sp-segmented>

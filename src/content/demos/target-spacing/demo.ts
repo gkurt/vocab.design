@@ -68,7 +68,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Circle test</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="spaced" data-axis="View" data-term="spaced">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="spaced" data-axis="View" data-term="spaced">
             <button class="sp-segment" type="button" data-part="seg-shipped" value="shipped"
                     style="padding: 4px 8px; font-size: 11.5px; white-space: nowrap">As shipped</button>
             <button class="sp-segment" type="button" data-part="seg-tested" value="tested"
@@ -91,7 +91,7 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 16px; gap: 10px">
           <span class="sp-label" data-part="offset" data-px="28" style="flex: 0 0 auto; font-size: 10.5px">Offset between centres: 28 px</span>
-          <span class="sp-label" data-part="verdict" data-state="spaced" style="flex: 0 0 auto; font-size: 10.5px">${VERDICT.spaced}</span>
+          <span class="sp-label" data-stage-verdict data-part="verdict" data-state="spaced" style="flex: 0 0 auto; font-size: 10.5px">${VERDICT.spaced}</span>
         </div>
 
         <p class="sp-text sp-context" data-part="caption" data-state="spaced"

@@ -80,7 +80,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Device pixel ratio</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Ratio" data-value="1">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Ratio" data-value="1">
             <button class="sp-segment" type="button" data-part="seg-1x" value="1">1x</button>
             <button class="sp-segment" type="button" data-part="seg-2x" value="2">2x</button>
             <button class="sp-segment" type="button" data-part="seg-3x" value="3">3x</button>

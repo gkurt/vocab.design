@@ -73,7 +73,7 @@ export function mount(root: HTMLElement): void {
 
         </div>
       </div>
-      <sp-segmented class="sp-segmented" data-axis="Footer" data-part="form" data-value="plain">
+      <sp-segmented data-stage-mode class="sp-segmented" data-axis="Footer" data-part="form" data-value="plain">
         <button class="sp-segment" data-part="form-plain" value="plain">Sender wrote it plainly</button>
         <button class="sp-segment" data-part="form-buried" value="buried">Sender buried it</button>
       </sp-segmented>

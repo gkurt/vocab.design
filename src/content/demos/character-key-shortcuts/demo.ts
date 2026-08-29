@@ -71,7 +71,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <sp-segmented class="sp-segmented" data-part="policy" data-axis="Shortcut policy" data-value="always" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="policy" data-axis="Shortcut policy" data-value="always" style="margin-left: auto">
             <button class="sp-segment" type="button" data-part="seg-always" value="always"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">Always on</button>
             <button class="sp-segment" type="button" data-part="seg-typing" value="typing"
@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
             ${binding('s', 'Star')}
             ${binding('r', 'Reply')}
           </div>
-          <span class="sp-text sp-text--ink sp-context" data-part="verdict" data-policy="always"
+          <span class="sp-text sp-text--ink sp-context" data-stage-verdict data-part="verdict" data-policy="always"
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${POLICY.always.verdict}</span>
         </div>
 

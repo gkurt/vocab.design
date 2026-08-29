@@ -9,6 +9,8 @@ import { TouchHover } from '#src/stage/touch-hover.ts';
 import { TouchMirror } from '#src/stage/touch-mirror.ts';
 import { isRevealed } from '#src/stage/visible.ts';
 
+/** How long the speaker pulses after the specimen says something new. */
+const SPEAK_MS = 900;
 const HOVER_DWELL_MS = 150;
 
 /** The box every specimen is authored against (SPEC §5), which is also the reading column. */
@@ -222,6 +224,7 @@ class VdStage extends HTMLElement {
     // takes it off (SPEC §7). Constructed before the first mount so no tree is ever
     // built without it, and released on remount so a fresh tree cannot inherit the
     // last one's stranded hover.
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const touchHover = new TouchHover(surface.events);
     const remount = () => {
       clock?.stop();
@@ -234,11 +237,217 @@ class VdStage extends HTMLElement {
       surface.mount(root, clock);
       this.#mountRoot = root;
       setPosed(false);
+      syncStrip();
     };
+
+    /**
+     * The specimen's mode switch, rendered as stage chrome (SPEC §5.1).
+     *
+     * A control that compares two versions of the scene is the exhibit's, not the mock
+     * product's, and for one release it was drawn inside the demo: 154 of them ended up in
+     * a fake application's own title bar, reading as product UI beside an invented brand.
+     * Placement is what says "this is not part of the thing you are looking at", so the
+     * control is drawn in the strip below the specimen, labelled with the headword the stage
+     * already knows. The strip sits inside the overlay rather than in the control bar, so
+     * the ghost cursor can travel down onto it and a choreography can press it like any
+     * other part (`PlayerHost.strip`). A demo opts in with `data-stage-mode` on its
+     * `<sp-segmented>`; the element stays mounted and keeps every listener, so the demo's
+     * own logic is untouched and a click here is forwarded to it.
+     */
+    const strip = this.querySelector<HTMLElement>('[data-stage-strip]');
+    let announceWatch: MutationObserver | undefined;
+    let speakerTimer: ReturnType<typeof setTimeout> | undefined;
+
+    /**
+     * Carry the source's own state onto its mirror in the strip.
+     *
+     * A choreography aims at the part it always aimed at, and it may qualify that part with a
+     * state attribute (`[data-part=verdict][data-state=offset]`). The stage moved where the
+     * text is drawn, not what it is called or what it knows about itself, so the mirror has to
+     * answer the same selector: without this the player finds nothing in the strip, falls back
+     * to the hidden original, and the assert fails on a claim that is true.
+     */
+    const mirrorData = (source: HTMLElement, target: HTMLElement) => {
+      for (const name of Object.keys(target.dataset)) {
+        if (!(name in source.dataset)) delete target.dataset[name];
+      }
+      for (const [name, value] of Object.entries(source.dataset)) {
+        if (name === 'stageAnnounce' || name === 'stageVerdict' || value === undefined) continue;
+        target.dataset[name] = value;
+      }
+    };
+
+    /**
+     * What the specimen SAYS, drawn in the strip (SPEC §5.1).
+     *
+     * A screen reader's speech is the load-bearing half of an accessibility specimen: the
+     * whole claim of `has-popup` or `set-size-and-position` is the sentence a reader hears,
+     * and a demo that prints it into a panel of its own makes it look like a feature of the
+     * mock product rather than the thing being demonstrated. So it moves out here, with a
+     * speaker beside it that pulses when the words change, which is the only cue a reader
+     * looking at the specimen has that something was just spoken.
+     *
+     * The mirror is the real live region, and it can be, precisely because the demo's own
+     * element is hidden and so out of the accessibility tree: without this, a specimen about
+     * announcements would announce nothing to the reader who most needs it.
+     */
+    const buildAnnouncement = (source: HTMLElement): HTMLElement => {
+      const lane = document.createElement('div');
+      lane.className = 'vd-stage-say';
+      lane.setAttribute('role', 'status');
+      lane.setAttribute('aria-live', 'polite');
+      lane.setAttribute('aria-atomic', 'true');
+
+      const speaker = document.createElement('span');
+      speaker.className = 'vd-stage-say__speaker';
+      speaker.setAttribute('aria-hidden', 'true');
+      speaker.innerHTML =
+        '<svg viewBox="0 0 16 16" width="13" height="13"><path d="M7 2.6 3.9 5.2H2a.7.7 0 0 0-.7.7v4.2c0 .4.3.7.7.7h1.9L7 13.4a.6.6 0 0 0 1-.5V3.1a.6.6 0 0 0-1-.5Z"/>' +
+        '<path class="vd-stage-say__wave" d="M10.4 5.6a3.4 3.4 0 0 1 0 4.8" fill="none" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round"/>' +
+        '<path class="vd-stage-say__wave vd-stage-say__wave--far" d="M12.4 3.6a6.2 6.2 0 0 1 0 8.8" fill="none" stroke="currentcolor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+
+      const said = document.createElement('p');
+      said.className = 'vd-stage-say__text';
+      mirrorData(source, said);
+      said.textContent = source.textContent?.trim() ?? '';
+      lane.append(speaker, said);
+
+      const speak = () => {
+        mirrorData(source, said);
+        const words = source.textContent?.trim() ?? '';
+        if (words === said.textContent) return;
+        said.textContent = words;
+        if (reducedMotion) return;
+        lane.setAttribute('data-speaking', '');
+        clearTimeout(speakerTimer);
+        speakerTimer = setTimeout(() => lane.removeAttribute('data-speaking'), SPEAK_MS);
+      };
+      announceWatch = new MutationObserver(speak);
+      announceWatch.observe(source, { attributes: true, childList: true, characterData: true, subtree: true });
+      return lane;
+    };
+
+    let verdictWatch: MutationObserver | undefined;
+
+    /**
+     * What the specimen's current state AMOUNTS TO, drawn in the strip (SPEC §5.1).
+     *
+     * A verdict is the author's voice, not the product's: no checkout says "the advertised
+     * 42.00 won the click" about itself, and printed inside the mock in the mock's own type
+     * it is one more thing the reader has to work out is not part of the fiction. It is also
+     * an artifact of the mode, so it belongs beside the switch that produced it rather than
+     * in a column of the specimen reserved to hold it.
+     *
+     * Unlike an announcement this is not speech, so it carries no speaker and no live
+     * region: a screen reader reaches it as ordinary prose, in the order it is drawn.
+     */
+    const buildVerdict = (source: HTMLElement): HTMLElement => {
+      const lane = document.createElement('p');
+      lane.className = 'vd-stage-verdict';
+      mirrorData(source, lane);
+      lane.textContent = source.textContent?.trim() ?? '';
+      verdictWatch = new MutationObserver(() => {
+        mirrorData(source, lane);
+        lane.textContent = source.textContent?.trim() ?? '';
+      });
+      verdictWatch.observe(source, { attributes: true, childList: true, characterData: true, subtree: true });
+      return lane;
+    };
+
+    let modeWatch: MutationObserver | undefined;
+    const syncStrip = () => {
+      if (!strip) return;
+      modeWatch?.disconnect();
+      announceWatch?.disconnect();
+      verdictWatch?.disconnect();
+      clearTimeout(speakerTimer);
+      modeWatch = new MutationObserver(() => {
+        for (const repaint of repaints) repaint();
+      });
+      const repaints: Array<() => void> = [];
+      const sources = [...(this.#mountRoot?.querySelectorAll<HTMLElement>('sp-segmented[data-stage-mode]') ?? [])];
+      const announcer = this.#mountRoot?.querySelector<HTMLElement>('[data-stage-announce]') ?? null;
+      const verdicter = this.#mountRoot?.querySelector<HTMLElement>('[data-stage-verdict]') ?? null;
+      strip.replaceChildren();
+      strip.toggleAttribute('data-capture', capture);
+
+      // Hide every source BEFORE deciding whether the row is drawn at all. What the strip
+      // replaced must never be left sitting in the fiction, and a capture with a switch and
+      // nothing to say draws no row: hiding after that decision photographed the old layout.
+      if (announcer) announcer.style.display = 'none';
+      if (verdicter) verdicter.style.display = 'none';
+      for (const source of sources) source.style.display = 'none';
+
+      strip.hidden = (capture || !sources.length) && !announcer && !verdicter;
+      if (strip.hidden) return;
+
+      // What the specimen says goes directly under it, because it is the specimen speaking;
+      // the controls sit below, next to the bar they belong with.
+      if (announcer) strip.append(buildAnnouncement(announcer));
+      // The verdict sits directly above the controls, because it is what the switch just did.
+      if (verdicter) strip.append(buildVerdict(verdicter));
+      // A still cannot be clicked, so the switch is left out of the picture and its mode is
+      // whatever the pose chose. The content lanes stay: a share image of `has-popup` with no
+      // announcement is a menu button and nothing else.
+      if (!sources.length || capture) return;
+      const controls = document.createElement('div');
+      controls.className = 'vd-stage-strip__controls';
+
+      for (const source of sources) {
+        // A counter-example switch IS the headword, so the headword names it: "Drip pricing:
+        // With | Without" cannot be spelled, ordered or left ambiguous by an author, because
+        // no author writes it. A variant or a parameter is not the word, so it keeps its own
+        // axis ("Theme", "Width"), which is also what lets a demo put two switches out here
+        // without them both claiming to be the term.
+        const named = source.hasAttribute('data-term') ? (this.dataset.name ?? slug) : (source.dataset.axis ?? '');
+        const group = document.createElement('span');
+        group.className = 'vd-stage-mode';
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-label', source.getAttribute('aria-label') ?? named);
+        if (named) {
+          const label = document.createElement('span');
+          label.className = 'vd-stage-mode__label';
+          label.textContent = `${named}:`;
+          label.setAttribute('aria-hidden', 'true');
+          group.append(label);
+        }
+
+        const paint = () => {
+          for (const button of group.querySelectorAll<HTMLElement>('button'))
+            button.setAttribute('aria-pressed', String(button.dataset.value === source.dataset.value));
+        };
+        for (const segment of source.querySelectorAll<HTMLButtonElement>('.sp-segment')) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.dataset.value = segment.value;
+          // The choreography aims at the part it always aimed at; the stage moved where that
+          // part is drawn, not what it is called. The hidden source keeps its own copy, so the
+          // demo's `part()` lookups are untouched.
+          if (segment.dataset.part) button.dataset.part = segment.dataset.part;
+          button.textContent = segment.textContent;
+          button.addEventListener('click', () => segment.click());
+          group.append(button);
+        }
+        controls.append(group);
+        repaints.push(paint);
+        paint();
+
+        // The demo owns the mode: a reader's click here, the attract script's click, and the
+        // demo's own code all reach it the same way, so the outer control follows the source
+        // rather than remembering what it last pressed. Without this it goes stale the moment
+        // anything other than this control changes the mode, which is most of the time.
+        modeWatch.observe(source, { attributes: true, attributeFilter: ['data-value'] });
+      }
+      strip.append(controls);
+    };
+    this.#teardown.push(() => {
+      modeWatch?.disconnect();
+      announceWatch?.disconnect();
+      verdictWatch?.disconnect();
+      clearTimeout(speakerTimer);
+    });
     remount();
     this.#teardown.push(() => clock?.stop());
-
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // The play control reads the *mode*, not the instantaneous player state: identify
     // suspends attract without ending it, and the label must not flicker for that.
@@ -255,6 +464,7 @@ class VdStage extends HTMLElement {
     const player = new AttractPlayer(choreography?.default ?? [], {
       root: () => this.#mountRoot as HTMLElement,
       overlay,
+      strip: () => strip,
       remount,
       clockUsed: () => clock?.used ?? false,
       reducedMotion,
@@ -506,6 +716,31 @@ class VdStage extends HTMLElement {
     listen<FocusEvent>('focusin', (event) => {
       if (event.isTrusted) takeover(event.composedPath()[0]);
     });
+    // The strip is the exhibit's row, not the specimen's, so `listen` cannot hear it: those
+    // listeners are on the surface, and the surface is the shadow root. A reader pressing
+    // the mode switch is as plain an intent as pressing anything inside the demo, and
+    // without this the script keeps playing over the top of them and undoes the mode they
+    // just chose. Synthesized clicks and the ghost cursor both skip this path, which is why
+    // nothing caught it: only a trusted event proves it.
+    if (strip) {
+      const stripIntent = (event: Event) => {
+        if (event.isTrusted) takeover(event.target);
+      };
+      // And the pointer leaving the strip is the reader leaving, exactly as it is for the
+      // specimen's own edge. Without the pair, one press on the mode switch kept the stage
+      // in user mode for the rest of the visit and the demonstration never played again.
+      const stripGone = () => {
+        if (!identifyActive && !focusWithin()) player.userGone();
+      };
+      strip.addEventListener('pointerdown', stripIntent);
+      strip.addEventListener('focusin', stripIntent);
+      strip.addEventListener('pointerleave', stripGone);
+      this.#teardown.push(() => {
+        strip.removeEventListener('pointerdown', stripIntent);
+        strip.removeEventListener('focusin', stripIntent);
+        strip.removeEventListener('pointerleave', stripGone);
+      });
+    }
     // A key is intent too, and it has to be claimed on EVERY keydown rather than only the
     // first. A reader holding a key down is mid-gesture for as long as they hold it, and if
     // attract resumes underneath them the script's own keyup lands in the demo and ends the

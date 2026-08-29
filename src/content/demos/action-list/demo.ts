@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">One body, two hosts</span>
           <span class="sp-label" data-part="readout" data-ran="none" style="flex: 0 0 96px; font-size: 11px; text-align: right; white-space: nowrap">Nothing run yet</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="popover" data-axis="Presentation">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="popover" data-axis="Presentation">
             <button class="sp-segment" type="button" data-part="seg-popover" value="popover" style="padding: 4px 9px; font-size: 12px">Popover</button>
             <button class="sp-segment" type="button" data-part="seg-panel" value="panel" style="padding: 4px 9px; font-size: 12px">Panel</button>
           </sp-segmented>

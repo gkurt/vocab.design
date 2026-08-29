@@ -96,13 +96,12 @@ export function mount(root: HTMLElement): void {
 
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="verdict" style="width: 296px; font-size: 11px">${VERDICT.dripping}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="dripping" data-axis="Version" data-term="dripping">
-          <button class="sp-segment" data-part="mode-dripping" value="dripping">As shipped</button>
-          <button class="sp-segment" data-part="mode-honest" value="honest">Made fair</button>
+              <span class="sp-text" data-stage-verdict data-part="verdict" style="width: 296px; font-size: 11px">${VERDICT.dripping}</span>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="dripping" data-axis="Drip pricing" data-term="dripping">
+          <button class="sp-segment" data-part="mode-dripping" value="dripping">With</button>
+          <button class="sp-segment" data-part="mode-honest" value="honest">Without</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

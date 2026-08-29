@@ -101,13 +101,12 @@ export function mount(root: HTMLElement): void {
           >${timelineMarkup('forced')}</div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="verdict" style="width: 292px; font-size: 11px">${VERDICT.forced}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="forced" data-axis="Version" data-term="forced">
-          <button class="sp-segment" data-part="mode-forced" value="forced">As shipped</button>
-          <button class="sp-segment" data-part="mode-fair" value="fair">Made fair</button>
+              <span class="sp-text" data-stage-verdict data-part="verdict" style="width: 292px; font-size: 11px">${VERDICT.forced}</span>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="forced" data-axis="Forced continuity" data-term="forced">
+          <button class="sp-segment" data-part="mode-forced" value="forced">With</button>
+          <button class="sp-segment" data-part="mode-fair" value="fair">Without</button>
         </sp-segmented>
-      </div>
+      
     </div>
   `;
 

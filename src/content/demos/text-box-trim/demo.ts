@@ -41,7 +41,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="text-box-edge" data-part="segmented" data-value="cap">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="text-box-edge" data-part="segmented" data-value="cap">
             <button class="sp-segment" data-part="seg-cap" value="cap">cap</button>
             <button class="sp-segment" data-part="seg-ex" value="ex">ex</button>
           </sp-segmented>

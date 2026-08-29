@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">One barrier</span>
-          <sp-segmented class="sp-segmented" data-part="framing" data-value="need" data-axis="Framing" data-term="need" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="framing" data-value="need" data-axis="Framing" data-term="need" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-need" value="need"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Functional need</button>
             <button class="sp-segment" type="button" data-part="seg-category" value="category"

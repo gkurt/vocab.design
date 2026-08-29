@@ -33,7 +33,6 @@ class SpSegmented extends HTMLElement {
 
     for (const segment of this.#segments) {
       segment.setAttribute('role', 'tab');
-      if (segment.value === this.dataset.term) segment.setAttribute('data-term-state', '');
       segment.addEventListener('click', () => {
         this.value = segment.value;
       });

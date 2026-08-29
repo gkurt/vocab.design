@@ -1,4 +1,3 @@
-import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
@@ -47,7 +46,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Help copy, one claim form</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="sensory" data-axis="Refers by" data-term="sensory" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="sensory" data-axis="Refers by" data-term="sensory" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-sensory" value="sensory"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Shape and side</button>
             <button class="sp-segment" type="button" data-part="seg-named" value="named"
@@ -86,8 +85,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-row sp-context" style="align-items: flex-start; gap: 8px; margin-top: 9px; height: 32px">
-          <span style="display: flex; flex: 0 0 auto; margin-top: 1px; color: var(--sp-warn)" data-part="mark">${icon('alert')}</span>
-          <p class="sp-text" data-part="verdict" data-mode="sensory"
+          <p class="sp-text" data-stage-verdict data-part="verdict" data-mode="sensory"
              style="flex: 1 1 auto; min-width: 0; margin: 0; font-size: 11px; line-height: 1.35">${COPY.sensory.verdict}</p>
         </div>
       </div>
@@ -96,9 +94,7 @@ export function mount(root: HTMLElement): void {
 
   const instruction = part(root, 'instruction');
   const verdict = part(root, 'verdict');
-  const mark = part(root, 'mark');
   const match = part(root, 'name-2');
-  const MARK = { sensory: icon('alert'), named: icon('check') } as const;
 
   part(root, 'mode').addEventListener('change', (event) => {
     const mode = (event as CustomEvent<string>).detail as Mode;
@@ -109,6 +105,5 @@ export function mount(root: HTMLElement): void {
     // The named instruction reaches exactly one of the three, which is the whole difference.
     flag(match, 'data-matched', mode === 'named');
     match.style.outline = mode === 'named' ? '2px solid var(--sp-accent)' : 'none';
-    mark.innerHTML = MARK[mode];
   });
 }

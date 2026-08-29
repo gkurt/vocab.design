@@ -70,7 +70,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Flyout</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="compliant" data-axis="Behaviour" data-term="compliant">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="compliant" data-axis="Behaviour" data-term="compliant">
             <button class="sp-segment" type="button" data-part="seg-compliant" value="compliant"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">All three</button>
             <button class="sp-segment" type="button" data-part="seg-timed" value="timed"

@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Style" data-term="oblique" data-part="segmented" data-value="oblique">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Style" data-term="oblique" data-part="segmented" data-value="oblique">
             <button class="sp-segment" data-part="seg-roman" value="roman">roman</button>
             <button class="sp-segment" data-part="seg-italic" value="italic">italic</button>
             <button class="sp-segment" data-part="seg-oblique" value="oblique">oblique</button>

@@ -54,7 +54,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Unbreakable string</span>
-          <sp-segmented class="sp-segmented" data-axis="Setting" data-part="segmented" data-value="break-word">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Setting" data-part="segmented" data-value="break-word">
             <button class="sp-segment" data-part="seg-normal" value="normal">normal</button>
             <button class="sp-segment" data-part="seg-break-word" value="break-word">break-word</button>
             <button class="sp-segment" data-part="seg-break-all" value="break-all">break-all</button>

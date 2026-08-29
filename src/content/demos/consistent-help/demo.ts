@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 476px; padding: 12px 14px">
         <div class="sp-row sp-row--between" style="gap: 10px">
           <div class="sp-row sp-context" style="gap: 8px; flex: 0 0 auto">
-            <sp-segmented class="sp-segmented" data-part="page-picker" data-axis="Page" data-value="home">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="page-picker" data-axis="Page" data-value="home">
               ${PAGES.map(
                 (page) => `
                 <button class="sp-segment" type="button" data-part="seg-${page.key}" value="${page.key}"
@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
               ).join('')}
             </sp-segmented>
           </div>
-          <sp-segmented class="sp-segmented sp-context" data-part="policy-picker" data-axis="Where" data-term="consistent" data-value="consistent">
+          <sp-segmented data-stage-mode class="sp-segmented sp-context" data-part="policy-picker" data-axis="Where" data-term="consistent" data-value="consistent">
             <button class="sp-segment" type="button" data-part="seg-consistent" value="consistent"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">Consistent</button>
             <button class="sp-segment" type="button" data-part="seg-wandering" value="wandering"
@@ -109,7 +109,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Help sits in <span data-part="sits" data-slot="bar"
                 style="color: var(--sp-ink); font-weight: 500">${SITS_IN.bar}</span></span>
-          <span class="sp-text sp-text--ink" data-part="verdict" data-policy="consistent"
+          <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" data-policy="consistent"
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${VERDICT.consistent}</span>
         </div>
 

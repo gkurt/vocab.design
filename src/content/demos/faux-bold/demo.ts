@@ -61,7 +61,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Style" data-term="faux" data-value="faux" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Style" data-term="faux" data-value="faux" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-real" value="real">real</button>
             <button class="sp-segment" data-part="seg-faux" value="faux">synthesized</button>
             <button class="sp-segment" data-part="seg-off" value="off">refused</button>

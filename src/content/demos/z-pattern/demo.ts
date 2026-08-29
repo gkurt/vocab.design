@@ -35,7 +35,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Overlay</span>
-          <sp-segmented class="sp-segmented" data-axis="Show" data-part="switcher" data-value="path">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Show" data-part="switcher" data-value="path">
             <button class="sp-segment" type="button" data-part="seg-path" value="path">scan path</button>
             <button class="sp-segment" type="button" data-part="seg-stops" value="stops">four stops</button>
             <button class="sp-segment" type="button" data-part="seg-off" value="off">page only</button>

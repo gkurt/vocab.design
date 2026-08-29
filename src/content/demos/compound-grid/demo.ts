@@ -101,7 +101,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">4 columns tinted, 6 ruled</span>
-          <sp-segmented class="sp-segmented" data-part="rhythms" data-axis="Rhythm" data-value="four">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="rhythms" data-axis="Rhythm" data-value="four">
             ${RHYTHMS.map(
               (rhythm) => `
               <button class="sp-segment" type="button" data-part="seg-${rhythm.key}" value="${rhythm.key}" style="padding: 4px 9px; font-size: 11px; white-space: nowrap">${rhythm.label}</button>`,

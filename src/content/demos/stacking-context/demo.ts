@@ -56,13 +56,11 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
-        <div class="sp-topbar sp-context">
-          <sp-segmented class="sp-segmented" data-axis="Card A" data-part="switcher" data-value="transform">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Card A" data-part="switcher" data-value="transform">
             <button class="sp-segment" type="button" data-part="seg-transform" value="transform">transform</button>
             <button class="sp-segment" type="button" data-part="seg-opacity" value="opacity">opacity</button>
             <button class="sp-segment" type="button" data-part="seg-none" value="none">neither</button>
           </sp-segmented>
-        </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 12px">
           <div class="sp-row" style="flex: 0 0 auto; gap: 16px">
             ${card(

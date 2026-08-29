@@ -27,7 +27,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 420px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Type scale</span>
-          <sp-segmented class="sp-segmented" data-axis="Ratio" data-part="segmented" data-value="1.2">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Ratio" data-part="segmented" data-value="1.2">
             <button class="sp-segment" data-part="seg-120" value="1.2">1.2</button>
             <button class="sp-segment" data-part="seg-133" value="1.333">1.333</button>
             <button class="sp-segment" data-part="seg-150" value="1.5">1.5</button>

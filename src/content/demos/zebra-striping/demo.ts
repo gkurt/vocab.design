@@ -123,7 +123,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 8px; width: 476px">
-        <sp-segmented class="sp-segmented" data-part="picker" data-value="${START}" data-axis="Row shading" data-term="zebra">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="${START}" data-axis="Row shading" data-term="zebra">
           <button class="sp-segment" type="button" data-part="seg-none" value="none" style="padding: 4px 10px; font-size: 12px">Plain</button>
           <button class="sp-segment" type="button" data-part="seg-zebra" value="zebra" style="padding: 4px 10px; font-size: 12px">Zebra</button>
           <button class="sp-segment" type="button" data-part="seg-hover" value="hover" style="padding: 4px 10px; font-size: 12px">Hover band</button>

@@ -68,7 +68,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-grow"></span>
-          <sp-segmented class="sp-segmented" data-part="offered" data-axis="Controls offered" data-value="pause">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="offered" data-axis="Controls offered" data-value="pause">
             <button class="sp-segment" type="button" data-part="seg-none" value="none"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">No control</button>
             <button class="sp-segment" type="button" data-part="seg-pause" value="pause"

@@ -64,7 +64,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <div class="sp-context" data-part="verdict" style="width: 440px; height: 30px; color: var(--sp-muted); font-size: 11px; line-height: 1.35">${VERDICT.none}</div>
+      <div class="sp-context" data-stage-verdict data-part="verdict" style="width: 440px; height: 30px; color: var(--sp-muted); font-size: 11px; line-height: 1.35">${VERDICT.none}</div>
     </div>
   `;
 

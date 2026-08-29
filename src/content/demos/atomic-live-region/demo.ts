@@ -52,7 +52,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="change"
                   style="flex: 0 0 auto; font-size: 11.5px">Gate change</button>
           <div class="sp-row" style="gap: 8px; flex: 0 0 auto">
-            <sp-segmented class="sp-segmented" data-axis="aria-atomic" data-term="true" data-part="atomic" data-value="true">
+            <sp-segmented data-stage-mode class="sp-segmented" data-axis="aria-atomic" data-term="true" data-part="atomic" data-value="true">
               <button class="sp-segment" type="button" data-part="seg-true" value="true"
                       style="padding: 4px 12px; font-size: 11.5px">true</button>
               <button class="sp-segment" type="button" data-part="seg-false" value="false"

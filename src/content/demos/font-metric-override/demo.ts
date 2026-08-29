@@ -47,7 +47,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Family" data-term="tuned" data-value="tuned" style="margin-left: auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Family" data-term="tuned" data-value="tuned" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-web" value="web">web font</button>
             <button class="sp-segment" data-part="seg-fallback" value="fallback">fallback</button>
             <button class="sp-segment" data-part="seg-tuned" value="tuned">tuned</button>

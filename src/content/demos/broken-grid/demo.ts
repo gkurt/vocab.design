@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">${COLUMNS} columns, plate</span>
-          <sp-segmented class="sp-segmented" data-part="fits" data-axis="Fit" data-term="off-grid" data-value="off-grid">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="fits" data-axis="Fit" data-term="off-grid" data-value="off-grid">
             ${FITS.map(
               (fit) => `
               <button class="sp-segment" type="button" data-part="seg-${fit.key}" value="${fit.key}" style="padding: 4px 9px; font-size: 11px; white-space: nowrap">${fit.label}</button>`,

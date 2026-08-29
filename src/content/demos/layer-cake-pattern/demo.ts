@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Page structure</span>
-          <sp-segmented class="sp-segmented" data-axis="Version" data-part="switcher" data-value="subheads">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Version" data-part="switcher" data-value="subheads">
             <button class="sp-segment" type="button" data-part="seg-subheads" value="subheads">subheadings</button>
             <button class="sp-segment" type="button" data-part="seg-flat" value="flat">none</button>
           </sp-segmented>

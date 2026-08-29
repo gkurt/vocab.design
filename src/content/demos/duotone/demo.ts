@@ -40,7 +40,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 380px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Ramp" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Ramp" data-value="${START}">
             <button class="sp-segment" data-part="seg-ink" value="ink">Ink</button>
             <button class="sp-segment" data-part="seg-tide" value="tide">Tide</button>
             <button class="sp-segment" data-part="seg-flare" value="flare">Flare</button>

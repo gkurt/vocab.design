@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 16px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Simulated vision" data-part="segmented" data-value="colour">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Simulated vision" data-part="segmented" data-value="colour">
             <button class="sp-segment" data-part="seg-colour" value="colour">Colour</button>
             <button class="sp-segment" data-part="seg-grey" value="grey">Greyscale</button>
           </sp-segmented>

@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 16px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Everything that is not text, against 3:1</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="pass" data-axis="Contrast" data-term="pass">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="pass" data-axis="Contrast" data-term="pass">
             <button class="sp-segment" data-part="seg-pass" value="pass">Meets 3:1</button>
             <button class="sp-segment" data-part="seg-faded" value="faded">Faded</button>
           </sp-segmented>

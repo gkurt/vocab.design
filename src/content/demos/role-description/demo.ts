@@ -66,7 +66,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="aria-roledescription" data-part="source" data-value="honest">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="aria-roledescription" data-part="source" data-value="honest">
             <button class="sp-segment" type="button" data-part="seg-stock" value="stock"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Not set</button>
             <button class="sp-segment" type="button" data-part="seg-honest" value="honest"
@@ -87,11 +87,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-surface" style="margin-top: 10px; padding: 8px 10px">
-          <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-            <span class="sp-label">Screen reader, on entering the group</span>
-            <span class="sp-label" data-part="verdict"
+                      <span class="sp-label" data-stage-verdict data-part="verdict"
                   style="flex: 0 0 auto; width: 132px; text-align: right; font-size: 10px">${SOURCE.honest.verdict}</span>
-          </div>
+          
           <p class="sp-text sp-text--ink" data-part="utterance" data-state="spoken"
              style="margin: 4px 0 0; height: 22px; line-height: 22px; font-size: 12px;
                     white-space: nowrap">“${LABEL}, <span data-part="role" data-subject data-source="honest"

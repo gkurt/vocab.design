@@ -75,7 +75,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Magnifier</span>
-          <sp-segmented class="sp-segmented" data-axis="Zoom" data-part="segmented" data-value="300">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Zoom" data-part="segmented" data-value="300">
             <button class="sp-segment" data-part="seg-200" value="200">200%</button>
             <button class="sp-segment" data-part="seg-300" value="300">300%</button>
             <button class="sp-segment" data-part="seg-400" value="400">400%</button>

@@ -59,7 +59,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading" style="font-size: 13px">One set, four meanings</span>
-          <sp-segmented class="sp-segmented" data-part="sizer" data-axis="Size" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="sizer" data-axis="Size" data-value="${START}">
             ${SIZES.map((s) => `<button class="sp-segment" type="button" data-part="seg-${s}" value="${s}" style="padding: 4px 11px; font-size: 12px">${s}</button>`).join('')}
           </sp-segmented>
         </div>

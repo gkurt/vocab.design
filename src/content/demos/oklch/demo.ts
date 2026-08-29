@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 372px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">L steps 85 · 75 · 65 · 55 · 45</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="color" data-axis="View">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="color" data-axis="View">
             <button class="sp-segment" data-part="seg-color" value="color">Colour</button>
             <button class="sp-segment" data-part="seg-lightness" value="lightness">Lightness</button>
           </sp-segmented>

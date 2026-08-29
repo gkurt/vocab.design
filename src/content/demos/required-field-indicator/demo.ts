@@ -67,7 +67,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-context" style="width: 226px">
-            <sp-segmented class="sp-segmented" data-axis="Mark" data-part="segmented" data-value="required" style="margin-top: 6px">
+            <sp-segmented data-stage-mode class="sp-segmented" data-axis="Mark" data-part="segmented" data-value="required" style="margin-top: 6px">
               <button class="sp-segment" data-part="seg-required" value="required">Required</button>
               <button class="sp-segment" data-part="seg-optional" value="optional">Optional</button>
             </sp-segmented>

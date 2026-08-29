@@ -57,7 +57,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-label">Plate 12</span>
         </div>
         <div class="sp-body">
-          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-axis="Plate" data-value="dawn" style="width: 100%">
+          <sp-segmented data-stage-mode class="sp-segmented sp-context" data-part="picker" data-axis="Plate" data-value="dawn" style="width: 100%">
             ${segments}
           </sp-segmented>
           <div style="position: relative; height: 122px; margin-top: 12px">

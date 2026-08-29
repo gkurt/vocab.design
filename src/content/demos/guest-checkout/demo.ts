@@ -108,7 +108,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="note" style="width: 300px; font-size: 11px">${NOTE.balanced}</span>
-        <sp-segmented class="sp-segmented" data-axis="Version" data-term="balanced" data-part="mode" data-value="balanced">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Version" data-term="balanced" data-part="mode" data-value="balanced">
           <button class="sp-segment" data-part="mode-balanced" value="balanced" style="padding: 5px 10px">Balanced</button>
           <button class="sp-segment" data-part="mode-account" value="account" style="padding: 5px 10px">Account first</button>
         </sp-segmented>

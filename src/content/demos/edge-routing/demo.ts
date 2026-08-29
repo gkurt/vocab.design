@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: auto">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Connector</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-axis="Routing" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-axis="Routing" data-value="${START}">
             <button class="sp-segment" type="button" data-part="seg-bezier" value="bezier">curve</button>
             <button class="sp-segment" type="button" data-part="seg-step" value="step">staircase</button>
             <button class="sp-segment" type="button" data-part="seg-straight" value="straight">straight</button>

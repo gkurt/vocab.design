@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">What the offsets resolve against</span>
-          <sp-segmented class="sp-segmented" data-part="anchors" data-axis="Anchor" data-value="page">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="anchors" data-axis="Anchor" data-value="page">
             ${segment('page', 'none')}${segment('card', 'card')}${segment('cell', 'cell')}${segment('transform', 'transform')}
           </sp-segmented>
         </div>

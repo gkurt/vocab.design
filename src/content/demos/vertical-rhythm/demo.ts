@@ -40,7 +40,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 448px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">${UNIT}px grid</span>
-          <sp-segmented class="sp-segmented" data-axis="Rules" data-part="segmented" data-value="on">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Rules" data-part="segmented" data-value="on">
             <button class="sp-segment" data-part="seg-on" value="on">ruled</button>
             <button class="sp-segment" data-part="seg-off" value="off">unruled</button>
           </sp-segmented>

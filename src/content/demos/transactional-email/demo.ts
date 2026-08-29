@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
           </article>
         </div>
       </div>
-      <sp-segmented class="sp-segmented" data-part="mode" data-value="record" data-axis="Version" data-term="record">
+      <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="record" data-axis="Version" data-term="record">
         <button class="sp-segment" data-part="mode-record" value="record">As a record</button>
         <button class="sp-segment" data-part="mode-campaign" value="campaign">With a campaign in it</button>
       </sp-segmented>

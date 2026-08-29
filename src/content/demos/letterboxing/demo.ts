@@ -78,13 +78,13 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 4px">
-            <sp-segmented class="sp-segmented" data-part="aspects" data-value="16-9" data-axis="Shape" data-term="16-9" style="align-self: flex-start">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="aspects" data-value="16-9" data-axis="Shape" data-term="16-9" style="align-self: flex-start">
               ${segment('16-9', '16:9')}${segment('4-3', '4:3')}${segment('9-16', '9:16')}
             </sp-segmented>
-            <sp-segmented class="sp-segmented" data-part="fits" data-value="contain" data-axis="Fit" data-term="contain" style="align-self: flex-start; margin-top: 8px">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="fits" data-value="contain" data-axis="Fit" data-term="contain" style="align-self: flex-start; margin-top: 8px">
               ${segment('contain', 'contain')}${segment('cover', 'cover')}
             </sp-segmented>
-            <span class="sp-heading" data-part="verdict" style="height: 20px; margin-top: 12px; font-size: 13px"></span>
+            <span class="sp-heading" data-stage-verdict data-part="verdict" style="height: 20px; margin-top: 12px; font-size: 13px"></span>
             <span class="sp-text" data-part="readout" style="height: 60px"></span>
           </div>
         </div>

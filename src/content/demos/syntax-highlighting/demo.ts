@@ -125,7 +125,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-stack" style="width: 468px; gap: 9px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label" style="color: var(--sp-ink)">Seven lines, three passes</span>
-          <sp-segmented class="sp-segmented" data-axis="Pass" data-part="pass" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Pass" data-part="pass" data-value="${START}">
             <button class="sp-segment" type="button" data-part="seg-plain" value="plain" style="font-size: 11px; padding: 4px 11px">plain</button>
             <button class="sp-segment" type="button" data-part="seg-syntax" value="syntax" style="font-size: 11px; padding: 4px 11px">lexical</button>
             <button class="sp-segment" type="button" data-part="seg-semantic" value="semantic" style="font-size: 11px; padding: 4px 11px">semantic</button>

@@ -92,7 +92,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 438px; padding: 13px 18px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="balanced" data-axis="Mix" data-term="balanced">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="balanced" data-axis="Mix" data-term="balanced">
             <button class="sp-segment" data-part="seg-balanced" value="balanced">60 30 10</button>
             <button class="sp-segment" data-part="seg-shout" value="shout">Accent heavy</button>
           </sp-segmented>

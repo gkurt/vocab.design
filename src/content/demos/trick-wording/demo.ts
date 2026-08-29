@@ -54,9 +54,9 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 274px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Membership, step 3 of 3</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="tricked" data-axis="Version" data-term="tricked" style="flex: 0 0 auto">
-            <button class="sp-segment" data-part="mode-tricked" type="button" value="tricked" style="padding: 4px 9px; font-size: 12px">As shipped</button>
-            <button class="sp-segment" data-part="mode-plain" type="button" value="plain" style="padding: 4px 9px; font-size: 12px">Made fair</button>
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="tricked" data-axis="Trick wording" data-term="tricked" style="flex: 0 0 auto">
+            <button class="sp-segment" data-part="mode-tricked" type="button" value="tricked" style="padding: 4px 9px; font-size: 12px">With</button>
+            <button class="sp-segment" data-part="mode-plain" type="button" value="plain" style="padding: 4px 9px; font-size: 12px">Without</button>
           </sp-segmented>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">

@@ -129,7 +129,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 257px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Revenue, complaints</span>
-          <sp-segmented class="sp-segmented" data-part="scale" data-axis="Scale" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="scale" data-axis="Scale" data-value="${START}">
             <button class="sp-segment" type="button" data-part="scale-wide" value="wide" style="padding: 5px 9px; font-size: 12px">0 to 240</button>
             <button class="sp-segment" type="button" data-part="scale-tight" value="tight" style="padding: 5px 9px; font-size: 12px">84 to 102</button>
             <button class="sp-segment" type="button" data-part="scale-single" value="single" style="padding: 5px 9px; font-size: 12px">One axis</button>

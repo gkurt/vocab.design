@@ -49,7 +49,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-state="rested" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Speed</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="on" data-axis="Blur" data-term="on">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="on" data-axis="Blur" data-term="on">
             <button class="sp-segment" type="button" data-part="seg-off" value="off">Off</button>
             <button class="sp-segment" type="button" data-part="seg-on" value="on">Blurred</button>
           </sp-segmented>
@@ -88,7 +88,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </span>
             <span class="sp-stack" style="gap: 2px; min-width: 0">
               <span class="sp-label" style="font-size: 11px">One frame, mid-flight</span>
-              <span class="sp-text sp-text--ink" data-part="verdict" style="font-size: 12px; white-space: nowrap">Smeared along its direction of travel</span>
+              <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" style="font-size: 12px; white-space: nowrap">Smeared along its direction of travel</span>
             </span>
           </div>
         </div>

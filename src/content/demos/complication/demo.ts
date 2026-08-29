@@ -147,7 +147,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 10px">
-            <sp-segmented class="sp-segmented" data-axis="Face" data-part="picker" data-value="modular" style="align-self: flex-start">
+            <sp-segmented data-stage-mode class="sp-segmented" data-axis="Face" data-part="picker" data-value="modular" style="align-self: flex-start">
               <button class="sp-segment" type="button" data-part="seg-modular" value="modular" style="padding: 4px 9px; font-size: 12px">Modular</button>
               <button class="sp-segment" type="button" data-part="seg-circular" value="circular" style="padding: 4px 9px; font-size: 12px">Circular</button>
               <button class="sp-segment" type="button" data-part="seg-corner" value="corner" style="padding: 4px 9px; font-size: 12px">Corner</button>

@@ -48,7 +48,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Stored preference: Dark</span>
           <div class="sp-row" style="gap: 8px">
-            <sp-segmented class="sp-segmented" data-part="segmented" data-value="flash" data-axis="First paint" data-term="flash">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="flash" data-axis="First paint" data-term="flash">
               <button class="sp-segment" data-part="seg-flash" value="flash">Flash</button>
               <button class="sp-segment" data-part="seg-fixed" value="fixed">Fixed</button>
             </sp-segmented>

@@ -54,7 +54,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="setting" data-value="honoured" data-axis="Reduce Transparency" data-term="honoured">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="setting" data-value="honoured" data-axis="Reduce Transparency" data-term="honoured">
             <button class="sp-segment" type="button" data-part="seg-ignored" value="ignored"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Not honoured</button>
             <button class="sp-segment" type="button" data-part="seg-honoured" value="honoured"

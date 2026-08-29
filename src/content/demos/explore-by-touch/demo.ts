@@ -68,11 +68,8 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 8px">
-            <div class="sp-surface" style="padding: 7px 9px">
-              <span class="sp-label" style="font-size: 10px">Speech</span>
-              <p class="sp-text sp-text--ink" data-part="speech" data-said="none" data-state="idle"
-                 style="margin: 4px 0 0; height: 36px; font-size: 11.5px; color: var(--sp-muted)">${IDLE}</p>
-            </div>
+            <p class="sp-text sp-text--ink" data-stage-announce data-part="speech" data-said="none" data-state="idle"
+               style="margin: 0">${IDLE}</p>
 
             <div class="sp-surface" style="padding: 7px 9px">
               <span class="sp-label" style="font-size: 10px">What the last gesture did</span>

@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="contains" data-axis="Accessible name" data-term="contains">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="contains" data-axis="Accessible name" data-term="contains">
             <button class="sp-segment" data-part="seg-contains" value="contains"
                     style="padding: 5px 10px; font-size: 12px">“Send message”</button>
             <button class="sp-segment" data-part="seg-replaces" value="replaces"

@@ -54,7 +54,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">List copy</span>
-          <sp-segmented class="sp-segmented" data-axis="Wording" data-term="repeated" data-part="switcher" data-value="repeated">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Wording" data-term="repeated" data-part="switcher" data-value="repeated">
             <button class="sp-segment" type="button" data-part="seg-same" value="repeated">same opening</button>
             <button class="sp-segment" type="button" data-part="seg-front" value="front">front-loaded</button>
           </sp-segmented>

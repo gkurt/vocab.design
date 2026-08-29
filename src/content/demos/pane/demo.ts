@@ -214,7 +214,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 7px; width: 476px">
-        <sp-segmented class="sp-segmented" data-part="kinds" data-value="fixed" data-axis="Kind">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="kinds" data-value="fixed" data-axis="Kind">
           ${KINDS.map(
             (kind) => `
             <button class="sp-segment" type="button" data-part="seg-${kind.key}" value="${kind.key}" style="padding: 4px 9px; font-size: 11px">${kind.label}</button>`,

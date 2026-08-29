@@ -40,7 +40,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="position: relative; gap: 10px">
-        <sp-segmented class="sp-segmented" data-part="treatment" data-value="neon" data-axis="Treatment">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="treatment" data-value="neon" data-axis="Treatment">
           <button class="sp-segment" data-part="pick-flat" value="flat">Flat</button>
           <button class="sp-segment" data-part="pick-neon" value="neon">Neon</button>
         </sp-segmented>

@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 16px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">The same role, on both tables</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="presentation" data-axis="Set to" data-term="presentation">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="presentation" data-axis="Set to" data-term="presentation">
             <button class="sp-segment" data-part="seg-presentation" value="presentation"
                     style="font-size: 12px; padding: 5px 10px">role=presentation</button>
             <button class="sp-segment" data-part="seg-semantic" value="semantic"

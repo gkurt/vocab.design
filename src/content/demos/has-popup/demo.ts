@@ -92,11 +92,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 18px">
-          <span class="sp-label">Announced</span>
-          <span class="sp-text sp-text--ink" data-part="announced" data-kind="menu"
+                  <span class="sp-text sp-text--ink" data-stage-announce data-part="announced" data-kind="menu"
                 style="font-size: 11px; white-space: nowrap"></span>
-        </div>
+        
         <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 18px">
           <span class="sp-label">Opened</span>
           <span class="sp-text sp-text--ink" data-part="opened" data-state="none" data-match="none"

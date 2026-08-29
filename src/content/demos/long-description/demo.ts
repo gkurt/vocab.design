@@ -58,7 +58,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Figure, one complex image</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="alt" data-axis="Alt" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="alt" data-axis="Alt" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-alt" value="alt"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Alt only</button>
             <button class="sp-segment" type="button" data-part="seg-details" value="details"
@@ -87,14 +87,12 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack" style="flex: 1 1 auto; min-width: 0; gap: 7px">
-            <div>
-              <span class="sp-label sp-context" style="font-size: 10px">Screen reader, on the figure</span>
-              <p class="sp-text sp-text--ink" data-part="utterance" data-mode="alt"
+                          <p class="sp-text sp-text--ink" data-stage-announce data-part="utterance" data-mode="alt"
                  style="margin: 2px 0 0; height: 30px; font-size: 11.5px; line-height: 1.3">${MODE.alt.utterance}</p>
-            </div>
+            
             <div class="sp-context">
               <span class="sp-label" style="font-size: 10px">What that carries</span>
-              <p class="sp-text" data-part="verdict" data-mode="alt"
+              <p class="sp-text" data-stage-verdict data-part="verdict" data-mode="alt"
                  style="margin: 2px 0 0; height: 30px; font-size: 11px; line-height: 1.3">${MODE.alt.verdict}</p>
             </div>
           </div>

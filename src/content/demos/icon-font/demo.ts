@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Icons as a run of text</span>
-          <sp-segmented class="sp-segmented" data-axis="Notation" data-part="segmented" data-value="ligature">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Notation" data-part="segmented" data-value="ligature">
             <button class="sp-segment" data-part="seg-ligature" value="ligature">ligature</button>
             <button class="sp-segment" data-part="seg-codepoint" value="codepoint">code point</button>
           </sp-segmented>
@@ -74,12 +74,10 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">if the font never loads</span>
             <span class="sp-row" data-part="failure" style="gap: 12px; height: 24px; font-size: 13px"></span>
           </div>
-          <div class="sp-stack sp-grow" style="gap: 6px">
-            <span class="sp-label">a screen reader is handed</span>
-            <!-- Three lines' room: the code point announcement is the longer of the two, and the
+                      <!-- Three lines' room: the code point announcement is the longer of the two, and the
                  shorter one must not let the caption below it move (SPEC §5). -->
-            <p class="sp-text" data-part="announced" style="margin: 0; font-size: 12px; height: 54px"></p>
-          </div>
+            <p class="sp-text" data-stage-announce data-part="announced" style="margin: 0; font-size: 12px; height: 54px"></p>
+          
         </div>
         <p class="sp-text sp-context" data-part="caption" style="margin-top: 10px">
           The three shapes are the kit's own SVG icons standing in for a font's glyphs: this page loads

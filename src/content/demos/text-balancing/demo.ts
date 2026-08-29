@@ -36,7 +36,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 300px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">text-wrap</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="balance" data-axis="Wrapping" data-term="balance">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="balance" data-axis="Wrapping" data-term="balance">
             <button class="sp-segment" data-part="seg-wrap" value="wrap">wrap</button>
             <button class="sp-segment" data-part="seg-balance" value="balance">balance</button>
           </sp-segmented>

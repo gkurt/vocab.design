@@ -40,7 +40,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
           <button class="sp-button sp-button--sm" type="button" data-part="play">Play from start</button>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="on" data-axis="Captions">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="on" data-axis="Captions">
             <button class="sp-segment" data-part="seg-on" value="on">CC on</button>
             <button class="sp-segment" data-part="seg-off" value="off">CC off</button>
           </sp-segmented>

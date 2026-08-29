@@ -110,7 +110,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Columns and fields</span>
-          <sp-segmented class="sp-segmented" data-part="configs" data-value="${first.key}" data-axis="Grid">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="configs" data-value="${first.key}" data-axis="Grid">
             ${CONFIGS.map(segment).join('')}
           </sp-segmented>
         </div>

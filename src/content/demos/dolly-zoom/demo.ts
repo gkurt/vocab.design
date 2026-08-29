@@ -79,7 +79,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       >
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Camera</span>
-          <sp-segmented class="sp-segmented" data-part="move" data-axis="Move" data-value="dolly">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="move" data-axis="Move" data-value="dolly">
             <button class="sp-segment" type="button" data-part="seg-dolly" value="dolly">Dolly in</button>
             <button class="sp-segment" type="button" data-part="seg-zoom" value="zoom">Zoom in</button>
             <button class="sp-segment" type="button" data-part="seg-plain" value="plain">Plain</button>

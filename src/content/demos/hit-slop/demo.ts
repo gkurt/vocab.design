@@ -109,7 +109,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label sp-context">A tap in the slop adds too. A tap past the slop does nothing.</span>
 
           <div class="sp-row sp-context" style="gap: 10px">
-            <sp-segmented class="sp-segmented" data-axis="Show" data-part="mode" data-value="drawn">
+            <sp-segmented data-stage-mode class="sp-segmented" data-axis="Show" data-part="mode" data-value="drawn">
               <button class="sp-segment" type="button" data-part="mode-drawn" value="drawn" style="padding: 5px 10px">the ${ART} px drawn</button>
               <button class="sp-segment" type="button" data-part="mode-area" value="area" style="padding: 5px 10px">the ${TARGET} px that answer</button>
             </sp-segmented>

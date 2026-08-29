@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 470px; height: 286px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Gutter</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Width" data-value="${START}">${segments}</sp-segmented>
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Width" data-value="${START}">${segments}</sp-segmented>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
           <div data-part="rack" data-gutter="${START}" style="position: relative; width: ${RACK}px; height: 132px; padding-inline: ${MARGIN}px">

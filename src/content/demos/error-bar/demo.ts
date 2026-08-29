@@ -135,7 +135,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading sp-grow" style="font-size: 13px">Checkout test</span>
           <span
             class="sp-label"
-            data-part="verdict"
+            data-stage-verdict data-part="verdict"
             data-mode="${START}"
             role="status"
             style="width: 196px; text-align: right; font-size: 12px; white-space: nowrap"
@@ -180,7 +180,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 8px; width: 476px">
-        <sp-segmented class="sp-segmented" data-axis="Uncertainty" data-part="picker" data-value="${START}">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Uncertainty" data-part="picker" data-value="${START}">
           <button class="sp-segment" type="button" data-part="seg-bare" value="bare" style="padding: 4px 10px; font-size: 12px">Bare</button>
           <button class="sp-segment" type="button" data-part="seg-bars" value="bars" style="padding: 4px 10px; font-size: 12px">Error bars</button>
           <button class="sp-segment" type="button" data-part="seg-band" value="band" style="padding: 4px 10px; font-size: 12px">Band</button>

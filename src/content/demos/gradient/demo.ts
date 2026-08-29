@@ -28,7 +28,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 340px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Fill</span>
-          <sp-segmented class="sp-segmented" data-axis="Type" data-part="segmented" data-value="linear">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Type" data-part="segmented" data-value="linear">
             <button class="sp-segment" data-part="seg-linear" value="linear">Linear</button>
             <button class="sp-segment" data-part="seg-radial" value="radial">Radial</button>
             <button class="sp-segment" data-part="seg-conic" value="conic">Conic</button>

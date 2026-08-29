@@ -106,7 +106,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
 
-          <div class="sp-surface sp-context" data-part="verdict" data-state="start" style="flex: 1 1 auto; min-height: 0; padding: 7px 9px">
+          <div data-stage-verdict class="sp-surface sp-context" data-part="verdict" data-state="start" style="flex: 1 1 auto; min-height: 0; padding: 7px 9px">
             <span class="sp-text sp-text--ink" data-part="verdict-text" style="display: block; font-size: 11px; line-height: 1.35">${VERDICT.start}</span>
           </div>
         </div>

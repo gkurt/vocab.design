@@ -69,11 +69,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 18px">
-          <span class="sp-label">Announced</span>
-          <span class="sp-text sp-text--ink" data-part="announced" data-state="swallowed"
+                  <span class="sp-text sp-text--ink" data-stage-announce data-part="announced" data-state="swallowed"
                 style="font-size: 11px; white-space: nowrap"></span>
-        </div>
+        
         <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 18px">
           <span class="sp-label">One press</span>
           <span class="sp-text sp-text--ink" data-part="result" data-state="none"

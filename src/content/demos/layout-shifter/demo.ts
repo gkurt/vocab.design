@@ -128,7 +128,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 236px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Viewport</span>
-          <sp-segmented class="sp-segmented" data-part="plans" data-axis="Width" data-value="wide">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="plans" data-axis="Width" data-value="wide">
             ${PLANS.map(
               (plan) => `
               <button class="sp-segment" type="button" data-part="seg-${plan.key}" value="${plan.key}"

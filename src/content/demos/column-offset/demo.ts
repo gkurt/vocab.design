@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">${TRACKS} tracks, ${SPAN}-track column</span>
-          <sp-segmented class="sp-segmented" data-part="starts" data-axis="Start" data-term="offset" data-value="offset">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="starts" data-axis="Start" data-term="offset" data-value="offset">
             ${STARTS.map(
               (entry) => `
               <button class="sp-segment" type="button" data-part="seg-${entry.key}" value="${entry.key}" style="padding: 4px 9px; font-size: 11px; white-space: nowrap">${entry.label}</button>`,

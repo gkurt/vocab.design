@@ -44,7 +44,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 8px">
       <div class="sp-row sp-context" style="width: ${CANVAS}px">
         <span class="sp-heading sp-grow" style="font-size: 13px">Viewport</span>
-        <sp-segmented class="sp-segmented" data-part="sizes" data-axis="Width" data-value="wide">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="sizes" data-axis="Width" data-value="wide">
           ${SIZES.map(
             (size) => `
             <button class="sp-segment" type="button" data-part="seg-${size.key}" value="${size.key}" style="padding: 4px 10px; font-size: 11px; white-space: nowrap">${size.label}</button>`,

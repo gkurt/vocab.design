@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Page zoom" data-part="segmented" data-value="100">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Page zoom" data-part="segmented" data-value="100">
             <button class="sp-segment" data-part="seg-100" value="100">100%</button>
             <button class="sp-segment" data-part="seg-140" value="140">140%</button>
           </sp-segmented>

@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Three references</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="hanging" data-axis="Indent" data-term="hanging">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="hanging" data-axis="Indent" data-term="hanging">
             <button class="sp-segment" data-part="seg-hanging" value="hanging">hanging</button>
             <button class="sp-segment" data-part="seg-first" value="first">first line</button>
             <button class="sp-segment" data-part="seg-none" value="none">none</button>

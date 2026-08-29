@@ -70,7 +70,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-row sp-context" style="margin-top: 14px">
           <button class="sp-button" data-part="submit" type="button">Create account</button>
         </div>
-        <span class="sp-visually-hidden" data-part="announcement" role="status"></span>
+        <span class="sp-visually-hidden" data-stage-announce data-part="announcement" role="status"></span>
       </div>
     </div>
   `;

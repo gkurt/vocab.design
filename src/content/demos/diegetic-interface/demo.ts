@@ -28,7 +28,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 460px; height: 262px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 12.5px">Ammunition 24 of 90, health 78</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-axis="Placement" data-value="world" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-axis="Placement" data-value="world" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="seg-world" type="button" value="world" style="padding: 4px 9px; font-size: 11.5px">In the world</button>
             <button class="sp-segment" data-part="seg-hud" type="button" value="hud" style="padding: 4px 9px; font-size: 11.5px">On the screen</button>
           </sp-segmented>

@@ -26,6 +26,13 @@ export interface PlayerHost {
   root: () => HTMLElement;
   /** Stage overlay (light DOM) where the ghost cursor and key HUD live. */
   overlay: HTMLElement;
+  /**
+   * The exhibit's own row under the specimen (SPEC §5.1), where the stage draws the mode
+   * switch. A choreography reaches it by the same `data-part` its source segment carries,
+   * so a script says "press the mode switch" without knowing the stage drew it: the strip
+   * is searched FIRST, and it only ever holds parts whose demo-side twin is hidden.
+   */
+  strip?: () => HTMLElement | null;
   /** Destroy-and-remount the demo from its initial state. */
   remount: () => void;
   /** Has the current mount armed any DemoClock timer? Self-animating demos are
@@ -377,7 +384,7 @@ export class AttractPlayer {
   /** One step, fast-forwarded; summon's loop and a summoned withKey scope both feed it. */
   #summonStep(step: Step): void {
     if ('moveTo' in step) {
-      this.#target = this.#host.root().querySelector(step.moveTo);
+      this.#target = this.#find(step.moveTo);
       // Persona rules hold in fast-forward too: a finger that is not pressing is not there.
       this.#hover(this.#personaFor(this.#target) === 'touch' ? null : this.#target);
     } else if ('click' in step || 'dblclick' in step) this.#dispatchButton(0, 'dblclick' in step);
@@ -596,7 +603,7 @@ export class AttractPlayer {
     if ('wait' in step) return this.#sleep(step.wait, generation);
     if ('assert' in step && failures) {
       // `assert` steps are invisible to viewers and load-bearing in CI (SPEC §8).
-      const el = this.#host.root().querySelector<HTMLElement>(step.assert.selector);
+      const el = this.#find<HTMLElement>(step.assert.selector);
       // `hidden` is satisfied by an absent element as well as an invisible one.
       const shown = el ? isSeen(el) : false;
       if (shown !== (step.assert.state === 'visible'))
@@ -635,14 +642,34 @@ export class AttractPlayer {
     return ok;
   }
 
+  /** Demo root, or the strip beneath it. The strip wins, since its parts are the visible ones. */
+  #find<T extends Element = Element>(selector: string): T | null {
+    return this.#host.strip?.()?.querySelector<T>(selector) ?? this.#host.root().querySelector<T>(selector);
+  }
+
+  /**
+   * Where the ghost should sit for this element, in the specimen's coordinates.
+   *
+   * A strip control is chrome: its box is already in page pixels, while everything else the
+   * player aims at is in the specimen's and gets scaled up by `#placeCursor`. Inverting the
+   * offset here rather than branching there keeps ONE coordinate space in the player, so a
+   * travel that starts in the specimen and ends on the strip interpolates without a jump.
+   */
+  #aim(el: Element): { x: number; y: number } {
+    const at = aimAt(el);
+    if (!this.#host.strip?.()?.contains(el)) return at;
+    const { x, y, scale } = this.#host.offset();
+    return { x: (at.x - x) / scale, y: (at.y - y) / scale };
+  }
+
   async #moveTo(selector: string, generation: number): Promise<boolean> {
-    const el = this.#host.root().querySelector(selector);
+    const el = this.#find(selector);
     if (!el) return this.#sleep(STEP_GAP_MS, generation);
     this.#target = el;
     this.#setPersona(this.#personaFor(el));
     const travel = this.#host.reducedMotion ? 0 : CURSOR_TRAVEL_MS;
     const from = this.#cursorAt;
-    const to = aimAt(el);
+    const to = this.#aim(el);
     this.#placeCursor(to, travel);
     this.#cursor.setAttribute('data-visible', '');
     // The coordinates BETWEEN two hovers are input too: a dock bulges as the pointer
@@ -1293,7 +1320,7 @@ export class AttractPlayer {
     // Coordinates matter: a context menu opens at the pointer, and without them every
     // scripted right-click would report (0, 0) and put the menu in the corner. The
     // ghost is over the target's centre, so that is where the click happened.
-    const at = aimAt(el);
+    const at = this.#aim(el);
     // Right and middle stay mouse gestures even inside a touch scope: a finger has
     // no buttons, and a choreography on a touch surface has no business with them.
     const touch = button === 0 && this.#personaFor(el) === 'touch';

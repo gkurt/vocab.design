@@ -54,7 +54,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 468px; height: 248px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 14px">Inner card, ${PAD} px in</span>
-          <sp-segmented class="sp-segmented" data-axis="Inner radius" data-term="concentric" data-part="switcher" data-value="concentric">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Inner radius" data-term="concentric" data-part="switcher" data-value="concentric">
             <button class="sp-segment" type="button" data-part="seg-concentric" value="concentric">concentric</button>
             <button class="sp-segment" type="button" data-part="seg-same" value="same">same radius</button>
           </sp-segmented>

@@ -542,42 +542,15 @@
   color: var(--sp-ink);
 }
 
-/* The legend: what the switch changes, drawn from `data-axis` so the attribute is the
-   single source of truth and the element can hand the same words to the tablist as its
-   accessible name. It is a flex item like the segments, so the thumb's offsetLeft
-   arithmetic accounts for it without knowing it is there. */
-.sp-segmented[data-axis]::before {
-  content: attr(data-axis);
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--sp-muted);
-  white-space: nowrap;
-}
+/* `data-axis` is the tablist's accessible name and nothing more. It was drawn as a legend
+   inside the pill for one release and that was a mistake: 154 of these controls sit in a
+   mock application's own title bar, so a legend put a third competing word into the
+   product's chrome instead of telling the reader the pill was not part of the product.
+   Placement carries that, not wording. See SPEC 5.1. */
 
-/* The segment the headword names, marked so a reader can tell the term from the foil it
-   is shown against. Deliberately quiet: inside `.sp-context` the accent is already
-   chroma-free, and annotation that competes with the subject belongs to the stage. */
-.sp-segment[data-term-state]::before {
-  content: "";
-  display: inline-block;
-  width: 4px;
-  height: 4px;
-  margin-right: 6px;
-  vertical-align: 0.12em;
-  border-radius: 50%;
-  background: currentcolor;
-  opacity: 0.55;
-}
-
-.sp-segment[data-term-state][aria-selected="true"]::before,
-.sp-segment[data-term-state][data-selected]::before {
-  opacity: 1;
-}
+/* `data-term` stays as data (validate cross-checks it against `data-pose`) but is no longer
+   painted. A dot beside a label teaches a reader nothing they can learn; a pair that names
+   itself does. */
 
 .sp-segmented-thumb {
   position: absolute;

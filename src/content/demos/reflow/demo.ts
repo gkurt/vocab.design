@@ -38,7 +38,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 434px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">At 400% zoom</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="reflow" data-axis="Page" data-term="reflow">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="reflow" data-axis="Page" data-term="reflow">
             <button class="sp-segment" data-part="seg-reflow" value="reflow">Reflows</button>
             <button class="sp-segment" data-part="seg-fixed" value="fixed">Stays wide</button>
           </sp-segmented>

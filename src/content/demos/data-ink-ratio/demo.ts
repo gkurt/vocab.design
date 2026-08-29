@@ -121,7 +121,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 272px">
         <div class="sp-topbar sp-context" style="padding: 8px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Reservoir, percent of capacity</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-axis="Ink" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-axis="Ink" data-value="${START}">
             <button class="sp-segment" type="button" data-part="seg-full" value="full" style="padding: 4px 9px; font-size: 11px">as charted</button>
             <button class="sp-segment" type="button" data-part="seg-restrained" value="restrained" style="padding: 4px 9px; font-size: 11px">erase once</button>
             <button class="sp-segment" type="button" data-part="seg-reduced" value="reduced" style="padding: 4px 9px; font-size: 11px">erase again</button>

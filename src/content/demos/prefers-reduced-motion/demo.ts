@@ -43,7 +43,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 430px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-grow"></span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Simulated setting" data-value="full">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Simulated setting" data-value="full">
             <button class="sp-segment" data-part="seg-full" value="full">No preference</button>
             <button class="sp-segment" data-part="seg-reduce" value="reduce">Reduce motion</button>
           </sp-segmented>

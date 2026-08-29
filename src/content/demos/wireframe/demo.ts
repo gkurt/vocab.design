@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Home screen, structure only</span>
-          <sp-segmented class="sp-segmented" data-axis="Convention" data-part="convention" data-value="block" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Convention" data-part="convention" data-value="block" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-block" value="block"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">Blocks</button>
             <button class="sp-segment" type="button" data-part="seg-image" value="image"

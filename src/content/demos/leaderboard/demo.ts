@@ -84,7 +84,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Cadence</span>
-          <sp-segmented class="sp-segmented" data-axis="Scope" data-part="scope" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Scope" data-part="scope" data-value="${START}">
             <button class="sp-segment" type="button" data-part="scope-all-time" value="all-time" style="padding: 5px 9px; font-size: 12px">All time</button>
             <button class="sp-segment" type="button" data-part="scope-week" value="week" style="padding: 5px 9px; font-size: 12px">This week</button>
             <button class="sp-segment" type="button" data-part="scope-friends" value="friends" style="padding: 5px 9px; font-size: 12px">Friends</button>

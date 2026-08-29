@@ -89,7 +89,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 246px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Daily practice</span>
-          <sp-segmented class="sp-segmented" data-axis="History" data-part="state" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="History" data-part="state" data-value="${START}">
             <button class="sp-segment" type="button" data-part="state-kept" value="kept" style="padding: 5px 9px; font-size: 12px">Kept</button>
             <button class="sp-segment" type="button" data-part="state-missed" value="missed" style="padding: 5px 9px; font-size: 12px">Missed a day</button>
             <button class="sp-segment" type="button" data-part="state-frozen" value="frozen" style="padding: 5px 9px; font-size: 12px">Freeze used</button>

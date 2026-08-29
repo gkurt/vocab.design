@@ -51,7 +51,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 380px; height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Sync</span>
-          <sp-segmented class="sp-segmented" data-part="speed" data-value="steady" data-axis="Speed">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="speed" data-value="steady" data-axis="Speed">
             <button class="sp-segment" type="button" data-part="seg-slow" value="slow">Slow</button>
             <button class="sp-segment" type="button" data-part="seg-steady" value="steady">Steady</button>
             <button class="sp-segment" type="button" data-part="seg-quick" value="quick">Quick</button>

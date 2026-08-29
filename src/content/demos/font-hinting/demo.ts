@@ -133,7 +133,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Rendered at" data-value="${SIZES[0]}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Rendered at" data-value="${SIZES[0]}">
             ${SIZES.map((size) => `<button class="sp-segment" data-part="seg-${size}" value="${size}">${size} px</button>`).join('')}
           </sp-segmented>
         </div>

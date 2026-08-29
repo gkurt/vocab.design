@@ -66,7 +66,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="forced" data-axis="Built with" data-term="forced">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="forced" data-axis="Built with" data-term="forced">
             <button class="sp-segment" data-part="seg-forced" value="forced">tabindex 1 to 3</button>
             <button class="sp-segment" data-part="seg-source" value="source">tabindex 0</button>
           </sp-segmented>

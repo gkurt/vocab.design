@@ -78,14 +78,12 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 8px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 216px">
-        <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <sp-segmented class="sp-segmented" data-part="modes" data-axis="Sizing" data-term="intrinsic" data-value="intrinsic" style="margin-left: auto">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-axis="Sizing" data-term="intrinsic" data-value="intrinsic" style="margin-left: auto">
             <button class="sp-segment" type="button" data-part="seg-extrinsic" value="extrinsic"
                     style="padding: 4px 10px; font-size: 11px; white-space: nowrap">extrinsic</button>
             <button class="sp-segment" type="button" data-part="seg-intrinsic" value="intrinsic"
                     style="padding: 4px 10px; font-size: 11px; white-space: nowrap">intrinsic</button>
           </sp-segmented>
-        </div>
 
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; padding: 12px">
           <div

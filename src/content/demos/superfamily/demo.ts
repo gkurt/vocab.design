@@ -115,7 +115,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">shown large</span>
-          <sp-segmented class="sp-segmented" data-axis="Family" data-part="segmented" data-value="${start}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Family" data-part="segmented" data-value="${start}">
             <button class="sp-segment" data-part="seg-serif" value="serif">serif</button>
             <button class="sp-segment" data-part="seg-sans" value="sans">sans</button>
             <button class="sp-segment" data-part="seg-mono" value="mono">mono</button>

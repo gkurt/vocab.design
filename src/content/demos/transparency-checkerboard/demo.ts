@@ -43,13 +43,11 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 13px 18px">
-        <div class="sp-row sp-row--between sp-context" style="height: 31px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Behind the artwork" data-part="segmented" data-value="checker">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Behind the artwork" data-part="segmented" data-value="checker">
             <button class="sp-segment" data-part="seg-checker" value="checker">Checker</button>
             <button class="sp-segment" data-part="seg-white" value="white">White</button>
             <button class="sp-segment" data-part="seg-page" value="page">Page</button>
           </sp-segmented>
-        </div>
 
         <div data-part="canvas" data-backing="checker"
              style="position: relative; height: 150px; margin-top: 10px; border-radius: 3px; overflow: hidden;

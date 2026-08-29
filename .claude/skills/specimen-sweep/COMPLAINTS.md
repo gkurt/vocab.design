@@ -982,3 +982,52 @@ complete; until then entries only accumulate. Entry format:
   justified-gallery, lawn-mower-pattern, layer-cake-pattern, lazy-registration, long-shadow,
   neon-glow, orphan, prefers-contrast, prefers-reduced-motion, progressive-profiling,
   redundant-entry, required-field-indicator, scanlines, scrim, stack, widow.
+
+## author-voice-captions
+
+- Queued: 2026-08-29 · Status: queued (~500 demos carry at least one)
+- Rule: anything in a specimen that is not in the fiction is chrome (SPEC §5.1). A
+  caption, note, legend, hint, aside or unmarked explanatory `<p>` is the SITE explaining
+  the demo, printed inside a mock product in the mock's own type, which is one more line
+  the reader has to work out is not part of the scene. Examples of the voice: `help-drawer`
+  "The panel takes width from the form instead of covering it, so the field stays typeable";
+  `deck` "An eyebrow categorises above the headline; a deck expands below it"; `lottie`
+  "One export is pixels and gets soft. One is shapes and does not."; `pulse-animation`
+  "Only the live source breathes. It changes size, never position."
+- Detector: `detectors/author-voice.ts` (recall-tuned; counts as of queueing: 320 demos
+  with a `caption` part, 178 `note`, 70 unmarked explanatory `<p>`, 29 `legend`, 17 `hint`,
+  3 `aside`, 3 `footnote`, 2 `why`, 1 `instruction`).
+- Recipe: **the default is DELETE, not move.** The term page already carries this prose,
+  usually better and at length: `help-drawer`'s caption is near-verbatim its own article's
+  second sentence. Only text saying something the article does NOT say earns a move to the
+  strip, and the strip cannot hold much (a demo with caption plus verdict plus announcement
+  would have a strip taller than its specimen), so a move is the exception. Read the term's
+  MDX before deleting; if the caption carries a fact the article lacks, put the fact in the
+  ARTICLE and then delete the caption. Delete the wrapper the caption leaves empty, and
+  unwrap (never delete) any wrapper still holding elements the demo's own code queries.
+- Verify: `bun validate`, then the leftover probe (no empty wrapper, no orphaned label, no
+  canvas overflow) and the eye on 4321 for reflow where a deleted block was load-bearing.
+
+## stage-directions-as-labels
+
+- Queued: 2026-08-29 · Status: queued (177 demos, roughly half of them real)
+- Rule: a readout stays inside the frame ONLY when the demo draws the thing that produces
+  it (SPEC §5.1). Fiction: `asymmetric-easing` "High water 04:12, falling" (a tide app
+  prints that), `brushing` "Brushed runs per service" (a chart axis), `lazy-registration`
+  "3 tracks, this session only". Not fiction: `busy-state` "Screen reader, polite queue"
+  and `landmark` "Screen reader, landmarks rotor", where no screen reader is drawn, and
+  `explore-by-touch`'s former "A phone with a screen reader running". The difference is
+  never wording: restyling author voice to look like product UI is exactly how 365 invented
+  brand names happened.
+- Detector: judge. One question per specimen: **does this demo DRAW the instrument that
+  would print this line?** `detectors/author-voice.ts` shortlists the 177 candidate
+  `sp-label`s; the judge answers fiction/stage-direction with a one-line reason.
+- Recipe: a stage direction either gets its instrument drawn (a caption bar, a devtools
+  pane, a settings screen, a receipt) or gives its text to chrome. Prefer giving it up:
+  drawing a new instrument grows the fiction, which is the failure mode this entry exists
+  to stop. A label whose only job was to introduce text that has moved is an orphan and is
+  deleted outright, along with any icon that marked it (`sensory-characteristics` had a
+  warn/check glyph that switched with the verdict; it was the same voice and went too).
+- Verify: as above, plus a check that nothing the demo's code queries was deleted with the
+  markup: `sensory-characteristics` kept `part(root, 'mark')` after its icon was removed
+  and threw on mount, which the leftover probe caught only as "strip not drawn".

@@ -61,10 +61,10 @@ export function mount(root: HTMLElement): void {
               <span class="sp-text sp-context" style="display: block; margin-top: 1px; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Three titles chosen for you, and the shop closes early on the 14th.</span>
             </span>
           </div>
-          <span class="sp-text sp-context" data-part="verdict" style="flex: 0 0 auto; height: 32px; font-size: 11px; line-height: 1.35">${FROM.person.verdict}</span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="verdict" style="flex: 0 0 auto; height: 32px; font-size: 11px; line-height: 1.35">${FROM.person.verdict}</span>
         </div>
       </div>
-      <sp-segmented class="sp-segmented" data-axis="Sender" data-part="kind" data-value="person">
+      <sp-segmented data-stage-mode class="sp-segmented" data-axis="Sender" data-part="kind" data-value="person">
         <button class="sp-segment" data-part="kind-person" value="person">Person</button>
         <button class="sp-segment" data-part="kind-brand" value="brand">Brand</button>
         <button class="sp-segment" data-part="kind-both" value="both">Person at brand</button>

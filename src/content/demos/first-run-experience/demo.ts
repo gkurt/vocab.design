@@ -44,7 +44,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Kelp</span>
-          <sp-segmented class="sp-segmented" data-axis="Visit" data-part="run" data-value="first" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Visit" data-part="run" data-value="first" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="run-first" type="button" value="first" style="padding: 4px 9px; font-size: 12px">First open</button>
             <button class="sp-segment" data-part="run-later" type="button" value="later" style="padding: 4px 9px; font-size: 12px">Every open after</button>
           </sp-segmented>

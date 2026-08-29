@@ -22,7 +22,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Article header" data-value="with">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Article header" data-value="with">
             <button class="sp-segment" data-part="seg-with" value="with">with deck</button>
             <button class="sp-segment" data-part="seg-without" value="without">without</button>
           </sp-segmented>

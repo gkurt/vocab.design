@@ -89,7 +89,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 420px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading" style="font-size: 14px">Article</span>
-          <sp-segmented class="sp-segmented" data-axis="Levels" data-part="segmented" data-value="nested">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Levels" data-part="segmented" data-value="nested">
             <button class="sp-segment" data-part="seg-nested" value="nested">Nested</button>
             <button class="sp-segment" data-part="seg-skipped" value="skipped">Skipped</button>
           </sp-segmented>

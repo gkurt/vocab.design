@@ -137,12 +137,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 13px 18px">
-        <div class="sp-row sp-row--between sp-context" style="height: 31px; justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-axis="Plate" data-term="all" data-part="segmented" data-value="all">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Plate" data-term="all" data-part="segmented" data-value="all">
             ${PLATES.map((p) => `<button class="sp-segment" data-part="seg-${p.key}" value="${p.key}">${p.name}</button>`).join('')}
             <button class="sp-segment" data-part="seg-all" value="all">All</button>
           </sp-segmented>
-        </div>
 
         <div data-part="sheet" style="margin-top: 10px; height: 124px; padding: 9px; border-radius: 2px;
              background: ${PAPER}; box-shadow: 0 0 0 1px rgb(120 110 84 / 0.28)">

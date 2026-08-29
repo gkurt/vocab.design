@@ -54,7 +54,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
           <p class="sp-text sp-context" style="margin: 10px 2px 0">Paste this into the CLI to link your local checkout.</p>
         </div>
-        <span class="sp-visually-hidden" role="status" data-part="announce"></span>
+        <span class="sp-visually-hidden" role="status" data-stage-announce data-part="announce"></span>
       </div>
     </div>
   `;

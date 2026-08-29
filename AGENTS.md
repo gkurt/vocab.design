@@ -96,6 +96,7 @@ src/stage/surface.ts        #   the two isolation modes behind one shape; nothin
 src/stage/frame.ts          #   what a `demo: iframe` specimen document publishes to its stage
 src/stage/touch-hover.ts    #   hover in a touch scope: a tap strands one, travel never does
 src/stage/highlight.ts      #   the share still's annotation: subject at full strength, rest faded
+src/stage/specimen-stage.ts #   <vd-stage> itself: also draws the strip's mode switch (SPEC 5.1)
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index (ONE live specimen, then THE directory: categories, facets, A-Z), [slug]
                             #   (terms + alias redirects), [slug].md, terms.json, llms.txt
@@ -594,20 +595,55 @@ never fires under reduced motion, so nothing may ever wait on it.
   plays the eyes (no mirror, no hidden cursor). Designed for looking and
   committing; gaze drags and holds are undesigned, so a demo needing them waits.
   Gestures past two contacts do not exist yet; terms needing them wait.
-- **A comparison switch says what it switches and which side is the term** (SPEC §5.1).
-  An `<sp-segmented>` that swaps what the scene shows carries `data-axis` (what the
-  control changes, drawn as a legend in the pill and used as the tablist's accessible
-  name) and, when one state is the term and the other is the foil it is shown against,
-  `data-term` (that state's segment value, which gets a quiet dot). `bun validate`
-  refuses a `data-term` with no axis, one naming no real segment, and one contradicting
-  the `data-pose` the stage already reads. Order is always baseline then change, which
-  puts the term first for a defect and second for a feature, so position never carries
-  the meaning. The deceptive-pattern family (anything `variantOf: [dark-pattern]`) spells
-  its pair `As shipped | Made fair` and nothing else; the specific claim goes in the
-  verdict line beside the switch. A variant switch (light/dark) or a parameter switch
-  (300px/440px) takes an axis and no term, since neither side is the word. The axis is
-  the accessible name only when the control has none of its own: an author's `aria-label`
-  outranks it, since the legend has a pill's width to answer to and the name does not.
+- **A mode switch belongs to the exhibit, not to the mock product** (SPEC §5.1). A demo
+  marks its `<sp-segmented>` `data-stage-mode` and the stage draws the control in the
+  strip. A counter-example (one carrying `data-term`) is labelled with the HEADWORD, since
+  it is the word: `Drip pricing: With | Without`. A variant or a parameter keeps its own
+  `data-axis`, since neither side is the word: `Theme: Light | Dark`. `bun validate` refuses
+  a switch drawn inside a specimen; the exemption list in `scripts/validate-terms.ts` is for
+  the eight whose control IS what the term names. Do NOT draw a
+  comparison switch inside the fiction; 154 of them once sat in a simulated app's own title
+  bar beside an invented brand, and no wording rescues that. The demo keeps the element and
+  its listeners (hidden), so `part()` lookups and the demo's own logic are untouched, and
+  the stage's control forwards to it and follows it. A choreography aims at the same
+  `data-part` as before, because the stage copies it onto the visible twin and the player
+  searches the strip first. `data-axis` survives as the accessible name only (an author's
+  own `aria-label` outranks it) and `data-term` as data for the validate gate; neither is
+  drawn. Order is always baseline then change. The deceptive-pattern family (anything
+  `variantOf: [dark-pattern]`) spells its pair `With | Without` and nothing else; the
+  specific claim goes in the verdict line.
+- **Anything not in the fiction is chrome** (SPEC §5.1). A verdict is the author's reading
+  of the state, not the product's, so it is marked `data-stage-verdict` and the stage draws
+  it in the strip above the switch that produced it; a screen reader's utterance is marked
+  `data-stage-announce` and drawn in the lane above that, with a speaker that pulses on a
+  change. `bun validate` refuses a `data-part="verdict"` left inside the specimen; the
+  exemption list in `scripts/validate-terms.ts` is the instrument test below.
+  A readout stays in the frame ONLY when the demo draws the thing that produces it:
+  `braille-display` draws the pin array, `key-sequence` draws the kbd chips and the timeout
+  meter, `inline-validation` prints into the field's own slot (and `aria-describedby` points
+  at it, so hiding it would strip the description from the tree), `containing-block` reads
+  "Containing block: the card" beside the box it names. A label asserting an instrument
+  nobody can see is not fiction: "Screen reader, polite queue" over a scene with no screen
+  reader in it is a stage direction wearing a product's clothes. Do not restyle author voice
+  to look like product UI, which is how 365 invented brand names happened.
+  A lane MIRRORS the source's `data-*`, not just its `data-part`: a choreography may qualify
+  a part with a state attribute (`[data-part=verdict][data-state=offset]`), and without the
+  mirror the player finds nothing in the strip, falls back to the hidden original and fails
+  the assert on a claim that is true.
+- **The strip sits inside the overlay** (SPEC §6), which is what makes it reachable by the
+  ghost cursor. Anything else added there has to stay reachable the same way, and a control
+  there must spell `[data-hovered]`/`[data-pressed]` beside its `:hover`, since synthesized
+  input lights no pseudo-class.
+- **A control in the strip is outside everything the stage listens to**, so it must wire
+  takeover AND hand-back by hand (SPEC §7). Every other takeover signal is registered on
+  `surface.events`, which is the shadow root or the frame document, and the strip is in
+  neither: shipped without this, a reader's press on the mode switch was heard by nobody,
+  attract played on over the top of them and the next pass undid the mode they had just
+  chosen; wiring only the press then held the stage in user mode for the whole visit,
+  because nothing handed it back. `e2e/strip.e2e.ts` guards both halves. Note what could
+  not have caught it: the ghost cursor reaches the strip through the player, and a
+  synthesized `click()` runs the demo's handler directly, so both bypass the listener that
+  was missing. Only a trusted event proves a reader can operate anything drawn out there.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

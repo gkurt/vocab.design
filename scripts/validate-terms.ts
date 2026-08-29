@@ -46,7 +46,35 @@ const POSE_NEGATION = /:not\([^)]*\)/g;
  * by nobody who has seen the others. The specific claim belongs in the verdict line
  * beside the switch, which is why the labels can afford to be this blunt.
  */
-const FOIL_LABELS = { term: 'As shipped', foil: 'Made fair' } as const;
+const FOIL_LABELS = { term: 'With', foil: 'Without' } as const;
+/**
+ * The specimens whose `<sp-segmented>` is the thing the term names, or sits inside the
+ * element that is (SPEC §5.1). For these the control is the exhibit rather than a way of
+ * looking at it, so it stays where the demo drew it and never moves to the strip. Every
+ * other switch on the site is the reader's way of changing what the scene shows.
+ */
+const SWITCH_IS_SUBJECT = new Set([
+  'accessibility-overlay',
+  'generative-ui',
+  'ornament',
+  'rotor',
+  'rule-builder',
+  'scope-bar',
+  'segmented-control',
+  'time-picker',
+]);
+
+/**
+ * Specimens whose "verdict" is the product's own line, not the author's (SPEC §5.1).
+ *
+ * The test is whether the demo DRAWS the thing that produces the text. `inline-validation`
+ * prints into the field's own slot and is pointed at by `aria-describedby`, which is a real
+ * form message; `key-sequence` prints into a leader-key HUD whose kbd chips and timeout meter
+ * are on screen; `containing-block` reads "Containing block: the card", a legend naming a box
+ * the figure draws. Everything else called a verdict is the site talking about the specimen,
+ * and no checkout says "the advertised 42.00 won the click" about itself.
+ */
+const VERDICT_IS_FICTION = new Set(['containing-block', 'inline-validation', 'key-sequence']);
 
 /** Comments, stripped before a markup rule reads a demo: naming an element is not using one. */
 const COMMENTS = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
@@ -197,6 +225,14 @@ for (const term of terms.values()) {
       demoSource = source;
       if (!source.includes('data-subject')) errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
 
+      // A verdict is the author's reading of the state, not the product's, so it belongs in
+      // the strip beside the switch that produced it (SPEC §5.1). Printed inside the mock in
+      // the mock's own type it is one more line the reader has to work out is not the fiction.
+      if (source.includes('data-part="verdict"') && !source.includes('data-stage-verdict') && !VERDICT_IS_FICTION.has(term.slug))
+        errors.push(
+          `${term.slug}: verdict is drawn inside the specimen; mark it data-stage-verdict so the stage draws it in the strip (SPEC §5.1)`,
+        );
+
       // A pose is the live specimen with its clock held (SPEC §6). A timer taken from
       // the global scope is one the stage cannot reach: it keeps running under the
       // pose, dismisses the subject mid-inspection, and outlives its own mount.
@@ -237,6 +273,15 @@ for (const term of terms.values()) {
           errors.push(`${term.slug}: switch data-term="${marked}" contradicts data-pose, which poses "${named[0]}" (SPEC §5.1)`);
         if (!marked && named.length === 1 && axis)
           errors.push(`${term.slug}: switch names an axis but not the state data-pose already calls the term (SPEC §5.1)`);
+        // A mode switch is the exhibit's control and belongs in the strip, not inside the
+        // fiction (SPEC §5.1). Drawn in the demo it becomes part of the mock product: 154 of
+        // them once sat in a simulated app's title bar beside an invented brand, at the same
+        // weight, and no wording rescues that. The exemption is for a control that IS what
+        // the term names, where the switch is the specimen rather than a way of looking at it.
+        if (!control.includes('data-stage-mode') && !SWITCH_IS_SUBJECT.has(term.slug))
+          errors.push(
+            `${term.slug}: switch is drawn inside the specimen; mark it data-stage-mode so the stage draws it in the strip (SPEC §5.1)`,
+          );
       }
 
       // One spelling for the deceptive-pattern family (SPEC §5.1). The enum stops here

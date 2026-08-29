@@ -70,7 +70,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="gap: 10px">
-        <sp-segmented class="sp-segmented" data-part="palette" data-axis="Brand palette" data-value="coral">
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="palette" data-axis="Brand palette" data-value="coral">
           <button class="sp-segment" data-part="pal-coral" value="coral">Coral</button>
           <button class="sp-segment" data-part="pal-mint" value="mint">Mint</button>
           <button class="sp-segment" data-part="pal-plum" value="plum">Plum</button>

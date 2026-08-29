@@ -98,7 +98,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="width: 452px; gap: 12px">
-        <sp-segmented class="sp-segmented" data-axis="Platform" data-part="picker" data-value="macos">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Platform" data-part="picker" data-value="macos">
           <button class="sp-segment" type="button" data-part="seg-macos" value="macos" style="padding: 4px 10px; font-size: 12px">macOS</button>
           <button class="sp-segment" type="button" data-part="seg-windows" value="windows" style="padding: 4px 10px; font-size: 12px">Windows</button>
         </sp-segmented>

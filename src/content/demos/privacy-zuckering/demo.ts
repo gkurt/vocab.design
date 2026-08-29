@@ -54,9 +54,9 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 460px; height: 282px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Loomly, account setup</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="steered" data-axis="Version" data-term="steered" style="flex: 0 0 auto">
-            <button class="sp-segment" data-part="mode-steered" type="button" value="steered" style="padding: 4px 9px; font-size: 11.5px">As shipped</button>
-            <button class="sp-segment" data-part="mode-plain" type="button" value="plain" style="padding: 4px 9px; font-size: 11.5px">Made fair</button>
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="steered" data-axis="Privacy zuckering" data-term="steered" style="flex: 0 0 auto">
+            <button class="sp-segment" data-part="mode-steered" type="button" value="steered" style="padding: 4px 9px; font-size: 11.5px">With</button>
+            <button class="sp-segment" data-part="mode-plain" type="button" value="plain" style="padding: 4px 9px; font-size: 11.5px">Without</button>
           </sp-segmented>
         </div>
 

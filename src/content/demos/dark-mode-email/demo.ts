@@ -145,7 +145,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 440px; padding: 13px 18px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="What the client does" data-value="${START}">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="What the client does" data-value="${START}">
             <button class="sp-segment" data-part="seg-partial" value="partial">Partial invert</button>
             <button class="sp-segment" data-part="seg-full" value="full">Full invert</button>
           </sp-segmented>

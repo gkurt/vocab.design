@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 276px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Proof</span>
-          <sp-segmented class="sp-segmented" data-part="view" data-axis="Timeline" data-value="v1" style="flex: 0 0 auto">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="view" data-axis="Timeline" data-value="v1" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="view-v1" type="button" value="v1" style="padding: 4px 8px; font-size: 11px">Visit 1</button>
             <button class="sp-segment" data-part="view-v4" type="button" value="v4" style="padding: 4px 8px; font-size: 11px">Visit 4</button>
             <button class="sp-segment" data-part="view-v9" type="button" value="v9" style="padding: 4px 8px; font-size: 11px">Visit 9</button>

@@ -96,7 +96,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 8px; width: 452px">
-        <sp-segmented class="sp-segmented" data-axis="Title bar" data-part="picker" data-value="classic">
+        <sp-segmented data-stage-mode class="sp-segmented" data-axis="Title bar" data-part="picker" data-value="classic">
           <button class="sp-segment" type="button" data-part="seg-classic" value="classic" style="padding: 4px 10px; font-size: 12px">Classic</button>
           <button class="sp-segment" type="button" data-part="seg-unified" value="unified" style="padding: 4px 10px; font-size: 12px">Unified</button>
           <button class="sp-segment" type="button" data-part="seg-inactive" value="inactive" style="padding: 4px 10px; font-size: 12px">Inactive</button>

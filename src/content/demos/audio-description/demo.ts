@@ -95,7 +95,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
           <div class="sp-row sp-row--between" style="margin-top: 10px">
             <button class="sp-button sp-button--sm" type="button" data-part="play">Play the scene</button>
-            <sp-segmented class="sp-segmented" data-part="segmented" data-value="standard" data-axis="Track">
+            <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="standard" data-axis="Track">
               <button class="sp-segment" data-part="seg-standard" value="standard">Standard</button>
               <button class="sp-segment" data-part="seg-extended" value="extended">Extended</button>
             </sp-segmented>

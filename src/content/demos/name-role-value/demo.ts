@@ -35,7 +35,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 424px">
         <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="complete" data-axis="Build">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="complete" data-axis="Build">
             <button class="sp-segment" data-part="seg-complete" value="complete">Switch</button>
             <button class="sp-segment" data-part="seg-unnamed" value="unnamed">No label</button>
             <button class="sp-segment" data-part="seg-roleless" value="roleless">No role</button>
@@ -69,7 +69,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="verdict" data-case="complete"
+        <p class="sp-text sp-context" data-stage-verdict data-part="verdict" data-case="complete"
            style="margin: 10px 0 0; height: 18px; font-size: 12px; white-space: nowrap">${BUILDS.complete.verdict}</p>
       </div>
     </div>

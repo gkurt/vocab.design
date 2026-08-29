@@ -80,7 +80,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">One ${DP} dp button, two phones</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Screen density" data-value="3x">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Screen density" data-value="3x">
             <button class="sp-segment" type="button" data-part="seg-1x" value="1x">1x</button>
             <button class="sp-segment" type="button" data-part="seg-2x" value="2x">2x</button>
             <button class="sp-segment" type="button" data-part="seg-3x" value="3x">3x</button>

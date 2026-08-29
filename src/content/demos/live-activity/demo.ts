@@ -101,7 +101,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 6px">
-              <sp-segmented class="sp-segmented" data-axis="View" data-part="picker" data-value="${START}" style="align-self: flex-start">
+              <sp-segmented data-stage-mode class="sp-segmented" data-axis="View" data-part="picker" data-value="${START}" style="align-self: flex-start">
               <button class="sp-segment" type="button" data-part="seg-compact" value="compact" style="padding: 4px 7px; font-size: 11px">Compact</button>
               <button class="sp-segment" type="button" data-part="seg-expanded" value="expanded" style="padding: 4px 7px; font-size: 11px">Expanded</button>
               <button class="sp-segment" type="button" data-part="seg-notification" value="notification" style="padding: 4px 7px; font-size: 11px">Notification</button>

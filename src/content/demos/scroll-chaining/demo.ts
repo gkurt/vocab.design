@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-progress" data-part="panel-ruler" style="width: 74px"><div class="sp-progress-fill" style="--sp-value: 0%; transition: none"></div></div>
           <span class="sp-label" style="width: 34px">Page</span>
           <div class="sp-progress" data-part="page-ruler" style="width: 74px"><div class="sp-progress-fill" style="--sp-value: 0%; transition: none"></div></div>
-          <sp-segmented class="sp-segmented sp-grow" data-part="mode" data-value="default" data-axis="Overscroll" data-term="default" style="justify-content: flex-end">
+          <sp-segmented data-stage-mode class="sp-segmented sp-grow" data-part="mode" data-value="default" data-axis="Overscroll" data-term="default" style="justify-content: flex-end">
             <button class="sp-segment" data-part="mode-default" value="default" style="padding: 5px 10px">auto</button>
             <button class="sp-segment" data-part="mode-contain" value="contain" style="padding: 5px 10px">contain</button>
           </sp-segmented>
