@@ -68,9 +68,8 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="heard" data-page="${START}"
                 style="font-size: 12px; white-space: nowrap">“Overview, current page, link”</span>
         </div>
-        <div class="sp-row sp-row--between" style="margin-top: 6px">
-          <span class="sp-label">Colour-only review</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="colour">
+        <div class="sp-row sp-row--between" style="margin-top: 6px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Colour-only review" data-value="colour">
             <button class="sp-segment" data-part="seg-colour" value="colour">Colour</button>
             <button class="sp-segment" data-part="seg-grey" value="grey">Greyscale</button>
           </sp-segmented>

@@ -48,7 +48,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Service agreement</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="light">
+          <sp-segmented class="sp-segmented" data-axis="Strength" data-part="picker" data-value="light">
             <button class="sp-segment" type="button" data-part="seg-clean" value="clean" style="padding: 4px 9px; font-size: 12px">Clean</button>
             <button class="sp-segment" type="button" data-part="seg-light" value="light" style="padding: 4px 9px; font-size: 12px">Watermarked</button>
             <button class="sp-segment" type="button" data-part="seg-heavy" value="heavy" style="padding: 4px 9px; font-size: 12px">Too heavy</button>

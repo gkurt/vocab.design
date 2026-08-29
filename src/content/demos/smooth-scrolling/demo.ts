@@ -79,8 +79,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
       <div class="sp-row sp-context" style="gap: 8px">
-        <span class="sp-label">Jump</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="glide">
+        <sp-segmented class="sp-segmented" data-axis="Jump" data-part="mode" data-value="glide">
           <button class="sp-segment" data-part="mode-glide" value="glide">Glide</button>
           <button class="sp-segment" data-part="mode-instant" value="instant">Instant</button>
         </sp-segmented>

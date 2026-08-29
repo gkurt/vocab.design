@@ -53,9 +53,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 380px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Primary</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}" data-axis="Primary">
             <button class="sp-segment" data-part="seg-indigo" value="indigo">Indigo</button>
             <button class="sp-segment" data-part="seg-amber" value="amber">Amber</button>
             <button class="sp-segment" data-part="seg-teal" value="teal">Teal</button>

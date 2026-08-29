@@ -69,8 +69,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Lever</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="size">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Lever" data-value="size" style="margin-left: auto">
             <button class="sp-segment" type="button" data-part="seg-size" value="size">size</button>
             <button class="sp-segment" type="button" data-part="seg-contrast" value="contrast">contrast</button>
             <button class="sp-segment" type="button" data-part="seg-isolation" value="isolation">isolation</button>

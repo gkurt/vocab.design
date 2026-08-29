@@ -54,7 +54,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Raised characters</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="css">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="css" data-axis="Method" data-term="css">
             <button class="sp-segment" data-part="seg-variant" value="variant">sups</button>
             <button class="sp-segment" data-part="seg-css" value="css">CSS</button>
           </sp-segmented>

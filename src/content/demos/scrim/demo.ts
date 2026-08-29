@@ -69,8 +69,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="gap: 10px">
-        <span class="sp-label">Layer</span>
-        <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">
+        <sp-segmented class="sp-segmented" data-axis="Layer" data-part="segmented" data-value="${START}">
           <button class="sp-segment" data-part="seg-none" value="none">None</button>
           <button class="sp-segment" data-part="seg-solid" value="solid">Solid</button>
           <button class="sp-segment" data-part="seg-gradient" value="gradient">Gradient</button>

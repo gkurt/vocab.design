@@ -180,7 +180,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 8px; width: 476px">
-        <sp-segmented class="sp-segmented" data-part="picker" data-value="${START}">
+        <sp-segmented class="sp-segmented" data-axis="Uncertainty" data-part="picker" data-value="${START}">
           <button class="sp-segment" type="button" data-part="seg-bare" value="bare" style="padding: 4px 10px; font-size: 12px">Bare</button>
           <button class="sp-segment" type="button" data-part="seg-bars" value="bars" style="padding: 4px 10px; font-size: 12px">Error bars</button>
           <button class="sp-segment" type="button" data-part="seg-band" value="band" style="padding: 4px 10px; font-size: 12px">Band</button>

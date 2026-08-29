@@ -45,9 +45,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Screen reader is in</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="browse">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Screen reader" data-term="browse" data-part="segmented" data-value="browse">
             <button class="sp-segment" data-part="seg-browse" value="browse">Browse mode</button>
             <button class="sp-segment" data-part="seg-focus" value="focus">Focus mode</button>
           </sp-segmented>

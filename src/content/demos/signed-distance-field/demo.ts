@@ -115,9 +115,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">magnification</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="${ZOOMS[0]?.key}">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Magnification" data-value="${ZOOMS[0]?.key}">
             ${ZOOMS.map(
               (zoom) => `<button class="sp-segment" data-part="seg-${zoom.key}" value="${zoom.key}">${zoom.scale}x</button>`,
             ).join('')}

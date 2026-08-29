@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Window width</span>
-          <sp-segmented class="sp-segmented" data-part="widths" data-value="w412">
+          <sp-segmented class="sp-segmented" data-part="widths" data-axis="Width" data-value="w412">
             ${segment('w412', 412)}${segment('w560', 560)}${segment('w720', 720)}${segment('w960', 960)}
           </sp-segmented>
         </div>

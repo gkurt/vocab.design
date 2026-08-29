@@ -52,7 +52,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-state="open" data-anchor="a" style="height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Origin</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="trigger">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="trigger" data-axis="Grows from" data-term="trigger">
             <button class="sp-segment" type="button" data-part="seg-trigger" value="trigger">Trigger</button>
             <button class="sp-segment" type="button" data-part="seg-centre" value="centre">Centre</button>
           </sp-segmented>

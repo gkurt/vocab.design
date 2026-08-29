@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Utilisation, percent, 12 weeks</span>
-          <sp-segmented class="sp-segmented" data-part="shapes" data-value="${first.key}">
+          <sp-segmented class="sp-segmented" data-part="shapes" data-axis="Shape" data-value="${first.key}">
             ${SHAPES.map(segment).join('')}
           </sp-segmented>
         </div>

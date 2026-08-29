@@ -123,7 +123,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 400px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Trace the channel</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="on">
+          <sp-segmented class="sp-segmented" data-axis="Trace" data-part="segmented" data-value="on">
             <button class="sp-segment" data-part="seg-off" value="off">off</button>
             <button class="sp-segment" data-part="seg-on" value="on">on</button>
           </sp-segmented>

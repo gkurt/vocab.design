@@ -43,9 +43,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 13px 18px">
-        <div class="sp-row sp-row--between sp-context" style="height: 31px">
-          <span class="sp-label">Behind the artwork</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="checker">
+        <div class="sp-row sp-row--between sp-context" style="height: 31px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Behind the artwork" data-part="segmented" data-value="checker">
             <button class="sp-segment" data-part="seg-checker" value="checker">Checker</button>
             <button class="sp-segment" data-part="seg-white" value="white">White</button>
             <button class="sp-segment" data-part="seg-page" value="page">Page</button>

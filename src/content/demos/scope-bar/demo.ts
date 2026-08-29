@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
             />
           </div>
 
-          <sp-segmented class="sp-segmented" data-part="bar" data-subject data-value="all" aria-label="Search scope" style="align-self: flex-start">
+          <sp-segmented class="sp-segmented" data-part="bar" data-subject data-value="all" data-axis="Scope" aria-label="Search scope" style="align-self: flex-start">
             ${SCOPES.map(
               (scope) => `
               <button class="sp-segment" type="button" data-part="seg-${scope.key}" value="${scope.key}" style="padding: 4px 14px; font-size: 12px; white-space: nowrap">${scope.label}</button>`,

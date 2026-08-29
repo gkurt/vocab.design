@@ -72,7 +72,7 @@ export function mount(root: HTMLElement): void {
             >
               <div class="sp-row sp-row--between" style="gap: 8px">
                 <span class="sp-heading" data-part="result-heading" style="font-size: 13px">${FIGURES.month.heading}</span>
-                <sp-segmented class="sp-segmented" data-part="range" data-value="month">
+                <sp-segmented class="sp-segmented" data-axis="Range" data-part="range" data-value="month">
                   <button class="sp-segment" data-part="range-month" value="month" style="padding: 3px 10px; font-size: 12px">March</button>
                   <button class="sp-segment" data-part="range-quarter" value="quarter" style="padding: 3px 10px; font-size: 12px">Q1</button>
                 </sp-segmented>

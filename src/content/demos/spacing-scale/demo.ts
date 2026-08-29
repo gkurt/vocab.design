@@ -51,7 +51,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 292px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Card values</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="scale">
+          <sp-segmented class="sp-segmented" data-axis="Spacing" data-part="switcher" data-value="scale">
             <button class="sp-segment" type="button" data-part="seg-scale" value="scale">on the scale</button>
             <button class="sp-segment" type="button" data-part="seg-off" value="off">off the scale</button>
           </sp-segmented>

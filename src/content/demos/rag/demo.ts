@@ -43,8 +43,8 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">line breaks</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="auto">
+          <span class="sp-grow"></span>
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Line breaks" data-value="auto">
             <button class="sp-segment" data-part="seg-auto" value="auto">auto</button>
             <button class="sp-segment" data-part="seg-tuned" value="tuned">tuned</button>
           </sp-segmented>

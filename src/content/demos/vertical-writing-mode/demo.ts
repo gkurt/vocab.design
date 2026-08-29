@@ -74,10 +74,10 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 452px">
+      <div class="sp-window" style="width: 484px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label" data-part="css" style="white-space: nowrap">${MODES.vertical.css}</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="vertical" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-axis="Mode" data-part="segmented" data-value="vertical" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="seg-horizontal" value="horizontal" style="white-space: nowrap">horizontal</button>
             <button class="sp-segment" data-part="seg-vertical" value="vertical" style="white-space: nowrap">vertical</button>
             <button class="sp-segment" data-part="seg-upright" value="upright" style="white-space: nowrap">upright</button>

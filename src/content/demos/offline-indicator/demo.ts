@@ -47,7 +47,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <button class="sp-button sp-button--sm" data-part="send" type="button">Send</button>
         </div>
       </div>
-      <sp-segmented class="sp-segmented sp-context" data-part="net" data-value="online">
+      <sp-segmented class="sp-segmented sp-context" data-part="net" data-value="online" data-axis="Network">
         <button class="sp-segment" data-part="net-online" value="online">Online</button>
         <button class="sp-segment" data-part="net-offline" value="offline">Offline</button>
       </sp-segmented>

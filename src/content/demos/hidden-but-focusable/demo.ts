@@ -58,7 +58,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 456px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Closed drawer is marked</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="broken">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="broken" data-axis="Attribute" data-term="broken">
             <button class="sp-segment" data-part="seg-broken" value="broken">aria-hidden</button>
             <button class="sp-segment" data-part="seg-fixed" value="fixed">inert</button>
           </sp-segmented>

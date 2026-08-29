@@ -168,7 +168,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 8px; width: 476px">
-        <sp-segmented class="sp-segmented" data-part="picker" data-value="${START}">
+        <sp-segmented class="sp-segmented" data-axis="Annotation" data-part="picker" data-value="${START}">
           <button class="sp-segment" type="button" data-part="seg-callout" value="callout" style="padding: 4px 10px; font-size: 12px">Callout</button>
           <button class="sp-segment" type="button" data-part="seg-span" value="span" style="padding: 4px 10px; font-size: 12px">Span</button>
           <button class="sp-segment" type="button" data-part="seg-reference" value="reference" style="padding: 4px 10px; font-size: 12px">Rule</button>

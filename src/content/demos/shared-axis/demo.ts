@@ -67,7 +67,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-label" data-part="note">siblings, side by side</span>
         </div>
         <div class="sp-body">
-          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-value="x" style="width: 100%">
+          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-axis="Axis" data-value="x" style="width: 100%">
             ${axes}
           </sp-segmented>
           <div

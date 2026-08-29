@@ -47,7 +47,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Help copy, one claim form</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="sensory" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="sensory" data-axis="Refers by" data-term="sensory" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-sensory" value="sensory"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Shape and side</button>
             <button class="sp-segment" type="button" data-part="seg-named" value="named"

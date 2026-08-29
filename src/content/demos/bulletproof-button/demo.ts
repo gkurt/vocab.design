@@ -37,8 +37,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 13px 18px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Embedded stylesheet</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="kept">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="kept" data-axis="Embedded stylesheet" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-kept" value="kept">Kept</button>
             <button class="sp-segment" data-part="seg-dropped" value="dropped">Stripped</button>
           </sp-segmented>

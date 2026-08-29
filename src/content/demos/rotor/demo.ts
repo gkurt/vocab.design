@@ -50,9 +50,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between" style="gap: 10px">
-          <span class="sp-label sp-context" style="flex: 0 0 auto">Rotor is set to</span>
-          <sp-segmented class="sp-segmented" data-part="rotor" data-subject data-value="headings">
+        <div class="sp-row sp-row--between" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Rotor" data-part="rotor" data-subject data-value="headings">
             <button class="sp-segment" data-part="seg-headings" value="headings"
                     style="padding: 5px 10px; font-size: 12px">Headings</button>
             <button class="sp-segment" data-part="seg-links" value="links"

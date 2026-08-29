@@ -121,8 +121,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Reader is sitting on</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="heading">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="heading" data-axis="Element" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-heading" value="heading"
                     style="padding: 5px 10px; font-size: 12px">Heading</button>
             <button class="sp-segment" data-part="seg-button" value="button"

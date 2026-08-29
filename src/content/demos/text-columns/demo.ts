@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Columns asked for by</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="two">
+          <sp-segmented class="sp-segmented" data-axis="Property" data-part="switcher" data-value="two">
             <button class="sp-segment" type="button" data-part="seg-two" value="two">count 2</button>
             <button class="sp-segment" type="button" data-part="seg-three" value="three">count 3</button>
             <button class="sp-segment" type="button" data-part="seg-fitted" value="fitted">width</button>

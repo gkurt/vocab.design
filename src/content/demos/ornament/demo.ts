@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
                      display: flex; align-items: center; justify-content: center; padding: 0 8px; border: 1px solid var(--sp-line);
                      border-radius: 999px; background: var(--sp-surface); box-shadow: 0 14px 28px rgb(16 24 40 / 0.26)"
             >
-              <sp-segmented class="sp-segmented" data-part="views" data-value="grid" aria-label="Window view">
+              <sp-segmented class="sp-segmented" data-part="views" data-value="grid" data-axis="View" aria-label="Window view">
                 ${VIEWS.map(
                   (view) => `
                   <button class="sp-segment" type="button" data-part="seg-${view.key}" value="${view.key}" style="padding: 4px 11px; font-size: 12px; white-space: nowrap">${view.label}</button>`,

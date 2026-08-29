@@ -39,7 +39,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 300px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">the space in each pair</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="nbsp">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="nbsp" data-axis="Character" data-term="nbsp">
             <button class="sp-segment" data-part="seg-space" value="space">space</button>
             <button class="sp-segment" data-part="seg-nbsp" value="nbsp">nbsp</button>
           </sp-segmented>

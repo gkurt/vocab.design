@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 290px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Slot width</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="narrow">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Width" data-value="narrow">
             <button class="sp-segment" type="button" data-part="seg-narrow" value="narrow">172px</button>
             <button class="sp-segment" type="button" data-part="seg-wide" value="wide">324px</button>
           </sp-segmented>

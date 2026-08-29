@@ -90,7 +90,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Down the right edge</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="default">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Hyphen limit" data-term="default" data-value="default">
             <button class="sp-segment" data-part="seg-default" value="default">default</button>
             <button class="sp-segment" data-part="seg-limited" value="limited">limit 2</button>
           </sp-segmented>

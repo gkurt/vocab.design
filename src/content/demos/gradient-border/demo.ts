@@ -56,8 +56,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" data-part="tools" style="gap: 10px">
-        <span class="sp-label">Gradient</span>
-        <sp-segmented class="sp-segmented" data-part="switcher" data-value="conic">
+        <sp-segmented class="sp-segmented" data-axis="Gradient" data-part="switcher" data-value="conic">
           <button class="sp-segment" type="button" data-part="seg-conic" value="conic">Conic</button>
           <button class="sp-segment" type="button" data-part="seg-linear" value="linear">Linear</button>
         </sp-segmented>

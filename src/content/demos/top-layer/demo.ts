@@ -78,7 +78,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">The surface is</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="dialog">
+          <sp-segmented class="sp-segmented" data-axis="Element" data-part="switcher" data-value="dialog">
             <button class="sp-segment" type="button" data-part="seg-dialog" value="dialog">a dialog</button>
             <button class="sp-segment" type="button" data-part="seg-popover" value="popover">a popover</button>
             <button class="sp-segment" type="button" data-part="seg-plain" value="plain">a plain div</button>

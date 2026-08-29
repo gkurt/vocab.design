@@ -1,4 +1,4 @@
 term:    Fine print
 scope:   element
-subject: span.sp-text[data-part=qualifier][data-set=standard]
+subject: span.sp-text[data-part=qualifier][data-pose=[data-set=standard]][data-set=standard]
 text:    Then $12 a month. Cancel any time before your renewal date.

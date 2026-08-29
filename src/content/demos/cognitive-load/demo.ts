@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Export your orders, built</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="calm">
+          <sp-segmented class="sp-segmented" data-axis="Layout" data-term="calm" data-part="segmented" data-value="calm">
             <button class="sp-segment" data-part="seg-calm" value="calm">Chunked</button>
             <button class="sp-segment" data-part="seg-dense" value="dense">Dense</button>
           </sp-segmented>

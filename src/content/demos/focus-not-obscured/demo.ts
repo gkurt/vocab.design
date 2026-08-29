@@ -66,8 +66,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The focused field is</span>
-          <sp-segmented class="sp-segmented" data-part="position" data-value="partial">
+          <sp-segmented class="sp-segmented" data-part="position" data-axis="Visibility" data-value="partial" style="margin-left: auto">
             <button class="sp-segment" type="button" data-part="seg-hidden" value="hidden"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">Fully covered</button>
             <button class="sp-segment" type="button" data-part="seg-partial" value="partial"

@@ -47,7 +47,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 448px; padding: 14px 16px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Same characters, two shapes</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="chunked">
+          <sp-segmented class="sp-segmented" data-axis="Grouping" data-term="chunked" data-part="segmented" data-value="chunked">
             <button class="sp-segment" data-part="seg-chunked" value="chunked">Chunked</button>
             <button class="sp-segment" data-part="seg-run" value="run">One run</button>
           </sp-segmented>

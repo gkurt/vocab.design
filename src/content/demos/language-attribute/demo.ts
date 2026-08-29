@@ -74,7 +74,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 16px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">One page, three languages</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="set">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Markup" data-term="set" data-value="set">
             <button class="sp-segment" data-part="seg-set" value="set" style="font-size: 12px; padding: 5px 10px">lang declared</button>
             <button class="sp-segment" data-part="seg-missing" value="missing" style="font-size: 12px; padding: 5px 10px">no lang</button>
           </sp-segmented>

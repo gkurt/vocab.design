@@ -100,9 +100,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Indicator</span>
-          <sp-segmented class="sp-segmented" data-part="treatment" data-value="solid">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="treatment" data-value="solid" data-axis="Indicator" data-term="solid">
             <button class="sp-segment" type="button" data-part="seg-solid" value="solid"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Solid 2 px</button>
             <button class="sp-segment" type="button" data-part="seg-thin" value="thin"

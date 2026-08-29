@@ -54,13 +54,13 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-surface" data-part="widget" data-subject
-               style="position: absolute; right: 8px; bottom: 8px; width: 206px; padding: 7px 9px;
+               style="position: absolute; right: 8px; bottom: 8px; width: 240px; padding: 7px 9px;
                       box-shadow: var(--sp-shadow)">
             <div class="sp-row" style="gap: 6px; height: 16px">
               <span style="display: flex; color: var(--sp-accent)">${icon('sliders')}</span>
               <span class="sp-label" style="font-size: 10.5px; white-space: nowrap">Accessibility</span>
             </div>
-            <sp-segmented class="sp-segmented" data-part="mode" data-value="default"
+            <sp-segmented class="sp-segmented" data-part="mode" data-value="default" data-axis="Setting"
                           style="margin-top: 6px; width: 100%">
               <button class="sp-segment" type="button" data-part="seg-default" value="default"
                       style="flex: 1 1 auto; padding: 3px 6px; font-size: 10px; white-space: nowrap">Default</button>

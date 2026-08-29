@@ -58,9 +58,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">font-palette</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="sunrise">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="font-palette" data-value="sunrise">
             ${PALETTES.map((p) => `<button class="sp-segment" data-part="seg-${p.key}" value="${p.key}">${p.name}</button>`).join('')}
           </sp-segmented>
         </div>

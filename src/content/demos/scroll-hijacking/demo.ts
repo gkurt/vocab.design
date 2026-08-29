@@ -86,7 +86,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="note" style="width: 282px; font-size: 11px">${NOTE.hijacked}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="hijacked">
+        <sp-segmented class="sp-segmented" data-part="mode" data-value="hijacked" data-axis="Scrolling" data-term="hijacked">
           <button class="sp-segment" data-part="mode-hijacked" value="hijacked" style="padding: 5px 10px">Hijacked</button>
           <button class="sp-segment" data-part="mode-native" value="native" style="padding: 5px 10px">Native</button>
         </sp-segmented>

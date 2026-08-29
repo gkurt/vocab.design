@@ -67,7 +67,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">24 pixel circle test</span>
+          <span class="sp-label" style="flex: 0 0 auto">Circle test</span>
           <sp-segmented class="sp-segmented" data-part="picker" data-value="spaced" data-axis="View" data-term="spaced">
             <button class="sp-segment" type="button" data-part="seg-shipped" value="shipped"
                     style="padding: 4px 8px; font-size: 11.5px; white-space: nowrap">As shipped</button>

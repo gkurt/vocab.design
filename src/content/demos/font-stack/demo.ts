@@ -40,9 +40,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 440px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">simulate as not installed</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="none">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Not installed" data-part="segmented" data-value="none">
             <button class="sp-segment" data-part="seg-none" value="none">none</button>
             <button class="sp-segment" data-part="seg-first" value="first">1st</button>
             <button class="sp-segment" data-part="seg-two" value="two">1st + 2nd</button>

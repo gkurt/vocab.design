@@ -51,9 +51,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Link text</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="descriptive">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="descriptive" data-axis="Link text" data-term="descriptive">
             <button class="sp-segment" data-part="seg-descriptive" value="descriptive">Names the page</button>
             <button class="sp-segment" data-part="seg-vague" value="vague">“Read more”</button>
           </sp-segmented>

@@ -72,9 +72,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">swash forms</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="initial">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Swash forms" data-part="segmented" data-value="initial">
             <button class="sp-segment" data-part="seg-off" value="off">off</button>
             <button class="sp-segment" data-part="seg-initial" value="initial">initial</button>
             <button class="sp-segment" data-part="seg-every" value="every">every</button>

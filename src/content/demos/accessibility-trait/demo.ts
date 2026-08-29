@@ -49,8 +49,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Traits set on this view</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="button">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Traits" data-value="button" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-none" value="none">No traits</button>
             <button class="sp-segment" data-part="seg-button" value="button">.button</button>
             <button class="sp-segment" data-part="seg-selected" value="selected">.selected</button>

@@ -113,7 +113,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 257px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Handset share, %</span>
-          <sp-segmented class="sp-segmented" data-part="domain" data-value="${START}">
+          <sp-segmented class="sp-segmented" data-part="domain" data-value="${START}" data-axis="Y axis" data-term="truncated">
             <button class="sp-segment" type="button" data-part="domain-zero" value="zero" style="padding: 5px 10px; font-size: 12px">From zero</button>
             <button class="sp-segment" type="button" data-part="domain-truncated" value="truncated" style="padding: 5px 10px; font-size: 12px">Cut at 46.4</button>
           </sp-segmented>

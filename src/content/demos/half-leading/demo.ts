@@ -54,9 +54,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">line-height</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="1.8">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Line height" data-value="1.8">
             ${LEADINGS.map(segment).join('')}
           </sp-segmented>
         </div>

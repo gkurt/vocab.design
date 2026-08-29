@@ -28,8 +28,8 @@ const CAPTION = {
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
-    <div style="display: grid; gap: 10px; width: 440px; margin: 0 auto">
-      <sp-segmented data-part="mode" aria-label="When the sheet is scrubbed">
+    <div style="display: grid; gap: 10px; width: 476px; margin: 0 auto">
+      <sp-segmented class="sp-segmented" data-axis="Scrub" data-part="mode" aria-label="When the sheet is scrubbed">
         <button class="sp-segment" type="button" value="answers" data-part="seg-answers">Sheet answers</button>
         <button class="sp-segment" type="button" value="ignores" data-part="seg-ignores">Sheet ignores</button>
       </sp-segmented>

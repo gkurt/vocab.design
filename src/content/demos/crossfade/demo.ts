@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label">Coastal</span>
         </div>
         <div class="sp-body">
-          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-value="reef" style="width: 100%">
+          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-axis="Panel" data-value="reef" style="width: 100%">
             ${segments}
           </sp-segmented>
           <div data-part="stack" data-subject style="position: relative; height: 124px; margin-top: 12px">

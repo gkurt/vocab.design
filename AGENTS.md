@@ -605,7 +605,9 @@ never fires under reduced motion, so nothing may ever wait on it.
   the meaning. The deceptive-pattern family (anything `variantOf: [dark-pattern]`) spells
   its pair `As shipped | Made fair` and nothing else; the specific claim goes in the
   verdict line beside the switch. A variant switch (light/dark) or a parameter switch
-  (300px/440px) takes an axis and no term, since neither side is the word.
+  (300px/440px) takes an axis and no term, since neither side is the word. The axis is
+  the accessible name only when the control has none of its own: an author's `aria-label`
+  outranks it, since the legend has a pill's width to answer to and the name does not.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

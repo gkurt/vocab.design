@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-range="cover" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Range</span>
-          <sp-segmented class="sp-segmented" data-part="range" data-value="cover">
+          <sp-segmented class="sp-segmented" data-axis="Scope" data-part="range" data-value="cover">
             <button class="sp-segment" type="button" data-part="seg-cover" value="cover">Cover</button>
             <button class="sp-segment" type="button" data-part="seg-contain" value="contain">Contain</button>
             <button class="sp-segment" type="button" data-part="seg-entry" value="entry">Entry</button>

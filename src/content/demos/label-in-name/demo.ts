@@ -48,9 +48,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The button's accessible name is</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="contains">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="contains" data-axis="Accessible name" data-term="contains">
             <button class="sp-segment" data-part="seg-contains" value="contains"
                     style="padding: 5px 10px; font-size: 12px">“Send message”</button>
             <button class="sp-segment" data-part="seg-replaces" value="replaces"

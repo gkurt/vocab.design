@@ -29,7 +29,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 296px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Layout</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="safe">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-value="safe" data-axis="Content" data-term="safe">
             <button class="sp-segment" type="button" data-part="seg-edge" value="edge">edge to edge</button>
             <button class="sp-segment" type="button" data-part="seg-safe" value="safe">safe area</button>
           </sp-segmented>

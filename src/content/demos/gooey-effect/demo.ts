@@ -57,7 +57,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-gap="touching" data-state="rested" style="height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Spacing</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="touching">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="touching" data-axis="Gap">
             <button class="sp-segment" type="button" data-part="seg-apart" value="apart">Apart</button>
             <button class="sp-segment" type="button" data-part="seg-touching" value="touching">Touching</button>
             <button class="sp-segment" type="button" data-part="seg-merged" value="merged">Merged</button>

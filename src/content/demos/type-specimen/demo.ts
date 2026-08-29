@@ -70,9 +70,8 @@ export function mount(root: HTMLElement): void {
             ).join('')}
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 12px; height: 30px">
-          <span class="sp-label">the sheet is set in</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="serif">
+        <div class="sp-row sp-row--between sp-context" style="margin-top: 12px; height: 30px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Typeface" data-part="segmented" data-value="serif">
             <button class="sp-segment" data-part="seg-sans" value="sans">sans</button>
             <button class="sp-segment" data-part="seg-serif" value="serif">serif</button>
             <button class="sp-segment" data-part="seg-mono" value="mono">mono</button>

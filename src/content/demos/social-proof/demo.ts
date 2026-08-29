@@ -91,7 +91,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="verdict" style="font-size: 11px; width: 300px">${VERDICT.specific}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="specific">
+        <sp-segmented class="sp-segmented" data-axis="Proof" data-part="mode" data-value="specific">
           <button class="sp-segment" data-part="mode-specific" value="specific">Checkable</button>
           <button class="sp-segment" data-part="mode-vague" value="vague">Vague</button>
         </sp-segmented>

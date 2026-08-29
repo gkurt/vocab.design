@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 470px; height: 296px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Grouping</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="spacing">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-value="spacing" data-axis="Method" data-term="spacing">
             <button class="sp-segment" type="button" data-part="seg-even" value="even">even</button>
             <button class="sp-segment" type="button" data-part="seg-spacing" value="spacing">spacing</button>
             <button class="sp-segment" type="button" data-part="seg-boxes" value="boxes">boxes</button>

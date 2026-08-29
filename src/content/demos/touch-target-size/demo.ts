@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 380px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Photo actions</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="target">
+          <sp-segmented class="sp-segmented" data-axis="Measuring" data-part="segmented" data-value="target">
             <button class="sp-segment" data-part="seg-glyph" value="glyph">Glyph</button>
             <button class="sp-segment" data-part="seg-target" value="target">Target</button>
           </sp-segmented>

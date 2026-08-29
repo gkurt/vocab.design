@@ -38,9 +38,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">System text size</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="m">${segments}</sp-segmented>
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Text size" data-value="m">${segments}</sp-segmented>
         </div>
         <div class="sp-surface" data-part="screen" style="height: ${SCREEN}px; padding: 12px; margin-top: 8px">
           <div class="sp-stack" data-part="notice" data-subject data-step="m" style="gap: 6px">

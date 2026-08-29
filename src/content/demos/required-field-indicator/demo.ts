@@ -37,7 +37,7 @@ type Convention = keyof typeof LEGENDS;
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 434px">
+      <div class="sp-window" style="width: 476px">
         <div class="sp-row" style="align-items: flex-start; gap: 16px">
           <div data-part="form" data-convention="required" style="width: 200px">
             <p class="sp-text sp-context" data-part="legend" style="margin: 0; font-size: 11px; height: 30px">${LEGENDS.required}</p>
@@ -66,9 +66,8 @@ export function mount(root: HTMLElement): void {
                     style="margin-top: 12px">Create account</button>
           </div>
 
-          <div class="sp-context" style="width: 186px">
-            <span class="sp-label">Which fields carry the mark</span>
-            <sp-segmented class="sp-segmented" data-part="segmented" data-value="required" style="margin-top: 6px">
+          <div class="sp-context" style="width: 226px">
+            <sp-segmented class="sp-segmented" data-axis="Mark" data-part="segmented" data-value="required" style="margin-top: 6px">
               <button class="sp-segment" data-part="seg-required" value="required">Required</button>
               <button class="sp-segment" data-part="seg-optional" value="optional">Optional</button>
             </sp-segmented>

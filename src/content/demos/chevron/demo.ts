@@ -44,7 +44,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 288px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Checkout settings</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="collapsed">
+          <sp-segmented class="sp-segmented" data-axis="State" data-part="picker" data-value="collapsed">
             <button class="sp-segment" type="button" data-part="seg-collapsed" value="collapsed" style="padding: 4px 10px; font-size: 12px">Collapsed</button>
             <button class="sp-segment" type="button" data-part="seg-expanded" value="expanded" style="padding: 4px 10px; font-size: 12px">Expanded</button>
           </sp-segmented>

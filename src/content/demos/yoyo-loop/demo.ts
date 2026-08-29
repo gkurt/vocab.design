@@ -63,7 +63,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-pace="slow" style="height: 256px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Loop</span>
-          <sp-segmented class="sp-segmented" data-part="pace" data-value="slow">
+          <sp-segmented class="sp-segmented" data-axis="Pace" data-part="pace" data-value="slow">
             <button class="sp-segment" type="button" data-part="seg-slow" value="slow">Slow</button>
             <button class="sp-segment" type="button" data-part="seg-brisk" value="brisk">Brisk</button>
           </sp-segmented>

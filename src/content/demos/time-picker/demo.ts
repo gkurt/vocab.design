@@ -67,6 +67,7 @@ export function mount(root: HTMLElement): void {
             <sp-segmented
               class="sp-segmented"
               data-part="meridiem"
+              data-axis="Meridiem"
               data-value="am"
               style="display: flex; width: 100%; margin-top: 10px"
             >

@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 456px; padding: 11px 14px 13px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">One settled screen</span>
-          <sp-segmented class="sp-segmented" data-part="state" data-value="mockup" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="state" data-value="mockup" data-axis="Shown as" data-term="mockup" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-mockup" value="mockup"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Mockup</button>
             <button class="sp-segment" type="button" data-part="seg-hand" value="hand"

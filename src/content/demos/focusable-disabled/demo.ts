@@ -51,8 +51,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Submit order is switched off with</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="soft">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Switched off with" data-term="soft" data-value="soft" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-soft" value="soft">aria-disabled</button>
             <button class="sp-segment" data-part="seg-hard" value="hard">disabled</button>
           </sp-segmented>

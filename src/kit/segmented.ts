@@ -20,8 +20,12 @@ class SpSegmented extends HTMLElement {
     this.setAttribute('role', 'tablist');
     // The legend is drawn from `data-axis` by the kit stylesheet, so it is never in
     // the accessibility tree: the tablist has to carry the same words as its name.
+    // The legend is drawn by CSS and so is invisible to assistive technology, but an
+    // author's own name outranks it: the axis is trimmed to fit inside the pill, while
+    // `aria-label` has no width to answer to and can say the fuller thing ("Search scope"
+    // where the legend reads "Scope"). Only name a control that has no name.
     const axis = this.dataset.axis;
-    if (axis) this.setAttribute('aria-label', axis);
+    if (axis && !this.hasAttribute('aria-label')) this.setAttribute('aria-label', axis);
     const thumb = document.createElement('span');
     thumb.className = 'sp-segmented-thumb';
     this.prepend(thumb);

@@ -44,7 +44,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Spacer as</span>
-          <sp-segmented class="sp-segmented" data-part="modes" data-value="filler">
+          <sp-segmented class="sp-segmented" data-part="modes" data-axis="Role" data-value="filler">
             ${MODES.map(
               (mode) => `
               <button class="sp-segment" type="button" data-part="seg-${mode.key}" value="${mode.key}" style="padding: 4px 10px; font-size: 11px">${mode.label}</button>`,

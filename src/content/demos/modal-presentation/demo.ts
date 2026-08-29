@@ -65,7 +65,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-mode="sheet" data-state="closed" style="height: 286px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Presentation</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="sheet">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="sheet" data-axis="Style">
             <button class="sp-segment" type="button" data-part="seg-sheet" value="sheet">Sheet</button>
             <button class="sp-segment" type="button" data-part="seg-zoom" value="zoom">Zoom</button>
             <button class="sp-segment" type="button" data-part="seg-cover" value="cover">Cover</button>

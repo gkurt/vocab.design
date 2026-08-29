@@ -56,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Icons as a run of text</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="ligature">
+          <sp-segmented class="sp-segmented" data-axis="Notation" data-part="segmented" data-value="ligature">
             <button class="sp-segment" data-part="seg-ligature" value="ligature">ligature</button>
             <button class="sp-segment" data-part="seg-codepoint" value="codepoint">code point</button>
           </sp-segmented>

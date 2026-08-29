@@ -104,7 +104,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Where the ring stops</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="c">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="c" data-axis="Letter">
             <button class="sp-segment" data-part="seg-c" value="c">c</button>
             <button class="sp-segment" data-part="seg-e" value="e">e</button>
           </sp-segmented>

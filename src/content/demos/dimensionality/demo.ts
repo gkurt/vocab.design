@@ -55,7 +55,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Fares</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="dimensional">
+          <sp-segmented class="sp-segmented" data-axis="Depth" data-term="dimensional" data-part="mode" data-value="dimensional">
             <button class="sp-segment" type="button" data-part="seg-dimensional" value="dimensional">Dimensional</button>
             <button class="sp-segment" type="button" data-part="seg-flat" value="flat">Flat</button>
           </sp-segmented>

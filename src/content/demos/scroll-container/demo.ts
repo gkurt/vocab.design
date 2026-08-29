@@ -60,7 +60,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">overflow</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="auto">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-value="auto" data-axis="Set to">
             <button class="sp-segment" type="button" data-part="seg-auto" value="auto">auto</button>
             <button class="sp-segment" type="button" data-part="seg-hidden" value="hidden">hidden</button>
             <button class="sp-segment" type="button" data-part="seg-visible" value="visible">visible</button>

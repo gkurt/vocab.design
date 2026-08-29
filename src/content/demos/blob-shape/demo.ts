@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" data-part="panel" style="gap: 10px">
-        <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">
+        <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}" data-axis="Preset">
           <button class="sp-segment" data-part="seg-a" value="a">Shape A</button>
           <button class="sp-segment" data-part="seg-b" value="b">Shape B</button>
         </sp-segmented>

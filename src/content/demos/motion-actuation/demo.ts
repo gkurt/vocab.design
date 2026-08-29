@@ -41,8 +41,8 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Notes, undo also wired to a shake</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="ok" style="flex: 0 0 auto">
+          <span class="sp-label" style="flex: 0 0 auto">Notes, undo also on a shake</span>
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="ok" data-axis="Input" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-ok" value="ok"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Control and switch</button>
             <button class="sp-segment" type="button" data-part="seg-motion" value="motion"

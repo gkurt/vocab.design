@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row" style="margin-top: 12px; gap: 8px; align-items: flex-start">${tiles}</div>
       </div>
 
-      <sp-segmented class="sp-segmented sp-context" data-part="segmented" data-value="${START}">
+      <sp-segmented class="sp-segmented sp-context" data-axis="Temperature" data-part="segmented" data-value="${START}">
         <button class="sp-segment" data-part="seg-warm" value="warm">Warm</button>
         <button class="sp-segment" data-part="seg-neutral" value="neutral">Neutral</button>
         <button class="sp-segment" data-part="seg-cool" value="cool">Cool</button>

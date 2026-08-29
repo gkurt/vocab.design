@@ -839,7 +839,10 @@ Two attributes on the control carry that, and the kit stylesheet draws both:
   value of something: unkeyed, "As shipped" beside a delivery line reads as a postage
   option, which is exactly what it did on the drip pricing and sneak into basket
   specimens. Name what the control switches, not what the scene is: `Version`, not
-  `Checkout`, when the window is already headed Checkout.
+  `Checkout`, when the window is already headed Checkout. A legend has to fit inside the pill and an
+  accessible name does not, so a control that writes its own `aria-label` keeps it: the
+  axis is the short visible word, the label is free to be the fuller one ("Scope" in the
+  pill, "Search scope" in the tree).
 - **`data-term`** names the segment the headword points at. The matching segment carries
   a quiet dot. This is the same claim `data-pose` already makes to the stage, said out
   loud to the reader, and `bun validate` refuses to let the two disagree.

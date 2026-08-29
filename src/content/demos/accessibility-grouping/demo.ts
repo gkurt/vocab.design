@@ -45,8 +45,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The card's children are</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="grouped">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Children" data-term="grouped" data-value="grouped" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-grouped" value="grouped">Grouped</button>
             <button class="sp-segment" data-part="seg-ungrouped" value="ungrouped">Ungrouped</button>
           </sp-segmented>

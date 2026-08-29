@@ -48,9 +48,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">The radio set is</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="labelled">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="labelled" data-axis="Radio set" data-term="labelled">
             <button class="sp-segment" data-part="seg-labelled" value="labelled">Named group</button>
             <button class="sp-segment" data-part="seg-bare" value="bare">Unnamed group</button>
           </sp-segmented>

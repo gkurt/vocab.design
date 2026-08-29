@@ -59,11 +59,10 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 452px; padding: 12px 14px">
+      <div class="sp-window" style="width: 476px; padding: 12px 14px">
         <div class="sp-row sp-row--between" style="gap: 10px">
           <div class="sp-row sp-context" style="gap: 8px; flex: 0 0 auto">
-            <span class="sp-label">Page</span>
-            <sp-segmented class="sp-segmented" data-part="page-picker" data-value="home">
+            <sp-segmented class="sp-segmented" data-part="page-picker" data-axis="Page" data-value="home">
               ${PAGES.map(
                 (page) => `
                 <button class="sp-segment" type="button" data-part="seg-${page.key}" value="${page.key}"
@@ -71,7 +70,7 @@ export function mount(root: HTMLElement): void {
               ).join('')}
             </sp-segmented>
           </div>
-          <sp-segmented class="sp-segmented sp-context" data-part="policy-picker" data-value="consistent">
+          <sp-segmented class="sp-segmented sp-context" data-part="policy-picker" data-axis="Where" data-term="consistent" data-value="consistent">
             <button class="sp-segment" type="button" data-part="seg-consistent" value="consistent"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">Consistent</button>
             <button class="sp-segment" type="button" data-part="seg-wandering" value="wandering"
@@ -79,7 +78,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-frame" data-part="site" style="margin-top: 10px; width: 424px; height: 140px">
+        <div class="sp-frame" data-part="site" style="margin-top: 10px; width: 448px; height: 140px">
           <div class="sp-topbar" style="padding: 8px 12px">
             <span class="sp-heading sp-context" style="font-size: 12px; flex: 0 0 auto">Northwind</span>
             <div class="sp-row sp-grow sp-context" style="gap: 2px">

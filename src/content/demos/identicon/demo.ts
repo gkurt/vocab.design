@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-handle="nils" style="width: 452px; height: 268px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Northwind</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="nils">
+          <sp-segmented class="sp-segmented" data-axis="Account" data-part="picker" data-value="nils">
             <button class="sp-segment" type="button" data-part="seg-nils" value="nils" style="padding: 4px 9px; font-size: 12px">@nils</button>
             <button class="sp-segment" type="button" data-part="seg-marceau" value="marceau" style="padding: 4px 9px; font-size: 12px">@marceau</button>
             <button class="sp-segment" type="button" data-part="seg-tomas" value="tomas" style="padding: 4px 9px; font-size: 12px">@tomas</button>

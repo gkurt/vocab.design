@@ -99,8 +99,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="flex: 0 0 auto; width: 244px; gap: 10px">
-        <span class="sp-heading" style="font-size: 13px">App surface</span>
-        <sp-segmented class="sp-segmented" data-part="modes" data-value="edge" style="align-self: flex-start">
+        <sp-segmented class="sp-segmented" data-part="modes" data-axis="App surface" data-term="edge" data-value="edge" style="align-self: flex-start">
           ${MODES.map(
             (mode) => `
             <button class="sp-segment" type="button" data-part="seg-${mode.key}" value="${mode.key}" style="padding: 4px 10px; font-size: 11px; white-space: nowrap">${mode.label}</button>`,

@@ -63,8 +63,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div class="sp-row sp-context" style="gap: 10px">
-            <span class="sp-label">Focus model</span>
-            <sp-segmented class="sp-segmented" data-part="mode" data-value="click">
+            <sp-segmented class="sp-segmented" data-part="mode" data-axis="Focus model" data-term="follow" data-value="click">
               <button class="sp-segment" type="button" data-part="mode-click" value="click" style="padding: 5px 12px">Click to focus</button>
               <button class="sp-segment" type="button" data-part="mode-follow" value="follow" style="padding: 5px 12px">Focus follows mouse</button>
             </sp-segmented>

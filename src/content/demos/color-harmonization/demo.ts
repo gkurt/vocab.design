@@ -109,8 +109,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-text" style="font-size: 10px; font-variant-numeric: tabular-nums">hue ${SEED.h}</span>
           </div>
           <div class="sp-row" style="gap: 8px">
-            <span class="sp-label">Max shift</span>
-            <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">
+            <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Max shift" data-value="${START}">
               ${CAPS.map((cap) => `<button class="sp-segment" data-part="seg-${cap}" value="${cap}">${cap}&deg;</button>`).join('')}
             </sp-segmented>
           </div>

@@ -57,8 +57,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Card A carries</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="transform">
+          <sp-segmented class="sp-segmented" data-axis="Card A" data-part="switcher" data-value="transform">
             <button class="sp-segment" type="button" data-part="seg-transform" value="transform">transform</button>
             <button class="sp-segment" type="button" data-part="seg-opacity" value="opacity">opacity</button>
             <button class="sp-segment" type="button" data-part="seg-none" value="none">neither</button>

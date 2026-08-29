@@ -90,7 +90,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="width: 476px; gap: 12px">
-        <sp-segmented class="sp-segmented" data-part="picker" data-value="plain">
+        <sp-segmented class="sp-segmented" data-axis="Tone" data-part="picker" data-value="plain">
           <button class="sp-segment" type="button" data-part="seg-plain" value="plain" style="padding: 4px 12px; font-size: 12px">Plain</button>
           <button class="sp-segment" type="button" data-part="seg-playful" value="playful" style="padding: 4px 12px; font-size: 12px">Playful</button>
         </sp-segmented>

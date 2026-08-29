@@ -100,7 +100,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Home screen</span>
-          <sp-segmented class="sp-segmented" data-part="sizer" data-value="${START}">
+          <sp-segmented class="sp-segmented" data-part="sizer" data-axis="Size" data-value="${START}">
             ${Object.keys(SIZES)
               .map(
                 (key) =>

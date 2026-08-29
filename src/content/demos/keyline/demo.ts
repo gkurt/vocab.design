@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Row text</span>
-          <sp-segmented class="sp-segmented" data-part="modes" data-value="on">
+          <sp-segmented class="sp-segmented" data-part="modes" data-axis="Rows" data-value="on">
             ${MODES.map(
               (mode) => `
               <button class="sp-segment" type="button" data-part="seg-${mode.key}" value="${mode.key}" style="padding: 4px 9px; font-size: 11px; white-space: nowrap">${mode.label}</button>`,

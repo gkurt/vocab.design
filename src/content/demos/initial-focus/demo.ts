@@ -33,8 +33,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 430px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">It opened. Focus landed on</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="field">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Landing" data-term="field" data-value="field" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-field" value="field">First field</button>
             <button class="sp-segment" data-part="seg-delete" value="delete">Delete</button>
             <button class="sp-segment" data-part="seg-dialog" value="dialog">The dialog</button>

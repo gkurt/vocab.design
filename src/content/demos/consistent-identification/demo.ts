@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">One function, three screens</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="consistent" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-axis="Naming" data-term="consistent" data-value="consistent" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-consistent" value="consistent"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">One name</button>
             <button class="sp-segment" type="button" data-part="seg-vary" value="vary"

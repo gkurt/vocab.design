@@ -57,9 +57,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The Step button drives</span>
-          <sp-segmented class="sp-segmented" data-part="drives" data-value="review">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Step drives" data-part="drives" data-value="review">
             <button class="sp-segment" type="button" data-part="seg-focus" value="focus"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">System focus</button>
             <button class="sp-segment" type="button" data-part="seg-review" value="review"

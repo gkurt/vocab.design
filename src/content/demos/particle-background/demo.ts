@@ -82,7 +82,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Backdrop</span>
-          <sp-segmented class="sp-segmented" data-part="register" data-value="constellation">
+          <sp-segmented class="sp-segmented" data-part="register" data-axis="Style" data-value="constellation">
             <button class="sp-segment" type="button" data-part="seg-dots" value="dots">Dots</button>
             <button class="sp-segment" type="button" data-part="seg-constellation" value="constellation">Constellation</button>
             <button class="sp-segment" type="button" data-part="seg-starfield" value="starfield">Starfield</button>

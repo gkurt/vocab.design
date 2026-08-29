@@ -84,8 +84,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">joint</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="trap">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Joint" data-term="trap" data-value="trap" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-trap" value="trap">with trap</button>
             <button class="sp-segment" data-part="seg-plain" value="plain">without</button>
           </sp-segmented>

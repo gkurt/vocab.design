@@ -72,7 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 278px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Badge</span>
-          <sp-segmented class="sp-segmented" data-part="scale" data-value="x2">
+          <sp-segmented class="sp-segmented" data-part="scale" data-value="x2" data-axis="Scale">
             <button class="sp-segment" type="button" data-part="seg-x1" value="x1">1x</button>
             <button class="sp-segment" type="button" data-part="seg-x2" value="x2">2x</button>
             <button class="sp-segment" type="button" data-part="seg-x3" value="x3">3x</button>

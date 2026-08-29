@@ -55,7 +55,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 300px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">pairing</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="paired">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="paired" data-axis="Fit" data-term="paired">
             <button class="sp-segment" data-part="seg-paired" value="paired">works</button>
             <button class="sp-segment" data-part="seg-clashing" value="clashing">clashes</button>
           </sp-segmented>

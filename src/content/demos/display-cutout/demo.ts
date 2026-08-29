@@ -102,12 +102,10 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 4px">
-            <span class="sp-label">Housing</span>
-            <sp-segmented class="sp-segmented" data-part="shapes" data-value="notch" style="align-self: flex-start">
+            <sp-segmented class="sp-segmented" data-part="shapes" data-axis="Housing" data-value="notch" style="align-self: flex-start">
               ${segment('notch', 'notch')}${segment('hole', 'punch hole')}${segment('island', 'island')}
             </sp-segmented>
-            <span class="sp-label" style="margin-top: 8px">Content region</span>
-            <sp-segmented class="sp-segmented" data-part="modes" data-value="inset" style="align-self: flex-start">
+            <sp-segmented class="sp-segmented" data-part="modes" data-axis="Content region" data-term="inset" data-value="inset" style="align-self: flex-start; margin-top: 8px">
               ${segment('inset', 'inset to clear it')}${segment('edge', 'edge to edge')}
             </sp-segmented>
             <span class="sp-text" data-part="readout" style="height: 78px; margin-top: 10px"></span>

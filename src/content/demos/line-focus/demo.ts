@@ -43,7 +43,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Immersive reading, one column</span>
-          <sp-segmented class="sp-segmented" data-part="width" data-value="3" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-axis="Focus" data-part="width" data-value="3" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-1" value="1"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">1 line</button>
             <button class="sp-segment" type="button" data-part="seg-3" value="3"

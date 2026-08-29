@@ -94,8 +94,7 @@ export function mount(root: HTMLElement): void {
             </span>
           </div>
           <div class="sp-row sp-context" style="gap: 8px">
-            <span class="sp-label">Indicator</span>
-            <sp-segmented class="sp-segmented" data-part="hold" data-value="drag">
+            <sp-segmented class="sp-segmented" data-part="hold" data-axis="Indicator" data-value="drag">
               <button class="sp-segment" data-part="hold-drag" value="drag" style="padding: 5px 10px">While dragging</button>
               <button class="sp-segment" data-part="hold-on" value="held" style="padding: 5px 10px">Held for inspection</button>
             </sp-segmented>

@@ -68,7 +68,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Client-side route, no reload</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="announced" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-axis="Announcement" data-part="mode" data-value="announced" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-announced" value="announced"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Announced</button>
             <button class="sp-segment" type="button" data-part="seg-silent" value="silent"

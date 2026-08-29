@@ -136,7 +136,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-surface" style="flex: 0 0 auto; padding: 10px; background: var(--sp-surface)">
             <div data-part="rule" data-subject data-clauses="1" style="display: flex; flex-direction: column; gap: 6px">
               ${clauseRow(1)}
-              <sp-segmented class="sp-segmented" data-part="join" data-value="and" style="align-self: flex-start; visibility: hidden">
+              <sp-segmented class="sp-segmented" data-axis="Join" data-part="join" data-value="and" style="align-self: flex-start; visibility: hidden">
                 <button class="sp-segment" data-part="join-and" type="button" value="and" style="padding: 2px 10px; font-size: 11px">and</button>
                 <button class="sp-segment" data-part="join-or" type="button" value="or" style="padding: 2px 10px; font-size: 11px">or</button>
               </sp-segmented>

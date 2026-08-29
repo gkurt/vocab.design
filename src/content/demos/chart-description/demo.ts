@@ -56,9 +56,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 9px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">A non-visual reader gets</span>
-          <sp-segmented class="sp-segmented" data-part="given" data-value="full">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Reader gets" data-term="full" data-part="given" data-value="full">
             <button class="sp-segment" type="button" data-part="seg-none" value="none"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">Nothing</button>
             <button class="sp-segment" type="button" data-part="seg-alt" value="alt"

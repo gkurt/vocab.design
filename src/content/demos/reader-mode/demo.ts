@@ -50,7 +50,7 @@ export function mount(root: HTMLElement): void {
             <span style="flex: 1 1 auto; min-width: 0; padding: 3px 9px; border-radius: 999px; background: var(--sp-sunken);
                          color: var(--sp-muted); font-size: 10px; white-space: nowrap; overflow: hidden;
                          text-overflow: ellipsis">news site / release notes</span>
-            <sp-segmented class="sp-segmented" data-part="view" data-value="page" style="flex: 0 0 auto">
+            <sp-segmented class="sp-segmented" data-part="view" data-axis="View" data-value="page" style="flex: 0 0 auto">
               <button class="sp-segment" data-part="seg-page" value="page"
                       style="padding: 3px 9px; font-size: 11px">Page</button>
               <button class="sp-segment" data-part="seg-reader" value="reader"

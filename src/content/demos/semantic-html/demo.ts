@@ -84,7 +84,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface sp-context" style="margin-top: 14px; padding: 10px 12px">
           <div class="sp-row sp-row--between">
             <span class="sp-label">Roles a screen reader finds</span>
-            <sp-segmented class="sp-segmented" data-part="segmented" data-value="semantic">
+            <sp-segmented class="sp-segmented" data-axis="Markup" data-part="segmented" data-value="semantic">
               <button class="sp-segment" data-part="seg-semantic" value="semantic">Real</button>
               <button class="sp-segment" data-part="seg-soup" value="soup">Divs</button>
             </sp-segmented>

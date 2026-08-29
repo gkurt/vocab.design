@@ -52,8 +52,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-row sp-context" style="gap: 10px; margin-top: 12px">
-            <span class="sp-label">Record has</span>
-            <sp-segmented class="sp-segmented sp-grow" data-part="record" data-value="photo">
+            <sp-segmented class="sp-segmented sp-grow" data-part="record" data-axis="Record has" data-value="photo">
               <button class="sp-segment sp-grow" data-part="rec-photo" value="photo">Photo</button>
               <button class="sp-segment sp-grow" data-part="rec-name" value="name">Name only</button>
               <button class="sp-segment sp-grow" data-part="rec-nothing" value="nothing">Nothing</button>

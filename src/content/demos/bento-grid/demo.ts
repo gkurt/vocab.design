@@ -33,7 +33,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 400px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Overview</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="bento">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="bento" data-axis="Layout">
             <button class="sp-segment" data-part="seg-bento" value="bento">Bento</button>
             <button class="sp-segment" data-part="seg-uniform" value="uniform">Uniform</button>
           </sp-segmented>

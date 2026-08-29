@@ -102,7 +102,7 @@ export function mount(root: HTMLElement): void {
 
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="note" style="width: 272px; height: 34px; font-size: 11px">${NOTE.false}</span>
-        <sp-segmented class="sp-segmented" data-part="pick" data-value="false">
+        <sp-segmented class="sp-segmented" data-axis="Closing band" data-term="false" data-part="pick" data-value="false">
           <button class="sp-segment" data-part="pick-false" value="false" style="padding: 5px 9px; font-size: 12px">False bottom</button>
           <button class="sp-segment" data-part="pick-fixed" value="fixed" style="padding: 5px 9px; font-size: 12px">Continuity cue</button>
         </sp-segmented>

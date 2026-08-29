@@ -72,9 +72,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Sample weight</span>
-          <sp-segmented class="sp-segmented" data-part="weight" data-value="regular">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Sample weight" data-part="weight" data-value="regular">
             <button class="sp-segment" type="button" data-part="seg-regular" value="regular"
                     style="padding: 4px 12px; font-size: 11.5px">Regular</button>
             <button class="sp-segment" type="button" data-part="seg-bold" value="bold"

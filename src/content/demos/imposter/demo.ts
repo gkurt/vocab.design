@@ -38,7 +38,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 272px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">The badge is</span>
-          <sp-segmented class="sp-segmented" data-part="modes" data-value="imposter">
+          <sp-segmented class="sp-segmented" data-part="modes" data-value="imposter" data-axis="Placement" data-term="imposter">
             <button class="sp-segment" type="button" data-part="seg-flow" value="flow" style="padding: 4px 11px; font-size: 11px">in the flow</button>
             <button class="sp-segment" type="button" data-part="seg-imposter" value="imposter" style="padding: 4px 11px; font-size: 11px">an imposter</button>
           </sp-segmented>

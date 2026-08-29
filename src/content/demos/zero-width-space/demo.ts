@@ -93,9 +93,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label" style="white-space: nowrap">between the words</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="zwsp" style="flex: 0 0 auto">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="zwsp" data-axis="Character" data-term="zwsp" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="seg-none" value="none" style="white-space: nowrap">nothing</button>
             <button class="sp-segment" data-part="seg-shy" value="shy" style="white-space: nowrap">soft hyphen</button>
             <button class="sp-segment" data-part="seg-zwsp" value="zwsp" style="white-space: nowrap">ZWSP</button>

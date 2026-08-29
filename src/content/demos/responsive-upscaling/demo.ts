@@ -57,7 +57,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 242px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Wide screen</span>
-          <sp-segmented class="sp-segmented" data-part="screens" data-value="designed">
+          <sp-segmented class="sp-segmented" data-part="screens" data-value="designed" data-axis="Treatment" data-term="designed">
             ${SCREENS.map(
               (screen) => `
               <button class="sp-segment" type="button" data-part="seg-${screen.key}" value="${screen.key}" style="padding: 4px 10px; font-size: 11px">${screen.label}</button>`,

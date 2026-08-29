@@ -54,9 +54,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">the word performs</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="drop">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Motion" data-part="segmented" data-value="drop">
             <button class="sp-segment" data-part="seg-drop" value="drop">drop</button>
             <button class="sp-segment" data-part="seg-swell" value="swell">swell</button>
             <button class="sp-segment" data-part="seg-stutter" value="stutter">stutter</button>

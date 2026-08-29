@@ -29,8 +29,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 446px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">aria-hidden on the ornament</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="true">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="true" data-axis="aria-hidden" data-term="true" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-true" value="true">true</button>
             <button class="sp-segment" data-part="seg-false" value="false">false</button>
           </sp-segmented>

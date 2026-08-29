@@ -74,8 +74,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Grouped by</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="region">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-axis="Grouped by" data-term="region" data-value="region" style="margin-left: auto">
             <button class="sp-segment" type="button" data-part="seg-region" value="region">boundary</button>
             <button class="sp-segment" type="button" data-part="seg-spacing" value="spacing">spacing</button>
             <button class="sp-segment" type="button" data-part="seg-conflict" value="conflict">both</button>

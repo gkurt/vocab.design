@@ -80,7 +80,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="0">${segments}</sp-segmented>
+          <sp-segmented class="sp-segmented" data-part="picker" data-value="0" data-axis="Distance">${segments}</sp-segmented>
           <span class="sp-label" data-part="readout">offset-distance: 0%</span>
         </div>
         <p class="sp-text sp-context" style="margin: 8px 0 0">

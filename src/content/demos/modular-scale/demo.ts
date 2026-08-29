@@ -67,8 +67,8 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 8px 20px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">base ${BASE}px, ratio</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="minor">
+          <span class="sp-label">base ${BASE}px</span>
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="minor" data-axis="Ratio">
             <button class="sp-segment" data-part="seg-minor" value="minor">1.2</button>
             <button class="sp-segment" data-part="seg-fourth" value="fourth">1.333</button>
             <button class="sp-segment" data-part="seg-fifth" value="fifth">1.5</button>

@@ -36,7 +36,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 460px; height: 270px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 12.5px">Membership form</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="split" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-axis="Fields" data-part="mode" data-value="split" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="seg-split" type="button" value="split" style="padding: 4px 9px; font-size: 11.5px">Three boxes</button>
             <button class="sp-segment" data-part="seg-one" type="button" value="one" style="padding: 4px 9px; font-size: 11.5px">One field</button>
           </sp-segmented>

@@ -32,7 +32,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 400px; height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Spacing</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="stack">
+          <sp-segmented class="sp-segmented" data-axis="Approach" data-part="segmented" data-value="stack">
             <button class="sp-segment" data-part="seg-soup" value="soup">Per item</button>
             <button class="sp-segment" data-part="seg-stack" value="stack">One rule</button>
           </sp-segmented>

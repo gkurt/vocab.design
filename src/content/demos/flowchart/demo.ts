@@ -116,7 +116,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: auto">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">signup.mmd</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="${START}">
+          <sp-segmented class="sp-segmented" data-axis="Shape" data-part="picker" data-value="${START}">
             <button class="sp-segment" type="button" data-part="seg-linear" value="linear">one path</button>
             <button class="sp-segment" type="button" data-part="seg-branch" value="branch">a decision</button>
           </sp-segmented>

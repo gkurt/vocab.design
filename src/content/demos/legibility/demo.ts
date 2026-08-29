@@ -41,7 +41,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Told apart, or not</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="il1">
+          <sp-segmented class="sp-segmented" data-axis="Glyphs" data-part="segmented" data-value="il1">
             <button class="sp-segment" data-part="seg-il1" value="il1">I l 1</button>
             <button class="sp-segment" data-part="seg-o0" value="o0">O 0</button>
             <button class="sp-segment" data-part="seg-rnm" value="rnm">rn m</button>

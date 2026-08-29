@@ -106,7 +106,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <div class="sp-row sp-row--between sp-context" style="margin-bottom: 10px">
           <span class="sp-heading" data-part="heading" style="color: var(--sp-ink)">A surface you build on</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START.key}">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Register" data-value="${START.key}">
             ${REGISTERS.map((r) => `<button type="button" class="sp-segment" data-part="seg-${r.key}" value="${r.key}">${r.label}</button>`).join('')}
           </sp-segmented>
         </div>

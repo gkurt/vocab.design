@@ -81,7 +81,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Justified, three ways</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="normal">
+          <sp-segmented class="sp-segmented" data-axis="Spacing" data-part="segmented" data-value="normal">
             <button class="sp-segment" data-part="seg-normal" value="normal">normal</button>
             <button class="sp-segment" data-part="seg-wide" value="wide">wide</button>
             <button class="sp-segment" data-part="seg-wider" value="wider">wider</button>

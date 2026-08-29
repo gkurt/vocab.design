@@ -57,9 +57,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Verbosity</span>
-          <sp-segmented class="sp-segmented" data-part="level" data-value="low">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="level" data-axis="Verbosity" data-value="low">
             ${segment('low', 'Low')}
             ${segment('medium', 'Medium')}
             ${segment('high', 'High')}

@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Overlay</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="quadrants">
+          <sp-segmented class="sp-segmented" data-axis="Show" data-part="switcher" data-value="quadrants">
             <button class="sp-segment" type="button" data-part="seg-quadrants" value="quadrants">quadrants</button>
             <button class="sp-segment" type="button" data-part="seg-gravity" value="gravity">gravity</button>
             <button class="sp-segment" type="button" data-part="seg-off" value="off">page only</button>

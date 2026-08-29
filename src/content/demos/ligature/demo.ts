@@ -19,7 +19,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 420px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Ligatures</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="waffle">
+          <sp-segmented class="sp-segmented" data-axis="Cluster" data-part="segmented" data-value="waffle">
             <button class="sp-segment" data-part="seg-waffle" value="waffle">ffl</button>
             <button class="sp-segment" data-part="seg-office" value="office">ffi</button>
             <button class="sp-segment" data-part="seg-stiff" value="stiff">ff</button>

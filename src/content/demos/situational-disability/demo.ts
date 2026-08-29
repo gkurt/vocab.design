@@ -50,8 +50,8 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One product, three moments</span>
-          <sp-segmented class="sp-segmented" data-part="condition" data-value="glare" style="flex: 0 0 auto">
+          <span class="sp-label" style="flex: 0 0 auto">One product</span>
+          <sp-segmented class="sp-segmented" data-axis="Moment" data-part="condition" data-value="glare" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-glare" value="glare"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Glare</button>
             <button class="sp-segment" type="button" data-part="seg-reach" value="reach"

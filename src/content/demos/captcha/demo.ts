@@ -115,7 +115,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
         <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
           <span class="sp-text" style="font-size: 11px">Simulated. Nothing is really tested.</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="checkbox">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="checkbox" data-axis="Challenge">
             <button class="sp-segment" data-part="mode-checkbox" value="checkbox">Checkbox</button>
             <button class="sp-segment" data-part="mode-grid" value="grid">Image grid</button>
           </sp-segmented>

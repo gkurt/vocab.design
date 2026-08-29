@@ -75,7 +75,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">figure style</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="oldstyle">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="oldstyle" data-axis="Figure style" data-term="oldstyle">
             <button class="sp-segment" data-part="seg-lining" value="lining">lining</button>
             <button class="sp-segment" data-part="seg-oldstyle" value="oldstyle">oldstyle</button>
           </sp-segmented>

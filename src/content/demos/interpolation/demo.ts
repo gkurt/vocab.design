@@ -69,7 +69,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-part="scene" data-mode="number" data-state="rested" style="height: 284px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Property</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="number">
+          <sp-segmented class="sp-segmented" data-axis="Value type" data-part="mode" data-value="number">
             <button class="sp-segment" type="button" data-part="seg-number" value="number">Number</button>
             <button class="sp-segment" type="button" data-part="seg-color" value="color">Colour</button>
             <button class="sp-segment" type="button" data-part="seg-keyword" value="keyword">Keyword</button>

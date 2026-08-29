@@ -31,7 +31,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 290px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Ratio</span>
-          <sp-segmented class="sp-segmented" data-part="switcher" data-value="16-9">
+          <sp-segmented class="sp-segmented" data-part="switcher" data-value="16-9" data-axis="Aspect">
             <button class="sp-segment" type="button" data-part="seg-16-9" value="16-9">16:9</button>
             <button class="sp-segment" type="button" data-part="seg-4-3" value="4-3">4:3</button>
             <button class="sp-segment" type="button" data-part="seg-1-1" value="1-1">1:1</button>

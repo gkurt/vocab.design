@@ -48,7 +48,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <sp-segmented class="sp-segmented sp-context" data-part="placement" data-value="metered">
+      <sp-segmented class="sp-segmented sp-context" data-part="placement" data-axis="Type" data-value="metered">
         <button class="sp-segment" data-part="placement-metered" value="metered">Metered</button>
         <button class="sp-segment" data-part="placement-hard" value="hard">Hard</button>
       </sp-segmented>

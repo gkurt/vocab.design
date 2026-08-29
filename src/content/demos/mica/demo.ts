@@ -81,8 +81,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-context" data-part="panel"
            style="position: relative; display: flex; align-items: center; gap: 10px; padding: 7px 10px;
                   background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)">
-        <span class="sp-label">Window</span>
-        <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}">
+        <sp-segmented class="sp-segmented" data-part="segmented" data-value="${START}" data-axis="Window">
           <button class="sp-segment" data-part="seg-active" value="active">Active</button>
           <button class="sp-segment" data-part="seg-inactive" value="inactive">Inactive</button>
         </sp-segmented>

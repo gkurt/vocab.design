@@ -58,7 +58,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Figure, one complex image</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="alt" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="alt" data-axis="Alt" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-alt" value="alt"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Alt only</button>
             <button class="sp-segment" type="button" data-part="seg-details" value="details"

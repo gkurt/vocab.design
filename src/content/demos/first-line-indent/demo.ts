@@ -43,8 +43,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">marking the paragraph</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="indent">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Marked with" data-term="indent" data-value="indent" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-indent" value="indent">indent</button>
             <button class="sp-segment" data-part="seg-space" value="space">space</button>
             <button class="sp-segment" data-part="seg-both" value="both">both</button>

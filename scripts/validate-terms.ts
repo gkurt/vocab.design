@@ -30,9 +30,16 @@ const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitio
 const KIT_ELEMENTS: Record<string, string> = { 'sp-segmented': 'segmented.ts', 'sp-combobox': 'combobox.ts' };
 /** A comparison switch and its parts: the whole element, then its segments' values. */
 const SEGMENTED = /<sp-segmented\b[\s\S]*?<\/sp-segmented>/g;
-const SEGMENT_VALUE = /class="sp-segment"[^>]*?\bvalue="([^"]*)"/g;
+const SEGMENT_VALUE = /class="sp-segment[^"]*"[^>]*?\bvalue="([^"]*)"/g;
 /** The pose selector, which is where the stage already learns which state is the term. */
 const POSE_VALUE = /data-pose="([^"]*)"/;
+/**
+ * A NEGATED clause names the state that DISQUALIFIES the subject, so a value inside one
+ * is the foil rather than the term: `:not([data-gap=apart])` means apart is the one state
+ * the term is not. Stripped before the pose is read, or the mark lands on exactly the
+ * wrong segment and the gate then insists it stay there.
+ */
+const POSE_NEGATION = /:not\([^)]*\)/g;
 /**
  * The counter-example pair, one spelling (SPEC §5.1). Nineteen demos had reached for
  * twelve, because a switch label is invented by whoever is authoring that term and read
@@ -212,15 +219,19 @@ for (const term of terms.values()) {
       // against, and the order will not tell them: every switch reads baseline to change,
       // which puts the term first for a defect and second for a feature.
       for (const control of source.replace(COMMENTS, '').match(SEGMENTED) ?? []) {
-        const values = [...control.matchAll(SEGMENT_VALUE)].map((m) => m[1]);
+        // A demo may build its options from an array, in which case no literal value is
+        // written anywhere and the only honest thing a source gate can say is nothing:
+        // a value carrying `${` is template source, not a segment.
+        const values = [...control.matchAll(SEGMENT_VALUE)].map((m) => m[1]).filter((v) => v && !v.includes('${'));
+        const generated = /\$\{/.test(control);
         const axis = control.match(/data-axis="([^"]*)"/)?.[1];
         const marked = control.match(/data-term="([^"]*)"/)?.[1];
         if (marked && !axis) errors.push(`${term.slug}: switch marks data-term but names no data-axis (SPEC §5.1)`);
-        if (marked && values.length > 0 && !values.includes(marked))
+        if (marked && values.length > 0 && !generated && !values.includes(marked))
           errors.push(`${term.slug}: switch data-term="${marked}" matches no segment value (SPEC §5.1)`);
         // The stage already knows, so the two may not disagree: a pose naming one state
         // and a mark naming another would point identify and the reader different ways.
-        const posed = source.match(POSE_VALUE)?.[1] ?? '';
+        const posed = (source.match(POSE_VALUE)?.[1] ?? '').replace(POSE_NEGATION, '');
         const named = values.filter((value) => posed.includes(`=${value}]`));
         if (marked && named.length === 1 && named[0] !== marked)
           errors.push(`${term.slug}: switch data-term="${marked}" contradicts data-pose, which poses "${named[0]}" (SPEC §5.1)`);

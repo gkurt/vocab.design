@@ -42,7 +42,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Announcing a copy result</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="notify" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="notify" data-axis="Method" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-notify" value="notify"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">ariaNotify</button>
             <button class="sp-segment" type="button" data-part="seg-region" value="region"

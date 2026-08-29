@@ -83,7 +83,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-label">Fade through</span>
         </div>
         <div class="sp-body">
-          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-value="library" style="width: 100%">
+          <sp-segmented class="sp-segmented sp-context" data-part="picker" data-axis="View" data-value="library" style="width: 100%">
             ${segments}
           </sp-segmented>
           <div

@@ -101,7 +101,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Review: where the pane goes</span>
-          <sp-segmented class="sp-segmented" data-part="sizes" data-value="beside">
+          <sp-segmented class="sp-segmented" data-part="sizes" data-axis="Placement" data-value="beside">
             ${segment('beside', 'beside')}${segment('below', 'below')}${segment('behind', 'behind')}
           </sp-segmented>
         </div>

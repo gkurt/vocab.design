@@ -46,7 +46,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Tapedeck</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="lazy">
+          <sp-segmented class="sp-segmented" data-axis="Flow" data-part="mode" data-value="lazy">
             <button class="sp-segment" type="button" data-part="mode-upfront" value="upfront" style="padding: 5px 10px; font-size: 12px">Sign up first</button>
             <button class="sp-segment" type="button" data-part="mode-lazy" value="lazy" style="padding: 5px 10px; font-size: 12px">Lazy</button>
           </sp-segmented>

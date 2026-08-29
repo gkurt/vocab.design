@@ -84,7 +84,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       </div>
 
       <div class="sp-row sp-context" style="gap: 10px">
-        <sp-segmented class="sp-segmented" data-part="kind" data-value="blur">
+        <sp-segmented class="sp-segmented" data-axis="Placeholder" data-part="kind" data-value="blur">
           <button class="sp-segment" data-part="kind-blur" value="blur">Blur</button>
           <button class="sp-segment" data-part="kind-colour" value="colour">Colour</button>
         </sp-segmented>

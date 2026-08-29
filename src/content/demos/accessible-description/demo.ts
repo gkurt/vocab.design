@@ -44,8 +44,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 448px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Description from</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="describedby">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Description from" data-value="describedby" style="margin-left: auto">
             <button class="sp-segment" data-part="seg-describedby" value="describedby">describedby</button>
             <button class="sp-segment" data-part="seg-title" value="title">title</button>
             <button class="sp-segment" data-part="seg-none" value="none">nothing</button>

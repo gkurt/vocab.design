@@ -55,10 +55,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 452px; padding: 12px 14px">
+      <div class="sp-window" style="width: 476px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Rows ${FIRST} to ${FIRST + WINDOW - 1} of ${TOTAL}, six in the DOM</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="declared">
+          <sp-segmented class="sp-segmented" data-axis="Markup" data-part="mode" data-value="declared">
             <button class="sp-segment" type="button" data-part="seg-omitted" value="omitted"
                     style="padding: 4px 11px; font-size: 11.5px; white-space: nowrap">Omitted</button>
             <button class="sp-segment" type="button" data-part="seg-declared" value="declared"

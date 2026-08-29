@@ -73,7 +73,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Checkout, one page</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="declared" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="declared" data-axis="Autocomplete" data-term="declared" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-declared" value="declared"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Tokens declared</button>
             <button class="sp-segment" type="button" data-part="seg-absent" value="absent"

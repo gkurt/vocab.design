@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">The same paragraph</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="comfortable">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Setting" data-value="comfortable">
             <button class="sp-segment" data-part="seg-dense" value="dense">Dense</button>
             <button class="sp-segment" data-part="seg-comfortable" value="comfortable">Comfortable</button>
             <button class="sp-segment" data-part="seg-airy" value="airy">Airy</button>

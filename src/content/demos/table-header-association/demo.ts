@@ -58,9 +58,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The association is written with</span>
-          <sp-segmented class="sp-segmented" data-part="written" data-value="scope">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Written with" data-part="written" data-value="scope">
             <button class="sp-segment" type="button" data-part="seg-none" value="none"
                     style="padding: 4px 10px; font-size: 11.5px; white-space: nowrap">Nothing</button>
             <button class="sp-segment" type="button" data-part="seg-scope" value="scope"

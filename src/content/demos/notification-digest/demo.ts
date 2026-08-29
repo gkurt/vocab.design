@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 276px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Notifications</span>
-          <sp-segmented class="sp-segmented" data-part="lane-pick" data-value="digest" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="lane-pick" data-value="digest" data-axis="Delivery" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="pick-digest" type="button" value="digest" style="padding: 4px 9px; font-size: 12px">Digested</button>
             <button class="sp-segment" data-part="pick-separate" type="button" value="separate" style="padding: 4px 9px; font-size: 12px">As they arrive</button>
           </sp-segmented>

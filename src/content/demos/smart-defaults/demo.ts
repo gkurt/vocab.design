@@ -90,7 +90,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="verdict" style="font-size: 11px; width: 300px">${VERDICT.prefilled}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="prefilled">
+        <sp-segmented class="sp-segmented" data-part="mode" data-value="prefilled" data-axis="Fields" data-term="prefilled">
           <button class="sp-segment" data-part="mode-prefilled" value="prefilled">Defaulted</button>
           <button class="sp-segment" data-part="mode-blank" value="blank">Blank</button>
         </sp-segmented>

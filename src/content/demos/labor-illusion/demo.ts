@@ -59,7 +59,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
         <div class="sp-row sp-context" style="flex: 0 0 auto; gap: 12px; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="transparent" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="transparent" data-axis="Wait" data-term="transparent" style="flex: 0 0 auto">
             <button class="sp-segment" data-part="seg-transparent" value="transparent">Show the work</button>
             <button class="sp-segment" data-part="seg-silent" value="silent">Silent</button>
           </sp-segmented>

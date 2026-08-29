@@ -86,7 +86,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-row--between sp-context" style="width: 452px; gap: 12px">
         <span class="sp-label" data-part="depth" style="font-size: 11px; color: var(--sp-ink)">${DEPTH.top}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="quick-return">
+        <sp-segmented class="sp-segmented" data-part="mode" data-value="quick-return" data-axis="Header" data-term="quick-return">
           <button class="sp-segment" type="button" data-part="mode-sticky" value="sticky" style="padding: 5px 9px; font-size: 12px">Sticky</button>
           <button class="sp-segment" type="button" data-part="mode-hide" value="hide" style="padding: 5px 9px; font-size: 12px">Hide on scroll</button>
           <button class="sp-segment" type="button" data-part="mode-quick" value="quick-return" style="padding: 5px 9px; font-size: 12px">Quick return</button>

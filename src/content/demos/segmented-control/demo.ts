@@ -23,7 +23,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading">Revenue</span>
           <span class="sp-text" data-part="readout">${RANGES.week?.label}</span>
         </div>
-        <sp-segmented class="sp-segmented" data-part="segmented" data-subject data-value="week" style="margin-top: 12px; width: 100%">
+        <sp-segmented class="sp-segmented" data-part="segmented" data-subject data-axis="Range" data-value="week" style="margin-top: 12px; width: 100%">
           <button class="sp-segment sp-grow" data-part="seg-day" value="day">Day</button>
           <button class="sp-segment sp-grow" data-part="seg-week" value="week">Week</button>
           <button class="sp-segment sp-grow" data-part="seg-month" value="month">Month</button>

@@ -53,7 +53,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 1 auto; min-width: 0">Brightness, set by a stroke</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="both" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-axis="Controls" data-value="both" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-both" value="both"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Gesture and buttons</button>
             <button class="sp-segment" type="button" data-part="seg-gesture" value="gesture"

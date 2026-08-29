@@ -83,7 +83,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="verdict" style="width: 262px; font-size: 11px">${VERDICT.low}</span>
-        <sp-segmented class="sp-segmented" data-part="level" data-value="low">
+        <sp-segmented class="sp-segmented" data-axis="Stock" data-part="level" data-value="low">
           <button class="sp-segment" data-part="level-plenty" value="plenty">24 left</button>
           <button class="sp-segment" data-part="level-low" value="low">3 left</button>
           <button class="sp-segment" data-part="level-out" value="out">0 left</button>

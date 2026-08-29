@@ -33,8 +33,8 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 424px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Simulated system preference</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="normal">
+          <span class="sp-grow"></span>
+          <sp-segmented class="sp-segmented" data-part="segmented" data-axis="Simulated setting" data-value="normal">
             <button class="sp-segment" data-part="seg-normal" value="normal">No preference</button>
             <button class="sp-segment" data-part="seg-more" value="more">More contrast</button>
           </sp-segmented>

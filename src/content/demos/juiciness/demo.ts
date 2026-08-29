@@ -54,8 +54,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
         <div class="sp-body" data-part="scene" data-mode="juicy" data-stack="0" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
           <div class="sp-row sp-context" style="gap: 8px; align-items: center">
-            <span class="sp-label" style="font-size: 10px">Feedback</span>
-            <sp-segmented class="sp-segmented" data-part="mode" data-value="juicy">
+            <sp-segmented class="sp-segmented" data-part="mode" data-value="juicy" data-axis="Feedback" data-term="juicy">
               <button class="sp-segment" data-part="seg-plain" value="plain">Plain</button>
               <button class="sp-segment" data-part="seg-juicy" value="juicy">Juicy</button>
             </sp-segmented>

@@ -67,9 +67,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 460px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">instance</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="400">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="400" data-axis="Instance" data-term="400">
             ${STOPS.map(segment).join('')}
           </sp-segmented>
         </div>

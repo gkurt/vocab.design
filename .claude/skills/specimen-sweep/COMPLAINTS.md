@@ -889,7 +889,7 @@ complete; until then entries only accumulate. Entry format:
 
 ## unkeyed-switch
 
-- Queued: 2026-08-29 · Status: queued
+- Queued: 2026-08-29 · Status: SWEPT 2026-08-29 (475 switches across 474 specimens keyed; 130 terms marked, 0 skipped)
 - Rule: an `<sp-segmented>` that swaps what the specimen is showing has to say what it
   switches, and when one of its states is the term, which one. `data-axis` names the thing
   the control changes; the kit draws it as a legend inside the pill and hands it to the
@@ -931,6 +931,54 @@ complete; until then entries only accumulate. Entry format:
   legend widens the pill, and the stage body clips, so every touched specimen has to be
   looked at in its widest state (SPEC §5). Nineteen were checked by hand in the first pass
   and none overflowed, but the tight rows are the ones with inline `font-size` and padding
-  on the segments. Subject snapshots are NOT at risk (they describe the subject element,
-  and the switch is scenery), so a changed snapshot in this sweep means something else moved
-  and should be read. Re-shoot the share image for every touched specimen.
+  on the segments. Subject snapshots ARE at risk, contrary to what this line said before the
+  sweep ran: on a term that IS a switch (rotor, scope-bar, segmented-control) the control is
+  the `data-subject`, so keying it rewrites the snapshot, and adding a missing `data-pose`
+  rewrites another. Four changed and all four were the sweep's own doing. Re-shoot the share
+  image for every touched specimen.
+- Swept: the first detector reported 372 switches and was WRONG: it keyed on the closing
+  tag and on `class="sp-segment"` exactly, so it missed every demo that builds its options
+  in a `.map()` (no literal `value=` anywhere) and every one whose segments carry a second
+  class (`sp-segment sp-grow`). One hundred switches, a fifth of the corpus, were invisible
+  to a detector described in this entry as deterministic. It now matches the OPENING TAG,
+  which is the only part of the element guaranteed to be written literally, and the real
+  total was 475. The same recall bug was in the `bun validate` gate and failed 14 specimens
+  whose terms were correct; both are fixed. When a detector reads markup a demo generates,
+  match what the author typed, never what the template produces.
+- Swept: a NEGATED pose names the state that disqualifies the subject, so a value inside
+  `:not(...)` is the foil. The derivation read it as the term, and the gate then insisted
+  the mark stay on the wrong segment. Two fixers caught it independently and refused to
+  ship either wrong outcome rather than satisfying the gate, which is what the recipe's
+  "report, do not guess" instruction was for. Seven demos carry a negated pose.
+- Swept: absorbing a hand-rolled label left the pill as the only child of an
+  `sp-row--between`, so `space-between` re-aligned it from the row's right edge to its
+  left. 113 rows. Running in parallel, shards invented three different repairs
+  (`justify-content: flex-end`, `margin-left: auto`, an `sp-grow` spacer), which is the
+  same divergence-under-parallel-authoring this complaint exists to end. Normalised.
+- Swept: `detectors/switch-fit.mjs` is the companion probe and earned its place. It found
+  18 clipped specimens; the fixers had spotted 2 of them by eye. Two blind spots are now
+  in its header: it cannot see a `demo: iframe` specimen (the markup is in a frame
+  document, so it times out rather than reporting), and it only ever measures the MOUNT
+  state, so a control sized for mount can still clip in a state the switch reaches. The
+  repair pass caught exactly that on presentational-children, where shrinking a readout
+  fit "6 nodes" but not "1 node, 5 flattened".
+- Swept: the element derived `aria-label` from `data-axis` unconditionally and so
+  OVERWROTE three hand-authored names, turning scope-bar's "Search scope" into "Scope".
+  A legend has a pill's width to answer to and an accessible name does not, so they are not
+  the same string and the shorter one must not evict the longer. The element now names only
+  a control that has no name. Any future attribute the kit derives into the accessibility
+  tree owes the author the same deference.
+- Follow-up queued by this sweep, NOT fixed: about twenty specimens name the axis in an
+  `sp-heading` in a frame topbar rather than an `sp-label` beside the switch. The recipe's
+  deletion rule was scoped to labels, so those now say the same word twice (page-header is
+  the plainest: "Density" in the topbar and "Density" in the legend). Folding a heading in
+  also drops the `sp-grow` spacer holding the pill right, so it is more than an attribute
+  edit and wants its own entry.
+- Follow-up queued by this sweep, NOT fixed: sixteen specimens were reported `needs-pose`,
+  where a switch's foil genuinely disqualifies the subject and no `data-pose` is declared,
+  so identify can pose a state in which the subject is not the term. Three of them
+  (prefers-contrast, prefers-reduced-motion, redundant-entry) MOUNT in the non-term state,
+  so fixing them moves the mount value too. Slugs: bento-grid, dolly-zoom, grainy-gradient,
+  justified-gallery, lawn-mower-pattern, layer-cake-pattern, lazy-registration, long-shadow,
+  neon-glow, orphan, prefers-contrast, prefers-reduced-motion, progressive-profiling,
+  redundant-entry, required-field-indicator, scanlines, scrim, stack, widow.

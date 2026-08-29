@@ -62,7 +62,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Handoff, one product card</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="bare" style="flex: 0 0 auto">
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="bare" data-axis="Version" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-bare" value="bare"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Bare mockup</button>
             <button class="sp-segment" type="button" data-part="seg-annotated" value="annotated"

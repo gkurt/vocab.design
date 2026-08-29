@@ -52,7 +52,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Kitchen hub</span>
-          <sp-segmented class="sp-segmented" data-part="channel-pick" data-value="touch">
+          <sp-segmented class="sp-segmented" data-part="channel-pick" data-value="touch" data-axis="Channel">
             <button class="sp-segment" type="button" data-part="pick-touch" value="touch" style="padding: 5px 10px; font-size: 12px">Touch</button>
             <button class="sp-segment" type="button" data-part="pick-voice" value="voice" style="padding: 5px 10px; font-size: 12px">Voice</button>
             <button class="sp-segment" type="button" data-part="pick-gaze" value="gaze" style="padding: 5px 10px; font-size: 12px">Look, pinch</button>

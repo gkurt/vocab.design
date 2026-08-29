@@ -82,7 +82,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-row sp-context" style="margin-top: 10px">
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="none">${segments}</sp-segmented>
+          <sp-segmented class="sp-segmented" data-part="picker" data-axis="Fill" data-value="none">${segments}</sp-segmented>
         </div>
 
         <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">

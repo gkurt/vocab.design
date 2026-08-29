@@ -1,4 +1,4 @@
 term:    Rotor
 scope:   element
-subject: sp-segmented.sp-segmented[data-part=rotor][data-value=headings][role=tablist]
+subject: sp-segmented.sp-segmented[aria-label=Rotor][data-axis=Rotor][data-part=rotor][data-value=headings][role=tablist]
 text:    Headings Links Form controls

@@ -73,8 +73,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-row--between sp-context" style="width: 100%">
             <span class="sp-label" style="white-space: nowrap">badge over overlay over photo</span>
             <span class="sp-row" style="gap: 8px">
-              <span class="sp-label">Overlay</span>
-              <sp-segmented class="sp-segmented" data-part="mode" data-value="auto">
+              <sp-segmented class="sp-segmented" data-axis="Overlay" data-part="mode" data-value="auto">
                 <button class="sp-segment" data-part="mode-auto" value="auto" style="padding: 5px 10px">pointer-events: auto</button>
                 <button class="sp-segment" data-part="mode-none" value="none" style="padding: 5px 10px">none</button>
               </sp-segmented>

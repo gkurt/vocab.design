@@ -64,9 +64,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Asked for</span>
-          <sp-segmented class="sp-segmented" data-part="picker" data-value="slow">
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
+          <sp-segmented class="sp-segmented" data-axis="Asked for" data-part="picker" data-value="slow">
             <button class="sp-segment" type="button" data-part="seg-slow" value="slow"
                     style="padding: 4px 9px; font-size: 11.5px; white-space: nowrap">0.6 a second</button>
             <button class="sp-segment" type="button" data-part="seg-fast" value="fast"
