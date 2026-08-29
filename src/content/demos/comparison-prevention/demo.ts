@@ -97,9 +97,9 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Pick a plan</span>
-          <sp-segmented class="sp-segmented" data-part="mode" data-value="prevented" style="flex: 0 0 auto">
-            <button class="sp-segment" data-part="mode-prevented" type="button" value="prevented" style="padding: 4px 9px; font-size: 11.5px">As published</button>
-            <button class="sp-segment" data-part="mode-comparable" type="button" value="comparable" style="padding: 4px 9px; font-size: 11.5px">Lined up</button>
+          <sp-segmented class="sp-segmented" data-part="mode" data-value="prevented" data-axis="Version" data-term="prevented" style="flex: 0 0 auto">
+            <button class="sp-segment" data-part="mode-prevented" type="button" value="prevented" style="padding: 4px 9px; font-size: 11.5px">As shipped</button>
+            <button class="sp-segment" data-part="mode-comparable" type="button" value="comparable" style="padding: 4px 9px; font-size: 11.5px">Made fair</button>
           </sp-segmented>
         </div>
 

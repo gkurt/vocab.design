@@ -98,9 +98,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="verdict" style="font-size: 11px; width: 292px">${VERDICT.fabricated}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="fabricated">
+        <sp-segmented class="sp-segmented" data-part="mode" data-value="fabricated" data-axis="Version" data-term="fabricated">
           <button class="sp-segment" data-part="mode-fabricated" value="fabricated">As shipped</button>
-          <button class="sp-segment" data-part="mode-genuine" value="genuine">Made honest</button>
+          <button class="sp-segment" data-part="mode-genuine" value="genuine">Made fair</button>
         </sp-segmented>
       </div>
     </div>

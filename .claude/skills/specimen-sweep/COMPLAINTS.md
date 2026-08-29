@@ -886,3 +886,51 @@ complete; until then entries only accumulate. Entry format:
 - Verify: choreography pass over touched slugs, which is what would catch a step that had been
   silently landing on the wrong copy; read any changed subject snapshot, since renaming the
   part a specimen identifies by can change what it reports as its subject.
+
+## unkeyed-switch
+
+- Queued: 2026-08-29 · Status: queued
+- Rule: an `<sp-segmented>` that swaps what the specimen is showing has to say what it
+  switches, and when one of its states is the term, which one. `data-axis` names the thing
+  the control changes; the kit draws it as a legend inside the pill and hands it to the
+  tablist as its accessible name. Without it a segment is the value of nothing: "As
+  shipped" beside a delivery line read as a postage option on two commerce specimens, and
+  489 of these controls were unnamed tablists. `data-term` names the segment value the
+  headword points at, and that segment gets a quiet dot. Order is never the answer: every
+  switch on the site reads left to right as baseline then change, which puts the term
+  first when the term is a defect and second when the term is a feature something turns
+  on (`hyphenation: auto`, oldstyle figures, `text-wrap: balance`), so position cannot
+  carry the meaning and the mark has to. A variant switch (light/dark) or a parameter
+  switch (300px/440px) takes an axis and NO term, because neither side is the word. The
+  convention, the two attributes and four validate gates shipped 2026-08-29 with the
+  deceptive-pattern family (19 specimens) already converted; this entry is the rest of the
+  corpus. See SPEC §5.1.
+- Detector: detectors/unkeyed-switch.ts (deterministic, no dev server). Reports every
+  `<sp-segmented>` with no `data-axis`, classified by what `data-pose` already says: at
+  queue time 372 switches, 86 `derived` (the pose names one segment value outright, so
+  `data-term` is decided, not guessed), 45 `ambiguous` (the pose is a boolean flag like
+  `[data-grouped]` or `[data-stuck]`, so which segment raises it needs a read of the
+  demo), 241 `variant` (no pose at all, so almost certainly axis-only). Each line carries
+  every segment's value and label, which is usually enough to name the axis without
+  opening the file. The classification is evidence, not a verdict: a `variant` line only
+  means no pose was declared, and a specimen whose foil genuinely disqualifies the subject
+  should be given the pose it is missing rather than left alone (fine-print was exactly
+  this, and its missing `data-pose` was found this way).
+- Recipe: add `data-axis="<what the control changes>"` to the control. Name the axis, not
+  the scene: the first attempt at sneak-into-basket read "Checkout" directly under a window
+  already headed Checkout, and `Version` was right. Keep it to one or two words, since it
+  sits inside the pill and widens it. Where the demo already hand-rolls a label beside the
+  switch (fine-print did), delete that span and move its words into the attribute rather
+  than showing both. Then, for `derived` lines, add `data-term="<the value the pose names>"`;
+  for `ambiguous` lines, read which segment raises the flag the pose tests and mark that one;
+  for `variant` lines, add no term unless the demo turns out to need a pose it never
+  declared. `bun validate` refuses a term with no axis, a term naming no real segment, a
+  term contradicting the pose, and an axis on a control whose pose names a state left
+  unmarked, so a half-done conversion fails the gate rather than shipping.
+- Verify: `bun validate` carries the structural half. The eye check on 4321 is width: the
+  legend widens the pill, and the stage body clips, so every touched specimen has to be
+  looked at in its widest state (SPEC §5). Nineteen were checked by hand in the first pass
+  and none overflowed, but the tight rows are the ones with inline `font-size` and padding
+  on the segments. Subject snapshots are NOT at risk (they describe the subject element,
+  and the switch is scenery), so a changed snapshot in this sweep means something else moved
+  and should be read. Re-shoot the share image for every touched specimen.

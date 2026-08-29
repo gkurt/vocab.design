@@ -103,9 +103,9 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="verdict" style="width: 292px; font-size: 11px">${VERDICT.forced}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="forced">
+        <sp-segmented class="sp-segmented" data-part="mode" data-value="forced" data-axis="Version" data-term="forced">
           <button class="sp-segment" data-part="mode-forced" value="forced">As shipped</button>
-          <button class="sp-segment" data-part="mode-fair" value="fair">Made honest</button>
+          <button class="sp-segment" data-part="mode-fair" value="fair">Made fair</button>
         </sp-segmented>
       </div>
     </div>

@@ -79,7 +79,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
         <span class="sp-text" data-part="verdict" style="font-size: 11px; width: 296px">${VERDICT.sneaky}</span>
-        <sp-segmented class="sp-segmented" data-part="mode" data-value="sneaky">
+        <sp-segmented class="sp-segmented" data-part="mode" data-value="sneaky" data-axis="Version" data-term="sneaky">
           <button class="sp-segment" data-part="mode-sneaky" value="sneaky">As shipped</button>
           <button class="sp-segment" data-part="mode-fair" value="fair">Made fair</button>
         </sp-segmented>

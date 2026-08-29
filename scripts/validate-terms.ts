@@ -28,6 +28,19 @@ const VIEW_TRANSITION_CALL = /\.startViewTransition\s*(\(|\?\.)/;
 const TRANSITIONEND_WAIT = /addEventListener\(\s*['"]transitionend|\.ontransitionend\s*=/;
 /** Kit custom elements, and the module each one's registration lives in. */
 const KIT_ELEMENTS: Record<string, string> = { 'sp-segmented': 'segmented.ts', 'sp-combobox': 'combobox.ts' };
+/** A comparison switch and its parts: the whole element, then its segments' values. */
+const SEGMENTED = /<sp-segmented\b[\s\S]*?<\/sp-segmented>/g;
+const SEGMENT_VALUE = /class="sp-segment"[^>]*?\bvalue="([^"]*)"/g;
+/** The pose selector, which is where the stage already learns which state is the term. */
+const POSE_VALUE = /data-pose="([^"]*)"/;
+/**
+ * The counter-example pair, one spelling (SPEC §5.1). Nineteen demos had reached for
+ * twelve, because a switch label is invented by whoever is authoring that term and read
+ * by nobody who has seen the others. The specific claim belongs in the verdict line
+ * beside the switch, which is why the labels can afford to be this blunt.
+ */
+const FOIL_LABELS = { term: 'As shipped', foil: 'Made fair' } as const;
+
 /** Comments, stripped before a markup rule reads a demo: naming an element is not using one. */
 const COMMENTS = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
 /** An unquoted attribute value starting with a digit is not a valid CSS identifier. */
@@ -191,6 +204,46 @@ for (const term of terms.values()) {
         errors.push(`${term.slug}: demo waits on transitionend, which never fires under reduced motion; time it on the clock (SPEC §6)`);
       if (source.includes('.animate(') && !source.includes('prefersReducedMotion'))
         errors.push(`${term.slug}: demo animates in script without asking prefersReducedMotion (SPEC §6)`);
+
+      // A switch that changes what the specimen is showing has to say what it changes and
+      // which state the headword names (SPEC §5.1). Without the first, a segment is the
+      // value of nothing: "As shipped" beside a delivery line reads as a postage option.
+      // Without the second, a reader cannot tell the term from the foil it is shown
+      // against, and the order will not tell them: every switch reads baseline to change,
+      // which puts the term first for a defect and second for a feature.
+      for (const control of source.replace(COMMENTS, '').match(SEGMENTED) ?? []) {
+        const values = [...control.matchAll(SEGMENT_VALUE)].map((m) => m[1]);
+        const axis = control.match(/data-axis="([^"]*)"/)?.[1];
+        const marked = control.match(/data-term="([^"]*)"/)?.[1];
+        if (marked && !axis) errors.push(`${term.slug}: switch marks data-term but names no data-axis (SPEC §5.1)`);
+        if (marked && values.length > 0 && !values.includes(marked))
+          errors.push(`${term.slug}: switch data-term="${marked}" matches no segment value (SPEC §5.1)`);
+        // The stage already knows, so the two may not disagree: a pose naming one state
+        // and a mark naming another would point identify and the reader different ways.
+        const posed = source.match(POSE_VALUE)?.[1] ?? '';
+        const named = values.filter((value) => posed.includes(`=${value}]`));
+        if (marked && named.length === 1 && named[0] !== marked)
+          errors.push(`${term.slug}: switch data-term="${marked}" contradicts data-pose, which poses "${named[0]}" (SPEC §5.1)`);
+        if (!marked && named.length === 1 && axis)
+          errors.push(`${term.slug}: switch names an axis but not the state data-pose already calls the term (SPEC §5.1)`);
+      }
+
+      // One spelling for the deceptive-pattern family (SPEC §5.1). The enum stops here
+      // rather than covering every counter-example, because "made fair" is an ethical
+      // word: a broken heading order or a stuck hover is wrong, not unfair, and forcing
+      // those into these labels would cost the accuracy the enum is meant to buy.
+      const family = term.slug === 'dark-pattern' || (term.relations.variantOf ?? []).includes('dark-pattern');
+      if (family) {
+        for (const control of source.replace(COMMENTS, '').match(SEGMENTED) ?? []) {
+          const labels = [...control.matchAll(/class="sp-segment"[^>]*>([^<]*)</g)].map((m) => m[1]?.trim() ?? '');
+          if (labels.length !== 2) continue;
+          const [present, absent] = labels;
+          if (present !== FOIL_LABELS.term || absent !== FOIL_LABELS.foil)
+            errors.push(
+              `${term.slug}: deceptive-pattern switch reads "${present} | ${absent}"; the family spells it "${FOIL_LABELS.term} | ${FOIL_LABELS.foil}" (SPEC §5.1)`,
+            );
+        }
+      }
 
       // A kit custom element only upgrades where its module has been imported, and one
       // that never upgrades answers a click with silence: the choreography presses a

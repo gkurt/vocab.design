@@ -3,6 +3,14 @@
  * state ship as custom elements, written once and reused). Children are
  * `.sp-segment` buttons carrying a `value`; the element owns the sliding thumb,
  * the tablist roles, and the `change` event demos listen to.
+ *
+ * Two attributes turn a bare switch into a comparison a cold reader can read
+ * (SPEC §5.1). `data-axis` names what the switch changes, so a segment reads as
+ * the value of something rather than as a stray phrase in the scene: without it
+ * "As shipped" sits next to a delivery line and reads as a postage option.
+ * `data-term` names the segment the headword actually points at, so a reader can
+ * tell the term from the foil it is shown against; the stage's own `data-pose`
+ * already knows this, and this is the same claim said out loud.
  */
 class SpSegmented extends HTMLElement {
   #thumb: HTMLElement | undefined;
@@ -10,6 +18,10 @@ class SpSegmented extends HTMLElement {
   connectedCallback(): void {
     if (this.#thumb) return;
     this.setAttribute('role', 'tablist');
+    // The legend is drawn from `data-axis` by the kit stylesheet, so it is never in
+    // the accessibility tree: the tablist has to carry the same words as its name.
+    const axis = this.dataset.axis;
+    if (axis) this.setAttribute('aria-label', axis);
     const thumb = document.createElement('span');
     thumb.className = 'sp-segmented-thumb';
     this.prepend(thumb);
@@ -17,6 +29,7 @@ class SpSegmented extends HTMLElement {
 
     for (const segment of this.#segments) {
       segment.setAttribute('role', 'tab');
+      if (segment.value === this.dataset.term) segment.setAttribute('data-term-state', '');
       segment.addEventListener('click', () => {
         this.value = segment.value;
       });

@@ -542,6 +542,43 @@
   color: var(--sp-ink);
 }
 
+/* The legend: what the switch changes, drawn from `data-axis` so the attribute is the
+   single source of truth and the element can hand the same words to the tablist as its
+   accessible name. It is a flex item like the segments, so the thumb's offsetLeft
+   arithmetic accounts for it without knowing it is there. */
+.sp-segmented[data-axis]::before {
+  content: attr(data-axis);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--sp-muted);
+  white-space: nowrap;
+}
+
+/* The segment the headword names, marked so a reader can tell the term from the foil it
+   is shown against. Deliberately quiet: inside `.sp-context` the accent is already
+   chroma-free, and annotation that competes with the subject belongs to the stage. */
+.sp-segment[data-term-state]::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin-right: 6px;
+  vertical-align: 0.12em;
+  border-radius: 50%;
+  background: currentcolor;
+  opacity: 0.55;
+}
+
+.sp-segment[data-term-state][aria-selected="true"]::before,
+.sp-segment[data-term-state][data-selected]::before {
+  opacity: 1;
+}
+
 .sp-segmented-thumb {
   position: absolute;
   top: 2px;

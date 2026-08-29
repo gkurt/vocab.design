@@ -4,10 +4,11 @@ import '#src/kit/segmented.ts';
 type Setting = 'standard' | 'conspicuous';
 
 /**
- * One offer, and the line that says what the headline left out, set two ways. Both are
- * honest instances of the term: fine print stays fine print whether or not it is
- * readable, because the word names the treatment rather than the deception, so the
- * subject needs no `data-pose` (SPEC §6).
+ * One offer, and the line that says what the headline left out, set two ways. Only the
+ * first is the term: a qualifier moved up beside the claim and set at a size a reader
+ * can hold is a conspicuous disclosure, which is the thing fine print is defined
+ * against, so the subject declares the standard setting as its honest condition
+ * (`data-pose`) and the switch names the same state to the reader (`data-term`).
  *
  * The subject is the qualifying LINE, the narrowest element the term names (SPEC §5).
  * The offer card, the segmented control and the caption are scenery, in the context
@@ -37,8 +38,8 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 436px; padding: 12px 15px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The qualifier is set</span>
-          <sp-segmented class="sp-segmented" data-part="segmented" data-value="standard">
+          <sp-segmented class="sp-segmented" data-part="segmented" data-value="standard"
+                        data-axis="Qualifier" data-term="standard">
             <button class="sp-segment" data-part="seg-standard" value="standard"
                     style="padding: 5px 10px; font-size: 12px; white-space: nowrap">As shipped</button>
             <button class="sp-segment" data-part="seg-conspicuous" value="conspicuous"
@@ -62,7 +63,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-divider sp-context" style="margin-top: 10px"></div>
 
           <div data-part="slot-foot" data-filled style="height: 26px; padding-top: 6px">
-            <span class="sp-text" data-part="qualifier" data-subject data-set="standard"
+            <span class="sp-text" data-part="qualifier" data-subject data-set="standard" data-pose="[data-set=standard]"
                   style="display: block">Then $12 a month. Cancel any time before your renewal date.</span>
           </div>
         </div>

@@ -822,6 +822,44 @@ component library would save — without the branding or churn.
   which likewise rejects a choreography selector whose unquoted attribute value starts
   with a digit (invalid CSS that only fails at play time).
 
+### 5.1 Comparison switches
+
+Nearly half of all specimens carry an `<sp-segmented>` that swaps what the scene is
+showing. Three jobs hide behind one control, and only the first is a comparison: a
+**counter-example** (the term against the thing it is defined against), a **variant**
+(two states that are both the term, light and dark, split and unified), and a
+**parameter** (a value the term varies over, 300px and 440px). A variant or a parameter
+needs no more than a name. A counter-example needs the reader to know which side is the
+word they came for.
+
+Two attributes on the control carry that, and the kit stylesheet draws both:
+
+- **`data-axis`** names what the switch changes, rendered as a legend inside the pill and
+  handed to the tablist as its accessible name. Required, because a segment label is the
+  value of something: unkeyed, "As shipped" beside a delivery line reads as a postage
+  option, which is exactly what it did on the drip pricing and sneak into basket
+  specimens. Name what the control switches, not what the scene is: `Version`, not
+  `Checkout`, when the window is already headed Checkout.
+- **`data-term`** names the segment the headword points at. The matching segment carries
+  a quiet dot. This is the same claim `data-pose` already makes to the stage, said out
+  loud to the reader, and `bun validate` refuses to let the two disagree.
+
+**Order is baseline, then change.** Every switch reads left to right as without, then
+with. That puts the term FIRST when the term is a defect (a deceptive pattern) and
+SECOND when the term is a feature something turns on (`hyphenation: auto`,
+`text-wrap: balance`, oldstyle figures). The rule was already unanimous across the
+corpus before it was written down, which is why the term's position cannot carry the
+meaning and `data-term` has to.
+
+**The deceptive-pattern family spells its pair one way: `As shipped | Made fair`.** The
+enum exists for the same reason the tag enum does. Nineteen specimens had reached for
+twelve spellings (`Made honest`, `Made plain`, `All in`, `One click`, `Even-handed`,
+`Lined up`, `Asked exactly`), because a switch label is invented by whoever is authoring
+that term and read by nobody who has seen the others. The specific claim lives in the
+verdict line beside the switch, which every one of these specimens already carries, so
+the labels can afford to be blunt. The enum stops at that family deliberately: *fair* is
+an ethical word, and a broken heading order or a stuck hover is wrong rather than unfair.
+
 ## 6. Specimen stage
 
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded

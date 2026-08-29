@@ -594,6 +594,18 @@ never fires under reduced motion, so nothing may ever wait on it.
   plays the eyes (no mirror, no hidden cursor). Designed for looking and
   committing; gaze drags and holds are undesigned, so a demo needing them waits.
   Gestures past two contacts do not exist yet; terms needing them wait.
+- **A comparison switch says what it switches and which side is the term** (SPEC §5.1).
+  An `<sp-segmented>` that swaps what the scene shows carries `data-axis` (what the
+  control changes, drawn as a legend in the pill and used as the tablist's accessible
+  name) and, when one state is the term and the other is the foil it is shown against,
+  `data-term` (that state's segment value, which gets a quiet dot). `bun validate`
+  refuses a `data-term` with no axis, one naming no real segment, and one contradicting
+  the `data-pose` the stage already reads. Order is always baseline then change, which
+  puts the term first for a defect and second for a feature, so position never carries
+  the meaning. The deceptive-pattern family (anything `variantOf: [dark-pattern]`) spells
+  its pair `As shipped | Made fair` and nothing else; the specific claim goes in the
+  verdict line beside the switch. A variant switch (light/dark) or a parameter switch
+  (300px/440px) takes an axis and no term, since neither side is the word.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:
