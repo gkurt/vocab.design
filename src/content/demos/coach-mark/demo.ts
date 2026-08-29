@@ -14,7 +14,18 @@ const GAP = 12;
  *
  * The thing to watch for is what is missing: no scrim. Everything outside the callout
  * keeps its colour and keeps working, which is the line between this and a spotlight
- * that dims the world. The callout takes its position from the anchor's real rect and
+ * that dims the world. The demo SHOWS that by leaving the anchor live, and the article
+ * says it in prose; the specimen used to say it a third time in a label of its own
+ * ("No scrim, no Next, no counter that matters"), which is the site talking inside the
+ * fiction and reads as nonsense to anyone who has not just read the article (SPEC §5.1).
+ * The status line is the reports screen's own, at rest and after the grouping.
+ *
+ * The re-arm button is instrumentation, so it says what it does. It was labelled "New
+ * teammate", which asked the reader to infer a whole fiction (a second person, opening
+ * this screen for the first time) from two words, to explain a button that only puts
+ * the beacon back.
+ *
+ * The callout takes its position from the anchor's real rect and
  * sits out of flow, so raising and clearing it move nothing in the scene (SPEC §5).
  *
  * The beacon opens and Got it dismisses; neither toggles (SPEC §8). The pulse is the
@@ -57,7 +68,7 @@ export function mount(root: HTMLElement): void {
             ${row('Churn by plan', 'Yesterday')}
             ${row('Trial funnel', 'Monday')}
           </ul>
-          <span class="sp-label" data-part="status">Everything else stays lit.</span>
+          <span class="sp-label" data-part="status">3 reports, newest first.</span>
         </div>
 
         <div
@@ -78,8 +89,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="gap: 8px">
-        <span class="sp-label" style="font-size: 11px">No scrim, no Next, no counter that matters.</span>
-        <button class="sp-button sp-button--ghost sp-button--sm" data-part="rearm" type="button">New teammate</button>
+        <button class="sp-button sp-button--ghost sp-button--sm" data-part="rearm" type="button">Show the mark again</button>
       </div>
     </div>
   `;
