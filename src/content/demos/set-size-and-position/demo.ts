@@ -71,15 +71,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           ${Array.from({ length: WINDOW }, (_, index) => row(index)).join('')}
         </ul>
 
-        <div class="sp-surface" style="margin-top: 9px; padding: 7px 10px">
-          <div class="sp-row" style="gap: 8px">
-            <span class="sp-label sp-context" style="flex: 0 0 auto">Screen reader</span>
-            <span class="sp-text sp-text--ink sp-grow" data-part="utterance" data-state="spoken"
+                              <span class="sp-text sp-text--ink sp-grow" data-stage-announce data-part="utterance" data-state="spoken"
                   style="font-size: 11.5px; white-space: nowrap">“Invoice <span
                 data-part="record">0247</span>, item <span data-part="count" data-subject data-mode="declared"
                 style="font-weight: 600">247 of ${TOTAL}</span>”</span>
-          </div>
-        </div>
+          
+        
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="declared"
            style="margin: 8px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.declared}</p>

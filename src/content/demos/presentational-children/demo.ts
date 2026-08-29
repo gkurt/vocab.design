@@ -86,12 +86,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
 
-        <div class="sp-surface" style="margin-top: 10px; padding: 8px 10px">
-          <span class="sp-label sp-context">Screen reader, on landing</span>
-          <p class="sp-text sp-text--ink" data-part="utterance"
+                  <p class="sp-text sp-text--ink" data-stage-announce data-part="utterance"
              style="margin: 4px 0 0; height: 22px; line-height: 22px; font-size: 12px; white-space: nowrap">
             “<span data-part="name" data-subject style="font-weight: 600">${NAME}</span>, button”</p>
-        </div>
+        
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="authored"
            style="margin: 8px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.authored}</p>

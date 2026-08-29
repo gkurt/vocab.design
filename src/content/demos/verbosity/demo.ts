@@ -16,18 +16,15 @@ const DESCRIPTION = 'Starred mail is kept for a year';
 const LEVEL = {
   low: {
     utterance: `“${NAME}”`,
-    parts: 'name',
     caption:
       'Name only. The role, the state and the description are all switched off, and the reader gets the one word that cannot be dropped.',
   },
   medium: {
     utterance: `“${NAME}, ${ROLE}, ${STATE}”`,
-    parts: 'name, role, state',
     caption: 'Role and state come back. This is where most practised users sit: enough to operate the control, nothing more.',
   },
   high: {
     utterance: `“${NAME}, ${ROLE}, ${STATE}. ${DESCRIPTION}.”`,
-    parts: 'name, role, state, description',
     caption: 'Everything, description included. A hint that only shows up here is a hint most readers have already turned off.',
   },
 } as const satisfies Record<Level, unknown>;
@@ -43,7 +40,11 @@ const LEVEL = {
  * The subject is the utterance line: verbosity is the length of what is said, so the thing
  * the term names is the sentence, not the control that produced it and not the picker that
  * chose the setting. The mail row and the picker are scenery (SPEC §5). The utterance is what
- * the setting decides at every level, so no level is dishonest and no `data-pose` is needed.
+ * the setting decides at every level, so no level is dishonest. It still declares `data-identify`,
+ * which is not a pose: identify holds the HIGH setting, because a ring around “Star” at the low
+ * setting is a ring around a name, which is what every control announces and says nothing about
+ * how much gets said. The full sentence is where the term is legible, so the specimen mounts
+ * there and steps down from it.
  *
  * The speech delay comes from the DemoClock, so a pose can hold the transcript still. The
  * utterance box reserves the two lines the high setting needs, so changing level moves
@@ -58,7 +59,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="level" data-axis="Verbosity" data-value="low">
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="level" data-axis="Verbosity" data-value="high">
             ${segment('low', 'Low')}
             ${segment('medium', 'Medium')}
             ${segment('high', 'High')}
@@ -76,26 +77,18 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <p class="sp-label" id="verbosity-hint"
              style="margin: 0 0 4px 40px; font-size: 10px">${DESCRIPTION}</p>
         </div>
-
-        <div class="sp-surface" style="margin-top: 10px; padding: 8px 10px">
-          <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-            <span class="sp-label">Screen reader, on landing</span>
-            <span class="sp-label" data-part="parts"
-                  style="flex: 0 0 auto; width: 150px; text-align: right; font-size: 10px">name</span>
-          </div>
-          <p class="sp-text sp-text--ink" data-part="utterance" data-subject data-level="low" data-state="spoken"
+          <p class="sp-text sp-text--ink" data-stage-announce data-part="utterance" data-subject data-identify="[data-level=high]" data-level="high" data-state="spoken"
              style="margin: 4px 0 0; height: 32px; display: flex; align-items: center;
-                    font-size: 11.5px; line-height: 1.35">${LEVEL.low.utterance}</p>
-        </div>
+                    font-size: 11.5px; line-height: 1.35">${LEVEL.high.utterance}</p>
+        
 
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-level="low"
-           style="margin: 8px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${LEVEL.low.caption}</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-level="high"
+           style="margin: 8px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${LEVEL.high.caption}</p>
       </div>
     </div>
   `;
 
   const utterance = part(root, 'utterance');
-  const parts = part(root, 'parts');
   const caption = part(root, 'caption');
   let pending: number | undefined;
 
@@ -112,7 +105,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       utterance.dataset.level = level;
       utterance.dataset.state = 'spoken';
       utterance.textContent = rule.utterance;
-      parts.textContent = rule.parts;
       caption.dataset.level = level;
       caption.textContent = rule.caption;
     }, SPEAK_MS);

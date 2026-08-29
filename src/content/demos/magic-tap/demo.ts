@@ -32,10 +32,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           Two-finger double tap anywhere on this screen
         </div>
       </div>
-      <div class="sp-context sp-stack" style="gap: 4px; padding: 8px 10px">
-        <span class="sp-label">Announced</span>
-        <p class="sp-text sp-text--ink" data-part="spoken" data-subject data-state="idle" style="margin: 0; min-height: 17px; font-size: 13px">“Incoming call from Priya Raman”</p>
-      </div>
+              <p class="sp-text sp-text--ink" data-stage-announce data-part="spoken" data-subject data-state="idle" style="margin: 0; min-height: 17px; font-size: 13px">“Incoming call from Priya Raman”</p>
+      
     </div>`;
 
   const spoken = part(root, 'spoken');

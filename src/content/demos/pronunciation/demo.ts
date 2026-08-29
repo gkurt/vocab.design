@@ -63,16 +63,15 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </p>
         </div>
 
-        <div class="sp-surface" style="margin-top: 10px; padding: 8px 10px">
-                      <span class="sp-label" data-stage-verdict data-part="verdict"
+                              <span class="sp-label" data-stage-verdict data-part="verdict"
                   style="flex: 0 0 auto; width: 120px; text-align: right; font-size: 10px">${MODE.default.verdict}</span>
           
-          <p class="sp-text sp-text--ink" data-part="utterance" data-state="spoken"
+          <p class="sp-text sp-text--ink" data-stage-announce data-part="utterance" data-state="spoken"
              style="margin: 4px 0 0; height: 22px; line-height: 22px; font-size: 12px;
                     white-space: nowrap">“The old service pipes are lined with <span
               data-part="token" data-subject data-mode="default"
               style="font-weight: 600">${MODE.default.token}</span>”</p>
-        </div>
+        
 
         <p class="sp-text sp-context" data-part="caption" data-mode="default"
            style="margin: 8px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${MODE.default.caption}</p>

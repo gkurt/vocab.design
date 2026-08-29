@@ -900,10 +900,26 @@ to the exhibit's own control is the exhibit talking. Prose that never changes is
 complaint with a different answer: the term's article usually already says it, better and at
 length, so it is deleted rather than moved.
 
-An announcement that is the SUBJECT stays where it is. `verbosity` marks its utterance
-`data-subject`, and identify has to be able to ring it inside the specimen, so only its
-caption moves; the demo then has speech in the frame and a verdict in the strip, which is
-correct rather than inconsistent.
+**An announcement that is the subject moves too, and identify follows it out.** The strip's
+copy is the one on screen, so `subject()` prefers it and the ring is drawn around the lane,
+or around a word inside it: `pronunciation` rings the respelled token, `role-description` the
+role, `set-size-and-position` the "247 of 500". That works because the lane MIRRORS the
+source's markup rather than its text, cloning the children so a span marked `data-subject`
+survives the crossing. Announcement children carry inline styles and no kit classes, which is
+what lets them look like themselves in chrome; a specimen whose live region is a panel of
+kit-classed product UI is not an utterance and does not move (`atomic-live-region`'s flight
+card, `busy-state`'s results panel, `streaming-announcement`'s assistant reply are each a real
+surface that updates, and the instrument test keeps them where they are).
+
+**`data-identify` is `data-pose`'s sibling, for parameters.** A pose says "these are the states
+in which the subject is still the term", which only a counter-example has; `data-identify` says
+"this is the state in which the term is legible", which a parameter has. Every one of
+`verbosity`'s three levels really is verbosity, but a ring around "Star" at the low setting is a
+ring around a name, and a name is what every control announces. So it mounts at High, declares
+`data-identify="[data-level=high]"`, and identify resets there from wherever attract left it.
+The two are kept apart because `bun validate` reads a pose naming one segment as a claim about
+which side is the headword, and for a parameter that is a lie. A demo declares one or the other,
+never both.
 
 **A readout stays in the frame only when the demo draws the thing that produces it.** This is
 the test, and it is not about wording: restyling the author's voice to look like product UI is

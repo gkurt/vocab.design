@@ -623,8 +623,21 @@ never fires under reduced motion, so nothing may ever wait on it.
   them left inside the specimen; the exemption list in `scripts/validate-terms.ts` is the
   instrument test below. Prose that never changes is a different problem with a different
   answer: the term's article usually already says it, so it is deleted, not moved.
-  An announcement that is the SUBJECT stays put (`verbosity` marks its utterance
-  `data-subject`), since identify must ring it inside the specimen; only its caption moves.
+  An announcement that is the SUBJECT moves too, and identify follows it: the strip's copy
+  is the one on screen, so the ring is drawn around the lane or a word inside it
+  (`pronunciation`'s token, `role-description`'s role, `set-size-and-position`'s "247 of
+  500"). That works because the say lane clones the source's CHILDREN rather than copying
+  its text, so a span marked `data-subject` survives; announcement children may carry inline
+  styles but never kit classes, which do not exist outside the shadow root. A live region
+  that is a panel of kit-classed product UI is not an utterance and stays put
+  (`atomic-live-region`, `busy-state`, `streaming-announcement`).
+- **`data-identify` is `data-pose`'s sibling, for parameters** (SPEC §5.1). A pose names the
+  states in which the subject is still the term, which only a counter-example has;
+  `data-identify` names the one state in which the term is LEGIBLE, which a parameter has.
+  `verbosity`'s three levels are all verbosity, but a ring around "Star" at Low is a ring
+  around a name, so it mounts at High and declares `data-identify="[data-level=high]"`.
+  Declare one or the other, never both: `bun validate` reads a pose naming one segment as a
+  claim about which side is the headword, and for a parameter that is a lie.
   A readout stays in the frame ONLY when the demo draws the thing that produces it:
   `braille-display` draws the pin array, `key-sequence` draws the kbd chips and the timeout
   meter, `inline-validation` prints into the field's own slot (and `aria-describedby` points

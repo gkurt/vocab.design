@@ -225,6 +225,12 @@ for (const term of terms.values()) {
       demoSource = source;
       if (!source.includes('data-subject')) errors.push(`${term.slug}: demo must mark its subject with data-subject (SPEC §5)`);
 
+      // A pose names the states in which the subject is still the term; data-identify names the
+      // one state in which the term is legible (SPEC §5.1). Declaring both would ask identify two
+      // questions at once, and only the first is read.
+      if (source.includes('data-pose=') && source.includes('data-identify='))
+        errors.push(`${term.slug}: declares both data-pose and data-identify; they answer different questions, pick one (SPEC §5.1)`);
+
       // A verdict is the author's reading of the state, not the product's, so it belongs in
       // the strip beside the switch that produced it (SPEC §5.1). Printed inside the mock in
       // the mock's own type it is one more line the reader has to work out is not the fiction.

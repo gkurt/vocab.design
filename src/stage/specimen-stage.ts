@@ -68,9 +68,17 @@ export interface StageAudit extends AuditResult {
  * that way first (dark-mode's segmented picks the derivation, not the scheme,
  * precisely so its subject never stops being dark): `data-pose` is for terms
  * where the dishonest state is pedagogically required.
+ *
+ * `data-identify` is the same mechanism for a different claim, and a demo declares one or the
+ * other, never both. `data-pose` says "these are the states in which the subject is still the
+ * term", which only a counter-example has. `data-identify` says "this is the state in which the
+ * term is legible", which a PARAMETER has: every one of verbosity's three levels really is
+ * verbosity, but a ring around “Star” at the low setting is a ring around a name, and a name is
+ * what every control announces. They are kept apart because `bun validate` reads a pose naming
+ * one segment as a claim about which side is the headword, and for a parameter that is a lie.
  */
 function satisfiesPose(el: HTMLElement): boolean {
-  const condition = el.dataset.pose;
+  const condition = el.dataset.pose ?? el.dataset.identify;
   return !condition || el.matches(condition);
 }
 
@@ -309,14 +317,25 @@ class VdStage extends HTMLElement {
       const said = document.createElement('p');
       said.className = 'vd-stage-say__text';
       mirrorData(source, said);
-      said.textContent = source.textContent?.trim() ?? '';
+      // The utterance is cloned rather than copied as text, because for ten specimens the
+      // subject is a WORD inside the sentence (`pronunciation`'s respelled token,
+      // `role-description`'s role, `set-size-and-position`'s "247 of 900"), marked on a span
+      // of its own. A text copy would flatten that span away and leave identify with nothing
+      // in the strip to ring. Announcement children carry inline styles and no kit classes,
+      // which is what lets them cross into chrome and still look like themselves.
+      let painted = '';
+      const paint = () => {
+        if (source.innerHTML === painted) return false;
+        painted = source.innerHTML;
+        said.replaceChildren(...[...source.childNodes].map((node) => node.cloneNode(true)));
+        return true;
+      };
+      paint();
       lane.append(speaker, said);
 
       const speak = () => {
         mirrorData(source, said);
-        const words = source.textContent?.trim() ?? '';
-        if (words === said.textContent) return;
-        said.textContent = words;
+        if (!paint()) return;
         if (reducedMotion) return;
         lane.setAttribute('data-speaking', '');
         clearTimeout(speakerTimer);
@@ -498,7 +517,11 @@ class VdStage extends HTMLElement {
     new TouchMirror(surface.events, surface.edge, overlay, surface.offset);
 
     // --- Subject annotation (SPEC §6) ---
-    const subject = () => this.#mountRoot?.querySelector<HTMLElement>('[data-subject]') ?? null;
+    // The strip wins, because its copy is the one on screen: when the subject is what the
+    // specimen SAYS, the sentence lives out here and the demo's own element is hidden, so
+    // identify would otherwise ring a node no reader can see (SPEC §6).
+    const subject = () =>
+      strip?.querySelector<HTMLElement>('[data-subject]') ?? this.#mountRoot?.querySelector<HTMLElement>('[data-subject]') ?? null;
     // data-subject on the demo's top-level wrapper means "the whole scene is the subject".
     const isWholeScene = (el: HTMLElement) => el === this.#mountRoot?.firstElementChild;
 
@@ -554,7 +577,9 @@ class VdStage extends HTMLElement {
       await surface.doc.fonts?.ready;
       await enterPose();
       const el = subject();
-      if (el && pointable) fadeToSubject(canvas, el, surface.offset);
+      // Nothing to fade toward when the subject is in the strip: the canvas is all context,
+      // and the lane is already the only line of type outside the specimen.
+      if (el && pointable && !strip?.contains(el)) fadeToSubject(canvas, el, surface.offset);
       this.dataset.captureReady = '';
       return;
     }
@@ -587,7 +612,9 @@ class VdStage extends HTMLElement {
       const rect = el.getBoundingClientRect();
       // The overlay is chrome and the subject may be in a document of its own, so
       // the ring is placed in page coordinates, not the specimen's (SPEC §6).
-      const { x, y, scale } = surface.offset();
+      // A strip element is chrome already, in page pixels; only a specimen's box needs
+      // converting out of the surface it lives in.
+      const { x, y, scale } = strip?.contains(el) ? { x: 0, y: 0, scale: 1 } : surface.offset();
       const box = {
         left: rect.left * scale + x - overlayRect.left - 6,
         top: rect.top * scale + y - overlayRect.top - 6,
