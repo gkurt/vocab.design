@@ -34,4 +34,4 @@ export const RESERVED = new Set<string>([...SECTIONS, 'specimen', 'capture']);
  * it names a different page every time; a prose link to a category or a facet names the
  * leaf directly, which `bun validate` checks against the enums.
  */
-export const SITE_ROUTES = new Set(['/', '/glossary', '/search', '/llms.txt', '/terms.json', '/rss.xml']);
+export const SITE_ROUTES = new Set(['/', '/glossary', '/search', '/llms.txt', '/llms-full.txt', '/terms.json', '/rss.xml']);

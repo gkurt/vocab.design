@@ -180,7 +180,10 @@ const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.dat
       > carries every term, alias and relation as data, <a
         href={pageUrl("/llms.txt")}
         class="text-accent underline underline-offset-3">llms.txt</a
-      > is the same collection as prose, and every term page has a
+      > maps the site and <a
+        href={pageUrl("/llms-full.txt")}
+        class="text-accent underline underline-offset-3">llms-full.txt</a
+      > lists every term with its definition, and every term page has a{" "}
       <code class="text-ink">.md</code> twin at <code class="text-ink"
         >/{"{slug}"}.md</code
       >.

@@ -1537,8 +1537,10 @@ the concept, and a docs URL.
 - **Aliases** → static redirects + on-page/metadata presence (§3).
 - **JSON-LD**: every term page emits `DefinedTerm` within a site-wide
   `DefinedTermSet`.
-- **Agents**: `llms.txt` at the root; every term also served as raw markdown at
-  `/{slug}.md`; full dataset export at `/terms.json`.
+- **Agents**: `llms.txt` at the root, a map of the site rather than a copy of it (page
+  shapes, the categories and the tags, each with its blurb), with the vocabulary itself
+  one link away in `llms-full.txt` (every term, its definition, its category); every term
+  also served as raw markdown at `/{slug}.md`; full dataset export at `/terms.json`.
 - **Share images**: one per term, and the term's own specimen is the picture (below).
 - **Icons**: `public/favicon.svg` is the drawing (the wordmark's serif v on an accent
   tile, the one letter that survives 16 pixels), and `bun run icons` rasters the two

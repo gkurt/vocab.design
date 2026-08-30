@@ -99,7 +99,7 @@ src/stage/highlight.ts      #   the share still's annotation: subject at full st
 src/stage/specimen-stage.ts #   <vd-stage> itself: also draws the strip's mode switch (SPEC 5.1)
 src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme), stage.css
 src/pages/                  # index (ONE live specimen, then THE directory: categories, facets, A-Z), [slug]
-                            #   (terms + alias redirects), [slug].md, terms.json, llms.txt
+                            #   (terms + alias redirects), [slug].md, terms.json, llms.txt (+ llms-full.txt)
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
 src/pages/specimens/[page].json.ts # what the front page's carousel pulls once a reader stays
 src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
