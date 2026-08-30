@@ -62,6 +62,10 @@ const column = (key: string, label: string, touch: boolean, subject: boolean): s
  * beside it is a hover card, which is a different word. The right-hand column is a peer
  * instance of the same term rather than scenery, so it keeps its own paint.
  *
+ * The two columns were headed "Pointer: a dwell" and "Touch: a press held", which named the
+ * gesture the reader was about to watch rather than the input the column is for. They name the
+ * input now, and the note the stage draws in the strip already spells out the rest.
+ *
  * The delays are the explainer's own defaults, held on the stage clock so a pose cannot be
  * dismissed mid-inspection. The touch column wires no `pointerenter` at all, because a
  * finger cannot hover and hover paint inside a touch scope would hand a reader the one
@@ -72,8 +76,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 460px; padding: 14px">
         <div class="sp-row" style="align-items: flex-start; gap: 20px">
-          ${column('a', 'Pointer: a dwell', false, true)}
-          ${column('b', 'Touch: a press held', true, false)}
+          ${column('a', 'Pointer', false, true)}
+          ${column('b', 'Touch', true, false)}
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="note" style="margin: 12px 0 0">
           Interest is defined per input: a pointer dwells, a keyboard focuses, a finger presses and

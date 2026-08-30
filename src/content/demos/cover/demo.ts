@@ -42,7 +42,13 @@ const LENGTHS: Length[] = [
  * The subject is the cover region itself, `data-part="cover"`. This is one of the cases where
  * the container is the narrowest element the term names (SPEC §5): the primitive IS the region
  * with its minimum height and its auto margins, not the headline sitting in it. The window, the
- * legend, the picker and the caption are scenery in the context register.
+ * picker and the note are scenery in the context register.
+ *
+ * A legend once stood beside the window under the heading "the whole recipe", pairing each
+ * declaration with a gloss ("min-height / at least as tall as the window", and two more), and
+ * the topbar read "Principal element holds". All of it was the site teaching from inside the
+ * frame, and the article gives the recipe in full, so the legend went and the bar names what
+ * the body shows. The window is centred on its own now.
  *
  * The claim is measured rather than implied: after every change the demo compares the region's
  * height with the window's and publishes `exact` or `over` on the region, so an assert can hold
@@ -59,17 +65,11 @@ export function mount(root: HTMLElement): void {
       </p>`,
   ).join('');
 
-  const legendRow = (rule: string, name: string) => `
-    <div class="sp-stack" style="gap: 1px">
-      <span class="sp-label" style="color: var(--sp-ink); font-weight: 600; font-size: 11px">${rule}</span>
-      <span class="sp-label" style="font-size: 11px; line-height: 1.35">${name}</span>
-    </div>`;
-
   root.innerHTML = `
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Principal element holds</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Viewport</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="lengths" data-axis="Length" data-value="short">
             ${LENGTHS.map(
               (length) => `
@@ -107,15 +107,6 @@ export function mount(root: HTMLElement): void {
               <div class="sp-row" data-part="foot" style="flex: 0 0 auto; gap: 8px">
                 <span class="sp-label" style="font-size: 11px">Harbour Commissioners</span>
               </div>
-            </div>
-          </div>
-
-          <div class="sp-stack sp-context" style="flex: 0 0 auto; width: 128px; gap: 8px">
-            <span class="sp-label" style="color: var(--sp-ink)">the whole recipe</span>
-            <div class="sp-stack" style="gap: 9px">
-              ${legendRow('min-height', 'at least as tall as the window')}
-              ${legendRow('margin-block: auto', 'centres the middle child')}
-              ${legendRow('padding', 'keeps the edges clear')}
             </div>
           </div>
         </div>

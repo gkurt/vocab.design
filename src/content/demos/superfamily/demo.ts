@@ -96,9 +96,12 @@ const SHOW = 0.6;
  *
  * The subject is the set of three members, the narrowest thing the term names: a
  * superfamily is the family, not any one of its members and not the specimen around it.
- * The enlarged member, the picker and the caption are the demo's own instrumentation and
- * sit in the context register (SPEC §5). No member is dishonest, so no `data-pose` is
- * needed.
+ * The enlarged member and the picker are the demo's own instrumentation and sit in the
+ * context register (SPEC §5). No member is dishonest, so no `data-pose` is needed.
+ *
+ * A caption under the row once read "The rules are the shared x-height and baseline."
+ * A type specimen does not caption its own guides, and the two rules land on the same
+ * height across all three members whether or not a sentence says so, so it went.
  *
  * Both boxes are fixed and every member is drawn at the same scale, so picking a member
  * moves nothing (SPEC §5).
@@ -143,9 +146,6 @@ export function mount(root: HTMLElement): void {
             )
             .join('')}
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 4px">
-          The rules are the shared x-height and baseline.
-        </p>
       </div>
     </div>
   `;

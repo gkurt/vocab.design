@@ -43,6 +43,11 @@ const cut = (at: number, name: string) =>
  * thing a jump cannot produce. A press on the track without a move is that jump, and it
  * is labelled as a seek, so the two words are told apart by what the demo actually does.
  *
+ * Two lines of the site's own voice used to stand in the editor: "A press jumps. A drag
+ * shows the way." beside the preview, and "Drag the playhead" in the status line at mount.
+ * The first is the article's sentence and went; the second is now the clip's length and
+ * frame rate, which is what a cutting room would print there before anything has happened.
+ *
  * Nothing is re-parented mid-gesture and the readouts hold their widths at every
  * position, so a playhead crossing the minute mark moves only itself (SPEC §5).
  */
@@ -54,7 +59,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Reel 3 rough cut</span>
-          <span class="sp-text" data-part="readout" style="width: 190px; text-align: right">Drag the playhead</span>
+          <span class="sp-text" data-part="readout" style="width: 190px; text-align: right">${timecode(DURATION)}, 24 fps</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           <div class="sp-row sp-context" style="gap: 12px">
@@ -65,7 +70,6 @@ export function mount(root: HTMLElement): void {
             <div class="sp-stack" style="gap: 4px">
               <span class="sp-heading" data-part="timecode" style="font-variant-numeric: tabular-nums">${timecode(START)}</span>
               <span class="sp-label" data-part="frames" style="width: 150px">0 frames previewed</span>
-              <span class="sp-text" style="width: 150px; font-size: 12px">A press jumps. A drag shows the way.</span>
             </div>
           </div>
           <div

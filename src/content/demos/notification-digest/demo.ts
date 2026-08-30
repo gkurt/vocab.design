@@ -30,6 +30,10 @@ const NOTE: Record<Lane, string> = {
  * lane there is no digest at all, so identify summons the mount state rather than ringing a
  * counter-example, and no `data-pose` is needed.
  *
+ * The row above the lanes used to read "Six comments on one thread, over four minutes",
+ * which was the site describing its own setup: the six rows and their 4:02 to 4:06 stamps
+ * already say it. It is now the section header a notification centre really prints.
+ *
  * The lane box is sized once, at mount, to the taller lane (six rows), and both lanes are
  * stacked inside it, so switching replaces content without resizing anything (SPEC §5).
  * Each segment reaches its own named lane rather than flipping the one it finds (SPEC §8).
@@ -56,7 +60,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
           <div class="sp-row sp-row--between sp-context" data-part="lane" data-interruptions="1" style="height: 18px">
-            <span class="sp-label" style="font-size: 10px">Six comments on one thread, over four minutes</span>
+            <span class="sp-label" style="font-size: 10px">Today</span>
             <span class="sp-label" data-part="cost" style="font-size: 10px">1 interruption</span>
           </div>
           <div data-part="box" style="position: relative; flex: 1 1 auto">

@@ -31,6 +31,13 @@ const BOXES = {
  * Both panels keep a fixed box, so drawing or hiding the rules moves nothing (SPEC §5), and
  * each segment names a state of the ruling rather than flipping it (SPEC §8).
  *
+ * The two panels used to be captioned "on the unit" and "nudged 3px off", and the line
+ * under them ("Padding 16, avatar 32, gaps 8: every edge on the left lands on a rule.")
+ * was printed inside the frame. The captions are gone, since the drawn rules say which
+ * panel lands on them, and the line is the author's reading of the state the switch
+ * produced, so it is marked `data-stage-verdict` and the stage draws it above the switch
+ * (SPEC §5.1).
+ *
  * The panel edge is an inset shadow rather than a border, because a 1px border would start
  * the padding box one pixel in and put every edge in the panel one pixel off the rules the
  * specimen is claiming they land on.
@@ -75,18 +82,16 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" type="button" data-part="seg-off" value="off">hidden</button>
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px 16px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 12px 16px">
           <div class="sp-row" style="align-items: flex-start; gap: 24px">
             <div class="sp-stack" style="gap: 6px; align-items: flex-start">
-              <span class="sp-label" style="color: var(--sp-ink)">on the unit</span>
               ${panel('snapped', 'data-subject')}
             </div>
             <div class="sp-stack sp-context" style="gap: 6px; align-items: flex-start">
-              <span class="sp-label">nudged 3px off</span>
               ${panel('drift', '')}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 448px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 448px; text-align: center"></span>
         </div>
       </div>
     </div>

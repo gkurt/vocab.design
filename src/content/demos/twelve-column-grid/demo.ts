@@ -6,20 +6,12 @@ const GUTTER = 8;
 const SLOTS = 4;
 const TRACKS = `display: grid; grid-template-columns: repeat(${COLUMNS}, 1fr); gap: ${GUTTER}px`;
 
-/** Each division of the same twelve columns, with the arithmetic that makes it whole. */
-const DIVISIONS: Record<string, { spans: number[]; names: string[]; note: string }> = {
-  halves: { spans: [6, 6], names: ['one half', 'one half'], note: '12 ÷ 2 = 6. Halves, with no fraction of a column anywhere.' },
-  thirds: {
-    spans: [4, 4, 4],
-    names: ['one third', 'one third', 'one third'],
-    note: '12 ÷ 3 = 4. Thirds, which is what ten columns and sixteen columns cannot give you.',
-  },
-  quarters: {
-    spans: [3, 3, 3, 3],
-    names: ['one quarter', 'one quarter', 'one quarter', 'one quarter'],
-    note: '12 ÷ 4 = 3. Quarters, still whole columns, and sixths would be four sets of two.',
-  },
-  split: { spans: [8, 4], names: ['two thirds', 'one third'], note: '8 + 4. The asymmetric split most content pages actually want.' },
+/** Each division of the same twelve columns, in whole columns. */
+const DIVISIONS: Record<string, { spans: number[]; names: string[] }> = {
+  halves: { spans: [6, 6], names: ['one half', 'one half'] },
+  thirds: { spans: [4, 4, 4], names: ['one third', 'one third', 'one third'] },
+  quarters: { spans: [3, 3, 3, 3], names: ['one quarter', 'one quarter', 'one quarter', 'one quarter'] },
+  split: { spans: [8, 4], names: ['two thirds', 'one third'] },
 };
 
 /**
@@ -36,6 +28,12 @@ const DIVISIONS: Record<string, { spans: number[]; names: string[]; note: string
  * alignment is a fact of the layout rather than two sets of numbers kept in step by hand.
  * The block row keeps a fixed height, so a division with four blocks fills tracks that were
  * already reserved instead of growing the region (SPEC §5).
+ *
+ * A line under the region used to state the arithmetic for whichever division was picked
+ * ("12 ÷ 2 = 6. Halves, with no fraction of a column anywhere."). That was the site making
+ * the case for twelve from inside the layout tool, and the article makes it at length, so
+ * the line went and the frame lost its height rather than standing over a gap. The spans
+ * are still printed on the blocks themselves, where a layout tool really does print them.
  */
 export function mount(root: HTMLElement): void {
   const ticks = Array.from(
@@ -63,7 +61,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 292px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Split</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Spans" data-part="switcher" data-value="halves">
@@ -83,14 +81,12 @@ export function mount(root: HTMLElement): void {
             <div data-part="ruler" style="${TRACKS}">${ticks}</div>
             <div data-part="blocks" style="${TRACKS}; grid-auto-rows: 106px; margin-top: 10px">${slots}</div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 30px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>
   `;
 
   const region = part(root, 'region');
-  const readout = part(root, 'readout');
   const blocks = Array.from({ length: SLOTS }, (_, i) => ({
     box: part(root, `block-${i}`),
     span: part(root, `span-${i}`),
@@ -110,7 +106,6 @@ export function mount(root: HTMLElement): void {
       block.span.textContent = `span ${span}`;
       block.name.textContent = name;
     });
-    readout.textContent = division.note;
   };
 
   // Each segment names a division, so the switch lands on that one rather than stepping

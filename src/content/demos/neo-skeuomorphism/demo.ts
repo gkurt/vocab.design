@@ -20,6 +20,12 @@
  * that actually is one (SPEC §5). The flat and neumorphic copies are the evidence, and they,
  * the labels and the caption are scenery.
  *
+ * The comparison used to caption itself: a heading reading "One widget, three amounts of matter"
+ * and a line under each column ("Colour and space. No depth at all.", "One material, extruded, at
+ * very low contrast.", "Two materials, lit, at real contrast."). That was the site reading the
+ * picture out loud, so it went; each column keeps only the register's name, which is the legend
+ * the comparison needs.
+ *
  * Static: three widgets set side by side have no states, so there is nothing to animate and
  * no clock to take.
  *
@@ -173,8 +179,8 @@ function widget(skin: Skin, subject: boolean): string {
     </div>`;
 }
 
-/** One column of the tour: the register's room with its widget in it, then what it is showing. */
-function column(skin: Skin, label: string, note: string, subject: boolean): string {
+/** One column of the tour: the register's room with its widget in it, under the register's name. */
+function column(skin: Skin, label: string, subject: boolean): string {
   return `
     <div class="sp-stack${subject ? '' : ' sp-context'}" style="flex: 0 0 ${TILE_W}px; gap: 5px; align-items: stretch">
       <div data-part="tile-${skin.key}"
@@ -183,7 +189,6 @@ function column(skin: Skin, label: string, note: string, subject: boolean): stri
         ${widget(skin, subject)}
       </div>
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 }
 
@@ -191,12 +196,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One widget, three amounts of matter</span>
-
         <div class="sp-row" data-part="tour" style="gap: 9px; align-items: flex-start; justify-content: center">
-          ${column(FLAT, 'Flat', 'Colour and space. No depth at all.', false)}
-          ${column(NEUMORPHIC, 'Neumorphic', 'One material, extruded, at very low contrast.', false)}
-          ${column(NEO, 'Neo-skeuomorphic', 'Two materials, lit, at real contrast.', true)}
+          ${column(FLAT, 'Flat', false)}
+          ${column(NEUMORPHIC, 'Neumorphic', false)}
+          ${column(NEO, 'Neo-skeuomorphic', true)}
         </div>
       </div>
 

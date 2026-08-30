@@ -23,13 +23,17 @@ type Cell = { el: HTMLElement; glyph: HTMLElement; at: number; target: number; w
  *
  * The subject is one character cell, the narrowest thing the term names: a split flap is a single
  * character's drum, and the board is four of them standing next to each other. The heading, the
- * readout, the Change control and the caption are the scene.
+ * readout and the Change control are the scene.
+ *
+ * A line under the board once read "Each cell passes through every letter on the way", which is
+ * the site describing the animation the reader is watching. It went, and the frame lost the
+ * 32px it was holding for it.
  *
  * `motion.css` cannot reach an `element.animate` keyframe set, so the demo asks
  * `prefersReducedMotion` itself and lands the whole word at once for a reader who asked for less
  * movement: the letters in between were never information. The beat between flaps comes from the
  * stage's clock so a pose stops the board where it stands (SPEC §6), and every cell holds a fixed
- * width and height, so a board mid-flip never reflows the row or the caption under it (SPEC §5).
+ * width and height, so a board mid-flip never reflows the row it stands in (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const first = WORDS[0] as string;
@@ -54,7 +58,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 236px">
+      <div class="sp-frame sp-frame--wide" style="height: 204px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Departures</span>
           <span class="sp-text" data-part="readout" style="width: 150px; text-align: right; white-space: nowrap">Now showing ${first}</span>
@@ -64,7 +68,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-row" data-part="board" data-state="settled" style="gap: 6px">
             ${[...first].map((char, i) => cellMarkup(char, i)).join('')}
           </div>
-          <span class="sp-label sp-context" style="font-size: 11px">Each cell passes through every letter on the way</span>
         </div>
       </div>
     </div>

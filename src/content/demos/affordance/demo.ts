@@ -22,6 +22,12 @@ const FLAT = [
  * each one looks like it allows. The pointer readout names what the element is
  * saying rather than what it does, and the receipt below sits in a slot reserved
  * from the start, so an export never moves the two candidates (SPEC §5).
+ *
+ * The pair used to be captioned in the site's voice: "Both of these export the
+ * report." over them, "Edge, fill, label, press state" under one and "A possibility
+ * with nothing to signify it" under the other. None of that is anything the report
+ * screen would print, and the receipt proves the shared handler on screen, so the
+ * three labels are gone and the body centres what is left.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -31,16 +37,13 @@ export function mount(root: HTMLElement): void {
           <span class="sp-heading sp-grow">Quarter report</span>
           <span class="sp-text" data-part="readout" data-reads="away" style="width: 140px; text-align: right">Pointer away</span>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 14px">
-          <span class="sp-label sp-context" style="text-align: center">Both of these export the report.</span>
-          <div class="sp-row" style="align-items: flex-start; gap: 28px">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 150px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px">
+          <div class="sp-row" style="align-items: center; gap: 28px">
+            <div style="display: flex; flex-direction: column; align-items: center; width: 150px">
               <button class="sp-button sp-button--sm" type="button" data-part="raised" data-subject>Export CSV</button>
-              <span class="sp-label sp-context" style="text-align: center">Edge, fill, label, press state</span>
             </div>
-            <div class="sp-context" style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 150px">
+            <div class="sp-context" style="display: flex; flex-direction: column; align-items: center; width: 150px">
               <button type="button" data-part="flat" style="${FLAT}">Export CSV</button>
-              <span class="sp-label" style="text-align: center">A possibility with nothing to signify it</span>
             </div>
           </div>
           <div style="position: relative; width: 100%; height: 34px">

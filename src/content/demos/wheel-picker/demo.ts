@@ -68,6 +68,10 @@ const column = (name: string, label: string, subject: boolean, parts: string[], 
  * selected-option tint. The settle is a CSS transition rather than a scripted animation,
  * so reduced motion turns it off without the demo asking, and nothing but the tracks ever
  * moves, so a spin shifts only the values (SPEC §5).
+ *
+ * A line under the drums once read "Drag a column: the values move, the band does not.",
+ * which was the site instructing the reader from inside an alarm panel. It is gone: the
+ * drag is the choreography's job to show, and the article makes the claim.
  */
 export function mount(root: HTMLElement): void {
   const hourParts = HOURS.map((h) => `hour-${h}`);
@@ -110,10 +114,6 @@ export function mount(root: HTMLElement): void {
                 ${column('meridiem', 'AM or PM', false, meridiemParts, MERIDIEM, 0)}
               </div>
             </div>
-
-            <p class="sp-label sp-context" style="margin: 8px 0 0; font-size: 11px; text-align: center; white-space: nowrap">
-              Drag a column: the values move, the band does not.
-            </p>
           </div>
         </div>
       </div>

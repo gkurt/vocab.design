@@ -30,6 +30,10 @@ const clamp = (n: number, low: number, high: number) => Math.max(low, Math.min(h
  * are scenery. It is honestly a signing surface empty, signed and captured, so no `data-pose`
  * condition is needed.
  *
+ * A line under the receipt once read "The pad keeps the stroke, not a picture of it, and Done
+ * trims the capture to the ink.", which was the site describing the mechanism next to the
+ * mechanism. The trim is visible when Done is pressed, and the article carries the rest.
+ *
  * The stroke follows the pointer rather than playing back on a timer: the revealed length of the
  * path is the pointer's own horizontal progress across the pad, so there is no scripted animation
  * here to gate on `prefersReducedMotion`, and no timer at all. The scripted hand signs rather
@@ -100,10 +104,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <span class="sp-label sp-context" style="height: 15px; font-size: 11px; line-height: 15px">
-        The pad keeps the stroke, not a picture of it, and Done trims the capture to the ink.
-      </span>
     </div>
   `;
 

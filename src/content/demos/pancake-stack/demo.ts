@@ -25,6 +25,12 @@ const NOTES: Record<string, string> = {
  * The window keeps a fixed box, so the page growing past it changes nothing outside itself
  * (SPEC §5), and the scroll offset is reset with the length so a pass joined halfway starts
  * from the same place (SPEC §8).
+ *
+ * Two things were the site talking. The legend glossed each track ("as tall as it needs",
+ * "all that is left"), so it now names the three tracks and nothing more, which is what a
+ * layout legend is. The line under the window reads what the chosen length did to the footer
+ * and changes with the switch, so it is a verdict: it carries `data-stage-verdict`, the stage
+ * draws it in the strip, and the frame lost the room that was reserved for it.
  */
 export function mount(root: HTMLElement): void {
   const blocks = Array.from(
@@ -37,13 +43,13 @@ export function mount(root: HTMLElement): void {
       </div>`,
   ).join('');
 
-  const legendRow = (track: string, name: string, note: string) => `
+  const legendRow = (track: string, name: string) => `
     <span class="sp-label" style="color: var(--sp-ink); font-weight: 600">${track}</span>
-    <span class="sp-label">${name}<br>${note}</span>`;
+    <span class="sp-label">${name}</span>`;
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Content</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Length" data-value="short">
@@ -51,7 +57,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" type="button" data-part="seg-long" value="long">long</button>
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 16px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px">
           <div class="sp-row" style="align-items: flex-start; gap: 20px">
             <div
               class="sp-scroll"
@@ -87,13 +93,13 @@ export function mount(root: HTMLElement): void {
             <div class="sp-stack sp-context" style="flex: 0 0 auto; width: 116px; gap: 8px">
               <span class="sp-label" style="color: var(--sp-ink)">grid-template-rows</span>
               <div style="display: grid; grid-template-columns: 30px 1fr; gap: 8px 8px; align-items: start">
-                ${legendRow('auto', 'header', 'as tall as it needs')}
-                ${legendRow('1fr', 'main', 'all that is left')}
-                ${legendRow('auto', 'footer', 'as tall as it needs')}
+                ${legendRow('auto', 'header')}
+                ${legendRow('1fr', 'main')}
+                ${legendRow('auto', 'footer')}
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; max-width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>

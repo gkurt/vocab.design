@@ -28,7 +28,7 @@ interface Sound {
 const SOUNDS: Record<string, Sound> = {
   crumple: {
     shape: 'burst',
-    blurb: 'Paper crumpling: a rattling burst, dying away',
+    blurb: 'Paper crumpling',
     seconds: '0.42 s',
     seed: 3,
     envelope: (t) => (t < 0.05 ? t / 0.05 : Math.exp(-3.4 * (t - 0.05))),
@@ -36,7 +36,7 @@ const SOUNDS: Record<string, Sound> = {
   },
   whoosh: {
     shape: 'swell',
-    blurb: 'Envelope leaving: one smooth swell of air',
+    blurb: 'Envelope leaving',
     seconds: '0.55 s',
     seed: 11,
     envelope: (t) => Math.sin(Math.PI * t) ** 1.5,
@@ -89,6 +89,13 @@ const ENVELOPE = `
  * rather than fetched, since a specimen makes no network requests (SPEC §5); the term is
  * about the sound resembling an event, and filtered noise is what a crumple is made of.
  *
+ * A line under the frame used to announce that policy to the reader ("Drawn, never played:
+ * this demonstration is silent. Press the paper yourself and you hear the shape above."),
+ * the panel was labelled "the sound it made", and the readout described each drawing in
+ * adjectives ("a rattling burst, dying away"). All of it was the site talking about its own
+ * exhibit: the panel is titled "Waveform" now, the readout names the event whose sound is
+ * drawn, and the note is gone.
+ *
  * Visual timing comes from the DemoClock so a pose can freeze a reaction mid-squash; the
  * AudioContext keeps its own schedule, which is the only clock a sound can have. The wave
  * is drawn inside a fixed panel and the objects react by transform, so a sound moves
@@ -113,15 +120,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span data-part="wave" data-subject data-sound="whoosh" style="position: absolute; left: 0; top: 0; width: 10px; height: 10px"></span>
             </div>
             <div class="sp-row sp-context" style="justify-content: space-between; margin-top: 4px">
-              <span class="sp-label" style="font-size: 10px">the sound it made</span>
+              <span class="sp-label" style="font-size: 10px">Waveform</span>
               <span class="sp-label" data-part="length" style="font-size: 10px">${SOUNDS.whoosh?.seconds}</span>
             </div>
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" data-part="silent" style="width: 452px; font-size: 11px; line-height: 1.35; text-align: center">
-        Drawn, never played: this demonstration is silent. Press the paper yourself and you hear the shape above.
-      </span>
     </div>
   `;
 

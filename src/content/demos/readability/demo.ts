@@ -10,10 +10,10 @@ const BODY =
   'starting point it has never actually looked at.';
 
 /** Size, leading and measure moved together, because that is how a column is actually set. */
-const SETTINGS: Record<string, { size: number; leading: number; measure: number; note: string }> = {
-  dense: { size: 12, leading: 1.2, measure: 404, note: 'no room between the lines' },
-  comfortable: { size: 13, leading: 1.65, measure: 330, note: 'inside the usual range' },
-  airy: { size: 13, leading: 2.3, measure: 404, note: 'the block loses its grip' },
+const SETTINGS: Record<string, { size: number; leading: number; measure: number }> = {
+  dense: { size: 12, leading: 1.2, measure: 404 },
+  comfortable: { size: 13, leading: 1.65, measure: 330 },
+  airy: { size: 13, leading: 2.3, measure: 404 },
 };
 
 /** Room for the tallest of the three, so the readout and caption never move (SPEC §5). */
@@ -45,13 +45,18 @@ function perLine(size: number, width: number): number {
  * read-out and the caption are the demo's own instrumentation and stay in the
  * context register. The slot holds the room the tallest setting needs, so nothing
  * below the paragraph moves when the setting changes.
+ *
+ * The read-out is measurement only, characters a line and leading. It used to carry
+ * a third item judging the setting ("inside the usual range", "the block loses its
+ * grip"), which is the article's verdict said twice, since the caption in the strip
+ * already gives it. The heading over the paragraph, "The same paragraph", described
+ * the experiment rather than anything in the scene, so it went with it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">The same paragraph</span>
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Setting" data-value="comfortable">
             <button class="sp-segment" data-part="seg-dense" value="dense">Dense</button>
             <button class="sp-segment" data-part="seg-comfortable" value="comfortable">Comfortable</button>
@@ -82,7 +87,7 @@ export function mount(root: HTMLElement): void {
     paragraph.style.fontSize = `${setting.size}px`;
     paragraph.style.setProperty('--sp-leading', String(setting.leading));
     paragraph.style.setProperty('--sp-measure', `${setting.measure}px`);
-    readout.innerHTML = [`${perLine(setting.size, setting.measure)} characters a line`, `leading ${setting.leading}`, setting.note]
+    readout.innerHTML = [`${perLine(setting.size, setting.measure)} characters a line`, `leading ${setting.leading}`]
       .map((text) => `<span class="sp-label">${text}</span>`)
       .join('');
   };

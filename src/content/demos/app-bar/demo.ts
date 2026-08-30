@@ -1,5 +1,4 @@
 import { icon } from '#src/kit/icons.ts';
-import { part } from '#src/kit/parts.ts';
 
 const ROWS = [
   ['Kestrel', 'berth 12'],
@@ -12,9 +11,6 @@ const ROWS = [
   ['Petrel', 'berth 11'],
 ];
 
-const AT_TOP = 'The list is at the top.';
-const SCROLLED = 'The list has travelled under a bar that has not moved a pixel.';
-
 /**
  * App bar specimen: the bar that belongs to the application rather than to the screen.
  * The subject is the bar itself, since the term names that band and nothing under it,
@@ -23,7 +19,13 @@ const SCROLLED = 'The list has travelled under a bar that has not moved a pixel.
  *
  * The claim is that it stays. The content scrolls in its own scroller, out of the
  * bar's flow, so nothing about the bar changes height or position while it does
- * (SPEC §5); the caption below reserves one line and swaps its sentence.
+ * (SPEC §5).
+ *
+ * A caption under the frame used to narrate the scroll ("The list is at the top.", then
+ * "The list has travelled under a bar that has not moved a pixel."). It was the site
+ * describing the demonstration from inside it; the bar standing still while the list moves
+ * is the whole claim and needs no sentence, so it is gone along with the scroll listener
+ * that swapped it.
  */
 export function mount(root: HTMLElement): void {
   const rows = ROWS.map(
@@ -48,16 +50,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-list">${rows}</div>
         </div>
       </div>
-      <p class="sp-text sp-context" data-part="caption" data-state="top" style="max-width: 460px; text-align: center; margin: 0; min-height: 20px">${AT_TOP}</p>
     </div>
   `;
-
-  const scroller = part(root, 'scroller');
-  const caption = part(root, 'caption');
-
-  scroller.addEventListener('scroll', () => {
-    const scrolled = scroller.scrollTop > 24;
-    caption.dataset.state = scrolled ? 'scrolled' : 'top';
-    caption.textContent = scrolled ? SCROLLED : AT_TOP;
-  });
 }

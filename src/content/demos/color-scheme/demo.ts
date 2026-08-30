@@ -31,7 +31,10 @@ const resolve = (declared: string, os: Scheme): Scheme => (declared === 'auto' ?
  *
  * The subject is the panel that carries the declaration, not the window around it: the
  * term names the element the property is set on. Both segmented controls are
- * instrumentation and stay in the context register. Palettes, the panel box, and the
+ * instrumentation and stay in the context register. The panel's own help text is a
+ * settings panel's copy and nothing else: it used to point at the scrollbar and the
+ * checkbox and explain who paints them, which the note in the strip already covers, and
+ * its length is what keeps the pane overflowing so the scrollbar has a thumb to paint. Palettes, the panel box, and the
  * note block are all fixed size, so changing either setting repaints and moves nothing
  * (SPEC §5).
  */
@@ -76,8 +79,8 @@ export function mount(root: HTMLElement): void {
               you@example.com
             </div>
             <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.5; color: var(--cs-muted)">
-              The scrollbar beside this text, the checkbox glyphs, and the selection highlight
-              are drawn by the browser from whichever set the declaration named.
+              Replies are batched for five minutes, so a busy thread arrives as one message.
+              The weekly digest is sent on Mondays and covers the seven days before it.
             </p>
           </div>
         </div>

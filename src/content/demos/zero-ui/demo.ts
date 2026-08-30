@@ -3,14 +3,6 @@ import type { DemoClock } from '#src/stage/clock.ts';
 
 type Phase = 'idle' | 'listening' | 'working' | 'answered';
 
-/** The ring is the only output the device has, so it is written down in words too. */
-const RING: Record<Phase, string> = {
-  idle: 'Ring dim, nothing running',
-  listening: 'Ring bright, listening',
-  working: 'Ring breathing, working',
-  answered: 'Ring steady, answered',
-};
-
 const NOTE = {
   idle: 'No display, so the interface is language, light and sound. Everything a screen would have shown has to be said, chimed, or lit instead.',
   voice:
@@ -36,15 +28,24 @@ const WAVE_ANSWER_AT = 900;
 /**
  * Zero UI specimen: a kitchen speaker with no display, running one task twice, once from a
  * spoken command and once from a hand wave over the counter. The device's whole output is a
- * ring of light and a chime. The transcript strip beside it is apparatus, printed for the
- * reader of this page rather than shown by the device, and it is labelled as such, because
- * a specimen about the absence of a screen cannot quietly grow one.
+ * ring of light and a chime, and the strip beside it is the companion app's transcript of
+ * what was heard and said.
+ *
+ * Three lines of the site's own voice came out of the frame. The topbar read "No display of
+ * any kind", which is the article's claim wearing a product's clothes; the transcript was
+ * headed "Audio, transcribed for this page", which named the reader inside the fiction and
+ * is now just "Transcript"; and a label beside the chime spelled the ring's state out in
+ * words ("Ring dim, nothing running"), narrating a thing the specimen already draws. The
+ * ring's colour and its pulse carry the phase now, and the transcript carries the rest. The
+ * two buttons below the frame kept their words but lost the label introducing them ("Stands
+ * in for the physical act:"): they are instrumentation, and "Speak to it" and "Wave a hand"
+ * already say what pressing them does.
  *
  * The subject is the device, the screenless thing the term names, and not the room around
- * it: the topbar, the transcript, the ring read-out and the two stand-in buttons below the
- * frame are all scene. Every state of the device is honestly the term (a screenless device
- * is screenless whether it is idle or answering), so there is no `data-pose` and identify
- * may ring it at any point in the pass.
+ * it: the topbar, the transcript and the two stand-in buttons below the frame are all
+ * scene. Every state of the device is honestly the term (a screenless device is screenless
+ * whether it is idle or answering), so there is no `data-pose` and identify may ring it at
+ * any point in the pass.
  *
  * The transcript keeps both of its lines and the chime keeps its slot in every state,
  * hidden by opacity rather than removed, so an exchange moves nothing (SPEC §5). Each
@@ -57,7 +58,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 218px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Kitchen speaker</span>
-          <span class="sp-label" style="font-size: 11px">No display of any kind</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; gap: 16px">
 
@@ -74,21 +74,19 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </span>
 
           <span class="sp-stack sp-grow" style="gap: 6px; min-width: 0">
-            <span class="sp-label" style="font-size: 11px">Audio, transcribed for this page</span>
+            <span class="sp-label" style="font-size: 11px">Transcript</span>
             <span class="sp-surface sp-stack" style="gap: 6px; padding: 10px 12px; height: 84px; justify-content: center">
               <span class="sp-text sp-text--ink" data-part="said" style="font-size: 12px; opacity: 0; transition: opacity 0.2s">${SAID.voice}</span>
               <span class="sp-text" data-part="reply" style="font-size: 12px; opacity: 0; transition: opacity 0.2s">${REPLY.voice}</span>
             </span>
             <span class="sp-row" style="gap: 8px; height: 24px">
               <span class="sp-chip" data-part="chime" style="cursor: default; opacity: 0; transition: opacity 0.2s">Two note chime</span>
-              <span class="sp-label" data-part="light" style="font-size: 11px">${RING.idle}</span>
             </span>
           </span>
 
         </div>
       </div>
       <div class="sp-row sp-context" style="width: 452px; gap: 10px">
-        <span class="sp-label" style="font-size: 11px">Stands in for the physical act:</span>
         <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="speak">Speak to it</button>
         <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="wave">Wave a hand</button>
       </div>
@@ -101,7 +99,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const said = part(root, 'said');
   const reply = part(root, 'reply');
   const chime = part(root, 'chime');
-  const light = part(root, 'light');
   const note = part(root, 'note');
 
   let pending: number | undefined;
@@ -109,7 +106,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const setPhase = (phase: Phase) => {
     device.dataset.phase = phase;
-    light.textContent = RING[phase];
     ring.style.borderColor = phase === 'idle' ? 'var(--sp-line)' : 'var(--sp-accent)';
     // The kit owns the two endless animations a light can have, so the stage can pause them
     // off screen and drop them under reduced motion (SPEC §5).

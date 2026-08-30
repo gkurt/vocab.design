@@ -35,7 +35,9 @@ const HINT_ID = 'vd-ad-hint';
  * it, the announcement line, and the strategy control are scenery.
  *
  * The description is read back off the button's own attributes rather than written out, so
- * the panel cannot claim a description the element does not have. Every row holds a fixed
+ * the panel cannot claim a description the element does not have. The panel is titled the way
+ * an inspector titles itself ("Computed properties"); it read "What the browser computes",
+ * which is the author explaining the pane rather than the pane naming itself. Every row holds a fixed
  * height and the hint keeps its room when it is not shown, so switching strategies moves
  * nothing (SPEC §5), and each segment reaches its own strategy (SPEC §8).
  */
@@ -63,7 +65,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface" style="margin-top: 12px; padding: 10px 12px">
-          <span class="sp-label">What the browser computes</span>
+          <span class="sp-label">Computed properties</span>
           <div class="sp-row sp-row--between" style="height: 20px; margin-top: 6px">
             <span class="sp-label">Name</span>
             <span class="sp-text sp-text--ink" data-part="name" data-state="named"

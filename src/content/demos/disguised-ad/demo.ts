@@ -3,12 +3,6 @@ import '#src/kit/segmented.ts';
 
 type Mode = 'none' | 'fine' | 'labelled';
 
-const READOUT: Record<Mode, string> = {
-  none: 'No disclosure at all',
-  fine: 'Disclosure present: 8px, grey, last in the line',
-  labelled: 'Disclosure first, card tinted, advertiser named',
-};
-
 const NOTE: Record<Mode, string> = {
   none: 'The middle card is an advertisement. Nothing in its type, its layout or its byline says so, and that resemblance is the thing being sold.',
   fine: 'Now there is a disclosure: eight pixels, grey on grey, at the end of a line nobody reads. It exists for the compliance review, not for the reader.',
@@ -50,6 +44,11 @@ const START: Mode = 'none';
  * Every card keeps one byline line of fixed height above one title, in all three states, so
  * the label arrives without moving anything in the column (SPEC §5). Each segment names an
  * absolute state rather than flipping the one it finds (SPEC §8).
+ *
+ * A line under the feed used to grade each state in the site's voice ("No disclosure at all",
+ * "Disclosure present: 8px, grey, last in the line"). It said what the note in the strip already
+ * says, so it went along with the two asserts that read it: the card's own disguise flag and the
+ * badge are what the pass claims now.
  */
 export function mount(root: HTMLElement): void {
   const card = (inner: string, extra = '', attrs = '') => `
@@ -83,14 +82,12 @@ export function mount(root: HTMLElement): void {
           <div class="sp-context">${card(storyInner(STORIES[1]?.byline ?? '', STORIES[1]?.title ?? ''))}</div>
         </div>
       </div>
-      <span class="sp-label sp-context" data-part="readout" data-mode="${START}" style="width: 452px; font-size: 11px; color: var(--sp-ink)">${READOUT[START]}</span>
       <span class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 452px; height: 32px; font-size: 11px">${NOTE[START]}</span>
     </div>
   `;
 
   const ad = part(root, 'ad');
   const stack = ad.querySelector<HTMLElement>('.sp-stack');
-  const readout = part(root, 'readout');
   const note = part(root, 'note');
 
   part(root, 'mode').addEventListener('change', (event) => {
@@ -102,8 +99,6 @@ export function mount(root: HTMLElement): void {
     // label readable: a border it does not share with its neighbours.
     ad.style.boxShadow = mode === 'labelled' ? 'inset 3px 0 0 0 var(--sp-accent)' : 'none';
     if (stack) stack.innerHTML = adInner(mode);
-    readout.dataset.mode = mode;
-    readout.textContent = READOUT[mode];
     note.textContent = NOTE[mode];
   });
 }

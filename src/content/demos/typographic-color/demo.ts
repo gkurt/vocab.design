@@ -2,7 +2,7 @@ import { part, partsOf } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 const TEXT =
-  'Stop reading and look at the block. What you see is not words but a grey field, and its lightness is a decision you already made when you chose the weight, the leading and the tracking.';
+  'The harbour road runs north past the boatyard, then turns inland where the marsh begins. In summer the ferry crosses twice an hour, and in winter it waits for the tide to come back.';
 
 /** How far the squint goes. Enough to take the words away and leave the texture. */
 const BLUR = 1.7;
@@ -32,6 +32,11 @@ const COLUMNS: Column[] = [
  *
  * A blur changes no box, so the columns cannot move when the switch flips, and the
  * row reserves the height of the loosest setting.
+ *
+ * The three blocks used to be set in a paragraph that told the reader to stop reading
+ * and squint. That was the site speaking from inside the sample, so the sample is now
+ * ordinary prose of about the same length, which is what the columns need it to be.
+ * The instruction survives in the verdict beside the switch.
  */
 export function mount(root: HTMLElement): void {
   const column = ({ part: name, label, css }: Column) => {

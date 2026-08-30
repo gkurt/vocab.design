@@ -38,6 +38,9 @@ const ROWS = [
  * `data-parted` is measured, not assumed. The demo remembers the gap between the
  * back layer and the sheet on mount and says so when the layers have actually
  * come apart on screen, which is what a choreography can then prove.
+ *
+ * The topbar carried "scroll the scene", an instruction no photo app prints beside its own
+ * title. It is gone: the pass scrolls, and the layers coming apart is the demonstration.
  */
 export function mount(root: HTMLElement): void {
   const clouds = CLOUDS.map(
@@ -64,7 +67,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame" style="width: 358px; height: 254px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Albums</span>
-          <span class="sp-label">scroll the scene</span>
         </div>
         <div class="sp-body" style="padding: 0">
           <div

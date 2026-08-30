@@ -64,6 +64,11 @@ function frameBox(frame: Frame): string {
  *
  * Selection is absolute rather than a toggle (SPEC §8): each frame names itself, and the
  * readout holds its height from mount, so filling it moves nothing.
+ *
+ * A line under the readout used to state how the picture is read ("Width is total time in
+ * that frame. Left to right is alphabetical, never a clock."). That is the site talking
+ * inside a profiler window, and the article says both things, so it went; the readout still
+ * prints the width in ms and the depth for whatever frame the pointer is on.
  */
 export function mount(root: HTMLElement): void {
   const rows = Array.from({ length: DEPTHS }, (_, depth) => {
@@ -97,9 +102,6 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
 
-          <p class="sp-label" style="margin: 0; font-size: 11px">
-            Width is total time in that frame. Left to right is alphabetical, never a clock.
-          </p>
         </div>
       </div>
     </div>

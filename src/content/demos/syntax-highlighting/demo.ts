@@ -107,6 +107,10 @@ const START = 'syntax';
  * Weight and slant land only where colour does, and the block is monospaced, so a bold
  * keyword takes exactly the advance its plain form did and no line reflows between passes
  * (SPEC §5). The readout keeps a fixed two-line box for the same reason.
+ *
+ * The row above the block was headed "Seven lines, three passes", which counted the exhibit
+ * rather than naming anything on screen; a code block carries no such title, so it went and
+ * the picker sits at the right on its own.
  */
 export function mount(root: HTMLElement): void {
   const cell = (token: Token, line: number, index: number) => {
@@ -123,8 +127,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-stack" style="width: 468px; gap: 9px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label" style="color: var(--sp-ink)">Seven lines, three passes</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Pass" data-part="pass" data-value="${START}">
             <button class="sp-segment" type="button" data-part="seg-plain" value="plain" style="font-size: 11px; padding: 4px 11px">plain</button>
             <button class="sp-segment" type="button" data-part="seg-syntax" value="syntax" style="font-size: 11px; padding: 4px 11px">lexical</button>
@@ -135,8 +138,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface" data-part="code" data-mode="${START}"
              style="padding: 11px 14px; background: var(--sp-sunken); ${MONO}; color: var(--sp-ink)">${code}</div>
 
-                  <span class="sp-text sp-text--ink" data-stage-verdict data-part="note" data-mode="${START}" style="font-size: 11px; line-height: 15px"></span>
-        
+        <span class="sp-text sp-text--ink" data-stage-verdict data-part="note" data-mode="${START}" style="font-size: 11px; line-height: 15px"></span>
       </div>
     </div>
   `;

@@ -9,6 +9,12 @@ import { part } from '#src/kit/parts.ts';
  * The paint is inline because it is the term: none of it can come from a kit that
  * has one accent on purpose (SPEC §5), and a maximal card built from --sp-accent
  * would be demonstrating nothing.
+ *
+ * Both cards used to talk about themselves. The body copy read "Body copy stays on a
+ * plain patch, because legible is not the same as quiet." and the quiet card beside it
+ * "Said once, at one volume."; both now carry the same offer, loudly and plainly, which
+ * is what makes the pair comparable at all. The two captions under them ("pattern, clash,
+ * layers, tilt" and "said once") were the site scoring its own picture and are gone.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -27,7 +33,7 @@ export function mount(root: HTMLElement): void {
             </div>
             <p data-part="copy"
                style="margin: 8px 0 0; padding: 6px 8px; border: 2px solid #1b1033; border-radius: 6px; background: #fffdf3; font-size: 12px; line-height: 1.4">
-              Body copy stays on a plain patch, because legible is not the same as quiet.
+              Two nights, three courses, and the late ferry home. Book by Friday.
             </p>
             <button data-part="pile" type="button"
                     style="margin-top: 10px; padding: 7px 14px; border: 2px solid #1b1033; border-radius: 999px; background: #22d3ee; color: #1b1033; font: inherit; font-size: 13px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer; box-shadow: 3px 3px 0 0 #1b1033">
@@ -40,16 +46,14 @@ export function mount(root: HTMLElement): void {
               <span style="padding: 2px 8px; border: 2px solid #1b1033; border-radius: 4px; background: #fb923c; font-size: 10px; font-weight: 800">ONLY</span>
             </div>
           </div>
-          <span class="sp-label" style="text-align: center">pattern, clash, layers, tilt</span>
         </div>
 
         <div class="sp-stack sp-context" style="gap: 10px">
           <div class="sp-window" data-part="plain" style="width: 150px; min-height: 226px; padding: 16px">
             <div style="font-size: 15px; font-weight: 600">More is more</div>
-            <p class="sp-text" style="margin: 8px 0 0">Said once, at one volume.</p>
+            <p class="sp-text" style="margin: 8px 0 0">Two nights, three courses, late ferry home. Book by Friday.</p>
             <button class="sp-button sp-button--sm" type="button" style="margin-top: 14px">Pile it on</button>
           </div>
-          <span class="sp-label" style="text-align: center">said once</span>
         </div>
       </div>
     </div>

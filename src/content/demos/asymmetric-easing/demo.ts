@@ -18,7 +18,9 @@ const BAR_W = 132;
  *
  * The subject is the panel that transitions: the term names what the two curves are done
  * to, and neither the page behind it nor the two rows describing them are that. The
- * controls, the scenery lines, and the curve rows are context.
+ * controls, the scenery lines, and the curve rows are context. The panel was headed
+ * "Arriving and leaving", which named the demonstration rather than anything the product
+ * would print, so it is gone and the two controls sit alone.
  *
  * Both directions are CSS transitions, which `motion.css` gates for a reader who asked for
  * less movement: the write lands synchronously and the panel is simply in or out. The
@@ -48,8 +50,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-panel="in" data-state="settled" style="width: 424px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Arriving and leaving</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <span class="sp-row" style="gap: 6px">
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="btn-enter">Enter</button>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="btn-exit">Exit</button>

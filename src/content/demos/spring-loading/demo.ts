@@ -11,7 +11,7 @@ import type { DemoClock } from '#src/stage/clock.ts';
 const SPRING_MS = 800;
 const TICK_MS = 60;
 
-const SCREEN = { w: 200, h: 240 };
+const SCREEN = { w: 200, h: 224 };
 const CELL = 48;
 
 /**
@@ -26,7 +26,7 @@ const FOLDER = { x: COL[1], y: ROW[1] };
 const FREE = { x: COL[2], y: ROW[2] };
 
 /** The open folder's box: nearly the whole screen, which is the argument for the dwell. */
-const PANEL = { left: 8, top: 8, w: 184, h: 218 };
+const PANEL = { left: 8, top: 8, w: 184, h: 206 };
 /**
  * Shut, the panel is clipped down to the folder tile it grows out of. Clipping is paint and
  * never layout, so the landing slot inside keeps the coordinates the choreography aims at
@@ -121,8 +121,16 @@ function square(wash: string, glyph: IconName, size = CELL): string {
  * Releasing closes what the gesture opened, because the drag opened it rather than the reader.
  * Nothing is re-parented between press and release, and a carried tile moves by transform, so
  * the tree under the finger cannot change mid-gesture. The open folder OVERLAYS the grid,
- * revealed by clip-path (paint, never layout), so no tile, readout or caption moves by a pixel
- * and the landing slot is already where the script aims while the folder is still shut.
+ * revealed by clip-path (paint, never layout), so no tile or readout moves by a pixel and the
+ * landing slot is already where the script aims while the folder is still shut.
+ *
+ * Three strings were the site talking inside the phone, and all three went. A column beside the
+ * screen argued the term in two paragraphs, headed "What the wait buys"; the article carries
+ * that argument already. The open folder printed "Still holding: let go in here to file it"
+ * along its bottom edge, which instructs a reader rather than labelling anything the folder
+ * has. And the readout rested on "Drag a tile across the folder, or stop on it", so it now
+ * rests empty and fills in with what the gesture did. Losing the column took the frame from
+ * 460px wide to 260px, with the readout moved under the screen and given room to wrap.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const preview = INSIDE.map(
@@ -171,17 +179,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 460px; height: 300px">
+      <div class="sp-frame" style="width: 260px; height: 304px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Home screen</span>
-          <span
-            class="sp-label"
-            data-part="readout"
-            style="width: 300px; text-align: right; font-size: 11px; white-space: nowrap"
-          >Drag a tile across the folder, or stop on it</span>
         </div>
 
-        <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px 12px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 6px 12px">
           <div
             data-part="screen"
             data-touch
@@ -238,9 +241,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               >
               ${shelf}
               ${landings}
-              <span class="sp-label" style="position: absolute; left: 12px; right: 12px; bottom: 10px; text-align: center; font-size: 11px"
-                >Still holding: let go in here to file it</span
-              >
             </div>
 
             <span style="position: absolute; left: 50%; bottom: 5px; display: flex; gap: 5px; transform: translateX(-50%)">
@@ -249,17 +249,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </span>
           </div>
 
-          <div class="sp-stack sp-context" style="width: 196px; gap: 9px">
-            <span class="sp-label" style="font-size: 11px">What the wait buys</span>
-            <span class="sp-text" style="font-size: 12px; line-height: 1.45"
-              >Dropping on the folder files the tile with nothing opening. The dwell buys the other thing: getting
-              inside, to place it among what is already there or to carry the drag deeper.</span
-            >
-            <span class="sp-text" style="font-size: 12px; line-height: 1.45"
-              >And it has to be paid for. Open, the folder buries the home screen, so one that sprang the moment a drag
-              touched it would swallow every drag that merely crossed it.</span
-            >
-          </div>
+          <span
+            class="sp-label sp-context"
+            data-part="readout"
+            style="width: 236px; height: 28px; text-align: center; font-size: 11px; line-height: 14px"
+          ></span>
         </div>
       </div>
     </div>

@@ -30,6 +30,11 @@ import { part } from '#src/kit/parts.ts';
  * names how a control behaves, and the button is the narrowest element that behaves that way
  * (SPEC §5). The socket, the states row and the caption are scenery. The states row sets its
  * own `data-pressed` because no pointer is on it.
+ *
+ * The window is dressed as a component playground, which is what its three labels now say:
+ * "Clay button" over it, "Preview" on the live half and "States" on the posed half. They read
+ * "Matter, not paint", "Press, hold, drag" and "All three at once" before, which is the site
+ * describing its own exhibit inside the exhibit.
  */
 const GROUND_W = 234;
 const GROUND_H = 196;
@@ -79,13 +84,13 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Matter, not paint</span>
+        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Clay button</span>
 
         <div class="sp-row" data-part="tour" style="gap: 14px; align-items: flex-start; justify-content: center">
           <div data-part="ground"
                style="position: relative; flex: 0 0 ${GROUND_W}px; height: ${GROUND_H}px; border-radius: var(--sp-radius);
                       background: var(--sp-sunken); box-shadow: inset 0 0 0 1px var(--sp-line)">
-            <span class="sp-label sp-context" style="position: absolute; left: 14px; top: 12px">Press, hold, drag</span>
+            <span class="sp-label sp-context" style="position: absolute; left: 14px; top: 12px">Preview</span>
 
             <span style="position: absolute; left: 8px; top: 40px; width: ${SLOT_W}px; height: ${SLOT_H}px">
               ${footprint(BTN_W, BTN_H)}
@@ -102,7 +107,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" data-part="states" style="flex: 0 0 190px; gap: 8px">
-            <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">All three at once</span>
+            <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">States</span>
             ${state('state-rest', 'Rest', '', 'none')}
             ${state('state-pressed', 'Held', ' data-pressed', SQUASH)}
             ${state('state-dragged', 'Dragged', ' data-pressed', `${SQUASH} skewX(-9deg) translateX(6px)`)}

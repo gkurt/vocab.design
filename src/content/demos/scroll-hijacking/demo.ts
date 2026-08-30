@@ -17,22 +17,22 @@ const NOTE = {
   native: 'The counter-example: the browser keeps the gesture and moves exactly as far as it was pushed.',
 } as const;
 
-const READY = {
-  hijacked: 'Hijacked: one turn of the wheel moves one whole panel.',
-  native: 'Native: one turn of the wheel moves the distance it asked for.',
-} as const;
-
 /**
  * Scroll hijacking specimen: a section that answers the wheel with a distance of its own.
- * A small turn and a large turn both advance exactly one panel, and the readout prints
- * what was asked for beside what was given. The segmented control puts the browser's own
- * scrolling back for comparison.
+ * A small turn and a large turn both advance exactly one panel, which the panel counter and
+ * the dots show as it happens. The segmented control puts the browser's own scrolling back
+ * for comparison.
+ *
+ * A line above the region used to narrate the arithmetic ("Hijacked: one turn of the wheel
+ * moves one whole panel.", then how many pixels the wheel had asked for). No reading app
+ * prints that, and the strip's verdict already states which answer the region is giving, so
+ * the line went and the region's `data-obeyed` carries the claim for the script.
  *
  * Here the term *is* the dishonest behaviour, so the specimen mounts hijacked and the
  * subject carries `data-pose` for that condition: identify must never ring the fixed
  * version, which is a picture of a different word (SPEC §6). Native is captioned as the
  * counter-example. The subject is the hijacked region itself, the narrowest element the
- * term names; the panel dots, the readout, and the note row are scenery (SPEC §5).
+ * term names; the panel dots and the verdict are scenery (SPEC §5).
  *
  * The override runs on the region's own `scroll` event, on a settle beat taken from the
  * stage's clock (SPEC §6), which is also the shape a real hijack has: whatever the reader
@@ -60,15 +60,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 252px">
+      <div class="sp-frame sp-frame--wide" style="height: 230px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Field Guide</span>
           <span class="sp-label" style="font-size: 11px">Chapter two</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
-
-          <span class="sp-text sp-context" data-part="readout" role="status"
-                style="flex: 0 0 auto; height: 14px; font-size: 11px; white-space: nowrap; overflow: hidden">${READY.hijacked}</span>
 
           <div
             class="sp-scroll"
@@ -94,7 +91,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   `;
 
   const region = part(root, 'region');
-  const readout = part(root, 'readout');
   const note = part(root, 'note');
   const dotEls = PANELS.map((_, index) => part(root, `dot-${index}`));
 
@@ -124,7 +120,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     settleId = undefined;
     const asked = Math.round(region.scrollTop - restTop);
     if (asked === 0) return;
-    const distance = Math.abs(asked);
     if (region.dataset.mode === 'hijacked') {
       const from = Number(region.dataset.panel ?? '0');
       const next = Math.max(0, Math.min(PANELS.length - 1, from + (asked > 0 ? 1 : -1)));
@@ -132,13 +127,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       restTop = next * PANEL;
       setPanel(next);
       region.dataset.obeyed = 'false';
-      readout.textContent = `The wheel asked for ${distance}px. The page moved a whole panel, ${next + 1} of ${PANELS.length}.`;
       return;
     }
     restTop = region.scrollTop;
     setPanel(nearestPanel());
     region.dataset.obeyed = 'true';
-    readout.textContent = `The wheel asked for ${distance}px. The page moved ${distance}px, and stopped there.`;
   };
 
   region.addEventListener('scroll', () => {
@@ -162,7 +155,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     moveTo(index * PANEL);
     restTop = index * PANEL;
     setPanel(index);
-    readout.textContent = READY[next];
     note.textContent = NOTE[next];
   });
 

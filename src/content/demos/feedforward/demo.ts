@@ -45,6 +45,11 @@ const rows = FILES.map(
  * The panel and the receipt share one slot reserved from mount, the list holds its height
  * whatever is left in it, and the rows the act takes are the last ones, so a consequence
  * appearing, retreating, or being carried out moves nothing else (SPEC §5).
+ *
+ * While the claim is up, the bar used to read "Consequence stated, nothing done yet", which
+ * is the site narrating the demonstration rather than an archive reporting its selection. It
+ * adds the size of the selection instead, so the bar still changes with the state the
+ * choreography reads, in words the product would really print.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -130,7 +135,7 @@ export function mount(root: HTMLElement): void {
     preview.style.visibility = on ? 'visible' : 'hidden';
     doom(on);
     readout.dataset.state = on ? 'warned' : 'rest';
-    readout.textContent = on ? 'Consequence stated, nothing done yet' : '3 of 5 files selected';
+    readout.textContent = on ? `3 of 5 files selected, ${FREED}` : '3 of 5 files selected';
   };
 
   button.addEventListener('pointerenter', () => show(true));

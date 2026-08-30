@@ -43,6 +43,12 @@ const RING = [
  * `pointerenter` and cancelled by `pointerleave`, which is why the scripted pass can cross
  * the button on its way to the page and show the ring emptying.
  *
+ * Three strings came out of the frame. The page under the toolbar was labelled "The page.
+ * Crossing a tool on the way here empties its ring." and now carries the timestamp a notes
+ * app would really show; a line under the scene read "No press anywhere: holding still for
+ * 1200 ms is the click." and is deleted; and the readout opened by telling the reader to
+ * rest on a tool, where it now simply names the tool the toolbar mounts with.
+ *
  * Nothing is re-parented while the ring runs, and selection changes paint only, so a tool
  * committing moves nothing (SPEC §5).
  */
@@ -68,9 +74,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 278px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Notes</span>
-          <span class="sp-text" data-part="readout" style="width: 246px; text-align: right; white-space: nowrap">Rest on a tool to choose it</span>
+          <span class="sp-text" data-part="readout" style="width: 246px; text-align: right; white-space: nowrap">Line selected</span>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
           <div
             class="sp-row sp-surface"
             data-part="toolbar"
@@ -88,10 +94,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <div class="sp-line" style="width: 64%"></div>
               <div class="sp-line" style="width: 78%"></div>
             </div>
-            <span class="sp-label">The page. Crossing a tool on the way here empties its ring.</span>
+            <span class="sp-label">Last edited 2 minutes ago</span>
           </div>
-
-          <span class="sp-label sp-context">No press anywhere: holding still for ${DWELL_MS} ms is the click.</span>
         </div>
       </div>
     </div>

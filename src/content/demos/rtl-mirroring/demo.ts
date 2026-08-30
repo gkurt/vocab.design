@@ -17,20 +17,22 @@ const NOTES: Record<string, string> = {
  * term names. The left to right state is the comparison the mirror is read against and is a
  * state the subject visibly is not the term in, so the honest condition is declared as
  * `data-pose="[dir=rtl]"`: identify refuses to pose the unmirrored state and the mount state
- * satisfies it (SPEC §6). The switcher, the legend and the caption are scenery (SPEC §5).
+ * satisfies it (SPEC §6). The switcher is scenery (SPEC §5).
  *
  * Only the arrow is swapped by hand. Everything else follows `dir` on its own, which is the
  * argument the specimen is making: a layout written in logical terms mirrors itself.
  *
- * The frame is as tall as the panel, the legend beside it and the caption under them all
- * take, so the comparison is never cut at the bottom edge (SPEC §5).
+ * A legend beside the panel listed what mirrors (reading order, navigation order, the back
+ * arrow, progress direction) and what holds (the checkmark, the star, digits and times).
+ * That is the article's inventory printed inside a product, so it went, and the frame is
+ * now the width of the panel alone. The line under the panel changes with the switch, which
+ * makes it the verdict, so it is marked `data-stage-verdict` and the stage draws it in the
+ * strip instead of inside the frame.
  */
 export function mount(root: HTMLElement): void {
-  const legendItem = (text: string) => `<span class="sp-label">${text}</span>`;
-
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 312px">
+      <div class="sp-frame sp-frame--wide" style="width: 340px; height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Direction</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-value="rtl" data-axis="Set to" data-term="rtl">
@@ -79,19 +81,9 @@ export function mount(root: HTMLElement): void {
                 <span class="sp-label" data-part="distance">1,240 m</span>
               </div>
             </div>
-            <div class="sp-stack sp-context" style="flex: 0 0 auto; width: 124px; gap: 7px">
-              <span class="sp-label" style="color: var(--sp-ink); font-weight: 600">mirrors</span>
-              ${legendItem('reading order')}
-              ${legendItem('navigation order')}
-              ${legendItem('the back arrow')}
-              ${legendItem('progress direction')}
-              <span class="sp-label" style="color: var(--sp-ink); font-weight: 600; margin-top: 4px">holds</span>
-              ${legendItem('the checkmark')}
-              ${legendItem('the star')}
-              ${legendItem('digits and times')}
-            </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout"
+                style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>

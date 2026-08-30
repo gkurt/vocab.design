@@ -27,6 +27,12 @@ const ROWS: Row[] = [
  * comparison; the narrowest element the word actually names is the one mark
  * (SPEC §5). Everything else is scenery in the context register.
  *
+ * Two strings were the site talking over the specimen. The reference row ended with
+ * "an en is the width of n, an em the width of m", which the article already says and
+ * which the n and m set beside the marks show; it is deleted. The pair of sentences at
+ * the foot was headed "two house styles, one job" and is headed "Aside, set two ways",
+ * which is a label rather than a lesson.
+ *
  * Nothing changes state: the comparison is the demonstration.
  */
 export function mount(root: HTMLElement): void {
@@ -58,11 +64,10 @@ export function mount(root: HTMLElement): void {
             <span style="background: var(--sp-sunken); font-family: ${FACE}; font-size: ${GLYPH_SIZE}px; line-height: 1.1">n</span>
             <span style="background: var(--sp-sunken); font-family: ${FACE}; font-size: ${GLYPH_SIZE}px; line-height: 1.1">m</span>
           </span>
-          <span class="sp-text sp-grow" style="padding-left: 8px">an en is the width of n, an em the width of m</span>
         </div>
         <div class="sp-divider sp-context" style="margin: 10px 0"></div>
         <div class="sp-stack sp-context" data-part="house" style="gap: 4px">
-          <span class="sp-label">two house styles, one job</span>
+          <span class="sp-label">Aside, set two ways</span>
           <span class="sp-text sp-text--ink" style="font-family: ${FACE}; font-size: 13px">
             She turned back—the light was still on—and locked it.
           </span>

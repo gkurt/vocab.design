@@ -6,11 +6,6 @@ const DECLINE = {
   fair: 'No thanks',
 } as const;
 
-const CAPTION = {
-  shaming: 'Newsletter offer (the mistake)',
-  fair: 'Newsletter offer (the fair wording)',
-} as const;
-
 const VERDICT = {
   shaming: 'Only the wording changed, and refusing now means signing a sentence about yourself.',
   fair: 'The same offer, the same weight, the same glow. The decline says what it does and nothing about the reader.',
@@ -24,6 +19,10 @@ type Mode = keyof typeof DECLINE;
  * button and not the offer around it, and it declares the shaming wording as its honest
  * condition (`data-pose`): identify refuses to ring the polite version, which would be
  * a picture of the opposite word (SPEC §6).
+ *
+ * A label at the top of the dialog once read "Newsletter offer (the mistake)", which is the
+ * site grading its own scene from inside a shop's modal. The strip's verdict already says
+ * which wording is on screen, so the label went rather than moving.
  *
  * Nothing but the words moves between the two states. The accept keeps its glow and the
  * decline keeps its size, place, and colour, so the specimen isolates the one variable
@@ -53,7 +52,6 @@ export function mount(root: HTMLElement): void {
             aria-label="Get 10 percent off"
             style="width: 300px; padding: 16px; text-align: center"
           >
-            <span class="sp-label" data-part="caption" style="font-size: 10px">${CAPTION.shaming}</span>
             <div class="sp-heading" style="margin-top: 8px; font-size: 15px">Take 10% off your first order</div>
             <input class="sp-input" data-part="email" type="email" placeholder="you@example.com" aria-label="Email address" style="margin-top: 10px" />
             <button
@@ -86,14 +84,12 @@ export function mount(root: HTMLElement): void {
   `;
 
   const decline = part(root, 'decline');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
 
   part(root, 'mode').addEventListener('change', (event) => {
     const next: Mode = (event as CustomEvent<string>).detail === 'fair' ? 'fair' : 'shaming';
     decline.dataset.mode = next;
     decline.textContent = DECLINE[next];
-    caption.textContent = CAPTION[next];
     verdict.textContent = VERDICT[next];
   });
 }

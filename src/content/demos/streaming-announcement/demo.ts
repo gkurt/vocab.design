@@ -36,6 +36,11 @@ const CAPTION = {
  * Every beat comes from the DemoClock, so a pose holds a half-streamed reply still. All the words
  * are laid out at mount and revealed in place, so the bubble never changes size as it fills
  * (SPEC §5).
+ *
+ * The row above the reply once read "Reply generated token by token", which narrated the
+ * mechanic the stream itself performs, so it went and the row now carries only the picker.
+ * The reader panel's own label lost its ", portrayed" hedge: the panel draws the utterances
+ * and their count, so it is an instrument and names itself as one.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const word = (text: string, index: number) =>
@@ -50,7 +55,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Reply generated token by token</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="staged" data-axis="Spoken" data-term="staged" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-staged" value="staged"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Staged</button>
@@ -74,7 +78,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
         <div class="sp-surface sp-context" style="margin-top: 9px; padding: 8px 10px">
           <div class="sp-row sp-row--between" style="gap: 10px; height: 14px">
-            <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">Screen reader, portrayed</span>
+            <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">Screen reader</span>
             <span class="sp-label" data-part="count" data-said="none"
                   style="flex: 0 0 auto; font-size: 10px">Spoken 0 times</span>
           </div>

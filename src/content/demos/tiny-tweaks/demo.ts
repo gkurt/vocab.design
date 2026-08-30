@@ -21,7 +21,7 @@ const SIZES: Size[] = [
   { key: 'narrow', label: 'narrow', width: 214, type: 11, picture: 46, margin: 10 },
 ];
 
-const COPY = 'One column, three widths. The type steps, the picture shrinks, the margins close in.';
+const COPY = 'Two hours on the shingle at low water, counting terns and noting what the tide left behind.';
 
 /**
  * Tiny tweaks specimen: one column of content in a viewport whose width is picked absolutely.
@@ -33,6 +33,11 @@ const COPY = 'One column, three widths. The type steps, the picture shrinks, the
  * The subject is the column, `data-part="column"`. The viewport outline, the picker, the readout
  * and the caption are scenery in the context register. Every size keeps the same reserved canvas,
  * so the viewport never changes height and nothing outside it moves (SPEC §5).
+ *
+ * The column's body copy read "One column, three widths. The type steps, the picture shrinks,
+ * the margins close in.", which was the site narrating the demonstration in the mock's own type.
+ * It is the field notes the heading promises now, at about the same length so the column still
+ * fills at every width.
  *
  * `data-flow` and the readout are measured, not declared: the demo reads the column's own
  * computed type size and side margin, and reads back whether the picture is still stacked above

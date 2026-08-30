@@ -37,6 +37,12 @@ const GLIDE = 'transform 0.22s var(--sp-ease)';
  * badge sits outside the viewport rather than inside it so nothing in the subject is
  * chrome.
  *
+ * The status line under the viewport used to read "Fit frames what exists: the only home an
+ * unbounded plane has." when parked and "The plane has no edge to stop at." when not. Both
+ * were the site's sentences printed inside a board app, so the line prints the camera's
+ * position on the plane instead, which is what a canvas tool would really show there and
+ * which still changes on every pan.
+ *
  * The grid is a child of the transformed world, not a background on the viewport, which is
  * the whole reason the surface reads as unbounded: pan and the dots go with the shapes.
  * Zoom keeps the point at the viewport centre fixed, since a zoom that recentres throws
@@ -146,7 +152,8 @@ export function mount(root: HTMLElement): void {
     badgeView.style.width = `${clamp((VIEW_W / zoom) * MAP.scale, 6, MAP.w - left)}px`;
     badgeView.style.height = `${clamp((VIEW_H / zoom) * MAP.scale, 6, MAP.h - top)}px`;
 
-    readout.textContent = parked ? 'Fit frames what exists: the only home an unbounded plane has.' : 'The plane has no edge to stop at.';
+    // A board prints where its camera is, not a sentence about what a plane is.
+    readout.textContent = `Position ${Math.round(-offset.x / zoom)}, ${Math.round(-offset.y / zoom)}`;
   };
 
   const setZoom = (next: number) => {

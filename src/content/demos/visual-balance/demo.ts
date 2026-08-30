@@ -50,8 +50,11 @@ const at = (box: Box) => `left: ${box.left}px; top: ${box.top}px; width: ${box.w
  * with a beam under the composition reporting whether the weight actually settles.
  *
  * The subject is the composition, since balance is a property of an arrangement and no
- * single block is the term (SPEC §5). The axis control, the beam and the caption are
- * scenery in the context register. The lopsided state is the counter-example the term
+ * single block is the term (SPEC §5). The axis control and the beam are scenery in the
+ * context register. The line under the beam reads as the author's verdict on the state
+ * the switch produced ("One large block answered by two small ones, further out. Still
+ * level."), so it is marked `data-stage-verdict` and the stage draws it in the strip
+ * instead of inside the frame (SPEC §5.1). The lopsided state is the counter-example the term
  * needs, and there the composition is not balanced at all, so it declares `data-balanced`
  * as its pose condition: identify refuses to ring an arrangement that has tipped over
  * (SPEC §6). Mount is the asymmetric arrangement, which satisfies it.
@@ -95,7 +98,7 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: 50%; top: 22px; width: 0; height: 0; margin-left: -10px; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 14px solid var(--sp-muted)"
             ></div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 448px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 448px; text-align: center"></span>
         </div>
       </div>
     </div>

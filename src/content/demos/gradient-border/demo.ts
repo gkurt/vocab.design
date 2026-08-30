@@ -51,7 +51,7 @@ export function mount(root: HTMLElement): void {
             </p>
             <button class="sp-button sp-button--sm sp-button--ghost" type="button" style="width: 100%; margin-top: 12px">Stay</button>
           </div>
-          <span class="sp-label" style="text-align: center">one solid colour</span>
+          <span class="sp-label" style="text-align: center">solid edge</span>
         </div>
       </div>
 

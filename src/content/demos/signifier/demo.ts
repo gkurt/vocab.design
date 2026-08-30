@@ -35,11 +35,16 @@ const BARES = ['bare-button', 'bare-link', 'bare-grip'];
  *
  * Both rows offer the same three actions, so the difference on show is entirely what each
  * one looks like it allows. The readout names what the element under the pointer is saying
- * rather than what it does, which is the distinction the term is for, and the callout
- * labels sit outside the subject because naming a cue is commentary, not part of it. The
- * columns are held to one width so the labels line up under the marks they name, and the
- * readout is sized for its longest line and held to one, so naming a cue cannot push the
- * rows below it down (SPEC §5).
+ * rather than what it does, which is the distinction the term is for. The columns are held
+ * to one width, and the readout is sized for its longest line and held to one, so naming a
+ * cue cannot push the rows below it down (SPEC §5).
+ *
+ * Three pieces of commentary have gone from inside the frame: an opening line, "The same
+ * three actions, twice.", a row of callouts under the signified controls naming each mark
+ * ("edge and fill", "underline, colour", "grip dots, grab cursor"), and the two row labels,
+ * which read "Possible, unsignified" and "Possible, and signified" and now read "No cues"
+ * and "With cues". The readout already names the mark under the pointer, and the article
+ * carries the rest. The frame lost 50px of height with them, so nothing gapes.
  *
  * The kit's own hover paint is left to the stage: the pointer is mirrored into
  * `data-hovered` (SPEC §7), so the signified controls light up under the ghost cursor and
@@ -51,15 +56,14 @@ const BARES = ['bare-button', 'bare-link', 'bare-grip'];
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep">
-      <div class="sp-frame sp-frame--wide" style="height: 288px">
+      <div class="sp-frame sp-frame--wide" style="height: 238px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Release 4.2</span>
           <span class="sp-text" data-part="readout" data-reads="away" style="width: 320px; text-align: right; white-space: nowrap">Pointer away</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
-          <span class="sp-label sp-context">The same three actions, twice.</span>
           <div class="sp-surface sp-context" style="padding: 10px 12px">
-            <div class="sp-label" style="margin-bottom: 8px">Possible, unsignified</div>
+            <div class="sp-label" style="margin-bottom: 8px">No cues</div>
             <div class="sp-row" style="gap: 10px">
               <button type="button" data-part="bare-button" style="${BARE}; width: 96px; text-align: left">Publish</button>
               <button type="button" data-part="bare-link" style="${BARE}; width: 112px; text-align: left">Release notes</button>
@@ -67,7 +71,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-surface" style="padding: 10px 12px">
-            <div class="sp-label sp-context" style="margin-bottom: 8px">Possible, and signified</div>
+            <div class="sp-label sp-context" style="margin-bottom: 8px">With cues</div>
             <div class="sp-row" data-part="signified" data-subject style="gap: 10px">
               <button class="sp-button sp-button--sm" type="button" data-part="sig-button" style="width: 96px">Publish</button>
               <button
@@ -81,11 +85,6 @@ export function mount(root: HTMLElement): void {
                 style="width: 124px; gap: 6px; padding: 5px 8px; border: 1px solid var(--sp-line); border-radius: 6px; background: var(--sp-surface); font-size: 13px; cursor: grab"
               >${grip}Reorder</span>
             </div>
-          </div>
-          <div class="sp-row sp-context" style="gap: 10px; padding-left: 13px">
-            <span class="sp-label" style="width: 96px">edge and fill</span>
-            <span class="sp-label" style="width: 112px">underline, colour</span>
-            <span class="sp-label" style="width: 124px">grip dots, grab cursor</span>
           </div>
         </div>
       </div>

@@ -68,6 +68,11 @@ const photo = ({ key, name, size, wash }: (typeof PHOTOS)[number], first: boolea
  * scenery in the context register, quieter but live, and the mode control is instrumentation for
  * the CSS the page was written with, not for the input. Each action row keeps its space in both
  * states, so revealing it moves nothing (SPEC §5).
+ *
+ * The topbar used to carry a readout beside the app's name, reading "Nothing is hovering this
+ * card" at rest and "Tapped: nothing will clear this" after a tap. A photo gallery does not
+ * narrate its own hover state, and the caption above the controls already says which rule the
+ * page was written with, so the readout and the sentences it cycled through are gone.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -75,7 +80,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Saved photos</span>
-          <span class="sp-text" data-part="readout" style="width: 250px; text-align: right; white-space: nowrap">Nothing is hovering this card</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div data-part="gallery" data-touch data-mode="ungated" style="display: flex; gap: 12px; touch-action: manipulation">
@@ -93,7 +97,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const gallery = part(root, 'gallery');
-  const readout = part(root, 'readout');
   const caption = part(root, 'caption');
   const cards = PHOTOS.map((entry, index) => ({
     ...entry,
@@ -103,7 +106,7 @@ export function mount(root: HTMLElement): void {
   const subject = cards[0] as (typeof cards)[number];
 
   /** Paint and reveal together: on a pointer device they are the same state. */
-  const paint = (target: HTMLElement | null, text: string) => {
+  const paint = (target: HTMLElement | null) => {
     const gated = gallery.dataset.mode === 'gated';
     for (const card of cards) {
       const on = card.el === target;
@@ -114,7 +117,6 @@ export function mount(root: HTMLElement): void {
       card.actions.style.opacity = revealed ? '1' : '0';
       card.actions.style.visibility = revealed ? 'visible' : 'hidden';
     }
-    readout.textContent = text;
   };
 
   // A tap, and only a tap. The press itself is what strands the paint, so the hover state
@@ -128,19 +130,17 @@ export function mount(root: HTMLElement): void {
   // would hand a reader the one thing a finger cannot do, on the specimen whose whole
   // subject is what happens when a finger tries (SPEC §7).
   gallery.addEventListener('pointerdown', (event) => {
-    if (gallery.dataset.mode === 'gated') return paint(null, 'Gated: the tap strands nothing');
+    if (gallery.dataset.mode === 'gated') return paint(null);
     const hit = cards.find((card) => card.el.contains(event.target as Node));
-    if (!hit) return paint(null, 'The hover moved on');
-    paint(hit.el, hit === subject ? 'Tapped: nothing will clear this' : 'The hover moved to that card');
+    paint(hit?.el ?? null);
   });
 
   part(root, 'mode').addEventListener('change', (event) => {
     const next: Mode = (event as CustomEvent<string>).detail === 'gated' ? 'gated' : 'ungated';
     gallery.dataset.mode = next;
     caption.textContent = CAPTION[next];
-    if (next === 'gated') return paint(null, 'Gated: the actions just stay');
-    paint(null, 'As written: nothing is tapped yet');
+    paint(null);
   });
 
-  paint(subject.el, 'Nothing is hovering this card');
+  paint(subject.el);
 }

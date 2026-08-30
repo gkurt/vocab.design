@@ -42,6 +42,10 @@ const bandOf = (value: number) => (value >= 7 ? 'aaa' : value >= 4.5 ? 'aa' : va
  * text is what is being measured and the swatch row is how the reader changes the input, so
  * both are scenery. The number is fixed width and the badges keep their places whatever
  * they say, so a new value repaints and moves nothing (SPEC §5).
+ *
+ * A line under the readout read "Relative luminance only. Two colours can differ wildly and
+ * still measure 1:1." That is the site explaining the formula from inside its own instrument,
+ * and the article's third paragraph already says it, so it was deleted.
  */
 export function mount(root: HTMLElement): void {
   const swatches = FOREGROUNDS.map(
@@ -81,10 +85,6 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-row sp-row--wrap" style="margin-top: 10px; gap: 6px">${badges}</div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          Relative luminance only. Two colours can differ wildly and still measure 1:1.
-        </p>
       </div>
     </div>
   `;

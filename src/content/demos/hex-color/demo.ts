@@ -27,6 +27,10 @@ const byteOf = (pair: string) => Number.parseInt(pair, 16);
  * the swatch beside it is the colour, which is a different thing from its spelling.
  * Every pair box is a fixed width, so changing the value cannot nudge the digits
  * after it (SPEC §5).
+ *
+ * A footnote used to sit under the bars reading "Short forms: #f0c is #ff00cc, and #4F46E5CC
+ * is the same indigo at 80 percent." Nothing in a palette panel prints that, and the article
+ * already walks through the three, four and eight digit forms, so it is gone.
  */
 export function mount(root: HTMLElement): void {
   const presets = PRESETS.map(
@@ -73,10 +77,6 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-stack" style="gap: 9px; margin-top: 16px">${rows}</div>
-
-        <div class="sp-row sp-context" style="margin-top: 14px">
-          <span class="sp-text">Short forms: #f0c is #ff00cc, and #${START}CC is the same indigo at 80 percent.</span>
-        </div>
       </div>
     </div>
   `;

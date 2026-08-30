@@ -68,7 +68,10 @@ const steps = STEPS.map(
  * out, which is the grammar the pattern is named for.
  *
  * The subject is the pinned graphic. The prose steps are what moves while it does not, and
- * the step readout in the bar names the state out loud. The graphic sticks for the whole of
+ * the step counter in the bar names the state out loud. A line under the frame used to read
+ * "The chart stays; the paragraph the reader has reached chooses what it reads out.", which
+ * is the article's sentence rather than anything the story would print; watching the chart
+ * change while the prose moves is the same claim, made without words. The graphic sticks for the whole of
  * the story rather than for a bounded stretch, so it is never doing anything but
  * scrollytelling and needs no `data-pose` (SPEC §6): the bounded pin, with its before and
  * after, is the neighbouring term.
@@ -112,7 +115,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" style="font-size: 11px">The chart stays; the paragraph the reader has reached chooses what it reads out.</span>
     </div>
   `;
 

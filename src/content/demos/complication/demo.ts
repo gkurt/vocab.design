@@ -18,7 +18,6 @@ interface Family {
   time: { left: number; top: number; align: string };
   date: boolean;
   size: string;
-  grants: string;
   note: string;
 }
 
@@ -32,7 +31,6 @@ const FAMILIES: Record<string, Family> = {
     time: { left: 12, top: 34, align: 'left' },
     date: true,
     size: '166 by 42',
-    grants: 'ring, name, value',
     note: 'A wide slot, so the same complication can afford its icon, its name and its full figure.',
   },
   circular: {
@@ -42,7 +40,6 @@ const FAMILIES: Record<string, Family> = {
     time: { left: 12, top: 40, align: 'center' },
     date: true,
     size: '52 by 52',
-    grants: 'ring and value',
     note: 'A round slot the size of a coin: the ring and an abbreviated figure survive, the name does not.',
   },
   corner: {
@@ -52,7 +49,6 @@ const FAMILIES: Record<string, Family> = {
     time: { left: 12, top: 88, align: 'center' },
     date: false,
     size: '34 by 34',
-    grants: 'ring only',
     note: 'A corner grants a ring and nothing else, so the figure has to be readable as an arc alone.',
   },
 };
@@ -106,6 +102,10 @@ const place = (el: HTMLElement, slot: Slot) => {
  * names the thing in the slot. The time, the date and the two other complications are scenery.
  * It is honestly a complication at all three sizes, so no `data-pose` condition is needed.
  *
+ * A second readout beside the slot size once listed what each slot had room for ("ring, name,
+ * value"). That is the site naming the parts of a complication, not anything a face editor
+ * would print, and the strip already carries one verdict, so the row went rather than moving.
+ *
  * Every slot is absolutely positioned inside the face, so changing family re-lays the face and
  * moves nothing outside it (SPEC §5), and the picker names an absolute family rather than
  * flipping whatever it finds (SPEC §8). The face restates the kit's neutrals locally, the way a
@@ -157,10 +157,6 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label">Slot granted</span>
               <span class="sp-text sp-text--ink" data-part="slot-size" style="font-size: 12px; font-variant-numeric: tabular-nums">166 by 42</span>
             </div>
-            <div class="sp-row sp-row--between">
-              <span class="sp-label">Room for</span>
-              <span class="sp-text sp-text--ink" data-part="slot-grants" style="font-size: 12px">ring, name, value</span>
-            </div>
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; height: 48px; font-size: 11px; line-height: 1.45">${FAMILIES.modular?.note ?? ''}</p>
           </div>
         </div>
@@ -197,7 +193,6 @@ export function mount(root: HTMLElement): void {
 
     face.dataset.family = name;
     part(root, 'slot-size').textContent = family.size;
-    part(root, 'slot-grants').textContent = family.grants;
     note.textContent = family.note;
   };
 

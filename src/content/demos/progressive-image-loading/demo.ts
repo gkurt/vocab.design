@@ -25,17 +25,16 @@ const PLACEHOLDER = {
   blur: {
     paint: BLUR_STUB,
     filter: 'blur(11px)',
-    note: 'Stand-in: a 20 pixel copy, upscaled and blurred',
   },
   colour: {
     paint: 'linear-gradient(#8fb9c4, #8fb9c4)',
     filter: 'none',
-    note: 'Stand-in: one averaged colour, seven bytes',
   },
 } as const;
 
 type Kind = keyof typeof PLACEHOLDER;
 
+const LOADING = 'Loading';
 const LANDED = 'Full file: 1600 by 1000, decoded';
 
 /**
@@ -48,6 +47,11 @@ const LANDED = 'Full file: 1600 by 1000, decoded';
  * full file by itself is just a photograph. The frame, the caption, and the two
  * controls are scenery (SPEC §5). The slot is a fixed rectangle and the caption line
  * keeps its height, so arriving moves nothing (SPEC §5).
+ *
+ * The status line under the slot used to describe each stand-in in the site's voice
+ * ("Stand-in: a 20 pixel copy, upscaled and blurred", and its averaged-colour twin). A photo
+ * app prints its loading state, not a note on how the placeholder was made, so the line now
+ * reads "Loading" until the file lands. The article explains the two stand-ins.
  *
  * `data-pose` holds identify to the state that is the term. Once the file has landed
  * the slot is an ordinary picture, and a ring drawn around that would be pointing at
@@ -79,7 +83,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ></div>
           </div>
           <span class="sp-label sp-context" data-part="phase" role="status"
-                style="display: block; height: 16px; white-space: nowrap">${PLACEHOLDER.blur.note}</span>
+                style="display: block; height: 16px; white-space: nowrap">${LOADING}</span>
         </div>
       </div>
 
@@ -107,7 +111,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     standIn.style.background = stub.paint;
     standIn.style.filter = stub.filter;
     full.style.opacity = '0';
-    phase.textContent = stub.note;
+    phase.textContent = LOADING;
     timer = clock.setTimeout(() => {
       slot.dataset.phase = 'loaded';
       full.style.opacity = '1';

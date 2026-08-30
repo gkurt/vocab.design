@@ -30,6 +30,10 @@ const cardBody = `
  * the card carries: the twin below it never changes width, so when the subject re-lays and
  * the twin does not, the viewport is visibly not what decided it.
  *
+ * The twin's label read "Sidebar slot, held at 172px", which is the author explaining the
+ * control condition inside the frame rather than naming the slot. It names the slot now; that
+ * the sidebar never changes width is what the reader watches happen.
+ *
  * A demo has no stylesheet (SPEC §5), so the `@container` rule itself cannot be written
  * here and the match is evaluated in script instead. The slot still declares
  * `container-type: inline-size`, and the width compared against the query is the one the
@@ -54,7 +58,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-row sp-context" style="gap: 10px">
-            <span class="sp-label" style="flex: 0 0 auto; width: 84px">Sidebar slot, held at 172px</span>
+            <span class="sp-label" style="flex: 0 0 auto; width: 84px">Sidebar slot</span>
             <div data-part="twin-slot" style="container-type: inline-size; width: 172px; ${SLOT}">
               <div class="sp-surface" data-part="twin-card" data-layout="stack" style="${CARD}">${cardBody}</div>
             </div>

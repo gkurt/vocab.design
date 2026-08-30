@@ -21,6 +21,12 @@ const DELIVERY_MS = 900;
  * from mount, so nothing in the frame moves as the flow advances (SPEC §5). Every
  * control reaches one state and spends itself, so a pass can be interrupted anywhere
  * without demonstrating the opposite (SPEC §8).
+ *
+ * The two columns were headed "1 · The form" and "2 · The address answers", which is the site
+ * numbering its own demonstration, and the note under the button read "Recorded as unconfirmed.
+ * Nothing else is sent to this address until somebody acts from inside it." The columns carry the
+ * plain names a signup and a mailbox have, and the note prints the line the form would really
+ * show, in the same reserved 46px so the flow still moves nothing.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -33,16 +39,16 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-row" style="align-items: stretch; gap: 10px; flex: 1 1 auto; min-height: 0">
 
             <section class="sp-context" style="display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto; width: 184px">
-              <span class="sp-label" style="font-size: 10px">1 &middot; The form</span>
+              <span class="sp-label" style="font-size: 10px">Sign up</span>
               <input class="sp-input" data-part="email" type="email" value="ada@studio.example" readonly aria-label="Email address" style="font-size: 12px" />
               <button class="sp-button sp-button--sm" data-part="subscribe" type="button">Subscribe</button>
               <span class="sp-text" data-part="pending-note" style="height: 46px; font-size: 11px; line-height: 1.35; visibility: hidden">
-                Recorded as unconfirmed. Nothing else is sent to this address until somebody acts from inside it.
+                Confirmation sent to ada@studio.example.
               </span>
             </section>
 
             <section style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; min-width: 0">
-              <span class="sp-label sp-context" style="font-size: 10px">2 &middot; The address answers</span>
+              <span class="sp-label sp-context" style="font-size: 10px">Inbox</span>
               <div data-part="mail-slot" style="position: relative; flex: 1 1 auto; min-height: 0">
                 <div class="sp-surface sp-context sp-row" data-part="mail-empty" style="position: absolute; inset: 0; gap: 8px; padding: 0 10px">
                   ${icon('inbox')}<span class="sp-text" style="font-size: 11px">Nothing sent yet.</span>

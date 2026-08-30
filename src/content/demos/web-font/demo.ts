@@ -18,7 +18,7 @@ const STATUS = {
 };
 
 const HEADLINE = 'Handgloves &amp; figures';
-const BODY = 'The same two lines, at the same declared size, in whichever face is in force at this moment.';
+const BODY = 'The quick brown fox jumps over the lazy dog. Pack my box with five dozen jugs.';
 
 /**
  * Web font specimen: a page that paints in the fallback stack while the file is
@@ -29,6 +29,11 @@ const BODY = 'The same two lines, at the same declared size, in whichever face i
  * downloaded face, and the narrowest thing on stage that shows one is the text
  * it sets; the status readout and the replay control are the demo's own
  * instrumentation and stay outside it (SPEC §5).
+ *
+ * The sample text is a pair of pangrams, which is what a specimen page really
+ * sets. It used to describe itself ("The same two lines, at the same declared
+ * size, in whichever face is in force at this moment."), which was the site
+ * explaining the demonstration from inside it.
  *
  * The block reserves its height from the start and clips, so the wider face
  * cannot push the caption below it around (SPEC §5). The swap is a font-family

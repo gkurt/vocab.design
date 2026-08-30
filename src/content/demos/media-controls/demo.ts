@@ -39,6 +39,10 @@ const timecode = (seconds: number): string => {
  * mistake the article is about, and the script drives both directions itself (SPEC §8).
  * The track here only reports position: dragging a playhead is scrubbing, which is its
  * own term and its own specimen.
+ *
+ * A line under the player once read "The bar stands down while the picture plays, and
+ * comes back on the first move." No player prints that, and the specimen performs it in
+ * front of the reader, so it went and the article carries the point.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -77,9 +81,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <button class="sp-icon-button" type="button" data-part="fullscreen" aria-label="Full screen" style="color: inherit">${FULLSCREEN}</button>
           </div>
         </div>
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">
-          The bar stands down while the picture plays, and comes back on the first move.
-        </p>
       </div>
     </div>
   `;

@@ -35,6 +35,10 @@ const ROWS = [
  * count is not, since the number of ticks a burst produces depends on how long the
  * burst took, and a scripted scroll is timed by the player rather than by the demo.
  *
+ * The feed's title bar carried "One scroller, two listeners" beside the heading, which was
+ * the site describing the wiring in the product's own chrome. It is gone; the two panels
+ * below say which listener each one is, and the article says the rest.
+ *
  * Both edges are here, which is what a throttle usually means in practice: the first
  * event is answered at once, and the last one is answered after the interval so the
  * readout is not left holding a stale position. The trailing timer is the stage's, so a
@@ -65,7 +69,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Activity</span>
-          <span class="sp-text" style="font-size: 12px">One scroller, two listeners</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           <ul class="sp-scroll sp-list sp-surface sp-context" data-part="feed" style="height: ${FEED_HEIGHT}px; padding: 0 4px">

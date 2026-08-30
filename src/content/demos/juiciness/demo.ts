@@ -43,14 +43,24 @@ const chips = RESPONSES.map(
  * a reader who asked for less movement gets the state change (the count, the flash) and
  * none of the party. All timing is on the DemoClock, and the sparks live in an absolutely
  * positioned layer that clips, so the loudest press moves nothing (SPEC §5).
+ *
+ * The count of responses is the author's reading of the state and changes with the mode
+ * switch, so it is a `data-stage-verdict` and the stage draws it in the strip. It used to sit
+ * in the post's own title bar, where "Juicy: press Like and count the answers" was the site
+ * giving the reader an instruction in a product's type. A caption under the frame that began
+ * "Both settings answer the press." went entirely: the article makes that argument.
+ *
+ * The legend of response names (squash, overshoot, sparks, count, flash, settle) is the
+ * exhibit's own instrument and no post would print it, so it was sitting inside the fiction.
+ * It now sits below the frame with the rest of the apparatus, unchanged otherwise, and the
+ * frame is shorter by what it took.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 468px; height: 272px">
+      <div class="sp-frame sp-frame--wide" style="width: 468px; height: 200px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Post</span>
-          <span class="sp-text" data-part="readout" style="flex: 0 0 auto; width: 264px; text-align: right; white-space: nowrap">Press Like and count the answers</span>
         </div>
         <div class="sp-body" data-part="scene" data-mode="juicy" data-stack="0" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
           <div class="sp-row sp-context" style="gap: 8px; align-items: center">
@@ -78,14 +88,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span data-part="count" style="width: 26px; text-align: right; font-variant-numeric: tabular-nums">18</span>
             </button>
           </div>
-
-          <div class="sp-row sp-context" data-part="legend" style="gap: 6px; justify-content: center">${chips}</div>
         </div>
       </div>
-      <span class="sp-text sp-context" style="width: 452px; font-size: 11px; line-height: 1.35; text-align: center">
-        Both settings answer the press. Juicy answers it six times over, which is delightful once and
-        expensive on the fortieth press of the day.
-      </span>
+      <div class="sp-row sp-context" data-part="legend" style="gap: 6px; justify-content: center">${chips}</div>
+      <p data-stage-verdict data-part="readout" data-mode="juicy">Juicy: one press, six responses.</p>
     </div>
   `;
 
@@ -117,8 +123,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     mode = next;
     scene.dataset.mode = next;
     like.dataset.mode = next;
+    readout.dataset.mode = next;
     light([]);
-    readout.textContent = next === 'juicy' ? 'Juicy: press Like and count the answers' : 'Plain: one press, one answer';
+    readout.textContent = next === 'juicy' ? 'Juicy: one press, six responses.' : 'Plain: one press, one response.';
   };
 
   const spray = (originX: number, originY: number) => {

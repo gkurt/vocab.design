@@ -5,6 +5,10 @@ import { flag, part, partsOf } from '#src/kit/parts.ts';
  * and stitching around a cream paper block, a brushed metal hinge across the top, and
  * two machined keys whose selected one is pressed into the metal rather than raised
  * off it. Selection is absolute, so a fast-forwarded pass lands on the same key.
+ *
+ * A line under the pad used to list the borrowed materials ("Leather, stitching, brushed
+ * metal, and a key that sinks when it is the chosen one."), which is the site narrating
+ * what is already on screen. The pad shows all of it, and the article names the rest.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -35,9 +39,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <p class="sp-text sp-context" style="max-width: 300px; text-align: center">
-        Leather, stitching, brushed metal, and a key that sinks when it is the chosen one.
-      </p>
     </div>
   `;
 

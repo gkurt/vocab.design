@@ -7,13 +7,13 @@ import { localPoint } from '#src/kit/measure.ts';
 const PAGE = { w: 424, h: 138 };
 const LENS = { w: 132, h: 92 };
 
-type Spot = { key: string; label: string; x: number; y: number };
+type Spot = { key: string; x: number; y: number };
 
 /** Three things on the page, and where their centres are in page coordinates. */
 const SPOTS: Spot[] = [
-  { key: 'save', label: 'the Save button, top right', x: 387, y: 13 },
-  { key: 'field', label: 'the Reference field', x: 90, y: 61 },
-  { key: 'alert', label: 'the failure notice, bottom right', x: 341, y: 119 },
+  { key: 'save', x: 387, y: 13 },
+  { key: 'field', x: 90, y: 61 },
+  { key: 'alert', x: 341, y: 119 },
 ];
 
 /** Where the keyhole starts: over the label and the top of the field it belongs to. */
@@ -33,7 +33,10 @@ const CAPTION: Record<string, string> = {
  * how much of the page fits inside it, which is the trade the term is about.
  *
  * The subject is the lens, the narrowest element the term names. The page beneath, the
- * segmented control, the readout, and the caption are scenery (SPEC §5). The lens shows a
+ * segmented control, and the caption are scenery (SPEC §5). A row under the page once read
+ * "In the lens: the Reference field", naming in the site's words whatever the keyhole was
+ * over. No magnifier prints that, and the lens already shows it, so the row went; the lens
+ * still carries `data-showing` for the choreography to assert on. The lens shows a
  * magnified copy of the same page, marked `aria-hidden` because duplicated content is
  * decorative, and the effect is simulated inside the frame rather than reaching for anything
  * document-scoped (SPEC §5).
@@ -101,21 +104,14 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">In the lens</span>
-          <span class="sp-text sp-text--ink" data-part="readout" data-showing="field"
-                style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${SPOTS[1]?.label}</span>
-        </div>
-
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-zoom="300"
-           style="margin: 7px 0 0; height: 34px; font-size: 11px">${CAPTION['300']}</p>
+           style="margin: 10px 0 0; height: 34px; font-size: 11px">${CAPTION['300']}</p>
       </div>
     </div>
   `;
 
   const lens = part(root, 'lens');
   const magnified = part(root, 'magnified');
-  const readout = part(root, 'readout');
   const caption = part(root, 'caption');
 
   let zoom = 3;
@@ -145,11 +141,7 @@ export function mount(root: HTMLElement): void {
     // The copy is pushed so that the page point under the lens centre lands in the middle.
     magnified.style.transform = `translate(${half.x - centre.x * zoom}px, ${half.y - centre.y * zoom}px) scale(${zoom})`;
 
-    const spot = nearest(centre.x, centre.y);
-    const showing = spot?.key ?? 'page';
-    lens.dataset.showing = showing;
-    readout.dataset.showing = showing;
-    readout.textContent = spot?.label ?? 'a patch of the page, and nothing else';
+    lens.dataset.showing = nearest(centre.x, centre.y)?.key ?? 'page';
   };
 
   const applyZoom = (next: number) => {

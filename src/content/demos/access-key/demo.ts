@@ -82,13 +82,17 @@ const menuMarkup = (menu: Menu) => `
  * whether or not its rule is currently drawn, so there is no dishonest state to pose against.
  * Edit and View are peers rather than scenery for the same reason focus-follows-mouse keeps its
  * second window: a mnemonic scheme is only legible as a set of distinct letters. The document,
- * the key trail, the readouts and the caption are instrumentation in the context register.
+ * the key trail and the readouts are instrumentation in the context register.
  *
  * **The real `accesskey` attribute is never used here, and that is the term's own caveat.** A
  * live binding would collide with the browser's Alt commands and with screen reader keys on the
  * page this specimen is embedded in, which is why most design systems draw their mnemonics
- * themselves. This one does the same: its own underline, its own armed mode, its own handling,
- * and a caption that says so.
+ * themselves. This one does the same: its own underline, its own armed mode, its own handling.
+ * A caption under the body used to say that in the site's voice ("Mnemonics drawn by this
+ * specimen, never the HTML accesskey attribute"), which is a note to the reader of the article
+ * rather than anything the Notes window would print, so it is gone: the article already carries
+ * the caveat. The topbar readout lost its aphorism for the same reason and now rests at
+ * "Nothing armed".
  *
  * The mode latches on Alt rather than lasting for a hold, which is what real menu mnemonics do
  * and also what a scripted press can express: the player's press is a keydown and a keyup back
@@ -103,7 +107,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" data-part="app" data-armed="no" data-ran="none" data-typed="no" style="height: 292px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Notes</span>
-          <span class="sp-text" data-part="readout" style="width: 330px; text-align: right; white-space: nowrap">Nothing armed: a letter is just a letter</span>
+          <span class="sp-text" data-part="readout" style="width: 330px; text-align: right; white-space: nowrap">Nothing armed</span>
         </div>
 
         <div class="sp-row" data-part="menubar" style="gap: 2px; flex: 0 0 auto; padding: 4px 8px; border-bottom: 1px solid var(--sp-line); background: var(--sp-surface)">
@@ -135,10 +139,6 @@ export function mount(root: HTMLElement): void {
             <span class="sp-heading" data-part="ran" style="font-size: 13px">None yet</span>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          Mnemonics drawn by this specimen, never the HTML accesskey attribute: real bindings collide with the browser and the screen reader.
-        </span>
 
         ${MENUS.map(menuMarkup).join('')}
       </div>

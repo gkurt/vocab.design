@@ -37,6 +37,17 @@ const dot = (name: string, y: number) => `
  * at a detent in every resting state and never stops being the term, so no `data-pose` is needed.
  * The screen behind, the guide dots and the read-out are the scene.
  *
+ * The title bar told the reader to "drag the handle, then let go" and the line under the
+ * progress bar narrated every beat of the gesture ("Held by the gesture. Nothing runs on its
+ * own now."). The instruction went, and the line prints the one word the readout is measuring
+ * instead: Collapsed, Held, Scrubbing, Completing, Expanded.
+ *
+ * A legend under that stated the rule the release follows ("Released past halfway, the
+ * transition finishes on its own. Released short of it, it runs backwards to the detent it
+ * came from."). It never changed, so it was never a verdict, and watching two releases land
+ * shows it better than reading it does. The readout column is centred against the screen now
+ * that it is three lines shorter.
+ *
  * The drag itself carries no transition at all, so the sheet tracks the pointer instead of lagging it,
  * and only the release animates. The settle is finished on a beat from the stage's clock rather than
  * on `transitionend`, which never fires under reduced motion; `prefersReducedMotion` collapses both
@@ -53,7 +64,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       >
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Sheet</span>
-          <span class="sp-label" style="font-size: 11px">drag the handle, then let go</span>
         </div>
         <div class="sp-body" style="display: flex; gap: 14px; padding: 12px">
           <div
@@ -98,7 +108,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </span>
           </div>
 
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; gap: 7px; min-width: 0">
+          <div class="sp-stack sp-context" style="flex: 1 1 auto; justify-content: center; gap: 7px; min-width: 0">
             <span class="sp-label" style="font-size: 11px">Transition progress</span>
             <span
               class="sp-text--ink" data-part="pct"
@@ -110,14 +120,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 style="display: block; width: 0%; height: 100%; border-radius: 999px; background: var(--sp-accent)"
               ></span>
             </span>
-            <span class="sp-text sp-text--ink" data-part="say" style="height: 54px; font-size: 12px; line-height: 1.4">
-              Collapsed. Drag the handle up.
-            </span>
-            <span class="sp-divider"></span>
-            <span class="sp-label" data-stage-verdict data-part="legend" style="height: 62px; font-size: 11px; line-height: 1.4">
-              Released past halfway, the transition finishes on its own. Released short of it, it runs backwards to the
-              detent it came from.
-            </span>
+            <span class="sp-text sp-text--ink" data-part="say" style="height: 18px; font-size: 12px; line-height: 18px">Collapsed</span>
           </div>
         </div>
       </div>
@@ -168,14 +171,14 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     scene.dataset.partway = 'no';
     sheet.dataset.state = 'held';
     draw(detent, false);
-    report('Held by the gesture. Nothing runs on its own now.');
+    report('Held');
   });
 
   root.addEventListener('pointermove', (event) => {
     if (origin === undefined) return;
     draw(detent + (origin - localPoint(event, root).y) / TRAVEL, false);
     if (Math.abs(progress - detent) > 0.12) scene.dataset.partway = 'seen';
-    report('Scrubbed to here and still under the finger. Either end is still available.');
+    report('Scrubbing');
   });
 
   const release = () => {
@@ -187,17 +190,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     sheet.dataset.state = 'settling';
     detent = target;
     draw(target, !reduced);
-    report(
-      completed
-        ? 'Let go past halfway: it finishes itself from where the gesture left it.'
-        : 'Let go short of halfway: it runs backwards to where it started.',
-    );
+    report(completed ? 'Completing' : 'Reversing');
     // Timed on the stage's clock, never on transitionend, which never fires under reduced motion.
     settling = clock.setTimeout(
       () => {
         scene.dataset.detent = detent === 1 ? 'expanded' : 'collapsed';
         sheet.dataset.state = 'rested';
-        report(detent === 1 ? 'Expanded. Drag the handle down to scrub it back.' : 'Collapsed. Drag the handle up.');
+        report(detent === 1 ? 'Expanded' : 'Collapsed');
       },
       reduced ? 0 : SETTLE + 40,
     );
@@ -207,5 +206,5 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.addEventListener('pointercancel', release);
 
   draw(0, false);
-  report('Collapsed. Drag the handle up.');
+  report('Collapsed');
 }

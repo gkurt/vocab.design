@@ -74,7 +74,9 @@ const ROW_H = 26;
  * or the picker: the term is the encoding a mark carries, and the mark is the element that
  * carries it (SPEC §5). Its eleven peers stay in full colour because they are the comparison,
  * not scenery; the heading, the picker, the key and the readout are the scenery around it and
- * wear the context register.
+ * wear the context register. The readout's row used to lead with "Hue is the only thing
+ * separating one code from the next", which is the article's sentence rather than anything a
+ * calendar prints, so the row now carries the count and the spacing and nothing else.
  *
  * Every mark keeps its box and its position in every scheme, and the key is given the room
  * its longest state needs, so changing the count repaints and moves nothing (SPEC §5).
@@ -118,8 +120,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-row--wrap sp-context" data-part="key"
              style="align-content: flex-start; gap: 4px 10px; height: 36px; margin-top: 8px"></div>
 
-        <div class="sp-row sp-row--between sp-context" style="height: 15px; margin-top: 6px">
-          <span class="sp-label" style="font-size: 10px">Hue is the only thing separating one code from the next</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end; height: 15px; margin-top: 6px">
           <span class="sp-text sp-text--ink" data-part="readout" data-codes="${START}" style="font-size: 11px"></span>
         </div>
       </div>

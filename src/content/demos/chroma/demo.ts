@@ -115,6 +115,10 @@ const ticks = (name: string, values: string[]) =>
  * beneath it are a measurement of it, the saturation row is the counterpart it is being
  * told apart from, and both stay in the context register with the hue control. Every cell
  * is a fixed share of a fixed row, so changing hue repaints and moves nothing (SPEC §5).
+ *
+ * A line under the two ramps used to explain what the thin grey strips are and which one
+ * holds still. No colour tool prints that about its own readout, and the article says it, so
+ * the line has gone; the strips are left to be compared.
  */
 export function mount(root: HTMLElement): void {
   const start = ramps(BASES[START] ?? '#3557E8');
@@ -150,9 +154,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row" style="gap: 0">${cells('sat-grey', start.saturation.grey, 6)}</div>
           <div class="sp-row" style="gap: 0">${ticks('sat-tick', start.saturation.ticks)}</div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 6px 0 0; font-size: 11px">The thin strip under each
-          row is the grey of the same perceived lightness. Only one of them holds still.</p>
       </div>
     </div>
   `;

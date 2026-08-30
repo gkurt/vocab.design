@@ -37,11 +37,15 @@ const pin = (x: number, y: number) => `
  * second. The whole mechanism is two properties: `stroke-dasharray` is set to the path's own length,
  * so the stroke is one dash and one gap; `stroke-dashoffset` starts at that same length, which holds
  * the dash entirely off the front of the path, and animating it to zero slides the dash on from the
- * start. The measured length is printed under the picture, because the number is the trick.
+ * start.
  *
  * The subject is the route: the guide underneath and the stroke that draws over it are marked
  * together, following the motion path specimen, because a stroke with nothing painted yet is not a
- * box a ring could honestly trace. The map, the pins, the readout and the two controls are the scene.
+ * box a ring could honestly trace. The map, the pins and the two controls are the scene.
+ *
+ * A line under the picture used to print the two properties as they moved ("dasharray 374, offset 0:
+ * the whole route is painted"). No map prints its own stroke geometry, and the article spells the
+ * mechanism out with the same two numbers, so the line is gone and the frame is shorter by it.
  *
  * `motion.css` cannot reach an `element.animate` keyframe set, so the demo asks
  * `prefersReducedMotion` itself and paints the completed route immediately: the finished mark is the
@@ -53,7 +57,7 @@ const pin = (x: number, y: number) => `
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" data-part="scene" data-state="drawn" data-mode="draw" style="height: 262px">
+      <div class="sp-frame sp-frame--wide" data-part="scene" data-state="drawn" data-mode="draw" style="height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Route</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Reveal" data-part="mode" data-value="draw">
@@ -75,7 +79,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </g>
             <g class="sp-context">${pin(30, 122)}${pin(350, 30)}</g>
           </svg>
-          <span class="sp-label sp-context" data-part="readout" style="font-size: 11px">Measuring the path</span>
         </div>
       </div>
     </div>
@@ -84,7 +87,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const scene = part(root, 'scene');
   // `part()` is typed for HTML and this one is a path; the length asked for below is why it matters.
   const stroke = part(root, 'stroke') as unknown as SVGPathElement;
-  const readout = part(root, 'readout');
   const reduced = prefersReducedMotion(root);
 
   // Path geometry, not layout: `getTotalLength` answers from the `d` attribute, so it is not a
@@ -98,7 +100,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const land = () => {
     stroke.style.strokeDashoffset = '0';
     scene.dataset.state = 'drawn';
-    readout.textContent = `dasharray ${length}, offset 0: the whole route is painted`;
   };
 
   const play = () => {
@@ -109,7 +110,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
     stroke.style.strokeDashoffset = `${length}`;
     scene.dataset.state = 'drawing';
-    readout.textContent = `dasharray ${length}, offset ${length} sliding to 0`;
     running = stroke.animate([{ strokeDashoffset: `${length}` }, { strokeDashoffset: '0' }], {
       duration: DRAW_MS,
       easing: 'cubic-bezier(0.35, 0, 0.2, 1)',

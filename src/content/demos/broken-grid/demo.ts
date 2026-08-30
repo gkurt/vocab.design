@@ -37,6 +37,10 @@ const lines = (widths: number[]) => widths.map((w) => `<div class="sp-line" styl
  * The track tint and the other three blocks are scenery in the context register. The tracks are
  * real boxes rather than hairlines (SPEC §5), and the break is a transform over a grid area, so
  * no state change moves a block that did not change.
+ *
+ * The title bar read "6 columns, plate", which names the specimen's ingredients rather than
+ * the document a layout tool would have open. It names the spread and its column count now,
+ * which is what such a tool really puts there.
  */
 export function mount(root: HTMLElement): void {
   const tracks = Array.from(
@@ -48,7 +52,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">${COLUMNS} columns, plate</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Feature spread, ${COLUMNS} columns</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="fits" data-axis="Fit" data-term="off-grid" data-value="off-grid">
             ${FITS.map(
               (fit) => `

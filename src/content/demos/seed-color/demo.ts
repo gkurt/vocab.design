@@ -33,8 +33,11 @@ const arrow = () => `<span style="display: flex; flex: 0 0 auto; color: var(--sp
  *
  * The subject is the chain. The term names the input, but a lone swatch is indistinguishable
  * from any other swatch: what makes a colour a seed is that everything after it is computed
- * from it, so the narrowest honest subject is the derivation itself. The seed control, the
- * readout and the caption are instrumentation and stay in the context register (SPEC §5).
+ * from it, so the narrowest honest subject is the derivation itself. The seed control and the
+ * two readouts are instrumentation and stay in the context register (SPEC §5). A caption under
+ * the chain once read "Nothing to the right of the seed is written down. The ladder is fixed,
+ * so any seed lands on the same contrasts." That is the article's claim, and no colour tool
+ * prints it; picking a second seed shows the same thing, so the caption went.
  *
  * Every block is fixed size and only paint changes with the seed, so nothing moves (SPEC §5).
  */
@@ -93,8 +96,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" style="font-size: 11px">primary = tone 40, container = tone 90</span>
         </div>
 
-        <p class="sp-text sp-context" style="margin: 8px 0 0; height: 30px; font-size: 11px; line-height: 1.4">Nothing to the right
-          of the seed is written down. The ladder is fixed, so any seed lands on the same contrasts.</p>
       </div>
     </div>
   `;

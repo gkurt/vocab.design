@@ -16,17 +16,17 @@ const WORD = 'Handgloves';
 const MODES = {
   real: {
     css: 'font-weight: 800; font-style: normal; font-synthesis: auto',
-    read: 'font-weight: 800, a weight the file carries',
+    read: 'font-weight: 800',
     note: 'A drawn weight: the stems thicken more than the hairlines and the counters are redrawn.',
   },
   faux: {
     css: 'font-weight: 400; font-style: italic; font-synthesis: auto',
-    read: 'font-style: italic, with no italic file loaded',
+    read: 'font-style: italic',
     note: 'The browser shears the roman by a fixed angle. Same letters, leaning: not a drawn italic.',
   },
   off: {
     css: 'font-weight: 400; font-style: italic; font-synthesis: none',
-    read: 'font-synthesis: none, so the request is refused',
+    read: 'font-synthesis: none',
     note: 'Nothing is invented, so the missing style shows as plain roman instead of being disguised.',
   },
 } as const;
@@ -55,6 +55,13 @@ const DETAIL = 108;
  *
  * Both boxes are fixed, so a setting that sets wider or leans further moves
  * nothing (SPEC §5).
+ *
+ * Two pieces of the site's own voice have left the frame. The readout chip glossed each
+ * setting ("font-style: italic, with no italic file loaded") and now prints the bare
+ * declaration in force, which is all a readout of a declaration should say. And a line
+ * under it read "the pale letter behind is the untouched roman", a caption on the demo's
+ * own instrument; the ghost letter is legible as a comparison without being announced, and
+ * the strip's verdict says what the offset between the two means.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -84,7 +91,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack" style="gap: 6px; padding-top: 4px">
             <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${MODES.faux.read}</span>
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0">${MODES.faux.note}</p>
-            <span class="sp-label">the pale letter behind is the untouched roman</span>
           </div>
         </div>
       </div>

@@ -42,6 +42,10 @@ const grip = `
  * same answer the smart guides specimen reaches for; it is instrumentation, so it lives
  * in the context register (SPEC §5-6).
  *
+ * The readout beside the playlist's title reports what the drag is doing, so it says
+ * "Drop line held" when the control pins the line rather than "Held: the gap the drop
+ * would land in", which was the site describing its own instrument to the reader.
+ *
  * The line is positioned absolutely inside the list, so showing it moves nothing
  * (SPEC §5), and the slot is arithmetic from the list's own box rather than a
  * measurement of rows that may be mid-transition.
@@ -184,7 +188,7 @@ export function mount(root: HTMLElement): void {
     // labelled control is holding it on for a reader who wants to look at it.
     if (hold.value === 'held') {
       showLine(POSE_SLOT, true);
-      readout.textContent = 'Held: the gap the drop would land in';
+      readout.textContent = 'Drop line held';
       return;
     }
     showLine(slot, false);
@@ -197,10 +201,10 @@ export function mount(root: HTMLElement): void {
   hold.addEventListener('change', () => {
     if (hold.value === 'held') {
       showLine(POSE_SLOT, true);
-      readout.textContent = 'Held: the gap the drop would land in';
+      readout.textContent = 'Drop line held';
       return;
     }
     showLine(POSE_SLOT, false);
-    readout.textContent = 'The line lives only during a drag';
+    readout.textContent = 'Drag a track by its grip';
   });
 }

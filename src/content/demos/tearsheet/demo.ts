@@ -20,6 +20,10 @@ const RISE = 'transform 0.3s var(--sp-ease), visibility 0.3s';
  * one surface answers "which part of this is the term". It is honestly a tearsheet at every step
  * the script visits, so no `data-pose` condition is needed.
  *
+ * The stacked sheet's header carried a label reading "Stacked over the flow", which described
+ * the composition rather than saying anything the console would print. It is gone; the heading
+ * beside it grows into the room.
+ *
  * Every surface is out of flow, so nothing behind moves as a sheet rises (SPEC §5), and both step
  * bodies are overlaid in a box that reserves the taller one, so advancing a step moves nothing.
  * The trigger only opens and dismissal is always explicit, by Cancel or the close control, which
@@ -108,7 +112,6 @@ export function mount(root: HTMLElement): void {
         >
           <div class="sp-row" style="flex: 0 0 auto; padding: 6px 10px 6px 12px; border-bottom: 1px solid var(--sp-line)">
             <span class="sp-heading sp-grow" style="font-size: 13px">Create API key</span>
-            <span class="sp-label" style="font-size: 11px; white-space: nowrap">Stacked over the flow</span>
             ${closer('key-close', 'Close create API key')}
           </div>
           <div class="sp-stack sp-grow" style="gap: 10px; padding: 12px">

@@ -11,11 +11,11 @@ import type { DemoClock } from '#src/stage/clock.ts';
  */
 const SHY = '\u00AD';
 const COPY =
-  'Com~po~si~tion rooms for~bade the lad~der out~right: con~sec~u~tive hy~phens un~der~neath one an~oth~er, turn~ing or~di~nary para~graphs in~to dec~o~ra~tion.';
+  'Har~bour~mas~ters re~cord~ed ev~ery cross~ing in du~pli~cate, en~ter~ing the par~tic~u~lars twice so that a sin~gle mis~read~ing could nev~er trav~el un~chal~lenged.';
 const SOURCE = COPY.replaceAll('~', SHY);
 
-/** Found by walking this copy across the range: at 116px four lines in a row break. */
-const MEASURE = 116;
+/** Found by walking this copy across the range: at 120px four lines in a row break. */
+const MEASURE = 120;
 const SIZE = 13;
 const LINE = 19;
 /** Room for a line more than either setting needs, so a pick moves nothing (SPEC §5). */
@@ -78,9 +78,19 @@ function pastCap(rungs: Rung[]): number | undefined {
  * specimen can never claim a ladder it did not actually get.
  *
  * The subject is the text column, which is what the term names: a ladder is a
- * property of several lines at once, and no narrower element is it. The picker,
- * the read-out and the caption are the demo's own instrumentation and stay in the
- * context register (SPEC §5). One of the two states is the fix rather than the
+ * property of several lines at once, and no narrower element is it. The picker
+ * and the read-out are the demo's own instrumentation and stay in the context
+ * register (SPEC §5). A caption once sat under the read-out explaining that the
+ * capping property is `hyphenate-limit-lines` and that support for it is thin;
+ * it was the site talking inside the specimen, and the article already says it,
+ * so it went. The copy itself was the same defect and outlasted that pass: it was
+ * a sentence DEFINING the ladder ("Composition rooms forbade the ladder outright:
+ * consecutive hyphens underneath one another..."), set as the mock page's own body
+ * text. It is ordinary prose now. That swap is not free, because the copy is
+ * load-bearing: `MEASURE` is walked against whatever text sits here, so the new
+ * copy was measured the way this demo measures itself, and gives a four-line
+ * ladder at 120px (stable from 118 to 124) over eight lines, inside the nine
+ * `SLOT` reserves. One of the two states is the fix rather than the
  * term, so the honest condition is declared in `data-pose` and the specimen mounts
  * laddered (SPEC §6).
  */
@@ -89,7 +99,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Down the right edge</span>
+          <span class="sp-heading">Justified column</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Hyphen limit" data-term="default" data-value="default">
             <button class="sp-segment" data-part="seg-default" value="default">default</button>
             <button class="sp-segment" data-part="seg-limited" value="limited">limit 2</button>
@@ -104,11 +114,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <span class="sp-label">longest run of hyphenated lines</span>
             <span data-part="rungs" style="font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums"></span>
             <span class="sp-text" data-stage-verdict data-part="note" style="font-size: 12px"></span>
-            <p class="sp-text" data-part="caption" style="margin: 10px 0 0">
-              Every break is a real one and no line is too long. The property that caps the stack is
-              hyphenate-limit-lines, support for it is thin, so the second setting withholds the third
-              break itself.
-            </p>
           </div>
         </div>
       </div>

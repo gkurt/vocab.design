@@ -74,8 +74,12 @@ const ramp = (space: string, from: string, to: string) => `linear-gradient(to ri
  * The subject is the comparison panel, not the readout stack: three notations of one point
  * are three spellings of a value, while a space is only identifiable by what its axes do to
  * arithmetic, which is the pair of strips. The readouts and the pair control stay in the
- * context register. Strips are a fixed height, readout values are tabular and their rows a
- * fixed height, so changing the pair repaints and moves nothing (SPEC §5). The axis column is
+ * context register. Each strip is headed with its own method and nothing more: the headers
+ * used to carry a gloss of the route as well ("straight across the channels", "around the
+ * hue circle"), which is the article describing what the two strips already show.
+ *
+ * Strips are a fixed height, readout values are tabular and their rows a fixed height, so
+ * changing the pair repaints and moves nothing (SPEC §5). The axis column is
  * given the room its longest triple needs on one line, rather than wrapping into the row under it.
  */
 export function mount(root: HTMLElement): void {
@@ -92,11 +96,10 @@ export function mount(root: HTMLElement): void {
       </div>`,
   ).join('');
 
-  const strip = (space: string, path: string) => `
+  const strip = (space: string) => `
     <div class="sp-stack" style="gap: 4px">
-      <div class="sp-row sp-row--between">
+      <div class="sp-row">
         <span class="sp-label" style="color: var(--sp-ink)">in ${space}</span>
-        <span class="sp-text" style="font-size: 11px">${path}</span>
       </div>
       <span data-part="strip-${space}" style="display: block; height: 34px; border-radius: 5px;
             background: ${ramp(space, pair.from, pair.to)}"></span>
@@ -121,8 +124,8 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-stack" data-part="panel" data-subject data-pair="${START}"
              style="gap: 10px; margin-top: 12px; padding: 10px; border-radius: var(--sp-radius); background: var(--sp-sunken)">
-          ${strip('srgb', 'straight across the channels')}
-          ${strip('oklch', 'around the hue circle')}
+          ${strip('srgb')}
+          ${strip('oklch')}
         </div>
       </div>
     </div>

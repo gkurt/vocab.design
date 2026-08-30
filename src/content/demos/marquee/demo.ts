@@ -31,6 +31,10 @@ const QUOTES = [
  *
  * The pause undoes itself on leave, so the pass ends at its mount state: the tree persists
  * across attract iterations (`data-loop="keep"`) and the strip's own loop runs unbroken.
+ *
+ * The masthead used to carry "Pointer holds the strip" beside the title, which was the site
+ * telling the reader what to try. No markets page prints it and the strip stops under the
+ * pointer whether or not anyone was told, so it is gone.
  */
 export function mount(root: HTMLElement): void {
   const items = QUOTES.map(
@@ -48,7 +52,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 232px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Markets</span>
-          <span class="sp-text" style="font-size: 12px">Pointer holds the strip</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           <div

@@ -16,7 +16,9 @@ const chip = (name: string, label: string) => `
  * control that turns typing into them.
  *
  * The field is held at two rows from mount (SPEC §5), so committing a value fills
- * room that was already reserved instead of pushing the help text down. Adding
+ * room that was already reserved instead of pushing the help text down. That help
+ * text read "Press Enter to commit each topic." and now reads the way a real form
+ * hint does: the field tells its user what key to press, in the user's words. Adding
  * and removing are separate explicit gestures, each reaching a state (SPEC §8).
  */
 export function mount(root: HTMLElement): void {
@@ -36,7 +38,7 @@ export function mount(root: HTMLElement): void {
             ${chip('grids', 'grids')}
             <input data-part="entry" placeholder="Add a topic" autocomplete="off" style="${ENTRY}" />
           </div>
-          <p class="sp-text sp-context" style="margin: 8px 2px 0">Press Enter to commit each topic.</p>
+          <p class="sp-text sp-context" style="margin: 8px 2px 0">Press Enter to add a topic.</p>
         </div>
       </div>
     </div>

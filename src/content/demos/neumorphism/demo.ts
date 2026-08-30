@@ -30,8 +30,12 @@ const LATCH_MS = 900;
  * shadows so the shape reads as pressed into the surface.
  *
  * The subject is the button: one extruded control, the narrowest thing here the term
- * names, and it is the term in both of its states. The dial, the switch, the caption
- * and the contrast readout are context.
+ * names, and it is the term in both of its states. The dial, the switch and the caption
+ * are context.
+ *
+ * A line under the scene read "Control edge against its background: 1.0:1. WCAG asks 3:1."
+ * Nothing on that panel measures itself, and the article states the ratio and the threshold
+ * it misses, so the line went.
  *
  * The paint is inline because it is the claim: no kit class carries a shadow pair
  * derived from the background colour, and the pressed inversion has to be written by
@@ -66,10 +70,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                                     line-height: 1.5; color: ${QUIET}">
         One colour for the whole scene. Every control is two shadows of it: light up and to the
         left, dark down and to the right.
-      </p>
-
-      <p data-part="readout" class="sp-context" style="margin: 0; font-size: 11.5px; color: ${QUIET}">
-        Control edge against its background: 1.0:1. WCAG asks 3:1.
       </p>
     </div>
   `;

@@ -51,11 +51,19 @@ const card = (name: string, title: string, extra: string, body: string) => `
  * term needs, and there the card establishes nothing, so it declares `data-context` as its
  * pose condition: identify refuses to ring a card that is not making one (SPEC §6). Mount
  * is the transform state, which satisfies it.
+ *
+ * Both cards used to carry a line of the site's own commentary as their body text ("holds the
+ * tooltip" and "a later sibling, nothing special about it"). The tooltip is visibly in Card A
+ * and Card B is visibly next to it, so both went; the cards keep their fixed box, so nothing
+ * moved. The line under them ("A transform makes a context. The 9999 stops at its edge.") is
+ * the author's verdict on the state and changes with the switch, so it carries
+ * `data-stage-verdict` and the stage draws it in the strip (SPEC §5.1). The frame is 32px
+ * shorter for having given the row up.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <sp-segmented data-stage-mode class="sp-segmented" data-axis="Card A" data-part="switcher" data-value="transform">
             <button class="sp-segment" type="button" data-part="seg-transform" value="transform">transform</button>
             <button class="sp-segment" type="button" data-part="seg-opacity" value="opacity">opacity</button>
@@ -67,15 +75,9 @@ export function mount(root: HTMLElement): void {
               'card-a',
               'Card A',
               'data-subject data-pose="[data-context]" data-context',
-              `<span class="sp-text" style="display: block; margin-top: 6px; font-size: 12px">holds the tooltip</span>
-               <div class="sp-tooltip" data-part="tip" data-open style="left: 108px; top: 52px; width: 152px; z-index: 9999; text-align: center; white-space: normal; --sp-arrow-x: 22px">z-index: 9999</div>`,
+              '<div class="sp-tooltip" data-part="tip" data-open style="left: 108px; top: 52px; width: 152px; z-index: 9999; text-align: center; white-space: normal; --sp-arrow-x: 22px">z-index: 9999</div>',
             )}
-            ${card(
-              'card-b',
-              'Card B',
-              'class="sp-context"',
-              '<span class="sp-text" style="display: block; margin-top: 6px; font-size: 12px">a later sibling, nothing special about it</span>',
-            )}
+            ${card('card-b', 'Card B', 'class="sp-context"', '')}
           </div>
           <div class="sp-row sp-context" style="flex: 0 0 auto; gap: 8px; height: 26px">
             <span class="sp-label">Card A</span>
@@ -84,7 +86,7 @@ export function mount(root: HTMLElement): void {
               style="display: inline-flex; align-items: center; justify-content: center; width: 200px; padding: 3px 8px; border: 1px solid var(--sp-line); border-radius: 999px; background: var(--sp-surface); font-family: ${MONO}; font-size: 11.5px"
             ></span>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

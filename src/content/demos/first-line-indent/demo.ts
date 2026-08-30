@@ -30,7 +30,12 @@ const MODES: Record<string, { indent: boolean; space: boolean; css: string; note
  * needed: the paragraph's own top left corner is where the indent starts. Two of the three
  * states leave the block flush, which closes the gap to nothing, so the honest condition is
  * declared in `data-pose` (SPEC §6) and the specimen mounts indented. The guide, the
- * declaration, the note and the caption are the demo's own instrumentation.
+ * declaration and the note are the demo's own instrumentation.
+ *
+ * A caption under the column once read that the first paragraph after a heading stays flush
+ * and that an indent and a blank line are alternatives, never partners. That was the site
+ * teaching inside the frame; the article says it at length, so the caption went and the
+ * choreography's last steps went with it.
  */
 export function mount(root: HTMLElement): void {
   const body = [
@@ -70,15 +75,11 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
         <!-- One line each, never wrapped: the row's height is reserved, so a longer
-             declaration must not grow it and push the caption (SPEC §5). -->
+             declaration must not grow it (SPEC §5). -->
         <div class="sp-row sp-row--between sp-context" style="height: 18px; margin-top: 8px">
           <span class="sp-label" data-part="css" style="color: var(--sp-ink); white-space: nowrap"></span>
           <span class="sp-label" data-stage-verdict data-part="note" style="white-space: nowrap"></span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin: 8px 0 0">
-          The first paragraph after a heading stays flush. An indent and a blank line are alternatives,
-          never partners.
-        </p>
       </div>
     </div>
   `;

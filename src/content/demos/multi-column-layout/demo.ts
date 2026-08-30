@@ -42,10 +42,12 @@ const TRUNCATE = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap
  * shows the one message picked from the list, so a pick on the left decides what the region to
  * its right is allowed to show.
  *
- * The subject is the three-region shell, which is what the term names: the window title, the
- * region legend and the path readout are the scene it is read against and carry the context
- * register (SPEC §5). It is not the top-level wrapper, so identify still has something to
- * point at (SPEC §6).
+ * The subject is the three-region shell, which is what the term names: the window title and the
+ * path readout are the scene it is read against and carry the context register (SPEC §5). The
+ * title bar also carried a legend reading "navigation · list · reading pane", which was the site
+ * naming the parts over a mail app's own chrome, so it went; the regions are visible as regions.
+ *
+ * It is not the top-level wrapper, so identify still has something to point at (SPEC §6).
  *
  * Every region keeps a fixed track, and each folder holds the same number of messages, so a
  * pick swaps content without moving a single boundary (SPEC §5). Folders and rows are picked
@@ -75,7 +77,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Mail</span>
-          <span class="sp-label">navigation · list · reading pane</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 16px">
           <div

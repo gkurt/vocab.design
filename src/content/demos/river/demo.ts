@@ -17,9 +17,9 @@ const FAMILY = "Georgia, 'Liberation Serif', 'Nimbus Roman', 'DejaVu Serif', ser
    difference between them. */
 const S = '­';
 const BODY =
-  `Justi${S}fied at a nar${S}row meas${S}ure, the word spaces stretch until every line reaches ` +
-  `the mar${S}gin, and where those stretched gaps hap${S}pen to fall near the same place on ` +
-  `line after line the eye joins them into a chan${S}nel of white run${S}ning down the col${S}umn.`;
+  `The orch${S}ard was planted by some${S}one who ex${S}pect${S}ed to be dead be${S}fore the first ` +
+  `prop${S}er har${S}vest, which is the ordi${S}nary con${S}di${S}tion of any${S}one who plants a tree, ` +
+  `and the neigh${S}bours who in${S}her${S}it${S}ed it never learned whose idea the ar${S}range${S}ment had been.`;
 
 const COLUMN = 152;
 const LINE_PX = 17;
@@ -97,6 +97,13 @@ function longestChannel(lines: Gap[][]): Gap[] {
  * same way and both report what was found, so the specimen cannot claim a river
  * the setting does not have.
  *
+ * The paragraph itself was once an explanation of what a river is, set in the column it
+ * was describing, and the window was headed "Trace the channel". Body copy in a type
+ * specimen is ordinary prose, so it is ordinary prose now, and the heading names the
+ * setting the sheet is showing. The replacement was walked at this measure before it was
+ * chosen: unhyphenated it channels four lines deep, hyphenated it finds none, which is
+ * the contrast the pair is for. Changing a word here means walking it again.
+ *
  * The subject is the trace over the left column, sized to the channel it found.
  * A river is a thing a paragraph has, which is the wrong test for a subject: the
  * term names the channel of white, so the ring goes on the element drawing that
@@ -122,7 +129,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 400px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Trace the channel</span>
+          <span class="sp-heading">Georgia 12/17, justified</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Trace" data-part="segmented" data-value="on">
             <button class="sp-segment" data-part="seg-off" value="off">off</button>
             <button class="sp-segment" data-part="seg-on" value="on">on</button>

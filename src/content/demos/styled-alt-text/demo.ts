@@ -41,6 +41,11 @@ const NOTES: Record<string, string> = {
  * Each block sits in a fixed slot, so the unstyled one collapsing cannot move the mail
  * around it (SPEC §5); the collapse is contained rather than smoothed over, because
  * losing the reserved box is exactly what the term is about.
+ *
+ * Each block once carried a caption naming its own markup ("Alt styled, width and height
+ * declared.", "Alt as exported, no styling and no size."). A promotion mail annotates neither
+ * of its images, and the verdict above the switch already reads the difference off the two
+ * fallbacks, so both went.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -70,14 +75,12 @@ export function mount(root: HTMLElement): void {
                        font-size: 15px; font-weight: 700; line-height: ${H}px; text-align: center"
               />
             </div>
-            <span class="sp-label" style="font-size: 10.5px; line-height: 1.35">Alt styled, width and height declared.</span>
           </div>
 
           <div class="sp-stack sp-context" style="flex: 0 0 ${W}px; gap: 5px">
             <div data-part="plain-slot" style="width: ${W}px; height: ${H}px">
               <img data-part="plain" data-state="blocked" src="${BLOCKED}" alt="${ALT}" />
             </div>
-            <span class="sp-label" style="font-size: 10.5px; line-height: 1.35">Alt as exported, no styling and no size.</span>
           </div>
         </div>
 

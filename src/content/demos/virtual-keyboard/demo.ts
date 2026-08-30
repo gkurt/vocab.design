@@ -61,6 +61,12 @@ const field = (name: string, label: string, hint: string) => `
  * under the keys, and the form slides so the field being typed into stays above them.
  * Nothing outside the phone moves. Every control reaches a state: a field always raises
  * its own key set, Done always lowers the panel (SPEC §8).
+ *
+ * The panel beside the phone once carried a heading ("The field picks the keys") and a
+ * paragraph explaining that the device owns the keyboard while the page only declares the
+ * kind of value it wants. Both were the site lecturing from inside the scene, and the
+ * article makes the same point at length, so only the visible-area readout is left there.
+ * The fields keep their own `inputmode` hints, which is the mechanism on screen.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -123,11 +129,6 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-stack sp-context" style="width: 218px; gap: 10px">
-          <span class="sp-heading" style="font-size: 14px">The field picks the keys</span>
-          <span class="sp-text" style="font-size: 12px">
-            The device owns the panel. All the page gets to say is what kind of value it wants, and the
-            return key is labelled from that too.
-          </span>
           <div class="sp-surface sp-stack" style="gap: 4px; padding: 8px 10px">
             <span class="sp-label" style="font-size: 10px">Visible area</span>
             <span class="sp-text sp-text--ink" data-part="readout" style="font-variant-numeric: tabular-nums">${VIEWPORT_H} px, keyboard down</span>

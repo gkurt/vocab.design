@@ -3,11 +3,11 @@ import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 import { localBox } from '#src/kit/measure.ts';
 
-type Cell = { key: string; size: number; note: string };
+type Cell = { key: string; size: number };
 
 const CELLS = [
-  { key: 'small', size: 24, note: 'clears the WCAG floor, still a squeeze' },
-  { key: 'big', size: 44, note: 'the platform figure for a thumb' },
+  { key: 'small', size: 24 },
+  { key: 'big', size: 44 },
 ] as const satisfies readonly Cell[];
 
 /**
@@ -20,6 +20,12 @@ const CELLS = [
  * activation region rather than the pair or the annotation drawn over it. Both cells
  * hold a fixed 52 px box, so the measurement can change what it traces without
  * anything in the row moving (SPEC §5).
+ *
+ * Each cell once carried a second caption under its measurement, "clears the WCAG
+ * floor, still a squeeze" and "the platform figure for a thumb". That was the site
+ * grading the two sizes inside the product's own frame, and the article says it
+ * better, so both went. The measured px readout stayed: the dashed box it reports is
+ * drawn right beside it.
  */
 export function mount(root: HTMLElement): void {
   const cells = CELLS.map(
@@ -40,10 +46,7 @@ export function mount(root: HTMLElement): void {
             style="position: absolute; border: 1px dashed var(--sp-accent); border-radius: 7px; pointer-events: none"
           ></span>
         </div>
-        <div class="sp-stack sp-context" style="align-items: center; gap: 2px">
-          <span class="sp-label" data-part="size-${cell.key}"></span>
-          <span class="sp-text" style="font-size: 11px; text-align: center">${cell.note}</span>
-        </div>
+        <span class="sp-label sp-context" data-part="size-${cell.key}"></span>
       </div>`,
   ).join('');
 

@@ -8,6 +8,11 @@
  * The subject is the squircle itself. The dashed rectangle over it, the magnified corner
  * beside it, and the labels are all scenery, since a comparison is what makes the
  * difference legible but the shape is the term. Static: an outline has no state.
+ *
+ * Both figure labels used to explain the drawing as well as name it ("squircle, with a 27px
+ * radius dashed over it" and "the corner at 3x: the arc turns on at the ticks"). They are
+ * legends now, carrying the measurement and nothing else, since the strip's verdict already
+ * says what the two curves do differently.
  */
 const SIZE = 120;
 const EXPONENT = 5;
@@ -56,7 +61,7 @@ export function mount(root: HTMLElement): void {
             </svg>
           </div>
           <span class="sp-label sp-context" style="text-align: center; max-width: 150px">
-            squircle, with a ${Math.round(radius)}px radius dashed over it
+            dashed: ${Math.round(radius)}px radius
           </span>
         </div>
 
@@ -72,7 +77,7 @@ export function mount(root: HTMLElement): void {
             </svg>
           </div>
           <span class="sp-label" style="text-align: center; max-width: 150px">
-            the corner at 3x: the arc turns on at the ticks
+            corner at 3x
           </span>
         </div>
       </div>

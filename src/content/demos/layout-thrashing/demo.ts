@@ -23,9 +23,11 @@ const LEAD = 70;
  * than a state the subject passes through, so no `data-pose` is needed; the interleaved group
  * is the term at rest, mid-run, and finished alike.
  *
- * The counts are the demo's own arithmetic, and the caption says so: a page cannot read the
- * browser's forced-layout tally, which is what a profiler is for. What is real is the shape,
- * one layout per write that follows a read. The steps come from the stage's clock so a pose
+ * The counts are the demo's own arithmetic. A line under the charts used to say so ("a page
+ * cannot read the browser's tally, only a profiler can"), and a title over them used to count
+ * the bars ("Six bars, laid out twice"); both were the site speaking inside the frame, and the
+ * article already sends a reader to the performance panel. What is real is the shape, one
+ * layout per write that follows a read. The steps come from the stage's clock so a pose
  * stops the run where it stands (SPEC §6), and `prefersReducedMotion` is asked directly since
  * no stylesheet reaches a chain of timers (SPEC §7). Bars grow inside a chart that already
  * holds its height, so nothing below them moves (SPEC §5).
@@ -50,8 +52,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-state="rest" style="width: 408px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Six bars, laid out twice</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="run">Run</button>
         </div>
 
@@ -78,9 +79,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           ${chart('thrash')}
         </div>
 
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">
-          The counts are this demo's own arithmetic: a page cannot read the browser's tally, only a profiler can.
-        </p>
       </div>
     </div>
   `;

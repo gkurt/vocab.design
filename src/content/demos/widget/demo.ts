@@ -91,6 +91,12 @@ const COMPOSE: Record<string, () => string> = {
  * is a different edit of the same day rather than the large one scaled or clipped, which is
  * the claim the term rests on. Nothing here is live: the date and the events are static, so
  * the specimen never pretends to be reading a real calendar, and it keeps no timers at all.
+ *
+ * The panel beside the screen used to end with "Same app, same day. Each size is a
+ * different edit, not the big one shrunk.", and the cells readout was introduced as "slot
+ * the host gave it". Both were the site explaining the demonstration inside it: the
+ * sentence is gone (the strip's verdict already reads the state) and the readout carries
+ * the plain label "Slot".
  */
 export function mount(root: HTMLElement): void {
   const first = SIZES[START] as (typeof SIZES)[string];
@@ -134,13 +140,10 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-stack sp-context sp-grow" style="gap: 8px; min-width: 0">
             <div class="sp-stack" style="gap: 1px">
-              <span class="sp-label" style="font-size: 11px">slot the host gave it</span>
+              <span class="sp-label" style="font-size: 11px">Slot</span>
               <span data-part="cells" style="font-size: 13px">${first.cells}</span>
             </div>
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; height: 54px; font-size: 12px">${first.note}</p>
-            <p class="sp-text" style="margin: 0; font-size: 11px">
-              Same app, same day. Each size is a different edit, not the big one shrunk.
-            </p>
           </div>
         </div>
       </div>

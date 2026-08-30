@@ -35,6 +35,10 @@ const bar = (n: number) => `
  * pausing reads where the fill got to and pins it there before restarting it with
  * the time that was left; under reduced motion the transition is gone and the bar
  * simply reads full, which is the honest still of a card that is being held.
+ *
+ * A line under the viewer once instructed the reader: "Tap the right side for the next card.
+ * Hold the card to stop the run where it is." A story viewer ships no such legend, and the
+ * ghost cursor performs both gestures in the pass, so it went.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -55,9 +59,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <button data-part="next" type="button" aria-label="Next card"
                 style="position: absolute; top: 40px; right: 0; bottom: 0; width: 64%; border: 0; background: transparent"></button>
       </div>
-      <span class="sp-label sp-context" style="width: 178px; text-align: center; line-height: 1.4">
-        Tap the right side for the next card. Hold the card to stop the run where it is.
-      </span>
     </div>
   `;
 

@@ -59,8 +59,6 @@ const PAIRS = [
   { key: 'white', text: '#FFFFFF', bg: '#787878' },
 ];
 
-const TAIL = 'Where the two columns disagree is the whole of the argument.';
-
 /**
  * APCA specimen: four text and background pairs scored twice, once by the ratio WCAG 2 is
  * written in and once as an Lc value, with the text size switchable because that is the input
@@ -69,9 +67,12 @@ const TAIL = 'Where the two columns disagree is the whole of the argument.';
  * AAA and scores under Lc 50, and white on mid grey fails 4.5:1 while clearing Lc 75.
  *
  * The subject is the comparison table. The term names the scoring, and the scoring is the two
- * columns read against each other; the size control and the threshold line are instrumentation
- * and stay in the context register (SPEC §5). Both size settings are honest APCA, so there is
- * no state identify has to refuse.
+ * columns read against each other; the size control is instrumentation and stays in the
+ * context register (SPEC §5). The threshold line changes with the size, so it is marked
+ * `data-stage-verdict` and the stage draws it in the strip rather than the table printing it;
+ * it used to end "Where the two columns disagree is the whole of the argument.", which was
+ * the article's thesis stated inside the specimen, and that sentence is gone. Both size
+ * settings are honest APCA, so there is no state identify has to refuse.
  *
  * Every sample cell is a fixed height and the number cells are fixed width, so changing size
  * repaints and moves nothing (SPEC §5).
@@ -122,8 +123,8 @@ export function mount(root: HTMLElement): void {
           <tbody>${rows}</tbody>
         </table>
 
-        <p class="sp-text sp-context" data-part="thresholds"
-           style="margin: 10px 0 0; height: 32px; font-size: 11px; line-height: 1.4">${start.note} ${TAIL}</p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="thresholds"
+           style="margin: 10px 0 0; height: 32px; font-size: 11px; line-height: 1.4">${start.note}</p>
       </div>
     </div>
   `;
@@ -135,7 +136,7 @@ export function mount(root: HTMLElement): void {
     const size = SIZES.find((s) => s.key === key);
     if (!size) return;
     table.dataset.size = key;
-    thresholds.textContent = `${size.note} ${TAIL}`;
+    thresholds.textContent = size.note;
 
     for (const pair of PAIRS) {
       const value = ratio(pair.text, pair.bg);

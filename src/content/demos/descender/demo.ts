@@ -47,6 +47,12 @@ function ink(text: string, size: number): { above: number; below: number } {
  * The subject is the ruled word. A descender is a distance between two lines, so
  * the narrowest thing that carries one is the sample with its rules on it;
  * ringing the window would claim the term names the whole comparison.
+ *
+ * Nothing in the frame tells the reader what to conclude any more. The window was
+ * headed "Where the letters hang" and now names the panel, "Vertical metrics"; the
+ * two trimmed boxes were captioned "height 22px: the tails are cut" and "height
+ * 32px: the tails survive", and now carry only the height, since the clipping is
+ * the thing on screen.
  */
 export function mount(root: HTMLElement): void {
   /* The tails this word actually has, so the rule lands on the deepest one drawn
@@ -99,7 +105,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Where the letters hang</span>
+          <span class="sp-heading">Vertical metrics</span>
           <span class="sp-label" style="font-variant-numeric: tabular-nums">${SIZE}px</span>
         </div>
         <div data-part="ruled" data-subject style="margin-top: 2px; font-size: 0; white-space: nowrap">
@@ -113,8 +119,8 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-divider sp-context" style="margin: 10px 0"></div>
         <div class="sp-row sp-context" data-part="clipping" style="gap: 16px; align-items: flex-end">
-          ${box('trimmed', TRIM, `height ${TRIM}px: the tails are cut`)}
-          ${box('roomy', ROOM, `height ${ROOM}px: the tails survive`)}
+          ${box('trimmed', TRIM, `height ${TRIM}px`)}
+          ${box('roomy', ROOM, `height ${ROOM}px`)}
         </div>
       </div>
     </div>

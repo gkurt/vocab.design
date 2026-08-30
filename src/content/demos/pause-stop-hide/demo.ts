@@ -15,12 +15,6 @@ const SLIDES = [
 
 const VIEWERS = [1284, 1291, 1276, 1302, 1288];
 
-const OFFERS: Record<Offered, string> = {
-  none: 'Escape offered: none',
-  pause: 'Escape offered: pause',
-  both: 'Escape offered: pause, or hide it',
-};
-
 const CAPTION: Record<Offered, string> = {
   none: 'Both panels move for longer than five seconds and neither was asked for. That is the whole of what criterion 2.2.2 is about.',
   pause: 'One visible control that really stops everything. The criterion asks for an escape, not for a transport bar.',
@@ -30,12 +24,11 @@ const CAPTION: Record<Offered, string> = {
 /**
  * Pause, stop, hide specimen: an auto-advancing carousel beside an auto-updating figure, with a
  * segmented control naming what escape the reader is offered. No control at all, then a pause
- * control, then pause with a hide beside it, and a strip that names the escape each state
- * actually provides.
+ * control, then pause with a hide beside it.
  *
  * The subject is the pause control, the narrowest element the term names: the criterion is about
  * the control, not about the content that moves. The picker, the carousel, the live figure, the
- * hide control, the escape strip and the caption are scenery (SPEC §5). In the state that offers
+ * hide control and the caption are scenery (SPEC §5). In the state that offers
  * nothing the control is absent from the scene rather than from the DOM, and identify summons the
  * script forward until it is on stage again (SPEC §6); the mount state offers it.
  *
@@ -47,6 +40,11 @@ const CAPTION: Record<Offered, string> = {
  * stand and a remount takes them away (SPEC §6). The moving panels and the hidden placeholder
  * share one reserved height and the control row keeps its own, so no state moves anything else
  * (SPEC §5).
+ *
+ * A line beside the controls read "Escape offered: pause", scoring the state from inside the
+ * player. It changed with the picker, which makes it a verdict, and this specimen already has
+ * one saying more, so it is deleted rather than moved: the controls on screen are what the
+ * reader is offered.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const dots = SLIDES.map(
@@ -111,9 +109,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                     style="width: 76px; justify-content: center; font-size: 11.5px">Pause</button>
             <button class="sp-button sp-button--quiet sp-button--sm sp-context" type="button" data-part="hide" hidden
                     style="width: 68px; justify-content: center; font-size: 11.5px; color: var(--sp-muted)">Hide</button>
-            <span class="sp-grow"></span>
-            <span class="sp-label sp-context" data-part="offers" data-offered="pause"
-                  style="flex: 0 0 auto; font-size: 10.5px">${OFFERS.pause}</span>
           </div>
         </div>
 
@@ -131,7 +126,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const refresh = part(root, 'refresh');
   const pause = part(root, 'pause');
   const hide = part(root, 'hide');
-  const offers = part(root, 'offers');
   const caption = part(root, 'caption');
   const markers = SLIDES.map((_, i) => part(root, `dot-${i + 1}`));
 
@@ -194,8 +188,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     hidden = false;
     flag(pause, 'hidden', next === 'none');
     flag(hide, 'hidden', next !== 'both');
-    offers.dataset.offered = next;
-    offers.textContent = OFFERS[next];
     caption.dataset.offered = next;
     caption.textContent = CAPTION[next];
     paint();

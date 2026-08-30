@@ -20,13 +20,6 @@ const NAME: Record<Key, string> = {
   suitcase: 'Suitcase',
 };
 
-const READOUT: Record<Key, string> = {
-  wheelchair: 'The user the ramp was cut for',
-  pram: 'A parent, never named in the brief',
-  trolley: 'A courier, never named in the brief',
-  suitcase: 'A traveller, never named in the brief',
-};
-
 /** Where each traveller stands: x along the drawing, y on the surface under it. */
 const SPOT: Record<Key, [number, number]> = {
   pram: [72, 32],
@@ -37,25 +30,23 @@ const SPOT: Record<Key, [number, number]> = {
 
 const START: Key = 'wheelchair';
 
-/** The digital kerb cuts, each one built for a named group and used by everyone. */
-const ROWS = [
-  { name: 'Captions', built: 'deaf viewers', also: 'noisy gyms, quiet offices' },
-  { name: 'Autocomplete', built: 'limited motor control', also: 'anyone typing on a phone' },
-  { name: 'High contrast', built: 'low vision', also: 'a screen in direct sunlight' },
-];
-
 /**
  * Curb cut effect specimen: the founding exhibit drawn in profile, one ramp cut through a kerb
  * with four wheeled travellers on it, only one of whom the ramp was built for. The legend
- * picks a traveller, which lights that figure in the drawing and says who they are, and the
- * rows underneath repeat the same shape three times in software.
+ * picks a traveller, which lights that figure in the drawing.
  *
  * The subject is the kerb drawing, the narrowest element that is the term: the effect is the
  * ramp together with the crowd using it, so ringing the wedge alone would name a curb cut and
- * ringing the whole scene would withdraw identify (SPEC §5, §6). The legend, the readout, the
- * software rows, and the caption are scenery. Every figure is drawn at mount and only its
- * colour changes, and the readout holds one line, so picking moves nothing. Each legend button
- * reaches its own traveller rather than cycling (SPEC §8).
+ * ringing the whole scene would withdraw identify (SPEC §5, §6). The legend is scenery. Every
+ * figure is drawn at mount and only its colour changes, so picking moves nothing. Each legend
+ * button reaches its own traveller rather than cycling (SPEC §8).
+ *
+ * Four pieces of author voice were deleted from the frame: a header label reading "One ramp,
+ * cut for one person", a readout naming each traveller as someone "never named in the brief",
+ * and a three-row table headed "The same cut, in software" whose cells argued the case
+ * ("built for deaf viewers", "also noisy gyms, quiet offices"), plus a closing caption. None
+ * of it was anything the drawing itself would print, and the article makes every one of those
+ * points at length. What is left is the exhibit: the ramp, and who is on it.
  */
 export function mount(root: HTMLElement): void {
   const figure = (key: Key) => {
@@ -75,25 +66,10 @@ export function mount(root: HTMLElement): void {
     )
     .join('');
 
-  const rows = ROWS.map(
-    (row) => `
-      <div class="sp-row" style="gap: 8px; height: 18px">
-        <span class="sp-text sp-text--ink" style="flex: 0 0 82px; font-size: 11px">${row.name}</span>
-        <span class="sp-text" style="flex: 0 0 auto; font-size: 11px">built for ${row.built}</span>
-        <span class="sp-text" style="flex: 1 1 auto; min-width: 0; font-size: 11px; text-align: right">also ${row.also}</span>
-      </div>`,
-  ).join('');
-
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One ramp, cut for one person</span>
-          <span class="sp-text sp-text--ink" data-part="readout" data-who="${START}"
-                style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${READOUT[START]}</span>
-        </div>
-
-        <div class="sp-surface" data-part="kerb" data-subject data-who="${START}" style="margin-top: 10px; padding: 6px 10px 4px">
+        <div class="sp-surface" data-part="kerb" data-subject data-who="${START}" style="padding: 6px 10px 4px">
           <svg viewBox="0 0 400 78" width="100%" height="78" fill="none" stroke="currentcolor" stroke-width="1.6"
                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: block">
             <path d="M4 32H140l66 26h190v20H4Z" fill="var(--sp-sunken)" stroke="none"/>
@@ -109,21 +85,11 @@ export function mount(root: HTMLElement): void {
           </svg>
           <div class="sp-row sp-row--wrap" data-part="legend" style="gap: 2px 4px; margin-top: 4px">${legend}</div>
         </div>
-
-        <div class="sp-stack sp-context" data-part="software" style="gap: 2px; margin-top: 10px">
-          <span class="sp-label" style="font-size: 10px">The same cut, in software</span>
-          ${rows}
-        </div>
-
-        <p class="sp-text sp-context" data-part="caption" style="margin: 8px 0 0; height: 34px; font-size: 11px">
-          The kerb was cut for the wheelchair. Everyone else on it is a bystander the ramp was never justified by, and there are more of them.
-        </p>
       </div>
     </div>
   `;
 
   const kerb = part(root, 'kerb');
-  const readout = part(root, 'readout');
   const keys = Object.keys(NAME) as Key[];
 
   const pick = (key: Key) => {
@@ -136,8 +102,6 @@ export function mount(root: HTMLElement): void {
       flag(button, 'data-selected', on);
       button.style.boxShadow = on ? 'inset 0 0 0 1px var(--sp-ink)' : '';
     }
-    readout.dataset.who = key;
-    readout.textContent = READOUT[key];
   };
 
   pick(START);

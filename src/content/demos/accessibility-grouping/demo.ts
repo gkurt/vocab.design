@@ -31,7 +31,12 @@ const KIDS = ['kid-avatar', 'kid-name', 'kid-role', 'kid-time'];
  * The subject is the card, the narrowest element the term names: grouping is a property of
  * the container, not of any child and not of the screen around it. The segmented control,
  * the swipe button, the stop counter, the announcement line and the caption are scenery
- * (SPEC §5). Ungrouped is the counter-example, so the honest condition lives in `data-pose`
+ * (SPEC §5). Two lines of the site's own voice have gone from the card: a strapline naming
+ * the platform APIs ("Compose mergeDescendants · Android importantForAccessibility"), which
+ * belongs to the article and to nothing the reader is looking at, and the label "The screen
+ * reader says", which was a stage direction over an instrument the scene does not draw. What
+ * is spoken is now marked `data-stage-announce`, so the stage says it in the strip's own lane
+ * (SPEC §5.1). Ungrouped is the counter-example, so the honest condition lives in `data-pose`
  * and the mount state satisfies it: identify refuses to ring a card that is not grouped and
  * plays on (SPEC §6).
  *
@@ -51,10 +56,6 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-row sp-context" style="margin-top: 5px; height: 14px">
-          <span class="sp-label" style="font-size: 10px">Compose mergeDescendants · Android importantForAccessibility</span>
-        </div>
-
         <div class="sp-surface" data-part="card" data-subject data-pose="[data-grouped]" data-grouped
              style="margin-top: 8px; padding: 9px 10px; display: flex; align-items: center; gap: 10px">
           <span class="sp-avatar" data-part="kid-avatar">AL</span>
@@ -71,11 +72,8 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">Stop 1 of 1</span>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The screen reader says</span>
-          <span class="sp-text sp-text--ink" data-part="say" data-at="card"
-                style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${GROUPED[0]?.say}</span>
-        </div>
+        <span class="sp-text sp-text--ink" data-stage-announce data-part="say" data-at="card"
+              style="display: block; margin-top: 9px; height: 18px; font-size: 11.5px; white-space: nowrap">${GROUPED[0]?.say}</span>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="grouped"
            style="margin: 7px 0 0; height: 34px; font-size: 11px">${CAPTION.grouped}</p>

@@ -39,7 +39,10 @@ const CAPTION = {
  * are on stage in, so no `data-pose` is needed.
  *
  * The panel holds the notes and the bare-state placeholder in the same reserved box, so switching
- * moves nothing (SPEC §5). No timers: both states are reached by a pick.
+ * moves nothing (SPEC §5). The placeholder is the panel's empty state and says only that ("No
+ * notes on this file."): it used to explain what a comp cannot carry, which is the article's job
+ * and not something a handoff tool would print in an empty list. No timers: both states are
+ * reached by a pick.
  */
 export function mount(root: HTMLElement): void {
   const badge = (n: number, extra: string) => `
@@ -90,8 +93,7 @@ export function mount(root: HTMLElement): void {
               <p class="sp-text sp-context" data-part="placeholder"
                  style="position: absolute; inset: 0; margin: 0; font-size: 11px; line-height: 1.4;
                         transition: opacity 0.2s, visibility 0.2s">
-                Nothing but pixels. Heading level, focus order, roles, and alt text still have to be decided,
-                so they get decided by whoever writes the markup.</p>
+                No notes on this file.</p>
               <div class="sp-stack" data-part="notes" data-subject
                    style="position: absolute; inset: 0; gap: 6px; opacity: 0; visibility: hidden;
                           transition: opacity 0.2s, visibility 0.2s">

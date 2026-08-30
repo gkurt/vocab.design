@@ -74,6 +74,11 @@ function burst(cx: number, cy: number, outer: number, inner: number): string {
  *
  * The paint is inline because the junk is the term. The kit has one accent, no gradients
  * and no hatch, so a chart junked out of kit tokens would be demonstrating the kit.
+ *
+ * The count under the chart ("Non-data ink: 25 marks wrapped around 5 numbers.") is the
+ * author reading the state the switch produced, not something the chart would print about
+ * itself, so it carries `data-stage-verdict` and the stage draws it in the strip. It keeps
+ * the line it reserved, because a listing card draws no strip and still shows the count.
  */
 export function mount(root: HTMLElement): void {
   const gridlines = GRID.map((f) => {
@@ -187,9 +192,9 @@ export function mount(root: HTMLElement): void {
 
           <span
             class="sp-label sp-context"
+            data-stage-verdict
             data-part="tally"
             data-mode="laden"
-            role="status"
             style="flex: 0 0 auto; height: 15px; font-size: 11px; line-height: 15px; white-space: nowrap"
           >${NOTES.laden}</span>
         </div>

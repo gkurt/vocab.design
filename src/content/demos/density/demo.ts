@@ -31,6 +31,10 @@ const ROWS = [
  *
  * Which rows fit is measured rather than assumed, so the claim survives a font that
  * rounds differently, and it is published as `data-clipped` so a script can read it.
+ *
+ * The count itself ("3 of 8 rows fit") used to print under the table, where no order blotter
+ * would ever show it. It is the author reading the state and it changes with the switch, so it
+ * is marked `data-stage-verdict` and the stage draws it in the strip instead.
  */
 export function mount(root: HTMLElement): void {
   const body = ROWS.map(
@@ -74,9 +78,7 @@ export function mount(root: HTMLElement): void {
               <tbody>${body}</tbody>
             </table>
           </div>
-          <div class="sp-row sp-context" style="height: 24px; margin-top: 6px">
-            <span class="sp-text" data-part="fit" style="width: 140px"></span>
-          </div>
+          <span class="sp-text sp-context" data-stage-verdict data-part="fit" style="width: 140px"></span>
         </div>
       </div>
     </div>

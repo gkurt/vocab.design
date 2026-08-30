@@ -10,8 +10,14 @@
  *
  * The subject is the interface fragment, not the tour and not one motif: the term names a
  * register applied to a design, and the fragment is the narrowest element on stage that is
- * actually one (SPEC §5). The two reference tiles, the labels and the caption are the
+ * actually one (SPEC §5). The two reference tiles, the plate labels and the caption are the
  * scenery that makes the register legible.
+ *
+ * Each tile once carried a note reading the drawing back ("Starburst, boomerang, orbit:
+ * thin lines.", "Geometry with one organic exception.", "The register, spent on an
+ * interface."), under a heading that read "One period, three moves". A plate is labelled,
+ * not annotated, so the notes and the heading went and the drawings are left to be looked
+ * at; the article does the reading.
  *
  * Static: a poster has no states, so there is nothing to animate and no clock to take.
  *
@@ -61,8 +67,8 @@ function art(part: string, body: string): string {
     </svg>`;
 }
 
-/** One tile of the tour: a paper ground with its drawing, then a label and a note under it. */
-function tile(part: string, label: string, note: string, inner: string, mark = ''): string {
+/** One tile of the tour: a paper ground with its drawing, and the plate's label under it. */
+function tile(part: string, label: string, inner: string, mark = ''): string {
   return `
     <div class="sp-stack" style="flex: 0 0 ${W}px; gap: 5px; align-items: stretch">
       <div data-part="${part}"${mark}
@@ -71,7 +77,6 @@ function tile(part: string, label: string, note: string, inner: string, mark = '
         ${inner}
       </div>
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 }
 
@@ -117,16 +122,14 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One period, three moves</span>
-
         <div class="sp-row" data-part="tour" style="gap: 11px; align-items: flex-start; justify-content: center">
           <div class="sp-context">
-            ${tile('tile-motif', 'Motif', 'Starburst, boomerang, orbit: thin lines.', motif)}
+            ${tile('tile-motif', 'Motif', motif)}
           </div>
           <div class="sp-context">
-            ${tile('tile-shapes', 'Shapes', 'Geometry with one organic exception.', shapes)}
+            ${tile('tile-shapes', 'Shapes', shapes)}
           </div>
-          ${tile('tile-applied', 'Applied', 'The register, spent on an interface.', fragment)}
+          ${tile('tile-applied', 'Applied', fragment)}
         </div>
       </div>
 

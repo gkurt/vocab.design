@@ -23,9 +23,7 @@ export default steps([
   // Upright, the same three letters stack: a full em each, so the run grows taller.
   { assert: { selector: '[data-part=run-latin][data-lay=upright]', state: 'visible' } },
   { assert: { selector: '[data-part=run-digits]', state: 'visible' } },
-  { moveTo: '[data-part=readout]' },
   { wait: 700 },
-  { assert: { selector: '[data-part=readout]', state: 'visible' } },
   // Ends on the vertical setting, the state the subject's data-pose calls honest.
   { moveTo: '[data-part=seg-vertical]' },
   { click: true },

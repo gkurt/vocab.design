@@ -88,7 +88,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" data-part="anatomy" style="gap: 10px; justify-content: space-between">
           ${layer('layer-body', 'Deep body', `background-color: ${blue}; background-image: ${BODY}; border: 1px solid ${RIM}`)}
           ${layer('layer-band', 'Specular band', `background-image: ${SHEEN}; border: 1px solid var(--sp-line); background-color: #9aa3b2`)}
-          ${layer('layer-all', 'Both, hard edge', `${glossy(blue, '6px')}`)}
+          ${layer('layer-all', 'Both layers', `${glossy(blue, '6px')}`)}
         </div>
       </div>
 

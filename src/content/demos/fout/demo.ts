@@ -48,6 +48,10 @@ const widthBar = (name: string, family: string, fill: string) => `
  * (SPEC §6), so identify holds the moment the term is about instead of the
  * settled page it turns into, which no longer shows a swap at all.
  *
+ * The sample paragraph read "Readable at first paint, and measured twice.", which is the
+ * site describing the demonstration in the one place a reader expects ordinary page copy.
+ * It is ordinary copy now, and the article makes the point.
+ *
  * The block holds one height and clips, so a face two thirds wider cannot push
  * the bars or the caption around (SPEC §5).
  */
@@ -66,7 +70,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
              style="height: 74px; overflow: hidden; margin-top: 4px; font-family: ${FALLBACK}">
           <p data-part="headline" style="margin: 0; font-size: ${SIZE}px; white-space: nowrap">${HEADLINE}</p>
           <p data-part="body" style="margin: 6px 0 0; font-size: 13px; line-height: 1.5">
-            Readable at first paint, and measured twice.
+            Twelve sailings a day, from March until the end of October.
           </p>
         </div>
         <div class="sp-stack sp-context" data-part="widths" style="gap: 7px; margin-top: 10px">

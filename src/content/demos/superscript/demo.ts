@@ -38,6 +38,13 @@ const RULED =
  * in this stack, which is the honest finding and also a state where the subject is
  * not the term, so the condition is declared in `data-pose` (SPEC §6): identify
  * refuses to pose it and the specimen mounts on the fallback.
+ *
+ * The line under the sample reads the current setting back ("font-size 0.68em, a
+ * baseline shift, and line-height 0 so the line box does not grow." against the
+ * feature's own result), which is the author's reading and changes with the switch,
+ * so it is marked `data-stage-verdict` and the stage draws it in the strip. The two
+ * ruled columns were headed "vertical-align: super alone" and "with line-height: 0";
+ * they now carry the bare declaration that separates them.
  */
 export function mount(root: HTMLElement): void {
   const ruled = (style: string) => RULED.replaceAll('STYLE', style);
@@ -64,11 +71,11 @@ export function mount(root: HTMLElement): void {
              data-part="marker" style="${RAISED.css}">1</sup> in the 1<span data-part="ordinal"
              style="${RAISED.css}">st</span> quarter, on 240 m<span data-part="exponent"
              style="${RAISED.css}">2</span>.</p>
-        <p class="sp-text sp-context" data-part="readout" style="margin: 6px 0 0; height: 38px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin: 6px 0 0; height: 38px"></p>
         <div class="sp-divider sp-context" style="margin: 4px 0 8px"></div>
         <div class="sp-row sp-context" data-part="compare" style="gap: 14px; align-items: flex-start">
-          ${column('vertical-align: super alone', 'font-size: 0.68em; vertical-align: super', 'grown')}
-          ${column('with line-height: 0', RAISED.css, 'held')}
+          ${column('vertical-align: super', 'font-size: 0.68em; vertical-align: super', 'grown')}
+          ${column('line-height: 0', RAISED.css, 'held')}
         </div>
       </div>
     </div>

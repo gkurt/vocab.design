@@ -50,7 +50,10 @@ const rotation = (value: number) => value * 1.8 - 90;
  * The subject is the gauge itself, the scale and needle together with the number and
  * the status word beneath them, since a reading nobody can name is the abuse the
  * article warns about: colour is never the only thing carrying the verdict here. The
- * window, the buttons and the caption are scenery.
+ * window and the buttons are scenery.
+ *
+ * A caption under the frame used to read "A dial measures a range. It never finishes.",
+ * which is the article's definition standing beside the thing it defines, so it went.
  *
  * Each control names an absolute value rather than nudging whatever it finds (SPEC §8),
  * so a pass picked up anywhere reads the same. The needle's transition is a plain CSS
@@ -138,7 +141,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-context" style="gap: 8px; justify-content: center">${buttons}</div>
         </div>
       </div>
-      <span class="sp-text sp-context" style="font-size: 12px">A dial measures a range. It never finishes.</span>
     </div>
   `;
 

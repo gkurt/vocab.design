@@ -16,7 +16,7 @@ import '#src/kit/segmented.ts';
  * behind the sample, so where they land IS the line's width.
  */
 const SAMPLE = 'Handgloves';
-const TAIL = 'then this follows';
+const TAIL = 'quick brown fox';
 
 type Stop = { key: string; grade: string; wght: number; stroke: string; gradeRead: string; weightRead: string };
 
@@ -26,24 +26,24 @@ const STOPS: Stop[] = [
     grade: '-50',
     wght: 300,
     stroke: '0.4px var(--sp-surface)',
-    gradeRead: 'GRAD -50: lighter, same widths',
-    weightRead: 'wght 300: lighter and narrower',
+    gradeRead: 'GRAD -50',
+    weightRead: 'wght 300 Light',
   },
   {
     key: 'zero',
     grade: '0',
     wght: 400,
     stroke: '0 currentcolor',
-    gradeRead: 'GRAD 0: the family’s own grade',
-    weightRead: 'wght 400: the family’s Regular',
+    gradeRead: 'GRAD 0',
+    weightRead: 'wght 400 Regular',
   },
   {
     key: 'plus150',
     grade: '150',
     wght: 700,
     stroke: '0.55px currentcolor',
-    gradeRead: 'GRAD 150: darker, same widths',
-    weightRead: 'wght 700: darker and wider',
+    gradeRead: 'GRAD 150',
+    weightRead: 'wght 700 Bold',
   },
 ];
 
@@ -59,6 +59,11 @@ const BASE = STOPS[1] as Stop;
  * Every grade the picker reaches is an honest coordinate on the axis, so no
  * `data-pose` is needed. The weight line is the counter-example and stays in the
  * context register with the labels, the markers and the readouts.
+ *
+ * The pane labels and the chips print the setting and nothing else. They used to read
+ * "grade: strokes only", "weight: the axis people reach for" and "GRAD 0: the family's own
+ * grade", which is the article annotating its own picture; the sample line after each marker
+ * is ordinary specimen filler for the same reason.
  *
  * Nothing is measured and nothing is reserved, because nothing in the grade pane
  * can move: the marker's position is layout's answer to the sample's width
@@ -90,8 +95,8 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-stack" style="gap: 12px; margin-top: 10px">
-          ${pane('grade', 'grade: strokes only', BASE.gradeRead, `-webkit-text-stroke: ${BASE.stroke}`)}
-          ${pane('weight', 'weight: the axis people reach for', BASE.weightRead, `font-variation-settings: 'wght' ${BASE.wght}`)}
+          ${pane('grade', 'Grade', BASE.gradeRead, `-webkit-text-stroke: ${BASE.stroke}`)}
+          ${pane('weight', 'Weight', BASE.weightRead, `font-variation-settings: 'wght' ${BASE.wght}`)}
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           No face here carries a GRAD axis, so the grade is drawn by stroking the outlines, which is paint and

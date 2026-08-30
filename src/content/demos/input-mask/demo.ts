@@ -49,6 +49,10 @@ const field = (name: string, label: string, id: string, subject: boolean, hint: 
  * beside it is a second instance rather than scenery, mounted part typed so the
  * remaining groups of four are visible without waiting for anything.
  *
+ * The helper line under each field used to describe the demonstration ("Type digits. The
+ * field adds the rest." and "Same idea, grouped in fours."). Both are now the helper text a
+ * checkout would really print under a phone and a card number.
+ *
  * The template is a span under a transparent-backed input, carrying the same face,
  * size and padding, with the part already typed rendered in transparent ink so the
  * two never draw the same characters twice. Formatting happens on every `input`
@@ -61,8 +65,8 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 324px">
         <div class="sp-heading sp-context">Delivery details</div>
         <div class="sp-stack" style="margin-top: 14px; gap: 14px">
-          ${field('phone', 'Mobile number', 'vd-mask-phone', true, 'Type digits. The field adds the rest.')}
-          ${field('card', 'Card number', 'vd-mask-card', false, 'Same idea, grouped in fours.')}
+          ${field('phone', 'Mobile number', 'vd-mask-phone', true, 'For delivery updates')}
+          ${field('card', 'Card number', 'vd-mask-card', false, 'Visa, Mastercard or Amex')}
         </div>
       </div>
     </div>

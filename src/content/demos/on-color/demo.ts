@@ -34,6 +34,11 @@ const ratio = (a: string, b: string) => {
  * The subject is the foreground content itself, not the panel it sits on: the term
  * names the colour the label is drawn in, and the fill under it is the other half of
  * the pair rather than the thing being named.
+ *
+ * A line under the pair used to read "The prefix names the surface, not the colour:
+ * on-primary is whatever reads against primary." It never changed with the palette, so
+ * it was the site explaining the naming convention inside the window. The two token
+ * labels and the measured ratios say the same thing in the product's own terms.
  */
 export function mount(root: HTMLElement): void {
   const panel = (parts: { part: string; subject?: boolean; label: string }) => `
@@ -65,10 +70,6 @@ export function mount(root: HTMLElement): void {
           ${panel({ part: 'paired', subject: true, label: 'on-primary' })}
           <div class="sp-context sp-grow" style="display: flex">${panel({ part: 'unpaired', label: 'primary on primary' })}</div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          The prefix names the surface, not the colour: on-primary is whatever reads against primary.
-        </p>
       </div>
     </div>
   `;

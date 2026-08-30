@@ -29,6 +29,9 @@ interface Box {
  * nothing (SPEC §5). Auto-advance is drawn with the kit's simulated focus ring, and real
  * focus moves only for a real reader's own keystrokes, since attract must never take the
  * keyboard (SPEC §7).
+ *
+ * The readout above the count was headed "What the form received", which is the site
+ * explaining rather than a panel naming itself; it reads "Parsed value" now.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -74,7 +77,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-surface sp-context" style="flex: 0 0 auto; padding: 7px 11px">
-            <span class="sp-label" style="display: block; height: 14px; font-size: 10.5px">What the form received</span>
+            <span class="sp-label" style="display: block; height: 14px; font-size: 10.5px">Parsed value</span>
             <span class="sp-text sp-text--ink" data-part="status" data-state="waiting" style="display: block; height: 16px; font-size: 11.5px; line-height: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Nothing yet.</span>
           </div>
 

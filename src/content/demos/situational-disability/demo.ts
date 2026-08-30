@@ -6,23 +6,12 @@ type Condition = 'glare' | 'reach' | 'mute';
 const MUTE_GLYPH =
   '<svg class="sp-icon" viewBox="0 0 24 24" aria-hidden="true" style="width: 13px; height: 13px"><path d="M4 9.5h3L11 6.5v11L7 14.5H4z"/><path d="m15.5 9.5 4.5 5M20 9.5l-4.5 5"/></svg>';
 
-const CONDITION = {
-  glare: {
-    moment: 'Low sun straight onto the screen, waiting for a bus',
-    breaks: 'The skip control is grey on grey. Against the wash it is not low contrast any more, it is simply not there.',
-    permanent: 'Low vision, and everyone else getting older',
-  },
-  reach: {
-    moment: 'One arm holding a sleeping child, phone in the other hand',
-    breaks: 'The control sits in the far corner, outside the arc a thumb covers without regripping the phone.',
-    permanent: 'Limited dexterity, a cast, a hand on a cane',
-  },
-  mute: {
-    moment: 'A full carriage and no headphones in the bag',
-    breaks: 'Skipping confirms with a chime and nothing else, so a silenced phone answers a press with nothing.',
-    permanent: 'Deafness, and any room already too loud',
-  },
-} as const satisfies Record<Condition, unknown>;
+/** What each moment amounts to, drawn in the strip above the switch that produced it. */
+const VERDICT = {
+  glare: 'Low sun on the screen: the skip control is grey on grey, and against the wash it is not there at all.',
+  reach: 'One arm holding a sleeping child: the skip control sits outside the arc a thumb covers without regripping.',
+  mute: 'A silenced phone in a full carriage: skipping confirms with a chime, so the press answers with nothing.',
+} as const satisfies Record<Condition, string>;
 
 /**
  * Situational disability specimen: one player screen shown in three moments, each of which
@@ -33,24 +22,26 @@ const CONDITION = {
  * has no element of its own, so the honest narrowest answer is the one control every condition
  * lands on: washed out under glare, out of reach one handed, unconfirmed in silence. Keeping it
  * fixed across all three picks is also what makes the point, since the alternative would be
- * three subjects and three separate failures. The phone, the three condition overlays, the
- * readouts and the caption are scenery (SPEC §5), and the control fails in every state the
- * script visits, so no state is dishonest and no `data-pose` is needed.
+ * three subjects and three separate failures. The phone and the three condition overlays are
+ * scenery (SPEC §5), and the control fails in every state the script visits, so no state is
+ * dishonest and no `data-pose` is needed.
  *
- * The overlays hold their room whether shown or hidden, and every readout sits in a fixed box,
- * so switching condition moves nothing (SPEC §5).
+ * A panel beside the phone used to carry three labelled readouts per moment: the moment itself
+ * ("Low sun straight onto the screen, waiting for a bus"), what it breaks, and "The same
+ * barrier, permanently" ("Low vision, and everyone else getting older"). None of that is
+ * anything a player app would print, and it changes with the switch, so it is one verdict now
+ * and the stage draws it above the controls (SPEC §5.1). The permanent, temporary, situational
+ * spectrum is the article's opening paragraph. With the panel gone the window is only as wide
+ * as the phone.
+ *
+ * The overlays hold their room whether shown or hidden, so switching condition moves nothing
+ * (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
-  const readout = (label: string, name: string, height: number, value: string) => `
-    <span class="sp-label" style="font-size: 10px">${label}</span>
-    <p class="sp-text sp-text--ink" data-part="${name}" data-mode="glare"
-       style="margin: 2px 0 0; height: ${height}px; font-size: 11.5px; line-height: 1.35">${value}</p>`;
-
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 452px; padding: 12px 14px">
+      <div class="sp-window" style="width: 200px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One product</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Moment" data-part="condition" data-value="glare" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-glare" value="glare"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Glare</button>
@@ -61,8 +52,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-row" style="align-items: flex-start; gap: 14px; margin-top: 10px">
-          <div class="sp-frame" data-part="phone" style="flex: 0 0 auto; width: 172px; height: 204px">
+        <div class="sp-frame" data-part="phone" style="width: 172px; height: 204px; margin-top: 10px">
             <div class="sp-topbar sp-context" style="padding: 6px 9px; gap: 6px">
               <span class="sp-label" style="font-size: 10px">Nightbus FM</span>
             </div>
@@ -100,14 +90,10 @@ export function mount(root: HTMLElement): void {
                  transition: opacity 0.22s, visibility 0.22s; pointer-events: none;
                  background: linear-gradient(118deg, rgb(255 255 255 / 0.88) 6%, rgb(255 255 255 / 0.62) 44%,
                  rgb(255 255 255 / 0.1) 88%)"></div>
-          </div>
-
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 9px">
-            <div>${readout('The moment', 'moment', 32, CONDITION.glare.moment)}</div>
-            <div>${readout('What it breaks', 'breaks', 46, CONDITION.glare.breaks)}</div>
-            <div>${readout('The same barrier, permanently', 'permanent', 30, CONDITION.glare.permanent)}</div>
-          </div>
         </div>
+
+        <p class="sp-text sp-context" data-stage-verdict data-part="verdict" data-mode="glare"
+           style="margin: 8px 0 0; font-size: 11.5px; line-height: 1.35">${VERDICT.glare}</p>
       </div>
     </div>
   `;
@@ -117,9 +103,7 @@ export function mount(root: HTMLElement): void {
     reach: part(root, 'reach'),
     mute: part(root, 'silence'),
   };
-  const moment = part(root, 'moment');
-  const breaks = part(root, 'breaks');
-  const permanent = part(root, 'permanent');
+  const verdict = part(root, 'verdict');
 
   const apply = (condition: Condition) => {
     for (const [key, overlay] of Object.entries(overlays)) {
@@ -128,15 +112,8 @@ export function mount(root: HTMLElement): void {
       overlay.style.opacity = on ? '1' : '0';
       overlay.style.visibility = on ? 'visible' : 'hidden';
     }
-    const rule = CONDITION[condition];
-    for (const [el, text] of [
-      [moment, rule.moment],
-      [breaks, rule.breaks],
-      [permanent, rule.permanent],
-    ] as const) {
-      el.dataset.mode = condition;
-      el.textContent = text;
-    }
+    verdict.dataset.mode = condition;
+    verdict.textContent = VERDICT[condition];
   };
 
   part(root, 'condition').addEventListener('change', (event) => {

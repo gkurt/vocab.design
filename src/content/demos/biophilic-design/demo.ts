@@ -1,6 +1,6 @@
 /**
  * Biophilic design specimen: one app panel built entirely from the register's form language,
- * with a reference column beside it naming the three moves it is made of. Uneven rounding on
+ * with the week's list beside it drawn from the same shapes. Uneven rounding on
  * the panel itself, a blob-edged hero card, a leaf-vein rule instead of a straight divider,
  * an earth palette of moss, bark, sky and clay, and a daylight wash that falls off across the
  * surface from one corner.
@@ -16,8 +16,15 @@
  *
  * The subject is the panel, not the whole scene and not one card inside it: the term names a
  * register spent on an interface surface, and the panel is the narrowest element on stage that
- * actually is one (SPEC §5). The reference column and the caption are the scenery that make
- * the form language legible.
+ * actually is one (SPEC §5). The column beside it and the caption are the scenery around it.
+ *
+ * That column was once a key to the specimen: headed "The form language", with each row naming
+ * a move ("A silhouette that is not a rounded rectangle.", "Rounding that differs corner to
+ * corner.", "A rule that branches instead of ruling."), under a window titled "A panel with no
+ * picture of a plant in it". No app prints its own design rationale beside itself, so the rows
+ * are the week's list now and the window carries the app's name. The shapes are unchanged: they
+ * are still a blob, an unevenly rounded tile and a leaf rule, doing the ordinary work of list
+ * art, and the verdict the stage draws in the strip is where the reading belongs.
  *
  * Static: the register's ambient drift belongs behind a reduced-motion check, and the article
  * says so, so the specimen is a still composition with no clock and no scripted motion.
@@ -75,7 +82,7 @@ function leafRule(width: number, height: number, stroke: string): string {
     </svg>`;
 }
 
-/** One row of the reference column: a shape, then the move it is an example of. */
+/** One row of the week's list: a shape, then the line it belongs to. */
 function reference(part: string, note: string, art: string): string {
   return `
     <div class="sp-row" data-part="${part}" style="gap: 9px; align-items: center">
@@ -91,20 +98,20 @@ export function mount(root: HTMLElement): void {
 
   const refColumn = `
     <div class="sp-stack sp-context" data-part="reference" style="flex: 0 0 ${REF_W}px; gap: 9px">
-      <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">The form language</span>
+      <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">This week</span>
       ${reference(
         'ref-blob',
-        'A silhouette that is not a rounded rectangle.',
+        'Water the ferns on Thursday.',
         `<span style="display: block; width: 46px; height: 34px; background: ${MOSS};
                       border-radius: 58% 42% 46% 54% / 62% 38% 62% 38%"></span>`,
       )}
       ${reference(
         'ref-corner',
-        'Rounding that differs corner to corner.',
+        'Move the seedlings to the sill.',
         `<span style="display: block; width: 46px; height: 34px; background: ${CLAY};
                       border-radius: 20px 5px 22px 7px"></span>`,
       )}
-      ${reference('ref-vein', 'A rule that branches instead of ruling.', leafRule(46, 30, BARK))}
+      ${reference('ref-vein', 'First frost expected around the 12th.', leafRule(46, 30, BARK))}
       <div class="sp-row" data-part="ref-palette" style="gap: 4px; margin-top: 2px">${swatches}</div>
     </div>`;
 
@@ -151,7 +158,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">A panel with no picture of a plant in it</span>
+        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Glasshouse</span>
 
         <div class="sp-row" data-part="tour" style="gap: 14px; align-items: flex-start; justify-content: center">
           ${panel}

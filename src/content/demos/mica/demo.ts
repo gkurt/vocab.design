@@ -16,7 +16,14 @@ import '#src/kit/segmented.ts';
  * The subject is the Mica window's surface: the term names that background material,
  * not the desktop it samples, the acrylic exhibit beside it, or the state control
  * (SPEC §5). Wallpaper and controls carry the context register. Only the fill colour
- * changes between states, and the readout holds a fixed box, so nothing moves.
+ * changes between states, so nothing moves.
+ *
+ * The line naming the fill changes with the switch, so it is the strip's verdict now
+ * rather than a caption inside the frame. Two sentences went with the move: the Settings
+ * pane read "Sampled once. Nothing behind the window shows through." and the acrylic
+ * sample "Translucent. Refracts the desktop live, every frame.", which is the comparison
+ * the two windows already make in front of the reader. The pane prints an ordinary display
+ * setting instead, and the acrylic panel keeps its height so the desktop reads through it.
  */
 const FILL = {
   active: { mica: '#e2d6f1', layer: 'rgb(255 255 255 / 0.66)', note: 'Tint sampled from the wallpaper' },
@@ -62,42 +69,31 @@ export function mount(root: HTMLElement): void {
             <div data-part="mica-layer"
                  style="flex: 1 1 auto; padding: 8px; border-radius: 6px; border: 1px solid rgb(16 24 40 / 0.08);
                         background: ${start.layer}; transition: background-color 0.3s var(--sp-ease)">
-              <div style="font-size: 11px; font-weight: 600">Opaque</div>
+              <div style="font-size: 11px; font-weight: 600">Scale</div>
               <div style="margin-top: 3px; font-size: 10px; line-height: 1.45; opacity: 0.72">
-                Sampled once. Nothing behind the window shows through.
+                125% recommended. Sign out to apply the new size.
               </div>
             </div>
           </div>
         </div>
 
-        <div class="sp-glass sp-context" data-part="acrylic" style="width: 132px; padding: 10px; border-radius: 8px">
+        <div class="sp-glass sp-context" data-part="acrylic" style="width: 132px; height: 92px; padding: 10px; border-radius: 8px">
           <div style="font-size: 11px; font-weight: 600">Acrylic</div>
-          <div style="margin-top: 3px; font-size: 10px; line-height: 1.45; opacity: 0.88">
-            Translucent. Refracts the desktop live, every frame.
-          </div>
         </div>
       </div>
 
-      <div class="sp-context" data-part="panel"
-           style="position: relative; display: flex; align-items: center; gap: 10px; padding: 7px 10px;
-                  background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)">
+      <div data-part="panel">
         <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="${START}" data-axis="Window">
           <button class="sp-segment" data-part="seg-active" value="active">Active</button>
           <button class="sp-segment" data-part="seg-inactive" value="inactive">Inactive</button>
         </sp-segmented>
-        <span class="sp-row" style="flex: 0 0 178px; gap: 7px">
-          <span class="sp-swatch" data-part="sample"
-                style="flex: 0 0 auto; width: 14px; height: 14px; box-shadow: inset 0 0 0 1px rgb(127 137 156 / 0.5);
-                       --sp-swatch: ${start.mica}"></span>
-          <span class="sp-text" data-part="readout" style="font-size: 11px">${start.note}</span>
-        </span>
+        <span class="sp-text" data-stage-verdict data-part="readout" style="font-size: 11px">${start.note}</span>
       </div>
     </div>
   `;
 
   const mica = part(root, 'mica');
   const layer = part(root, 'mica-layer');
-  const sample = part(root, 'sample');
   const readout = part(root, 'readout');
 
   const paint = (name: string) => {
@@ -106,7 +102,6 @@ export function mount(root: HTMLElement): void {
     mica.dataset.focus = name;
     mica.style.backgroundColor = next.mica;
     layer.style.background = next.layer;
-    sample.style.setProperty('--sp-swatch', next.mica);
     readout.textContent = next.note;
   };
 

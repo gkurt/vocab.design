@@ -32,7 +32,10 @@ const RESULTS = {
  * control that contains another one, and the ring has to show the pair to show the term.
  * The repaired card is scenery and never the subject, which is why the subject can never
  * pass through an honest state and needs no `data-pose` (SPEC §5–6). The readout rows and
- * the caption are instrumentation.
+ * the caption are instrumentation, and each card carries a one-word legend, "Nested" and
+ * "Not nested". Those read "The button inside the link" and "The button beside it", which
+ * described the two builds instead of naming them; the verdict line already says what the
+ * difference costs.
  *
  * Both cards are built from real elements rather than pictures of them, because the
  * nesting is the term: the press on the inner button genuinely bubbles to the link that
@@ -46,7 +49,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
         <div class="sp-row" style="gap: 10px; align-items: stretch">
           <div class="sp-stack" style="flex: 1 1 0; gap: 4px; min-width: 0">
-            <span class="sp-label sp-context">The button inside the link</span>
+            <span class="sp-label sp-context">Nested</span>
             <a class="sp-surface" href="#" data-part="card-nested" data-subject
                style="display: block; height: 104px; padding: 10px; color: inherit; text-decoration: none">
               <span class="sp-text sp-text--ink" style="display: block; font-size: 13px; font-weight: 600">Northern lights tour</span>
@@ -56,7 +59,7 @@ export function mount(root: HTMLElement): void {
             </a>
           </div>
           <div class="sp-stack sp-context" style="flex: 1 1 0; gap: 4px; min-width: 0">
-            <span class="sp-label">The button beside it</span>
+            <span class="sp-label">Not nested</span>
             <div class="sp-surface" data-part="card-fixed" style="position: relative; height: 104px; padding: 10px">
               <a href="#" data-part="link-fixed" style="font-size: 13px; font-weight: 600; color: inherit; text-decoration: none">
                 Northern lights tour

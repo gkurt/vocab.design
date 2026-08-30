@@ -41,11 +41,6 @@ const VERDICT: Record<Mode, { answer: string; text: string }> = {
   comparable: { answer: 'team', text: 'Cheapest per seat per month: Team, at 95p. Read straight across.' },
 };
 
-const NOTE: Record<Mode, string> = {
-  prevented: 'Nothing here is false. One price is yearly, one is a phone call, and no two feature rows measure the same thing.',
-  comparable: 'Same three plans, one billing period, the same three rows in the same order. Now the columns can be read across.',
-};
-
 /**
  * Comparison prevention specimen: one pricing page arranged two ways. The prevented
  * arrangement mixes billing periods, names each plan's features differently, and puts one
@@ -57,8 +52,13 @@ const NOTE: Record<Mode, string> = {
  * prevention is a property of the arrangement: every column here is individually truthful,
  * and a ring around one of them would identify a price rather than the term. The comparable
  * arrangement is a state in which the subject stops being the term, so that condition is
- * declared in `data-pose` and the specimen mounts prevented (SPEC §6). The verdict line,
- * the mode picker and the caption are scenery (SPEC §5).
+ * declared in `data-pose` and the specimen mounts prevented (SPEC §6). The verdict line and
+ * the mode picker are scenery (SPEC §5).
+ *
+ * A second caption once sat under the frame reading the arrangement out loud ("Nothing here
+ * is false. One price is yearly, one is a phone call...") and switched with the mode. That
+ * is the site talking inside the fiction, and the strip already carries one verdict, so it
+ * was deleted rather than moved; the article makes the same point at length.
  *
  * The three columns and every row inside them keep fixed boxes across both modes, so
  * switching arrangements rewrites text and moves nothing (SPEC §5). Each segment reaches its
@@ -122,15 +122,12 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <span class="sp-text sp-context" data-part="note" style="width: 452px; height: 30px; font-size: 11px; line-height: 1.35">${NOTE.prevented}</span>
     </div>
   `;
 
   const plans = part(root, 'plans');
   const verdict = part(root, 'verdict');
   const verdictText = part(root, 'verdict-text');
-  const note = part(root, 'note');
 
   part(root, 'mode').addEventListener('change', (event) => {
     const mode: Mode = (event as CustomEvent<string>).detail === 'comparable' ? 'comparable' : 'prevented';
@@ -138,6 +135,5 @@ export function mount(root: HTMLElement): void {
     plans.innerHTML = columns(mode);
     verdict.dataset.answer = VERDICT[mode].answer;
     verdictText.textContent = VERDICT[mode].text;
-    note.textContent = NOTE[mode];
   });
 }

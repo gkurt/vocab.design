@@ -11,18 +11,12 @@ const INSIDE = TOOLS.map((tool) => tool.key);
 const HATCH = 'stop-leave';
 const PAGE_AFTER = ['stop-continue', 'stop-help'];
 
-const CAPTIONS = {
-  trapped: {
-    label: 'Embedded plug-in (the mistake)',
-    verdict: 'Tab cycles inside the plug-in. Continue is unreachable. WCAG 2.1.2.',
-  },
-  escapable: {
-    label: 'Embedded plug-in (with a way out)',
-    verdict: 'Escape leaves the plug-in, and Tab walks on to Continue.',
-  },
+const VERDICTS = {
+  trapped: 'Tab cycles inside the plug-in. Continue is unreachable. WCAG 2.1.2.',
+  escapable: 'Escape leaves the plug-in, and Tab walks on to Continue.',
 } as const;
 
-type Mode = keyof typeof CAPTIONS;
+type Mode = keyof typeof VERDICTS;
 
 /**
  * Keyboard trap specimen: Tab walks into an embedded plug-in and then goes round its three
@@ -30,10 +24,16 @@ type Mode = keyof typeof CAPTIONS;
  * plug-in the exit the criterion asks for, a visible one and a documented key, and the
  * walk leaves.
  *
- * The subject is the plug-in panel, captioned by the scenery above it as the mistake: the
- * term names the region focus cannot get out of, and pointing identify at the fix would be
- * pointing it at a different term. The page around it, the caption, and the two state
- * chips are scenery (SPEC §5).
+ * The subject is the plug-in panel: the term names the region focus cannot get out of, and
+ * pointing identify at the fix would be pointing it at a different term. The page around
+ * it, the label above it, and the two state chips are scenery (SPEC §5). That label read
+ * "Embedded plug-in (the mistake)" and its twin "(with a way out)", which is the site
+ * judging its own scene from inside the frame; the verdict in the strip already says which
+ * state this is, so the label is now just what the panel is. The chips were "As shipped"
+ * and "With a way out" for the same reason and now name the two states plainly. The line
+ * beside the exit read "Escape leaves as well", the site comparing its own two states from
+ * inside the panel; a plug-in that offers the key has to say so, so it says it the way a
+ * plug-in would.
  *
  * Nothing in this specimen is focusable, on purpose and twice over. A real trap here would
  * strand the reader who took the stage over, which is the one bug this site must not ship;
@@ -52,7 +52,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface sp-context" style="padding: 8px; background: var(--sp-sunken)">
           <div class="sp-row">${stop('stop-home', 'Dashboard')}</div>
         </div>
-        <span class="sp-label sp-context" data-part="caption" style="display: block; margin-top: 10px">${CAPTIONS.trapped.label}</span>
+        <span class="sp-label sp-context" data-part="caption" style="display: block; margin-top: 10px">Embedded plug-in</span>
         <div class="sp-surface" data-part="widget" data-subject data-pose="[data-mode=trapped]" data-mode="trapped" style="margin-top: 4px; padding: 10px 12px">
           <div class="sp-row" style="gap: 6px">
             ${TOOLS.map((tool) => stop(tool.key, tool.label)).join('')}
@@ -60,7 +60,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row" style="height: 25px; margin-top: 6px; gap: 8px">
             <span class="sp-row" data-part="hatch" style="gap: 8px" hidden>
               ${stop(HATCH, 'Leave chart')}
-              <span class="sp-text" style="font-size: 11px">Escape leaves as well</span>
+              <span class="sp-text" style="font-size: 11px">Press Escape to leave</span>
             </span>
           </div>
         </div>
@@ -68,13 +68,13 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row" style="gap: 6px">${stop('stop-continue', 'Continue')}${stop('stop-help', 'Help')}</div>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="verdict" style="margin: 10px 0 0; font-size: 11px; height: 18px; white-space: nowrap">
-          ${CAPTIONS.trapped.verdict}
+          ${VERDICTS.trapped}
         </p>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
           <span class="sp-label">The plug-in</span>
           <div class="sp-row" style="gap: 6px">
-            <span class="sp-chip" data-part="mode-trapped" data-selected>As shipped</span>
-            <span class="sp-chip" data-part="mode-escapable">With a way out</span>
+            <span class="sp-chip" data-part="mode-trapped" data-selected>Without an exit</span>
+            <span class="sp-chip" data-part="mode-escapable">With an exit</span>
           </div>
         </div>
       </div>
@@ -83,7 +83,6 @@ export function mount(root: HTMLElement): void {
 
   const widget = part(root, 'widget');
   const hatch = part(root, 'hatch');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const chips = { trapped: part(root, 'mode-trapped'), escapable: part(root, 'mode-escapable') };
 
@@ -101,8 +100,7 @@ export function mount(root: HTMLElement): void {
     mode = next;
     widget.dataset.mode = next;
     hatch.hidden = next === 'trapped';
-    caption.textContent = CAPTIONS[next].label;
-    verdict.textContent = CAPTIONS[next].verdict;
+    verdict.textContent = VERDICTS[next];
     flag(chips.trapped, 'data-selected', next === 'trapped');
     flag(chips.escapable, 'data-selected', next === 'escapable');
     // The hatch cannot keep a ring it is about to stop showing.

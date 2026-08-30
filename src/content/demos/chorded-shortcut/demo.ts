@@ -45,11 +45,16 @@ const cap = (slot: number) => `
  *
  * Every cap slot holds its width and the file pane reserves room for its longest state, so a
  * chord firing moves nothing (SPEC §5).
+ *
+ * A line under the caps read "All of them arrive on one keydown, which is what makes it a
+ * chord.", which is the article's definition printed inside an editor. The caps light
+ * together and the verdict names what fired, so the definition has gone and the frame lost
+ * the row it took.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 292px">
+      <div class="sp-frame sp-frame--wide" style="height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Editor</span>
           <span class="sp-text" data-part="readout" style="width: 336px; text-align: right; white-space: nowrap">No chord pressed yet</span>
@@ -72,7 +77,6 @@ export function mount(root: HTMLElement): void {
                 style="width: 214px; text-align: right; white-space: nowrap; font-size: 12px"
               >Nothing held</span>
             </div>
-            <span class="sp-label" style="font-size: 11px">All of them arrive on one keydown, which is what makes it a chord.</span>
           </div>
 
           <div

@@ -8,9 +8,12 @@ import '#src/kit/segmented.ts';
  * pixel-for-pixel identical to `font-palette: normal`, because a bitmap emoji
  * face has no palettes to pick from, and no COLRv1 text face is installed. So
  * the layered glyph is DRAWN, as three copies of the same character in the same
- * face stacked and painted separately, and the caption says so: the three copies
- * stand for the font's own colour layers, and the switch stands for `font-palette`
- * choosing between two palettes the family shipped.
+ * face stacked and painted separately: the three copies stand for the font's own
+ * colour layers, and the switch stands for `font-palette` choosing between two
+ * palettes the family shipped. A caption under the samples used to admit all of
+ * that to the reader ("No face here carries a palette, so the layers are drawn as
+ * three painted copies..."), which is a note about how the specimen was made
+ * rather than anything a type specimen prints, so it lives here now instead.
  *
  * What is real beside the drawing is the emoji: a glyph on this machine whose
  * colours genuinely live in the font, and which genuinely exposes no palette.
@@ -23,8 +26,8 @@ const EXTRUDE = 7;
 type Palette = { key: string; name: string; layers: [string, string, string]; read: string };
 
 const PALETTES: Palette[] = [
-  { key: 'sunrise', name: '--sunrise', layers: ['#8a3413', '#e2662b', '#ffcb52'], read: '--sunrise: the font\u2019s own colours' },
-  { key: 'dusk', name: '--dusk', layers: ['#1d2a63', '#4570db', '#79dfe8'], read: '--dusk: the same layers, repainted' },
+  { key: 'sunrise', name: '--sunrise', layers: ['#8a3413', '#e2662b', '#ffcb52'], read: 'font-palette: --sunrise' },
+  { key: 'dusk', name: '--dusk', layers: ['#1d2a63', '#4570db', '#79dfe8'], read: 'font-palette: --dusk' },
 ];
 
 const LAYER_NAMES = ['0', '1', '2'];
@@ -38,8 +41,9 @@ const LAYER_NAMES = ['0', '1', '2'];
  * names: not the row it sits in and not the window, but the stacked drawing whose
  * colours come from the font rather than from `color`. Both palettes are honest
  * states of it, so it needs no `data-pose`. The one-ink copy beside it, the
- * palette swatches, the real emoji and the caption are the demo's own
- * instrumentation and stay in the context register.
+ * palette swatches and the real emoji are the demo's own instrumentation and stay
+ * in the context register, each labelled as the sample it is (Monochrome, Layered,
+ * Emoji) rather than with the point the article makes about it.
  *
  * Nothing is measured and nothing moves: the two upper layers are absolutely
  * positioned against the in-flow fill, so a palette swap repaints and never
@@ -66,7 +70,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row" data-part="row" style="gap: 16px; align-items: flex-end; height: 108px; margin-top: 10px">
           <span class="sp-stack sp-context" style="gap: 4px; align-items: center; flex: 0 0 124px">
             <span data-part="flat" style="font-size: ${SIZE}px; line-height: 1; font-weight: 700; color: var(--sp-ink)">${GLYPH}</span>
-            <span class="sp-label" style="white-space: nowrap">one ink, via color</span>
+            <span class="sp-label" style="white-space: nowrap">Monochrome</span>
           </span>
           <span class="sp-stack" style="gap: 4px; align-items: center; flex: 0 0 124px">
             <span data-part="glyph" data-subject data-palette="sunrise"
@@ -76,11 +80,11 @@ export function mount(root: HTMLElement): void {
               ${layer(1, `position: relative; color: ${PALETTES[0]?.layers[1]}`)}
               ${layer(2, `position: absolute; left: 0; top: 0; color: ${PALETTES[0]?.layers[2]}; clip-path: inset(0 0 54% 0)`)}
             </span>
-            <span class="sp-label sp-context" data-part="glyph-label" style="white-space: nowrap">three layers, one glyph</span>
+            <span class="sp-label sp-context" data-part="glyph-label" style="white-space: nowrap">Layered</span>
           </span>
           <span class="sp-stack sp-context" style="gap: 4px; align-items: center; flex: 0 0 124px">
             <span data-part="emoji" style="font-size: 40px; line-height: 1">&#x1F3A8;</span>
-            <span class="sp-label" style="white-space: nowrap">a real colour glyph</span>
+            <span class="sp-label" style="white-space: nowrap">Emoji</span>
           </span>
         </div>
         <div class="sp-row sp-context" data-part="swatches" style="gap: 10px; height: 30px">
@@ -89,11 +93,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-chip" data-part="readout"
                 style="cursor: default; margin-left: auto; white-space: nowrap; flex: 0 0 auto">${PALETTES[0]?.read ?? ''}</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
-          No face here carries a palette, so the layers are drawn as three painted copies of the same
-          character and the picker stands for <code>font-palette</code>. The emoji is the honest one: its
-          colours really are in the font, and it exposes no palette to override.
-        </p>
       </div>
     </div>
   `;

@@ -112,9 +112,13 @@ const NOTES: Record<string, string> = {
  *
  * The subject is the ink stack, the region where the plates overlap and mix, which is the
  * composite the term names. The sheet's paper margin, the plate control, the gamut strip and
- * the note are all outside it. A single separation is one ink rather than the model, a state
- * the subject passes through without being the term, so the honest condition is declared in
- * `data-pose` and the mount state satisfies it (SPEC §6).
+ * the note are all outside it. The strip once carried a sentence of explanation beside its two
+ * swatches ("Solid cyan on this paper is as far as the four inks reach in that direction, so the
+ * screen value has nowhere to land."); the article makes that point, and a picker prints no
+ * essays, so the swatches, their hexes and the out-of-gamut warning now stand on their own.
+ * A single separation is one ink rather than the model, a state the subject passes through
+ * without being the term, so the honest condition is declared in `data-pose` and the mount
+ * state satisfies it (SPEC §6).
  *
  * Every box is a fixed size and only paint and text change, so switching plates moves nothing
  * (SPEC §5). No timers, so `mount` takes no clock.
@@ -159,16 +163,13 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-row sp-context" data-part="gamut"
-             style="gap: 10px; margin-top: 10px; padding: 7px 11px; border-radius: 6px; background: var(--sp-sunken)">
+             style="gap: 14px; justify-content: center; margin-top: 10px; padding: 7px 11px; border-radius: 6px; background: var(--sp-sunken)">
           ${swatch('screen', 'Screen', SCREEN)}
           <span data-part="warn" style="display: inline-flex; flex: 0 0 auto; align-items: center; gap: 4px;
                 color: var(--sp-warn); font-size: 9px; line-height: 1.2">
             ${icon('alert')}<span>outside<br>CMYK</span>
           </span>
           ${swatch('printed', 'Ink', PRINTED)}
-          <span class="sp-text sp-grow" style="font-size: 9px; line-height: 1.35">
-            Solid cyan on this paper is as far as the four inks reach in that direction, so the screen value has nowhere to land.
-          </span>
         </div>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="note"

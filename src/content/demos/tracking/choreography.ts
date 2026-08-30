@@ -21,8 +21,7 @@ export default steps([
   { wait: 800 },
   { assert: { selector: '[data-part=eyebrow][data-track=set]', state: 'visible' } },
   { assert: { selector: '[data-part=headline][data-track=set]', state: 'visible' } },
-  { moveTo: '[data-part=caption]' },
   { wait: 900 },
   { assert: { selector: '[data-part=px-eyebrow]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { assert: { selector: '[data-part=px-headline]', state: 'visible' } },
 ]);

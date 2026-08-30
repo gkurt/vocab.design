@@ -14,7 +14,6 @@ export default steps([
   { assert: { selector: '[data-part=stamp-ada][data-age="8-min"]', state: 'visible' } },
   { wait: 4800 },
   { assert: { selector: '[data-part=stamp-ada][data-mode=absolute]', state: 'visible' } },
-  { assert: { selector: '[data-part=exact]', state: 'visible' } },
   { moveTo: '[data-part=rewind]' },
   { wait: 400 },
   { click: true },

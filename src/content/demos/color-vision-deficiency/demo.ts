@@ -21,11 +21,6 @@ const RAMP = Array.from({ length: 12 }, (_, i) => `oklch(0.7 0.16 ${i * 30})`);
  */
 const DEUTAN = '0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0';
 
-const READOUT = {
-  hue: 'Passing and Failing land on one olive',
-  redundant: 'Shape and word survive the filter',
-} as const;
-
 const CAPTION = {
   hue: 'Hue carries the status alone. The left panel reads fine, and its deuteranopia simulation loses the pass/fail pair.',
   redundant: 'The same statuses said twice, with a shape and a word. Both panels answer, so the hues stop being load-bearing.',
@@ -40,10 +35,14 @@ const CAPTION = {
  *
  * The subject is the simulated panel, the narrowest element that is the term: reduced hue
  * discrimination, made visible. The normal panel is the reference the eye compares against
- * and sits in the context register with the caption and readout (SPEC §5). The subject is the
- * term in both codings (a simulation of the fixed row is still a simulation of the deficiency),
- * so no `data-pose` is needed. Icons and status words are hidden in place rather than removed,
- * so switching codings repaints and moves nothing.
+ * and sits in the context register with the caption (SPEC §5). A line under the two panels
+ * used to read the result out for the reader ("Right panel: Passing and Failing land on one
+ * olive"), which is the verdict in the strip said twice and inside the frame the second time,
+ * so it is gone and its two asserts went with it.
+ *
+ * The subject is the term in both codings (a simulation of the fixed row is still a simulation
+ * of the deficiency), so no `data-pose` is needed. Icons and status words are hidden in place
+ * rather than removed, so switching codings repaints and moves nothing.
  */
 export function mount(root: HTMLElement): void {
   const ramp = (side: string) => `
@@ -97,12 +96,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; gap: 10px; height: 18px">
-          <span class="sp-label" style="flex: 0 0 auto">Right panel</span>
-          <span class="sp-text sp-text--ink" data-part="readout" data-coding="hue"
-                style="flex: 1 1 auto; min-width: 0; font-size: 11px; text-align: right; white-space: nowrap">${READOUT.hue}</span>
-        </div>
-
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-coding="hue"
            style="margin: 6px 0 0; height: 34px; font-size: 11px">${CAPTION.hue}</p>
       </div>
@@ -110,7 +103,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const panel = part(root, 'panel-sim');
-  const readout = part(root, 'readout');
   const caption = part(root, 'caption');
   const marks = ROWS.flatMap((row) => [
     ...partsOf(root, `normal-icon-${row.key}`),
@@ -123,8 +115,6 @@ export function mount(root: HTMLElement): void {
     // Hidden in place, never removed: the second cue gives its room back to nothing (SPEC §5).
     for (const mark of marks) mark.style.visibility = coding === 'redundant' ? 'visible' : 'hidden';
     panel.dataset.coding = coding;
-    readout.dataset.coding = coding;
-    readout.textContent = READOUT[coding];
     caption.dataset.coding = coding;
     caption.textContent = CAPTION[coding];
   };

@@ -20,7 +20,6 @@ interface Mode {
   /** The share the subject app is given the moment this mode is entered. */
   share: number;
   neighbour: 'none' | 'beside' | 'floating';
-  note: string;
 }
 
 const MODES: Mode[] = [
@@ -29,21 +28,18 @@ const MODES: Mode[] = [
     label: 'single',
     share: 100,
     neighbour: 'none',
-    note: 'The whole screen. The only case an app that reads the display size at launch gets right.',
   },
   {
     key: 'split',
     label: 'split',
     share: SPLIT,
     neighbour: 'beside',
-    note: 'Split screen: two apps, and a divider a person can drag while the app is running.',
   },
   {
     key: 'floating',
     label: 'floating',
     share: 100,
     neighbour: 'floating',
-    note: 'Freeform: the neighbour floats over the screen instead of taking a share of it.',
   },
 ];
 
@@ -63,7 +59,14 @@ const lines = (widths: number[], gap = 5) =>
  * The subject is the app region that is resized, not the screen and not the divider (SPEC §5): the
  * term is about the room an app is given, and the divider is the platform's control rather than
  * the app's. Every mode is honestly the term, so no `data-pose` condition is needed. The tablet
- * shell, the neighbouring app, the mode picker and the caption are scenery in the context register.
+ * shell, the neighbouring app, the mode picker and the size readout are scenery in the context
+ * register.
+ *
+ * The readout used to open with a sentence per mode ("The whole screen. The only case an app that
+ * reads the display size at launch gets right.", and one each for split and freeform) before the
+ * measurement. Those were the site arguing over the tablet's own screen, so they went; what is left
+ * is the width in pixels and whether the app is running compact, which is the instrument for the
+ * window the demo actually draws.
  *
  * The screen holds one box in every mode, so only the division inside it moves (SPEC §5). Whether
  * the app runs expanded or compact is decided from the share arithmetic, never measured back off
@@ -75,14 +78,14 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 280px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Tablet, windowing mode</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Tablet</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-value="${first.key}" data-axis="Mode">
             ${MODES.map(segment).join('')}
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 12px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 10px 12px">
           <div
             data-part="screen"
             class="sp-context"
@@ -132,7 +135,7 @@ export function mount(root: HTMLElement): void {
               ${lines([88, 66, 78])}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px; width: 442px"></span>
+          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 20px; width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>
@@ -170,7 +173,7 @@ export function mount(root: HTMLElement): void {
     neighbour.style.border = floating ? '1px solid var(--sp-line)' : '0';
     neighbour.style.boxShadow = floating ? '0 6px 20px rgb(16 24 40 / 0.28)' : 'none';
 
-    readout.textContent = `${mode.note} App window: ${pixels} px, ${compact ? 'compact' : 'expanded'}.`;
+    readout.textContent = `App window: ${pixels} px, ${compact ? 'compact' : 'expanded'}.`;
   };
 
   const set = (key: string) => {

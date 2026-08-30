@@ -10,7 +10,5 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=row-authored]', state: 'visible' } },
   { assert: { selector: '[data-part=row-scraped]', state: 'visible' } },
-  { wait: 900 },
-  { assert: { selector: '[data-part=mechanism]', state: 'visible' } },
-  { wait: 1200 },
+  { wait: 2100 },
 ]);

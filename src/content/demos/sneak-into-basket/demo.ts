@@ -38,6 +38,10 @@ const line = (label: string, amount: string, extra = '') => `
  * snuck item can be traced back to the control that added it, which is the part the buyer
  * never gets to see: in a real flow the tick box is several screens behind the total.
  *
+ * The offer panel was headed "Delivery, two screens back", which is the site explaining its
+ * own staging inside the checkout; it is headed "Delivery" now, and the docblock above and
+ * the article carry the fact that the tick box is really screens behind the total.
+ *
  * The subject is the snuck line in the summary, the narrowest element the term names. The
  * checkout around it, the offer above it, and the state control below are scenery. Because
  * the fair state is the same summary with nothing snuck into it, the honest condition is
@@ -59,7 +63,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-body sp-context" style="display: flex; flex-direction: column; gap: 10px">
           <div class="sp-surface" data-part="offer" style="padding: 8px 10px">
-            <span class="sp-label" style="display: block; font-size: 10px">Delivery, two screens back</span>
+            <span class="sp-label" style="display: block; font-size: 10px">Delivery</span>
             ${OFFER.sneaky}
           </div>
           <div class="sp-surface sp-grow" style="display: flex; flex-direction: column; gap: 4px; padding: 8px 10px">
@@ -94,7 +98,7 @@ export function mount(root: HTMLElement): void {
   part(root, 'mode').addEventListener('change', (event) => {
     const next: Mode = (event as CustomEvent<string>).detail === 'fair' ? 'fair' : 'sneaky';
     // The offer is rebuilt rather than toggled: each state is reached, never flipped.
-    offer.innerHTML = `<span class="sp-label" style="display: block; font-size: 10px">Delivery, two screens back</span>${OFFER[next]}`;
+    offer.innerHTML = `<span class="sp-label" style="display: block; font-size: 10px">Delivery</span>${OFFER[next]}`;
     row.dataset.mode = next;
     row.hidden = next === 'fair';
     total.dataset.mode = next;

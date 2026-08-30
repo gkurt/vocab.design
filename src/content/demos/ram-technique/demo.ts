@@ -64,7 +64,12 @@ const card = (title: string, index: number) => `
  *
  * The subject is the grid, the thing deciding its own track count, rather than a card inside it or
  * the scene around it (SPEC §5). Every width is honestly the term, so no `data-pose` condition is
- * needed. The rule listing, the width picker and the caption are scenery in the context register.
+ * needed. The rule listing and the width picker are scenery in the context register.
+ *
+ * The reading under the count changes with the switch, so it is the stage's verdict and is drawn
+ * out in the strip (SPEC §5.1); the frame lost the height it was holding for it. A caption under
+ * the column count, "decided by the grid, from one rule", was the article's sentence sitting in
+ * the product's chrome, so it went and the count now stands over the rule that produced it.
  *
  * The grid narrows inside a slot held at its widest container and anchored to the top left, so the
  * cards reflow and nothing around them moves (SPEC §5). The column count is computed from the same
@@ -78,7 +83,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 260px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Container width</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="widths" data-value="${first.key}" data-axis="Width">
@@ -104,7 +109,6 @@ export function mount(root: HTMLElement): void {
             <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 3px">
               <span class="sp-label">Columns</span>
               <span class="sp-heading" data-part="count" style="font-size: 26px; line-height: 1.3">1</span>
-              <span class="sp-label" style="font-size: 10px; line-height: 1.4">decided by the grid, from one rule</span>
               <span
                 class="sp-surface"
                 data-part="rule"
@@ -113,7 +117,7 @@ export function mount(root: HTMLElement): void {
               >repeat(auto-fit,<br />&nbsp;&nbsp;minmax(${MIN}px, 1fr))</span>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px"></span>
+          <span class="sp-text" data-stage-verdict data-part="readout"></span>
         </div>
       </div>
     </div>

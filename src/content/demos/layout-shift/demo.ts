@@ -7,11 +7,6 @@ const SLOT = 32;
 /** How long the advert takes to arrive after a reload. */
 const ARRIVE_MS = 900;
 
-const NOTES: Record<string, string> = {
-  waiting: 'Neither advert has arrived yet. Only the article on the right has set room aside for one.',
-  arrived: `The advert landed. On the left everything under it dropped ${SLOT}px; on the right the reserved box simply filled.`,
-};
-
 /**
  * Layout shift specimen: the same article twice, loading the same late advert. The left
  * article has reserved nothing, so the arrival shoves the paragraph and the pay control down
@@ -19,10 +14,16 @@ const NOTES: Record<string, string> = {
  * fills a slot that was already there and nothing moves.
  *
  * The subject is the unreserved article, which is the narrowest element the term names: the
- * reloading control, the labels, the caption and the reserved twin are the scene it is read
+ * reloading control, the labels and the reserved twin are the scene it is read
  * against and carry the context register (SPEC §5). The twin is a separate article rather
  * than a state of the subject, so the subject never stops being the term and needs no
  * `data-pose` (SPEC §6).
+ *
+ * A caption under the pair used to narrate the state ("Neither advert has arrived yet. Only
+ * the article on the right has set room aside for one."), which is the article's job and not
+ * the page's, so it is gone and the frame is shorter by the room it held. The two column
+ * labels stay, because with nothing naming them the pair is two identical articles: they now
+ * name the treatment only, "no slot reserved" against "slot reserved".
  *
  * Both articles keep a fixed box, so the shift the specimen is about is contained inside the
  * article that suffers it and nothing outside either panel can move (SPEC §5). The advert's
@@ -62,7 +63,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 308px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Late advert</span>
           <button class="sp-button sp-button--sm sp-button--ghost" type="button" data-part="reload">Reload</button>
@@ -71,7 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-row" style="align-items: flex-start; gap: 26px">
             <div class="sp-stack" style="gap: 6px; align-items: flex-start">
               <div class="sp-row sp-context" style="height: 26px; gap: 8px">
-                <span class="sp-label" style="color: var(--sp-ink)">no room reserved</span>
+                <span class="sp-label" style="color: var(--sp-ink)">no slot reserved</span>
                 <span class="sp-chip" data-part="badge" hidden>${icon('alert')} moved ${SLOT}px</span>
               </div>
               ${article('article', 'data-subject')}
@@ -83,7 +84,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               ${article('steady', '')}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>
@@ -96,7 +96,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const labelShifting = part(root, 'slot-label-article');
   const labelSteady = part(root, 'slot-label-steady');
   const badge = part(root, 'badge');
-  const readout = part(root, 'readout');
 
   const apply = (state: 'waiting' | 'arrived') => {
     const arrived = state === 'arrived';
@@ -116,7 +115,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     labelSteady.textContent = arrived ? 'advert' : 'reserved';
 
     flag(badge, 'hidden', !arrived);
-    readout.textContent = NOTES[state] ?? '';
   };
 
   let timer: number | undefined;

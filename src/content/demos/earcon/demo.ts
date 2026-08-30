@@ -26,7 +26,7 @@ const EARCONS: Record<string, { label: string; shape: string; blurb: string; not
   sent: {
     label: 'Message sent',
     shape: 'rising',
-    blurb: 'Sent: three notes rising, 392 to 659 Hz',
+    blurb: 'Rising, three notes, 392 to 659 Hz',
     notes: [
       { t: 0, p: 1, d: 1 },
       { t: 1, p: 2, d: 1 },
@@ -36,7 +36,7 @@ const EARCONS: Record<string, { label: string; shape: string; blurb: string; not
   failed: {
     label: 'Upload failed',
     shape: 'falling',
-    blurb: 'Failed: two notes falling, the second held',
+    blurb: 'Falling, two notes, the second held',
     notes: [
       { t: 0, p: 3, d: 1 },
       { t: 1, p: 0, d: 2 },
@@ -45,7 +45,7 @@ const EARCONS: Record<string, { label: string; shape: string; blurb: string; not
   done: {
     label: 'Task done',
     shape: 'rising-tail',
-    blurb: 'Done: the sent figure again, with a tail',
+    blurb: 'Rising with a tail, four notes',
     notes: [
       { t: 0, p: 1, d: 1 },
       { t: 1, p: 2, d: 1 },
@@ -98,6 +98,12 @@ const boxOf = (n: Note) => ({
  * hearing it: the drawn figure carries the whole demonstration, which is why there is
  * no speaker glyph with animated waves pretending a sound is playing (SPEC §8).
  *
+ * A line under the frame used to read "Drawn, never played: this demonstration is silent.
+ * Click an event yourself to hear the figure above." That was the site explaining its own
+ * demonstration inside the exhibit, and the readout no longer names the event either, since
+ * the buttons do: it describes the figure ("Rising, three notes, 392 to 659 Hz"), which is
+ * what a sound set would print beside a preview.
+ *
  * Visual timing comes from the DemoClock so a pose can freeze the playhead; the
  * AudioContext keeps its own schedule, which is the only clock a sound can have.
  * The figure is absolutely positioned inside a fixed plot and every readout holds its
@@ -126,9 +132,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" data-part="silent" style="width: 452px; font-size: 11px; line-height: 1.35; text-align: center">
-        Drawn, never played: this demonstration is silent. Click an event yourself to hear the figure above.
-      </span>
     </div>
   `;
 

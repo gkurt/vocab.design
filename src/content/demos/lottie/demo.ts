@@ -64,6 +64,11 @@ const pane = (label: string, note: string, art: string, context: boolean) => `
  * an `element.animate` keyframe set, so the demo asks `prefersReducedMotion` itself and leaves both
  * marks at rest, which is the honest answer for a decorative shake; the settle beat comes from the
  * stage's clock so a pose cannot let a play finish under an inspection.
+ *
+ * The notes under the two panes used to argue the case ("30 px bitmap", "shapes, no pixels") and the
+ * line beneath them narrated the pair ("Both marks drawn at 60 px"). They are the asset's own file
+ * name and export size now, and a preview size an asset tool would print; the reading itself is in
+ * the verdict, which is where it belongs.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const start = SIZES.x2;
@@ -84,7 +89,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-row" data-part="scene" data-scale="x2" style="gap: 18px; align-items: flex-start">
             ${pane(
               'Raster export',
-              `${ART} px bitmap`,
+              `badge.png, ${ART} px`,
               `<canvas
                  data-part="raster" width="${ART}" height="${ART}"
                  style="width: ${start}px; height: ${start}px; transform-origin: 50% 70%;
@@ -94,7 +99,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             )}
             ${pane(
               'Vector animation',
-              'shapes, no pixels',
+              'badge.json, vector',
               `<svg
                  data-part="vector" data-subject data-state="settled" data-plays="0"
                  viewBox="0 0 ${GRID} ${GRID}" aria-hidden="true"
@@ -108,7 +113,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               false,
             )}
           </div>
-          <span class="sp-label sp-context" data-part="say" style="font-size: 12px">Both marks drawn at ${start} px</span>
+          <span class="sp-label sp-context" data-part="say" style="font-size: 12px">Preview: ${start} px</span>
         </div>
       </div>
 
@@ -152,7 +157,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       el.style.height = `${px}px`;
     }
     scene.dataset.scale = next;
-    say.textContent = `Both marks drawn at ${px} px`;
+    say.textContent = `Preview: ${px} px`;
   };
 
   const play = (): void => {

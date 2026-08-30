@@ -42,6 +42,9 @@ const cell = (item: (typeof SET)[number]) => `
  * its right is a drawing of the same symbol rather than a second one. Everything else,
  * including the size picker and the blow-up, is scenery in the context register.
  *
+ * The window's heading was once "One set, four meanings", which was the site naming
+ * the lesson rather than a library naming its own panel; it is "Icon set" now.
+ *
  * The glyphs are the kit's (SPEC §5): a specimen never invents an icon set, and the point
  * being made here is about size and labelling rather than about any particular drawing.
  * The icon slot is fixed at the largest step from mount, so stepping through 16, 20 and 24
@@ -58,7 +61,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading" style="font-size: 13px">One set, four meanings</span>
+          <span class="sp-heading" style="font-size: 13px">Icon set</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="sizer" data-axis="Size" data-value="${START}">
             ${SIZES.map((s) => `<button class="sp-segment" type="button" data-part="seg-${s}" value="${s}" style="padding: 4px 11px; font-size: 12px">${s}</button>`).join('')}
           </sp-segmented>

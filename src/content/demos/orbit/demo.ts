@@ -60,6 +60,17 @@ const dot = (name: string, x: number, y: number) => `
  * turntable's, azimuth in the model's own frame and elevation in the world's, so the horizon
  * stays level however far the orbit runs.
  *
+ * The viewer's title bar carried a running commentary on the right ("Resting at the home
+ * view", "Orbiting: the target has not moved", "The camera stops at 60 deg, short of the
+ * pole"). No viewer narrates its own camera in its title bar: that was the site talking, and
+ * the two angle readouts already report every one of those states as numbers, the elevation
+ * stopping dead at 60 while the drag carries on. The bar keeps its name and nothing else.
+ *
+ * A line under the viewport used to read "The camera is what travels. The model never turns,
+ * and never leaves the middle of the frame." It never changed, and it was the site arguing the
+ * point inside the viewer's own chrome. The two angle readouts make the same case by moving,
+ * and the article states it. The frame gave back the 38px it was holding for it.
+ *
  * Nothing eases: an orbit tracks the hand one to one, and the reset snaps, so there is no
  * scripted animation here to gate. The model is absolutely positioned over a fixed viewport and
  * both readouts hold their boxes, so turning the camera moves nothing on the page (SPEC §5).
@@ -67,10 +78,9 @@ const dot = (name: string, x: number, y: number) => `
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 296px">
+      <div class="sp-frame sp-frame--wide" style="height: 258px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Viewer</span>
-          <span class="sp-text" data-part="readout" style="width: 336px; text-align: right; white-space: nowrap">Resting at the home view</span>
         </div>
 
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 10px">
@@ -108,27 +118,18 @@ export function mount(root: HTMLElement): void {
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reset">Reset view</button>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          The camera is what travels. The model never turns, and never leaves the middle of the frame.
-        </span>
       </div>
     </div>
   `;
 
   const viewport = part(root, 'viewport');
   const model = part(root, 'model');
-  const readout = part(root, 'readout');
   const azimuthOut = part(root, 'azimuth');
   const elevationOut = part(root, 'elevation');
 
   let azimuth = HOME.azimuth;
   let elevation = HOME.elevation;
   let grabbed: { x: number; y: number; azimuth: number; elevation: number } | undefined;
-
-  const say = (text: string) => {
-    readout.textContent = text;
-  };
 
   const render = () => {
     model.style.transform = `rotateX(${elevation}deg) rotateY(${azimuth}deg)`;
@@ -146,7 +147,6 @@ export function mount(root: HTMLElement): void {
     grabbed = { ...localPoint(event, root), azimuth, elevation };
     viewport.dataset.clamped = 'no';
     viewport.style.cursor = 'grabbing';
-    say('Holding the camera on its sphere');
   });
 
   root.addEventListener('pointermove', (event) => {
@@ -159,16 +159,12 @@ export function mount(root: HTMLElement): void {
     const clamped = Math.abs(wanted) > ELEVATION_LIMIT;
     viewport.dataset.clamped = clamped ? 'yes' : 'no';
     render();
-    if (clamped) return say(`The camera stops at ${ELEVATION_LIMIT} deg, short of the pole`);
-    say('Orbiting: the target has not moved');
   });
 
   const release = () => {
     if (!grabbed) return;
     grabbed = undefined;
     viewport.style.cursor = 'grab';
-    if (viewport.dataset.clamped === 'yes') return;
-    say('Resting where the camera was let go');
   };
 
   viewport.addEventListener('pointerup', release);
@@ -179,6 +175,5 @@ export function mount(root: HTMLElement): void {
     elevation = HOME.elevation;
     viewport.dataset.clamped = 'no';
     render();
-    say('Back at the home view');
   });
 }

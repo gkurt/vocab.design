@@ -47,6 +47,11 @@ function block(index: number): string {
  * fetched at mount precisely because it is the one already in view: lazy has never
  * meant late, it means asked for when needed.
  *
+ * A line under the feed used to compare it with the other strategy ("Eager loading would
+ * have asked for all 5 before the first paint."), which is the article's comparison rather
+ * than anything this feed would print. It is gone, and the frame is shorter by exactly the
+ * band it held so the scroller keeps the height the fold was tuned against.
+ *
  * Every block reserves its box from the start, so a picture landing never moves the
  * caption below it (SPEC §5), and the fade is a transition rather than a scripted
  * animation, so reduced motion flattens it without the demo asking.
@@ -54,7 +59,7 @@ function block(index: number): string {
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 276px">
+      <div class="sp-frame sp-frame--wide" style="height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Field notes</span>
           <span class="sp-text" data-part="requests" role="status">0 of ${SHOTS.length} requested</span>
@@ -63,10 +68,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-scroll" data-part="feed" style="height: 100%; display: flex; flex-direction: column; gap: 14px; padding: 12px">
             ${SHOTS.map((_, i) => block(i)).join('')}
           </div>
-        </div>
-        <div class="sp-divider"></div>
-        <div class="sp-row sp-context" style="flex: 0 0 auto; padding: 8px 12px">
-          <span class="sp-text">Eager loading would have asked for all ${SHOTS.length} before the first paint.</span>
         </div>
       </div>
     </div>

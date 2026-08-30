@@ -38,6 +38,12 @@ const dot = (name: string, x: number) => `
  *
  * The thumb moves by `left` inside a fixed track and the readouts hold their widths, so
  * crossing the band moves nothing but the thumb and the meter (SPEC §5).
+ *
+ * A status line in the title bar used to narrate the drag ("Stick centred, nothing emitted",
+ * then "Stick at +12%, inside the band: nothing emitted"), which is the article's sentence
+ * standing over an instrument that already prints both numbers, so it is gone. The label
+ * under the track measured the band in page pixels ("70 px ignored: 18% either side of
+ * centre") and now reads what a controller's own settings would say: "dead zone 18%".
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -45,7 +51,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Controller</span>
-          <span class="sp-text" data-part="readout" style="width: 324px; text-align: right; white-space: nowrap">Stick centred, nothing emitted</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div class="sp-surface" style="display: flex; flex-direction: column; gap: 8px; padding: 12px 16px">
@@ -79,7 +84,7 @@ export function mount(root: HTMLElement): void {
 
             <div class="sp-row sp-context" style="justify-content: space-between">
               <span class="sp-label">full left</span>
-              <span class="sp-label">${BAND_PX * 2} px ignored: ${Math.round(BAND * 100)}% either side of centre</span>
+              <span class="sp-label">dead zone ${Math.round(BAND * 100)}%</span>
               <span class="sp-label">full right</span>
             </div>
 
@@ -109,7 +114,6 @@ export function mount(root: HTMLElement): void {
 
   const axis = part(root, 'axis');
   const thumb = part(root, 'thumb');
-  const readout = part(root, 'readout');
   const rawOut = part(root, 'raw');
   const emittedOut = part(root, 'emitted');
   const fill = part(root, 'out-fill');
@@ -132,13 +136,7 @@ export function mount(root: HTMLElement): void {
     fill.style.left = emitted >= 0 ? '50%' : `${50 - size * 50}%`;
     fill.style.width = `${size * 50}%`;
 
-    if (emitted === 0) {
-      axis.dataset.out = 'ignored';
-      readout.textContent = `Stick at ${pct(raw)}, inside the band: nothing emitted`;
-      return;
-    }
-    axis.dataset.out = 'live';
-    readout.textContent = `Stick at ${pct(raw)}, past the band: emitting ${pct(emitted)}`;
+    axis.dataset.out = emitted === 0 ? 'ignored' : 'live';
   };
 
   axis.addEventListener('pointerdown', (event) => {

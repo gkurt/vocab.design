@@ -11,6 +11,11 @@
  *
  * The grid is scenery (it is the guide, not the art), so it carries `.sp-context` and the
  * subject is the scene of blocks. Static: an illustration has no states to watch.
+ *
+ * A caption under the frame read "Back and front blocks are drawn the same size; only the
+ * stacking order says which is which." That is the site explaining the projection, not
+ * anything the drawing itself would print, and the article says it, so it went. The ruled
+ * legend stays: an annotated angle belongs on a technical drawing.
  */
 const CELL = 72;
 const HALF = CELL / 2;
@@ -61,10 +66,6 @@ export function mount(root: HTMLElement): void {
         <span class="sp-label sp-context" data-part="legend"
               style="position: absolute; left: 10px; bottom: 8px">30 degrees, no vanishing point</span>
       </div>
-
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 300px; margin: 0; text-align: center">
-        Back and front blocks are drawn the same size; only the stacking order says which is which.
-      </p>
     </div>
   `;
 }

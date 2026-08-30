@@ -25,15 +25,17 @@ const WIDTHS: Width[] = [
  *
  * The subject is the cluster container, `data-part="cluster"`. Like the cover, this primitive
  * IS its container: the rule set (wrap, one gap, start alignment) belongs to the box, not to
- * any tag inside it (SPEC §5). The frame, the picker, the width ruler and the caption are
- * scenery in the context register.
+ * any tag inside it (SPEC §5). The frame and the picker are scenery in the context register.
  *
  * The gap is stated once and used on both axes, and the container's own tint is what makes the
  * vertical gaps legible: the even channel between wrapped lines is the part a margin-spaced row
  * gets wrong. How many lines the tags took is measured from their rendered positions and
  * published as `data-lines`, so an assert can prove the rewrap really happened rather than
- * taking the container's width as a proxy for it. Nothing here transitions a width, so the read
- * after the write is the real one (SPEC §5).
+ * taking the container's width as a proxy for it. That count used to be printed under the tags
+ * as "210px wide, 6 tags, 4 lines, gap 10px", and a line under the frame explained the gap; both
+ * were the article speaking inside a tag list, so both are gone and the attribute carries the
+ * claim on its own. Nothing here transitions a width, so the read after the write is the real
+ * one (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const tags = TAGS.map(
@@ -44,7 +46,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Container is</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Tags</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="widths" data-axis="Width" data-value="narrow">
             ${WIDTHS.map(
               (width) => `
@@ -62,19 +64,12 @@ export function mount(root: HTMLElement): void {
             style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: ${GAP}px;
                    width: ${WIDTHS[0]?.width}px; padding: ${GAP}px; background: var(--sp-accent-soft); border-radius: var(--sp-radius)"
           >${tags}</div>
-
-          <span class="sp-label sp-context" data-part="readout" role="status" style="height: 17px; font-size: 11px; line-height: 17px; font-variant-numeric: tabular-nums"></span>
         </div>
       </div>
-
-      <span class="sp-text sp-context" style="width: 452px; height: 16px; font-size: 12px; line-height: 16px; text-align: center">
-        One gap on both axes: the channel between lines is the gap between neighbours.
-      </span>
     </div>
   `;
 
   const cluster = part(root, 'cluster');
-  const readout = part(root, 'readout');
   const tagEls = TAGS.map((_, i) => part(root, `tag-${i}`));
 
   const apply = (key: string) => {
@@ -86,7 +81,6 @@ export function mount(root: HTMLElement): void {
     // the claim, so it is counted from where they landed rather than predicted.
     const lines = new Set(tagEls.map((tag) => Math.round(tag.offsetTop))).size;
     cluster.dataset.lines = String(lines);
-    readout.textContent = `${width.width}px wide, ${TAGS.length} tags, ${lines} lines, gap ${GAP}px`;
   };
 
   part(root, 'widths').addEventListener('change', (event) => apply((event as CustomEvent<string>).detail));

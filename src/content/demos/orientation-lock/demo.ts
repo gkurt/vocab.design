@@ -29,7 +29,12 @@ const CAPTION: Record<Orientation, string> = {
  * segmented control, both device shells, the labels, the reflowing build and the caption are
  * scenery (SPEC §5).
  *
- * Each shell sits on a fixed baseline with its label under it, so the caption below never moves
+ * The two shells used to carry a caption each, "Locked to portrait" and "Reflows either way",
+ * which was the site labelling its own comparison in the reader's own language rather than the
+ * product's. Turned, the difference is on screen: one build puts up a wall and the other keeps
+ * its inbox. Both shells lost the same 20px, so the pair stays level.
+ *
+ * Each shell sits on a fixed baseline, so the caption below never moves
  * and the change is the shape of the device (SPEC §5). Each segment reaches its own orientation rather than toggling
  * (SPEC §8); the shells animate with a CSS transition, so nothing is measured after a write and
  * reduced motion lands it instantly, and no timer is needed.
@@ -82,7 +87,6 @@ export function mount(root: HTMLElement): void {
                 ${app('locked')}${wall}
               </div>
             </div>
-            <span class="sp-label sp-context" style="height: 14px; font-size: 10px">Locked to portrait</span>
           </div>
 
           <div class="sp-context" style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 6px">
@@ -94,7 +98,6 @@ export function mount(root: HTMLElement): void {
                 ${app('fluid')}
               </div>
             </div>
-            <span class="sp-label" style="height: 14px; font-size: 10px">Reflows either way</span>
           </div>
         </div>
 

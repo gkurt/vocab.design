@@ -28,7 +28,10 @@ type Stop = keyof typeof STOPS;
  * flattens both sheets for a reader who asked for less movement, and the twin's queue is
  * asked the same question so its lockout does not outlive a move that no longer takes any
  * time (SPEC §7). Both controls name an absolute destination rather than a direction, so a
- * fast-forwarded or resumed pass lands where it said (SPEC §8), and both sheets travel with
+ * fast-forwarded or resumed pass lands where it said (SPEC §8). Two lines of the site's own
+ * voice used to sit in the frame: a rail caption reading "turns from where it is" and a
+ * footer reading "Press one edge, then the other before the move ends." Neither is anything
+ * a product would print, and the article already says both, so both are gone. Both sheets travel with
  * `translate` inside rails that hold their own size, so nothing else in the window moves
  * (SPEC §5). The twin's timer is the stage's, so a pose stops its queue where it stands.
  */
@@ -57,7 +60,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-stack" style="gap: 6px; margin-top: 14px">
           <div class="sp-row sp-row--between sp-context">
             <span class="sp-label">Interruptible</span>
-            <span class="sp-label">turns from where it is</span>
           </div>
           ${rail('live', true)}
         </div>
@@ -69,10 +71,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
           ${rail('queued', false)}
         </div>
-
-        <p class="sp-text sp-context" style="margin: 14px 0 0">
-          Press one edge, then the other before the move ends.
-        </p>
       </div>
     </div>
   `;

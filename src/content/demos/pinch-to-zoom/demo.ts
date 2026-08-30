@@ -27,14 +27,21 @@ const SCENE = `
  * The gesture is performed, never picked: the choreography's `pinch` step, a real
  * two-finger pinch, and a reader's modifier+drag all arrive through `pinchSpread` as
  * one scale signal, and the trackpad's pinch (a wheel event with ctrlKey set) is
- * wired beside it. The zoom anchors at the reported gesture centre — the content
- * point under the fingers stays under them — with the pan clamped so the scene
+ * wired beside it. The zoom anchors at the reported gesture centre (the content
+ * point under the fingers stays under them) with the pan clamped so the scene
  * always covers the canvas, which is what snaps everything home at 1x. The two
  * grips are aim anchors for the script (SPEC §5: a data-part and no paint); the
  * dot marks where the last gesture anchored, which is the term's own claim.
  *
  * The scale is a transform inside a fixed box, so a zoomed canvas never moves
  * anything around it (SPEC §5), and the readout holds its width at every factor.
+ *
+ * A badge on the canvas used to read "Anchored between the fingers" and then narrate
+ * the gesture ("Pinch open: scale up"), and a line under it told the reader which
+ * inputs work: "Two fingers or a trackpad pinch; a mouse holds Ctrl and drags." Both
+ * were the site captioning its own demonstration inside a map viewer that would print
+ * neither, so both went. The anchor dot and the scale readout carry the claim, and the
+ * article says which inputs a pinch arrives on.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -63,13 +70,7 @@ export function mount(root: HTMLElement): void {
             ></span>
             <span data-part="grip-a" style="position: absolute; left: 62%; top: 42%; width: 1px; height: 1px"></span>
             <span data-part="grip-b" style="position: absolute; left: 30%; top: 45%; width: 1px; height: 1px"></span>
-            <span
-              class="sp-label"
-              data-part="gesture-label"
-              style="position: absolute; left: 8px; bottom: 6px; width: 148px; padding: 2px 6px; border-radius: 5px; background: var(--sp-surface)"
-            >Anchored between the fingers</span>
           </div>
-          <p class="sp-text sp-context" style="margin: 0; font-size: 12px">Two fingers or a trackpad pinch; a mouse holds Ctrl and drags.</p>
         </div>
       </div>
     </div>
@@ -78,7 +79,6 @@ export function mount(root: HTMLElement): void {
   const canvas = part(root, 'canvas');
   const scene = part(root, 'scene');
   const anchor = part(root, 'anchor');
-  const label = part(root, 'gesture-label');
   const readout = part(root, 'readout');
 
   let s = 1;
@@ -126,10 +126,7 @@ export function mount(root: HTMLElement): void {
       grip = { s, tx, ty, at: toCanvas(center) };
       mark(grip.at);
     },
-    onPinch: (factor) => {
-      render(zoomAt(factor, grip.at, grip));
-      label.textContent = factor >= 1 ? 'Pinch open: scale up' : 'Pinch closed: scale down';
-    },
+    onPinch: (factor) => render(zoomAt(factor, grip.at, grip)),
     onEnd: (factor) => {
       ({ s, tx, ty } = zoomAt(factor, grip.at, grip));
       render({ s, tx, ty });

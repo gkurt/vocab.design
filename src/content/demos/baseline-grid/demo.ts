@@ -33,6 +33,13 @@ const NOTES: Record<string, string> = {
  *
  * Only the right column's leading changes, inside a box of fixed size, so the lattice, the
  * left column and everything around them hold still (SPEC §5).
+ *
+ * The two columns used to be set with sentences about the demonstration ("Both columns are
+ * ruled by the same field of lines.", "The pair reads as one page."), which is the site's
+ * copy standing in for a page's. They carry harbour notices now, kept to the same number
+ * of lines so both columns still fill the box exactly. The note under the page changes
+ * with the switch, so it is the verdict: it is marked `data-stage-verdict` and the stage
+ * draws it in the strip instead of inside the layout tool.
  */
 export function mount(root: HTMLElement): void {
   const column = (side: 'left' | 'right', head: string, one: string, two: string) => `
@@ -67,11 +74,11 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: 14px; top: 14px; width: 416px; height: 140px; background-image: ${RULES}"
             ></div>
             <div class="sp-row" style="position: absolute; left: 14px; top: 14px; width: 416px; height: 140px; gap: 24px; align-items: flex-start">
-              ${column('left', 'Cross column', 'Both columns are ruled by the same field of lines.', 'Nothing is measured in pixels here.')}
-              ${column('right', 'The neighbour', 'Its leading is the same, so its lines land where the left ones do.', 'The pair reads as one page.')}
+              ${column('left', 'Harbour works', 'The slipway reopens on Thursday after repairs.', 'Tide tables are posted at the harbour gate.')}
+              ${column('right', 'Ferry times', 'The winter timetable adds a late Friday sailing.', 'Moorings must be renewed before October.')}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

@@ -36,7 +36,12 @@ interface Picker extends HTMLElement {
  * invented. The segmented control names an absolute state so a pass picked up anywhere
  * lands the same way (SPEC §8); the disclosure row itself may flip, which is the one place
  * a toggle is right, since the flip is what the glyph reports. The panel is drawn into room
- * reserved from mount and the meaning line is a fixed slot, so opening moves nothing (SPEC §5).
+ * reserved from mount, so opening moves nothing (SPEC §5).
+ *
+ * Two rows used to be annotated in the site's voice ("goes deeper", "this opens"), which no
+ * settings card prints, and both are gone. The line reading what the glyph is pointing at
+ * changes with the switch, so it is that switch's verdict: it carries `data-stage-verdict`
+ * and the stage draws it in the strip instead of the card.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -54,7 +59,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-surface" style="padding: 4px 8px">
             <div class="sp-list-item sp-context" data-part="row-payment">
               <span class="sp-grow">Payment methods</span>
-              <span class="sp-label" style="font-size: 11px">goes deeper</span>
               ${icon('chevronRight')}
             </div>
 
@@ -67,7 +71,6 @@ export function mount(root: HTMLElement): void {
               style="width: 100%; border: 0; background: transparent; color: inherit; font: inherit; font-size: 13px; text-align: left; cursor: pointer"
             >
               <span class="sp-grow">Delivery options</span>
-              <span class="sp-label" style="font-size: 11px">this opens</span>
               <span style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 20px; height: 20px">${SUBJECT}</span>
             </button>
 
@@ -92,8 +95,9 @@ export function mount(root: HTMLElement): void {
               </span>
             </div>
 
-            <div class="sp-row sp-row--between sp-context" style="gap: 12px; padding: 6px 2px 4px">
-              <span class="sp-label" data-part="meaning" style="flex: 1 1 auto; min-width: 0; height: 15px; font-size: 11px; line-height: 15px; white-space: nowrap; overflow: hidden">${MEANING.right}</span>
+            <div class="sp-row sp-context" style="gap: 12px; padding: 6px 2px 4px; justify-content: flex-end">
+              <span class="sp-label" data-stage-verdict data-part="meaning" data-dir="right"
+                    style="flex: 1 1 auto; min-width: 0; height: 15px; font-size: 11px; line-height: 15px; white-space: nowrap; overflow: hidden">${MEANING.right}</span>
               <button
                 class="sp-button sp-button--ghost sp-button--sm"
                 type="button"
@@ -117,6 +121,7 @@ export function mount(root: HTMLElement): void {
     trigger.setAttribute('aria-expanded', String(open));
     // Read back off the glyph's own direction rather than tracking it beside the markup.
     chevron.dataset.dir = open ? 'down' : 'right';
+    meaning.dataset.dir = open ? 'down' : 'right';
     panel.style.opacity = open ? '1' : '0';
     panel.style.visibility = open ? 'visible' : 'hidden';
     meaning.textContent = MEANING[open ? 'down' : 'right'] ?? '';

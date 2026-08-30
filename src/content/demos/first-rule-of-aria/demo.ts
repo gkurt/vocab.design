@@ -2,10 +2,10 @@ import { part } from '#src/kit/parts.ts';
 
 const RESULTS = {
   idle: 'Nothing pressed yet.',
-  'native-key': 'Space on the button: saved. Its keyboard came free.',
-  'native-click': 'Click on the button: saved. Both inputs reach it.',
-  'fake-key': 'Space on the div: nothing. No behaviour to inherit.',
-  'fake-click': 'Click on the div: saved. A pointer never notices.',
+  'native-key': 'Space on the button: saved.',
+  'native-click': 'Click on the button: saved.',
+  'fake-key': 'Space on the div: nothing happened.',
+  'fake-click': 'Click on the div: saved.',
 } as const;
 
 type Result = keyof typeof RESULTS;
@@ -24,8 +24,13 @@ function fact(mark: '✓' | '✕', text: string): string {
  *
  * The subject is the native button, the narrowest element the rule actually names. The rule
  * is advice about which element to reach for, so identify points at the element it says to
- * reach for; the div beside it, the facts under each control, the result strip, and the
- * caption are scenery (SPEC §5).
+ * reach for; the div beside it, the facts under each control and the result strip are
+ * scenery (SPEC §5).
+ *
+ * Three strings came out of the frame: a header reading "One Save control, built two ways",
+ * a closing paragraph about the div being reachable by pointer and not by keyboard, and the
+ * explanatory half of each result line ("Its keyboard came free."). The strip now reports
+ * only what the press did, the way an inspector would, and the article carries the lesson.
  *
  * The keys are simulated, and the specimen says so on screen. Synthesized events never
  * trigger a browser's own activation behaviour (SPEC §8), so a real `button` would sit there
@@ -39,8 +44,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">One Save control, built two ways</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <span class="sp-text" style="font-size: 11px">keys simulated</span>
         </div>
 
@@ -71,14 +75,10 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 10px; padding: 8px 10px">
-          <span class="sp-label">What the last press did</span>
+          <span class="sp-label">Last press</span>
           <p class="sp-text sp-text--ink" data-part="result" data-state="idle"
              style="margin: 2px 0 0; height: 18px; font-size: 12px; white-space: nowrap; overflow: hidden">${RESULTS.idle}</p>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 8px 0 0; height: 34px; font-size: 11px">
-          The div is reachable by pointer and unreachable by keyboard. Only one of those is tested by looking.
-        </p>
       </div>
     </div>
   `;

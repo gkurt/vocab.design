@@ -60,13 +60,16 @@ const cell = (key: string, label: string, initial: string) => `
  *
  * The card moves by a transform inside a lane fixed at mount, and every read-out cell holds its own
  * width, so a drag moves nothing but the card (SPEC §5).
+ *
+ * The topbar once read "Drag the card", which was the site instructing the reader from inside the
+ * product. It is the lane's own name now; the card still says what it invites.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow">Drag the card</span>
+          <span class="sp-heading sp-grow">Lane</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reset">Put it back</button>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px; padding: 12px">

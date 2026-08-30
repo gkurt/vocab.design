@@ -16,8 +16,8 @@ const DETENT = 5;
  * The gesture is performed, never picked: the canvas is a touch surface wired through
  * `pinchSpread`, so the script's `pinch` step with a `turn`, a real two-finger twist,
  * and a reader's modifier+drag (swinging around the mirror centre) all arrive as one
- * rotation signal. The contacts themselves are drawn by the stage — the ghost's twin
- * discs in attract, the reader's own mirrored pair in takeover — so the demo draws
+ * rotation signal. The contacts themselves are drawn by the stage (the ghost's twin
+ * discs in attract, the reader's own mirrored pair in takeover), so the demo draws
  * only what the term names: the surface, turning. Cardinal detents apply to the live
  * signal (fingers wobble and level should stick), and the turn is clamped to a range
  * a photo-straightening surface would keep.
@@ -25,6 +25,11 @@ const DETENT = 5;
  * The subject is the canvas: the term names the surface that turns under the pair,
  * not either contact and not the window around it. One contact says so and changes
  * nothing, which is the term's own nuance and worth a readout line.
+ *
+ * A line under the frame read "Two fingers twist; a mouse holds Ctrl, drags, and swings.",
+ * which is the site telling the reader how to work the exhibit. The article says it, so
+ * the line went; the readout in the title bar still answers a mouse that arrives without
+ * the modifier.
  *
  * Everything but the photograph holds its place and its width, so a turn moves only
  * the picture (SPEC §5).
@@ -66,7 +71,6 @@ export function mount(root: HTMLElement): void {
           >fingers level, photo turned 0&deg;</span>
         </div>
       </div>
-      <p class="sp-text sp-context" style="margin: 0; font-size: 12px">Two fingers twist; a mouse holds Ctrl, drags, and swings.</p>
     </div>
   `;
 

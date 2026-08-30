@@ -48,6 +48,12 @@ const points = (upto: number) =>
  * out of (SPEC §6), and it is the term in every state it is on stage in, so no `data-pose` is
  * needed. The chart, the three alternatives, the picker and the caption are scenery.
  *
+ * The alternatives panel used to be headed "What a reader who cannot see it gets" and its status read
+ * "one sentence, someone else's reading" and "swept, replay or step": the site talking inside the
+ * product, and a status naming two controls the scene does not have. The heading is now "Preview" and
+ * the statuses are counts, which is what a chart tool would really print. The legend "One tone per
+ * month, pitch rising with value." stays, because the pitch axis it describes is drawn on the chart.
+ *
  * Every tone comes from the DemoClock, so a pose holds the sweep on one month. Nothing sweeps at
  * mount, so the scripted pick owns the only run (SPEC §8).
  */
@@ -102,9 +108,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
         <div class="sp-surface sp-context" style="margin-top: 9px; padding: 8px 10px">
           <div class="sp-row sp-row--between" style="gap: 10px; height: 14px">
-            <span class="sp-label" data-part="alt-label" style="flex: 0 0 auto; font-size: 10px">What a reader who cannot see it gets</span>
+            <span class="sp-label" data-part="alt-label" style="flex: 0 0 auto; font-size: 10px">Preview</span>
             <span class="sp-label" data-part="readout" data-mode="table" data-playing="no"
-                  style="flex: 0 0 auto; font-size: 10px">twelve figures, in order</span>
+                  style="flex: 0 0 auto; font-size: 10px">12 rows</span>
           </div>
           <div style="position: relative; height: 32px; margin-top: 4px">
             <div data-part="view-table" class="sp-row" style="position: absolute; inset: 0; gap: 0; align-items: flex-start;
@@ -167,7 +173,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     timers.push(
       clock.setTimeout(() => {
         readout.dataset.playing = 'done';
-        readout.textContent = 'swept, replay or step';
+        readout.textContent = 'swept';
       }, VALUES.length * TONE_MS),
     );
   };
@@ -186,7 +192,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
     if (next !== 'sonified') {
       trace.style.opacity = '0';
-      readout.textContent = next === 'table' ? 'twelve figures, in order' : 'one sentence, someone else’s reading';
+      readout.textContent = next === 'table' ? '12 rows' : '1 sentence';
       return;
     }
     sweep();

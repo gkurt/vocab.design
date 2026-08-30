@@ -17,6 +17,11 @@
  * what has been done to an image (SPEC §5). The clean frame, the labels and the caption are
  * the scenery that makes the treatment legible.
  *
+ * The pair once carried a heading ("The same frame, twice") and a sentence under each panel
+ * listing the artefacts and saying the other copy had none of them. That is the site
+ * narrating its own comparison, and the article lists the artefacts already, so both went.
+ * The two words left, Treated and As drawn, are all the pair needs to be read.
+ *
  * Static: a developed frame has no states, so there is nothing to animate and no clock.
  *
  * A developed frame's pass ends at its mount state, so the tree persists across attract
@@ -69,12 +74,11 @@ function panel(part: string, mark: string, inner: string): string {
     </span>`;
 }
 
-function column(label: string, note: string, body: string, context: boolean): string {
+function column(label: string, body: string, context: boolean): string {
   return `
     <div class="sp-stack${context ? ' sp-context' : ''}" style="flex: 0 0 auto; width: ${W}px; gap: 6px; align-items: center">
       ${body}
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35; text-align: center">${note}</span>
     </div>`;
 }
 
@@ -107,17 +111,10 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
-      <div class="sp-window" style="width: 466px; padding: 11px 16px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">The same frame, twice</span>
-
+      <div class="sp-window" style="width: 466px; padding: 14px 16px 16px">
         <div class="sp-row" data-part="tour" style="gap: 18px; align-items: flex-start; justify-content: center">
-          ${column(
-            'Treated',
-            'Grain, halation, lifted blacks, a vignette, and a date back.',
-            panel('treated', ' data-subject', treatment),
-            false,
-          )}
-          ${column('As drawn', 'The same frame with none of it applied.', panel('clean', '', ''), true)}
+          ${column('Treated', panel('treated', ' data-subject', treatment), false)}
+          ${column('As drawn', panel('clean', '', ''), true)}
         </div>
       </div>
 

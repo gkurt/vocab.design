@@ -27,15 +27,21 @@ const FLOURISH = svg(
 );
 
 const READINGS = {
-  informative: `“Graphic. ${CHART_ALT}”`,
-  decorative: 'Nothing. The empty alt takes it out of the tree, so the reader never learns it is here.',
+  informative: `Graphic · “${CHART_ALT}”`,
+  decorative: 'Ignored · presentational',
 } as const;
 
 /**
  * Decorative image specimen: a report with two pictures in it. The chart carries the
  * finding and says so in its alt; the rule under the heading carries nothing and says
- * nothing, because its alt is empty. Point at either and the panel prints what a
- * screen reader would make of it.
+ * nothing, because its alt is empty. Point at either and the pane below prints the entry
+ * that picture makes in the accessibility tree, or reports that it makes none.
+ *
+ * That pane used to be headed "Screen reader, on reaching the image" and to sit idle
+ * reading "Point at either picture", which is a stage direction and an instruction to the
+ * reader rather than anything a tool prints. It is an inspector now: an empty state at
+ * rest, then the computed role and name, or "Ignored · presentational" for the picture
+ * whose empty alt keeps it out of the tree.
  *
  * The subject is the decorative image itself, which is as narrow as this term gets: the
  * alt is an attribute of that element and there is nothing inside it to point at. The
@@ -67,9 +73,9 @@ export function mount(root: HTMLElement): void {
           style="display: block; width: 100%; height: 96px; margin-top: 12px; border-radius: 6px; object-fit: cover"
         />
         <div class="sp-surface sp-context" style="margin-top: 12px; padding: 8px 10px">
-          <span class="sp-label">Screen reader, on reaching the image</span>
+          <span class="sp-label">Accessibility tree</span>
           <p class="sp-text sp-text--ink" data-part="readout" data-state="idle" style="margin: 4px 0 0; height: 34px; font-size: 12px">
-            Point at either picture
+            No image inspected.
           </p>
         </div>
       </div>

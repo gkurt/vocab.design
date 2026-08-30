@@ -6,29 +6,24 @@ type Stage = 'first' | 'familiar' | 'expert' | 'return';
 
 interface Level {
   label: string;
-  usage: string;
   note: string;
 }
 
 const LEVELS: Record<Stage, Level> = {
   first: {
     label: 'Publish draft',
-    usage: 'Use 1, ever',
     note: 'First encounter: the glyph and the words together, because neither has been learned yet.',
   },
   familiar: {
     label: 'Publish',
-    usage: 'Use 12, two weeks in',
     note: 'Twelve successful uses in, the label is shortened rather than dropped. The glyph is carrying more of it.',
   },
   expert: {
     label: 'Publish draft',
-    usage: 'Use 41 this month',
     note: 'The label is gone and the shape is the word. The target did not shrink with it, and the row has not moved.',
   },
   return: {
     label: 'Publish draft',
-    usage: 'Use 42, 7 weeks later',
     note: 'The part everyone forgets: proficiency decays, so an absence gives the label back rather than assuming it is still known.',
   },
 };
@@ -38,10 +33,19 @@ const LEVELS: Record<Stage, Level> = {
  * history with it. The label runs full, then short, then away entirely, and comes back after
  * an absence.
  *
- * The subject is the control whose label reduces, not the toolbar it sits in and not the
- * usage readout that explains why. The stage picker is instrumentation for a condition no
- * input could perform (weeks of use, then weeks away), and it, the readout, the neighbouring
- * tools and the caption are scenery (SPEC §5, §8).
+ * The subject is the control whose label reduces, not the toolbar it sits in. The stage
+ * picker is instrumentation for a condition no input could perform (weeks of use, then weeks
+ * away), and it and the neighbouring tools are scenery (SPEC §5, §8).
+ *
+ * Three strings the site was saying inside the frame are gone. A usage readout in the
+ * toolbar ("Use 1, ever") counted the person's own presses, which no toolbar prints and the
+ * picker already says. A heading over the note read "This person's history with that one
+ * control", introducing prose the stage draws out in the strip, so it stood over an empty
+ * panel. And a caption under the frame explained the slot ("The button narrows inside a slot
+ * sized for its widest state, so nothing beside or below it moves."), which is a note to the
+ * next author rather than to a reader. With the note panel unwrapped the frame is only as
+ * tall as the toolbar it holds, and the note itself is hidden from the start, since the
+ * stage lifts it into the strip.
  *
  * The reduction is contained (SPEC §5): the control lives in a slot sized for its widest
  * state, so the label shrinking narrows the button and moves nothing beside or below it. The
@@ -54,7 +58,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 216px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: auto">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Studio</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="stage" data-axis="Familiarity" data-value="first" style="flex: 0 0 auto">
@@ -90,27 +94,17 @@ export function mount(root: HTMLElement): void {
                 <button class="sp-icon-button" type="button" aria-label="Duplicate" style="width: 26px; height: 26px">${icon('copy')}</button>
                 <button class="sp-icon-button" type="button" aria-label="More" style="width: 26px; height: 26px">${icon('meatball', 'sp-icon--dots')}</button>
               </span>
-              <span class="sp-grow"></span>
-              <span class="sp-label sp-context" data-part="usage" style="flex: 0 0 auto; font-size: 10.5px; white-space: nowrap">${LEVELS.first.usage}</span>
             </div>
           </div>
 
-          <div class="sp-surface sp-context" style="flex: 1 1 auto; min-height: 0; padding: 9px 10px">
-            <span class="sp-label" style="display: block; font-size: 10px">This person's history with that one control</span>
-            <span class="sp-text sp-text--ink" data-stage-verdict data-part="note" style="display: block; margin-top: 3px; font-size: 11px; line-height: 1.35">${LEVELS.first.note}</span>
-          </div>
+          <span class="sp-text" data-stage-verdict data-part="note" style="display: none">${LEVELS.first.note}</span>
         </div>
       </div>
-
-      <span class="sp-text sp-context" data-part="caption" style="width: 452px; height: 30px; font-size: 11px; line-height: 1.35">
-        The button narrows inside a slot sized for its widest state, so nothing beside or below it moves.
-      </span>
     </div>
   `;
 
   const control = part(root, 'control');
   const label = part(root, 'label');
-  const usage = part(root, 'usage');
   const note = part(root, 'note');
 
   const render = (stage: Stage) => {
@@ -123,7 +117,6 @@ export function mount(root: HTMLElement): void {
     label.style.opacity = reduced ? '0' : '1';
     // The label goes, the target does not: the button keeps the icon button's own width.
     control.style.padding = reduced ? '0 6px' : '0 10px';
-    usage.textContent = level.usage;
     note.textContent = level.note;
   };
 

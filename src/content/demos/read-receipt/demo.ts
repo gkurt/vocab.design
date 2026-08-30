@@ -10,13 +10,6 @@ const LABEL: Record<Stage, string> = {
   read: 'Read',
 };
 
-const READOUT: Record<Stage, string> = {
-  sending: 'Sending: still on this phone, and not yet anybody else’s problem.',
-  sent: 'Sent: it left this phone. Nothing at all is known about hers yet.',
-  delivered: 'Delivered: it reached her phone. Nobody has necessarily looked at it.',
-  read: 'Read: her app reported the message on screen, which is not quite the same as read.',
-};
-
 /** How long each stage holds before the next one. The last stage is the resting one. */
 const HOLD: Record<Stage, number> = { sending: 900, sent: 1300, delivered: 1600, read: 0 };
 
@@ -31,9 +24,14 @@ const INCOMING = ['Are we still on for Thursday?', 'Bring the tide tables if you
  * was taken in rather than running on under the reader's eye.
  *
  * The subject is the marker, given its own element: the term names the status corner,
- * not the bubble it sits in and not the thread. The conversation, the readout and the
- * send control are scenery (SPEC §5), and the control sits outside the chat so it never
- * reads as a chat's own composer.
+ * not the bubble it sits in and not the thread. The conversation and the send control
+ * are scenery (SPEC §5), and the control sits outside the chat so it never reads as a
+ * chat's own composer.
+ *
+ * A line under the frame used to gloss each stage as it arrived ("Sent: it left this
+ * phone. Nothing at all is known about hers yet."). That is the article's reading of
+ * the marker, said in the article's voice, and no messaging app prints it, so it went;
+ * the marker still names its own stage.
  *
  * The marker is sized for its widest state from mount and the ticks swap without a fade,
  * so the walk moves nothing (SPEC §5) and no claim is ever made about a mark on its way
@@ -78,8 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <div class="sp-row sp-context" style="gap: 14px">
-        <span class="sp-text" data-part="readout" style="width: 322px; height: 30px; font-size: 11px; line-height: 1.35">${READOUT.sent}</span>
+      <div class="sp-row sp-context">
         <button class="sp-button sp-button--ghost sp-button--sm" data-part="send" type="button" style="flex: 0 0 auto; white-space: nowrap">Send again</button>
       </div>
     </div>
@@ -88,7 +85,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const marker = part(root, 'marker');
   const label = part(root, 'marker-label');
   const time = part(root, 'marker-time');
-  const readout = part(root, 'readout');
   const wait = part(root, 'tick-wait');
   const single = part(root, 'tick-single');
   const double = part(root, 'tick-double');
@@ -104,7 +100,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     double.hidden = stage !== 'delivered' && stage !== 'read';
     // The colour is this product's convention and nothing more, which is the article's point.
     marker.style.color = stage === 'read' ? 'var(--sp-accent)' : 'var(--sp-muted)';
-    readout.textContent = READOUT[stage];
   };
 
   const walk = (stage: Stage) => {

@@ -69,6 +69,13 @@ const MODES: Record<string, Mode> = {
  * the page's own top layer and cover the site around this stage, so the layer here is a
  * sibling of the page painted above it, and the readout says what the browser would be doing.
  *
+ * Three lines of the site's voice have left the frame. The window was titled "The surface
+ * is", a caption for a switch the stage draws in the strip, and is now the plain "Orders"
+ * the page would carry. The ribbon read "a sibling that used to win everything" beside its
+ * own declaration; the declaration is the whole of what the ribbon has to say. And the
+ * readout is the author's reading of each state and changes with the switch, so it is
+ * marked as the verdict and drawn in the strip.
+ *
  * Both slots are fixed boxes over the same coordinates, and nothing under them moves when
  * the surface changes slots (SPEC §5).
  */
@@ -77,7 +84,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">The surface is</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Orders</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Element" data-part="switcher" data-value="dialog">
             <button class="sp-segment" type="button" data-part="seg-dialog" value="dialog">a dialog</button>
             <button class="sp-segment" type="button" data-part="seg-popover" value="popover">a popover</button>
@@ -109,14 +116,13 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: 16px; top: 112px; right: 16px; height: 30px; z-index: 99999; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: var(--sp-accent-soft); border: 1px solid var(--sp-accent); border-radius: 6px"
             >
               <span style="font-family: ${MONO}; font-size: 11.5px">z-index: 99999</span>
-              <span class="sp-label">a sibling that used to win everything</span>
             </div>
             <div data-part="layer" style="position: absolute; inset: 0; z-index: 2147483000">
               <div class="sp-scrim" data-part="scrim"></div>
               <div data-part="slot-top" style="position: absolute; inset: 0"></div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="display: block; flex: 0 0 auto; width: 440px; height: 40px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="display: block; flex: 0 0 auto; width: 440px; height: 40px; text-align: center"></span>
         </div>
       </div>
     </div>

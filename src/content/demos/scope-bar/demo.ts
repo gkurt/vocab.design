@@ -46,6 +46,10 @@ interface Picker extends HTMLElement {
  * in the context register, which is also the honest reading, since the bar is a modifier on
  * a search that already exists.
  *
+ * The title bar carried "One query, four places to look" beside the app's name, which is
+ * the article's sentence in a search window. The four buttons and the count line under the
+ * list make the same point as themselves, so it went.
+ *
  * The scopes are absolute picks routed through the kit's segmented control, so a pass
  * resumed at any point lands in the same place and no demo code synthesizes a second click
  * (SPEC §8). The list keeps a fixed height with room for every row the widest scope shows,
@@ -71,7 +75,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 302px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Spotlight</span>
-          <span class="sp-label" style="font-size: 11px">One query, four places to look</span>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">

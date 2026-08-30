@@ -33,8 +33,6 @@ const NOTE: Record<Mode, string> = {
     'The first upward flick brings the bar back where the reader is standing. The room it costs is only spent while they are moving away from it.',
 };
 
-const DEPTH = { top: 'At the top of the list', deep: 'Part way down the list' } as const;
-
 /**
  * Quick return header specimen: one scroller whose bar is governed three ways. Sticky never
  * leaves. Hide on scroll leaves going down and comes back only at the top. Quick return
@@ -42,10 +40,14 @@ const DEPTH = { top: 'At the top of the list', deep: 'Part way down the list' } 
  * which is the term and the whole of the difference.
  *
  * The subject is the bar, the narrowest element the term names: the list under it is the
- * scenery it hides from, and the picker and the read-out below the frame are apparatus. The
+ * scenery it hides from, and the picker below the frame is apparatus. The
  * two comparison behaviours are counter-examples the subject itself passes through, so the
  * bar declares the quick return condition as a selector in `data-pose` and mounts there;
  * identify refuses to ring a bar that is currently being a sticky header (SPEC §6).
+ *
+ * A read-out beside the picker used to report where the reader was standing ("At the top of
+ * the list", "Part way down the list"). That is the site narrating a scroll position nobody
+ * needs told, and the list on screen already says it, so it is gone.
  *
  * The picker sits below the frame rather than in a topbar, because a second bar above the
  * one being demonstrated is the one piece of scenery this specimen cannot afford. The bar
@@ -84,21 +86,17 @@ export function mount(root: HTMLElement): void {
           <ul class="sp-list sp-context" data-part="rows" style="padding: 0 6px 14px">${rows}</ul>
         </div>
       </div>
-      <div class="sp-row sp-row--between sp-context" style="width: 452px; gap: 12px">
-        <span class="sp-label" data-part="depth" style="font-size: 11px; color: var(--sp-ink)">${DEPTH.top}</span>
-        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="quick-return" data-axis="Header" data-term="quick-return">
-          <button class="sp-segment" type="button" data-part="mode-sticky" value="sticky" style="padding: 5px 9px; font-size: 12px">Sticky</button>
-          <button class="sp-segment" type="button" data-part="mode-hide" value="hide" style="padding: 5px 9px; font-size: 12px">Hide on scroll</button>
-          <button class="sp-segment" type="button" data-part="mode-quick" value="quick-return" style="padding: 5px 9px; font-size: 12px">Quick return</button>
-        </sp-segmented>
-      </div>
+      <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="quick-return" data-axis="Header" data-term="quick-return">
+        <button class="sp-segment" type="button" data-part="mode-sticky" value="sticky" style="padding: 5px 9px; font-size: 12px">Sticky</button>
+        <button class="sp-segment" type="button" data-part="mode-hide" value="hide" style="padding: 5px 9px; font-size: 12px">Hide on scroll</button>
+        <button class="sp-segment" type="button" data-part="mode-quick" value="quick-return" style="padding: 5px 9px; font-size: 12px">Quick return</button>
+      </sp-segmented>
       <span class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 452px; height: 32px; font-size: 11px">${NOTE['quick-return']}</span>
     </div>
   `;
 
   const page = part(root, 'page');
   const header = part(root, 'header');
-  const depth = part(root, 'depth');
   const note = part(root, 'note');
 
   let mode: Mode = 'quick-return';
@@ -119,7 +117,6 @@ export function mount(root: HTMLElement): void {
     const y = page.scrollTop;
     const deep = y > TOP_ZONE;
     flag(page, 'data-deep', deep);
-    depth.textContent = deep ? DEPTH.deep : DEPTH.top;
     if (mode === 'sticky') away = false;
     else if (mode === 'hide') away = deep;
     else if (!deep) away = false;

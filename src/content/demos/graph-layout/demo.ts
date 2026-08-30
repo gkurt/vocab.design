@@ -95,6 +95,11 @@ const GLIDE = '0.5s var(--sp-ease)';
  * the context register (SPEC §5). This is deliberately not a node editor. There are no ports,
  * nothing to wire and nothing to drag, because the only question here is placement.
  *
+ * The line under the arrangement counts moved nodes and nothing else. It used to open on "Six
+ * steps, six boxes, and not one coordinate until an algorithm decided them." and then report the
+ * cost in a sentence about what the reader had learned, which is the article's argument printed
+ * inside a tool called Arrange; the verdict above it is where that reading belongs.
+ *
  * Edges are drawn as rotated segments rather than as SVG lines so that they can travel with the
  * nodes: the cost the term has to state is that re-running a layout moves everything the reader
  * had learned the position of, and a picture that jumped would hide exactly that.
@@ -188,9 +193,7 @@ export function mount(root: HTMLElement): void {
     // The honest cost, stated as a number: an arrangement is not free, it spends every
     // position the reader had learned.
     cost.dataset.moved = String(count ? moved : 0);
-    cost.textContent = count
-      ? `Re-arranged: ${moved} of ${NODES.length} nodes moved, and every position the reader had learned is gone.`
-      : 'Six steps, six boxes, and not one coordinate until an algorithm decided them.';
+    cost.textContent = `${count ? moved : 0} of ${NODES.length} nodes moved`;
     current = name;
   };
 

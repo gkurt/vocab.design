@@ -32,6 +32,11 @@ const row = ([name, value]: [string, string]) => `<tr><td>${name}</td><td>${valu
  * Two layouts, one markup, which is the reason to use the element: the control
  * restyles the pairs without touching what they say. The list's column is tall enough
  * for the stacked arrangement, so growing it moves nothing beside or below it (SPEC §5).
+ *
+ * The table once carried a caption under it reading "The same facts as a table: a header
+ * row that says nothing, and a column nobody would sort." That was the site talking
+ * inside the product, and the article already makes the comparison at length, so it went
+ * and the table is left to be read beside the list on its own.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,10 +62,6 @@ export function mount(root: HTMLElement): void {
                 <tbody>${FACTS.map(row).join('')}</tbody>
               </table>
             </div>
-            <p class="sp-text" style="margin: 0; font-size: 12px">
-              The same facts as a table: a header row that says nothing, and a column
-              nobody would sort.
-            </p>
           </div>
         </div>
       </div>

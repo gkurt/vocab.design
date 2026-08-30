@@ -24,8 +24,13 @@ const mark = (name: string, side: 'left' | 'right', text: string) => `
  * Scrubby slider specimen: a width field whose label is dragged sideways to run the
  * number, with the box it drives redrawn as the value changes. The subject is the field,
  * label and box together, since the term names the pair: a number you can drag by its
- * label and still type into. The preview, the two aiming marks, and the caption are the
- * scene around it.
+ * label and still type into. The preview and the two aiming marks are the scene around it.
+ *
+ * Three lines of the site's own voice used to stand in the inspector: "the box this number
+ * draws" under the preview, "Drag the label to approximate. Click the box to type an exact
+ * number." under the field, and "Drag the W sideways" in the status line at mount. The
+ * first two went, and the status line now says what an inspector says before anything has
+ * been touched. The preview band keeps its stated height, so nothing moved with them.
  *
  * The scrub is really computed from the pointer rather than mimed, so a reader who takes
  * the stage over gets the gesture. Nothing is re-parented between the press and the
@@ -38,10 +43,10 @@ const mark = (name: string, side: 'left' | 'right', text: string) => `
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 264px">
+      <div class="sp-frame sp-frame--wide" style="height: 236px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Inspector</span>
-          <span class="sp-text" data-part="readout" style="width: 214px; text-align: right; white-space: nowrap">Drag the W sideways</span>
+          <span class="sp-text" data-part="readout" style="width: 214px; text-align: right; white-space: nowrap">1 layer selected</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 12px">
           <div class="sp-context" style="position: relative; width: ${TRACK}px; height: 104px">
@@ -49,7 +54,6 @@ export function mount(root: HTMLElement): void {
               data-part="box"
               style="position: absolute; left: 0; top: 24px; width: ${START}px; height: 56px; border-radius: 6px; background: var(--sp-accent-soft); border: 1px solid var(--sp-accent)"
             ></div>
-            <span class="sp-label" style="position: absolute; left: 0; top: 86px; font-size: 11px">the box this number draws</span>
           </div>
           <div style="position: relative; width: ${TRACK}px; height: 34px">
             ${mark('mark-left', 'left', 'drag left')}
@@ -77,7 +81,6 @@ export function mount(root: HTMLElement): void {
               />
             </div>
           </div>
-          <span class="sp-label sp-context">Drag the label to approximate. Click the box to type an exact number.</span>
         </div>
       </div>
     </div>

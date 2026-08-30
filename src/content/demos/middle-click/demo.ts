@@ -37,8 +37,15 @@ const tabMarkup = (key: string, label: string, active: boolean) => `
  * Middle click specimen: a results page where the wheel press opens a link in a background
  * tab and closes a tab, against the primary press that replaces the page you were reading.
  * The subject is the middle link, because the term names a press and a press belongs to the
- * thing being pressed, the same call the secondary click specimen makes. The tab strip, the
- * readout, and the legend are scenery.
+ * thing being pressed, the same call the secondary click specimen makes. The tab strip and
+ * the result count are scenery.
+ *
+ * A line under the results used to narrate every press ("Three results. The primary press
+ * and the wheel press do different things to them." at rest, then "Primary press: ...
+ * replaced the page you were reading."), with a legend under that reading "Three jobs, one
+ * button: a background tab, closing a tab, and autoscroll." A results page prints neither,
+ * and the tab strip already shows what each press did: a tab arriving behind, a tab going.
+ * Both went, and the choreography reads the tabs instead of the sentence.
  *
  * The player dispatches a real `auxclick` with `button` 1 for a `middleClick` step (SPEC §8),
  * so nothing here is mimed: one handler answers the script and a reader who takes the stage
@@ -70,19 +77,13 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 262px">
+      <div class="sp-frame sp-frame--wide" style="height: 208px">
         <div class="sp-topbar sp-context" style="align-items: flex-end; gap: 2px; padding: 10px 10px 0">
           <span class="sp-row" data-part="tabs" style="gap: 2px">${tabMarkup('results', 'Harbour search', true)}</span>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
+        <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
+          <span class="sp-label sp-context" style="font-size: 11px">3 results for harbour</span>
           <div class="sp-stack" style="gap: 6px">${rows}</div>
-          <span
-            class="sp-text sp-text--ink"
-            data-part="readout"
-            data-mode="idle"
-            style="min-height: 34px; font-size: 12px"
-          >Three results. The primary press and the wheel press do different things to them.</span>
-          <span class="sp-label sp-context" style="font-size: 11px; line-height: 1.4">Three jobs, one button: a background tab, closing a tab, and autoscroll.</span>
         </div>
       </div>
     </div>
@@ -90,12 +91,6 @@ export function mount(root: HTMLElement): void {
 
   const tabs = part(root, 'tabs');
   const active = part(root, 'tab-results');
-  const readout = part(root, 'readout');
-
-  const say = (mode: string, text: string) => {
-    readout.dataset.mode = mode;
-    readout.textContent = text;
-  };
 
   const mark = (key: string, text: string) => {
     part(root, `mark-${key}`).textContent = text;
@@ -115,14 +110,13 @@ export function mount(root: HTMLElement): void {
     tabs.insertAdjacentHTML('beforeend', tabMarkup(key, label, false));
   };
 
-  for (const { key, title, tab } of LINKS) {
+  for (const { key, tab } of LINKS) {
     const row = part(root, `link-${key}`);
 
     row.addEventListener('click', () => {
       active.textContent = tab;
       flag(active, 'data-navigated', true);
       for (const other of LINKS) mark(other.key, other.key === key ? 'opened here' : '');
-      say('here', `Primary press: ${title} replaced the page you were reading.`);
     });
 
     row.addEventListener('auxclick', (event) => {
@@ -131,7 +125,6 @@ export function mount(root: HTMLElement): void {
       openTab(key, tab);
       flag(row, 'data-opened', true);
       mark(key, 'background tab');
-      say('background', `Wheel press: ${tab} opened behind, and you kept your place.`);
     });
   }
 
@@ -141,10 +134,8 @@ export function mount(root: HTMLElement): void {
     event.preventDefault();
     const tab = (event.target as HTMLElement).closest<HTMLElement>('[data-part^="tab-"]');
     if (!tab) return;
-    if (tab === active) return say('kept', 'Wheel press on the last tab: the window keeps it.');
-    const key = tab.dataset.part?.slice(4) ?? '';
-    closeTab(key);
-    say('closed', 'Wheel press on a tab: closed, without aiming at a small target.');
+    if (tab === active) return;
+    closeTab(tab.dataset.part?.slice(4) ?? '');
   });
 
   // A real middle press starts the browser's own autoscroll unless the press is cancelled,

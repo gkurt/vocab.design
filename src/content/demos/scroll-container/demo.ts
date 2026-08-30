@@ -41,14 +41,16 @@ const row = ([label, width]: [string, number]) => `
  * explicit pick, so the same content clips and scrolls, clips and locks, or escapes.
  *
  * The subject is the box itself, not the content and not the arena it sits in: the term
- * names the element that does the scrolling. The picker and the caption are the
- * instrumentation that makes the property watchable and wear the context register (SPEC §5).
+ * names the element that does the scrolling. The picker is the instrumentation that makes
+ * the property watchable and wears the context register (SPEC §5). The reading of each
+ * value used to sit under the box, where no product would print it; it changes with the
+ * picker, so it is that switch's verdict and the stage draws it in the strip.
  *
  * `overflow: visible` is the one state where the box is not a scroll container, so the
  * honest condition is declared in `data-pose` and the mount state satisfies it: identify
  * refuses to ring a box that has stopped being the term (SPEC §6). `hidden` is inside the
  * pose on purpose, because it really is a scroll container: it clips at the padding edge
- * and script can still scroll it, which is the point the caption makes.
+ * and script can still scroll it, which is the point the verdict makes.
  *
  * The box never changes size, only its overflow does, so the arena reserves the room the
  * escaped content will take and nothing below it moves (SPEC §5). Every length here is
@@ -87,7 +89,7 @@ export function mount(root: HTMLElement): void {
               ${ROWS.map(row).join('')}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 40px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

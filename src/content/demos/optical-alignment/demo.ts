@@ -72,13 +72,18 @@ const row = ({ key, label, nudge, subject, art }: (typeof SHAPES)[number]) => `
  * refuses to ring a shape that is currently sitting where it was measured rather than where
  * it belongs (SPEC §6). Only `transform` changes between modes, so nothing moves in the
  * rows but the shapes, and the readouts hold their width either way.
+ *
+ * The line under the arena names what each placement did, and it changes with the pick, so
+ * it is the stage's verdict and is drawn in the strip; the frame gave back the 50px it was
+ * holding for it. The title bar read "Placed against one edge", which was the site naming
+ * its own exhibit in the app's own type, and now says what the file is.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 250px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Placed against one edge</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Shapes</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-value="optical" data-axis="Alignment" data-term="optical">
             <button class="sp-segment" type="button" data-part="seg-metric" value="metric">metric</button>
             <button class="sp-segment" type="button" data-part="seg-optical" value="optical">optical</button>
@@ -93,7 +98,7 @@ export function mount(root: HTMLElement): void {
             ></span>
             ${SHAPES.map(row).join('')}
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 42px; max-width: 428px; text-align: center">${NOTES.optical}</span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 42px; max-width: 428px; text-align: center">${NOTES.optical}</span>
         </div>
       </div>
     </div>

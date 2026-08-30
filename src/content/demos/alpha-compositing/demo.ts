@@ -57,6 +57,10 @@ const KNOCKOUT = `radial-gradient(circle at ${HOLE.x}px ${HOLE.y}px, transparent
  * term. The chequerboard, the legend, the operator readout and the picker are all scenery
  * and sit in the context register (SPEC §5).
  *
+ * A caption under the window once read "The chequerboard is the page showing through...",
+ * which was the site explaining the drawing from inside the product. The article makes the
+ * same point, so the caption is gone and the chequerboard speaks for itself.
+ *
  * Every shape is absolutely placed and permanently laid out; an operator change only turns
  * paint and masks on and off, so nothing moves (SPEC §5).
  */
@@ -113,11 +117,6 @@ export function mount(root: HTMLElement): void {
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 2px 0 0; height: 58px; font-size: 10.5px; line-height: 1.35">${start.note}</p>
           </div>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption" style="margin: 9px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
-          The chequerboard is the page showing through: wherever it is visible, the two layers together left that pixel
-          less than fully covered.
-        </p>
       </div>
     </div>
   `;

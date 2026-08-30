@@ -53,13 +53,19 @@ const VIEWS: Record<View, () => string> = {
  * names is the figure tracing them, and the table underneath is the scene (SPEC §5). The
  * cards view carries its own serial trace as context, so nothing pretends a stack is mowed.
  * Neither overlay takes pointer events, so a reader's click reaches the table beneath.
+ *
+ * The note under the page reads the trace ("Across row one, down, then back the other way"),
+ * which is the author's reading of the state rather than anything the page would print, so it
+ * is marked `data-stage-verdict` and drawn in the strip above the switch that changes it. The
+ * frame lost the height that note used to hold. The title bar said "Four plans, one page",
+ * the exhibit describing itself; the product calls the page what it is.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 244px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Four plans, one page</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Berth pricing</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Layout" data-part="switcher" data-value="table">
             <button class="sp-segment" type="button" data-part="seg-table" value="table">table</button>
             <button class="sp-segment" type="button" data-part="seg-cards" value="cards">stacked</button>
@@ -71,7 +77,7 @@ export function mount(root: HTMLElement): void {
             <svg data-part="mow" data-subject aria-hidden="true" style="position: absolute; pointer-events: none; overflow: visible"></svg>
             <svg data-part="serial" hidden aria-hidden="true" style="position: absolute; pointer-events: none; overflow: visible"></svg>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 434px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 40px; max-width: 434px; text-align: center"></span>
         </div>
       </div>
     </div>

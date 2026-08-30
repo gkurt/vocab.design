@@ -36,6 +36,13 @@ const split = (word: string): [string, string] => {
  * it names is the figure tracing them, and the paragraph underneath is the scene (SPEC §5).
  * The flat paragraph carries its own trace as context, so nothing pretends a failed hunt is
  * the pattern. Neither overlay takes pointer events, so a reader's click reaches the page.
+ *
+ * Two strings were the site talking inside the window. The title bar read "Reader asking what
+ * it costs", which named the reader rather than the document, and now names the document. The
+ * line under the page reading the trace out ("A keyword hunt: isolated fixations, each one on
+ * a word that looks different from its neighbours.") is the author's verdict on the state and
+ * changes with the switch, so it carries `data-stage-verdict` and the stage draws it in the
+ * strip (SPEC §5.1). The frame is 48px shorter for having given up its row.
  */
 export function mount(root: HTMLElement): void {
   const words = (mode: Mode) =>
@@ -54,9 +61,9 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Reader asking what it costs</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Harbour handbook</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Text" data-part="switcher" data-value="formatted">
             <button class="sp-segment" type="button" data-part="seg-formatted" value="formatted">formatted</button>
             <button class="sp-segment" type="button" data-part="seg-flat" value="flat">flat</button>
@@ -74,7 +81,7 @@ export function mount(root: HTMLElement): void {
             <div data-part="spray" data-subject style="position: absolute; pointer-events: none"></div>
             <div data-part="stalled" hidden style="position: absolute; pointer-events: none"></div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 434px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 40px; max-width: 434px; text-align: center"></span>
         </div>
       </div>
     </div>

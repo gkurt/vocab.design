@@ -20,11 +20,15 @@ const CHAR = 'white-space: pre';
  * it survives every edit, and its blink is the kit's, which means a stated motion
  * preference stops it. The magnified inset beside the field is scenery: it says
  * what the caret is between, the way a fingertip's magnifier does on touch.
+ *
+ * A line under the field once read "The pointer is the cursor. This is the insertion
+ * point.", which is the site drawing the distinction inside a rename dialog. The
+ * article draws it, so the line has gone and the frame lost the room it took.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 252px">
+      <div class="sp-frame sp-frame--wide" style="height: 216px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Rename</span>
           <span class="sp-text" data-part="readout" style="width: 96px; text-align: right">13 of 13</span>
@@ -50,9 +54,6 @@ export function mount(root: HTMLElement): void {
               style="display: flex; align-items: center; justify-content: center; gap: 1px; width: 96px; height: 44px; font-size: 24px; letter-spacing: 1px"
             ></div>
           </div>
-          <span class="sp-label sp-context" style="text-align: center">
-            The pointer is the cursor. This is the insertion point.
-          </span>
         </div>
       </div>
     </div>

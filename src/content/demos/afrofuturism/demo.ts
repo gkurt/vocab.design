@@ -13,8 +13,11 @@
  *
  * The subject is the interface fragment, not the tour and not the poster panel: this term
  * is a movement rather than a texture, and the narrowest thing on stage that shows the
- * register applied to a design is the fragment (SPEC §5). The panel, the labels and the
- * caption are the scenery that makes it legible.
+ * register applied to a design is the fragment (SPEC §5). The panel is the scenery that makes
+ * it legible. The two columns used to be captioned ("The register", "Indigo ground, gold light,
+ * an orbit."; "Spent on a screen", "Pattern divides, never tiles.") under a heading reading
+ * "Ornament doing structural work". That is the article describing the picture beside the
+ * picture, so the tour is now the two artworks alone.
  *
  * Everything is placed from fixed tables, never a value drawn at mount, so the identify
  * still is the same on every run. Static: a poster has no states and takes no clock.
@@ -145,21 +148,17 @@ export function mount(root: HTMLElement): void {
       </div>
     </div>`;
 
-  const tourColumn = (label: string, note: string, body: string, context: boolean, width: number): string => `
+  const tourColumn = (body: string, context: boolean, width: number): string => `
     <div class="sp-stack${context ? ' sp-context' : ''}" style="flex: 0 0 ${width}px; gap: 5px; align-items: stretch">
       ${body}
-      <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 10px 14px 11px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Ornament doing structural work</span>
-
         <div class="sp-row" data-part="tour" style="gap: 12px; align-items: flex-start; justify-content: center">
-          ${tourColumn('The register', 'Indigo ground, gold light, an orbit.', panel, true, PW)}
-          ${tourColumn('Spent on a screen', 'Pattern divides, never tiles.', fragment, false, 154)}
+          ${tourColumn(panel, true, PW)}
+          ${tourColumn(fragment, false, 154)}
         </div>
       </div>
 

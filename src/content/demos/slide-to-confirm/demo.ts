@@ -35,6 +35,10 @@ const anchor = (name: string, centre: number) =>
  * conformance failure, which is why the alternative is in the specimen rather than only
  * in the article.
  *
+ * The status line in the title bar read "Slide the thumb all the way" at rest, which is the
+ * site coaching the reader from inside a settings window; the track's own label already says
+ * "Slide to erase", so the line reports the device's state instead.
+ *
  * The drag is really computed from the pointer. Capture is taken on a trusted pointerdown
  * or a reader's drag dies at the thumb's edge, and the trusted guard is mandatory: the
  * player's synthetic pointers have nothing to capture and the call throws (SPEC §7). The
@@ -52,7 +56,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 468px; height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Device</span>
-          <span class="sp-text" data-part="readout" data-outcome="idle" style="flex: 0 0 auto; width: 264px; text-align: right; white-space: nowrap">Slide the thumb all the way</span>
+          <span class="sp-text" data-part="readout" data-outcome="idle" style="flex: 0 0 auto; width: 264px; text-align: right; white-space: nowrap">Not erased</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
           <div class="sp-surface sp-context" style="width: 100%; padding: 9px 12px">

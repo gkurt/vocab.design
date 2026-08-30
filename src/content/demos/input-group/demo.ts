@@ -13,6 +13,9 @@ const ADDON =
  * the middle of it: an outline that stopped at the field would be exactly the mistake
  * the term is about. The search variant beneath is scenery, and so is the card.
  *
+ * The second group was labelled "The other end is an action", which named the lesson
+ * rather than the field; it is labelled "Search listings", which is what it searches.
+ *
  * The weld is inline paint because it is this term's own claim: the parts share one
  * outline (each seam drops the border on one side), the ends keep the kit radius and
  * the middle goes square. The ring is drawn on the group with `data-sim-focus`, never
@@ -49,7 +52,7 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-divider sp-context"></div>
           <div class="sp-stack sp-context" data-part="aside" style="gap: 6px">
-            <span class="sp-label">The other end is an action</span>
+            <span class="sp-label">Search listings</span>
             <div class="sp-row" data-part="search" style="gap: 0; align-items: stretch; width: 236px">
               <input
                 class="sp-input sp-grow"

@@ -29,6 +29,11 @@ const NOTE = 'position: absolute; white-space: nowrap; font-size: 11px';
  * something false, and nothing here could be dimmed as scenery without dimming half of
  * what is being claimed. Marking the wrapper withdraws the identify control, which is
  * the honest outcome: the answer to "which part of this is the term" is all of it.
+ *
+ * The notes on the field print measurements only. A line at the foot stated the law itself
+ * ("Time grows with distance D, shrinks with width W.") and a second line by the edge target
+ * added that the pointer cannot overshoot it; both were the site teaching inside the diagram
+ * and are gone, leaving the edge annotated with its measurement like the other two targets.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -70,10 +75,7 @@ export function mount(root: HTMLElement): void {
             data-part="edge"
             style="${TARGET}; right: 0; top: 0; bottom: 0; width: 16px; height: auto; border-radius: 0"
           ></button>
-          <span class="sp-label" style="${NOTE}; right: 26px; top: 56px; text-align: right">edge: W is unbounded,</span>
-          <span class="sp-label" style="${NOTE}; right: 26px; top: 72px; text-align: right">the pointer cannot overshoot it</span>
-
-          <span class="sp-label" style="${NOTE}; left: 12px; top: 172px">Time grows with distance D, shrinks with width W.</span>
+          <span class="sp-label" style="${NOTE}; right: 26px; top: 56px; text-align: right">edge: W unbounded</span>
         </div>
       </div>
     </div>

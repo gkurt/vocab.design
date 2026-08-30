@@ -12,8 +12,8 @@ const START: Entry = { key: 'none', text: 'Nothing has been pressed yet.' };
  * pointer moves.
  *
  * The subject is the release-event button, the narrowest element the term names: the criterion is
- * a property of the control, not of the scene. The press-event panel, the release area, the log
- * strip and the caption are scenery (SPEC §5). The button is honestly the term at every resting
+ * a property of the control, not of the scene. The press-event panel, the release area and the log
+ * strip are scenery (SPEC §5). The button is honestly the term at every resting
  * state, fired or idle, so it needs no `data-pose`.
  *
  * Both buttons answer pointer events rather than `click`, which is the whole subject matter, and
@@ -21,13 +21,24 @@ const START: Entry = { key: 'none', text: 'Nothing has been pressed yet.' };
  * let go inside the button's own box, because a drag's `pointerup` is dispatched on the element
  * the press started from (SPEC §8). The log holds two lines whether or not it has two entries, so
  * nothing moves as it fills (SPEC §5). No timer is needed.
+ *
+ * Two lines of the site's voice have gone. The window was headed "Two Delete buttons, one
+ * difference: when they act", which is the demonstration introducing itself, and a caption under
+ * the log argued the consequence ("Landing on the wrong control is recoverable only while nothing
+ * has happened yet..."), which is the article's own paragraph. The dashed band lost its
+ * instruction to the reader ("Slide off the button and let go in here") and is now just the space
+ * beside the controls, which is all a release has to land in for the log to record it.
+ *
+ * The two panel headings ("Acts on press", "Acts on release") stayed. The buttons are identical by
+ * design, the log names them by those same two words, and without the headings the strip records
+ * results for a comparison the reader cannot see the axis of.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px; height: 20px">
-          <span class="sp-label" style="flex: 0 0 auto">Two Delete buttons, one difference: when they act</span>
+          <span class="sp-grow"></span>
           <button class="sp-button sp-button--quiet sp-button--sm" type="button" data-part="reset"
                   style="font-size: 11px; padding: 2px 8px; color: var(--sp-muted)">Reset</button>
         </div>
@@ -51,11 +62,8 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-surface sp-context" data-part="away"
-             style="margin-top: 8px; height: 30px; display: flex; align-items: center; justify-content: center;
-                    border-style: dashed; background: var(--sp-sunken)">
-          <span class="sp-label" style="font-size: 10.5px">Slide off the button and let go in here</span>
-        </div>
+        <div class="sp-surface sp-context" data-part="away" aria-hidden="true"
+             style="margin-top: 8px; height: 30px; border-style: dashed; background: var(--sp-sunken)"></div>
 
         <div class="sp-surface sp-context" data-part="log" data-last="none"
              style="margin-top: 8px; height: 44px; padding: 6px 10px; display: flex; flex-direction: column;
@@ -63,11 +71,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="log-1" style="min-height: 14px; font-size: 10.5px">${START.text}</span>
           <span class="sp-text sp-text--ink" data-part="log-2" style="min-height: 14px; font-size: 10.5px"></span>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">
-          Landing on the wrong control is recoverable only while nothing has happened yet. Acting on press spends the
-          recovery before the reader knows they need it.
-        </p>
       </div>
     </div>
   `;

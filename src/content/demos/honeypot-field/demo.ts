@@ -4,7 +4,7 @@ import { flag, part } from '#src/kit/parts.ts';
 const BAIT = 'cheap-watches-online';
 
 const RESULT = {
-  idle: { text: 'No submission yet. The trap is sitting empty.', badge: 'Waiting' },
+  idle: { text: 'No submissions yet.', badge: 'Waiting' },
   accepted: { text: 'Accepted, and nobody was asked to prove anything.', badge: 'Accepted' },
   rejected: { text: 'Discarded on the server; the sender still sees the thank-you page.', badge: 'Discarded' },
 } as const;
@@ -24,14 +24,20 @@ type State = keyof typeof RESULT;
  * whether or not it holds a value, so a submission changes words and never geometry
  * (SPEC §5). Each control reaches its own outcome rather than flipping the other's
  * (SPEC §8).
+ *
+ * Four strings were the site talking inside the form and have gone: a topbar note reading
+ * "No challenge shown", a caption over the trap reading "Hidden in the real form, drawn here
+ * so it can be looked at", and a line spelling out the `display: none` plus `aria-hidden` plus
+ * `tabindex="-1"` recipe, which the article carries in full. The status line now rests on a
+ * plain empty state. The two buttons are instrumentation, so they say what they do rather than
+ * asking the reader to play a role: Submit, and Fill the hidden field and submit.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 312px">
+      <div class="sp-frame sp-frame--wide" style="height: 278px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Newsletter signup</span>
-          <span class="sp-label" style="font-size: 11px">No challenge shown</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column">
           <div class="sp-surface" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 12px">
@@ -39,31 +45,25 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label">Email</span>
               <input class="sp-input" data-part="email" value="ana.ferreira@mailbox.test" readonly aria-label="Email" />
             </div>
-            <div style="display: flex; flex-direction: column; gap: 4px">
-              <span class="sp-label sp-context" style="font-size: 10px">Hidden in the real form, drawn here so it can be looked at</span>
-              <div
-                class="sp-row"
-                data-part="honeypot"
-                data-subject
-                style="gap: 8px; padding: 7px 9px; border: 1px dashed var(--sp-accent); border-radius: 6px; background: var(--sp-accent-soft)"
-              >
-                <span class="sp-label" style="width: 58px">website</span>
-                <input
-                  class="sp-input sp-grow"
-                  data-part="bait"
-                  value=""
-                  placeholder="leave this field empty"
-                  readonly
-                  aria-label="Website, leave this field empty"
-                />
-              </div>
-              <span class="sp-text sp-context" style="font-size: 10px; white-space: nowrap">
-                <code>display: none</code> + <code>aria-hidden</code> + <code>tabindex="-1"</code>, or a real reader falls in too
-              </span>
+            <div
+              class="sp-row"
+              data-part="honeypot"
+              data-subject
+              style="gap: 8px; padding: 7px 9px; border: 1px dashed var(--sp-accent); border-radius: 6px; background: var(--sp-accent-soft)"
+            >
+              <span class="sp-label" style="width: 58px">website</span>
+              <input
+                class="sp-input sp-grow"
+                data-part="bait"
+                value=""
+                placeholder="leave this field empty"
+                readonly
+                aria-label="Website, leave this field empty"
+              />
             </div>
             <div class="sp-row sp-context" style="gap: 8px; margin-top: 2px">
-              <button class="sp-button sp-button--sm" data-part="as-person" type="button">Submit as a person</button>
-              <button class="sp-button sp-button--ghost sp-button--sm" data-part="as-bot" type="button">Submit as a bot</button>
+              <button class="sp-button sp-button--sm" data-part="as-person" type="button">Submit</button>
+              <button class="sp-button sp-button--ghost sp-button--sm" data-part="as-bot" type="button">Fill the hidden field and submit</button>
             </div>
           </div>
         </div>

@@ -35,9 +35,11 @@ const NOTE = {
  * cause, which is the whole of the term.
  *
  * The subject is the preferences LIST rather than the window or the button: the pile is
- * what the term names, and the "settle it" control is instrumentation, so it stays scenery
- * (SPEC §5). The specimen mounts already scrolling, so the term is legible at rest as well
- * as in the pose the share image holds. The list's height is fixed and the note holds one
+ * what the term names, and the add control is instrumentation, so it stays scenery
+ * (SPEC §5). That control read "Settle it with an option" beside a line saying "Two people
+ * disagree about a default.": the line was the site narrating the fiction and is gone, and
+ * the button now says plainly what pressing it does. The specimen mounts already scrolling,
+ * so the term is legible at rest as well as in the pose the share image holds. The list's height is fixed and the note holds one
  * line in both of its states, so adding an option moves nothing outside the scroller
  * (SPEC §5); the clipping inside it is the demonstration rather than a spill.
  *
@@ -61,9 +63,8 @@ export function mount(root: HTMLElement): void {
           ${NOTE.errand}
         </span>
       </div>
-      <div class="sp-row sp-row--between" style="width: 440px; margin-top: 12px">
-        <span class="sp-text sp-context" style="font-size: 11px">Two people disagree about a default.</span>
-        <button class="sp-button sp-button--ghost sp-button--sm sp-context" data-part="add" type="button">Settle it with an option</button>
+      <div class="sp-row" style="width: 440px; margin-top: 12px; justify-content: flex-end">
+        <button class="sp-button sp-button--ghost sp-button--sm sp-context" data-part="add" type="button">Add an option</button>
       </div>
     </div>
   `;
@@ -90,7 +91,7 @@ export function mount(root: HTMLElement): void {
     count.textContent = `${SHIPPED.length + settled} options`;
     if (settled >= SETTLED.length) {
       add.disabled = true;
-      add.textContent = 'No arguments left';
+      add.textContent = 'Nothing left to add';
     }
     report();
   });

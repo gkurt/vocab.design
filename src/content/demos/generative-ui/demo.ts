@@ -24,9 +24,14 @@ const FIGURES: Record<Range, { heading: string; rows: { label: string; value: st
 /**
  * Generative UI specimen: a request answered with a small interface instead of a
  * paragraph. Asking assembles a panel out of parts this app already ships (a heading,
- * two stat rows, a range picker), and the recipe line names what was assembled, so the
- * reader can see the answer is a composition of known components rather than markup
- * invented on the spot.
+ * two stat rows, a range picker), and the panel's own provenance line names the components it
+ * was built from, so the reader can see the answer is a composition of known components rather
+ * than markup invented on the spot.
+ *
+ * The empty state and the topbar used to speak for the site: "An answer here is a panel, not a
+ * paragraph.", "Ask, and the parts are picked for the question.", and a topbar label reading
+ * "Composes from this app's own parts". All three explained the term to a reader instead of
+ * telling them anything the assistant knows, so they carry ordinary product copy now.
  *
  * Nothing is fetched and no request is faked: the figures are static and the panel is
  * built from them the moment Ask is pressed, which is what a specimen can honestly show
@@ -46,7 +51,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Ledger assistant</span>
-          <span class="sp-label" style="font-size: 11px">Composes from this app's own parts</span>
+          <span class="sp-label" style="font-size: 11px">Beta</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
 
@@ -59,8 +64,8 @@ export function mount(root: HTMLElement): void {
 
           <div style="position: relative; flex: 1 1 auto; min-height: 0">
             <div class="sp-surface sp-context sp-empty" data-part="placeholder" style="position: absolute; inset: 0; gap: 6px">
-              <span class="sp-text" style="font-size: 12px">An answer here is a panel, not a paragraph.</span>
-              <span class="sp-label" style="font-size: 10px">Ask, and the parts are picked for the question.</span>
+              <span class="sp-text" style="font-size: 12px">Nothing asked yet.</span>
+              <span class="sp-label" style="font-size: 10px">Try: spending by category</span>
             </div>
 
             <section
@@ -79,7 +84,7 @@ export function mount(root: HTMLElement): void {
               </div>
               <div class="sp-stack" data-part="stats" style="gap: 8px"></div>
               <span class="sp-label" data-part="recipe" style="margin-top: auto; font-size: 10px">
-                Assembled for this question: heading, 2 stat rows, 1 range picker.
+                Built from ledger components: heading, 2 stat rows, range picker.
               </span>
             </section>
           </div>

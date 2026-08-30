@@ -73,11 +73,17 @@ const plate = (attrs: string) => `
  *
  * The CSS box is a constant, stated once and never written again. That is the whole claim:
  * density buys samples, never room, so nothing on stage may change size when the ratio does.
+ *
+ * The note under the plates ("Ratio 1: eleven CSS pixels across, eleven device pixels
+ * across...") is the author reading the ratio out loud, and it changes with the switch, so
+ * it is the strip's verdict now (SPEC §5.1) and the frame lost the 50px it had reserved for
+ * it. The grid legend stayed, since the demo draws the grid it names, but it is set as a
+ * legend now ("1 cell = 1 device pixel") rather than as a sentence about the picture.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Device pixel ratio</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Ratio" data-value="1">
@@ -97,9 +103,9 @@ export function mount(root: HTMLElement): void {
               ${plate('data-part="plate" data-subject data-dpr="1"')}
             </div>
           </div>
-          <span class="sp-label sp-context">one cell is one device pixel</span>
-          <span class="sp-text sp-context" data-part="readout" style="height: 42px; max-width: 440px; text-align: center"></span>
+          <span class="sp-label sp-context">1 cell = 1 device pixel</span>
         </div>
+        <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="max-width: 440px; text-align: center"></span>
       </div>
     </div>
   `;

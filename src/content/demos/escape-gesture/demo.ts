@@ -25,6 +25,10 @@ const CAPTION = {
  * `scrub` step, a real pair of fingers, and a reader's modifier+drag swept side to side
  * through one wiring (SPEC §7). The article carries what the demo cannot, which is that no web
  * page can hear this gesture at all.
+ *
+ * The sheet used to carry a line reading "Scrub two fingers to dismiss". No filter sheet
+ * advertises a system gesture back at the reader: that was the site telling the reader how to
+ * drive the demonstration. It is gone, and the sheet keeps its own room.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -43,7 +47,6 @@ export function mount(root: HTMLElement): void {
           style="position: absolute; inset: auto 0 0 0; height: 118px; border-radius: 12px 12px 0 0; padding: 12px; display: grid; gap: 8px; align-content: start">
           <span class="sp-label">Filter</span>
           <div class="sp-row" style="gap: 6px"><span class="sp-chip">Morning</span><span class="sp-chip">Evening</span></div>
-          <p class="sp-text sp-text--quiet" data-part="hint" style="margin: 0; font-size: 11px">Scrub two fingers to dismiss</p>
         </div>
         <div class="sp-surface" data-part="gone" hidden
           style="position: absolute; inset: 0; display: grid; place-items: center; gap: 4px">

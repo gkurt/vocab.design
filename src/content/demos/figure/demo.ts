@@ -10,7 +10,10 @@ const CODE = `&lt;figure&gt;
  * The subject is the first `figure`: the element the term names is the binding of the
  * content to its caption, so neither the image alone nor the caption alone is the
  * answer, and the article around it is the scene. The second figure is another
- * instance of the same term rather than scenery, so it keeps its own paint.
+ * instance of the same term rather than scenery, so it keeps its own paint. Its caption
+ * once read "A listing is a figure too, caption and all.", which was the site explaining
+ * the term inside a survey document; it now captions the listing the way that document
+ * would.
  *
  * Nothing here moves. A figure is a static arrangement, and the choreography's cursor
  * only walks the distance the term is about: from the reference in the running text to
@@ -55,7 +58,7 @@ export function mount(root: HTMLElement): void {
             >${CODE}</pre>
             <figcaption class="sp-label" data-part="caption-2" style="margin-top: 6px">
               <span style="color: var(--sp-ink); font-weight: 600">Figure 4.</span>
-              A listing is a figure too, caption and all.
+              Markup for the gauge plate in the survey template.
             </figcaption>
           </figure>
         </div>

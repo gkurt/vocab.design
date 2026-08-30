@@ -8,9 +8,9 @@ const LIVE_START_S = 12;
 /** Marks are clamped here, so a reader who keeps pressing never pushes one off the rail. */
 const LIVE_END_S = 19.4;
 /**
- * This demo's own detector, and it says so in the panel. Vendors disagree about the
- * threshold and Fullstory publishes none, so a number stated as universal would be
- * a claim the term does not support.
+ * The mock recorder's own rule, printed in its panel as that tool's setting. Vendors
+ * disagree about the threshold and Fullstory publishes none, so a number stated as
+ * universal would be a claim the term does not support.
  */
 const WINDOW_MS = 1500;
 const THRESHOLD = 4;
@@ -57,6 +57,13 @@ const BAND_STYLE =
  * Nothing here synthesizes input. The counter reads the clicks that arrive and no
  * others, so one press by a reader is exactly one press on the record.
  *
+ * A caption under the frame once read "The button answers nothing. Only the
+ * recording notices the burst." That is the article's sentence, and the scene
+ * already shows it, so it went. Two other lines were the site talking through the
+ * product: the export card's subtitle listed what the button fails to do, and the
+ * recorder's rule was headed "This demo's rule". Both now say what that mock tool
+ * would really print.
+ *
  * The button and the strip's rail, marks and labels are the apparatus and carry the
  * context register. Both bands sit outside it, since the register remaps the accent
  * they are drawn in. Marks and bands are absolutely positioned over a rail of fixed
@@ -76,7 +83,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-surface sp-context" style="display: flex; align-items: center; gap: 12px; padding: 12px">
             <div class="sp-stack sp-grow" style="gap: 2px; min-width: 0">
               <span class="sp-heading" style="font-size: 14px">Quarterly export</span>
-              <span class="sp-text">No press state, no spinner, no file.</span>
+              <span class="sp-text">Every report in this workspace, as one .csv file.</span>
             </div>
             <button
               type="button"
@@ -88,7 +95,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <div class="sp-surface" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px">
             <div class="sp-row sp-row--between sp-context">
               <span class="sp-label">Session recording</span>
-              <span class="sp-label">This demo's rule: ${THRESHOLD} presses inside ${(WINDOW_MS / 1000).toFixed(1)} s</span>
+              <span class="sp-label">Rule: ${THRESHOLD} presses in ${(WINDOW_MS / 1000).toFixed(1)} s</span>
             </div>
 
             <div data-part="timeline" data-detect="idle" style="position: relative; height: 56px">
@@ -113,10 +120,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="sp-row sp-context">
-        <span class="sp-label">The button answers nothing. Only the recording notices the burst.</span>
       </div>
     </div>
   `;

@@ -7,9 +7,9 @@ const WINDOW = { x: 62, y: 2, w: 326, h: 150 };
 const ORNAMENT = { w: 214, h: 42, gap: 14 };
 
 const VIEWS = [
-  { key: 'grid', label: 'Grid', say: 'Grid view. The controls are outside the window.' },
-  { key: 'single', label: 'Single', say: 'One photo, and the ornament never covered it.' },
-  { key: 'info', label: 'Info', say: 'Details. The window keeps every pixel it had.' },
+  { key: 'grid', label: 'Grid' },
+  { key: 'single', label: 'Single' },
+  { key: 'info', label: 'Info' },
 ] as const;
 
 type ViewKey = (typeof VIEWS)[number]['key'];
@@ -32,8 +32,14 @@ const tile = (x: number, y: number, w: number, h: number) =>
  * own `change`; the hover paint under the eye is the player's mirror, not the demo's.
  *
  * The subject is the ornament strip: the floating panel is the term, not the window it serves
- * and not the segmented control it happens to hold. The window, its content and the caption are
- * the scene around it in the context register.
+ * and not the segmented control it happens to hold. The window and its content are the scene
+ * around it in the context register.
+ *
+ * Two lines of the site's own voice have gone. A caption under the strip read "The strip
+ * belongs to the window and sits outside its edge.", which the picture already shows, and the
+ * title bar carried a running commentary on each view ("Grid view. The controls are outside
+ * the window." and its two siblings). The window keeps its own header, which is what an app
+ * really prints up there.
  *
  * The strip is absolutely positioned clear of the window and inset from the stage body, which
  * clips (SPEC §5), and the three views are stacked in one fixed box, so switching them moves
@@ -48,7 +54,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Photos, in the room</span>
-          <span class="sp-text" data-part="readout" style="width: 292px; text-align: right; white-space: nowrap; font-size: 12px">Grid view. The controls are outside the window.</span>
         </div>
 
         <div class="sp-body" style="background: linear-gradient(160deg, var(--sp-sunken), var(--sp-bg) 70%)">
@@ -108,10 +113,6 @@ export function mount(root: HTMLElement): void {
               </sp-segmented>
             </div>
 
-            <span
-              class="sp-label sp-context"
-              style="position: absolute; left: 0; right: 0; top: ${ornamentTop + ORNAMENT.h + 6}px; text-align: center; white-space: nowrap; font-size: 11px"
-            >The strip belongs to the window and sits outside its edge.</span>
           </div>
         </div>
       </div>
@@ -119,13 +120,11 @@ export function mount(root: HTMLElement): void {
   `;
 
   const scene = part(root, 'scene');
-  const readout = part(root, 'readout');
   const views = part(root, 'views') as Picker;
 
   const show = (key: ViewKey) => {
     scene.dataset.view = key;
     for (const view of VIEWS) part(root, `view-${view.key}`).toggleAttribute('hidden', view.key !== key);
-    readout.textContent = VIEWS.find((view) => view.key === key)?.say ?? '';
   };
 
   views.addEventListener('change', (event) => show((event as CustomEvent<string>).detail as ViewKey));

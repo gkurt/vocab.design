@@ -17,7 +17,7 @@ const STATUS = {
 };
 
 const HEADLINE = 'Handgloves &amp; figures';
-const BODY = 'Laid out, measured, and reserved. Every line box is already the size it will be when the words appear.';
+const BODY = 'Tickets for the spring season go on sale at ten, and members may book a week ahead of general release.';
 
 /**
  * FOIT specimen: a page whose text block holds its space and paints nothing
@@ -36,6 +36,11 @@ const BODY = 'Laid out, measured, and reserved. Every line box is already the si
  * (`data-pose`, SPEC §6). The loaded state is a counter-example the subject
  * itself passes through: a ring around readable text would identify the
  * opposite of the word.
+ *
+ * The sample paragraph used to read "Laid out, measured, and reserved. Every line
+ * box is already the size it will be when the words appear.", which is the site
+ * describing the demonstration in the one place a reader is meant to see ordinary
+ * page copy. It is ordinary page copy now, and the article makes the point.
  *
  * The block reserves its height from the start and clips, so the words arriving
  * cannot push the caption below them around (SPEC §5). Visibility is written

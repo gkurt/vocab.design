@@ -22,14 +22,14 @@ const LEVELS: Level[] = [
     part: 'title',
     chip: 'headline',
     height: 32,
-    html: 'Rank before reading',
+    html: 'The estuary in winter',
     leveled: 'font-size: 25px; font-weight: 600; line-height: 1.15; white-space: nowrap',
   },
   {
     part: 'body',
     chip: 'body',
     height: 66,
-    html: 'Rank is read before the words are. A reader who has not started yet already knows which line is the way in.',
+    html: 'The ferry crosses twice an hour in summer and waits for the tide in winter. The boatyard has kept the same hours since 1974.',
     leveled: 'font-size: 13px; font-weight: 400; line-height: 1.5',
   },
   {
@@ -63,6 +63,12 @@ const FLAT = 'font-size: 14px; font-weight: 400; line-height: 1.45; letter-spaci
  * settings is taller, so flattening changes the type inside the rows and moves
  * nothing at all (SPEC §5). The rows, the gaps and the window's padding together
  * keep the whole specimen inside the stage rather than running past its floor.
+ *
+ * The fragment's headline and body used to be about ranks ("Rank before reading", and
+ * a body reading "Rank is read before the words are..."). An article does not describe
+ * its own typesetting, so both are now ordinary field notes at the same lengths, which
+ * is what the fixed row heights need them to be. The reading of the two states lives in
+ * the verdict beside the switch.
  */
 export function mount(root: HTMLElement): void {
   const chips = LEVELS.map(

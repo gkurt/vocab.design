@@ -48,8 +48,11 @@ const START = 2;
  *
  * The subject is the focused region, `data-part="row-<n>"`, and it travels with the focus:
  * the term names the region kept in full detail, not the column that holds it, and exactly
- * one row is that region in every resting state (SPEC §5). The frame, the caption, and the
- * five compressed neighbours are scenery in the context register.
+ * one row is that region in every resting state (SPEC §5). The frame and the five
+ * compressed neighbours are scenery in the context register. A caption under the
+ * column once read "The column keeps its height: the focus takes its room from its
+ * neighbours."; that was the site talking inside the fiction, and the article makes the
+ * same point, so it went.
  *
  * The picks are absolute, never a toggle (SPEC §8): clicking the focused notice again leaves
  * it focused, so a pass resumed at any point lands in the same state. The column has a fixed
@@ -100,10 +103,6 @@ export function mount(root: HTMLElement): void {
           <div data-part="column" style="display: flex; flex-direction: column; gap: 4px; height: 100%">${rows}</div>
         </div>
       </div>
-
-      <span class="sp-text sp-context" style="width: 452px; height: 16px; font-size: 12px; line-height: 16px; text-align: center">
-        The column keeps its height: the focus takes its room from its neighbours.
-      </span>
     </div>
   `;
 

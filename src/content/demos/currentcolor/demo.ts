@@ -22,6 +22,11 @@ const START = 'slate';
  * counterexample the specimen is read against, so it stays in the context register. Both
  * controls are the same size and the swatch row is fixed, so choosing a colour repaints
  * and moves nothing (SPEC §5).
+ *
+ * The two labels under the controls used to narrate the comparison ("border, stroke,
+ * underline: currentColor" and "the same three, written out as hex"). They now print only
+ * the value each control was written with, which is the same identification without the
+ * article's sentence inside the frame.
  */
 export function mount(root: HTMLElement): void {
   const swatches = ORDER.map(
@@ -56,11 +61,11 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row" style="gap: 12px; margin-top: 16px; align-items: flex-start">
           <div class="sp-stack" style="flex: 1 1 0; min-width: 0; gap: 7px; align-items: flex-start">
             ${control('control', true)}
-            <span class="sp-label">border, stroke, underline: currentColor</span>
+            <span class="sp-label">currentColor</span>
           </div>
           <div class="sp-context sp-stack" style="flex: 1 1 0; min-width: 0; gap: 7px; align-items: flex-start">
             ${control('twin', false)}
-            <span class="sp-label">the same three, written out as hex</span>
+            <span class="sp-label">${INKS[START]?.hex}</span>
           </div>
         </div>
 

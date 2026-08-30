@@ -39,6 +39,10 @@ const key = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
  * twisty is the one control here that flips, because collapsing over its children is the
  * disclosure's own term; selection always names a node outright, and the evidence a commit
  * leaves is the field's own path readout, never a row inside the popup the commit just closed.
+ *
+ * The title bar used to carry "One field, any depth" beside the dialog's own title. That was
+ * the site describing the control rather than the dialog labelling itself, and the article
+ * already says it, so the bar now holds only the title.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -46,7 +50,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 296px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Move 3 files</span>
-          <span class="sp-label" style="font-size: 11px">One field, any depth</span>
         </div>
 
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 14px; padding: 12px 16px">

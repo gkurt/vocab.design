@@ -3,10 +3,9 @@ import { part } from '#src/kit/parts.ts';
 const LIST_URL = 'example.com/invoices';
 const INVOICE_URL = 'example.com/invoices/2043';
 
-const OUTCOME = {
-  none: 'One drawing, two elements.',
-  acted: 'The button acted here. The address never moved.',
-  navigated: 'The link went somewhere else.',
+const STATUS = {
+  rest: 'Due 14 March. No reminders sent.',
+  acted: 'Reminder sent just now.',
 } as const;
 
 /**
@@ -18,9 +17,16 @@ const OUTCOME = {
  * The subject is the button. The term names a decision between two elements, so the
  * pair is the demonstration, but the button is the half the term is usually invoked to
  * defend: it is what a navigating control should have been, or should not have been.
- * The link, the address bar, and the outcome line are scenery. Both controls use the
- * ghost style, whose paint holds no accent, so the context register can quiet the
+ * The link, the address bar, and the invoice's own status line are scenery. Both controls
+ * use the ghost style, whose paint holds no accent, so the context register can quiet the
  * comparison without breaking the point that the two look identical.
+ *
+ * Each control once carried a caption reading its element and its keys ("button · Enter and
+ * Space"), and the status line read "One drawing, two elements." at rest and narrated each
+ * press after it. That is the site talking inside an invoice page, and the article says all
+ * of it at length, so the captions are gone and the line prints what the invoice would
+ * really print: what is owed, and that a reminder went out. Following the link changes only
+ * the address, which is the whole of what the link did.
  *
  * Nothing here navigates, since a specimen changes nothing outside itself: the link's
  * default is prevented and the address bar is written instead.
@@ -41,19 +47,17 @@ export function mount(root: HTMLElement): void {
             <div class="sp-row" style="align-items: flex-start; gap: 12px; margin-top: 12px">
               <div class="sp-stack" style="gap: 4px">
                 <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="action" data-subject>Send reminder</button>
-                <span class="sp-label sp-context">button · Enter and Space</span>
               </div>
               <div class="sp-stack sp-context" style="gap: 4px">
                 <a class="sp-button sp-button--ghost sp-button--sm" href="https://${INVOICE_URL}" data-part="destination"
                    style="display: inline-flex; align-items: center; text-decoration: none">Open full invoice</a>
-                <span class="sp-label">link · Enter, and a new tab on demand</span>
               </div>
             </div>
           </div>
           <div class="sp-row sp-context" style="height: 22px; margin-top: 8px">
             <span class="sp-text" data-part="peek" style="font-size: 12px; white-space: nowrap"></span>
             <span class="sp-text sp-grow" data-part="outcome" data-event="none"
-                  style="font-size: 12px; white-space: nowrap; text-align: right">${OUTCOME.none}</span>
+                  style="font-size: 12px; white-space: nowrap; text-align: right">${STATUS.rest}</span>
           </div>
         </div>
       </div>
@@ -66,17 +70,13 @@ export function mount(root: HTMLElement): void {
   const peek = part(root, 'peek');
   const destination = part(root, 'destination');
 
-  const report = (event: keyof typeof OUTCOME) => {
-    outcome.dataset.event = event;
-    outcome.textContent = OUTCOME[event];
-  };
-
-  // Each control reaches its own outcome, so a pass joined halfway still shows the
-  // right one (SPEC §8); neither undoes the other.
+  // Each control reaches its own state, so a pass joined halfway still shows the right
+  // one (SPEC §8); neither undoes the other.
   part(root, 'action').addEventListener('click', () => {
     status.dataset.state = 'sent';
     status.textContent = 'Reminder sent';
-    report('acted');
+    outcome.dataset.event = 'acted';
+    outcome.textContent = STATUS.acted;
   });
 
   // The address readout a browser gives every link and no button: where this goes,
@@ -92,6 +92,7 @@ export function mount(root: HTMLElement): void {
     event.preventDefault();
     address.dataset.page = 'invoice';
     address.textContent = INVOICE_URL;
-    report('navigated');
+    // The link moved the address and nothing else, so the invoice's own status line stands.
+    outcome.dataset.event = 'navigated';
   });
 }

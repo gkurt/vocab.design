@@ -7,7 +7,7 @@ const RED = '#d2453b';
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
 
 const NOTES: Record<string, string> = {
-  pristine: 'Nothing checked yet. The rules belong to the form.',
+  pristine: 'Nothing checked yet.',
   invalid: 'Submit checked every field, and holds until it is fixed.',
   ready: 'The field is valid again, so submit has re-armed.',
   sent: 'One action committed the whole set.',
@@ -65,6 +65,10 @@ const field = (f: Field) => `
  * word names the grouping rather than any control inside it, so ringing the email input
  * would be identifying a text field instead. The narration line and the Start over button
  * are the demo's own instrumentation, so they sit outside the form, in the context register.
+ *
+ * The pristine narration read "Nothing checked yet. The rules belong to the form.". The
+ * second sentence was the site making the term's point on the line, so it went; the line
+ * still reports what the last action did, and its slot is a fixed height either way.
  *
  * Nothing here leans on a browser's own activation: submit is a `<button type="button">`
  * with a click handler and the form carries `novalidate`, because synthesized input never

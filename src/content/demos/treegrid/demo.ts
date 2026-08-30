@@ -82,10 +82,12 @@ const rowMarkup = (row: Row) => {
  * so a child's spend sits in the spend column directly under it, which is the claim the term
  * rests on and the line between this and expandable-row.
  *
- * The subject is the grid: the `<table role="treegrid">` inside the frame, with the frame,
- * the toolbar and the caption around it as scenery. The caption sits outside the table on
- * purpose, so the subject is a scope element rather than the whole scene and identify can
- * still point at the grid.
+ * The subject is the grid: the `<table role="treegrid">` inside the frame, with the frame
+ * and the toolbar around it as scenery, so the subject is a scope element rather than the
+ * whole scene and identify can still point at the grid. A caption under the table once read
+ * "What opens is more rows in the same columns, not a detail panel." That was the site
+ * arguing the distinction inside the report, so it went, and the frame lost its height with
+ * it rather than standing over a gap.
  *
  * Cell navigation is the other half of the term, so the grid carries `tabindex="0"` and reads
  * real arrow keys: a reader's own keyboard drives it exactly as the script does (SPEC §8). The
@@ -100,7 +102,7 @@ const rowMarkup = (row: Row) => {
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 304px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 281px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Spend by region</span>
           <span class="sp-text" data-part="readout" style="width: 190px; text-align: right; white-space: nowrap; font-size: 12px">Cell: North, Owner</span>
@@ -133,9 +135,6 @@ export function mount(root: HTMLElement): void {
             </table>
           </div>
 
-          <span class="sp-label sp-context" style="height: 15px; line-height: 15px; text-align: center; white-space: nowrap; font-size: 11px">
-            What opens is more rows in the same columns, not a detail panel.
-          </span>
         </div>
       </div>
     </div>

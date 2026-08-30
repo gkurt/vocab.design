@@ -7,9 +7,9 @@ const UNIT = 20;
 const OFF_GAP = 13;
 const RULES = `repeating-linear-gradient(to bottom, var(--sp-accent-soft) 0 1px, transparent 1px ${UNIT}px)`;
 
-const HEADING = 'Setting the beat';
-const COPY_ONE = 'Every space is counted in lines, not in pixels.';
-const COPY_TWO = 'One unit above, one below, and nothing drifts.';
+const HEADING = 'Rehearsal notes';
+const COPY_ONE = 'The room is booked from ten until noon.';
+const COPY_TWO = 'Bring the printed parts and a spare pen.';
 
 /**
  * Vertical rhythm specimen: the same three blocks set twice, once with every
@@ -25,6 +25,13 @@ const COPY_TWO = 'One unit above, one below, and nothing drifts.';
  * Ruling is a background-image write on a box whose size never changes, so
  * turning the grid on moves nothing (SPEC §5), and both columns are sized to
  * hold their content so neither can grow the frame.
+ *
+ * The columns once carried copy about themselves ("Every space is counted in
+ * lines, not in pixels.") under a row of labels reading "on the grid" and "one
+ * gap off the grid". Both were the site talking inside the document: the copy is
+ * ordinary rehearsal prose now, at the same two lines a block so the geometry is
+ * unchanged, and the labels are gone because the strip's verdict already names
+ * which column loses the beat and by how much.
  */
 export function mount(root: HTMLElement): void {
   const column = (variant: 'on' | 'off', gap: number) => `
@@ -45,11 +52,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" data-part="seg-off" value="off">unruled</button>
           </sp-segmented>
         </div>
-        <div class="sp-row sp-context" style="gap: 24px; margin-top: 12px">
-          <span class="sp-label" style="width: 190px">on the grid</span>
-          <span class="sp-label" style="width: 190px">one gap off the grid</span>
-        </div>
-        <div class="sp-row" data-part="grid" data-rules="on" style="gap: 24px; margin-top: 4px; align-items: flex-start">
+        <div class="sp-row" data-part="grid" data-rules="on" style="gap: 24px; margin-top: 16px; align-items: flex-start">
           ${column('on', UNIT)}
           <div class="sp-context">${column('off', OFF_GAP)}</div>
         </div>

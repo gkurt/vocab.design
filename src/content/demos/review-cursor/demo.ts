@@ -47,6 +47,10 @@ const CAPTION: Record<Drives, string> = {
  * inside and to the focus ring it has to be told apart from. The marker is the review cursor in
  * every resting state, so no `data-pose` is needed (SPEC §6).
  *
+ * The two read-outs are labelled with the plain names of the things they report, System
+ * focus and Review cursor. They read "System focus is on" and "The review cursor reads"
+ * once, which is the site narrating its own exhibit inside the window.
+ *
  * Focus is drawn with `data-sim-focus` and nothing here calls `.focus()`: attract never moves
  * real focus (SPEC §7). Picking which cursor the Step button drives returns both cursors to the
  * field they started on, so a pass joined halfway proves the same thing (SPEC §8). The marker is
@@ -89,12 +93,12 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 8px">
             <div class="sp-stack" style="gap: 1px">
-              <span class="sp-label" style="font-size: 9.5px">System focus is on</span>
+              <span class="sp-label" style="font-size: 9.5px">System focus</span>
               <span class="sp-text sp-text--ink" data-part="focus-at" data-node="n-to"
                     style="height: 17px; font-size: 11.5px">${FOCUS_NAME['n-to']}</span>
             </div>
             <div class="sp-stack" style="gap: 1px">
-              <span class="sp-label" style="font-size: 9.5px">The review cursor reads</span>
+              <span class="sp-label" style="font-size: 9.5px">Review cursor</span>
               <span class="sp-text sp-text--ink" data-part="reads" data-node="n-send"
                     style="height: 46px; font-size: 11.5px; line-height: 1.35">${SAYS['n-send']}</span>
             </div>

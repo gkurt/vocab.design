@@ -7,9 +7,9 @@ const DELAY_MS = 600;
 const WINDOW_PERCENT = 60;
 
 const PHASES: Record<string, string> = {
-  idle: 'No pointer on the control.',
-  waiting: `Pointer arrived. Holding ${DELAY_MS} ms before the label.`,
-  shown: 'Delay elapsed. Label shown.',
+  idle: 'Idle',
+  waiting: `Waiting ${DELAY_MS} ms`,
+  shown: 'Shown',
 };
 
 /**
@@ -26,6 +26,12 @@ const PHASES: Record<string, string> = {
  * (SPEC §6). Both tooltips are drawn out of flow into room reserved for them, so a
  * label arriving cannot move the controls it belongs to (SPEC §5).
  *
+ * The timeline is an instrument, so it is labelled like one. Its two ticks read "0 ms · pointer
+ * in" and "600 ms · label shown", and the line under it reports a state ("Idle", "Waiting 600 ms",
+ * "Shown") rather than narrating the wait in sentences the article already writes. The two
+ * controls are labelled with their parameter, "delay 600 ms" and "no delay", instead of with a
+ * description of what each one is about to do.
+ *
  * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
  * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
@@ -41,8 +47,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="position: relative; width: 380px">
         <span class="sp-heading sp-context" data-stage-verdict data-part="caption">Time before anything moves</span>
         <div class="sp-row" style="gap: 28px; margin-top: 12px">
-          ${control('delayed', `waits ${DELAY_MS} ms`, true)}
-          ${control('instant', 'answers at once', false)}
+          ${control('delayed', `delay ${DELAY_MS} ms`, true)}
+          ${control('instant', 'no delay', false)}
         </div>
 
         <!-- Room the labels are drawn into, so nothing below them moves when one arrives. -->
@@ -58,8 +64,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ></span>
             <span style="position: absolute; left: 0; top: 1px; width: 2px; height: 16px; background: var(--sp-muted)"></span>
             <span style="position: absolute; left: ${WINDOW_PERCENT}%; top: 1px; width: 2px; height: 16px; background: var(--sp-muted)"></span>
-            <span class="sp-label" style="position: absolute; left: 0; top: 19px; font-size: 10px">0 pointer arrives</span>
-            <span class="sp-label" style="position: absolute; left: ${WINDOW_PERCENT}%; top: 19px; font-size: 10px">${DELAY_MS} ms label shows</span>
+            <span class="sp-label" style="position: absolute; left: 0; top: 19px; font-size: 10px">0 ms · pointer in</span>
+            <span class="sp-label" style="position: absolute; left: ${WINDOW_PERCENT}%; top: 19px; font-size: 10px">${DELAY_MS} ms · label shown</span>
           </div>
           <span class="sp-label" data-part="phase" style="min-height: 16px; white-space: nowrap">${PHASES.idle}</span>
         </div>

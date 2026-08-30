@@ -2,11 +2,11 @@ import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 const LEAD =
-  'A paragraph does not know where the column it is sitting in stops. It fills the measure line by line until the space runs out, and whatever has not been set yet goes over the break.';
+  'The harbour master keeps the ledger in a cupboard behind the counter, and every crossing since 1908 is written in it by hand, one line to a boat, in ink gone brown at the edges.';
 
-const CARRIED = 'one line before the column runs out, and finishes on the far side of the break, where nobody was reading yet.';
+const CARRIED = 'answer is always the same: the cupboard is locked, and the key is out on the water with the pilot until four.';
 
-const FOLLOW = 'The paragraph after it is whole, which is what makes the one above look like an accident rather than a style.';
+const FOLLOW = 'The ledger was last opened in April, when a diver from Plymouth wanted the date of a wreck nobody could name.';
 
 const STRANDED = 'One line of the paragraph is left at the foot of column one.';
 const KEPT = 'The paragraph is whole in column two, and column one ends a line early.';
@@ -25,6 +25,13 @@ const KEPT = 'The paragraph is whole in column two, and column one ends a line e
  * names that line rather than the page it happened on. The lead paragraph, the paragraph
  * below, and the control are scenery. Which column the line is actually in is measured
  * rather than claimed.
+ *
+ * The page used to be set in prose about its own typesetting, which no book prints: the
+ * lead began "A paragraph does not know where the column it is sitting in stops", the
+ * carried paragraph described its own break, and the orphan line itself read "The next
+ * paragraph begins here". It is ordinary prose now, at the same lengths, so the line still
+ * falls where it fell. The measured report moved to the strip, since it changes with the
+ * pick and is the author's reading rather than the page's.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -41,14 +48,14 @@ export function mount(root: HTMLElement): void {
           <div data-part="col-1" style="flex: 1 1 0; height: 150px">
             <p class="sp-prose sp-context" data-part="lead" style="font-size: 12px; max-width: none; margin: 0">${LEAD}</p>
             <p class="sp-prose" data-part="head" style="font-size: 12px; max-width: none; margin: 10px 0 0"><span
-              data-part="orphan" data-subject>The next paragraph begins here, </span></p>
+              data-part="orphan" data-subject>Visitors ask to see it, and the </span></p>
           </div>
           <div class="sp-context" data-part="col-2" style="flex: 1 1 0; height: 150px">
             <p class="sp-prose" data-part="carried" style="font-size: 12px; max-width: none; margin: 0">${CARRIED}</p>
             <p class="sp-prose" data-part="follow" style="font-size: 12px; max-width: none; margin: 10px 0 0">${FOLLOW}</p>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="readout" style="margin-top: 12px; font-size: 12px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin-top: 12px; font-size: 12px"></p>
       </div>
     </div>
   `;

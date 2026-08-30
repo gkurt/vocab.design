@@ -60,6 +60,14 @@ const probe = (name: string, family: string) =>
  * cannot move the caption under it, and both readings are written short enough
  * to hold the readout's single line, so neither state pushes the caption down
  * (SPEC §5).
+ *
+ * The two lines used to be labelled "the face the page asked for" and "the face it
+ * fell through to", and the readout said "Both are set at 30px, and the stand-in
+ * draws smaller." That was the site narrating its own comparison inside the frame,
+ * and the specimen already carries a verdict in the strip, which it may not carry
+ * twice. The labels are the bare pair, requested and fallback, and the readout now
+ * prints the two declarations in force, which is where the measured percentage
+ * belongs anyway.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -72,7 +80,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-row sp-context" style="margin-top: 12px">
-          <span class="sp-label">the face the page asked for</span>
+          <span class="sp-label">requested</span>
         </div>
         <div class="sp-context" data-part="line-web"
              style="position: relative; z-index: 0; height: ${LINE}px; width: ${COLUMN}px; overflow: hidden;
@@ -83,7 +91,7 @@ export function mount(root: HTMLElement): void {
           </span>${SAMPLE}
         </div>
         <div class="sp-row sp-context" style="margin-top: 6px">
-          <span class="sp-label">the face it fell through to</span>
+          <span class="sp-label">fallback</span>
         </div>
         <div data-part="fallback" data-subject data-tuned="off"
              style="position: relative; z-index: 0; height: ${LINE}px; width: ${COLUMN}px; overflow: hidden;
@@ -122,8 +130,8 @@ export function mount(root: HTMLElement): void {
     line.dataset.tuned = on ? 'on' : 'off';
     glyphs.style.fontSize = `${(on ? tuned : SIZE).toFixed(1)}px`;
     readout.textContent = on
-      ? `size-adjust: ${percent}% draws ${SIZE}px as ${tuned.toFixed(1)}px: x-heights agree.`
-      : `Both are set at ${SIZE}px, and the stand-in draws smaller.`;
+      ? `font-size: ${SIZE}px; size-adjust: ${percent}%, drawn at ${tuned.toFixed(1)}px`
+      : `font-size: ${SIZE}px; size-adjust: none`;
   };
 
   apply('off');

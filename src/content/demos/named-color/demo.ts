@@ -26,9 +26,13 @@ const EDGE = 'inset 0 0 0 1px rgb(16 24 40 / 0.16)';
  * keyword resolves to. Picking a swatch is an absolute act: every cell names one colour.
  *
  * The subject is the grid of keywords rather than any one cell, because the term names the
- * vocabulary and a single swatch would claim the term was "tomato". The readout row and the
- * caption stay in the context register. The grid, the row and the caption are fixed size and
- * the ring is drawn as a shadow, so picking repaints and moves nothing (SPEC §5).
+ * vocabulary and a single swatch would claim the term was "tomato". The readout row stays in
+ * the context register. The grid and the row are fixed size and the ring is drawn as a shadow,
+ * so picking repaints and moves nothing (SPEC §5).
+ *
+ * A line under the grid read "The 148 keywords CSS inherited from X11, each pinned to one sRGB
+ * value no theme can move." Nothing in a swatch picker prints its own history, and the article
+ * carries both the count and the X11 inheritance, so it went.
  */
 export function mount(root: HTMLElement): void {
   const cells = COLORS.map(
@@ -54,8 +58,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" style="font-size: 11px">resolves to</span>
         </div>
 
-        <p class="sp-text sp-context" style="margin: 10px 0 0; min-height: 39px">The 148 keywords CSS inherited from
-          X11, each pinned to one sRGB value no theme can move.</p>
       </div>
     </div>
   `;

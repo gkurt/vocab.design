@@ -29,11 +29,6 @@ type Mode = 'lining' | 'oldstyle';
 
 const IS_MODE = (value: string): value is Mode => value === 'lining' || value === 'oldstyle';
 
-const READS: Record<Mode, string> = {
-  lining: 'lining: every numeral at cap height',
-  oldstyle: 'oldstyle: three heights, one of them below the baseline',
-};
-
 function digit(ch: string, mode: Mode): string {
   if (mode === 'lining' || RISING.includes(ch)) return `<span style="display: inline-block">${ch}</span>`;
   const style = HANGING.includes(ch)
@@ -68,18 +63,21 @@ function rule(name: string, height: number, color: string, dashed = false): stri
  *
  * A transform moves no advance, so switching the setting moves nothing on the page
  * either (SPEC §5).
+ *
+ * Three lines of the site's own voice have gone from the window: a chip naming the set
+ * ("oldstyle: three heights, one of them below the baseline"), a key to the guides
+ * ("rules: digit height, x-height, baseline"), and a heading over the picker ("figure
+ * style"), which the strip labels already. The caption in the strip carries what the
+ * reader needs about the modelling, and the article carries the rest.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">figure style</span>
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="oldstyle" data-axis="Figure style" data-term="oldstyle">
-            <button class="sp-segment" data-part="seg-lining" value="lining">lining</button>
-            <button class="sp-segment" data-part="seg-oldstyle" value="oldstyle">oldstyle</button>
-          </sp-segmented>
-        </div>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="oldstyle" data-axis="Figure style" data-term="oldstyle">
+          <button class="sp-segment" data-part="seg-lining" value="lining">lining</button>
+          <button class="sp-segment" data-part="seg-oldstyle" value="oldstyle">oldstyle</button>
+        </sp-segmented>
         <div style="display: flex; align-items: baseline; height: 62px; margin-top: 6px; font-size: ${SIZE}px">
           <p data-part="sentence" style="margin: 0; font-family: ${FACE}; font-size: ${SIZE}px; line-height: 1; white-space: nowrap">
             <span>In the winter of </span><span data-part="year" data-subject data-pose="[data-figures=oldstyle]"
@@ -94,10 +92,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 40px">
           <span data-part="set" data-figures="oldstyle"
                 style="font-family: ${FACE}; font-size: 22px; letter-spacing: 0.06em">${setNumerals('0123456789', 'oldstyle')}</span>
-          <span class="sp-label">rules: digit height, x-height, baseline</span>
-        </div>
-        <div class="sp-row sp-context" style="margin-top: 6px; height: 26px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${READS.oldstyle}</span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
           Neither face here carries an oldstyle set, so the heights are modelled: the hanging numerals
@@ -109,7 +103,6 @@ export function mount(root: HTMLElement): void {
 
   const year = part(root, 'year');
   const set = part(root, 'set');
-  const readout = part(root, 'readout');
 
   part(root, 'segmented').addEventListener('change', (event) => {
     const value = (event as CustomEvent<string>).detail;
@@ -118,6 +111,5 @@ export function mount(root: HTMLElement): void {
     year.innerHTML = setNumerals('1867', value);
     set.dataset.figures = value;
     set.innerHTML = setNumerals('0123456789', value);
-    readout.textContent = READS[value];
   });
 }

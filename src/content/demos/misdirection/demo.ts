@@ -32,16 +32,6 @@ const ACTIONS = {
     <span style="flex: 1 1 auto"></span>`,
 } as const;
 
-const CAPTION = {
-  steered: 'Consent choice (as shipped)',
-  fair: 'Consent choice (equal weight)',
-} as const;
-
-const ORDER = {
-  steered: 'Refusal reads as small print',
-  fair: 'Both read as buttons',
-} as const;
-
 const VERDICT = {
   steered: 'Same two words, same two clicks. Only the drawing decides which one gets found.',
   fair: 'Equal consequences, equal weight: same size, same contrast, same place in the path.',
@@ -52,20 +42,21 @@ const VERDICT = {
  * only variable left is how the two answers are drawn. Accept all is a filled button
  * where the reading path ends; Reject all is small underlined grey at the far edge.
  *
- * The subject is the choice block. The article text behind it, the caption, and the
- * measurement chips are scenery (SPEC §5), and the block declares the steered drawing as
- * its honest condition (`data-pose`), since ringing the balanced version would identify
- * the opposite word (SPEC §6).
+ * The subject is the choice block. The article text behind it is scenery (SPEC §5), and
+ * the block declares the steered drawing as its honest condition (`data-pose`), since
+ * ringing the balanced version would identify the opposite word (SPEC §6).
  *
- * The chips are measured rather than asserted: each render inserts the controls and then
- * reads their boxes and type sizes, which is measuring the state it just mounted rather
- * than a style written onto a live element (SPEC §5, AGENTS gotcha). The block and the
- * chip row hold one height in both modes, so switching moves nothing.
+ * A caption over the block once named the state ("Consent choice (as shipped)") and a row
+ * of chips under it printed the measurements back ("Area 5.4x", "Type 15 vs 11 px",
+ * "Refusal reads as small print"). A cookie banner sits on a coffee journal, which prints
+ * none of that, and the two drawings are side by side across the switch for anyone to
+ * compare; the strip's verdict says which way the drawing sends the reader. The block
+ * holds one height in both modes, so switching still moves nothing.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 262px">
+      <div class="sp-frame sp-frame--wide" style="height: 200px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Grinder Coffee</span><span class="sp-label">Journal</span></div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
 
@@ -73,8 +64,6 @@ export function mount(root: HTMLElement): void {
             <div class="sp-line" style="width: 82%"></div>
             <div class="sp-line" style="width: 64%"></div>
           </div>
-
-          <span class="sp-label sp-context" data-part="caption" style="height: 17px; font-size: 11px">${CAPTION.steered}</span>
 
           <section
             class="sp-surface"
@@ -89,12 +78,6 @@ export function mount(root: HTMLElement): void {
             <div class="sp-row" data-part="actions" style="height: 44px; margin-top: auto; gap: 12px">${ACTIONS.steered}</div>
           </section>
 
-          <div class="sp-row sp-context" style="height: 26px; gap: 6px">
-            <span class="sp-chip" data-part="chip-area" style="width: 96px">area</span>
-            <span class="sp-chip" data-part="chip-type" style="width: 112px">type</span>
-            <span class="sp-chip sp-grow" data-part="chip-order">${ORDER.steered}</span>
-          </div>
-
         </div>
       </div>
               <span class="sp-text" data-stage-verdict data-part="verdict" style="width: 296px; font-size: 11px">${VERDICT.steered}</span>
@@ -108,28 +91,11 @@ export function mount(root: HTMLElement): void {
 
   const choice = part(root, 'choice');
   const actions = part(root, 'actions');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
-  const chipArea = part(root, 'chip-area');
-  const chipType = part(root, 'chip-type');
-  const chipOrder = part(root, 'chip-order');
-
-  const area = (el: HTMLElement) => {
-    const rect = el.getBoundingClientRect();
-    return rect.width * rect.height;
-  };
-  const typeSize = (el: HTMLElement) => Math.round(Number.parseFloat(getComputedStyle(el).fontSize));
 
   const show = (mode: Mode) => {
     choice.dataset.mode = mode;
     actions.innerHTML = ACTIONS[mode];
-    const accept = part(actions, 'accept');
-    const decline = part(actions, 'decline');
-    const ratio = area(decline) > 0 ? area(accept) / area(decline) : 0;
-    chipArea.textContent = `Area ${ratio.toFixed(1)}x`;
-    chipType.textContent = `Type ${typeSize(accept)} vs ${typeSize(decline)} px`;
-    chipOrder.textContent = ORDER[mode];
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
   };
 

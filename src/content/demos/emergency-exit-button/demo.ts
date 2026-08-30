@@ -19,6 +19,11 @@ const HINT = `or press Shift ${SHIFTS} times`;
  * a real implementation earns the right to make. The "Show the page again" control on that panel is
  * demo instrumentation, not part of the term: a real exit is one way.
  *
+ * A footer band under the frame used to read "Shown as a state: a specimen never navigates the page
+ * it sits in." That was the site explaining its own staging rules to a reader inside a support page,
+ * which no support page would ever print, so it is gone; the constraint it described is recorded in
+ * this comment instead.
+ *
  * The subject is the exit control, the narrowest element the term names. The support prose, the
  * destination panel, the counter and the reset are scenery in the context register. The control is
  * honestly an emergency exit button in the one state it appears in, so no `data-pose` condition is
@@ -99,10 +104,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </button>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="display: flex; align-items: center; justify-content: center; flex: 0 0 auto; height: 30px; padding: 0 16px; text-align: center; font-size: 11px">
-          Shown as a state: a specimen never navigates the page it sits in.
-        </span>
       </div>
     </div>
   `;

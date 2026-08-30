@@ -24,9 +24,14 @@ const START = 'success';
  *
  * The subject is the row, not a single badge. The term names the set rather than any one of
  * its members, and the row is the smallest thing here that holds all four. The banner is the
- * specimen showing what a chosen status does elsewhere, and the counterexample under it is
- * an argument about the palette, so both stay in the context register. The banner reserves
- * its height, so a longer meaning cannot move what is under it (SPEC §5).
+ * specimen showing what a chosen status does elsewhere and stays in the context register. It
+ * reserves its height, so a longer meaning cannot move what is under it (SPEC §5).
+ *
+ * Three strings were the site arguing inside the panel and all three went. A header row read
+ * "Reserved for outcome" and "Four meanings, four colours", which the four badges say for
+ * themselves. Under the banner sat a red Publish button beside "Danger red on a safe action.
+ * The palette now says danger where nothing is dangerous." The button existed only to be
+ * argued about, so the sentence took it with it; the misuse is the article's to make.
  */
 export function mount(root: HTMLElement): void {
   const badges = STATUSES.map(
@@ -42,27 +47,13 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 380px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Reserved for outcome</span>
-          <span class="sp-text" style="font-size: 12px">Four meanings, four colours</span>
-        </div>
-
-        <div class="sp-row" data-part="row" data-subject style="gap: 8px; margin-top: 12px">${badges}</div>
+        <div class="sp-row" data-part="row" data-subject style="gap: 8px">${badges}</div>
 
         <div class="sp-context" data-part="banner" data-status="${START}"
              style="display: flex; align-items: center; gap: 9px; margin-top: 12px; min-height: 60px; padding: 10px 12px;
                     border-radius: var(--sp-radius); background: var(--sp-sunken); border-left: 4px solid transparent">
           <span data-part="banner-mark" style="display: flex"></span>
           <span class="sp-text sp-text--ink sp-grow" data-part="banner-text">&nbsp;</span>
-        </div>
-
-        <div class="sp-row sp-context" style="gap: 10px; margin-top: 14px">
-          <button data-part="misuse" type="button"
-                  style="padding: 6px 12px; border: 0; border-radius: 6px; background: #C2312B; color: #FFFFFF;
-                         font: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Publish</button>
-          <span class="sp-text sp-grow" style="font-size: 12px">
-            Danger red on a safe action. The palette now says danger where nothing is dangerous.
-          </span>
         </div>
       </div>
     </div>

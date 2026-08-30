@@ -29,6 +29,10 @@ const snap = (pct: number) => Math.round(pct / 5) * 5;
  * smallest thing here that is that pin, which is why it stands on the strip rather than
  * beside it. Markers move within a rail of fixed height and the readout is fixed width, so
  * dragging one repaints the fill and moves nothing else (SPEC §5).
+ *
+ * A line under the rail used to distinguish a stop from an interpolation hint ("A bare
+ * percentage between two stops is an interpolation hint, not a stop..."). No gradient editor
+ * prints that beside its rail, and the article says it at length, so it is gone.
  */
 export function mount(root: HTMLElement): void {
   // Positions are mount-local: a remount is the reset (SPEC §6), so the list the demo
@@ -68,9 +72,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-context" style="position: relative; height: 14px">${ticks}</div>
         </div>
 
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          A bare percentage between two stops is an interpolation hint, not a stop: it moves the halfway mixture without pinning a colour.
-        </p>
       </div>
     </div>
   `;

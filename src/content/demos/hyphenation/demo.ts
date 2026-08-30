@@ -12,12 +12,12 @@ import '#src/kit/segmented.ts';
  */
 const S = '­';
 const BODY =
-  `Un${S}hyphen${S}ated at a nar${S}row meas${S}ure, a word like ` +
-  `in${S}com${S}pre${S}hen${S}si${S}ble drops whole and tears the col${S}umn open.`;
+  `The com${S}mit${S}tee pub${S}lished its rec${S}om${S}men${S}da${S}tions on ` +
+  `in${S}com${S}pre${S}hen${S}si${S}ble ad${S}min${S}is${S}tra${S}tive lan${S}guage last week.`;
 const COLUMN = 150;
 const LINE_PX = 17;
 /** The room the unhyphenated setting takes, held by the box so a rebreak moves nothing. */
-const LINES = 6;
+const LINES = 7;
 
 const NOTES: Record<string, string> = {
   none: 'Long words drop whole and the rag gapes.',
@@ -35,6 +35,14 @@ const NOTES: Record<string, string> = {
  * refuses to ring the unhyphenated setting and plays on until the pick comes
  * back round. The box holds the room the taller setting needs, so a rebreak
  * cannot move the scenery below it (SPEC §5).
+ *
+ * Three strings were the site talking inside the specimen. The column's own prose used to
+ * describe the term ("Unhyphenated at a narrow measure, a word like incomprehensible drops
+ * whole and tears the column open."); it is ordinary prose now, with the same long words the
+ * setting has to cope with. The note beside the column changes with the switch, so it is
+ * marked `data-stage-verdict` and the stage draws it in the strip. A hand-made ladder of
+ * "un-/for-/tunate" under a caption explaining what a ladder is has gone, since a ladder is
+ * its own term with its own page.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,13 +65,8 @@ export function mount(root: HTMLElement): void {
                         -webkit-hyphens: auto; hyphens: auto">${BODY}</p>
             </div>
           </div>
-          <p class="sp-text sp-context" data-part="readout" style="margin: 0; width: 96px; font-size: 12px"></p>
         </div>
-        <div class="sp-divider sp-context" style="margin: 8px 0"></div>
-        <div class="sp-stack sp-context" data-part="ladder" style="gap: 2px">
-          <span class="sp-label">a ladder: three breaks in a row, which a measure this narrow can produce</span>
-          <span class="sp-text sp-text--ink" style="font-size: 12px; line-height: ${LINE_PX}px">un-<br />for-<br />tunate</span>
-        </div>
+        <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="display: block; margin-top: 8px"></span>
       </div>
     </div>
   `;

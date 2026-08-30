@@ -92,3 +92,14 @@ export function fadeToSubject(canvas: HTMLElement, subject: HTMLElement, offset:
   canvas.style.maskSize = '100% 100%';
   canvas.style.maskRepeat = 'no-repeat';
 }
+
+/**
+ * The same fade with nothing held at full strength, for a still whose subject is not on
+ * the canvas: an announcement or a verdict, which the strip lifts out of the fiction and
+ * a capture does not draw (SPEC §10). Pointing light at where that element used to be
+ * would circle empty ground, so the picture stops pointing and simply reads as a whole.
+ */
+export function fadeCanvas(canvas: HTMLElement): void {
+  canvas.style.maskImage = 'none';
+  canvas.style.opacity = String(FLOOR + (1 - FLOOR) / 2);
+}

@@ -6,7 +6,6 @@ import { steps } from '#src/stage/choreography.ts';
 export default steps([
   { wait: 700 },
   { assert: { selector: '[data-part=ad][data-disguise=on]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-mode=none]', state: 'visible' } },
   { assert: { selector: '[data-part=badge]', state: 'hidden' } },
   { wait: 800 },
 
@@ -23,7 +22,6 @@ export default steps([
   { wait: 700 },
   { assert: { selector: '[data-part=ad][data-disguise=off]', state: 'visible' } },
   { assert: { selector: '[data-part=badge]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-mode=labelled]', state: 'visible' } },
   { wait: 1500 },
 
   { moveTo: '[data-part=mode-none]' },

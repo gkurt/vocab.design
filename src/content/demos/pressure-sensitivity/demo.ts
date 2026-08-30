@@ -12,9 +12,9 @@ const MOUNT_FORCE = 0.55;
 
 /** Names for stretches of the one continuous axis, so a claim has something to hold onto. */
 const BANDS = [
-  { key: 'light', name: 'Light', note: 'a thin line the whole way across', below: 0.4 },
-  { key: 'medium', name: 'Medium', note: 'the stroke swells and tapers', below: 0.8 },
-  { key: 'firm', name: 'Firm', note: 'wide and opaque through the middle', below: Number.POSITIVE_INFINITY },
+  { key: 'light', name: 'Light', below: 0.4 },
+  { key: 'medium', name: 'Medium', below: 0.8 },
+  { key: 'firm', name: 'Firm', below: Number.POSITIVE_INFINITY },
 ];
 
 const bandFor = (force: number) => BANDS.find((band) => force < band.below) ?? BANDS[BANDS.length - 1];
@@ -58,6 +58,12 @@ const ribbon = (half: number) => {
  * declare in `data-pose`. The paper, the readout and the meter are the scene around it in the
  * context register.
  *
+ * A caption under the paper once told the reader to press and hold and explained how force
+ * hardware and a plain pointer each arrive at a depth, and a line in the readout panel read
+ * "A continuous axis, read on every move." Both were the site talking, so both are gone; the
+ * article carries them. The topbar readout keeps the band name a sketch app would really
+ * print ("Medium press") and drops the description of the stroke's shape that followed it.
+ *
  * The ink box, the paper and the readouts all hold fixed sizes, and only the path data changes,
  * so a new reading moves nothing (SPEC §5). Nothing animates in script: the stroke is redrawn,
  * not tweened, and the meter's slide is the kit's own transition.
@@ -70,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 264px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Sketch</span>
-          <span class="sp-text" data-part="readout" style="width: 336px; text-align: right; white-space: nowrap">${opening?.name} press: ${opening?.note}</span>
+          <span class="sp-text" data-part="readout" style="width: 168px; text-align: right; white-space: nowrap">${opening?.name} press</span>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
@@ -101,15 +107,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span class="sp-label">Reported</span>
               <span class="sp-heading" data-part="value" style="font-size: 17px; font-variant-numeric: tabular-nums">0.55</span>
               <div class="sp-progress"><div class="sp-progress-fill" data-part="meter" style="--sp-value: 55%"></div></div>
-              <div class="sp-divider"></div>
-              <span class="sp-text" style="font-size: 11px; line-height: 1.35">A continuous axis, read on every move.</span>
             </div>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          Press and hold the paper. Force hardware reports the depth directly, and a pointer without it buys the same depth with the length of the press.
-        </span>
       </div>
     </div>
   `;
@@ -129,7 +129,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     ink.setAttribute('fill-opacity', alpha.toFixed(2));
     value.textContent = force.toFixed(2);
     meter.style.setProperty('--sp-value', `${Math.round(force * 100)}%`);
-    readout.textContent = live ? `Reading the press: ${force.toFixed(2)}` : `${band?.name} press: ${band?.note}`;
+    readout.textContent = live ? `Reading the press: ${force.toFixed(2)}` : `${band?.name} press`;
   };
 
   // The gesture is the input (SPEC §7): the script's hold, a real finger, a pen with a force

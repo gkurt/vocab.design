@@ -14,7 +14,12 @@ const START = 'brief';
  * Modifier key specimen: a file list where a plain click replaces the selection and a
  * click with the pick modifier held adds to it. The subject is the list, since the term
  * is about what the held key does to a click that lands there; the legend and the
- * readouts are the apparatus around it.
+ * readouts are the apparatus around it. The legend once carried a second chip, Shift
+ * labelled "extend a range", for a behaviour this demo never implemented; a hint for a
+ * key that does nothing here is a claim the specimen cannot keep, so it went, and the
+ * one chip left is the key the list really answers. Its caption read "add one", the site
+ * telling the reader what to do with the key; it names the command the key carries now, the
+ * way a shortcut legend does.
  *
  * One wiring answers everything: the demo reads `ctrlKey` and `metaKey` off the click
  * (both, rather than picking a platform), the script performs the held key with a
@@ -66,9 +71,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-row--between sp-context">
             <span class="sp-row" style="gap: 6px">
               <span class="sp-kbd" data-part="key-pick">Ctrl or Cmd</span>
-              <span class="sp-label">add one</span>
-              <span class="sp-kbd" style="margin-left: 6px">Shift</span>
-              <span class="sp-label">extend a range</span>
+              <span class="sp-label">Add to selection</span>
             </span>
             <span class="sp-label" data-part="count" style="width: 96px; text-align: right">1 of 5 selected</span>
           </div>

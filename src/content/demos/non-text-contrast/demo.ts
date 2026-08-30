@@ -34,7 +34,10 @@ const NAME = 'font-size: 10px; text-align: center; white-space: nowrap';
  * with what it measures against the panel it sits on.
  *
  * The subject is the control row, the narrowest element that holds the parts the criterion
- * governs. The mode control, the ratio labels and the caption are scenery (SPEC §5). The
+ * governs. The mode control, the ratio labels and the caption are scenery (SPEC §5). A label
+ * over the switch once read "Everything that is not text, against 3:1", which was the site
+ * introducing its own exhibit inside the panel; it is gone, and the criterion is the
+ * article's to state. The
  * faded row is a state the subject itself passes through, so the honest condition is
  * declared in `data-pose` and the mount state satisfies it: identify refuses to ring the
  * failing version, which is the opposite of the term (SPEC §6).
@@ -54,13 +57,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 16px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Everything that is not text, against 3:1</span>
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="pass" data-axis="Contrast" data-term="pass">
-            <button class="sp-segment" data-part="seg-pass" value="pass">Meets 3:1</button>
-            <button class="sp-segment" data-part="seg-faded" value="faded">Faded</button>
-          </sp-segmented>
-        </div>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="pass" data-axis="Contrast" data-term="pass">
+          <button class="sp-segment" data-part="seg-pass" value="pass">Meets 3:1</button>
+          <button class="sp-segment" data-part="seg-faded" value="faded">Faded</button>
+        </sp-segmented>
 
         <div data-part="row" data-subject data-pose="[data-mode=pass]" data-mode="pass"
              style="margin-top: 12px; display: flex; gap: 10px; padding: 14px 12px; border-radius: 8px;

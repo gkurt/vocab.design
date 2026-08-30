@@ -77,11 +77,15 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The surface is a fixed box with a translated track inside it, so a coast moves the rows and
  * nothing else (SPEC §5).
+ *
+ * A line along the foot of the frame used to instruct the reader to let go while the list was
+ * still moving. No library app prints that about itself, and the readouts already report the
+ * release speed and the distance carried, so it went and the frame lost the height it held.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 296px">
+      <div class="sp-frame sp-frame--wide" style="height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Library</span>
           <span class="sp-text" data-part="readout" style="width: 350px; text-align: right; white-space: nowrap">Resting at the top of the list</span>
@@ -116,7 +120,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reset">Back to the top</button>
           </div>
         </div>
-        <span class="sp-label sp-context" style="padding: 0 12px 10px; text-align: center">Let go while it is still moving and the list carries on by itself.</span>
       </div>
     </div>
   `;

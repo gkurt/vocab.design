@@ -14,25 +14,10 @@ const LINE = 18;
 /** Room for the tallest setting, so a rebreak cannot move the scenery below it. */
 const LINES = 6;
 
-const SETTINGS: Record<string, { wrap: string; brk: string; css: string; note: string }> = {
-  normal: {
-    wrap: 'normal',
-    brk: 'normal',
-    css: 'no permission given',
-    note: 'The token has no break opportunity in it, so the line runs straight out of the column.',
-  },
-  'break-word': {
-    wrap: 'break-word',
-    brk: 'normal',
-    css: 'overflow-wrap: break-word',
-    note: 'Splits only the word that cannot fit on a line of its own. Every other word stays whole.',
-  },
-  'break-all': {
-    wrap: 'normal',
-    brk: 'break-all',
-    css: 'word-break: break-all',
-    note: 'Splits wherever the line runs out, so ordinary words are chopped as readily as the token.',
-  },
+const SETTINGS: Record<string, { wrap: string; brk: string; css: string }> = {
+  normal: { wrap: 'normal', brk: 'normal', css: 'no permission given' },
+  'break-word': { wrap: 'break-word', brk: 'normal', css: 'overflow-wrap: break-word' },
+  'break-all': { wrap: 'normal', brk: 'break-all', css: 'word-break: break-all' },
 };
 
 /**
@@ -47,6 +32,12 @@ const SETTINGS: Record<string, { wrap: string; brk: string; css: string; note: s
  * in `data-pose` (SPEC §6): identify refuses to ring the overflowing column, and the
  * specimen mounts contained. The box reserves the room the tallest setting needs, so
  * a rebreak moves nothing (SPEC §5).
+ *
+ * Each setting used to print a note beside the column ("Splits only the word that cannot
+ * fit on a line of its own. Every other word stays whole."), which is the author reading
+ * the state rather than anything a layout would show. The strip already carries one
+ * verdict and a specimen may not have two (SPEC §5.1), so the notes are gone and only the
+ * declaration in force is printed, which is the mechanism the reader can check.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -74,9 +65,8 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-stack sp-context" style="gap: 6px; width: 152px">
             <!-- Two lines' room: the longest declaration wraps, and a shorter one must not
-                 pull the note under it up (SPEC §5). -->
+                 change the height of the column beside it (SPEC §5). -->
             <span class="sp-label" data-part="css" style="color: var(--sp-ink); height: 36px"></span>
-            <p class="sp-text" data-part="readout" style="margin: 0; font-size: 12px; height: 72px"></p>
           </div>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
@@ -88,7 +78,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const column = part(root, 'column');
-  const readout = part(root, 'readout');
   const css = part(root, 'css');
 
   const apply = (value: string) => {
@@ -100,7 +89,6 @@ export function mount(root: HTMLElement): void {
     if (value === 'normal') column.removeAttribute('data-contained');
     else column.setAttribute('data-contained', '');
     css.textContent = setting.css;
-    readout.textContent = setting.note;
   };
 
   apply('break-word');

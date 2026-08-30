@@ -18,6 +18,5 @@ export default steps([
   { assert: { selector: '[data-part=block-stacked]', state: 'visible' } },
   { wait: 900 },
   { assert: { selector: '[data-part=legend]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
   { wait: 700 },
 ]);

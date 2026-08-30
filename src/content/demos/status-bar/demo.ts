@@ -40,11 +40,17 @@ const BATTERY = `<svg width="21" height="10" viewBox="0 0 21 10" aria-hidden="tr
  * draws what.
  *
  * The subject is the strip, the narrowest element the term names. The phone, the app
- * chrome and content below it, the switcher and the reading beside them are the scene it
- * is read against and carry the context register (SPEC §5).
+ * chrome and the content below it are the scene it is read against and carry the context
+ * register (SPEC §5).
  *
  * The strip sits in the flow above the scroller rather than over it, which is what lets a
  * scroll step prove the point: the list moves and the strip does not.
+ *
+ * A column beside the phone used to head a paragraph with "who draws the strip". The heading
+ * went, and the paragraph under it is the author's reading of the tint rather than anything
+ * the phone would print, so it carries `data-stage-verdict` and the stage draws it in the
+ * strip above the switch that changes it (SPEC §5.1). With the column gone the frame is the
+ * width of the phone: 200px instead of 470px.
  */
 export function mount(root: HTMLElement): void {
   const rows = ['Tide times', 'Wind', 'Berths', 'Fuel', 'Weather', 'Charts', 'Contacts', 'Settings']
@@ -59,7 +65,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 470px; height: 292px">
+      <div class="sp-frame" style="width: 200px; height: 280px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">App chrome</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Theme" data-part="switcher" data-value="dark">
@@ -67,7 +73,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" type="button" data-part="seg-light" value="light">light</button>
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; align-items: center; gap: 16px; padding: 12px 14px">
+        <div class="sp-body" style="display: flex; align-items: center; justify-content: center; padding: 12px 14px">
           <div class="sp-context" style="flex: 0 0 auto; padding: 5px; background: #10141b; border-radius: 22px">
             <div style="display: flex; flex-direction: column; width: 148px; height: 196px; background: var(--sp-surface); border-radius: 17px; overflow: hidden">
               <div data-part="chrome" data-tint="dark" style="flex: 0 0 auto; background: ${TINTS.dark?.chrome}">
@@ -88,10 +94,7 @@ export function mount(root: HTMLElement): void {
               <div class="sp-scroll" data-part="content" style="flex: 1 1 auto; min-height: 0; background: var(--sp-surface)">${rows}</div>
             </div>
           </div>
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 6px">
-            <span class="sp-label">who draws the strip</span>
-            <span class="sp-text" data-part="readout" style="height: 108px; font-size: 12px"></span>
-          </div>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout"></span>
         </div>
       </div>
     </div>

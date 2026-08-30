@@ -23,13 +23,6 @@ const VERDICT: Record<State, string> = {
   spaced: 'Circles clear: 2.5.8 passes on spacing',
 };
 
-const CAPTION: Record<State, string> = {
-  shipped: 'Six 20 pixel controls, edge to edge. They are already under 24 by 24, so only the spacing exception can save them.',
-  tested: 'A 24 pixel circle centred on each target. The circles intersect, so the exception does not apply and the row fails.',
-  spaced:
-    'The same 20 pixel controls with an 8 pixel gutter. The circles clear each other, so the row passes on clearance rather than on size.',
-};
-
 /**
  * Target spacing specimen: a dense icon toolbar drawn three ways, as shipped, with the 24 pixel
  * circle test laid over every target, and respaced until the circles clear each other. A read-out
@@ -37,8 +30,14 @@ const CAPTION: Record<State, string> = {
  *
  * The subject is one target, the narrowest element the term names: the criterion is measured
  * target by target, and a ring around the whole toolbar would name a toolbar. The picker, the
- * neighbouring controls, the document lines, the read-out and the caption are scenery (SPEC §5),
- * which is also why every circle but the subject's is drawn in the context register.
+ * neighbouring controls, the document lines and the read-out are scenery (SPEC §5), which is
+ * also why every circle but the subject's is drawn in the context register.
+ *
+ * A caption used to sit under the read-out restating the measurement in the site's voice ("A 24
+ * pixel circle centred on each target. The circles intersect, so the exception does not apply
+ * and the row fails.", and one line like it per state). The verdict beside the offset already
+ * carries the pass or fail, a specimen gets one verdict and no more, and the article carries the
+ * reasoning, so the caption went rather than moving.
  *
  * A packed target is the counter-example the subject itself passes through, so the honest
  * condition lives in `data-pose` and the mount state satisfies it: identify refuses to ring a
@@ -93,9 +92,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" data-part="offset" data-px="28" style="flex: 0 0 auto; font-size: 10.5px">Offset between centres: 28 px</span>
           <span class="sp-label" data-stage-verdict data-part="verdict" data-state="spaced" style="flex: 0 0 auto; font-size: 10.5px">${VERDICT.spaced}</span>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption" data-state="spaced"
-           style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">${CAPTION.spaced}</p>
       </div>
     </div>
   `;
@@ -105,7 +101,6 @@ export function mount(root: HTMLElement): void {
   const rings = TOOLS.map(({ key }) => part(root, `ring-${key}`));
   const offset = part(root, 'offset');
   const verdict = part(root, 'verdict');
-  const caption = part(root, 'caption');
 
   const apply = (next: State) => {
     const gap = GAP[next];
@@ -118,8 +113,6 @@ export function mount(root: HTMLElement): void {
     offset.textContent = `Offset between centres: ${centres} px`;
     verdict.dataset.state = next;
     verdict.textContent = VERDICT[next];
-    caption.dataset.state = next;
-    caption.textContent = CAPTION[next];
   };
 
   apply('spaced');

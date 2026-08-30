@@ -12,8 +12,8 @@ const START = 'selected';
 const WASH = 'color-mix(in oklab, var(--sp-accent) 26%, var(--sp-surface))';
 
 const SENTENCE = (name: string, extra = '') =>
-  `Selecting text used to be <span data-part="${name}" ${extra} style="padding: 0 1px; border-radius: 2px">the operating
-   system's decision</span>, and now it is the page's.`;
+  `The harbour office keeps the tide tables, and <span data-part="${name}" ${extra} style="padding: 0 1px; border-radius: 2px">the spring
+   range</span> is printed on the back page.`;
 
 /**
  * Selection colour specimen: the same sentence twice, once with the highlight the page
@@ -33,6 +33,12 @@ const SENTENCE = (name: string, extra = '') =>
  * its pose condition, and mount satisfies it. The control, the default twin and the caption
  * stay in the context register. Both runs keep their padding in every state, so releasing
  * repaints and moves nothing (SPEC §5).
+ *
+ * The sentence the two paragraphs carry used to be about selection itself ("Selecting text
+ * used to be the operating system's decision, and now it is the page's"), and each
+ * paragraph had a label over it saying which highlight it was showing. No document prints
+ * either. The paragraphs now say something a harbour notebook would, and the strip's
+ * verdict already tells the two highlights apart.
  */
 export function mount(root: HTMLElement): void {
   const paragraph = (markup: string) => `
@@ -50,12 +56,10 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-stack" style="gap: 4px; margin-top: 12px">
-          <span class="sp-label">Page styled, ::selection</span>
           ${paragraph(SENTENCE('run', 'data-subject data-pose="[data-selected]" data-selected'))}
         </div>
 
         <div class="sp-stack sp-context" style="gap: 4px; margin-top: 10px">
-          <span class="sp-label">Untouched, the platform's own</span>
           ${paragraph(SENTENCE('default-run', 'data-selected'))}
         </div>
 

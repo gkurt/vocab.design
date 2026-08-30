@@ -36,6 +36,11 @@ const NAV = [
  * the dashboard, the other to the files, so a pass resumed anywhere lands on the same
  * two outcomes. The pane and the readout hold their boxes in every state, so nothing
  * moves as the view changes (SPEC §5).
+ *
+ * A caption under the frame once read "The same word in two places, wired to two
+ * different destinations." It was the site explaining the term inside the product, and
+ * the article already says it, so it is gone: the two presses and the status line the
+ * workspace really prints are the whole demonstration.
  */
 export function mount(root: HTMLElement): void {
   const rail = NAV.map(
@@ -72,9 +77,6 @@ export function mount(root: HTMLElement): void {
             style="font-size: 11px; white-space: nowrap">${DESTINATIONS.none}</span>
         </div>
       </div>
-      <span class="sp-text sp-context" style="width: 440px; height: 16px; font-size: 11px">
-        The same word in two places, wired to two different destinations.
-      </span>
     </div>
   `;
 

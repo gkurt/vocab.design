@@ -56,8 +56,15 @@ function face(hand: string, id: string): string {
  * The subject is the group holding the two stepped exhibits: the term names the mechanic, and one
  * ticking hand alone would leave the sprite strip, which is the same mechanic doing its most
  * famous job, outside the thing being pointed at. The sweeping hand is the counter-example and is
- * a separate element in the context register, so no `data-pose` is needed, and the heading, the
- * Replay control and the caption stay outside the subject.
+ * a separate element in the context register, so no `data-pose` is needed, and the heading and
+ * the Replay control stay outside the subject.
+ *
+ * Each cell once carried a second line of author aside under its CSS value ("the hand that
+ * ticks", "one frame at a time", "the sweep, for contrast"), and a closing caption read "One
+ * full turn and eight poses, all in 3 seconds. Only the number of positions differs." A
+ * preview panel prints the value, not a gloss on it, and the three exhibits running side by
+ * side already say the rest, so all four went. The heading was "Tick, don't glide", advice
+ * rather than a panel title, and is now "Easing preview".
  *
  * `motion.css` gates transitions for a reader who asked for less movement, which lands every
  * exhibit on its last position. `prefersReducedMotion` is still asked directly, because with
@@ -75,11 +82,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
              transition: transform ${RUN_MS}ms ${easing} ${LEAD}ms"
     />`;
 
-  const cell = (art: string, name: string, note: string) => `
+  const cell = (art: string, name: string) => `
     <div class="sp-stack" style="width: 118px; gap: 4px; align-items: center; text-align: center">
       ${art}
       <span class="sp-label sp-text--ink" style="font-size: 10px">${name}</span>
-      <span class="sp-label" style="font-size: 10px">${note}</span>
     </div>`;
 
   const filmstrip = Array.from({ length: FRAMES }, (_, i) => pose(i)).join('');
@@ -88,13 +94,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-state="rest" style="width: 428px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Tick, don't glide</span>
+          <span class="sp-heading">Easing preview</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
 
         <div class="sp-row" style="gap: 14px; align-items: flex-start; margin-top: 12px">
           <div class="sp-row" data-part="stepped" data-subject style="gap: 0">
-            ${cell(face(hand('step', `steps(${TICKS}, jump-end)`), 'step'), `steps(${TICKS}, jump-end)`, 'the hand that ticks')}
+            ${cell(face(hand('step', `steps(${TICKS}, jump-end)`), 'step'), `steps(${TICKS}, jump-end)`)}
             ${cell(
               `<div
                  style="width: ${FRAME}px; height: ${FRAME}px; overflow: hidden; border-radius: 6px;
@@ -105,18 +111,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                           transition: transform ${RUN_MS}ms steps(${FRAMES}, jump-none) ${LEAD}ms"
                  >${filmstrip}</div></div>`,
               `steps(${FRAMES}, jump-none)`,
-              'one frame at a time',
             )}
           </div>
           <div style="flex: 0 0 1px; align-self: stretch; background: var(--sp-line)"></div>
           <div class="sp-context">
-            ${cell(face(hand('sweep', 'linear'), 'sweep'), 'linear', 'the sweep, for contrast')}
+            ${cell(face(hand('sweep', 'linear'), 'sweep'), 'linear')}
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">
-          One full turn and eight poses, all in ${RUN_MS / 1000} seconds. Only the number of positions differs.
-        </p>
       </div>
     </div>
   `;

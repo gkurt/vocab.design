@@ -95,8 +95,14 @@ const tile = ({ key, label, sky, boat, state, subject, context }: Tile): string 
  *
  * The subject is the muted picture, the narrowest element that is actually playing
  * unasked. The refused tile beside it is the fence rather than the term, so it sits in
- * the context register, and the note below is scenery. The play glyph reaches a state
- * rather than flipping one (SPEC §8): it only ever starts playback.
+ * the context register. The play glyph reaches a state rather than flipping one
+ * (SPEC §8): it only ever starts playback.
+ *
+ * The tiles used to be captioned by their attributes ("autoplay, sound on" and "autoplay
+ * muted") over a paragraph explaining that sound needs a gesture. Both were the site
+ * talking inside a video page. The paragraph is gone and the tiles carry clip titles now;
+ * the badge inside each picture already reports refused, muted or sounding, which is the
+ * only place a real player states it.
  *
  * The clip runs on the stage clock, so a reader who asked for less motion gets the still
  * the term itself owes them: parked mid-clip, with nothing moving.
@@ -108,7 +114,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-row" style="align-items: flex-start; gap: 12px">
           ${tile({
             key: 'a',
-            label: 'autoplay, sound on',
+            label: 'Ferry to Ullapool',
             sky: 'linear-gradient(165deg, #2b3a67 0%, #4c6ea8 55%, #b9cfd8 100%)',
             boat: '#f1e6d0',
             state: 'blocked',
@@ -116,17 +122,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           })}
           ${tile({
             key: 'b',
-            label: 'autoplay muted',
+            label: 'Harbour at dusk',
             sky: 'linear-gradient(165deg, #1f3d3a 0%, #3f7d6e 52%, #cfe0c8 100%)',
             boat: '#f1eddc',
             state: 'playing',
             subject: true,
           })}
         </div>
-        <p class="sp-text sp-context" style="margin: 10px 0 0">
-          Sound needs a gesture the reader has not made yet, so one request is refused and one is
-          granted for asking in silence.
-        </p>
       </div>
     </div>
   `;

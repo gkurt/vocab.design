@@ -13,7 +13,7 @@ import type { DemoClock } from '#src/stage/clock.ts';
 const WEB = "'Source Serif 4 Variable', Georgia, serif";
 const FALLBACK = "Georgia, 'Times New Roman', serif";
 
-const HEADLINE = 'Metrics decide where the next line starts';
+const HEADLINE = 'The quiet return of the night ferry';
 const SIZE = 30;
 /** Room for the tallest arrangement, so the whole demonstration stays inside it (SPEC §5). */
 const PAGE = 132;
@@ -30,6 +30,11 @@ const IS_MODE = (value: string): value is Mode => value === 'web' || value === '
  * space. The rule under the headline marks where the body sat with the real face,
  * so the untuned stand-in visibly drops the paragraph off it and the tuned one
  * puts it back. The shift is measured against that mark rather than declared.
+ *
+ * The headline and the paragraph used to describe the demonstration ("Metrics decide
+ * where the next line starts", "Everything under the headline is carried by it"). No
+ * page prints that about its own type, and the article says it, so both are ordinary
+ * copy now; the marks and the shift readout still measure whatever they are set in.
  *
  * The layout shift is the term here, so it is contained: the page block holds the
  * room the tallest setting needs, and the picker, read-out and caption outside it
@@ -57,8 +62,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <h3 data-part="headline" data-subject data-mode="web" data-pose="[data-tuned]"
               style="margin: 0; font-family: ${WEB}; font-size: ${SIZE}px; line-height: normal; font-weight: 600">${HEADLINE}</h3>
           <p class="sp-text sp-context" data-part="body" style="margin: 10px 0 0; line-height: 19px">
-            Everything under the headline is carried by it. The paragraph did not change; the line box
-            above it did.
+            The last sailing of the season leaves at half past six, and the winter crossings begin
+            the following week.
           </p>
           <span data-part="band" aria-hidden="true"
                 style="position: absolute; right: 0; width: 46px; background: color-mix(in oklab, var(--sp-ink) 16%, transparent)"></span>

@@ -23,8 +23,9 @@ const CAPTION = {
  * read back; with the attribute's default of `false` the reader gets the gate number alone,
  * which is a fact with nothing attached to it.
  *
- * The transcript is a portrayal, labelled as one, following the live region and politeness
- * level specimens rather than inventing a second convention for the same job.
+ * The transcript is an instrument this specimen draws, so it is titled with the instrument's
+ * name. It read "Screen reader, polite queue", which explained the mechanism in the site's
+ * voice over a pane that already shows the queue waiting its turn.
  *
  * The subject is the region element that carries `aria-atomic`. It is a container, and it is
  * still the narrowest element the term names: the setting is an attribute on the marked
@@ -72,7 +73,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 10px; padding: 8px 10px">
-          <span class="sp-label">Screen reader, polite queue</span>
+          <span class="sp-label">Screen reader</span>
           <p class="sp-text" data-part="heard" data-state="idle" data-mode="whole"
              style="margin: 4px 0 0; height: 20px; font-size: 11.5px">Nothing announced yet</p>
         </div>

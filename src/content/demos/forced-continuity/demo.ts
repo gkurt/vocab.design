@@ -10,11 +10,6 @@ const SPAN = 34;
 
 const at = (day: number) => `${(day / SPAN) * 100}%`;
 
-const CAPTION = {
-  forced: 'Billing timeline (as shipped)',
-  fair: 'Billing timeline (made honest)',
-} as const;
-
 const VERDICT = {
   forced: 'Nothing is sent between the card and the charge. The reader finds out from their bank.',
   fair: 'A reminder a week out, a stated renewal date, and one click to stop it before it happens.',
@@ -72,6 +67,10 @@ function timelineMarkup(mode: Mode): string {
  * carry the same three markers at the same positions, so switching changes what a marker
  * says and never where anything sits (SPEC §5), and the advance control reaches the next
  * moment rather than toggling one (SPEC §8).
+ *
+ * The label over the timeline read "Billing timeline (as shipped)", turning to "(made
+ * honest)" on the other side of the switch. Streamly would print neither, and the verdict
+ * the stage already draws says what the switch just did, so the label is plain now.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -89,7 +88,7 @@ export function mount(root: HTMLElement): void {
             </div>
             <div class="sp-text" style="margin-top: 2px; font-size: 12px">Card required to start. 79.00 a year after the trial.</div>
           </div>
-          <span class="sp-label sp-context" data-part="caption">${CAPTION.forced}</span>
+          <span class="sp-label sp-context">Billing timeline</span>
           <div
             class="sp-surface"
             data-part="timeline"
@@ -111,7 +110,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const timeline = part(root, 'timeline');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const dayReadout = part(root, 'day-readout');
   const next = part(root, 'next');
@@ -132,7 +130,6 @@ export function mount(root: HTMLElement): void {
   const show = (mode: Mode) => {
     timeline.dataset.mode = mode;
     timeline.innerHTML = timelineMarkup(mode);
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
     goTo(0);
   };

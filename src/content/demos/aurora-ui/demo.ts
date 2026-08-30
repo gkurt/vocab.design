@@ -11,6 +11,10 @@ const BLOBS = [
  * edges overlap into hues the palette never named, drifting slowly enough that the
  * background never asks to be watched. The drift is the kit's, which means it is
  * transform-only, pauses off screen, and stops under a stated motion preference.
+ *
+ * The card's body once described the backdrop ("Four blurred circles over one dark base,
+ * drifting slowly enough to ignore."), which is the site talking inside a recipe card. It
+ * now carries a recipe, which is what the heading and the button already promised.
  */
 export function mount(root: HTMLElement): void {
   const blobs = BLOBS.map(
@@ -27,7 +31,7 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-window sp-context" data-part="card" style="position: relative; width: 268px; text-align: center">
         <div class="sp-heading">Northern Lights</div>
-        <p class="sp-text" style="margin: 6px 0 0">Four blurred circles over one dark base, drifting slowly enough to ignore.</p>
+        <p class="sp-text" style="margin: 6px 0 0">Gin, blue curacao and a drop of violet, layered over crushed ice.</p>
         <button class="sp-button sp-button--sm" data-part="cta" type="button" style="margin-top: 12px">Read the recipe</button>
       </div>
     </div>

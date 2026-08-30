@@ -33,8 +33,12 @@ const onColor = (seed: string) => (ratio(seed, '#FFFFFF') >= ratio(seed, INK) ? 
  *
  * The subject is the branded surface rather than the seed chip: the term names the colour
  * as a product wears it, and the chip below is the value being read out of it. The brand
- * control and the readout row stay in the context register. The panel, the chips and the
- * caption are all fixed size, so swapping brand repaints and moves nothing (SPEC §5).
+ * control and the readout row stay in the context register. The panel and the chips are all
+ * fixed size, so swapping brand repaints and moves nothing (SPEC §5).
+ *
+ * A caption under the readout ("One owned hue seeds the mark, the primary action and the
+ * link. Everything else stays neutral.") described the specimen instead of belonging to it,
+ * and never changed with the brand, so it is deleted rather than moved to the strip.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -84,8 +88,6 @@ export function mount(root: HTMLElement): void {
           </span>
         </div>
 
-        <p class="sp-text sp-context" style="margin: 10px 0 0; min-height: 39px">One owned hue seeds the mark, the
-          primary action and the link. Everything else stays neutral.</p>
       </div>
     </div>
   `;

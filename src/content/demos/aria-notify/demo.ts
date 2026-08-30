@@ -17,8 +17,12 @@ const CAPTION = {
  * direct call and the live region trick it would replace. The DOM view is the point of the
  * contrast: one mode keeps a hidden node in the page, the other has no element at all.
  *
- * The transcript is a portrayal, labelled as one, following the live region and busy state
- * specimens rather than inventing a second convention for the same job.
+ * The transcript pane and the markup pane are instruments this specimen draws, so each is
+ * titled with the instrument's own name. The window used to open with "Announcing a copy
+ * result", the markup pane was headed "What the page carries: no announcement element" (and
+ * swapped that sentence with the mode), and the transcript was labelled "Screen reader,
+ * portrayed". All three were the site explaining its own exhibit; the panes show the
+ * difference, so the prose went and the labels are plain.
  *
  * The subject is the utterance the API produces, the first transcript line: the term names how a
  * message reaches the voice, not the button that starts it and not the node the other technique
@@ -40,8 +44,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Announcing a copy result</span>
+        <div class="sp-row sp-context" style="gap: 10px; justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="notify" data-axis="Method" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-notify" value="notify"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">ariaNotify</button>
@@ -51,7 +54,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface" data-part="dom" data-mode="notify" style="margin-top: 9px; padding: 8px 10px">
-          <span class="sp-label sp-context" data-part="dom-label" style="font-size: 10px">What the page carries: no announcement element</span>
+          <span class="sp-label sp-context" style="font-size: 10px">Page markup</span>
           <div style="position: relative; height: 45px; margin-top: 3px">
             <div data-part="view-notify" style="position: absolute; inset: 0; transition: opacity 0.18s ease">
               <span data-part="call" data-fired="no"
@@ -81,7 +84,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 9px; padding: 8px 10px">
-          <span class="sp-label" style="font-size: 10px">Screen reader, portrayed</span>
+          <span class="sp-label" style="font-size: 10px">Screen reader</span>
           <div class="sp-stack" style="gap: 0; margin-top: 3px; height: 30px">
             ${transcriptLine(1)}${transcriptLine(2)}
           </div>
@@ -94,7 +97,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const dom = part(root, 'dom');
-  const domLabel = part(root, 'dom-label');
   const views = { notify: part(root, 'view-notify'), region: part(root, 'view-region') };
   const call = part(root, 'call');
   const node = part(root, 'node');
@@ -124,8 +126,6 @@ export function mount(root: HTMLElement): void {
     mode = next;
     presses = 0;
     dom.dataset.mode = next;
-    domLabel.textContent =
-      next === 'notify' ? 'What the page carries: no announcement element' : 'What the page carries: a node that must already exist';
     views.notify.style.opacity = next === 'notify' ? '1' : '0';
     views.region.style.opacity = next === 'region' ? '1' : '0';
     call.dataset.fired = 'no';

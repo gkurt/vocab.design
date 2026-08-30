@@ -70,7 +70,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </span>
         </div>
         <div class="sp-row sp-row--between sp-context" style="height: 26px">
-          <span class="sp-label" style="color: var(--sp-ink)">grey: the font's own content area</span>
+          <span class="sp-label" style="color: var(--sp-ink)">grey: content area</span>
           <span class="sp-chip" data-part="readout" style="cursor: default; font-variant-numeric: tabular-nums"></span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">

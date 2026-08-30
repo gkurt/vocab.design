@@ -23,6 +23,10 @@ const PARAGRAPHS = [
  * that is currently taking part in the flow, and the mount state is the honest one (SPEC §6).
  * The frame, the picker, the text and the caption are scenery in the context register.
  *
+ * The title bar read "The badge is", a sentence the segmented control finished. That was the
+ * site writing a caption in the product's own chrome, so the panel is titled after what it
+ * holds, "Winter crossing".
+ *
  * `data-text` is measured rather than claimed. The demo records where the last paragraph sits
  * with the badge out of the flow and compares on every change, so an assert can prove the text
  * did not move rather than trusting that it did not. The panel reserves the room the taller
@@ -37,7 +41,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 272px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">The badge is</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Winter crossing</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-value="imposter" data-axis="Placement" data-term="imposter">
             <button class="sp-segment" type="button" data-part="seg-flow" value="flow" style="padding: 4px 11px; font-size: 11px">in the flow</button>
             <button class="sp-segment" type="button" data-part="seg-imposter" value="imposter" style="padding: 4px 11px; font-size: 11px">an imposter</button>

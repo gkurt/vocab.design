@@ -20,7 +20,7 @@ const ARRIVING = 2;
  * unread count when two messages land while the reader is on another screen.
  *
  * The subject is the title text in the tab, and nothing wider. The tab pill, the browser
- * frame, the navigation, the page pane, and the announcement strip are all scenery: the term
+ * frame, the navigation and the page pane are all scenery: the term
  * names the string, not the chrome that displays it, and the string is the narrowest element
  * on stage that is it (SPEC §5).
  *
@@ -29,6 +29,11 @@ const ARRIVING = 2;
  * width and the unread badge's room is reserved in the navigation, so neither the arrival nor
  * a navigation moves anything (SPEC §5). Every navigation reaches an absolute page, and
  * opening the inbox clears the count, so the pass ends where it began (SPEC §8).
+ *
+ * What a screen reader says on arrival used to sit under the browser in a panel labelled
+ * "Spoken first on arrival", which is a stage direction dressed as product UI: no mail client
+ * prints one. The utterance carries `data-stage-announce` now, so the stage speaks it in the
+ * lane above the specimen and the label goes with the panel.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -75,12 +80,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
 
-      <div class="sp-surface sp-context" style="width: 460px; padding: 8px 10px">
-        <div class="sp-row sp-row--between" style="height: 18px">
-          <span class="sp-label">Spoken first on arrival</span>
-          <span class="sp-text sp-text--ink" data-part="heard" style="font-size: 12px; white-space: nowrap"></span>
-        </div>
-      </div>
+      <p class="sp-text sp-text--ink" data-stage-announce data-part="heard"
+         style="margin: 0; height: 18px; font-size: 12px; white-space: nowrap"></p>
     </div>
   `;
 

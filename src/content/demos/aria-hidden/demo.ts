@@ -16,13 +16,17 @@ const CAPTION: Record<Mode, string> = {
  *
  * The subject is the ornament itself, the narrowest element the attribute sits on (SPEC §5).
  * The header card around it is what the attribute is applied inside, not the term. The
- * segmented control, the readout and the caption are scenery in the context register, and
+ * segmented control, the tree pane and the caption are scenery in the context register, and
  * `false` is the counter-example the subject passes through, so the honest condition lives
  * in `data-pose` and the mount state satisfies it (SPEC §6).
  *
  * The ornament's node is always in the readout's flow and only its opacity changes, so a
  * node arriving cannot move the lines under it (SPEC §5), and each segment reaches its own
  * value rather than flipping the one it found (SPEC §8).
+ *
+ * The pane was headed "What the screen reader reads", which was the site explaining the
+ * drawing. The pane really is an accessibility tree inspector, roles and names in rows, so it
+ * is labelled with the instrument's own name instead.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -45,7 +49,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-context" style="margin-top: 9px">
-          <span class="sp-label">What the screen reader reads</span>
+          <span class="sp-label">Accessibility tree</span>
           <div class="sp-stack" style="margin-top: 6px; gap: 2px">
             <div class="sp-menu-item" data-part="node-title" style="padding: 4px 8px; gap: 6px; cursor: default">
               <span style="color: var(--sp-accent); font-weight: 600">heading</span>

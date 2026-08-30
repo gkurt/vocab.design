@@ -69,8 +69,13 @@ const lines = (widths: number[]) => widths.map((width) => `<div class="sp-line" 
  *
  * The subject is the app's content region, the thing that answers the posture, rather than the
  * device shell around it or the whole scene (SPEC §5). Every posture is honestly the term (an app
- * that ignores the fold is still in a posture), so no `data-pose` condition is needed. The bezel,
- * the posture picker and the caption are scenery in the context register.
+ * that ignores the fold is still in a posture), so no `data-pose` condition is needed. The bezel
+ * and the posture picker are scenery in the context register.
+ *
+ * The line reading each posture ("Flat: one continuous display, one pane ...") used to sit under
+ * the device, inside the fiction, where no foldable prints a sentence about its own hinge. It
+ * changes with the posture switch, which is what a verdict is, so it is marked
+ * `data-stage-verdict` and the stage draws it in the strip above the control that produced it.
  *
  * The device is reshaped inside a slot held at the largest posture and centred in it, so the panel
  * changes shape and nothing around it moves (SPEC §5). The seam is drawn over the app at the
@@ -143,7 +148,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; height: 40px"></span>
         </div>
       </div>
     </div>

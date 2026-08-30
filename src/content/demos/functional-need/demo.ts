@@ -34,6 +34,10 @@ const READERS = [
  * are scenery (SPEC §5). The category wording is a counter-example the subject passes through, so the
  * honest condition is declared in `data-pose` and the mount state satisfies it (SPEC §6).
  *
+ * The barrier panel is written as an audit note rather than as a lesson: it used to end "No keys,
+ * no buttons, no second route.", which is the article making the point, so it now just records what
+ * the control offers.
+ *
  * Both sentences sit in one reserved box, both captions in another, and the rows keep their height
  * whichever mark they carry, so a pick moves nothing (SPEC §5). No timers: each state is a pick.
  */
@@ -76,7 +80,7 @@ export function mount(root: HTMLElement): void {
                           background: var(--sp-ink)"></div>
             </div>
             <p class="sp-text" style="margin: 8px 0 0; font-size: 10.5px; line-height: 1.35">
-              Set the crop by dragging a 5px handle. No keys, no buttons, no second route.</p>
+              Crop handle, 5px, drag only. No keyboard equivalent, no numeric entry.</p>
           </div>
 
           <div class="sp-surface sp-context" style="flex: 1 1 auto; min-width: 0; height: 138px; padding: 9px 10px">

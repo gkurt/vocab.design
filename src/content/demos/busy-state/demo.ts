@@ -25,8 +25,10 @@ const CAPTION = {
  * declaring `aria-busy` for the duration of the load and leaving it off. The rows are identical
  * either way; what changes is how many times the region is spoken while it fills.
  *
- * The transcript is a portrayal, labelled as one, following the live region and atomic live region
- * specimens rather than inventing a second convention for the same job.
+ * The transcript is a portrayal, following the live region and atomic live region specimens rather
+ * than inventing a second convention for the same job. It used to carry the heading "Screen reader,
+ * polite queue", which is a stage direction dressed as product UI: it names an instrument the scene
+ * does not draw. The quoted lines are left to read as what they are.
  *
  * The subject is the region that carries the flag. It is a container and it is still the narrowest
  * element the term names: the attribute sits on the marked region, and ringing a single row would
@@ -78,8 +80,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 10px; padding: 8px 10px">
-          <span class="sp-label" style="font-size: 10px">Screen reader, polite queue</span>
-          <div class="sp-stack" style="gap: 0; margin-top: 3px; height: 45px">
+          <div class="sp-stack" style="gap: 0; height: 45px">
             ${logLine(1)}${logLine(2)}${logLine(3)}
           </div>
         </div>

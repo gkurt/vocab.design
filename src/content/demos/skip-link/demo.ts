@@ -8,12 +8,6 @@ const CAPTION = {
   jumped: 'Enter moved focus, not just the scroll position: the ring is inside the article, past all six of them.',
 } as const;
 
-const RING = {
-  rest: 'nothing yet',
-  revealed: 'the skip link',
-  jumped: 'the article, past all six links',
-} as const;
-
 type State = keyof typeof CAPTION;
 
 /**
@@ -25,8 +19,13 @@ type State = keyof typeof CAPTION;
  *
  * The subject is the link itself. It is invisible at rest, which is no objection: identify
  * summons it by playing the Tab that reveals it (SPEC §6), and it is a skip link in every
- * state, so no `data-pose` is needed. The masthead, the navigation, the article, the readout
- * and the caption are scenery (SPEC §5).
+ * state, so no `data-pose` is needed. The masthead, the navigation and the article are
+ * scenery (SPEC §5), and the caption is a verdict the stage draws in the strip.
+ *
+ * A panel under the frame used to announce where the ring was: a label reading "The ring is
+ * on" and a value reading "nothing yet", "the skip link" or "the article, past all six
+ * links". The ring is drawn on the page, so the panel was the site reading it aloud, and the
+ * verdict beside the controls already says what each state amounts to.
  *
  * The tab sequence is real: the link and the six nav items are elements carrying
  * `tabindex="0"`, the article carries `tabindex="-1"` exactly as a skip target must, and the
@@ -34,8 +33,7 @@ type State = keyof typeof CAPTION;
  * would put focus. Nothing calls `.focus()` under attract; the trusted branch is the real
  * jump a reader who takes over gets, which is the technique working rather than a picture of
  * it. The link is revealed with opacity and a translate, never by entering the layout, so
- * the masthead cannot move under it (SPEC §5), and the readout row holds its height from
- * mount.
+ * the masthead cannot move under it (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -75,26 +73,16 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <div class="sp-surface sp-context" style="width: 444px; padding: 7px 10px">
-        <div class="sp-row sp-row--between" style="height: 17px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The ring is on</span>
-          <span class="sp-text sp-text--ink" data-part="ring" data-at="rest"
-                style="flex: 0 0 auto; font-size: 12px; white-space: nowrap">${RING.rest}</span>
-        </div>
-        <p class="sp-text" data-stage-verdict data-part="caption" data-state="rest"
-           style="margin: 4px 0 0; height: 34px; font-size: 11px">${CAPTION.rest}</p>
-      </div>
+      <p class="sp-text" data-stage-verdict data-part="caption" data-state="rest"
+         style="margin: 0; font-size: 11px">${CAPTION.rest}</p>
     </div>
   `;
 
   const skip = part(root, 'skip');
   const main = part(root, 'main');
-  const ring = part(root, 'ring');
   const caption = part(root, 'caption');
 
   const say = (state: State) => {
-    ring.dataset.at = state;
-    ring.textContent = RING[state];
     caption.dataset.state = state;
     caption.textContent = CAPTION[state];
   };

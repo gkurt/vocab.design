@@ -66,9 +66,16 @@ const phrase = (minutes: number, absolute: string): string => {
 };
 
 /**
- * Relative timestamp specimen: an activity feed whose stamps age on the stage's clock,
- * at a compressed timescale the footer names out loud, until the newest one crosses the
- * threshold where the convention gives up and prints a date instead.
+ * Relative timestamp specimen: an activity feed whose stamps age on the stage's clock, at
+ * a compressed timescale, until the newest one crosses the threshold where the convention
+ * gives up and prints a date instead. The footer used to name that compression out loud
+ * ("Compressed time: the feed ages a step every beat."), which is the exhibit explaining
+ * its own machinery from inside the product, so it went and Rewind kept the row.
+ *
+ * A line under the feed printed the newest row's exact time behind the words "Underneath,
+ * unchanged:". No feed prints that: it was the site pointing at its own `datetime` and
+ * `title`, both of which are still on every stamp for anyone who hovers or reads the markup.
+ * The line is gone and the frame gave back its height.
  *
  * The subject is one stamp, the newest, which is the narrowest thing the term names:
  * not the row, not the feed, and not the exact time underneath it. The two stamps below
@@ -102,21 +109,15 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 302px">
+      <div class="sp-frame sp-frame--wide" style="height: 270px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Activity</span>
           <span class="sp-label">Harbour survey</span>
         </div>
         <div class="sp-body sp-stack" style="gap: 6px">
           ${rows}
-          <div class="sp-divider sp-context" style="margin-top: 2px"></div>
-          <div class="sp-row sp-context" style="gap: 8px">
-            <span class="sp-label" style="font-size: 11px">Underneath, unchanged:</span>
-            <span class="sp-text sp-text--ink" data-part="exact" style="font-size: 12px">${ROWS[0]?.exact ?? ''}</span>
-          </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
-          <span class="sp-text" style="font-size: 11px">Compressed time: the feed ages a step every beat.</span>
+        <div class="sp-row sp-context" style="flex: 0 0 auto; padding: 8px 12px; justify-content: flex-end; border-top: 1px solid var(--sp-line)">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="rewind">Rewind</button>
         </div>
       </div>

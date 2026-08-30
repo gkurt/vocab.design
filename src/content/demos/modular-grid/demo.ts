@@ -21,7 +21,6 @@ interface Config {
   /** Whether the modules themselves are drawn, or only the page sitting on them. */
   drawn: boolean;
   places: Record<string, Placement>;
-  note: string;
 }
 
 const COARSE: Record<string, Placement> = {
@@ -48,7 +47,6 @@ const CONFIGS: Config[] = [
     rows: 3,
     drawn: true,
     places: COARSE,
-    note: 'Four columns crossed by three fields, so twelve modules. The picture is two modules wide by two tall, not columns plus a guess.',
   },
   {
     key: 'fine',
@@ -57,7 +55,6 @@ const CONFIGS: Config[] = [
     rows: 4,
     drawn: true,
     places: FINE,
-    note: 'A finer field, six by four. The same five blocks are restated in the new modules, and every edge still lands on a module boundary.',
   },
   {
     key: 'page',
@@ -66,7 +63,6 @@ const CONFIGS: Config[] = [
     rows: 4,
     drawn: false,
     places: FINE,
-    note: 'The modules undrawn. Nothing moved: every block is still sized and placed in them, and that is what a reader reads as coherence.',
   },
 ];
 
@@ -95,8 +91,13 @@ const block = (name: string, body: string, extra = '') => `
  * The subject is the page laid on the grid, not the drawn overlay (SPEC §5). The overlay is ink,
  * an aid that can be switched off without the grid ceasing to exist, while the divided field with
  * its blocks placed in it is the thing the term names. Every configuration is honestly a modular
- * grid, so no `data-pose` condition is needed. The picker and the caption are scenery in the
- * context register.
+ * grid, so no `data-pose` condition is needed. The picker is scenery in the context register.
+ *
+ * A caption under the page once narrated each configuration ("Four columns crossed by three
+ * fields, so twelve modules...", and one per state). It was the site explaining the term inside
+ * a magazine's own layout view, which nothing on that screen would print, so it went; the article
+ * makes the same points at length. The body centres the page now that the caption's reserved
+ * band is gone.
  *
  * The page holds one box across all three states, so the modules and the blocks rearrange inside
  * it and nothing around it moves (SPEC §5). Each segment names the configuration it produces
@@ -107,14 +108,14 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 250px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Columns and fields</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Issue 14, page 3</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="configs" data-value="${first.key}" data-axis="Grid">
             ${CONFIGS.map(segment).join('')}
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 12px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 12px">
           <div
             class="sp-grid"
             data-part="page"
@@ -139,7 +140,6 @@ export function mount(root: HTMLElement): void {
                      transition: opacity 0.24s var(--sp-ease)"
             ></div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px; width: 442px"></span>
         </div>
       </div>
     </div>
@@ -147,7 +147,6 @@ export function mount(root: HTMLElement): void {
 
   const page = part(root, 'page');
   const modules = part(root, 'modules');
-  const readout = part(root, 'readout');
   const blocks = new Map(BLOCKS.map((name) => [name, part(root, `block-${name}`)]));
 
   const lay = (key: string) => {
@@ -177,8 +176,6 @@ export function mount(root: HTMLElement): void {
       element.style.gridColumn = place.column;
       element.style.gridRow = place.row;
     }
-
-    readout.textContent = config.note;
   };
 
   part(root, 'configs').addEventListener('change', (event) => lay((event as CustomEvent<string>).detail));

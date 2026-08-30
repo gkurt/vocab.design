@@ -16,8 +16,6 @@ const dot = (name: string, x: number, y: number) => `
     style="position: absolute; left: ${x - 4}px; top: ${y - 4}px; width: 8px; height: 8px; border-radius: 50%; background: var(--sp-ink); opacity: 0.6"
   ></span>`;
 
-const row = (text: string) => `<div class="sp-row" style="gap: 6px"><span class="sp-label">${text}</span></div>`;
-
 /**
  * Edge swipe specimen: a phone whose left band is drawn as the strip the system has booked,
  * where a stroke that starts inside it peels the current screen back and one that starts
@@ -26,8 +24,8 @@ const row = (text: string) => `<div class="sp-row" style="gap: 6px"><span class=
  * The subject is that band. The gesture this term names is told apart from an ordinary
  * swipe by where it begins and by nothing else, so the narrowest element that is the term
  * is the region the first contact has to land in; the peeling screen is what answers the
- * gesture rather than what the word means. The device, the readout, the legend and the
- * reopen control are the scene around it and carry the context register.
+ * gesture rather than what the word means. The device, the readout, the travel figure and
+ * the reopen control are the scene around it and carry the context register.
  *
  * The screen carries the touch persona (`data-touch`), because the gesture is a finger's:
  * every step aimed inside the device performs as touch, the strokes carry
@@ -43,6 +41,13 @@ const row = (text: string) => `<div class="sp-row" style="gap: 6px"><span class=
  * Release animates by transition, and the drag itself runs with none, so the screen tracks
  * the pointer instead of lagging it.
  *
+ * The column beside the phone used to be a written key: "The system booked two edges",
+ * "left 18 px: back", "top 16 px: the shade", and "A stroke starting further in belongs to
+ * the page." All four were the site annotating its own diagram, and the screen already
+ * draws and labels both hatched bands and the commit line, so only the live travel figure
+ * and the Reopen control are left there. The readout rests at "Article open" rather than
+ * telling the reader what to do.
+ *
  * The screen moves by a transform inside a clipped device and the readouts hold their
  * widths, so a peel moves nothing but the screen (SPEC §5).
  */
@@ -52,7 +57,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 296px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Reader</span>
-          <span class="sp-text" data-part="readout" style="width: 244px; text-align: right; white-space: nowrap">Pull in from the left edge</span>
+          <span class="sp-text" data-part="readout" style="width: 244px; text-align: right; white-space: nowrap">Article open</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 14px">
           <div
@@ -119,14 +124,9 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
 
-          <div class="sp-stack sp-context" style="width: 178px; gap: 6px">
-            <span class="sp-label sp-text--ink">The system booked two edges</span>
-            ${row(`left ${ZONE} px: back`)}
-            ${row(`top ${TOP_ZONE} px: the shade`)}
-            <div class="sp-divider"></div>
+          <div class="sp-stack sp-context" style="width: 178px; gap: 8px">
             <span class="sp-label" data-part="travel" style="font-variant-numeric: tabular-nums">0 px in, ${COMMIT} px commits</span>
-            <span class="sp-label">A stroke starting further in belongs to the page.</span>
-            <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reopen" style="margin-top: 2px">Reopen the article</button>
+            <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reopen">Reopen the article</button>
           </div>
         </div>
       </div>

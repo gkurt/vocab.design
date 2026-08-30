@@ -2,7 +2,7 @@ import { steps } from '#src/stage/choreography.ts';
 
 export default steps([
   { assert: { selector: '[data-part=column]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout]', state: 'visible' } },
+  { assert: { selector: '[data-part=css]', state: 'visible' } },
   { wait: 800 },
   // Three stated settings, driven in order and left on the contained one: no step
   // depends on the state it finds, so a pass joined halfway still reads true. The

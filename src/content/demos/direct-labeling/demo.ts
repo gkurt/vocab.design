@@ -27,14 +27,12 @@ const SERIES = [
   { key: 'meridian', name: 'Meridian', hue: 'oklch(0.56 0.12 158)', values: [12, 16, 19, 24, 26, 33] },
 ] as const;
 
-const READOUT = { direct: '0 trips to the key', legend: '3 trips to the key' } as const;
-
 const NOTE = {
   direct: 'Each line says its own name where it ends, so the reader never leaves the plot to find out which is which.',
   legend: 'The key sits off to the side, so every line has to be carried across to a swatch and back: three trips out of the data.',
 } as const;
 
-type Mode = keyof typeof READOUT;
+type Mode = keyof typeof NOTE;
 
 const START: Mode = 'direct';
 
@@ -57,6 +55,11 @@ const y = (value: number) => BASE - (value / MAX) * PLOT_H;
  * is scenery here, is the only thing that eases. No `data-pose` either, because the
  * counter-example state does not leave a dishonest subject visible, it leaves no subject at
  * all, which is exactly what summon is for (SPEC §6).
+ *
+ * The panel's right-hand line used to count "0 trips to the key" against "3 trips to the key",
+ * which is the site scoring the chart inside the chart. It prints the panel's own freshness now
+ * and keeps carrying `data-mode`, so the pass still has a state to claim while the evidence for
+ * the term is where it belongs: the names at the ends of the lines, or the key off to the side.
  */
 export function mount(root: HTMLElement): void {
   const lines = SERIES.map((series) => {
@@ -120,7 +123,7 @@ export function mount(root: HTMLElement): void {
                 data-part="readout"
                 data-mode="${START}"
                 style="width: 130px; text-align: right; font-size: 11px; color: var(--sp-ink)"
-              >${READOUT[START]}</span>
+              >Updated 2 hours ago</span>
             </div>
             <div class="sp-row" style="gap: 10px; align-items: flex-start; margin-top: 8px">
               <svg
@@ -161,7 +164,6 @@ export function mount(root: HTMLElement): void {
     labels.style.opacity = mode === 'direct' ? '1' : '0';
     keyColumn.style.opacity = mode === 'legend' ? '1' : '0';
     readout.dataset.mode = mode;
-    readout.textContent = READOUT[mode];
     note.textContent = NOTE[mode];
   };
 

@@ -44,6 +44,11 @@ const grid = (kind: string, count: number) =>
  * Stamps are slots that change fill, never elements that arrive, so buying a cup moves
  * nothing (SPEC §5), and each segment buys an absolute number rather than adding to
  * whatever it found (SPEC §8).
+ *
+ * The plain card's footer line used to read "Every space is a cup you buy", which was
+ * the site explaining the arithmetic rather than the shop printing its own terms. It
+ * says "One stamp per cup" now, which is what a card of this kind really prints, and
+ * it stays parallel to the welcome card's "The first two stamps are on us".
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -64,7 +69,7 @@ export function mount(root: HTMLElement): void {
                 <span class="sp-text" data-part="plain-count" style="font-size: 11px">0 of ${PLAIN_SLOTS}</span>
               </div>
               <div class="sp-grid" style="grid-template-columns: repeat(5, 18px); gap: 7px">${grid('plain', PLAIN_SLOTS)}</div>
-              <span class="sp-label" style="height: 12px; font-size: 10px">Every space is a cup you buy</span>
+              <span class="sp-label" style="height: 12px; font-size: 10px">One stamp per cup</span>
             </div>
 
             <div class="sp-surface" data-part="endowed" data-subject data-filled="2"

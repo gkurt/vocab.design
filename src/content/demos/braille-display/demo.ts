@@ -113,6 +113,9 @@ function cell(ch: string): string {
  * The cell count is fixed at the size a real portable display has, so a shorter line leaves
  * flat cells rather than shrinking the strip and moving the rows below it (SPEC §5). Each
  * segment reaches its own element rather than cycling (SPEC §8), and no timer is needed.
+ *
+ * The row under the strip was introduced by "The line reads", which is the site reading the
+ * pins out loud. It is labelled "Transcription" now: the same row, named for what it is.
  */
 export function mount(root: HTMLElement): void {
   const strip = (line: string) => Array.from({ length: CELLS }, (_, i) => cell(line[i] ?? ' ')).join('');
@@ -155,7 +158,7 @@ export function mount(root: HTMLElement): void {
                     background: var(--sp-sunken)">${strip(ELEMENTS.heading.line)}</div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 16px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The line reads</span>
+          <span class="sp-label" style="flex: 0 0 auto">Transcription</span>
           <span class="sp-text sp-text--ink" data-part="line" data-el="heading"
                 style="flex: 0 0 auto; font-size: 11.5px; letter-spacing: 0.04em; white-space: nowrap">${ELEMENTS.heading.line}</span>
         </div>

@@ -31,11 +31,16 @@ const PICTURE = `
  * second pair leaves the picture where it is and the scenery control is the way
  * back. The scale happens inside a tile of fixed size, so nothing in the scene
  * moves when the picture grows.
+ *
+ * Under the control there used to be a line reading "One tap picks the photo. Two enlarge it.",
+ * which is the site instructing the reader from inside a photo viewer. The gesture and the Fit
+ * read-out are the demonstration and the article explains the pair, so it went and the frame
+ * gave back the 28px it was holding.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 244px; height: 286px">
+      <div class="sp-frame" style="width: 244px; height: 258px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Harbour</span>
           <span class="sp-label" data-part="readout">Fit</span>
@@ -58,7 +63,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-context" style="gap: 10px">
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reset">Fit to frame</button>
           </div>
-          <span class="sp-label sp-context" style="text-align: center">One tap picks the photo. Two enlarge it.</span>
         </div>
       </div>
     </div>

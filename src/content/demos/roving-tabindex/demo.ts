@@ -29,6 +29,13 @@ const SAMPLE = 'The ferry leaves at seven, weather permitting, and the harbour m
  * that only one of them is in the tab sequence, and a real `<button>` would be reachable
  * by Tab whatever its tabindex said.
  *
+ * Two pieces of the site's own commentary have gone. A row of chips under the sample drew the
+ * page's tab order for the reader ("Tab order: Search · Alignment, one stop · Save"), which no
+ * editor prints about itself, and the title bar carried a running note of the invariant
+ * ("tabindex 0 on Left", "Applied align left"). The number under each item is the invariant,
+ * live and taken from the same line that sets the attribute, so neither was telling the reader
+ * anything the toolbar was not already showing.
+ *
  * Focus is simulated, never taken (SPEC §7): the ring is the kit's `data-sim-focus`, so a
  * reader scrolling past never has their keyboard stolen. Pressing an item moves the zero
  * onto it as well as running its command, because a reader who clicks and then presses an
@@ -56,7 +63,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Format</span>
-          <span class="sp-text" data-part="readout" style="width: 150px; text-align: right">tabindex 0 on Left</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
           <div
@@ -68,19 +74,12 @@ export function mount(root: HTMLElement): void {
             style="gap: 6px; padding: 4px"
           >${items}</div>
           <p class="sp-prose" data-part="sample" data-align="left" style="width: 306px; margin: 0; --sp-measure: 48ch; text-align: left">${SAMPLE}</p>
-          <div class="sp-row sp-context" style="gap: 6px">
-            <span class="sp-label">Tab order</span>
-            <span class="sp-chip">Search</span>
-            <span class="sp-chip">Alignment, one stop</span>
-            <span class="sp-chip">Save</span>
-          </div>
         </div>
       </div>
     </div>
   `;
 
   const sample = part(root, 'sample');
-  const readout = part(root, 'readout');
   const cells = ITEMS.map(({ key }) => part(root, `item-${key}`));
   const numbers = ITEMS.map(({ key }) => part(root, `index-${key}`));
 
@@ -98,7 +97,6 @@ export function mount(root: HTMLElement): void {
       if (active) cell.setAttribute('data-sim-focus', '');
       else cell.removeAttribute('data-sim-focus');
     }
-    readout.textContent = `tabindex 0 on ${ITEMS[at]?.label}`;
   };
 
   const apply = (index: number) => {
@@ -106,7 +104,6 @@ export function mount(root: HTMLElement): void {
     if (!item) return;
     sample.dataset.align = item.key;
     sample.style.textAlign = item.key;
-    readout.textContent = `Applied align ${item.label.toLowerCase()}`;
   };
 
   rove(0);

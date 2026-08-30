@@ -985,7 +985,9 @@ complete; until then entries only accumulate. Entry format:
 
 ## author-voice-captions
 
-- Queued: 2026-08-29 · Status: queued (~300 demos, down from ~500)
+- Queued: 2026-08-29 · **SWEPT 2026-08-30** (647 specimens fixed, 15 judged honest)
+- Superseded by the sweep recorded under `frame-prose` below, which caught this entry AND
+  `stage-directions-as-labels` in one pass, because both are one defect seen from two sides.
 - NARROWED 2026-08-29: the 204 whose caption CHANGES with a mode switch are not this
   complaint at all, they are verdicts under another name, and they shipped. What is left
   here is prose that never changes, where the fix really is deletion. Do not re-queue the
@@ -1014,7 +1016,7 @@ complete; until then entries only accumulate. Entry format:
 
 ## stage-directions-as-labels
 
-- Queued: 2026-08-29 · Status: queued (177 demos, roughly half of them real)
+- Queued: 2026-08-29 · **SWEPT 2026-08-30** (folded into the `frame-prose` sweep below)
 - Rule: a readout stays inside the frame ONLY when the demo draws the thing that produces
   it (SPEC §5.1). Fiction: `asymmetric-easing` "High water 04:12, falling" (a tide app
   prints that), `brushing` "Brushed runs per service" (a chart axis), `lazy-registration`
@@ -1076,3 +1078,57 @@ complete; until then entries only accumulate. Entry format:
   every part's box in BOTH states and require an empty diff, which is what caught
   flat-design's 2px. The choreography must reach each segment absolutely, never toggle, and
   end back on the mount state.
+
+
+## frame-prose (the sweep that settled the two entries above)
+
+- Swept: 2026-08-30 · 1,124 specimens probed, 662 offending, 647 fixed, 15 judged honest.
+- Rule: everything drawn inside a specimen's frame must be something the mock product would
+  really display (SPEC §5.1). Anything else is the site talking inside the fiction, and it
+  reads as nonsense to a reader who has not just read the article.
+- **What the two earlier entries got wrong, and the lesson: never detect this from source.**
+  `detectors/author-voice.ts` looked for prose PART NAMES (`caption`, `note`, `legend`), and
+  the corpus does not put its voice in named parts. `bubble-toolbar` carried "Select a run to
+  summon it; click anywhere else to send it away" in a bare `sp-label`; `coach-mark` carried
+  "No scrim, no Next, no counter that matters" the same way, plus a button labelled by its
+  justification ("New teammate" for a control that only re-arms a beacon), which no prose
+  detector can see at all. Half the corpus builds its text from constants and interpolates it,
+  which a literal-scanner misses too.
+- Detector: `detectors/frame-prose.ts`. It mounts every capture page off a BUILT site and
+  reads the text nodes actually painted, skipping what is hidden and what is drawn outside
+  the canvas. That found 3,655 strings across 994 specimens, which is the complete list by
+  construction: if a reader can see it, it is in there.
+- Judging is per STRING, not per file, which is what made a corpus-wide sweep affordable:
+  twelve judges read `slug + tag.classes + text` and returned voice/fiction, ~75k tokens for
+  the whole corpus. Fixers then only ever opened files with a confirmed offender.
+- Fixes, in order of preference: delete (the article already says it, and it usually says it
+  better); replace with fiction where the element has a job in the scene; rename a control to
+  say what it DOES; and only for prose that changes with a mode switch, move it to the strip.
+- **A live bug the sweep uncovered, worth more than any single caption.** `syncStrip` returned
+  early when a stage had no strip, and a LISTING CARD has none. So every verdict and every
+  mode switch the strip was supposed to replace stayed visible inside the specimen on the
+  front page, `/browse` and `/tags`: the exact defect, on the busiest pages of the site,
+  invisible to anyone testing on a term page. Sources are now hidden before the strip
+  decision (`src/stage/specimen-stage.ts`). Anything else the stage ever lifts out of a
+  specimen has to hide its source on EVERY stage, not just the ones that draw the replacement.
+- Second-judge skips are the interesting residue, and they are all one shape: a readout stays
+  when the demo DRAWS the instrument that produces it. `scrollbar-color`'s "3.17:1 clears
+  3:1", `density-independent-pixel`'s "48 dp = 144 px", `drag-threshold`'s "0 px travelled,
+  8 px needed", `pointer-cancellation`'s "Acts on press"/"Acts on release" as a comparison's
+  only legend, and plainly-named instrumentation like `metered-paywall`'s "Reset the meter".
+- Verified by the instrument that found it: rebuild, re-probe, intersect. 3,163 strings across
+  851 specimens still painted, 0 broken, and 26 of the 1,364 flagged strings survive across 23
+  specimens, every one of them an instrument readout or a comparison legend (`fitts-law`
+  "D 119 px, W 44 px", `gutter` "gutter 16px, 2 of them", `throttle` "Throttled to 300 ms",
+  `keyboard-trap` "Without an exit | With an exit"). That is the second-judge residue, on
+  purpose.
+- A third trap, and it inflated that number to 96 before it was found: `textContent` includes
+  HIDDEN descendants. The probe's inline-run pass therefore glued a visible readout to the
+  verdict the strip had just taken out of the frame ("Inner radius 22 px" + "One centre for
+  both arcs...") and reported a string no reader has ever seen. Walk the children and skip
+  what is not painted, or a probe invents its own offenders.
+- Two traps for whoever runs the next corpus probe: `Bun.serve` keeps the process alive, so a
+  probe that does not `server.stop()` makes the NEXT run die on EADDRINUSE and print nothing,
+  which reads exactly like a clean corpus. And a `data-stage-verdict` that never changes is
+  not a verdict: `radio-group` had one on its group legend, which is static AND the
+  `aria-labelledby` target, so the stage was hiding the radiogroup's own label.

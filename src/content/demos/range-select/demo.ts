@@ -23,6 +23,14 @@ const START = 2;
  * client this is borrowed from. The stage draws the held key itself, so the demo carries
  * no chip of its own for it.
  *
+ * Under the list stood a line reading "Click sets the anchor. Shift click says how
+ * far.", which is the article instructing the reader from inside the mail client, so
+ * it went and the count keeps the row on its own. The title bar carried a status line
+ * of the same kind ("Anchor set on Venue options", "Shift click: 4 messages from the
+ * anchor"): no mail client narrates the modifier a reader just held, and the band and
+ * the "N selected" count under the list report the selection between them. The bar
+ * keeps its name and nothing else.
+ *
  * The band takes its geometry from the rows at either end rather than re-parenting
  * anything, so extending a range paints over the list without touching its layout
  * (SPEC §5), and the header checkbox carries the mixed state a partly selected list
@@ -46,12 +54,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 270px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Inbox</span>
-          <span
-            class="sp-text"
-            data-part="readout"
-            data-mode="single"
-            style="width: 252px; text-align: right; white-space: nowrap"
-          >Anchor set on one message</span>
         </div>
         <div class="sp-body">
           <div class="sp-surface" data-part="sheet" style="position: relative; overflow: hidden">
@@ -76,8 +78,7 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: 3px; right: 3px; top: 0; height: 0; border-radius: 6px; border: 1px solid var(--sp-accent); background: color-mix(in oklab, var(--sp-accent) 16%, transparent); pointer-events: none; transition: top 0.18s var(--sp-ease), height 0.18s var(--sp-ease)"
             ></div>
           </div>
-          <div class="sp-row sp-row--between sp-context" style="margin-top: 8px">
-            <span class="sp-label">Click sets the anchor. Shift click says how far.</span>
+          <div class="sp-row sp-context" style="margin-top: 8px; justify-content: flex-end">
             <span class="sp-label" data-part="count" style="width: 86px; text-align: right">1 selected</span>
           </div>
         </div>
@@ -87,7 +88,6 @@ export function mount(root: HTMLElement): void {
 
   const band = part(root, 'range');
   const headBox = part(root, 'head-box');
-  const readout = part(root, 'readout');
   const count = part(root, 'count');
 
   let anchor = START;
@@ -115,24 +115,17 @@ export function mount(root: HTMLElement): void {
     headBox.setAttribute('aria-checked', span === MESSAGES.length ? 'true' : 'mixed');
   };
 
-  const say = (kind: string, text: string) => {
-    readout.dataset.mode = kind;
-    readout.textContent = text;
-  };
-
-  for (const [index, message] of MESSAGES.entries()) {
+  for (const [index] of MESSAGES.entries()) {
     rowAt(index).addEventListener('click', (event) => {
       // The key's own flag decides it, so the scripted `withKey` scope and a reader
       // holding Shift reach the range through one path.
       if (event.shiftKey) {
         focus = index;
-        say('range', `Shift click: ${Math.abs(anchor - index) + 1} messages from the anchor`);
       } else {
         // An unmodified click is the only thing that moves the anchor, which is what lets
         // a second shifted click redraw the range instead of starting another one.
         anchor = index;
         focus = index;
-        say('single', `Anchor set on ${message.subject}`);
       }
       draw();
     });
@@ -141,7 +134,6 @@ export function mount(root: HTMLElement): void {
   headBox.addEventListener('click', () => {
     anchor = 0;
     focus = MESSAGES.length - 1;
-    say('range', 'Every message selected');
     draw();
   });
 

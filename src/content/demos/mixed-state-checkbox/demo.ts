@@ -26,6 +26,10 @@ const CAPTION = {
  * condition is declared in `data-pose` and the mount state satisfies it: identify refuses
  * to ring a plain checked box (SPEC §6).
  *
+ * The readout used to be introduced by a label reading "The parent announces", which is
+ * the site explaining its own instrument. The attribute line names itself, so the label
+ * went and the readout keeps its place at the right edge.
+ *
  * Pressing the parent toggles the group, which is the one sanctioned toggle here: the
  * cycle from mixed to all and from all to none IS the behaviour this term names (SPEC §8).
  * The parent carries `data-aim` so the ghost cursor parks at its corner instead of over a
@@ -55,8 +59,7 @@ export function mount(root: HTMLElement): void {
           ${CHILDREN.map(row).join('')}
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 18px">
-          <span class="sp-label">The parent announces</span>
+        <div class="sp-row sp-context" style="margin-top: 8px; height: 18px; justify-content: flex-end">
           <span class="sp-text sp-text--ink" data-part="readout" data-state="mixed"
                 style="font-size: 12px; white-space: nowrap">aria-checked = mixed</span>
         </div>

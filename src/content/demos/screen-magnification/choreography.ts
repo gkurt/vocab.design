@@ -16,7 +16,6 @@ export default steps([
   { drag: { to: '[data-part=spot-alert]' } },
   { wait: 700 },
   { assert: { selector: '[data-part=lens][data-showing=alert]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-showing=alert]', state: 'visible' } },
   { wait: 900 },
 
   { moveTo: '[data-part=seg-400]' },
@@ -31,7 +30,6 @@ export default steps([
   { drag: { to: '[data-part=spot-save]' } },
   { wait: 700 },
   { assert: { selector: '[data-part=lens][data-showing=save]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-showing=save]', state: 'visible' } },
   { wait: 900 },
 
   { moveTo: '[data-part=seg-200]' },

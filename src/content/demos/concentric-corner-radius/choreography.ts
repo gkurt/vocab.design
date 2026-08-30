@@ -22,6 +22,5 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=seg-concentric][aria-selected="true"]', state: 'visible' } },
   { assert: { selector: '[data-part=corner][data-mode="concentric"]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
   { wait: 700 },
 ]);

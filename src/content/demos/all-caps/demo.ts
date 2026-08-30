@@ -12,7 +12,9 @@ const TRACKING = '0.09em';
  *
  * The subject is the tracked caps line. Caps as typed are the raw transform and
  * mixed case is what the reader is being compared against, so both are scenery
- * (SPEC §5). Nothing changes state, so there is no room to reserve.
+ * (SPEC §5). Nothing changes state, so there is no room to reserve. The sheet was
+ * headed "One label, three settings", which describes the demonstration rather than
+ * labelling any specimen, so only the size and the per-line settings are left.
  */
 export function mount(root: HTMLElement): void {
   const row = (name: string, note: string, style: string, subject = false) => `
@@ -26,8 +28,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 440px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One label, three settings</span>
-          <span class="sp-label">${SIZE}px</span>
+          <span class="sp-label" style="margin-left: auto">${SIZE}px</span>
         </div>
         <div class="sp-stack" style="gap: 12px; margin-top: 12px">
           <div class="sp-context">${row('sample-mixed', 'mixed case', 'text-transform: none')}</div>

@@ -50,6 +50,9 @@ const CONTROLS = [
  * and the caption sit in the context register (SPEC §5). The ramp is a ramp in every state, so
  * identify has nothing to refuse.
  *
+ * The panel header read "One scale, four rungs", the site counting the exhibit out; a token
+ * panel would name the scale it is showing, so it reads "Blue scale".
+ *
  * Every row is a fixed height and only the marker, the paint of two controls and the read-out
  * change, so nothing moves (SPEC §5). Every value comes from the table above, so the specimen
  * renders identically on every run.
@@ -72,7 +75,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 13px 20px">
         <div class="sp-row sp-row--between sp-context" style="height: 20px">
-          <span class="sp-label">One scale, four rungs</span>
+          <span class="sp-label">Blue scale</span>
           <span class="sp-text sp-text--ink" data-part="readout" style="font-size: 10.5px"></span>
         </div>
 

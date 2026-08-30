@@ -44,9 +44,15 @@ const frames = (path: { offset: number; y: number; easing?: string }[]): Keyfram
  * playing a wobble at a reader who asked for less movement. `data-settled` is timed on
  * the stage's clock, so a pose cannot let the run finish underneath a reader inspecting
  * it (SPEC §6).
+ *
+ * Three strings went, because all three were the site talking inside the panel. The
+ * heading read "Past the target, and back" and now names the scene it is showing, and
+ * the two lanes carried notes ("crosses, corrects, settles", "arrives dead on") that
+ * described the motion the reader is watching happen. The lane names, Overshoot and
+ * Ease out, are the two easings and stay.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
-  const lane = (id: string, label: string, note: string, subject: boolean) => `
+  const lane = (id: string, label: string, subject: boolean) => `
     <div class="sp-stack${subject ? '' : ' sp-context'}" style="flex: 1 1 0; gap: 8px">
       <div style="position: relative; height: ${ARENA_H}px; overflow: hidden; border-radius: 6px; background: var(--sp-sunken)">
         <span
@@ -63,22 +69,19 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                  transform: translateY(0)"
         >Share sheet</span>
       </div>
-      <span class="sp-stack" style="gap: 1px">
-        <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">${label}</span>
-        <span class="sp-label" style="font-size: 11px">${note}</span>
-      </span>
+      <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">${label}</span>
     </div>`;
 
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="panel" style="width: 392px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Past the target, and back</span>
+          <span class="sp-heading">Share sheet arrival</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-row" style="align-items: flex-start; gap: 20px; margin-top: 10px">
-          ${lane('over', 'Overshoot', 'crosses, corrects, settles', true)}
-          ${lane('plain', 'Ease out', 'arrives dead on', false)}
+          ${lane('over', 'Overshoot', true)}
+          ${lane('plain', 'Ease out', false)}
         </div>
       </div>
     </div>

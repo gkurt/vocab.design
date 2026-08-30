@@ -36,6 +36,12 @@ const pose = (t: number) => `translateX(${(t * TRAVEL).toFixed(1)}px) rotate(${(
  * asks `prefersReducedMotion` itself and leaves the tile on its last value instead of
  * playing the run (SPEC §5). `data-settled` is timed on the stage's clock, so a pose
  * cannot let the run finish underneath a reader inspecting it (SPEC §6).
+ *
+ * The panel was headed "Two values, one animation" and its strip was labelled "first
+ * value, stated" and "last value, stated". Those were the site naming its own exhibit, so
+ * the panel is now titled after the animation it holds and the strip's ends read "from"
+ * and "to", which is what an editor would print under them. The middle label stayed
+ * "generated", since the onion-skinned frames beside it are the instrument.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const frame = (t: number, drawn: boolean) => `
@@ -50,7 +56,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" data-part="panel" style="width: 400px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Two values, one animation</span>
+          <span class="sp-heading">Slide and turn</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
 
@@ -59,9 +65,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ${frame(0, true)}${GHOSTS.map((t) => frame(t, false)).join('')}${frame(1, true)}
           </div>
           <div class="sp-row sp-row--between" style="width: ${ARENA_W}px; margin-top: 6px">
-            <span class="sp-label" style="font-size: 11px">first value, stated</span>
+            <span class="sp-label" style="font-size: 11px">from</span>
             <span class="sp-label" style="font-size: 11px">generated</span>
-            <span class="sp-label" style="font-size: 11px">last value, stated</span>
+            <span class="sp-label" style="font-size: 11px">to</span>
           </div>
         </div>
 

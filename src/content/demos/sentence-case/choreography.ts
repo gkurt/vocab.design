@@ -15,7 +15,6 @@ export default steps([
   { assert: { selector: '[data-part=actions]', state: 'visible' } },
   { assert: { selector: '[data-part=save]', state: 'visible' } },
   { wait: 900 },
-  { assert: { selector: '[data-part=rules]', state: 'visible' } },
   { assert: { selector: '[data-part=caption]', state: 'visible' } },
   { wait: 700 },
 ]);

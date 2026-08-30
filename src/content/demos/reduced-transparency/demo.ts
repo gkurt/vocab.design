@@ -11,11 +11,6 @@ const FRAME = `position: absolute; top: 26px; left: 50%; translate: -50% 0; widt
 const SOLID = `background: var(--sp-surface); border: 1px solid var(--sp-line); color: var(--sp-ink);
                backdrop-filter: none; box-shadow: var(--sp-shadow)`;
 
-const READOUT: Record<Setting, { samples: string; ratio: string }> = {
-  ignored: { samples: 'Yes, the wash behind it', ratio: '2.9:1, and moving' },
-  honoured: { samples: 'No, a flat fill', ratio: '9.4:1, fixed' },
-};
-
 const CAPTION: Record<Setting, string> = {
   ignored:
     'Vibrancy is the effect: the panel samples whatever is behind it, so the contrast of its own label changes as the backdrop does.',
@@ -31,8 +26,15 @@ const CAPTION: Record<Setting, string> = {
  *
  * The subject is the panel, the narrowest element the term names: the preference is about the
  * finish of a surface, so a ring around the wash would name a backdrop and a ring around the
- * scene would name the whole picture. The picker, the wash, the read-outs and the caption are
+ * scene would name the whole picture. The picker, the wash, the read-out and the caption are
  * scenery (SPEC §5).
+ *
+ * A row under the scene used to print a measurement of the panel above it, headed "Contrast of
+ * the panel's own text" and reading "9.4:1, fixed" or "2.9:1, and moving". Beside it stood a
+ * second cell headed "Panel samples what is behind it", answering "No, a flat fill" or "Yes,
+ * the wash behind it". Nothing in this scene is a contrast checker, so both were the site
+ * measuring its own exhibit inside the fiction, and the panel shows the whole of it: the label
+ * is legible over the flat fill and swims over the frosted one. The row is gone.
  *
  * The frosted state is the counter-example and it is a state the panel itself passes through, so
  * the honest condition lives in `data-pose` and the mount state satisfies it: identify refuses to
@@ -43,13 +45,6 @@ const CAPTION: Record<Setting, string> = {
  * toggling (SPEC §8), and no timer is needed.
  */
 export function mount(root: HTMLElement): void {
-  const cell = (label: string, name: string, value: string) => `
-    <div class="sp-stack" style="flex: 1 1 0; min-width: 0; gap: 1px">
-      <span class="sp-label" style="font-size: 9.5px">${label}</span>
-      <span class="sp-text sp-text--ink" data-part="${name}" data-setting="honoured"
-            style="font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">${value}</span>
-    </div>`;
-
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
@@ -83,11 +78,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-context" style="margin-top: 8px; height: 30px; gap: 12px">
-          ${cell('Panel samples what is behind it', 'samples', READOUT.honoured.samples)}
-          ${cell('Contrast of the panel’s own text', 'ratio', READOUT.honoured.ratio)}
-        </div>
-
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-setting="honoured"
            style="margin: 7px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.honoured}</p>
       </div>
@@ -95,8 +85,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const panel = part(root, 'panel');
-  const samples = part(root, 'samples');
-  const ratio = part(root, 'ratio');
   const caption = part(root, 'caption');
 
   const apply = (setting: Setting) => {
@@ -106,13 +94,6 @@ export function mount(root: HTMLElement): void {
     // rewritten whole rather than patched: an inline leftover would outrank the class.
     panel.className = honoured ? '' : 'sp-glass';
     panel.setAttribute('style', honoured ? `${FRAME}; ${SOLID}` : FRAME);
-    for (const [el, value] of [
-      [samples, READOUT[setting].samples],
-      [ratio, READOUT[setting].ratio],
-    ] as [HTMLElement, string][]) {
-      el.dataset.setting = setting;
-      el.textContent = value;
-    }
     caption.dataset.setting = setting;
     caption.textContent = CAPTION[setting];
   };

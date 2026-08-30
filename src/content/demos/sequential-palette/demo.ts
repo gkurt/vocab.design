@@ -36,9 +36,14 @@ const RING = 'inset 0 0 0 2px var(--sp-surface), inset 0 0 0 4px var(--sp-ink)';
  * rings every cell that carries it, which is the decoding a reader does against a legend.
  *
  * The subject is the plot: the ramp with the grid it colours, since a palette is only a
- * palette once it is carrying the data. The heading, the readout, and the caption are
- * scenery (SPEC §5). Every cell and every legend row is a fixed size and the readout is one
- * line of fixed height, so picking a step repaints and moves nothing.
+ * palette once it is carrying the data. The heading and the readout are scenery (SPEC §5).
+ * Every cell and every legend row is a fixed size and the readout is one line of fixed
+ * height, so picking a step repaints and moves nothing.
+ *
+ * A closing paragraph once explained that the hue never changes and only lightness ranks the
+ * steps, and the header's right-hand slot read "One hue, five steps of lightness". Both were
+ * the site talking inside a chart panel; the article carries the point, and the header now
+ * names the range the columns cover.
  */
 export function mount(root: HTMLElement): void {
   const cells = VALUES.flatMap((row, y) =>
@@ -64,7 +69,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 420px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Orders per hour</span>
-          <span class="sp-text" style="font-size: 11px">One hue, five steps of lightness</span>
+          <span class="sp-text" style="font-size: 11px">Mon to Sun</span>
         </div>
 
         <div class="sp-surface" data-part="plot" data-subject data-bin="${START}"
@@ -77,9 +82,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label">Step</span>
           <span class="sp-text sp-text--ink" data-part="readout" data-bin="${START}" style="font-size: 12px"></span>
         </div>
-        <p class="sp-text sp-context" style="margin: 6px 0 0; height: 34px; font-size: 11px">
-          The hue never changes. Every step down the ramp is darker than the one above it, which is the only
-          thing the reader has to rank.</p>
       </div>
     </div>
   `;

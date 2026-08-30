@@ -21,9 +21,7 @@ export default steps([
   // The line box is wider than the words it ends with: a hyphen was drawn.
   { assert: { selector: '[data-part=string][data-hyphen=yes]', state: 'visible' } },
   { assert: { selector: '[data-part=break]', state: 'visible' } },
-  { moveTo: '[data-part=readout]' },
   { wait: 700 },
-  { assert: { selector: '[data-part=readout]', state: 'visible' } },
   // Ends on the zero-width space, the state the subject's data-pose calls honest.
   { moveTo: '[data-part=seg-zwsp]' },
   { click: true },

@@ -34,8 +34,9 @@ const SIZE = 150;
  * the wheel's real claim: the relationship is the geometry, not the individual colours.
  *
  * The subject is the wheel with its overlay. The readout beside it is scenery that
- * reads the angles back out; its height is fixed, so a scheme with fewer members
- * cannot move the controls under it (SPEC §5).
+ * reads the angles back out, headed the way a picker heads a list of colours: it used
+ * to say "On the wheel", which is the article pointing at the diagram. Its height is
+ * fixed, so a scheme with fewer members cannot move the controls under it (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const picks = ANGLES.map((angle) => {
@@ -90,7 +91,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context" data-part="readout" style="gap: 10px; width: 160px; height: ${SIZE}px">
-            <span class="sp-label">On the wheel</span>
+            <span class="sp-label">Palette</span>
             ${readout}
           </div>
         </div>

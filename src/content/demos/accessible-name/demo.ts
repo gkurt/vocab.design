@@ -37,7 +37,11 @@ const CONTROLS = ['control-input', 'control-icon', 'control-text'];
  * The subject is the icon-only button, because that is the control whose name lives
  * nowhere on screen: the other two carry their names as text a reader can already
  * see. The readout is instrumentation and stays scenery, with its two lines held at
- * a fixed height so inspecting a control cannot move the panel (SPEC §5).
+ * a fixed height so inspecting a control cannot move the panel (SPEC §5). Its resting
+ * state is an inspector's empty one ("No control inspected", second line blank): it used
+ * to read "Point at a control" over "Computed from the first rung that answers", which
+ * instructed the reader and explained the ladder in the site's voice rather than the
+ * panel's.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -56,8 +60,8 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface sp-context" style="margin-top: 16px; padding: 10px 12px">
           <span class="sp-label">Accessible name</span>
           <div data-part="readout" data-source="none">
-            <p class="sp-text sp-text--ink" data-part="computed" style="margin: 4px 0 0; height: 20px">Point at a control</p>
-            <p class="sp-text" data-part="from" style="margin: 2px 0 0; height: 20px; font-size: 12px">Computed from the first rung that answers</p>
+            <p class="sp-text sp-text--ink" data-part="computed" style="margin: 4px 0 0; height: 20px">No control inspected</p>
+            <p class="sp-text" data-part="from" style="margin: 2px 0 0; height: 20px; font-size: 12px"></p>
           </div>
         </div>
       </div>

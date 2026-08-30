@@ -92,6 +92,10 @@ const LINES: { n: number; tokens: Token[]; inBlock?: boolean }[] = [
  * context register. The pane keeps a fixed height, so folding rearranges the buffer
  * inside it and moves nothing outside it (SPEC §5).
  *
+ * A line under the window used to read "The gutter belongs to the line, not to the character.",
+ * which is the article's point and not something an editor prints, so it is gone; the gutter
+ * makes it by numbering rows.
+ *
  * Folding gets two controls rather than one toggle (SPEC §8): the gutter arrow only
  * ever collapses, and the collapsed row's own ellipsis badge only ever expands, which
  * is also how a real editor offers the way back. Placing the caret is likewise
@@ -190,7 +194,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label">Spaces: 2</span>
         </div>
       </div>
-      <span class="sp-text sp-context" style="font-size: 12px">The gutter belongs to the line, not to the character.</span>
     </div>
   `;
 

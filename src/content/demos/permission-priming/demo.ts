@@ -49,6 +49,11 @@ const NOTE: Record<State, string> = {
  * never the browser's own Notification API, since a specimen may not ask a reader's
  * machine for anything. Each control reaches a named state rather than toggling, and
  * Replay returns the mount state (SPEC §8).
+ *
+ * The dialog used to carry a "Simulated system prompt" label, which is the site owning up to
+ * the fiction inside the fiction: no operating system prints one, and the dialog's accessible
+ * name already says what it is. It is deleted, and the prompt opens on the sentence a system
+ * prompt really opens on.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -92,7 +97,6 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-scrim" data-part="scrim"></div>
         <div class="sp-dialog" data-part="os" role="dialog" aria-label="System permission prompt" style="width: 268px; padding: 14px 16px; text-align: center">
-          <span class="sp-label" style="font-size: 10px">Simulated system prompt</span>
           <div class="sp-text sp-text--ink" style="margin-top: 6px; font-size: 13px">&ldquo;Nori Kitchen&rdquo; would like to send you notifications</div>
           <div class="sp-row" style="margin-top: 12px; gap: 8px">
             <button class="sp-button sp-button--ghost sp-button--sm sp-grow" data-part="os-deny" type="button">Don't allow</button>

@@ -49,7 +49,9 @@ const lines = (widths: number[]) =>
  * The subject is the presented modal itself. It is the same element in all three presentations, so the
  * term is never a state it stops being and no `data-pose` is needed; while it is closed the stage
  * summons it by playing the script forward to the trigger (SPEC §6). The screen behind, the scrim, the
- * picker and the note are the scene.
+ * picker and the note are the scene. The modal's own line used to read "A task in front of the
+ * screen you were on, which is still there behind it.", which is the definition rather than
+ * anything an Edit profile dialog says; it carries the dialog's own copy now.
  *
  * Presenting and dismissing are CSS transitions between two poses stated per mode, which `motion.css`
  * switches off wholesale for a reader who asked for less movement, and the settle is finished on a
@@ -104,7 +106,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             >
               <span class="sp-heading" style="font-size: 14px">Edit profile</span>
               <span class="sp-text" style="font-size: 12px; line-height: 1.35">
-                A task in front of the screen you were on, which is still there behind it.
+                Your name and photo are visible to everyone on your team.
               </span>
               <button
                 class="sp-button sp-button--sm" type="button" data-part="done"

@@ -76,6 +76,12 @@ const IS_MODE = (value: string): value is Mode => value in READS;
  * counter-example the subject itself passes through, so the honest condition is
  * declared in `data-pose` and the specimen mounts trapped (SPEC §6).
  *
+ * The reading of the two settings ("the notch takes the gain, the joint stays open")
+ * is the author's verdict on the switch rather than anything a type specimen would print,
+ * so it is marked `data-stage-verdict` and the stage draws it in the strip. The label
+ * beside it, "6 pt: gain simulated", was deleted: the panel underneath already says which
+ * size it is showing, and the docblock above is where the simulation is admitted.
+ *
  * Nothing moves when the setting changes: the panels are fixed boxes and only
  * the mask inside them is switched (SPEC §5).
  */
@@ -114,9 +120,8 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label">the same joint at 6 pt</span>
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 26px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${READS.trap}</span>
-          <span class="sp-label">6 pt: gain simulated</span>
+        <div class="sp-row sp-context" style="margin-top: 10px">
+          <span class="sp-text" data-stage-verdict data-part="readout">${READS.trap}</span>
         </div>
       </div>
     </div>

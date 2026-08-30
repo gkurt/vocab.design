@@ -32,8 +32,12 @@ const CAPTION = {
  * reason, and the ring it draws is simulated.
  *
  * The subject is the flex container, since `reading-flow` is a property of the container and
- * of nothing else. The state control, the walk, the code line, and the caption are scenery
- * (SPEC §5). The `normal` build is a state the container itself passes through, so the honest
+ * of nothing else. The state control, the walk and the caption are scenery (SPEC §5). A row
+ * under the grid used to print the declaration as a stylesheet line (".tiles { reading-flow:
+ * flex-visual }") beside a sentence telling the reader what to do with it ("Read across the
+ * grid: 1 · 2 · 3 · 4 · 5 · 6"). No screen paints its own CSS, the switch in the strip already
+ * names what the container declares, and the numbered badge on each tile is the sequence, so
+ * the row is gone. The `normal` build is a state the container itself passes through, so the honest
  * condition is declared in `data-pose` and the mount state satisfies it (SPEC §6). Layout is
  * identical in both builds, since the property moves the sequence and never the boxes, and
  * the readouts hold fixed heights, so switching moves nothing (SPEC §5).
@@ -66,13 +70,7 @@ export function mount(root: HTMLElement): void {
           ${TILES.map(tile).join('')}
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 20px; gap: 10px">
-          <span class="sp-label" data-part="code" style="font-size: 11px; white-space: nowrap">.tiles { reading-flow: flex-visual }</span>
-          <span class="sp-text sp-text--ink" data-part="sequence" data-state="linear"
-                style="font-size: 11px; white-space: nowrap"></span>
-        </div>
-
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 18px; gap: 10px">
+        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 18px; gap: 10px">
           <span class="sp-label">Tab lands on</span>
           <span class="sp-text sp-text--ink" data-part="walk" data-state="idle" style="font-size: 11px">Nothing yet</span>
         </div>
@@ -87,8 +85,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const grid = part(root, 'grid');
-  const code = part(root, 'code');
-  const sequence = part(root, 'sequence');
   const walk = part(root, 'walk');
   const caption = part(root, 'caption');
 
@@ -112,9 +108,6 @@ export function mount(root: HTMLElement): void {
       flag(part(root, `tile-${t.key}`), 'data-sim-focus', current?.key === t.key);
       part(root, `tile-${t.key}`).dataset.place = String(order.indexOf(t) + 1);
     }
-    const acrossTheGrid = laidOut().map((t) => order.indexOf(t) + 1);
-    sequence.dataset.state = flow === 'flex-visual' ? 'linear' : 'zigzag';
-    sequence.textContent = `Read across the grid: ${acrossTheGrid.join(' · ')}`;
     walk.dataset.state = current ? 'walking' : 'idle';
     walk.textContent = current ? `${current.name}, stop ${at + 1} of ${order.length}` : 'Nothing yet';
   };
@@ -124,7 +117,6 @@ export function mount(root: HTMLElement): void {
     at = -1;
     grid.dataset.flow = next;
     grid.style.setProperty('reading-flow', next);
-    code.textContent = `.tiles { reading-flow: ${next} }`;
     caption.dataset.case = next;
     caption.textContent = CAPTION[next];
     draw();

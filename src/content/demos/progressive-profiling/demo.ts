@@ -4,7 +4,6 @@ import '#src/kit/segmented.ts';
 type View = 'v1' | 'v4' | 'v9' | 'form';
 
 interface Visit {
-  caption: string;
   ask: string;
   why: string;
   field: string;
@@ -15,7 +14,6 @@ interface Visit {
 
 const VISITS: Record<'v1' | 'v4' | 'v9', Visit> = {
   v1: {
-    caption: 'First visit, after the first loaf is logged',
     ask: 'What should we call you?',
     why: 'So the loaf log has a name on it.',
     field: 'First name',
@@ -24,7 +22,6 @@ const VISITS: Record<'v1' | 'v4' | 'v9', Visit> = {
     note: 'Registration asked for an email and a password. Everything else waits for a visit where there is a reason to ask.',
   },
   v4: {
-    caption: 'Fourth visit, on the way to a delivery estimate',
     ask: 'Which postcode do you bake in?',
     why: 'So flour delivery dates are the real ones.',
     field: 'Postcode',
@@ -33,7 +30,6 @@ const VISITS: Record<'v1' | 'v4' | 'v9', Visit> = {
     note: 'One question, next to the thing it improves. The reason for asking is on screen, and skipping costs nothing.',
   },
   v9: {
-    caption: 'Ninth visit, opening the oven settings',
     ask: 'How hot does your oven really run?',
     why: 'So the timings stop being ten minutes out.',
     field: 'Max temperature',
@@ -44,7 +40,6 @@ const VISITS: Record<'v1' | 'v4' | 'v9', Visit> = {
 };
 
 const FORM_FIELDS = ['Full name', 'Email', 'Password', 'Postcode', 'Date of birth', 'Oven type'];
-const FORM_CAPTION = 'The form this replaces, asked before the first loaf';
 const FORM_NOTE =
   'The same record, demanded up front: twelve fields between a person and the thing they came to do. This is the counter-example, not the pattern.';
 
@@ -57,6 +52,12 @@ const FORM_NOTE =
  * known, which are the scenery that makes the ask legible (SPEC §5). In the counter-example
  * the ask is gone rather than repaired, so identify summons the mount state (a real visit,
  * with a real single question) instead of ringing a form (SPEC §6).
+ *
+ * A caption over the box once set the scene for each view ("First visit, after the first
+ * loaf is logged", and one per visit). That is a stage direction, not anything the product
+ * would print, and the picker already says which visit this is, so it is gone and the frame
+ * is shorter by its height. The note under the frame stays, since it changes with the switch
+ * and the stage draws it as the verdict.
  *
  * All four views are stacked in one box of fixed height, and the ask keeps its own box
  * across the three visits, so switching visits resizes and moves nothing (SPEC §5). Each
@@ -90,7 +91,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 276px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 254px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Proof</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="view" data-axis="Timeline" data-value="v1" style="flex: 0 0 auto">
@@ -101,7 +102,6 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
-          <span class="sp-label sp-context" data-part="caption" style="height: 14px; font-size: 10px">${VISITS.v1.caption}</span>
           <div data-part="box" style="position: relative; flex: 1 1 auto">
 
             <div data-part="visit" style="position: absolute; inset: 0; display: flex; flex-direction: column; gap: 8px">
@@ -149,7 +149,6 @@ export function mount(root: HTMLElement): void {
   const fill = part(root, 'meter-fill');
   const readout = part(root, 'readout');
   const known = part(root, 'known');
-  const caption = part(root, 'caption');
   const note = part(root, 'note');
 
   part(root, 'view').addEventListener('change', (event) => {
@@ -157,7 +156,6 @@ export function mount(root: HTMLElement): void {
     if (next === 'form') {
       flag(visit, 'hidden', true);
       flag(form, 'hidden', false);
-      caption.textContent = FORM_CAPTION;
       note.textContent = FORM_NOTE;
       return;
     }
@@ -173,7 +171,6 @@ export function mount(root: HTMLElement): void {
     readout.dataset.pct = String(shown.pct);
     readout.textContent = `${shown.pct}%`;
     known.innerHTML = chips(shown.known);
-    caption.textContent = shown.caption;
     note.textContent = shown.note;
   });
 }

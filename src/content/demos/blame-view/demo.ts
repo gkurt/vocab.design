@@ -95,6 +95,10 @@ function gutterCell(index: number, commit: Commit): string {
  * the file is ordinary, and the term is the labelling. Pointing at a line lights every
  * line of the same commit, which is the reading a blame view is really for, and it is a
  * gutter in every state the script visits, so no `data-pose` condition is needed.
+ *
+ * The ramp's legend read "colour is age", which is the site explaining the encoding rather
+ * than a tool labelling its own scale. It says "line age" now, over the same swatch and the
+ * same two ends of the range.
  */
 export function mount(root: HTMLElement): void {
   const cells = LINES.map((line, index) => gutterCell(index, byKey(line.commit))).join('');
@@ -118,7 +122,7 @@ export function mount(root: HTMLElement): void {
           <!-- The legend keeps the gutter's own colours, so it stays outside the context
                register: a swatch repainted neutral would stop being a legend. -->
           <div class="sp-row" style="gap: 6px; width: 452px">
-            <span class="sp-label" style="flex: 1 1 auto; font-size: 10px">colour is age</span>
+            <span class="sp-label" style="flex: 1 1 auto; font-size: 10px">line age</span>
             <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">2 d</span>
             <span aria-hidden="true" style="flex: 0 0 auto; width: 54px; height: 7px; border-radius: 4px; background: linear-gradient(to right, ${strip(88)}, ${strip(14)})"></span>
             <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">2 y</span>

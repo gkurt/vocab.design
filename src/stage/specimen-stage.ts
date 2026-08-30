@@ -1,5 +1,5 @@
 import { DemoClock } from '#src/stage/clock.ts';
-import { fadeToSubject } from '#src/stage/highlight.ts';
+import { fadeCanvas, fadeToSubject } from '#src/stage/highlight.ts';
 import type { AuditResult } from '#src/stage/player.ts';
 import { AttractPlayer } from '#src/stage/player.ts';
 import { loadChoreography } from '#src/stage/registry.ts';
@@ -7,7 +7,7 @@ import type { Isolation } from '#src/stage/surface.ts';
 import { createSurface } from '#src/stage/surface.ts';
 import { TouchHover } from '#src/stage/touch-hover.ts';
 import { TouchMirror } from '#src/stage/touch-mirror.ts';
-import { isRevealed } from '#src/stage/visible.ts';
+import { isRevealed, isSeen } from '#src/stage/visible.ts';
 
 /** How long the speaker pulses after the specimen says something new. */
 const SPEAK_MS = 900;
@@ -375,7 +375,6 @@ class VdStage extends HTMLElement {
 
     let modeWatch: MutationObserver | undefined;
     const syncStrip = () => {
-      if (!strip) return;
       modeWatch?.disconnect();
       announceWatch?.disconnect();
       verdictWatch?.disconnect();
@@ -387,17 +386,26 @@ class VdStage extends HTMLElement {
       const sources = [...(this.#mountRoot?.querySelectorAll<HTMLElement>('sp-segmented[data-stage-mode]') ?? [])];
       const announcer = this.#mountRoot?.querySelector<HTMLElement>('[data-stage-announce]') ?? null;
       const verdicter = this.#mountRoot?.querySelector<HTMLElement>('[data-stage-verdict]') ?? null;
-      strip.replaceChildren();
-      strip.toggleAttribute('data-capture', capture);
 
-      // Hide every source BEFORE deciding whether the row is drawn at all. What the strip
-      // replaced must never be left sitting in the fiction, and a capture with a switch and
-      // nothing to say draws no row: hiding after that decision photographed the old layout.
+      // Hide every source BEFORE anything else, INCLUDING before asking whether this stage
+      // even draws a strip. What the strip replaced must never be left sitting in the
+      // fiction, and there are two stages that draw no strip at all: a capture with a switch
+      // and nothing to say (hiding after that decision photographed the old layout), and a
+      // listing card, which has no control bar and no room for prose. A card that returned
+      // here early kept showing the caption and the switch INSIDE the specimen, which is the
+      // one place they must never be, on the busiest page of the site (SPEC §5.1).
       if (announcer) announcer.style.display = 'none';
       if (verdicter) verdicter.style.display = 'none';
       for (const source of sources) source.style.display = 'none';
 
-      strip.hidden = (capture || !sources.length) && !announcer && !verdicter;
+      if (!strip) return;
+      strip.replaceChildren();
+      // A share image is a photograph of the SPECIMEN, and the strip is the exhibit's
+      // furniture around it (SPEC §10): a switch nobody can press, and two lanes of the
+      // site's own voice under a picture whose caption band already speaks in that voice.
+      // So a capture draws no strip at all, and what the strip would have lifted out stays
+      // hidden, exactly as it is on a listing card.
+      strip.hidden = capture || (!sources.length && !announcer && !verdicter);
       if (strip.hidden) return;
 
       // What the specimen says goes directly under it, because it is the specimen speaking;
@@ -405,10 +413,7 @@ class VdStage extends HTMLElement {
       if (announcer) strip.append(buildAnnouncement(announcer));
       // The verdict sits directly above the controls, because it is what the switch just did.
       if (verdicter) strip.append(buildVerdict(verdicter));
-      // A still cannot be clicked, so the switch is left out of the picture and its mode is
-      // whatever the pose chose. The content lanes stay: a share image of `has-popup` with no
-      // announcement is a menu button and nothing else.
-      if (!sources.length || capture) return;
+      if (!sources.length) return;
       const controls = document.createElement('div');
       controls.className = 'vd-stage-strip__controls';
 
@@ -577,9 +582,15 @@ class VdStage extends HTMLElement {
       await surface.doc.fonts?.ready;
       await enterPose();
       const el = subject();
-      // Nothing to fade toward when the subject is in the strip: the canvas is all context,
-      // and the lane is already the only line of type outside the specimen.
-      if (el && pointable && !strip?.contains(el)) fadeToSubject(canvas, el, surface.offset);
+      // With no strip in the picture, a subject that lives in one of its lanes is not on the
+      // canvas to be pointed at. Fading the whole thing is the honest answer: the picture
+      // says "look at this specimen" rather than aiming light at a box that is not there.
+      // A whole-scene subject still fades nothing, because "all of it" is an answer light
+      // cannot give and dimming the entire picture to say it is worse than saying nothing.
+      if (el && pointable) {
+        if (isSeen(el)) fadeToSubject(canvas, el, surface.offset);
+        else fadeCanvas(canvas);
+      }
       this.dataset.captureReady = '';
       return;
     }

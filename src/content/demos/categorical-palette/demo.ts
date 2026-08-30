@@ -22,23 +22,23 @@ const DAYS = [
 const START = 0;
 
 const hueAt = (h: number) => `oklch(${LEVEL.l} ${LEVEL.c} ${h})`;
-/** The failure beside it: twelve hues crowded into a third of the circle at half the chroma. */
-const crowded = (i: number) => `oklch(0.68 0.07 ${185 + i * 14})`;
 
 const RING = 'inset 0 0 0 2px var(--sp-surface), inset 0 0 0 4px var(--sp-ink)';
 
 /**
  * Categorical palette specimen: six sources coloured by hue alone, at one lightness and one
  * chroma, stacked across four days. Picking a source from the legend rings its band in every
- * bar, which is the match a reader makes between a legend and a chart. Beside it, in the
- * context register, the same trick attempted with twelve hues squeezed into a third of the
- * circle, where the match cannot be made at all.
+ * bar, which is the match a reader makes between a legend and a chart.
  *
  * The subject is the palette in use: the legend with the bars it colours, since a set of
- * hues is only categorical once it is standing for categories. The heading, the readout, and
- * the twelve-hue failure are scenery (SPEC §5). Bands are sized as percentages of a fixed
- * row and the readout is one line of fixed height, so picking a source repaints and moves
- * nothing.
+ * hues is only categorical once it is standing for categories. The heading and the readout
+ * are scenery (SPEC §5). Bands are sized as percentages of a fixed row and the readout is
+ * one line of fixed height, so picking a source repaints and moves nothing.
+ *
+ * A strip of twelve crowded hues used to sit under the chart, captioned "Twelve sources,
+ * same lightness, hues crowded together", and the header carried "Hue varies, lightness does
+ * not". No dashboard prints either sentence, and the strip meant nothing without its caption,
+ * so both have gone; the article makes the same point about hue spacing.
  */
 export function mount(root: HTMLElement): void {
   const rows = DAYS.map(
@@ -66,17 +66,11 @@ export function mount(root: HTMLElement): void {
       </button>`,
   ).join('');
 
-  const crowd = Array.from(
-    { length: 12 },
-    (_, i) => `<span class="sp-swatch" style="flex: 1 1 0; height: 14px; border-radius: 2px; --sp-swatch: ${crowded(i)}"></span>`,
-  ).join('');
-
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 424px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">Sessions by source</span>
-          <span class="sp-text" style="font-size: 11px">Hue varies, lightness does not</span>
         </div>
 
         <div class="sp-surface" data-part="palette" data-subject data-series="${SERIES[START]?.key}"
@@ -88,11 +82,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 16px">
           <span class="sp-label">Source</span>
           <span class="sp-text sp-text--ink" data-part="readout" data-series="${SERIES[START]?.key}" style="font-size: 11px"></span>
-        </div>
-
-        <div class="sp-stack sp-context" data-part="failure" style="gap: 4px; margin-top: 9px">
-          <span class="sp-label" style="font-size: 10px">Twelve sources, same lightness, hues crowded together</span>
-          <div class="sp-row" data-part="crowd" style="gap: 2px">${crowd}</div>
         </div>
       </div>
     </div>

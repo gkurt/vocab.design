@@ -12,6 +12,12 @@
  * (SPEC §5). The other two tiles, the labels and the caption are scenery.
  *
  * Static: a poster has no states, so there is nothing to animate and no clock to take.
+ *
+ * The poster used to carry a title, "One shape, three reflections", and a sentence under each
+ * tile reading the reflection out ("Small and hard edged: polished, and the lamp is up to the
+ * left." and its two neighbours). That was the site narrating its own picture inside the frame,
+ * so it went. The three names stay, since they say which finish each tile is, and the strip's
+ * verdict already carries what the row amounts to.
  */
 const BODY = 'radial-gradient(128% 118% at 50% 116%, #5b8bf0 0%, #2a49a8 58%, #16307d 100%)';
 const RIMLINE = 'inset 0 0 0 1px rgb(255 255 255 / 0.22), 0 4px 10px rgb(16 24 40 / 0.28)';
@@ -28,12 +34,11 @@ const SHAPE = [
   `box-shadow: ${RIMLINE}`,
 ].join('; ');
 
-function tile(part: string, label: string, note: string, inner: string): string {
+function tile(part: string, label: string, inner: string): string {
   return `
     <div class="sp-stack" style="flex: 0 0 auto; width: 130px; gap: 7px; align-items: center">
       <span data-part="${part}" aria-hidden="true" style="${SHAPE}">${inner}</span>
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35; text-align: center">${note}</span>
     </div>`;
 }
 
@@ -60,12 +65,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 10px">
       <div class="sp-window" style="width: 452px; padding: 13px 16px 15px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 11px">One shape, three reflections</span>
-
         <div class="sp-row" data-part="tour" style="gap: 12px; align-items: flex-start; justify-content: center">
-          ${tile('tile-tight', 'Tight', 'Small and hard edged: polished, and the lamp is up to the left.', tight)}
-          ${tile('tile-broad', 'Broad', 'The same lamp on a rougher surface, scattered into a smear.', broad)}
-          ${tile('tile-rim', 'Rim', 'Nothing on the face: the light is behind, catching the edge.', rim)}
+          ${tile('tile-tight', 'Tight', tight)}
+          ${tile('tile-broad', 'Broad', broad)}
+          ${tile('tile-rim', 'Rim', rim)}
         </div>
       </div>
 

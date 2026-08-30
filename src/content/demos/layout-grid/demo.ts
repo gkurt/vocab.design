@@ -24,6 +24,10 @@ const BLOCK = 'display: flex; flex-direction: column; gap: 8px; padding: 10px; m
  * one gutter, so their alignment is a fact of the layout rather than two sets of
  * numbers kept in step by hand. The page fragment is scenery (SPEC §5).
  *
+ * The masthead block was labelled "masthead, spans 12", an annotation of the layout rather
+ * than a name in the wireframe; it is named the way the other blocks are, and the span it
+ * takes is visible in the overlay behind it.
+ *
  * The row heights are fixed, so an arrangement that adds a third block fills a track
  * that was already reserved instead of growing the page (SPEC §5).
  */
@@ -62,7 +66,7 @@ export function mount(root: HTMLElement): void {
               style="${TRACKS}; grid-template-rows: 40px 1fr; height: 100%"
             >
               <div class="sp-surface" data-part="block-head" style="${BLOCK}; grid-column: span ${COLUMNS}; justify-content: center">
-                <span class="sp-label">masthead, spans ${COLUMNS}</span>
+                <span class="sp-label">masthead</span>
               </div>
               ${block('main', 'main', 8)}
               ${block('aside', 'aside', 4)}

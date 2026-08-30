@@ -24,8 +24,10 @@ const CAPTION = {
 
 /**
  * Tabbable specimen: a toolbar of four controls where Sort carries `tabindex="-1"`. Tab walks
- * the other three and skips it, pass after pass; the Focus from script control then puts the
- * ring on the very element Tab refuses, which is the whole distinction the word carries.
+ * the other three and skips it, pass after pass; the Focus Sort control then puts the ring on
+ * the very element Tab refuses, which is the whole distinction the word carries. That control
+ * read "Focus Sort from script" and now names only what it does: how the ring got there is the
+ * strip's line to say, not a button's.
  *
  * The subject is the skipped control. It is the one element in the scene that holds the state
  * the term names, focusable but not tabbable, and it holds it in every state the demo can rest
@@ -39,6 +41,12 @@ const CAPTION = {
  * `preventDefault` on it, so the specimen cannot become a keyboard trap. Nothing calls
  * `.focus()` either, since attract must never move real focus (SPEC §7); the script button
  * paints the ring the same way the stage does.
+ *
+ * The readout above the toolbar mounted reading "Search, waiting for Tab", which told the reader
+ * what to press; it prints the ring's position and the control's tabindex now, which is what the
+ * rest of the readout has always printed. The label beside the Focus Sort button read "Tab reaches
+ * three of the four", the site's own count sitting where a control's label belongs, and is gone:
+ * the caption above the strip already makes that count.
  *
  * Every control holds a fixed width and every readout a fixed box, so no state moves anything
  * (SPEC §5). No timer is needed.
@@ -62,7 +70,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" style="flex: 0 0 auto">Focus ring is on</span>
           <span class="sp-text sp-text--ink" data-part="readout" data-at="search" data-via="none"
                 style="flex: 0 0 auto; width: 210px; text-align: right; font-size: 11.5px;
-                       white-space: nowrap">Search, waiting for Tab</span>
+                       white-space: nowrap">Search, tabindex 0</span>
         </div>
 
         <div class="sp-surface" data-part="bar" role="toolbar" aria-label="Library"
@@ -70,10 +78,9 @@ export function mount(root: HTMLElement): void {
           ${CONTROLS.map(control).join('')}
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Tab reaches three of the four</span>
+        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; gap: 10px; justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="script"
-                  style="flex: 0 0 auto; font-size: 11.5px">Focus Sort from script</button>
+                  style="flex: 0 0 auto; font-size: 11.5px">Focus Sort</button>
         </div>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-via="none"

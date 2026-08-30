@@ -48,8 +48,14 @@ const PLACES: Record<string, Place & { code: string; note: string }> = {
  * ghost running off the page, which is the reason the fallback fires.
  *
  * The subject is the anchored box. The mechanism names two elements and only one of them is
- * new: the anchor, the page it is drawn on, the switcher and the caption are the scene it is
- * read against and carry the context register (SPEC §5).
+ * new: the anchor, the page it is drawn on and the switcher are the scene it is read
+ * against and carry the context register (SPEC §5).
+ *
+ * The note that reads what the placement just did ("The default: the box sits under its
+ * anchor and centred on it.") was printed under the page in the product's own type, where it
+ * was the author talking inside the fiction. It changes with the switch, so it is marked
+ * `data-stage-verdict` and the stage draws it in the strip; the frame lost the 30px it was
+ * reserving for it.
  *
  * The page is a fixed box and both elements are absolutely positioned inside it, so a change
  * of placement moves exactly the two things the term is about and nothing else (SPEC §5).
@@ -61,7 +67,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 304px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 274px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Placement</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-value="block-end" data-axis="Side">
@@ -106,7 +112,7 @@ export function mount(root: HTMLElement): void {
             data-part="code"
             style="flex: 0 0 auto; color: var(--sp-ink); padding: 3px 9px; border-radius: 5px; background: var(--sp-sunken); white-space: nowrap"
           ></span>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>

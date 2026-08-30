@@ -17,8 +17,8 @@ const BODY = `
  * transition can divide a duration between.
  *
  * The subject is the animating panel: the term names the box that grows, not the trigger
- * that opens it or the comparison beside it. The header, the labels, and the snapping twin
- * are scenery in the context register.
+ * that opens it or the comparison beside it. The trigger and the snapping twin are scenery in
+ * the context register.
  *
  * The panel is mounted open and measured in that state, once, before a single style is
  * written, which is the only reading that is not of a box some transition is still
@@ -29,6 +29,11 @@ const BODY = `
  * is a CSS transition, so `motion.css` flattens it for a reader who asked for less movement
  * and no timer is needed at all. The trigger toggles, which SPEC §8 allows precisely here:
  * the flip between collapsed and open is the term, and the script drives both directions.
+ *
+ * The two panels used to be captioned "transitioned to a measured height" and "height: auto,
+ * nothing to interpolate". No product prints a note like that beside its own disclosure, and
+ * the difference is the thing you watch rather than the thing you read, so both are gone and
+ * the panels are told apart by the context register and by which one grows.
  */
 export function mount(root: HTMLElement): void {
   const panel = (id: string, subject: boolean) => `
@@ -60,12 +65,10 @@ export function mount(root: HTMLElement): void {
         </button>
 
         <div class="sp-stack" style="gap: 4px; margin-top: 12px">
-          <span class="sp-label sp-context">transitioned to a measured height</span>
           ${panel('panel', true)}
         </div>
 
-        <div class="sp-stack sp-context" style="gap: 4px; margin-top: 12px">
-          <span class="sp-label">height: auto, nothing to interpolate</span>
+        <div class="sp-stack sp-context" style="gap: 4px; margin-top: 14px">
           ${panel('twin', false)}
         </div>
       </div>

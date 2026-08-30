@@ -13,7 +13,11 @@ const SECTIONS = ['The crane on the quay', 'Who ordered it', 'The folder', 'What
  * It is measured against the article, not the scroller: the comments below the
  * piece scroll past with the bar already full, which is the difference between a
  * bar that tells the truth and one that promises six more minutes of a story that
- * has ended. Nothing here transitions, since an eased fill is a fill lagging the
+ * has ended. A line under the frame used to say so in words ("Full at the last line
+ * of the article, not at the end of the page."), which is the article's sentence
+ * printed under the scene that already performs it, so it went.
+ *
+ * Nothing here transitions, since an eased fill is a fill lagging the
  * scroll, and the span is recomputed per scroll rather than cached at mount, so no
  * measurement is ever taken from a style this demo has just written (SPEC §5).
  */
@@ -61,7 +65,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-label sp-context">Full at the last line of the article, not at the end of the page.</span>
     </div>
   `;
 

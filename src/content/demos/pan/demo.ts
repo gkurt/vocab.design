@@ -40,10 +40,16 @@ const SURVEY = `
  *
  * Panning is a transform inside a fixed window, so nothing around it moves (SPEC §5), and
  * the offsets are tabular so the readout holds its width at every position. The readout
- * beside them is one nowrap line cut for its longest line, the invitation it opens on, so
- * the topbar cannot reline and carry the window up with it. Arrow keys
+ * beside them is one nowrap line cut for its longest state, "Clamped at the corner", so the
+ * topbar cannot reline and carry the window up with it. Arrow keys
  * and Home pan too, because content reachable only by dragging is unreachable to a reader
  * who cannot drag.
+ *
+ * Two labels in the body read "drag to" with an arrow, and the readout opened on "Drag the
+ * survey to move the view": instructions to the reader, printed by a survey viewer that would
+ * print no such thing. The two corners exist only so the script has a coordinate to drag to,
+ * so they keep their boxes and lose their paint (SPEC §5), and the readout opens on the state
+ * it is actually in.
  */
 export function mount(root: HTMLElement): void {
   const start = { x: -Math.round(MAX.x / 2), y: -Math.round(MAX.y / 2) };
@@ -54,19 +60,19 @@ export function mount(root: HTMLElement): void {
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Site survey</span>
           <span class="sp-label" data-part="offset" style="width: 92px; text-align: right; font-variant-numeric: tabular-nums">x ${-start.x} y ${-start.y}</span>
-          <span class="sp-text" data-part="readout" style="width: 210px; text-align: right; white-space: nowrap">Drag the survey to move the view</span>
+          <span class="sp-text" data-part="readout" style="width: 150px; text-align: right; white-space: nowrap">View centred</span>
         </div>
         <div class="sp-body" style="position: relative; display: flex; align-items: center; justify-content: center">
           <span
-            class="sp-label sp-context"
             data-part="corner-nw"
-            style="position: absolute; left: 0; top: 0; width: 66px; white-space: nowrap; font-size: 11px"
-          >drag to ↖</span>
+            aria-hidden="true"
+            style="position: absolute; left: 0; top: 0; width: 66px; height: 15px; pointer-events: none"
+          ></span>
           <span
-            class="sp-label sp-context"
             data-part="corner-se"
-            style="position: absolute; right: 0; bottom: 0; width: 66px; text-align: right; white-space: nowrap; font-size: 11px"
-          >drag to ↘</span>
+            aria-hidden="true"
+            style="position: absolute; right: 0; bottom: 0; width: 66px; height: 15px; pointer-events: none"
+          ></span>
           <div
             data-part="canvas"
             data-subject

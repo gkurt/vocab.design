@@ -25,13 +25,23 @@ const CAPTION = {
 
 type Mode = 'matched' | 'reordered';
 
-const ORDINAL = ['first', 'second', 'third', 'fourth'];
-
 /**
  * Reading order specimen: a row of four dashboard cards, and the sequence a screen reader
  * takes through them. One build leaves the row in source order; the other pulls Alerts to
  * the front with a CSS `order` value, which moves the box and not the node. The walker
  * reads the source, so it reaches Alerts third while the reader's eye met it first.
+ *
+ * The speech line prints what a screen reader would really utter for the card it is on,
+ * name, body and position in the list, which is why the row and its cards carry list
+ * roles. It used to print the author's reading of the state instead ("Summary" is spoken
+ * first and shown first).
+ *
+ * Each card also carried a numbered badge and a "source 3" label. No dashboard prints where
+ * its own tile sits in the markup, and the badge said nothing at all: it counted the cards
+ * along the row, so it read 1 2 3 4 from the left in both builds. Both are gone. The walk is
+ * what carries the sequence now: the ring steps through the cards in source order while the
+ * speech line reads "Alerts, 2 delayed, 3 of 4" off a card sitting first on screen, and the
+ * card's own `data-visual` still records where the CSS put it for the choreography to check.
  *
  * The subject is the card row, the narrowest element whose sequence the term names. The
  * state control, the walker, and the caption are scenery (SPEC §5). The contradicted build
@@ -40,7 +50,7 @@ const ORDINAL = ['first', 'second', 'third', 'fourth'];
  * orders disagree, which would point at the failure rather than at the term (SPEC §6).
  *
  * The visual sequence is derived the way flexbox derives it, sorting by `order` and then by
- * source position, so the badges cannot claim a position the CSS does not produce. The row
+ * source position, so `data-visual` cannot claim a position the CSS does not produce. The row
  * holds a fixed height and every card the same box, so switching builds moves nothing across
  * the layout beyond the one card the term is about (SPEC §5). Stepping clamps at the last
  * card and each segment reaches its own build, so a pass joined halfway ends where a whole
@@ -48,14 +58,10 @@ const ORDINAL = ['first', 'second', 'third', 'fourth'];
  */
 export function mount(root: HTMLElement): void {
   const card = (c: Card) => `
-    <div class="sp-surface" data-part="card-${c.key}" data-key="${c.key}"
-         style="flex: 1 1 0; min-width: 0; padding: 8px; height: 90px; display: flex; flex-direction: column; gap: 4px">
-      <span data-part="badge-${c.key}"
-            style="display: flex; align-items: center; justify-content: center; width: 18px; height: 18px;
-                   border-radius: 50%; background: var(--sp-accent-soft); font-size: 11px; font-weight: 600"></span>
+    <div class="sp-surface" data-part="card-${c.key}" data-key="${c.key}" role="listitem"
+         style="flex: 1 1 0; min-width: 0; padding: 8px; height: 58px; display: flex; flex-direction: column; gap: 4px">
       <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 500">${c.name}</span>
       <span class="sp-text" style="font-size: 11px">${c.body}</span>
-      <span class="sp-label" data-part="src-${c.key}" style="margin-top: auto; font-size: 10px"></span>
     </div>`;
 
   root.innerHTML = `
@@ -68,7 +74,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-surface" data-part="row" data-subject data-pose="[data-mode=matched]" data-mode="matched"
+        <div class="sp-surface" data-part="row" data-subject data-pose="[data-mode=matched]" data-mode="matched" role="list"
              style="margin-top: 10px; padding: 10px; display: flex; gap: 8px">${CARDS.map(card).join('')}</div>
 
         <div class="sp-row sp-context" style="margin-top: 10px; gap: 10px; height: 30px">
@@ -102,11 +108,8 @@ export function mount(root: HTMLElement): void {
     const seen = visual();
     for (const [source, c] of CARDS.entries()) {
       const el = part(root, `card-${c.key}`);
-      const rank = seen.indexOf(c);
       el.style.order = String(ORDER[mode][c.key] ?? 0);
-      el.dataset.visual = String(rank + 1);
-      part(root, `badge-${c.key}`).textContent = String(rank + 1);
-      part(root, `src-${c.key}`).textContent = `source ${source + 1}`;
+      el.dataset.visual = String(seen.indexOf(c) + 1);
       flag(el, 'data-sim-focus', source === at);
     }
     const current = CARDS[at];
@@ -114,7 +117,7 @@ export function mount(root: HTMLElement): void {
     const rank = seen.indexOf(current);
     const agrees = rank === at;
     voice.dataset.state = agrees ? 'match' : 'mismatch';
-    voice.textContent = `“${current.name}” is spoken ${ORDINAL[at]} and shown ${ORDINAL[rank]}.`;
+    voice.textContent = `${current.name}, ${current.body}, ${at + 1} of ${CARDS.length}`;
   };
 
   const apply = (next: Mode) => {

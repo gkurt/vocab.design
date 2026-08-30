@@ -40,6 +40,10 @@ const CAPTION: Record<Mode, string> = {
  * case. The walk clamps at the last node rather than wrapping and each segment reaches its
  * own mode (SPEC §8). Every row holds its height, and the typed text lands in a field that
  * was already its full size, so nothing moves (SPEC §5).
+ *
+ * The readout row was headed "The key press", which is the site pointing at what to watch and
+ * is wrong at rest, where the line reports where the cursor is rather than any key. It is
+ * labelled "Screen reader" now, after the instrument the line comes from.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -63,7 +67,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The key press</span>
+          <span class="sp-label" style="flex: 0 0 auto">Screen reader</span>
           <span class="sp-text sp-text--ink" data-part="did" data-did="rest"
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">Virtual cursor on: Heading, Release notes</span>
         </div>

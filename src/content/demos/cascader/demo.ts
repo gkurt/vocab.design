@@ -55,6 +55,9 @@ const panelWidth = (levels: number) => PANEL_PAD * 2 + COL_W * levels + (levels 
  * (SPEC §8). Every pick names a level outright rather than toggling it, and the evidence a
  * commit leaves is on the field's own path readout, never on an option inside the panel the
  * commit has just closed (SPEC §8).
+ *
+ * The topbar carried "One field, one path" beside the form's own title, which is the site
+ * defining the term inside a checkout. The article says it, so the tag has gone.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -62,7 +65,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 286px">
         <div class="sp-topbar sp-context" style="padding: 8px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Shipping address</span>
-          <span class="sp-label" style="font-size: 11px">One field, one path</span>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px">

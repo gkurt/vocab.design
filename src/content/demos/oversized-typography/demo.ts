@@ -4,6 +4,10 @@
  */
 const WORDS = 'The tide comes in';
 
+/** The two settings, in px, printed on the specimen sheet's own labels. */
+const READING_PX = 15;
+const DISPLAY_PX = 52;
+
 /**
  * Oversized typography specimen: one headline at reading size, needing a picture beside it to
  * hold the top of a page, and the same headline set far past reading size, holding it alone.
@@ -22,20 +26,25 @@ const WORDS = 'The tide comes in';
  *
  * Nothing in the scene is sized at runtime and nothing changes state, so no room needs
  * reserving and nothing can shift.
+ *
+ * The two panel labels used to argue the term ("At reading size, the picture holds the
+ * page", "Set past it, the words are the picture"), which is the article's job. They are
+ * now what a type specimen sheet really prints beside a setting, the size in px, and the
+ * choreography still has the parts to assert against.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 18px 14px">
         <div class="sp-context">
-          <span class="sp-label" data-part="label-small">At reading size, the picture holds the page</span>
+          <span class="sp-label" data-part="label-small">Reading size, ${READING_PX} px</span>
           <div class="sp-row" style="gap: 12px; margin-top: 7px; align-items: flex-start">
             <div data-part="art"
                  style="flex: 0 0 auto; width: 96px; height: 54px; border-radius: 5px;
                         background: linear-gradient(150deg, #B9C0CC, #8A93A3 62%, #6F7889 100%)"></div>
             <div class="sp-grow">
               <p data-part="headline-small"
-                 style="margin: 0; font-size: 15px; font-weight: 600; line-height: 1.24">${WORDS}</p>
+                 style="margin: 0; font-size: ${READING_PX}px; font-weight: 600; line-height: 1.24">${WORDS}</p>
               <div class="sp-stack" style="gap: 5px; margin-top: 8px">
                 <div class="sp-line" style="height: 6px"></div>
                 <div class="sp-line" style="height: 6px"></div>
@@ -47,9 +56,9 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-divider sp-context" style="margin: 12px 0 11px"></div>
 
-        <span class="sp-label sp-context" data-part="label-large">Set past it, the words are the picture</span>
+        <span class="sp-label sp-context" data-part="label-large">Display size, ${DISPLAY_PX} px</span>
         <p data-part="headline-large" data-subject
-           style="margin: 5px 0 0; font-size: 52px; font-weight: 700; line-height: 0.9;
+           style="margin: 5px 0 0; font-size: ${DISPLAY_PX}px; font-weight: 700; line-height: 0.9;
                   letter-spacing: -0.03em; text-wrap: balance">${WORDS}</p>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption"

@@ -31,7 +31,6 @@ interface Scale {
   axes: 'dual' | 'single';
   from: number;
   to: number;
-  readout: string;
   note: string;
 }
 
@@ -40,21 +39,18 @@ const SCALES: Record<string, Scale> = {
     axes: 'dual',
     from: 0,
     to: 240,
-    readout: 'Complaints look flat',
     note: 'Right axis 0 to 240. The complaint line lies low and almost flat under the bars, and the chart says complaints are a rounding error.',
   },
   tight: {
     axes: 'dual',
     from: 84,
     to: 102,
-    readout: 'Complaints look steeper than revenue',
     note: 'Right axis 84 to 102. Not one number moved. The same eight counts now climb most of the plot, steeper than the bars, and the chart says complaints are outrunning revenue.',
   },
   single: {
     axes: 'single',
     from: 0,
     to: REVENUE_TOP,
-    readout: 'One axis: nothing to compare',
     note: 'One axis, in thousands. Counts against currency lie flat at the bottom, which is the honest picture of two series that share no unit, and the reason a second axis is tempting.',
   },
 };
@@ -88,6 +84,11 @@ function series(scale: Scale): string {
  * one-axis counter-example, so the axis declares the two-axis condition as its honest
  * condition in `data-pose`; identify refuses to ring an axis that is not there (SPEC §6).
  * It mounts dual, the state the pose asks for.
+ *
+ * The legend row once ended with a read-out that called the picture ("Complaints look flat",
+ * and so on). That was a second verdict, printed inside a dashboard that would never grade
+ * its own chart, and the verdict the stage draws already says it at length; the read-out is
+ * gone and the note carries the mode the pass reads.
  *
  * Nothing reflows. The gridlines sit at fixed fractions of the plot in every state, the
  * bars never move at all, and the right axis leaves by opacity rather than by removal, so
@@ -148,12 +149,6 @@ export function mount(root: HTMLElement): void {
                   <span style="font-size: 11px">Complaints</span>
                 </span>
               </span>
-              <span
-                class="sp-label"
-                data-part="readout"
-                data-mode="${START}"
-                style="width: 216px; text-align: right; font-size: 11px; color: var(--sp-ink)"
-              >${first.readout}</span>
             </div>
             <svg
               data-part="plot"
@@ -187,14 +182,13 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" data-stage-verdict data-part="note" style="width: 452px; height: 32px; font-size: 11px">${first.note}</span>
+      <span class="sp-text sp-context" data-stage-verdict data-part="note" data-mode="${START}" style="width: 452px; height: 32px; font-size: 11px">${first.note}</span>
     </div>
   `;
 
   const axis = part(root, 'right-axis');
   const plot = part(root, 'plot');
   const line = part(root, 'series');
-  const readout = part(root, 'readout');
   const note = part(root, 'note');
 
   const draw = (name: string) => {
@@ -202,8 +196,7 @@ export function mount(root: HTMLElement): void {
     if (!scale) return;
     axis.dataset.axes = scale.axes;
     axis.style.opacity = scale.axes === 'dual' ? '1' : '0';
-    readout.dataset.mode = name;
-    readout.textContent = scale.readout;
+    note.dataset.mode = name;
     note.textContent = scale.note;
     line.innerHTML = series(scale);
     plot.setAttribute(

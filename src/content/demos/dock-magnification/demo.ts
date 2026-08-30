@@ -42,7 +42,12 @@ const sizeAt = (distance: number) => BASE + PEAK * Math.exp(-((distance / SIGMA)
  *
  * The subject is the dock row, not one tile. The term names what the row does as a whole: a single
  * tile getting bigger is a hover state, and the neighbours ramping down are the other half of the
- * definition. The desktop behind it, the baseline guide and the readout are the scene.
+ * definition. The desktop behind it and the baseline guide are the scene.
+ *
+ * The title bar used to carry a measurement of the row ("At rest, every tile 34px", then "Largest
+ * tile 52px, farthest still 34px"). That is the site holding a ruler up to its own specimen, which
+ * no desktop does; the bulge against the drawn baseline is the evidence, and the pass reads the
+ * dock's own `data-mag` flag, so the line and the two asserts that echoed it went.
  *
  * The bulge is computed from real `pointermove` events, so a reader who takes the stage over gets
  * it under their own pointer; the scene carries `data-hover-driven` because hovering IS this term's
@@ -71,7 +76,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Desktop</span>
-          <span class="sp-text" data-part="readout" data-mag="off" style="width: 232px; text-align: right; white-space: nowrap">At rest, every tile ${BASE}px</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div
@@ -112,15 +116,11 @@ export function mount(root: HTMLElement): void {
 
   const scene = part(root, 'scene');
   const dock = part(root, 'dock');
-  const readout = part(root, 'readout');
   const tiles = TILES.map((_, i) => part(root, `tile-${i + 1}`));
   const reduced = prefersReducedMotion(root);
 
-  const say = (mag: boolean, text: string) => {
-    const state = mag ? 'on' : 'off';
-    dock.dataset.mag = state;
-    readout.dataset.mag = state;
-    readout.textContent = text;
+  const say = (mag: boolean) => {
+    dock.dataset.mag = mag ? 'on' : 'off';
   };
 
   const rest = () => {
@@ -128,19 +128,17 @@ export function mount(root: HTMLElement): void {
       el.style.width = `${BASE}px`;
       el.style.height = `${BASE}px`;
     }
-    say(false, `At rest, every tile ${BASE}px`);
+    say(false);
   };
 
   const magnify = (x: number) => {
-    if (reduced) return say(true, 'Reduced motion: the row rests flat');
-    let largest = BASE;
+    if (reduced) return say(true);
     tiles.forEach((el, i) => {
       const size = sizeAt(Math.abs(x - restCentre(i)));
       el.style.width = `${size.toFixed(1)}px`;
       el.style.height = `${size.toFixed(1)}px`;
-      largest = Math.max(largest, size);
     });
-    say(true, `Largest tile ${Math.round(largest)}px, farthest still ${BASE}px`);
+    say(true);
   };
 
   scene.addEventListener('pointermove', (event: PointerEvent) => {

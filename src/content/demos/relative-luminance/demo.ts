@@ -61,6 +61,10 @@ const RULES = `repeating-linear-gradient(to right, var(--sp-line) 0 1px, transpa
  * mount state satisfies it: identify keeps playing rather than ringing a perceptual scale
  * (SPEC §6).
  *
+ * Beside the formula there used to be a footnote, "channels linearised first". It is a true
+ * remark about the arithmetic and nothing in the scene shows it, so it belongs to the article
+ * rather than to the panel, and the formula now stands on its own.
+ *
  * Only the chips' offsets and the readouts change, and both lanes and readouts are fixed
  * size, so switching axis moves nothing but the chips (SPEC §5).
  */
@@ -112,9 +116,8 @@ export function mount(root: HTMLElement): void {
           ${lanes}
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
+        <div class="sp-row sp-context" style="margin-top: 10px">
           <span class="sp-text" style="font-size: 11px; color: var(--sp-ink)">Y = 0.2126 R + 0.7152 G + 0.0722 B</span>
-          <span class="sp-text" style="font-size: 10.5px">channels linearised first</span>
         </div>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="note"

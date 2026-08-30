@@ -54,6 +54,11 @@ const names = STOPS.map(
  * throws (SPEC §7). The release is answered on pointerup and pointercancel, never on
  * pointerleave, which does not fire while capture holds.
  *
+ * A caption under the rail used to explain the resistance in the site's voice ("The value
+ * sticks for a few pixels either side of a well ... the nearer one takes it"). No fan
+ * control prints that, the article says it better, and the rail demonstrates it, so it
+ * went and the body centres the rail alone.
+ *
  * Every readout holds its width and the thumb moves by transform inside a fixed rail, so
  * a value running from Off to Max moves nothing else (SPEC §5). The settle rides one
  * inline transition, which the kit's reduced-motion rule switches off for a reader who
@@ -98,10 +103,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               </span>
             </div>
           </div>
-          <span class="sp-text sp-context" style="width: 408px; font-size: 11px; line-height: 1.35; text-align: center">
-            The value sticks for a few pixels either side of a well, so the number steps rather than slides.
-            Let go between two wells and the nearer one takes it.
-          </span>
         </div>
       </div>
     </div>

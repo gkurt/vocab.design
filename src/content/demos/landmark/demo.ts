@@ -10,7 +10,7 @@ const REGIONS: Region[] = [
   { key: 'footer', role: 'contentinfo', label: 'contentinfo' },
 ];
 
-const REST = 'Pick a landmark to move to it';
+const REST = '5 landmarks on this page';
 
 /**
  * Every region is clipped, so its line height is stated rather than left to the font: that is
@@ -31,6 +31,11 @@ const BOX =
  * while main keeps the kit palette. Selecting a landmark only repaints a fill and
  * swaps a border style, so no box in the fragment changes size (SPEC §5), and each
  * region holds the content it carries rather than clipping it.
+ *
+ * The rotor panel used to be titled "Screen reader, landmarks rotor" and to rest on
+ * "Pick a landmark to move to it": one a stage direction, the other an instruction to
+ * the reader. The panel is simply "Landmarks" now, and its readout counts what the
+ * rotor holds until a landmark is chosen.
  */
 export function mount(root: HTMLElement): void {
   const lines = (widths: number[]) => widths.map((w) => `<div class="sp-line" style="width: ${w}%; margin-top: 5px"></div>`).join('');
@@ -67,7 +72,7 @@ export function mount(root: HTMLElement): void {
           </footer>
         </div>
         <div class="sp-surface sp-context" style="margin-top: 10px; padding: 8px 10px">
-          <span class="sp-label">Screen reader, landmarks rotor</span>
+          <span class="sp-label">Landmarks</span>
           <div class="sp-row sp-row--wrap" style="gap: 6px; margin-top: 6px">${rotor}</div>
           <p class="sp-text" data-part="readout" style="margin: 8px 0 0; height: 18px; font-size: 12px; white-space: nowrap">${REST}</p>
         </div>

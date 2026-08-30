@@ -31,6 +31,11 @@ const NOTES: Record<string, string> = {
  * term in both regimes, which is the whole claim, so there is no dishonest state
  * for identify to refuse. Each button sits in a fixed slot, so the naive one
  * collapsing cannot move the mail body around it (SPEC §5).
+ *
+ * Each button used to carry a line under it saying how it was built ("Fill on the cell,
+ * size in attributes, link fills the cell." and "Fill and padding in the stylesheet, on
+ * the link itself."). No mail annotates its own buttons, and the article says both at
+ * length, so both lines went; the slots are unchanged, so nothing moved with them.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -72,14 +77,12 @@ export function mount(root: HTMLElement): void {
                 </tr></tbody>
               </table>
             </div>
-            <span class="sp-label" style="font-size: 10.5px; line-height: 1.35">Fill on the cell, size in attributes, link fills the cell.</span>
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 0; min-width: 0; gap: 5px">
             <div data-part="naive-slot" style="display: flex; align-items: center; justify-content: center; height: 56px">
               <a data-part="naive-link" data-styled="yes" href="#" style="font-size: 13px; font-weight: 600">Track your order</a>
             </div>
-            <span class="sp-label" style="font-size: 10.5px; line-height: 1.35">Fill and padding in the stylesheet, on the link itself.</span>
           </div>
         </div>
 

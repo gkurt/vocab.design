@@ -36,9 +36,14 @@ const LINES = 3;
  *
  * The subject is the column carrying the soft hyphen. The term names a character
  * inside a word, and the narrowest thing that can show a character that only
- * sometimes exists is the text it is breaking; the hard-hyphen twin, the width
- * control and the readout are scenery. The column mounts narrow, the state where
- * the character is visible.
+ * sometimes exists is the text it is breaking; the hard-hyphen twin and the width
+ * control are scenery. The column mounts narrow, the state where the character is
+ * visible.
+ *
+ * The line under the columns ("The word has to break, so the soft hyphen is drawn.")
+ * is the author reading the state rather than anything a document would print, and it
+ * changes with the width switch, so it is a verdict: the stage draws it above the
+ * controls (SPEC §5.1) and the specimen no longer reserves a row for it.
  */
 export function mount(root: HTMLElement): void {
   const well = (name: string, text: string, note: string, subject: boolean) => `
@@ -65,9 +70,7 @@ export function mount(root: HTMLElement): void {
           ${well('shy', SHY, 'counter&shy;intuitive', true)}
           ${well('hard', HARD, 'counter-intuitive', false)}
         </div>
-        <div class="sp-row sp-context" style="height: 18px; margin-top: 6px">
-          <span class="sp-text" data-part="readout"></span>
-        </div>
+        <span class="sp-text sp-context" data-stage-verdict data-part="readout"></span>
       </div>
     </div>
   `;

@@ -17,6 +17,11 @@ const MAIL = [
  * firing never moves the list under the reader (SPEC §5), and running a command
  * twice on the same row is the same as running it once, so a looped pass always
  * ends up in the same place.
+ *
+ * The status bar used to read "Select a message, then press its key", which is the site
+ * telling the reader what to do in a mail app's own type. It is a conversation count now,
+ * beside the archived count that was always there; the keys themselves are still shown the
+ * way a real toolbar shows them, on the buttons they accelerate.
  */
 export function mount(root: HTMLElement): void {
   const rows = MAIL.map(
@@ -47,7 +52,7 @@ export function mount(root: HTMLElement): void {
           <ul class="sp-list" role="listbox" aria-label="Messages" data-part="list">${rows}</ul>
         </div>
         <div class="sp-topbar sp-context" style="border-bottom: 0; border-top: 1px solid var(--sp-line)">
-          <span class="sp-label sp-grow">Select a message, then press its key</span>
+          <span class="sp-label sp-grow">${MAIL.length} conversations</span>
           <span class="sp-text" data-part="count" style="width: 92px; text-align: right">Archived: 0</span>
         </div>
       </div>

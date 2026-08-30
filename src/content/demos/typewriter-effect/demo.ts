@@ -2,7 +2,7 @@ import { prefersReducedMotion } from '#src/kit/motion.ts';
 import { part } from '#src/kit/parts.ts';
 import type { DemoClock } from '#src/stage/clock.ts';
 
-const LINE = 'Two fades sharing one span, so both are visible at the midpoint.';
+const LINE = 'Uploaded 214 files, invalidated the cache, live in 41 seconds.';
 const CHAR_MS = 30;
 
 /**
@@ -19,6 +19,11 @@ const CHAR_MS = 30;
  *
  * Under reduced motion the sentence is simply printed. Nothing is lost: the
  * animation was reporting that text was arriving, and the text has arrived.
+ *
+ * The console used to answer `vocab define crossfade` with a definition of that
+ * term, which was this site talking inside the mock terminal. It now runs a deploy
+ * and prints what a deploy prints; the line is the same length, so the run still
+ * takes about 1.9 seconds and the choreography's waits still clear it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -29,7 +34,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-body">
-          <p class="sp-text sp-text--ink sp-context" style="margin: 0">$ vocab define crossfade</p>
+          <p class="sp-text sp-text--ink sp-context" style="margin: 0">$ deploy --env staging</p>
           <p
             class="sp-text sp-text--ink"
             data-part="line"

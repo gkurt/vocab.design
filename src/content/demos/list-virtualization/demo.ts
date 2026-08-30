@@ -41,6 +41,11 @@ function row(index: number): string {
  * Nothing is measured after a style write: the row height is a constant both the layout
  * and the arithmetic are built from (SPEC §5, and the measurement gotcha in AGENTS.md).
  * Rendering is driven by scroll alone, so an idle specimen runs nothing.
+ *
+ * The readout row used to carry a label reading "Rows in the document", which was the
+ * site explaining the trick inside a telemetry app that would never print it. The label
+ * is gone and the readout is a plain count of what it rendered and where; the
+ * choreography still reads the count off `data-count`, so nothing there changed.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,7 +62,6 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; height: 18px">
-            <span class="sp-label">Rows in the document</span>
             <span class="sp-text sp-text--ink" data-part="readout" data-count="0" style="font-size: 12px; white-space: nowrap"></span>
           </div>
           <span class="sp-text sp-context" data-stage-verdict data-part="caption" style="flex: 0 0 auto; height: 34px; font-size: 11px">
@@ -81,7 +85,7 @@ export function mount(root: HTMLElement): void {
     const end = Math.min(TOTAL, first + VISIBLE + OVERSCAN * 2);
     windowed.innerHTML = Array.from({ length: end - first }, (_, i) => row(first + i)).join('');
     readout.dataset.count = String(end - first);
-    readout.textContent = `${end - first} rendered, numbered ${first + 1} to ${end}`;
+    readout.textContent = `${end - first} rendered, rows ${first + 1} to ${end}`;
   };
 
   viewport.addEventListener('scroll', render);

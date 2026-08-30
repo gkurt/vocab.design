@@ -41,8 +41,12 @@ const BODY = 'The survey team spent three weeks on the pontoon, reading the tide
  *
  * The subject is the two samples together. A pairing is a relationship, so the
  * narrowest element that is one is the block holding both faces; ringing either
- * sample alone would claim the term names a typeface. The face names and the
- * note are scenery.
+ * sample alone would claim the term names a typeface. The face names are scenery.
+ *
+ * The note under them ("Different skeletons, close x-heights: the contrast reads as
+ * a decision.") is the author reading the state the switch just chose, so it is
+ * marked `data-stage-verdict` and the stage draws it in the strip instead of inside
+ * the specimen (SPEC §5.1). The rule that used to separate it went with it.
  *
  * Its `clashing` state is the counter-example the term exists to steer away
  * from, so the honest condition is declared in `data-pose` (SPEC §6) and the
@@ -68,8 +72,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" data-part="names" style="height: 18px">
           <span class="sp-label" data-part="names-text"></span>
         </div>
-        <div class="sp-divider sp-context" style="margin: 8px 0"></div>
-        <p class="sp-text sp-context" data-part="readout" style="margin: 0; height: 34px; font-size: 12px; line-height: 17px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin: 8px 0 0; height: 34px; font-size: 12px; line-height: 17px"></p>
       </div>
     </div>
   `;

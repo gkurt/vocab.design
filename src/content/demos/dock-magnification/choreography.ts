@@ -10,7 +10,6 @@ export default steps([
   { moveTo: '[data-part=tile-3]' },
   { wait: 600 },
   { assert: { selector: '[data-part=dock][data-mag=on]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-mag=on]', state: 'visible' } },
   { moveTo: '[data-part=tile-6]' },
   { wait: 700 },
   { assert: { selector: '[data-part=dock][data-mag=on]', state: 'visible' } },
@@ -19,6 +18,5 @@ export default steps([
   { moveTo: '[data-part=away]' },
   { wait: 700 },
   { assert: { selector: '[data-part=dock][data-mag=off]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-mag=off]', state: 'visible' } },
   { wait: 800 },
 ]);

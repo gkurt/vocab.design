@@ -13,10 +13,15 @@ const DONE = 'Exported 24 rows as CSV';
  * tour it is a single step of.
  *
  * The subject is the announcement card. The ring and the dimming are how it aims, the
- * app underneath is what it is about, and the "new teammate" control below the frame
- * is instrumentation the specimen needs in order to be watchable twice (SPEC §5). This
- * mirrors the choice the onboarding tour specimen makes about its own tip card, so the
+ * app underneath is what it is about, and the "Show the announcement again" control below
+ * the frame is instrumentation the specimen needs in order to be watchable twice (SPEC §5).
+ * This mirrors the choice the onboarding tour specimen makes about its own tip card, so the
  * two can be read against each other.
+ *
+ * That control used to be labelled "New teammate", with a line beside it reading "Gone for
+ * good once acknowledged." Between them they asked the reader to infer a whole fiction to
+ * explain a button that only puts the announcement back. The line is gone and the button
+ * says plainly what it does, which is what demo instrumentation owes a reader.
  *
  * The context register sits on the scenery inside the topbar rather than on the
  * topbar itself, because the "New" dot rides on the export control and is part of the
@@ -71,8 +76,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-row sp-context" style="gap: 8px">
-        <span class="sp-label" style="font-size: 11px">Gone for good once acknowledged.</span>
-        <button class="sp-button sp-button--ghost sp-button--sm" data-part="replay" type="button">New teammate</button>
+        <button class="sp-button sp-button--ghost sp-button--sm" data-part="replay" type="button">Show the announcement again</button>
       </div>
     </div>
   `;

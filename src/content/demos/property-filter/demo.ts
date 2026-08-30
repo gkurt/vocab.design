@@ -45,8 +45,12 @@ const option = (name: string, label: string, hint: string) => `
  *
  * The subject is the field, not the tokens. A chip on its own is a chip, and a menu on its own
  * is a menu; what this term names is the control that turns four gestures into a structured
- * query, so the pin belongs on the box the tokens land in. The issue list, the count and the
- * caption are the scene around it in the context register.
+ * query, so the pin belongs on the box the tokens land in. The issue list and the count are
+ * the scene around it in the context register.
+ *
+ * A caption under the list once read "One token is one property, one operator, one value.",
+ * which is the site defining its own term inside an issue tracker. It is gone, and the frame
+ * is shorter by its height; the assembly on screen shows the same thing three clicks running.
  *
  * The menu is anchored under the field and overlays the list, so opening and closing it moves
  * nothing (SPEC §5), and the list keeps a fixed box with room for every row. Each step of the
@@ -67,7 +71,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 302px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 279px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Issues</span>
           <span class="sp-text" data-part="readout" style="width: 250px; text-align: right; white-space: nowrap; font-size: 12px">No query yet</span>
@@ -113,10 +117,6 @@ export function mount(root: HTMLElement): void {
             <ul class="sp-list sp-grow" style="flex: 1 1 auto">${rows}</ul>
             <span class="sp-label" data-part="count" data-hits="4" style="flex: 0 0 auto; padding: 4px 8px 2px; font-size: 11px; white-space: nowrap">4 of 4 issues match</span>
           </div>
-
-          <span class="sp-label sp-context" style="flex: 0 0 auto; height: 15px; line-height: 15px; text-align: center; white-space: nowrap; font-size: 11px">
-            One token is one property, one operator, one value.
-          </span>
         </div>
       </div>
     </div>

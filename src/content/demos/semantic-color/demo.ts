@@ -43,6 +43,10 @@ const ROW_H = 24;
  * rows sit in the context register, as do the scheme control and the readout. `danger`
  * stays semantically named in both schemes, so there is no state identify must refuse.
  *
+ * The reading under the table is the author's, not the product's, and it changes with the
+ * scheme, so it is that switch's verdict: it carries `data-stage-verdict` and the stage
+ * draws it in the strip rather than inside the token list.
+ *
  * `brand-blue` is the counter-example, kept quiet in the context register: its value is
  * identical under both schemes because the name promised a hue and nobody can move it.
  */
@@ -91,7 +95,7 @@ export function mount(root: HTMLElement): void {
 
         ${row('brand-blue', LEAKED, { part: 'row-leaked' })}
 
-        <p class="sp-text sp-context" data-part="readout"
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout"
            style="margin: 10px 0 0; height: 26px; font-size: 10.5px; line-height: 1.3"></p>
       </div>
     </div>

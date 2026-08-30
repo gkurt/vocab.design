@@ -24,11 +24,6 @@ const NODES = [
 ] as const;
 const HUB_NODE = [72, 34] as const;
 
-const ROUTES = {
-  hub: '4 destinations one tap away',
-  spoke: '1 destination one tap away: home',
-} as const;
-
 const NOTE = {
   hub: 'Every task hangs off this one screen, and the map beside it has no edge between any two of them. That is the shape, and the whole of it.',
   spoke:
@@ -39,11 +34,15 @@ const NOTE = {
  * Hub and spoke specimen: a home screen of four task tiles, each of which takes over the
  * frame, with exactly one control inside a task and it goes back to the hub. The topology
  * map below the frame draws the claim as a graph: four edges, all touching the centre, and
- * nothing joining one task to another. The read-out counts the destinations a reader can
- * reach without passing through home, which is four from the hub and one from anywhere else.
+ * nothing joining one task to another.
+ *
+ * The title bar carried a count, "4 destinations one tap away", which changed to "1
+ * destination one tap away: home" inside a task, and the task screen carried a line reading
+ * "No other destination from here". Both were the site counting the edges of its own graph
+ * from inside a product's chrome, and the map underneath draws them anyway, so they went.
  *
  * The subject is the hub itself, the tile screen the whole shape is named for, and not the
- * frame, the map or the read-out. A spoke deliberately hides it, which is what the shape
+ * frame or the map. A spoke deliberately hides it, which is what the shape
  * means, so identify summons the hub by playing on until the specimen is home again
  * (SPEC §6); the mount state is the hub.
  *
@@ -78,7 +77,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 214px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" data-part="title" style="font-size: 13px">Home</span>
-          <span class="sp-label" data-part="routes" data-at="hub" style="font-size: 11px">${ROUTES.hub}</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; justify-content: center">
 
@@ -87,7 +85,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack" data-part="spoke" data-task="none" style="gap: 8px" hidden>
             <div class="sp-row">
               <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="back">Back to home</button>
-              <span class="sp-label sp-grow" style="text-align: right; font-size: 11px">No other destination from here</span>
             </div>
             <ul class="sp-list sp-surface sp-context" data-part="task-rows" style="padding: 2px 8px"></ul>
           </div>
@@ -108,7 +105,6 @@ export function mount(root: HTMLElement): void {
   const hub = part(root, 'hub');
   const spoke = part(root, 'spoke');
   const title = part(root, 'title');
-  const routes = part(root, 'routes');
   const rows = part(root, 'task-rows');
   const note = part(root, 'note');
 
@@ -124,8 +120,6 @@ export function mount(root: HTMLElement): void {
     flag(spoke, 'hidden', true);
     spoke.dataset.task = 'none';
     title.textContent = 'Home';
-    routes.dataset.at = 'hub';
-    routes.textContent = ROUTES.hub;
     note.textContent = NOTE.hub;
     mark('hub');
   };
@@ -136,8 +130,6 @@ export function mount(root: HTMLElement): void {
     flag(hub, 'hidden', true);
     flag(spoke, 'hidden', false);
     title.textContent = task.name;
-    routes.dataset.at = 'spoke';
-    routes.textContent = ROUTES.spoke;
     note.textContent = NOTE.spoke;
     mark(task.key);
   };

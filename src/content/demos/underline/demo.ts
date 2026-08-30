@@ -27,9 +27,16 @@ const TUNED = [
  * line are what it is read against.
  *
  * The hover line's marker and readout are both restored on leave, so the pass ends at its mount
- * state and the tree persists across attract iterations (`data-loop="keep"`). The readout keeps
- * the room both of its sentences take, two lines at this measure, and sets them from the top, so
- * swapping one for the other moves nothing (SPEC §5).
+ * state and the tree persists across attract iterations (`data-loop="keep"`). The readout is one
+ * line of reserved height and both of its strings fit it, so swapping one for the other moves
+ * nothing (SPEC §5).
+ *
+ * The sheet was headed "The rule under a link", the third line was labelled "underlined on hover
+ * only", and the readout argued the case ("At rest the third link is marked by colour alone,
+ * which is not a marker for every reader."). All three were the site talking over its own sheet.
+ * The heading now names what the sheet holds, the third label states its rule the way the two
+ * above it state theirs, and the readout reports whether a rule is currently drawn. The argument
+ * is the article's, and it makes it at length.
  */
 export function mount(root: HTMLElement): void {
   const line = (name: string, note: string, style: string, subject = false) => `
@@ -45,7 +52,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" data-loop="keep">
       <div class="sp-window" style="width: 460px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">The rule under a link</span>
+          <span class="sp-heading">Link styles</span>
           <span class="sp-label">21px</span>
         </div>
         <div class="sp-stack" style="gap: 14px; margin-top: 14px">
@@ -54,13 +61,13 @@ export function mount(root: HTMLElement): void {
           </div>
           ${line('link-tuned', 'offset 0.18em, thickness 1.5px, skip-ink auto', TUNED, true)}
           <div class="sp-context sp-stack" style="gap: 3px">
-            <span class="sp-label">underlined on hover only</span>
+            <span class="sp-label">text-decoration-line: none until :hover</span>
             <span style="font-size: 21px">
               <a href="${HREF}" data-part="link-hover" style="color: var(--sp-accent); text-decoration-line: none">${TEXT}</a>
             </span>
           </div>
         </div>
-        <div class="sp-row sp-context" style="align-items: flex-start; height: 40px; margin-top: 12px">
+        <div class="sp-row sp-context" style="align-items: flex-start; height: 20px; margin-top: 12px">
           <span class="sp-text" data-part="readout"></span>
         </div>
       </div>
@@ -74,18 +81,18 @@ export function mount(root: HTMLElement): void {
     readout.textContent = text;
   };
 
-  say('At rest the third link is marked by colour alone, which is not a marker for every reader.');
+  say('Third line at rest: no underline drawn');
 
   hover.addEventListener('pointerenter', () => {
     flag(hover, 'data-hovered', true);
     hover.style.cssText = `color: var(--sp-accent); ${TUNED}`;
-    say('The pointer arrived and the marker appeared with it. Touch never gets this far.');
+    say('Third line hovered: underline drawn');
   });
 
   hover.addEventListener('pointerleave', () => {
     flag(hover, 'data-hovered', false);
     hover.style.cssText = 'color: var(--sp-accent); text-decoration-line: none';
-    say('At rest the third link is marked by colour alone, which is not a marker for every reader.');
+    say('Third line at rest: no underline drawn');
   });
 
   // A specimen changes nothing outside itself, so none of these go anywhere.

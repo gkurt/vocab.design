@@ -53,6 +53,10 @@ const TABLE_W = 204;
  *
  * The card holds the room the largest setting needs, so the values changing
  * never moves the table beside it or the read-out below it (SPEC §5).
+ *
+ * A label reading "one family, four roles" once sat opposite that read-out. It was
+ * the site summarising the table rather than anything the tool would print, so it
+ * went; the row keeps its reserved height and the read-out keeps its place.
  */
 export function mount(root: HTMLElement): void {
   const rows = ROLES.map(
@@ -93,9 +97,8 @@ export function mount(root: HTMLElement): void {
             <span data-part="card-caption" style="color: var(--sp-muted)">Updated 4 min ago</span>
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 26px">
+        <div class="sp-row sp-context" style="margin-top: 10px; height: 26px">
           <span class="sp-chip" data-part="readout" style="cursor: default; font-variant-numeric: tabular-nums"></span>
-          <span class="sp-label">one family, four roles</span>
         </div>
       </div>
     </div>

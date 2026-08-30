@@ -3,10 +3,15 @@ import { flag, part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 const BODY =
-  'A column ends where the last line still fits, and the paragraph carries whatever is left to the top of the next one. Set the same page a hair narrower and the break moves; set it wider and it moves back. ';
+  'The harbour master kept his ledger in a hand that leaned backwards, and every entry was the same three columns: the name of the boat, the berth it took, and the hour it left again. Nobody had asked him to. ';
+
+/** The last full line of that paragraph, and the word it leaves behind: the pull is what the
+    control carries across the break, so it has to end mid-sentence. */
+const PULL = 'He simply believed a harbour should be able to ';
+const WIDOW = 'remember.';
 
 const FOLLOW =
-  'Every other paragraph on this page breaks where it should. This one leaves its ending behind, and the reader meets the end of a thought before meeting anything to read it with.';
+  'By the time the season turned he had filled four of them, and the fourth was the one the insurers asked for. He handed it over and started the fifth that evening.';
 
 const STRANDED = 'Column two opens with one word, and the paragraph it finishes is on the other side of the break.';
 const CARRIED = 'Column two opens with two lines, so the ending arrives with enough of its paragraph to read.';
@@ -25,6 +30,14 @@ const CARRIED = 'Column two opens with two lines, so the ending arrives with eno
  * the term names that line and not the page it happened on. Column one, the paragraph
  * below, and the control are scenery. What the specimen claims is measured rather than
  * asserted: the carried paragraph reports how many lines it actually occupies.
+ *
+ * The page's own prose used to describe the demonstration ("A column ends where the last
+ * line still fits...", "Every other paragraph on this page breaks where it should..."),
+ * which is the site writing inside a book nobody would print it in. It is ordinary
+ * narrative now, cut to the same line counts, and the line that crosses the break ends
+ * mid-sentence so the stranded word finishes it. The readout under the columns changes
+ * with the switch, so it is the author's verdict and the stage draws it in the strip
+ * (SPEC §5.1) rather than inside the page.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -40,15 +53,15 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row" style="gap: 24px; align-items: flex-start; margin-top: 14px">
           <div class="sp-context" data-part="col-1" style="flex: 1 1 0; height: 150px">
             <p class="sp-prose" data-part="body" style="font-size: 12px; max-width: none; margin: 0">${BODY}<span
-              data-part="pull">What crosses the break here is a single closing </span></p>
+              data-part="pull">${PULL}</span></p>
           </div>
           <div data-part="col-2" style="flex: 1 1 0; height: 150px">
             <p class="sp-prose" data-part="carried" style="font-size: 12px; max-width: none; margin: 0"><span
-              data-part="widow" data-subject>word.</span></p>
+              data-part="widow" data-subject>${WIDOW}</span></p>
             <p class="sp-prose sp-context" data-part="follow" style="font-size: 12px; max-width: none; margin: 12px 0 0">${FOLLOW}</p>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="readout" style="margin-top: 12px; font-size: 12px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin-top: 12px; font-size: 12px"></p>
       </div>
     </div>
   `;

@@ -60,6 +60,10 @@ const APPS: App[] = [
  * thing that changes rather than an incidental shift. A press held on a second icon retargets the
  * menu to that app rather than toggling anything, so a pass resumed anywhere lands on a state
  * (SPEC §8), and choosing an item is the only dismissal.
+ *
+ * A line under the screen used to read "Hold an icon: the launcher asks the app for its
+ * entry points...", which was the site instructing the reader from inside the phone. The
+ * article says it, so the line went and the frame lost the height it was holding for it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const launcher = (app: App) => `
@@ -79,7 +83,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Home screen</span>
           <span class="sp-label" data-part="readout" data-ran="none" style="font-size: 11px; white-space: nowrap"
@@ -115,10 +119,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 14px 8px; text-align: center; line-height: 1.4; font-size: 11px">
-          Hold an icon: the launcher asks the app for its entry points, and choosing one starts the app already inside that action.
-        </span>
       </div>
     </div>
   `;

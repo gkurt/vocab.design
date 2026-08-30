@@ -9,27 +9,19 @@ const STEP = 25;
 const START = 25;
 
 const KINDS = {
-  selection: { name: 'Selection', call: 'selectionChanged()', note: 'a value stepped past a detent' },
-  impact: { name: 'Impact', call: 'impactOccurred(.light)', note: 'something landed or hit a limit' },
-  success: { name: 'Notification', call: 'notificationOccurred(.success)', note: 'how a task turned out' },
+  selection: { name: 'Selection', call: 'selectionChanged()' },
+  impact: { name: 'Impact', call: 'impactOccurred(.light)' },
+  success: { name: 'Notification', call: 'notificationOccurred(.success)' },
 } as const;
 
 type Kind = keyof typeof KINDS;
-
-const legendRow = (kind: Kind) => `
-  <div class="sp-row" style="gap: 8px; align-items: flex-start">
-    <span style="flex: 0 0 auto; width: 6px; height: 6px; margin-top: 5px; border-radius: 50%; background: var(--sp-accent)"></span>
-    <span class="sp-label" style="width: 66px; color: var(--sp-ink)">${KINDS[kind].name}</span>
-    <span class="sp-text sp-grow" style="font-size: 11px">${KINDS[kind].note}</span>
-  </div>
-`;
 
 /**
  * Haptic feedback specimen: a phone whose controls fire ticks, with the tick itself drawn
  * as the thing it is (an event with a kind, a moment, and a name in the platform's
  * vocabulary). The subject is the tick readout, because the term names feedback that has
- * no picture: the phone, its slider, and the legend are the scene that produces one and
- * explains it, and none of them is the word.
+ * no picture: the phone and its slider are the scene that produces one, and neither of them
+ * is the word.
  *
  * The subject is off stage between ticks, which is the honest resting state for an event
  * (identify summons it by playing the script until one fires, and the stage's frozen clock
@@ -40,6 +32,12 @@ const legendRow = (kind: Kind) => `
  *
  * The readout slot is reserved from mount and the shiver is a transform, so a tick moves
  * nothing (SPEC §5).
+ *
+ * A three-row legend used to gloss each kind ("a value stepped past a detent", "something
+ * landed or hit a limit", "how a task turned out"), and the panel was titled "Feel, drawn so
+ * it can be seen". Both were the site teaching inside the frame. The legend is gone and the
+ * panel is named for the instrument it is, since the readout already names the kind that
+ * fired in the platform's own words.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const detents = [0, 1, 2, 3, 4]
@@ -56,7 +54,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="height: 288px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow">Feel, drawn so it can be seen</span>
+          <span class="sp-heading sp-grow">Haptics</span>
           <span class="sp-text" data-part="count" style="width: 96px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap">0 ticks</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 14px">
@@ -122,11 +120,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                   <span class="sp-label" data-part="tick-call" style="font-size: 11px">selectionChanged()</span>
                 </span>
               </div>
-            </div>
-            <div class="sp-stack sp-context" style="gap: 6px; margin-top: 2px">
-              ${legendRow('selection')}
-              ${legendRow('impact')}
-              ${legendRow('success')}
             </div>
           </div>
         </div>

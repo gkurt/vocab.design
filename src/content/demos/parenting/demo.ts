@@ -62,6 +62,10 @@ const lane = (label: string, body: string, context: boolean) => `
  * and both rest on their end pose, since the comparison is between timings that reader has asked not
  * to see. Everything is absolutely placed inside tracks fixed at mount and the note holds its own
  * height, so a move can move nothing else (SPEC §5).
+ *
+ * The two lanes were labelled with their moral ("three siblings, three timings", "one parent,
+ * one timing"), which is the verdict's job and the article's. They are named for what they
+ * are now, Loose and Parented, and the strip's line still reads what the chosen transform did.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const loose = TILES.map(
@@ -91,8 +95,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 12px">
-          ${lane('three siblings, three timings', loose, true)}
-          ${lane('one parent, one timing', parented, false)}
+          ${lane('Loose', loose, true)}
+          ${lane('Parented', parented, false)}
           <span
             class="sp-text sp-context" data-stage-verdict data-part="note"
             style="flex: 0 0 auto; height: 30px; font-size: 12px; line-height: 1.3"

@@ -48,6 +48,10 @@ const PHRASE = 'Boarding now';
  * (SPEC §5). The samples, the verdicts, the picker and the caption are scenery. Both positions
  * of the line are the threshold, so there is no dishonest state to pose against.
  *
+ * The readout beside the boundary used to say "All three samples at 3.2:1", which is the
+ * exhibit describing its own rows. A checker prints the pair it measured, so it names the
+ * two colours and the ratio instead.
+ *
  * Every row is absolutely placed at a fixed top inside a container of stated height, so the
  * line is the only thing that moves when the weight changes (SPEC §5), and nothing is measured
  * after a style write. No timer is needed.
@@ -95,7 +99,7 @@ export function mount(root: HTMLElement): void {
             <span data-part="starts" data-weight="regular"
                   style="color: var(--sp-ink); font-weight: 500">${STARTS.regular}</span></span>
           <span class="sp-text sp-text--ink" style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">
-            All three samples at ${RATIO}
+            ${SAMPLE} on ${PAPER} · ${RATIO}
           </span>
         </div>
 

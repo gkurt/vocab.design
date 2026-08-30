@@ -6,8 +6,15 @@ import '#src/kit/segmented.ts';
  * two ways. Concentric subtracts the padding from the outer radius, so both arcs are
  * struck from one centre and the gap holds all the way round; reusing the outer number
  * leaves the sides right and opens the corner out diagonally, which is the mistake the
- * rule exists to stop. The readout prints the arithmetic so the number can be checked
- * rather than believed.
+ * rule exists to stop. The readout prints the inner radius the way an inspector would, so
+ * the number can be checked rather than believed.
+ *
+ * Three strings were the site talking inside the frame and have gone. The topbar read
+ * "Inner card, 18 px in" and now names the component. The readout spelled the derivation
+ * ("inner = outer 40 - padding 18 = 22 px"), which no inspector prints, and now states the
+ * value alone; the article gives the subtraction. A caption under the frame read "The sides
+ * look right either way. Only the corner knows whether the subtraction was done." and was
+ * deleted outright, along with the choreography assert that named it.
  *
  * The subject is the inner shape's corner, drawn as its own element sized to the radius
  * the rule computes (SPEC §5). Ringing the inner card would claim the card is the term and
@@ -34,11 +41,11 @@ const INNER_R: Record<Mode, number> = {
 
 const READOUT: Record<Mode, { sum: string; note: string }> = {
   concentric: {
-    sum: `inner = outer ${OUTER_R} - padding ${PAD} = ${INNER_R.concentric} px`,
+    sum: `Inner radius ${INNER_R.concentric} px`,
     note: 'One centre for both arcs: the gap holds at 18 px all the way round.',
   },
   same: {
-    sum: `inner = ${OUTER_R} px, the outer number reused`,
+    sum: `Inner radius ${INNER_R.same} px`,
     note: 'Sides still 18 px, corner now 25 px: the gap stops being a gap.',
   },
 };
@@ -53,7 +60,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 468px; height: 248px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 14px">Inner card, ${PAD} px in</span>
+          <span class="sp-heading sp-grow" style="font-size: 14px">Card</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Inner radius" data-term="concentric" data-part="switcher" data-value="concentric">
             <button class="sp-segment" type="button" data-part="seg-concentric" value="concentric">concentric</button>
             <button class="sp-segment" type="button" data-part="seg-same" value="same">same radius</button>
@@ -96,10 +103,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 440px; margin: 0; text-align: center">
-        The sides look right either way. Only the corner knows whether the subtraction was done.
-      </p>
     </div>
   `;
 

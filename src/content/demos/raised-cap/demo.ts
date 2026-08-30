@@ -3,10 +3,10 @@ import '#src/kit/segmented.ts';
 import { localBox } from '#src/kit/measure.ts';
 
 const OPENING =
-  'he oldest way to open a page is with a letter too big for the line it starts. ' +
-  'Sinking it into the paragraph gives a reader somewhere to begin, and standing it on the ' +
-  'first baseline does the same job while leaving every line below it alone, which is why the ' +
-  'raised setting survives in a column too narrow for a sunk one to fit.';
+  'he ferry leaves the quay at six, long before the town is properly awake, and by the ' +
+  'time the light comes up the harbour is a thin grey line astern. Passengers who make the ' +
+  'crossing every week take the same seats without discussing it, and the crew gave up ' +
+  'counting them aboard somewhere in the first winter of the service.';
 
 /** The prose rhythm the whole specimen is measured against: 13px type on 19.5px lines. */
 const LINE = 19.5;
@@ -53,8 +53,14 @@ const PAGE = 148;
  *
  * The subject is the capital itself. Two of the three settings are the reference
  * rather than the term, so the honest condition is declared in `data-pose` and
- * the specimen mounts raised (SPEC §6). The picker, the rule and the read-out are
- * the demo's instrumentation and stay in the context register (SPEC §5).
+ * the specimen mounts raised (SPEC §6). The picker and the rule are the demo's
+ * instrumentation and stay in the context register (SPEC §5).
+ *
+ * The opening is ordinary article prose. It used to be a paragraph about initial
+ * letters, which had the specimen explaining itself in the article's voice. The
+ * read-out changes with the switch, so it is the stage's verdict and is drawn in
+ * the strip rather than under the page (SPEC §5.1); the label beside it, "rule:
+ * first baseline", was the author pointing at the rule the reader can see.
  *
  * The block holds the headroom the raised letter needs and the extra line the
  * sunk one costs, at every setting, so switching settings moves nothing but the
@@ -83,10 +89,7 @@ export function mount(root: HTMLElement): void {
               data-part="line-tick" aria-hidden="true" style="${tick}"></span><span class="sp-context">${OPENING}</span></p>
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 26px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.raised.read}</span>
-          <span class="sp-label">rule: first baseline</span>
-        </div>
+        <span class="sp-text" data-stage-verdict data-part="readout">${MODES.raised.read}</span>
       </div>
     </div>
   `;

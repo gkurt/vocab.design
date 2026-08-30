@@ -29,6 +29,12 @@ const CONTROLS = ['Save draft', 'Continue', 'Cancel'] as const;
  * through, so the honest condition is declared in `data-pose` and the mount state satisfies it
  * (SPEC §6).
  *
+ * Two lines of the site's own voice used to stand in the window: "Help copy, one claim form"
+ * over the picker, and "Round, primary, last in the row. A reader who can see the row has
+ * three cues to go on." under the drawn buttons. Both went: the instruction on screen is the
+ * copy, and the row is there to be looked at. The linearized panel is now headed "Reading
+ * order", which names the instrument rather than narrating what it is for.
+ *
  * Both instructions are held in one reserved box sized for the longer of them, so a pick moves
  * nothing (SPEC §5). No timers: each state is reached by a pick.
  */
@@ -44,8 +50,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Help copy, one claim form</span>
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="sensory" data-axis="Refers by" data-term="sensory" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-sensory" value="sensory"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Shape and side</button>
@@ -72,12 +77,10 @@ export function mount(root: HTMLElement): void {
                       style="flex: 0 0 auto; border-radius: 999px; font-size: 11px; white-space: nowrap;
                              outline: 2px solid var(--sp-accent); outline-offset: 3px">Continue</button>
             </div>
-            <p class="sp-text" style="margin: 9px 0 0; font-size: 10px; line-height: 1.3">
-              Round, primary, last in the row. A reader who can see the row has three cues to go on.</p>
           </div>
 
           <div class="sp-surface sp-context" style="flex: 1 1 auto; min-width: 0; height: 114px; padding: 9px 10px">
-            <span class="sp-label" style="font-size: 10px">As it arrives, in order</span>
+            <span class="sp-label" style="font-size: 10px">Reading order</span>
             <div class="sp-stack" style="gap: 4px; margin-top: 7px">
               ${CONTROLS.map(nameRow).join('')}
             </div>

@@ -51,6 +51,10 @@ const DETAIL = 104;
  * detail and the notes are the demo's own instrumentation and stay in the
  * context register (SPEC §5).
  *
+ * A caption under the note once read "the foot mark, enlarged", which is the site
+ * pointing at its own zoom panel rather than anything the tool would print. It is
+ * gone; the enlarged glyph beside the code points needs no introduction.
+ *
  * The characters swap in place, in boxes that are fixed at their widest, so a
  * pick moves nothing (SPEC §5).
  */
@@ -81,7 +85,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack" style="gap: 6px; padding-top: 2px">
             <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${MARKS.primes.read}</span>
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; width: 290px; height: 59px">${MARKS.primes.note}</p>
-            <span class="sp-label">the foot mark, enlarged</span>
           </div>
         </div>
       </div>

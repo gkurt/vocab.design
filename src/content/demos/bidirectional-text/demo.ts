@@ -19,8 +19,8 @@ const RUNS: Run[] = [
 ];
 
 const BASES = {
-  rtl: { dir: 'rtl', read: 'dir="rtl": each run keeps its direction' },
-  ltr: { dir: 'ltr', read: 'no dir: the runs land in typing order' },
+  rtl: { dir: 'rtl', read: 'direction: rtl' },
+  ltr: { dir: 'ltr', read: 'direction: ltr' },
 } as const;
 
 type Base = keyof typeof BASES;
@@ -47,6 +47,16 @@ const LINE = 40;
  * undeclared it stops being that run, so the honest condition is declared in
  * `data-pose` and the specimen mounts with `dir="rtl"` (SPEC §6). The chips, the
  * readout and the caption are the demo's own instrumentation.
+ *
+ * The chip row was headed "the order it was typed", which is the site explaining itself.
+ * An inspector labels the same row "Logical order", which is what it is, and the chip
+ * under the sentence already reports the visual order beside it.
+ *
+ * The second chip under the sentence read "dir=rtl: each run keeps its direction" and
+ * "no dir: the runs land in typing order", a declaration with the article's sentence
+ * appended to it. It prints the computed direction alone now, the way an inspector does;
+ * the chip beside it already carries the ordering the runs came out in, and the strip's
+ * verdict is where the reading of the two belongs.
  */
 export function mount(root: HTMLElement): void {
   const chip = ({ index, text, dir }: Run) => `
@@ -67,7 +77,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" data-part="seg-ltr" value="ltr">not declared</button>
           </sp-segmented>
         </div>
-        <span class="sp-label sp-context" style="display: block; margin-top: 10px">the order it was typed</span>
+        <span class="sp-label sp-context" style="display: block; margin-top: 10px">Logical order</span>
         <div class="sp-row sp-row--wrap sp-context" data-part="memory" style="gap: 6px; margin-top: 4px">
           ${RUNS.map(chip).join('')}
         </div>

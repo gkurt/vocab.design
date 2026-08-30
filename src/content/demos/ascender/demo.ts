@@ -40,6 +40,10 @@ function inkAbove(text: string, size: number): number {
  * The subject is the ruled word. An ascender is a distance between two lines, so
  * the narrowest thing that carries one is the sample with its rules on it;
  * ringing the window would claim the term names the whole comparison.
+ *
+ * The sheet used to be headed "Where the lowercase stops" and to close with a caption
+ * pointing at the tinted band. Both were the site reading the drawing aloud; the rules, the
+ * key and the em figures already say it, so only the size remains at the top.
  */
 export function mount(root: HTMLElement): void {
   const asc = inkAbove('bhkl', SIZE) || FALLBACK.asc * SIZE;
@@ -82,8 +86,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Where the lowercase stops</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <span class="sp-label" style="font-variant-numeric: tabular-nums">${SIZE}px</span>
         </div>
         <div data-part="ruled" data-subject style="margin-top: 2px; font-size: 0; white-space: nowrap">
@@ -102,10 +105,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label">cap height ${em(cap)}em</span>
           <span class="sp-label">x-height ${em(x)}em</span>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 6px">
-          The tinted band is the whole point: the ascenders on k, h, l and f finish above the
-          capital B rather than level with it.
-        </p>
       </div>
     </div>
   `;

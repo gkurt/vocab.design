@@ -12,13 +12,19 @@ const ITEMS = [
 /**
  * Live region specimen: adding to a cart writes into a status line that no one is
  * looking at and nobody was sent to. Focus never moves, which is the whole promise
- * of the term, and the caption strip below prints what a polite queue would read
- * out a moment later.
+ * of the term, and what a polite queue reads out a moment later is drawn in the
+ * stage's say lane.
  *
  * The subject is the status line itself, not the message and not the panel: the term
  * names the marked container, which is why it ships empty and stays in the layout.
- * The strip is instrumentation and stays scenery (SPEC §5). The line's room is
- * reserved from mount, so a message arriving cannot move the panel under it.
+ * The line's room is reserved from mount, so a message arriving cannot move the panel
+ * under it.
+ *
+ * The utterance used to sit inside the shop as a panel headed "Screen reader, polite
+ * queue", which is a stage direction wearing a product's clothes: no roastery prints
+ * one. It carries `data-stage-announce` now, so the stage speaks it in the lane above
+ * the specimen, and the choreography still finds it because the lane mirrors the
+ * source's data attributes.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const rows = ITEMS.map(
@@ -41,10 +47,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div style="height: 20px; margin-top: 12px">
           <p class="sp-text sp-text--ink" role="status" data-part="status" data-state="idle" data-subject style="margin: 0"></p>
         </div>
-        <div class="sp-surface sp-context" style="margin-top: 10px; padding: 8px 10px">
-          <span class="sp-label">Screen reader, polite queue</span>
-          <p class="sp-text" data-part="heard" data-state="idle" style="margin: 4px 0 0; height: 20px">Nothing announced yet</p>
-        </div>
+        <p class="sp-text" data-stage-announce data-part="heard" data-state="idle"
+           style="margin: 10px 0 0; height: 20px; line-height: 20px">Nothing announced yet</p>
       </div>
     </div>
   `;
@@ -71,7 +75,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       heard.dataset.state = 'queued';
       pending = clock.setTimeout(() => {
         heard.dataset.state = 'spoken';
-        heard.className = 'sp-text sp-text--ink';
         heard.textContent = `“${message}”`;
       }, SPEAK_MS);
     });

@@ -11,11 +11,6 @@ const STOCK = 12;
 const CHIP = 'display: inline-flex; align-items: center; gap: 6px; cursor: default';
 const DOT = (color: string) => `<span style="width: 6px; height: 6px; border-radius: 50%; background: ${color}"></span>`;
 
-const CAPTION = {
-  fake: 'Availability chips (as shipped)',
-  fair: 'Availability chips (made honest)',
-} as const;
-
 const VERDICT = {
   fake: 'Refresh the page and the crowd changes size. Nothing was counted, so nothing can run out.',
   fair: 'A count read from inventory holds still, names its unit, and can reach zero.',
@@ -46,6 +41,11 @@ function body(mode: Mode, viewers: number): string {
  * state as its honest condition (`data-pose`), since ringing a real availability count
  * would be a picture of the opposite word (SPEC §6). The row holds one height for both
  * states and the chips wrap inside it, so a redraw moves nothing around it (SPEC §5).
+ *
+ * A label used to sit over the row, reading "Availability chips (as shipped)" and
+ * "(made honest)" with the pick. No booking page annotates its own chips like that, and the
+ * strip's verdict already says which state is up, which a specimen may not say twice. It is
+ * gone; the row now stands on its own under the listing.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -63,7 +63,6 @@ export function mount(root: HTMLElement): void {
             </div>
             <div class="sp-text" style="margin-top: 2px; font-size: 12px">Double room, 2 nights, breakfast included</div>
           </div>
-          <span class="sp-label sp-context" data-part="caption">${CAPTION.fake}</span>
           <div
             class="sp-row sp-row--wrap"
             data-part="chips"
@@ -86,7 +85,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const chips = part(root, 'chips');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const refreshCount = part(root, 'refresh-count');
 
@@ -98,7 +96,6 @@ export function mount(root: HTMLElement): void {
     chips.innerHTML = body(mode, viewers);
     // The number the row currently claims: redrawn from a range, or read from inventory.
     chips.dataset.count = String(mode === 'fake' ? viewers : STOCK);
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
   };
 

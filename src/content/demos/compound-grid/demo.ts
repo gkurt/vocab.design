@@ -60,6 +60,11 @@ const BLOCK = 'display: flex; flex-direction: column; gap: 6px; padding: 8px 10p
  * that draws both grids, which is nearly the whole canvas; the line is the narrower answer to
  * "which part of this is the term", and it is visible in every state, so no pose is needed.
  *
+ * The topbar once read "4 columns tinted, 6 ruled", which is the site explaining its own
+ * drawing convention rather than anything a layout canvas would print. The bar still needs a
+ * title next to the rhythm switch, so it names the page being laid out instead; the verdict
+ * under the frame already says which rhythm is in force.
+ *
  * Both grids and all three blocks are scenery in the context register, which is what leaves the
  * shared line the only accent in the frame. The blocks are absolutely placed from the same
  * column arithmetic the guides use, so their edges are a fact of the grid rather than two sets
@@ -100,7 +105,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">4 columns tinted, 6 ruled</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Home page</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="rhythms" data-axis="Rhythm" data-value="four">
             ${RHYTHMS.map(
               (rhythm) => `

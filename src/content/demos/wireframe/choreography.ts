@@ -35,6 +35,5 @@ export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=block-logo][data-marked]', state: 'visible' } },
   { assert: { selector: '[data-part=legend-label][data-convention=block]', state: 'visible' } },
-  { assert: { selector: '[data-part=footnote]', state: 'visible' } },
   { wait: 800 },
 ]);

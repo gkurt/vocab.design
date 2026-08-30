@@ -40,8 +40,8 @@ const LAYOUTS: Layout[] = [
 ];
 
 const NOTES: Record<string, { top: number; text: string }> = {
-  '1': { top: LINE, text: 'Level with its own sentence, not at the foot of the page.' },
-  '2': { top: 0, text: 'And no numbered list at the end to visit and come back from.' },
+  '1': { top: LINE, text: 'Spring tides drop it further, and the channel closes altogether.' },
+  '2': { top: 0, text: 'Predicted, not measured. A hard easterly holds the water back.' },
 };
 
 const segment = (layout: Layout) => `
@@ -76,6 +76,13 @@ const note = (id: string) => `
  * ringing an inline note (SPEC §6). The mount state satisfies it. The article text, the layout
  * picker and the caption are scenery in the context register.
  *
+ * The article used to be prose ABOUT sidenotes ("A note that comments on one sentence
+ * belongs beside that sentence", a Tufte reference, and notes that described their own
+ * placement), which made every word in the fiction the site's. It is a short piece about a
+ * tidal harbour now, with notes that annotate the sentences beside them. The layout readout
+ * was the same defect and is a genuine verdict: it changes with the switch, so it carries
+ * `data-stage-verdict` and the stage draws it in the strip.
+ *
  * The article is reshaped inside a slot held at the wide layout and anchored to its top left, so
  * the page narrows and nothing around it moves (SPEC §5). Inside the narrow layout the expanding
  * note does push the following paragraph down, which is the fallback's own behaviour rather than
@@ -89,7 +96,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Notes in the margin</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Harbour notes</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="layouts" data-axis="Layout" data-term="wide" data-value="${first.key}">
             ${LAYOUTS.map(segment).join('')}
           </sp-segmented>
@@ -105,19 +112,19 @@ export function mount(root: HTMLElement): void {
                      transition: width 0.4s var(--sp-ease)"
             >
               <p class="sp-text sp-text--ink sp-context" data-part="para-1" style="margin: 0; font-size: 13px; line-height: ${LINE}px">
-                A note that comments on one sentence belongs beside that sentence.${ref('1')}
+                The harbour dries out twice a day, and the boats sit on mud.${ref('1')}
               </p>
               ${note('1')}
               <p class="sp-text sp-text--ink sp-context" data-part="para-2" style="margin: 0; font-size: 13px; line-height: ${LINE}px">
-                Tufte set his notes in the margin for exactly this reason.${ref('2')}
+                The tide table is printed a year ahead and is rarely a minute out.${ref('2')}
               </p>
               ${note('2')}
               <p class="sp-text sp-context" data-part="para-3" style="margin: 0; font-size: 13px; line-height: ${LINE}px">
-                Everything else on the page holds still.
+                Wind and pressure do the rest, and the harbour master keeps his own book.
               </p>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px; width: 442px"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; height: 40px; width: 442px"></span>
         </div>
       </div>
     </div>

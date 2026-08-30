@@ -41,6 +41,17 @@ const CAPTION = {
  * `data-pose` is needed, and identify summons it out of the silent state (SPEC §6). The browser
  * chrome, the nav, the views, the two readouts and the caption are scenery.
  *
+ * A label over the mock browser read "Client-side route, no reload", which is the site
+ * naming its own setup rather than anything the app would print. The address bar not
+ * flickering is the same claim, made by the scene, so the label went.
+ *
+ * The panel under the browser is an inspector on that browser's own document, so it prints
+ * values and not sentences. It used to write the author's reading of each one instead: the
+ * focus row read "On the nav, where the reader left it.", "Unchanged. Still on the link that
+ * was clicked." and "The “Statements” heading, tabindex -1.", and the live region's resting
+ * state read "Nothing posted." The focus row names the element now ("none", "button
+ * “Statements”", "h2 “Statements”"), and an unposted region reads "(empty)".
+ *
  * Real focus is moved only for a real reader's click (`isTrusted`); a scripted press paints the
  * kit's simulated ring instead, because attract mode never moves real focus (SPEC §7). No timers:
  * every state here is reached by a press.
@@ -67,7 +78,6 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 10px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Client-side route, no reload</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Announcement" data-part="mode" data-value="announced" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-announced" value="announced"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Announced</button>
@@ -97,12 +107,12 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-surface" style="margin-top: 8px; padding: 7px 10px">
           ${readout('title', 'document.title', PAGES.wallet.title)}
-          ${readout('focus', 'Focus', 'On the nav, where the reader left it.')}
+          ${readout('focus', 'Focus', 'none')}
           <div class="sp-row" style="gap: 8px; height: 17px">
             <span class="sp-label sp-context" style="flex: 0 0 auto; width: 96px; font-size: 10px">Live region</span>
             <span style="position: relative; flex: 1 1 auto; min-width: 0; height: 17px">
               <span class="sp-text sp-context" data-part="empty"
-                    style="position: absolute; inset: 0; font-size: 11px; line-height: 17px; white-space: nowrap">Nothing posted.</span>
+                    style="position: absolute; inset: 0; font-size: 11px; line-height: 17px; white-space: nowrap">(empty)</span>
               <span class="sp-text sp-text--ink" data-part="post" data-subject role="status" aria-live="polite"
                     style="position: absolute; inset: 0; font-size: 11px; line-height: 17px; white-space: nowrap;
                            opacity: 0; visibility: hidden; transition: opacity 0.18s, visibility 0.18s"></span>
@@ -146,7 +156,7 @@ export function mount(root: HTMLElement): void {
       // that was left, and focus is still sitting on the link.
       flag(titleOut, 'data-stale', page !== 'wallet');
       focusOut.dataset.moved = 'no';
-      focusOut.textContent = 'Unchanged. Still on the link that was clicked.';
+      focusOut.textContent = `button “${PAGES[page].heading}”`;
       return;
     }
 
@@ -156,7 +166,7 @@ export function mount(root: HTMLElement): void {
     titleOut.textContent = doc.title;
     flag(titleOut, 'data-stale', false);
     focusOut.dataset.moved = 'yes';
-    focusOut.textContent = `The “${PAGES[page].heading}” heading, tabindex -1.`;
+    focusOut.textContent = `h2 “${PAGES[page].heading}”`;
     for (const key of ['wallet', 'statements'] as const) flag(headings[key], 'data-sim-focus', key === page);
     post.textContent = `“${PAGES[page].title}”`;
     show(post, true);
@@ -181,7 +191,7 @@ export function mount(root: HTMLElement): void {
     titleOut.textContent = doc.title;
     flag(titleOut, 'data-stale', false);
     focusOut.dataset.moved = 'none';
-    focusOut.textContent = 'On the nav, where the reader left it.';
+    focusOut.textContent = 'none';
     show(post, false);
     show(empty, true);
   };

@@ -32,7 +32,6 @@ type Stage = {
   italic: string;
   bold: string;
   label: string;
-  read: string;
 };
 
 const STAGES: Record<string, Stage> = {
@@ -41,21 +40,18 @@ const STAGES: Record<string, Stage> = {
     italic: 'font-style: italic',
     bold: 'font-weight: 700',
     label: 'nothing yet',
-    read: 'the fallback family, drawing all three styles itself',
   },
   roman: {
     family: LOADED,
     italic: SHEAR,
     bold: `font-weight: 400; ${SMEAR}`,
     label: 'roman only',
-    read: 'the roman landed: the italic and the bold are faked from it',
   },
   styles: {
     family: LOADED,
     italic: 'font-style: italic',
     bold: 'font-weight: 700',
     label: 'all three files',
-    read: 'the last two files landed: every run is a drawn style now',
   },
 };
 
@@ -65,11 +61,11 @@ type Name = (typeof ORDER)[number];
 const HOLD: Record<Name, number> = { fallback: 1600, roman: 2400, styles: 3200 };
 
 const TEXT = {
-  open: 'The roman arrives first and the page is set in it immediately. Runs that want ',
-  italic: 'an italic',
-  mid: ' or a ',
-  bold: 'bold',
-  close: ' wait for their own files, and until those land the browser draws them from the roman it already has.',
+  open: 'The reading room reopens on the fourth of March. Requests for material held in the ',
+  italic: 'Ellis bequest',
+  mid: ' must be placed a ',
+  bold: 'full day',
+  close: ' ahead, since those boxes are stored off site and come over on the morning van.',
 };
 
 /**
@@ -85,8 +81,13 @@ const TEXT = {
  * fallback italic, then a sheared roman, then the family's italic. So there is no
  * counter-example state and no `data-pose` to declare.
  *
+ * A chip under the paragraph once narrated each stage in the site's voice ("the
+ * fallback family, drawing all three styles itself"), which is a sentence no page
+ * would print about its own fonts; the article carries the same account, so the chip
+ * went. What is left is the count of files arrived, which is a readout.
+ *
  * The paragraph box is fixed, so the reflow each file causes stays inside it and
- * the readout under it never moves (SPEC §5). Every timer comes from the DemoClock
+ * nothing under it moves (SPEC §5). Every timer comes from the DemoClock
  * the mount is handed, so identify can freeze a stage and inspect it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
@@ -107,9 +108,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
              data-part="run-italic" data-subject data-stage="fallback">${TEXT.italic}</span>${TEXT.mid}<span
              data-part="run-bold" data-stage="fallback">${TEXT.bold}</span>${TEXT.close}</p>
         </div>
-        <div class="sp-row sp-context" style="height: 30px">
-          <span class="sp-chip" data-part="readout" style="cursor: default"></span>
-        </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           The stages are stated on this stage's own clock, since the files are long since cached. The faked
           styles are what a browser really draws while it waits: the roman sheared, and the roman thickened.
@@ -122,7 +120,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const italic = part(root, 'run-italic');
   const bold = part(root, 'run-bold');
   const label = part(root, 'stage-label');
-  const readout = part(root, 'readout');
 
   let timer: number | undefined;
 
@@ -136,7 +133,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     bold.dataset.stage = name;
     bold.style.cssText = stage.bold;
     label.textContent = stage.label;
-    readout.textContent = stage.read;
   };
 
   const run = (index: number) => {

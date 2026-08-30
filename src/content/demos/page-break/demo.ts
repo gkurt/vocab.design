@@ -96,22 +96,28 @@ const seam = (n: number) => `
  * sheet (SPEC §5). The top half of a split figure takes the room the page has left over rather
  * than a measured height, so nothing is read back after a style write. Each segment names the
  * rule it applies (SPEC §8).
+ *
+ * The line reading what the chosen rule did to the flow ("No break rules: the boundary lands
+ * inside the figure...") used to print under the sheets, inside a preview that would never
+ * say such a thing about itself. It changes with the picker, so it is a verdict: it carries
+ * `data-stage-verdict` and the stage draws it in the strip, and the frame lost the 58 pixels
+ * that were reserved for it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Print preview</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="rules" data-value="none" data-axis="Rule">
             ${segment('none', 'no rules')}${segment('avoid', 'break-inside')}${segment('before', 'break-before')}
           </sp-segmented>
         </div>
-        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 12px">
+        <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 12px">
           <div data-part="flow" data-subject data-rule="none" style="display: flex; flex: 0 0 auto; height: ${SHEET_H}px">
             ${sheet(1)}${seam(1)}${sheet(2)}${seam(2)}${sheet(3)}
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 58px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; text-align: center"></span>
         </div>
       </div>
     </div>

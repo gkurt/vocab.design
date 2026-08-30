@@ -10,9 +10,9 @@ const SAMPLE = 'Typeset';
 const BASE = 16;
 
 const RATIOS = {
-  minor: { value: 1.2, name: 'minor third' },
-  fourth: { value: 1.333, name: 'perfect fourth' },
-  fifth: { value: 1.5, name: 'perfect fifth' },
+  minor: { value: 1.2 },
+  fourth: { value: 1.333 },
+  fifth: { value: 1.5 },
 } as const;
 
 type RatioKey = keyof typeof RATIOS;
@@ -39,10 +39,15 @@ const sizeAt = (ratio: number, step: number) => BASE * ratio ** step;
  * control in the scenery that swaps the ratio so the same ladder is rebuilt at
  * a different pitch.
  *
+ * A line under the ladder once read "Ratio 1.2, the minor third: 28px by the
+ * fourth step." Naming the musical interval is the article's job (it lists the
+ * whole set), and the arithmetic was already printed on every rung, so the line
+ * and its reserved band went.
+ *
  * The subject is the ladder. A scale is the set of related steps rather than
  * any one size, so no single rung is the term and the narrowest honest answer
- * is the whole ruled run (SPEC §5); the ratio control and the readout are the
- * demo's own instrumentation and stay outside it. Every ratio the control
+ * is the whole ruled run (SPEC §5); the ratio control is the demo's own
+ * instrumentation and stays outside it. Every ratio the control
  * offers is a real modular scale, so there is no dishonest state here for
  * identify to refuse.
  *
@@ -77,9 +82,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-stack" data-part="ladder" data-subject data-ratio="minor" style="gap: 0; margin-top: 6px">
           ${rungs}
         </div>
-        <div class="sp-row sp-context" style="height: 22px; margin-top: 6px">
-          <span class="sp-text" data-part="readout"></span>
-        </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px; font-size: 12px">
           Nothing here was chosen. Every rung is the one below it multiplied by the ratio, which is why a
           steeper ratio runs out of usable sizes by the fourth step and a shallow one barely separates them.
@@ -89,7 +91,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const ladder = part(root, 'ladder');
-  const readout = part(root, 'readout');
 
   const apply = (key: string) => {
     const ratio = RATIOS[key as RatioKey];
@@ -101,7 +102,6 @@ export function mount(root: HTMLElement): void {
       part(root, `math-${step}`).innerHTML =
         step === 0 ? `base = ${BASE.toFixed(1)}px` : `${BASE} × ${ratio.value}<sup>${step}</sup> = ${size.toFixed(1)}px`;
     }
-    readout.textContent = `Ratio ${ratio.value}, the ${ratio.name}: ${sizeAt(ratio.value, 3).toFixed(0)}px by the fourth step.`;
   };
 
   apply('minor');

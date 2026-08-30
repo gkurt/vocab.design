@@ -33,6 +33,11 @@ const SHAPE = 'class="sp-context"';
  * `prefersReducedMotion` itself and parks the band mid-panel instead of playing the
  * sweep, which is the resting frame the stage poses under that preference (SPEC §6).
  *
+ * Under reduced motion the readout used to be overwritten with "Sweep held still: the
+ * reader asked for less movement.", which was the site explaining its own preference
+ * handling inside the panel. It now keeps the counter at zero, which is the truth about
+ * a band that is not travelling.
+ *
  * The pass counter is read off the animation's own clock rather than off a timer, so
  * `data-swept` means a sweep genuinely completed and cannot pass for a demo whose
  * band never moved. It also carries the term's least comfortable fact: the count
@@ -83,7 +88,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   if (prefersReducedMotion(root)) {
     band.style.transform = `translateX(${REST}px)`;
-    readout.textContent = 'Sweep held still: the reader asked for less movement.';
     return;
   }
 

@@ -19,12 +19,12 @@ const MODE = {
   alt: {
     utterance: '“Quarterly emissions by site. Chart.”',
     verdict: 'The name of the picture, and none of its content. There is nowhere else to go.',
-    status: 'Not declared. The short name is everything a reader gets, and there is nowhere further to go.',
+    status: 'None for this figure.',
   },
   details: {
     utterance: '“Quarterly emissions by site. Chart. Has details.”',
     verdict: 'The same name, plus a pointer the reader can follow to the full account.',
-    status: 'Declared and reachable. The reader is told details exist and can open them on purpose.',
+    status: 'Declared. Open it with Full description.',
   },
 } as const satisfies Record<Mode, unknown>;
 
@@ -44,6 +44,12 @@ const MODE = {
  *
  * The description's room is reserved whether it is open or not, so opening it moves nothing below
  * it (SPEC §5).
+ *
+ * Two strings left the frame. The row above the chart was labelled "Figure, one complex image",
+ * which described the scene instead of naming it, and is now the figure number a document would
+ * print. The line standing in the description's box while it is closed used to argue the case
+ * ("Declared and reachable. The reader is told details exist ..."); it is an ordinary empty state
+ * now, and the verdict in the strip carries the reading.
  */
 export function mount(root: HTMLElement): void {
   const bar = ({ site, value }: { site: string; value: number }) => `
@@ -57,7 +63,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Figure, one complex image</span>
+          <span class="sp-label" style="flex: 0 0 auto">Figure 3</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="alt" data-axis="Alt" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-alt" value="alt"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Alt only</button>

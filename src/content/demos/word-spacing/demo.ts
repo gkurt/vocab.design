@@ -11,13 +11,13 @@ import '#src/kit/segmented.ts';
 const FAMILY = "Georgia, 'Liberation Serif', 'Nimbus Roman', 'DejaVu Serif', serif";
 
 const BODY =
-  'Justification stretches the spaces between the words until every line reaches both margins, so a ' +
-  'narrow column ends up with gaps much wider than the ones the type designer drew, and the eye begins ' +
-  'to join them up.';
+  'The tide came in over the flats before dawn, and by the time the boats were free of the mud the ' +
+  'whole reach had turned the colour of pewter, which the old hands took as a sign of settled weather ' +
+  'ahead of them.';
 
 const COLUMN = 262;
 const LINE = 20;
-/** Room for the loosest setting, so a rebreak cannot move the caption (SPEC §5). */
+/** Room for the loosest setting, so a rebreak cannot move the readouts beside it (SPEC §5). */
 const LINES = 7;
 
 const STEPS: Record<string, { css: string; value: string; note: string }> = {
@@ -74,6 +74,12 @@ function gaps(column: HTMLElement): Gap[] {
  * the declaration and the note beside it are the demo's own instrumentation
  * (SPEC §5) and stay in the context register. The paragraph has word spacing in
  * every state, so it is the term wherever a pass is picked up.
+ *
+ * The paragraph is ordinary narrative prose. It used to describe justification to the
+ * reader ("Justification stretches the spaces between the words..."), and a caption under
+ * the column added "The tint is the gap itself." Both were the site writing inside the
+ * set text: the copy is fiction at the same line count now, and the caption is gone, since
+ * the strip already carries the note each pick produces.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -103,10 +109,6 @@ export function mount(root: HTMLElement): void {
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; font-size: 12px; height: 72px"></p>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 8px">
-          The tint is the gap itself. Justification has to put the slack somewhere, and the word space is
-          the only thing on the line that gives.
-        </p>
       </div>
     </div>
   `;

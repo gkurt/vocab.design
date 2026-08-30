@@ -24,6 +24,11 @@ const washAt = (l: number) => `color-mix(in oklab, ${colorAt(l)} 16%, var(--sp-s
  * Lightness specimen: one hue at one chroma, five steps from near black to near white.
  * The band is the term, and it is also the axis a ramp is cut along, which is why the
  * steps are the same shape as the ones a palette ships.
+ *
+ * The swatch row named the step by how it looked to the author ("Reads as mid"). A palette
+ * names its steps, so the row prints the ramp's own name for the stop instead. The row above
+ * the band was headed "Held constant", which is the exhibit describing its own method; a
+ * colour panel heads that row with the model it is working in, so it reads "oklch".
  */
 export function mount(root: HTMLElement): void {
   const band = STOPS.map(
@@ -40,7 +45,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 340px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Held constant</span>
+          <span class="sp-label">oklch</span>
           <span class="sp-text">H 262 · C 0.06</span>
         </div>
 
@@ -51,7 +56,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" data-part="sample"
              style="margin-top: 16px; padding: 10px 12px; border: 1px solid var(--sp-line); border-radius: var(--sp-radius); background: ${washAt(START)}">
           <span class="sp-swatch" data-part="dot" style="width: 16px; height: 16px; border-radius: 50%; --sp-swatch: ${colorAt(START)}"></span>
-          <span class="sp-grow sp-text sp-text--ink" data-part="name">Reads as mid</span>
+          <span class="sp-grow sp-text sp-text--ink" data-part="name">Iris mid</span>
           <span class="sp-text" data-part="value" style="width: 52px; text-align: right">L ${START / 100}</span>
         </div>
       </div>
@@ -79,7 +84,7 @@ export function mount(root: HTMLElement): void {
     });
     sample.style.background = washAt(l);
     dot.style.setProperty('--sp-swatch', colorAt(l));
-    name.textContent = `Reads as ${chosen.name}`;
+    name.textContent = `Iris ${chosen.name}`;
     value.textContent = `L ${l / 100}`;
   };
   paint(START);

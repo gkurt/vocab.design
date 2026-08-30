@@ -8,10 +8,10 @@ import '#src/kit/segmented.ts';
  * not a straight scaling of each other at the accessibility end.
  */
 const STEPS: Record<string, { title: number; body: number; meta: number; gap: number; name: string; stack: boolean }> = {
-  s: { title: 13, body: 11, meta: 10, gap: 12, name: 'small', stack: false },
-  m: { title: 16, body: 13, meta: 11, gap: 12, name: 'default', stack: false },
-  l: { title: 19, body: 16, meta: 13, gap: 12, name: 'large', stack: false },
-  xl: { title: 23, body: 20, meta: 16, gap: 2, name: 'accessibility XL', stack: true },
+  s: { title: 13, body: 11, meta: 10, gap: 12, name: 'Small', stack: false },
+  m: { title: 16, body: 13, meta: 11, gap: 12, name: 'Default', stack: false },
+  l: { title: 19, body: 16, meta: 13, gap: 12, name: 'Large', stack: false },
+  xl: { title: 23, body: 20, meta: 16, gap: 2, name: 'Accessibility XL', stack: true },
 };
 
 /** Room for the accessibility setting, held at every smaller one, so nothing below moves (SPEC §5). */
@@ -29,6 +29,11 @@ const SCREEN = 144;
  * are the demo's own instrumentation (SPEC §5). Growth is the term here, so it is
  * contained: the card holds the room the largest setting needs at every setting,
  * and the readout and caption under it never move.
+ *
+ * The readout used to spell out the type sizes as well ("default, body 13px, title
+ * 16px"). No settings screen prints its own point sizes at the reader, and the sizes
+ * are this demo's choice rather than a fact about the term, so the readout now names
+ * the setting alone, which is the word the reader would have picked.
  */
 export function mount(root: HTMLElement): void {
   const segments = Object.entries(STEPS)
@@ -81,7 +86,7 @@ export function mount(root: HTMLElement): void {
     head.style.flexDirection = step.stack ? 'column' : 'row';
     head.style.alignItems = step.stack ? 'flex-start' : 'baseline';
     head.dataset.flow = step.stack ? 'stack' : 'row';
-    numbers.textContent = `${step.name}, body ${step.body}px, title ${step.title}px`;
+    numbers.textContent = step.name;
   };
 
   apply('m');

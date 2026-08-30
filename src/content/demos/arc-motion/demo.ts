@@ -37,8 +37,11 @@ const ARC_X = 'cubic-bezier(0.8, 0, 0.6, 1)';
  * The subject is the arcing lane, its track included: a card crossing a box is just a move, and
  * what the term names is the curve it was given. Following the motion path specimen, the route
  * and its traveller are marked together rather than the card alone. The straight lane is the
- * counter-example and a separate element, so no `data-pose` is needed, and the heading, the
- * Replay control and the caption stay outside the subject.
+ * counter-example and a separate element, so no `data-pose` is needed, and the Replay
+ * control stays outside the subject. The panel used to carry a heading ("One diagonal, two
+ * routes") and a closing line giving the shared duration, and each lane was labelled with the
+ * timing that produced it; all of that was the site narrating its own exhibit, so the lanes
+ * are named for their routes and the prose is gone.
  *
  * Nothing here is scripted animation: both cards move on transitions, which `motion.css` gates
  * for a reader who asked for less movement, and the settle beat comes from the stage's clock so
@@ -65,14 +68,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-state="rest" style="width: 440px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One diagonal, two routes</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
 
         <div class="sp-row" style="gap: 12px; align-items: flex-start; margin-top: 12px">
           <div class="sp-stack sp-context" style="gap: 5px">
-            <span class="sp-label sp-text--ink" style="font-size: 11px">Straight, one timing</span>
+            <span class="sp-label sp-text--ink" style="font-size: 11px">Straight</span>
             <div
               data-part="lane-line"
               style="position: relative; width: ${LANE_W}px; height: ${LANE_H}px; border-radius: 6px;
@@ -88,7 +90,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
 
           <div class="sp-stack" style="gap: 5px">
-            <span class="sp-label sp-text--ink" style="font-size: 11px">Arc, a timing per axis</span>
+            <span class="sp-label sp-text--ink" style="font-size: 11px">Arc</span>
             <div
               data-part="lane-arc"
               data-subject
@@ -107,10 +109,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">
-          The same two corners and the same ${TRAVEL_MS} ms. Only the shape in between is different.
-        </p>
       </div>
     </div>
   `;

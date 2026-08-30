@@ -6,9 +6,6 @@ export default steps([
   // Mounted with a figure already written: the subject is never an empty grid.
   { assert: { selector: '[data-part=figure][data-event=sent]', state: 'visible' } },
   { assert: { selector: '[data-part=readout][data-shape=rising]', state: 'visible' } },
-  // The demonstration says out loud that it is silent, which is the honest half of a
-  // sound the medium cannot deliver unasked.
-  { assert: { selector: '[data-part=silent]', state: 'visible' } },
 
   { moveTo: '[data-part=event-failed]' },
   { wait: 400 },

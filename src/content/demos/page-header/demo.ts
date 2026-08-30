@@ -26,6 +26,11 @@ const ROWS = ['Merlin', 'Kittiwake'];
  * The band sits in a slot as tall as its full state, so condensing changes the band's own
  * height and moves nothing under it (SPEC §5). Each segment names a density, so the switch
  * lands on that density rather than flipping the one it finds (SPEC §8).
+ *
+ * The line naming what the band is carrying ("Breadcrumb, title, description, status, and the
+ * page's own actions.") was the site reading the specimen out inside the specimen's own box.
+ * It changes with the density switch, so it is a verdict: it carries `data-stage-verdict` now
+ * and the stage draws it in the strip, above the control that produced it.
  */
 export function mount(root: HTMLElement): void {
   const rows = ROWS.map(
@@ -79,7 +84,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" data-part="readout" style="height: 24px; max-width: 440px; text-align: center"></span>
+      <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="max-width: 440px; text-align: center"></span>
     </div>
   `;
 

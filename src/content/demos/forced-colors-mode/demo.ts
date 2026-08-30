@@ -99,6 +99,10 @@ const vars = (p: Palette, prefix: string) =>
  * register (SPEC §5). Both themes are honest renderings of the mode, so there is no state
  * identify has to refuse. The two panels are the same fixed size and the mapping list has a
  * fixed height, so switching theme repaints and moves nothing.
+ *
+ * The mapping list was headed "What the theme substituted", a sentence about the figure
+ * rather than a name for it. It is headed "Substitutions" now, and each line still names
+ * the pair it maps.
  */
 export function mount(root: HTMLElement): void {
   const panel = (prefix: string, name: string, subject: boolean, palette: Palette) => `
@@ -148,7 +152,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-stack sp-context" style="gap: 3px; margin-top: 9px">
-          <span class="sp-label" style="font-size: 10px">What the theme substituted</span>
+          <span class="sp-label" style="font-size: 10px">Substitutions</span>
           <div class="sp-row sp-row--wrap" data-part="mapping" style="gap: 2px 14px">${mapping}</div>
         </div>
       </div>

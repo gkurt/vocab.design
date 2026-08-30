@@ -5,16 +5,16 @@ import '#src/kit/segmented.ts';
 const LINE_H = 16;
 
 const LINES = [
-  'Reading is not a smooth glide along a line of text.',
-  'The eye moves in short jumps, resting four or five',
-  'times a second, and each rest takes in only a few',
-  'characters clearly. Everything else is a guess made',
-  'from shape and context. The hardest movement of all',
-  'is the return sweep: back across the whole column,',
-  'down exactly one line, with nothing to aim at but',
-  'the spacing. Miss it and you read the same sentence',
-  'twice, or skip a line and notice only a paragraph',
-  'later, when the sense has quietly come apart.',
+  'The ferry leaves the west quay at ten past six,',
+  'and by then the harbour has been awake for hours.',
+  'Crates come down the slipway on a hand trolley,',
+  'the chandlery opens its shutters, and somebody',
+  'walks the pontoons counting the boats that came',
+  'in overnight. The tide is low enough that the mud',
+  'shows along the far wall, black and shining, with',
+  'gulls standing on it as if they had been posted',
+  'there. Nobody hurries. The whole town has learned',
+  'to keep the time the water keeps.',
 ] as const;
 
 const WIDTHS = { '1': 1, '3': 3, '5': 5 } as const;
@@ -31,6 +31,12 @@ type Width = keyof typeof WIDTHS;
  * ring belongs to (SPEC §5). The page, the prose, the picker, the advance and the readout are
  * scenery. The band is on stage and is the term in every state, so no `data-pose` is needed.
  *
+ * The column holds ordinary prose. It used to hold a passage about saccades and the return
+ * sweep, which is the article's material set inside the reading view as though the product
+ * had written it, and a caption under the page explained that the dimmed lines are still
+ * there. Both are gone: any ten lines demonstrate a band, and the panel is labelled with the
+ * mode rather than with a description of the figure.
+ *
  * The column holds the same ten lines at every width, so changing the band moves nothing but the
  * band (SPEC §5). No timers: the reader (or the script) chooses when the band advances, which is
  * how a reading aid actually works.
@@ -42,7 +48,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 11px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Immersive reading, one column</span>
+          <span class="sp-label" style="flex: 0 0 auto">Immersive reading</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Focus" data-part="width" data-value="3" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-1" value="1"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">1 line</button>
@@ -72,9 +78,6 @@ export function mount(root: HTMLElement): void {
                 style="flex: 1 1 auto; min-width: 0; font-size: 11px; white-space: nowrap">Lines 1 to 3 of ${LINES.length}</span>
         </div>
 
-        <p class="sp-text sp-context" style="margin: 8px 0 0; height: 30px; font-size: 11px; line-height: 1.35">
-          Nothing is removed: the lines outside the band are dimmed, not clipped, so the reader can still
-          select, search, and see where they are in the column.</p>
       </div>
     </div>
   `;

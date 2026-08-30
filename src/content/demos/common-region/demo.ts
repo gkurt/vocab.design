@@ -62,12 +62,18 @@ const group = (name: string, extra: string) => `
  * alone, and then with the two devices arguing, where the boundary still wins.
  *
  * The subject is one enclosed group, the narrowest element the term actually names: the
- * segmented picker and the caption are scenery (SPEC §5), and the page the groups sit on
+ * segmented picker and the readout are scenery (SPEC §5), and the page the groups sit on
  * stays out of the context register because the subject is inside it and a subject must
  * not be dimmed by its own scenery. The spacing-only state is the counter-example the term
  * needs in order to be legible, and in it the subject is no longer a region at all, so it
  * declares `data-grouped` as its pose condition: identify refuses to ring an ungrouped
  * group and plays on (SPEC §6). Mount is the bordered state, which satisfies it.
+ *
+ * The readout is the author reading the arrangement ("Even gaps throughout. The boundary
+ * alone says three and three."), not something a page of six cards would print, so it is
+ * marked `data-stage-verdict` and the stage draws it in the strip above the switch that
+ * produced it. It changes with every segment, which is what makes it a verdict rather than
+ * a caption to delete.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -85,7 +91,7 @@ export function mount(root: HTMLElement): void {
               ${group('group-b', '')}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

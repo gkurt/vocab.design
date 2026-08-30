@@ -63,6 +63,11 @@ const CTA_BASE = 'display: inline-flex; align-items: center; justify-content: ce
  *
  * Nothing outside the action moves. The action grows inside a slot of fixed size, and the
  * crowd steps back with `visibility`, which keeps the room it was occupying (SPEC §5).
+ *
+ * The note under the page ("Size alone. The biggest thing in the field is reached first.")
+ * was printed inside the frame, in the mock page's own type, and it changes with the lever
+ * switch, which is what a verdict is: it is marked `data-stage-verdict` now and the stage
+ * draws it in the strip beside the switch that produced it (SPEC §5.1).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -116,7 +121,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

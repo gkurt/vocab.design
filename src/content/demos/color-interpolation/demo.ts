@@ -63,7 +63,9 @@ const WHEEL = `conic-gradient(${Array.from({ length: 25 }, (_, i) => `oklch(0.72
  *
  * The subject is the ramp, the element whose interpolation is being changed. The wheel, the
  * method readout and the picker are instrumentation and sit in the context register
- * (SPEC §5). Every mode is an honest interpolation, so no state needs a `data-pose`.
+ * (SPEC §5). A caption under them used to restate the setup ("The same two endpoints every
+ * time. Only the route changes..."); the two endpoint values are printed under the ramp and
+ * the route is drawn on the wheel, so the scene already said it. Every mode is an honest interpolation, so no state needs a `data-pose`.
  *
  * The ramp holds one fixed box and only its background image changes, so switching methods
  * moves nothing (SPEC §5).
@@ -118,10 +120,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="caption" style="margin: 9px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
-          The same two endpoints every time. Only the route changes: which space the blend is walked in, and which way
-          round the hue wheel it goes.
-        </p>
       </div>
     </div>
   `;

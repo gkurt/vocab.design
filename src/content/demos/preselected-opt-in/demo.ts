@@ -17,11 +17,6 @@ const START: Record<Mode, Record<string, boolean>> = {
   fair: { insurance: false, offers: false, card: false },
 };
 
-const CAPTION = {
-  preselected: 'Extras (as the step arrives)',
-  fair: 'Extras (asked, not assumed)',
-} as const;
-
 const VERDICT = {
   preselected: 'Two answers were given before the reader got here, and one of them costs 12.00.',
   fair: 'Every box starts empty, so a yes on this screen is something somebody actually did.',
@@ -56,6 +51,11 @@ function optionRow(key: string, label: string, price: string, subject: boolean):
  * control restores that mode's own starting answers (SPEC §8); the boxes stay toggleable
  * for a reader who takes over, which is the gesture the pattern is counting on nobody
  * making.
+ *
+ * The section header used to editorialise with the switch ("Extras (as the step arrives)",
+ * then "Extras (asked, not assumed)"), which is a second verdict printed in the booking's
+ * own type. A specimen gets one, and this one has it in the strip, so the header is now the
+ * word a ferry site would put there: "Extras".
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -65,7 +65,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 6px">
 
           <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; height: 17px">
-            <span class="sp-label" data-part="caption" style="font-size: 11px">${CAPTION.preselected}</span>
+            <span class="sp-label" style="font-size: 11px">Extras</span>
             <span class="sp-label" style="font-size: 11px">2 adults, Friday</span>
           </div>
 
@@ -92,7 +92,6 @@ export function mount(root: HTMLElement): void {
     </div>
   `;
 
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const totalValue = part(root, 'total');
   const receipt = part(root, 'receipt');
@@ -116,7 +115,6 @@ export function mount(root: HTMLElement): void {
     const insurance = rows.find((r) => r.key === 'insurance');
     if (insurance) insurance.row.dataset.mode = mode;
     for (const { key } of rows) setBox(key, START[mode][key] === true);
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
     receipt.textContent = '';
     receipt.removeAttribute('data-sold');

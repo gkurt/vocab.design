@@ -57,9 +57,15 @@ const frames = (deform: boolean): Keyframe[] =>
  * floor instead of playing the drop. `data-settled` is timed on the stage's clock rather
  * than on the animation's own promise, so a pose cannot let the run finish underneath a
  * reader inspecting it (SPEC §6).
+ *
+ * The panel used to be titled "One drop, two materials" and each column carried a line
+ * reading the drop out ("deforms along its travel", "same path, one shape"). That is the
+ * site narrating its own picture, so it went. The two columns name the two materials and
+ * nothing else: the subject's column was headed with the headword and now says "Flexible",
+ * which is what it is and what makes the pair with "Rigid" read.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
-  const column = (id: string, label: string, note: string, subject: boolean) => `
+  const column = (id: string, label: string, subject: boolean) => `
     <div class="sp-stack${subject ? '' : ' sp-context'}" style="flex: 1 1 0; gap: 8px">
       <div data-part="arena-${id}" style="position: relative; height: ${ARENA_H}px">
         <span
@@ -71,22 +77,18 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         ></span>
       </div>
       <span class="sp-divider"></span>
-      <span class="sp-stack" style="gap: 1px">
-        <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">${label}</span>
-        <span class="sp-label" style="font-size: 11px">${note}</span>
-      </span>
+      <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">${label}</span>
     </div>`;
 
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="panel" style="width: 392px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One drop, two materials</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-row" style="align-items: flex-end; gap: 28px; margin-top: 12px">
-          ${column('soft', 'Squash and stretch', 'deforms along its travel', true)}
-          ${column('rigid', 'Rigid', 'same path, one shape', false)}
+          ${column('soft', 'Flexible', true)}
+          ${column('rigid', 'Rigid', false)}
         </div>
       </div>
     </div>

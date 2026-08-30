@@ -12,6 +12,12 @@
  * honestly (SPEC §5). The other two plates, the labels and the anatomy strip are scenery.
  *
  * Static: a cut corner has no states, so there is nothing to animate and no clock to take.
+ *
+ * The sheet used to head itself "Three ways to end a corner", describe each plate in a
+ * sentence, and gloss the anatomy figure with "Called out by its leg, not by a radius".
+ * That is the article's prose printed on a drawing. Each plate now carries the callout a
+ * drawing carries (45°, 20px leg; R20; 90°), the figure already dimensions itself, and the
+ * article keeps the point about legs and radii.
  */
 const CUT = 20;
 const EDGE = '#9aa6bd';
@@ -61,28 +67,23 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 9px">
       <div class="sp-window" style="width: 460px; padding: 11px 16px 12px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Three ways to end a corner</span>
-
         <div class="sp-row" data-part="tour" style="gap: 10px; align-items: flex-start; justify-content: center">
           ${tile(
             'plate-chamfer',
             'Chamfer',
-            'Cut flat at 45 degrees, 20px off each edge.',
+            '45°, 20px leg',
             `clip-path: ${chamferPath(CUT)}`,
             `clip-path: ${chamferPath(CUT - 3)}`,
             ' data-subject',
           )}
-          ${tile('plate-fillet', 'Fillet', 'Turned through an arc of the same 20px.', 'border-radius: 20px', 'border-radius: 18px')}
-          ${tile('plate-square', 'Square', 'Left as the two faces meet, at 90 degrees.', '', '')}
+          ${tile('plate-fillet', 'Fillet', 'R20', 'border-radius: 20px', 'border-radius: 18px')}
+          ${tile('plate-square', 'Square', '90°', '', '')}
         </div>
 
         <div class="sp-divider" style="margin: 9px 0 8px"></div>
 
-        <div class="sp-row sp-context" data-part="anatomy" style="gap: 14px; align-items: center">
+        <div class="sp-row sp-context" data-part="anatomy" style="gap: 14px; align-items: center; justify-content: center">
           ${ANATOMY}
-          <p class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.4">
-            Called out by its leg, not by a radius: how far it eats back along each face before the cut begins.
-          </p>
         </div>
       </div>
 

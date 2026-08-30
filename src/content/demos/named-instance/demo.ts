@@ -16,14 +16,14 @@ type Stop = { wght: number; name: string; read: string };
 
 /** The four offered flags: a coordinate the family named, and the name it gave it. */
 const NAMED: Stop[] = [
-  { wght: 300, name: 'Light', read: 'Light: the name for wght 300' },
-  { wght: 400, name: 'Regular', read: 'Regular: the name for wght 400' },
-  { wght: 600, name: 'Semibold', read: 'Semibold: the name for wght 600' },
-  { wght: 900, name: 'Black', read: 'Black: the name for wght 900' },
+  { wght: 300, name: 'Light', read: 'Light · wght 300' },
+  { wght: 400, name: 'Regular', read: 'Regular · wght 400' },
+  { wght: 600, name: 'Semibold', read: 'Semibold · wght 600' },
+  { wght: 900, name: 'Black', read: 'Black · wght 900' },
 ];
 
 /** The point between two flags. Renderable, reachable, and nameless. */
-const UNNAMED: Stop = { wght: 520, name: '520', read: 'wght 520: no name reaches this drawing' };
+const UNNAMED: Stop = { wght: 520, name: '520', read: 'wght 520 · no named instance' };
 
 const STOPS = [...NAMED, UNNAMED];
 const at = (wght: number) => ((wght - MIN) / (MAX - MIN)) * 100;
@@ -42,7 +42,9 @@ const dot = (wght: number) => `calc(7px + (100% - 14px) * ${(wght - MIN) / (MAX 
  * passes through, so the honest condition is declared in `data-pose` and the
  * specimen mounts on Regular (SPEC §6). The picker, the axis trace and the
  * readout are the demo's own instrumentation and stay in the context register
- * (SPEC §5).
+ * (SPEC §5). The chip prints the coordinate the way a type panel would, "Regular ·
+ * wght 400" and "wght 520 · no named instance"; it used to gloss itself ("Regular:
+ * the name for wght 400"), which was the site explaining its own instrument.
  *
  * Nothing is measured after a write: the marker's position and every tick are
  * arithmetic on the axis range, and the sample sits in a box of fixed height

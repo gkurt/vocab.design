@@ -29,32 +29,16 @@ interface Outcome {
   state: string;
   count: string;
   line: string;
-  note: string;
 }
 
 const OUTCOME: Record<Mode, { pending: Outcome; after: Outcome }> = {
   vague: {
-    pending: { state: 'pending', count: '0 sent', line: 'Nothing has left yet.', note: 'The ask mentions seeing, not sending.' },
-    after: {
-      state: 'sent',
-      count: '214 sent',
-      line: 'From: Dana Ruiz. To: everyone in the address book.',
-      note: 'The reader never saw the list, the wording, or the count before it went.',
-    },
+    pending: { state: 'pending', count: '0 sent', line: 'Nothing has left yet.' },
+    after: { state: 'sent', count: '214 sent', line: 'From: Dana Ruiz. To: everyone in the address book.' },
   },
   exact: {
-    pending: {
-      state: 'pending',
-      count: '0 sent',
-      line: 'Nothing has left yet.',
-      note: 'The ask names the act, the recipients, and the words.',
-    },
-    after: {
-      state: 'held',
-      count: '0 sent',
-      line: '214 contacts read and shown to the reader.',
-      note: 'Names are picked next, and the count on the send button is what was chosen.',
-    },
+    pending: { state: 'pending', count: '0 sent', line: 'Nothing has left yet.' },
+    after: { state: 'held', count: '0 sent', line: '214 contacts read, and none of them mailed.' },
   },
 };
 
@@ -75,6 +59,11 @@ const NOTE: Record<Mode, string> = {
  * vague: identify refuses to ring the honest ask and summons this state instead (SPEC §6).
  * The outbox, the mode picker, the topbar and the caption are scenery (SPEC §5).
  *
+ * The Outbox carried a third line that judged the ask ("The ask mentions seeing, not
+ * sending.", and one per state after it). No outbox prints that, and the verdict the stage
+ * draws already says what the two asks differ in, so the line went and the frame lost its
+ * height. The count and the From/To line that stayed are things an outbox really shows.
+ *
  * Every swappable line keeps a box of its own height, including the message line the vague
  * ask leaves empty, so switching modes moves nothing (SPEC §5). Picking a mode resets the
  * outbox to pending, so the click that follows is the same click in both states rather than
@@ -83,7 +72,7 @@ const NOTE: Record<Mode, string> = {
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 253px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Loomly, first run</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="vague" data-axis="Friend spam" data-term="vague" style="flex: 0 0 auto">
@@ -116,7 +105,6 @@ export function mount(root: HTMLElement): void {
               <span class="sp-chip" data-part="count" style="flex: 0 0 auto; padding: 1px 8px; font-size: 10.5px; cursor: default; white-space: nowrap">${OUTCOME.vague.pending.count}</span>
             </div>
             <span class="sp-text sp-text--ink" data-part="outbox-line" style="display: block; height: 15px; font-size: 11px; line-height: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">${OUTCOME.vague.pending.line}</span>
-            <span class="sp-text" data-part="outbox-note" style="display: block; height: 15px; font-size: 10.5px; line-height: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">${OUTCOME.vague.pending.note}</span>
           </div>
         </div>
       </div>
@@ -133,7 +121,6 @@ export function mount(root: HTMLElement): void {
   const outbox = part(root, 'outbox');
   const count = part(root, 'count');
   const line = part(root, 'outbox-line');
-  const outNote = part(root, 'outbox-note');
   const note = part(root, 'note');
 
   let mode: Mode = 'vague';
@@ -142,7 +129,6 @@ export function mount(root: HTMLElement): void {
     outbox.dataset.state = outcome.state;
     count.textContent = outcome.count;
     line.textContent = outcome.line;
-    outNote.textContent = outcome.note;
   };
 
   const showAsk = () => {

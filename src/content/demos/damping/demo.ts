@@ -15,9 +15,9 @@ const RUN_MS = 1400;
 const SAMPLES = 72;
 
 const REGIMES = [
-  { id: 'under', name: 'Underdamped', zeta: 0.35, note: 'crosses, corrects, settles' },
-  { id: 'critical', name: 'Critically damped', zeta: 1, note: 'fastest arrival with no crossing' },
-  { id: 'over', name: 'Overdamped', zeta: 1.8, note: 'never crosses, and is late' },
+  { id: 'under', name: 'Underdamped', zeta: 0.35 },
+  { id: 'critical', name: 'Critically damped', zeta: 1 },
+  { id: 'over', name: 'Overdamped', zeta: 1.8 },
 ];
 
 /**
@@ -54,10 +54,16 @@ function frames(zeta: number): Keyframe[] {
  * rule on each rail is the resting value, so the underdamped tile crossing it is a fact on
  * screen rather than a claim in a caption.
  *
+ * Nothing in the frame argues the comparison any more. A closing caption ("Same stiffness, same
+ * distance. Only the friction differs...") and the commentary tacked onto each ratio label
+ * ("crosses, corrects, settles") were the article talking inside the specimen; each rail now
+ * prints only its ratio, and the window is headed "Damping" rather than "One spring, three
+ * temperaments".
+ *
  * The subject is the sprung comparison, the three rails together: a single tile arriving is
  * just a move, and what the term names is the difference between the three arrivals. It is
  * marked on the group rather than on the demo's wrapper, so identify still has a part to
- * point at; the heading, the Replay control, and the caption stay outside it.
+ * point at; the heading and the Replay control stay outside it.
  *
  * The curves are generated from the ratio and handed to `element.animate`, which
  * `motion.css` cannot reach, so the demo asks `prefersReducedMotion` itself and leaves all
@@ -70,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-row" style="gap: 12px">
         <span class="sp-stack" style="width: 150px; gap: 1px">
           <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">${regime.name}</span>
-          <span class="sp-label" style="font-size: 11px">ratio ${regime.zeta.toFixed(2)}, ${regime.note}</span>
+          <span class="sp-label" style="font-size: 11px">ratio ${regime.zeta.toFixed(2)}</span>
         </span>
         <div
           data-part="rail-${regime.id}"
@@ -95,15 +101,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 424px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One spring, three temperaments</span>
+          <span class="sp-heading">Damping</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-stack" data-part="compare" data-subject data-settled style="gap: 10px; margin-top: 14px">
           ${rows}
         </div>
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          Same stiffness, same distance. Only the friction differs, and the dashed rule is where all three end up.
-        </p>
       </div>
     </div>
   `;

@@ -11,6 +11,10 @@
  * Static. The period's own default-button pulse is described in prose instead of played,
  * since a looping brightness change beside text is the accessibility complaint the
  * article makes about it.
+ *
+ * The pane's body text once explained what a 2001 desktop let you change, in the site's
+ * voice rather than the dialog's. It now says what a preferences pane would really say
+ * about its own two settings.
  */
 const RIM = 'rgb(0 0 0 / 0.34)';
 const PINSTRIPE_BODY = 'repeating-linear-gradient(180deg, #fbfcff 0 3px, #e6edfb 3px 4px)';
@@ -60,8 +64,8 @@ export function mount(root: HTMLElement): void {
           <div data-part="pinstripes" style="flex: 1 1 auto; min-width: 0; padding: 12px 12px 10px">
             <div style="font-size: 12px; font-weight: 700">Appearance</div>
             <div style="margin-top: 7px; font-size: 11px; line-height: 1.5; color: #4d5763">
-              Highlight colour and scrollbar arrow placement, the two knobs a 2001 desktop
-              gave you over its own gloss.
+              The highlight colour is used for selected text and lists. Scroll arrows sit
+              together at the end of each bar.
             </div>
             <div style="display: flex; align-items: center; gap: 7px; margin-top: 9px">
               <span aria-hidden="true"

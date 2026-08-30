@@ -11,8 +11,13 @@ type Moment = keyof typeof REPORT;
 /**
  * Focus management specimen: the two moments the practice is made of, either side of one
  * dialog. Opening hands the ring to the dialog's first field; closing hands it back to the
- * control that opened it, rather than dropping it at the top of the page. The strip below
- * names each move as it happens.
+ * control that opened it, rather than dropping it at the top of the page. The panel below
+ * reports where the ring is; why it went there is the author's reading, so it is marked
+ * `data-stage-verdict` and the stage draws it out in the strip.
+ *
+ * That reading used to sit in the panel behind a label reading "Because", and once the
+ * sentence moved to the strip the label was left introducing nothing. The label is gone and
+ * the verdict is now a bare child of the panel, hidden in place as every verdict is.
  *
  * The subject is the dialog, the region focus is handed to and taken back from. Where the
  * ring lands the moment it arrives is initial focus, and holding it inside for as long as
@@ -23,8 +28,8 @@ type Moment = keyof typeof REPORT;
  * The ring is drawn with `data-sim-focus` and never with real focus, so a reader scrolling
  * past never loses their keyboard (SPEC §7); the script presses no Tab, so the stage's own
  * simulated focus stays out of the scene. Opening and closing are separate controls, so no
- * step depends on the state it happens to find (SPEC §8), and the strip holds both of its
- * lines from mount so nothing moves when the text changes (SPEC §5).
+ * step depends on the state it happens to find (SPEC §8), and the panel's one row holds its
+ * height from mount so nothing moves when the text changes (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -63,10 +68,7 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="at" data-moment="idle"
                 style="font-size: 12px; white-space: nowrap">${REPORT.idle.at}</span>
         </div>
-        <div class="sp-row sp-row--between" style="height: 18px; margin-top: 2px">
-          <span class="sp-label">Because</span>
-          <span class="sp-text" data-stage-verdict data-part="why" style="font-size: 12px; white-space: nowrap">${REPORT.idle.why}</span>
-        </div>
+        <span class="sp-text" data-stage-verdict data-part="why" style="font-size: 12px; white-space: nowrap">${REPORT.idle.why}</span>
       </div>
     </div>
   `;

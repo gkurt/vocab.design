@@ -36,6 +36,10 @@ const MODES: Record<string, { markup: string; failure: 'text' | 'tofu'; announce
  * markup holds, what a reader sees if the font never arrives, and what a screen
  * reader is handed.
  *
+ * The panel heading read "Icons as a run of text" and the failure exhibit was labelled
+ * "if the font never loads": both were the site explaining the term inside the fiction, so
+ * they are "Glyphs" and "Font unavailable", which is what a font inspector would print.
+ *
  * The subject is the glyph run. An icon font names the type that draws those three
  * shapes, not the toolbar around them or the failure exhibits below, which are the
  * demo's own instrumentation and stay in the context register. Both addressing modes
@@ -55,7 +59,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Icons as a run of text</span>
+          <span class="sp-heading">Glyphs</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Notation" data-part="segmented" data-value="ligature">
             <button class="sp-segment" data-part="seg-ligature" value="ligature">ligature</button>
             <button class="sp-segment" data-part="seg-codepoint" value="codepoint">code point</button>
@@ -71,7 +75,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-divider sp-context" style="margin: 12px 0 10px"></div>
         <div class="sp-row sp-context" style="gap: 16px; align-items: flex-start">
           <div class="sp-stack" style="gap: 6px; flex: 0 0 178px">
-            <span class="sp-label">if the font never loads</span>
+            <span class="sp-label">Font unavailable</span>
             <span class="sp-row" data-part="failure" style="gap: 12px; height: 24px; font-size: 13px"></span>
           </div>
                       <!-- Three lines' room: the code point announcement is the longer of the two, and the

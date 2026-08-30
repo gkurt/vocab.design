@@ -75,8 +75,11 @@ function draw(letter: string, cut: Cut) {
  * letter that has one, and at this size the gap is a box tens of pixels across
  * rather than a hairline, so it can carry the ring. The closed cut beside it is
  * the counter-example and stays in the context register with the labels and the
- * caption. Both cuts have an aperture at every state the picker can reach, so the
- * subject is never dishonest and needs no `data-pose`.
+ * caption. The window was headed "Where the ring stops" and each column was labelled with
+ * a description of its own drawing ("terminals curled in", "terminals cut short"); the
+ * heading was the site talking and is gone, and the columns are named for the two cuts.
+ * Both cuts have an aperture at every state the picker can reach, so the subject is never
+ * dishonest and needs no `data-pose`.
  */
 export function mount(root: HTMLElement): void {
   const column = (cut: Cut, label: string) => `
@@ -102,16 +105,15 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Where the ring stops</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="c" data-axis="Letter">
             <button class="sp-segment" data-part="seg-c" value="c">c</button>
             <button class="sp-segment" data-part="seg-e" value="e">e</button>
           </sp-segmented>
         </div>
         <div class="sp-row" data-part="pair" data-letter="c" style="gap: 18px; justify-content: center; margin-top: 6px">
-          ${column('closed', 'terminals curled in')}
-          ${column('open', 'terminals cut short')}
+          ${column('closed', 'Closed')}
+          ${column('open', 'Open')}
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
           One ring, one stem width, two ways of ending it. The tint is the aperture: narrow it far enough

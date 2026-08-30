@@ -14,7 +14,7 @@ export default steps([
   { assert: { selector: '[data-part=legend-white]', state: 'visible' } },
   { assert: { selector: '[data-part=legend-yellow]', state: 'visible' } },
   { wait: 1500 },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { assert: { selector: '[data-part=legend-cyan]', state: 'visible' } },
   { assert: { selector: '[data-part=overlap]', state: 'visible' } },
   { wait: 1000 },
 ]);

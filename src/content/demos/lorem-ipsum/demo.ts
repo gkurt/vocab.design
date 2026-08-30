@@ -15,6 +15,13 @@ const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
  * Both cards are fixed in size and clip, so the wrapping role on the right
  * stretches nothing and the empty bio stays a visible hole rather than a
  * collapse (SPEC §5). Nothing changes state.
+ *
+ * The pair used to be captioned ("filled with placeholder", "filled with what
+ * is there") and footed with three chips reading the comparison out loud ("a
+ * real name can be one word", and two more). All five were the site talking
+ * inside the frame, and none of them were needed: the left card is headed
+ * "Lorem Ipsum" and holds lorem text, so it labels itself. The chips' row went
+ * with them, and the choreography's claim on it with that.
  */
 export function mount(root: HTMLElement): void {
   const card = (variant: 'lorem' | 'real', name: string, role: string, bio: string, bioStyle: string) => `
@@ -31,19 +38,12 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row" style="gap: 16px; align-items: flex-start">
-          <div class="sp-stack" style="gap: 6px; width: 200px">
-            <span class="sp-label sp-context">filled with placeholder</span>
+          <div class="sp-stack" style="width: 200px">
             ${card('lorem', 'Lorem Ipsum', 'Consectetur adipiscing', LOREM, '')}
           </div>
-          <div class="sp-stack sp-context" style="gap: 6px; width: 200px">
-            <span class="sp-label">filled with what is there</span>
+          <div class="sp-stack sp-context" style="width: 200px">
             ${card('real', 'Wei', 'Landesarbeitsgemeinschaftsvorsitzende', 'No bio yet.', 'font-style: italic')}
           </div>
-        </div>
-        <div class="sp-row sp-row--wrap sp-context" data-part="notes" style="gap: 6px; margin-top: 12px">
-          <span class="sp-chip" style="cursor: default">a real name can be one word</span>
-          <span class="sp-chip" style="cursor: default">a real title takes two lines</span>
-          <span class="sp-chip" style="cursor: default">a real bio is often empty</span>
         </div>
       </div>
     </div>

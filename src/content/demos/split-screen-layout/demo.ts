@@ -28,6 +28,12 @@ const HALVES = [
  * The region holds one height at both widths, so stacking rearranges what is inside it and
  * moves nothing around it (SPEC §5). Each segment names a width, so the switch lands on
  * that width rather than flipping the one it finds (SPEC §8).
+ *
+ * The line reading the arrangement out ("Two halves, equal in width, type and weight. Neither
+ * is the offer.") is the author's verdict on the state, not anything the page would print about
+ * itself, and it changes with the switch, so it carries `data-stage-verdict` and the stage draws
+ * it in the strip (SPEC §5.1). It used to sit under the region, which is why the frame is 30px
+ * shorter.
  */
 export function mount(root: HTMLElement): void {
   const halves = HALVES.map(
@@ -45,7 +51,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 270px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Window</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Width" data-part="switcher" data-value="wide">
@@ -63,7 +69,7 @@ export function mount(root: HTMLElement): void {
           >
             ${halves}
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

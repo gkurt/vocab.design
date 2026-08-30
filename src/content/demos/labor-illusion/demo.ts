@@ -28,6 +28,10 @@ const TOTAL = SOURCES.reduce((sum, source) => sum + source.fares, 0);
  * around it. It carries `data-pose` because the silent mode is a counter-example the
  * subject itself passes through: a worklist with nothing on it is the absence of the
  * term, and identify must never ring it there.
+ *
+ * A line beside the switch read "The same 2.6 seconds either way." It never changed with the
+ * switch, so it was never a verdict, and the article makes the point, so it went. The switch
+ * itself is drawn in the strip, which left the footer holding nothing, so the footer went too.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const rows = SOURCES.map(
@@ -58,13 +62,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
         </div>
-        <div class="sp-row sp-context" style="flex: 0 0 auto; gap: 12px; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="transparent" data-axis="Wait" data-term="transparent" style="flex: 0 0 auto">
-            <button class="sp-segment" data-part="seg-transparent" value="transparent">Show the work</button>
-            <button class="sp-segment" data-part="seg-silent" value="silent">Silent</button>
-          </sp-segmented>
-          <span class="sp-text sp-grow">The same 2.6 seconds either way.</span>
-        </div>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="transparent" data-axis="Wait" data-term="transparent">
+          <button class="sp-segment" data-part="seg-transparent" value="transparent">Show the work</button>
+          <button class="sp-segment" data-part="seg-silent" value="silent">Silent</button>
+        </sp-segmented>
       </div>
     </div>
   `;

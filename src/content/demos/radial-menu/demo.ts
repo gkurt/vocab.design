@@ -79,9 +79,17 @@ const POINTS = [
  *
  * The subject is the ring itself. The term names the menu, not the canvas it is summoned
  * over and not the command it runs, so the pin belongs on the SVG that draws the wedges and
- * the hub. The photos, the readout and the caption are the scene around it in the context
- * register. The ring is off stage at mount, which identify handles by summoning it: the
- * choreography's hold is followed by a wait and a visible assert, the beat a summon polls.
+ * the hub. The photos are the scene around it in the context register.
+ *
+ * The frame used to narrate itself twice over: a topbar line reported every beat of the
+ * gesture ("Menu drawn around the press, now aim outward", and one per hold, aim and
+ * release), and a caption under the canvas read "Direction names the command, distance
+ * decides whether one is named at all." Neither is anything a photo library prints, and the
+ * article says both, so both are gone. The aim is still readable where it belongs: the hub
+ * names whichever command the pointer is pointing at.
+ *
+ * The ring is off stage at mount, which identify handles by summoning it: the choreography's
+ * hold is followed by a wait and a visible assert, the beat a summon polls.
  *
  * Two menus are shown at two different press points, because sitting around the point of
  * invocation is the claim: the ring is absolutely positioned at whatever coordinate the
@@ -96,10 +104,9 @@ const POINTS = [
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: auto">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Library</span>
-          <span class="sp-text" data-part="readout" style="width: 300px; text-align: right; white-space: nowrap; font-size: 12px">Press and hold to summon the menu</span>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
@@ -144,10 +151,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               >None</text>
             </svg>
           </div>
-
-          <span class="sp-label sp-context" style="width: ${CANVAS.w}px; height: 15px; line-height: 15px; text-align: center; white-space: nowrap; font-size: 11px">
-            Direction names the command, distance decides whether one is named at all.
-          </span>
         </div>
       </div>
     </div>
@@ -156,7 +159,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const canvas = part(root, 'canvas');
   const ring = part(root, 'ring');
   const hubLabel = part(root, 'hub-label');
-  const readout = part(root, 'readout');
 
   /** The ring's centre in client coordinates: the point the press arrived at. */
   let centre: { x: number; y: number } | undefined;
@@ -165,10 +167,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   let aimed: Item | undefined;
   let timer: number | undefined;
   let open = false;
-
-  const say = (line: string) => {
-    readout.textContent = line;
-  };
 
   const highlight = (next: Item | undefined) => {
     aimed = next;
@@ -198,7 +196,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     ring.style.top = `${spot.local.y - R}px`;
     highlight(undefined);
     setOpen(true);
-    say('Menu drawn around the press, now aim outward');
   };
 
   /** The nearest of the six directions, once the pointer is past the hub. */
@@ -214,13 +211,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     canvas.dataset.chose = item.key;
     canvas.dataset.last = item.key;
     setOpen(false);
-    say(`${item.label} ran, chosen by direction`);
   };
 
   const cancel = () => {
     canvas.dataset.last = 'cancelled';
     setOpen(false);
-    say('Released inside the hub, so nothing ran');
   };
 
   canvas.addEventListener('pointerdown', (event) => {
@@ -230,7 +225,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (open) {
       gesture = 'pick';
       highlight(undefined);
-      say('Aiming from the hub, nothing chosen yet');
       return;
     }
     gesture = 'reveal';
@@ -240,7 +234,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       local: localPoint(event, canvas),
     };
     pending = spot;
-    say('Holding, the menu is on its way');
     timer = clock.setTimeout(() => openAt(spot), REVEAL_MS);
   });
 
@@ -251,12 +244,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const dist = Math.hypot(dx, dy);
     if (dist < HUB) {
       highlight(undefined);
-      if (gesture === 'pick') say('Inside the hub, so nothing would run');
       return;
     }
-    const item = nearest(dx, dy);
-    highlight(item);
-    if (gesture === 'pick') say(`Aiming ${item.label}, ${Math.round(dist)} px out from the press`);
+    highlight(nearest(dx, dy));
   });
 
   const release = () => {
@@ -264,7 +254,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       // Let go before the reveal landed: the menu is drawn anyway rather than thrown away,
       // so a press that turned out to be a tap still ends with the commands on screen.
       if (pending) openAt(pending);
-      else say('Menu left open, aim outward to choose');
       gesture = undefined;
       return;
     }

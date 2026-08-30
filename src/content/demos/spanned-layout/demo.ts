@@ -46,13 +46,17 @@ const lines = (widths: number[], height = 6) =>
  * the arrangement without moving the device or the caption (SPEC §5). The seam is drawn over the
  * content, because hardware is: content laid across it is genuinely not there to be read. Each
  * segment names an arrangement rather than stepping to the next one (SPEC §8).
+ *
+ * The title bar used to read "Spanned across both screens", which is the site describing the
+ * arrangement in the window the arrangement is being shown in. It carries the notes app's own
+ * name now, and the spanning is left to the picture.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Spanned across both screens</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Marina notes</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Layout" data-part="modes" data-value="unaware">
             <button class="sp-segment" type="button" data-part="seg-unaware" value="unaware" style="padding: 4px 8px; font-size: 11px">unaware</button>
             <button class="sp-segment" type="button" data-part="seg-avoided" value="avoided" style="padding: 4px 8px; font-size: 11px">avoided</button>

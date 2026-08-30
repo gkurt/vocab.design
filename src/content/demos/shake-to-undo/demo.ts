@@ -24,6 +24,12 @@ const NOTE_LINES = ['Ask about the boiler', 'Bring the parcel slip'];
  * rattle is an `element.animate`, out of reach of the kit's motion sheet, so it asks
  * `prefersReducedMotion` itself and lands on a static tilt instead of playing the move.
  *
+ * The instrument panel once ended with a line explaining that the alert always asks first
+ * because the gesture is easy to make by accident, and its readout opened by saying the
+ * accelerometer is the trigger with nothing on screen to point at. Both were the site
+ * talking beside the phone; the article carries them, and the readout now opens with the
+ * idle state a motion instrument would really print.
+ *
  * Undoing does not reflow the note: the undone line keeps its box and loses its ink, so the
  * lines above it hold still (SPEC §5), and the alert is drawn over the scene rather than
  * pushed into it.
@@ -76,9 +82,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             data-part="readout"
             data-mode="idle"
             style="min-height: 36px; font-size: 12px"
-          >The accelerometer is the trigger. There is nothing on screen to point at.</span>
-          <span class="sp-divider"></span>
-          <span class="sp-label" style="font-size: 11px; line-height: 1.4">The alert always asks first: a gesture this easy to make by accident may not act on its own.</span>
+          >Idle. No motion above the threshold.</span>
         </div>
       </div>
     </div>

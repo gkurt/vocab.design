@@ -12,12 +12,6 @@ const VERDICT: Record<View, string> = {
   reader: 'The same 33 words, one column, reader’s own type',
 };
 
-const CAPTION: Record<View, string> = {
-  page: 'A plausible article page rather than a strawman: a promo bar, an ad rail, a share row and a related block, all of them things real pages carry.',
-  reader:
-    'Reader mode is a reader-side override. The page cannot ask for it and cannot style what comes out, which is what makes it an audit of the markup underneath.',
-};
-
 /**
  * Reader mode specimen: one article page in a browser frame, shown as its author shipped it
  * and as the browser rebuilds it. Picking Reader view drops the promo bar, the ad rail, the
@@ -31,7 +25,13 @@ const CAPTION: Record<View, string> = {
  * followed by a `visible` assert (SPEC §8). No `data-pose` is needed: the surface is only
  * ever on stage in the state where it is the term.
  *
- * The browser chrome, the verdict readout and the caption are scenery (SPEC §5). The frame
+ * A caption under the frame used to gloss each view ("Reader mode is a reader-side
+ * override...", "A plausible article page rather than a strawman..."). That is the
+ * article's voice, and this specimen already has a verdict in the strip, which is the one
+ * place a reading of the state belongs, so the caption went. The address bar names a
+ * reserved example domain rather than describing the page it is showing.
+ *
+ * The browser chrome and the verdict readout are scenery (SPEC §5). The frame
  * and its body are fixed boxes, so the whole of the change happens inside the body and
  * nothing around it moves. Each segment reaches its own view rather than toggling (SPEC §8),
  * and no timer is needed.
@@ -49,7 +49,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-topbar sp-context" style="padding: 8px 10px; gap: 8px">
             <span style="flex: 1 1 auto; min-width: 0; padding: 3px 9px; border-radius: 999px; background: var(--sp-sunken);
                          color: var(--sp-muted); font-size: 10px; white-space: nowrap; overflow: hidden;
-                         text-overflow: ellipsis">news site / release notes</span>
+                         text-overflow: ellipsis">example.com/release-notes</span>
             <sp-segmented data-stage-mode class="sp-segmented" data-part="view" data-axis="View" data-value="page" style="flex: 0 0 auto">
               <button class="sp-segment" data-part="seg-page" value="page"
                       style="padding: 3px 9px; font-size: 11px">Page</button>
@@ -99,12 +99,8 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-                  <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" data-view="page"
-                style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${VERDICT.page}</span>
-        
-
-        <p class="sp-text sp-context" data-part="caption" data-view="page"
-           style="margin: 6px 0 0; height: 32px; font-size: 11px">${CAPTION.page}</p>
+        <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" data-view="page"
+              style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${VERDICT.page}</span>
       </div>
     </div>
   `;
@@ -112,15 +108,12 @@ export function mount(root: HTMLElement): void {
   const cluttered = part(root, 'cluttered');
   const reader = part(root, 'reader');
   const verdict = part(root, 'verdict');
-  const caption = part(root, 'caption');
 
   const apply = (view: View) => {
     flag(cluttered, 'hidden', view === 'reader');
     flag(reader, 'hidden', view === 'page');
     verdict.dataset.view = view;
     verdict.textContent = VERDICT[view];
-    caption.dataset.view = view;
-    caption.textContent = CAPTION[view];
   };
 
   apply('page');

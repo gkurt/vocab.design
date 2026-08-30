@@ -31,6 +31,12 @@ function band(value: number): string {
  * drag captures the pointer on a trusted pointerdown, so a real reader's drag survives leaving the
  * thumb (SPEC §7); the script's synthetic pointers cannot be captured, which is why the guard is
  * mandatory rather than tidy.
+ *
+ * The frame used to be titled "One part, three controls" and to close with a caption
+ * reading "The handle moves, the groove does not: filled from the start up to the
+ * handle, empty from there to the end." Both were the site narrating its own exhibit
+ * from inside the product, so the title is now just what the panel holds and the
+ * caption is gone; the article makes the same observation at length.
  */
 export function mount(root: HTMLElement): void {
   const swatch = () => '<span style="flex: 0 0 68px; height: 26px; border-radius: 6px; background: var(--sp-line)"></span>';
@@ -39,7 +45,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 276px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">One part, three controls</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Controls</span>
           <span class="sp-label" data-part="readout" style="font-size: 11px; white-space: nowrap">${START} filled, ${100 - START} empty</span>
         </div>
 
@@ -99,9 +105,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4; font-size: 11px">
-          The handle moves, the groove does not: filled from the start up to the handle, empty from there to the end.
-        </span>
       </div>
     </div>
   `;

@@ -87,6 +87,11 @@ const hueOf = (key: string) => HUES.find((h) => h.key === key) ?? HUES[0];
  * instrumentation, so all of them sit in the context register (SPEC §5). The tinted ramp is
  * tinted at every hue, so identify has nothing to refuse.
  *
+ * The row of measured lightnesses used to be captioned "Measured CIE lightness, shared by both
+ * ramps: the tint is chroma, never tone.", which argued the point the numbers are there to
+ * show. The label now names the instrument and stops, since the specimen already has its one
+ * verdict and the article carries the argument.
+ *
  * Both ramps are a fixed size and only paint and text change with the hue, so nothing moves
  * (SPEC §5). Every value is computed from the tables above, so the specimen renders identically
  * on every run.
@@ -143,9 +148,7 @@ export function mount(root: HTMLElement): void {
                                  height: 12px; font-size: 8.5px; font-variant-numeric: tabular-nums"></span>`,
               ).join('')}
             </div>
-            <span class="sp-text sp-context" style="height: 24px; font-size: 9px; line-height: 1.35">
-              Measured CIE lightness, shared by both ramps: the tint is chroma, never tone.
-            </span>
+            <span class="sp-label sp-context" style="height: 13px; font-size: 9px; line-height: 1.35">Measured CIE lightness</span>
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 0; min-width: 0; gap: 3px">

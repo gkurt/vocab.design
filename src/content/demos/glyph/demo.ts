@@ -19,6 +19,10 @@ const GLYPH_SIZE = 44;
  * the drawing and the advance width, which is why the two boxes are different
  * widths). The kit's sans leaves fi alone, so the row is set in the serif.
  *
+ * The right-hand cell of each row is the count under the "shapes out" heading, nothing more.
+ * It used to read "One character, two glyphs." and "Two characters, one glyph.", which is the
+ * article's sentence written over the drawing that already shows it.
+ *
  * The subject is one drawn shape, the serif a, and not the comparison around it:
  * the word names the drawing, so the narrowest element it applies to is a single
  * glyph (SPEC §5), the same call the em dash specimen makes. The face names, the
@@ -44,17 +48,13 @@ export function mount(root: HTMLElement): void {
           <span class="sp-context" style="${CODE}; flex: 0 0 62px; color: var(--sp-muted)">U+0061</span>
           ${cell('glyph-sans', 'a', SANS, 'Geist')}
           ${cell('glyph-serif', 'a', SERIF, 'Source Serif', '', true)}
-          <span class="sp-text sp-context sp-grow" style="font-size: 12px">
-            One character,<br />two glyphs.
-          </span>
+          <span class="sp-text sp-context sp-grow" style="font-size: 12px">2 glyphs</span>
         </div>
         <div class="sp-row" data-part="row-one-glyph" style="gap: 14px; margin-top: 10px">
           <span class="sp-context" style="${CODE}; flex: 0 0 62px; color: var(--sp-muted)">U+0066<br />U+0069</span>
           ${cell('glyph-fused', 'fi', SERIF, 'liga on', 'font-variant-ligatures: common-ligatures')}
           ${cell('glyph-split', 'fi', SERIF, 'liga off', 'font-variant-ligatures: none')}
-          <span class="sp-text sp-context sp-grow" style="font-size: 12px">
-            Two characters,<br />one glyph.
-          </span>
+          <span class="sp-text sp-context sp-grow" style="font-size: 12px">1 glyph</span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 10px 0 0; font-size: 12px">
           A codepoint is what gets stored and a glyph is what gets drawn. The two never line up one

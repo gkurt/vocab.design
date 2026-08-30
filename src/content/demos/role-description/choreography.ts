@@ -15,7 +15,6 @@ export default steps([
   { click: true },
   { wait: 900 },
   { assert: { selector: '[data-part=role][data-source=stock]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption][data-source=stock]', state: 'visible' } },
   { wait: 1500 },
 
   { moveTo: '[data-part=seg-lying]' },
@@ -23,7 +22,6 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=role][data-source=lying]', state: 'visible' } },
   { assert: { selector: '[data-part=reel][data-source=lying]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption][data-source=lying]', state: 'visible' } },
   { wait: 1800 },
 
   { moveTo: '[data-part=seg-honest]' },

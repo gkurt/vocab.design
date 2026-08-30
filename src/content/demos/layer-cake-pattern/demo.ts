@@ -45,11 +45,16 @@ const VIEWS: Record<Mode, () => string> = {
  * names is the figure tracing them, and the page underneath is the scene (SPEC §5). The
  * flattened page carries its own trace as context, so nothing pretends a wall of text is
  * layered. Neither overlay takes pointer events, so a reader's click reaches the page below.
+ *
+ * The note under the page reads the trace ("The headings get read. The paragraphs between
+ * them do not."), which is the author's reading of the state and not anything this help page
+ * would print, so it is marked `data-stage-verdict` and drawn in the strip above the switch
+ * that changes it. The frame lost the height the note used to hold.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Page structure</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Version" data-part="switcher" data-value="subheads">
@@ -63,7 +68,7 @@ export function mount(root: HTMLElement): void {
             <div data-part="bands" data-subject style="position: absolute; pointer-events: none"></div>
             <div data-part="fshape" hidden style="position: absolute; pointer-events: none"></div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 434px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 434px; text-align: center"></span>
         </div>
       </div>
     </div>

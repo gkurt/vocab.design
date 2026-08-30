@@ -46,6 +46,9 @@ const CAPTION = {
  * absence of the term rather than the term, so the honest condition is declared in `data-pose`
  * and the mount state satisfies it (SPEC §6).
  *
+ * The profile strip was labelled "Saved in the browser", a sentence about the exhibit; it
+ * is labelled "Browser profile", which names the store the strip is drawing.
+ *
  * The fill runs on the DemoClock, so a pose can hold it still. Every value, glyph and token sits
  * in a box that is the same size empty as full, so switching moves nothing (SPEC §5).
  */
@@ -82,7 +85,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-row sp-context" data-part="profile" style="gap: 8px; margin-top: 9px; height: 24px">
-          <span class="sp-label" style="flex: 0 0 auto">Saved in the browser</span>
+          <span class="sp-label" style="flex: 0 0 auto">Browser profile</span>
           <span class="sp-chip" style="cursor: default; padding: 2px 9px; font-size: 11px">Dana Whitlock</span>
           <span class="sp-chip" style="cursor: default; padding: 2px 9px; font-size: 11px">dana@kellerman.co</span>
           <span class="sp-chip" style="cursor: default; padding: 2px 9px; font-size: 11px">EC1A 4NP</span>

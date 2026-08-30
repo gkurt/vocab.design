@@ -25,7 +25,7 @@ const IS_FACE = (value: string): value is FaceKey => value in FACES;
 
 const DISPLAY = 'Handgloves';
 const SET = 'AaBbGgQqRr 0123 &?!';
-const PROSE = 'A face is judged in the paragraph, at the size the work is really set at.';
+const PROSE = 'Sphinx of black quartz, judge my vow. Pack my box with five dozen liquor jugs.';
 const WEIGHTS = [300, 500, 800];
 
 /**
@@ -34,10 +34,13 @@ const WEIGHTS = [300, 500, 800];
  * flatters, the paragraph at reading size is the one that judges, and both are on the
  * sheet for that reason.
  *
- * The subject is the sheet, not the whole scene: the picker below it and the caption
- * are the demo's own instrumentation and sit in the context register (SPEC §5). No face
- * is dishonest, so no `data-pose` is needed: a sheet is a specimen whichever file it is
- * set in.
+ * The subject is the sheet, not the whole scene: the picker below it is the demo's own
+ * instrumentation (SPEC §5). No face is dishonest, so no `data-pose` is needed: a sheet
+ * is a specimen whichever file it is set in.
+ *
+ * The reading paragraph used to read "A face is judged in the paragraph, at the size the
+ * work is really set at." That was the site explaining the sheet on the sheet, so the
+ * panel now sets the two pangrams a real specimen would print there.
  *
  * Every panel is a fixed box with its overflow contained, so a face that sets wider or
  * needs a third line cannot move the panels under it (SPEC §5).

@@ -14,8 +14,13 @@ const DESK = { w: 434, h: 132 };
  * demo's states are that control's own question (reached, or not reached), so there is no
  * dishonest state to declare in `data-pose`: a ring on this button while the readout says the
  * click was swallowed is showing exactly the term. Notes is the scenery that makes an inactive
- * window possible, and the setting, the counter and the captions are instrumentation, so those
- * carry the context register.
+ * window possible, and the setting and the counter are instrumentation, so those carry the
+ * context register.
+ *
+ * A desktop prints no commentary on its own clicks, so the readout is `data-stage-verdict` and
+ * the stage draws it in the strip above the switch that produced it. A footnote used to sit under
+ * the frame ("Even where the first click does go through, destructive controls are usually left
+ * out of it."); it was the article talking inside the scene and is gone.
  *
  * The mechanism is written the way a window manager writes it. A capture listener on the window
  * sees the click before the button does, raises the window if it was not active, and, when
@@ -29,10 +34,9 @@ const DESK = { w: 434, h: 132 };
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 292px">
+      <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Desktop</span>
-          <span class="sp-text" data-part="readout" style="width: 336px; text-align: right; white-space: nowrap">Player is behind, and Play is showing</span>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
@@ -80,11 +84,11 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 16px 9px; text-align: center; line-height: 1.4">
-          Even where the first click does go through, destructive controls are usually left out of it.
-        </span>
       </div>
+
+      <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="width: 452px; text-align: center"
+        >Click-through off: the first click on Player is spent raising it.</span
+      >
     </div>
   `;
 
@@ -153,7 +157,11 @@ export function mount(root: HTMLElement): void {
   mode.addEventListener('change', () => {
     const through = mode.value === 'through';
     desk.dataset.mode = through ? 'through' : 'raise';
-    say(through ? 'Click-through on: one click will do both' : 'Click-through off: the first click is spent');
+    say(
+      through
+        ? 'Click-through on: one click raises Player and presses Play.'
+        : 'Click-through off: the first click on Player is spent raising it.',
+    );
   });
 
   raise('a');

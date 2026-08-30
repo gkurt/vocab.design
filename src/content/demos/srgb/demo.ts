@@ -32,6 +32,13 @@ const NOTATIONS = [
  *
  * Every box is fixed size and only paint and text change with the hue, so nothing moves
  * (SPEC §5).
+ *
+ * Three strings were the site talking inside the panel. Two were section headings written as
+ * arguments ("Three spellings, one space", "The same numbers in a wider space"): the first is
+ * the name of the space now, and the second went, because the two swatches under it are
+ * already labelled `srgb` and `display-p3`. The third told the reader how to read their own
+ * screen ("If the two blocks match, this screen is sRGB and the wider value was mapped back
+ * into it."), which instructs rather than labels, so it went too.
  */
 export function mount(root: HTMLElement): void {
   const start = HUES.find((h) => h.key === START) ?? HUES[0];
@@ -55,7 +62,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <span class="sp-label sp-context" style="display: block; margin-top: 11px">Three spellings, one space</span>
+        <span class="sp-label sp-context" style="display: block; margin-top: 11px">sRGB</span>
         <div class="sp-stack" data-part="space" data-subject data-hue="${START}"
              style="gap: 6px; margin-top: 5px; padding: 9px 10px; border-radius: var(--sp-radius);
                     border: 1px solid var(--sp-line); background: var(--sp-surface)">
@@ -63,8 +70,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-context">
-          <span class="sp-label" style="display: block; margin-top: 10px">The same numbers in a wider space</span>
-          <div class="sp-row" style="gap: 8px; margin-top: 5px">
+          <div class="sp-row" style="gap: 8px; margin-top: 14px">
             <div class="sp-swatch" data-part="near" style="flex: 1 1 0; height: 34px;
                  box-shadow: inset 0 0 0 1px rgb(127 137 156 / 0.35); --sp-swatch: color(srgb ${start.unit})"></div>
             <div class="sp-swatch" data-part="wide" style="flex: 1 1 0; height: 34px;
@@ -74,8 +80,6 @@ export function mount(root: HTMLElement): void {
             <span class="sp-text" style="flex: 1 1 0; font-size: 10.5px">srgb</span>
             <span class="sp-text" style="flex: 1 1 0; font-size: 10.5px">display-p3</span>
           </div>
-          <p class="sp-text" style="margin: 7px 0 0; height: 30px; font-size: 10.5px; line-height: 1.4">If the two blocks
-            match, this screen is sRGB and the wider value was mapped back into it.</p>
         </div>
       </div>
     </div>

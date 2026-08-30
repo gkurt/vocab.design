@@ -12,8 +12,6 @@ const STOPS: Stop[] = [
 
 const IDLE = 'Nothing read yet';
 
-const CAPTION = 'Both were rejected, both are red. Only the flagged field reports it to anything but an eye.';
-
 /**
  * Invalid state specimen: a submitted form holding two rejected fields that look identical.
  * The first carries `aria-invalid="true"` and points at its message; the second has a red
@@ -25,6 +23,12 @@ const CAPTION = 'Both were rejected, both are red. Only the flagged field report
  * readout, the attribute chips, and the walk button are scenery (SPEC §5). The field is
  * invalid at mount and stays invalid, so no `data-pose` is needed. The walk clamps at the
  * last field and the readout holds a fixed height, so stepping moves nothing (SPEC §5, §8).
+ *
+ * A caption beside the walk button once read "Both were rejected, both are red. Only the
+ * flagged field reports it to anything but an eye." That is the article's sentence, not the
+ * form's, so it went; the row now just holds the button. The twin's markup chip said "styled
+ * red only" for the same reason and now names the missing attribute the way its partner
+ * names the present one.
  */
 export function mount(root: HTMLElement): void {
   const field = (key: 'good' | 'twin', label: string, value: string, chip: string, error: string, subject: boolean) => `
@@ -47,7 +51,7 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-surface sp-row" style="margin-top: 10px; padding: 10px 12px 12px; gap: 14px; align-items: stretch">
           ${field('good', 'Work email', 'ada@', 'aria-invalid="true"', 'Enter a full email address.', true)}
-          ${field('twin', 'Postcode', '9', 'styled red only', 'Enter a valid postcode.', false)}
+          ${field('twin', 'Postcode', '9', 'no aria-invalid', 'Enter a valid postcode.', false)}
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 10px; padding: 7px 10px">
@@ -58,8 +62,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; gap: 10px">
-          <p class="sp-text" data-part="caption" style="margin: 0; flex: 1 1 auto; height: 34px; font-size: 11px">${CAPTION}</p>
+        <div class="sp-row sp-context" style="margin-top: 9px; justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="read"
                   style="flex: 0 0 auto">Read next field</button>
         </div>

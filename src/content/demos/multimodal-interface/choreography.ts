@@ -1,13 +1,13 @@
 import { steps } from '#src/stage/choreography.ts';
 
-// One timer, three channels, in order. Each channel is proved twice: the strip names it,
-// and the task surface reads the same ten minutes running afterwards, stamped with a new
-// source. The state assert is repeated after every channel because agreeing about state is
-// the whole term. Nothing here asserts the unset card, since a looping pass finds the timer
+// One timer, three channels, in order. Each channel is proved twice: its own panel is the
+// one showing, and the task surface reads the same ten minutes running afterwards, stamped
+// with a new source. The state assert is repeated after every channel because agreeing
+// about state is the whole term. Nothing here asserts the unset card, since a looping pass finds the timer
 // already set and that claim would be true only on the first run (SPEC §8).
 export default steps([
   { wait: 700 },
-  { assert: { selector: '[data-part=channel-name][data-mode=touch]', state: 'visible' } },
+  { assert: { selector: '[data-part=panel-touch]', state: 'visible' } },
   { moveTo: '[data-part=tap-preset]' },
   { click: true },
   { wait: 600 },
@@ -18,7 +18,7 @@ export default steps([
   { moveTo: '[data-part=pick-voice]' },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=channel-name][data-mode=voice]', state: 'visible' } },
+  { assert: { selector: '[data-part=panel-voice]', state: 'visible' } },
   { assert: { selector: '[data-part=transcript]', state: 'hidden' } },
   { moveTo: '[data-part=speak]' },
   { click: true },
@@ -32,7 +32,7 @@ export default steps([
   { moveTo: '[data-part=pick-gaze]' },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=channel-name][data-mode=gaze]', state: 'visible' } },
+  { assert: { selector: '[data-part=panel-gaze]', state: 'visible' } },
   { assert: { selector: '[data-part=gaze-target]', state: 'visible' } },
   { moveTo: '[data-part=pinch]' },
   { click: true },
@@ -44,6 +44,6 @@ export default steps([
   { moveTo: '[data-part=pick-touch]' },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=channel-name][data-mode=touch]', state: 'visible' } },
+  { assert: { selector: '[data-part=panel-touch]', state: 'visible' } },
   { wait: 700 },
 ]);

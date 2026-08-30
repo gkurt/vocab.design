@@ -22,13 +22,12 @@ const card = (subject: boolean) => `
     <span class="sp-line" style="width: 54%"></span>
   </article>`;
 
-const column = (label: string, note: string, subject: boolean) => `
+const column = (label: string, subject: boolean) => `
   <div class="sp-stack${subject ? '' : ' sp-context'}" style="flex: 1 1 0; gap: 6px">
     <span class="sp-label">${label}</span>
     <div data-part="${subject ? 'slot' : 'twin-slot'}" data-state="present" style="position: relative; height: 88px">
       ${card(subject)}
     </div>
-    <span class="sp-label" style="font-size: 11px">${note}</span>
   </div>`;
 
 /**
@@ -46,6 +45,11 @@ const column = (label: string, note: string, subject: boolean) => `
  * reduced motion there is no transition and the event would never fire, leaving an
  * invisible card in the layout (SPEC §5, `motion.css`). The same preference is asked
  * directly so the removal does not sit through a delay whose animation never played.
+ *
+ * Each column used to carry a line under it explaining itself, "held until the motion ends"
+ * and "taken out on the press", and the column labels read "With an exit" and "Without one".
+ * No notification panel prints commentary on its own removals, so the two lines are gone and
+ * the labels are down to the bare pair the house uses for a comparison, With and Without.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -57,8 +61,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
         <div class="sp-body sp-stack" style="gap: 12px">
           <div class="sp-row" style="align-items: flex-start; gap: 14px">
-            ${column('With an exit', 'held until the motion ends', true)}
-            ${column('Without one', 'taken out on the press', false)}
+            ${column('With', true)}
+            ${column('Without', false)}
           </div>
           <div class="sp-row sp-context" style="gap: 6px">
             <button class="sp-button sp-button--sm" type="button" data-part="dismiss">Dismiss</button>

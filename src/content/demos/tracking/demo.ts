@@ -42,7 +42,7 @@ const px = (value: number, size: number) => `${(value * size).toFixed(1)}px at $
  * sixteen-hundredths-of-an-em correction on eleven-pixel capitals is the term at
  * a size where it can be seen, while two hundredths off a headline is the same
  * operation too quietly to ring. Tracking is a property of a run, so the run is
- * the narrowest honest element; the headline, the readouts and the caption are
+ * the narrowest honest element; the headline, the readouts and the verdict are
  * the comparison and the instrumentation, and sit in the context register
  * (SPEC §5). One of the two settings is the uncorrected counter-example the
  * subject itself passes through, so the honest condition is declared in
@@ -50,6 +50,12 @@ const px = (value: number, size: number) => `${(value * size).toFixed(1)}px at $
  *
  * Both lines are left aligned inside a fixed block and set `nowrap`, so a run
  * that grows or shrinks moves nothing around it (SPEC §5).
+ *
+ * The window was headed "One amount, every letter" and closed with a loose line
+ * reading "Every gap in the run moves by the same amount, stated as a fraction of the
+ * type size." Neither is something this promo header would print about itself, so the
+ * heading now names the thing being set and the line is gone; the article carries the
+ * point. The verdict beside the switch stayed, since it changes with the setting.
  */
 export function mount(root: HTMLElement): void {
   const start = TRACKED;
@@ -58,7 +64,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One amount, every letter</span>
+          <span class="sp-heading">Promo header</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="set" data-axis="Spacing" data-term="set">
             <button class="sp-segment" data-part="seg-typed" value="typed">as typed</button>
             <button class="sp-segment" data-part="seg-set" value="set">tracked</button>
@@ -87,9 +93,7 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="px-headline" style="font-variant-numeric: tabular-nums"></span>
           </div>
         </div>
-                  <span data-stage-verdict data-part="note"></span> Every gap in the run moves by the same amount, stated as a fraction
-          of the type size.
-        
+        <span data-stage-verdict data-part="note"></span>
       </div>
     </div>
   `;

@@ -12,6 +12,12 @@
  *
  * Static: a radius has one state, so the script is waits and asserts and the demo takes
  * no clock (SPEC §8).
+ *
+ * Two strings were the site talking inside the frame and have gone. A heading read "One
+ * plate, four radii", which the row itself shows. Beside the anatomy drawing sat a paragraph
+ * beginning "The radius is the circle's, measured back along each edge..."; the drawing marks
+ * both radii already, and the article's third paragraph carries the rest, so the drawing now
+ * stands centred on its own and the choreography's assert on the note went with it.
  */
 const PLATE_W = 104;
 const PLATE_H = 72;
@@ -71,23 +77,14 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 10px">
       <div class="sp-window" style="width: 472px; padding: 12px 14px">
-        <span class="sp-heading sp-context" data-part="heading" style="display: block; margin-bottom: 9px">
-          One plate, four radii
-        </span>
-
         <div class="sp-row" data-part="tour" style="gap: 8px; align-items: flex-start; justify-content: center">
           ${STEPS.map((step) => plate(step.r, step.word)).join('')}
         </div>
 
         <div class="sp-divider" style="margin: 10px 0 9px"></div>
 
-        <div class="sp-row sp-context" style="gap: 14px; align-items: center">
+        <div class="sp-row sp-context" style="gap: 14px; align-items: center; justify-content: center">
           ${ANATOMY}
-          <p class="sp-text" data-part="anatomy-note" style="margin: 0; font-size: 11px; line-height: 1.4">
-            The radius is the circle's, measured back along each edge to where the straight run stops.
-            At half the shorter side the two arcs meet, the run between them is gone, and every larger
-            number lands on the same cap.
-          </p>
         </div>
       </div>
 

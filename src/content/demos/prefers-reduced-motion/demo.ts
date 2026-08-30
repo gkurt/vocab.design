@@ -31,6 +31,13 @@ type Mode = keyof typeof MOVES;
  * scenery. The panel is positioned over the scene rather than in its flow, so neither
  * entrance moves anything that did not change (SPEC §5). The scene is as tall as the
  * three rows behind the panel, so the list it plays over is whole rather than cut.
+ *
+ * The readout ("Entrance: slides up 18px and fades, 260ms.", plus the line saying which
+ * preference is being read) used to sit under the mail app's own controls, where it read as
+ * one more thing the product was claiming about itself. It changes with the switch, so the
+ * stage draws it in the strip as the verdict (SPEC §5.1). The disclosure travels with it,
+ * which is the right side of the frame for it: it is the site's voice, and it is the one
+ * thing the specimen must not pretend about.
  */
 export function mount(root: HTMLElement): void {
   const rows = ['Unread', 'Flagged', 'Sent'].map(
@@ -62,7 +69,7 @@ export function mount(root: HTMLElement): void {
           <button class="sp-button sp-button--sm" type="button" data-part="show">Show panel</button>
           <button class="sp-button sp-button--sm sp-button--ghost" type="button" data-part="hide">Hide panel</button>
         </div>
-        <p class="sp-text sp-context" data-part="readout" style="margin-top: 8px; font-size: 12px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin-top: 8px; font-size: 12px"></p>
       </div>
     </div>
   `;

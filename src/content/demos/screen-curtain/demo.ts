@@ -27,6 +27,11 @@ const CAPTION = {
  * other state identify summons it (SPEC §6). The screen, its controls, the transcript, the key
  * legend and the caption are scenery.
  *
+ * Two labels over the window announced the exhibit ("VoiceOver, walking one screen" and
+ * "Three-finger triple tap: display off"). A label asserting an instrument nobody can see is
+ * a stage direction in a product's clothes, so both went: the stage draws the three contacts
+ * tapping, and the verdict in the strip names the gesture.
+ *
  * The gesture is PORTRAYED as itself: `contactTap` from the kit reads the script's `tap` step and a
  * real three-finger triple tap through one wiring (SPEC §7), and one gesture reaches both named
  * states, because toggling is what the platform gesture does and here the toggling IS the term. It
@@ -48,12 +53,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px; min-height: 20px">
-          <span class="sp-label" style="flex: 0 0 auto">VoiceOver, walking one screen</span>
-          <span class="sp-label" style="flex: 0 0 auto; font-size: 10px; white-space: nowrap">Three-finger triple tap: display off</span>
-        </div>
-
-        <div class="sp-row" style="align-items: stretch; gap: 12px; margin-top: 10px">
+        <div class="sp-row" style="align-items: stretch; gap: 12px">
           <div class="sp-frame" data-part="screen" data-curtain="off" data-touch tabindex="0"
                style="position: relative; flex: 0 0 auto; width: 202px; height: 158px; overflow: hidden;
                       touch-action: none; user-select: none">

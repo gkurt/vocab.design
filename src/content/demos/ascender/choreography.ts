@@ -11,6 +11,4 @@ export default steps([
   { assert: { selector: '[data-part=legend]', state: 'visible' } },
   { assert: { selector: '[data-part=metrics]', state: 'visible' } },
   { wait: 1200 },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
-  { wait: 900 },
 ]);

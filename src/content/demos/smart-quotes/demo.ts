@@ -52,6 +52,10 @@ function paint(text: string): string {
  * told apart from, and the field and its Clear control are the demo's own
  * instrumentation, so both stay in the context register (SPEC §5).
  *
+ * The two rows are labelled the way an instrument is, "keys pressed" and "as stored"; the
+ * second used to read "what the editor stores", which is a sentence about the demonstration
+ * rather than a label on it.
+ *
  * Both lines are single lines in rows of fixed height, so a sentence growing a
  * character at a time cannot move the caption under it (SPEC §5). The field is
  * re-read on every input event and the pair recomputed from scratch, so one
@@ -75,7 +79,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
         <div class="sp-stack" style="gap: 2px; margin-top: 10px">
-          <span class="sp-label sp-context">what the editor stores</span>
+          <span class="sp-label sp-context">as stored</span>
           <div class="sp-row" style="height: 30px">
             <span data-part="stored" data-subject data-quotes="none"
                   style="font-family: ${FACE}; font-size: 19px; white-space: nowrap"></span>

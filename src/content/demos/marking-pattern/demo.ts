@@ -26,6 +26,12 @@ const POSTS: [string, string[]][] = [
  * and the phone and its feed are the scene. The point is drawn over the feed and takes no
  * pointer events, so a reader's own scroll reaches the feed underneath, which is the whole
  * demonstration: the content moves and the point does not.
+ *
+ * A line under the phone used to state the demonstration ("The point stays put and the feed
+ * streams through it."), which is the site talking inside a recording tool. It is gone and
+ * the frame is 32px shorter, so nothing gapes where it was. The title bar read "Feed on a
+ * phone", a description of the scene rather than a name, and the three fields beside the
+ * phone were written as sentences; both are now what a gaze recorder would print.
  */
 export function mount(root: HTMLElement): void {
   const post = (name: string, widths: string[]) => `
@@ -39,9 +45,9 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Feed on a phone</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Gaze session</span>
           <span class="sp-label">gaze recorded</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 12px">
@@ -66,19 +72,18 @@ export function mount(root: HTMLElement): void {
             <div class="sp-surface sp-stack" style="flex: 1 1 auto; padding: 11px 12px; gap: 9px">
               <div class="sp-stack" style="gap: 2px">
                 <span class="sp-label">Gaze</span>
-                <span data-part="gaze" style="font-size: 12px; font-weight: 600">held at y = ${HOLD_Y} px</span>
+                <span data-part="gaze" style="font-size: 12px; font-weight: 600">y = ${HOLD_Y} px</span>
               </div>
               <div class="sp-stack" style="gap: 2px">
-                <span class="sp-label">Under the point</span>
+                <span class="sp-label">Under gaze</span>
                 <span data-part="under" style="font-size: 12px; font-weight: 600; white-space: nowrap">&nbsp;</span>
               </div>
               <div class="sp-stack" style="gap: 2px">
-                <span class="sp-label">Posts passed through it</span>
+                <span class="sp-label">Posts passed</span>
                 <span data-part="passed" style="font-size: 12px; font-weight: 600">0</span>
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center">The point stays put and the feed streams through it.</span>
         </div>
       </div>
     </div>

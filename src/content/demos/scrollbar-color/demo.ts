@@ -90,6 +90,10 @@ const modeOf = (key: string) => MODES.find((m) => m.key === key) ?? MODES[0];
  * scroller hands it are. The theme control, the swatch read-out and the caption are
  * instrumentation and sit in the context register (SPEC §5).
  *
+ * A line under the scroller used to say the bar was drawn here rather than being the browser's
+ * own. That is a note about the specimen, not about the property, and no product would print
+ * it; the paragraph above keeps it for the next author instead.
+ *
  * The scroller is a fixed size with fixed read-out heights, so nothing moves as the theme
  * changes (SPEC §5). Every colour comes from the table above and every number is derived from
  * it, so the specimen renders identically on every run.
@@ -134,9 +138,6 @@ export function mount(root: HTMLElement): void {
                 </div>
               </div>
             </div>
-            <span class="sp-text sp-context" style="height: 26px; font-size: 9px; line-height: 1.35">
-              The bar is drawn here: a browser's own is an overlay that paints only while scrolling.
-            </span>
           </div>
 
           <div class="sp-stack sp-context" style="flex: 1 1 0; min-width: 0; gap: 4px">

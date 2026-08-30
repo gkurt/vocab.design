@@ -32,6 +32,12 @@ const cell = (pad: string, content: string) =>
  * Card padding would push the borrowed tracks off the parent's lines by its own width, so
  * every card here pads its cells instead and draws its edge with an inset outline, which
  * takes no space at all.
+ *
+ * The line that reads the two states off each other ("Every card is on the parent lines, so
+ * the prices line up." against "Own rows. Each card stacks from its own title and the seams
+ * drift.") is the author's reading rather than the product's, and it changes with the
+ * switch, so it is marked `data-stage-verdict` and the stage draws it in the strip. The
+ * frame lost the 32px that line held.
  */
 export function mount(root: HTMLElement): void {
   const card = (index: number, extra: string) => {
@@ -55,7 +61,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <sp-segmented data-stage-mode class="sp-segmented" data-axis="Card rows" data-term="subgrid" data-part="switcher" data-value="subgrid">
             <button class="sp-segment" type="button" data-part="seg-subgrid" value="subgrid">subgrid</button>
             <button class="sp-segment" type="button" data-part="seg-own" value="own">its own rows</button>
@@ -81,7 +87,7 @@ export function mount(root: HTMLElement): void {
               style="display: inline-flex; align-items: center; justify-content: center; width: 250px; padding: 3px 8px; border: 1px solid var(--sp-line); border-radius: 999px; background: var(--sp-surface); font-family: ${MONO}; font-size: 11.5px"
             ></span>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

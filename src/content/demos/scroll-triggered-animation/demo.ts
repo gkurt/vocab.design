@@ -27,6 +27,11 @@ const SUBJECT = 'c';
  *
  * The subject is the third card, the one that is below the fold at rest and therefore
  * has to be triggered to arrive. The lede, the other cards, and the counter are scenery.
+ * The lede used to read "Scroll on. Each card plays once, when it crosses the line, and
+ * stays where it landed.", which was the article standing in the scroller and telling the
+ * reader what to do. It is a line the notebook would really carry now, and it is kept to
+ * about the same length on purpose: it is the height that holds the third card below the
+ * fold at rest, which is the whole setup.
  *
  * Every card occupies its slot from the first frame (opacity and transform only), so
  * arrivals never reflow the scroller and move the trigger line for the cards below.
@@ -65,7 +70,7 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-scroll" data-part="page" style="flex: 1 1 auto; background: var(--sp-sunken); padding-top: 12px">
           <div class="sp-stack sp-context" style="gap: 8px; padding: 0 12px 14px">
-            <span class="sp-text">Scroll on. Each card plays once, when it crosses the line, and stays where it landed.</span>
+            <span class="sp-text">Notes from the last four crossings, kept for the harbour office and the relief crew.</span>
           </div>
           ${cards}
         </div>

@@ -64,6 +64,11 @@ const weightAt = (distance: number) => 1 + PEAK * Math.exp(-((distance / SIGMA) 
  * list, its rows, the readout and the frame are scenery in the context register, which is why the
  * bar is the one thing in kit accent.
  *
+ * The panel beside the column reports measurements and nothing else. A line under the readout
+ * used to say that all thirty names are on screen and that none can be read away from the lens,
+ * and the readout itself used to narrate the same point in sentences; the line is gone and the
+ * readout now prints the lens row and the falloff's extent and smallest height.
+ *
  * The lens position is a continuous parameter read from the pointer's y against the column's
  * resting geometry, never from which row happens to be under the pointer: the rows are the thing
  * being resized, so resolving the lens against them would feed this frame's distortion into the
@@ -98,7 +103,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 296px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Harbour register</span>
-          <span class="sp-label" style="flex: 0 0 auto; font-size: 11px">30 names, one column</span>
+          <span class="sp-label" style="flex: 0 0 auto; font-size: 11px">30 names</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 14px; padding: 12px">
           <div
@@ -126,10 +131,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 8px">
             <span class="sp-label" style="font-size: 11px">the falloff</span>
             <span class="sp-text" data-part="readout" style="height: 96px; font-size: 12px"></span>
-            <span class="sp-text" style="height: 62px; font-size: 12px">
-              Every one of the thirty names is on screen at once. Away from the lens none of them
-              can be read.
-            </span>
           </div>
         </div>
       </div>
@@ -161,7 +162,7 @@ export function mount(root: HTMLElement): void {
     falloff.style.top = `${offset.toFixed(2)}px`;
     falloff.style.height = `${(LIST_H - offset).toFixed(2)}px`;
     lens.dataset.zone = p <= 10 ? 'top' : p <= 20 ? 'middle' : 'bottom';
-    readout.textContent = `The lens is on ${NAMES[focus - 1] ?? ''}, row ${focus} of ${ROWS}. Rows ${focus + 1} to ${ROWS} are the falloff below it: still there, still in order, and down to ${smallest.toFixed(1)}px at the end.`;
+    readout.textContent = `Lens on ${NAMES[focus - 1] ?? ''}, row ${focus} of ${ROWS}. Falloff below: rows ${focus + 1} to ${ROWS}, smallest ${smallest.toFixed(1)}px.`;
   };
 
   /** The lens reads the pointer against the column's resting geometry, not against the rows it has deformed. */

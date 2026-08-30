@@ -87,7 +87,9 @@ const blocks = EVENTS.map(
  *
  * The window is a window on purpose. Seven days of twenty-four hours cannot be drawn
  * honestly at this size, so the axis is labelled and three days of four hours are shown,
- * rather than a grid of unlabelled cells pretending to be a week.
+ * rather than a grid of unlabelled cells pretending to be a week. A line under the grid
+ * used to say so ("Three of the week's days, four of its hours"), which is the site
+ * apologising for its own window inside a calendar: the labelled axis says it already.
  *
  * Dragging a block is the real gesture, computed from the pointer. Capture is taken on a
  * trusted pointerdown, since a reader's drag would otherwise die the moment the pointer
@@ -155,9 +157,6 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" style="width: 430px; margin-top: 8px; font-size: 11px; line-height: 1.35; text-align: center">
-            Three of the week's days, four of its hours. Two events in one slot share the column.
-          </span>
         </div>
       </div>
     </div>

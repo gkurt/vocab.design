@@ -7,14 +7,13 @@ import '#src/kit/segmented.ts';
  * to instead, so one table describes the scale under every ground below.
  */
 const STEPS = [
-  { key: 'rest', step: 0, name: 'Rest', dp: 0, role: 'the page', shadow: 'none', night: '#1B1E24' },
-  { key: 'raised', step: 1, name: 'Raised', dp: 1, role: 'a card', shadow: '0 1px 2px rgb(16 24 40 / 0.18)', night: '#22262E' },
+  { key: 'rest', step: 0, name: 'Rest', dp: 0, shadow: 'none', night: '#1B1E24' },
+  { key: 'raised', step: 1, name: 'Raised', dp: 1, shadow: '0 1px 2px rgb(16 24 40 / 0.18)', night: '#22262E' },
   {
     key: 'float',
     step: 2,
     name: 'Floating',
     dp: 6,
-    role: 'a button that follows',
     shadow: '0 4px 10px rgb(16 24 40 / 0.2)',
     night: '#2A2F38',
   },
@@ -23,7 +22,6 @@ const STEPS = [
     step: 3,
     name: 'Overlay',
     dp: 12,
-    role: 'a menu, a dialog',
     shadow: '0 10px 22px rgb(16 24 40 / 0.26)',
     night: '#333944',
   },
@@ -92,6 +90,11 @@ const START: GroundKey = 'paper';
  * work badly, not the term being absent), so no `data-pose` is needed and identify can land at
  * any resting state (SPEC §6, §7).
  *
+ * Each card used to print what its step is FOR beside the number ("a menu, a dialog · 12dp",
+ * "the page · 0dp"). The token and its dp are what a scale plate really prints; the gloss was
+ * the site explaining the ladder inside the picture, and the article maps the steps to their
+ * uses, so only the dp is left.
+ *
  * Nothing moves when the ground changes: the plate, the ruler and every card are fixed sizes,
  * and only paint, shadow and one line of caption text differ (SPEC §5). The caption's box is
  * reserved at two lines so the longest wording cannot push the frame.
@@ -110,7 +113,7 @@ export function mount(root: HTMLElement): void {
                     white-space: nowrap">
           <span style="font-size: 11px; font-weight: 600">${s.name}</span>
           <span data-part="value-${s.key}"
-                style="font-size: 9.5px; font-variant-numeric: tabular-nums; opacity: 0.72">${s.role} · ${s.dp}dp</span>
+                style="font-size: 9.5px; font-variant-numeric: tabular-nums; opacity: 0.72">${s.dp}dp</span>
         </div>
       </div>`;
   };

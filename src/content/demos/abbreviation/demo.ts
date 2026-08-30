@@ -9,9 +9,9 @@ import { flag, part } from '#src/kit/parts.ts';
  * is what the term is actually about.
  */
 const SHORTENINGS = [
-  { part: 'abbr-dr', short: 'Dr.', title: 'Doctor', note: 'truncated, so it keeps a full stop' },
-  { part: 'abbr-svg', short: 'SVG', title: 'Scalable Vector Graphics', note: 'an initialism, read letter by letter' },
-  { part: 'abbr-fri', short: 'Fri.', title: 'Friday', note: 'truncated in the same way' },
+  { part: 'abbr-dr', short: 'Dr.', title: 'Doctor' },
+  { part: 'abbr-svg', short: 'SVG', title: 'Scalable Vector Graphics' },
+  { part: 'abbr-fri', short: 'Fri.', title: 'Friday' },
 ];
 
 /** Room for every expansion from mount, so revealing them moves nothing (SPEC §5). */
@@ -19,10 +19,13 @@ const PANEL = 68;
 
 /**
  * Abbreviation specimen: one sentence carrying three shortened forms, each marked
- * up and dotted-underlined, with their expansions written out beneath it. Show
- * and Hide are separate controls rather than one toggle, so a pass picked up at
- * any point reaches a stated state rather than flipping whatever it found
- * (SPEC §8).
+ * up and dotted-underlined, with their expansions written out beneath it. Each
+ * expansion row used to carry a note on the kind of shortening it was ("an
+ * initialism, read letter by letter"), which is the article talking inside a
+ * panel a product would only ever fill with expansions, so the notes are gone
+ * and the rows print the expansion alone. Show and Hide are separate controls
+ * rather than one toggle, so a pass picked up at any point reaches a stated
+ * state rather than flipping whatever it found (SPEC §8).
  *
  * The subject is the abbreviation element itself, the narrowest thing the word
  * names. It is an abbreviation whether the panel is open or shut, so it is honest
@@ -59,7 +62,7 @@ export function mount(root: HTMLElement): void {
             (s) => `
               <span class="sp-row" style="gap: 8px">
                 <span class="sp-label" style="width: 34px; color: var(--sp-ink)">${s.short}</span>
-                <span class="sp-text" style="font-size: 12px">${s.title}, ${s.note}</span>
+                <span class="sp-text" style="font-size: 12px">${s.title}</span>
               </span>`,
           ).join('')}
         </div>

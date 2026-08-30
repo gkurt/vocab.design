@@ -15,7 +15,6 @@ export default steps([
   { wait: 550 },
   { assert: { selector: '[data-part=tile][data-state=on]', state: 'visible' } },
   { assert: { selector: '[data-part=value]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout]', state: 'visible' } },
   { wait: 1000 },
 
   // And back: the flip is the term here, so the script drives both directions itself.

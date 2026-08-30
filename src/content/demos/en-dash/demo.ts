@@ -36,7 +36,11 @@ const MARKS = [
  * neighbouring em-dash specimen already rings a single glyph, because there the
  * mark's width is the term; here the term is what the mark is for, and no
  * single character shows a range, a score, and a relation at once. The labels
- * beside the lines, the width row, and the heading are scenery (SPEC §5).
+ * beside the lines and the width row are scenery (SPEC §5).
+ *
+ * The top row used to carry a heading, "Three jobs for the middle dash", which was
+ * the site announcing its own exhibit inside the frame. It went; the codepoint that
+ * shared the row stays, since it names the mark rather than the demonstration.
  *
  * Nothing changes state: the comparison is the demonstration.
  */
@@ -63,7 +67,6 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Three jobs for the middle dash</span>
           <span class="sp-label">U+2013</span>
         </div>
         <div class="sp-row" style="gap: 16px; margin-top: 12px; align-items: flex-start">

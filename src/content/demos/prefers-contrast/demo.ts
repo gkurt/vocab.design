@@ -19,14 +19,21 @@ type Level = keyof typeof LEVELS;
 
 /**
  * Increased contrast specimen: one card rendered at the theme's default and at the
- * stronger version the preference asks for. The switch simulates the system setting and
- * says so, the way the reduced motion specimen does: nothing here reads the reader's
- * real preference, because the kit answers that a level up.
+ * stronger version the preference asks for. The switch simulates the system setting:
+ * nothing here reads the reader's real preference, because the kit answers that a level
+ * up.
  *
  * The subject is the card, since the term names what the preference is done to. The
  * switch and the readout are scenery. Only colours change between the two renderings:
  * every border that strengthens is already drawn at rest, so the card cannot move or
  * resize when the preference comes on (SPEC §5).
+ *
+ * Nothing but the card is drawn inside the frame now. The readout ("Hairline dividers,
+ * secondary text set back, a tinted badge.") is the author's reading of the state and it
+ * changes with the switch, so the stage draws it in the strip as the verdict (SPEC §5.1);
+ * the line under it that disclosed the simulation ("The switch simulates the setting; the
+ * card does not read your real one.") was the site talking inside a billing card, and this
+ * docblock is where that belongs.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -51,10 +58,9 @@ export function mount(root: HTMLElement): void {
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="change">Change</button>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="readout" style="margin-top: 10px; height: 18px; font-size: 12px; white-space: nowrap">
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin-top: 10px; font-size: 12px">
           ${LEVELS.normal.readout}
         </p>
-        <p class="sp-label sp-context" style="margin-top: 4px">The switch simulates the setting; the card does not read your real one.</p>
       </div>
     </div>
   `;

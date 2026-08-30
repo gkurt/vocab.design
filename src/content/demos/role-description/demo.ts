@@ -8,27 +8,9 @@ const SPEAK_MS = 480;
 type Source = 'stock' | 'honest' | 'lying';
 
 const SOURCE = {
-  stock: {
-    role: 'carousel',
-    attribute: 'not set',
-    verdict: 'platform wording',
-    caption:
-      'No attribute, so the reader uses its own word for the role, in its own language, and every reader user already knows what that word implies.',
-  },
-  honest: {
-    role: 'slide reel',
-    attribute: '"slide reel"',
-    verdict: 'author wording',
-    caption:
-      'The author renames the role to the phrase the rest of the product uses. Speech changes; the role, the keyboard behaviour and the braille abbreviation do not.',
-  },
-  lying: {
-    role: 'video player',
-    attribute: '"video player"',
-    verdict: 'misleading, a failure',
-    caption:
-      'The same attribute used to lie. The reader announces a video player, so its user hunts for transport keys this group never had.',
-  },
+  stock: { role: 'carousel', attribute: 'not set', verdict: 'platform wording' },
+  honest: { role: 'slide reel', attribute: '"slide reel"', verdict: 'author wording' },
+  lying: { role: 'video player', attribute: '"video player"', verdict: 'misleading, a failure' },
 } as const satisfies Record<Source, unknown>;
 
 const LABEL = 'Product tour';
@@ -41,9 +23,14 @@ const LABEL = 'Product tour';
  * The transcript is a portrayal, labelled as one, following the live region and atomic live
  * region specimens rather than inventing a second convention for the same job.
  *
+ * Each state also carried a paragraph explaining itself ("The author renames the role to the
+ * phrase the rest of the product uses..."), which is the article talking inside the window.
+ * The specimen already has a verdict in the strip and may not have two, so the paragraphs
+ * went: the spoken line changing while the widget does not is the whole demonstration.
+ *
  * The subject is the announced role token, given its own element: the term names the words
  * spoken for the role, not the widget that carries them and not the picker that chose them.
- * The reel, the picker, the verdict and the caption are scenery (SPEC §5). The specimen mounts
+ * The reel, the picker and the verdict are scenery (SPEC §5). The specimen mounts
  * on an authored role description, so the resting state identify poses is the term itself, and
  * the token is the announced role in every state the script visits.
  *
@@ -94,9 +81,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                     white-space: nowrap">“${LABEL}, <span data-part="role" data-subject data-source="honest"
               style="font-weight: 600">${SOURCE.honest.role}</span>”</p>
         
-
-        <p class="sp-text sp-context" data-part="caption" data-source="honest"
-           style="margin: 8px 0 0; height: 46px; font-size: 11px; line-height: 1.35">${SOURCE.honest.caption}</p>
       </div>
     </div>
   `;
@@ -105,7 +89,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const utterance = part(root, 'utterance');
   const role = part(root, 'role');
   const verdict = part(root, 'verdict');
-  const caption = part(root, 'caption');
   let pending: number | undefined;
 
   const apply = (source: Source) => {
@@ -123,8 +106,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       role.dataset.source = source;
       role.textContent = rule.role;
       verdict.textContent = rule.verdict;
-      caption.dataset.source = source;
-      caption.textContent = rule.caption;
     }, SPEAK_MS);
   };
 

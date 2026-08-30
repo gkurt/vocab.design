@@ -12,7 +12,7 @@ const BUCKETS = {
     criterion: 'WCAG 1.1.1 Non-text content',
     target: 'fail-p',
     why: 'The photo carries the only picture of the room and has no text alternative, so the information does not reach a reader who cannot see it.',
-    test: 'Test: can the information arrive in some form at all?',
+    test: 'Can the information arrive in some form at all?',
   },
   operable: {
     letter: 'O',
@@ -20,7 +20,7 @@ const BUCKETS = {
     criterion: 'WCAG 2.1.1 Keyboard',
     target: 'fail-o',
     why: 'The budget can only be set by dragging the handle. There is no keyboard path to the same value, so the control cannot be worked without a pointer.',
-    test: 'Test: can every control be worked, by any input?',
+    test: 'Can every control be worked, by any input?',
   },
   understandable: {
     letter: 'U',
@@ -28,7 +28,7 @@ const BUCKETS = {
     criterion: 'WCAG 3.3.2 Labels or instructions',
     target: 'fail-u',
     why: 'The field is labelled in trade jargon. A reader can perceive it and can type in it, and still cannot tell what is being asked for.',
-    test: 'Test: is the content, and what it wants, comprehensible?',
+    test: 'Is the content, and what it wants, comprehensible?',
   },
   robust: {
     letter: 'R',
@@ -36,7 +36,7 @@ const BUCKETS = {
     criterion: 'WCAG 4.1.2 Name, role, value',
     target: 'fail-r',
     why: 'Submit is a styled div with no role and no keyboard behaviour. It works where the software guesses well and disappears where it does not.',
-    test: 'Test: will it survive other software reading it?',
+    test: 'Will it survive other software reading it?',
   },
 } as const satisfies Record<Principle, unknown>;
 
@@ -56,6 +56,13 @@ const ORDER: Principle[] = ['perceivable', 'operable', 'understandable', 'robust
  *
  * The card holds every bucket's text in the same reserved boxes, so a pick moves nothing (SPEC §5).
  * No timers: each state is reached by a pick.
+ *
+ * A line under the screen used to argue the point the classification is for ("All four are real
+ * barriers on the same screen. Which principle a failure breaks is what decides who is blocked...").
+ * The card already carries the reading of each state as its verdict, and a specimen gets one verdict,
+ * so that line went; the article makes the argument. The card's check question lost its "Test:"
+ * prefix, which was the site addressing the reader; the magnifier already says what the line is.
+ * The criterion line stayed, since citing the criterion is what an audit card does.
  */
 export function mount(root: HTMLElement): void {
   const segment = (key: Principle) => `
@@ -113,10 +120,6 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 9px 0 0; height: 30px; font-size: 11px; line-height: 1.35">
-          All four are real barriers on the same screen. Which principle a failure breaks is what decides who
-          is blocked, and what kind of fix is owed.</p>
       </div>
     </div>
   `;

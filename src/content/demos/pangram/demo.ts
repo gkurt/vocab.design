@@ -15,9 +15,9 @@ const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 const LINE = 58;
 
 const LINES = {
-  fox: { text: 'The quick brown fox jumps over the lazy dog', note: 'complete, and a weak proof' },
-  jugs: { text: 'Pack my box with five dozen liquor jugs', note: 'complete in 32 letters' },
-  near: { text: 'The quick brown fox jumps over the dog', note: 'one word away from the fox' },
+  fox: { text: 'The quick brown fox jumps over the lazy dog' },
+  jugs: { text: 'Pack my box with five dozen liquor jugs' },
+  near: { text: 'The quick brown fox jumps over the dog' },
 } as const;
 
 type Name = keyof typeof LINES;
@@ -42,6 +42,11 @@ const IS_NAME = (value: string): value is Name => value in LINES;
  *
  * The tally has a cell per letter at a fixed size and the line has a box sized for
  * its longest setting, so no pick moves anything (SPEC §5).
+ *
+ * The tally used to be introduced by "struck as the letter occurs" and the chip used to end
+ * each count with a judgement of the line ("complete, and a weak proof"). Both were the site
+ * describing its own instrument, and the second one is what the verdict already says. The
+ * chip now reports the count and the missing letters, which is all it measures.
  */
 export function mount(root: HTMLElement): void {
   const cell = (letter: string) => `
@@ -63,7 +68,6 @@ export function mount(root: HTMLElement): void {
           <p data-part="line" data-subject data-complete="yes" data-pose="[data-complete=yes]"
              style="margin: 0; font-family: ${SERIF}; font-size: ${SIZE}px; line-height: 1.35">${LINES.fox.text}</p>
         </div>
-        <span class="sp-label sp-context" style="display: block">struck as the letter occurs</span>
         <div class="sp-row sp-context" data-part="tally" style="gap: 2px; margin-top: 6px; height: 20px">
           ${[...ALPHABET].map(cell).join('')}
         </div>
@@ -84,7 +88,7 @@ export function mount(root: HTMLElement): void {
 
   const apply = (value: string) => {
     if (!IS_NAME(value)) return;
-    const { text, note } = LINES[value];
+    const { text } = LINES[value];
     line.textContent = text;
     const used = new Set([...text.toLowerCase()].filter((c) => ALPHABET.includes(c)));
 
@@ -98,7 +102,7 @@ export function mount(root: HTMLElement): void {
     const missing = [...ALPHABET].filter((letter) => !used.has(letter));
     line.dataset.complete = missing.length === 0 ? 'yes' : 'no';
     line.dataset.count = String(used.size);
-    readout.textContent = missing.length ? `${used.size} of 26: no ${missing.join(', ')}. ${note}` : `26 of 26. ${note}`;
+    readout.textContent = missing.length ? `${used.size} of 26: no ${missing.join(', ')}` : '26 of 26';
   };
 
   apply('fox');

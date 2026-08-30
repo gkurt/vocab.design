@@ -27,7 +27,7 @@ const filters = FILTERS.map(
  * the page while the drawer is open moves nothing and the same wheel moves it again once the
  * drawer is closed. The subject is the page scroller, since the term names what is done to
  * the document behind an overlay rather than the overlay itself; the drawer, the scrim, the
- * lock chip, and the readouts are the scene and the instrumentation around it.
+ * lock chip, and the ruler are the scene and the instrumentation around it.
  *
  * The specimen mounts locked, with the drawer open, because the subject declares the honest
  * condition in `data-pose`: a ring drawn around a page that is scrolling freely would
@@ -37,8 +37,13 @@ const filters = FILTERS.map(
  * written the way a real one behaves rather than left to `overflow: hidden` alone: the
  * scroller is frozen at the offset it held and put back on any attempt to leave it. The
  * gutter is reserved in both states, so locking the page cannot reflow it, which is the
- * layout jump the article names (SPEC §5). The readout is as wide as its longest line, so
- * a report of what the wheel did never bleeds over the control beside it.
+ * layout jump the article names (SPEC §5).
+ *
+ * Three lines used to narrate all this inside the frame: "Wheel over the page" in the
+ * topbar (and its running report of what each gesture did), "This list scrolls on its own."
+ * under the filters, and "Gutter reserved: no reflow" along the bottom. No catalogue prints
+ * any of them. What the wheel reached is visible in the page itself, in the ruler, and in
+ * the lock chip, and the page still carries `data-moved` for the script to assert on.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -47,7 +52,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Chandlery</span>
           <button class="sp-button sp-button--ghost sp-button--sm" data-part="open" type="button">Filters</button>
-          <span class="sp-text" data-part="readout" data-moved="no" style="width: 226px; text-align: right; white-space: nowrap">Wheel over the page</span>
         </div>
         <div class="sp-body" style="position: relative; padding: 0; overflow: hidden">
           <div
@@ -67,15 +71,13 @@ export function mount(root: HTMLElement): void {
             <span class="sp-heading" style="font-size: 13px">Filters</span>
             <div class="sp-scroll" data-part="panel-scroll" data-moved="no" style="height: 116px; padding-right: 4px">
               ${filters}
-              <div class="sp-text" style="padding: 6px 2px 2px; font-size: 11px">This list scrolls on its own.</div>
             </div>
             <button class="sp-button sp-button--sm" data-part="close" type="button" style="align-self: flex-start">Done</button>
           </div>
         </div>
         <div class="sp-topbar sp-context" style="gap: 10px; border-bottom: 0; border-top: 1px solid var(--sp-line)">
           <span class="sp-chip" data-part="lock" data-state="locked" style="width: 92px; justify-content: center; cursor: default">Page locked</span>
-          <div class="sp-progress" data-part="ruler" style="width: 90px"><div class="sp-progress-fill" style="--sp-value: 0%; transition: none"></div></div>
-          <span class="sp-label sp-grow" style="text-align: right; white-space: nowrap">Gutter reserved: no reflow</span>
+          <div class="sp-progress sp-grow" data-part="ruler" style="max-width: 90px"><div class="sp-progress-fill" style="--sp-value: 0%; transition: none"></div></div>
         </div>
       </div>
     </div>
@@ -86,16 +88,9 @@ export function mount(root: HTMLElement): void {
   const panelScroll = part(root, 'panel-scroll');
   const scrim = part(root, 'scrim');
   const lock = part(root, 'lock');
-  const readout = part(root, 'readout');
   const ruler = part(root, 'ruler').firstElementChild as HTMLElement;
 
   let frozenAt = 0;
-
-  const say = (moved: 'no' | 'yes', text: string) => {
-    page.dataset.moved = moved;
-    readout.dataset.moved = moved;
-    readout.textContent = text;
-  };
 
   const drawRuler = () => {
     const max = Math.max(1, page.scrollHeight - page.clientHeight);
@@ -110,25 +105,24 @@ export function mount(root: HTMLElement): void {
     lock.dataset.state = locked ? 'locked' : 'free';
     lock.textContent = locked ? 'Page locked' : 'Page free';
     frozenAt = page.scrollTop;
-    say('no', locked ? 'Wheel over the page' : 'Page released: try again');
+    page.dataset.moved = 'no';
   };
 
   page.addEventListener('scroll', () => {
     if (page.hasAttribute('data-locked')) {
-      // A wheel cannot reach a locked scroller at all; a script can, so the offset is put
-      // back and the refusal is what the readout reports.
+      // A wheel cannot reach a locked scroller at all; a script can, so the offset it held
+      // is the offset it is put back to, and the page holds still.
       if (page.scrollTop !== frozenAt) page.scrollTop = frozenAt;
       drawRuler();
-      say('no', 'Locked: the page held still');
+      page.dataset.moved = 'no';
       return;
     }
     drawRuler();
-    say(page.scrollTop > 1 ? 'yes' : 'no', `Page moved ${Math.round(page.scrollTop)} px`);
+    page.dataset.moved = page.scrollTop > 1 ? 'yes' : 'no';
   });
 
   panelScroll.addEventListener('scroll', () => {
     panelScroll.dataset.moved = panelScroll.scrollTop > 1 ? 'yes' : 'no';
-    if (panelScroll.scrollTop > 1) readout.textContent = 'The drawer scrolls, the page does not';
   });
 
   part(root, 'open').addEventListener('click', () => setLocked(true));

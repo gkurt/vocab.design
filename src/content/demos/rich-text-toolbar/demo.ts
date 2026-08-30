@@ -26,6 +26,10 @@ const RUNS = [
  * selected attribute for the reader who sees it, since a synthesized press never
  * lights up `:active` (SPEC §7).
  *
+ * The status line under the editor once read "Caret in line 1. The strip reads it.", which
+ * told the reader what to conclude. It is now the line count an editor really prints; the
+ * strip coming down on its own is the demonstration and needs no narration.
+ *
  * A latch is what these controls are, so they toggle, and the script drives each one
  * only onto a line that is not already in that state (SPEC §8). Every line keeps a
  * fixed height and never wraps, so re-weighting the type moves nothing (SPEC §5).
@@ -76,7 +80,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body sp-context" style="display: flex; flex-direction: column; gap: 10px">
           <div class="sp-surface sp-stack" data-part="editor" style="gap: 4px; padding: 10px 8px">${lines}</div>
           <span class="sp-text" data-part="where" data-run="intro" style="margin-top: auto; font-size: 12px">
-            Caret in line 1. The strip reads it.
+            Line 1 of ${RUNS.length}
           </span>
         </div>
       </div>
@@ -116,7 +120,7 @@ export function mount(root: HTMLElement): void {
     }
     const index = RUNS.findIndex((run) => run.key === at) + 1;
     where.dataset.run = at;
-    where.textContent = `Caret in line ${index}. The strip reads it.`;
+    where.textContent = `Line ${index} of ${RUNS.length}`;
   };
 
   const placeCaret = (key: string) => {

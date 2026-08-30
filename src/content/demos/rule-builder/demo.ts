@@ -56,8 +56,12 @@ const opLabelOf = (key: OpKey) => OPS.find((entry) => entry.key === key)?.label 
  *
  * The subject is the rule, the set of clause rows and the join between them, since that
  * assembly is what the term names and what the product saves. The Add control, the match
- * count, the library dots, the readback sentence and the caption are the scene around it in
- * the context register (SPEC §5).
+ * count, the library dots and the readback sentence are the scene around it in the context
+ * register (SPEC §5).
+ *
+ * A line under the frame read "Five picks and a join, and the condition is expressed
+ * without writing one. The count answers every keystroke." That is the article counting
+ * the picks for the reader, and the count in the title bar already does it, so it went.
  *
  * The second clause and its join keep their room from mount (hidden but reserved), so adding a
  * clause moves nothing (SPEC §5). Each menu trigger opens rather than toggles, and a pick is
@@ -158,9 +162,6 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <span class="sp-text sp-context" style="width: 452px; height: 30px; font-size: 11px; line-height: 1.35">
-        Five picks and a join, and the condition is expressed without writing one. The count answers every keystroke.
-      </span>
     </div>
   `;
 

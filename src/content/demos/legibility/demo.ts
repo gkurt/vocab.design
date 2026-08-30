@@ -34,13 +34,20 @@ const ROW = 52;
  * stays in the context register with the labels and the caption. The subject
  * never changes face, so it is the term at every resting state and needs no
  * `data-pose`.
+ *
+ * The panel was headed "Told apart, or not" and its two rows were labelled "a
+ * grotesque sans" and "a face drawn for code", which is the site describing its own
+ * figure. A type panel names what it is showing, so the heading says which characters
+ * are on the bench and each row names the family its stack asks for. The line under the two
+ * rows began "showing", which is the exhibit narrating its own figure; a panel labels that
+ * field, so it reads "Characters".
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Told apart, or not</span>
+          <span class="sp-heading">Confusable characters</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Glyphs" data-part="segmented" data-value="il1">
             <button class="sp-segment" data-part="seg-il1" value="il1">I l 1</button>
             <button class="sp-segment" data-part="seg-o0" value="o0">O 0</button>
@@ -48,21 +55,21 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-row sp-context" data-part="row-grotesque" style="gap: 14px; height: ${ROW}px; margin-top: 4px">
-          <span class="sp-label" style="width: 128px">a grotesque sans</span>
+          <span class="sp-label" style="width: 128px">Sans-serif</span>
           <span data-part="glyphs-grotesque" style="font-family: ${GROTESQUE}; font-size: 34px; line-height: 1.1"></span>
           <span class="sp-grow" data-part="word-grotesque"
                 style="font-family: ${GROTESQUE}; font-size: 13px; color: var(--sp-muted); text-align: right"></span>
         </div>
         <div class="sp-divider sp-context"></div>
         <div class="sp-row" data-part="row-code" style="gap: 14px; height: ${ROW}px">
-          <span class="sp-label sp-context" style="width: 128px">a face drawn for code</span>
+          <span class="sp-label sp-context" style="width: 128px">Monospace</span>
           <span data-part="glyphs-code" data-subject data-set="il1"
                 style="font-family: ${CODE}; font-size: 34px; line-height: 1.1"></span>
           <span class="sp-grow sp-context" data-part="word-code"
                 style="font-family: ${CODE}; font-size: 13px; color: var(--sp-muted); text-align: right"></span>
         </div>
         <div class="sp-row sp-context" style="gap: 6px; height: 18px; margin-top: 6px">
-          <span class="sp-label">showing</span>
+          <span class="sp-label">Characters</span>
           <span class="sp-label" data-part="names" style="color: var(--sp-ink)"></span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">

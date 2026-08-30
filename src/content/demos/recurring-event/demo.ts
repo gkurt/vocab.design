@@ -52,6 +52,11 @@ const chips = SCOPES.map(
  * version of a dialog that cannot be designed away; applying it writes one exception, and
  * the rule line says so while the other five occurrences stay exactly as they were.
  *
+ * A line under the card used to read "One rule, not six copies. An edit has to say which
+ * occurrences it means." That is the article's summary of the scene, said in the article's
+ * voice inside a calendar, and the rule line and the scope row already show both halves of
+ * it, so it went.
+ *
  * Every pick is absolute rather than a toggle (SPEC §8): a scope chip sets the scope, it
  * never inverts it, so a pass interrupted anywhere still ends in a state that means what
  * it looks like. The scope row and the exception note are both in the layout from mount,
@@ -88,9 +93,6 @@ export function mount(root: HTMLElement): void {
               <button type="button" class="sp-button sp-button--sm" data-part="apply" style="flex: 0 0 auto">Skip it</button>
             </div>
           </div>
-          <span class="sp-text sp-context" style="width: 442px; margin-top: 8px; font-size: 11px; line-height: 1.35; text-align: center">
-            One rule, not six copies. An edit has to say which occurrences it means.
-          </span>
         </div>
       </div>
     </div>

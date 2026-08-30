@@ -7,7 +7,6 @@ type Row = {
   subject: string;
   preview: string;
   source: 'written' | 'scraped';
-  note: string;
 };
 
 const ROWS: Row[] = [
@@ -18,7 +17,6 @@ const ROWS: Row[] = [
     subject: 'Your tide tables for September',
     preview: 'Spring tides on the 9th, the ferry timetable changes on the 14th, and the boatyard reopens.',
     source: 'written',
-    note: 'written',
   },
   {
     part: 'scraped',
@@ -27,7 +25,6 @@ const ROWS: Row[] = [
     subject: 'New this week at Quay Books',
     preview: 'View this email in your browser. Unsubscribe. Add us to your address book to keep receiving.',
     source: 'scraped',
-    note: 'scraped',
   },
 ];
 
@@ -50,7 +47,6 @@ function row(item: Row): string {
           style="margin-top: 2px; font-size: 12px; ${oneLine}"
         >${item.preview}</span>
       </span>
-      <span class="sp-label sp-context" data-part="${item.part}-note" style="flex: 0 0 auto; white-space: nowrap; font-size: 10px">${item.note}</span>
     </li>`;
 }
 
@@ -67,13 +63,23 @@ function row(item: Row): string {
  * The scraped line below is a peer instance rather than scenery, which is what makes
  * the pair a comparison, so the ring stays on one of them.
  *
+ * A panel under the list once explained the mechanism ("The written line is hidden text at
+ * the very top of the mail body, so the client prints it here instead of scraping what
+ * follows."). No mail client prints that, and the article says the same thing at length, so
+ * the panel is gone and the frame is shorter by its height.
+ *
+ * Each row also carried a badge on its right edge reading "written" or "scraped". That is
+ * the site labelling its own exhibit: no inbox tells you where a preview line came from,
+ * and telling the reader which is which removes the only thing there is to notice. The
+ * badges are gone and the two lines are left to be read against each other.
+ *
  * Both states are visible at rest and nothing here has a second state, so the script
  * is waits and asserts (SPEC §8) and the demo arms no clock.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 274px">
+      <div class="sp-frame sp-frame--wide" style="height: 224px">
         <div class="sp-topbar sp-context">
           ${icon('inbox')}<span class="sp-heading sp-grow">Inbox</span><span class="sp-label">2 unread</span>
         </div>
@@ -81,17 +87,6 @@ export function mount(root: HTMLElement): void {
           <ul class="sp-list sp-surface" data-part="list" style="flex: 0 0 auto; padding: 0 2px">
             ${ROWS.map(row).join('')}
           </ul>
-          <div
-            class="sp-surface sp-context sp-row"
-            data-part="mechanism"
-            style="flex: 0 0 auto; gap: 8px; height: 42px; padding: 0 11px"
-          >
-            ${icon('eyeOff')}
-            <span class="sp-text" style="min-width: 0; font-size: 11px; line-height: 1.35">
-              The written line is hidden text at the very top of the mail body, so the client prints it
-              here instead of scraping what follows.
-            </span>
-          </div>
         </div>
       </div>
     </div>

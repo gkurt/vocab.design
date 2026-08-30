@@ -46,6 +46,10 @@ const ACTIONS: { key: string; label: string; glyph: IconName; done: string }[] =
  * that stays down and ends in a pointerup rather than a tap, so the script reaches the
  * quick actions through the same countdown a finger runs, and a press that gives up
  * early is read as a tap the same way.
+ *
+ * The status line in the toolbar used to open on "Hold a photo for actions", which was the
+ * site telling the reader how to drive the specimen. It opens on the library's own count
+ * now and the gesture writes over it from there, so the element still has a job at rest.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const tiles = THUMBS.map(({ name, wash }, index) => {
@@ -81,7 +85,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Library</span>
-          <span class="sp-text" data-part="readout" style="width: 168px; text-align: right">Hold a photo for actions</span>
+          <span class="sp-text" data-part="readout" style="width: 168px; text-align: right">3 photos</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center">
           <div style="position: relative; width: 300px">

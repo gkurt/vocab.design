@@ -27,6 +27,10 @@ const FILL = {
  * in fill, so the remainder never depends on colour alone. Readout, remainder line,
  * and form body all keep their box across every step, so advancing moves nothing that
  * did not change (SPEC §5).
+ *
+ * A caption under the frame once read "The flow says how long it is, and keeps saying it."
+ * No checkout prints a note about its own indicator, and the readout restating itself at
+ * every stop is the whole demonstration, so it went.
  */
 export function mount(root: HTMLElement): void {
   const segments = STEPS.map(
@@ -70,7 +74,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-label sp-context">The flow says how long it is, and keeps saying it.</span>
     </div>
   `;
 

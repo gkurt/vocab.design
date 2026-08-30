@@ -14,6 +14,10 @@ const HIDDEN = [
  * trigger, which here is a plain "More" button. The panel is out of flow, so opening
  * it moves nothing in the frame (SPEC §5), and it opens only: dismissal is choosing
  * an item, Escape, or a click outside (SPEC §8).
+ *
+ * A line under the frame read "Three actions fit in the bar. The other four are the same
+ * actions, waiting behind one trigger." It was the site counting the toolbar for the
+ * reader, which the toolbar and the open panel do between them.
  */
 export function mount(root: HTMLElement): void {
   const items = HIDDEN.map(
@@ -61,9 +65,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="readout" data-value="none" role="status" style="white-space: nowrap">No action run yet</span>
         </div>
       </div>
-      <p class="sp-text sp-context" style="max-width: 430px; text-align: center; margin: 0">
-        Three actions fit in the bar. The other four are the same actions, waiting behind one trigger.
-      </p>
     </div>
   `;
 

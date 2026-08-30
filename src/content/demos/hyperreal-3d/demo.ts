@@ -18,6 +18,10 @@
  *
  * Static: a hero image has no states, so there is nothing to animate and no clock to take.
  *
+ * The hero's subhead used to read "Studio lighting, chrome banding, a glow under the skin.
+ * None of it was photographed.", which is the article's inventory of the render printed as if
+ * it were the product's own marketing. It sells the product now, the way a landing page does.
+ *
  * `data-loop="keep"`: nothing here holds state, so the pass ends at the mount state it began in, and attract
  * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
  */
@@ -72,7 +76,7 @@ export function mount(root: HTMLElement): void {
               A render that<br />outdoes the photo.
             </span>
             <span class="sp-text" data-part="sub" style="margin-top: 9px; max-width: 244px">
-              Studio lighting, chrome banding, a glow under the skin. None of it was photographed.
+              Ship product shots without a studio, a photographer, or a single physical sample.
             </span>
             <button class="sp-button sp-button--sm" data-part="cta" type="button" style="align-self: flex-start; margin-top: 13px">
               Take a look

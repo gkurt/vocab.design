@@ -25,6 +25,10 @@ const LINE_PX = 28;
  * the menu row underneath where the convention still lives (Apple capitalises its
  * menu items, and "Move to Trash" keeps its two-letter preposition down).
  *
+ * The menu row is headed "File", the way a menu is. It read "where the convention held:
+ * a menu", which explained why the row was in the specimen instead of letting the row be
+ * a menu; the article makes the point about menus at length.
+ *
  * The subject is the headline. Sentence case is a counter-example the subject
  * itself passes through, so the honest condition is declared in `data-pose` and
  * the specimen mounts title cased (SPEC §6): identify refuses to ring the sentence
@@ -49,7 +53,7 @@ export function mount(root: HTMLElement): void {
            style="margin: 6px 0 0; height: 34px; font-size: 12px; line-height: 17px"></p>
         <div class="sp-divider sp-context" style="margin: 8px 0"></div>
         <div class="sp-stack sp-context" data-part="menu" style="gap: 5px">
-          <span class="sp-label">where the convention held: a menu</span>
+          <span class="sp-label">File</span>
           <div class="sp-row" style="gap: 4px">
             <span class="sp-button sp-button--sm sp-button--quiet" data-part="menu-save">Save As</span>
             <span class="sp-button sp-button--sm sp-button--quiet" data-part="menu-duplicate">Duplicate Window</span>

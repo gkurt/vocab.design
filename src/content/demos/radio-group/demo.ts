@@ -15,6 +15,11 @@ const OPTIONS = [
  * the question above it (its group label, named through `aria-labelledby`) and the
  * single tab stop, spelled as a roving tabindex over the three options.
  *
+ * A keyboard hint in the title bar ("↑ ↓ move and choose") told the reader how to drive the
+ * group, and the summary line ended "One question, one answer, one tab stop." Both were the
+ * site talking inside a checkout, so the hint is gone and the summary now says only what a
+ * checkout would say about the choice.
+ *
  * Nothing moves when the choice moves (SPEC §5): the dot inside each circle changes
  * opacity in a box that is always the same size, and the summary line below is sized
  * for its longest wording rather than for the one on screen at mount.
@@ -46,11 +51,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 298px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Checkout</span>
-          <span class="sp-row" style="gap: 6px">
-            <span class="sp-kbd">↑</span>
-            <span class="sp-kbd">↓</span>
-            <span class="sp-label">move and choose</span>
-          </span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column">
           <div
@@ -61,11 +61,11 @@ export function mount(root: HTMLElement): void {
             data-subject
             style="padding: 10px 10px 8px"
           >
-            <span class="sp-label" id="rg-legend" data-stage-verdict data-part="legend" style="display: block; padding: 0 8px 4px">Delivery speed</span>
+            <span class="sp-label" id="rg-legend" data-part="legend" style="display: block; padding: 0 8px 4px">Delivery speed</span>
             <div class="sp-stack" style="gap: 2px">${OPTIONS.map(option).join('')}</div>
           </div>
           <p class="sp-text sp-context" data-part="summary" style="margin: auto 0 0 2px; font-size: 12px; white-space: nowrap">
-            Chosen: Standard. One question, one answer, one tab stop.
+            Chosen: Standard.
           </p>
         </div>
       </div>
@@ -93,7 +93,7 @@ export function mount(root: HTMLElement): void {
       if (fill instanceof HTMLElement) fill.style.opacity = on ? '1' : '0';
       flag(button, 'data-selected', on);
     }
-    summary.textContent = `Chosen: ${OPTIONS[current]?.label}. One question, one answer, one tab stop.`;
+    summary.textContent = `Chosen: ${OPTIONS[current]?.label}.`;
   };
 
   const move = (delta: number, real: boolean) => {

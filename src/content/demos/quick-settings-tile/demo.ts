@@ -20,16 +20,22 @@ const VALUE = { on: 'On, until 6pm', off: 'Off' };
  * Quick settings tile specimen: the system's own panel of controls, with one tile in it that an
  * app contributed. The app's tile is the wide one at the top and carries the whole anatomy the
  * term is about: a symbol, a short title, and an optional value. Tapping it switches the feature
- * and the app stays shut, which is the readout's job to keep saying.
+ * and the app stays shut.
  *
  * The subject is that tile, the narrowest element the term names. The four system tiles around it
  * are the same component supplied by the shell rather than by an app, so each of them sits in the
- * context register, as do the anatomy legend and the readout. The panel itself is left out of that
+ * context register. The panel itself is left out of that
  * register on purpose: it paints in neutrals only, and marking it would remap the accent of the
  * subject sitting inside it. A tile is honestly a tile
  * whether it is on or off, so no `data-pose` condition is needed, and the toggle is the one case
  * where flipping is right (SPEC §8): switching a feature is exactly what a tile does, and the
  * script drives both directions itself.
+ *
+ * Three pieces of the site's own voice have been taken out of the frame. A legend beside the
+ * panel headed "Anatomy of a tile" named the symbol, the title and the value and described
+ * each one; a readout in the title bar said "Deep Focus is not open"; and a caption under the
+ * panel explained who supplies which part. All of that is the article's, so the frame now
+ * holds only the panel, and is as wide as it.
  *
  * Nothing resizes: the cell, the symbol's box and the value's line are all fixed, so the state
  * change is a colour and a word rather than a reflow, and the value's longer string is the one
@@ -49,16 +55,11 @@ export function mount(root: HTMLElement): void {
       <span style="font-size: 11px; white-space: nowrap">${tile.title}</span>
     </div>`;
 
-  const legendRow = (label: string, text: string) => `
-    <span class="sp-label" style="font-size: 11px; white-space: nowrap">${label}</span>
-    <span class="sp-text" style="font-size: 11px; line-height: 1.3">${text}</span>`;
-
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 292px">
+      <div class="sp-frame sp-frame--wide" style="width: 246px; height: auto">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">System controls</span>
-          <span class="sp-label" data-part="readout" style="font-size: 11px; white-space: nowrap">Deep Focus is not open</span>
         </div>
 
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 16px">
@@ -88,20 +89,7 @@ export function mount(root: HTMLElement): void {
             </button>
             ${SYSTEM.map(systemTile).join('')}
           </div>
-
-          <div class="sp-context" style="width: 182px">
-            <span class="sp-label" style="display: block; margin-bottom: 6px; font-size: 11px">Anatomy of a tile</span>
-            <div style="display: grid; grid-template-columns: 44px 1fr; gap: 5px 8px; align-items: baseline">
-              ${legendRow('Symbol', 'reads at 30px')}
-              ${legendRow('Title', 'the feature, not the app')}
-              ${legendRow('Value', 'its state, optional')}
-            </div>
-          </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4; font-size: 11px">
-          One tap switches the feature from the shell's own panel. The app supplies the symbol, the title and the value; the system draws them.
-        </span>
       </div>
     </div>
   `;

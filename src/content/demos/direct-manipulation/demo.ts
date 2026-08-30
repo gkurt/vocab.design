@@ -16,6 +16,11 @@ const WIDE_AT = 90;
  * guide, and the whole numeric panel are scenery (SPEC §5): the panel is the
  * counter-example the term is defined against, not a second reading of the term.
  *
+ * That panel used to be headed "The twin is changed the other way: describe the move, then
+ * Apply.", which is the site narrating the comparison from inside the editor. No inspector
+ * writes that above its own fields, and the article makes the contrast anyway, so the panel
+ * carries the plain heading a properties pane would really print.
+ *
  * Nothing transitions on the card. A dragged object that eases is an object lagging
  * the pointer, and a position written and then read back through a transition is the
  * old position, which is the measurement bug this codebase keeps running into.
@@ -59,7 +64,7 @@ export function mount(root: HTMLElement): void {
       </div>
 
       <div class="sp-stack sp-context" style="gap: 6px; width: 294px">
-        <span class="sp-label" style="font-size: 11px">The twin is changed the other way: describe the move, then Apply.</span>
+        <span class="sp-label" style="font-size: 11px">Twin block: position and size</span>
         <div class="sp-row" style="gap: 6px">
           <input class="sp-input" data-part="twin-x" type="text" inputmode="numeric" aria-label="Twin x" value="18" style="width: 54px; text-align: center" />
           <input class="sp-input" data-part="twin-y" type="text" inputmode="numeric" aria-label="Twin y" value="90" style="width: 54px; text-align: center" />

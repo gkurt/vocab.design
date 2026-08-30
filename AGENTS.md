@@ -210,7 +210,10 @@ whoever edits a demo:
 
 The pose comes from the stage rather than from the script: capture mode calls the same
 `enterPose` identify does, so a share image cannot summon its subject differently from the
-site. What differs is only the annotation (`src/stage/highlight.ts`).
+site. What differs is the annotation (`src/stage/highlight.ts`) and the strip: a capture
+draws none of it, because a still cannot press a switch and the caption band already speaks
+in the site's voice. A subject that lived in a strip lane is therefore off the canvas, and
+the picture fades evenly instead of aiming light at empty ground (SPEC §10).
 
 **Gotcha**: the shooting needs a BUILT site (`dist/capture/*.html`), because the script
 serves `dist/` itself rather than driving `astro preview`: Astro's preview lock is global
@@ -631,6 +634,26 @@ never fires under reduced motion, so nothing may ever wait on it.
   styles but never kit classes, which do not exist outside the shadow root. A live region
   that is a panel of kit-classed product UI is not an utterance and stays put
   (`atomic-live-region`, `busy-state`, `streaming-announcement`).
+- **The rule is about the WORDS, not about the part name** (SPEC §5.1). Every string a demo
+  paints has to be one the mock product would really print. A sweep of the whole corpus on
+  2026-08-30 found 1,268 that were not, across 662 of 1,124 specimens, and only a minority
+  sat in a part called `caption` or `note`: `bubble-toolbar` put "Select a run to summon it"
+  in a bare `sp-label`, and `coach-mark` labelled the button that re-arms its beacon "New
+  teammate", which is a control named for its justification rather than its action. Demo
+  instrumentation (a Replay, a reset, a make-it-fail switch) says plainly what it does.
+  The tells, in order of how often they hide: an instruction to the reader ("Drag the handle
+  past the detent"), commentary on what to notice ("Only the live source breathes"), a
+  comparison with something absent from the scene ("No scrim, no Next, no counter that
+  matters"), a sentence teaching the term, and an annotation of the exhibit ("one parent, one
+  timing"). The default fix is DELETION, because the article says it better and at length.
+  Do not detect this by reading source: `.claude/skills/specimen-sweep/detectors/frame-prose.ts`
+  mounts the built capture pages and reads what is actually painted, which is the only
+  complete list, and half the corpus interpolates its prose from constants.
+- **Anything the stage lifts out of a specimen must be hidden on EVERY stage.** A listing card
+  draws no strip, and `syncStrip` used to return early when there was no strip, so verdicts
+  and mode switches stayed sitting in the fiction on the front page, `/browse` and `/tags`
+  while looking correct on every term page. Sources are hidden before the strip decision now
+  (`src/stage/specimen-stage.ts`); a future lane has to do the same.
 - **`data-identify` is `data-pose`'s sibling, for parameters** (SPEC §5.1). A pose names the
   states in which the subject is still the term, which only a counter-example has;
   `data-identify` names the one state in which the term is LEGIBLE, which a parameter has.

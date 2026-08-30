@@ -53,6 +53,11 @@ const chip = (key: string, text: string, side: string) => `
  * (SPEC §5), and both are drawn at identical geometry, because pixels landing in the
  * same place is the entire argument for this control over two pictures side by side.
  *
+ * A caption under the frame read "Drag the divider, or nudge it with the arrow keys.", an
+ * instruction to the reader dressed as the product's own copy. Nothing about it changed with
+ * the control, so it was never a verdict, and the handle and the two chips say what the frame
+ * is for without it. The percentage readout beside it stays: it is the control's own value.
+ *
  * Every gesture reaches an absolute position (SPEC §8): a drag past either label lands
  * exactly on that limit, and the arrow keys move whole steps from wherever the drag
  * left the divider. Nothing transitions, because a divider that eases is a divider
@@ -93,8 +98,7 @@ export function mount(root: HTMLElement): void {
             ><span style="display: flex; margin: 0 -4px">${icon('chevronLeft')}</span><span style="display: flex; margin: 0 -4px">${icon('chevronRight')}</span></span>
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="width: 430px">
-          <span class="sp-text" data-stage-verdict data-part="caption" style="font-size: 12px">Drag the divider, or nudge it with the arrow keys.</span>
+        <div class="sp-row sp-context" style="width: 430px; justify-content: flex-end">
           <span class="sp-label" data-part="readout" style="width: 80px; text-align: right; font-variant-numeric: tabular-nums">Original ${START}%</span>
         </div>
       </div>

@@ -5,7 +5,6 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=phrase][data-mode=drop]', state: 'visible' } },
   { assert: { selector: '[data-part=word-drop]', state: 'visible' } },
-  { moveTo: '[data-part=read]' },
   { wait: 800 },
   { assert: { selector: '[data-part=read]', state: 'visible' } },
   // Absolute picks, never a flip: each segment names the treatment it reaches, and
@@ -20,9 +19,8 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=phrase][data-mode=stutter]', state: 'visible' } },
   { assert: { selector: '[data-part=word-stutter]', state: 'visible' } },
-  { moveTo: '[data-part=caption]' },
   { wait: 900 },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { assert: { selector: '[data-part=read][data-mode=stutter]', state: 'visible' } },
   { moveTo: '[data-part=seg-drop]' },
   { click: true },
   { wait: 1000 },

@@ -39,10 +39,14 @@ const grip = (edge: 'start' | 'end') => `
  * The subject is the end grip. The term names one draggable grip, not the selection it
  * bounds and not the paragraph under it, and the grip's box is deliberately far larger than
  * the ball drawn inside it, so identify rings the target rather than the artwork. The
- * paragraph, the loupe exhibit and the counts are the scene and stay in the context register.
+ * paragraph and the word count are the scene and stay in the context register.
  *
- * The loupe is drawn once, as a still: it is a convention worth naming, and animating a
- * magnifier chasing a grip would be a second term's demonstration inside this one.
+ * A loupe used to be drawn beside the count, as a still, under the sentence "A loupe rides
+ * above the grip while it moves, because the finger is covering the boundary it is setting.
+ * Drawn here as a still." That is the site explaining a second convention inside a notes
+ * app, and the still exhibit means nothing once the sentence goes, so both went and the
+ * frame lost the height they took. The status line reads as a notes app's would at rest
+ * ("Edited 4 minutes ago") instead of telling the reader to drag something.
  *
  * A drag resolves to the nearest word by geometry rather than by hit testing, so a grip that
  * has moved under the pointer can never swallow its own drop. Nothing about a word changes
@@ -61,10 +65,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 252px">
+      <div class="sp-frame sp-frame--wide" style="height: 225px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Notes</span>
-          <span class="sp-text" data-part="readout" style="width: 272px; text-align: right; white-space: nowrap">Drag either grip to move that end</span>
+          <span class="sp-text" data-part="readout" style="width: 272px; text-align: right; white-space: nowrap">Edited 4 minutes ago</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <div class="sp-surface" data-part="page" style="position: relative; height: 122px; padding: 18px 14px">
@@ -75,12 +79,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             >${words}</div>
             ${grip('start')}${grip('end')}
           </div>
-          <div class="sp-row sp-context" style="gap: 10px">
-            <span
-              data-part="loupe"
-              style="position: relative; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--sp-line); background: var(--sp-surface); overflow: hidden; font-size: 19px; letter-spacing: -0.5px"
-            >pa<span style="display: inline-block; width: 2px; height: 20px; margin: 0 1px; background: var(--sp-accent)"></span>re</span>
-            <span class="sp-label sp-grow" style="line-height: 1.4">A loupe rides above the grip while it moves, because the finger is covering the boundary it is setting. Drawn here as a still.</span>
+          <div class="sp-row sp-context" style="gap: 10px; justify-content: flex-end">
             <span class="sp-label" data-part="count" style="width: 96px; text-align: right">3 words</span>
           </div>
         </div>

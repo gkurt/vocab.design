@@ -30,6 +30,8 @@ const tick = (x: number, label: string) => `
  * The subject is the puck. `replace` is the counter-example the control exists to offer, and it is a
  * state the puck itself passes through, so the honest condition lives in `data-pose` and the mount
  * state (`add`) satisfies it (SPEC §6). The lane, the ticks, the buttons and the readout are scene.
+ * The readout reports the puck at every state, resting one included ("The puck sits at 0px."): at
+ * rest it used to tell the reader what to press, which is the article's job and not a readout's.
  *
  * `motion.css` cannot reach an `element.animate` keyframe set, so the demo asks
  * `prefersReducedMotion` itself and writes the landed offset straight onto the puck, which keeps the
@@ -92,7 +94,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     scene.dataset.state = 'rested';
     claim.textContent =
       stacked === 0
-        ? 'Press Nudge twice, faster than one move takes.'
+        ? 'The puck sits at 0px.'
         : mode === 'add'
           ? `${stacked} nudge${stacked === 1 ? '' : 's'} composed: the puck sits at ${at}px.`
           : `The last nudge replaced the ones before it: the puck sits at ${at}px.`;

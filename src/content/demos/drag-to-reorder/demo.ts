@@ -20,7 +20,10 @@ const SLIDE = 'translate 0.16s var(--sp-ease)';
  * Drag to reorder specimen: a task list where a row is lifted by its grip and the
  * rows it passes slide aside to open the slot it will land in. The subject is the
  * list, since the term names the sequence being rewritten rather than any one row;
- * the frame, its topbar, and the caption are scenery (SPEC §5).
+ * the frame and its topbar are scenery (SPEC §5). A caption under the frame used to
+ * read "The list opens the slot before you let go. The order is written on release."
+ * That was the site narrating its own demonstration, which no planner app would print,
+ * and the article already explains when the order is committed, so it is gone.
  *
  * Nothing is re-parented between the press and the release. During the drag only
  * `translate` moves, so the DOM order the demo is tracking cannot change under the
@@ -76,7 +79,6 @@ export function mount(root: HTMLElement): void {
           >${rows}</ul>
         </div>
       </div>
-      <span class="sp-label sp-context">The list opens the slot before you let go. The order is written on release.</span>
     </div>
   `;
 

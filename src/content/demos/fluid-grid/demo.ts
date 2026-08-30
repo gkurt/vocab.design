@@ -20,6 +20,10 @@ const PAD = 8;
  *
  * Every reported width is arithmetic from the viewport width, the column count and the
  * gutter, never a measurement taken after a style write (SPEC gotcha).
+ *
+ * The two rows were once labelled "columns as proportions" and "columns at 110px", which is
+ * the site describing its own comparison. They now print the declaration each row was laid
+ * out with, so the annotation states a fact about the markup rather than a lesson.
  */
 export function mount(root: HTMLElement): void {
   const cards = (key: string, fills: number[]) =>
@@ -53,7 +57,7 @@ export function mount(root: HTMLElement): void {
             data-width="narrow"
             style="width: ${WIDTHS.narrow}px; padding: ${PAD}px; background: var(--sp-bg); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)"
           >
-            <span class="sp-label">columns as proportions</span>
+            <span class="sp-label">repeat(3, 1fr)</span>
             <div
               class="sp-grid"
               data-part="fluid"
@@ -62,7 +66,7 @@ export function mount(root: HTMLElement): void {
             >
               ${cards('fluid', [76, 62, 70])}
             </div>
-            <span class="sp-label" style="display: block; margin-top: 12px">columns at ${COLUMN}px</span>
+            <span class="sp-label" style="display: block; margin-top: 12px">repeat(3, ${COLUMN}px)</span>
             <div
               data-part="fixed"
               style="margin-top: 4px; display: grid; gap: ${GAP}px; grid-template-columns: repeat(3, ${COLUMN}px); overflow: hidden"

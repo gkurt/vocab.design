@@ -23,7 +23,6 @@ const APPS: App[] = [
 ];
 
 const PINNED = APPS.filter((app) => app.pinned);
-const PIN_COUNT = PINNED.length;
 
 /**
  * Dock specimen: the shell's own strip along the bottom of a desktop, holding four pinned
@@ -35,7 +34,12 @@ const PIN_COUNT = PINNED.length;
  * The subject is the strip itself, not one tile and not the desktop: the term names the row
  * and the sections inside it. It is honestly a dock in every state the script visits (a dock
  * with nothing running is still a dock), so no `data-pose` condition is needed. The desktop
- * wash, the window and the count line are scenery in the context register.
+ * wash and the window are scenery in the context register.
+ *
+ * The title bar used to carry "4 pinned, 1 running" beside "Desktop", which is the site keeping
+ * score rather than the shell saying anything: the running dots under the tiles are the evidence,
+ * and they are what the pass claims. The tally survives as `data-running` on the strip, where the
+ * script can still read the count without the reader having to.
  *
  * Hover magnification is deliberately absent: that behaviour is its own term, and a dock
  * with it switched off (the macOS default) is still a dock. Running dots are drawn at full
@@ -76,9 +80,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 296px">
         <div class="sp-topbar sp-context" style="padding: 8px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Desktop</span>
-          <span class="sp-label" data-part="readout" data-pinned="${PIN_COUNT}" data-running="1" style="font-size: 11px; white-space: nowrap"
-            >${PIN_COUNT} pinned, 1 running</span
-          >
         </div>
 
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; padding: 10px 12px">
@@ -106,6 +107,7 @@ export function mount(root: HTMLElement): void {
               data-part="dock"
               data-subject
               data-front="preview"
+              data-running="1"
               style="position: absolute; left: 50%; bottom: 10px; translate: -50% 0; align-items: flex-end; gap: 8px;
                      padding: 6px 8px; border-radius: 14px; background: rgb(255 255 255 / 0.22);
                      border: 1px solid rgb(255 255 255 / 0.32); backdrop-filter: blur(8px)"
@@ -137,7 +139,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const dock = part(root, 'dock');
-  const readout = part(root, 'readout');
   const windowEl = part(root, 'window');
   const title = part(root, 'window-title');
 
@@ -149,8 +150,7 @@ export function mount(root: HTMLElement): void {
       const dot = part(root, `dot-${app.key}`);
       dot.style.opacity = running.has(app.key) ? '1' : '0';
     }
-    readout.dataset.running = String(running.size);
-    readout.textContent = `${PIN_COUNT} pinned, ${running.size} running`;
+    dock.dataset.running = String(running.size);
   };
 
   const front = (key: string) => {

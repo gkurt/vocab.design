@@ -31,9 +31,10 @@ const smear = (id: string) => `
  * a gradient tail behind the box plus a light blur on the box itself, both stated inline, and the
  * tail flips to the other side at the turn so it always trails the direction of travel.
  *
- * Under the lane sits a still of one frame mid-flight in whichever mode is picked, which is the
- * only way the difference is legible rather than a guess: at this speed a reader cannot hold two
- * live passes side by side, and a still is exactly what a film frame is.
+ * Under the lane sits a still of one frame in whichever mode is picked, labelled "Single frame"
+ * (it read "One frame, mid-flight", which was the exhibit narrating rather than naming its own
+ * instrument). It is the only way the difference is legible rather than a guess: at this speed a
+ * reader cannot hold two live passes side by side, and a still is exactly what a film frame is.
  *
  * The subject is the moving box. `Off` is the counter-example the box itself passes through, so
  * the honest condition lives in `data-pose` and identify plays on rather than posing a sharp box
@@ -87,7 +88,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span style="position: absolute; right: 0; top: 0; width: ${BOX}px; height: ${BOX}px">${smear('still')}</span>
             </span>
             <span class="sp-stack" style="gap: 2px; min-width: 0">
-              <span class="sp-label" style="font-size: 11px">One frame, mid-flight</span>
+              <span class="sp-label" style="font-size: 11px">Single frame</span>
               <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" style="font-size: 12px; white-space: nowrap">Smeared along its direction of travel</span>
             </span>
           </div>

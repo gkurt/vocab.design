@@ -12,6 +12,12 @@ import { flag, part } from '#src/kit/parts.ts';
  * true in both of its resting states, open and closed, so no `data-pose` is needed. The menu
  * button, the panel, the surfaces, and the caption are scenery (SPEC §5).
  *
+ * Two lines of the site's own commentary have been taken out of the frame: a heading over the
+ * pair reading "The state is on the control, not on what it reveals", and a line inside the
+ * shipping panel reading "The panel carries no state of its own." Neither is anything a
+ * checkout would print, and the article makes both points at length. What is left in the frame
+ * is the two triggers and the `aria-expanded` value each is really carrying.
+ *
  * This is the one place a toggling trigger is right, because the flip is the term (SPEC §8):
  * the script drives both directions itself. Every claim is made on the trigger, never on
  * something inside a surface the click has just closed. The panel and the menu are drawn into
@@ -21,11 +27,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px; height: 18px">
-          <span class="sp-label" style="flex: 0 0 auto">The state is on the control, not on what it reveals</span>
-        </div>
-
-        <div class="sp-row" style="margin-top: 10px; gap: 12px; align-items: flex-start">
+        <div class="sp-row" style="gap: 12px; align-items: flex-start">
           <div class="sp-stack" style="flex: 1 1 0; min-width: 0; gap: 6px">
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="trigger-disclosure"
                     data-subject aria-expanded="true" aria-controls="details"
@@ -42,9 +44,6 @@ export function mount(root: HTMLElement): void {
                           transition: opacity 0.18s, visibility 0.18s">
                 <p class="sp-text" style="margin: 0; font-size: 11px">Standard delivery, 2 to 4 working days.</p>
                 <p class="sp-text" style="margin: 6px 0 0; font-size: 11px">Free over 40 pounds.</p>
-                <span class="sp-label sp-context" style="display: block; margin-top: 8px; font-size: 10px">
-                  The panel carries no state of its own.
-                </span>
               </div>
             </div>
           </div>

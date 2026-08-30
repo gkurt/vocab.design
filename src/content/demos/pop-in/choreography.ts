@@ -21,6 +21,6 @@ export default steps([
   { click: true },
   { wait: 900 },
   { assert: { selector: '[data-part=medal][data-plays="3"][data-state=settled]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { assert: { selector: '[data-part=note]', state: 'visible' } },
   { wait: 600 },
 ]);

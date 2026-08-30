@@ -62,95 +62,90 @@ const segment = (mode: Mode) => `
  * rather than the pill drawn inside it: the pill is artwork the system owns, and what a layout
  * has to reckon with is the region and the gesture that starts there (SPEC §5). The strip is
  * honestly that region in all three states, including the dimmed one, so no `data-pose` condition
- * is needed. The phone shell, the swipe marker, the picker and the caption are scenery in the
- * context register.
+ * is needed. The phone shell and the swipe marker are scenery in the context register, and the
+ * picker and the reading of each arrangement belong to the stage.
  *
  * Only the phone is cropped, at its top, so the specimen is unmistakably about the bottom edge.
  * The shell, the display and the strip all hold their boxes; the single moving part is where the
  * content region stops (SPEC §5). Each segment names the arrangement it produces rather than
  * flipping the one it found (SPEC §8).
+ *
+ * The phone used to sit inside a window titled "The bottom edge" with "reserved space, and one
+ * gesture" beside it, and the note for each arrangement sat in a column headed "A swipe that
+ * starts in the strip". All of that was the site talking inside the frame. The window and both
+ * headings are gone, the phone stands on the stage ground on its own, and the note is marked
+ * `data-stage-verdict` so the stage draws it above the switch that produced it.
  */
 export function mount(root: HTMLElement): void {
   const first = MODES[0] as Mode;
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
-        <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">The bottom edge</span>
-          <span class="sp-label">reserved space, and one gesture</span>
-        </div>
-        <div class="sp-body" style="display: flex; align-items: flex-start; gap: 14px; padding: 0 12px 10px">
+      <div
+        data-part="phone"
+        style="position: relative; flex: 0 0 auto; width: ${PHONE_W}px; height: ${PHONE_H}px; padding: 0 ${BEZEL}px ${BEZEL}px;
+               background: #23262b; border-radius: 0 0 24px 24px"
+      >
+        <div
+          data-part="display"
+          style="position: relative; width: ${DISPLAY_W}px; height: ${PHONE_H - BEZEL}px; overflow: hidden;
+                 border-radius: 0 0 18px 18px; background: var(--sp-surface)"
+        >
           <div
-            data-part="phone"
-            style="position: relative; flex: 0 0 auto; width: ${PHONE_W}px; height: ${PHONE_H}px; padding: 0 ${BEZEL}px ${BEZEL}px;
-                   background: #23262b; border-radius: 0 0 24px 24px"
+            data-part="content"
+            style="position: absolute; left: 0; right: 0; top: 0; bottom: ${first.stop}px; display: flex; flex-direction: column;
+                   gap: 8px; padding: 10px; transition: bottom 0.26s var(--sp-ease)"
           >
-            <div
-              data-part="display"
-              style="position: relative; width: ${DISPLAY_W}px; height: ${PHONE_H - BEZEL}px; overflow: hidden;
-                     border-radius: 0 0 18px 18px; background: var(--sp-surface)"
-            >
-              <div
-                data-part="content"
-                style="position: absolute; left: 0; right: 0; top: 0; bottom: ${first.stop}px; display: flex; flex-direction: column;
-                       gap: 8px; padding: 10px; transition: bottom 0.26s var(--sp-ease)"
-              >
-                <div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; min-height: 0; overflow: hidden">
-                  ${[132, 94, 138, 104, 124].map(row).join('')}
-                </div>
-                <button class="sp-button" type="button" data-part="action" style="flex: 0 0 auto; padding: 6px 12px; font-size: 12px">
-                  Continue
-                </button>
-              </div>
-
-              <span
-                class="sp-context"
-                data-part="swipe"
-                aria-hidden="true"
-                style="position: absolute; left: 50%; bottom: 6px; translate: -50% 0; z-index: 2"
-              >
-                <svg viewBox="0 0 40 58" width="40" height="58" style="display: block; overflow: visible">
-                  <!-- Drawn twice: a light halo under the marker keeps it legible over the button as well
-                       as over the page behind it. -->
-                  <path
-                    d="M20 54 L20 12 M12 20 L20 12 L28 20"
-                    fill="none" stroke="var(--sp-surface)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"
-                  />
-                  <path
-                    d="M20 54 L20 12 M12 20 L20 12 L28 20"
-                    fill="none" stroke="var(--sp-muted)" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5"
-                  />
-                </svg>
-              </span>
-
-              <div
-                data-part="strip"
-                data-subject
-                data-mode="${first.key}"
-                style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: ${STRIP_H}px;
-                       display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px;
-                       background: linear-gradient(to top, rgb(16 24 40 / 0.16), rgb(16 24 40 / 0))"
-              >
-                <span
-                  data-part="pill"
-                  style="width: 76px; height: 5px; border-radius: 3px; background: #23262b;
-                         transition: opacity 0.26s var(--sp-ease)"
-                ></span>
-              </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; min-height: 0; overflow: hidden">
+              ${[132, 94, 138, 104, 124].map(row).join('')}
             </div>
+            <button class="sp-button" type="button" data-part="action" style="flex: 0 0 auto; padding: 6px 12px; font-size: 12px">
+              Continue
+            </button>
           </div>
 
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 4px; padding-top: 10px">
-            <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-axis="Content" data-value="${first.key}" style="align-self: flex-start">
-              ${MODES.map(segment).join('')}
-            </sp-segmented>
-            <span class="sp-heading" style="margin-top: 10px; font-size: 12px">A swipe that starts in the strip</span>
-            <span class="sp-text" data-part="readout" style="height: 118px"></span>
+          <span
+            class="sp-context"
+            data-part="swipe"
+            aria-hidden="true"
+            style="position: absolute; left: 50%; bottom: 6px; translate: -50% 0; z-index: 2"
+          >
+            <svg viewBox="0 0 40 58" width="40" height="58" style="display: block; overflow: visible">
+              <!-- Drawn twice: a light halo under the marker keeps it legible over the button as well
+                   as over the page behind it. -->
+              <path
+                d="M20 54 L20 12 M12 20 L20 12 L28 20"
+                fill="none" stroke="var(--sp-surface)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"
+              />
+              <path
+                d="M20 54 L20 12 M12 20 L20 12 L28 20"
+                fill="none" stroke="var(--sp-muted)" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5"
+              />
+            </svg>
+          </span>
+
+          <div
+            data-part="strip"
+            data-subject
+            data-mode="${first.key}"
+            style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: ${STRIP_H}px;
+                   display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px;
+                   background: linear-gradient(to top, rgb(16 24 40 / 0.16), rgb(16 24 40 / 0))"
+          >
+            <span
+              data-part="pill"
+              style="width: 76px; height: 5px; border-radius: 3px; background: #23262b;
+                     transition: opacity 0.26s var(--sp-ease)"
+            ></span>
           </div>
         </div>
       </div>
+
+      <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-axis="Content" data-value="${first.key}">
+        ${MODES.map(segment).join('')}
+      </sp-segmented>
+      <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="max-width: 420px; text-align: center"></span>
     </div>
   `;
 

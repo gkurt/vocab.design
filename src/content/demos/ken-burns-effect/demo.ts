@@ -20,20 +20,25 @@ const CLOSE = 'scale(1.26) translate(-2%, -1.5%)';
  * The subject is the cropped photograph, the thing a viewer would call the image. The plate
  * inside it is deliberately not the subject: it is bigger than anything on screen at every
  * moment of the drift, so a ring around it would trace a box the reader cannot see. The
- * heading, the Replay control and the caption are scenery.
+ * heading and the Replay control are scenery.
  *
  * Reduced motion is the whole accessible answer for this term and it is a full stop, not a
  * shorter drift: `prefersReducedMotion` is asked directly and the plate is simply never given
  * its second transform, so the picture rests at the framing it was composed at. The settle beat
  * comes from the stage's clock so a pose stops the drift where it stands (SPEC §6), and the
  * plate is clipped by a crop that already holds its size, so nothing around it moves (SPEC §5).
+ *
+ * A caption under the picture read "Compressed to about five seconds here. A real one runs
+ * eight to twelve, and holds still under reduced motion." Both facts are already in the
+ * article, so it went rather than moving, and the window's heading, which read "A still,
+ * breathing", is now a word a photo viewer would really put there.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-state="rest" style="width: 440px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">A still, breathing</span>
+          <span class="sp-heading">Slideshow</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
 
@@ -59,10 +64,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                         background: linear-gradient(180deg, #46553f, #33402f)"></div>
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">
-          Compressed to about five seconds here. A real one runs eight to twelve, and holds still under reduced motion.
-        </p>
       </div>
     </div>
   `;

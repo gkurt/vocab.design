@@ -70,10 +70,17 @@ function metrics(pt: number): Metrics {
  * can see. The box has no element of its own in a page of type, so the specimen
  * gives it one, sized to exactly one em (SPEC §5); a ring around the word would
  * name the ink instead, which is the reading the term exists to correct. The
- * legend, the read-out and the caption are the demo's own instrumentation
- * (SPEC §5) and stay in the context register; the rules themselves keep the
- * accent, because measuring the body is what the specimen is for. The slot holds
- * the room the largest size needs, so picking a size moves nothing below it.
+ * legend and the read-out are the demo's own instrumentation (SPEC §5) and stay
+ * in the context register; the rules themselves keep the accent, because
+ * measuring the body is what the specimen is for. The slot holds the room the
+ * largest size needs, so picking a size moves nothing below it.
+ *
+ * Three lines of the site's voice have gone from the sheet. It was headed "One word,
+ * three bodies" and now names the face it is set in; the legend's first key read "the
+ * body, one em tall" and now reads as a legend key beside the other two ("body (1 em)",
+ * "x-height", "cap height"); and a caption underneath argued the whole point ("The box
+ * grows by exactly the number...") where the article already argues it, so it went and
+ * took its two choreography steps with it.
  */
 export function mount(root: HTMLElement): void {
   const key = (swatch: string, name: string) => `
@@ -86,7 +93,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One word, three bodies</span>
+          <span class="sp-heading">Georgia Regular</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="24" data-axis="Size">
             ${SIZES.map((s) => `<button class="sp-segment" data-part="seg-${s}" value="${s}">${s}pt</button>`).join('')}
           </sp-segmented>
@@ -101,17 +108,13 @@ export function mount(root: HTMLElement): void {
                        white-space: nowrap">${WORD}</span>
         </div>
         <div class="sp-row sp-context" data-part="legend" style="gap: 16px; height: 18px; white-space: nowrap">
-          ${key('border: 2px solid var(--sp-accent)', 'the body, one em tall')}
+          ${key('border: 2px solid var(--sp-accent)', 'body (1 em)')}
           ${key('background: color-mix(in oklab, var(--sp-accent) 14%, transparent)', 'x-height')}
           ${key('background: color-mix(in oklab, var(--sp-accent) 34%, transparent)', 'cap height')}
         </div>
         <div class="sp-row sp-context" data-part="readout"
              style="gap: 16px; height: 20px; margin-top: 4px; white-space: nowrap;
                     font-variant-numeric: tabular-nums"></div>
-        <p class="sp-text sp-context" data-part="caption" style="margin-top: 2px">
-          The box grows by exactly the number. What the capitals and the lowercase do inside it is the
-          fraction of the body this face decided to use.
-        </p>
       </div>
     </div>
   `;

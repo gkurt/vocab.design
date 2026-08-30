@@ -34,8 +34,8 @@ const STROKES: Segment[] = [
 type Zoom = { key: string; scale: number; cx: number; cy: number; read: string };
 
 const ZOOMS: Zoom[] = [
-  { key: 'fit', scale: 1, cx: W / 2, cy: H / 2, read: '1x: 224 texels, and the same 224 on the GPU' },
-  { key: 'close', scale: 3, cx: 4, cy: 11.4, read: '3x: the texels are 19 px wide, the edge is still one' },
+  { key: 'fit', scale: 1, cx: W / 2, cy: H / 2, read: '1x: 224 texels, 6.5 px each' },
+  { key: 'close', scale: 3, cx: 4, cy: 11.4, read: '3x: 224 texels, 19.5 px each' },
 ];
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -97,6 +97,11 @@ function inkOf(el: Element): [number, number, number] {
  * thing neither of its neighbours has: the bitmap beside it is the counter-example
  * and the output is the consequence, both scenery in the context register. Both
  * zooms are honest states of the field, so no `data-pose` is needed.
+ *
+ * The chip under the tiles is a plain measurement of the texture at the zoom on show.
+ * It used to argue the point instead ("1x: 224 texels, and the same 224 on the GPU",
+ * "3x: the texels are 19 px wide, the edge is still one"), which the verdict above the
+ * controls already makes, so it now reports only the texel count and the texel size.
  *
  * Nothing is measured after a write: every tile is a fixed box, and the crop is
  * arithmetic on the zoom (SPEC §5).

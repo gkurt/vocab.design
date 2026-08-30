@@ -10,14 +10,14 @@ export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=skip]', state: 'hidden' } },
   { assert: { selector: '[data-part=nav-1]', state: 'visible' } },
-  { assert: { selector: '[data-part=ring][data-at=rest]', state: 'visible' } },
+  { assert: { selector: '[data-part=caption][data-state=rest]', state: 'visible' } },
   { wait: 700 },
 
   { press: 'Tab' },
   { wait: 600 },
   { assert: { selector: '[data-part=skip][data-revealed]', state: 'visible' } },
   { assert: { selector: '[data-part=skip][data-sim-focus]', state: 'visible' } },
-  { assert: { selector: '[data-part=ring][data-at=revealed]', state: 'visible' } },
+  { assert: { selector: '[data-part=caption][data-state=revealed]', state: 'visible' } },
   { wait: 1000 },
 
   { press: 'Enter' },

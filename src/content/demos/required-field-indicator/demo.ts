@@ -30,6 +30,13 @@ type Convention = keyof typeof LEGENDS;
  * indicator has no box of its own to point at. The switch, the legend, and the submit
  * button are scenery too (SPEC §5).
  *
+ * That announced line is now marked `data-stage-announce`, so the stage speaks it in the
+ * say lane instead of the form drawing a panel headed "Announced for Email" over a scene
+ * with no screen reader in it (SPEC §5.1). The panel's third line, "Same under both
+ * conventions: the mark is the visual half.", was the article's sentence and went with the
+ * panel; what it claimed is exactly what the unchanged utterance shows when the switch
+ * moves.
+ *
  * Nothing here resizes its neighbours: each mark lives at the end of its own label line,
  * the error keeps its room from mount, and the two conventions are reached by their own
  * segment rather than by a toggle (SPEC §8).
@@ -37,8 +44,8 @@ type Convention = keyof typeof LEGENDS;
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 476px">
-        <div class="sp-row" style="align-items: flex-start; gap: 16px">
+      <div class="sp-window" style="width: 240px">
+        <div class="sp-row" style="align-items: flex-start">
           <div data-part="form" data-convention="required" style="width: 200px">
             <p class="sp-text sp-context" data-stage-verdict data-part="legend" style="margin: 0; font-size: 11px; height: 30px">${LEGENDS.required}</p>
             <div class="sp-field sp-context" style="margin-top: 4px">
@@ -66,17 +73,11 @@ export function mount(root: HTMLElement): void {
                     style="margin-top: 12px">Create account</button>
           </div>
 
-          <div class="sp-context" style="width: 226px">
-            <sp-segmented data-stage-mode class="sp-segmented" data-axis="Mark" data-part="segmented" data-value="required" style="margin-top: 6px">
-              <button class="sp-segment" data-part="seg-required" value="required">Required</button>
-              <button class="sp-segment" data-part="seg-optional" value="optional">Optional</button>
-            </sp-segmented>
-            <div class="sp-surface" style="margin-top: 12px; padding: 8px 10px">
-              <span class="sp-label">Announced for Email</span>
-              <p class="sp-text sp-text--ink" style="margin: 4px 0 0; font-size: 12px">“Email, edit, required”</p>
-              <p class="sp-text" style="margin: 6px 0 0; font-size: 11px">Same under both conventions: the mark is the visual half.</p>
-            </div>
-          </div>
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Mark" data-part="segmented" data-value="required">
+            <button class="sp-segment" data-part="seg-required" value="required">Required</button>
+            <button class="sp-segment" data-part="seg-optional" value="optional">Optional</button>
+          </sp-segmented>
+          <span class="sp-text sp-text--ink" data-stage-announce data-part="announced">Email, edit, required</span>
         </div>
       </div>
     </div>

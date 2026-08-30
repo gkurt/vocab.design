@@ -55,6 +55,11 @@ const START = 'wheel';
  * stage that is one. The picker, the syntax line and the note are instrumentation and stay
  * in the context register (SPEC §5).
  *
+ * A closing line under the window read "The angle from the centre decides the colour, so the
+ * same function is a wheel, a chart and a meter." That is the site summarising the term
+ * inside the frame, the strip already carries a verdict, and the article opens on the same
+ * point, so it was deleted.
+ *
  * Every state is an absolute stop list rather than a nudge to the last one, and the disc,
  * the code line and the note all sit in fixed boxes, so switching states moves nothing.
  */
@@ -85,10 +90,6 @@ export function mount(root: HTMLElement): void {
                   style="height: 58px; font-size: 11px; line-height: 1.45">${start.note}</span>
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 10.5px; line-height: 1.4">
-          The angle from the centre decides the colour, so the same function is a wheel, a chart and a meter.
-        </p>
       </div>
     </div>
   `;

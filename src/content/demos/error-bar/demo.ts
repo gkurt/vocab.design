@@ -55,12 +55,6 @@ const VERDICT: Record<string, string> = {
   band: 'Blue ahead by 0.8, ranges overlap',
 };
 
-const NOTE: Record<string, string> = {
-  bare: 'Four dots, four numbers, and a chart implying it measured every one exactly.',
-  bars: 'Blue and Control overlap, so this chart does not settle which one is better.',
-  band: 'A shaded band states the same range without a picket fence of end caps.',
-};
-
 const whisker = (v: Variant, cy: number) => `
   <line x1="${x(v.low).toFixed(1)}" y1="${cy}" x2="${x(v.high).toFixed(1)}" y2="${cy}" stroke="var(--sp-accent)" stroke-width="${RULE}" />
   <line
@@ -104,6 +98,12 @@ const interval = (v: Variant, index: number, subject: boolean) => `
  * chart change its mind. Nothing moves between states, since every form is drawn inside
  * the box the SVG already occupies (SPEC §5), and the mount state is the one carrying the
  * bars, so the resting pose is of the term rather than of its absence.
+ *
+ * A second caption used to sit under the picker, changing with the mode ("Blue and Control
+ * overlap, so this chart does not settle which one is better.", and one line each for the
+ * bare and band states). It was the site reading the chart aloud, and the specimen already
+ * has a verdict in the strip, which no specimen may have twice. It is gone; the chart's own
+ * basis line ("95 per cent intervals") stays, because that is a legend a real chart prints.
  */
 export function mount(root: HTMLElement): void {
   const gridlines = TICKS.map(
@@ -185,20 +185,12 @@ export function mount(root: HTMLElement): void {
           <button class="sp-segment" type="button" data-part="seg-bars" value="bars" style="padding: 4px 10px; font-size: 12px">Error bars</button>
           <button class="sp-segment" type="button" data-part="seg-band" value="band" style="padding: 4px 10px; font-size: 12px">Band</button>
         </sp-segmented>
-        <span
-          class="sp-label"
-          data-part="note"
-          data-mode="${START}"
-          role="status"
-          style="height: 15px; font-size: 11px; line-height: 15px; white-space: nowrap; overflow: hidden"
-        ></span>
       </div>
     </div>
   `;
 
   const verdict = part(root, 'verdict');
   const basis = part(root, 'basis');
-  const note = part(root, 'note');
   const forms = VARIANTS.flatMap((v) => [
     { mode: 'bars', el: part(root, `whisk-${v.key}`) },
     { mode: 'band', el: part(root, `band-${v.key}`) },
@@ -214,8 +206,6 @@ export function mount(root: HTMLElement): void {
     verdict.textContent = VERDICT[mode] ?? '';
     basis.dataset.mode = mode;
     basis.textContent = BASIS[mode] ?? '';
-    note.dataset.mode = mode;
-    note.textContent = NOTE[mode] ?? '';
   };
 
   part(root, 'picker').addEventListener('change', (event) => setMode((event as CustomEvent<string>).detail));

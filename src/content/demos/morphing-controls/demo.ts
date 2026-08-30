@@ -15,10 +15,10 @@ const GLYPH = {
     '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 12a6.5 6.5 0 1 1-2.4-5.05"/><path d="M17.2 3.7v3.6h-3.6"/></g>',
 } as const;
 
-const DRESS: Record<State, { name: string; glyph: string }> = {
-  paused: { name: 'Play', glyph: 'Play triangle' },
-  playing: { name: 'Pause', glyph: 'Pause bars' },
-  ended: { name: 'Replay', glyph: 'Replay arrow' },
+const DRESS: Record<State, { name: string }> = {
+  paused: { name: 'Play' },
+  playing: { name: 'Pause' },
+  ended: { name: 'Replay' },
 };
 
 /** Short enough that the whole sequence, including the end of the track, is watchable. */
@@ -28,24 +28,31 @@ const TICK_MS = 120;
 /**
  * Morphing control specimen: one transport button that is play while the recording is
  * stopped, pause while it runs, and replay once it ends. Never two buttons, and never
- * a disabled one. Beside it, the readout the article is about: the accessible name
- * changes with the glyph, in the same instant, which is the part that has to be true
- * for a reader who never sees the drawing.
+ * a disabled one. Under it, the accessible name, which changes with the glyph in the
+ * same instant: the part that has to be true for a reader who never sees the drawing.
+ * That utterance is marked `data-stage-announce`, so the stage speaks it in the strip
+ * instead of the transport printing it inside its own bar.
  *
- * The subject is the button itself, the narrowest element the term names. The track,
- * the timings, and the readout are scenery (SPEC §5). It carries `data-aim` so the
+ * A two-row panel used to gloss the button for the reader ("What the glyph shows: Play
+ * triangle" over "What a screen reader announces"), under a line reading "One slot, three
+ * actions, and only ever the one that applies." None of it is anything a field recorder
+ * would print beside its own transport, and the article makes the point at length, so the
+ * panel went, the announcement moved to the strip, and the frame is cut to the bar itself.
+ *
+ * The subject is the button itself, the narrowest element the term names. The track and
+ * the timings are scenery (SPEC §5). It carries `data-aim` so the
  * ghost cursor parks at its corner rather than covering the glyph that is the whole
  * point; nothing here resolves input by coordinate (SPEC §7).
  *
  * This is the one place a toggle is right (SPEC §8): the flip is the term, and the
  * script drives every direction of it itself. Playing advances on the stage's clock,
- * so a pose taken mid-track cannot run on underneath the reader, and the name chip is
- * sized for its widest word so morphing moves nothing (SPEC §5).
+ * so a pose taken mid-track cannot run on underneath the reader, and the spoken line
+ * holds its height so morphing moves nothing (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 242px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 146px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Field recording 04</span><span class="sp-text">Estuary, low tide</span></div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <div class="sp-surface sp-row" style="gap: 12px; padding: 12px 14px">
@@ -71,17 +78,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               </div>
             </div>
           </div>
-          <div class="sp-surface sp-context" style="padding: 7px 10px">
-            <div class="sp-row sp-row--between" style="height: 26px">
-              <span class="sp-label">What the glyph shows</span>
-              <span class="sp-text sp-text--ink" data-part="glyph-name" style="flex: 0 0 auto; width: 104px; font-size: 12px; text-align: right; white-space: nowrap">Play triangle</span>
-            </div>
-            <div class="sp-row sp-row--between" style="height: 26px">
-              <span class="sp-label">What a screen reader announces</span>
-              <span class="sp-chip" data-part="name" data-value="Play" style="flex: 0 0 auto; width: 82px; justify-content: center; white-space: nowrap">&ldquo;Play&rdquo;</span>
-            </div>
-          </div>
-          <span class="sp-text sp-context" style="font-size: 11px">One slot, three actions, and only ever the one that applies.</span>
+          <p class="sp-text sp-text--ink" data-stage-announce data-part="name" data-value="Play"
+             style="margin: 0; height: 20px; line-height: 20px; font-size: 13px; white-space: nowrap">&ldquo;Play&rdquo;</p>
         </div>
       </div>
     </div>
@@ -89,7 +87,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const morph = part(root, 'morph');
   const fill = part(root, 'fill');
-  const glyphName = part(root, 'glyph-name');
   const name = part(root, 'name');
   const glyphs: Record<State, HTMLElement> = {
     paused: part(root, 'glyph-play'),
@@ -105,7 +102,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     morph.dataset.state = state;
     // The name and the glyph change in the same instant, which is the claim the readout makes.
     morph.setAttribute('aria-label', DRESS[state].name);
-    glyphName.textContent = DRESS[state].glyph;
     name.dataset.value = DRESS[state].name;
     name.textContent = `“${DRESS[state].name}”`;
     for (const key of Object.keys(glyphs) as State[]) glyphs[key].hidden = key !== state;

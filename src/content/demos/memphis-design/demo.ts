@@ -9,6 +9,10 @@
  * The decoration carries `aria-hidden`, since none of it means anything.
  *
  * Static: a pattern has no states, so the specimen is looked at rather than watched.
+ *
+ * The line under the wordmark read "Laminate, not marble.", which is the article's point
+ * about the group's materials rather than anything a poster prints. It carries the show's
+ * venue now, and the parts list stays in the strip's verdict where the stage draws it.
  */
 const CREAM = '#fdf8ef';
 const BLACK = '#14161a';
@@ -50,7 +54,7 @@ export function mount(root: HTMLElement): void {
         <div data-part="title" style="position: absolute; left: 18px; top: 42px">
           <span style="display: inline-block; padding: 1px 7px; background: ${MINT}; font-size: 10px; font-weight: 700; letter-spacing: 0.22em">MILANO 1981</span>
           <div style="margin-top: 6px; font-size: 31px; font-weight: 800; letter-spacing: -0.03em; line-height: 1">MEMPHIS</div>
-          <div style="margin-top: 2px; font-size: 11px; font-weight: 600; color: #5c574f">Laminate, not marble.</div>
+          <div style="margin-top: 2px; font-size: 11px; font-weight: 600; color: #5c574f">Mobili e oggetti · Corso Europa 22</div>
         </div>
 
         <svg data-part="squiggle" aria-hidden="true" viewBox="0 0 140 34"

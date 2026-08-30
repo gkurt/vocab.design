@@ -21,7 +21,10 @@ const CHECKED_LINE = 'checkbox, “Add travel insurance”, checked';
  * specimen on purpose: there the strip was instrumentation beside the marked container,
  * here it is the term itself, since a screen reader is software and the only part of a
  * scene that can stand for it is its voice. The label belongs inside the subject for the
- * same reason, and the page being read is scenery (SPEC §5).
+ * same reason, and the page being read is scenery (SPEC §5). It reads "Speech viewer",
+ * which is the window a screen reader really opens to print what it is saying; it read
+ * "Screen reader, virtual cursor" before, which was the site naming the mechanism rather
+ * than the software naming its own panel.
  *
  * The ring is the reader's virtual cursor, not the browser's focus, and the demo owns it:
  * the script presses the reader's own keys (down for the next item in reading order,
@@ -51,7 +54,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
         <div class="sp-surface" data-part="reader" data-subject style="margin-top: 12px; padding: 8px 10px">
-          <span class="sp-label">Screen reader, virtual cursor</span>
+          <span class="sp-label">Speech viewer</span>
           <p class="sp-text sp-text--ink" data-part="voice" data-state="heading"
              style="margin: 4px 0 0; height: 20px; white-space: nowrap; overflow: hidden">${STOPS[0]?.line ?? ''}</p>
         </div>

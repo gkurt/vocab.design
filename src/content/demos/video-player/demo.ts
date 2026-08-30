@@ -44,6 +44,10 @@ const dot = (index: number) => `
  * always starts playback, the bar's transport always pauses, and Stall always drops the
  * picture back into buffering. The bar, the caption line and the buffering badge are all
  * drawn over the picture and inset from its edges, so no state moves anything (SPEC §5).
+ *
+ * A line beside the Stall button once read "Poster, bar, captions and the stall between
+ * them.", which was the site listing the specimen's parts inside the product. It is gone;
+ * the button keeps the row on its own.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -117,8 +121,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
-          <span class="sp-text" style="font-size: 12px">Poster, bar, captions and the stall between them.</span>
+        <div class="sp-row sp-context" style="margin-top: 10px; justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="stall">Stall</button>
         </div>
       </div>

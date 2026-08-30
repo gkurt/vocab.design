@@ -42,7 +42,14 @@ const START = 'default';
  *
  * The subject is the card. No narrower element is the term: a role is not a colour on
  * screen but the reference a component makes, and the card is the smallest thing here
- * that holds a whole set of them. The scheme control and the caption stay outside it.
+ * that holds a whole set of them. The scheme control stays outside it.
+ *
+ * Every string in the card is a role name, the body line included: it used to read "Every
+ * part below asks for a job, never for a value.", and a line under the card used to score
+ * the swap ("Six values changed. Not one of the six names the card is written against
+ * did."). Both were the article talking, and the card makes the point by holding its names
+ * while the paint changes, so the first is now the token it demonstrates and the second is
+ * gone.
  */
 export function mount(root: HTMLElement): void {
   const vars = (name: string) => ROLES.map((role) => `--r-${role}: ${SCHEMES[name]?.[role]}`).join('; ');
@@ -69,7 +76,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <p class="sp-text" style="margin: 6px 0 0; color: var(--r-on-surface); opacity: 0.7">
-            Every part below asks for a job, never for a value.
+            on-surface at 70%
           </p>
 
           <div style="height: 1px; margin: 12px 0; background: var(--r-outline)"></div>
@@ -84,9 +91,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          Six values changed. Not one of the six names the card is written against did.
-        </p>
       </div>
     </div>
   `;

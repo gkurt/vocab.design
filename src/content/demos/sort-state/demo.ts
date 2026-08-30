@@ -32,8 +32,8 @@ function header({ key, label }: { key: ColumnKey; label: string }): string {
 /**
  * Sort state specimen: a small file table where the order on screen and the order announced
  * are the same fact. Picking a column sorts the rows, moves the arrow, and moves `aria-sort`
- * with it, so exactly one header ever claims a direction; the readout underneath prints what
- * assistive technology would get and which header is carrying it.
+ * with it, so exactly one header ever claims a direction. The stage speaks what assistive
+ * technology would get, and the panel underneath prints which header is carrying the attribute.
  *
  * The subject is the sorted header cell, and it travels with the sort rather than staying on
  * the column that happened to be sorted at mount: the term names the state, so the honest
@@ -45,12 +45,21 @@ function header({ key, label }: { key: ColumnKey; label: string }): string {
  * drives both directions on purpose. Every other press reaches an absolute state, a named
  * column sorted ascending. The arrow's room is reserved in every header and the row count
  * never changes, so sorting moves nothing that did not sort (SPEC §5). The frame holds
- * the four rows and both readout lines at their full height rather than clipping them.
+ * the four rows and the readout line at their full height rather than clipping them.
+ *
+ * The aria-sort line used to read "ascending, on Name alone". The "alone" was the site
+ * making the term's point inside a readout that should only print the attribute's value,
+ * so the line now names the header and the direction and nothing else.
+ *
+ * The utterance used to sit in that same panel under the heading "Screen reader", which is a
+ * stage direction dressed as product UI: there is no screen reader in a file table to label.
+ * It carries `data-stage-announce` now, so the stage speaks it in the lane above the specimen,
+ * and the panel that is left holds the aria-sort line alone.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 288px">
+      <div class="sp-frame sp-frame--wide" style="height: 269px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow" style="font-size: 14px">Project files</span></div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <div class="sp-surface" style="padding: 2px 10px">
@@ -61,16 +70,13 @@ export function mount(root: HTMLElement): void {
           </div>
           <div class="sp-surface sp-context" style="padding: 7px 10px">
             <div class="sp-row sp-row--between" style="height: 17px">
-              <span class="sp-label">Screen reader</span>
-              <span class="sp-text sp-text--ink" data-part="heard" style="font-size: 12px; white-space: nowrap"></span>
-            </div>
-            <div class="sp-row sp-row--between" style="height: 17px; margin-top: 2px">
               <span class="sp-label">aria-sort</span>
               <span class="sp-text sp-text--ink" data-part="carried" style="font-size: 12px; white-space: nowrap"></span>
             </div>
           </div>
         </div>
       </div>
+      <p class="sp-text sp-text--ink" data-stage-announce data-part="heard" style="margin: 0"></p>
     </div>
   `;
 
@@ -108,7 +114,7 @@ export function mount(root: HTMLElement): void {
       arrow.style.transform = current && direction === 'ascending' ? 'rotate(180deg)' : '';
       if (current) heard.textContent = `“${label}, sorted ${direction}, column header”`;
     }
-    carried.textContent = `${direction}, on ${COLUMNS.find((c) => c.key === sortedBy)?.label} alone`;
+    carried.textContent = `${COLUMNS.find((c) => c.key === sortedBy)?.label}: ${direction}`;
   };
 
   render();

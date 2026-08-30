@@ -9,13 +9,6 @@ const BOX_RATIO = BOX_W / BOX_H;
 const RATIOS: Record<string, number> = { '16-9': 16 / 9, '4-3': 4 / 3, '9-16': 9 / 16 };
 const RATIO_LABELS: Record<string, string> = { '16-9': '16:9', '4-3': '4:3', '9-16': '9:16' };
 
-const NOTES: Record<string, string> = {
-  letterbox: 'Letterboxed: the source is wider than the frame, so the leftover room goes above and below.',
-  pillarbox: 'Pillarboxed: the source is taller than the frame, so the leftover room goes to the sides.',
-  none: 'No bars: the source and the frame are the same shape, so there is no leftover room to fill.',
-  crop: 'Cropped: filling the frame means the mismatch is taken out of the picture instead of added around it.',
-};
-
 const segment = (key: string, label: string) => `
   <button class="sp-segment" type="button" data-part="seg-${key}" value="${key}" style="padding: 4px 9px; font-size: 11px">
     ${label}
@@ -42,8 +35,15 @@ function barsFor(ratio: number, fit: string): string {
  * rather than of the picture. Filling the frame crops instead of boxing, and a source that
  * matches the frame produces no bars at all, so both are counter-examples the box itself
  * passes through: the honest condition lives in `data-pose` and the mount state (a wide source
- * fitted, which letterboxes) satisfies it (SPEC §6). The pickers and the caption are scenery in
- * the context register (SPEC §5).
+ * fitted, which letterboxes) satisfies it (SPEC §6). The pickers are scenery in the context
+ * register (SPEC §5), and the stage draws both of them out in the strip.
+ *
+ * A paragraph beside the frame used to name the case in words ("Letterboxed: the source is
+ * wider than the frame..."), and the title bar carried an aside, "where the two shapes
+ * disagree". Both were the site talking inside a media player, and the strip already carries
+ * one verdict, which is where a reading of the state belongs. With the paragraph gone the
+ * column beside the frame holds nothing a reader can see (the stage draws both pickers in the
+ * strip), so the frame is now just wide enough for the media box.
  *
  * The frame never changes size, so the bars appear and disappear inside it and nothing around
  * it moves (SPEC §5). Sizes are computed from the two ratios rather than measured, so nothing
@@ -53,10 +53,9 @@ function barsFor(ratio: number, fit: string): string {
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame" style="width: 268px; height: 228px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">A 4:3 frame</span>
-          <span class="sp-label">where the two shapes disagree</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Preview</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 14px; padding: 10px 12px">
           <div
@@ -85,7 +84,6 @@ export function mount(root: HTMLElement): void {
               ${segment('contain', 'contain')}${segment('cover', 'cover')}
             </sp-segmented>
             <span class="sp-heading" data-stage-verdict data-part="verdict" style="height: 20px; margin-top: 12px; font-size: 13px"></span>
-            <span class="sp-text" data-part="readout" style="height: 60px"></span>
           </div>
         </div>
       </div>
@@ -95,7 +93,6 @@ export function mount(root: HTMLElement): void {
   const box = part(root, 'box');
   const media = part(root, 'media');
   const verdict = part(root, 'verdict');
-  const readout = part(root, 'readout');
 
   const apply = (aspectKey: string, fitKey: string) => {
     const ratio = RATIOS[aspectKey];
@@ -111,7 +108,6 @@ export function mount(root: HTMLElement): void {
     box.dataset.fit = fitKey;
     box.dataset.bars = bars;
     verdict.textContent = `${label} source, ${fitKey}`;
-    readout.textContent = NOTES[bars] ?? '';
   };
 
   part(root, 'aspects').addEventListener('change', (event) => apply((event as CustomEvent<string>).detail, box.dataset.fit ?? 'contain'));

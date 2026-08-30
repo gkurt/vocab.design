@@ -12,6 +12,9 @@ import { icon } from '#src/kit/icons.ts';
  * flat Aero illustration). It is not the top-level wrapper, so identify still has something
  * to point at (SPEC §5–6). The heading and the caption are scenery in the context register.
  *
+ * The poster's subline read "flat vector, no gloss", which is the site naming its own
+ * drawing technique on the artwork. A poster prints a place and a date, so it does.
+ *
  * The paint is inline because the palette, the gradients and the drawing are the term. The
  * kit has one accent, cool neutrals, no gradient and no illustration, so a Vectordelia panel
  * assembled from kit tokens would be demonstrating the kit.
@@ -106,7 +109,7 @@ export function mount(root: HTMLElement): void {
                   style="position: absolute; left: 20px; top: 96px; width: 96px; height: 2px; background: rgb(255 255 255 / 0.6)"></span>
             <span data-part="subline"
                   style="position: absolute; left: 20px; top: 108px; font-size: 11px; line-height: 1.3; color: rgb(255 255 255 / 0.88)">
-              flat vector, no gloss
+              Pier Park, 14 June
             </span>
             <span data-part="tiles" class="sp-row" style="position: absolute; left: 20px; top: 134px; gap: 8px">
               ${tiles}

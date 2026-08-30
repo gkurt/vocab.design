@@ -115,6 +115,10 @@ function stemInk(fitted: Fitted, cells: number[]): string {
  * state the subject passes through, so no `data-pose` is needed: every state the
  * script visits is a hinted rendering.
  *
+ * The two panels were titled "outline as scaled" and "hinted onto the grid", which
+ * described the drawing instead of naming it. They are labelled "unhinted" and
+ * "hinted" now, which is what a figure's panel label does.
+ *
  * Nothing is measured after a write. Both panels are fixed boxes and the cell
  * size is arithmetic on the grid the chosen size needs, so switching size
  * repaints inside the same two boxes and moves nothing (SPEC §5).
@@ -138,8 +142,8 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-row" data-part="panels" style="gap: 24px; margin-top: 10px; align-items: flex-start">
-          ${panel('unhinted', 'outline as scaled')}
-          ${panel('hinted', 'hinted onto the grid')}
+          ${panel('unhinted', 'unhinted')}
+          ${panel('hinted', 'hinted')}
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
           The pixels are drawn, because this machine's rasteriser ignores hinting. Each cell holds the exact

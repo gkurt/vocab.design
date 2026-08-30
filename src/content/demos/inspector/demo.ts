@@ -60,6 +60,10 @@ const SETS: Record<string, string> = {
  * empty included, since an inspector with nothing selected is still an inspector, so no
  * `data-pose` is needed.
  *
+ * The title bar carried "click an object, or the empty canvas", which was the site telling
+ * the reader how to drive the demonstration from inside a drawing tool's own chrome. It went;
+ * the choreography does the clicking, and a reader can see what is clickable.
+ *
  * Selection is an explicit click on an object or on the empty canvas, never a toggle, so a
  * script resumed at any point reaches the selection it named (SPEC §8). The rail's width
  * and its internal boxes are fixed, so swapping a rectangle's position controls for a text
@@ -71,7 +75,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Berth plan</span>
-          <span class="sp-label">click an object, or the empty canvas</span>
         </div>
         <div class="sp-body" style="display: flex; gap: 10px; padding: 10px">
           <div

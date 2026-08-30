@@ -19,9 +19,13 @@ const mark = (name: string, x: number, y: number) => `
  * A soft highlight tracks the same coordinates, which is what sells the surface as
  * something catching light rather than as a box that skewed.
  *
- * The subject is the tilting card. The field, the aiming marks, and the angle readout are
- * instrumentation: the readout is there so the mapping can be read off the specimen
- * rather than guessed at, and it stays in the context register.
+ * The subject is the tilting card. The field and the aiming marks are instrumentation, and
+ * the aiming marks carry no paint at all.
+ *
+ * The player's title bar used to print the live angles beside "Now playing", as
+ * "rotateX 0.0, rotateY 0.0". A music player does not print its own transform, and the lean
+ * is on screen anyway, so the readout is gone; `data-tilt` still names the coarse direction
+ * for the choreography, which is where the mapping is proved.
  *
  * Hovering is this term's whole interaction, nothing here is pressed, so the field carries
  * `data-hover-driven`: a reader's dwell on it takes the stage over without a click, and the lean
@@ -39,7 +43,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Now playing</span>
-          <span class="sp-text" data-part="readout" style="width: 210px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums">rotateX 0.0, rotateY 0.0</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div
@@ -78,7 +81,6 @@ export function mount(root: HTMLElement): void {
   const field = part(root, 'field');
   const card = part(root, 'card');
   const sheen = part(root, 'sheen');
-  const readout = part(root, 'readout');
   const reduced = prefersReducedMotion(root);
 
   const clamp = (n: number) => Math.min(Math.max(n, -1), 1);
@@ -93,7 +95,6 @@ export function mount(root: HTMLElement): void {
     const across = nx < -0.2 ? 'left' : nx > 0.2 ? 'right' : 'centre';
     const down = ny < -0.2 ? 'top' : ny > 0.2 ? 'bottom' : 'middle';
     card.dataset.tilt = across === 'centre' && down === 'middle' ? 'flat' : `${down}-${across}`;
-    readout.textContent = `rotateX ${rotateX.toFixed(1)}, rotateY ${rotateY.toFixed(1)}`;
 
     if (reduced) return;
     card.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
@@ -104,7 +105,6 @@ export function mount(root: HTMLElement): void {
 
   field.addEventListener('pointerleave', () => {
     card.dataset.tilt = 'flat';
-    readout.textContent = 'rotateX 0.0, rotateY 0.0';
     if (reduced) return;
     card.style.transform = 'rotateX(0deg) rotateY(0deg)';
     sheen.style.opacity = '0';

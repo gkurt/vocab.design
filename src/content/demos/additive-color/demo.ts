@@ -63,9 +63,13 @@ function overlapPath(): string {
  * so what identify rings is the drawn feature rather than the canvas holding it.
  *
  * The three discs are peer instances of the term rather than scenery, so they keep their full
- * paint and take no register; the legend, the label and the caption are scenery and carry
- * `.sp-context`. The ground is a fixed black rather than the reader's theme, because adding light
- * is only legible against no light at all.
+ * paint and take no register; the legend is scenery and carries `.sp-context`. The field used to
+ * be introduced by a label ("Adding light: three emitters, screened together") and closed by a
+ * caption ("Nothing here is painted twice ... all three at full strength are white"), both of them
+ * the article talking over the picture. The legend names every sum, so the picture says it, and
+ * the two lines are gone along with the choreography's claim on the caption. The ground is a
+ * fixed black rather than the reader's theme, because adding light is only legible against no
+ * light at all.
  *
  * The claim is visible at rest and there is no second state to reach, so the choreography is
  * waits and asserts only (SPEC §8). Nothing is measured and nothing changes, so nothing shifts.
@@ -89,8 +93,6 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" style="gap: 8px">
       <div class="sp-window" style="width: 452px; padding: 12px 18px 14px">
-        <span class="sp-label sp-context" data-part="label">Adding light: three emitters, screened together</span>
-
         <div data-part="field"
              style="position: relative; width: ${FIELD.w}px; height: ${FIELD.h}px; margin-top: 7px;
                     border-radius: 6px; background: #000000; isolation: isolate; overflow: hidden">
@@ -104,12 +106,6 @@ export function mount(root: HTMLElement): void {
             ${SUMS.map(legendRow).join('')}
           </div>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption"
-           style="margin: 8px 0 0; font-size: 10px; line-height: 1.45">
-          Nothing here is painted twice: the sums are what the three lights add up to, and all three at full
-          strength are white.
-        </p>
       </div>
     </div>
   `;

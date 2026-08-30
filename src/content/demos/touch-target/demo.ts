@@ -2,7 +2,6 @@ import { icon } from '#src/kit/icons.ts';
 import { flag, part } from '#src/kit/parts.ts';
 
 /** The drawn mark is the same on both controls; only the region around it differs. */
-const GLYPH = 16;
 const ROOMY = 44;
 const TIGHT = 20;
 /** How far off each glyph's centre both presses land, which is inside one box and outside the other. */
@@ -50,6 +49,17 @@ const SPOT = [
  * Nothing here is faked: the press points are children of the element a real press at
  * that spot would reach, so the click a scripted step dispatches on one bubbles to the
  * control and the one dispatched on the other bubbles past it.
+ *
+ * Each control once carried a second caption line under its size label, "glyph 16 px,
+ * padding does the rest" and "glyph 16 px, nothing spare". Those were the site
+ * explaining the point rather than the player labelling itself, and the article makes
+ * the same point at length, so they went. The measured size labels stayed, since the
+ * dashed region they describe is drawn right there.
+ *
+ * A line under the row appeared on a missed press reading "Same offset, no control
+ * underneath it.", which is the same defect one step further on: the site narrating the
+ * result of the press. It is gone, and the state the choreography watched moved onto the
+ * player's own status line as `data-hit`, which already said "Pressed: nothing".
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,7 +67,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Player</span>
-          <span class="sp-text" data-part="readout" style="width: 132px; text-align: right">Nothing pressed yet</span>
+          <span class="sp-text" data-part="readout" data-hit="none" style="width: 132px; text-align: right">Nothing pressed yet</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px">
           <div class="sp-row" data-part="row" style="align-items: center; gap: 44px">
@@ -74,10 +84,7 @@ export function mount(root: HTMLElement): void {
                 <span style="${REGION}"></span>
                 <span data-part="press-in" style="${SPOT}; left: ${ROOMY / 2 - PRESS_OFFSET}px; top: ${ROOMY / 2 - PRESS_OFFSET}px"></span>
               </button>
-              <div class="sp-stack" style="align-items: center; gap: 2px">
-                <span class="sp-label">Target ${ROOMY} px</span>
-                <span class="sp-text" style="font-size: 11px">glyph ${GLYPH} px, padding does the rest</span>
-              </div>
+              <span class="sp-label">Target ${ROOMY} px</span>
             </div>
             <div class="sp-stack sp-context" style="align-items: center; gap: 10px; width: 128px">
               <div style="position: relative; display: flex; align-items: center; justify-content: center; width: ${TIGHT}px; height: ${TIGHT}px">
@@ -87,14 +94,8 @@ export function mount(root: HTMLElement): void {
                 </button>
                 <span data-part="press-out" style="${SPOT}; left: ${TIGHT / 2 - PRESS_OFFSET}px; top: ${TIGHT / 2 - PRESS_OFFSET}px"></span>
               </div>
-              <div class="sp-stack" style="align-items: center; gap: 2px">
-                <span class="sp-label">Target ${TIGHT} px</span>
-                <span class="sp-text" style="font-size: 11px">glyph ${GLYPH} px, nothing spare</span>
-              </div>
+              <span class="sp-label">Target ${TIGHT} px</span>
             </div>
-          </div>
-          <div style="height: 18px">
-            <span class="sp-label sp-context" data-part="missed" hidden>Same offset, no control underneath it.</span>
           </div>
         </div>
       </div>
@@ -103,7 +104,6 @@ export function mount(root: HTMLElement): void {
 
   const roomy = part(root, 'roomy');
   const tight = part(root, 'tight');
-  const missed = part(root, 'missed');
   const readout = part(root, 'readout');
 
   const land = (on: HTMLElement, name: string) => {
@@ -111,8 +111,8 @@ export function mount(root: HTMLElement): void {
     // A quiet button carries no fill of its own, so the landed state is painted from
     // the same tokens the kit's own selected primitives use.
     on.style.background = 'var(--sp-accent-soft)';
+    readout.dataset.hit = 'control';
     readout.textContent = `Pressed: ${name}`;
-    missed.hidden = true;
   };
 
   roomy.addEventListener('click', () => land(roomy, 'Favourite'));
@@ -123,7 +123,7 @@ export function mount(root: HTMLElement): void {
   part(root, 'row').addEventListener('click', (event) => {
     const at = event.target as Node;
     if (roomy.contains(at) || tight.contains(at)) return;
+    readout.dataset.hit = 'miss';
     readout.textContent = 'Pressed: nothing';
-    missed.hidden = false;
   });
 }

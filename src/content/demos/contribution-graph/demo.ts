@@ -112,8 +112,14 @@ const legendSwatch = (level: number) =>
  * it or walks the grid with the arrow keys.
  *
  * The subject is the table, which is the narrowest element the term names: a contribution
- * graph IS the grid of week columns, and the window chrome, the legend and the caption are
- * the scene around it. Every state is honestly the term, so there is no `data-pose`.
+ * graph IS the grid of week columns, and the window chrome and the legend are the scene
+ * around it. Every state is honestly the term, so there is no `data-pose`.
+ *
+ * A caption under the grid read "Five discrete steps, not a continuous ramp. A day with none
+ * still gets the palest square; the blank corner at the end is days that have not happened
+ * yet." That is the site reading its own legend out, and the article says it at length, so it
+ * went. The box stays as an unpainted target with no text, because the choreography aims the
+ * cursor there to leave the grid and watch the tooltip close (SPEC §5).
  *
  * The structure is the term's own history rather than decoration (see the article): a real
  * table with a caption naming the range and the shape, month headers across the top,
@@ -180,10 +186,7 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" data-part="caption" style="width: 560px; height: 30px; font-size: 11px; text-align: center">
-        Five discrete steps, not a continuous ramp. A day with none still gets the palest square; the blank
-        corner at the end is days that have not happened yet.
-      </span>
+      <span data-part="away" aria-hidden="true" style="width: 560px; height: 30px"></span>
     </div>
   `;
 

@@ -21,6 +21,11 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
  * the snap is something the dragged object does; the grid is the reference it does
  * it against.
  *
+ * A line under the canvas used to read "Dropped near a line, the corner lands on it.", which
+ * is the site describing the drag the reader is watching; the ghost outline shows the landing
+ * before it happens and the readout names the cell, so the sentence went and the frame lost
+ * the 25px it took.
+ *
  * Every piece is absolutely placed inside a canvas of a fixed size, so a card
  * crossing the field cannot move anything else in the scene (SPEC §5).
  */
@@ -36,7 +41,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="height: 258px">
+      <div class="sp-frame" style="height: 233px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Canvas</span>
           <span class="sp-text" data-part="readout" style="width: 118px; text-align: right">Column 2, row 2</span>
@@ -58,7 +63,6 @@ export function mount(root: HTMLElement): void {
               Tile
             </div>
           </div>
-          <span class="sp-label sp-context">Dropped near a line, the corner lands on it.</span>
         </div>
       </div>
     </div>

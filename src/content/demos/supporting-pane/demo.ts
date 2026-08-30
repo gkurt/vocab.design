@@ -83,9 +83,13 @@ const prose = (widths: number[]) =>
  * beside, to below, to behind a control.
  *
  * The subject is the pane itself, the narrowest element the term names. The document, the
- * top bar, the size-class picker and the caption are scenery in the context register (SPEC
- * §5). The pane is a supporting pane in all three placements, sheet included, so no state
- * needs a `data-pose`.
+ * top bar and the size-class picker are scenery in the context register (SPEC §5). The line
+ * that reads each placement back ("Wide window: the pane sits beside the focus pane and takes
+ * about a third of it.", and the two narrower cases) is the author's reading and changes with
+ * the switch, so it is marked `data-stage-verdict` and drawn in the strip; the frame lost the
+ * 48px it held. The top bar read "Review: where the pane goes", which titled the exhibit
+ * rather than the screen, and is now "Review". The pane is a supporting pane in all three
+ * placements, sheet included, so no state needs a `data-pose`.
  *
  * The window is a fixed box and each placement gives the pane a stated size, so a size class
  * rearranges the window's interior and moves nothing around it (SPEC §5). The document is the
@@ -98,9 +102,9 @@ const prose = (widths: number[]) =>
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Review: where the pane goes</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Review</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="sizes" data-axis="Placement" data-value="beside">
             ${segment('beside', 'beside')}${segment('below', 'below')}${segment('behind', 'behind')}
           </sp-segmented>
@@ -157,7 +161,7 @@ export function mount(root: HTMLElement): void {
               ${comment('RA', 100)}${comment('MK', 82)}
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px; max-width: ${WINDOW_W}px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; height: 40px; max-width: ${WINDOW_W}px; text-align: center"></span>
         </div>
       </div>
     </div>

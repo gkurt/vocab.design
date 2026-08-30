@@ -34,6 +34,10 @@ const VERDICT: Record<Level, string> = {
  * No `data-pose`: there is no dishonest state here, because the counterfeit has its own
  * entry and this specimen deliberately does not build one.
  *
+ * A note under the button read "Read from inventory when the page was built", which no
+ * shop prints and which the article covers. The warehouse figure beside the product is
+ * the same claim made by the scene, so the note went.
+ *
  * The line holds its box from mount and only its words change, so an indicator arriving
  * never moves the button under the reader's thumb (SPEC §5). Each segment is an
  * absolute pick, and the pass ends on the low state the specimen mounts in (SPEC §8).
@@ -75,7 +79,6 @@ export function mount(root: HTMLElement): void {
                 <span data-part="stock-text">${LINE.low}</span>
               </span>
               <button class="sp-button sp-context" data-part="buy" type="button" style="width: 100%">${ACTION.low}</button>
-              <span class="sp-label sp-context" data-part="derived" style="height: 14px; font-size: 10px">Read from inventory when the page was built</span>
             </div>
           </div>
 

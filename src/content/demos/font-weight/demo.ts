@@ -18,6 +18,10 @@ const STEPS = [
  * strokes, and a ramp is the narrowest thing that can show a weight at all,
  * since a single sample has nothing to be heavier than. The applied row below
  * is scenery, so identify still rings the comparison rather than the scene.
+ *
+ * A label beside the heading read "one size, one family", which is the site stating
+ * what it held constant rather than anything the sheet itself would print. The
+ * article says the same, so it went.
  */
 export function mount(root: HTMLElement): void {
   const rows = STEPS.map(
@@ -35,7 +39,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 430px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Weight ramp</span>
-          <span class="sp-label">one size, one family</span>
         </div>
         <div class="sp-stack" data-part="ramp" data-subject style="gap: 4px; margin-top: 12px">
           ${rows}

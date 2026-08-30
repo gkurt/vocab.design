@@ -38,7 +38,13 @@ const trailFrames = (drag: number): Keyframe[] => [
  * The subject is the settling composition, which is the card and the parts riding
  * on it: the term names the relationship between them, and neither the arena that
  * clips the entrance nor the rule that measures it is the term. The heading, the
- * Replay control, the timeline, and the caption are scenery.
+ * Replay control and the timeline are scenery.
+ *
+ * Two strings were the site talking inside the panel and both are gone: the heading
+ * read "Nothing stops all at once" and now names the panel ("Notifications"), and a
+ * line under the timeline read "One arrival, three departures: the badge is still
+ * catching up after the body has stopped." The article says that at length, and the
+ * timeline already rules the offsets it was pointing at.
  *
  * The trailing parts are extra transforms on children of a moving parent, so their
  * lag is real subtraction rather than a second path drawn by hand. They go to
@@ -70,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" data-part="scene" style="width: 404px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Nothing stops all at once</span>
+          <span class="sp-heading">Notifications</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div
@@ -99,9 +105,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-stack sp-context" style="gap: 6px; margin-top: 12px">
           ${rows}
         </div>
-        <p class="sp-text sp-context" style="margin: 10px 0 0">
-          One arrival, three departures: the badge is still catching up after the body has stopped.
-        </p>
       </div>
     </div>
   `;

@@ -17,6 +17,13 @@
  * composition (SPEC §5). The Swiss version, the labels and the caption are the scenery that
  * makes the break legible.
  *
+ * The pair used to explain itself: a heading reading "The grid, shown and then broken" and a
+ * line under each poster ("Obeyed, so the grid disappears.", "Drawn, then walked off."), while
+ * the Swiss poster's own body copy read "One family, one rule weight, everything flush to the
+ * same column." The first two were the site reading the picture out loud and went; the third
+ * is now the copy a lecture poster would really carry, since a poster with no words on it is
+ * not a poster.
+ *
  * Static: a printed poster has no states, so there is nothing to animate and no clock to take.
  *
  * A printed poster's pass ends at its mount state, so the tree persists across attract
@@ -67,12 +74,11 @@ function poster(part: string, inner: string, mark = ''): string {
     </span>`;
 }
 
-function column(label: string, note: string, body: string, quiet: boolean): string {
+function column(label: string, body: string, quiet: boolean): string {
   return `
     <div class="sp-stack${quiet ? ' sp-context' : ''}" style="flex: 0 0 ${W}px; gap: 5px; align-items: stretch">
       ${body}
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 }
 
@@ -126,18 +132,16 @@ export function mount(root: HTMLElement): void {
     ${halftone('swiss-halftone', 'left: 14px; top: 86px', 'width: 84px; height: 62px')}
     <span data-part="swiss-caption"
           style="position: absolute; left: 110px; top: 86px; width: 88px; font-size: 10px; line-height: 1.5">
-      One family, one rule weight, everything flush to the same column.
+      Lectures and workshop, 14 to 28 June.
     </span>
     <span aria-hidden="true" style="position: absolute; left: 14px; top: 156px; width: 184px; height: 2px; background: ${INK}"></span>`;
 
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">The grid, shown and then broken</span>
-
         <div class="sp-row" data-part="tour" style="gap: 12px; align-items: flex-start; justify-content: center">
-          ${column('Swiss', 'Obeyed, so the grid disappears.', poster('poster-swiss', swiss), true)}
-          ${column('New Wave', 'Drawn, then walked off.', poster('poster', wave, ' data-subject'), false)}
+          ${column('Swiss', poster('poster-swiss', swiss), true)}
+          ${column('New Wave', poster('poster', wave, ' data-subject'), false)}
         </div>
       </div>
 

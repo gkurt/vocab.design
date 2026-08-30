@@ -9,6 +9,11 @@
  * and an outline is not an element of its own, so the narrowest thing that carries
  * it is the control it is drawn around. The specimen rests with the ring on the
  * first control rather than on nothing, so identify has something to point at.
+ *
+ * A line under the row once read "Tab moves the ring along the row, then back to the
+ * first control." That is the site narrating its own choreography inside a share
+ * dialog, which no share dialog would print, and the article says it already, so it
+ * went rather than moving anywhere.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -20,9 +25,6 @@ export function mount(root: HTMLElement): void {
           <button class="sp-button sp-button--ghost" type="button" data-part="control-invite">Invite</button>
           <button class="sp-button" type="button" data-part="control-done">Done</button>
         </div>
-        <p class="sp-text sp-context" style="margin-top: 14px">
-          Tab moves the ring along the row, then back to the first control.
-        </p>
       </div>
     </div>
   `;

@@ -36,7 +36,13 @@ let instances = 0;
  * together rather than of any one circle. `Apart` is the state where nothing is merging, so the
  * honest condition lives in `data-pose` on the group and the mount state (`touching`) satisfies it
  * (SPEC §6). The filter lives on the layer around the group rather than on the group itself, so the
- * subject carries no per-instance id. The control and the readout are the scene.
+ * subject carries no per-instance id. The control is the scene.
+ *
+ * The note under the shapes changes with the gap, so it is a verdict and the stage draws it in the
+ * strip beside the switch that set it. The line above it, "feGaussianBlur 9, then feColorMatrix
+ * alpha x 24 - 11", was this specimen's own filter written out inside a mock called Spacing, which
+ * no such app would print; the article carries the mechanism, and the numbers are in the filter a
+ * few lines below.
  *
  * `motion.css` cannot reach an `element.animate` keyframe set, so the demo asks
  * `prefersReducedMotion` itself and writes the new offsets straight on. The stage holds a box fixed
@@ -81,10 +87,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
 
-          <div class="sp-stack sp-context" data-part="readout" style="gap: 2px; width: ${STAGE.w}px; height: 34px">
-            <span class="sp-label" style="font-size: 11px">feGaussianBlur ${BLUR}, then feColorMatrix alpha x 24 - 11</span>
-            <span class="sp-text sp-text--ink" data-part="claim" style="font-size: 12px; line-height: 1.35">${GAPS.touching.note}</span>
-          </div>
+          <span
+            class="sp-text sp-text--ink sp-context"
+            data-stage-verdict
+            data-part="claim"
+            style="font-size: 12px; line-height: 1.35"
+          >${GAPS.touching.note}</span>
         </div>
       </div>
     </div>

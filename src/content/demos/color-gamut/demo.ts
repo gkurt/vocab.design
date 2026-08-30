@@ -72,9 +72,10 @@ const START = 'srgb';
  *
  * The subject is the diagram. The term names the region, and the region is what the
  * triangles enclose; the CSS rows beside it are the notation and the space control is
- * instrumentation, so both stay in the context register. The reds row is captioned
- * honestly, because on an sRGB screen all three swatches are the same red: the wider two
- * have been mapped back in, which is the term doing exactly what it says.
+ * instrumentation, so both stay in the context register. The rows are headed "Red primary"
+ * and nothing more: a paragraph under them used to tell the reader that three matching
+ * swatches meant an sRGB screen mapping the wider two back in, which is the article's own
+ * account of gamut mapping and not something a colour tool prints.
  *
  * Only stroke weight and a row background change with the choice, so nothing moves (SPEC §5).
  */
@@ -127,10 +128,8 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-stack sp-context sp-grow" style="gap: 6px">
-            <span class="sp-label">The reddest red each can name</span>
+            <span class="sp-label">Red primary</span>
             <ul class="sp-list" data-part="reds">${rows}</ul>
-            <p class="sp-text" style="margin: 0; font-size: 11px">If all three reds match, this
-              screen is sRGB and the wider values were mapped back into it.</p>
           </div>
         </div>
       </div>

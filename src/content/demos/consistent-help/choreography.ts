@@ -39,7 +39,6 @@ export default steps([
   { click: true },
   { wait: 600 },
   { assert: { selector: '[data-part=help][data-where=footer]', state: 'visible' } },
-  { assert: { selector: '[data-part=sits][data-slot=footer]', state: 'visible' } },
   { wait: 800 },
   { moveTo: '[data-part=seg-cart]' },
   { click: true },

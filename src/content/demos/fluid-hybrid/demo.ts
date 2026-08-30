@@ -39,8 +39,10 @@ const column = (name: string, title: string, widths: string[]) => `
  * a desktop.
  *
  * The subject is the fluid container. The rule is the box, not either column inside it
- * (SPEC §5), so the handle, the readout, the ghost schematic and the caption are all
- * scenery. `data-flow` is measured rather than declared: the demo counts the distinct
+ * (SPEC §5), so the handle, the readout and the ghost schematic are all scenery. A line
+ * under the card once told the reader to drag the handle and what would happen when they
+ * did; the handle is visibly a handle and the readout reports the width and the
+ * arrangement, so the instruction went. `data-flow` is measured rather than declared: the demo counts the distinct
  * rows the columns landed on, which is the only claim that could catch a reflow that
  * had stopped working. Nothing here transitions a width, so the read after the write is
  * the real one, and the container holds room for the stacked arrangement, so nothing
@@ -92,9 +94,6 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
 
-      <span class="sp-text sp-context" style="width: 452px; height: 16px; font-size: 12px; line-height: 16px; text-align: center">
-        Drag the handle: when twice the ceiling stops fitting, the second column drops.
-      </span>
     </div>
   `;
 

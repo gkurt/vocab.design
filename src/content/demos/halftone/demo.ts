@@ -11,6 +11,10 @@
  *
  * Static: a printed tone has no states, so the specimen is looked at rather than
  * watched, which also spares it a motion gate.
+ *
+ * The column beside the headline used to read "Same ink, same grid. Only the dot gets
+ * bigger.", which is the article explaining the screen from inside the newspaper. It
+ * carries a newsprint lede now, since a printed page needs body copy in that slot.
  */
 const PAPER = '#f4efe2';
 const INK = '#191714';
@@ -52,7 +56,7 @@ export function mount(root: HTMLElement): void {
               <span style="position: relative">PRINT</span>
             </div>
             <p style="margin: 6px 0 0; font-size: 11px; line-height: 1.45; color: #4a453d">
-              Same ink, same grid. Only the dot gets bigger.
+              The morning edition ran to twelve pages. Circulation held steady through the winter.
             </p>
           </div>
         </div>

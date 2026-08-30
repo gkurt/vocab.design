@@ -8,15 +8,10 @@ const WORDING: Record<Mode, string> = {
   plain: 'Send me partner emails.',
 };
 
-const EFFECT: Record<Mode, Record<'on' | 'off', string>> = {
-  tricked: {
-    on: 'Partner emails: on. The line offers unticking as the way to keep them.',
-    off: 'Partner emails: off. Unticking stopped them, which is the opposite of what the line said.',
-  },
-  plain: {
-    on: 'Partner emails: on. The line and the box agree.',
-    off: 'Partner emails: off. Unticking stopped them, exactly as written.',
-  },
+/** What the account will do once this step is saved, which is the same either way. */
+const EFFECT: Record<'on' | 'off', string> = {
+  on: 'Partner emails: on',
+  off: 'Partner emails: off',
 };
 
 const NOTE: Record<Mode, string> = {
@@ -34,8 +29,14 @@ const NOTE: Record<Mode, string> = {
  * preferences panel around it, because the term names the sentence. The plain wording is a
  * state in which the subject is not the term, so the tricked condition is declared in
  * `data-pose` and the specimen mounts tricked: identify refuses to ring the honest sentence
- * and summons this state instead (SPEC §6). The other two rows, the effect readout, the
- * caption and the mode picker are scenery (SPEC §5).
+ * and summons this state instead (SPEC §6). The other two rows, the preferences readout, the
+ * verdict and the mode picker are scenery (SPEC §5).
+ *
+ * The readout panel used to be headed "What you will actually get" and to spell out the
+ * catch under it ("The line offers unticking as the way to keep them."). That was the site
+ * arguing inside the signup form, so the panel now prints only the setting the account will
+ * be left with, which is the same in both wordings and is exactly the point. The reading of
+ * it lives in the verdict beside the switch, and the article carries the rest.
  *
  * The label sits in a row of fixed height with room for the longer sentence on one line, so
  * swapping wordings moves nothing (SPEC §5). Picking a mode always resets the box to ticked,
@@ -51,7 +52,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 274px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 256px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Membership, step 3 of 3</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="tricked" data-axis="Trick wording" data-term="tricked" style="flex: 0 0 auto">
@@ -83,9 +84,9 @@ export function mount(root: HTMLElement): void {
             ${quietRow('Show my name on reviews I write.', false)}
           </div>
 
-          <div class="sp-surface sp-context" data-part="effect" data-emails="on" style="height: 66px; padding: 9px 11px">
-            <span class="sp-label" style="font-size: 10px">What you will actually get</span>
-            <span class="sp-text sp-text--ink" data-part="effect-text" style="display: block; margin-top: 2px; font-size: 11px">${EFFECT.tricked.on}</span>
+          <div class="sp-surface sp-context" data-part="effect" data-emails="on" style="height: 48px; padding: 9px 11px">
+            <span class="sp-label" style="font-size: 10px">Your email preferences</span>
+            <span class="sp-text sp-text--ink" data-part="effect-text" style="display: block; margin-top: 2px; font-size: 11px">${EFFECT.on}</span>
           </div>
         </div>
       </div>
@@ -99,13 +100,11 @@ export function mount(root: HTMLElement): void {
   const effectText = part(root, 'effect-text');
   const note = part(root, 'note');
 
-  let mode: Mode = 'tricked';
-
   const render = (ticked: boolean) => {
     box.setAttribute('aria-checked', String(ticked));
     const state = ticked ? 'on' : 'off';
     effect.dataset.emails = state;
-    effectText.textContent = EFFECT[mode][state];
+    effectText.textContent = EFFECT[state];
   };
 
   // One handler on the row, so the checkbox and its sentence answer the same click without
@@ -115,7 +114,7 @@ export function mount(root: HTMLElement): void {
   });
 
   part(root, 'mode').addEventListener('change', (event) => {
-    mode = (event as CustomEvent<string>).detail === 'plain' ? 'plain' : 'tricked';
+    const mode: Mode = (event as CustomEvent<string>).detail === 'plain' ? 'plain' : 'tricked';
     label.dataset.mode = mode;
     label.textContent = WORDING[mode];
     note.textContent = NOTE[mode];

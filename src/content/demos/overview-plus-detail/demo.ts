@@ -63,6 +63,12 @@ function plan(labelled: boolean): string {
  * leaving the box, and releases on pointerup and pointercancel, never pointerleave, which does
  * not fire while capture holds (SPEC §7). The box's size is computed from the ratio once and
  * never read back off the element, so nothing here measures after a style write (SPEC §5).
+ *
+ * Two strings went. Under the map sat "Drag the box, or scroll the plan. Either one moves
+ * the other.", an instruction to the reader rather than anything a plan viewer prints, and
+ * under the frame sat "Both scales at once: the plan at full size, and the whole of it
+ * shrunk beside it.", which described the layout instead of being it. The article carries
+ * both points; the coupling is visible in the pass itself.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -110,14 +116,9 @@ export function mount(root: HTMLElement): void {
               <span data-part="corner-nw" aria-hidden="true" style="position: absolute; left: ${Math.round(RECT.width / 2)}px; top: ${Math.round(RECT.height / 2)}px; width: 4px; height: 4px; translate: -50% -50%; pointer-events: none"></span>
               <span data-part="corner-se" aria-hidden="true" style="position: absolute; left: ${MAP_W - Math.round(RECT.width / 2)}px; top: ${MAP_H - Math.round(RECT.height / 2)}px; width: 4px; height: 4px; translate: -50% -50%; pointer-events: none"></span>
             </div>
-            <span class="sp-label" style="font-size: 11px; line-height: 1.35">Drag the box, or scroll the plan. Either one moves the other.</span>
           </div>
         </div>
       </div>
-
-      <span class="sp-text sp-context" style="width: 452px; height: 16px; font-size: 12px; line-height: 16px; text-align: center">
-        Both scales at once: the plan at full size, and the whole of it shrunk beside it.
-      </span>
     </div>
   `;
 

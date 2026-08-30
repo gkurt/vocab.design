@@ -44,6 +44,13 @@ const IDLE = 'Nothing announced yet';
  * removed, so switching or stepping moves nothing (SPEC §5). The walk is a button rather
  * than a scripted Tab, since real focus is never moved under attract (SPEC §7); each
  * segment reaches its own build and stepping clamps at the last stop (SPEC §8).
+ *
+ * Four strings were the site talking inside the frame and have gone or changed: the label
+ * "Closed drawer is marked" introduced a switch the stage now draws in the strip, the
+ * viewport panel was headed "In the viewport", the off screen box footnoted itself with
+ * "Really at left: -9999px.", and the notice that appears when the ring leaves the screen
+ * read "The ring is out there somewhere." That notice is a real instrument, so it stayed and
+ * now reads as one; the rest are covered by the article.
  */
 export function mount(root: HTMLElement): void {
   const inViewport = (s: Stop) => `
@@ -56,24 +63,20 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 456px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Closed drawer is marked</span>
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="broken" data-axis="Attribute" data-term="broken">
-            <button class="sp-segment" data-part="seg-broken" value="broken">aria-hidden</button>
-            <button class="sp-segment" data-part="seg-fixed" value="fixed">inert</button>
-          </sp-segmented>
-        </div>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="broken" data-axis="Attribute" data-term="broken">
+          <button class="sp-segment" data-part="seg-broken" value="broken">aria-hidden</button>
+          <button class="sp-segment" data-part="seg-fixed" value="fixed">inert</button>
+        </sp-segmented>
 
-        <div class="sp-row" style="margin-top: 10px; gap: 10px; align-items: stretch">
+        <div class="sp-row" style="gap: 10px; align-items: stretch">
           <div class="sp-surface" style="flex: 1 1 auto; min-width: 0; padding: 8px 10px 10px; height: 140px">
-            <span class="sp-label sp-context" style="font-size: 10px">In the viewport</span>
-            <div class="sp-nav" style="margin-top: 6px">
+            <div class="sp-nav">
               ${inViewport(STOPS[0] as Stop)}
               ${inViewport(STOPS[1] as Stop)}
               ${inViewport(STOPS[4] as Stop)}
             </div>
             <p class="sp-text" data-part="void" style="margin: 6px 0 0; font-size: 10.5px; visibility: hidden">
-              The ring is out there somewhere.
+              Focus ring: not in view
             </p>
           </div>
 
@@ -88,7 +91,6 @@ export function mount(root: HTMLElement): void {
               ${inDrawer(STOPS[2] as Stop, true)}
               ${inDrawer(STOPS[3] as Stop, false)}
             </div>
-            <p class="sp-text sp-context" style="margin: 6px 0 0; font-size: 10px">Really at left: -9999px.</p>
           </div>
         </div>
 

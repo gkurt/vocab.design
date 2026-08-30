@@ -25,10 +25,20 @@ const CARDS = [
  * the only number in the comparison is the container's own width.
  *
  * The subject is the switcher container, `data-part="switcher"`. The primitive IS the box and
- * its rule, not any card inside it (SPEC §5), and the handle, the readout and the caption stay
- * outside it as scenery. The container's height is its own, as a real switcher's is, so the
- * room the stacked arrangement needs is reserved by the box around it and nothing below the
- * arrangement ever moves (SPEC §5).
+ * its rule, not any card inside it (SPEC §5), and the handle and the readout stay outside it as
+ * scenery. A line under the frame once read "Drag the handle: the cards answer to the container's
+ * width, never to the window's.", which told the reader what to do and then said the term out
+ * loud; the handle is a handle and the readout prints the width, so it went.
+ *
+ * The readout used to finish that width with the arrangement it had produced, "400px wide: one
+ * row", which is the site announcing the term over the top of a preview that already shows it.
+ * It prints the width alone now. The threshold beside it stays, because it is the legend of the
+ * instrument this frame is (a container the reader resizes), and it sits in the label register
+ * rather than the heading one so it reads as a legend and not as a product's name.
+ *
+ * The container's height is its own, as a real switcher's is, so the room the stacked
+ * arrangement needs is reserved by the box around it and nothing below the arrangement ever
+ * moves (SPEC §5).
  *
  * `data-axis` is measured, not declared: the demo counts the distinct rows the cards landed on
  * and says `row` or `column`, which is the only claim that could catch a switcher whose rule
@@ -58,7 +68,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 10px">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 258px">
         <div class="sp-topbar sp-context" style="padding: 6px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Threshold ${THRESHOLD}px</span>
+          <span class="sp-label sp-grow" style="font-size: 11px">Threshold ${THRESHOLD}px</span>
           <span class="sp-label" data-part="readout" role="status" style="flex: 0 0 auto; font-size: 11px; white-space: nowrap"></span>
         </div>
 
@@ -86,10 +96,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <span class="sp-text sp-context" style="width: 452px; height: 16px; font-size: 12px; line-height: 16px; text-align: center">
-        Drag the handle: the cards answer to the container’s width, never to the window’s.
-      </span>
     </div>
   `;
 
@@ -102,7 +108,7 @@ export function mount(root: HTMLElement): void {
     // Counted from where the cards actually landed, on boxes nothing transitions.
     const rows = new Set(cardEls.map((card) => Math.round(card.offsetTop))).size;
     switcher.dataset.axis = rows === 1 ? 'row' : 'column';
-    readout.textContent = `${Math.round(switcher.offsetWidth)}px wide: ${rows === 1 ? 'one row' : 'one card per row'}`;
+    readout.textContent = `${Math.round(switcher.offsetWidth)}px`;
   };
 
   const resize = (width: number) => {

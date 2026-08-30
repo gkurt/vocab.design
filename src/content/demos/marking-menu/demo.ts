@@ -64,6 +64,13 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The ring is absolutely positioned over a fixed canvas and the echo line holds its width, so
  * summoning and dismissing it move nothing (SPEC §5).
+ *
+ * The toolbar used to carry a line narrating the gesture as it happened: "Press and hold, or
+ * stroke a direction" at rest, then "Holding: the ring is on its way", "Stroking: too fast for
+ * the ring to be drawn", "Released without a direction, so the menu stays up" and two more. No
+ * drawing app narrates its own input, and the ring appearing or not appearing shows the same
+ * thing. The line and the reporting that fed it are gone; the echo under the canvas still names
+ * the command that ran, and `data-path` still carries which route it took for the script.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -71,7 +78,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 296px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Canvas</span>
-          <span class="sp-text" data-part="readout" style="width: 322px; text-align: right; white-space: nowrap">Press and hold, or stroke a direction</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div
@@ -114,16 +120,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   const canvas = part(root, 'canvas');
   const ring = part(root, 'ring');
-  const readout = part(root, 'readout');
   const echo = part(root, 'echo');
 
   let timer: number | undefined;
   let origin: { x: number; y: number } | undefined;
   let open = false;
-
-  const report = (line: string) => {
-    readout.textContent = line;
-  };
 
   const highlight = (key: string | undefined) => {
     for (const sector of SECTORS) {
@@ -153,11 +154,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     canvas.dataset.chose = sector.key;
     canvas.dataset.path = path;
     if (path === 'mark') {
-      report(`${sector.label} by stroke: the ring never appeared`);
       echo.textContent = `${sector.label} ran from a mark to the ${sector.dir}`;
       return;
     }
-    report(`${sector.label} chosen from the ring`);
     echo.textContent = `${sector.label} ran from the drawn menu`;
   };
 
@@ -172,12 +171,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     showRing(false);
     canvas.dataset.path = 'none';
     origin = localPoint(event, root);
-    report('Holding: the ring is on its way');
     timer = clock.setTimeout(() => {
       timer = undefined;
       showRing(true);
       canvas.dataset.path = 'ring';
-      report('Held still, so the menu was drawn');
     }, REVEAL_MS);
   });
 
@@ -192,7 +189,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       clock.clearTimeout(timer);
       timer = undefined;
       canvas.dataset.path = 'mark';
-      report('Stroking: too fast for the ring to be drawn');
     }
     if (open) highlight(headingOf(dx, dy)?.key);
   });
@@ -210,7 +206,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     timer = undefined;
     showRing(true);
     canvas.dataset.path = 'ring';
-    report('Released without a direction, so the menu stays up');
   };
 
   root.addEventListener('pointerup', release);

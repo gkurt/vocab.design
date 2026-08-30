@@ -74,6 +74,11 @@ const paint = (dot: Dot) =>
  * so the honest condition is declared in `data-pose` and the specimen mounts on
  * the dotted i (SPEC §6).
  *
+ * A line under the note used to explain that the box is the demo's own drawing, since a
+ * dot is a contour and has no box of its own. That is the article's sentence and it named
+ * the demo out loud, so it is gone; the comment above the marker still says it here, where
+ * the next author is the one who needs it.
+ *
  * The panel keeps the subject out of the context register, since a scenery
  * wrapper would take the accent off the marker inside it; the letter needs no
  * dimming to be quiet, being ink on a plain surface. The panel and the note
@@ -106,7 +111,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack sp-context" style="gap: 8px; padding-top: 6px">
             <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${first.read}</span>
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; width: 258px; height: 78px">${first.note}</p>
-            <span class="sp-label" style="width: 258px">A dot is a contour inside a glyph, so the box around it is the demo's own drawing.</span>
           </div>
         </div>
       </div>

@@ -55,6 +55,12 @@ const SAMPLES: Sample[] = [
  * three samples, the rules, the labels and the caption are the demo's own
  * instrumentation and stay in the context register.
  *
+ * A chip under the row once read "the small caps clear the x-height rule, the
+ * petite caps stop on it", and the header called the sheet "Avenir Next, one word,
+ * four heights". Both were the site reading the drawing out loud inside a specimen
+ * sheet that would only ever print the face and the property, so the chip went and
+ * the header now names the face and its size. The article makes the same point.
+ *
  * Nothing is measured at runtime. The rules are hung off a zero-height carrier
  * whose bottom edge inline layout puts on the baseline, and they are placed by the
  * font's own `ex` and `cap` units (with an em approximation first, for a browser
@@ -85,18 +91,13 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-label">font-variant-caps</span>
-          <span class="sp-label">Avenir Next, one word, four heights</span>
+          <span class="sp-label">Avenir Next 48</span>
         </div>
         <div data-part="samples" style="position: relative; height: 82px; margin-top: 14px; font-family: ${FACE};
              font-size: ${SIZE}px; line-height: 1.1">
           <span style="position: absolute; left: 0; bottom: 10px; width: ${SPAN}px"><i class="sp-context" style="position: relative; display: inline-block; width: 0; height: 0; vertical-align: baseline">${rules}</i>${SAMPLES.map(sample).join('')}</span>
         </div>
         <div class="sp-context" data-part="labels" style="white-space: nowrap; font-size: 0">${SAMPLES.map(caption).join('')}</div>
-        <div class="sp-row sp-context" style="height: 32px; margin-top: 6px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">
-            the small caps clear the x-height rule, the petite caps stop on it
-          </span>
-        </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           No browser here honours petite-caps: it renders as small caps. So the middle sample is this face's own
           small-caps set and the petite one is drawn, capitals reduced until their cap height is the x-height.

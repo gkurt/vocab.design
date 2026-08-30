@@ -28,6 +28,14 @@ const words = (text: string) =>
  * claim legible: this pattern is the exception, so the specimen has to show the rule next to
  * it. Both traces are drawn from the rendered word boxes, so the dots sit on real words, and
  * neither takes pointer events.
+ *
+ * Everything the window says is what an eye tracker's own report says. The panels were once
+ * labelled "committed: every word" and "not committed: a glance", the window was titled "One
+ * reader, two blocks of text", and a line under the panels read the result out ("A fixation on
+ * nearly every word of the dose, because getting it wrong costs the reader..."). All of it was
+ * the article talking inside the tool, so each panel now carries its own fixation count and the
+ * line is gone; the frame lost the 49px it held. The counts are stated from the same two
+ * sources the traces are drawn from, so they cannot drift from the dots.
  */
 export function mount(root: HTMLElement): void {
   const panel = (key: string, title: string, note: string, text: string) => `
@@ -42,17 +50,16 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 251px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">One reader, two blocks of text</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Reading session 12</span>
           <span class="sp-label">fixations plotted</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 9px; padding: 10px 12px">
           <div class="sp-row" style="gap: 12px; align-items: flex-start">
-            ${panel('read', 'Dose and interactions', 'committed: every word', COMMITTED)}
-            ${panel('skim', 'Why teams choose us', 'not committed: a glance', SKIMMED)}
+            ${panel('read', 'Dose and interactions', `${COMMITTED.split(' ').length} fixations`, COMMITTED)}
+            ${panel('skim', 'Why teams choose us', `${SKIMMED_FIXATIONS.length} fixations`, SKIMMED)}
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>
@@ -94,8 +101,5 @@ export function mount(root: HTMLElement): void {
   };
 
   draw('read', 'all', 9, 0.5);
-  const skimmed = draw('skim', SKIMMED_FIXATIONS, 9, 0.5) ?? 0;
-
-  part(root, 'readout').textContent =
-    `A fixation on nearly every word of the dose, because getting it wrong costs the reader. The blurb beside it got ${skimmed}.`;
+  draw('skim', SKIMMED_FIXATIONS, 9, 0.5);
 }

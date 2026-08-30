@@ -50,6 +50,14 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The world moves by a background offset inside a clipped viewport and every readout holds
  * its width, so turning moves nothing at all (SPEC §5).
+ *
+ * The simulation is disclosed here, not in the frame. Three lines of the site's voice went:
+ * the button read "Engage the lock (simulated)" and now says what it does, "Lock the cursor";
+ * a note beside it read "The real API is never called on this page."; and the anchor in the
+ * side panel was captioned "Movement arrives out here too", which is a stage direction printed
+ * on a 3D viewer's chrome. The anchor stays, unpainted, and the readout says what is happening
+ * as the pointer moves. Its resting text was "Move over the viewport", an instruction to the
+ * reader; it rests on the state the viewport is in instead.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,7 +65,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 288px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Orbit</span>
-          <span class="sp-text" data-part="readout" style="width: 250px; text-align: right; white-space: nowrap">Move over the viewport</span>
+          <span class="sp-text" data-part="readout" style="width: 250px; text-align: right; white-space: nowrap">Unlocked</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div class="sp-row" style="gap: 12px; align-items: stretch">
@@ -99,14 +107,12 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label"><span class="sp-kbd">Esc</span> releases</span>
               <div class="sp-row" style="gap: 6px; margin-top: 4px">
                 <span data-part="dot-out" aria-hidden="true" style="width: 8px; height: 8px"></span>
-                <span class="sp-label" style="font-size: 11px">Movement arrives out here too</span>
               </div>
             </div>
           </div>
 
           <div class="sp-row sp-context" style="gap: 10px">
-            <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="engage">Engage the lock (simulated)</button>
-            <span class="sp-label" style="font-size: 11px; max-width: 168px">The real API is never called on this page.</span>
+            <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="engage">Lock the cursor</button>
           </div>
         </div>
       </div>

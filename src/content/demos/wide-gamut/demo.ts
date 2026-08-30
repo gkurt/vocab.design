@@ -45,6 +45,10 @@ const TRI_P3 = '170,128.9 66.3,46.7 37.5,186.7';
  * identical, because the wider value has already been mapped back in. Faking a difference
  * would make the specimen a lie on the majority of screens that read it.
  *
+ * The diagram's own caption used to read "P3 encloses sRGB", which is the article's
+ * conclusion rather than a legend. It is a legend now, naming which outline is which, so
+ * the drawing can be read without being told what to think of it.
+ *
  * Every box is fixed size and only paint, text and two marker positions change with the
  * family, so nothing moves (SPEC §5).
  */
@@ -89,7 +93,10 @@ export function mount(root: HTMLElement): void {
                         fill="var(--sp-ink)" stroke="var(--sp-sunken)" stroke-width="2.5"></circle>
               </svg>
             </div>
-            <span class="sp-label" style="font-size: 10px">P3 encloses sRGB</span>
+            <div class="sp-stack" style="gap: 2px; align-items: flex-start">
+              <span class="sp-label" style="font-size: 9px">solid: Display P3</span>
+              <span class="sp-label" style="font-size: 9px">dashed: sRGB</span>
+            </div>
           </div>
         </div>
 

@@ -11,11 +11,6 @@ const START_S = 299;
 const two = (n: number) => String(n).padStart(2, '0');
 const face = (total: number) => `${two(Math.floor(total / 60))}:${two(total % 60)}`;
 
-const CAPTION = {
-  fake: 'Limited-time banner (as shipped)',
-  fair: 'Limited-time banner (made honest)',
-} as const;
-
 const VERDICT = {
   fake: 'Reload and the clock starts again at five minutes. Nothing expires when it reaches zero.',
   fair: 'A dated deadline survives a reload, because the price really does change on Friday.',
@@ -48,6 +43,11 @@ const BODY = {
  * at one height, so switching moves nothing around them, and the readout is tabular so a
  * tick cannot twitch the line (SPEC §5). The tick is a clock timer, so identify can hold
  * a number still that is otherwise never the same twice (SPEC §6).
+ *
+ * A label used to sit over the banner, reading "Limited-time banner (as shipped)" and
+ * "(made honest)" with the pick. No checkout labels its own banner that way, and the strip's
+ * verdict already names the state, which a specimen may not do twice. It is gone; the banner
+ * sits directly under the order summary now.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -63,7 +63,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <div class="sp-row sp-row--between"><span class="sp-text sp-text--ink">Cast iron pan, 26cm</span><span class="sp-text">49.00</span></div>
             <div class="sp-row sp-row--between" style="margin-top: 4px"><span class="sp-text sp-text--ink">Delivery</span><span class="sp-text">4.50</span></div>
           </div>
-          <span class="sp-label sp-context" data-part="caption">${CAPTION.fake}</span>
           <div
             class="sp-surface"
             data-part="banner"
@@ -85,7 +84,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   `;
 
   const banner = part(root, 'banner');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const reloadCount = part(root, 'reload-count');
 
@@ -117,7 +115,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const show = (mode: Mode) => {
     banner.dataset.mode = mode;
     banner.innerHTML = BODY[mode];
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
     runClock(mode === 'fake');
   };

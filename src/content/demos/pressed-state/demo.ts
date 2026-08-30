@@ -28,6 +28,10 @@ const STATES = [
  * what lets the reference row show three states with a pointer on none of them. A real
  * press sets and clears it too, and dragging off the button cancels it without counting,
  * which is how a person changes their mind mid-press.
+ *
+ * A caption under the reference row once read "Each state written as an attribute, so it
+ * shows with no pointer on it." That is a note about how the specimen is built, which no
+ * checkout screen would print, so it is gone; the article carries the point.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const swatches = STATES.map(
@@ -60,10 +64,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             data-subject
             style="width: 168px; padding: 10px 16px; touch-action: none; transition: box-shadow 0.09s linear"
           >Place order</button>
-          <div class="sp-stack sp-context" style="align-items: center; gap: 10px">
-            <div class="sp-row" style="gap: 12px">${swatches}</div>
-            <span class="sp-label" style="text-align: center">Each state written as an attribute, so it shows with no pointer on it.</span>
-          </div>
+          <div class="sp-row sp-context" style="gap: 12px">${swatches}</div>
         </div>
       </div>
     </div>

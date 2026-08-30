@@ -29,6 +29,13 @@ const NOTES: Record<string, string> = {
  * and the specimen mounts balanced: identify refuses to ring the greedy setting
  * and plays on until the pick comes back round. The box holds three lines of
  * room whichever setting is showing (SPEC §5).
+ *
+ * The readout is the author's reading of what the setting did, and it changes with
+ * the switch, so it is a verdict and the stage draws it in the strip rather than
+ * the specimen printing it in the mock's own type. The paragraph below the rule was
+ * the site explaining that a browser stops balancing past a few lines, over a label
+ * reading "body copy stays greedy"; the article says it, so both went and the
+ * paragraph is now the survey's own copy, greedy because nothing asked it not to be.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -47,13 +54,12 @@ export function mount(root: HTMLElement): void {
               style="margin: 0; padding-right: 8px; font-size: 19px; font-weight: 600; line-height: ${LINE_PX}px;
                      text-wrap: balance">${TITLE}</h3>
         </div>
-        <p class="sp-text sp-context" data-part="readout" style="margin: 6px 0 0; height: 34px; font-size: 12px; line-height: 17px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin: 6px 0 0; height: 34px; font-size: 12px; line-height: 17px"></p>
         <div class="sp-divider sp-context" style="margin: 8px 0"></div>
         <div class="sp-stack sp-context" data-part="body" style="gap: 3px">
-          <span class="sp-label">body copy stays greedy</span>
           <p class="sp-text" style="margin: 0; font-size: 12px; line-height: 17px">
-            Past a handful of lines the browser stops balancing, which is why a paragraph keeps
-            the breaks it was given.
+            Moorings, tides and the state of the slipway: five minutes of questions, and the
+            answers go to the harbour board before the winter dredging is planned.
           </p>
         </div>
       </div>

@@ -33,6 +33,9 @@ const CAPTION = {
  * mounts with the counts declared, so the state identify rests on is the term itself, and the
  * token is the announced count in every state the script visits.
  *
+ * The list header once ended ", six in the DOM", which was the site pointing at the trick
+ * rather than a heading a windowed list would print; it now stops at the range and the total.
+ *
  * The speech delay comes from the DemoClock, so a pose can hold the transcript still. The
  * arrows move a simulated ring (`data-sim-focus`), because attract never moves real focus
  * (SPEC §7), and the list carries `tabindex="0"` so a reader's own arrows reach it; Tab is left
@@ -57,7 +60,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 476px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Rows ${FIRST} to ${FIRST + WINDOW - 1} of ${TOTAL}, six in the DOM</span>
+          <span class="sp-label" style="flex: 0 0 auto">Rows ${FIRST} to ${FIRST + WINDOW - 1} of ${TOTAL}</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Markup" data-part="mode" data-value="declared">
             <button class="sp-segment" type="button" data-part="seg-omitted" value="omitted"
                     style="padding: 4px 11px; font-size: 11.5px; white-space: nowrap">Omitted</button>

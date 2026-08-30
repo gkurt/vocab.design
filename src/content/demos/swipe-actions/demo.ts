@@ -29,8 +29,13 @@ const QUIET = [
  * The offset is a transform on the row's own content, so a revealed row never
  * moves the rows around it (SPEC §5), and the mark an action leaves sits in a slot
  * reserved from the start. The frame is tall enough for all four rows at their
- * stated height, so the list holds its own rather than clipping the last one. The gesture reaches an absolute position: past the
- * commit distance it settles open, and only pressing an action closes it (SPEC §8).
+ * stated height, so the list holds its own rather than clipping the last one. The gesture
+ * reaches an absolute position: past the commit distance it settles open, and only pressing
+ * an action closes it (SPEC §8).
+ *
+ * A line under the list once read "A hidden gesture is an accelerator, never the only door."
+ * That is the article's rule about the pattern, not something an inbox prints, so it went and
+ * the frame lost the 24px it held.
  */
 export function mount(root: HTMLElement): void {
   const quiet = QUIET.map(
@@ -43,7 +48,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 296px">
+      <div class="sp-frame sp-frame--wide" style="height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Inbox</span>
           <span class="sp-text" data-part="count" style="width: 92px; text-align: right">Archived: 0</span>
@@ -86,7 +91,6 @@ export function mount(root: HTMLElement): void {
               ${quiet}
             </ul>
           </div>
-          <span class="sp-label sp-context">A hidden gesture is an accelerator, never the only door.</span>
         </div>
       </div>
     </div>

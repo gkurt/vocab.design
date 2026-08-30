@@ -23,6 +23,11 @@ const BADGE =
  * is the figure tracing it, and the page under it is the scene (SPEC §5). The overlay is
  * sized to the shape's own bounding box, so identify rings the path rather than the whole
  * specimen, and it takes no pointer events, so a reader's click reaches the page beneath.
+ *
+ * The line under the page reads the overlay the switch produced ("Across the top, down the
+ * diagonal, then across the bottom."), which is the author speaking rather than anything
+ * this landing page would print, so it is marked `data-stage-verdict` and the stage draws
+ * it in the strip (SPEC §5.1).
  */
 export function mount(root: HTMLElement): void {
   const stop = (n: number, box: string, badge: string) => `
@@ -100,7 +105,7 @@ export function mount(root: HTMLElement): void {
               </g>
             </svg>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 430px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 430px; text-align: center"></span>
         </div>
       </div>
     </div>

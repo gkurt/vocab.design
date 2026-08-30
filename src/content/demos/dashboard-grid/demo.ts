@@ -41,7 +41,11 @@ const row = (index: number, width: number, value: string) => `
  *
  * The subject is the gridded region itself, not any one tile: the term names the field and
  * the way it apportions area, and a single card is a card (SPEC §5). The window chrome,
- * the arrangement control and the caption are scenery in the context register.
+ * the arrangement control are scenery in the context register. The line under the field
+ * ("Area is the ranking: eight columns for the chart, three for a number.") is the author
+ * reading the arrangement rather than anything the dashboard would print, and it changes
+ * with the switch, so it is marked `data-stage-verdict` and the stage draws it in the strip
+ * instead of inside the window.
  *
  * Both arrangements are honestly the term (a uniform dashboard is still a dashboard grid,
  * just one that has stopped ranking anything), so the subject never stops being what it
@@ -91,7 +95,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 448px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 448px; text-align: center"></span>
         </div>
       </div>
     </div>

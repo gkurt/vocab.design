@@ -37,6 +37,11 @@ const LINK_STYLE = 'color: var(--sp-accent); text-decoration: underline; font-si
  * a name a link does not have. Every result holds a fixed height and every list line a fixed
  * height, so rewording moves nothing outside the row that changed (SPEC §5), and each segment
  * reaches its own wording rather than flipping the other's (SPEC §8).
+ *
+ * A tally under the list once scored the state ("3 distinct names", then "1 name for 3
+ * pages"). No links list prints that: it was the author counting for the reader, and the
+ * list already shows three identical lines. It is gone, and the caption is the one place
+ * the reading is stated.
  */
 export function mount(root: HTMLElement): void {
   const result = (row: Row) => `
@@ -68,7 +73,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-surface sp-context" style="flex: 0 0 156px; padding: 10px 12px">
             <span class="sp-label">Links list</span>
             <div style="margin-top: 6px">${ROWS.map(listLine).join('')}</div>
-            <p class="sp-text" data-part="tally" style="margin: 6px 0 0; height: 15px; font-size: 11px"></p>
           </div>
         </div>
 
@@ -80,7 +84,6 @@ export function mount(root: HTMLElement): void {
 
   const results = part(root, 'results');
   const caption = part(root, 'caption');
-  const tally = part(root, 'tally');
 
   /** The links list, read off the anchors, the way a reader's own list is built. */
   const readList = () => {
@@ -91,8 +94,6 @@ export function mount(root: HTMLElement): void {
       line.textContent = name;
       line.dataset.state = name === VAGUE ? 'vague' : 'descriptive';
     }
-    const distinct = new Set(names).size;
-    tally.textContent = distinct === names.length ? `${distinct} distinct names` : `${distinct} name for ${names.length} pages`;
   };
 
   const apply = (mode: Mode) => {

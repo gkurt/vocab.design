@@ -59,6 +59,11 @@ const row = ({ key, label, subject }: (typeof ROWS)[number]) => `
  * `elementFromPoint`, so it keeps the accent and stays out of the context register. The ruler
  * and the replay control are the apparatus and do carry it.
  *
+ * A label beside the replay button used to read "The click carries a point, not an element.",
+ * which is the article's sentence printed over the picture that already proves it, so it went.
+ * The button says what it does ("Replay the touch") rather than naming the pipeline the article
+ * discusses, and the readout starts from an instrument's idle state.
+ *
  * The shift is the term, so it is allowed, and it is contained: the panel is clipped and
  * the banner is drawn inside it, so nothing outside the panel moves at all (SPEC §5). Each
  * row reserves the width of its own verdict, so a row being marked shifts no text. The
@@ -71,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: ${FRAME_H}px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Support</span>
-          <span class="sp-text" data-part="readout" style="width: 300px; text-align: right; white-space: nowrap">One touch, waiting to be replayed</span>
+          <span class="sp-text" data-part="readout" style="width: 300px; text-align: right; white-space: nowrap">No touch replayed yet</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <div
@@ -119,8 +124,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
       </div>
       <div class="sp-row sp-context">
-        <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay the legacy pipeline</button>
-        <span class="sp-label">The click carries a point, not an element.</span>
+        <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay the touch</button>
       </div>
     </div>
   `;

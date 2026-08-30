@@ -42,6 +42,12 @@ const pin = (name: string, angle: number, fill: string) => `
  * object hue re-renders both spheres, so the subject is a hue shift in every state.
  *
  * Every box is fixed size and only paint and a rotation change, so nothing moves.
+ *
+ * Three strings were the site reading the picture aloud from inside it. A caption saying
+ * "Both spheres travel the same lightness values. Only the left one lets the hue travel with
+ * them." and a note saying "lightness ladder unchanged" are gone; the twin's label, "One hue,
+ * dimmed", now just names it "One hue", parallel to the shifted sphere beside it. The article
+ * makes the same points at length.
  */
 export function mount(root: HTMLElement): void {
   const start = BODIES.find((b) => b.key === START) ?? BODIES[0];
@@ -66,7 +72,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-stack sp-context" style="flex: 0 0 auto; gap: 6px; align-items: center">
             <div data-part="flat"
                  style="width: 116px; height: 116px; border-radius: 50%; background-image: ${flat(start)}"></div>
-            <span class="sp-label">One hue, dimmed</span>
+            <span class="sp-label">One hue</span>
           </div>
 
           <div class="sp-stack sp-context" style="flex: 0 0 auto; gap: 6px; align-items: center">
@@ -79,14 +85,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
+        <div class="sp-row sp-context" style="margin-top: 10px">
           <span class="sp-text" data-part="readout" style="font-size: 10.5px">light ${start.high}, body ${start.base}, shadow ${start.low}</span>
-          <span class="sp-text" style="font-size: 10.5px">lightness ladder unchanged</span>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
-          Both spheres travel the same lightness values. Only the left one lets the hue travel with them.
-        </p>
       </div>
     </div>
   `;

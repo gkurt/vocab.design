@@ -10,9 +10,9 @@ const SEG_MIN = 26;
 const STROKE_MIN = 20;
 
 const GESTURES = [
-  { shape: 'L', key: 'back', glyph: '←', name: 'Back', note: 'a stroke to the left' },
-  { shape: 'R', key: 'forward', glyph: '→', name: 'Forward', note: 'a stroke to the right' },
-  { shape: 'DR', key: 'close', glyph: '↓→', name: 'Close tab', note: 'down, then right' },
+  { shape: 'L', key: 'back', glyph: '←', name: 'Back' },
+  { shape: 'R', key: 'forward', glyph: '→', name: 'Forward' },
+  { shape: 'DR', key: 'close', glyph: '↓→', name: 'Close tab' },
 ];
 
 /**
@@ -33,9 +33,15 @@ const dot = (name: string, x: number, y: number) => `
  *
  * The subject is the pad. The term names the stroke, but a stroke is nothing at rest and a
  * polyline is thinner than the stage can ring, so the narrowest element that is honestly the
- * term is the surface that reads gestures. The page content behind it, the legend and the
- * readouts are the scene around it in the context register, and the points the script strokes
- * between are unpainted anchors.
+ * term is the surface that reads gestures. The page content behind it and the legend with its
+ * Recognized line are the scene around it in the context register, and the points the script
+ * strokes between are unpainted anchors.
+ *
+ * A line in the title bar used to narrate the stroke, opening on "Hold the right button and
+ * draw a stroke" and reporting each phase, under a caption reading "Nothing here is aimed at:
+ * the shape of the stroke is the whole command...". A browser prints neither, and the legend's
+ * Recognized line already says what the pad made of the stroke, so both went and the frame is
+ * cut to what is left.
  *
  * The recognizer is the real one, not a lookup of the three scripted paths. A stroke is reduced
  * to a sequence of cardinal directions as it is drawn, with one threshold for how far the
@@ -47,18 +53,17 @@ const dot = (name: string, x: number, y: number) => `
  * suppresses its own context menu so a right drag is a gesture rather than a menu. One press
  * is one gesture: the button goes down, the stroke is drawn, and the release reads it, which
  * is the single code path a reader's hand and the script's `drag: { button: 'right' }` both
- * take. A release that never travelled is not a stroke, so it disarms and says so.
+ * take. A release that never travelled is not a stroke, so it disarms with nothing recognized.
  *
- * The pad, the legend and the readouts all hold fixed boxes, and the trail is painted on an
- * overlay, so drawing and clearing a gesture move nothing (SPEC §5).
+ * The pad and the legend both hold fixed boxes, and the trail is painted on an overlay, so
+ * drawing and clearing a gesture move nothing (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 296px">
+      <div class="sp-frame sp-frame--wide" style="height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Browser</span>
-          <span class="sp-text" data-part="readout" style="width: 340px; text-align: right; white-space: nowrap">Hold the right button and draw a stroke</span>
         </div>
 
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 10px">
@@ -106,16 +111,11 @@ export function mount(root: HTMLElement): void {
             <span class="sp-heading" data-part="command" style="font-size: 13px">Nothing yet</span>
           </div>
         </div>
-
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          Nothing here is aimed at: the shape of the stroke is the whole command, and the pad keeps the right button from opening a menu.
-        </span>
       </div>
     </div>
   `;
 
   const pad = part(root, 'pad');
-  const readout = part(root, 'readout');
   const command = part(root, 'command');
   const line = part(root, 'trail').querySelector('polyline') as SVGPolylineElement;
 
@@ -124,10 +124,6 @@ export function mount(root: HTMLElement): void {
   let anchor = { x: 0, y: 0 };
   let letters: string[] = [];
   let travelled = 0;
-
-  const say = (text: string) => {
-    readout.textContent = text;
-  };
 
   /** Pointer coordinates in the pad's drawing box, with its border taken off both axes. */
   const at = (event: PointerEvent) => {
@@ -152,7 +148,6 @@ export function mount(root: HTMLElement): void {
     pad.dataset.command = 'none';
     command.textContent = 'Drawing';
     draw();
-    say('Right button held: the pad is reading a stroke');
   };
 
   const extend = (to: { x: number; y: number }) => {
@@ -166,7 +161,6 @@ export function mount(root: HTMLElement): void {
     const next = heading(dx, dy);
     if (letters.at(-1) !== next) letters.push(next);
     anchor = to;
-    say(`Stroke so far: ${letters.join(' then ')}`);
   };
 
   const commit = () => {
@@ -176,11 +170,10 @@ export function mount(root: HTMLElement): void {
     if (!gesture) {
       pad.dataset.command = 'unknown';
       command.textContent = 'No match';
-      return say('That shape is not in the table, so nothing ran');
+      return;
     }
     pad.dataset.command = gesture.key;
     command.textContent = gesture.name;
-    say(`${gesture.name} ran from ${gesture.note}`);
   };
 
   // A gesture layer takes the right button away from the context menu, which is the one real
@@ -195,7 +188,6 @@ export function mount(root: HTMLElement): void {
       if (event.isTrusted) pad.setPointerCapture(event.pointerId);
       return arm(at(event));
     }
-    if (!armed) say('Nothing armed: hold the right button to draw a gesture');
   });
 
   // Listened for on the root, since the moves of a stroke are dispatched at the element the
@@ -212,7 +204,7 @@ export function mount(root: HTMLElement): void {
       armed = false;
       pad.dataset.armed = 'no';
       command.textContent = 'Nothing yet';
-      return say('The button came up without a stroke, so nothing ran');
+      return;
     }
     commit();
   });
@@ -221,6 +213,5 @@ export function mount(root: HTMLElement): void {
     if (!armed) return;
     armed = false;
     pad.dataset.armed = 'no';
-    say('The stroke was cancelled before it was read');
   });
 }

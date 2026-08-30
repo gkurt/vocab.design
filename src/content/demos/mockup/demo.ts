@@ -9,11 +9,6 @@ const NAME: Record<State, string> = { mockup: 'Ana Diaz', hand: 'Konstantina Pap
 
 const INITIALS: Record<State, string> = { mockup: 'AD', hand: 'KP' };
 
-const NOTE_TITLE: Record<State, string> = {
-  mockup: 'What the picture assumes',
-  hand: 'What the reader brought',
-};
-
 const NOTE: Record<State, string> = {
   mockup:
     'Everything is at its best. The name is short because the author typed it, the list has rows because the author added them, nothing has failed, and the type is the size it was drawn at.',
@@ -29,8 +24,15 @@ const NOTE: Record<State, string> = {
  * The subject is the screen pane. In the second state that pane has stopped being a
  * mockup and become a screen with a reader in it, so the honest condition is declared
  * in `data-pose` (SPEC §6): identify refuses to pose the reader's state and plays on
- * or resets to the mount state, which satisfies it. The picker, the note beside the
- * pane, and the footnote are scenery in the context register (SPEC §5).
+ * or resets to the mount state, which satisfies it. The picker is scenery, and the note
+ * reading the state back is the strip's verdict, drawn outside the frame (SPEC §5).
+ *
+ * Three lines went from around the pane. The verdict carried a title above it that changed
+ * with the switch ("What the picture assumes", "What the reader brought"), which would have
+ * been a second verdict; a label to the left of the picker read "One settled screen"; and a
+ * footnote read "A mockup is a claim about the best case. Every question worth asking of one
+ * is about a case it left out." The article opens on that sentence, so nothing is lost, and
+ * the window is now the width of the pane it holds.
  *
  * Every box in the pane is sized for the larger type rather than for the type on
  * screen at mount, so the header, the message slot, the list region and the button
@@ -47,9 +49,8 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-window" style="width: 456px; padding: 11px 14px 13px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One settled screen</span>
+      <div class="sp-window" style="width: 260px; padding: 11px 14px 13px">
+        <div class="sp-row sp-context" style="gap: 10px; justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="state" data-value="mockup" data-axis="Shown as" data-term="mockup" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-mockup" value="mockup"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Mockup</button>
@@ -58,7 +59,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-row" style="align-items: stretch; gap: 12px; margin-top: 9px">
+        <div style="margin-top: 9px">
           <div class="sp-surface" data-part="pane" data-subject data-pose="[data-state=mockup]" data-state="mockup"
                style="display: flex; flex-direction: column; flex: 0 0 auto; gap: 6px;
                       width: 232px; height: 238px; padding: 10px; font-size: 13px; overflow: hidden">
@@ -99,16 +100,7 @@ export function mount(root: HTMLElement): void {
                     style="flex: 0 0 auto; height: 30px; padding: 0 14px; margin-top: auto">Plan a trip</button>
           </div>
 
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; height: 238px; gap: 6px">
-            <span class="sp-label" data-part="note-title" data-state="mockup" style="font-size: 10px">${NOTE_TITLE.mockup}</span>
-            <p class="sp-text" data-stage-verdict data-part="note" data-state="mockup"
-               style="margin: 0; flex: 0 0 auto; height: 132px; font-size: 11px; line-height: 1.35">${NOTE.mockup}</p>
-            <span class="sp-divider"></span>
-            <p class="sp-text" data-part="footnote"
-               style="margin: 0; flex: 1 1 auto; font-size: 10.5px; line-height: 1.35">
-              A mockup is a claim about the best case. Every question worth asking of one is about a case it left out.
-            </p>
-          </div>
+          <p class="sp-text" data-stage-verdict data-part="note" data-state="mockup" style="margin: 0; font-size: 11px">${NOTE.mockup}</p>
         </div>
       </div>
     </div>
@@ -121,7 +113,6 @@ export function mount(root: HTMLElement): void {
   const list = part(root, 'list');
   const empty = part(root, 'empty');
   const note = part(root, 'note');
-  const noteTitle = part(root, 'note-title');
 
   const show = (el: HTMLElement, on: boolean) => {
     el.style.opacity = on ? '1' : '0';
@@ -140,8 +131,6 @@ export function mount(root: HTMLElement): void {
     show(empty, hand);
     note.textContent = NOTE[next];
     note.dataset.state = next;
-    noteTitle.textContent = NOTE_TITLE[next];
-    noteTitle.dataset.state = next;
   };
 
   part(root, 'state').addEventListener('change', (event) => {

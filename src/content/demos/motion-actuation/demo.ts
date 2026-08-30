@@ -9,11 +9,6 @@ const NOTE = {
   restored: 'Milk, bread, coffee',
 } as const;
 
-const SETTING = {
-  ok: 'Off here and the shake stops firing. Undo stays on the toolbar.',
-  motion: 'No setting. A tremor fires it and nothing turns it off.',
-} as const satisfies Record<Mode, string>;
-
 const CAPTION = {
   ok: 'Both halves of the rule: the same undo sits on the toolbar, and the shake can be switched off.',
   motion: 'The toolbar button is gone and the setting with it, so a shake is the only route to an undo.',
@@ -31,7 +26,16 @@ const CAPTION = {
  * The subject is the plain-control alternative, the Undo button itself, because 2.5.4 is about that
  * control existing; identify summons it in the state where it has been taken away (SPEC §6). The
  * note, the toolbar's other buttons, the capability readout, the off switch, the picker and the
- * caption are scenery (SPEC §5). The button is only ever itself, so no `data-pose` is needed.
+ * caption are scenery (SPEC §5).
+ *
+ * The two settings cards used to argue the criterion in their own body copy: "Shake the phone to
+ * undo, while the trigger is enabled. Nothing announces it." over "Off here and the shake stops
+ * firing. Undo stays on the toolbar.", and in the failing pick "No setting. A tremor fires it and
+ * nothing turns it off." A settings screen prints help text, not a case, so each card now carries
+ * the plain sentence a phone would print, and the failing pick hides the whole off-switch card
+ * rather than describing the absence: an app with no setting shows no setting.
+ *
+ * The button is only ever itself, so no `data-pose` is needed.
  *
  * The button keeps its room while hidden and every readout sits in a fixed box, so a pick moves
  * nothing (SPEC §5). No timers: each state is reached by a press.
@@ -86,18 +90,19 @@ export function mount(root: HTMLElement): void {
                              font-size: 10.5px; white-space: nowrap">Enabled</span>
               </div>
               <p class="sp-text" style="margin: 5px 0 0; font-size: 10.5px; line-height: 1.35">
-                Shake the phone to undo, while the trigger is enabled. Nothing announces it.</p>
+                Shake to undo the last change.</p>
             </div>
 
-            <div class="sp-surface sp-context" style="flex: 0 0 auto; height: 78px; padding: 8px 10px">
+            <div class="sp-surface sp-context" data-part="off-card" style="flex: 0 0 auto; height: 78px; padding: 8px 10px;
+                        transition: opacity 0.2s, visibility 0.2s">
               <div class="sp-row sp-row--between" style="gap: 8px; height: 20px">
                 <span class="sp-label" style="flex: 0 0 auto; font-size: 11px">Off switch</span>
                 <button class="sp-switch" type="button" data-part="off-switch" role="switch" aria-checked="true"
                         data-checked aria-label="Shake to undo"
                         style="flex: 0 0 auto; transition: opacity 0.2s, visibility 0.2s"></button>
               </div>
-              <p class="sp-text" data-part="setting-note" data-mode="ok"
-                 style="margin: 5px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">${SETTING.ok}</p>
+              <p class="sp-text" style="margin: 5px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">
+                When on, shaking the phone undoes your last change.</p>
             </div>
           </div>
         </div>
@@ -113,7 +118,7 @@ export function mount(root: HTMLElement): void {
   const undo = part(root, 'undo');
   const motion = part(root, 'motion');
   const offSwitch = part(root, 'off-switch');
-  const settingNote = part(root, 'setting-note');
+  const offCard = part(root, 'off-card');
   const caption = part(root, 'caption');
 
   const show = (el: HTMLElement, on: boolean) => {
@@ -144,10 +149,9 @@ export function mount(root: HTMLElement): void {
     const compliant = mode === 'ok';
     // A pick is a whole configuration, so the edit and the trigger both return to their start state.
     show(undo, compliant);
+    show(offCard, compliant);
     show(offSwitch, compliant);
     setMotion(true);
-    settingNote.dataset.mode = mode;
-    settingNote.textContent = SETTING[mode];
     caption.dataset.mode = mode;
     caption.textContent = CAPTION[mode];
     note.dataset.state = 'edited';

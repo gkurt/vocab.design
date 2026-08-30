@@ -47,6 +47,10 @@ function row(index: number): string {
  * button it ends in: here there is no control to press, and the page arrives because
  * the reader came near the bottom of this box.
  *
+ * A line under the feed once read "A real feed never reaches the end of itself.", which was
+ * the site talking over a product that visibly does end twelve notes in. The article makes
+ * the point, so the line went.
+ *
  * The sentinel is the last row, and it says out loud what an IntersectionObserver
  * would be watching for. It holds its height in every state, so the arrival of a page
  * never re-lays the rows already read (SPEC §5), and the fetch is a clock timer, so a
@@ -62,7 +66,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ${Array.from({ length: FIRST }, (_, i) => row(i)).join('')}
             <li class="sp-row" data-part="sentinel" data-state="idle" style="flex: 0 0 auto; height: 36px; padding: 0 10px"></li>
           </ul>
-          <span class="sp-label sp-context">A real feed never reaches the end of itself.</span>
         </div>
       </div>
     </div>

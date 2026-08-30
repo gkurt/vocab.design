@@ -21,15 +21,20 @@ const CODE = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-
 type Row = { tag: string; text: string; note: string };
 
 const ROWS: Row[] = [
-  { tag: 'liga', text: 'waffle office', note: 'the f pairs fuse' },
-  { tag: 'frac', text: '1/2 and 3/4', note: 'digits build a fraction' },
-  { tag: 'smcp', text: 'small caps', note: 'silence: no smcp table' },
+  { tag: 'liga', text: 'waffle office', note: 'Standard ligatures' },
+  { tag: 'frac', text: '1/2 and 3/4', note: 'Fractions' },
+  { tag: 'smcp', text: 'small caps', note: 'Small capitals' },
 ];
 
 /**
  * OpenType features specimen: three tags asked of one file, switched together so
  * the before and after of each sits in the same place. Two of them answer and one
  * stays silent, which is the part a feature chart never shows.
+ *
+ * The third column used to carry the site's reading of each row ("the f pairs fuse",
+ * "digits build a fraction", "silence: no smcp table"). It carries the feature's
+ * registered name now, which is what a font inspector prints beside a tag, and the
+ * silent row makes its own point by not changing.
  *
  * The subject is the block of feature rows, not the window around it: the term
  * names the capabilities inside the font, and the picker and the caption are the
@@ -42,7 +47,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-row" style="gap: 10px; height: 34px">
       <span data-part="tag-${tag}" style="${CODE}; flex: 0 0 54px; color: var(--sp-muted)">"${tag}"</span>
       <span data-part="sample-${tag}" style="flex: 0 0 176px; font-family: ${FACE}; font-size: 21px; white-space: nowrap">${text}</span>
-      <span class="sp-text sp-grow" data-part="note-${tag}" style="font-size: 12px; white-space: nowrap">${note}</span>
+      <span class="sp-label sp-grow" data-part="note-${tag}" style="font-size: 12px; white-space: nowrap">${note}</span>
     </div>`;
 
   root.innerHTML = `

@@ -28,7 +28,5 @@ export default steps([
   { wait: 700 },
   { assert: { selector: '[data-part=prose][data-mode=indent]', state: 'visible' } },
   { assert: { selector: '[data-part=para-2][data-indent]', state: 'visible' } },
-  { moveTo: '[data-part=caption]' },
   { wait: 900 },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
 ]);

@@ -29,6 +29,11 @@ const CAPTION = {
  * (SPEC §6). It is the term in every state it is visible in, so no `data-pose` is needed. The media
  * card, the voice card, the picker and the caption are scenery (SPEC §5).
  *
+ * The window opened with a line naming the scenario ("A page that starts a video on load"),
+ * which was the site setting the scene inside the mock, so it is gone. The two panes are
+ * instruments this specimen draws, so each is titled plainly and the voice pane's reading is
+ * one word ("masked", "audible") beside the level it belongs to.
+ *
  * The levels are redrawn on the DemoClock, so a pose holds one frame of them, and the redraw is
  * gated on `prefersReducedMotion` rather than left running for a reader who asked for less.
  */
@@ -41,8 +46,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">A page that starts a video on load</span>
+        <div class="sp-row sp-context" style="gap: 10px; justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="control" data-axis="Page" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-control" value="control"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Stop offered</button>
@@ -69,9 +73,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
         <div class="sp-surface sp-context" style="margin-top: 9px; padding: 8px 10px">
           <div class="sp-row sp-row--between" style="gap: 10px; height: 14px">
-            <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">Screen reader, portrayed</span>
+            <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">Screen reader</span>
             <span class="sp-label" data-part="heard" data-state="masked"
-                  style="flex: 0 0 auto; font-size: 10px">masked by the page audio</span>
+                  style="flex: 0 0 auto; font-size: 10px">masked</span>
           </div>
           <div class="sp-row" style="margin-top: 6px; gap: 10px">
             <span style="flex: 0 0 auto; color: var(--sp-muted)">${meter('level-voice', '')}</span>
@@ -124,7 +128,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     stop.style.opacity = mode === 'control' ? '1' : '0';
     stop.style.visibility = mode === 'control' ? 'visible' : 'hidden';
     heard.dataset.state = playing ? 'masked' : 'clear';
-    heard.textContent = playing ? 'masked by the page audio' : 'audible, nothing competing';
+    heard.textContent = playing ? 'masked' : 'audible';
     voice.style.opacity = playing ? '0.32' : '1';
     paint();
   };

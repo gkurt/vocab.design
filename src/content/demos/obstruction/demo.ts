@@ -3,11 +3,6 @@ import '#src/kit/segmented.ts';
 
 type Route = 'obstructed' | 'direct';
 
-const CAPTION: Record<Route, string> = {
-  obstructed: 'Cancelling: the route as shipped',
-  direct: 'Cancelling: the same job, one screen',
-};
-
 const VERDICT: Record<Route, string> = {
   obstructed: 'Nothing is broken and nothing lied. The way out just costs three screens and a phone call.',
   direct: 'The same cancellation, reached in one click. The friction is gone, not hidden.',
@@ -47,8 +42,7 @@ const PLAN = `
 const SCREENS: Record<Route, string[]> = {
   obstructed: [
     `${PLAN}
-     <button class="sp-button sp-button--ghost sp-button--sm" data-part="hurdle-1" type="button" style="align-self: flex-start; margin-top: 12px">Manage preferences</button>
-     <span class="sp-text" style="margin-top: 9px; font-size: 11px">Nothing on this screen says cancel.</span>`,
+     <button class="sp-button sp-button--ghost sp-button--sm" data-part="hurdle-1" type="button" style="align-self: flex-start; margin-top: 12px">Manage preferences</button>`,
     `<span class="sp-heading" style="font-size: 13px">Preferences</span>
      <div style="align-self: stretch; margin-top: 5px">${PREF_ROWS}</div>
      <button data-part="hurdle-2" type="button" style="${BURIED}">cancel or pause your subscription</button>`,
@@ -59,8 +53,7 @@ const SCREENS: Record<Route, string[]> = {
        <button data-part="hurdle-3" type="button" style="${BURIED}; align-self: center; margin-top: 0">continue to cancel</button>
      </div>`,
     `<span class="sp-heading" style="font-size: 13px">Cancellations are by phone</span>
-     <span class="sp-text" data-part="deadend" style="margin-top: 4px; font-size: 11px">Call 0800 000 000, Monday to Thursday, 9am to 4pm. Average wait 24 minutes.</span>
-     <span class="sp-text" style="margin-top: 9px; font-size: 11px">Three screens in, and the path ends at an opening hour.</span>`,
+     <span class="sp-text" data-part="deadend" style="margin-top: 4px; font-size: 11px">Call 0800 000 000, Monday to Thursday, 9am to 4pm. Average wait 24 minutes.</span>`,
   ],
   direct: [
     `${PLAN}
@@ -78,8 +71,13 @@ const SCREENS: Record<Route, string[]> = {
  * pointing at a different word, which is what the subject's `data-pose` says out loud.
  *
  * The subject is the path itself, the screen-by-screen way out, not the account page
- * around it. The plan summary, the caption, the verdict line and the route picker are
- * scenery (SPEC §5).
+ * around it. The plan summary, the verdict line and the route picker are scenery (SPEC §5).
+ *
+ * Three lines of the site's own voice used to sit inside the account: a caption over the
+ * box ("Cancelling: the route as shipped"), and two lines of commentary printed as if the
+ * product had written them ("Nothing on this screen says cancel." on the first screen,
+ * "Three screens in, and the path ends at an opening hour." on the last). All three are
+ * gone. The verdict in the strip counts the screens, and the article does the rest.
  *
  * The path box holds one height across every screen of both routes, so advancing moves
  * nothing (SPEC §5), and each control reaches a named screen rather than flipping the
@@ -89,10 +87,9 @@ const SCREENS: Record<Route, string[]> = {
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 246px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 224px">
         <div class="sp-topbar sp-context"><span class="sp-heading sp-grow">Account</span><span class="sp-text">You want to cancel</span></div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
-          <span class="sp-label sp-context" data-part="caption">${CAPTION.obstructed}</span>
           <div
             class="sp-surface"
             data-part="path"
@@ -114,7 +111,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const path = part(root, 'path');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
 
   const show = (route: Route, step: number) => {
@@ -123,7 +119,6 @@ export function mount(root: HTMLElement): void {
     path.dataset.route = route;
     path.dataset.step = String(step);
     path.innerHTML = screen;
-    caption.textContent = CAPTION[route];
     verdict.textContent = VERDICT[route];
   };
 

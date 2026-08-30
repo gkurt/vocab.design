@@ -20,6 +20,11 @@ const OFFSCREEN = 'translateY(-14px) scale(0.97)';
  * resumed pass reaches the state it named instead of flipping whatever it found
  * (SPEC §8). The transition is a CSS one, so `motion.css` gates it for a reader who
  * asked for less movement: the card still arrives, it just arrives already there.
+ *
+ * A line under the buttons used to read "Down from the edge it lives on, and its space
+ * was reserved before it arrived." No inbox prints that: it was the site narrating its
+ * own arrival from inside the frame, and the article says the same thing at length, so
+ * it is gone.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -58,9 +63,6 @@ export function mount(root: HTMLElement): void {
             >${icon('bell')} New message</button>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="dismiss">Dismiss</button>
           </div>
-          <p class="sp-text sp-context" style="margin: 0">
-            Down from the edge it lives on, and its space was reserved before it arrived.
-          </p>
         </div>
       </div>
     </div>

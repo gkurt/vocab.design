@@ -5,9 +5,6 @@ const CANVAS = { w: 284, h: 172 };
 const WORLD = { w: 640, h: 400 };
 const START = { x: -140, y: -110 };
 
-/** Anything shorter than this was a tap rather than a hold. */
-const TAP_MS = 60;
-
 const NODES = [
   { x: 180, y: 40, w: 104, label: 'Interviews' },
   { x: 340, y: 40, w: 88, label: 'Sign-off' },
@@ -49,9 +46,17 @@ const dot = (name: string, x: number, y: number) => `
  * things, and the mode badge is there on the press and gone on the release.
  *
  * The subject is the canvas: the term names the surface whose meaning is being changed, not
- * the key that changes it and not the window around it. The key cap, the readouts and the
- * legend are instrumentation in the context register, and the points the script drags between are
- * unpainted anchors.
+ * the key that changes it and not the window around it. The key cap and the two readouts
+ * beside it are instrumentation in the context register, and the points the script drags
+ * between are unpainted anchors.
+ *
+ * Four strings that were the site talking are gone. A topbar line narrated every gesture
+ * ("Nothing held: a drag selects", and one per press, drag and release); a caption under the
+ * canvas told the reader what to do ("Drag to marquee. Hold Space and it pans."); a label
+ * under the key cap said "hold it". The mode badge on the canvas read "Pan, while held" and
+ * now reads "Pan", which is what a board tool puts in a mode badge. What the mode did is
+ * still legible: the Mode and Last hold readouts are instruments the demo draws, and the
+ * board really has moved.
  *
  * The keyboard wiring is real. `keydown` on space opens the mode and `keyup` closes it, and
  * the demo answers the code spelling as well as the character, which is what a handler for a
@@ -76,10 +81,9 @@ const dot = (name: string, x: number, y: number) => `
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 274px">
+      <div class="sp-frame sp-frame--wide" style="height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Board</span>
-          <span class="sp-text" data-part="readout" style="width: 336px; text-align: right; white-space: nowrap">Nothing held: a drag selects</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 12px">
           <div class="sp-stack" style="gap: 8px">
@@ -106,7 +110,7 @@ export function mount(root: HTMLElement): void {
                 class="sp-chip"
                 data-part="mode-chip"
                 style="position: absolute; left: 8px; top: 8px; z-index: 5; cursor: default; background: var(--sp-accent); border-color: var(--sp-accent); color: var(--sp-accent-ink); opacity: 0; visibility: hidden; transition: opacity 0.12s, visibility 0.12s"
-              >Pan, while held</span>
+              >Pan</span>
 
               <span style="position: absolute; inset: 0; pointer-events: none">
                 ${dot('mark-a', 30, 20)}
@@ -114,7 +118,6 @@ export function mount(root: HTMLElement): void {
                 ${dot('pan-to', 244, 112)}
               </span>
             </div>
-            <span class="sp-label sp-context">Drag to marquee. Hold Space and it pans.</span>
           </div>
 
           <div class="sp-stack sp-context sp-grow" style="gap: 8px">
@@ -123,7 +126,6 @@ export function mount(root: HTMLElement): void {
               data-part="key-cap"
               style="display: flex; align-items: center; justify-content: center; width: 100%; height: 46px; font-size: 13px; font-weight: 500"
             >Space</span>
-            <span class="sp-label" style="text-align: center; white-space: nowrap">hold it</span>
             <div class="sp-divider"></div>
             <div class="sp-stack" style="gap: 2px">
               <span class="sp-label">Mode</span>
@@ -144,7 +146,6 @@ export function mount(root: HTMLElement): void {
   const marquee = part(root, 'marquee');
   const chip = part(root, 'mode-chip');
   const cap = part(root, 'key-cap');
-  const readout = part(root, 'readout');
   const modeValue = part(root, 'mode-value');
   const heldFor = part(root, 'held-for');
 
@@ -153,10 +154,6 @@ export function mount(root: HTMLElement): void {
   let panning: { x: number; y: number; ox: number; oy: number } | undefined;
   let picking: { x: number; y: number } | undefined;
   let at = { x: START.x, y: START.y };
-
-  const report = (text: string) => {
-    readout.textContent = text;
-  };
 
   const show = (el: HTMLElement, on: boolean) => {
     el.style.opacity = on ? '1' : '0';
@@ -182,7 +179,6 @@ export function mount(root: HTMLElement): void {
     cap.style.borderColor = 'var(--sp-accent)';
     cap.style.color = 'var(--sp-accent-ink)';
     show(chip, true);
-    report('Space down: the canvas means pan while it is held');
   };
 
   const leaveMode = () => {
@@ -198,7 +194,6 @@ export function mount(root: HTMLElement): void {
     cap.style.borderColor = '';
     cap.style.color = '';
     show(chip, false);
-    report(ms < TAP_MS ? 'Tapped, not held: the mode ended with the key' : `Held ${ms} ms, so the mode lasted ${ms} ms`);
   };
 
   // The real key. `code` is the honest test for a space bar; `key` is what the stage's
@@ -233,13 +228,11 @@ export function mount(root: HTMLElement): void {
     marquee.style.height = '0px';
     show(marquee, true);
     canvas.dataset.did = 'none';
-    report('Dragging with nothing held: marquee select');
   });
 
   root.addEventListener('pointermove', (event) => {
     if (panning) {
       place(panning.ox + (event.clientX - panning.x), panning.oy + (event.clientY - panning.y));
-      report('Panning, for as long as the key is down');
       return;
     }
     if (!picking) return;
@@ -257,14 +250,8 @@ export function mount(root: HTMLElement): void {
     }
     if (picking) {
       picking = undefined;
-      const box = marquee.getBoundingClientRect();
-      const caught = NODES.filter((_, i) => {
-        const node = part(root, `node-${i}`).getBoundingClientRect();
-        return node.right > box.left && node.left < box.right && node.bottom > box.top && node.top < box.bottom;
-      }).length;
       show(marquee, false);
       canvas.dataset.did = 'selected';
-      report(caught === 1 ? 'Marquee took 1 card' : `Marquee took ${caught} cards`);
     }
   };
 

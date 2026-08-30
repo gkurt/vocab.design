@@ -33,6 +33,12 @@ const holdsLast = (fill: Fill) => fill === 'forwards' || fill === 'both';
  * that resting position readable. The tile is the term under every one of the four values, so
  * nothing here needs a `data-pose`.
  *
+ * The panel reads as an animation inspector and prints only what one would print. A paragraph
+ * under the picker used to explain what `none` does ("the tile is drawn from its own styles
+ * right up to the first frame and again the moment the last one is over"), and the readout used
+ * to narrate the same lesson in sentences; the paragraph is gone and the readout now names the
+ * phase (idle, delay, running, finished) with the rail's own marks doing the teaching.
+ *
  * The move goes to `element.animate` because the browser's own fill handling is the thing being
  * demonstrated, and `motion.css` cannot reach a keyframe set, so `prefersReducedMotion` is asked
  * directly and the tile is placed at the resting position the picked fill would have left it in
@@ -50,7 +56,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-fill="none" data-phase="rest" data-rest="own" style="width: 400px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Outside the window</span>
+          <span class="sp-heading">Animation</span>
           <button class="sp-button sp-button--sm" type="button" data-part="play">Play</button>
         </div>
 
@@ -77,18 +83,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-row sp-row--between sp-context" style="margin-top: 12px; min-height: 20px">
           <span class="sp-label">${DELAY} ms delay, ${DURATION} ms run</span>
           <span class="sp-label sp-text--ink" data-part="readout" style="flex: 0 0 196px; text-align: right">
-            resting on its own style
+            idle
           </span>
         </div>
 
         <div class="sp-row sp-context" style="margin-top: 10px">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-axis="Fill" data-value="none">${segments}</sp-segmented>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 12px">
-          Under none, the default, the tile is drawn from its own styles right up to the first frame
-          and again the moment the last one is over.
-        </p>
       </div>
     </div>
   `;
@@ -104,20 +105,20 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     scene.dataset.phase = phase;
     if (phase === 'rest') {
       scene.dataset.rest = 'own';
-      readout.textContent = 'resting on its own style';
+      readout.textContent = 'idle';
       return;
     }
     if (phase === 'delay') {
-      readout.textContent = holdsFirst(fill()) ? 'waiting on the first keyframe' : 'waiting on its own style';
+      readout.textContent = holdsFirst(fill()) ? 'delay, first frame held' : 'delay';
       return;
     }
     if (phase === 'running') {
-      readout.textContent = 'running the keyframes';
+      readout.textContent = 'running';
       return;
     }
     const kept = holdsLast(fill());
     scene.dataset.rest = kept ? 'keyframe' : 'own';
-    readout.textContent = kept ? 'holding the last keyframe' : 'snapped back to its own style';
+    readout.textContent = kept ? 'finished, last frame held' : 'finished';
   };
 
   const play = () => {

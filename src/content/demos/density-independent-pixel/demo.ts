@@ -47,6 +47,10 @@ const readout = (bucket: string) => {
  *
  * Nothing in the demo ever writes the button's width or height. The bucket changes the grid
  * behind the screen and the number printed under it, and that is all (SPEC §5).
+ *
+ * The title bar read "One 48 dp button, two phones", which described the exhibit rather than
+ * naming the tool; it says "Device preview" now. The line under each phone stays, because a
+ * device preview really does print the bucket and the pixel size it resolves to.
  */
 export function mount(root: HTMLElement): void {
   const phone = (side: string, bucket: string, subject: boolean) => `
@@ -79,7 +83,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">One ${DP} dp button, two phones</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Device preview</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-axis="Screen density" data-value="3x">
             <button class="sp-segment" type="button" data-part="seg-1x" value="1x">1x</button>
             <button class="sp-segment" type="button" data-part="seg-2x" value="2x">2x</button>

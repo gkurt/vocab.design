@@ -13,11 +13,6 @@ const FEES = [
 const STEPS = ['Seats', 'Delivery', 'Payment', 'Confirm'] as const;
 const ALL_IN = TICKET + FEES.reduce((sum, fee) => sum + fee.amount, 0);
 
-const CAPTION = {
-  dripping: 'The total (as advertised)',
-  honest: 'The total (all in, up front)',
-} as const;
-
 const VERDICT = {
   dripping: 'The advertised 42.00 won the click. Each step adds a fee nobody can decline.',
   honest: 'One number from the first screen, with the same lines under it. Nothing to reveal later.',
@@ -47,6 +42,13 @@ const line = (name: string, label: string, value: string, hidden: boolean) => `
  * and never geometry (SPEC §5). Continue reaches the next step rather than toggling,
  * and picking a mode restores that mode's first step, which is where the specimen
  * mounts (SPEC §8).
+ *
+ * Two strings above and inside the panel were the site's voice rather than the shop's. A
+ * caption read "The total (as advertised)" and flipped to "The total (all in, up front)"
+ * with the mode, which duplicated the verdict the stage already draws, so it is deleted and
+ * the step count now sits alone on that line. The comparison row inside the panel was
+ * labelled "What the advert said" and is labelled "Advertised price", which is a line a
+ * checkout could really print beside a struck out number.
  */
 export function mount(root: HTMLElement): void {
   const rail = STEPS.map(
@@ -67,8 +69,7 @@ export function mount(root: HTMLElement): void {
           </section>
 
           <div style="display: flex; flex-direction: column; gap: 7px; flex: 1 1 auto; min-width: 0">
-            <div class="sp-row sp-row--between sp-context" style="height: 17px">
-              <span class="sp-label" data-part="caption" style="font-size: 11px">${CAPTION.dripping}</span>
+            <div class="sp-row sp-context" style="height: 17px; justify-content: flex-end">
               <span class="sp-label" data-part="stage-label" style="font-size: 11px">Step 1 of 4</span>
             </div>
             <section
@@ -88,7 +89,7 @@ export function mount(root: HTMLElement): void {
                 <span class="sp-heading" data-part="value-total" style="font-variant-numeric: tabular-nums">${money(TICKET)}</span>
               </div>
               <div class="sp-row sp-row--between" style="height: 16px">
-                <span class="sp-text" style="font-size: 11px">What the advert said</span>
+                <span class="sp-text" style="font-size: 11px">Advertised price</span>
                 <span class="sp-text" data-part="advertised" style="font-size: 11px; font-variant-numeric: tabular-nums">${money(TICKET)}</span>
               </div>
             </section>
@@ -106,7 +107,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const total = part(root, 'total');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const stageLabel = part(root, 'stage-label');
   const value = part(root, 'value-total');
@@ -130,7 +130,6 @@ export function mount(root: HTMLElement): void {
     advertLabel.textContent = `Advertised: ${money(headline)}`;
     advertised.style.textDecoration = mode === 'dripping' && step > 0 ? 'line-through' : 'none';
     stageLabel.textContent = `Step ${step + 1} of ${STEPS.length}`;
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
     for (const [i, item] of railItems.entries()) {
       if (i === step) item.setAttribute('data-current', '');

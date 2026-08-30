@@ -16,8 +16,13 @@ const SLIDE = 'left 0.22s var(--sp-ease), width 0.22s var(--sp-ease)';
  * the trip between two tabs is the whole demonstration.
  *
  * The subject is the bar alone, not the tab row: the term names the travelling marker,
- * and the tabs, the panel, and the readout are the scenery it moves along. Marking the
- * row would claim the whole control is the term and withdraw identify (SPEC §5-6).
+ * and the tabs and the panel are the scenery it moves along. Marking the row would claim
+ * the whole control is the term and withdraw identify (SPEC §5-6).
+ *
+ * A row under the panel used to print the bar's own geometry, headed "Measured" and reading
+ * "86px wide, at x 0". Nothing in the scene is a ruler, so that was the site measuring its
+ * exhibit out loud, and the bar arriving under the new tab at the new tab's width is the
+ * measurement. The row is gone.
  *
  * The bar mounts in the state it measures: the first placement writes `transition: none`
  * alongside the geometry, and every later move writes the slide back before the new
@@ -54,10 +59,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-line" style="width: 92%"></span>
           <span class="sp-line" style="width: 74%"></span>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 12px">
-          <span class="sp-label">Measured</span>
-          <span class="sp-label" data-part="readout">not measured yet</span>
-        </div>
       </div>
     </div>
   `;
@@ -65,7 +66,6 @@ export function mount(root: HTMLElement): void {
   const indicator = part(root, 'indicator');
   const rail = part(root, 'rail');
   const title = part(root, 'panel-title');
-  const readout = part(root, 'readout');
 
   const place = (id: string, animate: boolean) => {
     const tab = TABS.find((entry) => entry.id === id);
@@ -85,7 +85,6 @@ export function mount(root: HTMLElement): void {
 
     for (const entry of TABS) part(root, `tab-${entry.id}`).setAttribute('aria-selected', String(entry.id === tab.id));
     title.textContent = tab.label;
-    readout.textContent = `${width}px wide, at x ${left}`;
   };
 
   for (const tab of TABS) {

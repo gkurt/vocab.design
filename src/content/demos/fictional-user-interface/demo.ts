@@ -28,9 +28,13 @@ const RETICLE = { idle: '-40px 20px', locked: '0 0' };
  * radial gauges, a column of hex telemetry, a reticle that hunts across the field, and a
  * spectrum strip along the bottom. None of it computes anything, which is the term.
  *
- * The screen is the subject; the Scan control and the caption below it are instrumentation,
- * and stay in the context register. Every colour is stated inline because a luminous palette
- * on black is this term's own claim.
+ * The screen is the subject; the Scan control below it is instrumentation, and stays in the
+ * context register. Every colour is stated inline because a luminous palette on black is
+ * this term's own claim.
+ *
+ * A caption under the button once read "Readouts, gauges and a reticle: none of it computes
+ * anything." That was the site explaining the term inside the frame, which no movie computer
+ * would print about itself, so it went; the article makes the point at length.
  *
  * The scan is scripted, so `motion.css` cannot reach it: it asks `prefersReducedMotion`
  * itself and lands straight on the locked readings instead of playing the frames. It runs
@@ -101,9 +105,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
       <div class="sp-stack sp-context" style="align-items: center; gap: 6px">
         <button class="sp-button sp-button--sm" data-part="scan" type="button">Scan</button>
-        <p class="sp-text" style="max-width: 268px; margin: 0; text-align: center; font-size: 11px">
-          Readouts, gauges and a reticle: none of it computes anything.
-        </p>
       </div>
     </div>
   `;

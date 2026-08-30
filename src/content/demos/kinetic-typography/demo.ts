@@ -45,6 +45,12 @@ const STAGE_H = 78;
  * kit's reduced-motion rule lands the end pose by itself. The stutter is a sequence
  * rather than a state, so it asks `prefersReducedMotion` and rests on its final
  * frame instead of playing (SPEC §6). Every beat is on the stage's clock.
+ *
+ * The note naming the property each treatment moves used to sit in a chip under the display
+ * line, which put the site's own analysis inside the frame. It reads the state and changes
+ * with the picker, so it is the `data-stage-verdict` now and the stage draws it beside the
+ * switch. The verdict it replaced ("Each verb is animated by the thing it names...") never
+ * changed with anything and the article makes that argument, so it went.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const letters = [...DROP]
@@ -68,14 +74,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
              data-part="word-stutter" style="display: inline-block">stutter</span>, or <span
              data-part="word-swell" style="display: inline-block; font-weight: ${HEAVY}">swell.</span></p>
         </div>
-        <div class="sp-row sp-context" data-part="readout" style="height: 24px; margin-top: 4px">
-          <span class="sp-chip" data-part="read" style="cursor: default"></span>
-        </div>
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 8px">
-          Each verb is animated by the thing it names, and each one ends somewhere legible, because the
-          resting frame is what most readers will see.
-        </p>
       </div>
+      <p data-stage-verdict data-part="read" data-mode="drop"></p>
     </div>
   `;
 
@@ -108,6 +108,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     const note = READS[value];
     if (!note) return;
     phrase.dataset.mode = value;
+    read.dataset.mode = value;
     read.textContent = note;
     settle();
     if (prefersReducedMotion(root)) return;

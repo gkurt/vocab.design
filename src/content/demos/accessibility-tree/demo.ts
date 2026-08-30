@@ -32,7 +32,10 @@ function row({ key, role, name, state, target }: Node): string {
  *
  * The subject is the tree panel rather than the whole scene. The card is what the tree is
  * derived from, not what the term names, so it stays scenery (SPEC §5) and the panel keeps
- * its own title, since a tree with no label is a list.
+ * its own title, since a tree with no label is a list. The card used to close with a line
+ * saying that in the site's voice ("The card is what the tree is derived from. Its wrappers
+ * and its spacing produce no nodes at all."), which a settings card would never print; the
+ * article carries it, so the card now ends at Save changes.
  *
  * The state column holds a fixed width from mount and the rows never change height, so a node
  * changing state cannot move the tree under it (SPEC §5). Checking is one way inside a pass:
@@ -55,9 +58,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row" style="margin-top: 14px">
             <button class="sp-button sp-button--sm" type="button" data-part="ui-save">Save changes</button>
           </div>
-          <p class="sp-text" style="margin: 14px 0 0; font-size: 11px">
-            The card is what the tree is derived from. Its wrappers and its spacing produce no nodes at all.
-          </p>
         </div>
         <div class="sp-window" data-part="tree" data-subject style="width: 268px; padding: 12px 14px">
           <span class="sp-label">Accessibility tree</span>

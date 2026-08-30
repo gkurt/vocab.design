@@ -47,7 +47,9 @@ const START = 'medium';
  *
  * The subject is the dithered panel: the term names the fill with the noise in it, and the
  * grain layer is part of that fill rather than a thing beside it. The raw twin, the zoom,
- * the picker and the caption are all scenery in the context register (SPEC §5).
+ * the picker and the caption are all scenery in the context register (SPEC §5). The twin's
+ * label read "Raw, 9 levels", which is the site describing how the plate was built; it is
+ * "Raw" now, the one word that pairs with "Dithered" beside it.
  *
  * Every box is fixed size and only the grain's opacity changes, so nothing moves.
  */
@@ -79,7 +81,7 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-stack sp-context" style="flex: 1 1 0; min-width: 0; gap: 5px">
             <div data-part="raw" style="height: 136px; border-radius: 8px; background-image: ${banded()}"></div>
-            <span class="sp-label" style="text-align: center">Raw, 9 levels</span>
+            <span class="sp-label" style="text-align: center">Raw</span>
           </div>
 
           <div class="sp-stack sp-context" style="flex: 0 0 74px; gap: 5px">

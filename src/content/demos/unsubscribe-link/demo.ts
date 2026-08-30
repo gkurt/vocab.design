@@ -30,6 +30,11 @@ const FOOTER: Record<Form, string> = {
  * The control spends itself rather than disappearing, so the subject is on stage in
  * every resting state the script visits (SPEC §7), and the receipt line keeps its room
  * from mount so confirming moves nothing (SPEC §5).
+ *
+ * The client bar used to carry a second line, "Your mail app added this control from the
+ * message's own header." No mail client explains its own toolbar that way, so it went;
+ * the bar keeps the line a client really prints, and the article explains where the
+ * control comes from. The footer's `margin-top: auto` takes up the height.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -43,7 +48,6 @@ export function mount(root: HTMLElement): void {
           <div class="sp-surface sp-row" data-part="client-bar" style="flex: 0 0 auto; gap: 10px; padding: 8px 10px">
             <span class="sp-grow sp-context" style="min-width: 0">
               <span class="sp-text sp-text--ink" data-part="bar-line" style="display: block; font-size: 11px">This message is from a mailing list.</span>
-              <span class="sp-text" style="display: block; font-size: 10px">Your mail app added this control from the message's own header.</span>
             </span>
             <button class="sp-button sp-button--sm" data-part="header-unsub" data-subject type="button" style="flex: 0 0 auto">Unsubscribe</button>
           </div>

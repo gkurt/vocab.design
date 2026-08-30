@@ -23,13 +23,19 @@ const SOUP = [0, 4, 22, 10];
  * the boxes and says how many distinct ones it found, which is the only claim that
  * could catch a stack whose spacing was even in the markup and not on screen.
  *
- * The frame is as tall as the four boxes and the readout together, so neither
- * arrangement is cut by the window it is shown in (SPEC §5).
+ * The frame is as tall as the four boxes, so neither arrangement is cut by the
+ * window it is shown in (SPEC §5).
+ *
+ * The readout ("one rule on the parent: gap 12px" against "four margins, three
+ * different gaps") is the author reading the arrangement out, not the product
+ * labelling itself, and it changes with the switch, so it carries
+ * `data-stage-verdict` and the stage draws it in the strip (SPEC §5.1). It used to
+ * sit under the column, which is why the frame is 26px shorter.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 400px; height: 272px">
+      <div class="sp-frame" style="width: 400px; height: 246px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Spacing</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Approach" data-part="segmented" data-value="stack">
@@ -55,7 +61,7 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label">Revised in March</span>
             </div>
           </div>
-          <p class="sp-text sp-context" data-part="readout" style="margin: 8px 0 0; text-align: center"></p>
+          <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin: 8px 0 0; text-align: center"></p>
         </div>
       </div>
     </div>

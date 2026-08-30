@@ -25,6 +25,11 @@ const HUES: Record<string, number> = { slate: 255, indigo: 275, amber: 75 };
  * Color ramp specimen: one hue at ten fixed lightness steps, and the roles a UI
  * pins to them. Switching hue repaints every swatch and leaves the numbering
  * exactly where it was, which is the whole reason the steps are numbered.
+ *
+ * The role line under the swatches is a palette page's own legend and reads like
+ * one: it used to be written out as sentences ("100 fills a surface, 300 draws a
+ * border..."), which is the article explaining the ramp rather than the palette
+ * labelling itself.
  */
 export function mount(root: HTMLElement): void {
   const swatches = STEPS.map(
@@ -50,7 +55,7 @@ export function mount(root: HTMLElement): void {
           ${swatches}
         </div>
         <p class="sp-text sp-context" data-part="roles" style="margin-top: 12px">
-          100 fills a surface · 300 draws a border · 600 carries the accent · 900 sets the text
+          100 Surface · 300 Border · 600 Accent · 900 Text
         </p>
       </div>
     </div>

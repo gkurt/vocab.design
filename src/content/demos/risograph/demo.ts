@@ -9,6 +9,10 @@
  * crossing area a third colour neither drum carries, so the layers share an isolated
  * stacking context rather than blending with the stage behind them.
  *
+ * The strapline under the headline read "One pass per ink. Nothing lines up twice.",
+ * which is the article describing the press rather than anything a poster would print.
+ * It is now the poster's own billing, and the misregistration says the rest by itself.
+ *
  * Static: a printed sheet has no states, so the specimen is looked at rather than watched.
  */
 const PAPER = '#f4f0e6';
@@ -60,7 +64,7 @@ export function mount(root: HTMLElement): void {
 
         <p data-part="strap" style="position: absolute; left: 19px; right: 19px; bottom: 16px; margin: 0;
                   font-size: 11px; letter-spacing: 0.04em; line-height: 1.4">
-          One pass per ink. Nothing lines up twice.
+          PRINT CLUB · AUTUMN SESSIONS · STUDIO FOUR
         </p>
 
         ${regmark('left: 6px; top: 6px', TEAL, 'regmark')}

@@ -24,6 +24,11 @@ const TICK_MS = 60;
  * sits in a slot reserved from mount, so committing moves nothing (SPEC §5). The readout
  * is one nowrap line sized for its longest verdict, so a wordier outcome never grows the
  * topbar and pushes the button down.
+ *
+ * That readout used to open by reading "Hold the button to delete", which is the site
+ * instructing the reader over the top of a button that already says "Hold to delete". It
+ * starts empty now and fills in with what the press did; its width is still reserved, so
+ * nothing moves when it does.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -31,7 +36,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 252px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Workspace settings</span>
-          <span class="sp-text" data-part="readout" data-outcome="idle" style="width: 270px; text-align: right; white-space: nowrap">Hold the button to delete</span>
+          <span class="sp-text" data-part="readout" data-outcome="idle" style="width: 270px; text-align: right; white-space: nowrap"></span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 14px">
           <div class="sp-surface sp-context" style="width: 100%; padding: 10px 12px">

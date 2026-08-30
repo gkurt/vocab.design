@@ -37,6 +37,11 @@ const mix = (t: number) => COLOR.from.map((c, i) => Math.round(lerp(c, COLOR.to[
  * is interpolation doing its job rather than failing at it, so no `data-pose` is needed. The
  * segmented control, the sample track and the readout are the scene.
  *
+ * The line under the track used to print the endpoints and then explain them ("96px to 216px.
+ * A number has a halfway, so the 50% sample is 156px."). It prints the endpoints and the
+ * midpoint sample and stops there, since the track above it is the instrument those numbers
+ * come from.
+ *
  * `motion.css` cannot reach an `element.animate` keyframe set, so the demo asks
  * `prefersReducedMotion` itself and lands on the end value with no run at all. The lane holds the
  * card's largest size from mount and the track never changes size, so a width that grows moves
@@ -100,7 +105,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
           <div class="sp-stack sp-context" data-part="readout" style="gap: 2px; width: 400px; height: 56px">
             <span class="sp-label" data-part="property" style="font-size: 11px">width</span>
-            <span class="sp-text sp-text--ink" data-part="claim" style="font-size: 12px; line-height: 1.35">A number has a halfway.</span>
+            <span class="sp-text sp-text--ink" data-part="claim" style="font-size: 12px; line-height: 1.35">${WIDTH.from}px to ${WIDTH.to}px</span>
           </div>
         </div>
       </div>
@@ -139,12 +144,13 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
     const halfway = Math.round(lerp(WIDTH.from, WIDTH.to, 0.5));
     property.textContent = mode === 'number' ? 'width' : mode === 'color' ? 'background-color' : 'text-transform';
+    // The endpoints and the sample at the midpoint: numbers off the track, not a reading of it.
     claim.textContent =
       mode === 'number'
-        ? `${WIDTH.from}px to ${WIDTH.to}px. A number has a halfway, so the 50% sample is ${halfway}px.`
+        ? `${WIDTH.from}px to ${WIDTH.to}px, 50% at ${halfway}px`
         : mode === 'color'
-          ? `${rgb(COLOR.from)} to ${rgb(COLOR.to)}. Channels blend one by one, so the 50% sample is ${rgb(mix(0.5))}.`
-          : 'lowercase to uppercase. Nothing sits between them, so the value switches once, at 50%.';
+          ? `${rgb(COLOR.from)} to ${rgb(COLOR.to)}, 50% at ${rgb(mix(0.5))}`
+          : 'lowercase to uppercase, switching at 50%';
   };
 
   // The card carries its own paint in colour mode, so its label takes the ink that endpoint needs.

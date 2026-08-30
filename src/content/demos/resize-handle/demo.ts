@@ -36,6 +36,11 @@ const mark = (name: string, x: number, y: number) => `
  * shrinks inside an arena of fixed size, and the readout below it holds its place while
  * the numbers change. Both stops are real, and the panel says so when it is being held
  * at one. Nothing toggles: a drag reaches whatever size it is let go at.
+ *
+ * Beside the readout there used to be a line reading "Drag either grip. The panel stops at
+ * its minimum." That is the article instructing the reader from inside the product, and
+ * the grips are drawn and the stop announces itself, so it went and the readout keeps the
+ * row on its own.
  */
 export function mount(root: HTMLElement): void {
   const ribs = 'repeating-linear-gradient(-45deg, var(--sp-muted) 0 1.5px, transparent 1.5px 4px)';
@@ -98,8 +103,7 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
 
-          <div class="sp-row sp-row--between sp-context">
-            <span class="sp-text" style="font-size: 12px">Drag either grip. The panel stops at its minimum.</span>
+          <div class="sp-row sp-context" style="justify-content: flex-end">
             <span class="sp-label" data-part="readout" style="width: 92px; text-align: right; font-variant-numeric: tabular-nums"
               >${START_W} x ${START_H}</span
             >

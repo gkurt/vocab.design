@@ -42,7 +42,12 @@ const CAPTION = {
  * control is called, not the control and not the screen it sits on. The three-way naming is the
  * failure this criterion exists against, and it is a state the name passes through, so the honest
  * condition rides in `data-pose` and the mount state satisfies it (SPEC §6). The screens, the
- * transcript, the picker and the caption are scenery.
+ * transcript, the picker and the verdict are scenery.
+ *
+ * Two labels were the site talking over its own scene and have gone: "One function, three
+ * screens" above the switch, and "What the reader hears at the control" over the transcript.
+ * The quoted names in the transcript say what they are without being introduced, and the
+ * strip's verdict already reads the arrangement out.
  *
  * No timers: every state here is reached by a press, so the specimen needs no clock. The label slot
  * and the result line hold their room in every state, so renaming a control moves nothing (SPEC §5).
@@ -79,8 +84,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One function, three screens</span>
+        <div class="sp-row sp-row--between sp-context" style="gap: 10px; justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-axis="Naming" data-term="consistent" data-value="consistent" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-consistent" value="consistent"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">One name</button>
@@ -94,8 +98,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 9px; padding: 7px 10px">
-          <span class="sp-label" style="font-size: 10px">What the reader hears at the control</span>
-          <div class="sp-stack" style="gap: 0; margin-top: 2px">
+          <div class="sp-stack" style="gap: 0">
             ${SCREENS.map((s) => spokenLine(s.id, s.title)).join('')}
           </div>
         </div>

@@ -40,12 +40,17 @@ const FRAMES = (() => {
  * is a different element rather than a state the subject passes through, so nothing needs a
  * `data-pose`: the subject is the term at rest, mid-stall, and landed alike.
  *
- * The stall is simulated, and the caption says so: a specimen may not actually block the thread
- * the stage is running on. What is real is the shape of the failure, which is the frames the
- * scripted mover never gets. Its steps come from the stage's clock, so a pose stops the run
- * where it stands (SPEC §6), and `prefersReducedMotion` is asked directly, since no stylesheet
- * reaches a chain of timers (SPEC §7). Both movers sit inside tracks that already hold their
- * size, so a stall can never move the row it happens in (SPEC §5).
+ * The stall is simulated: a specimen may not actually block the thread the stage is running on.
+ * What is real is the shape of the failure, which is the frames the scripted mover never gets.
+ * A paragraph under the tracks used to say so out loud ("The stall is simulated..."), and two
+ * labels glossed the tracks ("the compositor's alone", "stepped on the main thread") beside a
+ * heading reading "Same trip, two threads". All four were the site narrating its own diagram,
+ * so they went; what is left names only what is drawn, and the article carries the argument.
+ *
+ * The scripted mover's steps come from the stage's clock, so a pose stops the run where it
+ * stands (SPEC §6), and `prefersReducedMotion` is asked directly, since no stylesheet reaches
+ * a chain of timers (SPEC §7). Both movers sit inside tracks that already hold their size, so
+ * a stall can never move the row it happens in (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const track = (id: string, subject: boolean, property: string) => `
@@ -63,8 +68,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-state="rest" data-thread="idle" style="width: 400px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Same trip, two threads</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
 
@@ -82,24 +86,18 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-stack" style="gap: 6px; margin-top: 14px">
-          <div class="sp-row sp-row--between sp-context">
+          <div class="sp-row sp-context">
             <span class="sp-label sp-text--ink">translate</span>
-            <span class="sp-label">the compositor's alone</span>
           </div>
           ${track('gpu', true, `translate: 0 0; transition: translate ${DURATION}ms linear ${LEAD}ms`)}
         </div>
 
         <div class="sp-stack sp-context" style="gap: 6px; margin-top: 12px">
-          <div class="sp-row sp-row--between">
+          <div class="sp-row">
             <span class="sp-label sp-text--ink">left</span>
-            <span class="sp-label">stepped on the main thread</span>
           </div>
           ${track('main', false, 'transition: none')}
         </div>
-
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          The stall is simulated. The lower mover is only being denied the frames a busy thread would have eaten.
-        </p>
       </div>
     </div>
   `;

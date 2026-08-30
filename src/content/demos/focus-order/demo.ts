@@ -37,7 +37,13 @@ function field({ key, id, label, stop, order }: Field): string {
  *
  * The subject is the well-ordered region, since the term names a sequence and the
  * narrowest thing that has one is the group the sequence runs through. The counterexample
- * beside it is scenery and says in its own caption that it is the mistake (SPEC §5).
+ * beside it is scenery (SPEC §5).
+ *
+ * The two groups are headed the way a real form heads them, "Contact" and "Address". They
+ * were headed "Tab follows reading order" and "Reordered in CSS (the mistake)", each over a
+ * paragraph explaining what its column proved, which is the site talking inside somebody's
+ * address form. The badges still print the tab stop each field is, so the broken column
+ * reads 2, 3, 1 down the page and the ring is seen to jump; the article does the explaining.
  *
  * The specimen deliberately owns no controls of its own: the ring is the stage's simulated
  * focus, which walks the focusable elements it finds in source order (SPEC §7), so a
@@ -52,18 +58,12 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px">
         <div class="sp-row" style="align-items: flex-start; gap: 18px">
           <div class="sp-grow" data-part="ordered" data-subject>
-            <span class="sp-label">Tab follows reading order</span>
+            <span class="sp-label">Contact</span>
             <div class="sp-stack" style="margin-top: 8px; gap: 10px">${ORDERED.map(field).join('')}</div>
-            <p class="sp-text" style="margin: 10px 0 0; font-size: 11px; height: 44px">
-              Source, screen, and Tab agree. The ring walks down the column, one field at a time.
-            </p>
           </div>
           <div class="sp-grow sp-context" data-part="reordered">
-            <span class="sp-label">Reordered in CSS (the mistake)</span>
+            <span class="sp-label">Address</span>
             <div class="sp-stack" style="margin-top: 8px; gap: 10px">${REORDERED.map(field).join('')}</div>
-            <p class="sp-text" style="margin: 10px 0 0; font-size: 11px; height: 44px">
-              Only the paint moved, so Tab still follows the source and the ring jumps. WCAG 2.4.3.
-            </p>
           </div>
         </div>
       </div>

@@ -37,6 +37,12 @@ const VERDICT = {
  * than toggle, and each stops at the end of the feed, so a resumed pass means the same thing
  * (SPEC §8). Repeats are counted from what each lane has actually shown and mirrored onto the
  * lane, so the claim is about the mechanism rather than about one authored row.
+ *
+ * A caption under the frame once read "Same feed, same insert, same forward step. Only the
+ * question the second page asks is different." That was the article's sentence standing inside
+ * the specimen, so it is gone; the insert button was likewise labelled "A post arrives", which
+ * asked the reader to read it as narration rather than as the control it is, and now says what
+ * pressing it does.
  */
 export function mount(root: HTMLElement): void {
   const slots = (lane: string) =>
@@ -61,7 +67,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 264px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
           <span class="sp-heading sp-grow" style="font-size: 13px">Bakes, newest first</span>
-          <button class="sp-button sp-button--sm" data-part="insert" type="button" style="flex: 0 0 auto; white-space: nowrap">A post arrives</button>
+          <button class="sp-button sp-button--sm" data-part="insert" type="button" style="flex: 0 0 auto; white-space: nowrap">Add a post</button>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 8px">
@@ -111,10 +117,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <span class="sp-text sp-context" style="width: 452px; height: 30px; font-size: 11px; line-height: 1.35">
-        Same feed, same insert, same forward step. Only the question the second page asks is different.
-      </span>
     </div>
   `;
 

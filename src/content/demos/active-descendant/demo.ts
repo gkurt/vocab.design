@@ -29,7 +29,9 @@ const OPTIONS: Option[] = [
  * specimen rests on the pattern in effect rather than on a closed field. The list is drawn
  * over room reserved for it, so opening and filtering move nothing (SPEC §5). The readout
  * is written from the attribute the field actually carries, watched rather than guessed, so
- * it cannot claim a reference the markup does not hold.
+ * it cannot claim a reference the markup does not hold. The focus row reports the element and
+ * nothing else: it used to read "the text field, throughout", and "throughout" was the author
+ * making the point across time rather than the readout reporting the moment.
  */
 export function mount(root: HTMLElement): void {
   const option = (o: Option, index: number) => `
@@ -54,7 +56,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-row sp-row--between" style="height: 18px">
             <span class="sp-label">DOM focus</span>
             <span class="sp-text sp-text--ink" data-part="focus" data-on="input"
-                  style="font-size: 12px; white-space: nowrap">the text field, throughout</span>
+                  style="font-size: 12px; white-space: nowrap">the text field</span>
           </div>
           <div class="sp-row sp-row--between" style="margin-top: 4px; height: 18px">
             <span class="sp-label">aria-activedescendant</span>

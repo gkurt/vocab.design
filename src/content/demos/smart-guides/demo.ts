@@ -67,7 +67,10 @@ const neighbourCards = NEIGHBOURS.map(
  * A guide exists only while a hand is moving something, which would leave identify with
  * nothing to ring, so the specimen carries a labelled control that holds the guides on
  * after the drop. That is the state the pose settles on, and it is instrumentation, so it
- * lives in the context register (SPEC §5-6). Nothing is re-parented between the press and
+ * lives in the context register (SPEC §5-6). Holding the guides on used to make the board's
+ * status line read "Held: the line and the gap, standing still", which is the site narrating
+ * its own instrument; the line now reports the alignment and the gap in exactly the words a
+ * live drag gets. Nothing is re-parented between the press and
  * the release; the card moves by a transform inside a fixed canvas, so a drag moves the
  * card and nothing else.
  */
@@ -217,8 +220,9 @@ export function mount(root: HTMLElement): void {
     if (hold.value === 'held') {
       at.x = POSE.x;
       at.y = POSE.y;
-      draw(bestMatch('x', POSE.x), bestMatch('y', POSE.y));
-      readout.textContent = 'Held: the line and the gap, standing still';
+      const mx = bestMatch('x', POSE.x);
+      draw(mx, bestMatch('y', POSE.y));
+      if (mx) readout.textContent = `Aligned: ${mx.kind} edges, ${gapTo(mx.box)} px apart`;
       return;
     }
     hideGuides();

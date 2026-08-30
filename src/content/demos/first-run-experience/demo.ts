@@ -29,7 +29,9 @@ const row = (name: string, trailing: string, chip: boolean) => `
  * The subject is the first-run scaffolding taken as one element, since the term names the
  * whole bundle (welcome, sample content, coach mark) rather than any one of its parts, and
  * that bundle has an element of its own here. The app frame, its topbar, the reader's own
- * boards and the note line are scenery (SPEC §5). No `data-pose` is needed: in the later
+ * boards and the note line are scenery (SPEC §5). The welcome subtitle used to explain
+ * itself ("Two boards are here so nothing looks empty."), which is the site talking rather
+ * than the app; it now says what a real welcome would say. No `data-pose` is needed: in the later
  * state the scaffolding is gone rather than repaired, so identify summons it back to the
  * mount state instead of ringing a counter-example (SPEC §6).
  *
@@ -61,7 +63,7 @@ export function mount(root: HTMLElement): void {
             >
               <div style="height: 44px; width: 250px">
                 <div class="sp-heading" style="font-size: 13px">Welcome to Kelp</div>
-                <div class="sp-text" style="margin-top: 2px; font-size: 11px">Two boards are here so nothing looks empty.</div>
+                <div class="sp-text" style="margin-top: 2px; font-size: 11px">We started you off with two sample boards.</div>
               </div>
               ${row('Trip planning', 'Sample', true)}
               ${row('Reading list', 'Sample', true)}

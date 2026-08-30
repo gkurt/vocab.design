@@ -20,6 +20,11 @@ const MARK = { idle: 'not fetched', fetching: 'fetching', ready: 'prerendered' }
  *
  * The subject is the covered link itself, the element the rule names and the fetch is
  * aimed at, rather than the page around it: the rule covers links, one at a time.
+ *
+ * A line under the two links used to read "One speculation rule covers the first link. The
+ * other is fetched when it is asked for." No page prints that about its own markup, and the
+ * two marks beside the links ("not fetched" / "prerendered" against "no rule") already say
+ * it, so the line went and the page keeps the room below it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const filler = (widths: number[]) => widths.map((w) => `<span class="sp-line" style="width: ${w}%"></span>`).join('');
@@ -43,7 +48,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 <a class="sp-nav-item sp-grow" role="link" tabindex="0" data-part="plain" style="color: var(--sp-ink); text-decoration: underline; text-underline-offset: 3px">Spacing scale</a>
                 <span class="sp-text" style="flex: 0 0 92px; text-align: right">no rule</span>
               </div>
-              <span class="sp-text sp-context" style="margin-top: 2px">One speculation rule covers the first link. The other is fetched when it is asked for.</span>
             </div>
             <div data-part="page-covered" class="sp-stack" style="gap: 10px" hidden>
               <span class="sp-heading">Colour ramps</span>

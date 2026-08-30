@@ -41,6 +41,12 @@ const band = (value: number) => (value < 34 ? 'low' : value > 66 ? 'high' : 'mid
  * travels through are invisible aim anchors with no paint of their own (SPEC §5). No timers: the
  * value follows the pointer rather than playing back. The header label is kept short enough that
  * the window holds it beside the picker instead of bleeding past its own edge (SPEC §5).
+ *
+ * The header used to read "Brightness, set by a stroke" and the plus and minus buttons carried a
+ * note beside them, "Steps of ten, one contact, no path". Both were the site explaining its own
+ * demonstration inside a settings panel that would print the name of the setting and nothing more,
+ * so the header is just "Brightness" now and the note has gone; the buttons show what one contact
+ * reaches, and the verdict in the strip says what taking them away costs.
  */
 export function mount(root: HTMLElement): void {
   const stop = (name: string, angle: number) => {
@@ -52,7 +58,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 1 auto; min-width: 0">Brightness, set by a stroke</span>
+          <span class="sp-label" style="flex: 0 1 auto; min-width: 0">Brightness</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-axis="Controls" data-value="both" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-both" value="both"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Gesture and buttons</button>
@@ -93,8 +99,6 @@ export function mount(root: HTMLElement): void {
                       style="flex: 0 0 auto; width: 30px; height: 30px">${icon('minus')}</button>
               <button class="sp-icon-button" type="button" data-part="plus" aria-label="More brightness"
                       style="flex: 0 0 auto; width: 30px; height: 30px">${icon('plus')}</button>
-              <span class="sp-label sp-context" style="flex: 1 1 auto; min-width: 0; font-size: 10px">
-                Steps of ten, one contact, no path</span>
             </div>
           </div>
         </div>

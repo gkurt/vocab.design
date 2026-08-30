@@ -17,6 +17,11 @@ const NOTES: Record<string, string> = {
  * deck, and the readout are scenery in the context register. The empty state hides
  * the subject rather than dishonestly restyling it, so identify's summon brings the
  * eyebrow back rather than a pose condition refusing a state.
+ *
+ * The readout under the card reads the state aloud ("Category, then claim, then detail...")
+ * and changes with the pick, which makes it a verdict rather than product copy. It is marked
+ * `data-stage-verdict` so the stage draws it in the strip, out of the card's own frame; the
+ * card keeps only what a magazine card really prints, its eyebrow, headline and deck.
  */
 export function mount(root: HTMLElement): void {
   const order = (n: number) => `<span class="sp-label sp-context" style="flex: 0 0 14px; text-align: right">${n}</span>`;
@@ -48,7 +53,7 @@ export function mount(root: HTMLElement): void {
               wider one, and what to do when the layout will not give you the room.</p>
           </div>
         </div>
-        <p class="sp-text sp-context" data-part="readout" style="margin-top: 10px; height: 39px"></p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin-top: 10px; height: 39px"></p>
       </div>
     </div>
   `;

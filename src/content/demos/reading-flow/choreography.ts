@@ -9,7 +9,6 @@ import { steps } from '#src/stage/choreography.ts';
  */
 export default steps([
   { assert: { selector: '[data-part=grid][data-flow=flex-visual]', state: 'visible' } },
-  { assert: { selector: '[data-part=sequence][data-state=linear]', state: 'visible' } },
   { assert: { selector: '[data-part=tile-search][data-place="6"]', state: 'visible' } },
   { wait: 800 },
   { moveTo: '[data-part=tab]' },
@@ -24,7 +23,6 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=grid][data-flow=normal]', state: 'visible' } },
-  { assert: { selector: '[data-part=sequence][data-state=zigzag]', state: 'visible' } },
   { assert: { selector: '[data-part=tile-search][data-place="1"]', state: 'visible' } },
   { assert: { selector: '[data-part=tile-sort][data-place="4"]', state: 'visible' } },
   { wait: 600 },
@@ -38,6 +36,5 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=grid][data-flow=flex-visual]', state: 'visible' } },
-  { assert: { selector: '[data-part=sequence][data-state=linear]', state: 'visible' } },
   { wait: 800 },
 ]);

@@ -28,6 +28,11 @@ const ref = (column: Column, row: number) => `${column.toUpperCase()}${row + 1}`
  * is laid absolutely over the cell it edits rather than swapped for its text, and the
  * cell reference and mode readouts have reserved widths, so the strip they sit in
  * holds still as they change.
+ *
+ * A line under the table used to tell the reader "Arrow keys move the cell. Enter opens it,
+ * Enter again commits." No spreadsheet prints its own key bindings under the grid, and the
+ * article walks the same keyboard model, so it is gone. The Ready/Editing readout in the
+ * title bar is the one thing left that reports the mode, which is what a grid really shows.
  */
 export function mount(root: HTMLElement): void {
   const body = ROWS.map(
@@ -67,9 +72,6 @@ export function mount(root: HTMLElement): void {
               <tbody>${body}</tbody>
             </table>
           </div>
-          <p class="sp-text sp-context" style="margin: 9px 2px 0; font-size: 12px">
-            Arrow keys move the cell. Enter opens it, Enter again commits.
-          </p>
         </div>
       </div>
     </div>

@@ -23,6 +23,10 @@ const MENUS: Record<string, string[]> = {
  *
  * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
  * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
+ *
+ * A line under the page text used to read "Products opens on contact. Resources waits 450 ms
+ * of held hover." No site prints its own hover rules on the page, and the difference is the
+ * thing the reader watches, so it is gone.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const menu = (key: string) => `
@@ -47,9 +51,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <div class="sp-line" style="width: 88%"></div>
             <div class="sp-line" style="width: 70%"></div>
             <div class="sp-line" style="width: 79%"></div>
-          </div>
-          <div class="sp-row" style="margin-top: 18px">
-            <span class="sp-label" data-part="rule">Products opens on contact. Resources waits ${DWELL_MS} ms of held hover.</span>
           </div>
         </div>
         ${menu('eager')}

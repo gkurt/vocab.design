@@ -32,6 +32,15 @@ const cellMarkup = Array.from(
  *
  * The caret moves by a transform and every readout holds its width, so a repeat moves the
  * caret and nothing else (SPEC §5).
+ *
+ * Four strings in the site's voice have gone from the frame. The two timeline segments read
+ * "the initial delay" and "then repeat after repeat until release" and now carry the names
+ * the settings actually have, Initial delay and Repeat rate. A line under them saying the
+ * two belong to whoever owns the keyboard was deleted outright, since the article makes
+ * that point. The key legend explained the term as well as the operation, and then told the
+ * reader what to do with it ("Focus the track and hold to repeat."), which is an instruction
+ * from the site rather than anything an editor prints. It is a shortcut legend now, naming
+ * what the key does; the track's accessible name still says how to drive it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -44,7 +53,7 @@ export function mount(root: HTMLElement): void {
             data-part="readout"
             data-source="none"
             style="width: 218px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums"
-          >Press or hold ArrowRight</span>
+          >No repeats yet</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 14px">
           <div
@@ -69,18 +78,17 @@ export function mount(root: HTMLElement): void {
               <span
                 data-part="phase-delay"
                 style="display: flex; align-items: center; justify-content: center; width: 128px; height: 24px; border-radius: 5px; background: var(--sp-sunken); font-size: 11px; font-weight: 500; color: var(--sp-muted)"
-              >the initial delay</span>
+              >Initial delay</span>
               <span
                 data-part="phase-rate"
                 class="sp-grow"
                 style="display: flex; align-items: center; justify-content: center; height: 24px; border-radius: 5px; background: var(--sp-sunken); font-size: 11px; font-weight: 500; color: var(--sp-muted)"
-              >then repeat after repeat until release</span>
+              >Repeat rate</span>
             </div>
-            <span class="sp-label" style="font-size: 11px">The delay and the rate belong to whoever owns the keyboard, never to the page.</span>
           </div>
           <div class="sp-row sp-context" style="gap: 6px">
             <span class="sp-kbd">ArrowRight</span>
-            <span class="sp-label">tapped once, one step; held, a step over and over. Click the track and hold the real key.</span>
+            <span class="sp-label">Move by one, hold to repeat</span>
           </div>
         </div>
       </div>

@@ -23,6 +23,12 @@ import { localPoint } from '#src/kit/measure.ts';
  * No layout shift: the card is absolutely positioned inside the board, so moving it can never
  * push anything around, and the read-out's values sit in a column of their own (SPEC §5).
  *
+ * Three strings were the site talking inside the editor. The window was headed "A surface you
+ * build on" and now carries the board's own name; the position readout was labelled "Card sits
+ * at" and is now "Position", the way an inspector would write it; and a line under the readouts
+ * read "Dropped anywhere, it lands on the nearest crossing.", which is what the drag itself shows
+ * and what the article says, so it went.
+ *
  * The register is picked absolutely, never toggled, and the only movement is the reader's own,
  * so there is no clock.
  */
@@ -105,7 +111,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
         <div class="sp-row sp-row--between sp-context" style="margin-bottom: 10px">
-          <span class="sp-heading" data-part="heading" style="color: var(--sp-ink)">A surface you build on</span>
+          <span class="sp-heading" data-part="heading" style="color: var(--sp-ink)">Layout board</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Register" data-value="${START.key}">
             ${REGISTERS.map((r) => `<button type="button" class="sp-segment" data-part="seg-${r.key}" value="${r.key}">${r.label}</button>`).join('')}
           </sp-segmented>
@@ -134,12 +140,9 @@ export function mount(root: HTMLElement): void {
               <span data-part="readout-step" style="font-size: 15px; font-weight: 600">${START.step} px</span>
             </div>
             <div class="sp-stack" style="gap: 2px">
-              <span class="sp-label">Card sits at</span>
+              <span class="sp-label">Position</span>
               <span data-part="readout-pos" style="font-size: 15px; font-weight: 600">${HOME.x}, ${HOME.y}</span>
             </div>
-            <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">
-              Dropped anywhere, it lands on the nearest crossing.
-            </span>
           </div>
         </div>
       </div>

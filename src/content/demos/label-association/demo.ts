@@ -1,24 +1,32 @@
 import { flag, part } from '#src/kit/parts.ts';
 
 const READINGS = {
-  tied: '“Email address, edit text.” The words are the name, and the words are a target too.',
-  loose: '“Edit text.” Nothing is attached, so nothing names the field and nothing is clickable.',
+  idle: 'Nothing read yet',
+  tied: '“Email address, edit text.”',
+  loose: '“Edit text.”',
 } as const;
 
 /**
  * Label association specimen: two fields that look the same and are wired differently.
  * The first has a label pointing at the field's id, so pressing the words reaches the
  * control; the second has words that only sit above a placeholder, so pressing them
- * does nothing at all. The panel prints what each field announces as.
+ * does nothing at all. The say lane prints what each field announces as.
  *
  * The ring is simulated (`data-sim-focus`), because attract mode never moves real focus
  * (SPEC §7), and both presses are handled by the demo rather than left to the browser's
  * own label behaviour, which a synthesized click would never trigger (SPEC §8).
  *
  * The subject is the associated field as a unit: label plus control, since the term
- * names the link between them and neither half is it alone. The unattached field, the
- * markup captions, and the panel are scenery (SPEC §5); the panel holds its two lines
- * of room from mount.
+ * names the link between them and neither half is it alone. The unattached field and the
+ * markup captions are scenery (SPEC §5).
+ *
+ * What each field announces as is speech, so it is `data-stage-announce` and the stage
+ * draws it in the say lane. It used to sit in a panel inside the window under the heading
+ * "Screen reader, on reaching the field", which is a stage direction dressed as product UI:
+ * there is no screen reader in the scene to label. The utterances lost the sentence of
+ * explanation each carried after the quote, since a screen reader says only the quote and
+ * the article makes the argument. The caption under the unattached field read "no for, no
+ * wrapping" and now names the markup the way its partner does.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -34,14 +42,9 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" data-part="label-loose" style="cursor: pointer; width: fit-content">Postcode</span>
           <input class="sp-input" data-part="input-loose" placeholder="Postcode" readonly />
         </div>
-        <span class="sp-label sp-context" style="display: block; margin-top: 4px; font-size: 11px">no for, no wrapping</span>
-        <div class="sp-surface sp-context" style="margin-top: 14px; padding: 8px 10px">
-          <span class="sp-label">Screen reader, on reaching the field</span>
-          <p class="sp-text sp-text--ink" data-part="readout" data-state="idle" style="margin: 4px 0 0; height: 34px; font-size: 12px">
-            Press either set of words
-          </p>
-        </div>
+        <span class="sp-label sp-context" style="display: block; margin-top: 4px; font-size: 11px">&lt;span&gt;Postcode&lt;/span&gt;</span>
       </div>
+      <p data-stage-announce data-part="readout" data-state="idle">${READINGS.idle}</p>
     </div>
   `;
 

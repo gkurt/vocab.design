@@ -34,8 +34,14 @@ type Mode = 'flash' | 'fixed';
  * The subject is the page surface that flashes. Because the term IS the flaw, the specimen
  * mounts in the wrong-theme frame and the subject carries `data-pose="[data-phase=flash]"`,
  * so identify refuses to pose the fixed version or the settled page and rings the light
- * frame instead (SPEC §6). The mode control, the replay control, the browser chrome, the
- * status line and the caption are instrumentation and sit in the context register (SPEC §5).
+ * frame instead (SPEC §6). The mode control, the replay control and the browser chrome are
+ * instrumentation and sit in the context register (SPEC §5).
+ *
+ * The status line was printed inside the window, under the browser frame, where it read as
+ * one more thing the mock was saying about itself. It changes with the mode switch, so it is
+ * the verdict and the stage now draws it in the strip. The caption it sat above ("The browser
+ * frame never repaints. Only the page inside it does.") never changed with anything and is
+ * deleted rather than moved.
  *
  * Every box is fixed size and only paint and text change, so nothing moves (SPEC §5). The
  * repaint is instantaneous by design, with no transition and no scripted animation, so the
@@ -79,12 +85,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
 
-        <p class="sp-text sp-context" data-part="status" role="status"
+        <p class="sp-text sp-context" data-stage-verdict data-part="status"
            style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.4">${STATUS.flash}</p>
-
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin: 4px 0 0; height: 15px; font-size: 10.5px; line-height: 1.4">
-          The browser frame never repaints. Only the page inside it does.
-        </p>
       </div>
     </div>
   `;

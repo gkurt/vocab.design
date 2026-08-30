@@ -15,6 +15,11 @@
  * one (SPEC §5). The house card, the labels and the caption are the scenery that makes the
  * break legible.
  *
+ * The window opened with a heading, "One card, two attitudes", and each column carried a
+ * sentence under its label ("One scale, one accent, all on grid.", "Same card, rules broken
+ * on purpose."). All three were the site describing its own exhibit from inside the mock, so
+ * they are gone; the two cards and their register names are the whole comparison.
+ *
  * The ink stays legible on purpose. The article's own point is that a statement nobody can
  * operate is not read as a statement, so the type here is saturated and clashing but still
  * carries contrast against its ground, and the buy control is still the biggest target.
@@ -36,13 +41,12 @@ const TYPEWRITER = "'Courier New', Courier, monospace";
 const W = 206;
 const H = 164;
 
-/** One column of the pair: the card, then what it is showing. */
-function column(label: string, note: string, body: string, quiet: boolean): string {
+/** One column of the pair: the card, then the name of the register it is set in. */
+function column(label: string, body: string, quiet: boolean): string {
   return `
     <div class="sp-stack${quiet ? ' sp-context' : ''}" style="flex: 0 0 ${W}px; gap: 5px; align-items: stretch">
       ${body}
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 }
 
@@ -111,11 +115,9 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">One card, two attitudes</span>
-
         <div class="sp-row" data-part="tour" style="gap: 14px; align-items: flex-start; justify-content: center">
-          ${column('House style', 'One scale, one accent, all on grid.', house, true)}
-          ${column('Anti-design', 'Same card, rules broken on purpose.', anti, false)}
+          ${column('House style', house, true)}
+          ${column('Anti-design', anti, false)}
         </div>
       </div>
 

@@ -10,6 +10,10 @@ const fillFor = (black: number) => `color-mix(in oklab, var(--sd-base) ${100 - b
  * Shade specimen: the same base hue as the tint specimen, stepped toward black
  * instead of white, and the sample those shades are for. Ink on the sample stays
  * light because every shade of this base is dark in either theme.
+ *
+ * The sample row once read "Pressed, bordered, or dark theme", which listed the uses
+ * for the reader instead of naming the swatch; it names the token role a palette tool
+ * would print, and the article keeps the list of uses.
  */
 export function mount(root: HTMLElement): void {
   const steps = BLACK.map(
@@ -34,7 +38,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" data-part="sample" data-shade="${START}"
              style="margin-top: 16px; padding: 10px 12px; border-radius: var(--sp-radius); background: ${fillFor(START)}; color: #ffffff">
           <span class="sp-swatch" style="width: 14px; height: 14px; border-radius: 50%; --sp-swatch: var(--sd-base)"></span>
-          <span class="sp-grow">Pressed, bordered, or dark theme</span>
+          <span class="sp-grow">Primary, pressed</span>
           <span data-part="sample-label" style="font-size: 12px">${START}% black</span>
         </div>
       </div>

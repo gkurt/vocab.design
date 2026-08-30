@@ -3,12 +3,6 @@ import { flag, part } from '#src/kit/parts.ts';
 
 type Where = 'inbox' | 'archive' | 'trash';
 
-const NOTE: Record<Where, string> = {
-  inbox: 'The page is out on the desk.',
-  archive: 'The page is in the Archive folder.',
-  trash: 'The page is in the can, still retrievable.',
-};
-
 const PATH: Record<Where, string> = {
   inbox: '/inbox/notes.txt',
   archive: '/archive/notes.txt',
@@ -34,6 +28,11 @@ const MOVES: { key: Where; part: string; label: string }[] = [
  * `data-pose`: every state the desk reaches is still a borrowed situation standing in
  * for a file operation.
  *
+ * A line under the desk used to say where the page had got to ("The page is out on the desk.",
+ * and so on) and the title bar carried "One file, two renderings". Both were the site reading
+ * the scene out: the path beside the file already prints where it is, and the two columns are
+ * now labelled for what they are, "Desk" and "File system".
+ *
  * The page keeps its slot when it leaves the desk and the folder and can hold the room
  * their contents will take, so a move changes what is drawn and never the geometry
  * (SPEC §5). The list's three destinations are absolute picks rather than a toggle, and
@@ -52,12 +51,11 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Files</span>
-          <span class="sp-label" style="font-size: 11px">One file, two renderings</span>
         </div>
         <div class="sp-body sp-row" style="align-items: stretch; gap: 10px">
 
           <div style="display: flex; flex-direction: column; gap: 6px; flex: 0 0 auto; width: 212px">
-            <span class="sp-label sp-context" style="height: 16px; font-size: 11px">Borrowed: a desk</span>
+            <span class="sp-label sp-context" style="height: 16px; font-size: 11px">Desk</span>
             <div
               class="sp-surface"
               data-part="desk"
@@ -100,11 +98,10 @@ export function mount(root: HTMLElement): void {
                 <span class="sp-label" style="font-size: 11px">Trash</span>
               </div>
             </div>
-            <span class="sp-text sp-context" data-part="desk-note" style="height: 16px; font-size: 11px">${NOTE.inbox}</span>
           </div>
 
           <div class="sp-context" style="display: flex; flex-direction: column; gap: 6px; flex: 1 1 auto; min-width: 0">
-            <span class="sp-label" style="height: 16px; font-size: 11px">Literal: the same file</span>
+            <span class="sp-label" style="height: 16px; font-size: 11px">File system</span>
             <div class="sp-surface" data-part="readout" data-where="inbox" style="display: flex; flex-direction: column; gap: 6px; padding: 8px 10px">
               <div class="sp-row" style="gap: 6px">
                 ${icon('copy')}
@@ -127,7 +124,6 @@ export function mount(root: HTMLElement): void {
   const trash = part(root, 'trash');
   const folderPage = part(root, 'folder-page');
   const trashPage = part(root, 'trash-page');
-  const note = part(root, 'desk-note');
   const readout = part(root, 'readout');
   const pathText = part(root, 'path-text');
   const buttons = MOVES.map((move) => ({ key: move.key, el: part(root, move.part) }));
@@ -140,7 +136,6 @@ export function mount(root: HTMLElement): void {
     page.style.visibility = where === 'inbox' ? 'visible' : 'hidden';
     folderPage.style.visibility = where === 'archive' ? 'visible' : 'hidden';
     trashPage.style.visibility = where === 'trash' ? 'visible' : 'hidden';
-    note.textContent = NOTE[where];
     pathText.textContent = PATH[where];
     for (const button of buttons) flag(button.el, 'data-selected', button.key === where);
   };

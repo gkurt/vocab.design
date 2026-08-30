@@ -16,7 +16,7 @@ export default steps([
   { click: true },
   { wait: 800 },
   { assert: { selector: '[data-part=screen][data-mode=off]', state: 'visible' } },
-  { assert: { selector: '[data-part=photo-verdict][data-mode=off]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=off]', state: 'visible' } },
   { wait: 1600 },
 
   { moveTo: '[data-part=seg-smart]' },
@@ -24,13 +24,13 @@ export default steps([
   { wait: 800 },
   { assert: { selector: '[data-part=screen][data-mode=smart]', state: 'visible' } },
   { assert: { selector: '[data-part=photo][data-invert=smart]', state: 'visible' } },
-  { assert: { selector: '[data-part=shadow-verdict][data-mode=smart]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=smart]', state: 'visible' } },
   { wait: 1700 },
 
   { moveTo: '[data-part=seg-classic]' },
   { click: true },
   { wait: 800 },
   { assert: { selector: '[data-part=screen][data-mode=classic]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption][data-mode=classic]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=classic]', state: 'visible' } },
   { wait: 1000 },
 ]);

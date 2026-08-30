@@ -46,7 +46,9 @@ function seeded(seed: number): () => number {
  * title bar and the caption are scenery in the context register. The plate over the field is
  * scenery too, and it is opaque on purpose: a moving green-on-black wall gives no letter a
  * stable contrast ground, so the specimen shows the fix the article asks for instead of
- * pretending the problem away.
+ * pretending the problem away. The plate used to read "a line of type needs its own ground",
+ * which is the site explaining the plate rather than the feed using it, so it prints a status
+ * line the construct would really show and the plate makes the same point by being there.
  *
  * `motion.css` cannot reach a canvas, so the demo asks `prefersReducedMotion` itself and paints
  * exactly one warmed-up frame instead of arming the loop, which is the whole accessible answer
@@ -75,7 +77,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                       background: #05090D; box-shadow: inset 0 0 0 1px rgb(64 226 122 / 0.34)">
             <span data-part="plate-line"
                   style="font-family: ui-monospace, monospace; font-size: 11px; color: #9BFFBC">
-              a line of type needs its own ground
+              feed 09 &middot; decode stable
             </span>
           </div>
         </div>

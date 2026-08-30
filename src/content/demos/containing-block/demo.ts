@@ -9,32 +9,28 @@ const CARD_H = 108;
 const CELL_W = 148;
 const CELL_H = 62;
 
-type Anchor = { box: 'page' | 'card' | 'cell'; position: string; verdict: string; note: string };
+type Anchor = { box: 'page' | 'card' | 'cell'; position: string; verdict: string };
 
 const ANCHORS: Record<string, Anchor> = {
   page: {
     box: 'page',
     position: 'absolute',
     verdict: 'the page',
-    note: 'Nothing between the badge and the page is positioned, so the offsets skip the card and the cell entirely.',
   },
   card: {
     box: 'card',
     position: 'absolute',
     verdict: 'the card',
-    note: 'position: relative on the card makes it the nearest positioned ancestor, and the badge moves without being touched.',
   },
   cell: {
     box: 'cell',
     position: 'absolute',
     verdict: 'the cell',
-    note: 'The card is still relative here. Nearest wins, so adding relative to the cell takes the badge off the card.',
   },
   transform: {
     box: 'card',
     position: 'fixed',
     verdict: 'the card, by transform',
-    note: 'A transform on the card makes it a containing block without any position at all, and it catches a fixed badge too.',
   },
 };
 
@@ -56,8 +52,15 @@ const boxLabel = (text: string) =>
  * with the resolution rather than staying where it started: the term names that box, not the
  * badge whose offsets are measured against it, so the element tracing the feature is the one
  * that wears it (SPEC §5). Exactly one exists at any moment. The badge is the demo's instrument,
- * the picker, the verdict and the caption are scenery in the context register, and every state
- * has an honest containing block, so no state needs a `data-pose`.
+ * the picker and the "Containing block: the card" readout are scenery in the context register,
+ * and every state has an honest containing block, so no state needs a `data-pose`.
+ *
+ * Two strings were the site talking inside the frame. The topbar read "What the offsets resolve
+ * against" and now names what is drawn. Under the readout sat a paragraph explaining each pick
+ * ("Nothing between the badge and the page is positioned, so the offsets skip the card and the
+ * cell entirely.", and three more); that is the article's work, so it went, and the frame lost
+ * the 42px it had reserved rather than standing on an empty band. The readout naming the
+ * resolved box stays, because the demo draws the box it names.
  *
  * The nesting is fixed in size, so a pick moves the badge and outlines a different box and
  * nothing else shifts (SPEC §5). The fixed-position state always applies the transform that
@@ -67,9 +70,9 @@ const boxLabel = (text: string) =>
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 258px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">What the offsets resolve against</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Nested boxes</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="anchors" data-axis="Anchor" data-value="page">
             ${segment('page', 'none')}${segment('card', 'card')}${segment('cell', 'cell')}${segment('transform', 'transform')}
           </sp-segmented>
@@ -109,13 +112,12 @@ export function mount(root: HTMLElement): void {
           </div>
           <div
             class="sp-context"
-            style="display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 0 0 auto; width: 100%; height: 62px"
+            style="display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 0 0 auto; width: 100%; height: 20px"
           >
             <span style="display: flex; align-items: baseline; gap: 8px; flex: 0 0 auto; height: 20px">
               <span class="sp-label">Containing block</span>
               <span class="sp-heading" data-part="verdict" style="font-size: 13px"></span>
             </span>
-            <span class="sp-text" data-part="readout" style="flex: 0 0 auto; height: 40px; width: 100%; text-align: center"></span>
           </div>
         </div>
       </div>
@@ -124,7 +126,6 @@ export function mount(root: HTMLElement): void {
 
   const badge = part(root, 'badge');
   const verdict = part(root, 'verdict');
-  const readout = part(root, 'readout');
   const boxes = {
     page: part(root, 'page'),
     card: part(root, 'card'),
@@ -152,7 +153,6 @@ export function mount(root: HTMLElement): void {
       el.style.outlineOffset = resolved ? '-1px' : '';
     }
     verdict.textContent = anchor.verdict;
-    readout.textContent = anchor.note;
   };
 
   part(root, 'anchors').addEventListener('change', (event) => apply((event as CustomEvent<string>).detail));

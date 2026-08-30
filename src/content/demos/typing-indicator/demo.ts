@@ -27,6 +27,10 @@ const dot = (index: number) => `
  * The button is instrumentation and lives in the context register, and it reaches a
  * state rather than flipping one (SPEC §8): pressing it always means "compose from
  * nothing", whenever in the run the press arrives.
+ *
+ * The footer used to carry "The promise, then the message." beside that button. A
+ * thread does not caption itself, and the article says it better, so the line went and
+ * the button moved to the end of the bar.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -68,8 +72,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             >Tomorrow works. Low water at six.</span>
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
-          <span class="sp-text" style="font-size: 12px">The promise, then the message.</span>
+        <div class="sp-row sp-context" style="flex: 0 0 auto; justify-content: flex-end; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
           <button class="sp-button sp-button--sm" type="button" data-part="ask">Ada replies</button>
         </div>
       </div>

@@ -63,8 +63,13 @@ const arrowsToRoles = (theme: string) =>
  * the term actually names. It stays a primitive token in both themes (in dark it is simply
  * the rung nothing currently points at, which is the term's own argument), so there is no
  * state identify has to refuse. The other two columns are the context this token is read
- * against, and the theme control, readout and caption are instrumentation, so all of them
- * sit in the context register (SPEC §5).
+ * against, and the theme control and readout are instrumentation, so all of them sit in the
+ * context register (SPEC §5).
+ *
+ * The readout used to end with "The primitive scale is identical in both themes.", which is
+ * the site drawing the moral of its own diagram. It is gone: the readout now prints only the
+ * resolution chains a token tool really would, and the unchanged left column makes the point
+ * on its own.
  *
  * Every row is absolutely placed at a fixed height and only paint, arrow geometry and the
  * readout change with the theme, so nothing moves (SPEC §5). The geometry comes from the
@@ -173,7 +178,7 @@ export function mount(root: HTMLElement): void {
       const target = table[c.role] ?? 'blue-500';
       return `${c.key} = ${c.role} = ${target} ${primitive(target).hex}`;
     });
-    readout.textContent = `${chain.join('. ')}. The primitive scale is identical in both themes.`;
+    readout.textContent = `${chain.join('. ')}.`;
   };
   apply(START);
 

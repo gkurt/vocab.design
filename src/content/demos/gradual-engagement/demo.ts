@@ -35,6 +35,10 @@ const sketch = (width: number, height: number) =>
  * identify summons the gradual state back instead of posing the gate, and no `data-pose`
  * is needed (SPEC §6).
  *
+ * The slot the ask opens into rests on the product's own line, "Links you save appear here." It
+ * used to read "An account is asked for at the save, not at the door. Nothing has been kept yet.",
+ * which is the article explaining the sequence to a reader while the sequence plays.
+ *
  * Both states are absolutely placed in one box of fixed height, and inside the tool the
  * result row and the ask slot each keep their own box in every state, so shortening a
  * link, opening the ask, and switching modes move nothing (SPEC §5).
@@ -72,7 +76,7 @@ export function mount(root: HTMLElement): void {
                 </div>
               </div>
               <div data-part="slot" style="position: relative; flex: 1 1 auto; min-height: 0">
-                <span class="sp-label" data-part="ask-rest" style="position: absolute; inset: 0; padding-top: 6px; font-size: 11px; line-height: 1.4">An account is asked for at the save, not at the door. Nothing has been kept yet.</span>
+                <span class="sp-label" data-part="ask-rest" style="position: absolute; inset: 0; padding-top: 6px; font-size: 11px; line-height: 1.4">Links you save appear here.</span>
                 <div class="sp-surface" data-part="ask" hidden style="position: absolute; inset: 0; padding: 9px 11px; background: var(--sp-surface)">
                   <span class="sp-heading" style="font-size: 12.5px">Keep this link?</span>
                   <span class="sp-text" style="display: block; margin-top: 1px; font-size: 11px">The link works either way. An account is what remembers it.</span>

@@ -24,6 +24,10 @@ const ROW_HEIGHT = 40;
  * height and the reorder is a move within the list, so nothing outside it shifts
  * (SPEC §5). The list is only ever re-ordered on release, never between the press
  * and the release of a plain click.
+ *
+ * Under the list there used to be a line reading "Only the grip starts a drag. Dragging a title
+ * selects it." No set list prints its own rules like that, the two gestures show it, and the
+ * article says it, so it went and the frame lost the 28px it was holding for it.
  */
 export function mount(root: HTMLElement): void {
   const grip = `
@@ -52,14 +56,13 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 262px">
+      <div class="sp-frame sp-frame--wide" style="height: 234px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Set list</span>
           <span class="sp-text">Drag to reorder</span>
         </div>
         <div class="sp-body">
           <ul class="sp-list sp-surface" data-part="list" style="padding: 2px">${rows}</ul>
-          <p class="sp-text sp-context" style="margin-top: 10px">Only the grip starts a drag. Dragging a title selects it.</p>
         </div>
       </div>
     </div>

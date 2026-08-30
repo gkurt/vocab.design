@@ -82,7 +82,7 @@ const vars = (p: Palette) =>
     .map(([key, value]) => `${key}: ${p[value]}`)
     .join('; ');
 
-const lift = (p: Palette) => `base ${Math.round(lightness(p.base))} to raised ${Math.round(lightness(p.raised))}`;
+const lift = (p: Palette) => `base ${Math.round(lightness(p.base))} · raised ${Math.round(lightness(p.raised))}`;
 
 /**
  * Dark mode specimen: one small interface rendered twice, in the light palette it was
@@ -93,7 +93,9 @@ const lift = (p: Palette) => `base ${Math.round(lightness(p.base))} to raised ${
  * above it and not the light panel, which is the other half of the pair rather than the
  * thing being named, so it stays in the context register. Both panels are the same
  * markup at the same size and the readouts are fixed width, so switching derivation
- * repaints values and moves nothing (SPEC §5).
+ * repaints values and moves nothing (SPEC §5). The L* line under each panel is a measurement of
+ * the two surfaces directly above it, so it stays; it used to read "base 8 to raised 15" and now
+ * prints the two values as a readout rather than as a sentence.
  */
 export function mount(root: HTMLElement): void {
   // Both halves are wrapped the same way and sized `1 1 0`, so the comparison is drawn at

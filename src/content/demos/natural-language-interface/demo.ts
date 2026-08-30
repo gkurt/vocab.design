@@ -40,6 +40,11 @@ const chip = (key: string, value: string, name: string) => `
  * button and the result panel are the search around it, and all of that is scenery: the term
  * names the input, not the query engine behind it.
  *
+ * The chip row's empty state reads "No filters yet", which is what the search would print; it
+ * read "The sentence is parsed into constraints here." under a line saying "Every chip below the
+ * field was read out of the sentence, not chosen.", both of which were the site narrating its own
+ * demonstration. The chips appearing as the sentence lands is the demonstration.
+ *
  * A real `<input>`, so a reader who takes over can click it and type a sentence of their own,
  * and Enter runs the search the way the button does. The chip row and the result panel both
  * hold a fixed height, so a parse that finds four constraints moves nothing that a parse
@@ -72,7 +77,7 @@ export function mount(root: HTMLElement): void {
             data-part="chips"
             style="gap: 6px; height: 60px; align-content: flex-start"
           >
-            <span class="sp-text" data-part="chips-empty" style="font-size: 11px">The sentence is parsed into constraints here.</span>
+            <span class="sp-text" data-part="chips-empty" style="font-size: 11px">No filters yet</span>
           </div>
           <div
             class="sp-surface sp-context"
@@ -86,7 +91,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" style="font-size: 11px">Every chip below the field was read out of the sentence, not chosen.</span>
     </div>
   `;
 

@@ -40,6 +40,11 @@ const BAND = 'color-mix(in srgb, var(--sp-accent) 16%, var(--sp-sunken))';
  * the context register because it is the measurement being read, not scenery; the picker,
  * the readout and the legend are the instrumentation and wear the register (SPEC §5).
  *
+ * The note under the surface reads the band ("The tinted band is the margin: 16 px each
+ * side"), which is the author's reading of the state rather than anything this product would
+ * print inside its own window, so it is marked `data-stage-verdict` and drawn in the strip
+ * above the switch that changes it. The frame lost the height the note used to hold.
+ *
  * The surface resizes inside a fixed arena, since a width change is the thing being shown
  * and must not push the readout around (SPEC §5). The margin is one padding value written
  * to the surface, so the band and the column can never disagree about where the inset is.
@@ -47,7 +52,7 @@ const BAND = 'color-mix(in srgb, var(--sp-accent) 16%, var(--sp-sunken))';
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 244px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Window width</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Size" data-part="switcher" data-value="narrow">
@@ -84,7 +89,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 40px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

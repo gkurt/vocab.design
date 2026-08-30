@@ -35,7 +35,15 @@ const PARAGRAPH = 'margin: 0 0 8px';
  * The subject is the block carrying the column properties, the narrowest element the term
  * names: the picker, the spelling chip and the caption are instrumentation, and the page
  * the text is set on is the scene (SPEC §5). Every state is genuinely columned, so the
- * subject never stops being the term and no pose condition is needed. The block's height
+ * subject never stops being the term and no pose condition is needed.
+ *
+ * Three lines of the site's voice have gone from inside the frame. The window was titled
+ * "Columns asked for by", which was a caption for a switch the stage draws in the strip, and
+ * is now the plain "Page preview" a layout preview would carry. The note under the block reads
+ * the author's reading of each setting and changes with the switch, so it is a verdict and the
+ * strip draws it. And the passage's last paragraph explained why tall columns fail on screen,
+ * which is the article's line; it is now more of the press the passage is about, at the same
+ * length, so the columns still fill. The block's height
  * is fixed and the text sized to fit the narrowest of the three states, since multicol
  * answers a box it cannot fill by adding columns beyond its own edge.
  */
@@ -44,7 +52,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Columns asked for by</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Page preview</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Property" data-part="switcher" data-value="two">
             <button class="sp-segment" type="button" data-part="seg-two" value="two">count 2</button>
             <button class="sp-segment" type="button" data-part="seg-three" value="three">count 3</button>
@@ -71,8 +79,8 @@ export function mount(root: HTMLElement): void {
                 reason a narrow measure still reads faster than a wide one.
               </p>
               <p style="margin: 0">
-                A column taller than the window makes the reader scroll down and then back up, which is
-                why the habit survives in print and rarely on screen.
+                Ink was mixed in the yard each morning, and the first sheets off the bed were pulled
+                slowly so the register could be checked against the corner marks.
               </p>
             </div>
           </div>
@@ -82,7 +90,7 @@ export function mount(root: HTMLElement): void {
               style="display: inline-flex; align-items: center; justify-content: center; width: 252px; padding: 3px 8px; border: 1px solid var(--sp-line); border-radius: 999px; background: var(--sp-surface); font-family: ${MONO}; font-size: 11.5px"
             ></span>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 20px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 20px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

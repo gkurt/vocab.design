@@ -79,18 +79,23 @@ const detail = () => `
  * gets a different arrangement rather than the same arrangement stretched.
  *
  * The subject is the shell that swaps arrangements, not the whole scene: the segmented
- * picker and the caption below are the instrumentation that makes the swap watchable
- * (SPEC §5), so they sit in the context register outside the subject. The shell resizes
- * inside a fixed arena, since the size change is the term and has to be contained rather
- * than allowed to push the caption around (SPEC §5). Nothing transitions: snapping between
- * designs is exactly what separates this from a fluid reflow.
+ * picker and the note below are the instrumentation that makes the swap watchable
+ * (SPEC §5), so they sit in the context register outside the subject. The note reads the
+ * state the switch just chose ("Compact, under 600dp: bottom tab bar over one column."), so
+ * it is the stage's verdict and is drawn out in the strip rather than inside the app, which
+ * would be a mail client captioning its own window. The window is titled "Mail" for the same
+ * reason: it read "Window size class", which names the axis the strip's own switch names.
+ *
+ * The shell resizes inside a fixed arena, since the size change is the term and has to be
+ * contained rather than allowed to push what is under it around (SPEC §5). Nothing transitions:
+ * snapping between designs is exactly what separates this from a fluid reflow.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">Window size class</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Mail</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-value="compact" data-axis="Window">
             <button class="sp-segment" type="button" data-part="seg-compact" value="compact">compact</button>
             <button class="sp-segment" type="button" data-part="seg-medium" value="medium">medium</button>
@@ -128,7 +133,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 22px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

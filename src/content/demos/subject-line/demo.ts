@@ -53,13 +53,16 @@ function pane(spec: { key: string; label: string; width: number }): string {
  * Every pane is cut by its own box, so the demo stamps whether each line was actually
  * truncated, measured once on the state it mounts in (SPEC §5), which is what lets the
  * still script assert the cut rather than merely draw it (SPEC §8).
+ *
+ * The topbar read "Two mails, three windows", which counted the exhibit rather than
+ * naming the screen; a mail client says "Inbox" there, so it does.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="height: 314px">
         <div class="sp-topbar sp-context">
-          ${icon('inbox')}<span class="sp-heading sp-grow">Two mails, three windows</span>
+          ${icon('inbox')}<span class="sp-heading sp-grow">Inbox</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 9px">
           ${PANES.map(pane).join('')}

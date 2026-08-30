@@ -55,7 +55,7 @@ const marker = (name: string, x: number) => `
  * Momentum scrolling specimen: a photo strip thrown with a flick, which keeps travelling
  * after the pointer has gone and decelerates to a stop. The subject is the strip, since
  * the term names what the scrolled surface does with a gesture that has already ended;
- * the ruler under it and the readouts beside it are the instruments watching it.
+ * the ruler under it and its px count are the instruments watching it.
  *
  * The coast is the demonstration, so it is really computed: at the release the velocity is
  * measured over the samples from the last ~100 ms of that moment (the way real momentum
@@ -63,15 +63,20 @@ const marker = (name: string, x: number) => `
  * alone), and a constant deceleration is applied on the stage's clock until the speed runs
  * out. It is an `element.animate`-class move in that CSS cannot gate it, so it asks
  * `prefersReducedMotion` itself and lands on the resting offset at once instead. The
- * distance travelled after the lift is stated out loud, because that number is the only
- * thing a stopped-dead scroller could not produce.
+ * distance travelled after the lift is counted on the ruler beside the strip, because that
+ * number is the only thing a stopped-dead scroller could not produce.
+ *
+ * A line in the title bar used to narrate the gesture, opening on "Flick the strip and let
+ * go" and then reporting each phase. No photo app prints instructions or a coasting speed
+ * over its own strip, and the phases the choreography reads are data attributes rather than
+ * words, so the line went; the ruler and its px count carry what a reader needs to see.
  *
  * Judging at the release is the whole of it, so both releases are performed against the
  * same stroke: a contact that lifts while still travelling hands over the speed it was
  * moving at, and one that comes to rest first hands over nothing and stops dead. The two
  * strokes aim at fixed markers on the strip rather than at the cards, which travel.
  *
- * The strip is a fixed window with a transformed track inside it and every readout holds
+ * The strip is a fixed window with a transformed track inside it and the px count holds
  * its width, so nothing the throw does moves anything around it (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
@@ -88,7 +93,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 262px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Recent captures</span>
-          <span class="sp-text" data-part="readout" style="width: 210px; text-align: right; white-space: nowrap">Flick the strip and let go</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           <div
@@ -123,7 +127,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const strip = part(root, 'strip');
   const track = part(root, 'track');
   const fill = part(root, 'ruler-fill');
-  const readout = part(root, 'readout');
   const travelled = part(root, 'travelled');
 
   let offset = 0;
@@ -140,9 +143,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     fill.style.setProperty('--sp-value', `${(offset / MAX) * 100}%`);
   };
 
-  const say = (phase: string, text: string) => {
+  const say = (phase: string) => {
     strip.dataset.phase = phase;
-    readout.textContent = text;
   };
 
   const settle = () => {
@@ -150,7 +152,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     timer = undefined;
     strip.dataset.coast = coasted >= COAST_MIN ? 'some' : 'none';
     travelled.textContent = `${Math.round(coasted)} px after the lift`;
-    say('rest', coasted >= COAST_MIN ? `Coasted ${Math.round(coasted)} px on its own` : 'Stopped where the hand stopped');
+    say('rest');
   };
 
   /** One frame of the coast: move by the current speed, then take friction out of it. */
@@ -164,7 +166,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       render();
       velocity -= Math.sign(velocity) * FRICTION * TICK_MS;
       if (Math.abs(velocity) < FLING_MIN / 4 || offset === 0 || offset === MAX) return settle();
-      say('coast', `Coasting at ${Math.abs(velocity).toFixed(2)} px per ms`);
+      say('coast');
       timer = clock.setTimeout(tick, TICK_MS);
     };
     tick();
@@ -180,7 +182,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     travelled.textContent = '0 px after the lift';
     held = { x: localPoint(event, root).x, at: performance.now() };
     trail = [{ x: held.x, at: held.at }];
-    say('drag', 'Holding the strip');
+    say('drag');
   });
 
   root.addEventListener('pointermove', (event) => {
@@ -192,7 +194,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     trail.push({ x, at: now });
     while (trail.length > 2 && now - (trail[0]?.at ?? now) > TRAIL_KEEP_MS) trail.shift();
     render();
-    say('drag', 'Dragging with the pointer');
+    say('drag');
   });
 
   const release = () => {
@@ -210,7 +212,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     // Content moves against the pointer, so the offset's velocity is the stroke's negated.
     const velocity = span >= MIN_SPAN_MS ? -(newest.x - oldest.x) / span : 0;
     if (Math.abs(velocity) < FLING_MIN) return settle();
-    say('coast', 'Let go: the strip keeps going');
+    say('coast');
     if (!prefersReducedMotion(root)) return coast(velocity);
     // A move CSS cannot reach has to gate itself: land on where the throw would have ended.
     const projected = clamp(offset + (Math.sign(velocity) * (velocity * velocity)) / (2 * FRICTION));

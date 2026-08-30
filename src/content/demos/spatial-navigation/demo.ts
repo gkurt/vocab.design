@@ -17,11 +17,11 @@ const TILES: Tile[] = [
   { key: 'store', label: 'Store', order: 7, col: 3, row: 3 },
 ];
 
-const ARROW: Record<string, { dir: Dir; name: string }> = {
-  ArrowRight: { dir: 'right', name: 'Right' },
-  ArrowLeft: { dir: 'left', name: 'Left' },
-  ArrowUp: { dir: 'up', name: 'Up' },
-  ArrowDown: { dir: 'down', name: 'Down' },
+const ARROW: Record<string, { dir: Dir }> = {
+  ArrowRight: { dir: 'right' },
+  ArrowLeft: { dir: 'left' },
+  ArrowUp: { dir: 'up' },
+  ArrowDown: { dir: 'down' },
 };
 
 type Dir = 'up' | 'down' | 'left' | 'right';
@@ -68,8 +68,7 @@ const CAPTION = {
  * The subject is the card holding the focus ring, and it travels with the ring, because the term
  * names where direction puts focus rather than any one card. Exactly one card carries
  * `data-subject` at a time, and the card holding the ring is what the term names in every
- * resting state, so no `data-pose` is needed. The numbers, the readout and the caption are
- * scenery (SPEC §5).
+ * resting state, so no `data-pose` is needed. The numbers and the caption are scenery (SPEC §5).
  *
  * The engine is real geometry, read from the laid-out grid at the moment a key arrives
  * (`offsetLeft` and friends, never a measurement taken after a style write), with the alignment
@@ -78,6 +77,16 @@ const CAPTION = {
  * focus (SPEC §7), and the grid carries `tabindex="0"` so a reader's own arrows reach it. Arrow
  * keys are consumed so the page cannot scroll under the demonstration; Tab is left alone, so the
  * specimen can never trap a keyboard. No timer is needed.
+ *
+ * The label over the grid used to read "Remote, four directions", which is the site naming the
+ * input rather than the television naming the row. It says what the row holds now, and the
+ * remote is left to the choreography and the article.
+ *
+ * Beside it there used to be a readout, "Ring on News, source 1" and then "Right: source 1 to 4,
+ * not 2" on every press. A channel grid does not print where its own focus ring is, nor the DOM
+ * order behind it, so the readout is gone; the caption above the controls already carried the
+ * same comparison in the site's own voice, and the state attributes the choreography watches
+ * (`data-at`, `data-agree`) moved onto it.
  */
 export function mount(root: HTMLElement): void {
   const tile = ({ key, label, order, col, row, rows }: Tile) => `
@@ -93,12 +102,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Remote, four directions</span>
-          <span class="sp-text sp-text--ink" data-part="readout" data-at="news" data-agree="none"
-                style="flex: 0 0 auto; width: 236px; text-align: right; font-size: 11.5px;
-                       white-space: nowrap">Ring on News, source 1</span>
-        </div>
+        <span class="sp-label sp-context" style="display: block">Channels</span>
 
         <div class="sp-grid" data-part="grid" role="grid" aria-label="Channels" tabindex="0"
              style="margin-top: 10px; position: relative; grid-template-columns: repeat(3, 1fr);
@@ -112,7 +116,6 @@ export function mount(root: HTMLElement): void {
     </div>
   `;
 
-  const readout = part(root, 'readout');
   const caption = part(root, 'caption');
   const cells = TILES.map((t) => part(root, `tile-${t.key}`));
 
@@ -142,11 +145,7 @@ export function mount(root: HTMLElement): void {
     const step = arrow === 'ArrowRight' || arrow === 'ArrowDown' ? 1 : -1;
     const sequential = TILES[TILES.indexOf(from) + step];
     const agree = sequential?.order === to.order;
-    readout.dataset.at = to.key;
-    readout.dataset.agree = agree ? 'yes' : 'no';
-    readout.textContent = agree
-      ? `${ARROW[arrow]?.name}: source ${from.order} to ${to.order}, same as the sequence`
-      : `${ARROW[arrow]?.name}: source ${from.order} to ${to.order}, not ${sequential?.order ?? 'the next'}`;
+    caption.dataset.at = to.key;
     caption.dataset.agree = agree ? 'yes' : 'no';
     caption.textContent = agree ? CAPTION.agree : CAPTION.diverge;
   };

@@ -46,6 +46,10 @@ const bar = (amplitude: number, index: number) => `
  * heights come from `AMPLITUDES` and nothing is measured or randomized at mount, so the
  * same recording is drawn on every run, and only the fills and the playhead ever change,
  * which leaves the layout still (SPEC §5).
+ *
+ * A line under the player once read "Silence and loudness are visible, so a listener can
+ * aim at the part they want.", which is the article's point made inside a voice-note
+ * player that would never print it. It is gone; the body still centres what is left.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -89,10 +93,6 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label" style="font-variant-numeric: tabular-nums">${timecode(DURATION)}</span>
             </div>
           </div>
-
-          <p class="sp-label sp-context" style="margin: 0; font-size: 11px; text-align: center">
-            Silence and loudness are visible, so a listener can aim at the part they want.
-          </p>
         </div>
       </div>
     </div>

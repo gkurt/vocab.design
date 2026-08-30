@@ -15,6 +15,11 @@ const RIPPLE_MS = 520;
  * The subject is the rippling button: the term names the feedback that control
  * gives, and the panel around it is scenery that says where the press landed.
  *
+ * The card once carried the heading "Press anywhere on it" and a line under the button
+ * explaining that the circle starts at the contact point and grows to the furthest
+ * corner. Neither is anything a library card would print, and the article says both, so
+ * the line went and the heading became the card's own title.
+ *
  * The circle goes to `element.animate`, which `motion.css` cannot reach, so the demo
  * asks `prefersReducedMotion` itself and lays the wash over the whole control at
  * once instead of travelling it out from a point (SPEC §5). `data-rippling` is
@@ -31,7 +36,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 336px">
-        <span class="sp-heading sp-context">Press anywhere on it</span>
+        <span class="sp-heading sp-context">Sea Birds of the North Atlantic</span>
         <button
           class="sp-button"
           type="button"
@@ -47,9 +52,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span class="sp-label">Origin</span>
           <span class="sp-label" data-part="readout" data-origin="none">no press yet</span>
         </div>
-        <p class="sp-text sp-context" style="margin: 8px 0 0">
-          The circle starts at the contact point and grows until it has covered the corner furthest from it.
-        </p>
       </div>
     </div>
   `;

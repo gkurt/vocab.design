@@ -17,6 +17,10 @@ const HEADLINES = ['Tide tables for October', 'Slipway repairs begin Monday', 'F
  * the way a page does, so nothing reflows as the journey moves through them (SPEC §5).
  * The countdown runs on the stage's clock, which is what lets a pose hold the screen
  * still instead of inspecting a number that keeps moving.
+ *
+ * A caption under the frame once read "The page you asked for is behind a page you did
+ * not." That is the site explaining the term, not anything the browser or the site being
+ * browsed would print, and the article carries the point, so it was deleted.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const index = HEADLINES.map(
@@ -72,7 +76,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <span class="sp-label sp-context">The page you asked for is behind a page you did not.</span>
     </div>
   `;
 

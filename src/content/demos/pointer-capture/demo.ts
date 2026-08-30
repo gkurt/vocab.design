@@ -50,6 +50,12 @@ const slider = (name: string, label: string, extra = '') => `
  * moves a thumb and nothing else (SPEC §5). The twin's caption needs two lines in the
  * column it is given, so its value sits under it in a stack rather than at a fixed offset
  * that assumed one.
+ *
+ * Two lines of the site's voice have gone. The dot the stroke ends on was captioned "the
+ * pointer ends up here", which is a stage direction printed inside a mixer, and the topbar
+ * readout opened by telling the reader what to do ("Drag a thumb off its track"). The dot
+ * keeps its paint, since a reader has to see where the stroke went, and the readout rests on
+ * something the mixer would print and then reports what each drag did.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,7 +63,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 282px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Monitor mix</span>
-          <span class="sp-text" data-part="readout" style="width: 224px; text-align: right; white-space: nowrap">Drag a thumb off its track</span>
+          <span class="sp-text" data-part="readout" style="width: 224px; text-align: right; white-space: nowrap">2 channels, live</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div style="position: relative; width: ${STAGE.w}px; height: ${STAGE.h}px">
@@ -87,10 +93,6 @@ export function mount(root: HTMLElement): void {
               >
                 ${slider('loose', 'Cue level')}
               </div>
-              <span
-                class="sp-label"
-                style="position: absolute; left: 216px; top: ${STAGE.h - 32}px; width: 150px; text-align: right; font-size: 11px"
-              >the pointer ends up here</span>
               <span
                 data-part="away"
                 style="position: absolute; left: ${STAGE.w - 32}px; top: ${STAGE.h - 24}px; width: 10px; height: 10px; border-radius: 50%; background: var(--sp-ink)"

@@ -29,6 +29,12 @@ const strictOk = (raw: string) => /^0\d{10}$/.test(raw);
  * term adds, so the readout belongs inside the claim exactly as the mask's template does.
  * The labels, the sample chips, and the strict twin are scenery (SPEC §5).
  *
+ * Two strings were the site talking rather than the form. The strict field was labelled
+ * "The same field, strict", which points at the construction instead of naming the input,
+ * and is "Mobile number, strict" now. A line under the frame read "The digits were always
+ * there. Only one of these two fields made that the reader's problem."; the article says
+ * it, so it went.
+ *
  * Both readouts keep their space in every state, so an accepted or rejected verdict
  * changes words and not geometry (SPEC §5). The chips set a value rather than toggling
  * one, and the field mounts empty so the typed pass starts from nothing (SPEC §8).
@@ -58,7 +64,7 @@ export function mount(root: HTMLElement): void {
           </div>
 
           <div class="sp-field sp-context" style="flex: 0 0 auto; gap: 4px">
-            <label class="sp-label" for="vd-strict">The same field, strict</label>
+            <label class="sp-label" for="vd-strict">Mobile number, strict</label>
             <div data-part="strict" data-state="empty">
               <input class="sp-input" id="vd-strict" data-part="strict-input" type="text" inputmode="tel" autocomplete="off" spellcheck="false" placeholder="11 digits, no spaces" />
               <span class="sp-text" data-part="strict-readout" style="display: block; height: 16px; margin-top: 4px; font-size: 11px">Waiting.</span>
@@ -67,7 +73,6 @@ export function mount(root: HTMLElement): void {
 
         </div>
       </div>
-      <span class="sp-text sp-context" style="width: 460px; font-size: 11px">The digits were always there. Only one of these two fields made that the reader's problem.</span>
     </div>
   `;
 

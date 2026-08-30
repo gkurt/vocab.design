@@ -23,7 +23,9 @@ const CAPTION = {
  * The subject is the host's padding region, drawn as an element of its own because the feature has
  * none in the markup (SPEC §5, §8): the term names the band of host that is not a control, where a
  * press is either forwarded or swallowed. The input, the picker, the readout and the caption are
- * scenery. A region that swallows the press is the counter-example rather than the term, and it is
+ * scenery; the readout's label reads "Active element", since the line under it already names
+ * `document.activeElement` and the old label ("After the press, where focus is") was the site
+ * narrating. A region that swallows the press is the counter-example rather than the term, and it is
  * a state this same region passes through, so the honest condition is declared in `data-pose` and
  * the mount state satisfies it (SPEC §6).
  *
@@ -63,7 +65,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface sp-context" style="margin-top: 8px; padding: 8px 10px">
-          <span class="sp-label" style="font-size: 10px">After the press, where focus is</span>
+          <span class="sp-label" style="font-size: 10px">Active element</span>
           <p class="sp-text sp-text--ink" data-part="active" data-state="none"
              style="margin: 3px 0 0; height: 17px; line-height: 17px; font-size: 11.5px; white-space: nowrap">${ACTIVE.none}</p>
         </div>

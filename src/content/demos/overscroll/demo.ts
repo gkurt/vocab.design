@@ -36,6 +36,12 @@ const NOTES = [
  * asks `prefersReducedMotion` itself and is skipped outright when the reader has
  * asked for less movement. The glow is drawn over the panel, so nothing it does
  * moves a row.
+ *
+ * A caption under the panel once read "The edge answers input the scroller has no room
+ * for." That was the site defining the term inside the product, and the article carries
+ * it, so it is deleted. The topbar readout is instrumentation and now says plainly what
+ * it reports: "Room to scroll", then "End of list", instead of the earlier "Nothing left
+ * to give", which restated the term rather than the state.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const notes = NOTES.map(
@@ -64,7 +70,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               style="position: absolute; left: 1px; right: 1px; bottom: 1px; height: 26px; border-radius: 0 0 var(--sp-radius) var(--sp-radius); background: radial-gradient(120% 100% at 50% 100%, var(--sp-accent), transparent 70%); opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; pointer-events: none"
             ></div>
           </div>
-          <span class="sp-label sp-context">The edge answers input the scroller has no room for.</span>
         </div>
       </div>
     </div>
@@ -87,7 +92,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (landed) return;
     landed = true;
     readout.dataset.at = 'end';
-    readout.textContent = 'Nothing left to give';
+    readout.textContent = 'End of list';
     showGlow(true);
     clock.clearTimeout(fading);
     // The answer is an answer, not a state: it says the limit was reached and goes.

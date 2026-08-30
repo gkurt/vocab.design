@@ -43,6 +43,11 @@ const card = (index: number, title: string, body: string, top: number) => `
  * is a sibling instance rather than scenery, so it keeps its own paint; the clock, the
  * dock and the panel of instrumentation beside the phone are the scene.
  *
+ * The panel beside the phone once carried two lines of the site's own voice, a label reading
+ * "The app is not running" and a sentence explaining who sends the message and who draws it.
+ * Both are gone; the article makes the same points, and what is left beside the phone is the
+ * one control that says plainly what it does.
+ *
  * The cards are placed at fixed positions and fade in where they will sit, so a second
  * arrival never moves the first (SPEC §5). Title and body each hold one line and truncate
  * with an ellipsis the way the platform's own cards do, which is what keeps a card at the
@@ -87,9 +92,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-stack sp-context" style="width: 152px; gap: 8px">
-          <span class="sp-label">The app is not running</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="deliver">Deliver</button>
-          <p class="sp-text" style="margin: 0; font-size: 12px">A server sends it, the system draws it, and the icon keeps the count.</p>
         </div>
       </div>
     </div>

@@ -15,6 +15,11 @@ const FLIP_MS = 620;
  * turns, and the two faces are parts of it rather than scenery. The window around it
  * and the two controls are scenery.
  *
+ * The window header carried "one object" and the back face opened with "On the back",
+ * which is the site narrating a library card from inside it. Both are gone: the card
+ * says what a card says, and the article makes the point that the two faces are one
+ * element.
+ *
  * Show front and Show back are absolute states rather than one toggle, so a pass that
  * is fast-forwarded or resumed lands on the face it named (SPEC §8). The resting
  * transform is written inline first and `element.animate` only plays the move between
@@ -36,7 +41,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 316px">
         <div class="sp-row sp-row--between sp-context">
           <span class="sp-heading">Membership card</span>
-          <span class="sp-label">one object</span>
         </div>
         <div style="perspective: 900px; height: 150px; margin-top: 12px">
           <div
@@ -61,8 +65,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             ${face(
               'back',
               'transform: rotateY(180deg); justify-content: center',
-              `<span class="sp-label">On the back</span>
-               <span class="sp-row sp-row--between" style="font-size: 13px"><span>Issued</span><span>4 Mar 2024</span></span>
+              `<span class="sp-row sp-row--between" style="font-size: 13px"><span>Issued</span><span>4 Mar 2024</span></span>
                <span class="sp-row sp-row--between" style="font-size: 13px"><span>Branch</span><span>Quayside</span></span>
                <span class="sp-row sp-row--between" style="font-size: 13px"><span>Loans</span><span>3 of 12</span></span>`,
             )}

@@ -18,8 +18,8 @@ const MAX = Math.max(...COUNTS);
 const IS_COUNT = (value: string): value is `${Count}` => COUNTS.some((c) => String(c) === value);
 
 const TEXT =
-  'A column stated in characters keeps its shape when the type size changes, because the unit moves with the type. ' +
-  'State the same column in pixels and it holds a different number of words at every size you try.';
+  'The harbour office opens at seven, and the first ferry leaves twenty minutes later. Tickets are sold on the quay, ' +
+  'in cash, by a woman who has done the job for thirty years and knows every regular by name.';
 
 /** Room for the narrowest column, which is the tallest one (SPEC §5). */
 const COLUMN = 92;
@@ -40,6 +40,10 @@ const COLUMN = 92;
  * The two advances are measured once, at mount, on the state the specimen mounts
  * in; every later readout is arithmetic on those two readings, so no pick is ever
  * followed by a measurement (AGENTS.md).
+ *
+ * The column used to be set with a paragraph explaining the ch unit, which is the
+ * article's job and put the site's voice inside the sample. It holds ordinary copy
+ * of the same length now: what matters about it is where the lines break.
  */
 export function mount(root: HTMLElement): void {
   const cells = (subject: boolean) =>

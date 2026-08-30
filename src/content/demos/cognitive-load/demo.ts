@@ -36,11 +36,6 @@ const CAPTION = {
 
 type Mode = keyof typeof CAPTION;
 
-const READOUT = {
-  calm: 'Two decisions, both pre-answered',
-  dense: 'Nine decisions, none pre-answered',
-} as const;
-
 const GROUP = 'padding: 6px 10px; border: 1px solid var(--sp-line); border-radius: 6px';
 
 /**
@@ -51,7 +46,11 @@ const GROUP = 'padding: 6px 10px; border: 1px solid var(--sp-line); border-radiu
  * load the design added.
  *
  * The subject is the task region, the narrowest element that holds the demand the term is
- * about. The state control, the decision readout, and the caption are scenery (SPEC §5).
+ * about. The state control, the summary line, and the caption are scenery (SPEC §5). That
+ * summary line used to count the demand out loud ("Asked of the reader: Two decisions, both
+ * pre-answered"), which is the article's sentence in a dialog's mouth; it now prints what an
+ * export dialog really would, the answers it is holding, and says "Nothing set yet" for the
+ * dense build because that build holds none.
  * The dense build is a state the subject itself passes through, so the honest condition is
  * declared in `data-pose` and the mount state satisfies it: identify refuses to ring the
  * expensive version, which would point at the opposite of what a designer is trying to
@@ -113,10 +112,9 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface" data-part="task" data-subject data-pose="[data-mode=calm]" data-mode="calm"
              style="margin-top: 10px; padding: 10px 12px; height: 156px; overflow: hidden">${calm()}</div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 18px">
-          <span class="sp-label">Asked of the reader</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end; margin-top: 10px; height: 18px">
           <span class="sp-text sp-text--ink" data-part="readout" data-state="calm"
-                style="font-size: 12px; white-space: nowrap">${READOUT.calm}</span>
+                style="font-size: 12px; white-space: nowrap">Spreadsheet, last 30 days</span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="calm"
            style="margin: 6px 0 0; height: 34px; font-size: 11px">${CAPTION.calm}</p>
@@ -128,6 +126,17 @@ export function mount(root: HTMLElement): void {
   const readout = part(root, 'readout');
   const caption = part(root, 'caption');
 
+  /** What the dialog itself would print: the answers it holds, or that it holds none. */
+  const chosen = (group: string, from: Choice[]) => {
+    const key = task.querySelector<HTMLElement>(`[data-pick="${group}"][aria-checked="true"]`)?.dataset.key;
+    return from.find((c) => c.key === key)?.label ?? '';
+  };
+
+  const summarise = () => {
+    if (task.dataset.mode === 'dense') return 'Nothing set yet';
+    return `${chosen('fmt', FORMAT)}, ${chosen('range', RANGE).toLowerCase()}`;
+  };
+
   // Delegated, because the task's contents are rewritten whenever the build changes.
   task.addEventListener('click', (event) => {
     const picked = (event.target as HTMLElement).closest<HTMLElement>('[data-pick]');
@@ -138,6 +147,7 @@ export function mount(root: HTMLElement): void {
       el.setAttribute('aria-checked', String(on));
       flag(el, 'data-selected', on);
     }
+    readout.textContent = summarise();
   });
 
   part(root, 'segmented').addEventListener('change', (event) => {
@@ -145,7 +155,7 @@ export function mount(root: HTMLElement): void {
     task.dataset.mode = next;
     task.innerHTML = next === 'dense' ? dense() : calm();
     readout.dataset.state = next;
-    readout.textContent = READOUT[next];
+    readout.textContent = summarise();
     caption.dataset.case = next;
     caption.textContent = CAPTION[next];
   });

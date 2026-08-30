@@ -62,7 +62,14 @@ const EFFECT: Record<string, string> = {
  * The subject is the cluster of three buttons, not the title bar that carries it and not
  * either button alone: the term names the group. It is honestly a window control cluster
  * at both placements, so no `data-pose` condition is needed. The title, the document
- * behind it, the picker and the readout line are scenery.
+ * behind it and the picker are scenery.
+ *
+ * The line that reads the cluster ("macOS: three discs at the left, close outermost.",
+ * and an effect once a control is pressed) is the author's reading of the state the
+ * picker produced, not anything this window would print, so it is marked
+ * `data-stage-verdict` and the stage draws it in the strip (SPEC §5.1). A choreography
+ * still aims at `[data-part=action]`, because the strip's copy mirrors the source's
+ * `data-*`.
  *
  * Pressing a control reports its effect rather than performing it, because a specimen may
  * not reach past the stage (SPEC §5): a demo that really closed its window would leave
@@ -104,6 +111,7 @@ export function mount(root: HTMLElement): void {
         </sp-segmented>
         <span
           class="sp-label sp-grow"
+          data-stage-verdict
           data-part="action"
           data-act="none"
           role="status"

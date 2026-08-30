@@ -26,12 +26,12 @@ type Cell = {
 const CELLS: Cell[] = [
   { literal: '-&gt;', alternate: '→', part: 'arrow', label: 'arrow' },
   { literal: '!=', alternate: '≠', part: 'noteq', label: 'not equal' },
-  { literal: 'n-1', alternate: null, part: 'plain', label: 'no rule for this one' },
+  { literal: 'n-1', alternate: null, part: 'plain', label: 'hyphen' },
 ];
 
 const READ = {
-  on: 'calt on: the pair is redrawn, the lone hyphen is not',
-  off: 'calt off: every character keeps its own drawing',
+  on: 'calt on',
+  off: 'calt off',
 } as const;
 
 type Mode = keyof typeof READ;
@@ -50,6 +50,13 @@ const IS_MODE = (value: string): value is Mode => value in READ;
  * condition is declared in `data-pose` and the specimen mounts with the feature
  * on (SPEC §6). The picker, the labels, the readout and the caption are the
  * demo's own instrumentation and stay in the context register.
+ *
+ * Three strings were the site talking over its own specimen. A line above the samples read
+ * "the neighbour decides which drawing is used", which is the definition, and went. The third
+ * cell was labelled "no rule for this one" where its neighbours were labelled by glyph name,
+ * so it is labelled "hyphen" now. The readout chip spelled out what to look at ("calt on: the
+ * pair is redrawn, the lone hyphen is not") and now prints the feature state alone, the way a
+ * type tester would; the strip's caption already carries the reading.
  *
  * Nothing is measured and nothing moves: each alternate is absolutely positioned
  * over its own run, and the literal characters keep their space by going
@@ -80,10 +87,7 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" data-part="seg-on" value="on">contextual</button>
           </sp-segmented>
         </div>
-        <span class="sp-label sp-context" style="display: block; margin-top: 12px">
-          the neighbour decides which drawing is used
-        </span>
-        <div class="sp-row" data-part="samples" style="justify-content: center; gap: 12px; height: 84px; margin-top: 2px">
+        <div class="sp-row" data-part="samples" style="justify-content: center; gap: 12px; height: 84px; margin-top: 14px">
           ${CELLS.map(cell).join('')}
         </div>
         <div class="sp-row sp-context" style="height: 30px">

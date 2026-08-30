@@ -45,6 +45,10 @@ type Mode = keyof typeof CAPTION;
  * gesture inside a specimen can ever move the page the specimen is on, which is the other
  * reason the handoff here is drawn rather than performed.
  *
+ * The topbar's line is the same readout the handoff writes, so it opens on the state it is
+ * already in. It read "Scroll the panel to its end" at mount, which was the site telling the
+ * reader what to do rather than the panel reporting anything.
+ *
  * Both scrollers keep their boxes and the rulers keep their widths, so a handoff moves
  * content and nothing else (SPEC §5).
  */
@@ -73,7 +77,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 272px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Harbour notes</span>
-          <span class="sp-text" data-part="readout" style="width: 200px; text-align: right; white-space: nowrap">Scroll the panel to its end</span>
+          <span class="sp-text" data-part="readout" style="width: 200px; text-align: right; white-space: nowrap">Room left in the panel</span>
         </div>
         <div class="sp-body" style="position: relative; padding: 0">
           <div

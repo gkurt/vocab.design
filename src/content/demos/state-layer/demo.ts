@@ -15,6 +15,12 @@ const PRESS_HOLD_MS = 800;
  * State layer specimen: one button whose container colour never changes. Hover and
  * press only raise the opacity of the sheet lying over it, drawn in the button's
  * own content colour.
+ *
+ * The key beside the button is a legend and says only what each swatch is. It used
+ * to argue as well as name ("One button, three layers", "label, never dimmed",
+ * "container, one colour", "state layer, 0 / 8 / 12%"), which is the site talking
+ * inside the frame. The percentages left with it: the readout above already prints
+ * the live one, state by state.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -30,19 +36,19 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-context" data-part="exploded" style="margin-top: 18px">
-          <span class="sp-label">One button, three layers</span>
+          <span class="sp-label">Layers</span>
           <div class="sp-stack" style="gap: 5px; margin-top: 8px">
             <div class="sp-row">
               <span class="sp-surface" style="width: 58px; height: 16px"></span>
-              <span class="sp-text">label, never dimmed</span>
+              <span class="sp-text">Label</span>
             </div>
             <div class="sp-row">
               <span class="sp-swatch" style="width: 58px; height: 16px; --sp-swatch: color-mix(in oklab, var(--sp-ink) 12%, transparent)"></span>
-              <span class="sp-text">state layer, 0 / 8 / 12%</span>
+              <span class="sp-text">State layer</span>
             </div>
             <div class="sp-row">
               <span class="sp-swatch" style="width: 58px; height: 16px; --sp-swatch: var(--sp-sunken)"></span>
-              <span class="sp-text">container, one colour</span>
+              <span class="sp-text">Container</span>
             </div>
           </div>
         </div>

@@ -26,6 +26,15 @@ const px = (size: number, em: number) => `${(size * em).toFixed(size * em === Ma
  * row and the caption are the demo's own instrumentation and stay in the context
  * register. Both slots hold the room the 20px card needs, so the growth happens
  * inside reserved space.
+ *
+ * The window used to carry a heading reading "One card, two font sizes", and the two
+ * slots were captioned "written in em" and "written in px". Both were the site
+ * describing its own exhibit inside the frame. The heading went entirely (the strip's
+ * mode switch already names the axis), and the slot captions are now the bare unit
+ * names, which read as the labels of a comparison rather than as narration. The trace row
+ * stays: it is the em card's own declarations and what each resolves to at the size in
+ * force, which is data the term is about rather than the site speaking, and it is spelled
+ * as declarations so it reads that way.
  */
 export function mount(root: HTMLElement): void {
   const card = (kind: 'em' | 'px') => {
@@ -56,14 +65,13 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One card, two font sizes</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-axis="Font size" data-value="14">
             ${SIZES.map((s) => `<button class="sp-segment" data-part="seg-${s}" value="${s}">${s}px</button>`).join('')}
           </sp-segmented>
         </div>
         <div class="sp-row" style="gap: 14px; margin-top: 10px; align-items: flex-start">
-          ${slot('written in em', 'em')}
-          ${slot('written in px', 'px')}
+          ${slot('em', 'em')}
+          ${slot('px', 'px')}
         </div>
         <div class="sp-row sp-context" data-part="trace" style="gap: 16px; height: 18px;
              font-variant-numeric: tabular-nums"></div>
@@ -83,7 +91,7 @@ export function mount(root: HTMLElement): void {
     if (!size) return;
     em.dataset.size = String(size);
     em.style.fontSize = `${size}px`;
-    trace.innerHTML = DECLARED.map((d) => `<span class="sp-label">${d.name} ${d.em}em = ${px(size, d.em)}</span>`).join('');
+    trace.innerHTML = DECLARED.map((d) => `<span class="sp-label">${d.name}: ${d.em}em = ${px(size, d.em)}</span>`).join('');
   };
 
   apply('14');

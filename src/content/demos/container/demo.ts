@@ -15,6 +15,12 @@ const PAD = 16;
  * viewport it sits in, the full width band above it, and the width switcher are the
  * scene it has to be read against, so they carry the context register (SPEC §5).
  *
+ * The band across the top of the viewport used to be labelled "full width band", which is
+ * the site naming its own diagram inside a page about tides; it carries a notice a tide site
+ * would really run instead, and the band being full width is visible without being said. The
+ * measurement line under the viewport changes with the width switch, so it is marked
+ * `data-stage-verdict` and the stage draws it in the strip rather than inside the frame.
+ *
  * The resulting width is arithmetic rather than a measurement, because the only
  * inputs are the viewport width, the cap and the padding, and a demo that measures
  * straight after writing a style is reading the value it just replaced.
@@ -37,7 +43,7 @@ export function mount(root: HTMLElement): void {
             style="display: flex; flex-direction: column; width: ${WIDTHS.narrow}px; height: 158px; background: var(--sp-sunken); border: 1px solid var(--sp-line); border-radius: var(--sp-radius); overflow: hidden"
           >
             <div class="sp-context" data-part="bleed" style="padding: 6px 0; text-align: center; background: var(--sp-line)">
-              <span class="sp-label">full width band</span>
+              <span class="sp-label">Spring tides, 12 to 15 March</span>
             </div>
             <div
               class="sp-stack"
@@ -52,9 +58,8 @@ export function mount(root: HTMLElement): void {
               <div class="sp-line" style="width: 61%"></div>
             </div>
           </div>
-          <div class="sp-row sp-context" style="height: 20px; margin-top: 10px">
-            <span class="sp-text" data-part="readout" style="font-variant-numeric: tabular-nums"></span>
-          </div>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout"
+                style="margin-top: 10px; font-variant-numeric: tabular-nums"></span>
         </div>
       </div>
     </div>

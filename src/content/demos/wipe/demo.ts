@@ -37,12 +37,14 @@ const PLATES = [HARBOUR, OFFSHORE];
  * edge is visible as an edge.
  *
  * The subject is the slot, since the term names what happens between the two plates
- * rather than either plate; the picker, the frame, and the caption are scenery.
+ * rather than either plate; the picker and the frame are scenery.
  *
  * A clip changes what is painted and never what is measured, so both plates stay laid
  * out at full size for the whole span and nothing around them moves (SPEC §5). The frame
- * is tall enough for the picker, the slot at its stated height and the caption on the two
- * lines it takes at this width, so none of them is cut. Each
+ * is tall enough for the picker and the slot at its stated height, so neither is cut. A
+ * caption under the slot once read "Neither picture moves. Only the boundary between them
+ * travels.", which is the article's sentence printed inside a photo reel; it is gone and
+ * the travel says it. Each
  * segment resolves to an absolute plate rather than flipping whichever one is showing
  * (SPEC §8). The travel is two CSS transitions started in the same tick with identical
  * linear timing, so `motion.css` flattens both together for a reader who asked for less
@@ -94,9 +96,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                      background: var(--sp-accent); transition: ${EDGE_TRAVEL}"
             ></span>
           </div>
-          <p class="sp-text sp-context" style="margin: 8px 0 0">
-            Neither picture moves. Only the boundary between them travels.
-          </p>
         </div>
       </div>
     </div>

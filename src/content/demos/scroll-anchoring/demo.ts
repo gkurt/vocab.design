@@ -46,6 +46,10 @@ const feedPanel = (key: 'anchored' | 'loose', title: string, note: string, subje
  * draw its own handoff. The arithmetic is the browser's, and the property that turns the
  * real thing on and off is named in the prose.
  *
+ * The topbar's line is a plain count of what the thread holds. It read "Load older items
+ * above the view" at rest, which was an instruction to the reader rather than anything a
+ * thread would print, and the button beside the panels already says what it does.
+ *
  * Rows are a fixed height and both panels keep their boxes, so the reading line is exact
  * and an insertion moves content inside a scroller and nothing else (SPEC §5).
  */
@@ -55,7 +59,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 288px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Thread</span>
-          <span class="sp-text" data-part="readout" style="width: 226px; text-align: right; white-space: nowrap">Load older items above the view</span>
+          <span class="sp-text" data-part="readout" style="width: 226px; text-align: right; white-space: nowrap">12 messages</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
           <div class="sp-row" style="gap: 10px; align-items: flex-start">
@@ -106,7 +110,7 @@ export function mount(root: HTMLElement): void {
       if (feed.holds) feed.panel.scrollTop += arriving.length * STRIDE;
       sync(feed);
     }
-    readout.textContent = 'Two items arrived above the reading position';
+    readout.textContent = `${MESSAGES.length + loaded} messages`;
   });
 
   for (const feed of feeds) {

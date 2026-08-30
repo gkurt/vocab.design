@@ -9,9 +9,14 @@
  * assembled from kit tokens would be demonstrating the kit.
  *
  * The subject is the angled composition, not the pair and not the square copy: the term
- * names the composition (SPEC §5). The square version, the labels and the caption are the
- * scenery that makes the angle legible. The word on the poster is the movement's own name
+ * names the composition (SPEC §5). The square version, the plate labels and the caption are
+ * the scenery that makes the angle legible. The word on the poster is the movement's own name
  * for what it did, not a period slogan.
+ *
+ * Each plate once carried a line of the site's own commentary under its label ("Two inks, a
+ * montage block, capitals riding the bar." and "The same parts with the angle taken back
+ * out."), and the labels themselves argued the case ("On the angle", "Set square"). The notes
+ * went and the labels now just name the two plates; the article does the reading.
  *
  * Static: a printed poster has no states, so there is nothing to animate and no clock.
  *
@@ -83,11 +88,10 @@ export function mount(root: HTMLElement): void {
       ${inner}
     </span>`;
 
-  const column = (label: string, note: string, body: string, context: boolean): string => `
+  const column = (label: string, body: string, context: boolean): string => `
     <div class="sp-stack${context ? ' sp-context' : ''}" style="flex: 0 0 ${W}px; gap: 5px; align-items: stretch">
       ${body}
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 
   root.innerHTML = `
@@ -96,8 +100,8 @@ export function mount(root: HTMLElement): void {
         <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">The angle is the argument</span>
 
         <div class="sp-row" data-part="tour" style="gap: 12px; align-items: flex-start; justify-content: center">
-          ${column('On the angle', 'Two inks, a montage block, capitals riding the bar.', poster('composition', angled, ' data-subject'), false)}
-          ${column('Set square', 'The same parts with the angle taken back out.', poster('square', square), true)}
+          ${column('Angled', poster('composition', angled, ' data-subject'), false)}
+          ${column('Square', poster('square', square), true)}
         </div>
       </div>
 

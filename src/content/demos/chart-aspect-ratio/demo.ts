@@ -31,21 +31,21 @@ const SHAPES: Shape[] = [
     label: 'banked',
     w: 222,
     h: 131,
-    note: "Banked: the average segment sits at 45 degrees, where the eye judges a difference in slope best. Cleveland's target.",
+    note: 'Banked: the average segment sits at 45 degrees, where a difference in slope is easiest to judge.',
   },
   {
     key: 'wide',
     label: 'wide',
     w: SLOT_W,
     h: 86,
-    note: 'Wide and short: the average segment flattens, and a series that swings 15 points a week reads as a gentle drift.',
+    note: 'Wide and short: the slopes flatten, and a series that swings 15 points a week reads as a drift.',
   },
   {
     key: 'tall',
     label: 'tall',
     w: 134,
     h: SLOT_H,
-    note: 'Tall and narrow: the same twelve numbers, and now every week reads as a spike. Only the frame changed.',
+    note: 'Tall and narrow: the same twelve numbers, and every week reads as a spike.',
   },
 ];
 
@@ -76,14 +76,19 @@ const segment = (shape: Shape) => `
  *
  * The subject is the plot frame, the box whose shape sets the slopes, rather than the line inside
  * it or the card around it (SPEC §5). Every shape is honestly the term (a badly chosen ratio is
- * still a chart aspect ratio), so no `data-pose` condition is needed. The picker, the marker and
- * the caption are scenery in the context register.
+ * still a chart aspect ratio), so no `data-pose` condition is needed. The picker and the marker
+ * are scenery in the context register.
  *
  * The frame is reshaped inside a slot held at the largest shape and anchored to its bottom left
  * corner, so the value axis and everything around it stay exactly where they were (SPEC §5). The
  * line is drawn in a stretched view box with a non-scaling stroke, so reshaping the frame is one
  * transition on the frame itself rather than a redraw. Angles are computed from the shape's own
  * numbers, never measured back off the element after a style write (SPEC §5).
+ *
+ * The reading of each shape used to sit under the chart, inside the card, where no dashboard
+ * would print it. It changes with the shape, so it is that switch's verdict: it carries
+ * `data-stage-verdict` and the stage draws it in the strip. It keeps the room it reserved,
+ * because a listing card draws no strip and still shows the line.
  */
 export function mount(root: HTMLElement): void {
   const first = SHAPES[0] as Shape;
@@ -144,7 +149,7 @@ export function mount(root: HTMLElement): void {
               <span class="sp-label" style="font-size: 10px">dashed: 45°</span>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" data-shape="${first.key}" style="flex: 0 0 auto; height: 40px"></span>
         </div>
       </div>
     </div>
@@ -160,6 +165,7 @@ export function mount(root: HTMLElement): void {
     if (!shape) return;
     const degrees = angleFor(shape);
     frame.dataset.shape = shape.key;
+    readout.dataset.shape = shape.key;
     frame.dataset.angle = String(Math.round(degrees));
     frame.style.width = `${shape.w}px`;
     frame.style.height = `${shape.h}px`;

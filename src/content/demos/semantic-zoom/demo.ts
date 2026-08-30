@@ -15,7 +15,6 @@ interface Level {
   /** The factor at which this drawing takes over. The steps are a ladder, not a slope. */
   from: number;
   heading: string;
-  note: string;
 }
 
 const LEVELS: Level[] = [
@@ -24,21 +23,18 @@ const LEVELS: Level[] = [
     unit: 'year',
     from: MIN_Z,
     heading: '2020 to 2025',
-    note: 'Zoomed out: one bar per year. Not the same chart shrunk, a different drawing whose unit is a year.',
   },
   {
     key: 'months',
     unit: 'month',
     from: 2.2,
     heading: '2024, by month',
-    note: 'One step in and the unit becomes a month. The same record, redrawn, with no pixel scaled to get here.',
   },
   {
     key: 'events',
     unit: 'entry',
     from: 4.4,
     heading: 'March 2024',
-    note: 'Zoomed in: individual entries, each with its own label. Nothing was revealed, the representation was swapped.',
   },
 ];
 
@@ -113,8 +109,14 @@ const view = (key: string, heading: string, body: string) => `
  *
  * The subject is the zooming region, the place whose drawing changes, rather than any one view
  * inside it or the whole scene (SPEC §5). Every level is honestly the term, so no `data-pose`
- * condition is needed. The window chrome, the factor readout and the note are scenery in the
- * context register.
+ * condition is needed. The window chrome and the factor readout are scenery in the context
+ * register.
+ *
+ * Two lines of the site's own voice used to sit under the region: a note per level ("Zoomed
+ * out: one bar per year. Not the same chart shrunk, a different drawing whose unit is a
+ * year.") and a line telling the reader how to pinch. Neither belongs to a project history,
+ * the levels say what they are in their own headings, and the frame lost the height both
+ * took.
  *
  * The three views are stacked in one box of a fixed size and only one is on stage at a time, so
  * changing level redraws the region and moves nothing around it (SPEC §5). That stacking is also
@@ -126,7 +128,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 314px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 242px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Harbour project, history</span>
           <span class="sp-text" data-part="factor" style="width: 168px; text-align: right; white-space: nowrap"></span>
@@ -156,17 +158,12 @@ export function mount(root: HTMLElement): void {
               </ul>`,
             )}
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 40px; width: 442px"></span>
         </div>
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          Pinch the region with two fingers or a trackpad; a mouse holds Ctrl and drags.
-        </span>
       </div>
     </div>
   `;
 
   const zoom = part(root, 'zoom');
-  const readout = part(root, 'readout');
   const factor = part(root, 'factor');
   const views = LEVELS.map((level) => ({ key: level.key, element: part(root, `view-${level.key}`) }));
 
@@ -179,7 +176,6 @@ export function mount(root: HTMLElement): void {
     const level = levelFor(z);
     zoom.dataset.level = level.key;
     for (const { key, element } of views) element.hidden = key !== level.key;
-    readout.textContent = level.note;
     factor.textContent = `Zoom ${z.toFixed(1)}x, unit: ${level.unit}`;
   };
 

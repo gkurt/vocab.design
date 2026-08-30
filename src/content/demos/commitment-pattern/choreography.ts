@@ -9,6 +9,5 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=read-page]', state: 'visible' } },
   { assert: { selector: '[data-part=skim-page]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout]', state: 'visible' } },
   { wait: 1600 },
 ]);

@@ -22,8 +22,12 @@ const FOCUS = {
  * is what a reader's software needs in order to notice the text arriving at all, so it has
  * no box until the save happens and identify summons it by fast-forwarding the script
  * (SPEC §6). Its slot holds the room from mount, so arriving moves nothing (SPEC §5). The
- * silent copy below is the counterexample and says so in its own caption; both save buttons
- * and the reader strip are scenery.
+ * silent copy below is the counterexample; both save buttons and the reader strip are
+ * scenery.
+ *
+ * Each row once carried a line of markup commentary under its setting name ("Marked up with
+ * role=status", "A plain span (the mistake)"). A settings panel prints neither, and the
+ * difference the words claimed is exactly what the reader strip demonstrates, so both went.
  *
  * No timers: politeness and queueing belong to the live region term, and this specimen is
  * about whether the change is announced at all.
@@ -37,7 +41,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-row--between" style="margin-top: 10px; gap: 12px">
           <div class="sp-context">
             <span class="sp-text sp-text--ink">Email notifications</span>
-            <p class="sp-text" style="margin: 2px 0 0; font-size: 11px">Marked up with role="status"</p>
           </div>
           <div class="sp-row" style="gap: 10px">
             <div style="width: 62px; height: 20px; text-align: right">
@@ -53,7 +56,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-row--between sp-context" style="gap: 12px">
           <div>
             <span class="sp-text sp-text--ink">Profile photo</span>
-            <p class="sp-text" style="margin: 2px 0 0; font-size: 11px">A plain span (the mistake)</p>
           </div>
           <div class="sp-row" style="gap: 10px">
             <div style="width: 62px; height: 20px; text-align: right">

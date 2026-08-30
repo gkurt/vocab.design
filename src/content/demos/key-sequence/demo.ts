@@ -31,6 +31,12 @@ const START = 'drafts';
  *
  * The readout holds its widths and the meter is always in the tree, so a sequence starting,
  * completing, or expiring moves nothing (SPEC §5).
+ *
+ * Two lines of the site's voice have gone. The title bar told the reader to "Type g then i,
+ * s, or d", which the folder rows already show the way a mail app really shows a shortcut,
+ * and a line under the meter read "The prefix waits 1.6 s for the next key, then gives up."
+ * The meter draws that window, and the readout names the expiry when it happens, so the
+ * sentence was only the article repeating itself inside the frame.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const folders = FOLDERS.map(
@@ -52,7 +58,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 254px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Mail</span>
-          <span class="sp-label">Type <span class="sp-kbd">g</span> then <span class="sp-kbd">i</span>, <span class="sp-kbd">s</span>, or <span class="sp-kbd">d</span></span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px">
           <div
@@ -76,7 +81,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <div class="sp-progress" data-part="meter" style="--sp-value: 0%">
               <div class="sp-progress-fill" style="transition: width ${TICK_MS}ms linear"></div>
             </div>
-            <span class="sp-label" style="font-size: 11px">The prefix waits ${WINDOW_MS / 1000} s for the next key, then gives up.</span>
           </div>
           <div class="sp-row sp-context" style="gap: 8px">${folders}</div>
           <div class="sp-stack sp-context sp-grow" data-part="pane" style="gap: 6px; justify-content: center">

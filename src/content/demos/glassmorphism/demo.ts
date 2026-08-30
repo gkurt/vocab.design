@@ -5,6 +5,9 @@ import { part } from '#src/kit/parts.ts';
  * Glassmorphism specimen: a translucent panel that blurs and tints whatever it
  * is over, held apart from the backdrop by a hairline edge and a soft shadow.
  * The panel can be dragged, because the effect only proves itself in motion.
+ *
+ * The panel's second line is a track and an album, as a player would print. It used to read
+ * "Blur, tint, hairline edge", which names the effect rather than anything the app knows.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -20,7 +23,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-glass" data-part="panel" data-subject
            style="position: absolute; left: 58%; top: 22%; width: 190px; padding: 14px; cursor: grab; touch-action: none">
         <div style="font-weight: 600">Now playing</div>
-        <div style="font-size: 12px; opacity: 0.85; margin-top: 2px">Blur, tint, hairline edge</div>
+        <div style="font-size: 12px; opacity: 0.85; margin-top: 2px">Nightjar, The Long Sun</div>
         <div style="height: 4px; border-radius: 2px; background: rgb(255 255 255 / 0.35); margin-top: 12px">
           <div style="width: 42%; height: 100%; border-radius: 2px; background: #fff"></div>
         </div>

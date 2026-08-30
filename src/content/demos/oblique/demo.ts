@@ -21,17 +21,17 @@ const SHEAR = `display: inline-block; transform: skewX(-${ANGLE}deg); transform-
 const MODES = {
   roman: {
     css: 'font-style: normal',
-    read: 'the upright drawing',
+    decl: 'font-style: normal',
     note: 'The reference. Every letter as the family draws it standing up.',
   },
   italic: {
     css: 'font-style: italic',
-    read: 'a second set of drawings',
+    decl: 'font-style: italic',
     note: 'The a closes to one storey and the f grows a descender: different letters, not the same ones leaning.',
   },
   oblique: {
     css: SHEAR,
-    read: `the roman sheared ${ANGLE} degrees`,
+    decl: `transform: skewX(-${ANGLE}deg)`,
     note: 'Same letters, leaning. Nothing is redrawn, so the live letter lands exactly on the pale one behind it.',
   },
 } as const;
@@ -51,6 +51,11 @@ const GLYPH = 'a';
  * ghost of the roman sheared by the same angle, at the same size and origin, so
  * the claim is checkable rather than asserted: on the oblique setting the two
  * coincide exactly, and on the italic setting they cannot be made to.
+ *
+ * The chip beside the detail prints the declaration actually in force, which is what a
+ * specimen viewer shows: it used to read "the roman sheared 12 degrees", the site naming
+ * its own exhibit. The line under the note ("the pale letter behind is the roman, sheared")
+ * went for the same reason, and the note in the strip already says the two coincide.
  *
  * The subject is the set line, which is the text the slant is applied to. Two of
  * the three settings are the reference rather than the term, so the honest
@@ -89,9 +94,8 @@ export function mount(root: HTMLElement): void {
                   style="${glyphStyle(MODES.oblique.css)}">${GLYPH}</span>
           </div>
           <div class="sp-stack" style="gap: 6px; padding-top: 2px">
-            <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${MODES.oblique.read}</span>
+            <span class="sp-chip" data-part="readout" style="cursor: default; align-self: flex-start">${MODES.oblique.decl}</span>
             <p class="sp-text" data-stage-verdict data-part="note" style="margin: 0; width: 290px; height: 59px">${MODES.oblique.note}</p>
-            <span class="sp-label">the pale letter behind is the roman, sheared</span>
           </div>
         </div>
       </div>
@@ -111,7 +115,7 @@ export function mount(root: HTMLElement): void {
     flag(line, 'data-sheared', value === 'oblique');
     line.style.cssText = lineStyle(mode.css);
     live.style.cssText = glyphStyle(mode.css);
-    readout.textContent = mode.read;
+    readout.textContent = mode.decl;
     note.textContent = mode.note;
   });
 }

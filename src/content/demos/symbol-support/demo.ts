@@ -36,12 +36,6 @@ const CAPTION = {
   line: 'A second reader, a second set, the same three codes. This is why the author supplies a code and never a drawing.',
 } as const;
 
-const LEGEND = {
-  words: 'no symbol set installed',
-  rounded: 'reader A, rounded set',
-  line: 'reader B, line set',
-} as const;
-
 /**
  * Symbol support specimen: one toolbar of three controls, each carrying the concept code of what it
  * means, seen by three readers: one with no symbol set, and two whose sets draw the same codes
@@ -59,6 +53,13 @@ const LEGEND = {
  *
  * No timers: every state here is reached by a press, so the specimen needs no clock. Each control
  * keeps its size in all three states, so swapping a word for a picture moves nothing (SPEC §5).
+ *
+ * Three lines of the site's own voice went. The row above the picker read "One page, three
+ * readers", a caption on the whole exhibit rather than a label on anything. A line under the deck
+ * read "The same three codes go to every reader; only the rendering differs.", which the codes
+ * printed under each control already show. And the deck's right-hand legend named the reader on
+ * screen ("no symbol set installed", "reader A, rounded set", "reader B, line set"), which the
+ * picker in the strip and the verdict beside it both already say.
  */
 export function mount(root: HTMLElement): void {
   const control = (concept: Concept, index: number) => `
@@ -78,8 +79,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One page, three readers</span>
+        <div class="sp-row sp-context" style="gap: 10px; justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Labels" data-part="mode" data-value="words" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-words" value="words"
                     style="padding: 3px 10px; font-size: 11px; white-space: nowrap">Words</button>
@@ -91,17 +91,13 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface" data-part="deck" data-set="words" style="margin-top: 10px; padding: 9px 10px">
-          <div class="sp-row sp-row--between sp-context" style="gap: 10px; height: 14px">
+          <div class="sp-row sp-context" style="gap: 10px; height: 14px">
             <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">Reply to the message</span>
-            <span class="sp-label" data-part="legend" style="flex: 0 0 auto; font-size: 10px">${LEGEND.words}</span>
           </div>
           <div class="sp-row" style="margin-top: 7px; gap: 10px; align-items: flex-start">
             ${CONCEPTS.map(control).join('')}
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 9px 0 0; height: 16px; font-size: 11px; line-height: 16px;
-                                             white-space: nowrap">The same three codes go to every reader; only the rendering differs.</p>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-set="words"
            style="margin: 7px 0 0; height: 30px; font-size: 11px; line-height: 1.35">${CAPTION.words}</p>
@@ -110,7 +106,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const deck = part(root, 'deck');
-  const legend = part(root, 'legend');
   const caption = part(root, 'caption');
   const words = CONCEPTS.map((concept) => part(root, `word-${concept.key}`));
   const symbols = CONCEPTS.map((concept) => part(root, `sym-${concept.key}`));
@@ -120,7 +115,6 @@ export function mount(root: HTMLElement): void {
 
   const apply = (next: Set) => {
     deck.dataset.set = next;
-    legend.textContent = LEGEND[next];
     caption.dataset.set = next;
     caption.textContent = CAPTION[next];
 

@@ -3,20 +3,19 @@ import '#src/kit/segmented.ts';
 
 type Naming = 'contains' | 'replaces';
 
-type Case = { name: string; contains: boolean; answer: string };
+type Case = { name: string; contains: boolean };
 
 /** The visible label never changes. Only the accessible name set on the control does. */
 const VISIBLE = 'Send';
 
 const CASES: Record<Naming, Case> = {
-  contains: { name: 'Send message', contains: true, answer: '“Send” matched. The button activates.' },
-  replaces: { name: 'Submit form', contains: false, answer: 'No match. Nothing here is called Send.' },
+  contains: { name: 'Send message', contains: true },
+  replaces: { name: 'Submit form', contains: false },
 };
 
-const CAPTION: Record<Naming, string> = {
-  contains: 'Contain, not equal. The name may say more than the button does, as long as the words on the button are somewhere inside it.',
-  replaces:
-    'aria-label replaces the content rather than adding to it, so a well meant clarification deletes the only words the user can say.',
+const VERDICT: Record<Naming, string> = {
+  contains: 'Said “Click Send”: the word on the button is inside its name, so the button activates.',
+  replaces: 'Said “Click Send”: nothing here is called Send, so the command reaches nothing.',
 };
 
 /**
@@ -26,8 +25,14 @@ const CAPTION: Record<Naming, string> = {
  * the whole of criterion 2.5.3 in one control.
  *
  * The subject is the button, the narrowest element the term names: the rule is a constraint
- * on one control's name, not on the form around it. The segmented control, the form, the
- * comparison row, the spoken command, the answer line and the caption are scenery (SPEC §5).
+ * on one control's name, not on the form around it. The segmented control, the form and the
+ * inspector row are scenery (SPEC §5).
+ *
+ * The spoken command used to be acted out inside the window: a label reading "The reader says
+ * “Click Send”" beside a line saying whether it matched. There is no voice control in the
+ * scene for that label to name, and both halves change with the switch, so the two are one
+ * verdict now and the stage draws it in the strip. It replaced a verdict about contain versus
+ * equal, which the article already argues.
  * The mismatch is the pedagogical point and it is a state the subject itself passes through,
  * so the honest condition lives in `data-pose` and the mount state satisfies it: identify
  * refuses to ring a button whose name has swallowed its label, and plays on until the
@@ -80,15 +85,8 @@ export function mount(root: HTMLElement): void {
           ${cell('Name contains label', 'contains', 'Yes')}
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 17px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The reader says “Click Send”</span>
-          <span class="sp-text sp-text--ink" data-part="answer" data-ok="yes"
-                style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${CASES.contains.answer}</span>
-        </div>
-
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-name="contains"
-           style="margin: 7px 0 0; height: 32px; font-size: 11px">${CAPTION.contains}</p>
       </div>
+      <p data-stage-verdict data-part="answer" data-ok="yes" data-name="contains">${VERDICT.contains}</p>
     </div>
   `;
 
@@ -96,7 +94,6 @@ export function mount(root: HTMLElement): void {
   const aname = part(root, 'aname');
   const contains = part(root, 'contains');
   const answer = part(root, 'answer');
-  const caption = part(root, 'caption');
 
   const apply = (naming: Naming) => {
     const spec = CASES[naming];
@@ -107,9 +104,8 @@ export function mount(root: HTMLElement): void {
     contains.dataset.ok = spec.contains ? 'yes' : 'no';
     contains.textContent = spec.contains ? 'Yes' : 'No';
     answer.dataset.ok = spec.contains ? 'yes' : 'no';
-    answer.textContent = spec.answer;
-    caption.dataset.name = naming;
-    caption.textContent = CAPTION[naming];
+    answer.dataset.name = naming;
+    answer.textContent = VERDICT[naming];
   };
 
   apply('contains');

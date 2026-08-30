@@ -6,12 +6,6 @@ const CHANNELS = ['touch', 'voice', 'gaze'] as const;
 
 type Channel = (typeof CHANNELS)[number];
 
-const CHANNEL_LABEL: Record<Channel, string> = {
-  touch: 'Input channel: touch',
-  voice: 'Input channel: voice',
-  gaze: 'Input channel: gaze plus pinch',
-};
-
 const SOURCE: Record<Channel, string> = {
   touch: 'Set by tap',
   voice: 'Set by voice',
@@ -41,6 +35,11 @@ const HEARD_AFTER = 600;
  * register for the reason a chart's legend does: it is apparatus the demonstration needs,
  * not scenery around it. The topbar and the note below the frame are scenery.
  *
+ * The strip carried a header row reading "Input channel: touch" against "All three reach one
+ * setter". The first was the mode switch spelled a second time inside the fiction and the second
+ * was the site stating its own claim, so the row went and the strip is cut to the panels; which
+ * channel is live is visible in the panel that is showing, and the choreography reads that.
+ *
  * No `data-pose`: an unset timer is the task surface before the task, not a counter-example,
  * so identify may honestly ring it at any point in the pass. The strip's three panels are
  * stacked in one absolutely positioned box of fixed height and the transcript keeps its line
@@ -49,7 +48,7 @@ const HEARD_AFTER = 600;
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 240px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 226px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Kitchen hub</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="channel-pick" data-value="touch" data-axis="Channel">
@@ -77,12 +76,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </span>
           </div>
 
-          <div class="sp-surface" data-part="strip" style="flex: 0 0 auto; height: 100px; padding: 10px 12px">
-            <div class="sp-row sp-row--between" style="height: 16px">
-              <span class="sp-label" data-part="channel-name" data-mode="touch" style="font-size: 11px; color: var(--sp-ink)">${CHANNEL_LABEL.touch}</span>
-              <span class="sp-label" style="font-size: 11px">All three reach one setter</span>
-            </div>
-            <div style="position: relative; height: 56px; margin-top: 6px">
+          <div class="sp-surface" data-part="strip" style="flex: 0 0 auto; height: 80px; padding: 10px 12px">
+            <div style="position: relative; height: 56px">
 
               <div data-part="panel-touch" class="sp-row" style="position: absolute; inset: 0; gap: 12px">
                 <button class="sp-button" type="button" data-part="tap-preset">Start 10 min</button>
@@ -123,7 +118,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const face = part(root, 'face');
   const status = part(root, 'status');
   const source = part(root, 'source');
-  const channelName = part(root, 'channel-name');
   const transcript = part(root, 'transcript');
   const note = part(root, 'note');
 
@@ -143,8 +137,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     channel = next;
     clock.clearTimeout(heard);
     transcript.style.opacity = '0';
-    channelName.dataset.mode = next;
-    channelName.textContent = CHANNEL_LABEL[next];
     note.textContent = NOTE[next];
     for (const name of CHANNELS) flag(part(root, `panel-${name}`), 'hidden', name !== next);
   };

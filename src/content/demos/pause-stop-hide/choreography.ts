@@ -21,7 +21,6 @@ export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=offered][data-value=none]', state: 'visible' } },
   { assert: { selector: '[data-part=pause]', state: 'hidden' } },
-  { assert: { selector: '[data-part=offers][data-offered=none]', state: 'visible' } },
   { assert: { selector: '[data-part=scene][data-motion=running]', state: 'visible' } },
   { wait: 1300 },
 

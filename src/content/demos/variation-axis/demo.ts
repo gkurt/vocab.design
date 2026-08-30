@@ -44,6 +44,10 @@ const landmarkAt = (value: number) => {
  * record chips and the readout report on it and stay in the context register
  * (SPEC §5). The word is on the axis at every value the slider can reach, so it
  * is never dishonest and needs no `data-pose`.
+ *
+ * The header's left label read "one axis of one file", which was the site describing
+ * the panel rather than the panel labelling itself. It names the loaded face now, which
+ * is what an inspector prints there and what keeps the declaration on the right.
  */
 export function mount(root: HTMLElement): void {
   const stops = [MIN, DEFAULT, MAX]
@@ -61,7 +65,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">one axis of one file</span>
+          <span class="sp-label">Geist Variable</span>
           <span class="sp-label" data-part="declaration"
                 style="color: var(--sp-ink); font-variant-numeric: tabular-nums"></span>
         </div>

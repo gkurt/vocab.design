@@ -28,19 +28,16 @@ const PASSAGE = [
 const MODES = {
   horizontal: {
     css: 'writing-mode: horizontal-tb',
-    read: 'horizontal-tb: characters run left, lines run down',
     vertical: false,
     orientation: 'mixed',
   },
   vertical: {
     css: 'writing-mode: vertical-rl',
-    read: 'vertical-rl: characters run down, columns run right to left',
     vertical: true,
     orientation: 'mixed',
   },
   upright: {
     css: 'text-orientation: upright',
-    read: 'upright: the Latin run stands up, letter above letter',
     vertical: true,
     orientation: 'upright',
   },
@@ -61,8 +58,13 @@ const IS_MODE = (value: string): value is Mode => value in MODES;
  * is set on, so the element the term names is the block itself, not a glyph inside
  * it. The horizontal setting is the counter-example that block passes through, so
  * the honest condition is declared in `data-pose` and the specimen mounts vertical
- * (SPEC §6). The picker, the arrows, the readout and the caption are the demo's
- * own instrumentation and stay in the context register.
+ * (SPEC §6). The picker, the arrows and the caption are the demo's own
+ * instrumentation and stay in the context register.
+ *
+ * A chip under the block used to read "vertical-rl: characters run down, columns
+ * run right to left", which was the site glossing its own picker from inside the
+ * frame. It is gone: the declaration is already printed beside the picker, and the
+ * arrow says which way the lines advance.
  *
  * The Latin run's layout is measured rather than asserted from the setting that
  * was asked for: rotated it is taller than wide and shorter than three ems, upright
@@ -101,9 +103,6 @@ export function mount(root: HTMLElement): void {
                style="width: ${BOX.width}px; height: ${BOX.height}px; writing-mode: vertical-rl; text-orientation: mixed;
                       font-family: ${FACE}; font-size: ${SIZE}px; line-height: 1.7">${runs}</div>
         </div>
-        <div class="sp-row sp-context" style="height: 30px; margin-top: 6px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.vertical.read}</span>
-        </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
           Set vertically, the first column is the one at the right edge, and the arrow says which way the
           lines advance.
@@ -114,7 +113,6 @@ export function mount(root: HTMLElement): void {
 
   const passage = part(root, 'passage');
   const latin = part(root, 'run-latin');
-  const readout = part(root, 'readout');
   const css = part(root, 'css');
   const columns = part(root, 'arrow-columns');
   const lines = part(root, 'arrow-lines');
@@ -126,7 +124,6 @@ export function mount(root: HTMLElement): void {
     passage.style.textOrientation = mode.orientation;
     passage.dataset.mode = value;
     passage.dataset.vertical = mode.vertical ? 'yes' : 'no';
-    readout.textContent = mode.read;
     css.textContent = mode.css;
     flag(columns, 'hidden', !mode.vertical);
     flag(lines, 'hidden', mode.vertical);

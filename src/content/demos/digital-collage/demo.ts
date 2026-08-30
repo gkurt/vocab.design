@@ -11,6 +11,12 @@
  * fragments on their own are just pictures (SPEC §5). The ingredient strip, the labels and
  * the caption are the scenery that makes the assembly legible.
  *
+ * Three strings used to be the site talking inside the plate. The window was headed "Pasted
+ * up, not laid out" and now carries the piece's own name; a line under the composition read
+ * "Pieces overlap, scales disagree, nothing meets a grid.", which the composition shows and
+ * the article says, so it went; and the halftone swatch was labelled "Halftone, cut from
+ * print", which is a swatch label plus its justification, so only the swatch label is left.
+ *
  * Every tear, angle and placement comes from a fixed hand-written table, and the grain
  * filter carries an explicit seed, so the specimen is identical on every identify run.
  * Static: a pasted-up page has no states, so there is nothing to animate and no clock.
@@ -170,7 +176,7 @@ export function mount(root: HTMLElement): void {
         )}
         ${ingredient(
           'ing-dots',
-          'Halftone, cut from print',
+          'Halftone',
           `${defs('dh')}
            <rect width="150" height="34" fill="url(#dh-dots)"/>
            <circle cx="42" cy="17" r="13" fill="${PASTE}" opacity="0.6"/>`,
@@ -180,7 +186,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Pasted up, not laid out</span>
+        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Collage no. 14</span>
 
         <div class="sp-row" data-part="tour" style="gap: 14px; align-items: flex-start; justify-content: center">
           <div class="sp-stack" style="flex: 0 0 ${CW}px; gap: 5px; align-items: stretch">
@@ -188,9 +194,6 @@ export function mount(root: HTMLElement): void {
               ${composition}
             </div>
             <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">The composition</span>
-            <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">
-              Pieces overlap, scales disagree, nothing meets a grid.
-            </span>
           </div>
           ${strip}
         </div>

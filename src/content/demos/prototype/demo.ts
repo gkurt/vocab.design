@@ -18,8 +18,13 @@ const CAPTION: Record<Screen, string> = {
  * The subject is the board, the linked set rather than either screen, because a single
  * screen with nothing wired to it is a mockup. It is the box holding both screens and
  * the two connectors, not the top-level wrapper, so identify still has something
- * narrower than the scene to point at (SPEC §5). The picker-free caption, the label
- * above the board and the screens' own chrome are scenery in the context register.
+ * narrower than the scene to point at (SPEC §5). The caption, the flow's name above the
+ * board and the screens' own chrome are scenery in the context register.
+ *
+ * The row above the board used to read "Two screens, two links, nothing behind them" on one
+ * side and "press a linked control" on the other: a description of the specimen and an
+ * instruction to the reader, neither of which a prototyping tool prints. It now carries the
+ * flow's own name, which is what a board is labelled with.
  *
  * The board is always the prototype, in both states, so no `data-pose` is needed. Each
  * link reaches an absolute screen rather than toggling (SPEC §8): Search always means
@@ -46,9 +51,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 456px; padding: 11px 14px 13px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Two screens, two links, nothing behind them</span>
-          <span class="sp-label" style="flex: 0 0 auto; font-size: 10px">press a linked control</span>
+        <div class="sp-row sp-context" style="gap: 10px">
+          <span class="sp-label" style="flex: 0 0 auto">Trip finder</span>
         </div>
 
         <div data-part="board" data-subject

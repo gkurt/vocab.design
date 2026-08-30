@@ -8,7 +8,6 @@ export default steps([
   { wait: 400 },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=readout][data-mode=here]', state: 'visible' } },
   { assert: { selector: '[data-part=tab-results][data-navigated]', state: 'visible' } },
   { wait: 900 },
   // The wheel press on a link: a tab arrives behind the one being read.
@@ -18,7 +17,6 @@ export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=tab-tides]', state: 'visible' } },
   { assert: { selector: '[data-part=link-tides][data-opened]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout][data-mode=background]', state: 'visible' } },
   // Focus never moved: the tab being read is still the active one.
   { assert: { selector: '[data-part=tab-results][data-active]', state: 'visible' } },
   { wait: 900 },
@@ -28,7 +26,6 @@ export default steps([
   { middleClick: true },
   { wait: 600 },
   { assert: { selector: '[data-part=tab-tides]', state: 'hidden' } },
-  { assert: { selector: '[data-part=readout][data-mode=closed]', state: 'visible' } },
   { assert: { selector: '[data-part=tab-results][data-active]', state: 'visible' } },
   { wait: 1200 },
 ]);

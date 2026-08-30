@@ -33,6 +33,12 @@ const distance = (dx: number, dy: number) => Math.round(Math.hypot(dx, dy));
  * label of its own, because the ring sits over the card and the bar underneath already names
  * the threshold in numbers that move as the pointer does.
  *
+ * The bottom bar once ended with a second label reading "Under the ring it is still a click",
+ * and the top readout opened with "Press the card and move a little". Both were the site
+ * talking inside a sprint board: the article makes the point at length, and the numbers say
+ * it as they move. Only the live measurements are left, and the readout rests at "No stroke
+ * yet" rather than instructing anyone.
+ *
  * Both outcomes are really computed from the pointer, not mimed: a stroke that stays
  * inside the ring ends as a click, and one that leaves it engages the drag. The travel
  * spent crossing the ring is subtracted before the card starts following, which is why the
@@ -47,7 +53,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 280px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Sprint board</span>
-          <span class="sp-text" data-part="readout" style="width: 216px; text-align: right; white-space: nowrap">Press the card and move a little</span>
+          <span class="sp-text" data-part="readout" style="width: 216px; text-align: right; white-space: nowrap">No stroke yet</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center">
           <div data-part="stage" style="position: relative; width: ${STAGE.w}px; height: ${STAGE.h}px">
@@ -75,7 +81,6 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-topbar sp-context" style="border-bottom: 0; border-top: 1px solid var(--sp-line)">
           <span class="sp-label sp-grow" data-part="travel" style="font-variant-numeric: tabular-nums">0 px travelled, ${THRESHOLD} px needed</span>
-          <span class="sp-label">Under the ring it is still a click</span>
         </div>
       </div>
     </div>

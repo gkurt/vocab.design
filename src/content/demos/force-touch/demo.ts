@@ -92,7 +92,18 @@ const markup = ({ key, at, label }: (typeof MARKS)[number]) => `
  * and not the gauge that reads it, and the row is the term in all three states (a light press is
  * as force sensing as a deep one), so there is no dishonest state to declare in `data-pose`. The
  * row gives under the press, which is the term's own behaviour rather than annotation: the stage
- * draws the pin and the spotlight itself. The gauge and the caption are scenery.
+ * draws the pin and the spotlight itself. The gauge is scenery.
+ *
+ * The gauge's readout sits under the gauge, not in the Mail window's title bar, where it used
+ * to be dressed as the product's own chrome: no title bar prints which side of a pressure
+ * threshold a finger is on. It stays inside the frame because this demo DRAWS the instrument
+ * that produces it, the force track with its two marks, which is the whole of the term.
+ *
+ * Two strings were the site talking inside the Mail window. The empty pane read "Hold a
+ * row to press into it", an instruction to the reader rather than an empty state, and it
+ * says "No message selected" now. A line along the bottom of the frame explained that a
+ * pointer with no force sensor buys depth with time; the article covers that, and the
+ * substitution is written up above for the next author, so it went.
  *
  * The preview never covers the row: it lifts into a pane of its own, absolutely positioned and
  * reserved from mount, so peeking and popping move nothing (SPEC §5). The row gives with a
@@ -105,7 +116,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-touch style="height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Mail</span>
-          <span class="sp-text" data-part="readout" style="width: 330px; text-align: right; white-space: nowrap">${STAGES.rest.say}</span>
         </div>
 
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
@@ -124,7 +134,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                   class="sp-label"
                   data-part="idle"
                   style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px; text-align: center; line-height: 1.4; transition: opacity 0.18s"
-                >Hold a row to press into it</span>
+                >No message selected</span>
 
                 <div
                   class="sp-surface"
@@ -164,11 +174,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               </div>
             </div>
           </div>
-        </div>
 
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          The press deepens the longer it is held, which is how a pointer with no force sensor buys depth: a brief hold peeks and settles back, a long one pops and stays.
-        </span>
+          <div class="sp-row sp-context" style="width: ${SCENE.w + 10 + GAUGE_W}px">
+            <span class="sp-text" data-part="readout" style="height: 16px; font-size: 12px; white-space: nowrap">${STAGES.rest.say}</span>
+          </div>
+        </div>
       </div>
     </div>
   `;

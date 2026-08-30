@@ -57,8 +57,13 @@ const anchor = (name: string, x: number, y: number) =>
  *
  * The subject is the menu: the term names operating a menu in one gesture, so the surface
  * being tracked through is the thing the pin belongs on, not the trigger that opens it and
- * not the item that happens to win. The trigger, the file list, the readout and the echo
- * line are the scene around it, in the context register. The menu is off stage at mount,
+ * not the item that happens to win. The trigger and the file list are the scene around it,
+ * in the context register. A topbar readout ("Released on the title, so the menu stays up")
+ * and an echo line under the list ("The press ended where it began, so the menu waits.")
+ * once narrated each outcome in the site's voice, along with a caption under the frame
+ * describing the gesture. All three are gone: the article says it, and a file browser would
+ * never print a running commentary on the reader's own button. What the gesture did is
+ * still visible in the sort value and the reordered list. The menu is off stage at mount,
  * which identify handles by summoning it, and the script's two-click path leaves it open
  * at rest for exactly that.
  *
@@ -72,8 +77,7 @@ const anchor = (name: string, x: number, y: number) =>
  *
  * A press always opens the menu from scratch rather than toggling it, so a pass resumed or
  * fast-forwarded at any point cannot press into the opposite of the term (SPEC §8). The
- * menu is absolutely positioned and the echo line holds its height, so opening and closing
- * it move nothing (SPEC §5).
+ * menu is absolutely positioned, so opening and closing it move nothing (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -81,7 +85,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 268px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Files</span>
-          <span class="sp-text" data-part="readout" style="flex: 0 0 auto; width: 300px; text-align: right; white-space: nowrap">Press the title and keep holding</span>
         </div>
         <div
           class="sp-body"
@@ -116,18 +119,11 @@ export function mount(root: HTMLElement): void {
           ${anchor('off-menu', 100, MENU.top + 4 + ITEM_H * 4 + 26)}
 
           <div class="sp-surface sp-context" style="position: absolute; left: 206px; top: 12px; width: 246px; height: 146px; padding: 10px">
-            <span class="sp-label" style="display: block; margin-bottom: 6px; font-size: 10px">4 files, in the chosen order</span>
+            <span class="sp-label" style="display: block; margin-bottom: 6px; font-size: 10px">4 files</span>
             <div class="sp-stack" data-part="list" style="gap: 2px">${rows}</div>
           </div>
-
-          <span
-            class="sp-text sp-context"
-            data-part="echo"
-            style="position: absolute; left: 206px; top: 166px; width: 246px; height: 32px; font-size: 11px; line-height: 1.35"
-          >Nothing sorted yet</span>
         </div>
       </div>
-      <span class="sp-text sp-context" style="width: 452px; height: 32px; font-size: 11px; line-height: 1.35">Keep the button down and the highlight follows the pointer; the item under it runs on release. Let go on the title instead and the menu stays up for a second click.</span>
     </div>
   `;
 
@@ -135,18 +131,12 @@ export function mount(root: HTMLElement): void {
   const trigger = part(root, 'trigger');
   const menu = part(root, 'menu');
   const value = part(root, 'value');
-  const readout = part(root, 'readout');
-  const echo = part(root, 'echo');
   const itemEls = ITEMS.map(({ key }) => part(root, `item-${key}`));
 
   let origin: { x: number; y: number } | undefined;
   let travelled = false;
   let active: string | undefined;
   const swept = new Set<string>();
-
-  const report = (line: string) => {
-    readout.textContent = line;
-  };
 
   const setActive = (key: string | undefined) => {
     active = key;
@@ -159,8 +149,6 @@ export function mount(root: HTMLElement): void {
     scene.dataset.menu = on ? 'open' : 'closed';
     if (!on) setActive(undefined);
   };
-
-  const labelOf = (key: string) => ITEMS.find((it) => it.key === key)?.label ?? key;
 
   /** Which item is under this point? Captured moves all report at the trigger, so the
       answer is geometry, exactly as it is for a real reader's drag. */
@@ -190,13 +178,6 @@ export function mount(root: HTMLElement): void {
     scene.dataset.mode = 'rest';
     value.textContent = ITEMS.find((it) => it.key === key)?.value ?? key;
     applyOrder(key);
-    if (path === 'gesture') {
-      report(`${labelOf(key)} ran on release`);
-      echo.textContent = 'One gesture: press, drag through the items, release.';
-      return;
-    }
-    report(`${labelOf(key)} ran from a second click`);
-    echo.textContent = 'Two clicks, with the menu left standing between them.';
   };
 
   trigger.addEventListener('pointerdown', (event) => {
@@ -212,7 +193,6 @@ export function mount(root: HTMLElement): void {
     scene.dataset.mode = 'holding';
     scene.dataset.path = 'none';
     scene.dataset.swept = 'none';
-    report('Menu open while the button is still down');
   });
 
   trigger.addEventListener('pointermove', (event) => {
@@ -228,8 +208,6 @@ export function mount(root: HTMLElement): void {
       swept.add(key);
       scene.dataset.swept = swept.size > 1 ? 'many' : 'one';
     }
-    if (!travelled) return;
-    report(key ? `Tracking ${labelOf(key)}, still holding` : 'Off the menu: releasing here runs nothing');
   });
 
   const release = () => {
@@ -241,8 +219,6 @@ export function mount(root: HTMLElement): void {
       // that turned out to be a click still ends with the items on screen.
       scene.dataset.mode = 'sticky';
       scene.dataset.path = 'sticky';
-      report('Released on the title, so the menu stays up');
-      echo.textContent = 'The press ended where it began, so the menu waits.';
       return;
     }
     // Travelled, but let go clear of every item: the escape hatch pointer cancellation asks
@@ -250,8 +226,6 @@ export function mount(root: HTMLElement): void {
     showMenu(false);
     scene.dataset.mode = 'rest';
     scene.dataset.path = 'cancelled';
-    report('Released off the menu, so nothing ran');
-    echo.textContent = 'Abandoned on release, so the order did not change.';
   };
 
   trigger.addEventListener('pointerup', release);

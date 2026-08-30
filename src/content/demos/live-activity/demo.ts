@@ -18,20 +18,19 @@ const STEPS = [
 const SURFACES = ['compact', 'expanded', 'notification'];
 const START = 'compact';
 
-const READOUT: Record<string, string> = {
-  compact:
-    'Compact: the activity shrinks to a pill beside the display cutout, keeping the one figure worth glancing at while another app owns the screen.',
-  expanded: 'Expanded: the same activity as a lock screen card, with the progress and the arrival time it keeps rewriting in place.',
-  notification:
-    'The same delivery as an ordinary notification. It announced one event, and from here it only gets older: nothing rewrites it.',
-};
-
 /** The slot each surface is drawn in. Both are reserved at all times, so moving between
  *  them never moves the lock screen around them (SPEC §5). */
 const SLOT: Record<string, string> = { compact: 'slot-compact', expanded: 'slot-sheet', notification: 'slot-sheet' };
 
 const PILL_STYLE = 'display: inline-flex; align-items: center; gap: 5px; width: auto; padding: 2px 7px; border-radius: 999px';
 const CARD_STYLE = 'display: block; width: 100%; padding: 8px 10px; border-radius: 14px';
+
+/** One line of the order's own paperwork, beside the phone. */
+const detail = (name: string, value: string) => `
+  <div class="sp-row sp-row--between" style="height: 22px">
+    <span class="sp-label">${name}</span>
+    <span class="sp-text sp-text--ink" style="font-size: 12px">${value}</span>
+  </div>`;
 
 /**
  * Live activity specimen: one delivery in progress, shown as a compact pill beside the
@@ -53,6 +52,12 @@ const CARD_STYLE = 'display: block; width: 100%; padding: 8px 10px; border-radiu
  * from the notification, whose one sentence is fixed and whose age only grows. Both slots
  * hold their box whether or not the activity is in them, and every figure is set in tabular
  * numerals, so an update never moves anything (SPEC §5).
+ *
+ * Beside the phone there used to be a paragraph describing whichever surface was picked
+ * ("Compact: the activity shrinks to a pill beside the display cutout ..."). No delivery
+ * app narrates its own presentation, and the article already draws the three apart, so
+ * the paragraph is gone and the column now carries the order's own paperwork. Its box is
+ * the same height the paragraph reserved, so nothing moved.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -106,13 +111,11 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <button class="sp-segment" type="button" data-part="seg-expanded" value="expanded" style="padding: 4px 7px; font-size: 11px">Expanded</button>
               <button class="sp-segment" type="button" data-part="seg-notification" value="notification" style="padding: 4px 7px; font-size: 11px">Notification</button>
             </sp-segmented>
-            <span
-              class="sp-text"
-              data-part="readout"
-              data-surface="${START}"
-              role="status"
-              style="height: 108px; margin-top: 8px; font-size: 12px"
-            >${READOUT[START]}</span>
+            <div class="sp-stack" style="height: 108px; margin-top: 8px; gap: 6px">
+              ${detail('Courier', 'Dani R., van 12')}
+              ${detail('Drop-off', '14 Quay Street')}
+              ${detail('Signature', 'Not required')}
+            </div>
           </div>
         </div>
       </div>
@@ -132,7 +135,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   part(root, 'slot-compact').insertAdjacentHTML('afterbegin', activityHtml);
 
   const activity = part(root, 'activity');
-  const readout = part(root, 'readout');
 
   let surface = START;
   let step = 0;
@@ -195,8 +197,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     if (next === 'notification') activity.removeAttribute('data-live');
     else activity.setAttribute('data-live', '');
     part(root, SLOT[next] ?? 'slot-sheet').appendChild(activity);
-    readout.dataset.surface = next;
-    readout.textContent = READOUT[next] ?? '';
     render();
   };
 

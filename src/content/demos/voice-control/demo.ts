@@ -43,7 +43,9 @@ const CAPTION: Record<Mode, string> = {
  * control is this surface being driven by name rather than by pointer, and a ring around one
  * button would name that button rather than the way it was reached. The segmented control,
  * the Speak next button, the spoken line, the result line and the caption are scenery
- * (SPEC §5). The screen is honest in both of its resting states, addressed by label and
+ * (SPEC §5). The result line used to be introduced by a label reading "The screen
+ * answers", which was the site narrating its own scene; the line itself says what
+ * happened, so the label is gone and the result sits under the phrase that caused it. The screen is honest in both of its resting states, addressed by label and
  * addressed by number, so no `data-pose` is needed (SPEC §6).
  *
  * The activated control carries the kit's own `data-selected`, which is a state a demo may
@@ -97,8 +99,7 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; font-size: 12px; white-space: nowrap">${BY_LABEL[0]?.phrase}</span>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The screen answers</span>
+        <div class="sp-row sp-context" style="margin-top: 9px; height: 18px; gap: 10px; justify-content: flex-end">
           <span class="sp-text sp-text--ink" data-part="result" data-ok="yes"
                 style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">${BY_LABEL[0]?.result}</span>
         </div>

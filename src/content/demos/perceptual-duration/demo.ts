@@ -56,7 +56,13 @@ function springFrames(): Keyframe[] {
  * The subject is the comparison, not either tile: a tile crossing a rail is just a move, and
  * the term names the figure that lets one be quoted against the other. Like the frame rate
  * specimen it is marked on the group rather than on the demo's wrapper, so identify still
- * has a part to point at; the heading, the Replay control, and the caption stay outside it.
+ * has a part to point at; the heading and the Replay control stay outside it.
+ *
+ * Three strings were the site reading the figure out for the reader. The heading asked "How
+ * long did that take?", the two rows were labelled "reads as" and "told", and a paragraph
+ * under the panel explained that the tween was handed its number while the spring's was
+ * measured. The paragraph is gone (its one number is printed twice on the ruler already) and
+ * the panel now names itself and its two readings the way a measuring rig does.
  *
  * The spring is sampled into `element.animate` keyframes, which `motion.css` cannot reach, so
  * the demo asks `prefersReducedMotion` itself and shows the arrived state with the ruler
@@ -89,21 +95,21 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 424px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">How long did that take?</span>
+          <span class="sp-heading">Arrival time</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-stack" data-part="compare" data-subject data-state="settled" style="gap: 12px; margin-top: 14px">
           <div class="sp-row" style="gap: 12px">
             <span class="sp-stack" style="width: 116px; gap: 2px">
               <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">Spring</span>
-              <span class="sp-label" style="font-size: 11px">reads as ${readable} ms</span>
+              <span class="sp-label" style="font-size: 11px">measured ${readable} ms</span>
             </span>
             ${rail('spring', true)}
           </div>
           <div class="sp-row" style="gap: 12px">
             <span class="sp-stack" style="width: 116px; gap: 2px">
               <span class="sp-text sp-text--ink" style="font-size: 12px; font-weight: 600">Tween</span>
-              <span class="sp-label" style="font-size: 11px">told ${TWEEN_MS} ms</span>
+              <span class="sp-label" style="font-size: 11px">specified ${TWEEN_MS} ms</span>
             </span>
             ${rail('tween', false)}
           </div>
@@ -135,10 +141,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </div>
           </div>
         </div>
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          The tween was handed its number. The spring's is measured: last visible movement at ${readable} ms,
-          and formally it never rests.
-        </p>
       </div>
     </div>
   `;

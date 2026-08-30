@@ -40,6 +40,16 @@ const ruler = (name: string, clickAt: number, label: string) => `
  * that has the delay. Both rulers, both captions and the modern column are the scene it is
  * read against and carry the context register.
  *
+ * Two lines of the site's own voice have gone. A footer bar read "The pause is the browser
+ * asking whether a second tap is coming.", which is the article's job, so the bar went with it
+ * and the frame lost its height. The left column was headed "A zoomable page, waiting for a
+ * second tap" and now names the same condition the right column names, as a declaration:
+ * without `touch-action: manipulation`. The readout starts at "No tap yet" rather than telling
+ * the reader to tap, and the line it prints while the window runs read "Tapped. Holding 300 ms
+ * in case a second tap arrives", which finished a measurement with the browser's reason for it.
+ * It reads "Tapped, holding 300 ms" now. The ruler's own labels (tap, click 300 ms, 400 ms) stay:
+ * they are the axis of an instrument this demo really draws.
+ *
  * The countdown is a clock timer rather than a transition, so a pose freezes it mid-wait and
  * the fill reads as the milliseconds it stands for. Every readout holds its width and the
  * fills are absolutely placed, so a tap moves nothing (SPEC §5).
@@ -47,14 +57,14 @@ const ruler = (name: string, clickAt: number, label: string) => `
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 286px">
+      <div class="sp-frame sp-frame--wide" style="height: 250px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Shop</span>
-          <span class="sp-text" data-part="readout" style="width: 268px; text-align: right; white-space: nowrap">Tap either button</span>
+          <span class="sp-text" data-part="readout" style="width: 268px; text-align: right; white-space: nowrap">No tap yet</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: stretch; justify-content: center; gap: 14px">
           <div class="sp-surface" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 202px; padding: 12px">
-            <span class="sp-label sp-context" style="height: 36px; text-align: center">A zoomable page, waiting for a second tap</span>
+            <span class="sp-label sp-context" style="height: 36px; text-align: center">Without <code>touch-action: manipulation</code></span>
             <button class="sp-button" type="button" data-part="legacy" data-subject data-delay="none" style="width: 100%">Add to cart</button>
             ${ruler('legacy', DELAY_MS * PX_PER_MS, `click ${DELAY_MS} ms`)}
           </div>
@@ -64,9 +74,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <button class="sp-button" type="button" data-part="modern" data-delay="none" style="width: 100%">Add to cart</button>
             ${ruler('modern', 0, 'click 0 ms')}
           </div>
-        </div>
-        <div class="sp-topbar sp-context" style="border-bottom: 0; border-top: 1px solid var(--sp-line)">
-          <span class="sp-label sp-grow">The pause is the browser asking whether a second tap is coming.</span>
         </div>
       </div>
     </div>
@@ -116,7 +123,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   legacy.addEventListener('click', () => {
     reset();
-    say(`Tapped. Holding ${DELAY_MS} ms in case a second tap arrives`);
+    say(`Tapped, holding ${DELAY_MS} ms`);
     timer = clock.setTimeout(tick, TICK_MS);
   });
 

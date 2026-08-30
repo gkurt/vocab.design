@@ -4,20 +4,9 @@ import '#src/kit/segmented.ts';
 
 type Offers = 'drag' | 'both';
 
-const OFFERS: Record<Offers, string> = {
-  drag: 'Alternative offered: none',
-  both: 'Alternative offered: a move menu',
-};
-
 const CAPTION: Record<Offers, string> = {
   drag: 'Dragging is the only route to the other column. Criterion 2.5.7 is about this gesture specifically, so a board that is perfectly keyboard operable still fails here.',
   both: 'Two routes, one result. The menu is the route somebody with a tremor, a head pointer, or one finger on a moving train can actually take.',
-};
-
-const HOW: Record<string, string> = {
-  none: 'Last move: none yet',
-  drag: 'Last move: dragged',
-  menu: 'Last move: chosen from the menu',
 };
 
 const CARD = 'height: 38px; padding: 0 8px; display: flex; align-items: center; gap: 6px; border-radius: 6px';
@@ -25,11 +14,16 @@ const CARD = 'height: 38px; padding: 0 8px; display: flex; align-items: center; 
 /**
  * Dragging alternative specimen: a two-column board whose one movable card can be hauled between
  * columns, with a segmented control deciding whether that card also carries a move menu reaching
- * the same two columns with single taps. A read-out names how the card last arrived.
+ * the same two columns with single taps.
+ *
+ * A strip under the board used to print "Alternative offered: a move menu" and "Last move: none
+ * yet", which named the demonstration's own apparatus rather than anything a board would show.
+ * Both are gone; the route a move took is kept as `data-how` on the card, where the choreography
+ * can still read it without anybody having to look at it.
  *
  * The subject is the move control, the narrowest element the term names: the term is the second
- * route, not the card and not the board. The picker, both columns, the static cards, the read-out
- * strip and the caption are scenery (SPEC §5). Drag-only is the counter-example the control's own
+ * route, not the card and not the board. The picker, both columns, the static cards and the
+ * verdict the stage draws are scenery (SPEC §5). Drag-only is the counter-example the control's own
  * scene passes through, so the honest condition lives in `data-pose` and the mount state satisfies
  * it: identify refuses to ring the control in a state that offers no alternative and plays on
  * (SPEC §6).
@@ -77,11 +71,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 16px; gap: 10px">
-          <span class="sp-label" data-part="offers" data-mode="both" style="flex: 0 0 auto; font-size: 10.5px">${OFFERS.both}</span>
-          <span class="sp-label" data-part="last" data-how="none" style="flex: 0 0 auto; font-size: 10.5px">${HOW.none}</span>
-        </div>
-
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-mode="both"
            style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">${CAPTION.both}</p>
       </div>
@@ -112,8 +101,6 @@ export function mount(root: HTMLElement): void {
 
   const move = part(root, 'move-a');
   const menu = part(root, 'menu');
-  const offers = part(root, 'offers');
-  const last = part(root, 'last');
   const caption = part(root, 'caption');
   const columns: Record<string, { col: HTMLElement; slot: HTMLElement }> = {
     todo: { col: part(root, 'col-todo'), slot: part(root, 'slot-todo') },
@@ -125,16 +112,13 @@ export function mount(root: HTMLElement): void {
   const place = (to: 'todo' | 'doing', how: 'drag' | 'menu' | 'none') => {
     columns[to]?.slot.append(card);
     card.dataset.col = to;
-    last.dataset.how = how;
-    last.textContent = HOW[how] ?? HOW.none ?? '';
+    card.dataset.how = how;
   };
 
   const apply = (next: Offers) => {
     openMenu(false);
     flag(move, 'hidden', next === 'drag');
     move.dataset.mode = next;
-    offers.dataset.mode = next;
-    offers.textContent = OFFERS[next];
     caption.dataset.mode = next;
     caption.textContent = CAPTION[next];
     place('todo', 'none');

@@ -34,7 +34,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 404px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Four numbers, one shape</span>
+          <span class="sp-heading">Timing function</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-row" style="align-items: center; gap: 18px; margin-top: 12px">

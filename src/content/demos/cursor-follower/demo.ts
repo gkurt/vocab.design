@@ -56,8 +56,11 @@ const link = (l: (typeof LINKS)[number]) => `
  * from a written-down number rather than from a clock or a random draw.
  *
  * `motion.css` sets `transition: none` under reduced motion, which parks the pair exactly on the
- * pointer with no trail at all; the demo asks `prefersReducedMotion` anyway so the readout says so
- * rather than promising a lag the reader will never see. Everything is absolutely placed inside a
+ * pointer with no trail at all; the demo asks `prefersReducedMotion` anyway so the readout prints
+ * the lag that is really on screen (zero on both pieces) rather than promising one the reader will
+ * never see. It used to print "reduced motion: the pair rests on the pointer", which was the site
+ * explaining the reader's own setting inside the frame; the numbers say the same thing in the
+ * readout's own format. Everything is absolutely placed inside a
  * field fixed at mount, so nothing in the scene moves (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
@@ -131,7 +134,7 @@ export function mount(root: HTMLElement): void {
     ring.style.transition = reduced ? 'none' : `transform ${ringMs}ms ${ease}`;
     dot.style.transition = reduced ? 'none' : `transform ${dotMs}ms ${ease}`;
     ring.dataset.lag = lag;
-    readout.textContent = reduced ? 'reduced motion: the pair rests on the pointer' : note;
+    readout.textContent = reduced ? 'dot 0 ms behind, ring 0 ms' : note;
   };
 
   const clamp = (value: number, max: number) => Math.min(Math.max(value, PAD), max - PAD);

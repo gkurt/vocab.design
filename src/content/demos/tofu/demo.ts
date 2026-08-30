@@ -15,8 +15,10 @@ const NAMES: Record<Kind, string> = { notdef: 'notdef box', hex: 'hex box', fffd
  * One tofu box, drawn rather than rendered. A browser sitting on a desktop's full
  * fallback stack finds a glyph for very nearly anything, so a specimen that waited
  * for the platform to produce real tofu would show none at all; these are exhibits,
- * built to the proportions of the rectangle a reader actually meets. The caption
- * says so out loud. All three are drawn to one width, so the key entries line up and
+ * built to the proportions of the rectangle a reader actually meets. A paragraph under
+ * the key used to say so out loud ("These boxes are drawn, not rendered...") and it has
+ * gone: it was the site explaining its own workshop inside the mock, and this comment is
+ * where the next author needs it. All three are drawn to one width, so the key entries line up and
  * the row they sit in is the same size whichever one is picked (SPEC §5).
  */
 function box(kind: Kind, h: number): string {
@@ -48,10 +50,11 @@ const key = (kind: Kind) =>
  * there is no state in which the subject stops being tofu and no pose condition to
  * declare.
  *
- * The key is scenery in the context register: picking an entry explains that box in
- * the readout without touching the line, since annotation on the subject belongs to
- * the stage (SPEC §5). The readout holds two lines' worth of room whichever entry is
- * picked, so nothing under it moves.
+ * The key is scenery in the context register: picking an entry explains that box
+ * without touching the line, since annotation on the subject belongs to the stage
+ * (SPEC §5). That explanation is the author naming what the reader is looking at, so
+ * it is marked `data-stage-verdict` and the stage draws it in the strip rather than
+ * the inbox printing a glossary under its own notification.
  */
 export function mount(root: HTMLElement): void {
   const line = `Message from ${box('notdef', 18).repeat(6)} about Friday`;
@@ -70,11 +73,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="margin-top: 12px">
           ${key('notdef')}${key('hex')}${key('fffd')}
         </div>
-        <p class="sp-text sp-context" data-part="readout" data-showing="notdef" style="margin: 10px 0 0; height: 39px"></p>
-        <p class="sp-text sp-context" style="margin: 8px 0 0">
-          These boxes are drawn, not rendered. A browser backed by a desktop's whole fallback stack finds a glyph for
-          almost anything, so a specimen waiting for real tofu would sit here showing none.
-        </p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" data-showing="notdef" style="margin: 10px 0 0; height: 39px"></p>
       </div>
     </div>
   `;

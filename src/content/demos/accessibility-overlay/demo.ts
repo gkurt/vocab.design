@@ -29,6 +29,10 @@ const NOTE = {
  * sold. The page, the unlabelled control, the name readout and the note are scenery (SPEC §5). The
  * widget is on stage and is the term in every state, so no `data-pose` is needed.
  *
+ * The readout under the page is an inspector row and reads as one: it was labelled "Computed name
+ * of the share control", which is the author pointing at the scene, and it now names its element
+ * the way a name inspector would ("Share button, computed name").
+ *
  * The page is sized for its largest state (the enlarged text), so a setting changes the rendering
  * without moving anything (SPEC §5). No timers: every state is reached by a pick.
  */
@@ -75,7 +79,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface sp-context" style="margin-top: 9px; padding: 8px 10px">
           <div class="sp-row" style="gap: 8px; height: 17px">
             <span style="display: flex; flex: 0 0 auto; color: var(--sp-warn)">${icon('alert')}</span>
-            <span class="sp-label" style="flex: 0 0 auto; font-size: 10.5px; white-space: nowrap">Computed name of the share control</span>
+            <span class="sp-label" style="flex: 0 0 auto; font-size: 10.5px; white-space: nowrap">Share button, computed name</span>
             <span class="sp-grow"></span>
             <span class="sp-text sp-text--ink" data-part="name" data-mode="default" data-name="empty"
                   style="flex: 0 0 auto; font-size: 11.5px; font-weight: 600; white-space: nowrap">empty</span>

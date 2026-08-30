@@ -13,8 +13,10 @@ const CURVES = [
  *
  * The subject is the group of three tracks, not the whole scene: the term is the
  * shape of a motion over its duration, which needs the comparison of peers to be
- * visible at all, while the heading and the Play control are instrumentation and
- * sit outside it (SPEC §5).
+ * visible at all, while the Play control is instrumentation and sits outside it
+ * (SPEC §5). A heading over the tracks read "Same distance, same 1.1s", which was the
+ * site stating the controlled variables of its own experiment; the three tracks are
+ * plainly the same length and the article says the rest, so only Play is left there.
  */
 export function mount(root: HTMLElement): void {
   const tracks = CURVES.map(
@@ -31,8 +33,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="stage" data-running style="width: 400px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Same distance, same 1.1s</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" data-part="play">Play</button>
         </div>
         <div data-part="tracks" data-subject>${tracks}</div>

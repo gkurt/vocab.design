@@ -15,6 +15,11 @@ const START = 'newest';
  * drops rather than the trigger that drops it or the widget the two make together.
  * The panel is out of flow, so opening it moves nothing behind it (SPEC §5), and the
  * trigger only ever opens: dismissal is choosing a row (SPEC §8).
+ *
+ * A caption under the frame used to read "One shape, three words: values that stick are a
+ * select, commands are a menu, a field you can type in is a combobox." It was the site
+ * teaching beside the picture rather than anything an issue tracker would print, and the
+ * article draws the same three way distinction, so it is gone.
  */
 export function mount(root: HTMLElement): void {
   const rows = ORDERS.map(
@@ -63,9 +68,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <p class="sp-text sp-context" style="max-width: 420px; text-align: center; margin: 0">
-        One shape, three words: values that stick are a select, commands are a menu, a field you can type in is a combobox.
-      </p>
     </div>
   `;
 

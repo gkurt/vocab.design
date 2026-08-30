@@ -7,7 +7,6 @@ export default steps([
   { wait: 400 },
   { click: true },
   { wait: 500 },
-  { assert: { selector: '[data-part=readout][data-mode=single]', state: 'visible' } },
   { assert: { selector: '[data-part=row-1][data-in-range]', state: 'visible' } },
   { assert: { selector: '[data-part=row-3][data-in-range]', state: 'hidden' } },
   { wait: 800 },
@@ -42,7 +41,6 @@ export default steps([
   },
   { wait: 500 },
   // The key let go: the range it drew survives it.
-  { assert: { selector: '[data-part=readout][data-mode=range]', state: 'visible' } },
   { assert: { selector: '[data-part=range][data-span="2"]', state: 'visible' } },
   { wait: 900 },
 ]);

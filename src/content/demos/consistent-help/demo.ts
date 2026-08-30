@@ -17,20 +17,7 @@ const WHERE: Record<Policy, Record<Page, Slot>> = {
   wandering: { home: 'bar', plans: 'footer', cart: 'float' },
 };
 
-const SITS_IN: Record<Slot, string> = {
-  bar: 'the header, last item',
-  footer: 'the footer, last item',
-  float: 'floating over the page',
-};
-
 const VERDICT: Record<Policy, string> = { consistent: 'Meets 3.2.6', wandering: 'Fails 3.2.6' };
-
-const CAPTION: Record<Policy, string> = {
-  consistent:
-    'Help holds its place in the header from page to page, so finding it once is finding it for good. The rule asks for the same relative order, not the same pixels.',
-  wandering:
-    'Header, then footer, then floating over the content. Every page starts the search again, which is the cost criterion 3.2.6 exists to remove.',
-};
 
 /** Every slot reserves the control's room, so moving it cannot move anything else. */
 const SLOT = 'width: 64px; height: 22px; display: flex; align-items: center; justify-content: flex-end; flex: 0 0 auto';
@@ -42,7 +29,7 @@ const SLOT = 'width: 64px; height: 22px; display: flex; align-items: center; jus
  * a reader sees move is the thing the criterion is about.
  *
  * The subject is the help control itself, the narrowest element the term names. The page
- * silhouette, the pickers, the readout and the caption are scenery (SPEC §5), marked on the
+ * silhouette, the pickers and the verdict are scenery (SPEC §5), marked on the
  * individual scenery elements rather than on a wrapper, since the context register would
  * otherwise reach through the frame and quiet the subject sitting inside it. A wandering help
  * route is a state the control itself passes through, so the honest condition is declared in
@@ -51,6 +38,12 @@ const SLOT = 'width: 64px; height: 22px; display: flex; align-items: center; jus
  * All three slots reserve the same box whether or not they hold the control, so a page change
  * moves nothing but the control (SPEC §5), which in a specimen about position is the whole
  * point. No timer is needed.
+ *
+ * Two strings under the frame were the site reading the layout out loud and have gone: a
+ * readout spelling "Help sits in the header, last item", and a paragraph beginning "Help holds
+ * its place in the header from page to page..." Where the control is, is visible; the strip's
+ * verdict says whether that passes; the article carries the rest. The choreography's assert on
+ * the readout went with it.
  */
 export function mount(root: HTMLElement): void {
   const navItem = (page: { key: Page; label: string }) => `
@@ -106,15 +99,8 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Help sits in <span data-part="sits" data-slot="bar"
-                style="color: var(--sp-ink); font-weight: 500">${SITS_IN.bar}</span></span>
-          <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" data-policy="consistent"
-                style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${VERDICT.consistent}</span>
-        </div>
-
-        <p class="sp-text sp-context" data-part="caption" data-policy="consistent"
-           style="margin: 7px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${CAPTION.consistent}</p>
+        <span class="sp-text sp-text--ink" data-stage-verdict data-part="verdict" data-policy="consistent"
+              style="font-size: 11px; white-space: nowrap">${VERDICT.consistent}</span>
       </div>
     </div>
   `;
@@ -133,9 +119,7 @@ export function mount(root: HTMLElement): void {
   help.style.cssText = 'font-size: 10.5px; padding: 3px 9px; cursor: default';
 
   const title = part(root, 'title');
-  const sits = part(root, 'sits');
   const verdict = part(root, 'verdict');
-  const caption = part(root, 'caption');
 
   let page: Page = 'home';
   let policy: Policy = 'consistent';
@@ -155,12 +139,8 @@ export function mount(root: HTMLElement): void {
       else nav.removeAttribute('data-current');
     }
 
-    sits.dataset.slot = slot;
-    sits.textContent = SITS_IN[slot];
     verdict.dataset.policy = policy;
     verdict.textContent = VERDICT[policy];
-    caption.dataset.policy = policy;
-    caption.textContent = CAPTION[policy];
   };
 
   part(root, 'page-picker').addEventListener('change', (event) => {

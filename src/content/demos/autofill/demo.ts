@@ -7,8 +7,8 @@ const FIELDS = [
 ] as const;
 
 const STATUS = {
-  empty: 'Three empty fields. Nothing has been typed.',
-  filled: 'Three fields written by the browser. None of them typed.',
+  empty: 'Add a postcode for delivery dates.',
+  filled: 'Delivering to YO21 3PU, 2 to 3 working days.',
 } as const;
 
 /**
@@ -29,6 +29,12 @@ const STATUS = {
  * holds its height whether it carries a value or not, and the dropdown is drawn over the
  * fields rather than inserted above them, so neither opening nor filling moves anything
  * (SPEC §5).
+ *
+ * Two lines of site voice were removed. A caption under the frame explained that the list
+ * and the tint were the browser's own paint, which the article already says, and the
+ * status line counted the fields the browser had written ("Three fields written by the
+ * browser. None of them typed."). The status stays, because the pass reads its count, but
+ * it now prints what a delivery form really prints once it knows a postcode.
  */
 export function mount(root: HTMLElement): void {
   const rows = FIELDS.map(({ key, label }) => {
@@ -76,9 +82,6 @@ export function mount(root: HTMLElement): void {
           </span>
         </div>
       </div>
-      <span class="sp-text sp-context" style="width: 420px; font-size: 11px">
-        The list and the tint are the browser's own paint, over values the page never saw typed.
-      </span>
     </div>
   `;
 

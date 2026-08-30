@@ -900,6 +900,33 @@ to the exhibit's own control is the exhibit talking. Prose that never changes is
 complaint with a different answer: the term's article usually already says it, better and at
 length, so it is deleted rather than moved.
 
+**And a verdict is not the whole of it: the rule governs every word a specimen paints.** Two
+passes chased this through part names (`verdict`, then `caption`/`note`/`legend`) and both
+under-counted, because the corpus does not keep its voice in named parts. A sweep that read
+what is actually on screen, by mounting all 1,124 capture pages and collecting the painted
+text, found 3,655 strings, of which 1,268 were the site talking, across 662 specimens.
+`bubble-toolbar` instructed the reader from a bare `sp-label` ("Select a run to summon it;
+click anywhere else to send it away"). `coach-mark` printed "No scrim, no Next, no counter
+that matters", which names three things absent from the scene and never introduced, and
+labelled the button that re-arms its beacon "New teammate", asking the reader to infer a
+whole fiction to explain a control that only puts the beacon back. Instrumentation says what
+it does. The recurring shapes are an instruction to the reader, commentary on what to notice,
+a comparison with what is not there, a sentence teaching the term, and an annotation of the
+exhibit rather than of the product. The default answer is deletion.
+
+The counter-rule is the instrument test, and it is what saves real fiction from a sweep like
+this: **a readout stays inside the frame when the demo DRAWS the thing that produces it.**
+`scrollbar-color` prints "3.17:1 clears 3:1" beside the swatches it measured, `drag-threshold`
+prints "0 px travelled, 8 px needed" against the dashed ring it drew, and `pointer-cancellation`
+heads its two identical buttons "Acts on press" and "Acts on release" because that pair is the
+comparison's only legend. Sixty-three such strings survived the sweep as second-judge calls.
+
+**Whatever the stage lifts out of a specimen has to be hidden on every stage, not just the
+ones that draw the replacement.** A listing card has no control bar and no strip, and the
+sync returned early when it found none, so verdicts and mode switches went on being drawn
+inside the specimen on the front page, `/browse` and `/tags`, while every term page looked
+right. The sources are hidden before that decision now. Any future lane inherits the rule.
+
 **An announcement that is the subject moves too, and identify follows it out.** The strip's
 copy is the one on screen, so `subject()` prefers it and the ring is drawn around the lane,
 or around a word inside it: `pronunciation` rings the respelled token, `role-description` the
@@ -1494,6 +1521,22 @@ photographs as a rectangle of dead pixels with a hole in it. What is left is lig
 subject at full strength, everything else faded toward the stage's own ground, with a
 floor under the fade so the surrounding UI stays readable as context. A whole-scene
 subject (§5) fades nothing, which is the honest picture of "all of it".
+
+**The strip (§6) is not in the picture.** It is the exhibit's furniture around the
+specimen, and a still has no use for any of it: the mode switch cannot be pressed, and
+the announcement and verdict lanes are the site's own voice under a picture whose caption
+band already speaks in that voice. Drawn, the strip also pushed the caption band off the
+bottom of the 420px frame, so every term with a verdict was photographed with its own
+headword cropped in half. A capture therefore draws no strip at all, and the sources it
+would have lifted out stay hidden, exactly as they are on a listing card.
+
+A subject that lives in one of those lanes is then not on the canvas to be pointed at
+(`pronunciation`, `magic-tap`, `role-description`, `verbosity`,
+`presentational-children`). Light aimed at where it used to be would circle empty ground,
+so the picture stops pointing: the whole canvas takes the fade evenly and reads as one
+specimen rather than as a spotlight on nothing. The cost is real and accepted, and it is
+about those five terms rather than about the fade: their share image no longer shows the
+utterance that IS the term.
 
 The frame is 1200x630 with the specimen above and a caption band under it carrying the
 category, the headword, and the site's name. Dark, because a share image cannot follow

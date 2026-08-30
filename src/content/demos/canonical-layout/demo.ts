@@ -31,12 +31,6 @@ const LABELS: [string, string][] = [
   ['feed', 'feed'],
 ];
 
-const NOTES: Record<string, string> = {
-  'list-detail': 'List detail: a list of peers beside the one that is open, on one screen.',
-  'supporting-pane': 'Supporting pane: a main pane with a narrower companion that serves it.',
-  feed: 'Feed: equivalent items in a grid, where no position outranks another.',
-};
-
 /** Stand-in copy at hand-written widths, so every identify run draws the same panes. */
 const DETAIL_LINES = [92, 84, 96, 71, 88];
 const MAIN_LINES = [95, 88, 74, 92, 66, 81];
@@ -80,14 +74,19 @@ const pick = ([key, label]: [string, string]) => `
  * pane is a fixed box holding all three, only one shown at a time, so choosing an
  * arrangement swaps what is inside it and moves nothing around it (SPEC §5). Picking is
  * absolute rather than a step through the list (SPEC §8).
+ *
+ * Two lines of the site's own voice have gone from inside the frame: a topbar tag reading
+ * "three solved shapes, not thirty", and a line under the pane that defined whichever
+ * arrangement was showing ("List detail: a list of peers beside the one that is open, on one
+ * screen."). Each schematic already carries its name and its shape, and the article defines
+ * the three at length, so the frame lost the line and the height it reserved.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 258px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Canonical layouts</span>
-          <span class="sp-label">three solved shapes, not thirty</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 10px 12px">
           <div style="display: flex; gap: 14px; flex: 0 0 auto; width: 440px; height: ${PANE_H}px">
@@ -140,24 +139,20 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 34px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>
   `;
 
   const pane = part(root, 'pane');
-  const readout = part(root, 'readout');
   const arrangements = LABELS.map(([key]) => [key, part(root, `arr-${key}`)] as const);
   const buttons = LABELS.map(([key]) => part(root, `pick-${key}`));
 
   const apply = (key: string) => {
-    const note = NOTES[key];
-    if (!note) return;
+    if (!(key in MINIS)) return;
     pane.dataset.arrangement = key;
     for (const [name, el] of arrangements) flag(el, 'hidden', name !== key);
     for (const button of buttons) flag(button, 'data-selected', button.dataset.key === key);
-    readout.textContent = note;
   };
 
   // Each schematic names an arrangement, so a scripted step lands on that arrangement

@@ -24,6 +24,12 @@ const RULE = 420;
  * The subject is the ruled line. A baseline is a line shared by a row of text,
  * so the narrowest thing that shows one is that row with its rule on it; ringing
  * a single sample would claim the term names one piece of text.
+ *
+ * The two rows were once captioned by what they proved ("Two sizes, one line", "aligned
+ * on the baseline", "the same pair with their boxes centred"), which is the site talking
+ * over a specimen sheet. A sheet prints the face and the sizes, so that is what the
+ * headers carry now; the reading of solid against dashed belongs to the verdict the stage
+ * draws in the strip.
  */
 export function mount(root: HTMLElement): void {
   const carrier = (width: number, style: string) => `
@@ -45,15 +51,15 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 460px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Two sizes, one line</span>
-          <span class="sp-label">aligned on the baseline</span>
+          <span class="sp-heading">Georgia</span>
+          <span class="sp-label">21 px and 52 px</span>
         </div>
         <div data-part="ruled" data-subject style="margin-top: 8px; font-size: 0; white-space: nowrap">
           ${carrier(RULE, '1px solid var(--sp-accent)')}${sample('sample-small', 'Handgloves', 21)}&#8202;${sample('sample-large', 'Rpg', 52)}
         </div>
         <div class="sp-divider sp-context" style="margin: 12px 0 10px"></div>
         <div class="sp-context">
-          <span class="sp-label">the same pair with their boxes centred</span>
+          <span class="sp-label">22 px and 40 px</span>
           <div data-part="centred" style="margin-top: 4px; font-size: 0; white-space: nowrap">
             ${centred('centred-small', 'Handgloves', 22, 130)}${centred('centred-large', 'Rpg', 40, 110)}
           </div>

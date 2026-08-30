@@ -58,6 +58,11 @@ const HOLDS = FRAMES.filter((frame) => frame.late).length;
  * marbles move with `translate` inside tracks that hold their own size, so a stutter can
  * never move the row it happens in (SPEC §5), and the readout keeps a fixed width for the
  * same reason.
+ *
+ * Two lines of the site's voice have gone from the frame: a footer reading "Same distance,
+ * same 1600 ms. The lower marble is only missing frames.", which the article says at length,
+ * and the steady track's caption "every frame on time", which is now the same hold counter
+ * its neighbour carries, resting at zero.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const track = (id: string, subject: boolean) => `
@@ -81,7 +86,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         <div class="sp-stack sp-context" style="gap: 6px; margin-top: 14px">
           <div class="sp-row sp-row--between">
             <span class="sp-label">Steady</span>
-            <span class="sp-label">every frame on time</span>
+            <span class="sp-label" style="flex: 0 0 96px; text-align: right">0 holds</span>
           </div>
           ${track('steady', false)}
         </div>
@@ -93,10 +98,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
           ${track('jank', true)}
         </div>
-
-        <p class="sp-text sp-context" style="margin: 14px 0 0">
-          Same distance, same 1600 ms. The lower marble is only missing frames.
-        </p>
       </div>
     </div>
   `;

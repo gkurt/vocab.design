@@ -23,7 +23,11 @@ const TARGETS: Target[] = [
  * The subject is the scanned group, the narrowest element the term names: switch access is
  * this set of targets being offered one at a time, and a ring around a single control would
  * name that control rather than the way it is reached. The switch, the readout, and the
- * caption are scenery (SPEC §5). The group is honest in both of its resting states, scanning
+ * caption are scenery (SPEC §5). The control row was headed "One switch. No pointer, no
+ * keyboard.", which stated the term instead of labelling anything, so it went and the two
+ * buttons sit at the right on their own. The readout above the result was labelled "The
+ * switch would activate", a sentence about the reader rather than a name for the line, and
+ * reads "Current target" now. The group is honest in both of its resting states, scanning
  * and stopped, so no `data-pose` is needed.
  *
  * The highlight is `data-sim-focus` and nothing here calls `.focus()`: attract never moves
@@ -43,8 +47,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">One switch. No pointer, no keyboard.</span>
+        <div class="sp-row sp-context" style="gap: 10px; justify-content: flex-end">
           <div class="sp-row" style="flex: 0 0 auto; gap: 6px">
             <button class="sp-button sp-button--sm" type="button" data-part="switch">Press switch</button>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="resume">Resume scan</button>
@@ -57,7 +60,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         </div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 18px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The switch would activate</span>
+          <span class="sp-label" style="flex: 0 0 auto">Current target</span>
           <span class="sp-text sp-text--ink" data-part="offer" style="flex: 0 0 auto; font-size: 11.5px; white-space: nowrap">Email field</span>
         </div>
 

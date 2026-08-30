@@ -31,6 +31,10 @@ type Mode = keyof typeof CAPTION;
  * of fixed size, and the page panel holds its height whatever region it shows (SPEC §5).
  * Picking an option reaches that option rather than cycling, and each segment reaches its own
  * wiring, so a pass joined halfway ends where a whole one does (SPEC §8).
+ *
+ * The empty slot used to hold a note reading "no Go step", which is the site captioning the
+ * absence from inside the form. The slot is fixed and the button only goes invisible, so
+ * nothing needed the words to hold the room, and the verdict already says what changed.
  */
 export function mount(root: HTMLElement): void {
   const option = (key: RegionKey, selected: boolean) => `
@@ -59,9 +63,6 @@ export function mount(root: HTMLElement): void {
           <div style="position: relative; flex: 0 0 92px; height: 30px; margin-top: 22px">
             <button class="sp-button sp-button--sm" type="button" data-part="go"
                     style="position: absolute; inset: 0">Go</button>
-            <span class="sp-text" data-part="auto-note"
-                  style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-                         font-size: 11px; text-align: center; visibility: hidden">no Go step</span>
           </div>
         </div>
 
@@ -80,7 +81,6 @@ export function mount(root: HTMLElement): void {
 
   const picker = part(root, 'picker');
   const go = part(root, 'go');
-  const autoNote = part(root, 'auto-note');
   const page = part(root, 'page');
   const pageLine = part(root, 'page-line');
   const caption = part(root, 'caption');
@@ -105,10 +105,9 @@ export function mount(root: HTMLElement): void {
   const apply = (next: Mode) => {
     mode = next;
     picker.dataset.mode = next;
-    // The confirm step is what the wiring removes, so the slot keeps its room and the note
-    // takes the button's place rather than the row closing up (SPEC §5).
+    // The confirm step is what the wiring removes, so the slot keeps its room and the button
+    // goes invisible in place rather than the row closing up (SPEC §5).
     go.style.visibility = next === 'request' ? 'visible' : 'hidden';
-    autoNote.style.visibility = next === 'request' ? 'hidden' : 'visible';
     caption.dataset.case = next;
     caption.textContent = CAPTION[next];
     // Both wirings are demonstrated from the same starting page, so the second one is read

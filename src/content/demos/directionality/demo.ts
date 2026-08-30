@@ -51,19 +51,24 @@ const detailPane = () => `
  * with the motion carrying the hierarchy and once with it carrying nothing. On the directional setting
  * going deeper brings the pane in from the right and going back brings it in from the left, so the
  * reader can feel which way they are travelling. On the undirected setting both moves animate
- * identically, and the read-out says so: back comes in from the right as well, which is the exact
- * moment the sense of place goes.
+ * identically: back comes in from the right as well, which is the exact moment the sense of place
+ * goes.
  *
  * The subject is the moving pane. Undirected is a counter-example the subject passes through rather
  * than a separate element, so the honest condition is declared in `data-pose` and the mount state
  * satisfies it (SPEC §6): identify refuses to ring a pane whose motion is saying nothing. The outgoing
  * pane, the picker, the read-out and the note are the scene.
  *
+ * Beside the read-out there used to be a second line, "This pane arrived" followed by "from the
+ * right, going deeper." and the like. That is the site narrating the move inside the mail app,
+ * which no mail app does; the move itself is the evidence and the note in the strip already reads
+ * it, so the label and its line went and only Showing is left.
+ *
  * The move is a CSS transition on `transform`, gated by `motion.css` for a reader who asked for less
  * movement and by `prefersReducedMotion` here, which puts that reader straight on the arrived pane.
  * Its end is timed on the stage's clock rather than on `transitionend`, which never fires under
  * reduced motion. Both panes are absolutely placed inside a clipped view and the read-out holds its
- * own heights, so a navigation moves nothing but the panes (SPEC §5).
+ * own height, so a navigation moves nothing but the panes (SPEC §5).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -98,11 +103,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <div class="sp-stack sp-context" style="flex: 1 1 auto; gap: 6px; min-width: 0">
               <span class="sp-label" style="font-size: 11px">Showing</span>
               <span class="sp-text--ink" data-part="where" style="font-size: 15px; font-weight: 600; line-height: 1.2">Mailboxes</span>
-              <span class="sp-divider" style="margin: 2px 0"></span>
-              <span class="sp-label" style="font-size: 11px">This pane arrived</span>
-              <span class="sp-text sp-text--ink" data-part="say" style="height: 50px; font-size: 12px; line-height: 1.4">
-                at rest, with nothing behind it yet.
-              </span>
             </div>
           </div>
 
@@ -119,7 +119,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const pane = part(root, 'pane');
   const paneOut = part(root, 'pane-out');
   const where = part(root, 'where');
-  const say = part(root, 'say');
   const note = part(root, 'note');
   const reduced = prefersReducedMotion(root);
 
@@ -150,7 +149,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     pane.dataset.level = next;
     pane.dataset.from = sign > 0 ? 'right' : 'left';
     where.textContent = next === 'list' ? 'Mailboxes' : 'Ferries';
-    say.textContent = `from the ${sign > 0 ? 'right' : 'left'}, ${deeper ? 'going deeper' : 'coming back out'}.`;
 
     if (reduced) {
       pane.style.transition = 'none';

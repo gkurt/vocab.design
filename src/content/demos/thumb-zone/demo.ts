@@ -35,6 +35,13 @@ const swatch = (paint: string, label: string) => `
  * register because its swatches quote the subject's own paint, and the register would
  * repaint them into colours the map does not use.
  *
+ * The panel beside the phone is the map's key, so it is titled and labelled the way a key
+ * is: "Right thumb reach" over the band names alone. It used to gloss each band in the
+ * site's voice ("easy: the thumb rests here", "hard: regrip or second hand"), which the
+ * article covers at length. The line under it is the author's reading of where the action
+ * landed and it changes with the switch, so it is a verdict and the stage draws it in the
+ * strip rather than the panel printing it.
+ *
  * Both action slots are always laid out and only their visibility changes, so moving the
  * action shifts nothing else on the screen (SPEC §5).
  */
@@ -73,13 +80,13 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-stack" style="flex: 1 1 auto; min-width: 0; gap: 10px">
-            <span class="sp-label">reach from a right thumb</span>
+            <span class="sp-label">Right thumb reach</span>
             <div class="sp-stack" style="gap: 6px">
-              ${swatch(EASY, 'easy: the thumb rests here')}
-              ${swatch(STRETCH, 'stretch: reachable, slow')}
-              ${swatch(HARD, 'hard: regrip or second hand')}
+              ${swatch(EASY, 'easy')}
+              ${swatch(STRETCH, 'stretch')}
+              ${swatch(HARD, 'hard')}
             </div>
-            <span class="sp-text sp-context" data-part="readout" style="height: 60px"></span>
+            <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 60px"></span>
           </div>
         </div>
       </div>

@@ -35,6 +35,11 @@ const mark = (name: string, x: number, y: number) => `
  * whether the pointer is inside the field whatever the motion preference, while the transform
  * itself is gated, so a reader who asked for less movement gets a button that holds still
  * (SPEC §5).
+ *
+ * The dashed circle used to be captioned "Attraction radius: 84px" in the field's top left.
+ * No studio page prints the radius of its own hover effect, and the readout in the bar
+ * already reports the pull in pixels, so the caption is gone and the circle speaks for
+ * itself. It was absolutely positioned, so nothing moved.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,7 +62,6 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: ${CENTRE.x - RADIUS}px; top: ${CENTRE.y - RADIUS}px; width: ${RADIUS * 2}px; height: ${RADIUS * 2}px;
                      border: 2px dashed var(--sp-line); border-radius: 50%; pointer-events: none"
             ></span>
-            <span class="sp-label sp-context" style="position: absolute; left: 12px; top: 10px; font-size: 11px">Attraction radius: ${RADIUS}px</span>
             <button
               class="sp-button"
               type="button"

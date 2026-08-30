@@ -70,6 +70,10 @@ const page = (index: number, back: boolean) => {
  *
  * The screen moves by a transform inside a clipped device and every read-out holds its own width and
  * height, so a peel moves nothing but the screen (SPEC §5).
+ *
+ * The read-out's resting line told the reader what to do ("Pull in from the left band."), which is
+ * the site speaking through an instrument that otherwise only reports what the last stroke did. It
+ * rests on "No stroke yet." now, and the reset says what it reset and stops there.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -130,7 +134,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <span style="position: relative; height: 6px; border-radius: 999px; background: var(--sp-sunken); overflow: hidden">
               <span data-part="fill" style="display: block; width: 0%; height: 100%; border-radius: 999px; background: var(--sp-accent)"></span>
             </span>
-            <span class="sp-text sp-text--ink" data-part="say" style="height: 34px; font-size: 12px; line-height: 1.4">Pull in from the left band.</span>
+            <span class="sp-text sp-text--ink" data-part="say" style="height: 34px; font-size: 12px; line-height: 1.4">No stroke yet.</span>
             <span class="sp-divider"></span>
             <span class="sp-label" data-stage-verdict data-part="legend" style="height: 46px; font-size: 11px; line-height: 1.4">Past ${COMMIT} px the navigation commits. Let go short of it and the screen springs back.</span>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="reset" style="align-self: flex-start">Reset the stack</button>
@@ -263,10 +267,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     top = 2;
     render();
     device.dataset.preview = 'none';
-    rest('none', 'Stack pushed back to three. Pull in from the left band.');
+    rest('none', 'Stack pushed back to three.');
   });
 
   render();
   peel(0, 'none');
-  report('Pull in from the left band.');
+  report('No stroke yet.');
 }

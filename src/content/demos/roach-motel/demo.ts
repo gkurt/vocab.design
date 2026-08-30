@@ -6,25 +6,24 @@ type Screen = { title: string; body: string; action: string | null };
 
 const SCREENS: Record<Mode, Screen[]> = {
   trapped: [
-    { title: 'Account', body: 'No cancel control here. It lives three levels down, under Manage plan.', action: 'Manage plan' },
-    { title: 'Before you go, take 20% off', body: 'An offer stands in front of the button you came for.', action: 'No, cancel my plan' },
+    { title: 'Account', body: 'Streamly Plus, 9.99 a month. Renews on the 14th.', action: 'Manage plan' },
+    {
+      title: 'Before you go, take 20% off',
+      body: 'Stay on Plus and pay 7.99 a month for the next three months.',
+      action: 'No, cancel my plan',
+    },
     {
       title: 'Tell us why you are leaving',
-      body: 'Six required questions, and the form will not submit until every one is answered.',
+      body: 'All six answers are required before you can continue.',
       action: 'Submit and continue',
     },
-    { title: 'Call us to finish', body: 'Phone only, weekdays 9 to 5. The last step of the exit is not on the web at all.', action: null },
+    { title: 'Call us to finish', body: 'Cancellations are completed by phone, weekdays 9 to 5.', action: null },
   ],
   fair: [
-    { title: 'Cancel membership', body: 'One control, on the account screen, where the sign-up button was.', action: 'Cancel membership' },
-    { title: 'Membership cancelled', body: 'Confirmed on screen, refundable until the period ends. No queue, no survey.', action: null },
+    { title: 'Cancel membership', body: 'Your membership ends at the close of the current period.', action: 'Cancel membership' },
+    { title: 'Membership cancelled', body: 'You have access until 14 October. A refund is on its way to your card.', action: null },
   ],
 };
-
-const CAPTION = {
-  trapped: 'The way out (as shipped)',
-  fair: 'The way out (made fair)',
-} as const;
 
 const VERDICT = {
   trapped: 'One click in, four screens and a phone call out. The asymmetry is the pattern.',
@@ -67,6 +66,12 @@ function screenMarkup(mode: Mode, step: number): string {
  * (`data-pose`), since ringing the one-screen cancellation would be a picture of the
  * opposite word (SPEC §6).
  *
+ * Both columns were headed by the author's own captions, "The way in (one screen)" and
+ * "The way out (as shipped)", and the trapped screens described themselves ("No cancel
+ * control here. It lives three levels down"). None of that is anything Streamly would
+ * print. The screens now carry the words a real cancellation flow carries, the headings
+ * are gone, and the verdict in the strip is where the reading belongs.
+ *
  * The panel holds one height for every screen, and the action sits in a fixed slot with
  * a full-width control, so advancing changes words and never geometry (SPEC §5). Each
  * step reaches the next screen rather than toggling, and picking a mode restores that
@@ -80,7 +85,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body sp-row" style="align-items: stretch; gap: 10px">
 
           <section class="sp-context" style="display: flex; flex-direction: column; gap: 7px; flex: 0 0 auto; width: 148px">
-            <span class="sp-label" style="height: 17px; font-size: 11px">The way in (one screen)</span>
             <div class="sp-row" style="gap: 3px; height: 4px">
               <span style="flex: 1 1 0; height: 4px; border-radius: 999px; background: var(--sp-accent)"></span>
             </div>
@@ -93,7 +97,6 @@ export function mount(root: HTMLElement): void {
           </section>
 
           <div style="display: flex; flex-direction: column; gap: 7px; flex: 1 1 auto; min-width: 0">
-            <span class="sp-label sp-context" data-part="caption" style="height: 17px; font-size: 11px">${CAPTION.trapped}</span>
             <section
               class="sp-surface"
               data-part="exit"
@@ -117,7 +120,6 @@ export function mount(root: HTMLElement): void {
   `;
 
   const exit = part(root, 'exit');
-  const caption = part(root, 'caption');
   const verdict = part(root, 'verdict');
   const join = part(root, 'join');
 
@@ -125,7 +127,6 @@ export function mount(root: HTMLElement): void {
     exit.dataset.mode = mode;
     exit.dataset.step = String(step);
     exit.innerHTML = screenMarkup(mode, step);
-    caption.textContent = CAPTION[mode];
     verdict.textContent = VERDICT[mode];
   };
 

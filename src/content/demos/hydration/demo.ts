@@ -20,6 +20,13 @@ const HYDRATE_MS = 2600;
  * Before the pass the button has no behaviour handler at all. The one listener on it
  * is the specimen's own log, which records that a press was made, since that is the
  * only observable thing a reader gets out of pressing a picture of a control.
+ *
+ * A note beside the button used to read "Painted by the server, listener or not", which is
+ * the site explaining the card from inside it, and is gone. The status line below it kept the
+ * same habit for longer: it read "Not interactive yet" and, on a press, "Pressed. No listener
+ * yet, so nothing happened.", which is the article's sentence set in a status bar's type. The
+ * line is an instrument the specimen really draws, so it stayed and its wording did not: it
+ * names the script's state and the last press, and nothing else.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -47,7 +54,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 data-pose="[data-phase=inert]"
                 aria-pressed="false"
               >${icon('heart')} <span data-part="count" data-count="18">18</span></button>
-              <span class="sp-text sp-context">Painted by the server, listener or not</span>
             </div>
           </div>
         </div>
@@ -57,9 +63,9 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         >
           <span class="sp-row" style="gap: 7px">
             <span class="sp-pending" data-part="dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--sp-muted)"></span>
-            <span class="sp-text sp-text--ink" data-part="phase" data-phase="inert">HTML painted, script still on its way</span>
+            <span class="sp-text sp-text--ink" data-part="phase" data-phase="inert">Script not loaded</span>
           </span>
-          <span class="sp-text" data-part="readout" data-state="idle">No press yet</span>
+          <span class="sp-text" data-part="readout" data-state="idle">Last press: none</span>
         </div>
       </div>
     </div>
@@ -81,7 +87,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   // Instrumentation, not the card's behaviour: a press before the pass reaches
   // nothing, and this line is the specimen saying so out loud.
   like.addEventListener('click', () => {
-    if (!hydrated) log('dead', 'Pressed. No listener yet, so nothing happened.');
+    if (!hydrated) log('dead', 'Last press: ignored, no handler');
   });
 
   const likeHandler = () => {
@@ -90,7 +96,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     count.dataset.count = String(value);
     like.setAttribute('aria-pressed', 'true');
     flag(like, 'data-selected', true);
-    log('applied', `Pressed. Liked, and the count moved to ${value}.`);
+    log('applied', `Last press: liked, count ${value}`);
   };
 
   clock.setTimeout(() => {
@@ -99,7 +105,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     like.addEventListener('click', likeHandler);
     like.dataset.phase = 'live';
     phase.dataset.phase = 'live';
-    phase.textContent = 'Script attached, the card is listening';
+    phase.textContent = 'Script loaded';
     dot.className = '';
     dot.style.background = 'var(--sp-accent)';
   }, HYDRATE_MS);

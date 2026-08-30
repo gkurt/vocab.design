@@ -23,16 +23,20 @@ const LG_FROM = 420;
  * would say the layout is responsive, which is a different word (SPEC §5). The simulated
  * viewport, the page inside it and the width switcher are the result the rules are read
  * against, so they carry the context register.
+ *
+ * Each rule used to carry a plain-English column beside it ("always", "340px and up",
+ * "420px and up") under a heading reading "stylesheet, in source order". The rule text
+ * already states its own query, and a stylesheet pane is titled with its file, so the
+ * column went and the heading is the file's name.
  */
 export function mount(root: HTMLElement): void {
-  const rule = (key: string, when: string, code: string) => `
+  const rule = (key: string, code: string) => `
     <div
       class="sp-row"
       data-part="rule-${key}"
       style="gap: 8px; padding: 2px 6px; border-radius: 5px; transition: background-color 0.2s ease"
     >
       <span data-part="rule-${key}-mark" style="display: flex; flex: 0 0 auto; color: var(--sp-accent)">${icon('check')}</span>
-      <span class="sp-label" style="flex: 0 0 auto; width: 84px">${when}</span>
       <span class="sp-text" data-part="rule-${key}-code" style="font-size: 12px; white-space: nowrap">${code}</span>
     </div>`;
 
@@ -84,10 +88,10 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
           <div class="sp-stack" data-part="rules" data-subject style="width: 100%; gap: 3px; margin-top: 10px">
-            <span class="sp-label sp-context">stylesheet, in source order</span>
-            ${rule('base', 'always', '.page { grid-template-areas: "main" }')}
-            ${rule('md', `${MD_FROM}px and up`, '@media (min-width: 340px) { + details }')}
-            ${rule('lg', `${LG_FROM}px and up`, '@media (min-width: 420px) { + related }')}
+            <span class="sp-label sp-context">styles.css</span>
+            ${rule('base', '.page { grid-template-areas: "main" }')}
+            ${rule('md', `@media (min-width: ${MD_FROM}px) { + details }`)}
+            ${rule('lg', `@media (min-width: ${LG_FROM}px) { + related }`)}
           </div>
         </div>
       </div>

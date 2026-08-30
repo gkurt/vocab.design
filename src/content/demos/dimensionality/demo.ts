@@ -13,17 +13,6 @@ const FADE_MS = 240;
 
 type Mode = 'dimensional' | 'flat';
 
-const SAY: Record<Mode, Record<'shown' | 'hidden', string>> = {
-  dimensional: {
-    shown: "unfolded along the card's bottom edge, and that is the edge it folds back into.",
-    hidden: 'tucked behind the card, one crease away from being back on screen.',
-  },
-  flat: {
-    shown: 'faded up in place. It came from nowhere, so there is nowhere to put it back.',
-    hidden: 'gone, without having gone anywhere.',
-  },
-};
-
 const row = (label: string, amount: string, name?: string) => `
   <span class="sp-row sp-row--between" ${name ? `data-part="${name}"` : ''} style="font-size: 12px">
     <span style="color: var(--sp-muted)">${label}</span>
@@ -41,6 +30,12 @@ const row = (label: string, amount: string, name?: string) => `
  * subject itself passes through, so the honest condition is declared in `data-pose` and the mount
  * state satisfies it (SPEC §6): identify refuses to ring a panel whose arrival claims no depth.
  * The card it folds from, the picker, the readout and the two controls are the scene.
+ *
+ * The breakdown panel used to carry a narrated line beside it, "The panel is" followed by a
+ * sentence per state ("unfolded along the card's bottom edge, and that is the edge it folds back
+ * into."). No fare card writes that about its own drawer, the fold itself is the evidence, and the
+ * article says it at length, so the label and the line went and only the Hidden/Showing readout
+ * the product would really print is left.
  *
  * Show and Hide are absolute states rather than one toggle, so a pass that is resumed or
  * fast-forwarded lands where it was asked to (SPEC §8). The move is a CSS transition, so
@@ -105,10 +100,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <span class="sp-label" style="font-size: 11px">Breakdown</span>
             <span class="sp-text--ink" data-part="where" style="font-size: 15px; font-weight: 600; line-height: 1.2">Hidden</span>
             <span class="sp-divider" style="margin: 1px 0"></span>
-            <span class="sp-label" style="font-size: 11px">The panel is</span>
-            <span class="sp-text sp-text--ink" data-part="say" style="height: 62px; font-size: 12px; line-height: 1.4">
-              ${SAY.dimensional.hidden}
-            </span>
             <div class="sp-row" style="gap: 6px">
               <button class="sp-button sp-button--sm" type="button" data-part="show">Show</button>
               <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="hide">Hide</button>
@@ -127,7 +118,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const panel = part(root, 'panel');
   const shade = part(root, 'shade');
   const where = part(root, 'where');
-  const say = part(root, 'say');
   let mode: Mode = 'dimensional';
   let shown = false;
   let settling: number | undefined;
@@ -155,7 +145,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     scene.dataset.mode = mode;
     flag(scene, 'data-open', shown);
     where.textContent = shown ? 'Showing' : 'Hidden';
-    say.textContent = SAY[mode][shown ? 'shown' : 'hidden'];
 
     if (!animate) {
       panel.dataset.state = 'settled';

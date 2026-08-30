@@ -65,6 +65,11 @@ const EASE = 'transition: background-color 0.3s var(--sp-ease), color 0.3s var(-
  * instrumentation that lets a reader watch it happen. Every colour in the panel is
  * read from a role variable, so one assignment re-themes the fill, the container, the
  * ink on both, and the outline at once, which is the point the term is making.
+ *
+ * The tinted block in the panel used to read "Container role, with its own ink" under the
+ * forecast, which named the role instead of saying anything a weather card would say. It
+ * carries the forecast's own second line now; the block still shows the container role and
+ * its ink by being painted in them.
  */
 export function mount(root: HTMLElement): void {
   const thumbs = Object.entries(SCHEMES)
@@ -89,7 +94,7 @@ export function mount(root: HTMLElement): void {
 
         <div style="margin-top: 12px; padding: 10px 12px; border-radius: 14px; background: var(--tone-container); color: var(--tone-on-container); ${EASE}">
           <div style="font-size: 13px; font-weight: 600">Rain until 4pm</div>
-          <div style="font-size: 12px; margin-top: 2px">Container role, with its own ink</div>
+          <div style="font-size: 12px; margin-top: 2px">Heaviest around 2pm</div>
         </div>
 
         <div class="sp-row" style="margin-top: 12px; gap: 8px">

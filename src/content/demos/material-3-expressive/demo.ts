@@ -13,13 +13,20 @@
  * term names a design language, and the narrowest thing on stage that actually is one
  * applied is the fragment (SPEC §5). The oversized action inside it was the alternative,
  * but a ring around one button would claim the term names a button. The two reference
- * tiles, the labels and the caption are the scenery that makes the register legible.
+ * tiles, their labels and the caption are the scenery that makes the register legible.
  *
  * The morph frames come from a fixed table of lobe counts and depths, so the specimen is
  * identical on every identify run. Static: a poster has no states, so there is no clock.
  *
  * A static tour ends where it began, so the pass ends at its mount state and the tree persists
  * across attract iterations (`data-loop="keep"`).
+ *
+ * The page was headed "Material, with the volume up" and each tile footed with a sentence
+ * reading the register out loud ("Radii as a range, and a shape that morphs.", "Tonal fields,
+ * not accents on grey.", "An action sized to be reached, not read."), with "One shape, three
+ * frames" inside the shape tile besides. All five were the site talking over a reference page
+ * that would only ever print names. The heading is the language's own name now and the tiles
+ * keep their one-word labels; the article carries the readings.
  */
 const SURFACE = '#fef7ff';
 const ON_SURFACE = '#1d1b20';
@@ -53,8 +60,8 @@ function lobed(cx: number, cy: number, r: number, lobes: number, depth: number):
   return `M${pts.join('L')}Z`;
 }
 
-/** One tile of the tour: a tinted ground with its drawing, then a label and a note under it. */
-function tile(part: string, label: string, note: string, ground: string, inner: string): string {
+/** One tile of the tour: a tinted ground with its drawing, and a label under it. */
+function tile(part: string, label: string, ground: string, inner: string): string {
   return `
     <div class="sp-stack" style="flex: 0 0 ${TW}px; gap: 5px; align-items: stretch">
       <div data-part="${part}"
@@ -63,7 +70,6 @@ function tile(part: string, label: string, note: string, ground: string, inner: 
         ${inner}
       </div>
       <span class="sp-label" style="color: var(--sp-ink); font-size: 12px">${label}</span>
-      <span class="sp-text" style="margin: 0; font-size: 11px; line-height: 1.35">${note}</span>
     </div>`;
 }
 
@@ -80,7 +86,6 @@ export function mount(root: HTMLElement): void {
       <svg data-part="morph" viewBox="0 0 116 36" width="116" height="36" role="presentation" style="display: block">
         ${frames}
       </svg>
-      <span class="sp-label" data-part="shape-note" style="font-size: 10px; line-height: 1.2">One shape, three frames</span>
       <div class="sp-row" data-part="radii" style="gap: 7px; margin-top: 2px">
         <span aria-hidden="true" style="width: 32px; height: 32px; border-radius: 26px 8px 26px 8px; background: ${TERT_C}"></span>
         <span aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50% 50% 8px 50%; background: ${SEC_C}"></span>
@@ -128,16 +133,16 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep" style="gap: 9px">
       <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
-        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Material, with the volume up</span>
+        <span class="sp-heading" data-part="heading" style="display: block; margin-bottom: 9px">Material 3 Expressive</span>
 
         <div class="sp-row" data-part="tour" style="gap: 13px; align-items: flex-start; justify-content: center">
           <div class="sp-context">
-            ${tile('tile-shape', 'Shape', 'Radii as a range, and a shape that morphs.', P95, shape)}
+            ${tile('tile-shape', 'Shape', P95, shape)}
           </div>
           <div class="sp-context">
-            ${tile('tile-colour', 'Colour', 'Tonal fields, not accents on grey.', SURFACE, colour)}
+            ${tile('tile-colour', 'Colour', SURFACE, colour)}
           </div>
-          ${tile('tile-applied', 'Applied', 'An action sized to be reached, not read.', P95, fragment)}
+          ${tile('tile-applied', 'Applied', P95, fragment)}
         </div>
       </div>
 

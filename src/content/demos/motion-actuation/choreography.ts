@@ -39,7 +39,7 @@ export default steps([
   { wait: 800 },
   { assert: { selector: '[data-part=undo]', state: 'hidden' } },
   { assert: { selector: '[data-part=off-switch]', state: 'hidden' } },
-  { assert: { selector: '[data-part=setting-note][data-mode=motion]', state: 'visible' } },
+  { assert: { selector: '[data-part=off-card]', state: 'hidden' } },
   { assert: { selector: '[data-part=caption][data-mode=motion]', state: 'visible' } },
   { wait: 2000 },
 

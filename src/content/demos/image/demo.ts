@@ -47,6 +47,10 @@ const START = 'loaded';
  * around it is the layout's, and the alt panel is the demo showing you what the element is
  * carrying. The state picker, the intrinsic-size readout and the alt panel are scenery.
  *
+ * The two readout labels read "declared on the element" and "box the layout reserves",
+ * which was the site narrating layout beside a picture; they are "Intrinsic size" and
+ * "Displayed size" now, which is what an asset panel would print over those numbers.
+ *
  * The source is an inline SVG in a data URI, so nothing is fetched (SPEC §5), and the
  * broken state is a data URI that genuinely fails to decode rather than a picture of a
  * failure. The element declares its intrinsic width and height, which is what holds the
@@ -92,11 +96,11 @@ export function mount(root: HTMLElement): void {
 
           <div class="sp-stack sp-context sp-grow" style="gap: 6px; min-width: 0">
             <div class="sp-stack" style="gap: 1px">
-              <span class="sp-label" style="font-size: 11px">declared on the element</span>
+              <span class="sp-label" style="font-size: 11px">Intrinsic size</span>
               <span style="font-size: 12.5px; font-variant-numeric: tabular-nums">${NATURAL.w} × ${NATURAL.h}</span>
             </div>
             <div class="sp-stack" style="gap: 1px">
-              <span class="sp-label" style="font-size: 11px">box the layout reserves</span>
+              <span class="sp-label" style="font-size: 11px">Displayed size</span>
               <span style="font-size: 12.5px; font-variant-numeric: tabular-nums">${BOX} × ${Math.round((BOX * NATURAL.h) / NATURAL.w)}</span>
             </div>
             <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="alt-show" style="align-self: flex-start; margin-top: 2px">

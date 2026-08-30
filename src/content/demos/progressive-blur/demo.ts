@@ -8,6 +8,11 @@ import { flag, part } from '#src/kit/parts.ts';
  * content dissolves instead of crossing a line. The right screen is scenery: one blur,
  * unmasked, with the seam that gives.
  *
+ * Captions under the two screens once read "five masked layers, no edge" and "one blur, one
+ * seam". Those describe how the effect is built, which no photo app prints under its own
+ * status bar, so both are gone: the smooth dissolve on the left and the seam on the right
+ * are the whole comparison, and the article names the technique.
+ *
  * Scrolling is what proves it, so the left screen is the scroller a script drives and the
  * twin mirrors its position, which keeps the comparison honest at every offset. Paint is
  * inline because the scene is this term's own: the kit has one accent, and a blur has to
@@ -94,11 +99,9 @@ export function mount(root: HTMLElement): void {
       <div class="sp-row" style="align-items: flex-start; gap: 20px">
         <div class="sp-stack" style="gap: 7px; align-items: center">
           ${screen('ramp')}
-          <span class="sp-label sp-context">five masked layers, no edge</span>
         </div>
         <div class="sp-stack sp-context" style="gap: 7px; align-items: center">
           ${screen('hard')}
-          <span class="sp-label">one blur, one seam</span>
         </div>
       </div>
     </div>

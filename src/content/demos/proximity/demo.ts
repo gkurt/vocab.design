@@ -34,8 +34,14 @@ const FIELDS = [
  * to), arranged three ways. Only the gaps change between the states. No rule, no fill and
  * no reordering, so whatever the reader sees grouping in the middle state is the spacing.
  *
- * The subject is the field set, the narrowest element the term names: the card it sits on,
- * the switcher and the reading beside it are the scene it is read against (SPEC §5).
+ * The subject is the field set, the narrowest element the term names: the card it sits on
+ * and the switcher are the scene it is read against (SPEC §5).
+ *
+ * The reading of each arrangement used to sit in a column beside the card, under a label
+ * saying "what the reader gets for free". The label is gone (it was the site introducing its
+ * own commentary), and the reading itself changes with the switch, so it is now marked
+ * `data-stage-verdict` and the stage draws it above the control that produced it. With the
+ * column gone the frame is only as wide as the card.
  *
  * Two of the three states are counter-examples the subject itself passes through: the even
  * one groups nothing, and the boxed one groups by enclosure rather than by nearness. The
@@ -53,7 +59,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 470px; height: 296px">
+      <div class="sp-frame" style="width: 276px; height: auto">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Grouping</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-value="spacing" data-axis="Method" data-term="spacing">
@@ -68,10 +74,7 @@ export function mount(root: HTMLElement): void {
               ${groups}
             </div>
           </div>
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 6px">
-            <span class="sp-label">what the reader gets for free</span>
-            <span class="sp-text" data-part="readout" style="height: 150px; font-size: 12px"></span>
-          </div>
+          <span class="sp-text" data-stage-verdict data-part="readout" style="display: none"></span>
         </div>
       </div>
     </div>

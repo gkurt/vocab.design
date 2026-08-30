@@ -19,6 +19,10 @@ const RECENT = [
  * feature the term names. The field is a text field, the list below is history, and
  * neither is this word.
  *
+ * The line under the field used to count the characters and then explain the mechanism
+ * ("3 typed, 10 shown. The rest is selected, so the next key lands over it."). It prints
+ * what a jump field would print instead: what Enter would open, or that nothing matches.
+ *
  * The visible field is drawn (a typed run, the selected remainder, a caret) over a
  * transparent real input that holds the value and receives the keystrokes. A styled
  * selection inside a native input is not addressable, and the selected remainder is
@@ -64,7 +68,7 @@ export function mount(root: HTMLElement): void {
             />
           </div>
           <div class="sp-surface sp-context" style="padding: 4px 10px">${history}</div>
-          <span class="sp-text sp-context" data-part="readout" role="status" style="font-size: 11px">Nothing typed, nothing guessed.</span>
+          <span class="sp-text sp-context" data-part="readout" role="status" style="font-size: 11px">Type to jump to an entry</span>
         </div>
       </div>
     </div>
@@ -83,9 +87,9 @@ export function mount(root: HTMLElement): void {
     remainder.textContent = guess ? guess.slice(value.length) : '';
     remainder.hidden = !guess;
     field.dataset.guess = guess ?? '';
-    if (!value) readout.textContent = 'Nothing typed, nothing guessed.';
-    else if (!guess) readout.textContent = `${value.length} characters typed, nothing left to guess.`;
-    else readout.textContent = `${value.length} typed, ${guess.length} shown. The rest is selected, so the next key lands over it.`;
+    if (!value) readout.textContent = 'Type to jump to an entry';
+    else if (!guess) readout.textContent = `No entry starts with ${value}`;
+    else readout.textContent = `Enter to open ${guess}`;
   };
 
   editor.addEventListener('input', draw);

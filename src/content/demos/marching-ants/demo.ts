@@ -59,13 +59,6 @@ const shape = (name: string, at: { x: number; y: number }, wash: string, attrs: 
     <span class="sp-label" style="font-size: 11px">${name}</span>
   </div>`;
 
-const caption = (text: string, r: Rect, attrs = '') => `
-  <span
-    class="sp-label"
-    ${attrs}
-    style="position: absolute; left: ${r.x - 12}px; top: ${r.y + r.h + 8}px; width: ${r.w + 24}px; text-align: center; font-size: 11px"
-  >${text}</span>`;
-
 /**
  * Marching ants specimen: a plan canvas holding two identical shapes, one selected and
  * one not. The selected shape wears a dashed boundary whose dashes walk around it; the
@@ -73,14 +66,20 @@ const caption = (text: string, r: Rect, attrs = '') => `
  * motion, not the dashes, is what marks a selection.
  *
  * The subject is the crawling boundary itself, the narrowest thing the term names: not
- * the shape it holds, not the canvas it is drawn on. The still frame beside it, the
- * captions, and the readout are the comparison and stay in the context register.
+ * the shape it holds, not the canvas it is drawn on. The still frame beside it and the
+ * readout are the comparison and stay in the context register.
  *
  * Selecting and deselecting are both absolute: a press on the shape selects it, a press
  * on empty canvas clears the selection, so a pass that is resumed or fast-forwarded
  * lands on the state it asked for rather than the opposite of it (SPEC §8). The boundary
  * exists in the tree from mount and only its opacity changes, so nothing moves when a
  * selection is made (SPEC §5).
+ *
+ * The two shapes were captioned underneath ("Dashed, and standing still" under the frame
+ * that never moves, "Selected: the dashes walk" under the one that does). A site plan
+ * prints no such thing, and the two boundaries make the difference themselves, so both
+ * captions and the helper that drew them are gone. They were absolutely positioned, so
+ * nothing moved with them; the toolbar readout still names what is selected.
  */
 export function mount(root: HTMLElement): void {
   const held = around(A);
@@ -113,10 +112,6 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: ${held.x}px; top: ${held.y}px; width: ${held.w}px; height: ${held.h}px;
                      opacity: 0; transition: opacity 0.16s linear; pointer-events: none"
             >${ants(held)}</span>
-            <span class="sp-context">
-              ${caption('Not selected: no boundary', held, 'data-part="caption"')}
-              ${caption('Dashed, and standing still', still)}
-            </span>
             <span
               data-part="empty"
               aria-hidden="true"
@@ -132,13 +127,11 @@ export function mount(root: HTMLElement): void {
   const target = part(root, 'shape');
   const boundary = part(root, 'ants');
   const readout = part(root, 'readout');
-  const label = part(root, 'caption');
 
   const select = (on: boolean) => {
     boundary.style.opacity = on ? '1' : '0';
     readout.dataset.selected = on ? '1' : '0';
     readout.textContent = on ? 'Terrace selected' : 'Nothing selected';
-    label.textContent = on ? 'Selected: the dashes walk' : 'Not selected: no boundary';
   };
 
   canvas.addEventListener('pointerdown', (event) => {

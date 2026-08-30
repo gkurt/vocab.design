@@ -15,8 +15,8 @@ type Mode = 'hidden' | 'shown';
 const IS_MODE = (value: string): value is Mode => value === 'hidden' || value === 'shown';
 
 const READS: Record<Mode, string> = {
-  hidden: 'marks off: the text, and no way to see its structure',
-  shown: 'marks on: ¶ ends a paragraph, ↵ only ends a line',
+  hidden: 'Marks off: nothing on screen says where one paragraph ends and the next begins.',
+  shown: 'Marks on: ¶ ends a paragraph, ↵ only ends a line.',
 };
 
 /** A space, drawn as the dot that stands in it. */
@@ -42,6 +42,15 @@ function ender(glyph: string, subject: boolean): string {
  * own instrumentation and sit in the context register (SPEC §5). No setting is
  * dishonest, so no `data-pose` is needed: a pilcrow is a pilcrow whenever it is drawn,
  * and the specimen mounts with the marks on so it is drawn at rest.
+ *
+ * The document used to be about pilcrows ("The mark shows where a paragraph ends, not
+ * where a line does." and "It is older than the indent."), which is the site talking in
+ * a word processor's own text. It is ordinary meeting notes now, and it still carries
+ * the one shape the term needs: a line break inside a paragraph, then a paragraph end.
+ * The chip that read the marks out loud changes with the switch, so it is the strip's
+ * verdict now rather than a line inside the editor, and the "nothing reflows" label
+ * beside it went: that was a note about how the demo is built, not something a word
+ * processor prints.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -57,17 +66,14 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface" data-part="body" data-marks="shown"
              style="margin-top: 10px; padding: 14px 16px; height: 112px; font-size: 15px; line-height: 1.7">
           <p style="margin: 0">
-            ${words('The mark shows where a paragraph ends,')}${ender('↵', false)}<br>
-            ${words('not where a line does.')}${ender('¶', true)}
+            ${words('Notes for the Thursday review,')}${ender('↵', false)}<br>
+            ${words('in the order we will take them.')}${ender('¶', true)}
           </p>
           <p style="margin: 0">
-            <span data-mark style="display: inline-block; width: 2em; ${MARK}">→</span>${words('It is older than the indent.')}${ender('¶', false)}
+            <span data-mark style="display: inline-block; width: 2em; ${MARK}">→</span>${words('Budget first, then the schedule.')}${ender('¶', false)}
           </p>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 26px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${READS.shown}</span>
-          <span class="sp-label">nothing reflows</span>
-        </div>
+        <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin: 0">${READS.shown}</p>
       </div>
     </div>
   `;

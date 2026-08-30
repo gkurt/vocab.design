@@ -43,10 +43,12 @@ const marker = (name: string, color: string, x: string, y: string, extra = '') =
  *
  * The subject is the field. The markers sit in a sibling overlay rather than inside it, so
  * the subject stays the blend itself and never carries the specimen's own annotation
- * (SPEC §5); the picker, the markers and the syntax line are all in the context register.
+ * (SPEC §5); the picker, the markers and the readout are all in the context register.
  *
- * The stack is four radial gradients, stated in the caption, because CSS has no mesh
- * gradient and a specimen that implied otherwise would be lying about the technique. The
+ * The stack really is four radial gradients, because CSS has no mesh gradient. A caption
+ * under the field used to say so ("CSS has no mesh gradient, so this field is four large
+ * radial gradients stacked, each fading to transparent."); no editor prints its own
+ * implementation, and the article's honest note already carries the fact, so it went. The
  * field and its wrapper are fixed size and only paint changes, so nothing moves.
  */
 export function mount(root: HTMLElement): void {
@@ -81,10 +83,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text" data-part="readout" style="font-size: 10.5px">rose at ${start.at}</span>
           <span class="sp-text" style="font-size: 10.5px">4 points</span>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 6px 0 0; height: 28px; font-size: 10.5px; line-height: 1.35">
-          CSS has no mesh gradient, so this field is four large radial gradients stacked, each fading to transparent.
-        </p>
       </div>
     </div>
   `;

@@ -7,7 +7,13 @@ import '#src/kit/segmented.ts';
  * and one held together stays a single unbroken block. Which pair lands at a
  * line end depends on the face the kit resolves, which is exactly the situation
  * the character exists for, so the readout names what the setting does rather
- * than which pair it saved.
+ * than which pair it saved. That readout changes with the pick, so it is the
+ * stage's verdict now and is drawn in the strip. The heading that used to sit
+ * over the switch ("the space in each pair") went with it: it was the site
+ * labelling its own control inside the window, and the strip names the switch
+ * already. The source row under the column ("written as bring the 10&nbsp;km chart")
+ * went the same way: printing the entity spelling was the site teaching HTML inside a
+ * window that is meant to be a document, and the article gives that spelling already.
  */
 const PAIRS = ['Dr. Chen', '10 km', 'section 4.2', 'Figure 3'];
 const NBSP = ' ';
@@ -37,13 +43,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 300px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">the space in each pair</span>
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="nbsp" data-axis="Character" data-term="nbsp">
-            <button class="sp-segment" data-part="seg-space" value="space">space</button>
-            <button class="sp-segment" data-part="seg-nbsp" value="nbsp">nbsp</button>
-          </sp-segmented>
-        </div>
+        <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="nbsp" data-axis="Character" data-term="nbsp">
+          <button class="sp-segment" data-part="seg-space" value="space">space</button>
+          <button class="sp-segment" data-part="seg-nbsp" value="nbsp">nbsp</button>
+        </sp-segmented>
         <div class="sp-row" style="gap: 10px; margin-top: 12px; align-items: flex-start">
           <div class="sp-stack" style="gap: 4px">
             <span class="sp-label sp-context">measure: ${COLUMN}px</span>
@@ -54,12 +57,7 @@ export function mount(root: HTMLElement): void {
               </p>
             </div>
           </div>
-          <p class="sp-text sp-context" data-part="readout" style="margin: 0; width: 96px; font-size: 12px; line-height: 16px"></p>
-        </div>
-        <div class="sp-divider sp-context" style="margin: 8px 0"></div>
-        <div class="sp-row sp-context" data-part="source" style="gap: 8px">
-          <span class="sp-label">written as</span>
-          <span class="sp-text sp-text--ink" style="font-size: 12px">bring the 10&amp;nbsp;km chart</span>
+          <p class="sp-text sp-context" data-stage-verdict data-part="readout" style="margin: 0; width: 96px; font-size: 12px; line-height: 16px"></p>
         </div>
       </div>
     </div>

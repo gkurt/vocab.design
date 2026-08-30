@@ -89,7 +89,10 @@ function panel({ key, label, values }: Panel): string {
  *
  * The subject is the grid of panels, not any single panel and not the whole scene: a lone panel
  * is a chart, and the repetition plus the shared scale is what the term names (SPEC §5). The
- * window chrome, the scale picker and the caption are scenery in the context register.
+ * window chrome and the scale picker are scenery in the context register. The line under the
+ * grid read as the site arguing the point from inside the chart window ("Central really is a
+ * tenth of North, and the eye can see it."), and it changes with the switch, so it is a
+ * verdict: it carries `data-stage-verdict` and the stage draws it above the controls.
  *
  * Both states are honestly the term (per-panel scales are badly scaled small multiples, not
  * something else), so the subject never stops being what it claims and no `data-pose` is needed.
@@ -117,7 +120,7 @@ export function mount(root: HTMLElement): void {
           >
             ${PANELS.map(panel).join('')}
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; width: 442px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 40px; width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>

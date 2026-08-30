@@ -38,6 +38,12 @@ const POP: Keyframe[] = [
  * `prefersReducedMotion` itself and simply leaves the medal at rest, which is the honest
  * answer for a scale entrance. `data-state` is cleared on the stage's clock, so a pose cannot
  * let an arrival finish under someone inspecting it (SPEC §6).
+ *
+ * A caption under the panel read "One snap, no floor: nothing here rebounds.", and the line
+ * under the medal finished with "The medal lands a touch large, then settles." Both were the
+ * site describing the motion the reader is watching, which the article does at length, so the
+ * caption went and the line is now just what the panel is congratulating: "Fourteen days in a
+ * row."
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -65,14 +71,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
           <span class="sp-heading sp-context" data-part="title" style="font-size: 15px">Streak saved</span>
           <span class="sp-text sp-context" data-part="note" style="text-align: center">
-            Fourteen days. The medal lands a touch large, then settles.
+            Fourteen days in a row.
           </span>
         </div>
       </div>
-
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 340px; margin: 0; text-align: center">
-        One snap, no floor: nothing here rebounds.
-      </p>
     </div>
   `;
 

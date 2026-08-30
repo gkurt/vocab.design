@@ -31,6 +31,10 @@ const RATES = [
  * still has a part to point at. The frame, the heading, and the Replay control are
  * instrumentation and stay outside it.
  *
+ * A line under the tracks read "The same 1400 ms of travel, drawn with 83, 43 and 17
+ * pictures." Each row already counts its own frames as it draws them, so the numbers are
+ * on screen without the site saying them, and the line went.
+ *
  * Nothing here is a CSS animation: each dot is placed by a timer at its own interval, which
  * is the only way a frame rate can be shown rather than described. The steps therefore come
  * from the stage's clock, so a pose stops the run where it stands (SPEC §6), and
@@ -75,9 +79,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
         >
           ${rows}
         </div>
-        <p class="sp-text sp-context" style="margin: 12px 0 0">
-          The same 1400 ms of travel, drawn with 83, 43 and 17 pictures.
-        </p>
       </div>
     </div>
   `;

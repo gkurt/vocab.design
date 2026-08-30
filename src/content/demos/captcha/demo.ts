@@ -69,7 +69,7 @@ const GRID_BODY = `
     ).join('')}
   </div>
   <div class="sp-row sp-row--between" style="padding: 5px 10px; border-top: 1px solid var(--sp-line)">
-    <span class="sp-label" data-part="status">Nine squares, none of them real</span>
+    <span class="sp-label" data-part="status">Click verify once there are none left</span>
     <button class="sp-button sp-button--sm" type="button" data-part="verify">Verify</button>
   </div>`;
 
@@ -81,7 +81,14 @@ type Mode = keyof typeof BODY;
  * CAPTCHA specimen: the widget a form puts in front of you, simulated honestly. The
  * checkbox version ticks, sits on the clock pretending to weigh evidence, and reports
  * a verdict; the segmented control swaps in the image grid version of the same gate.
- * Nothing is scored, no request is made, and the footer says so.
+ * Nothing is scored and no request is made.
+ *
+ * The frame used to end in a footer band reading "Simulated. Nothing is really tested.",
+ * and the grid's own status line read "Nine squares, none of them real". Both are the site
+ * disclaiming the fiction from inside the fiction, which the stage around the specimen
+ * already does. The band is gone (the mode switch it also held is drawn by the stage, so it
+ * only had to stay in the tree, and it now rides along in the topbar), and the grid's line
+ * says what that footer would really say.
  *
  * The subject is the widget, not the form around it: the term names the challenge, and
  * the sign-up step it is guarding is the scene. Both modes are the term, so no pose
@@ -89,17 +96,21 @@ type Mode = keyof typeof BODY;
  * keeps a single `data-subject` across the switch.
  *
  * The two versions are different heights, so the widget sits at the top of a slot tall
- * enough for the larger one and the footer never moves (SPEC §5). A tile click always
+ * enough for the larger one and nothing around it moves (SPEC §5). A tile click always
  * selects rather than toggling, so a script resumed anywhere reaches the same state
  * (SPEC §8).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 310px">
+      <div class="sp-frame sp-frame--wide" style="height: 276px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Create account</span>
           <span class="sp-label">Step 2 of 2</span>
+          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="checkbox" data-axis="Challenge">
+            <button class="sp-segment" data-part="mode-checkbox" value="checkbox">Checkbox</button>
+            <button class="sp-segment" data-part="mode-grid" value="grid">Image grid</button>
+          </sp-segmented>
         </div>
         <div class="sp-body">
           <div data-part="slot" style="position: relative; height: 100%">
@@ -112,13 +123,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                      background: var(--sp-surface); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)"
             >${CHECKBOX_BODY}</div>
           </div>
-        </div>
-        <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
-          <span class="sp-text" style="font-size: 11px">Simulated. Nothing is really tested.</span>
-          <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="checkbox" data-axis="Challenge">
-            <button class="sp-segment" data-part="mode-checkbox" value="checkbox">Checkbox</button>
-            <button class="sp-segment" data-part="mode-grid" value="grid">Image grid</button>
-          </sp-segmented>
         </div>
       </div>
     </div>

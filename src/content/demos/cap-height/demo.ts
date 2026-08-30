@@ -37,6 +37,12 @@ const EM_BOX = 'width: 1em; height: 1em';
  * The subject is the ruled word. A cap height is a distance between two lines,
  * so the narrowest thing that carries one is the sample with its rules on it;
  * ringing the window would claim the term names the whole comparison.
+ *
+ * The sheet used to head itself "One word, three rules" and label the two squares
+ * "sized to cap height" and "sized to the em box", which is the site describing its
+ * own construction inside a type specimen. The heading now names the face being
+ * set, and each square is labelled with the unit that sized it, which is what a
+ * specimen sheet would really print.
  */
 export function mount(root: HTMLElement): void {
   const rule = (bottom: string, style: string) =>
@@ -68,7 +74,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 300px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One word, three rules</span>
+          <span class="sp-heading">Georgia</span>
           <span class="sp-label" style="font-variant-numeric: tabular-nums">${SIZE}px</span>
         </div>
         <div data-part="ruled" data-subject style="margin-top: 4px; font-size: 0; white-space: nowrap">
@@ -80,8 +86,8 @@ export function mount(root: HTMLElement): void {
         </p>
         <div class="sp-divider sp-context" style="margin: 10px 0"></div>
         <div class="sp-stack sp-context" data-part="alignment" style="gap: 4px">
-          ${aligned('cap-aligned', CAP_BOX, 'sized to cap height')}
-          ${aligned('em-aligned', EM_BOX, 'sized to the em box')}
+          ${aligned('cap-aligned', CAP_BOX, '1cap')}
+          ${aligned('em-aligned', EM_BOX, '1em')}
         </div>
       </div>
     </div>

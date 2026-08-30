@@ -44,7 +44,9 @@ const GUTTER = 102;
  * currently resolves to. That is the narrowest element the term names: one alias alone could
  * not show a scale answering to two meanings, and the scale, the component chips, the theme
  * control and the caption are all things the term is read against, so they sit in the context
- * register (SPEC §5). The alias layer is an alias layer in both themes, so there is no state
+ * register (SPEC §5). The scale header names the palette and nothing else: it used to read
+ * "amber, identical in both themes", and the marks moving while the rungs hold still already
+ * say that. The alias layer is an alias layer in both themes, so there is no state
  * identify has to refuse.
  *
  * Every row is a fixed height and only paint and text change with the theme, so nothing moves
@@ -94,7 +96,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-context" data-part="scale" style="margin-top: 10px">
           <div class="sp-row" style="gap: 0; height: 14px">
             <span class="sp-label" style="flex: 0 0 ${GUTTER}px">Primitive scale</span>
-            <span class="sp-text" style="font-size: 9.5px">amber, identical in both themes</span>
+            <span class="sp-text" style="font-size: 9.5px">amber</span>
           </div>
           <div class="sp-row" style="gap: 0; margin-top: 4px">
             <span style="flex: 0 0 ${GUTTER}px"></span>

@@ -16,7 +16,7 @@ const TILES = [
  * on its own: the panel only acts when the pinch lands, which is the whole of the split.
  *
  * The panel is a gaze scope (`data-gaze`, SPEC §7): the script's pointer is drawn as an eye
- * resting where the reader looks, and its activation as the hand's pinch closing — the input
+ * resting where the reader looks, and its activation as the hand's pinch closing: the input
  * this term names, portrayed as itself. There is still no eye tracker on this page, so a
  * reader's own pointer plays the eyes in takeover; the highlight moves on arrival and never
  * on departure, since eyes are always somewhere and a gaze that went nowhere would be a lie
@@ -25,7 +25,7 @@ const TILES = [
  * The subject is the target the eyes are on, so the specimen marks the one the gaze rests on at
  * mount and declares the honest condition in `data-pose`. A ring drawn around a tile nobody is
  * looking at would identify an ordinary button rather than this term, so identify refuses that
- * state and plays on until the gaze comes back. The panel, the readouts and the caption are the
+ * state and plays on until the gaze comes back. The panel and the two readouts beside it are the
  * scene around it in the context register.
  *
  * Arrival is listened for directly, which is the one case SPEC §7 leaves to the demo: this is
@@ -36,14 +36,20 @@ const TILES = [
  * Targets are widely spaced on purpose (gaze lands within about a degree, not on a pixel), the
  * ring is a shadow rather than a border, and every readout holds its box, so looking around and
  * committing move nothing (SPEC §5).
+ *
+ * Three strings that were the site talking have gone. A caption under the frame explained the
+ * ghost eye and the pinch arcs ("with no eye tracker here, your own pointer plays the eyes"), a
+ * line in the side panel asserted the point ("Looking is never activating."), and the toolbar
+ * narrated the state in a sentence ("Looking at Play, and nothing has been committed") that the
+ * two readouts beside the panel already show. The frame is 56px shorter for it, so the scene
+ * still sits in the stage without a gap under it.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 292px">
+      <div class="sp-frame sp-frame--wide" style="height: 236px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Spatial</span>
-          <span class="sp-text" data-part="readout" style="width: 330px; text-align: right; white-space: nowrap">Looking at Play, and nothing has been committed</span>
         </div>
 
         <div class="sp-body" style="display: flex; align-items: flex-start; gap: 10px">
@@ -74,30 +80,18 @@ export function mount(root: HTMLElement): void {
             <div class="sp-divider"></div>
             <span class="sp-label">Pinch committed</span>
             <span class="sp-heading" data-part="commit-name" style="font-size: 14px">Nothing yet</span>
-            <div class="sp-divider"></div>
-            <span class="sp-text" style="font-size: 11px; line-height: 1.35">Looking is never activating.</span>
           </div>
         </div>
 
-        <span class="sp-label sp-context" style="padding: 0 14px 9px; text-align: center; line-height: 1.4">
-          The eye is the gaze and the closing arcs are the pinch; with no eye tracker here, your own pointer plays the eyes.
-        </span>
       </div>
     </div>
   `;
 
   const panel = part(root, 'panel');
-  const readout = part(root, 'readout');
   const gazeName = part(root, 'gaze-name');
   const commitName = part(root, 'commit-name');
 
   let gazed = TILES[0];
-  let committed: (typeof TILES)[number] | undefined;
-
-  const say = () => {
-    const done = committed ? `${committed.name} is running` : 'nothing has been committed';
-    readout.textContent = `Looking at ${gazed?.name ?? 'nothing'}, and ${done}`;
-  };
 
   const gazeAt = (next: (typeof TILES)[number]) => {
     gazed = next;
@@ -109,7 +103,6 @@ export function mount(root: HTMLElement): void {
       el.style.boxShadow = on ? '0 0 0 3px var(--sp-accent)' : 'none';
     }
     gazeName.textContent = next.name;
-    say();
   };
 
   for (const tile of TILES) {
@@ -118,10 +111,8 @@ export function mount(root: HTMLElement): void {
     el.addEventListener('pointerenter', () => gazeAt(tile));
     // The pinch, which is the only thing that commits anything.
     el.addEventListener('click', () => {
-      committed = tile;
       panel.dataset.committed = tile.key;
       commitName.textContent = tile.name;
-      say();
     });
   }
 

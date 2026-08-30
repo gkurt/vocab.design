@@ -34,6 +34,5 @@ export default steps([
   { assert: { selector: '[data-part=row-3]', state: 'visible' } },
   { assert: { selector: '[data-part=alert]', state: 'hidden' } },
   { assert: { selector: '[data-part=name][data-long]', state: 'hidden' } },
-  { assert: { selector: '[data-part=footnote]', state: 'visible' } },
   { wait: 900 },
 ]);

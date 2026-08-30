@@ -36,13 +36,17 @@ const FITS: Record<string, string> = {
  * The subject is the media box: the element whose `object-fit` is being set. Its own box never
  * changes size, only what the picture does inside it, so the ring identify draws lands on the
  * same rectangle in every state. The switcher and the caption are scene (SPEC §5).
+ *
+ * The caption names what each fit did to the picture, and it changes with the pick, so it is
+ * the stage's verdict and is drawn in the strip rather than printed under the slot in the
+ * mock's own type. The frame lost the 44px it was holding for it.
  */
 export function mount(root: HTMLElement): void {
   const media = `data:image/svg+xml;utf8,${encodeURIComponent(MEDIA_SVG)}`;
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 296px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 252px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Fit</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="switcher" data-value="cover" data-axis="object-fit">
@@ -61,7 +65,7 @@ export function mount(root: HTMLElement): void {
             alt="Landscape photograph stand-in"
             style="width: ${BOX_W}px; height: ${BOX_H}px; object-fit: cover; background: var(--sp-sunken); border: 1px solid var(--sp-line); border-radius: var(--sp-radius)"
           />
-          <span class="sp-text sp-context" data-part="readout" style="height: 34px; max-width: 400px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 34px; max-width: 400px; text-align: center"></span>
         </div>
       </div>
     </div>

@@ -25,6 +25,10 @@ const FLOOR = 3;
  * table's value for this pair. The measurement is taken again on the demo's clock
  * once, because the kit's webfont may still be arriving at mount and the kern
  * belongs to the face, not to the fallback (SPEC §5).
+ *
+ * The window used to open on a header reading "One pair, one correction" beside "the face's
+ * own kern table". Neither is anything a specimen sheet would print, and the article says
+ * both, so the row went; the two settings and the measurement under them are the whole scene.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const line = (name: string, mode: string) => `
@@ -39,11 +43,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One pair, one correction</span>
-          <span class="sp-label">the face's own kern table</span>
-        </div>
-        <div style="margin-top: 6px">
+        <div>
           ${line('pair-none', 'none')}
           ${line('pair-normal', 'normal')}
         </div>

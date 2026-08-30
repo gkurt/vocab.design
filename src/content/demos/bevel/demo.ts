@@ -11,6 +11,11 @@ import type { DemoClock } from '#src/stage/clock.ts';
  * surface colours describe a flat edge, and a bevel drawn from them would not read.
  * The face swap is written in script for the same reason a demo has no stylesheet:
  * a state rule needs a selector, and this paint belongs to this specimen alone.
+ *
+ * Two lines of site voice were removed. A caption under the panel explained which edges
+ * take the light, and a hint beside the button read "Press it: the two tones trade
+ * places." No 1995 dialog printed either sentence, and the article carries both, so the
+ * panel now holds only what such a dialog held.
  */
 const LIGHT = '#ffffff';
 const DARK = '#404040';
@@ -52,13 +57,8 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                   style="padding: 6px 16px; background: ${FACE}; color: ${INK}; font: inherit; font-size: 12px; cursor: pointer; ${bevelBase}">
             <span data-part="label" style="display: inline-block">Apply</span>
           </button>
-          <span data-part="hint" style="color: #4f4b46">Press it: the two tones trade places.</span>
         </div>
       </div>
-
-      <p class="sp-text sp-context" data-part="caption" style="max-width: 296px; margin: 0; text-align: center">
-        Light on the edges facing the light, dark on the ones facing away. Swapped, the same shape sinks.
-      </p>
     </div>
   `;
 

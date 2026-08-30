@@ -33,7 +33,7 @@ export default steps([
   { wait: 1000 },
   // Off the grid entirely, at a line of prose well clear of it: the label belongs to the
   // square under the pointer and goes with it.
-  { moveTo: '[data-part=caption]' },
+  { moveTo: '[data-part=away]' },
   { wait: 420 },
   { assert: { selector: '[data-part=tip][data-open]', state: 'hidden' } },
   { wait: 600 },

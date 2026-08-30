@@ -37,7 +37,14 @@ const topics = ['Collection', 'Visit', 'What is on'];
  * with everything else. Under `prefersReducedMotion` the reel never advances and the kiosk rests on
  * its first frame: a loop nobody asked for is precisely the motion that preference is about, which is
  * the same rule this site's own specimen stage follows. `data-mode` reports the setting rather than
- * whether pixels are moving, so the subject is still the term under that preference.
+ * whether pixels are moving, so the subject is still the term under that preference. The status
+ * column reads "Reel paused" there; it used to say "Reel held on its first frame", which explained
+ * the specimen's own accommodation instead of reporting the kiosk's state.
+ *
+ * The verdict had the same fault one level up: under reduced motion it grew a second sentence
+ * about what that preference is for, and at rest it went on to explain what the reader's touch
+ * would do next. It is one short reading of the kiosk in both cases now, and the status column's
+ * "Reel paused" carries the difference between them.
  *
  * Both screen layers are the same size inside a bezel fixed at mount and every read-out holds its own
  * height, so switching between them moves nothing (SPEC §5).
@@ -115,7 +122,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <span class="sp-text--ink" data-part="state" style="font-size: 18px; font-weight: 600; line-height: 1.2">Attracting</span>
             <span class="sp-label" data-part="plays" style="font-size: 11px">Reel playing, round 1</span>
             <span class="sp-divider" style="margin: 4px 0"></span>
-            <span class="sp-text" data-stage-verdict data-part="note" style="height: 90px; font-size: 11px; line-height: 1.45">Nobody is at the kiosk, so it is demonstrating itself. Touching the screen ends the reel, and the touch that ends it is not spent ending it.</span>
+            <span class="sp-text" data-stage-verdict data-part="note" style="height: 90px; font-size: 11px; line-height: 1.45">Nobody is at the kiosk, so it is showing the collection to an empty room.</span>
           </div>
         </div>
       </div>
@@ -151,7 +158,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       flag(dot, 'data-current', i === index);
       dot.style.background = i === index ? 'var(--sp-accent)' : 'var(--sp-line)';
     });
-    plays.textContent = reduced ? 'Reel held on its first frame' : `Reel playing, round ${round}`;
+    plays.textContent = reduced ? 'Reel paused' : `Reel playing, round ${round}`;
   };
 
   const advance = () => {
@@ -170,9 +177,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     index = 0;
     round = 1;
     render();
-    note.textContent = reduced
-      ? 'Reduced motion: the kiosk is idle, but a loop nobody asked for is what this preference is about, so it rests on one frame.'
-      : 'Nobody is at the kiosk, so it is demonstrating itself. Touching the screen ends the reel, and the touch that ends it is not spent ending it.';
+    note.textContent = 'Nobody is at the kiosk, so it is showing the collection to an empty room.';
     if (!reduced) turning = clock.setTimeout(advance, FRAME_MS);
   };
 
@@ -184,8 +189,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     readyLayer.hidden = false;
     state.textContent = 'Ready';
     plays.textContent = 'Reel stopped, nothing carried over';
-    note.textContent =
-      'Somebody is here. The reel stopped on the first touch and left no state behind, so this visitor starts at a beginning.';
+    note.textContent = 'Somebody is here, and the reel left nothing behind for them to get out of.';
   };
 
   // Both segments name a state outright, so a resumed pass lands on the one it asked for (SPEC §8).

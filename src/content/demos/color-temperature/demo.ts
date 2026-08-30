@@ -21,6 +21,10 @@ const START = 'warm';
  * The neutrals are pinned rather than derived from the kit's, and they stay light in both
  * themes, for the reason glass and clay are: the wash is the term, and a specimen whose
  * white point followed the page's theme would have nothing to show.
+ *
+ * The list row says what a reading list says. Its second line used to read "Every neutral on
+ * this panel shares one bias.", which is the article's sentence in a book's slot, and the
+ * three lightness tiles under it already show the bias holding across the greys.
  */
 const LEVELS = [
   { l: 0.975, chroma: 0.014, label: 'L .98' },
@@ -50,7 +54,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row" style="margin-top: 10px; padding: 10px; border: 1px solid var(--sp-line); border-radius: 6px; background: var(--sp-sunken)">
           <span class="sp-grow sp-stack" style="gap: 3px">
             <span class="sp-text sp-text--ink">The Elements of Color</span>
-            <span class="sp-text" style="font-size: 12px">Every neutral on this panel shares one bias.</span>
+            <span class="sp-text" style="font-size: 12px">Added Tuesday · 96 pages</span>
           </span>
         </div>
 

@@ -26,9 +26,8 @@ const ITEMS: Record<Mode, [string, string][]> = {
 };
 
 const NOTES: Record<Mode, string> = {
-  repeated:
-    'Every line opens with the same three words, so the eye jumps past them: the first fixation of each line lands mid line, on the word that differs.',
-  front: 'Front-loaded, the word that differs comes first, and the fixations return to a flush column at the left edge.',
+  repeated: 'Same opening on every line: the first fixation lands mid line, on the word that differs.',
+  front: 'Front-loaded: the fixations return to a flush column at the left edge.',
 };
 
 /**
@@ -42,6 +41,11 @@ const NOTES: Record<Mode, string> = {
  * condition lives in `data-pose` on the trace and the mount state satisfies it: identify
  * refuses to pose the fixed list and plays on. The trace takes no pointer events, so a
  * reader's click reaches the list beneath.
+ *
+ * The reading of the trace used to sit under the page inside the frame, which put the site's
+ * voice in a help centre's own layout. It changes with the switch, so it is the switch's
+ * verdict: it carries `data-stage-verdict` and the stage draws it in the strip. It keeps the
+ * room it reserved, because a listing card draws no strip and still shows the line.
  */
 export function mount(root: HTMLElement): void {
   const row = (lead: string, tail: string) => `
@@ -78,7 +82,7 @@ export function mount(root: HTMLElement): void {
             </div>
             <div data-part="trace" data-subject data-pose="[data-mode=repeated]" data-mode="repeated" style="position: absolute; pointer-events: none"></div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 40px; max-width: 434px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" data-mode="repeated" style="height: 40px; max-width: 434px; text-align: center"></span>
         </div>
       </div>
     </div>
@@ -139,6 +143,7 @@ export function mount(root: HTMLElement): void {
   const apply = (mode: Mode) => {
     list.innerHTML = ITEMS[mode].map(([lead, tail]) => row(lead, tail)).join('');
     trace.dataset.mode = mode;
+    readout.dataset.mode = mode;
     readout.textContent = NOTES[mode];
     draw(mode);
   };

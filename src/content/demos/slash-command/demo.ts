@@ -46,6 +46,10 @@ const BADGE = [
  * see (SPEC §5). The document above, the composer, the inserted block, and the hint line
  * are scenery.
  *
+ * A line under the frame used to read "The menu opens on the slash and leaves by a choice or
+ * by Escape.", which is the site narrating the demonstration the reader is watching. The hint
+ * inside the composer is the product's own, and the article carries the rest.
+ *
  * The menu is drawn over the document rather than inserted into the column, and the block
  * the command inserts lands in a slot that was already reserved for it, so neither opening
  * the menu nor running a command moves the composer under the reader (SPEC §5).
@@ -111,9 +115,6 @@ export function mount(root: HTMLElement): void {
                 style="flex: 0 0 auto; height: 18px; font-size: 11px; white-space: nowrap; overflow: hidden">${HINT.idle}</span>
 
         </div>
-      </div>
-      <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" style="width: 440px; font-size: 11px">The menu opens on the slash and leaves by a choice or by Escape.</span>
       </div>
     </div>
   `;

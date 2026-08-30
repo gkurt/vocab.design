@@ -15,7 +15,12 @@
  *
  * The subject is the screen, not the device: the term names the page of reflective ink,
  * while the bezel, the page keys, the ghosting exhibit, the grey ramp, and the caption
- * are the scenery that explains it (SPEC §5). Static: a panel that redraws twice a
+ * are the scenery that explains it (SPEC §5). Each exhibit used to carry a sentence
+ * under it ("A partial refresh leaves the page before faintly showing through." and
+ * "Four steps, so pictures are dithered."), which was the site captioning its own
+ * pictures inside the frame; the pictures show both, and the article says both, so the
+ * two exhibits are drawn a little larger instead and the column is centred beside the
+ * device. The grey ramp is labelled "Grey levels" rather than "Greys on hand". Static: a panel that redraws twice a
  * minute has nothing to animate.
  */
 const PAPER = '#e9e7e0';
@@ -79,7 +84,7 @@ function bar(top: number, width: number, paint: string, height: number): string 
 function level(value: string, name: string): string {
   return `
     <span class="sp-stack" style="flex: 1 1 0; gap: 3px; align-items: center">
-      <span aria-hidden="true" style="width: 100%; height: 16px; background: ${value}; border: 1px solid ${RULE}"></span>
+      <span aria-hidden="true" style="width: 100%; height: 26px; background: ${value}; border: 1px solid ${RULE}"></span>
       <span class="sp-label" style="font-size: 9px">${name}</span>
     </span>`;
 }
@@ -126,12 +131,12 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-stack sp-context" style="flex: 0 0 214px; gap: 10px; justify-content: space-between">
+        <div class="sp-stack sp-context" style="flex: 0 0 214px; gap: 10px; justify-content: center">
 
           <div class="sp-surface" data-part="ghost-exhibit" style="padding: 9px 10px 10px">
             <span class="sp-label" style="display: block">Refresh ghosting</span>
             <div data-part="ghost-screen"
-                 style="position: relative; height: 58px; margin-top: 6px; padding: 7px 8px; overflow: hidden;
+                 style="position: relative; height: 72px; margin-top: 6px; padding: 7px 8px; overflow: hidden;
                         background: ${PAPER}; border: 1px solid ${RULE}">
               <span data-part="ghost-residue" aria-hidden="true" style="position: absolute; left: 8px; right: 8px; top: 7px; height: 44px">
                 ${bar(8, 72, FAINT, 3)}${bar(19, 96, FAINT, 3)}${bar(30, 61, FAINT, 3)}${bar(41, 88, FAINT, 3)}
@@ -140,19 +145,13 @@ export function mount(root: HTMLElement): void {
                 ${bar(2, 100, INK, 4)}${bar(13, 92, INK, 4)}${bar(24, 97, INK, 4)}${bar(35, 46, INK, 4)}
               </span>
             </div>
-            <p class="sp-text" style="margin: 7px 0 0; font-size: 10px; line-height: 1.4">
-              A partial refresh leaves the page before faintly showing through.
-            </p>
           </div>
 
           <div class="sp-surface" data-part="levels" style="padding: 9px 10px 10px">
-            <span class="sp-label" style="display: block">Greys on hand</span>
+            <span class="sp-label" style="display: block">Grey levels</span>
             <div class="sp-row" style="gap: 6px; margin-top: 6px">
               ${level(PAPER, 'Paper')}${level('#b3b0a8', 'Light')}${level('#6b6961', 'Dark')}${level(INK, 'Ink')}
             </div>
-            <p class="sp-text" style="margin: 7px 0 0; font-size: 10px; line-height: 1.4">
-              Four steps, so pictures are dithered.
-            </p>
           </div>
         </div>
       </div>

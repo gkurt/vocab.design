@@ -14,6 +14,11 @@ import '#src/kit/segmented.ts';
  *
  * Only the radii change between states. Both blobs keep their box, the card never moves,
  * and the readout holds a fixed line, so nothing shifts.
+ *
+ * The card used to argue the point in its own copy ("Rounded, not organic", "Every box on
+ * this page has four corners. The accents behind it have none."), which is the site talking
+ * from inside the page the blobs decorate. It carries an ordinary offer now; the contrast
+ * between its four corners and the shapes behind it is visible without being narrated.
  */
 const SHAPES = {
   a: { fill: '70% 30% 52% 48% / 34% 63% 37% 66%', ring: '45% 55% 68% 32% / 62% 40% 60% 38%' },
@@ -44,9 +49,9 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-window sp-context" data-part="card"
              style="position: absolute; right: 16px; top: 50%; width: 200px; translate: 0 -50%; padding: 13px 15px">
-          <div class="sp-heading" style="font-size: 14px">Rounded, not organic</div>
+          <div class="sp-heading" style="font-size: 14px">Start free</div>
           <p class="sp-text" style="margin: 5px 0 0; font-size: 12px">
-            Every box on this page has four corners. The accents behind it have none.
+            Two weeks of the full workspace. No card needed.
           </p>
         </div>
       </div>

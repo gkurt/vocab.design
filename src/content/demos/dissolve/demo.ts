@@ -43,6 +43,10 @@ const PLATES = [DAWN, DUSK];
  * flipping whatever is showing, so a fast-forwarded or resumed pass lands on the one it
  * named (SPEC §8). The swap is timed on the stage's clock, and the reduced-motion
  * reader gets the exchange with no waiting in the dark.
+ *
+ * Under the plate there used to be a line reading "One slot, opacity only. Nothing slides, so
+ * nothing claims a direction." No field-notes app writes that under its own picture, and the
+ * article says it better, so it went and the frame lost the 44px it was holding for it.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const segments = PLATES.map(
@@ -51,7 +55,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 356px; height: 284px">
+      <div class="sp-frame" style="width: 356px; height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Field notes</span>
           <span class="sp-label">Plate 12</span>
@@ -74,9 +78,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
               <span data-part="plate-note" style="font-size: 12px; opacity: 0.82">${DAWN.note}</span>
             </figure>
           </div>
-          <p class="sp-text sp-context" style="margin: 8px 0 0">
-            One slot, opacity only. Nothing slides, so nothing claims a direction.
-          </p>
         </div>
       </div>
     </div>

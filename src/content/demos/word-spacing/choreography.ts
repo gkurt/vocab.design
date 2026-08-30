@@ -26,6 +26,6 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=paragraph][data-spacing=normal]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { assert: { selector: '[data-part=css]', state: 'visible' } },
   { wait: 900 },
 ]);

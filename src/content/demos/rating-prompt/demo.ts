@@ -21,6 +21,11 @@ const STARS = `${icon('star', 'sp-icon--filled')}${icon('star', 'sp-icon--filled
  * the panel into a picture of a different word. The saved-route line above it and the
  * verdict line below are scenery (SPEC §5).
  *
+ * The destination slot is empty until an answer is given. It used to hold the line
+ * "Where this goes depends on the answer", which is the article telling the reader
+ * what to watch for from inside the app; the slot keeps its height either way, so
+ * nothing moves when the destination arrives.
+ *
  * Both answers are always on the panel and each reaches its own state rather than
  * flipping the other's (SPEC §8), and the destination slot holds one height in all
  * three states, so answering moves nothing (SPEC §5).
@@ -50,7 +55,6 @@ export function mount(root: HTMLElement): void {
               <button class="sp-button sp-button--ghost sp-button--sm" data-part="answer-meh" type="button" style="flex: 0 0 auto; white-space: nowrap">Not really</button>
             </div>
             <div style="position: relative; flex: 0 0 auto; height: 44px; margin-top: 11px; border-top: 1px solid var(--sp-line)">
-              <span class="sp-label" data-part="route-rest" style="position: absolute; inset: 11px 0 auto 0">Where this goes depends on the answer</span>
               <div class="sp-row" data-part="route-store" hidden style="position: absolute; inset: 8px 0 auto 0; gap: 8px">
                 <span class="sp-chip" style="flex: 0 0 auto; white-space: nowrap">App Store</span>
                 <span class="sp-row" style="gap: 1px; color: var(--sp-accent)">${STARS}</span>
@@ -70,13 +74,11 @@ export function mount(root: HTMLElement): void {
 
   const prompt = part(root, 'prompt');
   const verdict = part(root, 'verdict');
-  const rest = part(root, 'route-rest');
   const store = part(root, 'route-store');
   const priv = part(root, 'route-private');
 
   const answer = (next: Answer) => {
     prompt.dataset.answer = next;
-    rest.hidden = next !== 'none';
     store.hidden = next !== 'happy';
     priv.hidden = next !== 'meh';
     verdict.textContent = VERDICT[next];

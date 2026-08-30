@@ -19,11 +19,11 @@ const SET = '0123456789';
 const MODES = {
   lining: {
     css: 'lining-nums',
-    read: 'lining: one height, level with the capitals',
+    read: 'font-variant-numeric: lining-nums',
   },
   oldstyle: {
     css: 'oldstyle-nums',
-    read: 'oldstyle: three heights, one of them below the baseline',
+    read: 'font-variant-numeric: oldstyle-nums',
   },
 } as const;
 
@@ -60,6 +60,13 @@ function guide(name: string, bottom: string, color: string): string {
  * specimen mounts lining (SPEC §6). The picker, the digit row, the rules and
  * the readout are the demo's own instrumentation and sit in the context
  * register (SPEC §5).
+ *
+ * Two author's-voice strings were taken out of the frame. A label beside the
+ * digit row read "rules: cap height and baseline", which explained the guides
+ * rather than being anything a type tool would print; the article carries that.
+ * The chip under the digits described each setting in words ("lining: one
+ * height, level with the capitals"); it now prints the CSS the picker actually
+ * applies, which is what a specimen tool shows.
  */
 export function mount(root: HTMLElement): void {
   const figures = (name: string, text: string, attrs = '', extra = '') =>
@@ -87,7 +94,6 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-row--between sp-context" style="height: 40px">
           ${figures('set', SET, '', `font-family: ${FACE}; font-size: 22px; letter-spacing: 0.06em`)}
-          <span class="sp-label">rules: cap height and baseline</span>
         </div>
         <div class="sp-row sp-context" style="height: 28px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.lining.read}</span>

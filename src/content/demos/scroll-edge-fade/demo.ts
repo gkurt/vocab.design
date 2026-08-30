@@ -55,6 +55,10 @@ const fade = (edge: 'top' | 'bottom', extra: string) => `
  * other edge and carries a `data-part` so the script can prove each strip appears only when
  * something is actually clipped that way.
  *
+ * A line under the frame once read "Each edge fades only while something is clipped past
+ * it.", which was the article's point standing inside the specimen rather than anything a
+ * queue would ever print. The demonstration makes it without words, so the line went.
+ *
  * The overlay-gradient implementation is the compatible one, and the one that is also called
  * a scroll shadow. `mask-image` on the scroller would fade to whatever is behind it instead
  * of to a stated colour; the panel here is flat, so the overlay tells no lie, and it gives
@@ -77,7 +81,6 @@ export function mount(root: HTMLElement): void {
           ${fade('bottom', 'data-subject')}
         </div>
       </div>
-      <span class="sp-text sp-context" style="font-size: 11px">Each edge fades only while something is clipped past it.</span>
     </div>
   `;
 

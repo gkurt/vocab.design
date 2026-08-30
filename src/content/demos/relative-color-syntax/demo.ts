@@ -24,9 +24,14 @@ const ROWS = [
  * the argument for deriving a palette instead of enumerating one.
  *
  * The subject is the block of derivation rows. The seed chip above it is the origin rather
- * than a derivation, and it stays in the context register with the seed control and the
- * caption (SPEC §5). Rows are a fixed height and the swatches a fixed size, so changing the
- * seed repaints and moves nothing.
+ * than a derivation, and it stays in the context register with the seed control (SPEC §5).
+ * Rows are a fixed height and the swatches a fixed size, so changing the seed repaints and
+ * moves nothing.
+ *
+ * A caption under the block used to read "Nothing in the block was edited. Each row states a
+ * channel to change and reads the rest of the colour from the seed." The expressions are
+ * printed beside their own swatches and do not change when the seed does, so the block makes
+ * that point itself, and the sentence was the article's.
  */
 export function mount(root: HTMLElement): void {
   const rows = ROWS.map(
@@ -60,8 +65,6 @@ export function mount(root: HTMLElement): void {
         <div class="sp-surface sp-stack" data-part="rows" data-subject data-seed="${START}"
              style="gap: 6px; margin-top: 10px; padding: 11px 12px">${rows}</div>
 
-        <p class="sp-text sp-context" style="margin: 10px 0 0; height: 34px; font-size: 11px">
-          Nothing in the block was edited. Each row states a channel to change and reads the rest of the colour from the seed.</p>
       </div>
     </div>
   `;

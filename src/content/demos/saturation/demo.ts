@@ -23,6 +23,11 @@ const washAt = (pct: number) => `color-mix(in oklab, ${colorAt(pct)} 16%, var(--
  * Saturation specimen: one hue at one lightness, five distances from grey. The band is
  * the term; the sample below reads as the same colour throughout and only changes how
  * much it insists on it.
+ *
+ * The header used to read "Held constant" against "H 258 · L 52%", which is the site
+ * describing the experiment it set up rather than anything a colour tool prints. It shows
+ * the picked colour's own notation now, so the two channels that never move are still on
+ * screen and the reader can watch only the middle number change.
  */
 export function mount(root: HTMLElement): void {
   const band = STOPS.map(
@@ -38,9 +43,8 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 340px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Held constant</span>
-          <span class="sp-text">H 258 · L 52%</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
+          <span class="sp-text" data-part="notation" style="font-variant-numeric: tabular-nums">${colorAt(START)}</span>
         </div>
 
         <div class="sp-row" data-part="ramp" data-subject data-saturation="${START}"
@@ -62,6 +66,7 @@ export function mount(root: HTMLElement): void {
   const dot = part(root, 'dot');
   const name = part(root, 'name');
   const value = part(root, 'value');
+  const notation = part(root, 'notation');
   const picks = STOPS.map((stop) => ({ stop, el: part(root, `stop-${stop.pct}`) }));
   const ticked = partsOf(root, 'tick');
 
@@ -80,6 +85,7 @@ export function mount(root: HTMLElement): void {
     dot.style.setProperty('--sp-swatch', colorAt(pct));
     name.textContent = `Reads as ${chosen.name}`;
     value.textContent = `S ${pct}%`;
+    notation.textContent = colorAt(pct);
   };
   paint(START);
 

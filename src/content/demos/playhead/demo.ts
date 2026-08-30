@@ -41,6 +41,11 @@ function band(pct: number): string {
  * run (SPEC §8), and a reader who has asked for less movement gets the end position instead of the
  * journey. The drag captures the pointer on a trusted pointerdown so a real reader's scrub survives
  * leaving the head, and it ends on pointerup and pointercancel, never pointerleave (SPEC §7).
+ *
+ * A line beside the transport button read "Playback moves it. Dragging its head moves
+ * playback." That is the site describing what the demonstration is about to do, in a
+ * transport bar that would print no such thing, so it went; the two jobs are visible in the
+ * pass itself, and the article says the rest.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const tick = (i: number) => {
@@ -108,7 +113,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                 data-part="play"
                 style="min-width: 62px"
               >Play</button>
-              <span class="sp-label sp-grow" style="font-size: 11px">Playback moves it. Dragging its head moves playback.</span>
             </div>
           </div>
         </div>

@@ -48,6 +48,11 @@ const mapping = (index: number) => `
  * around inside it and nothing outside it moves (SPEC §5). The card's own row is a flex row, which
  * is flow relative too, so the avatar and the badge change ends without a single physical value
  * being written. Each segment names the mode it produces rather than cycling (SPEC §8).
+ *
+ * The title bar read "One declaration, three flows", which was the point of the term rather
+ * than the name of anything the tool does. It says "Card preview" now; the article makes the
+ * point at length. The declaration block was headed "Written once", which is the same claim
+ * moved down a panel, so it is headed with what the block holds instead.
  */
 export function mount(root: HTMLElement): void {
   const first = MODES[0] as Mode;
@@ -56,7 +61,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow" style="font-size: 13px">One declaration, three flows</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Card preview</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-value="${first.key}" data-axis="Flow">
             ${MODES.map(segment).join('')}
           </sp-segmented>
@@ -78,7 +83,7 @@ export function mount(root: HTMLElement): void {
             </div>
 
             <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 4px">
-              <span class="sp-label">Written once</span>
+              <span class="sp-label">CSS</span>
               <span
                 class="sp-surface"
                 style="padding: 8px 10px; font-family: ui-monospace, monospace; font-size: 11px; line-height: 1.7; color: var(--sp-ink)"

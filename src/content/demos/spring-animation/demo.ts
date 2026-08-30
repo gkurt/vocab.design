@@ -53,6 +53,11 @@ function springFrames(distance: number): Keyframe[] {
  * `data-settled` is set from the stage's clock rather than from the animation's
  * own promise: a pose freezes that clock, so a specimen held mid-flight for
  * inspection cannot quietly finish underneath the reader (SPEC §6).
+ *
+ * The panel used to be titled "One distance, two arrivals", which is the site
+ * announcing its own comparison inside the frame. The two rows already name
+ * themselves ("Spring", "Fixed ease") with their parameters under them, so the
+ * title went and Replay keeps the row on its own, still at the right.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const rail = (id: string, subject: boolean) => `
@@ -75,8 +80,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="panel" style="width: 396px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One distance, two arrivals</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-row" data-part="row-spring" style="gap: 12px; margin-top: 16px">

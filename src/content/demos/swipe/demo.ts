@@ -24,6 +24,10 @@ const clamp = (value: number, min: number, max: number) => Math.min(Math.max(val
  * distance past a threshold rather than by the page it happened to start on. The
  * two grips at the edges are where the script's stroke begins and ends; they carry
  * no behaviour of their own, since the surface underneath answers the gesture.
+ *
+ * A line under the dots once read "Nothing on screen says a surface can be thrown." That is
+ * the article's observation, not the gallery's, and a gallery that printed it would be
+ * saying the one thing a swipe never says, so it went and the frame lost the 26px it held.
  */
 export function mount(root: HTMLElement): void {
   const pages = PAGES.map(
@@ -43,7 +47,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame" style="width: 250px; height: 256px">
+      <div class="sp-frame" style="width: 250px; height: 230px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Gallery</span>
           <span class="sp-label" data-part="readout">1 of 3</span>
@@ -61,7 +65,6 @@ export function mount(root: HTMLElement): void {
             <span data-part="grip-right" style="position: absolute; right: 0; top: 0; bottom: 0; width: 22px"></span>
           </div>
           <div class="sp-row sp-context" style="gap: 6px">${dots}</div>
-          <span class="sp-label sp-context" style="text-align: center">Nothing on screen says a surface can be thrown.</span>
         </div>
       </div>
     </div>

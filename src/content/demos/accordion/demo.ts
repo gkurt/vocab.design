@@ -14,7 +14,10 @@ const SECTIONS = [
  * whole discrimination.
  *
  * Any number of sections may be open at once, which is the policy the article
- * commits to, so opening the third leaves the second where it was.
+ * commits to, so opening the third leaves the second where it was. The topbar used
+ * to state that policy in the site's voice ("any number may be open"), which is a
+ * caption on the demonstration rather than anything a help panel would print, so it
+ * is gone: the behaviour is on screen and the article names the policy.
  *
  * Expanding pushes the sections below it down, which is inherent to the term, so the
  * frame is sized for the tallest state (all three open) and the caption is pinned to
@@ -51,7 +54,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 290px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Product help</span>
-          <span class="sp-label">any number may be open</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column">
           <div class="sp-surface" data-part="stack" data-subject style="overflow: hidden">

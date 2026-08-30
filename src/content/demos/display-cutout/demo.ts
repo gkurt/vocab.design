@@ -16,15 +16,6 @@ const CUTOUTS: Record<string, Cutout> = {
   island: { shape: 'width: 44px; height: 15px; top: 4px; border-radius: 999px', inset: 22, label: 'island' },
 };
 
-const NOTES: Record<string, string> = {
-  'notch-edge': 'Edge to edge: the app bar starts at the top of the display, so the notch covers the title and the menu.',
-  'notch-inset': 'Inset: the content region starts 20dp down, below the notch, and the whole app bar is legible.',
-  'hole-edge': 'Edge to edge: the punch hole lands on the title. A smaller housing is not a safer one.',
-  'hole-inset': 'Inset: the same 20dp clears the hole, and the background is free to keep running underneath.',
-  'island-edge': 'Edge to edge: the island is the widest of the three and takes the most of the bar with it.',
-  'island-inset': 'Inset: 22dp reported for this housing, so the app bar sits clear of it.',
-};
-
 const segment = (key: string, label: string) => `
   <button class="sp-segment" type="button" data-part="seg-${key}" value="${key}" style="padding: 4px 8px; font-size: 11px">
     ${label}
@@ -45,12 +36,18 @@ const row = (width: number) => `
  * only thing a layout can act on is where the content begins. Edge to edge is the
  * counter-example the region itself passes through, so the honest condition lives in
  * `data-pose` and the mount state (`inset`) satisfies it: identify refuses to ring a region
- * that is currently being eaten (SPEC §6). The phone shell, the housing, the picker and the
- * caption are scenery in the context register (SPEC §5).
+ * that is currently being eaten (SPEC §6). The phone shell, the housing and the picker are
+ * scenery in the context register (SPEC §5).
  *
- * The phone is a fixed box and the caption a fixed height, so switching housing or mode moves
- * the content region and nothing else (SPEC §5). Each segment names the state it produces
- * rather than flipping the one it found (SPEC §8).
+ * Two strings used to talk over the scene in the site's voice: a topbar line reading "what the
+ * layout has to dodge", and a paragraph per state describing what the region had just done
+ * ("Inset: the content region starts 20dp down, below the notch ..."). No phone prints either,
+ * the region moving under the housing is the whole evidence, and the article carries the insets
+ * at length, so both went and the phone is centred in the body with the controls beside it.
+ *
+ * The phone is a fixed box, so switching housing or mode moves the content region and nothing
+ * else (SPEC §5). Each segment names the state it produces rather than flipping the one it
+ * found (SPEC §8).
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -58,9 +55,8 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Sensor housing</span>
-          <span class="sp-label">what the layout has to dodge</span>
         </div>
-        <div class="sp-body" style="display: flex; align-items: flex-start; gap: 14px; padding: 10px 12px">
+        <div class="sp-body" style="display: flex; align-items: flex-start; justify-content: center; gap: 14px; padding: 10px 12px">
           <div
             data-part="phone"
             style="position: relative; flex: 0 0 auto; width: ${PHONE_W}px; height: ${PHONE_H}px; padding: ${BEZEL}px;
@@ -101,14 +97,13 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
 
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 4px">
+          <div class="sp-stack sp-context" style="flex: 0 1 auto; min-width: 0; gap: 4px">
             <sp-segmented data-stage-mode class="sp-segmented" data-part="shapes" data-axis="Housing" data-value="notch" style="align-self: flex-start">
               ${segment('notch', 'notch')}${segment('hole', 'punch hole')}${segment('island', 'island')}
             </sp-segmented>
             <sp-segmented data-stage-mode class="sp-segmented" data-part="modes" data-axis="Content region" data-term="inset" data-value="inset" style="align-self: flex-start; margin-top: 8px">
               ${segment('inset', 'inset to clear it')}${segment('edge', 'edge to edge')}
             </sp-segmented>
-            <span class="sp-text" data-part="readout" style="height: 78px; margin-top: 10px"></span>
           </div>
         </div>
       </div>
@@ -117,17 +112,14 @@ export function mount(root: HTMLElement): void {
 
   const content = part(root, 'content');
   const cutout = part(root, 'cutout');
-  const readout = part(root, 'readout');
 
   const apply = (shapeKey: string, modeKey: string) => {
     const housing = CUTOUTS[shapeKey];
-    const note = NOTES[`${shapeKey}-${modeKey}`];
-    if (!housing || !note) return;
+    if (!housing) return;
     cutout.setAttribute('style', `position: absolute; left: 50%; translate: -50% 0; z-index: 2; background: #14161a; ${housing.shape}`);
     content.dataset.cutout = shapeKey;
     content.dataset.mode = modeKey;
     content.style.top = modeKey === 'inset' ? `${housing.inset}px` : '0px';
-    readout.textContent = note;
   };
 
   // Each segment names the housing or the mode it produces, so a resumed script reaches a

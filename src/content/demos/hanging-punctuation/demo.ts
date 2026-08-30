@@ -22,8 +22,8 @@ const READS: Record<Mode, string> = {
   hung: 'hung: every line of text starts on the guide',
 };
 
-const LINES = ['Light marks sit outside the', 'column, so the edge of the', 'text reads straight to the eye.'];
-const ITEMS = ['hyphens hang the same way', 'and the edge stays straight'];
+const LINES = ['The bar shifts a little each', 'winter, and the channel must', 'be sounded again in the spring.'];
+const ITEMS = ['soundings taken at low water', 'and the marks moved to suit'];
 
 /**
  * Hanging punctuation specimen: a quoted passage and two dashed lines, with a guide
@@ -40,6 +40,17 @@ const ITEMS = ['hyphens hang the same way', 'and the edge stays straight'];
  *
  * Only the marks and the text on their own lines move; the column, the guide and every
  * other line hold their positions (SPEC §5).
+ *
+ * The reading of the setting is the stage's to draw, not the page's: the chip that used to
+ * sit under the column is marked `data-stage-verdict` and appears in the strip above the
+ * switch that produced it. The label beside it, "guide: the text edge", was the site naming
+ * its own instrument inside the frame and is gone.
+ *
+ * The set passage used to be about hanging punctuation ("Light marks sit outside the column,
+ * so the edge of the text reads straight to the eye", with two dashed lines saying the same
+ * again), so the specimen was a page explaining the treatment it was demonstrating. It is a
+ * harbour note now. The lines are still set by hand at the same widths, and the marks still
+ * fall in the same three places: the opening quote, and the hyphen on each of the two items.
  */
 export function mount(root: HTMLElement): void {
   const mark = (glyph: string, pull: string, claim: string) =>
@@ -65,10 +76,7 @@ export function mount(root: HTMLElement): void {
             ${ITEMS.map((item, i) => `<div>${mark('-&nbsp;', HYPHEN_PULL, `data-part="dash-${i}"`)}${item}</div>`).join('')}
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 26px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${READS.hung}</span>
-          <span class="sp-label">guide: the text edge</span>
-        </div>
+        <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="display: block; margin-top: 8px">${READS.hung}</span>
       </div>
     </div>
   `;

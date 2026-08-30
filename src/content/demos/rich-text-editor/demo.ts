@@ -18,6 +18,10 @@ const MONO = 'font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-
  * is the document model the editor actually keeps, which is what separates this from a
  * box of markup, and the placeholder is what the surface says when the model is empty.
  *
+ * A label beside the New draft button read "The model is a tree, not markup.", which is
+ * the article's sentence rather than anything this editor would print. The readout under
+ * the pane already shows the tree, so the label went and the button stands alone.
+ *
  * Every control lands on an absolute state rather than toggling what it finds (SPEC §8):
  * Bold marks the selection, List converts the second block, New draft empties the
  * document. The pane holds a fixed height, so a paragraph becoming two list items
@@ -71,7 +75,6 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
       <div class="sp-row sp-context" style="gap: 8px">
-        <span class="sp-label" style="font-size: 11px">The model is a tree, not markup.</span>
         <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="draft">New draft</button>
       </div>
     </div>

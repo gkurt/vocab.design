@@ -30,6 +30,11 @@ const LONGEST = Math.max(...LANES.map((lane) => lane.ms));
  * mover that spends it, so the ring belongs on the drawn time and everything else
  * (the movers, the heading, the Replay control) is scenery in the context register.
  *
+ * Two strings were the site talking over its own instrument: a heading reading "Same
+ * distance, same curve" and a footnote reading "Each bar is that lane's duration, both
+ * drawn to one scale." The article says both, and the bars carry their own times in ms
+ * beside them, so only the Replay control is left on that top row.
+ *
  * The run is a plain CSS transition written inline, so reduced motion drops it to the
  * settled position for free, and the specimen mounts at rest: the scripted Replay is
  * then the only owner of any run the reader can see (SPEC §8).
@@ -59,14 +64,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="stage" data-state="rest" style="width: 428px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Same distance, same curve</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         ${LANES.map((item) => lane(item.id, item.label, item.ms, item.id === 'long')).join('')}
-        <span class="sp-label sp-context" style="display: block; margin-top: 14px">
-          Each bar is that lane's duration, both drawn to one scale.
-        </span>
       </div>
     </div>
   `;

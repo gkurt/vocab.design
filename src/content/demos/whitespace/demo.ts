@@ -51,6 +51,11 @@ function card({ key, pad, within, between }: Spacing, subject: boolean): string 
  * gaps included, so the card holds what it carries instead of pushing it into the caption
  * underneath (SPEC §5). What the cramped card leaves empty at the bottom is the difference.
  *
+ * The frame's title used to read "Same words, same size, same order" and each card sat
+ * under a label ("every gap alike, so nothing groups", "space carries the grouping").
+ * All three were the site describing its own comparison inside a berth listing that would
+ * never print them, so they are gone and the bar carries the product's own name.
+ *
  * The claim a static specimen would otherwise leave unproven is measured at mount, on
  * the state it mounts in: the ratio between the space around a group and the space
  * inside it, published as `data-ratio` and flagged as `data-grouped` once the outer
@@ -61,16 +66,14 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame" style="width: 470px; height: 300px">
         <div class="sp-topbar sp-context">
-          <span class="sp-heading sp-grow">Same words, same size, same order</span>
+          <span class="sp-heading sp-grow">Moorings</span>
         </div>
         <div class="sp-body" style="display: flex; align-items: center; justify-content: center; gap: 18px">
           <div class="sp-stack sp-context" style="gap: 8px">
             ${card(CRAMPED, false)}
-            <span class="sp-label" style="width: ${CARD_W}px">every gap alike, so nothing groups</span>
           </div>
           <div class="sp-stack" style="gap: 8px">
             ${card(ROOMY, true)}
-            <span class="sp-label sp-context" style="width: ${CARD_W}px">space carries the grouping</span>
           </div>
         </div>
       </div>

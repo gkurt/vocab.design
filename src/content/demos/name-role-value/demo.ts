@@ -22,7 +22,9 @@ const MISSING = '(none)';
  * The subject is the readout panel. The term does not name the switch, it names the three
  * facts a switch has to publish about itself, and the narrowest element that holds those
  * facts is the panel they are printed in. The control, the segmented control, and the
- * verdict line are scenery (SPEC §5).
+ * verdict line are scenery (SPEC §5). The panel is titled "Accessibility tree", the way an
+ * inspector names the pane; it read "What assistive technology gets", which was the site
+ * explaining rather than the instrument naming itself.
  *
  * The readouts are computed from the control's own attributes rather than written out, so
  * the panel cannot claim a name the element does not have. Each value column holds a fixed
@@ -51,7 +53,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-surface" data-part="panel" data-subject style="margin-top: 12px; padding: 10px 12px">
-          <span class="sp-label">What assistive technology gets</span>
+          <span class="sp-label">Accessibility tree</span>
           <div class="sp-row sp-row--between" style="height: 20px; margin-top: 6px">
             <span class="sp-label">Name</span>
             <span class="sp-text sp-text--ink" data-part="name" data-state="named"

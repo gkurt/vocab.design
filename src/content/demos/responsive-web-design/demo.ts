@@ -20,8 +20,12 @@ const INSET = 34;
  * query changes outright.
  *
  * The subject is the page region, since the term names the layout rather than the device
- * around it: the simulated viewport, the width switcher, the trio label and the readout
- * are the scene it is read against and carry the context register (SPEC §5).
+ * around it: the simulated viewport, the width switcher and the readout are the scene it
+ * is read against and carry the context register (SPEC §5).
+ *
+ * A label under the viewport once read "fluid grid · flexible media · media queries",
+ * naming Marcotte's three ingredients. No browser prints that, and the article names them
+ * at length, so it went and the readout took its place under the viewport.
  *
  * The reported media width is arithmetic (viewport minus the two paddings), not a
  * measurement, because a demo that measures straight after writing a width reads back
@@ -83,8 +87,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-label sp-context" data-part="trio" style="margin-top: 9px">fluid grid · flexible media · media queries</span>
-          <span class="sp-text sp-context" data-part="readout" style="margin-top: 3px; font-size: 12px; font-variant-numeric: tabular-nums"></span>
+          <span class="sp-text sp-context" data-part="readout" style="margin-top: 11px; font-size: 12px; font-variant-numeric: tabular-nums"></span>
         </div>
       </div>
     </div>

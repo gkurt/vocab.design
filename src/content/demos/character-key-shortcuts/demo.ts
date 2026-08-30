@@ -6,27 +6,9 @@ type Policy = 'always' | 'typing' | 'modifier';
 const BINDINGS = { s: 'starred the message', r: 'marked it replied' } as const;
 
 const POLICY = {
-  always: {
-    caps: { s: 'S', r: 'R' },
-    mode: 'bare',
-    verdict: 'Fails 2.1.4',
-    caption:
-      'The letters land in the reply and fire the shortcuts on the way. Anybody dictating this sentence stars the message and marks it replied without meaning to.',
-  },
-  typing: {
-    caps: { s: 'S', r: 'R' },
-    mode: 'bare',
-    verdict: 'Passes 2.1.4',
-    caption:
-      'The bindings stand down while the caret is in the field, so the letters are only letters. Click back out to the message and the same S still stars it.',
-  },
-  modifier: {
-    caps: { s: 'Ctrl + S', r: 'Ctrl + R' },
-    mode: 'modifier',
-    verdict: 'Passes 2.1.4',
-    caption:
-      'Remapped onto Ctrl, which no dictation engine and no browse-mode reader emits by accident. A bare S is now only ever a letter.',
-  },
+  always: { caps: { s: 'S', r: 'R' }, mode: 'bare', verdict: 'Fails 2.1.4' },
+  typing: { caps: { s: 'S', r: 'R' }, mode: 'bare', verdict: 'Passes 2.1.4' },
+  modifier: { caps: { s: 'Ctrl + S', r: 'Ctrl + R' }, mode: 'modifier', verdict: 'Passes 2.1.4' },
 } as const satisfies Record<Policy, unknown>;
 
 const PLACEHOLDER = 'Write a reply';
@@ -39,7 +21,7 @@ const PLACEHOLDER = 'Write a reply';
  *
  * The subject is the legend that states the bindings, the narrowest element the term names:
  * a character key shortcut is the binding, not the app that answers it and not the field the
- * letters land in. The app card, the readout, the verdict and the caption are scenery.
+ * letters land in. The app card, the readout and the verdict are scenery.
  * A binding that has been remapped onto Ctrl is no longer what the term names, and it is a
  * state the legend itself passes through, so the honest condition lives in `data-pose` and the
  * mount state satisfies it (SPEC §6).
@@ -53,6 +35,11 @@ const PLACEHOLDER = 'Write a reply';
  *
  * Every key cap holds a fixed width and every readout a fixed box, so changing policy moves
  * nothing (SPEC §5). No timer is needed.
+ *
+ * A paragraph under the app used to explain each policy ("The letters land in the reply and
+ * fire the shortcuts on the way..."), which is the article's argument printed inside a mail
+ * client. The verdict beside the legend is already the strip's line about the state, a
+ * specimen gets only one, and the counters say what happened, so the paragraph has gone.
  */
 export function mount(root: HTMLElement): void {
   const binding = (key: 's' | 'r', label: string) => `
@@ -113,9 +100,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-text sp-text--ink" data-part="log" data-fired="no"
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">nothing pressed yet</span>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption" data-policy="always"
-           style="margin: 7px 0 0; height: 32px; font-size: 11px; line-height: 1.35">${POLICY.always.caption}</p>
       </div>
     </div>
   `;
@@ -126,7 +110,6 @@ export function mount(root: HTMLElement): void {
   const caret = part(root, 'caret');
   const placeholder = part(root, 'placeholder');
   const verdict = part(root, 'verdict');
-  const caption = part(root, 'caption');
   const log = part(root, 'log');
   const starState = part(root, 'star-state');
   const replyState = part(root, 'reply-state');
@@ -162,8 +145,6 @@ export function mount(root: HTMLElement): void {
     part(root, 'cap-r').textContent = rule.caps.r;
     verdict.dataset.policy = next;
     verdict.textContent = rule.verdict;
-    caption.dataset.policy = next;
-    caption.textContent = rule.caption;
     log.dataset.fired = 'no';
     log.textContent = 'nothing pressed yet';
     paint();

@@ -4,11 +4,6 @@ import '#src/kit/segmented.ts';
 type Mode = 'balanced' | 'account';
 
 const CAPTION = {
-  balanced: 'Checkout entry, both paths offered',
-  account: 'Checkout entry, the account wall (the counter-example)',
-} as const;
-
-const NOTE = {
   balanced: 'Two paths in one row, the same size and the same weight, and neither one pre-selected.',
   account: 'The counter-example: the account form is the step, and the guest path has shrunk to small print under it.',
 } as const;
@@ -74,12 +69,17 @@ const AREA = {
  * it is defined against. The segmented control under the frame picks between them and the
  * caption names which is which, so the dishonest layout is never presented as the term.
  *
+ * A second line beside the switch used to read "Two paths in one row, the same size and the same
+ * weight, and neither one pre-selected." and change with it. Two verdicts is one too many, so that
+ * reading is now the verdict itself and the line under the switch is gone; the caption's old text
+ * only named the step, which the frame already does.
+ *
  * The subject is the guest control itself, the narrowest element the term names, and it
  * is the *same element* in both states: the account-first variant does not delete it, it
  * shrinks it into small print, which is the whole argument. Because one of its states is
  * the counter-example, it carries `data-pose` for the balanced condition, and the mount
- * state satisfies it (SPEC §6). The bag summary, the sign-in panel, the caption, and the
- * note row are scenery (SPEC §5).
+ * state satisfies it (SPEC §6). The bag summary, the sign-in panel and the caption are
+ * scenery (SPEC §5).
  *
  * The choice area holds one height for both states and the frame never grows, so
  * switching between the two moves nothing around them (SPEC §5), and each segment reaches
@@ -107,7 +107,6 @@ export function mount(root: HTMLElement): void {
         </div>
       </div>
       <div class="sp-row sp-context" style="gap: 12px">
-        <span class="sp-text" data-part="note" style="width: 300px; font-size: 11px">${NOTE.balanced}</span>
         <sp-segmented data-stage-mode class="sp-segmented" data-axis="Version" data-term="balanced" data-part="mode" data-value="balanced">
           <button class="sp-segment" data-part="mode-balanced" value="balanced" style="padding: 5px 10px">Balanced</button>
           <button class="sp-segment" data-part="mode-account" value="account" style="padding: 5px 10px">Account first</button>
@@ -118,7 +117,6 @@ export function mount(root: HTMLElement): void {
 
   const area = part(root, 'area');
   const caption = part(root, 'caption');
-  const note = part(root, 'note');
 
   // The guest control outlives both layouts: it is the subject, and the variant's point is
   // that it is still on screen, just demoted. Built once and re-homed into whichever slot
@@ -137,7 +135,6 @@ export function mount(root: HTMLElement): void {
     guest.textContent = GUEST_LABEL[mode];
     part(area, 'guest-slot').append(guest);
     caption.textContent = CAPTION[mode];
-    note.textContent = NOTE[mode];
   };
 
   part(root, 'mode').addEventListener('change', (event) => {

@@ -23,7 +23,13 @@ const STOPS = ['0', '50', '100'];
  *
  * The subject is the route with its traveller, not the dot alone: a dot is any moving
  * thing, and what the term names is the path it was given. The straight twin, the
- * stops, the readout, and the caption are scenery.
+ * stops and the readout are scenery.
+ *
+ * The window opened with a heading reading "Along the path, not across the box" and closed
+ * on "The animated value is the distance along, not an x and a y.", and the straight lane
+ * carried a label reading "the same trip, straight". All three were the site explaining the
+ * term over its own diagram, so they went; what is left is the property printed as code
+ * (`offset-path: path()`, `offset-distance: 0%`), which is the exhibit's own instrument.
  *
  * Nothing here is scripted animation. `offset-distance` is a transitioned property, so
  * `motion.css` gates it for the reader who asked for less movement (the write lands
@@ -38,8 +44,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" data-part="scene" data-at="0" data-state="settled" style="width: 420px">
-        <span class="sp-heading sp-context">Along the path, not across the box</span>
-        <div class="sp-stack" style="gap: 6px; margin-top: 10px">
+        <div class="sp-stack" style="gap: 6px">
           <div
             data-part="route"
             data-subject
@@ -76,16 +81,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
                      background: var(--sp-accent); offset-path: path('${LINE}'); offset-distance: 0%;
                      transition: offset-distance ${TRAVEL_MS}ms cubic-bezier(0.4, 0, 0.2, 1)"
             ></span>
-            <span class="sp-label" style="position: absolute; left: 10px; top: 2px; font-size: 11px">the same trip, straight</span>
           </div>
         </div>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
           <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="0" data-axis="Distance">${segments}</sp-segmented>
           <span class="sp-label" data-part="readout" style="margin-left: auto">offset-distance: 0%</span>
         </div>
-        <p class="sp-text sp-context" style="margin: 8px 0 0">
-          The animated value is the distance along, not an x and a y.
-        </p>
       </div>
     </div>
   `;

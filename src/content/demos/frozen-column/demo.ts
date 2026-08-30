@@ -27,6 +27,10 @@ const STATUS: Record<string, string> = { L: 'Let', F: 'Free', H: 'Held', M: 'Mai
  * carries the freeze boundary at its trailing edge, which is the rule a spreadsheet draws in
  * the same place. That band is the subject, not the table it sits over (SPEC §5).
  *
+ * A caption under the frame read "Ten weeks pass under the berth column, and the berth
+ * column does not move." The scroll shows that and the article says it, so it went; the
+ * topbar readout still names the weeks on screen, which is a thing the register reports.
+ *
  * The claim is measured rather than implied. On every scroll the demo compares the left edge
  * of a berth cell with the left edge of the scrolling region and publishes `data-held`: with
  * the stickiness gone, the same script would drive the column out of the region and the
@@ -102,10 +106,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <span class="sp-text sp-context" style="width: 452px; height: 16px; font-size: 12px; line-height: 16px; text-align: center">
-        Ten weeks pass under the berth column, and the berth column does not move.
-      </span>
     </div>
   `;
 

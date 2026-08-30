@@ -31,7 +31,12 @@ const FACT = 'flex: 1 1 auto; min-width: 0; font-size: 11px';
  * The subject is the live-text banner. The term is a WCAG criterion whose requirement is
  * "use text", so identify points at the banner that is text, the way the use-of-color
  * specimen rings the redundantly coded example rather than the failure. The raster beside
- * it, the zoom control, the notes, and the caption are scenery (SPEC §5).
+ * it, the zoom control, the two labels and the caption are scenery (SPEC §5).
+ *
+ * Each row once carried a sentence under its label, "Selects. Translates. Restyles." beside
+ * the live banner and "200 by 56 pixels. Alt text at best." beside the raster. Both were the
+ * site reading the comparison out for you, and the article makes the same points at length,
+ * so only the two legend labels remain.
  *
  * The raster is a real one: the canvas is painted once at mount at its own pixel grid, and
  * nothing repaints it afterwards, so scaling it has nothing to work with but those pixels.
@@ -64,7 +69,6 @@ export function mount(root: HTMLElement): void {
             </div>
             <div class="sp-context" style="${FACT}">
               <span class="sp-label">Live text</span>
-              <p class="sp-text" style="margin: 2px 0 0">Selects. Translates. Restyles.</p>
             </div>
           </div>
 
@@ -75,7 +79,6 @@ export function mount(root: HTMLElement): void {
             </div>
             <div class="sp-context" style="${FACT}">
               <span class="sp-label">Image of text</span>
-              <p class="sp-text" style="margin: 2px 0 0">${W} by ${H} pixels. Alt text at best.</p>
             </div>
           </div>
         </div>

@@ -19,6 +19,10 @@ const SECTIONS = ['Harbour works', 'Tide tables', 'Ferry times', 'Moorings', 'Sl
  *
  * The return is smooth unless the reader has asked for less movement, where a flight
  * through the whole document is the one move the preference is about (SPEC §7).
+ *
+ * A caption under the frame ("Nothing to press until the top is actually gone.") was the
+ * site narrating the demonstration, so it is gone. The control's own absence at the top
+ * of the scroller is the whole of the claim.
  */
 export function mount(root: HTMLElement): void {
   const article = SECTIONS.map(
@@ -54,7 +58,6 @@ export function mount(root: HTMLElement): void {
           Back to top
         </button>
       </div>
-      <span class="sp-label sp-context">Nothing to press until the top is actually gone.</span>
     </div>
   `;
 

@@ -17,7 +17,6 @@ export default steps([
   { assert: { selector: '[data-part=respelling][data-revealed]', state: 'visible' } },
   { assert: { selector: '[data-part=token][data-mode=hint]', state: 'visible' } },
   { assert: { selector: '[data-part=utterance][data-state=spoken]', state: 'visible' } },
-  { assert: { selector: '[data-part=caption][data-mode=hint]', state: 'visible' } },
   { wait: 1800 },
 
   { moveTo: '[data-part=seg-default]' },

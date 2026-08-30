@@ -33,14 +33,14 @@ const SCALES: Record<string, Scale> = {
     from: 46.4,
     to: 48.8,
     label: (f) => (46.4 + f * 2.4).toFixed(1),
-    readout: 'Last bar drawn 5.0x the first',
+    readout: 'Axis 46.4 to 48.8',
     note: 'Cut at 46.4 the four bars fan out. Share rose 3.4 percent across the year, and the last bar is drawn five times the height of the first.',
   },
   zero: {
     from: 0,
     to: 60,
     label: (f) => String(Math.round(f * 60)),
-    readout: 'Last bar drawn 1.03x the first',
+    readout: 'Axis 0 to 60',
     note: 'From zero the same four numbers are the same four numbers: a 3.4 percent rise, drawn at the length a 3.4 percent rise has.',
   },
 };
@@ -52,9 +52,14 @@ const centre = (index: number) => LEFT + index * SLOT + SLOT / 2;
 
 /**
  * Truncated axis specimen: one bar series drawn against two domains, a zero baseline and a
- * baseline cut just under the smallest bar, with a read-out naming the exaggeration the cut
- * invents. The bars, the values, and the category labels never change; only the axis domain
- * does, which is the whole claim.
+ * baseline cut just under the smallest bar. The bars, the values, and the category labels
+ * never change; only the axis domain does, which is the whole claim.
+ *
+ * The card's read-out used to state the exaggeration ("Last bar drawn 5.0x the first") and
+ * its summary stat used to be argued ("Q1 to Q4, actual change +3.4%"). A chart card prints
+ * its axis domain and its period change, not a critique of its own drawing, so the read-out
+ * now names the domain and the summary is plain. The fivefold claim survives in the verdict
+ * beside the switch, which is where a reading of the two states belongs.
  *
  * The subject is the value axis itself (its line and its tick labels), the narrowest element
  * the term names: the bars are what the truncation acts on and the card, the topbar and the
@@ -121,7 +126,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-body" style="display: flex; flex-direction: column; justify-content: center">
           <div class="sp-surface" style="padding: 8px 10px">
             <div class="sp-row sp-row--between" style="height: 18px">
-              <span class="sp-label sp-context" style="font-size: 11px">Q1 to Q4, actual change +3.4%</span>
+              <span class="sp-label sp-context" style="font-size: 11px">Q1 to Q4 +3.4%</span>
               <span
                 class="sp-label"
                 data-part="readout"

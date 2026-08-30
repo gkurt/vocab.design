@@ -46,6 +46,11 @@ const CAPTION: Record<Version, string> = {
  * The block holds a fixed height, so the longer draft does not push the readout and the
  * caption down the frame (SPEC §5). Each segment reaches its own draft rather than toggling
  * (SPEC §8), and no timer is needed.
+ *
+ * The third readout cell was headed "Reading level (WCAG 3.1.5)". The measure is something a
+ * readability panel really prints, so the cell stayed, but the citation was the site pointing
+ * at the criterion from inside the fiction; it is just "Reading level" now, and the article
+ * names the criterion.
  */
 export function mount(root: HTMLElement): void {
   const cell = (label: string, name: string, value: string, grow: string) => `
@@ -76,7 +81,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" style="margin-top: 9px; gap: 10px; height: 30px">
           ${cell('Sentences', 'sentences', DRAFTS.plain.sentences, '1')}
           ${cell('Longest sentence', 'longest', DRAFTS.plain.longest, '1.2')}
-          ${cell('Reading level (WCAG 3.1.5)', 'level', DRAFTS.plain.level, '1.7')}
+          ${cell('Reading level', 'level', DRAFTS.plain.level, '1.7')}
         </div>
 
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-version="plain"

@@ -14,6 +14,13 @@ import { part } from '#src/kit/parts.ts';
  *
  * The note under the link keeps room for both of its lines from mount, so reading the
  * longer one does not grow the quiet card by a few pixels (SPEC §5).
+ *
+ * Both cards sell the same thing in the same words now. They used to describe themselves
+ * instead ("One idea, all the room it needs.", "Nothing here is decoration.", "One idea, a
+ * band, a badge, a rule, and eleven other things asking at once."), under labels reading
+ * "one face, one accent, space" and "band, badge, icon, rule, shadow". No card prints an
+ * inventory of its own parts, and holding the copy steady is what makes the count of
+ * elements the only difference left, so the labels went and the copy became a product's.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -25,10 +32,10 @@ export function mount(root: HTMLElement): void {
             <div class="sp-label" data-part="eyebrow"
                  style="color: var(--sp-accent); letter-spacing: 0.1em; text-transform: uppercase">Focus</div>
             <div style="margin-top: 16px; font-size: 18px; font-weight: 500; line-height: 1.25; letter-spacing: -0.01em">
-              One idea, all the room it needs.
+              The week's best long reads, one email.
             </div>
             <p style="margin: 14px 0 0; font-size: 13px; line-height: 1.6; color: var(--sp-muted)">
-              Nothing here is decoration.
+              Sent on Sunday mornings.
             </p>
             <button data-part="start" type="button"
                     style="margin-top: 20px; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; font-weight: 500; color: var(--sp-accent); cursor: pointer">
@@ -38,7 +45,6 @@ export function mount(root: HTMLElement): void {
               Free while it stays quiet.
             </div>
           </div>
-          <span class="sp-label" style="text-align: center">one face, one accent, space</span>
         </div>
 
         <div class="sp-stack sp-context" style="gap: 10px">
@@ -56,7 +62,7 @@ export function mount(root: HTMLElement): void {
               </div>
               <div class="sp-divider" style="margin: 8px 0"></div>
               <p style="margin: 0; font-size: 12px; line-height: 1.5; color: var(--sp-muted)">
-                One idea, a band, a badge, a rule, and eleven other things asking at once.
+                The week's best long reads, sent every Sunday morning, with editors' picks.
               </p>
               <div class="sp-row" style="margin-top: 10px; gap: 6px">
                 <button class="sp-button sp-button--sm" type="button" style="font-size: 12px">Start</button>
@@ -69,7 +75,6 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-label" style="text-align: center">band, badge, icon, rule, shadow</span>
         </div>
       </div>
     </div>

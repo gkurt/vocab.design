@@ -18,8 +18,12 @@ const LABEL: Record<Convention, string> = { block: 'content block', image: 'imag
  * and no colour, typeface or copy decided anywhere in it.
  *
  * The subject is the drawing region: the term names the drawn screen itself, so the
- * window around it, the picker, the legend and the footnote are scenery in the context
- * register (SPEC §5). The drawing is greyscale by definition, which is what the stage's
+ * window around it, the picker and the legend are scenery in the context register
+ * (SPEC §5). A footnote under the legend once read "No colour, no typeface, no copy.
+ * Everything drawn here can be moved in a minute, which is the only property that makes
+ * it worth drawing." That is the article's argument printed inside the drawing tool, so
+ * it is gone along with the divider that introduced it, and the window is narrowed to
+ * 412px so the legend still sits beside the drawing rather than across a gap. The drawing is greyscale by definition, which is what the stage's
  * identify control exists for, exactly as it does for a skeleton screen.
  *
  * The pick is a legend rather than a state of the screen: choosing a convention marks
@@ -53,7 +57,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app" style="gap: 9px">
-      <div class="sp-window" style="width: 466px; padding: 11px 14px 13px">
+      <div class="sp-window" style="width: 412px; padding: 11px 14px 13px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
           <span class="sp-label" style="flex: 0 0 auto">Home screen, structure only</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Convention" data-part="convention" data-value="block" style="flex: 0 0 auto">
@@ -89,17 +93,12 @@ export function mount(root: HTMLElement): void {
             </span>
           </div>
 
-          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 7px">
+          <div class="sp-stack sp-context" style="flex: 1 1 auto; min-width: 0; gap: 7px; justify-content: center">
             <span class="sp-label" data-part="legend-label" data-convention="block" style="font-size: 10px">
               Marked: ${LABEL.block}
             </span>
             <p class="sp-text" data-stage-verdict data-part="legend" data-convention="block"
                style="margin: 0; height: 74px; font-size: 11px; line-height: 1.35">${NOTES.block}</p>
-            <span class="sp-divider"></span>
-            <p class="sp-text" data-part="footnote" style="margin: 0; font-size: 10.5px; line-height: 1.35">
-              No colour, no typeface, no copy. Everything drawn here can be moved in a minute, which is
-              the only property that makes it worth drawing.
-            </p>
           </div>
         </div>
       </div>

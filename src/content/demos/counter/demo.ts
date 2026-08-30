@@ -47,6 +47,13 @@ const PANEL = 80;
  *
  * Every panel is a fixed box and the letters are the same size at every weight,
  * so changing weight moves nothing (SPEC §5).
+ *
+ * The panels once carried the site's own commentary under them ("one counter", "one counter",
+ * "counter and aperture"), and a label beside the metrics chip stated the drawing rule
+ * ("outer contour fixed"). All four were deleted: the letters are visible, the outer contour
+ * visibly holds, and the article names the aperture. The chip is kept because it measures the
+ * glyph the demo actually draws, but it prints the two metrics alone now rather than framing
+ * them against the em width.
  */
 export function mount(root: HTMLElement): void {
   const fill = 'fill: color-mix(in oklab, var(--sp-accent) 32%, var(--sp-surface))';
@@ -69,7 +76,6 @@ export function mount(root: HTMLElement): void {
               <ellipse data-part="counter" data-subject cx="${CX}" cy="${CY}" style="${fill}"></ellipse>
               <ellipse data-part="o-ring" ${ink} cx="${CX}" cy="${CY}"></ellipse>
             </svg>
-            <span class="sp-label sp-context">one counter</span>
           </div>
           <div class="sp-stack sp-context" data-part="panel-b" style="gap: 2px; align-items: center">
             <svg ${board} aria-hidden="true" style="display: block">
@@ -77,7 +83,6 @@ export function mount(root: HTMLElement): void {
               <ellipse data-part="b-bowl" ${ink} cx="${CX}" cy="${CY}"></ellipse>
               <line data-part="b-stem" ${ink} y1="16" y2="100"></line>
             </svg>
-            <span class="sp-label">one counter</span>
           </div>
           <div class="sp-stack sp-context" data-part="panel-e" style="gap: 2px; align-items: center">
             <svg ${board} aria-hidden="true" style="display: block">
@@ -85,12 +90,10 @@ export function mount(root: HTMLElement): void {
               <path data-part="e-ring" ${ink}></path>
               <line data-part="e-bar" ${ink} x1="${LEFT}" x2="${CX + RX}" y1="${CY}" y2="${CY}"></line>
             </svg>
-            <span class="sp-label">counter and aperture</span>
           </div>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 26px">
+        <div class="sp-row sp-context" style="margin-top: 8px; height: 26px">
           <span class="sp-chip" data-part="readout" style="cursor: default; font-variant-numeric: tabular-nums"></span>
-          <span class="sp-label">outer contour fixed</span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           The e has one of each: the lens above the crossbar is enclosed, the gap below it is where the
@@ -145,7 +148,7 @@ export function mount(root: HTMLElement): void {
     const xo = round(rxi * reach);
     set(eCounter, { d: `M ${round(CX - xo)} ${round(top)} A ${rxi} ${ryi} 0 0 1 ${round(CX + xo)} ${round(top)} Z` });
 
-    readout.textContent = `stroke ${w}, counter ${2 * rxi} of ${2 * RX} units across`;
+    readout.textContent = `stroke ${w} · counter ${2 * rxi} units`;
   };
 
   apply('regular');

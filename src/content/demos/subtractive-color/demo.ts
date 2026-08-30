@@ -77,9 +77,15 @@ function overlapPath(): string {
  * element it does not otherwise have (SPEC §5): a path around its own extent, filled with the
  * value the three layers actually multiply to, composited normally so it paints its region rather
  * than darkening it a fourth time. The three patches are peer instances of the term and keep their
- * full paint; the legend, label and caption are scenery in the context register. The paper is a
- * fixed white rather than the reader's theme, because taking light away is only legible from a
- * ground that had all of it.
+ * full paint; the legend is scenery in the context register. The paper is a fixed white rather
+ * than the reader's theme, because taking light away is only legible from a ground that had all
+ * of it.
+ *
+ * A heading over the field ("Taking light away: three inks, multiplied together") and a closing
+ * caption ("Every layer only takes light away, so the stack runs towards black and stops in the
+ * mud, which is why print carries a fourth black ink.") both went: the picture is the claim, and
+ * the article already carries the fourth ink. The choreography's assert on the caption went with
+ * it.
  *
  * The claim is visible at rest and there is no second state to reach, so the choreography is waits
  * and asserts only (SPEC §8). Nothing is measured and nothing changes, so nothing shifts.
@@ -102,11 +108,9 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app" style="gap: 8px">
-      <div class="sp-window" style="width: 452px; padding: 12px 18px 14px">
-        <span class="sp-label sp-context" data-part="label">Taking light away: three inks, multiplied together</span>
-
+      <div class="sp-window" style="width: 452px; padding: 14px 18px">
         <div data-part="field"
-             style="position: relative; width: ${FIELD.w}px; height: ${FIELD.h}px; margin-top: 7px;
+             style="position: relative; width: ${FIELD.w}px; height: ${FIELD.h}px;
                     border-radius: 6px; background: #FFFFFF; isolation: isolate; overflow: hidden;
                     box-shadow: inset 0 0 0 1px rgb(16 24 40 / 0.14)">
           ${INKS.map(patch).join('')}
@@ -119,12 +123,6 @@ export function mount(root: HTMLElement): void {
             ${SUMS.map(legendRow).join('')}
           </div>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption"
-           style="margin: 8px 0 0; font-size: 10px; line-height: 1.45">
-          Every layer only takes light away, so the stack runs towards black and stops in the mud, which is why
-          print carries a fourth black ink.
-        </p>
       </div>
     </div>
   `;

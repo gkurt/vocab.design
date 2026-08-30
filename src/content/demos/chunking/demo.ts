@@ -29,6 +29,10 @@ const CAPTION = {
  *
  * The groups are the same elements in both states, spaced or not spaced, so nothing is
  * added or removed and the rows never move (SPEC §5).
+ *
+ * The header carried "Same characters, two shapes", which is the site announcing the
+ * comparison from inside the form. The counts beside each value already say it, so the line
+ * has gone and the row is left holding the switch alone.
  */
 export function mount(root: HTMLElement): void {
   const row = (v: Value) => `
@@ -45,8 +49,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 448px; padding: 14px 16px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Same characters, two shapes</span>
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Grouping" data-term="chunked" data-part="segmented" data-value="chunked">
             <button class="sp-segment" data-part="seg-chunked" value="chunked">Chunked</button>
             <button class="sp-segment" data-part="seg-run" value="run">One run</button>

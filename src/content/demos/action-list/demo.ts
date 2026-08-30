@@ -34,7 +34,11 @@ interface Picker extends HTMLElement {
  *
  * The subject is that list body, the narrowest element the term names. The hosts are not the
  * term (one is a popover, the other a panel), and the page card, the trigger, the picker and the
- * readout are scenery in the context register. The list is honestly an action list in both hosts,
+ * readout are scenery in the context register. Two lines of the site's voice have gone from the
+ * frame: the window was titled "One body, two hosts", which described the demonstration rather
+ * than naming an app, and the document card carried "The page keeps its place. Only the container
+ * around the list changes.", which is the claim the switch already makes on screen. The window is
+ * "Documents" now and the card holds its file and nothing else. The list is honestly an action list in both hosts,
  * so no `data-pose` condition is needed.
  *
  * Both hosts are absolutely positioned in a fixed scene, so switching between them moves nothing
@@ -63,7 +67,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 292px">
         <div class="sp-topbar sp-context" style="padding: 7px 12px">
-          <span class="sp-heading sp-grow" style="font-size: 13px">One body, two hosts</span>
+          <span class="sp-heading sp-grow" style="font-size: 13px">Documents</span>
           <span class="sp-label" data-part="readout" data-ran="none" style="flex: 0 0 96px; font-size: 11px; text-align: right; white-space: nowrap">Nothing run yet</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="picker" data-value="popover" data-axis="Presentation">
             <button class="sp-segment" type="button" data-part="seg-popover" value="popover" style="padding: 4px 9px; font-size: 12px">Popover</button>
@@ -80,9 +84,6 @@ export function mount(root: HTMLElement): void {
                 <div class="sp-line" style="width: 86%"></div>
                 <div class="sp-line" style="width: 92%"></div>
                 <div class="sp-line" style="width: 64%"></div>
-              </div>
-              <div class="sp-label" data-part="page-note" style="margin-top: 16px; font-size: 11px; line-height: 1.4">
-                The page keeps its place. Only the container around the list changes.
               </div>
             </div>
 

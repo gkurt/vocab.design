@@ -51,14 +51,20 @@ type Picker = { elementFromPoint(x: number, y: number): Element | null };
  * is the one rule slop has: extended regions that overlap trade taps invisibly. Inspecting
  * draws borders on boxes that were already there, so nothing moves when the state changes
  * (SPEC §5).
+ *
+ * Two captions used to sit under the card, "A tap in the slop adds too. A tap past the slop
+ * does nothing." and "Neighbours are spaced so the two 44 px regions never overlap." Both
+ * were the site reading its own exhibit aloud, and the article covers the spacing rule, so
+ * they are gone and the frame is shortened to the height the card now needs. The topbar
+ * readout, which is a real instrument, opens on an empty state instead of on an instruction.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 300px">
+      <div class="sp-frame sp-frame--wide" style="height: 202px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Album</span>
-          <span class="sp-text" data-part="readout" style="width: 262px; text-align: right; white-space: nowrap">Tap the add button, or near it</span>
+          <span class="sp-text" data-part="readout" style="width: 262px; text-align: right; white-space: nowrap">No taps yet</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 12px">
           <div
@@ -106,16 +112,10 @@ export function mount(root: HTMLElement): void {
             </span>
           </div>
 
-          <span class="sp-label sp-context">A tap in the slop adds too. A tap past the slop does nothing.</span>
-
-          <div class="sp-row sp-context" style="gap: 10px">
-            <sp-segmented data-stage-mode class="sp-segmented" data-axis="Show" data-part="mode" data-value="drawn">
-              <button class="sp-segment" type="button" data-part="mode-drawn" value="drawn" style="padding: 5px 10px">the ${ART} px drawn</button>
-              <button class="sp-segment" type="button" data-part="mode-area" value="area" style="padding: 5px 10px">the ${TARGET} px that answer</button>
-            </sp-segmented>
-          </div>
-
-          <span class="sp-label sp-context">Neighbours are spaced so the two ${TARGET} px regions never overlap.</span>
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Show" data-part="mode" data-value="drawn">
+            <button class="sp-segment" type="button" data-part="mode-drawn" value="drawn" style="padding: 5px 10px">the ${ART} px drawn</button>
+            <button class="sp-segment" type="button" data-part="mode-area" value="area" style="padding: 5px 10px">the ${TARGET} px that answer</button>
+          </sp-segmented>
         </div>
       </div>
     </div>

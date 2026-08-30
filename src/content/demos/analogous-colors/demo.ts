@@ -33,8 +33,11 @@ const hues = (start: number) => [0, 1, 2].map((i) => ((start + i) % WHEEL) * STE
  * The subject is the lifted set, a group holding the three neighbouring sectors: the term
  * names those hues and their adjacency, not the wheel they were taken from and not the
  * poster they were spent on. The wheel underneath, the poster and the position control all
- * stay in the context register. Both the wheel and the poster are fixed boxes and the set
- * only changes which sectors it draws, so rotating it repaints and moves nothing (SPEC §5).
+ * stay in the context register. A line under the poster once explained that neighbours
+ * cannot separate by hue, which was the article's argument printed inside the specimen; the
+ * poster already shows the lightness split, so the line is gone. Both the wheel and the
+ * poster are fixed boxes and the set only changes which sectors it draws, so rotating it
+ * repaints and moves nothing (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
   const ring = Array.from({ length: WHEEL }, (_, i) => {
@@ -75,9 +78,6 @@ export function mount(root: HTMLElement): void {
             <span class="sp-text" data-part="angles" style="font-size: 11px">30, 60, 90</span>
           </div>
         </div>
-
-        <p class="sp-text sp-context" style="margin: 10px 0 0; font-size: 11px">Neighbours cannot separate
-          anything by hue, so the poster separates by lightness and leans on one neutral.</p>
       </div>
     </div>
   `;

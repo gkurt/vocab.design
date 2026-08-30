@@ -77,6 +77,10 @@ const bars = TASKS.map(
  * `localPoint`, so a narrow column that scales the stage does not halve the day a bar lands
  * on (SPEC §5).
  *
+ * A caption under the chart used to read "One row per task, bars along the dates. Move a bar and
+ * whatever waits on it moves too.", which is the article's sentence sitting inside a project tool
+ * that would never print it. The drag says it instead.
+ *
  * Bars and arrows are absolutely placed inside a fixed field, so a move never changes the
  * height of a row or the position of the rows below it (SPEC §5).
  */
@@ -118,9 +122,6 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" style="width: 442px; margin-top: 8px; font-size: 11px; line-height: 1.35; text-align: center">
-            One row per task, bars along the dates. Move a bar and whatever waits on it moves too.
-          </span>
         </div>
       </div>
     </div>

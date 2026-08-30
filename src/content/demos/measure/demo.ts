@@ -1,7 +1,7 @@
 import { part } from '#src/kit/parts.ts';
 
 const TEXT =
-  'The eye reads a line, sweeps back to the left edge, and drops one line down. The longer that sweep, the more often it lands on the line it just read, and the reader has to find their place again, halfway through a sentence.';
+  'The harbour road stays shut until the tide falls, so every ferry this week leaves from the north pier instead. Crews expect to reopen the lower lane on Thursday morning, and the timetable posted at the terminal already carries the change.';
 
 /**
  * Measure specimen: one paragraph set three times, at 45, 66, and 95 characters per
@@ -16,11 +16,18 @@ const TEXT =
  *
  * Nothing changes, so the pass ends at its mount state and the tree persists across attract
  * iterations (`data-loop="keep"`), measurement included.
+ *
+ * The copy is a notice a real page would print, not prose about reading: the paragraph used
+ * to describe the return sweep, which is the article's job and read as the site talking
+ * inside the frame. The labels once carried a verdict each ("the rag turns violent",
+ * "Bringhurst's ideal", "the return sweep misses") and the window a heading, "One paragraph,
+ * three measures"; those went the same way, leaving the labels stating only the width they
+ * set, which is the one thing the columns cannot say themselves.
  */
 export function mount(root: HTMLElement): void {
-  const column = (cpl: number, note: string, subject = false) => `
+  const column = (cpl: number, subject = false) => `
     <div class="sp-stack" style="gap: 3px">
-      <span class="sp-label sp-context">${cpl} characters · ${note}</span>
+      <span class="sp-label sp-context">${cpl} characters</span>
       <p class="sp-prose" data-part="col-${cpl}" data-cpl="${cpl}"${subject ? ' data-ideal data-subject' : ''}
          style="font-size: 10px; --sp-measure: ${cpl}ch; margin: 0">${TEXT}</p>
     </div>
@@ -29,11 +36,10 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app" data-loop="keep">
       <div class="sp-window" data-part="page" style="font-size: 10px; padding: 16px 15px; width: calc(95ch + 30px)">
-        <span class="sp-heading sp-context" style="font-size: 14px">One paragraph, three measures</span>
-        <div class="sp-stack" style="gap: 12px; margin-top: 12px">
-          <div class="sp-context">${column(45, 'the rag turns violent')}</div>
-          ${column(66, "Bringhurst's ideal", true)}
-          <div class="sp-context">${column(95, 'the return sweep misses')}</div>
+        <div class="sp-stack" style="gap: 14px">
+          <div class="sp-context">${column(45)}</div>
+          ${column(66, true)}
+          <div class="sp-context">${column(95)}</div>
         </div>
       </div>
     </div>

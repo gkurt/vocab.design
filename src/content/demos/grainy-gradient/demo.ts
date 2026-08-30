@@ -45,7 +45,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-stack sp-context" style="gap: 6px">
           <div data-part="clean"
                style="width: 148px; height: 156px; border-radius: var(--sp-radius); background-image: ${WASH}"></div>
-          <span class="sp-label" style="text-align: center">Clean, banding and all</span>
+          <span class="sp-label" style="text-align: center">No grain</span>
         </div>
       </div>
 

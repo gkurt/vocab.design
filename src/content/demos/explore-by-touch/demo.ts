@@ -27,6 +27,11 @@ const IDLE = 'Nothing announced yet';
  * `data-hover-driven`: a reader's dwell on it takes the stage over without a click, and
  * what gets announced follows their own pointer rather than the ghost's (SPEC §7).
  *
+ * Two of the site's own labels have left the frame: "A phone with a screen reader running",
+ * which announced an instrument the scene does not draw, and "What the last gesture did" over
+ * the result readout. The mode chip stays, because "Explore by touch on" is a setting a real
+ * phone shows, and the readout says plainly enough what it is.
+ *
  * The row under the finger is found from the pointer's own coordinates against each row's
  * box, which is a read of boxes this demo never restyles, so nothing is measured after a
  * style write (SPEC §5). Both readouts hold their height from mount. A tap reaches "read"
@@ -43,8 +48,7 @@ export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
-        <div class="sp-row sp-row--between sp-context" style="gap: 10px; height: 20px">
-          <span class="sp-label" style="flex: 0 0 auto">A phone with a screen reader running</span>
+        <div class="sp-row sp-context" style="gap: 10px; height: 20px; justify-content: flex-end">
           <span class="sp-chip" data-part="mode" style="cursor: default; font-size: 10px; padding: 2px 8px">Explore by touch on</span>
         </div>
 
@@ -72,9 +76,8 @@ export function mount(root: HTMLElement): void {
                style="margin: 0">${IDLE}</p>
 
             <div class="sp-surface" style="padding: 7px 9px">
-              <span class="sp-label" style="font-size: 10px">What the last gesture did</span>
               <p class="sp-text sp-text--ink" data-part="result" data-state="none" data-opened="none"
-                 style="margin: 4px 0 0; height: 36px; font-size: 11.5px; color: var(--sp-muted)">
+                 style="margin: 0; height: 36px; font-size: 11.5px; color: var(--sp-muted)">
                 Nothing yet. Dragging only reads.
               </p>
             </div>

@@ -9,7 +9,7 @@ import { steps } from '#src/stage/choreography.ts';
 export default steps([
   { wait: 700 },
   { assert: { selector: '[data-part=glare]', state: 'visible' } },
-  { assert: { selector: '[data-part=breaks][data-mode=glare]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=glare]', state: 'visible' } },
   { assert: { selector: '[data-part=reach]', state: 'hidden' } },
   { wait: 900 },
 
@@ -18,7 +18,7 @@ export default steps([
   { wait: 800 },
   { assert: { selector: '[data-part=reach]', state: 'visible' } },
   { assert: { selector: '[data-part=glare]', state: 'hidden' } },
-  { assert: { selector: '[data-part=moment][data-mode=reach]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=reach]', state: 'visible' } },
   { wait: 1700 },
 
   { moveTo: '[data-part=seg-mute]' },
@@ -26,13 +26,13 @@ export default steps([
   { wait: 800 },
   { assert: { selector: '[data-part=silence]', state: 'visible' } },
   { assert: { selector: '[data-part=reach]', state: 'hidden' } },
-  { assert: { selector: '[data-part=breaks][data-mode=mute]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=mute]', state: 'visible' } },
   { wait: 1700 },
 
   { moveTo: '[data-part=seg-glare]' },
   { click: true },
   { wait: 800 },
   { assert: { selector: '[data-part=glare]', state: 'visible' } },
-  { assert: { selector: '[data-part=permanent][data-mode=glare]', state: 'visible' } },
+  { assert: { selector: '[data-part=verdict][data-mode=glare]', state: 'visible' } },
   { wait: 1000 },
 ]);

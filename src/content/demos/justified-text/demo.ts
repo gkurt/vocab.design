@@ -10,9 +10,9 @@ import '#src/kit/segmented.ts';
  */
 const S = '­';
 const BODY =
-  `Justi${S}fi${S}ca${S}tion stretches the word spaces until every line reaches the mar${S}gin exactly. ` +
-  `Un${S}hyphen${S}ated, at a nar${S}row meas${S}ure, the stretch${S}ing becomes un${S}mis${S}tak${S}able: ` +
-  `gaps open beside the long${S}est words and line up into rivers run${S}ning down the col${S}umn.`;
+  `The light${S}house keep${S}ers were with${S}drawn in nine${S}teen eighty-eight, and the tower has ` +
+  `run un${S}at${S}tend${S}ed ever since. Sup${S}plies arrive by heli${S}cop${S}ter twice a year, ` +
+  `weather per${S}mit${S}ting, and the auto${S}mat${S}ic lamp is checked from the main${S}land every quar${S}ter.`;
 const COLUMN = 175;
 const LINE_PX = 18;
 /** The room the unhyphenated setting takes, held by both columns so a rebreak moves nothing. */
@@ -31,11 +31,17 @@ const NOTES: Record<string, string> = {
  * somewhere else to go and the spacing evens out.
  *
  * Both columns sit in boxes holding the room the unhyphenated setting takes, so a
- * rebreak cannot move the readout under them (SPEC §5).
+ * rebreak moves nothing around them (SPEC §5).
  *
  * The subject is the justified block. The term names what is done to a run of
  * text, so the block is the narrowest thing that is it; the ragged twin and the
  * hyphenation control are scenery.
+ *
+ * The paragraph used to be about justification, which put the site's own voice in
+ * the one place a reader reads word for word. It is ordinary copy now, still full
+ * of long words carrying soft hyphens, since that is all the demonstration ever
+ * needed from it. The note under the columns reads the state and changes with the
+ * switch, so it is a `data-stage-verdict` the stage draws in the strip.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -63,10 +69,8 @@ export function mount(root: HTMLElement): void {
             </div>
           </div>
         </div>
-        <div class="sp-row sp-context" style="height: 18px; margin-top: 8px">
-          <span class="sp-text" data-part="readout"></span>
-        </div>
       </div>
+      <p data-stage-verdict data-part="readout"></p>
     </div>
   `;
 

@@ -18,6 +18,8 @@ const STOPS = [
 ];
 const START = 265;
 
+const titled = (name: string) => name.charAt(0).toUpperCase() + name.slice(1);
+
 const colorAt = (angle: number) => `oklch(${HELD.l} ${HELD.c} ${angle})`;
 const washAt = (angle: number) => `color-mix(in oklab, ${colorAt(angle)} 16%, var(--sp-surface))`;
 
@@ -25,6 +27,11 @@ const washAt = (angle: number) => `color-mix(in oklab, ${colorAt(angle)} 16%, va
  * Hue specimen: one lightness and one chroma, held, while the hue angle walks the
  * wheel. The band is the term; the sample below it is what the reader is really
  * being shown, since the only thing that changes about it is its name.
+ *
+ * The sample row used to read "Reads as indigo", which is the site telling the reader what
+ * to see. It prints the colour's name the way a palette panel does, and nothing else. The
+ * row above it was headed "Held constant", which is the exhibit describing its own method;
+ * a colour panel heads that row with the model it is working in, so it reads "oklch".
  */
 export function mount(root: HTMLElement): void {
   const band = STOPS.map(
@@ -41,7 +48,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 340px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">Held constant</span>
+          <span class="sp-label">oklch</span>
           <span class="sp-text">L 0.62 · C 0.15</span>
         </div>
 
@@ -52,7 +59,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row sp-context" data-part="sample"
              style="margin-top: 16px; padding: 10px 12px; border: 1px solid var(--sp-line); border-radius: var(--sp-radius); background: ${washAt(START)}">
           <span class="sp-swatch" data-part="dot" style="width: 16px; height: 16px; border-radius: 50%; --sp-swatch: ${colorAt(START)}"></span>
-          <span class="sp-grow sp-text sp-text--ink" data-part="name">Reads as indigo</span>
+          <span class="sp-grow sp-text sp-text--ink" data-part="name">Indigo</span>
           <span class="sp-text" data-part="value" style="width: 52px; text-align: right">H ${START}</span>
         </div>
       </div>
@@ -80,7 +87,7 @@ export function mount(root: HTMLElement): void {
     });
     sample.style.background = washAt(angle);
     dot.style.setProperty('--sp-swatch', colorAt(angle));
-    name.textContent = `Reads as ${chosen.name}`;
+    name.textContent = titled(chosen.name);
     value.textContent = `H ${angle}`;
   };
   paint(START);

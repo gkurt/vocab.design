@@ -18,12 +18,6 @@ const TEST: Record<Mode, string> = {
   open: 'Cognitive function test: none',
 };
 
-const CAPTION: Record<Mode, string> = {
-  memory:
-    'A memorised code, and a field that refuses to be filled by anything but a person typing. Blocking paste is what turns a field into a memory test.',
-  open: 'The same account, reached without recalling anything: a manager may fill the field, and a passkey skips the question altogether.',
-};
-
 /**
  * Accessible authentication specimen: one sign-in step drawn two ways through a segmented
  * control. One demands a memorised code and refuses a paste; the other lets the field be filled
@@ -32,8 +26,12 @@ const CAPTION: Record<Mode, string> = {
  *
  * The subject is the authentication step, the panel that carries the challenge and the routes
  * through it, since the criterion is a property of the step rather than of any one field. The
- * picker, the read-out and the caption are scenery (SPEC §5), and the panel is narrower than the
- * whole scene, so identify still has something to point at (SPEC §6).
+ * picker and the read-out are scenery (SPEC §5), and the panel is narrower than the whole scene,
+ * so identify still has something to point at (SPEC §6). A second caption under the step used to
+ * restate the mode in the site's voice ("The same account, reached without recalling anything")
+ * beside the note the stage already draws as the verdict. The article makes that argument at
+ * length and a sign-in screen would print neither, so the caption is gone and the note is the only
+ * thing the stage says.
  *
  * The memory test is the counter-example the step itself passes through, so the honest condition
  * lives in `data-pose` and the mount state satisfies it: identify refuses to pose a step that
@@ -83,9 +81,6 @@ export function mount(root: HTMLElement): void {
           <span class="sp-label" data-part="test" data-state="none" style="flex: 0 0 auto; font-size: 10.5px">${TEST.open}</span>
           <span class="sp-label" data-part="routes" data-mode="open" style="flex: 0 0 auto; font-size: 10.5px">Routes in: two</span>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption" data-mode="open"
-           style="margin: 8px 0 0; height: 30px; font-size: 10.5px; line-height: 1.35">${CAPTION.open}</p>
       </div>
     </div>
   `;
@@ -97,7 +92,6 @@ export function mount(root: HTMLElement): void {
   const status = part(root, 'status');
   const test = part(root, 'test');
   const routes = part(root, 'routes');
-  const caption = part(root, 'caption');
 
   const setNote = (state: string) => {
     note.dataset.state = state;
@@ -116,8 +110,6 @@ export function mount(root: HTMLElement): void {
     test.textContent = TEST[next];
     routes.dataset.mode = next;
     routes.textContent = next === 'memory' ? 'Routes in: one, and it goes through your memory' : 'Routes in: two';
-    caption.dataset.mode = next;
-    caption.textContent = CAPTION[next];
   };
 
   apply('open');

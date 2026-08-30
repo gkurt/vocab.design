@@ -88,6 +88,10 @@ function panel(pair: Pair, subject: boolean): string {
  *
  * Every pair sits in a fixed box over a fixed track, so a setting that pulls the
  * letters together moves nothing else (SPEC §5).
+ *
+ * The chip naming the setting changes with the pick, so it is the stage's verdict and is
+ * drawn in the strip rather than sitting under the pairs. The key beside it ("bars: white
+ * per pair") went altogether: every bar already prints its own measurement in ems.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -103,10 +107,7 @@ export function mount(root: HTMLElement): void {
         <div class="sp-row" style="gap: 10px; justify-content: center; margin-top: 10px">
           ${PAIRS.map((pair) => panel(pair, pair.slug === 'av')).join('')}
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 12px; height: 26px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${READS.optical}</span>
-          <span class="sp-label">bars: white per pair</span>
-        </div>
+        <span class="sp-chip sp-context" data-stage-verdict data-part="readout" style="cursor: default">${READS.optical}</span>
       </div>
     </div>
   `;

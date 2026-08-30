@@ -1114,21 +1114,6 @@ vd-stage[data-posed] .vd-playing span {
   }
 }
 
-/* A still never changes state, so a lane in a capture takes the room its own words need.
-   The reserved height exists to stop a mode change moving the page, and nothing moves in a
-   picture; clamping there would truncate the one sentence the share image is carrying. */
-.vd-stage-strip[data-capture] .vd-stage-verdict,
-.vd-stage-strip[data-capture] .vd-stage-say,
-.vd-stage-strip[data-capture] .vd-stage-say__text {
-  display: block;
-  height: auto;
-  overflow: visible;
-  -webkit-line-clamp: none;
-}
-.vd-stage-strip[data-capture] .vd-stage-say {
-  display: flex;
-}
-
 .vd-stage-strip[hidden] {
   display: none;
 }

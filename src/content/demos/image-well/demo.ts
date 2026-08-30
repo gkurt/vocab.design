@@ -16,9 +16,9 @@ const START = 'harbour';
 const TRAY = ['dunes', 'fern', 'granite', 'ochre'] as const;
 
 const SAID: Record<string, string> = {
-  rest: 'Drop a picture on the well, or paste one into it',
+  rest: 'Drop a picture here',
   over: 'Ready: release to replace the picture',
-  dropped: 'Replaced. The well is showing the new value',
+  dropped: 'Profile picture updated',
 };
 
 /**
@@ -31,6 +31,15 @@ const SAID: Record<string, string> = {
  * settings card, the tray is a source, and the word names the editable picture itself. It is
  * honestly an image well in every state, empty ring or full picture, so no `data-pose`
  * condition is needed. The tray, the caption and the status line are scenery.
+ *
+ * The status line said "Drop a picture on the well" and, after a drop, that "the well is
+ * showing the new value": the site's own word for the widget, printed inside a settings
+ * panel that would never use it. It says "Drop a picture here" and "Profile picture
+ * updated" now.
+ *
+ * A hint row beside the tray read "Paste with Cmd V or clear with Delete". The specimen wires
+ * neither key, so the row advertised affordances the scene does not have, and it went with
+ * them; the status line no longer offers a paste either.
  *
  * The drag is resolved by coordinate rather than by pointer events on the well, because a
  * held drag keeps reporting to the element it started on: the same maths serves the scripted
@@ -92,13 +101,6 @@ export function mount(root: HTMLElement): void {
               <div class="sp-surface sp-context" data-part="tray" style="padding: 9px 10px">
                 <span class="sp-label" style="display: block; font-size: 11px">Recent pictures</span>
                 <div class="sp-row" style="gap: 8px; margin-top: 7px">${TRAY.map(thumb).join('')}</div>
-              </div>
-              <div class="sp-row sp-context" style="gap: 6px; flex-wrap: wrap">
-                <span class="sp-label" style="font-size: 11px">Paste with</span>
-                <span class="sp-kbd">Cmd</span>
-                <span class="sp-kbd">V</span>
-                <span class="sp-label" style="font-size: 11px">or clear with</span>
-                <span class="sp-kbd">Delete</span>
               </div>
             </div>
           </div>

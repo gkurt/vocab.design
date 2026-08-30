@@ -17,9 +17,12 @@ type Strings = { verb: string; helper: string; failure: string; caption: string 
  * withdraw identify (SPEC §5). Both string sets are honest microcopy, since the term
  * names the class rather than its quality, so no `data-pose` is needed.
  *
- * The situ chrome (the position labels, the field, the cancel button, the caption) is
- * scenery in the context register, and the register stops at the primary button, whose
- * accent is the subject's own paint.
+ * The scenery (the field, the cancel button, the caption) sits in the context register,
+ * and the register stops at the primary button, whose accent is the subject's own paint.
+ * Each row used to carry a label naming its position ("On the button", "Under the field",
+ * "When it fails"); no screen prints those beside its own controls, and a button row, a
+ * field with a line under it and a failure line each say where they are, so the label
+ * column went and the surfaces take the width it held.
  *
  * Nothing may move when the strings change (SPEC §5), and only runtime knows how wide
  * "Send invite" is or how tall a wrapped line gets, so the button's width and both text
@@ -43,11 +46,7 @@ const SETS: Record<Which, Strings> = {
 };
 
 export function mount(root: HTMLElement): void {
-  const situ = (label: string, body: string, align = 'center') => `
-    <div class="sp-row" style="gap: 10px; align-items: ${align}">
-      <span class="sp-label sp-context" style="flex: 0 0 94px; font-size: 11px; white-space: nowrap">${label}</span>
-      <div class="sp-surface sp-grow" style="padding: 8px 9px">${body}</div>
-    </div>`;
+  const situ = (body: string) => `<div class="sp-surface" style="padding: 8px 9px">${body}</div>`;
 
   root.innerHTML = `
     <div class="sp-app">
@@ -63,7 +62,6 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-stack" style="margin-top: 9px; gap: 8px">
           ${situ(
-            'On the button',
             `<div class="sp-row" style="justify-content: flex-end; gap: 8px">
                <button class="sp-button sp-button--quiet sp-button--sm sp-context" type="button">Cancel</button>
                <button class="sp-button sp-button--sm" data-part="action" type="button">
@@ -72,7 +70,6 @@ export function mount(root: HTMLElement): void {
              </div>`,
           )}
           ${situ(
-            'Under the field',
             `<div class="sp-field sp-context" style="gap: 3px">
                <label class="sp-label" for="mc-team" style="font-size: 11px">Team name</label>
                <input class="sp-input" id="mc-team" type="text" value="Northwind" readonly
@@ -82,10 +79,8 @@ export function mount(root: HTMLElement): void {
                <span class="sp-text" data-part="helper" data-set="default"
                      style="display: block; font-size: 11.5px">${SETS.default.helper}</span>
              </div>`,
-            'flex-start',
           )}
           ${situ(
-            'When it fails',
             `<div data-part="slot-failure">
                <span class="sp-text sp-text--ink" data-part="failure" data-set="default" role="status"
                      style="display: block; font-size: 11.5px">${SETS.default.failure}</span>

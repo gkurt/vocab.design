@@ -30,6 +30,9 @@ const SUPPORTED = typeof CSS !== 'undefined' && CSS.supports('text-box-trim', 't
  * untrimmed box above it is the reference, and it stays in the context register
  * with the labels, the readout and the caption.
  *
+ * The measured readout reads "Removed: 30px" rather than "30px of leftover removed":
+ * it is the instrument's own number, so it is labelled the way a measurement is.
+ *
  * Both samples are `inline-block`: an inline box paints its background over the
  * font's content area and ignores the leading entirely, which would hide exactly
  * the space this specimen is about.
@@ -83,7 +86,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       return;
     }
     const gap = localSize(reference).height - localSize(trimmed).height;
-    removed.textContent = `${Math.round(gap)}px of leftover removed`;
+    removed.textContent = `Removed: ${Math.round(gap)}px`;
   };
 
   const apply = (value: string) => {

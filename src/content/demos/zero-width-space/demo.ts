@@ -23,9 +23,12 @@ const BOX = 80;
 const SEGMENTS = ['Product', 'Catalog', 'Sync', 'Scheduler'] as const;
 
 const MODES = {
-  none: { joiner: '', read: 'no legal break here, so the name runs past its column' },
-  shy: { joiner: '­', read: 'a soft hyphen breaks it, and draws a hyphen where it broke' },
-  zwsp: { joiner: '​', read: 'a zero-width space breaks it, and draws nothing at all' },
+  none: { joiner: '', read: 'No legal break anywhere in the name, so it runs past its column instead of wrapping.' },
+  shy: { joiner: '­', read: 'The tick marks where the line was allowed to break: a soft hyphen breaks it there, and draws a hyphen.' },
+  zwsp: {
+    joiner: '​',
+    read: 'The tick marks where the line was allowed to break: a zero-width space breaks it there, and draws nothing at all.',
+  },
 } as const;
 
 type Mode = keyof typeof MODES;
@@ -50,6 +53,13 @@ const IS_MODE = (value: string): value is Mode => value in MODES;
  * new text content, which is not an animated property. Comparing the two says
  * whether a hyphen was drawn: a line box wider than the prefix it ends with has
  * something extra in it, and that something is the hyphen.
+ *
+ * A chip inside the window used to read the pick back in the author's voice ("a
+ * zero-width space breaks it, and draws nothing at all"), which is a sentence no
+ * product would print. Its words are now the stage's verdict instead: the caption
+ * was a fixed sentence about the tick, and it changes with the pick, which is what
+ * a verdict is. The chip and its row are gone, so there is one line of author voice
+ * and it sits outside the frame.
  */
 type Line = { width: number; right: number; bottom: number };
 
@@ -113,13 +123,7 @@ export function mount(root: HTMLElement): void {
                 style="position: absolute; top: 0; left: 0; visibility: hidden; white-space: pre;
                        font-family: ${MONO}; font-size: ${SIZE}px">${SEGMENTS[0]}</span>
         </div>
-        <div class="sp-row sp-context" style="height: 30px; margin-top: 6px">
-          <span class="sp-chip" data-part="readout" style="cursor: default">${MODES.zwsp.read}</span>
-        </div>
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">
-          The tick is this stage's annotation for a character with no extent of its own: it marks where the line
-          was allowed to break. Nothing is drawn there, and nothing is added to the width.
-        </p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 2px">${MODES.zwsp.read}</p>
       </div>
     </div>
   `;
@@ -127,7 +131,7 @@ export function mount(root: HTMLElement): void {
   const string = part(root, 'string');
   const mark = part(root, 'break');
   const column = part(root, 'column');
-  const readout = part(root, 'readout');
+  const caption = part(root, 'caption');
   const ruler = part(root, 'ruler');
 
   /* Read at mount, on the mounted state: how wide each prefix of the name is, so a
@@ -143,7 +147,7 @@ export function mount(root: HTMLElement): void {
     const { joiner, read } = MODES[value];
     string.textContent = SEGMENTS.join(joiner);
     string.dataset.mode = value;
-    readout.textContent = read;
+    caption.textContent = read;
 
     const lines = linesOf(string);
     string.dataset.lines = String(Math.max(lines.length, 1));

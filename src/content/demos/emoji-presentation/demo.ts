@@ -12,9 +12,9 @@ const TEXT_SELECTOR = '︎';
 const EMOJI_SELECTOR = '️';
 
 const READS = {
-  auto: 'auto: the platform default',
-  text: 'text: the monochrome symbol',
-  emoji: 'emoji: the colour picture',
+  auto: 'font-variant-emoji: auto',
+  text: 'font-variant-emoji: text',
+  emoji: 'font-variant-emoji: emoji',
 } as const;
 
 type Mode = keyof typeof READS;
@@ -38,6 +38,12 @@ const SLOT = 46;
  * The character sits in a fixed slot, because the emoji form is wider than the
  * symbol and the sentence around it must not reflow when the setting changes
  * (SPEC §5); the difference in advance is stated in the caption instead.
+ *
+ * The readout chip used to gloss the setting ("text: the monochrome symbol") and a
+ * label beside it read "a selector outranks the CSS". Both were the site explaining
+ * the demonstration from inside the frame. The chip now prints the declaration in
+ * force, which is the same register as the codepoint labels under the spellings, and
+ * the precedence claim is left to the article, where the row of spellings shows it.
  */
 export function mount(root: HTMLElement): void {
   const slot = `display: inline-block; width: ${SLOT}px; text-align: center; vertical-align: -0.15em`;
@@ -71,7 +77,6 @@ export function mount(root: HTMLElement): void {
         </div>
         <div class="sp-row sp-row--between sp-context" style="margin-top: 8px; height: 26px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${READS.text}</span>
-          <span class="sp-label">a selector outranks the CSS</span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
           The colour form is a wider glyph, so the character sits in a fixed slot to keep the line from reflowing.

@@ -7,7 +7,7 @@ const LINES = {
     semantic: 'table, 3 rows, 2 columns, row 1, column 1: Name…',
   },
   data: {
-    presentation: 'Q3 118. No headers, nothing to say what 118 counts.',
+    presentation: 'Q2 96. Q3 118.',
     semantic: 'table, 3 rows, 2 columns. Quarter: Q3. Units: 118.',
   },
 } as const;
@@ -31,8 +31,23 @@ type Mode = keyof typeof CAPTIONS;
  * for the whole demonstration: that is the trap, not the term.
  *
  * The announcement lines are written from the role each table actually carries, so the
- * strip cannot claim an announcement the markup does not produce, and each line keeps its
- * room from mount (SPEC §5).
+ * strip cannot claim an announcement the markup does not produce. They are utterances and
+ * nothing else: the sales line read "Q3 118. No headers, nothing to say what 118 counts.",
+ * where only the first three words were spoken and the rest was the author explaining the
+ * loss. It reads the rows out as a reader would hear them now, and the verdict in the strip
+ * says what that costs.
+ *
+ * Both lines sat in the window under labels naming the tables by their part in the argument
+ * ("Layout table", "Sales table"), which is the site captioning its own exhibit inside the
+ * fiction, and a screen no product draws. They are one `data-stage-announce` block now, read
+ * top to bottom the way a reader moving down the page would hear them, so the stage speaks
+ * them in the lane above the specimen and the window holds only the two tables.
+ *
+ * The two columns were labelled by their role in the argument ("Laid out with a table",
+ * "A table that means it") under a header that announced the demonstration ("The same role,
+ * on both tables"). A screen would head these two blocks with what they hold, so they are
+ * "Profile" and "Sales", and the header is gone: the switch in the strip already says what
+ * is being set.
  */
 export function mount(root: HTMLElement): void {
   const pair = (label: string, value: string) => `
@@ -45,7 +60,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 16px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">The same role, on both tables</span>
+          <span class="sp-grow"></span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="presentation" data-axis="Set to" data-term="presentation">
             <button class="sp-segment" data-part="seg-presentation" value="presentation"
                     style="font-size: 12px; padding: 5px 10px">role=presentation</button>
@@ -56,14 +71,14 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-row" style="gap: 12px; margin-top: 10px; align-items: flex-start">
           <div class="sp-stack" style="gap: 4px; width: 236px">
-            <span class="sp-label sp-context">Laid out with a table</span>
+            <span class="sp-label sp-context">Profile</span>
             <table data-part="layout" data-subject data-pose="[role=presentation]" role="presentation"
                    style="width: 100%; border-collapse: collapse">
               ${pair('Name', 'Ada Lovelace')}${pair('Team', 'Analytical Engines')}${pair('Access', 'Full')}
             </table>
           </div>
           <div class="sp-stack sp-context" style="gap: 4px; width: 172px">
-            <span class="sp-label">A table that means it</span>
+            <span class="sp-label">Sales</span>
             <table class="sp-table" data-part="sales" role="presentation" style="--sp-cell-pad: 4px 8px; font-size: 11px">
               <thead>
                 <tr><th>Quarter</th><th>Units</th></tr>
@@ -76,15 +91,9 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px; height: 17px">
-          <span class="sp-label" style="flex: 0 0 auto">Layout table</span>
-          <span class="sp-text sp-text--ink" data-part="say-layout" data-state="presentation"
-                style="font-size: 11px; white-space: nowrap">${LINES.layout.presentation}</span>
-        </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 17px">
-          <span class="sp-label" style="flex: 0 0 auto">Sales table</span>
-          <span class="sp-text sp-text--ink" data-part="say-sales" data-state="presentation"
-                style="font-size: 11px; white-space: nowrap">${LINES.data.presentation}</span>
+        <div data-stage-announce data-part="says">
+          <span data-part="say-layout" data-state="presentation" style="display: block">${LINES.layout.presentation}</span>
+          <span data-part="say-sales" data-state="presentation" style="display: block">${LINES.data.presentation}</span>
         </div>
         <p class="sp-text sp-context" data-stage-verdict data-part="caption" data-case="presentation"
            style="margin: 8px 0 0; height: 30px; font-size: 11px">${CAPTIONS.presentation}</p>

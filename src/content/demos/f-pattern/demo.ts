@@ -20,6 +20,11 @@ const NOTES: Record<string, string> = {
  * it is traced over is the scene (SPEC §5). The overlay is sized to the shape's own bounding
  * box rather than to the page, so identify rings the path and not the whole specimen, and it
  * takes no pointer events, so a reader's click reaches the page underneath.
+ *
+ * The line under the page reads the overlay aloud ("Two sweeps across the top, then a run
+ * down the left edge...") and changes with the pick, so it is a verdict rather than anything
+ * the harbour page would print. It is marked `data-stage-verdict` and the stage draws it in
+ * the strip; inside the frame only the page and the two overlays are left.
  */
 export function mount(root: HTMLElement): void {
   const lines = (widths: string[]) => widths.map((w) => `<div class="sp-line" style="width: ${w}"></div>`).join('');
@@ -80,7 +85,7 @@ export function mount(root: HTMLElement): void {
               </g>
             </svg>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 32px; max-width: 430px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 32px; max-width: 430px; text-align: center"></span>
         </div>
       </div>
     </div>

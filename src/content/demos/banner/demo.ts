@@ -13,6 +13,11 @@ import { part } from '#src/kit/parts.ts';
  * The frame's height is fixed, so nothing outside the page moves when the strip goes;
  * inside it the content rises, which is the honest consequence of the dismissal the
  * reader asked for (SPEC §5).
+ *
+ * The readout used to compare the strip to a toast ("Still there. A toast would have
+ * cleaned itself up by now."), which is the site's argument, not the orders page's. The
+ * element stays, because the pass reads its state, but it now prints a count at rest and
+ * what the dismissal actually did afterwards.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -39,7 +44,7 @@ export function mount(root: HTMLElement): void {
             <div class="sp-row sp-row--between"><span class="sp-text sp-text--ink">Order 4171</span><span class="sp-text">Refunded</span></div>
           </div>
           <p class="sp-text" data-part="state" data-state="showing" style="margin: auto 0 0 2px; font-size: 12px; white-space: nowrap">
-            Still there. A toast would have cleaned itself up by now.
+            3 orders in the last 30 days.
           </p>
         </div>
       </div>
@@ -55,6 +60,6 @@ export function mount(root: HTMLElement): void {
   part(root, 'dismiss').addEventListener('click', () => {
     banner.hidden = true;
     state.dataset.state = 'dismissed';
-    state.textContent = 'Dismissed. It should not come back on the next page view.';
+    state.textContent = 'Reminder hidden until your next sign in.';
   });
 }

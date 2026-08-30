@@ -91,7 +91,9 @@ const sections = DAYS.map(
  *
  * Tuesday is free and says so. A grid shows an empty day for nothing, as a column of blank
  * cells; a list either drops the day, which makes the week read busier than it is, or
- * spends a row on it.
+ * spends a row on it. The list used to be captioned with that argument ("The same events as
+ * a list, grouped by day. A free day has to be said out loud."), which no calendar prints
+ * under its own agenda; Tuesday's "Nothing scheduled" row makes the point on screen.
  *
  * The one thing that moves is the scroll, and the list answers it the way an agenda does:
  * the day headings stick while their day is on screen, and the day at the top of the
@@ -119,9 +121,6 @@ export function mount(root: HTMLElement): void {
             aria-label="Agenda"
             style="position: relative; flex: 0 0 auto; width: 374px; height: ${VIEW_H}px; margin: 0; padding: 0; list-style: none"
           >${sections}</ul>
-          <span class="sp-text sp-context" style="width: 374px; margin-top: 8px; font-size: 11px; line-height: 1.35; text-align: center">
-            The same events as a list, grouped by day. A free day has to be said out loud.
-          </span>
         </div>
       </div>
     </div>

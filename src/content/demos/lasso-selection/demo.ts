@@ -57,6 +57,12 @@ const dot = (name: string, at: { x: number; y: number }) => `
  * ring, so the specimen carries a labelled control that parks one for inspection, the same
  * answer the smart guides specimen gives to the same problem (SPEC §5-6).
  *
+ * An aside under the canvas once read "Rectangle here, freehand originally", which is the
+ * article's point rather than anything this file browser would print, and the held state's
+ * readout narrated itself ("Held: the boundary and its 4 catch"). The aside is gone, the
+ * frame is shorter by the room it took, and the readout counts the selection the way it
+ * does after any other stroke.
+ *
  * The gesture is really computed rather than mimed: the rectangle comes from the pointer,
  * the catch is a box intersection test against each tile, and a press that lands on a tile
  * is not a lasso at all. Selection is painted as a background and a ring drawn inside the
@@ -65,7 +71,7 @@ const dot = (name: string, at: { x: number; y: number }) => `
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="height: 284px">
+      <div class="sp-frame sp-frame--wide" style="height: 240px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Survey files</span>
           <span class="sp-text" data-part="readout" data-count="0" style="width: 210px; text-align: right; white-space: nowrap">Drag from empty space</span>
@@ -84,15 +90,10 @@ export function mount(root: HTMLElement): void {
               style="position: absolute; left: 0; top: 0; width: 0; height: 0; border: 1px dashed var(--sp-accent); background: var(--sp-accent-soft); opacity: 0; transition: opacity 0.1s linear; pointer-events: none"
             ></span>
           </div>
-          <div class="sp-row sp-row--between sp-context" style="width: 100%">
-            <span class="sp-label" style="white-space: nowrap">Rectangle here, freehand originally</span>
-            <span class="sp-row" style="gap: 8px">
-              <sp-segmented data-stage-mode class="sp-segmented" data-axis="Boundary" data-part="hold" data-value="drag">
-                <button class="sp-segment" data-part="hold-drag" value="drag" style="padding: 5px 10px">Dragging</button>
-                <button class="sp-segment" data-part="hold-on" value="held" style="padding: 5px 10px">Held</button>
-              </sp-segmented>
-            </span>
-          </div>
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Boundary" data-part="hold" data-value="drag">
+            <button class="sp-segment" data-part="hold-drag" value="drag" style="padding: 5px 10px">Dragging</button>
+            <button class="sp-segment" data-part="hold-on" value="held" style="padding: 5px 10px">Held</button>
+          </sp-segmented>
         </div>
       </div>
     </div>
@@ -182,7 +183,7 @@ export function mount(root: HTMLElement): void {
       drawLasso(POSE);
       catchTiles(POSE);
       paint(false);
-      readout.textContent = `Held: the boundary and its ${caught.size} catch`;
+      readout.textContent = `${caught.size} of ${cells.length} selected`;
       return;
     }
     lasso.style.opacity = '0';

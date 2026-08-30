@@ -16,6 +16,10 @@ const CLOSE_GRACE = 200;
  *
  * `data-loop="keep"`: every hover here undoes itself on leave, so the pass ends at its mount state, and attract
  * iterations reuse this tree instead of rebuilding it under a reader inspecting it.
+ *
+ * A caption under the frame used to read "No click anywhere: the pointer rests, the preview
+ * arrives, and it stays put long enough to reach." That is the site narrating the thing the
+ * reader is watching happen, so it is gone and the frame stands alone.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -58,9 +62,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
       </div>
-      <p class="sp-text sp-context" style="max-width: 400px; text-align: center; margin: 0">
-        No click anywhere: the pointer rests, the preview arrives, and it stays put long enough to reach.
-      </p>
     </div>
   `;
 

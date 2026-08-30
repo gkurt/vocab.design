@@ -20,11 +20,12 @@ const MONO: [string, string][] = [
 ];
 const GROUP: [string, string][] = [[COMPOUND, READING]];
 
+/** The chip names the setting on screen, the way a specimen sheet names a property value. */
 const READS: Record<string, string> = {
-  off: 'no annotation: the reader is on their own',
-  mono: 'mono ruby: one reading per character',
-  group: 'group ruby: one reading for the compound',
-  fallback: 'no ruby support: the rp parentheses show instead',
+  off: 'no ruby',
+  mono: 'mono ruby',
+  group: 'group ruby',
+  fallback: 'ruby not supported',
 };
 
 /** Room for the tallest line box, held at every setting, so nothing moves (SPEC §5). */
@@ -53,6 +54,11 @@ function runMarkup(mode: string): string {
  * The row holds the tallest arrangement and the sentence is set against its bottom
  * edge, which keeps the base text on one baseline at every setting and moves
  * nothing else on the page (SPEC §5).
+ *
+ * The chip under the line once glossed each setting ("mono ruby: one reading per
+ * character"), which is the article's sentence in a product's chip. The specimen already
+ * has a verdict in the strip and may not have two, so the chip is now just the name of
+ * the setting on screen.
  *
  * The subject is the annotated run. The setting that takes the annotation away is
  * the reference rather than the term, so the honest condition is declared in

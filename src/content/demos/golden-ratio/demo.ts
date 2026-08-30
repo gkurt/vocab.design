@@ -29,6 +29,11 @@ const SIZES = [42, 26, 16];
  * in both states, since the rules are annotation rather than a change to the proportion, so
  * no `data-pose` is needed (SPEC §6).
  *
+ * The note under the card changes with the overlay, so it is a verdict and the stage draws it
+ * in the strip beside the switch that produced it rather than inside the card's own window. The
+ * type ladder is labelled as what it is (a type scale at ratio 1.618) instead of pointing back
+ * at the card's proportion in the article's voice.
+ *
  * The card and the ruler strip both keep fixed boxes, so drawing or hiding the rules moves
  * nothing (SPEC §5), and each segment names a state of the ruling rather than flipping it
  * (SPEC §8).
@@ -93,12 +98,12 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
             <div class="sp-stack sp-context" style="flex: 0 0 auto; width: 124px; gap: 8px">
-              <span class="sp-label" style="color: var(--sp-ink); font-weight: 600">the same step</span>
+              <span class="sp-label" style="color: var(--sp-ink); font-weight: 600">Type scale</span>
               ${ladder}
-              <span class="sp-label">each one × 1.618</span>
+              <span class="sp-label">ratio 1.618</span>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="flex: 0 0 auto; height: 22px; max-width: 442px; text-align: center"></span>
         </div>
       </div>
     </div>

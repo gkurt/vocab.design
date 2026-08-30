@@ -36,6 +36,12 @@ const CAPTION = {
  * reserved from mount, so opening one moves nothing (SPEC §5), and the readout is written
  * from the attribute the trigger actually carries rather than from a table, so it cannot
  * claim an announcement the markup does not produce.
+ *
+ * The two groups were once labelled "Each one says what it opens" and "Also promises a menu",
+ * and the Delete dialog's body read "A menu was promised. This is a dialog." That is the site
+ * narrating its own exhibit from inside the product, so the groups are named the way a report
+ * tool would name them and the dialog says what a delete dialog says. The mismatch is still
+ * legible: the strip announces a pop-up menu while a dialog is what appears.
  */
 export function mount(root: HTMLElement): void {
   const trigger = (t: Trigger) => `
@@ -52,13 +58,13 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 452px; padding: 14px 16px">
         <div class="sp-row" style="gap: 8px; align-items: stretch">
           <div class="sp-surface sp-grow" data-part="triggers" data-subject style="padding: 8px 10px">
-            <span class="sp-label">Each one says what it opens</span>
+            <span class="sp-label">Report</span>
             <div class="sp-row" style="margin-top: 6px; gap: 6px">
               ${menuTrigger ? trigger(menuTrigger) : ''}${listTrigger ? trigger(listTrigger) : ''}${dialogTrigger ? trigger(dialogTrigger) : ''}
             </div>
           </div>
           <div class="sp-surface sp-context" style="flex: 0 0 132px; padding: 8px 10px">
-            <span class="sp-label" style="font-size: 10px">Also promises a menu</span>
+            <span class="sp-label" style="font-size: 10px">Danger zone</span>
             <div style="margin-top: 6px">${lieTrigger ? trigger(lieTrigger) : ''}</div>
           </div>
         </div>
@@ -85,7 +91,7 @@ export function mount(root: HTMLElement): void {
           <div class="sp-dialog" data-part="delete" role="alertdialog" aria-label="Delete"
                style="left: 50%; top: 50%; width: 262px; padding: 10px 12px">
             <span class="sp-heading" style="font-size: 13px">Delete this report?</span>
-            <p class="sp-text" style="margin: 4px 0 0; font-size: 11px">A menu was promised. This is a dialog.</p>
+            <p class="sp-text" style="margin: 4px 0 0; font-size: 11px">This cannot be undone.</p>
             <div class="sp-row" style="margin-top: 8px; justify-content: flex-end; gap: 6px">
               <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="delete-cancel">Cancel</button>
             </div>

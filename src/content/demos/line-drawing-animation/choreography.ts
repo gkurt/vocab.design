@@ -10,7 +10,6 @@ export default steps([
   { click: true },
   // The draw takes 1.4 seconds, so the post-click beat lands well inside it.
   { assert: { selector: '[data-part=scene][data-state=drawing]', state: 'visible' } },
-  { assert: { selector: '[data-part=readout]', state: 'visible' } },
   { wait: 1800 },
   { assert: { selector: '[data-part=scene][data-state=drawn]', state: 'visible' } },
   { moveTo: '[data-part=seg-instant]' },

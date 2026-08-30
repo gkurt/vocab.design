@@ -35,6 +35,11 @@ const MODES: Record<string, { pad: number; row: number; block: number; note: str
  * The card's box is fixed, so a rebuild that changes its paddings cannot move the ladder
  * beside it (SPEC §5), and each segment names a source of values rather than flipping
  * between them (SPEC §8).
+ *
+ * The line naming what the card spends is the author reading the state, not the product
+ * labelling itself, and it changes with the switch, so it is marked `data-stage-verdict`
+ * and the stage draws it in the strip above the segments (SPEC §5.1). It used to sit under
+ * the card inside the frame, which is why the frame is 44px shorter than it was.
  */
 export function mount(root: HTMLElement): void {
   const rungs = STEPS.map(
@@ -48,7 +53,7 @@ export function mount(root: HTMLElement): void {
 
   root.innerHTML = `
     <div class="sp-app">
-      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 292px">
+      <div class="sp-frame sp-frame--wide" style="width: 476px; height: 248px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Card values</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-axis="Spacing" data-part="switcher" data-value="scale">
@@ -81,7 +86,7 @@ export function mount(root: HTMLElement): void {
               </div>
             </div>
           </div>
-          <span class="sp-text sp-context" data-part="readout" style="height: 34px; max-width: 440px; text-align: center"></span>
+          <span class="sp-text sp-context" data-stage-verdict data-part="readout" style="height: 34px; max-width: 440px; text-align: center"></span>
         </div>
       </div>
     </div>

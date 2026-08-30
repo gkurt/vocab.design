@@ -17,6 +17,10 @@ const SLOT_H = 78;
  * names the technique the card is moved by, and the numbers are there so the technique
  * is legible when nothing is moving.
  *
+ * The window had a header reading "Click a slot" beside "the layout moves once": an
+ * instruction to the reader and a claim about the technique, neither of which belongs in
+ * the frame. Both are gone, and the four measured lines say what happened instead.
+ *
  * Both reads happen before either write, which is the rule the technique lives by, and
  * the card carries no transition of its own, so the inverting transform lands in the
  * same tick it is written (the measurement gotcha). `element.animate` is out of reach
@@ -44,11 +48,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 402px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Click a slot</span>
-          <span class="sp-label">the layout moves once</span>
-        </div>
-        <div class="sp-row" style="align-items: flex-end; gap: 20px; margin-top: 10px">
+        <div class="sp-row" style="align-items: flex-end; gap: 20px">
           ${slot('a', 'A', 128)}
           ${slot('b', 'B', 190)}
         </div>

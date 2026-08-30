@@ -28,8 +28,12 @@ const CARD_BODY = `
  * height and a pixel line height, so at 200 percent its button loses its own words.
  *
  * The subject is the tolerant card, the region whose text is being resized. The failing twin
- * beside it is the counter-example and is captioned as one, and the size control and caption
- * are scenery (SPEC §5).
+ * beside it is the counter-example, and the size control and caption are scenery (SPEC §5).
+ *
+ * Each card used to carry a label over it naming how it was built ("Sized in rem, no fixed
+ * height", "Pixel height, pixel line height"). No reader of a real card is told its CSS, so
+ * both went; the verdict in the strip names which card did what at each size, which is where
+ * the author's reading of the two belongs (SPEC §5.1).
  *
  * The row holding both cards keeps a fixed height from mount, sized for the enlarged state,
  * so the subject grows into room that was already reserved (SPEC §5). Each segment reaches
@@ -47,7 +51,6 @@ export function mount(root: HTMLElement): void {
 
       <div class="sp-row" style="width: 456px; height: 208px; gap: 16px; align-items: flex-start">
         <div style="width: 220px">
-          <span class="sp-label sp-context" style="display: block; margin-bottom: 4px">Sized in rem, no fixed height</span>
           <div class="sp-surface" data-part="card" data-subject data-scale="100"
                style="padding: 0.75em 0.85em; font-size: 11px">
             ${CARD_BODY}
@@ -57,7 +60,6 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div style="width: 220px">
-          <span class="sp-label sp-context" style="display: block; margin-bottom: 4px">Pixel height, pixel line height</span>
           <div class="sp-surface sp-context" data-part="twin"
                style="height: 92px; padding: 0.75em 0.85em; font-size: 11px; overflow: hidden">
             ${CARD_BODY}

@@ -45,6 +45,10 @@ const MEMBERS: Member[] = [
  * changing state moves nothing (SPEC §5). The button composes the join from nothing
  * whenever it is pressed rather than flipping whatever it finds (SPEC §8), and the beat
  * between the two halves comes from the stage's clock.
+ *
+ * The bar under the list carried an aphorism, "A dot is a promise about right now." No chat
+ * app prints its own design rationale beside a button, and the article opens on that claim
+ * anyway, so the line went and the button keeps its side of the bar.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const rows = MEMBERS.map(
@@ -86,7 +90,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
         <div class="sp-row sp-row--between sp-context" style="flex: 0 0 auto; padding: 8px 12px; border-top: 1px solid var(--sp-line)">
-          <span class="sp-text" style="font-size: 12px">A dot is a promise about right now.</span>
+          <span class="sp-grow"></span>
           <button class="sp-button sp-button--sm" type="button" data-part="join">${JOINER.name} joins</button>
         </div>
       </div>

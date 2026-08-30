@@ -12,6 +12,11 @@ const TRACKS = `[full-start] 1fr [content-start] min(${MEASURE}, 100%) [content-
  * asks for the outer lines, so nothing here escapes a container by negative
  * margin (SPEC has no opinion on that, the term does).
  *
+ * The paragraphs are the page's own copy, not commentary on the term: they used
+ * to explain that the column holds its measure and that the text resumes in the
+ * same gutters, which is the article's job and read as the site talking inside
+ * the fiction. The geometry proves it instead.
+ *
  * The subject is the band alone. Its neighbours staying constrained is the whole
  * comparison, so they are scenery rather than part of the claim.
  *
@@ -32,8 +37,8 @@ export function mount(root: HTMLElement): void {
         >
           <span class="sp-heading sp-context" data-part="title" style="grid-column: content">Harbour notes</span>
           <p class="sp-text sp-context" data-part="lede" style="grid-column: content; margin: 0">
-            The column holds its measure. Every paragraph on the page is set to the
-            same width, which is what makes the interruption legible.
+            The tide gauge on the north pier has read half a metre high since the
+            storm, and the survey is due before the autumn spring tides.
           </p>
           <figure
             data-part="band"
@@ -43,8 +48,8 @@ export function mount(root: HTMLElement): void {
             <span class="sp-label" data-part="band-label">Plate 4, edge to edge</span>
           </figure>
           <p class="sp-text sp-context" data-part="tail" style="grid-column: content; margin: 0">
-            After the band the text picks up exactly where it left off, at the same
-            measure, in the same gutters.
+            Plate 4 was taken from the breakwater at low water. The rest of the
+            survey photographs are held at the pier office.
           </p>
         </div>
       </div>

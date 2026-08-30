@@ -33,6 +33,11 @@ const handles = ['left: -3px; top: -3px', 'right: -3px; top: -3px', 'left: -3px;
  * nothing behind, and a real stroke commits a frame at exactly its extent, arriving
  * selected so that undoing it is one keystroke away.
  *
+ * A caption under the canvas used to say "One stroke makes the object and sizes it. A press
+ * that barely moves is a click, so nothing is made." No drawing tool prints that under its
+ * canvas, and the article says it better, so it is gone. The canvas keeps its own empty
+ * state and the readout keeps the measurements, which is all a real editor would show.
+ *
  * The extent is read through `localPoint`, which is what a scaled stage requires: measured
  * off `clientX` a phone would draw a frame at a fraction of the finger's travel (SPEC §5).
  * Capture is taken on a trusted pointerdown so a reader's stroke survives leaving the
@@ -81,9 +86,6 @@ export function mount(root: HTMLElement): void {
             ${anchor('nudge', NUDGE)}
             ${anchor('corner', CORNER)}
           </div>
-          <span class="sp-text sp-context" style="width: 442px; margin-top: 8px; font-size: 11px; line-height: 1.35; text-align: center">
-            One stroke makes the object and sizes it. A press that barely moves is a click, so nothing is made.
-          </span>
         </div>
       </div>
     </div>

@@ -42,6 +42,11 @@ const frames = (): Keyframe[] => STOPS.map((stop) => ({ offset: stop.offset, eas
  * The subject is the animated tile, not the diagram: the diagram is scenery that says
  * where the pins are, and the term names the thing whose values are being pinned.
  *
+ * The panel was headed "Four pinned stops" and captioned "The dashed poses are pinned.
+ * Every frame between them is generated." Both are the site reading its own diagram aloud,
+ * and the article says the same thing at length, so the caption went and the heading is now
+ * the word a motion tool would put over a timeline.
+ *
  * `element.animate` is out of reach of `motion.css`, so the demo asks
  * `prefersReducedMotion` itself and parks the tile on the last pin instead of playing
  * (SPEC §5). `data-settled` is timed on the stage's clock so a pose cannot let the run
@@ -71,7 +76,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     <div class="sp-app">
       <div class="sp-window" data-part="panel" style="width: 400px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">Four pinned stops</span>
+          <span class="sp-heading">Timeline</span>
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div style="position: relative; width: ${ARENA_W}px; height: ${ARENA_H}px; margin-top: 10px">
@@ -87,9 +92,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           <span style="position: absolute; top: 3px; left: ${TILE / 2}px; right: ${TILE / 2}px; height: 1px; background: var(--sp-line)"></span>
           ${ticks}
         </div>
-        <p class="sp-text sp-context" style="margin: 6px 0 0">
-          The dashed poses are pinned. Every frame between them is generated.
-        </p>
       </div>
     </div>
   `;

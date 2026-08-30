@@ -49,6 +49,9 @@ const CAPTION: Record<Written, string> = {
  * the honest condition lives in `data-pose` and the mount state satisfies it: identify refuses
  * to ring a cell that is associated with nothing, and plays on (SPEC §6).
  *
+ * The markup line's label read "The cell is written" and is now just "Markup": the line is an
+ * instrument the demo draws, so it is labelled the way an instrument is.
+ *
  * The attributes are really set, so the subject snapshot records what the cell claims. The cursor
  * is drawn with `data-sim-focus` and nothing calls `.focus()`: attract never moves real focus
  * (SPEC §7), and a screen reader's cursor is not the browser's focus in any case. Each read-out
@@ -106,7 +109,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 9px; height: 17px; gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">The cell is written</span>
+          <span class="sp-label" style="flex: 0 0 auto">Markup</span>
           <span class="sp-text sp-text--ink" data-part="markup" data-written="scope"
                 style="flex: 0 0 auto; font-size: 11px; white-space: nowrap">${escapeAngles(MARKUP.scope)}</span>
         </div>

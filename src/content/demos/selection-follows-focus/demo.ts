@@ -27,9 +27,8 @@ const tabRow = (key: string) =>
  */
 const block = (key: string, title: string, quiet: boolean) => `
   <div class="sp-stack${quiet ? ' sp-context' : ''}" style="gap: 6px">
-    <div class="sp-row sp-row--between${quiet ? '' : ' sp-context'}">
+    <div class="sp-row${quiet ? '' : ' sp-context'}">
       <span class="sp-label">${title}</span>
-      <span class="sp-label" data-part="${key}-state" style="width: 236px; text-align: right; white-space: nowrap">focus Overview, showing Overview</span>
     </div>
     <div
       class="sp-row"
@@ -45,11 +44,16 @@ const block = (key: string, title: string, quiet: boolean) => `
 
 /**
  * Selection follows focus specimen: the same three tabs twice, once where arrowing the
- * simulated focus selects as it goes and once where the selection waits for Enter, each row
- * reporting where its focus is and what its panel is showing. The subject is the automatic
+ * simulated focus selects as it goes and once where the selection waits for Enter. The subject is the automatic
  * row, since the term names the widget whose selection travels with its focus; the manual
  * row is the counter-example and stays in the context register, as do the labels and the
  * panels.
+ *
+ * Each row used to print its own state in words on the right of its heading ("focus Overview,
+ * showing Overview"), and the title bar carried a key legend telling the reader what to press
+ * ("Arrow moves focus", "Enter selects"). Neither is anything the app would print: the ring and
+ * the selected tab's fill already say where focus and selection are, and they say it on two
+ * different tabs in the manual row, which is the whole term. Both are gone.
  *
  * Focus here is simulated throughout (`data-sim-focus`), never real: attract mode may not
  * move a reader's focus (SPEC §7), and a term about the difference between focus and
@@ -65,12 +69,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 284px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Boat</span>
-          <span class="sp-row" style="gap: 6px">
-            <span class="sp-kbd">Arrow</span>
-            <span class="sp-label">moves focus</span>
-            <span class="sp-kbd" style="margin-left: 6px">Enter</span>
-            <span class="sp-label">selects</span>
-          </span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           ${block('auto', 'Selection follows focus', false)}
@@ -83,7 +81,6 @@ export function mount(root: HTMLElement): void {
 
   const wire = (key: string, follows: boolean) => {
     const list = part(root, `${key}-tabs`);
-    const state = part(root, `${key}-state`);
     const panel = part(root, `${key}-panel`);
     const tabs = TABS.map((tab) => part(root, `${key}-tab-${tab.id}`));
     let focused = 0;
@@ -99,7 +96,6 @@ export function mount(root: HTMLElement): void {
         tab.style.boxShadow = i === selected ? 'inset 0 -2px 0 var(--sp-accent)' : '';
       }
       panel.textContent = TABS[selected]?.body ?? '';
-      state.textContent = `focus ${TABS[focused]?.label}, showing ${TABS[selected]?.label}`;
       // The one fact the manual row can hold and the automatic row cannot.
       flag(list, 'data-split', focused !== selected);
     };

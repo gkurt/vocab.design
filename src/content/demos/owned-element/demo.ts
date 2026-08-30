@@ -31,6 +31,10 @@ const NOTE = {
  * every state it is on stage in is honest and no `data-pose` is needed; in the other state identify
  * summons it (SPEC §6).
  *
+ * The window's own title read "Options rendered outside their listbox", which described the
+ * scene rather than naming it. An inspector names what it is inspecting, so it now reads
+ * "Search cities", the widget whose DOM and tree are on the two panels.
+ *
  * Both the adopted rows and the orphan rows keep their room in every state, so switching the pick
  * moves nothing (SPEC §5). No timers: the pick is the only state this specimen has.
  */
@@ -47,7 +51,7 @@ export function mount(root: HTMLElement): void {
     <div class="sp-app">
       <div class="sp-window" style="width: 452px; padding: 12px 14px">
         <div class="sp-row sp-row--between sp-context" style="gap: 10px">
-          <span class="sp-label" style="flex: 0 0 auto">Options rendered outside their listbox</span>
+          <span class="sp-label" style="flex: 0 0 auto">Search cities</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="mode" data-value="owned" data-axis="Owns" style="flex: 0 0 auto">
             <button class="sp-segment" type="button" data-part="seg-owned" value="owned"
                     style="padding: 3px 11px; font-size: 11px; white-space: nowrap">Owned</button>

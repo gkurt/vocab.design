@@ -24,7 +24,9 @@ const snap = (pct: number) => Math.min(100, Math.max(0, Math.round(pct / 4) * 4)
  *
  * The subject is the chip. The term names the transparency carried in that one colour, so
  * the checker, the fill underneath, the slider and the two readouts are all scenery: they
- * are how the specimen shows what the fourth number did. The field and the readouts are
+ * are how the specimen shows what the fourth number did. Both readouts are labelled by what
+ * they hold ("Fill", "Hex"); the second read "Eight digit hex says the same thing", which is
+ * the article's sentence sitting where a swatch panel would print a field name. The field and the readouts are
  * fixed size, so stepping the alpha repaints and moves nothing (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
@@ -63,7 +65,7 @@ export function mount(root: HTMLElement): void {
         </div>
 
         <div class="sp-row sp-row--between sp-context" style="margin-top: 8px">
-          <span class="sp-text">Eight digit hex says the same thing</span>
+          <span class="sp-label">Hex</span>
           <span class="sp-text sp-text--ink" data-part="hex" style="font-size: 12px">${hexOf(START)}</span>
         </div>
       </div>

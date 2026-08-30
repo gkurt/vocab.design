@@ -33,8 +33,15 @@ const paneMarkup = (key: string, title: string, hint: string, subject: boolean) 
  * The subject is the Notes window: the term names the window that receives keyboard input, not
  * the pair and not the desktop around them. The second window is a peer rather than scenery,
  * because a focus model can only be shown by the ring moving off one window and onto another,
- * and dimming the destination would dim half the demonstration. The setting, the readouts and
- * the caption are the instrumentation, and those carry the context register.
+ * and dimming the destination would dim half the demonstration. The setting and the readout are
+ * the instrumentation, and those carry the context register.
+ *
+ * The readout was printed in the desktop's own title bar, saying things no desktop says about
+ * itself ("A click is what claims the keyboard"). It changes with the focus model switch, which
+ * makes it the verdict, so it is marked `data-stage-verdict` and the stage draws it in the strip.
+ * The caption it replaced there never changed with anything ("Keystrokes go to the window with
+ * the ring, and nowhere else.") and is deleted rather than moved, since a specimen has one
+ * verdict at most (SPEC §5.1).
  *
  * Nothing here ever calls `focus()`. Attract must never move real focus (SPEC §7), so the ring
  * is the kit's `data-sim-focus`, and the scripted typing is dispatched at whichever field the
@@ -59,7 +66,7 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="height: 290px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Desktop</span>
-          <span class="sp-text" data-part="readout" style="width: 350px; text-align: right; white-space: nowrap">A click is what claims the keyboard</span>
+          <span class="sp-text" data-stage-verdict data-part="readout" style="width: 350px; text-align: right; white-space: nowrap">A click is what claims the keyboard</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div class="sp-row sp-context" style="gap: 10px">
@@ -73,7 +80,6 @@ export function mount(root: HTMLElement): void {
             ${PANES.map(({ key, title, hint }) => paneMarkup(key, title, hint, key === 'notes')).join('')}
           </div>
 
-          <span class="sp-label sp-context" data-stage-verdict data-part="caption">Keystrokes go to the window with the ring, and nowhere else.</span>
         </div>
       </div>
     </div>

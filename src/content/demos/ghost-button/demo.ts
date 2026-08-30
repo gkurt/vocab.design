@@ -21,6 +21,10 @@ type Level = keyof typeof PRESSED;
  * background is the term: with no pointer on it the button is a label in a box,
  * and the wash is the moment it admits to being a control.
  *
+ * A line under the heading used to read "One action, three levels of emphasis.", which is the
+ * article summarising the picture standing right beside it, so it went; the three labelled rungs
+ * carry that on their own.
+ *
  * The status line reports which rung was pressed, which is the demonstration that
  * all three do the same thing. Its height is reserved at mount (SPEC §5) so the
  * report cannot walk the ladder up the window.
@@ -43,7 +47,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-window" style="width: 320px">
         <div class="sp-context">
           <div class="sp-heading">Emphasis</div>
-          <div class="sp-text" style="margin-top: 4px">One action, three levels of emphasis.</div>
         </div>
         <div class="sp-stack" style="margin-top: 14px; gap: 8px">
           ${rung('filled', 'Filled', '')}

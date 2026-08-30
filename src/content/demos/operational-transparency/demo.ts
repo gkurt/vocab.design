@@ -45,6 +45,11 @@ const CHECK = `<span style="display: flex; color: var(--sp-accent)">${icon('chec
  * panel around it and not the scene, since the spinner beside it is the thing being compared
  * against rather than a peer instance. The spinner panel and the Search control are scenery.
  *
+ * Three lines of the site's own voice have gone from the window: the two labels heading the
+ * panels ("A spinner" and "The work, named") and the line beside the button ("One wait, told
+ * two ways."). Each panel says what it is by what it draws, a turning arc against four named
+ * checks, and the article makes the comparison at length.
+ *
  * Nothing runs at mount, so the scripted press is the only owner of the run (SPEC §8), and the
  * mount state is honest: the units of work are named and waiting, which is already the term.
  * Each step's result column keeps its width from the start, so a landed step moves nothing
@@ -56,7 +61,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-window" style="width: 460px; padding: 14px">
         <div class="sp-row" data-part="run" data-state="idle" style="align-items: stretch; gap: 20px">
           <div class="sp-context" style="width: 158px; display: flex; flex-direction: column; gap: 4px">
-            <span class="sp-label">A spinner</span>
             <div
               class="sp-surface"
               data-part="spin"
@@ -68,7 +72,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
 
           <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px">
-            <span class="sp-label">The work, named</span>
             <div class="sp-surface" style="flex: 1 1 auto; display: flex; flex-direction: column; padding: 12px">
               <div data-part="list" data-subject style="display: flex; flex-direction: column; gap: 6px">
                 ${STEPS.map(row).join('')}
@@ -83,8 +86,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           </div>
         </div>
 
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 10px">
-          <span class="sp-text" style="font-size: 12px">One wait, told two ways.</span>
+        <div class="sp-row sp-context" style="margin-top: 10px; justify-content: flex-end">
           <button class="sp-button sp-button--sm" type="button" data-part="search">Search</button>
         </div>
       </div>

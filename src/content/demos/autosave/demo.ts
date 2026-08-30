@@ -23,6 +23,10 @@ type State = keyof typeof READINGS;
  *
  * All four readings are measured at mount and the widest one is held from then on
  * (SPEC §5), so the status never grows or shrinks the row it sits in.
+ *
+ * A line under the editor once read "Nothing here asks you to save. The line above is the
+ * receipt." That is the site explaining its own specimen, and the article makes the point
+ * at length, so it went; the editor and its status line say it without words.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -40,7 +44,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
           aria-label="Meeting notes"
           style="height: 84px; margin-top: 12px; resize: none; line-height: 1.5"
         >Ship the colour ramp on Thursday.</textarea>
-        <p class="sp-text sp-context" style="margin: 12px 0 0">Nothing here asks you to save. The line above is the receipt.</p>
       </div>
     </div>
   `;

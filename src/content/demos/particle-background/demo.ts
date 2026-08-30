@@ -75,6 +75,10 @@ function star(rand: () => number, from: number): Dot {
  * Every register is a real particle background, so the subject never stops being the term
  * and no `data-pose` is needed. Nothing in the scene is positioned by the field, so the
  * field cannot move anything (SPEC §5).
+ *
+ * The hero's own line used to read "The plate is opaque so the letters keep one ground.",
+ * which is the article explaining the demo from inside the advert. It is hero copy now; the
+ * plate is still opaque, and why it has to be is the article's to say.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -110,7 +114,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             >
               <span class="sp-heading" data-part="headline" style="font-size: 16px; color: #ffffff">Fieldwork</span>
               <p class="sp-text" style="margin: 5px 0 0; color: rgb(232 236 250 / 0.76)">
-                The plate is opaque so the letters keep one ground.
+                Notes from the coast survey, gathered by the field team.
               </p>
               <button
                 class="sp-button sp-button--sm"

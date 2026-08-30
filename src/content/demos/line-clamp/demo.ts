@@ -18,6 +18,10 @@ const MAX_LINES = 3;
  * The subject is the clamped block itself, not the card: the term names what
  * happens to that run of text. The unclamped twin beside it and the control that
  * steps the count are scenery.
+ *
+ * A line under the two cards used to restate the setting ("Cut after 2 lines. The box
+ * keeps its 3-line height either way."), which is the site describing its own figure;
+ * the control already names the count and the reserved box shows the rest.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -43,22 +47,17 @@ export function mount(root: HTMLElement): void {
             <p class="sp-text" data-part="full" style="margin: 4px 0 0">${BODY}</p>
           </div>
         </div>
-        <div class="sp-row sp-context" style="height: 18px; margin-top: 10px">
-          <span class="sp-text" data-part="readout"></span>
-        </div>
       </div>
     </div>
   `;
 
   const clamped = part(root, 'clamped');
-  const readout = part(root, 'readout');
 
   const apply = (value: string) => {
     if (!LINES.includes(value)) return;
     clamped.dataset.lines = value;
     clamped.style.setProperty('-webkit-line-clamp', value);
     clamped.style.setProperty('line-clamp', value);
-    readout.textContent = `Cut after ${value} line${value === '1' ? '' : 's'}. The box keeps its ${MAX_LINES}-line height either way.`;
   };
 
   apply('2');

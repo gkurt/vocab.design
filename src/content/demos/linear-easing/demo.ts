@@ -45,18 +45,20 @@ const DOTS = STOPS.map(
  * it is the keyword, drawn as the reference the curve departs from; the two lanes below
  * are the scenery that says what the description feels like.
  *
+ * Everything that read as commentary is gone: the title over the figure ("One name, two
+ * easings"), the line under it comparing the two spellings, and the note under each lane
+ * naming what its curve feels like. Each lane is labelled with the CSS value it runs, which
+ * is the only label that is not the site talking.
+ *
  * Both lanes are the kit's `.sp-track`/`.sp-dot` animation, which `motion.css` gates on the
  * reader's behalf, so there is no `element.animate` here to gate by hand. `data-running`
  * and `data-settled` are timed on the stage's clock, so a pose cannot let a run finish
  * underneath a reader inspecting it (SPEC §6).
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
-  const lane = (id: string, spelling: string, note: string, timing: string) => `
+  const lane = (id: string, spelling: string, timing: string) => `
     <div class="sp-stack" style="gap: 6px">
-      <span class="sp-stack" style="gap: 1px">
-        <span class="sp-text sp-text--ink" style="font-size: 11.5px; font-family: ui-monospace, monospace">${spelling}</span>
-        <span class="sp-label" style="font-size: 11px">${note}</span>
-      </span>
+      <span class="sp-text sp-text--ink" style="font-size: 11.5px; font-family: ui-monospace, monospace">${spelling}</span>
       <div class="sp-row">
         <span class="sp-track" data-part="track-${id}" style="--sp-timing: ${timing}">
           <span class="sp-dot" data-part="dot-${id}"></span>
@@ -67,8 +69,7 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 440px">
-        <div class="sp-row sp-row--between sp-context">
-          <span class="sp-heading">One name, two easings</span>
+        <div class="sp-row sp-context" style="justify-content: flex-end">
           <button class="sp-button sp-button--ghost sp-button--sm" type="button" data-part="replay">Replay</button>
         </div>
         <div class="sp-row" style="align-items: center; gap: 16px; margin-top: 10px">
@@ -88,13 +89,10 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             <text transform="translate(-7 50) rotate(-90)" font-size="8.5" fill="var(--sp-muted)" text-anchor="middle">progress</text>
           </svg>
           <div class="sp-stack sp-context" data-part="race" style="flex: 1 1 auto; gap: 14px">
-            ${lane('stops', VALUE_HEAD, `${STOPS.length} stops, a bounce`, VALUE)}
-            ${lane('keyword', 'linear', 'the keyword, one constant speed', 'linear')}
+            ${lane('stops', VALUE_HEAD, VALUE)}
+            ${lane('keyword', 'linear', 'linear')}
           </div>
         </div>
-        <p class="sp-text sp-context" style="margin: 10px 0 0">
-          The keyword is one straight line. The function is ${STOPS.length} sampled stops, joined by straight lines.
-        </p>
       </div>
     </div>
   `;

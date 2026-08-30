@@ -9,9 +9,9 @@ const CHAIN = `<svg class="sp-icon" viewBox="0 0 24 24" aria-hidden="true">
 </svg>`;
 
 const TEXT =
-  'Selection is a temporary thing. The moment a reader drags across a run of words, the editor knows ' +
-  'which characters are in play, and it can offer the two or three commands that suit that run without ' +
-  'keeping a permanent bar above the page.';
+  'The tide was out by six and the mud flats ran the length of the harbour wall. Two boats lay on their ' +
+  'sides near the slipway, and a heron worked the channel until the light failed. The wind held off the ' +
+  'water all afternoon.';
 
 const WORDS = TEXT.split(' ');
 
@@ -39,6 +39,17 @@ const letter = (name: string, label: string, glyph: string, style: string) => `
  * it never moves the document under it (SPEC §5). The selection opens the bar and a click away
  * closes it; the format buttons set a state rather than flipping the one they find, and Clear is
  * the explicit way back.
+ *
+ * A line under the frame told the reader what to do ("Select a run to summon it; click anywhere
+ * else to send it away."), which is the site standing next to the editor narrating it. The
+ * script performs both moves, so the line is gone.
+ *
+ * The note itself used to be an essay about selection ("Selection is a temporary thing. The moment
+ * a reader drags across a run of words..."), so the draft on screen was explaining the feature
+ * being demonstrated on it. It is a harbour note now. The replacement is the same 44 words, so the
+ * script's word targets land where they did: w-3 to w-6 is still a run on the first line, where
+ * there is no room above and the bar flips below, and w-30 to w-31 is still a run further down,
+ * where the bar sits above.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -51,7 +62,7 @@ export function mount(root: HTMLElement): void {
 
         <div class="sp-body">
           <div class="sp-surface" data-part="page" style="position: relative; height: 100%; padding: 14px 16px; overflow: hidden">
-            <span class="sp-heading sp-context" style="display: block; font-size: 13px">Notes on lighting</span>
+            <span class="sp-heading sp-context" style="display: block; font-size: 13px">Notes on the east basin</span>
             <p
               class="sp-prose sp-context"
               data-part="prose"
@@ -77,10 +88,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-
-      <span class="sp-label sp-context" style="height: 15px; font-size: 11px; line-height: 15px">
-        Select a run to summon it; click anywhere else to send it away.
-      </span>
     </div>
   `;
 

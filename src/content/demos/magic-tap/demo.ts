@@ -17,6 +17,12 @@ import type { DemoClock } from '#src/stage/clock.ts';
  * `tap` step, a real pair of fingers, and a reader's modifier+tap through one
  * wiring (SPEC §7). What the article has to say, and the demo cannot, is that VoiceOver
  * routes this gesture natively and a web page never sees the contacts at all.
+ *
+ * The line under the buttons used to read "Two-finger double tap anywhere on this screen",
+ * which was the site teaching the reader to drive the specimen inside a call screen that
+ * would never print it. The element stays, because the gesture is wired to its parent and
+ * the script aims at it, and it now carries the number a call screen really shows, moved up
+ * under the caller's name where that belongs.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -24,12 +30,12 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" data-touch style="display: grid; gap: 12px; padding: 16px; place-items: center">
         <div class="sp-text sp-text--quiet" style="font-size: 12px">Incoming call</div>
         <div class="sp-text sp-text--ink" style="font-size: 17px; font-weight: 600" data-part="who">Priya Raman</div>
+        <div class="sp-text sp-text--quiet" data-part="surface" style="font-size: 11px; text-align: center; max-width: 260px">
+          mobile, +44 7700 900312
+        </div>
         <div class="sp-row" style="gap: 10px">
           <button class="sp-button sp-button--sm" type="button" data-part="answer">Answer</button>
           <button class="sp-button sp-button--sm sp-button--quiet" type="button" data-part="decline">Decline</button>
-        </div>
-        <div class="sp-text sp-text--quiet" data-part="surface" style="font-size: 11px; text-align: center; max-width: 260px">
-          Two-finger double tap anywhere on this screen
         </div>
       </div>
               <p class="sp-text sp-text--ink" data-stage-announce data-part="spoken" data-subject data-state="idle" style="margin: 0; min-height: 17px; font-size: 13px">“Incoming call from Priya Raman”</p>

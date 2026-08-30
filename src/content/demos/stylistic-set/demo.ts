@@ -71,8 +71,11 @@ const READ = {
  * asked of a run of text, and the two characters it leaves alone are part of that
  * run. The off state is the counter-example the run itself passes through, so the
  * honest condition is declared in `data-pose` and the specimen mounts with the
- * set on (SPEC §6). The picker, the label and the caption are the demo's own
- * instrumentation and stay in the context register.
+ * set on (SPEC §6). The picker, the feature label and the caption are the demo's
+ * own instrumentation and stay in the context register. A line over the run once
+ * read "the five that get mistaken for each other", which is the author naming the
+ * sample rather than a type panel labelling it, so it went and the run took its
+ * top margin.
  *
  * Nothing is measured and nothing moves: the marks are absolutely positioned
  * inside their own cells, so switching the set cannot shift a neighbour (SPEC §5).
@@ -94,11 +97,8 @@ export function mount(root: HTMLElement): void {
             <button class="sp-segment" data-part="seg-on" value="on">1</button>
           </sp-segmented>
         </div>
-        <span class="sp-label sp-context" style="display: block; margin-top: 12px">
-          the five that get mistaken for each other
-        </span>
         <div class="sp-row" data-part="run" data-subject data-ss="on" data-pose="[data-ss=on]"
-             style="gap: 20px; align-items: baseline; height: 76px; font-size: ${SIZE}px">
+             style="gap: 20px; align-items: baseline; height: 76px; margin-top: 12px; font-size: ${SIZE}px">
           ${CELLS.map(cell).join('')}
         </div>
         <div class="sp-row sp-context" style="height: 30px">

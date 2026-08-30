@@ -8,7 +8,7 @@ const SPACING = {
     letter: 'normal',
     word: 'normal',
     para: '0.4em',
-    readout: 'None. The page’s own spacing.',
+    readout: 'None',
     caption: 'Both blocks hold the same words at the spacing the page shipped with.',
   },
   applied: {
@@ -41,7 +41,13 @@ function block(kind: string): string {
  *
  * The subject is the tolerant block, the narrowest element the term names: not the window
  * around it and not the failing twin, which is the counter-example and is captioned as one.
- * The spacing control, the labels, the readout, and the caption are scenery (SPEC §5).
+ * The spacing control, the readout and the caption are scenery (SPEC §5).
+ *
+ * The two blocks used to be headed "No height of its own" and "Height fixed in pixels",
+ * which annotated the demo's construction rather than printing anything a page would print.
+ * They are gone: the verdict in the strip already says which block grew and which one clipped,
+ * and a reader watching the last line disappear is watching the same thing. The readout beside
+ * "Overrides applied" says "None" at rest, where it used to add "The page's own spacing."
  *
  * The row that holds both blocks keeps a fixed height from mount, tall enough for the
  * spaced-out version, so the subject grows into room that was already reserved and nothing
@@ -60,12 +66,7 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
 
-        <div class="sp-row sp-context" style="margin-top: 12px; gap: 12px">
-          <span class="sp-label" style="width: 208px">No height of its own</span>
-          <span class="sp-label" style="width: 208px">Height fixed in pixels</span>
-        </div>
-
-        <div class="sp-row" style="margin-top: 4px; gap: 12px; height: 132px; align-items: flex-start">
+        <div class="sp-row" style="margin-top: 12px; gap: 12px; height: 132px; align-items: flex-start">
           <div class="sp-surface" data-part="prose" data-subject data-spacing="off"
                style="width: 208px; padding: 10px 12px; line-height: 1.25">${block('prose')}</div>
           <div class="sp-surface sp-context" data-part="twin"

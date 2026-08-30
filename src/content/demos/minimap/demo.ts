@@ -36,6 +36,10 @@ const ROW_GAP = 8;
  * nudging whatever it finds (SPEC §8). The slab's height is computed once from the
  * ratio the pane reports and never re-read off the element, so nothing here measures
  * after a style write (SPEC §5), and only the slab's offset ever changes.
+ *
+ * A line under the editor read "The shape survives the shrinking. The words do not." No
+ * editor prints a note about its own map, and the drawing beside the pane makes the point
+ * without help, so it went; the article carries the reading.
  */
 export function mount(root: HTMLElement): void {
   // Block rows rather than a flex stack: a column of flex children would shrink to the
@@ -97,7 +101,6 @@ export function mount(root: HTMLElement): void {
           </div>
         </div>
       </div>
-      <span class="sp-text sp-context" style="font-size: 12px">The shape survives the shrinking. The words do not.</span>
     </div>
   `;
 

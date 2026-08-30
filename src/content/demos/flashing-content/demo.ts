@@ -33,12 +33,6 @@ const VERDICT: Record<Rate, string> = {
   over: 'Not played. Twenty four a second at full contrast, over a region past the safe area, is the shape of the thing this criterion exists to stop.',
 };
 
-const CAPTION: Record<Rate, string> = {
-  slow: 'A slow pulse is not in scope: a flash has to be counted before any of the thresholds are worth measuring.',
-  fast: 'Four a second is past the count and still lawful, because a flash needs a swing over 10% of maximum AND a darker state under 0.80. This one is 13.7% and 0.86, so the second half fails and it is not a flash.',
-  over: 'The specimen refuses this one. The numbers beside it are what it would be measuring, not what it is drawing.',
-};
-
 /**
  * Flashing content specimen. It demonstrates the term the only way that is defensible: by running
  * a flash that is genuinely FASTER than the three-a-second count and genuinely below the threshold
@@ -56,9 +50,13 @@ const CAPTION: Record<Rate, string> = {
  * `prefersReducedMotion` (SPEC §6): a reader who has asked for less gets the lamp at rest.
  *
  * The subject is the region whose rate is being measured, which it honestly is in every resting
- * state, including the refused one where the measurement is what stops it. The picker, the meter
- * and the caption are scenery (SPEC §5), and all three states use the same boxes, sized for the
- * longest verdict and the whole meter rather than for the rate the specimen mounts with.
+ * state, including the refused one where the measurement is what stops it. The picker and the
+ * meter are scenery (SPEC §5), and all three states use the same boxes, sized for the longest
+ * verdict and the whole meter rather than for the rate the specimen mounts with.
+ *
+ * A caption under the window once restated each rate in prose ("A slow pulse is not in scope",
+ * and so on). The strip already carries the verdict, a specimen may only have one, and the meter
+ * prints every number the caption was paraphrasing, so the caption went rather than moved.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   root.innerHTML = `
@@ -113,9 +111,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
             </span>
           </div>
         </div>
-
-        <p class="sp-text sp-context" data-part="caption" data-rate="slow"
-           style="margin: 8px 0 0; height: 42px; font-size: 10.5px; line-height: 1.35">${CAPTION.slow}</p>
       </div>
     </div>
   `;
@@ -128,7 +123,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
   const darker = part(root, 'darker');
   const area = part(root, 'area');
   const exempt = part(root, 'exempt');
-  const caption = part(root, 'caption');
 
   // A reader who has asked for less motion gets the lamp at rest, not a slower flash (SPEC §6).
   const reduced = prefersReducedMotion(root);
@@ -155,8 +149,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
     area.textContent = AREA[next];
     exempt.dataset.ok = EXEMPT[next];
     exempt.textContent = EXEMPT[next];
-    caption.dataset.rate = next;
-    caption.textContent = CAPTION[next];
     // The refused rate is refused by never scheduling it, never by running a faster timer.
     if (HALF[next] && !reduced) beat(HALF[next]);
   };

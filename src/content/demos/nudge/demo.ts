@@ -38,6 +38,10 @@ const handles = ['left: -3px; top: -3px', 'right: -3px; top: -3px', 'left: -3px;
  *
  * The card moves by a transform inside a fixed canvas and every readout holds its width,
  * so a nudge moves the card and nothing else (SPEC §5).
+ *
+ * The position readout used to read "Select the card to nudge it" before anything was
+ * picked, which was the site giving the reader an instruction in the product's own title
+ * bar. It reads "No selection" now, which is what an editor prints there.
  */
 export function mount(root: HTMLElement): void {
   root.innerHTML = `
@@ -50,7 +54,7 @@ export function mount(root: HTMLElement): void {
             data-part="readout"
             data-size="${SMALL}"
             style="width: 226px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums"
-          >Select the card to nudge it</span>
+          >No selection</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; align-items: center; gap: 10px">
           <div
@@ -102,7 +106,7 @@ export function mount(root: HTMLElement): void {
     card.dataset.y = String(at.y);
     const step = shifted ? BIG : SMALL;
     readout.dataset.size = String(step);
-    readout.textContent = selected ? `x ${at.x}, y ${at.y} · step ${step} px` : 'Select the card to nudge it';
+    readout.textContent = selected ? `x ${at.x}, y ${at.y} · step ${step} px` : 'No selection';
     stepOut.textContent = `Step ${step} px`;
   };
 

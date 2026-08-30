@@ -1,5 +1,3 @@
-import { icon } from '#src/kit/icons.ts';
-
 /**
  * Hand-drawn UI specimen: the same little form twice, sketched on the left and finished on
  * the right, so the wobble reads as a register rather than as a mistake. Every sketched
@@ -16,9 +14,13 @@ import { icon } from '#src/kit/icons.ts';
  *
  * The subject is the sketched button, not the card and not the poster: the term names a way
  * of drawing a control, and the button is the narrowest control here that is drawn that way
- * (SPEC §5). The finished column, the labels and the caption are scenery.
+ * (SPEC §5). The finished column and the caption are scenery.
  *
  * Static: a sketch has no states, so there is nothing to animate and no clock to take.
+ *
+ * The finished column used to carry a heading reading "Same screen, finished" and a footnote
+ * reading "Reads as decided". Both were the site describing the comparison from inside the
+ * frame, and the two cards state the difference on their own, so they are gone.
  */
 const PAPER = '#fffdf6';
 const PEN = '#2f2c33';
@@ -133,7 +135,6 @@ export function mount(root: HTMLElement): void {
 
   const finished = `
     <div class="sp-stack sp-context" data-part="finished" style="flex: 0 0 auto; width: 158px; gap: 9px">
-      <span class="sp-label" style="color: var(--sp-ink)">Same screen, finished</span>
       <div class="sp-surface" style="padding: 11px 12px 13px">
         <div class="sp-stack" style="gap: 9px">
           <span class="sp-heading" style="font-size: 13px">New task</span>
@@ -151,9 +152,6 @@ export function mount(root: HTMLElement): void {
           </span>
         </div>
       </div>
-      <span class="sp-row" style="gap: 6px; color: var(--sp-muted); font-size: 11px">
-        ${icon('check')}<span>Reads as decided</span>
-      </span>
     </div>`;
 
   root.innerHTML = `

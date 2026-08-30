@@ -88,7 +88,9 @@ const column = (index: number, head: string, body: string) => `
  * of levels side by side and the sliding that keeps them there (SPEC §5). Every state is honestly
  * that arrangement, so no `data-pose` condition is needed. The window chrome and the path readout
  * are scenery in the context register; the readout in particular is instrumentation, since the
- * columns themselves are what keep the path visible.
+ * columns themselves are what keep the path visible. The title bar carried "depth, paid for in
+ * width" beside the window's name, which is the article's phrase and not a file browser's, so
+ * it went; the track sliding once the path outgrows the viewport is the same point, performed.
  *
  * All four columns exist from mount and hold their boxes, so filling one moves nothing (SPEC §5).
  * Choosing a row sets the selection at that level rather than toggling it, so a resumed pass lands
@@ -101,7 +103,6 @@ export function mount(root: HTMLElement): void {
       <div class="sp-frame sp-frame--wide" style="width: 476px; height: 300px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow" style="font-size: 13px">Library</span>
-          <span class="sp-label">depth, paid for in width</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 10px; padding: 10px 12px">
           <div

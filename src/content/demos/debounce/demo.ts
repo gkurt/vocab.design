@@ -21,6 +21,11 @@ const PANEL = 'display: flex; flex-direction: column; gap: 6px; flex: 1 1 0; pad
  * The counters are not requests. They are drawings of requests, since a specimen
  * makes no network calls (SPEC §5), and the wait is measured on the clock the stage
  * hands the demo so a pose cannot let it fire mid-inspection (SPEC §6).
+ *
+ * The title bar used to carry "One field, two listeners", which is the setup described
+ * rather than anything a search page prints. The two panel titles do that job already,
+ * and they stay: "Every keystroke" and "Debounced 700 ms" are what a request log labels
+ * its own lanes.
  */
 export function mount(root: HTMLElement, clock: DemoClock): void {
   const panel = (key: string, title: string, subject: boolean) => `
@@ -37,7 +42,6 @@ export function mount(root: HTMLElement, clock: DemoClock): void {
       <div class="sp-frame sp-frame--wide" style="height: 258px">
         <div class="sp-topbar sp-context">
           <span class="sp-heading sp-grow">Search cities</span>
-          <span class="sp-text">One field, two listeners</span>
         </div>
         <div class="sp-body" style="display: flex; flex-direction: column; gap: 12px">
           <div class="sp-row sp-context" style="gap: 8px">

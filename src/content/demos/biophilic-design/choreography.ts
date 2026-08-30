@@ -2,9 +2,9 @@ import { steps } from '#src/stage/choreography.ts';
 
 /**
  * A still panel answers no pointer, so the script is a tour: the cursor crosses the blob-edged
- * hero, the reference column that names each move, and the two unevenly rounded tiles, while
- * the asserts hold every part of the form language on stage. The opening wait lets the mount
- * fade finish before the first claim is judged.
+ * hero, the list beside it whose art is the same three shapes, and the two unevenly rounded
+ * tiles, while the asserts hold every part of the form language on stage. The opening wait
+ * lets the mount fade finish before the first claim is judged.
  */
 export default steps([
   { wait: 450 },

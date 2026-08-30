@@ -27,7 +27,6 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=word][data-size="24"]', state: 'visible' } },
-  { moveTo: '[data-part=caption]' },
+  { assert: { selector: '[data-part=body][data-size="24"]', state: 'visible' } },
   { wait: 800 },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
 ]);
