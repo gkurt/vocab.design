@@ -19,7 +19,7 @@ export default steps([
   { moveTo: '[data-part=seg-150]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-150][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-150][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=viewport][data-zoom="150"]', state: 'visible' } },
   { wait: 1100 },
   { moveTo: '[data-part=seg-50]' },
@@ -33,6 +33,6 @@ export default steps([
   { wait: 800 },
   { assert: { selector: '[data-part=viewport][data-at=home]', state: 'visible' } },
   { assert: { selector: '[data-part=viewport][data-zoom="100"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-100][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-100][data-selected]', state: 'visible' } },
   { wait: 900 },
 ]);

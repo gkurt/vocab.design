@@ -1,4 +1,4 @@
 term:    Aqua
 scope:   element
 subject: div[data-part=window]
-text:    Preferences Appearance Highlight colour and scrollbar arrow placement, the two k
+text:    Preferences Appearance The highlight colour is used for selected text and lists.

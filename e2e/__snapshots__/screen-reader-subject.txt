@@ -1,4 +1,4 @@
 term:    Screen reader
 scope:   element
 subject: div.sp-surface[data-part=reader]
-text:    Screen reader, virtual cursor heading level 2, “Trip planner”
+text:    Speech viewer heading level 2, “Trip planner”

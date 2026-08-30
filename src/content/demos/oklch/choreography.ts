@@ -8,11 +8,11 @@ export default steps([
   // Each segment names an absolute view, so a pass resumed anywhere still lands here.
   { assert: { selector: '[data-part=oklch][data-view="lightness"]', state: 'visible' } },
   { assert: { selector: '[data-part=hsl][data-view="lightness"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-lightness][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-lightness][data-selected]', state: 'visible' } },
   { wait: 1800 },
   { moveTo: '[data-part=seg-color]' },
   { click: true },
   { assert: { selector: '[data-part=oklch][data-view="color"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-color][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-color][data-selected]', state: 'visible' } },
   { wait: 1200 },
 ]);

@@ -1,4 +1,4 @@
 term:    Verbosity
 scope:   element
-subject: p.sp-text.sp-text--ink[data-level=low][data-part=utterance][data-state=spoken]
-text:    “Star”
+subject: p.sp-text.sp-text--ink[data-identify=[data-level=high]][data-level=high][data-part=utterance][data-stage-announce][data-state=spoken]
+text:    “Star, toggle button, not pressed. Starred mail is kept for a year.”

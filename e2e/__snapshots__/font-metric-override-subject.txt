@@ -1,4 +1,4 @@
 term:    Font metric override
 scope:   element
 subject: h3[data-mode=tuned][data-part=headline][data-pose=[data-tuned]][data-tuned]
-text:    Metrics decide where the next line starts
+text:    The quiet return of the night ferry

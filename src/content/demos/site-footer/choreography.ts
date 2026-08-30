@@ -12,7 +12,7 @@ export default steps([
   { moveTo: '[data-part=seg-thin]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-thin][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-thin][data-selected]', state: 'visible' } },
   // Collapsed to one line, and still the same region: legal and social survive.
   { assert: { selector: '[data-part=footer][data-mode=thin]', state: 'visible' } },
   { assert: { selector: '[data-part=column-1]', state: 'hidden' } },

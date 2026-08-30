@@ -1,4 +1,4 @@
 term:    Widow
 scope:   element
 subject: span[data-part=widow][data-stranded]
-text:    word.
+text:    remember.

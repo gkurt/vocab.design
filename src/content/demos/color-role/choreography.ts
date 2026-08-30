@@ -8,7 +8,7 @@ export default steps([
   { moveTo: '[data-part=seg-forest]' },
   { click: true },
   { assert: { selector: '[data-part=card][data-scheme="forest"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-forest][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-forest][data-selected]', state: 'visible' } },
   { wait: 1500 },
   { moveTo: '[data-part=seg-plum]' },
   { click: true },
@@ -18,6 +18,6 @@ export default steps([
   { moveTo: '[data-part=seg-default]' },
   { click: true },
   { assert: { selector: '[data-part=card][data-scheme="default"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-default][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-default][data-selected]', state: 'visible' } },
   { wait: 1200 },
 ]);

@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-cards]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-cards][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-cards][data-selected]', state: 'visible' } },
   // Stacked, the grid the mow ran along is gone and so is the mow.
   { assert: { selector: '[data-part=serial]', state: 'visible' } },
   { assert: { selector: '[data-part=mow]', state: 'hidden' } },

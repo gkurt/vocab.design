@@ -1,4 +1,4 @@
 term:    Frutiger Metro
 scope:   element
 subject: div[data-part=panel]
-text:    VECTORDELIA bloom flat vector, no gloss
+text:    VECTORDELIA bloom Pier Park, 14 June

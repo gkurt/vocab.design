@@ -20,6 +20,6 @@ export default steps([
   { click: true },
   { wait: 500 },
   { assert: { selector: '[data-part=row-danger][data-resolves="red-600"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-day][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-day][data-selected]', state: 'visible' } },
   { wait: 1200 },
 ]);

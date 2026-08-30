@@ -13,7 +13,7 @@ export default steps([
   { moveTo: '[data-part=seg-md]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-md][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-md][data-selected]', state: 'visible' } },
   // The first addition, and the base rule is still in force underneath it.
   { assert: { selector: '[data-part=rule-base][data-applied]', state: 'visible' } },
   { assert: { selector: '[data-part=rule-md][data-applied]', state: 'visible' } },

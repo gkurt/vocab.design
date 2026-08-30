@@ -11,7 +11,7 @@ export default steps([
   { moveTo: '[data-part=seg-compact]' },
   { click: true },
   { wait: 900 },
-  { assert: { selector: '[data-part=seg-compact][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-compact][data-selected]', state: 'visible' } },
   // Condensed: the supporting matter goes, the title and the primary action stay, and
   // the list below is exactly where it was.
   { assert: { selector: '[data-part=crumbs]', state: 'hidden' } },

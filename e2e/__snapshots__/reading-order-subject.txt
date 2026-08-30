@@ -1,4 +1,4 @@
 term:    Reading order
 scope:   element
-subject: div.sp-surface[data-mode=matched][data-part=row][data-pose=[data-mode=matched]]
-text:    1 Summary 4 shipments source 1 2 Chart Last 30 days source 2 3 Alerts 2 delayed 
+subject: div.sp-surface[data-mode=matched][data-part=row][data-pose=[data-mode=matched]][role=list]
+text:    Summary 4 shipments Chart Last 30 days Alerts 2 delayed Notes None

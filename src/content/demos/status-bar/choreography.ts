@@ -20,7 +20,7 @@ export default steps([
   { moveTo: '[data-part=seg-light]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-light][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-light][data-selected]', state: 'visible' } },
   // A light header, and the same strip flips its ink to stay readable.
   { assert: { selector: '[data-part=chrome][data-tint=light]', state: 'visible' } },
   { assert: { selector: '[data-part=strip][data-ink=dark]', state: 'visible' } },

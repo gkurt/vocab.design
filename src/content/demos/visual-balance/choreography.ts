@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-symmetric]' },
   { click: true },
   { wait: 900 },
-  { assert: { selector: '[data-part=seg-symmetric][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-symmetric][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=composition][data-mode=symmetric]', state: 'visible' } },
   // Mirroring is one way of balancing, so this state is balanced too.
   { assert: { selector: '[data-part=composition][data-balanced]', state: 'visible' } },

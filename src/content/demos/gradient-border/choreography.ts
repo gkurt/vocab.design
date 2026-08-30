@@ -11,7 +11,7 @@ export default steps([
   { click: true },
   { wait: 800 },
   { assert: { selector: '[data-part=card][data-edge=linear]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-linear][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-linear][data-selected]', state: 'visible' } },
   { wait: 1200 },
   { moveTo: '[data-part=seg-conic]' },
   { wait: 400 },

@@ -13,7 +13,7 @@ export default steps([
   { moveTo: '[data-part=seg-action]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-action][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-action][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=content][data-mode=action]', state: 'visible' } },
   { assert: { selector: '[data-part=caption][data-mode=action]', state: 'visible' } },
   { wait: 1400 },

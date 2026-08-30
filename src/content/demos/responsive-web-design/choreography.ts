@@ -11,7 +11,7 @@ export default steps([
   { moveTo: '[data-part=seg-tablet]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-tablet][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-tablet][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=viewport][data-width=tablet]', state: 'visible' } },
   { assert: { selector: '[data-part=page][data-cols="2"]', state: 'visible' } },
   { wait: 900 },

@@ -996,6 +996,28 @@ plays on over a reader and the next pass undoes the choice they just made; witho
 second, one press keeps the stage in user mode for the rest of the visit and the
 demonstration never plays again.
 
+Both of those, like every takeover signal, are gated on `isTrusted`. The ghost dispatches
+`pointerenter` and `pointerleave` along the ancestor chain a real pointer crosses, which is
+what a demo listening on its own root needs (`spotlight-hover` glowed on with the cursor
+nowhere near it, because `pointerleave` does not bubble and the ghost fired it on one
+element). That chain reaches the specimen's edge and the strip, so an ungated hand-back
+listener lets an attract run give the stage to itself, and the resume that follows cancels
+the run mid-script.
+
+The copy the strip draws MIRRORS its source's `data-*`, control as well as lane, because
+the source is hidden and a script asking which mode the specimen is in has to read the
+answer off the thing on screen. The selected state crosses as `data-selected`, not
+`aria-selected`: the twin is a plain button in a `role="group"`, where `aria-selected` is
+invalid ARIA and would be shipping a lie to make a test pass. And a lane goes out of sight
+when its source does, read from `hidden`, `visibility` and opacity, since the stage's own
+`display: none` cannot be told apart from a demo's; it hides with `visibility` so the strip
+keeps its reserved height.
+
+One consequence for choreography: a caption is chrome now, so a script that used to walk
+the cursor onto it to leave the specimen is aiming at the strip. A press there never reaches
+the specimen at all. A demo dismissed by pressing outside itself needs an unpainted
+`data-part` inside the fiction to aim at (§5).
+
 **Reset is formalized as destroy-and-remount.** Demos must be cheaply re-creatable from
 initial state; no demo ships custom cleanup logic.
 

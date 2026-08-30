@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-medium]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-medium][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-medium][data-selected]', state: 'visible' } },
   // A different arrangement, not the same one widened: the tab bar is gone and a rail
   // has taken its place.
   { assert: { selector: '[data-part=arr-medium]', state: 'visible' } },
@@ -18,7 +18,7 @@ export default steps([
   { moveTo: '[data-part=seg-expanded]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-expanded][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-expanded][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=arr-expanded]', state: 'visible' } },
   { assert: { selector: '[data-part=arr-medium]', state: 'hidden' } },
   { wait: 1400 },

@@ -7,7 +7,7 @@ export default steps([
   { moveTo: '[data-part=seg-24]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-24][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-24][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=rack][data-gutter="24"]', state: 'visible' } },
   { assert: { selector: '[data-part=gutter-1][data-size="24"]', state: 'visible' } },
   // The gutters grew and the margins did not: they are not the same number.

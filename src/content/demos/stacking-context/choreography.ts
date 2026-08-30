@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-none]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-none][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-none][data-selected]', state: 'visible' } },
   // Nothing on the card any more, so there is no context for the tooltip to be stuck in.
   { assert: { selector: '[data-part=card-a][data-context]', state: 'hidden' } },
   { assert: { selector: '[data-part=card-a]', state: 'visible' } },
@@ -17,7 +17,7 @@ export default steps([
   { moveTo: '[data-part=seg-opacity]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-opacity][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-opacity][data-selected]', state: 'visible' } },
   // The invisible trigger: the card looks identical and the tooltip is trapped again.
   { assert: { selector: '[data-part=card-a][data-context]', state: 'visible' } },
   { wait: 1400 },

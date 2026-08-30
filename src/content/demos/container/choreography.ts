@@ -8,7 +8,7 @@ export default steps([
   { moveTo: '[data-part=seg-wide]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-wide][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-wide][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=viewport][data-width=wide]', state: 'visible' } },
   // The viewport grew, the column did not: the leftover became margin either side.
   { assert: { selector: '[data-part=container][data-capped]', state: 'visible' } },

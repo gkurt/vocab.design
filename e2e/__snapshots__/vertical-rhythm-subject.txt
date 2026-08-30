@@ -1,4 +1,4 @@
 term:    Vertical rhythm
 scope:   element
 subject: div[data-part=column-on]
-text:    Setting the beat Every space is counted in lines, not in pixels. One unit above,
+text:    Rehearsal notes The room is booked from ten until noon. Bring the printed parts 

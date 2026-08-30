@@ -1,4 +1,4 @@
 term:    Type specimen
 scope:   element
 subject: div.sp-surface[data-face=serif][data-part=sheet]
-text:    Source Serif 4 Variable, weight 200 to 900 Handgloves AaBbGgQqRr 0123 &?! A face
+text:    Source Serif 4 Variable, weight 200 to 900 Handgloves AaBbGgQqRr 0123 &?! Sphinx

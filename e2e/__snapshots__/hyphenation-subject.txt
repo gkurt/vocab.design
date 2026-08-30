@@ -1,4 +1,4 @@
 term:    Hyphenation
 scope:   element
 subject: p.sp-text.sp-text--ink[data-hyphens=auto][data-part=column][data-pose=[data-hyphens=auto]][lang=en]
-text:    Un­hyphen­ated at a nar­row meas­ure, a word like in­com­pre­hen­si­ble drops wh
+text:    The com­mit­tee pub­lished its rec­om­men­da­tions on in­com­pre­hen­si­ble ad­m

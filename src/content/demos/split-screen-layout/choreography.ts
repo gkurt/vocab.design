@@ -11,7 +11,7 @@ export default steps([
   { moveTo: '[data-part=seg-narrow]' },
   { click: true },
   { wait: 900 },
-  { assert: { selector: '[data-part=seg-narrow][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-narrow][data-selected]', state: 'visible' } },
   // Stacked, both halves are still there, but one of them is now first.
   { assert: { selector: '[data-part=region][data-arrangement="stacked"]', state: 'visible' } },
   { assert: { selector: '[data-part=pane-charter]', state: 'visible' } },

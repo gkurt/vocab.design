@@ -18,7 +18,7 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=edge][data-routing=straight]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-straight][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-straight][data-selected]', state: 'visible' } },
   { wait: 1000 },
   { moveTo: '[data-part=seg-bezier]' },
   { click: true },

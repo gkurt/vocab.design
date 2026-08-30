@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-even]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-even][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-even][data-selected]', state: 'visible' } },
   // Same six items, one gap everywhere, and the pairs stop being visible.
   { assert: { selector: '[data-part=fields][data-mode=even]', state: 'visible' } },
   { assert: { selector: '[data-part=label-3]', state: 'visible' } },

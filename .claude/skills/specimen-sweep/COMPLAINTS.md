@@ -1132,3 +1132,49 @@ complete; until then entries only accumulate. Entry format:
   which reads exactly like a clean corpus. And a `data-stage-verdict` that never changes is
   not a verdict: `radio-group` had one on its group legend, which is static AND the
   `aria-labelledby` target, so the stage was hiding the radiogroup's own label.
+
+## faked-features-confessed
+
+- Queued: 2026-08-30 · Status: OPEN (6 offenders, decision taken: load real faces)
+- Rule: a specimen demonstrates its term. A demo that draws a CSS imitation of a font
+  feature and then prints an apology under it is not a specimen, it is an admission, and
+  the admission is written in the author's voice about the author's own machine. Two
+  separate defects in one sentence: "No browser here honours petite-caps" means the
+  author's browser, which the reader cannot check and may not share; and "No face this
+  site loads carries a stylistic set" invites the only sane reply, which is that we choose
+  what this site loads.
+- The six, all drawn in the strip as `data-stage-verdict`:
+  `petite-caps`, `stylistic-set`, `contextual-alternates`, `grade-axis`,
+  `oldstyle-figures`, `icon-font`. The last one says the quiet part: "this page loads no
+  icon font, and a specimen should not pretend it did."
+- **The lesson about the last sweep, and it is the important part.** These were not missed
+  by the judges; they were MOVED. The caption sweep took them out of the frame and put them
+  in the strip, which satisfied the rule (the author's voice belongs out of the fiction) and
+  left the sentences exactly as bad. The strip is not a laundry. A sentence that should be
+  deleted is not improved by being drawn somewhere the rule allows.
+- Detector: `detectors/strip-prose.ts`, the other half of `frame-prose.ts`. Capture pages
+  draw no strip (SPEC §10), so it probes real term pages: 585 strings across 567 specimens,
+  559 verdicts and 26 announcements. Grep that output for the confession vocabulary
+  (`no face`, `no browser`, `this site loads`, `standing in for`, `so the ... is drawn`).
+- Recipe: load a face that carries the feature and let the specimen render it for real.
+  `@font-face` is lazy, so declaring a face in the kit costs the CSS bytes and nothing else
+  until a page mounts the specimen that uses it. Fontsource has OFL candidates for every
+  case but one: Fira Code or JetBrains Mono for `calt`, Roboto Flex for a real `GRAD` axis,
+  Inter or Recursive for `ss01`-`ss08`, Material Symbols for an actual icon font, and a
+  serif carrying `onum` for oldstyle figures (verify before committing to one).
+  `petite-caps` is the exception: real petite caps need `pcap`/`c2pc`, which almost no face
+  carries, and browsers deliberately refuse to synthesize them. If it cannot be shown, the
+  platform limit is the ARTICLE's to explain, never the specimen's to apologise for.
+- Verify: the probe measures features rather than trusting a package's word. Render a
+  string with the feature on and off in the real face and compare the box; identical boxes
+  mean the face does not carry it, whatever the documentation says. Three of the site's own
+  faces were measured this way and none carries `ss01`, `ss02` or `GRAD`, so the claims were
+  TRUE, which is what makes them damning rather than merely sloppy.
+- Two traps this probe hit, both of which read as a clean corpus: `build.format: 'file'`
+  emits `dist/toast.html`, so a URL with a trailing slash 404s on every page; and
+  `dist/capture` is a directory of `.html` FILES, not of directories, so a slug list built
+  from `isDirectory()` comes back empty. It now says so loudly instead of printing nothing.
+- **Never run a probe against `dist/` while the e2e suite is running.** The suite's
+  webServer builds into the same directory, and a build wipes it: a probe and a suite that
+  overlap end with the preview server dying on ENOENT mid-run and 2,733 tests failing in
+  under 300ms each, which looks like a catastrophic regression and is nothing at all.

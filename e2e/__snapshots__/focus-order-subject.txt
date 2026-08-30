@@ -1,4 +1,4 @@
 term:    Focus order
 scope:   element
 subject: div.sp-grow[data-part=ordered]
-text:    Tab follows reading order 1 Full name 2 Email 3 Phone Source, screen, and Tab ag
+text:    Contact 1 Full name 2 Email 3 Phone

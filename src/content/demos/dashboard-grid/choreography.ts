@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-uniform]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-uniform][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-uniform][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=grid][data-mode=uniform]', state: 'visible' } },
   // Same six tiles, same field: only the area each one claims has changed.
   { assert: { selector: '[data-part=card-chart]', state: 'visible' } },

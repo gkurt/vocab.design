@@ -1,4 +1,4 @@
 term:    Word spacing
 scope:   element
 subject: p.sp-text.sp-text--ink[data-part=paragraph][data-spacing=normal]
-text:    Justification stretches the spaces between the words until every line reaches bo
+text:    The tide came in over the flats before dawn, and by the time the boats were free

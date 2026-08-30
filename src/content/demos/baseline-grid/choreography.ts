@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-off]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-off][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-off][data-selected]', state: 'visible' } },
   // The grid stays ruled while the column leaves it: the field is the term, not the text.
   { assert: { selector: '[data-part=lattice]', state: 'visible' } },
   { assert: { selector: '[data-part=col-right]', state: 'visible' } },
@@ -19,7 +19,7 @@ export default steps([
   { moveTo: '[data-part=seg-on]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-on][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-on][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=lattice]', state: 'visible' } },
   { wait: 900 },
 ]);

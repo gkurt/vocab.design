@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-top]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-top][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-top][data-selected]', state: 'visible' } },
   // The same action, now in the corner the thumb cannot reach without letting go.
   { assert: { selector: '[data-part=actions-top]', state: 'visible' } },
   { assert: { selector: '[data-part=actions-bottom]', state: 'hidden' } },
@@ -20,7 +20,7 @@ export default steps([
   { moveTo: '[data-part=seg-bottom]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-bottom][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-bottom][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=actions-bottom]', state: 'visible' } },
   { assert: { selector: '[data-part=actions-top]', state: 'hidden' } },
   { wait: 900 },

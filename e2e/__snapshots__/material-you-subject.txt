@@ -1,4 +1,4 @@
 term:    Material You
 scope:   element
 subject: div[data-part=panel]
-text:    Today Seed #2A5EA7 AK Rain until 4pm Container role, with its own ink Set a remi
+text:    Today Seed #2A5EA7 AK Rain until 4pm Heaviest around 2pm Set a reminder Later

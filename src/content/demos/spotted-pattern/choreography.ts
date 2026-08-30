@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-flat]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-flat][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-flat][data-selected]', state: 'visible' } },
   // Nothing to spot: the hunt stops after the first two lines.
   { assert: { selector: '[data-part=stalled]', state: 'visible' } },
   { assert: { selector: '[data-part=spray]', state: 'hidden' } },

@@ -286,6 +286,30 @@ class VdStage extends HTMLElement {
     };
 
     /**
+     * A lane goes out of sight when its source does. The stage hides the source with
+     * `display: none` to lift it out of the fiction, so the demo's OWN dismissal has to be
+     * read from the spellings a demo can still reach: `hidden`, `visibility` and opacity,
+     * none of which `display: none` disturbs. Without this a verdict the demo took away
+     * goes on being drawn out here, and a choreography that says it has gone finds it
+     * (`drag-to-create`, `signature-pad`).
+     *
+     * Read off the ELEMENT'S OWN inline style, never the computed one. `visibility` inherits,
+     * so a computed read reports an ancestor's state: `emergency-exit-button` keeps its
+     * verdict inside a panel that starts hidden, and the lane went dark and stayed dark,
+     * because the observer watches the source and its subtree and can never see an ancestor
+     * change. What this mirrors is a demo dismissing its own verdict, which is the case that
+     * was broken and the only one a source-watching observer can honestly follow.
+     *
+     * `visibility` rather than `display`, so the strip keeps the height it reserved: a lane
+     * that collapsed would move the control bar and the page under it every time a demo
+     * stopped speaking, which is the layout shift the reserved height exists to prevent.
+     */
+    const mirrorHidden = (source: HTMLElement, lane: HTMLElement) => {
+      const gone = source.hidden || source.style.visibility === 'hidden' || Number.parseFloat(source.style.opacity || '1') <= 0.05;
+      lane.style.visibility = gone ? 'hidden' : '';
+    };
+
+    /**
      * What the specimen SAYS, drawn in the strip (SPEC §5.1).
      *
      * A screen reader's speech is the load-bearing half of an accessibility specimen: the
@@ -332,9 +356,11 @@ class VdStage extends HTMLElement {
       };
       paint();
       lane.append(speaker, said);
+      mirrorHidden(source, lane);
 
       const speak = () => {
         mirrorData(source, said);
+        mirrorHidden(source, lane);
         if (!paint()) return;
         if (reducedMotion) return;
         lane.setAttribute('data-speaking', '');
@@ -364,9 +390,11 @@ class VdStage extends HTMLElement {
       const lane = document.createElement('p');
       lane.className = 'vd-stage-verdict';
       mirrorData(source, lane);
+      mirrorHidden(source, lane);
       lane.textContent = source.textContent?.trim() ?? '';
       verdictWatch = new MutationObserver(() => {
         mirrorData(source, lane);
+        mirrorHidden(source, lane);
         lane.textContent = source.textContent?.trim() ?? '';
       });
       verdictWatch.observe(source, { attributes: true, childList: true, characterData: true, subtree: true });
@@ -428,6 +456,12 @@ class VdStage extends HTMLElement {
         group.className = 'vd-stage-mode';
         group.setAttribute('role', 'group');
         group.setAttribute('aria-label', source.getAttribute('aria-label') ?? named);
+        // The control mirrors the source's `data-*` exactly as a lane mirrors its own
+        // (SPEC §5.1): the source is hidden, so a choreography asking "which mode is this
+        // in" (`[data-part=picker][data-value=open]`) has to find the answer on the copy
+        // the reader can see. `data-value` is repainted below, since it is the state.
+        for (const attr of source.getAttributeNames())
+          if (attr.startsWith('data-')) group.setAttribute(attr, source.getAttribute(attr) ?? '');
         if (named) {
           const label = document.createElement('span');
           label.className = 'vd-stage-mode__label';
@@ -437,17 +471,24 @@ class VdStage extends HTMLElement {
         }
 
         const paint = () => {
-          for (const button of group.querySelectorAll<HTMLElement>('button'))
-            button.setAttribute('aria-pressed', String(button.dataset.value === source.dataset.value));
+          group.dataset.value = source.dataset.value ?? '';
+          for (const button of group.querySelectorAll<HTMLElement>('button')) {
+            const on = button.dataset.value === source.dataset.value;
+            button.setAttribute('aria-pressed', String(on));
+            // `aria-selected` is invalid on a button, so the segment's portable spelling
+            // crosses instead and a choreography can qualify the part it always aimed at.
+            button.toggleAttribute('data-selected', on);
+          }
         };
         for (const segment of source.querySelectorAll<HTMLButtonElement>('.sp-segment')) {
           const button = document.createElement('button');
           button.type = 'button';
-          button.dataset.value = segment.value;
           // The choreography aims at the part it always aimed at; the stage moved where that
           // part is drawn, not what it is called. The hidden source keeps its own copy, so the
           // demo's `part()` lookups are untouched.
-          if (segment.dataset.part) button.dataset.part = segment.dataset.part;
+          for (const attr of segment.getAttributeNames())
+            if (attr.startsWith('data-')) button.setAttribute(attr, segment.getAttribute(attr) ?? '');
+          button.dataset.value = segment.value;
           button.textContent = segment.textContent;
           button.addEventListener('click', () => segment.click());
           group.append(button);
@@ -741,7 +782,12 @@ class VdStage extends HTMLElement {
       if (active === null || active === (scope.body ?? null)) return false;
       return active.matches(':focus-visible');
     };
-    surface.edge.addEventListener('pointerleave', () => {
+    surface.edge.addEventListener('pointerleave', (event) => {
+      // Trusted only, like every other takeover signal above. The ghost dispatches leave up
+      // the ancestor chain a real pointer would leave, so its own travel reaches this box;
+      // ungated, an attract run handed the stage back to itself and the resume that followed
+      // cancelled the run mid-script (`hover`, `spotlight-hover`).
+      if (!event.isTrusted) return;
       clearTimeout(dwell);
       // The pointer wandering off is not the reader leaving when their focus is still in here:
       // handing the stage back to attract under a keyboard reader is how the script gets to
@@ -767,8 +813,12 @@ class VdStage extends HTMLElement {
       // And the pointer leaving the strip is the reader leaving, exactly as it is for the
       // specimen's own edge. Without the pair, one press on the mode switch kept the stage
       // in user mode for the rest of the visit and the demonstration never played again.
-      const stripGone = () => {
-        if (!identifyActive && !focusWithin()) player.userGone();
+      const stripGone = (event: Event) => {
+        // Trusted only, for the reason the specimen's own edge is (above): the ghost visits
+        // the strip whenever a script aims at a lifted caption, and its leave on the way out
+        // is not a reader going.
+        if (!event.isTrusted || identifyActive || focusWithin()) return;
+        player.userGone();
       };
       strip.addEventListener('pointerdown', stripIntent);
       strip.addEventListener('focusin', stripIntent);

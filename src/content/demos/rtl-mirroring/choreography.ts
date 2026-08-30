@@ -12,7 +12,7 @@ export default steps([
   { moveTo: '[data-part=seg-ltr]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-ltr][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-ltr][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=panel][dir=ltr]', state: 'visible' } },
   { assert: { selector: '[data-part=chev-ltr]', state: 'visible' } },
   { assert: { selector: '[data-part=chev-rtl]', state: 'hidden' } },

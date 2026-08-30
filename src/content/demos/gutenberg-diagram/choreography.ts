@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-gravity]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-gravity][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-gravity][data-selected]', state: 'visible' } },
   // The other half of the same claim: the pull that runs between the first area and
   // the last one.
   { assert: { selector: '[data-part=gravity]', state: 'visible' } },

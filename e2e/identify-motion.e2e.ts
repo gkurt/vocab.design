@@ -47,7 +47,11 @@ for (const { slug, name } of specimens()) {
 
     const verdict = await stage.evaluate((el) => {
       const root = (el as HTMLElement & { specimenRoot?: HTMLElement }).specimenRoot;
-      const subjects = root ? [...root.querySelectorAll<HTMLElement>('[data-subject]')] : [];
+      // The strip's copy first, as the stage's own `subject()` does: an announcement or a
+      // verdict that IS the term is drawn out there and its source is hidden, so asking the
+      // specimen alone finds an element with no box and calls a working pose a failure.
+      const lane = el.querySelector<HTMLElement>('.vd-stage-strip [data-subject]');
+      const subjects = lane ? [lane] : root ? [...root.querySelectorAll<HTMLElement>('[data-subject]')] : [];
       const s = subjects[0];
       if (!root || !s) return { subjects: subjects.length, box: false, seen: false, honest: false };
       const rect = s.getBoundingClientRect();

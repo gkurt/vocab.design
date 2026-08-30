@@ -59,7 +59,15 @@ class SpSegmented extends HTMLElement {
     const thumb = this.#thumb;
     if (!thumb) return;
     const selected = this.#segments.find((s) => s.value === this.value) ?? this.#segments[0];
-    for (const segment of this.#segments) segment.setAttribute('aria-selected', String(segment === selected));
+    // `aria-selected` is the accessible spelling and `data-selected` is the portable one.
+    // The stage draws a mode switch out in the strip (SPEC §5.1) as plain buttons in a
+    // group, where `aria-selected` would be invalid ARIA, so the twin mirrors the source's
+    // `data-*` instead. A choreography asks which segment is chosen through that spelling,
+    // because the element it can see is the one in the strip.
+    for (const segment of this.#segments) {
+      segment.setAttribute('aria-selected', String(segment === selected));
+      segment.toggleAttribute('data-selected', segment === selected);
+    }
     if (!selected) return;
     // The first paint places the thumb without a slide; later moves animate.
     thumb.style.transitionDuration = animate ? '' : '0s';

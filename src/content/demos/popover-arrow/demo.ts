@@ -72,6 +72,12 @@ export function mount(root: HTMLElement): void {
             style="grid-template-columns: repeat(6, 54px); gap: 8px; flex: 0 0 auto; margin: 0 auto"
           >${seats}</div>
           <span class="sp-grow"></span>
+          <!-- Somewhere in the fiction to press that is not a seat and not the panel, which is
+               how this popover is dismissed the second time. It used to be the caption, and the
+               caption is drawn out in the strip now (SPEC §5.1), where a press reaches chrome and
+               the specimen never hears it. No paint of its own, and it keeps the row the caption
+               held so the map sits where it always did (SPEC §5). -->
+          <span data-part="aim-away" aria-hidden="true" style="flex: 0 0 auto; height: 22px"></span>
           <span class="sp-label" data-stage-verdict data-part="caption" style="flex: 0 0 auto; height: 22px; font-size: 11px; line-height: 22px">
             The panel is placed against the room each seat leaves.
           </span>

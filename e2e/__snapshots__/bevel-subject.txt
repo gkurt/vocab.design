@@ -1,4 +1,4 @@
 term:    Bevel and emboss
 scope:   element
 subject: div[data-part=panel]
-text:    Appearance C:\WINDOWS\SYSTEM\SHELL32.DLL Apply Press it: the two tones trade pla
+text:    Appearance C:\WINDOWS\SYSTEM\SHELL32.DLL Apply

@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-flat]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-flat][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-flat][data-selected]', state: 'visible' } },
   // With nothing to sample, the layers are gone and the scan falls back to an F.
   { assert: { selector: '[data-part=fshape]', state: 'visible' } },
   { assert: { selector: '[data-part=bands]', state: 'hidden' } },

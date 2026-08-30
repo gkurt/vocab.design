@@ -1,4 +1,4 @@
 term:    Tiny tweaks
 scope:   element
 subject: div[data-flow=stacked][data-part=column]
-text:    Field notes One column, three widths. The type steps, the picture shrinks, the m
+text:    Field notes Two hours on the shingle at low water, counting terns and noting wha

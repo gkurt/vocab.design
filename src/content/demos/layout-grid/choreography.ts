@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-gallery]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-gallery][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-gallery][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=layout][data-arrangement=gallery]', state: 'visible' } },
   // Thirds this time, on the same twelve columns: 4 and 4 and 4.
   { assert: { selector: '[data-part=block-main][data-span="4"]', state: 'visible' } },

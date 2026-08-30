@@ -11,7 +11,7 @@ export default steps([
   { moveTo: '[data-part=seg-popover]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-popover][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-popover][data-selected]', state: 'visible' } },
   // Anchored inside the card now, and still clear of both the clip and the 99999.
   { assert: { selector: '[data-part=surface][data-layer=top]', state: 'visible' } },
   { assert: { selector: '[data-part=scrim]', state: 'hidden' } },
@@ -19,7 +19,7 @@ export default steps([
   { moveTo: '[data-part=seg-plain]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-plain][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-plain][data-selected]', state: 'visible' } },
   // The same box left in the page: it keeps its place in the document's own order.
   { assert: { selector: '[data-part=surface][data-layer=page]', state: 'visible' } },
   { assert: { selector: '[data-part=ribbon]', state: 'visible' } },
@@ -29,7 +29,7 @@ export default steps([
   { moveTo: '[data-part=seg-dialog]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-dialog][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-dialog][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=surface][data-layer=top]', state: 'visible' } },
   { assert: { selector: '[data-part=scrim]', state: 'visible' } },
   { wait: 900 },

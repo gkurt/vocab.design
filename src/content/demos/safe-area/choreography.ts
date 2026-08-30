@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-edge]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-edge][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-edge][data-selected]', state: 'visible' } },
   // Ignoring the insets: the title is under the housing, the button under the indicator.
   { assert: { selector: '[data-part=region][data-mode=edge]', state: 'visible' } },
   { assert: { selector: '[data-part=warning]', state: 'visible' } },

@@ -20,7 +20,7 @@ export default steps([
   { moveTo: '[data-part=seg-hidden]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-hidden][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-hidden][data-selected]', state: 'visible' } },
   // Still a scroll container: it clips the same way and holds the same content.
   { assert: { selector: '[data-part=box][data-overflow=hidden]', state: 'visible' } },
   { assert: { selector: '[data-part=box][data-at=top]', state: 'visible' } },

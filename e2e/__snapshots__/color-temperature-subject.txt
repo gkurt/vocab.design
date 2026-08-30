@@ -1,4 +1,4 @@
 term:    Color temperature
 scope:   element
 subject: div.sp-window[data-part=panel][data-temp=warm]
-text:    Reading list hue 62, warm The Elements of Color Every neutral on this panel shar
+text:    Reading list hue 62, warm The Elements of Color Added Tuesday · 96 pages L .98 L

@@ -12,7 +12,7 @@ export default steps([
   { moveTo: '[data-part=seg-wide]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-wide][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-wide][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=viewport][data-width=wide]', state: 'visible' } },
   // Wide: the proportional cards took the new space, the pixel ones left it empty.
   { assert: { selector: '[data-part=fluid-card-3]', state: 'visible' } },

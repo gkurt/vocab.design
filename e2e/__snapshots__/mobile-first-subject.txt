@@ -1,4 +1,4 @@
 term:    Mobile first
 scope:   element
 subject: div.sp-stack[data-part=rules]
-text:    stylesheet, in source order always .page { grid-template-areas: "main" } 340px a
+text:    styles.css .page { grid-template-areas: "main" } @media (min-width: 340px) { + d

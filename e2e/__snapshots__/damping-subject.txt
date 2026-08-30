@@ -1,4 +1,4 @@
 term:    Damping
 scope:   element
 subject: div.sp-stack[data-part=compare][data-settled]
-text:    Underdamped ratio 0.35, crosses, corrects, settles Critically damped ratio 1.00,
+text:    Underdamped ratio 0.35 Critically damped ratio 1.00 Overdamped ratio 1.80

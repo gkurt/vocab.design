@@ -14,7 +14,7 @@ export default steps([
   { wait: 900 },
   { assert: { selector: '[data-part=slot][data-showing=offshore]', state: 'visible' } },
   { assert: { selector: '[data-part=slot][data-state=settled]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-offshore][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-offshore][data-selected]', state: 'visible' } },
   { wait: 600 },
   // Back the way it came, and to an absolute plate rather than a toggle.
   { moveTo: '[data-part=seg-harbour]' },

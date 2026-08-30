@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-off]' },
   { click: true },
   { wait: 900 },
-  { assert: { selector: '[data-part=seg-off][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-off][data-selected]', state: 'visible' } },
   // With the rules gone the two panels look equally considered, which is the argument
   // for having a unit that can be checked.
   { assert: { selector: '[data-part=rules-snapped]', state: 'hidden' } },

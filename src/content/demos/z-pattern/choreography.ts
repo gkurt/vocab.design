@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-stops]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-stops][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-stops][data-selected]', state: 'visible' } },
   // The other half of the same claim: which four things the sweep actually lands on.
   { assert: { selector: '[data-part=stops]', state: 'visible' } },
   { assert: { selector: '[data-part=path]', state: 'hidden' } },

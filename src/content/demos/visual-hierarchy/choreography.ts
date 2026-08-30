@@ -9,7 +9,7 @@ export default steps([
   { wait: 500 },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-on][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-on][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=chip-1]', state: 'visible' } },
   { assert: { selector: '[data-part=chip-2]', state: 'visible' } },
   { wait: 1400 },

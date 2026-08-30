@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-front]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-front][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-front][data-selected]', state: 'visible' } },
   // Front-loaded: the fixations start at the left edge, and nothing is bypassed.
   { assert: { selector: '[data-part=trace][data-mode=front]', state: 'visible' } },
   { assert: { selector: '[data-part=skipped]', state: 'hidden' } },

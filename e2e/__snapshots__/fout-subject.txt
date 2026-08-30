@@ -1,4 +1,4 @@
 term:    FOUT
 scope:   element
 subject: div[data-part=sample][data-phase=fallback][data-pose=[data-phase=fallback]]
-text:    Handgloves & figures Readable at first paint, and measured twice.
+text:    Handgloves & figures Twelve sailings a day, from March until the end of October.

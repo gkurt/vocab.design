@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-wide]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-wide][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-wide][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=slot][data-width=wide]', state: 'visible' } },
   // The card in the widened slot re-lays; the twin, in a slot that did not move, does not.
   { assert: { selector: '[data-part=card][data-layout=row]', state: 'visible' } },

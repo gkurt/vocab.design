@@ -1,4 +1,4 @@
 term:    Minimalism
 scope:   element
 subject: div[data-part=minimal]
-text:    Focus One idea, all the room it needs. Nothing here is decoration. Start reading
+text:    Focus The week's best long reads, one email. Sent on Sunday mornings. Start read

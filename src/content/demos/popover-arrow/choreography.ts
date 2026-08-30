@@ -37,13 +37,13 @@ export default steps([
   { assert: { selector: '[data-part=panel]', state: 'hidden' } },
   { wait: 500 },
 
-  // Opened once more and dismissed the other way, on the caption well clear of it.
+  // Opened once more and dismissed the other way, on the empty run under the map.
   { moveTo: '[data-part=seat-B2]' },
   { click: true },
   { wait: 650 },
   { assert: { selector: '[data-part=arrow][data-side=top]', state: 'visible' } },
   { wait: 800 },
-  { moveTo: '[data-part=caption]' },
+  { moveTo: '[data-part=aim-away]' },
   { click: true },
   { wait: 550 },
   { assert: { selector: '[data-part=panel]', state: 'hidden' } },

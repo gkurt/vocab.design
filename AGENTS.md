@@ -539,6 +539,12 @@ never fires under reduced motion, so nothing may ever wait on it.
   whose artwork the cursor would cover (a morphing glyph) may carry `data-aim`, which
   parks the ghost cursor just inside its bottom-right corner instead of its centre;
   events land there too, so a demo that resolves input by coordinate must not opt in.
+- **Every takeover signal is gated on `isTrusted`, the hand-back ones included.** The ghost
+  dispatches `pointerenter`/`pointerleave` along the ancestor chain a real pointer would
+  cross, so its own travel reaches the specimen's edge and the strip. Both of those listen
+  for a leave to hand the stage back, and both were ungated: an attract run handed the stage
+  to itself and the resume cancelled the run mid-script (`hover`, `spotlight-hover`). A new
+  listener on either box gets the guard, or the demonstration fights itself.
 - **Synthesized input does not light up CSS state.** Attract's events never trigger
   `:hover` or `:active`, so kit primitives that answer a pointer carry an attribute
   spelling beside the pseudo-class (`data-hovered`, `data-pressed`, `data-open`). The
@@ -612,7 +618,14 @@ never fires under reduced motion, so nothing may ever wait on it.
   `data-part` as before, because the stage copies it onto the visible twin and the player
   searches the strip first. `data-axis` survives as the accessible name only (an author's
   own `aria-label` outranks it) and `data-term` as data for the validate gate; neither is
-  drawn. Order is always baseline then change. The deceptive-pattern family (anything
+  drawn. The visible twin also mirrors the source's `data-*`, group and buttons alike,
+  exactly as a lane does: the source is hidden, so a script asking which mode the specimen is
+  in has to find the answer on the copy the reader can see. That includes the SELECTED state,
+  which crosses as `data-selected` rather than `aria-selected`, because the twin is a plain
+  button in a `role="group"` where `aria-selected` is invalid. A choreography therefore asks
+  `[data-part=seg-md][data-selected]`; 103 asserts across 72 specimens spelled it the ARIA
+  way and every one failed silently for a day, since nothing runs the suite by itself.
+  Order is always baseline then change. The deceptive-pattern family (anything
   `variantOf: [dark-pattern]`) spells its pair `With | Without` and nothing else; the
   specific claim goes in the verdict line.
 - **Anything not in the fiction is chrome** (SPEC §5.1). A verdict is the author's reading
@@ -649,6 +662,24 @@ never fires under reduced motion, so nothing may ever wait on it.
   Do not detect this by reading source: `.claude/skills/specimen-sweep/detectors/frame-prose.ts`
   mounts the built capture pages and reads what is actually painted, which is the only
   complete list, and half the corpus interpolates its prose from constants.
+- **The strip is not a laundry.** A sentence that belongs nowhere is not improved by being
+  drawn where the author's voice is allowed. Six specimens draw a CSS imitation of a font
+  feature and print an apology for it under the demo (`petite-caps`, `stylistic-set`,
+  `contextual-alternates`, `grade-axis`, `oldstyle-figures`, `icon-font`); the caption sweep
+  MOVED those sentences to the strip and left them exactly as bad. A specimen demonstrates
+  its term or it is not a specimen: load a face that carries the feature (`@font-face` is
+  lazy, so a face costs nothing until a page mounts the specimen that uses it), and where
+  the platform genuinely cannot show it, the ARTICLE explains the limit.
+- **A lane goes out of sight when its source does.** The stage hides the source with
+  `display: none` to lift it out of the fiction, so the demo's own dismissal has to be read
+  from what a demo can still reach: `hidden`, `visibility`, opacity. Without it a verdict the
+  demo took away goes on being drawn out there (`drag-to-create`, `signature-pad`). Use
+  `visibility`, never `display`, so the strip keeps the height it reserved.
+- **A script that walks the cursor OFF the specimen must aim inside the fiction.** A caption
+  is chrome now, so `moveTo: '[data-part=caption]'` aims at the strip: a press there never
+  reaches the specimen at all (`popover-arrow` could not be dismissed a second way), and a
+  leave there is one the demo hears only because the ghost fires the whole ancestor chain.
+  Give the demo an unpainted `data-part` to aim at instead, in the room the caption held.
 - **Anything the stage lifts out of a specimen must be hidden on EVERY stage.** A listing card
   draws no strip, and `syncStrip` used to return early when there was no strip, so verdicts
   and mode switches stayed sitting in the fiction on the front page, `/browse` and `/tags`

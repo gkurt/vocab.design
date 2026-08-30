@@ -1,4 +1,4 @@
 term:    Media object
 scope:   element
 subject: div[data-part=media]
-text:    RS Rosa Silva The figure keeps its own size and the body takes what is left, so 
+text:    RS Rosa Silva Took the coast road on Saturday and the new bridge is finally open

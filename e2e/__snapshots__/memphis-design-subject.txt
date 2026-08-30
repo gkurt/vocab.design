@@ -1,4 +1,4 @@
 term:    Memphis design
 scope:   element
 subject: div[data-part=card]
-text:    MILANO 1981 MEMPHIS Laminate, not marble.
+text:    MILANO 1981 MEMPHIS Mobili e oggetti · Corso Europa 22

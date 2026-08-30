@@ -1,4 +1,4 @@
 term:    Perceptual duration
 scope:   element
 subject: div.sp-stack[data-part=compare][data-state=settled]
-text:    Spring reads as 490 ms Spring Tween told 400 ms Tween Measured against 0 400 490
+text:    Spring measured 490 ms Spring Tween specified 400 ms Tween Measured against 0 40

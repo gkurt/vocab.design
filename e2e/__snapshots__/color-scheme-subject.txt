@@ -1,4 +1,4 @@
 term:    Color scheme
 scope:   element
 subject: div[data-os=light][data-part=panel][data-resolved=light][data-scheme=light]
-text:    Notifications Email me about replies Weekly digest you@example.com The scrollbar
+text:    Notifications Email me about replies Weekly digest you@example.com Replies are b

@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-own]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-own][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-own][data-selected]', state: 'visible' } },
   // Own rows now, so the card has stopped being a subgrid and its seams have left the
   // traced lines.
   { assert: { selector: '[data-part=card-0][data-subgrid]', state: 'hidden' } },

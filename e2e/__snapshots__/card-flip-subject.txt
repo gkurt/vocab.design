@@ -1,4 +1,4 @@
 term:    Card flip
 scope:   element
 subject: div[data-face=front][data-part=card][data-state=settled]
-text:    Harbour Library 4417 2098 Rana Kaur On the back Issued4 Mar 2024 BranchQuayside 
+text:    Harbour Library 4417 2098 Rana Kaur Issued4 Mar 2024 BranchQuayside Loans3 of 12

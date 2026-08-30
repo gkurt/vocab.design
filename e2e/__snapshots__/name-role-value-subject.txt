@@ -1,4 +1,4 @@
 term:    Name, role, value
 scope:   element
 subject: div.sp-surface[data-part=panel]
-text:    What assistive technology gets Name “Auto-save” Role switch Value off
+text:    Accessibility tree Name “Auto-save” Role switch Value off

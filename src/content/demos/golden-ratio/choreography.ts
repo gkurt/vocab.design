@@ -12,7 +12,7 @@ export default steps([
   { moveTo: '[data-part=seg-plain]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-plain][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-plain][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=rules]', state: 'hidden' } },
   { assert: { selector: '[data-part=mark-large]', state: 'hidden' } },
   { assert: { selector: '[data-part=card]', state: 'visible' } },

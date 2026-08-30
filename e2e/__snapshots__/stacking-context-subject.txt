@@ -1,4 +1,4 @@
 term:    Stacking context
 scope:   element
 subject: div[data-context][data-part=card-a][data-pose=[data-context]]
-text:    Card A holds the tooltip z-index: 9999
+text:    Card A z-index: 9999

@@ -732,12 +732,29 @@ export class AttractPlayer {
     if (this.#hovered === el) return;
     const previous = this.#hovered;
     this.#hovered = el;
-    if (previous?.isConnected) this.#dispatchHover(previous, ['pointerout', 'mouseout'], ['pointerleave', 'mouseleave']);
+    if (previous?.isConnected) {
+      const at = aimAt(previous);
+      this.#dispatchHover(previous, ['pointerout', 'mouseout'], [], 'mouse', at);
+      // A real pointer leaving an element leaves every ancestor it is also leaving, up to
+      // the first one that still holds it, and `pointerleave` does not bubble. Dispatching
+      // it on the element alone left a demo listening on its own ROOT hearing nothing: the
+      // stage now draws captions out in the strip (SPEC §5.1), so a script that walks the
+      // cursor off the specimen aims at chrome, and `spotlight-hover` went on glowing with
+      // the pointer nowhere near it. The chain stops at the shadow root, which is where the
+      // specimen ends.
+      for (let node: Element | null = previous; node && !node.contains(el); node = node.parentElement)
+        this.#dispatchHover(node, [], ['pointerleave', 'mouseleave'], 'mouse', at);
+    }
     // The demo hears the leave before the paint goes, so a remove here can never
     // clobber a state the leave handler has just decided to keep.
     this.#releaseHover();
     if (el) {
-      this.#dispatchHover(el, ['pointerover', 'mouseover', 'pointermove'], ['pointerenter', 'mouseenter']);
+      const at = aimAt(el);
+      this.#dispatchHover(el, ['pointerover', 'mouseover', 'pointermove'], [], 'mouse', at);
+      // The enter side of the same rule, outermost first, as a browser fires it.
+      const entered: Element[] = [];
+      for (let node: Element | null = el; node && !node.contains(previous); node = node.parentElement) entered.push(node);
+      for (const node of entered.reverse()) this.#dispatchHover(node, [], ['pointerenter', 'mouseenter'], 'mouse', at);
       // Mirror the ghost pointer into the kit's attribute spelling: a synthesized
       // enter never lights :hover (SPEC §7), and the paint should not depend on it.
       // Claimed only when the demo's own enter handler did not set it, so a demo
@@ -774,8 +791,10 @@ export class AttractPlayer {
     this.#pressOwned = null;
   }
 
-  #dispatchHover(el: Element, bubbling: string[], direct: string[], pointerType = 'mouse'): void {
-    const at = aimAt(el);
+  #dispatchHover(el: Element, bubbling: string[], direct: string[], pointerType = 'mouse', where?: { x: number; y: number }): void {
+    // One pointer, one position: an ancestor in the enter/leave chain hears about the
+    // place the pointer actually is, not about the centre of its own box.
+    const at = where ?? aimAt(el);
     const base = { cancelable: false, clientX: at.x, clientY: at.y, pointerType, ...this.#mods };
     for (const type of bubbling) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: true }));
     for (const type of direct) el.dispatchEvent(new PointerEvent(type, { ...base, bubbles: false }));

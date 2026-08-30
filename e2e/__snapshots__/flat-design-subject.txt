@@ -1,4 +1,4 @@
 term:    Flat design
 scope:   element
-subject: div[data-part=flat]
+subject: div[data-mode=flat][data-part=card][data-pose=[data-mode=flat]]
 text:    Night Shift Ora Vance Play

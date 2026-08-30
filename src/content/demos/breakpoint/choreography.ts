@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-md]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-md][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-md][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=viewport][data-bp=md]', state: 'visible' } },
   // Past the first threshold the nav becomes a column beside the content.
   { assert: { selector: '[data-part=region][data-shape=sidebar]', state: 'visible' } },

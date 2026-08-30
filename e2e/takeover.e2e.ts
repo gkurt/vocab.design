@@ -41,9 +41,12 @@ for (const { slug } of specimens()) {
 
     await stage.evaluate((el) => {
       const root = (el as HTMLElement & { specimenRoot?: HTMLElement }).specimenRoot;
-      // Whatever hears the specimen's own events: its shadow root, or the document
-      // of its frame. Neither lets them out, so neither can be watched from here.
-      const events: Node | undefined = root?.getRootNode() ?? undefined;
+      // Whatever hears the click: the specimen's shadow root, or the document of its
+      // frame, neither of which lets an event out. A subject drawn in the strip is not in
+      // either (SPEC §5.1), so the root is taken from the subject itself, which is where
+      // the click is about to land.
+      const subject = el.querySelector('.vd-stage-strip [data-subject]') ?? root?.querySelector('[data-subject]');
+      const events: Node | undefined = subject?.getRootNode() ?? root?.getRootNode() ?? undefined;
       if (!events) throw new Error('the specimen has no root to listen on');
       const landed: Landed[] = [];
       (window as unknown as { __landed: Landed[] }).__landed = landed;
@@ -64,7 +67,11 @@ for (const { slug } of specimens()) {
     await page.mouse.click(Math.round(box.x + box.width / 2), Math.round(box.y + box.height / 2));
 
     const landed = await page.evaluate(() => (window as unknown as { __landed: Landed[] }).__landed);
-    expect(landed, 'the click woke the specimen but never reached it').toHaveLength(1);
-    expect(landed[0]?.posed, `the click landed on a <${landed[0]?.tag}> the pose never held: the stage rebuilt the demo first`).toBe(true);
+    // One gesture, but not always one target: a click on a <label> is forwarded to the
+    // control it names, so the same press is heard twice. What matters is that it was
+    // heard at all, and that every tree it reached is the one the pose was holding.
+    expect(landed.length, 'the click woke the specimen but never reached it').toBeGreaterThan(0);
+    const stale = landed.find((one) => !one.posed);
+    expect(stale, `the click landed on a <${stale?.tag}> the pose never held: the stage rebuilt the demo first`).toBeUndefined();
   });
 }

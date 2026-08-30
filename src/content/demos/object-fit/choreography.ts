@@ -8,7 +8,7 @@ export default steps([
   { moveTo: '[data-part=seg-contain]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-contain][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-contain][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=box][data-fit=contain]', state: 'visible' } },
   { wait: 1200 },
   { moveTo: '[data-part=seg-fill]' },

@@ -1,4 +1,4 @@
 term:    First run experience
 scope:   element
 subject: div[data-part=scaffold][data-run=first]
-text:    Welcome to Kelp Two boards are here so nothing looks empty. Trip planning Sample
+text:    Welcome to Kelp We started you off with two sample boards. Trip planning Sample 

@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-cold]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-cold][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-cold][data-selected]', state: 'visible' } },
   // The other half of the same claim: where the scan never goes.
   { assert: { selector: '[data-part=cold]', state: 'visible' } },
   { assert: { selector: '[data-part=path]', state: 'hidden' } },

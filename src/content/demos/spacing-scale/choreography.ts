@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-off]' },
   { click: true },
   { wait: 900 },
-  { assert: { selector: '[data-part=seg-off][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-off][data-selected]', state: 'visible' } },
   // Values invented for this one card: the ladder is still published, and nothing on it
   // is being spent.
   { assert: { selector: '[data-part=card][data-mode="off"]', state: 'visible' } },

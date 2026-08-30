@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-long]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-long][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-long][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=page][data-length=long]', state: 'visible' } },
   { assert: { selector: '[data-part=block-3]', state: 'visible' } },
   { wait: 600 },

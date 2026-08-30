@@ -1,4 +1,4 @@
 term:    Dock
 scope:   element
-subject: div.sp-row[data-front=preview][data-part=dock]
+subject: div.sp-row[data-front=preview][data-part=dock][data-running=1]
 text:    

@@ -2,13 +2,13 @@ import { steps } from '#src/stage/choreography.ts';
 
 export default steps([
   { assert: { selector: '[data-part=add][data-hit=none]', state: 'visible' } },
-  { assert: { selector: '[data-part=mode-drawn][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=mode-drawn][data-selected]', state: 'visible' } },
   // Draw the region that is otherwise only a fact about where events land.
   { moveTo: '[data-part=mode-area]' },
   { wait: 400 },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=mode-area][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=mode-area][data-selected]', state: 'visible' } },
   { wait: 500 },
   // On the artwork, where anyone would aim.
   { moveTo: '[data-part=dot-art]' },
@@ -35,6 +35,6 @@ export default steps([
   { wait: 400 },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=mode-drawn][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=mode-drawn][data-selected]', state: 'visible' } },
   { wait: 900 },
 ]);

@@ -1,4 +1,4 @@
 term:    Stepped animation
 scope:   element
 subject: div.sp-row[data-part=stepped]
-text:    steps(12, jump-end) the hand that ticks steps(8, jump-none) one frame at a time
+text:    steps(12, jump-end) steps(8, jump-none)

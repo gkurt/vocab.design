@@ -1,4 +1,4 @@
 term:    Pointer gestures
 scope:   element
 subject: div.sp-row[data-part=alt]
-text:    Steps of ten, one contact, no path
+text:    

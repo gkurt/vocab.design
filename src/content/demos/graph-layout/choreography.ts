@@ -26,6 +26,6 @@ export default steps([
   { click: true },
   { wait: 900 },
   { assert: { selector: '[data-part=graph][data-layout=force]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-force][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-force][data-selected]', state: 'visible' } },
   { wait: 900 },
 ]);

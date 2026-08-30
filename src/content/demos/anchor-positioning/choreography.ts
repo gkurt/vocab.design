@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-above]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-above][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-above][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=scene][data-place=block-start]', state: 'visible' } },
   { wait: 700 },
   { moveTo: '[data-part=seg-beside]' },

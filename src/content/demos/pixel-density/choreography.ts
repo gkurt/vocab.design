@@ -10,7 +10,7 @@ export default steps([
   { moveTo: '[data-part=seg-2x]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-2x][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-2x][data-selected]', state: 'visible' } },
   // Twice the samples in the same box: the reference is still there to be read against.
   { assert: { selector: '[data-part=plate][data-dpr="2"]', state: 'visible' } },
   { assert: { selector: '[data-part=reference]', state: 'visible' } },
@@ -18,7 +18,7 @@ export default steps([
   { moveTo: '[data-part=seg-3x]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-3x][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-3x][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=plate][data-dpr="3"]', state: 'visible' } },
   { wait: 1400 },
   // Each segment names a ratio, so the way back is a ratio too, not an undo.

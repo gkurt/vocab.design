@@ -8,7 +8,7 @@ export default steps([
   { moveTo: '[data-part=seg-spacing]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-spacing][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-spacing][data-selected]', state: 'visible' } },
   // The boundary is gone; only the gap is grouping now, so the region has stopped
   // being one (the qualified selector has nothing to match).
   { assert: { selector: '[data-part=group-a][data-grouped]', state: 'hidden' } },
@@ -17,7 +17,7 @@ export default steps([
   { moveTo: '[data-part=seg-conflict]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-conflict][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-conflict][data-selected]', state: 'visible' } },
   // Gaps now pair the items across the seam and the boundary overrules them.
   { assert: { selector: '[data-part=group-a][data-grouped]', state: 'visible' } },
   { wait: 1500 },

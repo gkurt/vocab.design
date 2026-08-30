@@ -8,7 +8,7 @@ export default steps([
   { moveTo: '[data-part=seg-amber]' },
   { click: true },
   { assert: { selector: '[data-part=pair][data-palette="amber"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-amber][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-amber][data-selected]', state: 'visible' } },
   { wait: 1600 },
   { moveTo: '[data-part=seg-teal]' },
   { click: true },
@@ -17,6 +17,6 @@ export default steps([
   { moveTo: '[data-part=seg-indigo]' },
   { click: true },
   { assert: { selector: '[data-part=pair][data-palette="indigo"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-indigo][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-indigo][data-selected]', state: 'visible' } },
   { wait: 1200 },
 ]);

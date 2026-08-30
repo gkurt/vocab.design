@@ -77,7 +77,10 @@ export interface Box {
  */
 export function subjectBox(stage: Locator): Promise<Box | null> {
   return stage.evaluate((el) => {
-    const subject = (el as Stage).specimenRoot?.querySelector('[data-subject]');
+    // The strip first, exactly as the stage's own `subject()` does: when the subject is an
+    // announcement or a verdict, the copy in the strip is the one on screen and the hidden
+    // source has no box at all (SPEC §5.1).
+    const subject = el.querySelector('.vd-stage-strip [data-subject]') ?? (el as Stage).specimenRoot?.querySelector('[data-subject]');
     if (!subject) return null;
     const rect = subject.getBoundingClientRect();
     const frame = el.querySelector('iframe')?.getBoundingClientRect();
@@ -97,14 +100,23 @@ export function audit(stage: Locator): Promise<StageAudit> {
  * at all. Ask where it landed instead.
  */
 export async function expectDrawnOnStage(stage: Locator, part: string): Promise<void> {
-  const body = await stage.locator('.vd-stage-body').boundingBox();
   const drawn = await stage.locator(part).boundingBox();
-  expect(body, 'the stage body has no box').not.toBeNull();
   expect(drawn, `${part} has no box`).not.toBeNull();
-  if (!body || !drawn) return;
-  const overlapX = Math.min(body.x + body.width, drawn.x + drawn.width) - Math.max(body.x, drawn.x);
-  const overlapY = Math.min(body.y + body.height, drawn.y + drawn.height) - Math.max(body.y, drawn.y);
-  expect(Math.min(overlapX, overlapY), `${part} is drawn outside the stage body, where the frame clips it`).toBeGreaterThan(0);
+  if (!drawn) return;
+  // The body, and the strip under it. A subject that is an announcement or a verdict is
+  // drawn out in the strip (SPEC §5.1) and identify follows it there, which is on the
+  // stage and not clipped by anything: only the body clips, so only the body needs the
+  // question asked of it. An annotation that overlaps NEITHER is past the frame.
+  const boxes = (await Promise.all(['.vd-stage-body', '.vd-stage-strip'].map((sel) => stage.locator(sel).first().boundingBox()))).filter(
+    (box) => box !== null,
+  );
+  expect(boxes.length, 'the stage has no box').toBeGreaterThan(0);
+  const overlap = boxes.map((box) => {
+    const x = Math.min(box.x + box.width, drawn.x + drawn.width) - Math.max(box.x, drawn.x);
+    const y = Math.min(box.y + box.height, drawn.y + drawn.height) - Math.max(box.y, drawn.y);
+    return Math.min(x, y);
+  });
+  expect(Math.max(...overlap), `${part} is drawn outside the stage, where the frame clips it`).toBeGreaterThan(0);
 }
 
 export interface Subject {

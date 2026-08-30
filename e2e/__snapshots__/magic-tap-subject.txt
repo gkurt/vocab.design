@@ -1,4 +1,4 @@
 term:    Magic tap
 scope:   element
-subject: p.sp-text.sp-text--ink[data-part=spoken][data-state=idle]
+subject: p.sp-text.sp-text--ink[data-part=spoken][data-stage-announce][data-state=idle]
 text:    “Incoming call from Priya Raman”

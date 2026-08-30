@@ -14,7 +14,7 @@ export default steps([
   { moveTo: '[data-part=seg-avoided]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=seg-avoided][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-avoided][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=band][data-mode=clear]', state: 'visible' } },
   { assert: { selector: '[data-part=save-avoided]', state: 'visible' } },
   { assert: { selector: '[data-part=save]', state: 'hidden' } },

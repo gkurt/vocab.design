@@ -19,7 +19,7 @@ export default steps([
   { moveTo: '[data-part=seg-graph]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-graph][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-graph][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=board][data-register=graph]', state: 'visible' } },
   { assert: { selector: '[data-part=readout-step]', state: 'visible' } },
   { moveTo: '[data-part=card]' },
@@ -30,7 +30,7 @@ export default steps([
   { click: true },
   { wait: 700 },
   { assert: { selector: '[data-part=board][data-register=blueprint]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-blueprint][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-blueprint][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=caption]', state: 'visible' } },
   { wait: 600 },
 ]);

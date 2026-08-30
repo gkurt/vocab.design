@@ -1,4 +1,4 @@
 term:    Leading
 scope:   element
 subject: p.sp-prose.sp-prose--ruled[data-leading=normal][data-part=prose]
-text:    Type sits on an invisible grid. Set the lines too close and the eye trips from o
+text:    The harbour master keeps the tide tables in a ledger by the window, and the ferr

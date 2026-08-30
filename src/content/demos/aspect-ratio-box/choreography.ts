@@ -6,7 +6,7 @@ export default steps([
   { moveTo: '[data-part=seg-4-3]' },
   { click: true },
   { wait: 700 },
-  { assert: { selector: '[data-part=seg-4-3][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-4-3][data-selected]', state: 'visible' } },
   // Same width, taller box: the height is the ratio's answer, not a second setting.
   { assert: { selector: '[data-part=box][data-ratio="4-3"]', state: 'visible' } },
   { assert: { selector: '[data-part=readout]', state: 'visible' } },

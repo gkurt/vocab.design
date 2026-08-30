@@ -14,7 +14,7 @@ export default steps([
   { wait: 600 },
   { assert: { selector: '[data-part=stack][data-scheme="light"]', state: 'visible' } },
   { assert: { selector: '[data-part=stack][data-carrier="shadow"]', state: 'visible' } },
-  { assert: { selector: '[data-part=seg-light][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-light][data-selected]', state: 'visible' } },
   { wait: 1600 },
   { moveTo: '[data-part=seg-dark]' },
   { click: true },

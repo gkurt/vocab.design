@@ -9,7 +9,7 @@ export default steps([
   { moveTo: '[data-part=seg-diff]' },
   { click: true },
   { wait: 600 },
-  { assert: { selector: '[data-part=seg-diff][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-diff][data-selected]', state: 'visible' } },
   { assert: { selector: '[data-part=table][data-mode=diff]', state: 'visible' } },
   { assert: { selector: '[data-part=row-forum]', state: 'hidden' } },
   { assert: { selector: '[data-part=row-backups]', state: 'hidden' } },

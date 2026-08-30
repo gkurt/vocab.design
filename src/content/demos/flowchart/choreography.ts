@@ -21,6 +21,6 @@ export default steps([
   { wait: 700 },
   { assert: { selector: '[data-part=diagram][data-mode=linear]', state: 'visible' } },
   { assert: { selector: '[data-part=node-D]', state: 'hidden' } },
-  { assert: { selector: '[data-part=seg-linear][aria-selected="true"]', state: 'visible' } },
+  { assert: { selector: '[data-part=seg-linear][data-selected]', state: 'visible' } },
   { wait: 800 },
 ]);
