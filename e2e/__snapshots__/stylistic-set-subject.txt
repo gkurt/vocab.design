@@ -1,4 +1,4 @@
 term:    Stylistic set
 scope:   element
 subject: div.sp-row[data-part=run][data-pose=[data-ss=on]][data-ss=on]
-text:    0 O 1 l I
+text:    >>=<<=||=|===!=

@@ -1,4 +1,4 @@
 term:    Contextual alternates
 scope:   element
 subject: span[data-calt=on][data-part=run-arrow][data-pose=[data-calt=on]]
-text:    -> →
+text:    ->

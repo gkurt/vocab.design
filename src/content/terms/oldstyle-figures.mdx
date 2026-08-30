@@ -56,9 +56,9 @@ lining" for the accounts is a normal pair of choices rather than a contradiction
 In practice the switch is `font-variant-numeric: oldstyle-nums`, or the `onum` feature
 underneath it, and it does nothing at all in a face that carries no oldstyle set. That
 silence is the trap: the CSS is valid, the build is clean, and the numbers stay lining.
-Neither face this site loads carries the set, which is checkable and was checked, so the
-specimen on this page models the drawing instead: each hanging numeral is dropped by the
-difference between the digit height and the x-height, and each x-height numeral is
-scaled to it, with both rules ruled across the line so the heights can be read rather
-than taken on trust. A real oldstyle set is drawn, not shifted, and comes with its own
-widths.
+The specimen on this page is set in Vollkorn, where the arrangement runs the other way:
+the oldstyle set is the default and `lnum` is the switch, which is normal in a book face
+and worth knowing before you write `onum`, see nothing change, and conclude the feature
+is missing. Both heights are ruled across the line there, because a claim about a height
+is only readable against a line, and the number changes width as it changes drawing: a
+real oldstyle set brings its own advances.

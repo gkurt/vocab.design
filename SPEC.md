@@ -807,6 +807,22 @@ component library would save — without the branding or churn.
 - **Hard demos** (combobox-class accessibility) are implemented properly once, in the
   kit, and reused — never re-derived per demo.
 - **Budgets**: no network requests, no timers while idle, small enough to inline.
+- **A face a specimen needs is a face the site loads.** Six type specimens once drew
+  their own feature by hand (an arrow laid over `->`, a slash painted across a zero,
+  a grade faked by stroking outlines) and confessed it in a caption: "no face this site
+  loads carries a stylistic set". Both halves were wrong. The drawing is not the
+  feature, and the confession is the site's own voice inside the exhibit (§5.1) making
+  a claim about the author's browser that need not hold on the reader's. If a
+  demonstration needs a file that answers the request, load the file: `@font-face` is
+  ignored inside a shadow root and lazy everywhere, so the declaration sits in the
+  document that hosts the stage and costs every page that never sets text in it
+  nothing. Choose the file by what it carries rather than by the family's reputation,
+  and measure before authoring against it: a web subset of a family commonly keeps
+  `calt` and drops all ten `ssXX` tables, and the evidence is rendered pixels, never
+  an advance width (a grade axis is defined by not changing one). The budget above is
+  about a demo's own fetches, not about a document declaring a face. Where no file in
+  the world answers (`pcap`), the specimen demonstrates the real fallback and MEASURES
+  it at mount, so the verdict is about the browser reading it.
 - **The stage owns the clock.** A demo's only timer is the one `mount()` is handed.
   The stage freezes it to pose the specimen and stops it on remount, neither of which
   it can do to a timer taken from the global scope: that one keeps running under a

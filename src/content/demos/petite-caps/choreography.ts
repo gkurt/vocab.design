@@ -9,7 +9,6 @@ export default steps([
   // Kit surfaces fade in from mount, so the first claim waits for the scene to land.
   { wait: 500 },
   { assert: { selector: '[data-part=run-petite]', state: 'visible' } },
-  { assert: { selector: '[data-part=petite-glyphs]', state: 'visible' } },
   // The two rules the comparison is read against, each a box rather than a hairline.
   { assert: { selector: '[data-part=rule-x]', state: 'visible' } },
   { assert: { selector: '[data-part=rule-cap]', state: 'visible' } },

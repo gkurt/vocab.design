@@ -1,0 +1,26 @@
+---
+/**
+ * The faces the type specimens are set in, declared at document level.
+ *
+ * A specimen lives in a shadow root and `@font-face` inside one is ignored by
+ * Chrome, so a demo cannot bring its own face: the declaration has to be here,
+ * in the document that hosts the stage, and the demo then names the family. The
+ * cost of declaring one is CSS bytes and nothing else, because `@font-face` is
+ * lazy: the file is fetched only by a page that actually sets text in it, which
+ * is a handful of term pages and whichever listing happens to draw one of them.
+ *
+ * Each of these is here because a specimen needs a feature the chrome's own
+ * faces do not carry, and a demonstration of a feature nobody loads is not a
+ * demonstration. Fira Code comes from the type designer's own release rather
+ * than from Fontsource, because Google's web subsets keep `calt` and drop every
+ * stylistic set, which is precisely the half two of these specimens need.
+ */
+import '@fontsource-variable/roboto-flex/grad.css';
+import '@fontsource/material-icons/latin-400.css';
+import '@fontsource/vollkorn/latin-400.css';
+import firaCode from 'firacode/distr/woff2/FiraCode-Regular.woff2?url';
+
+const face = `@font-face{font-family:'Fira Code';font-style:normal;font-weight:400;font-display:swap;src:url(${firaCode}) format('woff2')}`;
+---
+
+<style is:inline set:html={face}></style>

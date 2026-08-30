@@ -20,10 +20,10 @@ export default steps([
   { moveTo: '[data-part=read-grade]' },
   { wait: 700 },
   { assert: { selector: '[data-part=read-grade]', state: 'visible' } },
-  { moveTo: '[data-part=seg-minus50]' },
+  { moveTo: '[data-part=seg-minus200]' },
   { click: true },
   { wait: 800 },
-  { assert: { selector: '[data-part=grade][data-stop=minus50]', state: 'visible' } },
+  { assert: { selector: '[data-part=grade][data-stop=minus200]', state: 'visible' } },
   { assert: { selector: '[data-part=mark-grade]', state: 'visible' } },
   // Ends at the grade the specimen mounts with.
   { moveTo: '[data-part=seg-zero]' },

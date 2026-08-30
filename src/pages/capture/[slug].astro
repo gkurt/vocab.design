@@ -3,6 +3,7 @@ import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 import '@fontsource-variable/source-serif-4';
 import '#src/styles/global.css';
+import SpecimenFonts from '#src/components/SpecimenFonts.astro';
 import SpecimenStage from '#src/components/SpecimenStage.astro';
 import { getTerms } from '#src/lib/terms.ts';
 
@@ -45,6 +46,7 @@ const { name, category, isolation } = Astro.props;
     <meta charset="utf-8" />
     <title>{name} share image</title>
     <meta name="robots" content="noindex" />
+    <SpecimenFonts />
   </head>
   {/* The shutter shoots an 800x420 viewport at a device scale of 1.5, which is the
       1200x630 a link preview wants. Laying the page out at these numbers rather than

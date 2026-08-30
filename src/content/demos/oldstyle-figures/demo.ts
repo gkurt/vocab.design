@@ -2,58 +2,42 @@ import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 /*
- * Checked against the file this site loads: Source Serif 4 Variable answers `frac`
- * and `pnum` but does nothing at all for `onum`, so `font-variant-numeric:
- * oldstyle-nums` here would be silence rather than a demonstration. The oldstyle
- * set is therefore modelled from the face's own measured metrics, at 100 px: digit
- * height 66, x-height 50, so a hanging numeral is dropped by 0.16em (which lands its
- * top on the x-height and its tail below the baseline) and an x-height numeral is
- * scaled by 50/66. The rising pair, 6 and 8, is drawn at digit height in both sets,
- * so it is left alone.
+ * A real oldstyle set, in a face that carries one. Vollkorn's default figures
+ * ARE the oldstyle ones, which is the honest arrangement for a book face, so the
+ * switch turns the lining set on rather than the oldstyle set off: `lnum` is the
+ * feature the file has, and asking for `onum` here would be asking for something
+ * that is already true.
  *
- * Transforms move the drawing without touching the advance, so both settings keep
- * the lining widths. A real oldstyle set brings its own, narrower ones; the heights
- * are what this term is about and those are honest here.
+ * The two guides are the face's own answer as well. They are placed in `ex` and
+ * `cap`, the units that mean the loaded font's x-height and cap height, so the
+ * rules land where this file says they land rather than where a measurement of
+ * some other file said.
  */
-const FACE = "'Source Serif 4 Variable', Georgia, serif";
+const FACE = "'Vollkorn', Georgia, serif";
 const SIZE = 30;
-/** Measured off the loaded face: x-height and digit height as fractions of the em. */
-const X_HEIGHT = 0.5;
-const DIGIT = 0.66;
-const DROP = DIGIT - X_HEIGHT;
+/** A guide the stage can read is a box, never a hairline (SPEC §8). */
+const RULE = 2;
+/** The window's inner width, which the guides span. */
+const SPAN = 404;
 
-const HANGING = '34579';
-const RISING = '68';
+const YEAR = '1867';
+const SET = '0123456789';
 
 type Mode = 'lining' | 'oldstyle';
 
 const IS_MODE = (value: string): value is Mode => value === 'lining' || value === 'oldstyle';
 
-function digit(ch: string, mode: Mode): string {
-  if (mode === 'lining' || RISING.includes(ch)) return `<span style="display: inline-block">${ch}</span>`;
-  const style = HANGING.includes(ch)
-    ? `transform: translateY(${DROP}em)`
-    : `transform: scale(${(X_HEIGHT / DIGIT).toFixed(3)}); transform-origin: 50% 100%`;
-  return `<span style="display: inline-block; ${style}">${ch}</span>`;
-}
-
-const setNumerals = (text: string, mode: Mode): string => [...text].map((ch) => digit(ch, mode)).join('');
+const VERDICT = {
+  oldstyle: 'The 1 sits on the x-height rule, the 8 and the 6 rise past it, and the 7 hangs below the baseline.',
+  lining: 'Every numeral is drawn to one height, and the number reads as capitals dropped into the sentence.',
+} as const;
 
 /**
- * A rule running out from the end of the line, thick enough that the stage reads it
- * as a box rather than as a hairline. They start after the last numeral rather than
- * crossing the words, so the heights are sighted along rather than struck through.
- */
-function rule(name: string, height: number, color: string, dashed = false): string {
-  const paint = dashed ? `border-top: 2px dashed ${color}` : `background: ${color}`;
-  return `<span data-part="${name}" style="position: absolute; left: 10px; right: 0; bottom: ${height}em; height: 2px; ${paint}"></span>`;
-}
-
-/**
- * Oldstyle figures specimen: one sentence of running prose set with lining numerals
- * and then with oldstyle ones, the x-height and digit-height rules drawn across the
- * line so the change is a change in height rather than an impression. The row of ten
- * numerals underneath says which digits sit, which rise, and which hang.
+ * Oldstyle figures specimen: one sentence of running prose set with the face's own
+ * oldstyle numerals and then with its lining ones, the x-height and cap-height
+ * rules drawn across the line so the change is a change in height rather than an
+ * impression. The row of ten numerals underneath says which digits sit, which
+ * rise, and which hang.
  *
  * The subject is one number in the sentence, the narrowest thing the term names: the
  * numerals, not the sentence and not the specimen. The picker, the digit row and the
@@ -61,16 +45,35 @@ function rule(name: string, height: number, color: string, dashed = false): stri
  * Lining is the counter-example the subject itself passes through, so the honest
  * condition is declared in `data-pose` and the specimen mounts oldstyle (SPEC §6).
  *
- * A transform moves no advance, so switching the setting moves nothing on the page
- * either (SPEC §5).
+ * A real oldstyle set brings its own widths, so the number does change width here.
+ * Nothing else can move with it: the guides hang off a carrier that sits before the
+ * text on the same baseline, and the numeral row below is alone on its line (SPEC §5).
  *
  * Three lines of the site's own voice have gone from the window: a chip naming the set
  * ("oldstyle: three heights, one of them below the baseline"), a key to the guides
  * ("rules: digit height, x-height, baseline"), and a heading over the picker ("figure
- * style"), which the strip labels already. The caption in the strip carries what the
- * reader needs about the modelling, and the article carries the rest.
+ * style"), which the strip labels already.
  */
 export function mount(root: HTMLElement): void {
+  /**
+   * A rule running across the window at one of the face's own heights, thick enough
+   * that the stage reads it as a box rather than as a hairline. The words are
+   * positioned, so they paint over the guides rather than under them: a rule at full
+   * strength across a line of type reads as a strikethrough, not as a baseline grid.
+   */
+  const rule = (name: string, bottom: string, color: string, dashed = false) => {
+    const paint = dashed ? `border-top: ${RULE}px dashed ${color}` : `background: ${color}`;
+    return `<span data-part="${name}" style="position: absolute; left: 0; width: ${SPAN}px; height: ${RULE}px; ${bottom}; ${paint}"></span>`;
+  };
+
+  /* The carrier holds nothing in flow: any whitespace inside it would open a line
+     box and take its baseline off the text's own, which is where the rules hang. It
+     sits before the words, so a change in the number's width cannot move it. */
+  const rules =
+    rule('rule-cap', 'bottom: calc(0.7em - 1px); bottom: calc(1cap - 1px)', 'color-mix(in oklab, var(--sp-accent) 35%, transparent)') +
+    rule('rule-x', 'bottom: calc(1ex - 1px)', 'color-mix(in oklab, var(--sp-accent) 35%, transparent)') +
+    rule('rule-base', 'bottom: 0', 'color-mix(in oklab, var(--sp-ink) 22%, transparent)', true);
+
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
@@ -78,38 +81,32 @@ export function mount(root: HTMLElement): void {
           <button class="sp-segment" data-part="seg-lining" value="lining">lining</button>
           <button class="sp-segment" data-part="seg-oldstyle" value="oldstyle">oldstyle</button>
         </sp-segmented>
-        <div style="display: flex; align-items: baseline; height: 62px; margin-top: 6px; font-size: ${SIZE}px">
-          <p data-part="sentence" style="margin: 0; font-family: ${FACE}; font-size: ${SIZE}px; line-height: 1; white-space: nowrap">
-            <span>In the winter of </span><span data-part="year" data-subject data-pose="[data-figures=oldstyle]"
-              data-figures="oldstyle">${setNumerals('1867', 'oldstyle')}</span>
-          </p>
-          <i class="sp-context" data-part="rules" style="position: relative; flex: 1 1 auto; height: 0; font-size: ${SIZE}px">
-            ${rule('rule-cap', DIGIT, 'color-mix(in oklab, var(--sp-accent) 60%, transparent)')}
-            ${rule('rule-x', X_HEIGHT, 'color-mix(in oklab, var(--sp-accent) 60%, transparent)')}
-            ${rule('rule-base', 0, 'color-mix(in oklab, var(--sp-ink) 26%, transparent)', true)}
-          </i>
+        <div style="display: flex; align-items: center; height: 62px; margin-top: 6px">
+          <p data-part="sentence" style="margin: 0; font-family: ${FACE}; font-size: ${SIZE}px; line-height: 1; white-space: nowrap"
+            ><i class="sp-context" data-part="rules" style="position: relative; display: inline-block; width: 0; height: 0; vertical-align: baseline">${rules}</i
+            ><span style="position: relative">In the winter of </span><span data-part="year" data-subject data-pose="[data-figures=oldstyle]"
+              data-figures="oldstyle" style="position: relative">${YEAR}</span></p>
         </div>
-        <div class="sp-row sp-row--between sp-context" style="margin-top: 4px; height: 40px">
+        <div class="sp-row sp-context" style="margin-top: 4px; height: 40px">
           <span data-part="set" data-figures="oldstyle"
-                style="font-family: ${FACE}; font-size: 22px; letter-spacing: 0.06em">${setNumerals('0123456789', 'oldstyle')}</span>
+                style="font-family: ${FACE}; font-size: 22px; letter-spacing: 0.06em">${SET}</span>
         </div>
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">
-          Neither face here carries an oldstyle set, so the heights are modelled: the hanging numerals
-          are dropped by the difference between the two rules. The widths stay the lining ones.
-        </p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 6px">${VERDICT.oldstyle}</p>
       </div>
     </div>
   `;
 
   const year = part(root, 'year');
   const set = part(root, 'set');
+  const caption = part(root, 'caption');
 
   part(root, 'segmented').addEventListener('change', (event) => {
     const value = (event as CustomEvent<string>).detail;
     if (!IS_MODE(value)) return;
-    year.dataset.figures = value;
-    year.innerHTML = setNumerals('1867', value);
-    set.dataset.figures = value;
-    set.innerHTML = setNumerals('0123456789', value);
+    for (const el of [year, set]) {
+      el.dataset.figures = value;
+      el.style.fontVariantNumeric = value === 'lining' ? 'lining-nums' : 'normal';
+    }
+    caption.textContent = VERDICT[value];
   });
 }

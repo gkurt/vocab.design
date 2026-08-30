@@ -2,58 +2,58 @@ import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 /*
- * Measured in the browser before authoring: no face here carries a GRAD axis.
- * Geist Variable and Source Serif 4 Variable expose `wght` and nothing else, and
- * `font-variation-settings: 'GRAD' 150` against `'GRAD' -200` is pixel-for-pixel
- * identical in both, so a specimen built on the real axis would be two identical
- * panes. The grade here is therefore SIMULATED by stroking the outlines, which is
- * paint and cannot touch an advance width: the exact property the term is about.
- * The caption says so.
+ * Both axes here are real, in a face that carries both. Roboto Flex ships `GRAD`
+ * alongside `wght`, and this site loads the grade cut of it for this specimen, so
+ * the two panes below are the browser's own answer rather than a drawing: the
+ * grade pane darkens in place, the weight pane darkens and reflows.
  *
- * The weight pane beside it is real: `wght` moves, and the reflow it causes is
- * the browser's own layout rather than anything this demo draws. Nothing is
- * measured, at mount or after: the end marker and the text after it sit in flow
- * behind the sample, so where they land IS the line's width.
+ * Nothing is measured, at mount or after. The end marker and the phrase behind it
+ * sit in flow after the sample, so where they land IS the line's width, and the
+ * difference between the panes is layout's own report on the difference between
+ * the axes.
  */
+const FACE = "'Roboto Flex Variable', system-ui, sans-serif";
 const SAMPLE = 'Handgloves';
 const TAIL = 'quick brown fox';
 
-type Stop = { key: string; grade: string; wght: number; stroke: string; gradeRead: string; weightRead: string };
+type Stop = { key: string; grade: number; wght: number; gradeRead: string; weightRead: string; verdict: string };
 
 const STOPS: Stop[] = [
   {
-    key: 'minus50',
-    grade: '-50',
+    key: 'minus200',
+    grade: -200,
     wght: 300,
-    stroke: '0.4px var(--sp-surface)',
-    gradeRead: 'GRAD -50',
+    gradeRead: 'GRAD -200',
     weightRead: 'wght 300 Light',
+    verdict: 'The grade thins the strokes and its marker has not moved. The lighter weight narrows every glyph and pulls its marker left.',
   },
   {
     key: 'zero',
-    grade: '0',
+    grade: 0,
     wght: 400,
-    stroke: '0 currentcolor',
     gradeRead: 'GRAD 0',
     weightRead: 'wght 400 Regular',
+    verdict: 'Both lines are at the family’s own setting, so the two markers start level.',
   },
   {
     key: 'plus150',
-    grade: '150',
+    grade: 150,
     wght: 700,
-    stroke: '0.55px currentcolor',
     gradeRead: 'GRAD 150',
     weightRead: 'wght 700 Bold',
+    verdict:
+      'The grade thickens the strokes and its marker has not moved. The heavier weight widens every glyph and pushes its marker right.',
   },
 ];
 
 const BASE = STOPS[1] as Stop;
 
 /**
- * Grade specimen: one line darkened twice, once along a grade axis and once along
- * the weight axis, each with an end marker and a following phrase sitting in flow
- * right behind it. The grade pick leaves both exactly where they were; the weight
- * pick pushes them along, which is the whole difference between the two axes.
+ * Grade specimen: one line darkened twice, once along the grade axis and once
+ * along the weight axis, each with an end marker and a following phrase sitting
+ * in flow right behind it. The grade pick leaves both exactly where they were;
+ * the weight pick pushes them along, which is the whole difference between the
+ * two axes.
  *
  * The subject is the graded line (SPEC §5), the narrowest element the term names.
  * Every grade the picker reaches is an honest coordinate on the axis, so no
@@ -70,7 +70,7 @@ const BASE = STOPS[1] as Stop;
  * (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
-  const pane = (key: 'grade' | 'weight', label: string, read: string, style: string) => `
+  const pane = (key: 'grade' | 'weight', label: string, read: string, axis: string) => `
     <div class="sp-stack${key === 'weight' ? ' sp-context' : ''}" style="gap: 6px">
       <div class="sp-row sp-row--between sp-context">
         <span class="sp-label" style="white-space: nowrap">${label}</span>
@@ -78,7 +78,8 @@ export function mount(root: HTMLElement): void {
       </div>
       <div class="sp-row" data-part="line-${key}" style="gap: 8px; height: 42px; align-items: center">
         <span data-part="${key}"${key === 'grade' ? ' data-subject' : ''} data-stop="${BASE.key}"
-              style="font-size: 28px; line-height: 1.2; white-space: nowrap; ${style}">${SAMPLE}</span>
+              style="font-family: ${FACE}; font-size: 28px; line-height: 1.2; white-space: nowrap;
+                     font-variation-settings: ${axis}">${SAMPLE}</span>
         <span data-part="mark-${key}" style="flex: 0 0 auto; width: 2px; height: 34px; background: var(--sp-accent)"></span>
         <span class="sp-text sp-context" data-part="tail-${key}" style="white-space: nowrap">${TAIL}</span>
       </div>
@@ -95,13 +96,10 @@ export function mount(root: HTMLElement): void {
           </sp-segmented>
         </div>
         <div class="sp-stack" style="gap: 12px; margin-top: 10px">
-          ${pane('grade', 'Grade', BASE.gradeRead, `-webkit-text-stroke: ${BASE.stroke}`)}
-          ${pane('weight', 'Weight', BASE.weightRead, `font-variation-settings: 'wght' ${BASE.wght}`)}
+          ${pane('grade', 'Grade', BASE.gradeRead, `'GRAD' ${BASE.grade}`)}
+          ${pane('weight', 'Weight', BASE.weightRead, `'wght' ${BASE.wght}`)}
         </div>
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">
-          No face here carries a GRAD axis, so the grade is drawn by stroking the outlines, which is paint and
-          cannot change an advance. The weight pane is real, and the marker it pushes is the reflow.
-        </p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 10px">${BASE.verdict}</p>
       </div>
     </div>
   `;
@@ -110,16 +108,18 @@ export function mount(root: HTMLElement): void {
   const weight = part(root, 'weight');
   const readGrade = part(root, 'read-grade');
   const readWeight = part(root, 'read-weight');
+  const caption = part(root, 'caption');
 
   const apply = (value: string) => {
     const stop = STOPS.find((s) => s.key === value);
     if (!stop) return;
     grade.dataset.stop = stop.key;
-    grade.style.webkitTextStroke = stop.stroke;
+    grade.style.fontVariationSettings = `'GRAD' ${stop.grade}`;
     readGrade.textContent = stop.gradeRead;
     weight.dataset.stop = stop.key;
     weight.style.fontVariationSettings = `'wght' ${stop.wght}`;
     readWeight.textContent = stop.weightRead;
+    caption.textContent = stop.verdict;
   };
 
   part(root, 'segmented').addEventListener('change', (event) => apply((event as CustomEvent<string>).detail));

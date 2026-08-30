@@ -60,6 +60,9 @@ The trap is asking for a set the file does not have. There is no error, no
 warning, no fallback: the request is silently ignored and the default glyphs
 render, so a stylesheet full of `"ss02" 1` can look exactly like a stylesheet
 without it. Check the face before the CSS, and be aware that most system fonts
-carry no sets at all. The specimen above says so out loud: none of the faces this
-site ships carry a stylistic set, so the alternates in it are drawn on rather than
-substituted, and the switch stands for the swap.
+carry no sets at all. The subtler version of the same trap is delivery, because a
+face that has ten sets can arrive with none: the specimen above is set in Fira Code
+from the type designer's own release, since the Google Fonts build of that family
+keeps the contextual rules and drops every stylistic set, so identical CSS against
+an identically named family does nothing at all depending on where the file came
+from.

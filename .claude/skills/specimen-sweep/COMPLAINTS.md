@@ -1135,7 +1135,7 @@ complete; until then entries only accumulate. Entry format:
 
 ## faked-features-confessed
 
-- Queued: 2026-08-30 · Status: OPEN (6 offenders, decision taken: load real faces)
+- Queued: 2026-08-30 · Status: SWEPT 2026-08-30 (6 offenders, all six now render the real feature)
 - Rule: a specimen demonstrates its term. A demo that draws a CSS imitation of a font
   feature and then prints an apology under it is not a specimen, it is an admission, and
   the admission is written in the author's voice about the author's own machine. Two
@@ -1178,3 +1178,51 @@ complete; until then entries only accumulate. Entry format:
   webServer builds into the same directory, and a build wipes it: a probe and a suite that
   overlap end with the preview server dying on ENOENT mid-run and 2,733 tests failing in
   under 300ms each, which looks like a catastrophic regression and is nothing at all.
+- **What the sweep actually found, and it contradicts the recipe above.** Google's
+  subsetter strips almost every OpenType feature from a family on the way to Fontsource.
+  Measured: `calt` survives (it is on by default), `GRAD` survives (an axis, not a
+  feature), and NOTHING else does. Not one `ssXX` in Fira Code, Inter, Recursive, Raleway,
+  JetBrains Mono, Work Sans, Nunito, Source Code Pro or Geist; not one `smcp` in any of
+  nine serifs; no `onum` anywhere, only `lnum` in the two faces (Vollkorn, Alegreya) whose
+  DEFAULT figures are oldstyle. So the fix for two of the six was a package outside
+  Fontsource: `firacode`, the type designer's own release, which carries ss01-ss10 and
+  `zero` and `onum` intact at 101KB unsubsetted.
+- Chosen and shipped: `contextual-alternates` and `stylistic-set` on Fira Code (real
+  `calt`, real `ss09`, four operators redrawn together while the equality pair beside them
+  is untouched), `icon-font` on Material Icons (both notations real, and the "font
+  unavailable" row is now the same text in the page's sans, so the tofu is the browser's),
+  `grade-axis` on Roboto Flex (real `GRAD` against real `wght`, and the marker that does
+  not move is layout's own report), `oldstyle-figures` on Vollkorn (whose oldstyle set is
+  the default, so the switch turns `lnum` ON). `petite-caps` keeps no face: it makes both
+  requests and MEASURES the two runs at mount, so the verdict is about the reader's
+  browser instead of the author's.
+- Declaration lives in `src/components/SpecimenFonts.astro`, imported by `Base.astro` and
+  `/capture/[slug]`, because `@font-face` inside a shadow root is ignored by Chrome.
+- Three probe traps, each of which produced a confident false negative: a hand-written
+  `@font-face` (wrong file), `font-display: swap` leaving the face unloaded at screenshot
+  time (await `document.fonts.ready`), and inline styles built as
+  `style="font-variation-settings:'GRAD' 150"` where the inner quotes terminate the HTML
+  attribute (set them through CSSOM). And `page.setContent()` after `addStyleTag()` throws
+  the stylesheet away, which renders every sample in the fallback and looks like a font
+  with no features at all.
+
+## faked-features-unconfessed
+
+- Queued: 2026-08-30 · Status: OPEN (1 known offender, `color-font`)
+- Rule: the same rule as `faked-features-confessed`, applied to the demos whose apology
+  was DELETED rather than fixed. A specimen that draws an imitation of a font feature is
+  no more honest for keeping quiet about it: the caption sweep moved those sentences into
+  a source comment, which reads as tidy and leaves the picture lying. If the site can load
+  a file that answers the request, load it (SPEC §5, `src/components/SpecimenFonts.astro`).
+- Known: `color-font` stacks three painted copies of `&` where a COLRv1 face would ship
+  colour layers, and its `font-palette` switch stands for palettes no loaded file has. The
+  source comment says so; nothing on screen does.
+- Candidates worth measuring: Nabla and Bungee Spice are COLRv1 on Google Fonts and Nabla
+  ships named palettes, so `font-palette` may be demonstrable for real. Measure the FILE,
+  not the family: Google's subsetter is what stripped every `ssXX` out of Fira Code, so a
+  COLR table surviving the same pipeline is a question, not an assumption.
+- Detector: none written. The population is small and known by inspection: grep
+  `src/content/demos/*/demo.ts` for a comment admitting the drawing (`DRAWN`, `stands
+  for`, `simulated`, `no face`), then check whether the term names a font feature. The
+  distinction that matters is whether a real file could answer, which is a judgement, not
+  a pattern.

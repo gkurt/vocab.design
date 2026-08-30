@@ -4,22 +4,16 @@ export default steps([
   // Kit surfaces fade in from mount, so the first claim waits for the scene to land.
   { wait: 500 },
   { assert: { selector: '[data-part=run-arrow][data-calt=on]', state: 'visible' } },
-  // Both contextual forms are on stage, and the characters they stand for are not.
-  { assert: { selector: '[data-part=alt-arrow]', state: 'visible' } },
-  { assert: { selector: '[data-part=alt-noteq]', state: 'visible' } },
-  { assert: { selector: '[data-part=lit-arrow]', state: 'hidden' } },
+  { assert: { selector: '[data-part=run-noteq][data-calt=on]', state: 'visible' } },
   // The run no rule mentions is drawn as typed in both states.
-  { assert: { selector: '[data-part=lit-plain]', state: 'visible' } },
+  { assert: { selector: '[data-part=run-plain]', state: 'visible' } },
   // Absolute picks, never a flip: the segments are the two values the feature takes.
   { moveTo: '[data-part=seg-off]' },
   { click: true },
   { wait: 800 },
   { assert: { selector: '[data-part=run-arrow][data-calt=off]', state: 'visible' } },
-  { assert: { selector: '[data-part=lit-arrow]', state: 'visible' } },
-  { assert: { selector: '[data-part=lit-noteq]', state: 'visible' } },
-  { assert: { selector: '[data-part=alt-arrow]', state: 'hidden' } },
-  { assert: { selector: '[data-part=alt-noteq]', state: 'hidden' } },
-  { assert: { selector: '[data-part=lit-plain]', state: 'visible' } },
+  { assert: { selector: '[data-part=run-noteq][data-calt=off]', state: 'visible' } },
+  { assert: { selector: '[data-part=run-plain][data-calt=off]', state: 'visible' } },
   { moveTo: '[data-part=readout]' },
   { wait: 700 },
   { assert: { selector: '[data-part=readout]', state: 'visible' } },
@@ -28,6 +22,6 @@ export default steps([
   { click: true },
   { wait: 800 },
   { assert: { selector: '[data-part=run-arrow][data-calt=on]', state: 'visible' } },
-  { assert: { selector: '[data-part=alt-noteq]', state: 'visible' } },
+  { assert: { selector: '[data-part=run-noteq][data-calt=on]', state: 'visible' } },
   { wait: 700 },
 ]);

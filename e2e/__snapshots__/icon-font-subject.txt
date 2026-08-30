@@ -1,4 +1,4 @@
 term:    Icon font
 scope:   element
 subject: span.sp-row[data-part=glyphs]
-text:    
+text:    homestardelete

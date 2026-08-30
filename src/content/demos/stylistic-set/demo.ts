@@ -1,128 +1,100 @@
-import { flag, part, partsOf } from '#src/kit/parts.ts';
+import { part } from '#src/kit/parts.ts';
 import '#src/kit/segmented.ts';
 
 /*
- * Checked in the browser against every face this site loads, and against the
- * system faces beside them: not one carries a stylistic set. `ss01` through
- * `ss12`, `salt` and `cv01` change nothing at all in Geist, Source Serif 4,
- * Georgia or Helvetica, which is the term's own trap (a tag the file does not
- * have fails silently) and would also be a specimen whose two states were
- * identical. So the alternates are DRAWN over the face's own glyphs, and the
- * caption says so: the switch stands for the substitution, the strokes stand
- * for the alternate drawings. Every one of the three is a real convention
- * (slashed zero, footed one, tailed l), and this site's own mono face already
- * draws all three by default, which is where they were taken from.
- */
-const SIZE = 56;
-/** A drawn stroke has to be a box the stage can read, not a hairline (SPEC §8). */
-const STROKE = 3.5;
-
-type Cell = { char: string; part: string; mark?: string };
-
-/**
- * The five characters a code face's set is usually about: three the set redraws
- * and the two they get mistaken for, left exactly as the family drew them.
+ * A real set, in a face that carries one. Fira Code ships ten of them, and its
+ * ninth redraws the four assignment operators below while leaving the equality
+ * pair beside them alone (that pair is `ss08`, a different set, deliberately not
+ * the one on the switch). Checked glyph by glyph before this was authored, which
+ * is also how the six samples were chosen.
  *
- * Marks are placed against two things the demo never measures at runtime. Down: a
- * zero-height carrier sitting first in the cell, whose bottom edge inline layout
- * puts on the text baseline (the trick lining-figures rules its guides with), so
- * `bottom: 0` inside it is the baseline exactly. Across: em offsets from the
- * carrier, which sits at the cell's left edge, against this face's own advances
- * (0 is 0.66em wide, 1 is 0.38em, l is 0.27em, read off the loaded file).
+ * The face comes from the type designer's own release rather than from a web
+ * subset: Google's subsetter keeps `calt` and drops every `ssXX` table, so the
+ * same family served from there would answer this switch with silence. That is
+ * the term's own trap, and a specimen is not the place to reproduce it.
  */
+const MONO = "'Fira Code', ui-monospace, monospace";
+const SIZE = 40;
+
+type Cell = { token: string; part: string };
+
+/** Four the set redraws, then the two it does not, in the order the run reads. */
 const CELLS: Cell[] = [
-  {
-    char: '0',
-    part: 'zero',
-    // The slash: one bar through the counter, leaning the way a slashed zero leans.
-    mark: `left: calc(0.33em - ${STROKE / 2}px); bottom: 0.03em; width: ${STROKE}px; height: 0.62em;
-           background: currentcolor; transform: rotate(22deg)`,
-  },
-  { char: 'O', part: 'oh' },
-  {
-    char: '1',
-    part: 'one',
-    // The foot: a bar on the baseline, spanning most of the digit's advance.
-    mark: `left: 0.02em; bottom: 0; width: 0.34em; height: ${STROKE}px; background: currentcolor`,
-  },
-  {
-    char: 'l',
-    part: 'el',
-    // The tail: the stem's bottom turning right and lifting, drawn as a rounded corner.
-    mark: `left: 0.09em; bottom: 0; width: 0.23em; height: 0.115em;
-           border-bottom: ${STROKE}px solid currentcolor; border-right: ${STROKE}px solid currentcolor;
-           border-bottom-right-radius: 0.10em`,
-  },
-  { char: 'I', part: 'eye' },
+  { token: '&gt;&gt;=', part: 'shr' },
+  { token: '&lt;&lt;=', part: 'shl' },
+  { token: '||=', part: 'or' },
+  { token: '|=', part: 'pipe' },
+  { token: '==', part: 'eq' },
+  { token: '!=', part: 'noteq' },
 ];
 
 const READ = {
-  on: 'ss01 on: three drawings swapped as one group',
-  off: 'ss01 off: the family’s own drawings',
+  on: 'ss09 1',
+  off: 'ss09 0',
 } as const;
 
+const VERDICT = {
+  on: 'Four drawings arrive together under one tag. The equality pair belongs to another set and does not move.',
+  off: 'The family’s own drawings, with every set in the file switched off.',
+} as const;
+
+type Mode = keyof typeof READ;
+const IS_MODE = (value: string): value is Mode => value in READ;
+
 /**
- * Stylistic set specimen: five characters, one switch, three of them redrawn
- * together. The switch is absolute (0 and 1, the values the feature takes), and
- * what it demonstrates is the grouping: nothing here can be turned on one glyph
- * at a time, which is what makes a set a set rather than three requests.
+ * Stylistic set specimen: six operators in one code face, one switch, four of
+ * them redrawn together. The switch is absolute (0 and 1, the values the feature
+ * takes), and what it demonstrates is the grouping: nothing here can be turned on
+ * one glyph at a time, which is what makes a set a set rather than four requests.
+ * The two that stay put are the proof that a set has an extent, and that the
+ * extent is the designer's, not the reader's.
  *
  * The subject is the glyph run the feature is applied to (SPEC §5): a set is
- * asked of a run of text, and the two characters it leaves alone are part of that
- * run. The off state is the counter-example the run itself passes through, so the
+ * asked of a run of text, and the operators it leaves alone are part of that run.
+ * The off state is the counter-example the run itself passes through, so the
  * honest condition is declared in `data-pose` and the specimen mounts with the
- * set on (SPEC §6). The picker, the feature label and the caption are the demo's
- * own instrumentation and stay in the context register. A line over the run once
- * read "the five that get mistaken for each other", which is the author naming the
- * sample rather than a type panel labelling it, so it went and the run took its
- * top margin.
+ * set on (SPEC §6). The tag, the picker and the readout are the demo's own
+ * instrumentation and stay in the context register.
  *
- * Nothing is measured and nothing moves: the marks are absolutely positioned
- * inside their own cells, so switching the set cannot shift a neighbour (SPEC §5).
+ * Nothing is measured and nothing moves: an alternate in a monospaced face keeps
+ * the advance of the drawing it replaces, which was checked per token (SPEC §5).
  */
 export function mount(root: HTMLElement): void {
-  const cell = ({ char, part: name, mark }: Cell) => `
-    <span data-part="cell-${name}" style="position: relative; display: inline-block; line-height: 1">
-      <i style="display: inline-block; width: 0; height: 0; vertical-align: baseline; position: relative">
-        ${mark ? `<span data-part="mark-${name}" style="position: absolute; ${mark}"></span>` : ''}
-      </i>${char}</span>`;
+  const cell = ({ token, part: name }: Cell) => `<span data-part="cell-${name}">${token}</span>`;
 
   root.innerHTML = `
     <div class="sp-app">
       <div class="sp-window" style="width: 452px">
         <div class="sp-row sp-row--between sp-context">
-          <span class="sp-label">font-feature-settings: "ss01"</span>
+          <span class="sp-label">font-feature-settings: "ss09"</span>
           <sp-segmented data-stage-mode class="sp-segmented" data-part="segmented" data-value="on" data-axis="Value" data-term="on">
             <button class="sp-segment" data-part="seg-off" value="off">0</button>
             <button class="sp-segment" data-part="seg-on" value="on">1</button>
           </sp-segmented>
         </div>
         <div class="sp-row" data-part="run" data-subject data-ss="on" data-pose="[data-ss=on]"
-             style="gap: 20px; align-items: baseline; height: 76px; margin-top: 12px; font-size: ${SIZE}px">
+             style="gap: 22px; justify-content: center; align-items: baseline; height: 76px; margin-top: 12px;
+                    font-family: ${MONO}; font-size: ${SIZE}px; line-height: 1.15; font-feature-settings: 'ss09' 1">
           ${CELLS.map(cell).join('')}
         </div>
         <div class="sp-row sp-context" style="height: 30px">
           <span class="sp-chip" data-part="readout" style="cursor: default">${READ.on}</span>
         </div>
-        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">
-          No face this site loads carries a stylistic set, so the slash, the foot and the tail are drawn on:
-          the switch stands for the substitution. What is real is the grouping, and that the O and the I are
-          left alone.
-        </p>
+        <p class="sp-text sp-context" data-stage-verdict data-part="caption" style="margin-top: 4px">${VERDICT.on}</p>
       </div>
     </div>
   `;
 
   const run = part(root, 'run');
-  const marks = partsOf(root, 'mark-zero').concat(partsOf(root, 'mark-one'), partsOf(root, 'mark-el'));
   const readout = part(root, 'readout');
+  const caption = part(root, 'caption');
 
-  const apply = (value: string) => {
-    if (value !== 'on' && value !== 'off') return;
+  part(root, 'segmented').addEventListener('change', (event) => {
+    const value = (event as CustomEvent<string>).detail;
+    if (!IS_MODE(value)) return;
     run.dataset.ss = value;
-    for (const mark of marks) flag(mark, 'hidden', value === 'off');
+    run.style.fontFeatureSettings = `'ss09' ${value === 'on' ? 1 : 0}`;
     readout.textContent = READ[value];
-  };
-
-  part(root, 'segmented').addEventListener('change', (event) => apply((event as CustomEvent<string>).detail));
+    caption.textContent = VERDICT[value];
+  });
 }

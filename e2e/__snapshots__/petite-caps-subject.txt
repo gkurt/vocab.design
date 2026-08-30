@@ -1,4 +1,4 @@
 term:    Petite caps
 scope:   element
 subject: span[data-part=run-petite]
-text:    OAK
+text:    oak

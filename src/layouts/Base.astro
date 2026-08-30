@@ -14,6 +14,7 @@ import '#src/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import Analytics from '#src/components/Analytics.astro';
 import SearchDialog from '#src/components/SearchDialog.astro';
+import SpecimenFonts from '#src/components/SpecimenFonts.astro';
 import { pageType } from '#src/lib/page-type.ts';
 import { canonicalPath, pageUrl } from '#src/lib/url.ts';
 
@@ -72,6 +73,7 @@ const onSearchPage = path.endsWith('/search');
     <link rel="icon" href={pageUrl("/favicon.ico")} sizes="32x32" />
     <link rel="icon" href={pageUrl("/favicon.svg")} type="image/svg+xml" />
     <link rel="apple-touch-icon" href={pageUrl("/apple-touch-icon.png")} />
+    <SpecimenFonts />
     {/* The colour a mobile browser paints its own chrome. Media-scoped rather than
         scripted, so it is right for a reader with no JavaScript; the toggle re-states
         both when a reader has overridden their system theme. */}

@@ -116,6 +116,7 @@ src/components/card-morph.ts #  a card's surface, headword, definition and pictu
                             #   the page's; every name carries the term's slug
 src/components/carousel.ts  #   the front page's rotation: one card centred, the row going round
 src/components/preview-stage.ts # the stage a card shows: scaled, no controls, one badge
+src/components/SpecimenFonts.astro # the faces the type specimens need: @font-face is per document
 src/components/SearchPanel.astro # the search itself, rendered as the page or in the modal
 src/components/SearchDialog.astro #  the modal in the chrome: <vd-search-dialog> + <dialog>
 src/components/SearchDialog.ts #   opens it, and lazy-loads the search on the first open
@@ -718,6 +719,20 @@ never fires under reduced motion, so nothing may ever wait on it.
   not have caught it: the ghost cursor reaches the strip through the player, and a
   synthesized `click()` runs the demo's handler directly, so both bypass the listener that
   was missing. Only a trusted event proves a reader can operate anything drawn out there.
+- **A face a specimen needs is a face the site loads** (SPEC §5). Six type specimens
+  drew their own feature by hand and confessed it in a caption ("No face this site
+  loads carries a stylistic set"), which is the site's voice inside the exhibit making
+  a claim about the author's browser. The faces now live in
+  `src/components/SpecimenFonts.astro`, imported by `Base.astro` and by
+  `/capture/[slug]`: `@font-face` is ignored inside a shadow root, so it has to be
+  declared per document, and it is lazy, so a page that sets no text in a face fetches
+  nothing. Fira Code comes from the type designer's own npm release rather than from
+  Fontsource because Google's subsetter keeps `calt` and drops every `ssXX` table.
+  Measure a file before authoring against it, by RENDERING and comparing pixels: an
+  advance width proves nothing (a grade axis is defined by not changing one), and
+  documentation about a family says nothing about the file that ships. Where no file
+  answers at all (`pcap`), the specimen demonstrates the fallback and measures it at
+  mount, so the verdict speaks about the reader's browser rather than the author's.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

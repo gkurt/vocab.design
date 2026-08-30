@@ -56,6 +56,7 @@ The trap is the same one every OpenType tag carries: a request for a feature the
 file does not have is silently ignored, and most text faces have no `calt` table
 at all. Nothing warns you, so a script that looks mechanical is not evidence that
 the browser dropped the feature; it is usually evidence that the font never
-shipped one. The specimen above says so out loud: no face this site loads
-substitutes anything for `calt`, so the alternate is drawn on and the switch
-stands for the substitution.
+shipped one. The specimen above is set in Fira Code, which does ship one, so its
+switch asks the real question and the glyphs answer it. Ask the same question of
+a text face with no `calt` table and both states come back identical, which is
+what the silence looks like from the outside.
