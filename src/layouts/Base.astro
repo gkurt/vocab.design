@@ -48,7 +48,7 @@ const canonical = new URL(path, Astro.site);
 // Crawlers resolve neither a relative image nor a protocol-relative one, so this is the
 // one place on the site that must name the absolute URL of an asset.
 const shareImage = new URL(pageUrl(image ?? '/og/site.png'), Astro.site);
-const shareAlt = imageAlt ?? 'vocab.design: a linked dictionary of design and UI vocabulary, with a live specimen on every page.';
+const shareAlt = imageAlt ?? 'vocab.design: a linked dictionary of design and UI vocabulary, with a live demo on every page.';
 // /search is the search, so it gets no modal: the nav link there is just a link to here.
 const onSearchPage = path.endsWith('/search');
 ---
@@ -248,14 +248,6 @@ const onSearchPage = path.endsWith('/search');
     <main class="mx-auto max-w-3xl px-5 pt-6 pb-24">
       <slot />
     </main>
-    <footer
-      class="mx-auto max-w-3xl border-t border-line px-5 py-8 text-xs text-muted"
-    >
-      Content is CC BY 4.0 · code is MIT · <a
-        href="https://github.com/gkurt/vocab.design"
-        class="underline hover:text-ink">source</a
-      >
-    </footer>
     {!onSearchPage && <SearchDialog />}
     <script>
       import "#src/components/analytics.ts";

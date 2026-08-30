@@ -27,7 +27,7 @@ export async function GET(): Promise<Response> {
     '',
     'The site is at https://vocab.design, and every path below is relative to it.',
     '',
-    '- /{slug}: a term. Definition, article, live specimen, aliases, related terms, and the',
+    '- /{slug}: a term. Definition, article, live demo, aliases, related terms, and the',
     '  design systems that implement it.',
     '- /{slug}.md: the same term as raw markdown.',
     '- /{alias}: a redirect to the term that spelling names. Aliases live at the root beside',

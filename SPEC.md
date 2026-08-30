@@ -10,7 +10,7 @@ correctly. People who can say "segmented control" get one in one prompt; people 
 gap — exhaustively, not selectively.
 
 **Strategy.** Exhaustive coverage (500–1,000 terms across components, layouts, patterns,
-interactions, motion, typography, color, surfaces, aesthetics, accessibility) and superior
+aesthetics, interactions, motion, typography, color, surfaces, accessibility) and superior
 discoverability (every alias is a search query we answer; machine-readable for agents).
 No gimmick differentiators. The closest existing site, uiterms.com, has 64 terms, no
 cross-linking, and no agent angle; the tail is wide open.
@@ -77,8 +77,11 @@ useWhen: >-                      # the situation this word is for; powers "Which
 
 ### 2.2 Categories
 
-`component` · `layout` · `pattern` · `interaction` · `motion` · `typography` · `color`
-· `surface` · `aesthetic` · `accessibility`. One category per term: a term is one kind of
+`component` · `layout` · `pattern` · `aesthetic` · `interaction` · `motion` ·
+`typography` · `color` · `surface` · `accessibility`. The order is the reading order every
+listing takes, not a taxonomy: it is how likely a reader is to want the category, which is
+why `aesthetic` sits with the things people arrive looking for rather than beside the two
+categories it is hardest to tell apart from. One category per term: a term is one kind of
 thing. Cross-cutting membership is expressed through relations and tags (§2.5), never
 through a second category.
 
@@ -982,6 +985,17 @@ product's clothes. Either draw the instrument or give the text to chrome.
 
 ## 6. Specimen stage
 
+**Naming.** The reader-facing word is **demo**, everywhere on the site: "Demos" over the
+front page's carousel, "a live demo on every page", "The demo above shows the idea".
+It matches the frontmatter field, the content directory and the mount function, all of
+which said `demo` all along, so the site no longer carries two words for one thing.
+**Specimen** survives as the INTERNAL name only, for the mounted, posed, annotated thing
+this section describes: the element names, the kit, the e2e suite, and this document.
+Never reintroduce it into a page, a component, or any user-visible string. The register
+was worth something (a specimen is a thing under glass, which is what the stage builds),
+but the first paragraph of the front page and the description a search engine prints are
+not where a reader can be asked to decode a word.
+
 `<specimen-stage>` is the one chrome component that hosts demos: a clearly bounded
 frame that reads as "exhibit space". It owns the caption, the controls (identify,
 view-source, and a play control, pinned right, that reads "Playing" behind a pause
@@ -1737,6 +1751,11 @@ Chosen to stress-test every hard part; if these pass, the remaining ~500 are eas
 
 Code is MIT. Term content — definitions, articles, and demo compositions as published —
 is CC BY 4.0.
+
+No page states this. There is no site-wide footer: the only two things one carried were
+the licence and a link to the repository, the header already carries the repository on
+every page, and a reader who wants the terms follows it there. The one place the fact
+still ships is `llms.txt`, where it is addressed to the agents that reuse the content.
 
 ## 15. Open decisions
 

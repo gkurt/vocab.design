@@ -53,11 +53,16 @@ after   We could not find that word. Check the spelling, or search the dictionar
 
 before  Aliases are left out here so the headwords read as a list; the glossary
         carries every spelling the site answers to.
-after   For the other names each term goes by, see the glossary.
+after   Aliases are in the glossary.
 ```
 
 The rationale is usually correct and usually already written down where it belongs. Check
 the neighbouring code comment before you delete it; often the page is quoting the comment.
+
+Cutting the rationale is not a licence to paraphrase the noun. That second one shipped for
+a while as "For the other names each term goes by, see the glossary", five words spent
+avoiding *alias* on a page whose own count line reads "3,888 aliases" two screens above.
+A word the site uses unglossed elsewhere is a word this page may use.
 
 ### 2. Advocacy where instruction belongs
 
@@ -81,9 +86,9 @@ The reader is shown the editorial pipeline or the index internals: what has not 
 written yet, why links are wired the way they are, what Pagefind indexes.
 
 ```
-before  These have a definition so links never dead-end. The article and specimen
+before  These have a definition so links never dead-end. The article and demo
         are still to come.
-after   These terms have a definition. The full article and specimen are still to come.
+after   These terms have a definition. The full article and demo are still to come.
 
 before  Full text over every term: the headword, its aliases, the definition, and
         the article. If you only half know the word, describe the thing instead,
@@ -131,16 +136,18 @@ which is where this vocabulary legitimately lives and where most of the noise is
 
 **House jargon used as if it were English.** The private vocabulary is *headword, alias,
 facet, specimen, stub, family, identify*. Some is deliberate house style worth keeping;
-what breaks is using it in a sentence that needs the reader to already have it. Prefer
+what breaks is using it in a sentence that needs the reader to already have it. Two of
+these are internal names with a plain reader-facing twin, and the twin always wins: say
+**tag** for facet (SPEC §2.5) and **demo** for specimen (SPEC §6). For the rest, prefer
 grounding the word to banning it:
 
 ```
-before  Specimens illustrate the concept; for production use, start here.
-after   The specimen above shows the idea. To build it, start with one of these.
+before  Demos illustrate the concept; for production use, start here.
+after   The demo above shows the idea. To build it, start with one of these.
 ```
 
-"The specimen above" teaches the word deictically, in place, at no cost. That is almost
-always better than either presupposing it or purging it.
+"The demo above" points at the thing on the page, in place, at no cost. Grounding a house
+word that way is almost always better than either presupposing it or purging it.
 
 Also watch for the data model's verbs escaping. Terms do not **declare** things to a
 reader; authors declare things in frontmatter.
@@ -167,9 +174,11 @@ is `Play` sitting next to it, and any objection that kills one kills the other.
 Bare transitive imperatives with an implied object are the normal register for buttons.
 Judge a label on whether pressing it teaches it, not on whether reading it does.
 
-A related distinction worth keeping: *specimen* is deliberate house vocabulary, the way
-*headword* is in a real dictionary, and it is worth keeping. What needs fixing is the
-sentences that presuppose it, not the word.
+A related distinction worth keeping: *headword* is deliberate house vocabulary, the way it
+is in a real dictionary, and a reader meets it beside the word it labels. *Specimen* was
+argued for on the same grounds and lost, because it is not standard anywhere a reader has
+been, and it was carrying the front page's opening paragraph and the description Google
+prints. The register a word buys is worth nothing at the moment of first contact.
 
 ## House constraints
 

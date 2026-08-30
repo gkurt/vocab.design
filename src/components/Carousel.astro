@@ -33,7 +33,7 @@ const pages = feedPages(terms);
 {
   cards.length > 0 && (
     <section class="vd-carousel mb-12" data-carousel data-feed={feed} data-feed-pages={pages}>
-      <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">Specimens</h2>
+      <h2 class="mb-4 text-sm tracking-wide text-muted uppercase">Featured</h2>
       {/* A column too narrow to show a peek has nothing at its edges to reach for, and a
           phone is exactly that column: the row grows a pair of steps over the picture's
           own edges instead, so the way to the next specimen is where the next specimen
@@ -43,7 +43,7 @@ const pages = feedPages(terms);
           class="vd-carousel-step vd-carousel-step--prev"
           type="button"
           data-carousel-step="-1"
-          aria-label="Show the previous specimen"
+          aria-label="Show the previous demo"
         >
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
             ><path
@@ -59,7 +59,7 @@ const pages = feedPages(terms);
           class="vd-carousel-step vd-carousel-step--next"
           type="button"
           data-carousel-step="1"
-          aria-label="Show the next specimen"
+          aria-label="Show the next demo"
         >
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"
             ><path

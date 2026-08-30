@@ -90,7 +90,7 @@ const share =
     ? undefined
     : {
         image: `/og/${d.slug}.png`,
-        alt: `The vocab.design specimen for ${d.name.toLowerCase()}, with the term itself picked out of the demonstration.`,
+        alt: `The vocab.design demo for ${d.name.toLowerCase()}, with the term itself picked out of the demonstration.`,
       };
 
 /** Absolute, because a crawler resolves neither a relative image nor a protocol-relative one. */
@@ -295,7 +295,7 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
 
           {d.status === "stub" && (
             <p class="mt-6 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-muted">
-              This entry is in progress. The full article and specimen are
+              This entry is in progress. The full article and demo are
               still to come.
             </p>
           )}
@@ -414,7 +414,7 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
               Implementations
             </h2>
             <p class="mt-1 text-sm text-muted">
-              The specimen above shows the idea. To build it, start with one of
+              The demo above shows the idea. To build it, start with one of
               these.
             </p>
             <table class="mt-3 w-full text-sm">

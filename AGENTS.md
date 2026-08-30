@@ -805,6 +805,10 @@ never fires under reduced motion, so nothing may ever wait on it.
   says tag, matching the URL, the frontmatter field and the Pagefind filter key. `facet`
   is the internal name for the enriched object `facets()` returns (a tag plus its label,
   blurb and members). Do not put it back on a page.
+- **"Demo" is the reader's word, "specimen" is ours** (SPEC §6). Every user-visible string
+  says demo, matching the frontmatter field, `src/content/demos/` and the mount function.
+  `specimen` stays the internal name for the mounted, posed, annotated thing: `<vd-stage>`
+  and its files, the kit, the e2e suite, SPEC and this file. Do not put it back on a page.
 - **Tags are a closed enum, but the enum is collision control rather than curation**
   (SPEC §2.5). Parallel authors with no shared feedback loop invent `mobile`,
   `mobile-first` and `small-screen` for one concern in a single round; the enum is what

@@ -90,7 +90,7 @@ async function frameSurface(canvas: HTMLElement, slug: string, name: string): Pr
   const frame = document.createElement('iframe');
   frame.className = 'vd-stage-frame';
   // Named for a screen reader, which meets this as one more frame in the page.
-  frame.title = `${name} specimen`;
+  frame.title = `${name} demo`;
   frame.src = pageUrl(`/specimen/${slug}`);
   const loaded = new Promise<void>((resolve) => frame.addEventListener('load', () => resolve(), { once: true }));
   canvas.append(frame);

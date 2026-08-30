@@ -30,7 +30,7 @@
     "sync": "astro sync",
     "typecheck": "astro sync && tsc",
     "lint": "biome lint",
-    "format": "biome format",
+    "format": "biome format --fix",
     "check": "biome check",
     "fix": "biome check --write",
     "test": "bun test",

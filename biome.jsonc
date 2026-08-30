@@ -7,6 +7,7 @@
     "useIgnoreFile": true
   },
   "files": {
+    "maxSize": 2000000,
     "ignoreUnknown": true,
     "includes": [
       "**",

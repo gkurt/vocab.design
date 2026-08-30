@@ -4,12 +4,12 @@ export const CATEGORIES = [
   'component',
   'layout',
   'pattern',
+  'aesthetic',
   'interaction',
   'motion',
   'typography',
   'color',
   'surface',
-  'aesthetic',
   'accessibility',
 ] as const;
 
