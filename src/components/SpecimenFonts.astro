@@ -11,16 +11,22 @@
  *
  * Each of these is here because a specimen needs a feature the chrome's own
  * faces do not carry, and a demonstration of a feature nobody loads is not a
- * demonstration. Fira Code comes from the type designer's own release rather
- * than from Fontsource, because Google's web subsets keep `calt` and drop every
- * stylistic set, which is precisely the half two of these specimens need.
+ * demonstration. Two of them come from outside Fontsource, both for the same
+ * reason: Google's web subsets keep `calt` and drop everything else. Fira Code
+ * is the type designer's own release, with its ten stylistic sets intact.
+ * Junicode is vendored in `src/fonts/` (it is on no registry at all) and cut
+ * down to 25KB, for the one thing almost no font has: a real `pcap` set.
  */
 import '@fontsource-variable/roboto-flex/grad.css';
 import '@fontsource/material-icons/latin-400.css';
 import '@fontsource/vollkorn/latin-400.css';
 import firaCode from 'firacode/distr/woff2/FiraCode-Regular.woff2?url';
+import junicode from '#src/fonts/junicode-latin.woff2?url';
 
-const face = `@font-face{font-family:'Fira Code';font-style:normal;font-weight:400;font-display:swap;src:url(${firaCode}) format('woff2')}`;
+const faces = [
+  `@font-face{font-family:'Fira Code';font-style:normal;font-weight:400;font-display:swap;src:url(${firaCode}) format('woff2')}`,
+  `@font-face{font-family:'Junicode';font-style:normal;font-weight:400;font-display:swap;src:url(${junicode}) format('woff2')}`,
+].join('');
 ---
 
-<style is:inline set:html={face}></style>
+<style is:inline set:html={faces}></style>

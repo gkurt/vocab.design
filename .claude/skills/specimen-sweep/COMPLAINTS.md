@@ -1193,9 +1193,18 @@ complete; until then entries only accumulate. Entry format:
   unavailable" row is now the same text in the page's sans, so the tofu is the browser's),
   `grade-axis` on Roboto Flex (real `GRAD` against real `wght`, and the marker that does
   not move is layout's own report), `oldstyle-figures` on Vollkorn (whose oldstyle set is
-  the default, so the switch turns `lnum` ON). `petite-caps` keeps no face: it makes both
-  requests and MEASURES the two runs at mount, so the verdict is about the reader's
-  browser instead of the author's.
+  the default, so the switch turns `lnum` ON), `petite-caps` on Junicode.
+- **`petite-caps` took two goes, and the first one is the lesson.** Believing no face
+  carried `pcap`, it shipped a specimen that made both requests and MEASURED the two runs
+  at mount, printing a verdict about which one the reader's browser had honoured. That is
+  defensible engineering and a bad specimen, and the user's reply is the rule now: "As a
+  reader, I wouldn't care about that. Just show me a petite-cap." A verdict explaining why
+  the picture is not the term is still the author's voice, however true and however well
+  measured. The face existed the whole time: Junicode has real `pcap`, `smcp`, `c2sc` and
+  `c2pc`, is on no registry (GitHub release only), and subsets from 978KB to 25KB with
+  fonttools. It is vendored under `src/fonts/` with its OFL text and the exact build
+  commands. The specimen now draws four samples and NO verdict at all, so its strip is
+  empty.
 - Declaration lives in `src/components/SpecimenFonts.astro`, imported by `Base.astro` and
   `/capture/[slug]`, because `@font-face` inside a shadow root is ignored by Chrome.
 - Three probe traps, each of which produced a confident false negative: a hand-written

@@ -19,6 +19,6 @@ export default steps([
   { assert: { selector: '[data-part=run-small]', state: 'visible' } },
   { assert: { selector: '[data-part=label-petite]', state: 'visible' } },
   { wait: 900 },
-  { assert: { selector: '[data-part=caption]', state: 'visible' } },
+  { assert: { selector: '[data-part=label-small]', state: 'visible' } },
   { wait: 700 },
 ]);

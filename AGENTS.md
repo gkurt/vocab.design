@@ -730,9 +730,13 @@ never fires under reduced motion, so nothing may ever wait on it.
   Fontsource because Google's subsetter keeps `calt` and drops every `ssXX` table.
   Measure a file before authoring against it, by RENDERING and comparing pixels: an
   advance width proves nothing (a grade axis is defined by not changing one), and
-  documentation about a family says nothing about the file that ships. Where no file
-  answers at all (`pcap`), the specimen demonstrates the fallback and measures it at
-  mount, so the verdict speaks about the reader's browser rather than the author's.
+  documentation about a family says nothing about the file that ships. And look past
+  npm before deciding a feature cannot be shown: `pcap` is carried by Junicode, which is
+  on no registry, so it is vendored under `src/fonts/` (25KB, subset with fonttools, OFL
+  text beside it, provenance in `src/fonts/README.md`). A measured verdict reporting
+  which request the browser honoured is NOT the fallback for a missing face: it is a
+  report where the reader wanted a picture. If a specimen truly cannot be built, the
+  article explains the limit and the strip stays empty.
 - **Demos have no stylesheet.** A demo is `innerHTML` plus inline styles, so anything
   needing a pseudo-element, a keyframe, a media query, or a state-attribute rule has
   to be a kit class. That is the test for whether something belongs in `src/kit/`:

@@ -820,9 +820,15 @@ component library would save — without the branding or churn.
   and measure before authoring against it: a web subset of a family commonly keeps
   `calt` and drops all ten `ssXX` tables, and the evidence is rendered pixels, never
   an advance width (a grade axis is defined by not changing one). The budget above is
-  about a demo's own fetches, not about a document declaring a face. Where no file in
-  the world answers (`pcap`), the specimen demonstrates the real fallback and MEASURES
-  it at mount, so the verdict is about the browser reading it.
+  about a demo's own fetches, not about a document declaring a face. **Look past the
+  registry before concluding a feature cannot be shown.** `pcap` is the hardest case in
+  the whole vocabulary, and the first answer here was a specimen that made both requests
+  and printed a measured verdict about which one the browser honoured, which is a report
+  where a reader wanted a picture. The face exists: Junicode carries a real petite-caps
+  set, is on no package registry at all, and is vendored under `src/fonts/` at 25KB with
+  its licence beside it. A specimen that genuinely cannot be built is the ARTICLE's
+  problem to explain at length, never a line of the author's voice hung under the
+  exhibit.
 - **The stage owns the clock.** A demo's only timer is the one `mount()` is handed.
   The stage freezes it to pose the specimen and stops it on remount, neither of which
   it can do to a timer taken from the global scope: that one keeps running under a

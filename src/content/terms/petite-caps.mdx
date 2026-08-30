@@ -42,19 +42,21 @@ running text.
 
 The CSS is `font-variant-caps: petite-caps`, with `all-petite-caps` for text that
 is already uppercase, and the underlying OpenType tags are `pcap` and `c2pc`. The
-catch is supply. Almost no font ships a real petite-caps set, including the faces
-this site loads and every widely installed system face, and the specified fallback
-when `pcap` is missing is small caps: a browser substitutes the small-caps set,
-or synthesises one by scaling the capitals, and reports nothing. Two stylesheets
-asking for different things then render identically, which is the same silent
-failure every [OpenType feature](/opentype-features) request carries.
+catch is supply. Almost no font ships a real petite-caps set: not the widely
+installed system faces, and not the families this site sets its own pages in. The
+specified fallback when `pcap` is missing is small caps, so a browser substitutes
+the small-caps set, or synthesises one by scaling the capitals, and reports
+nothing. Two stylesheets asking for different things then render identically,
+which is the same silent failure every [OpenType feature](/opentype-features)
+request carries. The specimen above is set in Junicode, a scholarly face that does
+answer `pcap`, which is the only reason its last two samples are two sets of
+drawings rather than one set drawn twice.
 
 So treat petite caps as a decision about a specific typeface rather than a
 property of text. Check the family's own feature list first, and if `pcap` is
 absent, either use small caps and accept the slight lift, or set the height
 yourself: capitals at a reduced font size, tracked out a touch, with the size
-chosen so the cap height matches the x-height of the surrounding line. The
-specimen above makes both requests of one face and compares what came back, which
-is the check worth running against any family you are considering: if the petite
-run is the same drawing as the small-caps run, there was no `pcap` set to answer
-with.
+chosen so the cap height matches the x-height of the surrounding line. That last
+one is a photographic reduction and tends to look like one, its stems too light
+for the lowercase beside it, which is the argument for finding a face with the
+real set rather than imitating it.
