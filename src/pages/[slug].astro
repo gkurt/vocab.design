@@ -200,6 +200,16 @@ const title = withAlias.length <= TITLE_ROOM ? withAlias : plain;
         type="application/ld+json"
         set:html={JSON.stringify(breadcrumbs)}
       />
+      {/* The agent-facing twin of this page (SPEC §10). A static host cannot answer
+          `Accept: text/markdown` on this URL, so the markdown is a URL of its own and
+          this is what makes it findable from the page rather than only from llms.txt. */}
+      <link
+        slot="head"
+        rel="alternate"
+        type="text/markdown"
+        href={pageUrl(`/${d.slug}.md`)}
+        title={`${d.name} as markdown`}
+      />
       {/* `data-pagefind-filter` is what lets the search narrow to a category or a facet
           without a second index. The category sits on the article; each facet rides the
           chip that already names it, because an explicit value ignores the element's own

@@ -1,5 +1,6 @@
 ---
 import Base from '#src/layouts/Base.astro';
+import { MACHINE_ROUTES } from '#src/lib/agents.ts';
 import { pageUrl } from '#src/lib/url.ts';
 ---
 
@@ -40,6 +41,25 @@ import { pageUrl } from '#src/lib/url.ts';
       href={pageUrl("/glossary")}
       class="underline hover:text-ink">glossary</a
     >, which includes every alias.
+  </section>
+
+  {/* The same recovery for a caller that would rather have the list than guess again
+      (SPEC §10). A 404 is where an agent lands after building a URL that does not
+      exist, and these are the four files that tell it which ones do. */}
+  <section class="mb-12 text-sm text-muted">
+    <h2 class="mb-3 tracking-wide uppercase">The dictionary as data</h2>
+    <ul class="grid gap-1">
+      {
+        MACHINE_ROUTES.map((route) => (
+          <li>
+            <a href={pageUrl(route.href)} class="underline hover:text-ink">
+              {route.name}
+            </a>
+            , {route.blurb}.
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <script>

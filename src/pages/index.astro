@@ -4,6 +4,7 @@ import Base from '#src/layouts/Base.astro';
 import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
 import { LETTERS, letterOf } from '#src/lib/glossary.ts';
 import { CATEGORIES } from '#src/lib/schema.ts';
+import { siteGraph } from '#src/lib/structured-data.ts';
 import { facets, isAdvertised } from '#src/lib/tags.ts';
 import { getTerms } from '#src/lib/terms.ts';
 import { pageUrl } from '#src/lib/url.ts';
@@ -38,12 +39,30 @@ const alphabet = LETTERS.map((letter) => ({
 })).filter((group) => group.terms.length > 0);
 
 const stubs = terms.filter((t) => t.data.status === 'stub').sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+/**
+ * Said twice, in the meta tag a search engine reads and in the JSON-LD an agent reads, so
+ * one string is the only place either can be wrong.
+ */
+const description =
+  'Design and UI terms with live demos, aliases, and the connections between them. Know the word, get the thing, from people and from AI agents.';
 ---
 
 <Base
   title="vocab.design · a visual dictionary of design & UI vocabulary"
-  description="Design and UI terms with live demos, aliases, and the connections between them. Know the word, get the thing, from people and from AI agents."
+  description={description}
 >
+  {/* What this site IS, for a crawler or an agent that has landed on the front page
+      (SPEC §10): who publishes it, what the whole set is, and where the machine
+      readable copies of it are. The front page only: a term page says what one word
+      means, and repeating the publisher on all 1,076 of them says nothing new. */}
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(
+      siteGraph({ description, termCount: published.length }),
+    )}
+  />
   <section class="pt-10 pb-12">
     <h1 class="font-serif text-4xl font-semibold tracking-tight text-balance">
       The words interfaces are made of.

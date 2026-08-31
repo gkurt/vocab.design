@@ -1,3 +1,4 @@
+import { WHEN_TO_USE } from '#src/lib/agents.ts';
 import { CATEGORY_BLURBS } from '#src/lib/categories.ts';
 import { CATEGORIES } from '#src/lib/schema.ts';
 import { facets, TERM_TAGS } from '#src/lib/tags.ts';
@@ -22,6 +23,8 @@ export async function GET(): Promise<Response> {
     '',
     '> A linked visual dictionary of design and UI vocabulary: terms, definitions, aliases,',
     '> relations between concepts, and pointers to real implementations. Content is CC BY 4.0.',
+    '',
+    ...WHEN_TO_USE,
     '',
     '## Pages',
     '',

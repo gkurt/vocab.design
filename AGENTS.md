@@ -78,6 +78,8 @@ src/lib/categories.ts       # one blurb per category, for the browse pages
 src/lib/glossary.ts         # the A-Z entry list: every term AND every alias, sliced by letter
 src/lib/exhibit.ts          # the front page's carousel: its pool, and the dozen this build shows
 src/lib/slug.ts             # slugify for terms and aliases
+src/lib/agents.ts           # llms.txt's when-to-use/how-to-call, and the 404's machine routes
+src/lib/structured-data.ts  # the front page's JSON-LD identity graph (SPEC §10)
 src/content/terms/          # One MDX file per term, frontmatter per schema
 src/content/demos/<slug>/   # demo.ts (mount fn) + choreography.ts per term
 src/kit/kit.ts              # Specimen kit stylesheet, assembled and adopted into shadow roots
@@ -101,6 +103,7 @@ src/styles/                 # Chrome: global.css (--vd-* tokens, Tailwind theme)
 src/pages/                  # index (ONE live specimen, then THE directory: categories, facets, A-Z), [slug]
                             #   (terms + alias redirects), [slug].md, terms.json, llms.txt (+ llms-full.txt)
 src/pages/rss.xml.ts        #   the feed: newest 100 by `created`, linked from every page's head
+src/pages/paths.json.ts     #   every slug and alias the site answers to; the cheap existence check
 src/pages/specimens/[page].json.ts # what the front page's carousel pulls once a reader stays
 src/pages/tags/             #   /tags/[tag], one page per cross-cutting facet (no directory index)
 src/pages/browse/           #   /browse/[category] (with definitions); the front page is the directory
@@ -240,6 +243,43 @@ the drawing; `bun run icons` rasters `favicon.ico` (16 and 32, PNG-in-ICO) and
 `apple-touch-icon.png` (180, opaque, since iOS masks it and transparent corners under
 that mask are a gamble). Edit the SVG and re-run it; nothing checks that the three agree.
 The Apple icon is the only one deliberately drawn over an opaque ground.
+
+## The agent surface
+
+Four files answer an agent instead of a reader, and they are not independent. `llms.txt`
+opens with when to reach for the dictionary and how to call it, both from
+`src/lib/agents.ts`; the 404 offers the same entry points from `MACHINE_ROUTES` in that
+module; the front page's `<script type="application/ld+json">` is
+`src/lib/structured-data.ts`; and every term page carries
+`<link rel="alternate" type="text/markdown">` at its own `/{slug}.md`.
+
+`bun validate` holds every concrete path named in `WHEN_TO_USE` and `MACHINE_ROUTES` to a
+page that exists in `src/pages`, a term slug, or an alias. That gate is the reason the
+prose can name `/paths.json` and `/snackbar` without either going stale silently: both are
+hand-written strings that would otherwise build clean while pointing at nothing.
+
+**Gotcha**: an alias has an HTML page and NO markdown twin. `[slug].astro` generates a
+redirect for every alias; `[slug].md.ts` generates markdown for the terms only, so
+`/snackbar` answers and `/snackbar.md` is a 404. The guide in `agents.ts` says so, and
+`/paths.json` is what resolves an alias to a slug without a request.
+
+**Gotcha**: the site cannot do content negotiation, and no amount of code will change
+that. GitHub Pages serves a fixed header set (`Vary: Accept-Encoding`, and nothing else),
+so `Accept: text/markdown` on `/toast` returns the HTML page and
+[acceptmarkdown.com](https://acceptmarkdown.com) compliance is out of reach until the site
+sits behind something that can run per-request logic. Do not add a `_headers` file: it is
+Netlify and Cloudflare Pages syntax and GitHub Pages ignores it, which looks like a fix
+and is not one.
+
+**Gotcha**: the front page's JSON-LD is the front page's alone. Google asks for `WebSite`
+on the homepage only, and the identity graph carries `@id`s (`#publisher`, `#author`,
+`#website`, `#dictionary`, `#dataset`) that other pages can reference without repeating.
+A term page emits `DefinedTerm` and `BreadcrumbList` and nothing else.
+
+**Gotcha**: no postal address and no mailbox is published anywhere, deliberately. This is
+one person's project and the only real address behind it is a home one, so the
+`Organization`'s single `contactPoint` is the issue tracker. An SEO audit will score that
+as an incomplete Organization; the trade was made on purpose.
 
 ## Analytics
 

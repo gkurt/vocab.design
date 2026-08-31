@@ -1550,11 +1550,29 @@ the concept, and a docs URL.
 
 - **Aliases** → static redirects + on-page/metadata presence (§3).
 - **JSON-LD**: every term page emits `DefinedTerm` within a site-wide
-  `DefinedTermSet`.
+  `DefinedTermSet`. The front page emits the site's own identity as one `@graph`
+  (`src/lib/structured-data.ts`): the `Organization` that publishes it, the `Person` who
+  wrote it, the `WebSite` with its `SearchAction`, the `DefinedTermSet` naming the ten
+  category pages, and a `Dataset` whose distributions are the three exports. The front
+  page only, because a term page already says what its one word means and repeating the
+  publisher on all of them says nothing new.
 - **Agents**: `llms.txt` at the root, a map of the site rather than a copy of it (page
-  shapes, the categories and the tags, each with its blurb), with the vocabulary itself
+  shapes, the categories and the tags, each with its blurb), opening with when to reach
+  for the dictionary and how to call it (`src/lib/agents.ts`), with the vocabulary itself
   one link away in `llms-full.txt` (every term, its definition, its category); every term
-  also served as raw markdown at `/{slug}.md`; full dataset export at `/terms.json`.
+  also served as raw markdown at `/{slug}.md`, linked from the term page as
+  `rel="alternate" type="text/markdown"`; full dataset export at `/terms.json`, and the
+  slug-and-alias index at `/paths.json`.
+- **The 404 recovers twice**: a reader gets the nearest spellings and the front page, and
+  an agent gets the four machine-readable entry points (`MACHINE_ROUTES`), because a 404
+  is where a caller lands after building a URL that does not exist. `bun validate` holds
+  every concrete path in both to a page the site actually publishes.
+- **Content negotiation is not available.** The site is static on GitHub Pages, which
+  serves a fixed header set: nothing can answer `Accept: text/markdown` on a term's own
+  URL or add `Accept` to `Vary`. So the markdown is a URL of its own rather than a
+  variant of one, and the page advertises it with `rel="alternate"`. Making the site
+  [acceptmarkdown.com](https://acceptmarkdown.com) compliant is a hosting change (an edge
+  worker in front of the assets), not a code one.
 - **Share images**: one per term, and the term's own specimen is the picture (below).
 - **Icons**: `public/favicon.svg` is the drawing (the wordmark's serif v on an accent
   tile, the one letter that survives 16 pixels), and `bun run icons` rasters the two

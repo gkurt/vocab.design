@@ -2,6 +2,7 @@ import { readdir } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { parse } from 'yaml';
 import * as z from 'zod/v4';
+import { MACHINE_ROUTES, WHEN_TO_USE } from '#src/lib/agents.ts';
 import { RESERVED, SITE_ROUTES } from '#src/lib/routes.ts';
 import { CATEGORIES, TAGS, type Tag, type Term, termSchema } from '#src/lib/schema.ts';
 import { slugify } from '#src/lib/slug.ts';
@@ -427,6 +428,31 @@ for (const [slug, size] of family)
 // And the same rule the other way: a facet that collects nothing is not a facet.
 for (const tag of TERM_TAGS)
   if (!family.has(tag)) errors.push(`term-named facet "${tag}" collects nothing; no term declares it with variantOf or partOf (SPEC §2.5)`);
+
+/**
+ * Every path the agent-facing prose names is one the site publishes (SPEC §10). llms.txt
+ * and the 404 tell an agent where to go next, and both are hand-written strings that
+ * build clean while pointing at nothing: an export renamed, or a worked example whose
+ * alias moved to another term. Templated paths (/{slug}.md) are skipped, since the
+ * placeholder is the point; the concrete ones have to resolve.
+ */
+const PAGES_DIR = 'src/pages';
+const pageFiles = new Set(await readdir(PAGES_DIR));
+/** Emitted by the sitemap integration rather than by a page, so it has no file to find. */
+const GENERATED = new Set(['/sitemap-index.xml']);
+const LITERAL_PATH = /(?<![\w{}/.])\/[a-z0-9-]+(?:\.[a-z]+)?/g;
+
+function unresolved(target: string): boolean {
+  if (SITE_ROUTES.has(target) || GENERATED.has(target)) return false;
+  const name = target.slice(1);
+  if (pageFiles.has(`${name}.ts`) || pageFiles.has(`${name}.astro`)) return false;
+  return !terms.has(name) && !aliasOwners.has(name);
+}
+
+for (const target of new Set([...WHEN_TO_USE.join('\n').matchAll(LITERAL_PATH)].map((m) => m[0])))
+  if (unresolved(target)) errors.push(`llms.txt names "${target}", which the site does not publish (SPEC §10)`);
+for (const { href, name } of MACHINE_ROUTES)
+  if (unresolved(href)) errors.push(`the 404 offers "${name}" at "${href}", which the site does not publish (SPEC §10)`);
 
 /**
  * The front page's window (SPEC §3). `exhibit` is curation, so nothing here judges
