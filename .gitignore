@@ -44,3 +44,8 @@ playwright-report
 
 # Finder (macOS) folder config
 .DS_Store
+
+# the announcement video: recorded clips, the music, and renders are all rebuildable
+video/public/clips
+video/public/music
+video/out

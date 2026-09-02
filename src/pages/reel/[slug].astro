@@ -1,0 +1,92 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '@fontsource-variable/source-serif-4';
+import '#src/styles/global.css';
+import SpecimenFonts from '#src/components/SpecimenFonts.astro';
+import SpecimenStage from '#src/components/SpecimenStage.astro';
+import { getTerms } from '#src/lib/terms.ts';
+
+/**
+ * The camera's view of a specimen PLAYING: the set for the announcement video's clips.
+ * `bun run reel` opens one of these per cast member, records attract mode for a pass or
+ * two, and hands the footage to the Remotion project in `video/`, which cuts it to the
+ * beat. Unlinked, out of the sitemap, and never a page a reader lands on.
+ *
+ * It is the term page's own stage, not a copy: the same <vd-stage>, the same attract
+ * player, the same ghost cursor. The page differs from the term page in three ways only.
+ * It is laid out at exactly the specimen's authored 720 (the camera is what makes the
+ * footage sharp: a device scale of 2, never a CSS zoom, which would move every length the
+ * stage measures out from under it); the control bar is hidden, because a still frame
+ * cannot press Play and the video has its own chrome; and there is nothing else on the
+ * page, so the stage is in view the moment it mounts and attract starts on its own.
+ */
+export async function getStaticPaths() {
+  const terms = await getTerms();
+  return terms
+    .filter((term) => term.data.demo !== 'none')
+    .map((term) => ({
+      params: { slug: term.data.slug },
+      props: { name: term.data.name, isolation: term.data.demo as 'inline' | 'iframe' },
+    }));
+}
+
+interface Props {
+  name: string;
+  isolation: 'inline' | 'iframe';
+}
+
+const { slug } = Astro.params;
+const { name, isolation } = Astro.props;
+---
+
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <title>{name} reel clip</title>
+    <meta name="robots" content="noindex" />
+    <SpecimenFonts />
+  </head>
+  <body>
+    <div class="reel">
+      <SpecimenStage slug={slug} name={name} isolation={isolation} />
+    </div>
+    {/* Held until the specimen's faces are in, so the first frames of the recording are
+        set in the type the site sets them in; the recorder's second zero is the release. */}
+    <script is:inline>
+      (() => {
+        const stage = document.querySelector('vd-stage');
+        if (!stage) return;
+        stage.setAttribute('data-hold', '');
+        const mounted = () => new Promise((resolve) => {
+          const tick = () => (stage.specimenRoot ? resolve() : setTimeout(tick, 50));
+          tick();
+        });
+        mounted()
+          .then(() => document.fonts.ready)
+          .then(() => new Promise((resolve) => setTimeout(resolve, 400)))
+          .then(() => stage.removeAttribute('data-hold'));
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background: var(--vd-paper);
+    overflow: hidden;
+  }
+
+  .reel {
+    width: 720px;
+  }
+
+  .reel :global(.vd-stage-bar) {
+    display: none;
+  }
+</style>

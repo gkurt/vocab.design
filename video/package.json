@@ -1,0 +1,25 @@
+{
+  "name": "vocab.design-reel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render",
+    "render:all": "remotion render Full out/full.mp4 && remotion render Teaser out/teaser.mp4 && remotion render Loop out/loop.gif --codec=gif",
+    "beats": "uv run --with librosa python scripts/beats.py",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.520",
+    "@remotion/fonts": "4.0.520",
+    "@remotion/media-utils": "4.0.520",
+    "@remotion/transitions": "4.0.520",
+    "react": "19",
+    "react-dom": "19",
+    "remotion": "4.0.520"
+  },
+  "devDependencies": {
+    "@types/react": "19",
+    "@types/react-dom": "19"
+  }
+}

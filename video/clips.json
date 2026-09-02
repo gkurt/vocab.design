@@ -1,0 +1,365 @@
+{
+  "terms": 1124,
+  "agent": {
+    "slug": "toast",
+    "lines": [
+      "The defining property of a toast is that it leaves on its own. It exists to",
+      "acknowledge (*saved*, *sent*, *copied*) and then get out of the way. The moment a",
+      "message needs a decision, a dismissal, or more than a glance, it has outgrown the",
+      "pattern.",
+      "",
+      "The name \"snackbar\" comes from Material Design, where the component may also carry a",
+      "single optional action (like *undo*). In practice the two words are used",
+      "interchangeably; \"toast\" is the older and more widespread term, from the way the",
+      "message pops up like bread from a toaster.",
+      "",
+      "Because toasts vanish unprompted, they are a poor home for errors or anything a",
+      "screen-reader user must not miss. Announce them politely (`role=\"status\"`), keep"
+    ]
+  },
+  "clips": {
+    "drawer": {
+      "name": "Drawer",
+      "definition": "A panel docked to one edge of the screen that slides in over the content, holding navigation or the details of the thing you selected.",
+      "aliases": [
+        "navigation drawer",
+        "side panel",
+        "side sheet"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        4.23,
+        9.93
+      ],
+      "clicks": [
+        0.6,
+        3.4,
+        6.3,
+        9.1
+      ]
+    },
+    "toast": {
+      "name": "Toast",
+      "definition": "A brief, self-dismissing message that appears at a screen edge to confirm an action or report status without interrupting the user's flow.",
+      "aliases": [
+        "snackbar"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        3.53,
+        8.5
+      ],
+      "clicks": [
+        0.57,
+        5.57,
+        10.57
+      ]
+    },
+    "marching-ants": {
+      "name": "Marching ants",
+      "definition": "The animated dashed outline that circles a selection, moving continuously so the boundary reads as active rather than drawn.",
+      "aliases": [
+        "crawling ants",
+        "animated selection border",
+        "dancing ants"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        6.97
+      ],
+      "clicks": [
+        1.03,
+        5.17,
+        9.43
+      ]
+    },
+    "count-up-animation": {
+      "name": "Count-up animation",
+      "definition": "Animating a number toward its value instead of setting it, often with digits rolling like an odometer so the change is legible.",
+      "aliases": [
+        "odometer animation",
+        "rolling numbers",
+        "number ticker",
+        "animated counter",
+        "slot machine numbers",
+        "rolling digits",
+        "value change"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        5.1,
+        11.67
+      ],
+      "clicks": [
+        2.3,
+        8.87
+      ]
+    },
+    "kanban-board": {
+      "name": "Kanban board",
+      "definition": "A row of vertical columns, each one a stage, holding cards that move sideways as work progresses.",
+      "aliases": [
+        "board layout",
+        "column board",
+        "swimlane board",
+        "trello layout"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        4.13,
+        9.7
+      ],
+      "clicks": []
+    },
+    "gauge": {
+      "name": "Gauge",
+      "definition": "A dial style readout showing one value on an arc between a minimum and a maximum, borrowed from instrument panels.",
+      "aliases": [
+        "dial gauge",
+        "speedometer chart",
+        "semi circle progress",
+        "radial gauge"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        9.6
+      ],
+      "clicks": [
+        1.47,
+        4.37,
+        7.47
+      ]
+    },
+    "signature-pad": {
+      "name": "Signature pad",
+      "definition": "A drawing area that captures a handwritten signature by pointer or touch, with a clear control and a baseline to sign on.",
+      "aliases": [
+        "signature capture",
+        "draw signature",
+        "sign here box"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        10.43
+      ],
+      "clicks": [
+        5.9,
+        8.6
+      ]
+    },
+    "squash-and-stretch": {
+      "name": "Squash and stretch",
+      "definition": "Deforming an element along its direction of travel so it reads as having mass and flexibility, usually as a press squash or a launch stretch.",
+      "aliases": [
+        "squish",
+        "press squash",
+        "non-uniform scale"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        4.33,
+        10.1
+      ],
+      "clicks": [
+        1.07,
+        6.87
+      ]
+    },
+    "breadcrumbs": {
+      "name": "Breadcrumbs",
+      "definition": "A trail of links showing the path from the top of a hierarchy down to the current page, with every level above it clickable on the way back up.",
+      "aliases": [
+        "breadcrumb trail",
+        "breadcrumb",
+        "path bar",
+        "crumbs"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        5.8
+      ],
+      "clicks": [
+        1.57,
+        4.27,
+        8.87,
+        11.57
+      ]
+    },
+    "minimap": {
+      "name": "Minimap",
+      "definition": "A shrunken overview of a long document or canvas beside the scrollbar, with a box showing which part is currently on screen.",
+      "aliases": [
+        "code minimap",
+        "overview ruler",
+        "document map",
+        "navigator"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        9.3
+      ],
+      "clicks": [
+        7.57
+      ]
+    },
+    "bottom-sheet": {
+      "name": "Bottom sheet",
+      "definition": "A surface anchored to the bottom edge that slides up over the content, often draggable between a peeked and an expanded height.",
+      "aliases": [
+        "sheet",
+        "half sheet",
+        "modal sheet"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        7.53
+      ],
+      "clicks": [
+        0.57,
+        9.6
+      ]
+    },
+    "juiciness": {
+      "name": "Juiciness",
+      "definition": "Stacking far more feedback on an act than it needs, so one small input wobbles, pops and sings, and the interface feels alive under the hand.",
+      "aliases": [
+        "juice",
+        "juicy interface"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        10.8
+      ],
+      "clicks": [
+        1.47,
+        4.27,
+        6.07,
+        9.07
+      ]
+    },
+    "pagination": {
+      "name": "Pagination",
+      "definition": "The numbered row of page links under a long result set, with previous and next controls and usually an ellipsis where numbers are skipped.",
+      "aliases": [
+        "pager",
+        "paging controls",
+        "page navigation"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        6.13
+      ],
+      "clicks": [
+        0.57,
+        2.07,
+        2.8,
+        4.3,
+        8.2,
+        9.7,
+        10.43,
+        11.93
+      ]
+    },
+    "complementary-colors": {
+      "name": "Complementary colors",
+      "definition": "Two hues sitting opposite each other on the colour wheel, the pairing that produces the strongest contrast and the loudest accent.",
+      "aliases": [
+        "opposite colors",
+        "contrasting colors",
+        "split-complementary"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        6.8
+      ],
+      "clicks": [
+        0.57,
+        2.87,
+        5.17,
+        8.87,
+        11.17
+      ]
+    },
+    "neon-glow": {
+      "name": "Neon glow",
+      "definition": "A saturated colour surrounded by layered soft shadows of the same hue, so type or a border reads as a lit tube against a dark surface.",
+      "aliases": [
+        "glow effect",
+        "outer glow",
+        "neon text",
+        "bloom",
+        "text glow"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        6.87
+      ],
+      "clicks": [
+        1.73,
+        4.83,
+        10.07
+      ]
+    },
+    "neubrutalism": {
+      "name": "Neubrutalism",
+      "definition": "A loud style built from thick black outlines, saturated flat color, square corners, and hard offset shadows with zero blur.",
+      "aliases": [
+        "neobrutalism",
+        "neo-brutalism",
+        "new brutalism",
+        "hard shadow style",
+        "sticker UI"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        3.33,
+        8.1
+      ],
+      "clicks": [
+        1.17,
+        5.97,
+        10.77
+      ]
+    },
+    "sliding-indicator": {
+      "name": "Sliding indicator",
+      "definition": "A single underline or pill that travels between tabs to mark the selection instead of each tab drawing its own, so the move itself says which way the selection went.",
+      "aliases": [
+        "magic line",
+        "animated tab indicator",
+        "sliding underline",
+        "moving pill",
+        "spring pill",
+        "magic indicator"
+      ],
+      "height": 642,
+      "duration": 12,
+      "passes": [
+        4.5,
+        10.5
+      ],
+      "clicks": [
+        1.07,
+        3.07,
+        7.07,
+        9.07
+      ]
+    }
+  }
+}

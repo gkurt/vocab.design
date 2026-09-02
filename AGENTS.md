@@ -135,11 +135,14 @@ src/integrations/           # pagefind-dev: serves dist/pagefind/ under `astro d
 src/pages/specimen/[slug]   #   the iframe document: one per iframe term, unlinked, out of the sitemap
 src/pages/capture/[slug]    #   the share image's set: the stage at 800x420, posed, no controls
 src/pages/capture/site-card #   the one fallback card, for every page with no specimen
+src/pages/reel/[slug]       #   the video's set: the same stage, playing, for `bun run reel`
+video/                      # the announcement video, a one-off: see video/README.md before touching it
 public/og/                  #   committed: 1,076 share images plus site.png, shot by `bun run og`
 public/favicon.svg          # the icon, and the source the other two are rastered from
 scripts/icons.ts            # `bun run icons`: favicon.ico (16+32) + apple-touch-icon.png
 scripts/validate-terms.ts   # Content gates run by `bun validate`
 scripts/og-images.ts        # `bun run og`: shoots the capture pages into public/og/*.png
+scripts/reel-clips.ts       # `bun run reel`: records the reel pages for the video (video/README.md)
 playwright.config.ts        # e2e runner: builds, previews on 4322, four passes over every specimen
 e2e/*.e2e.ts                # Choreography · identify snapshots · identify mid-attract · takeover · reduced-motion guard (SPEC §8)
 e2e/harness.ts              #   specimen discovery, stage helpers, subject description

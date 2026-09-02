@@ -382,7 +382,8 @@
    no blur at all. The unblurred shadow is the whole term, so it is written here and
    never reads --sp-shadow: the context register drops elevation to none, and a
    neubrutalist specimen with its shadow deleted would be demonstrating nothing.
-   The edge inverts in dark mode so that shadow still lands against the canvas. */
+   The edge stays black in dark mode: the style's outline is ink, not a theme colour, and
+   a white edge reads as a different style, so the shadow is fainter there on purpose. */
 .sp-brutal {
   border: 3px solid var(--sp-brutal-edge, #14161a);
   border-radius: 4px;
@@ -392,11 +393,6 @@
   transition:
     translate 0.1s linear,
     box-shadow 0.1s linear;
-}
-
-:host([data-theme="dark"]) .sp-brutal,
-:root[data-theme="dark"] .sp-brutal {
-  --sp-brutal-edge: #f2f3ef;
 }
 
 /* Pressing drops the card onto its own shadow. Translate, not margin, so the nudge

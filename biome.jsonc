@@ -19,7 +19,8 @@
       "!**/build",
       "!**/out",
       "!**/*.gen.ts",
-      "!**/mockServiceWorker.js"
+      "!**/mockServiceWorker.js",
+      "!**/video/clips.json"
       // Any generated files should be ignored,
       // but if you have a specific generated file that you want to include,
       // you can add an include rule for it here.

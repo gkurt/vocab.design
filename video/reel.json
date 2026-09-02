@@ -1,0 +1,47 @@
+{
+  "music": "music/close-up.mp3",
+  "bpm": 105,
+  "downbeat": 0.167,
+  "cast": [
+    "drawer",
+    "toast",
+    "marching-ants",
+    "count-up-animation",
+    "kanban-board",
+    "gauge",
+    "signature-pad",
+    "squash-and-stretch",
+    "breadcrumbs",
+    "minimap",
+    "bottom-sheet",
+    "juiciness",
+    "pagination",
+    "complementary-colors",
+    "neon-glow",
+    "neubrutalism"
+  ],
+  "long": ["count-up-animation", "kanban-board", "minimap", "squash-and-stretch", "juiciness"],
+  "open": "drawer",
+  "linked": {
+    "slug": "sliding-indicator"
+  },
+  "agent": "toast",
+  "at": {
+    "count-up-animation": {
+      "click": 1,
+      "offset": -0.1
+    },
+    "squash-and-stretch": {
+      "click": 1,
+      "offset": 0.42
+    },
+    "juiciness": {
+      "click": 1,
+      "offset": -0.25
+    },
+    "neon-glow": {
+      "click": 2,
+      "offset": 0.3
+    }
+  }
+}
