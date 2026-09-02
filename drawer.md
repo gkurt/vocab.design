@@ -1,0 +1,67 @@
+---
+name: Drawer
+slug: drawer
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A panel docked to one edge of the screen that slides in over the
+  content, holding navigation or the details of the thing you selected.
+aliases:
+  - name: navigation drawer
+    source: material
+  - name: side panel
+  - name: side sheet
+    source: material
+tags:
+  - navigation
+  - overlays
+relations:
+  contrastWith:
+    - modal-dialog
+    - action-sheet
+    - split-view
+    - sidebar
+    - bottom-sheet
+    - help-drawer
+    - mini-cart
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hamburger-menu
+    - navigation-rail
+    - off-canvas
+implementations:
+  - system: material
+    name: Navigation drawer
+    url: https://m3.material.io/components/navigation-drawer/overview
+  - system: shadcn
+    name: Drawer
+    url: https://ui.shadcn.com/docs/components/drawer
+  - system: carbon
+    name: Side panel
+    url: https://carbondesignsystem.com/components/side-panel/usage/
+sources: []
+demo: inline
+exhibit: false
+useWhen: a panel that slides in from an edge and can stay open
+---
+
+The edge is the definition. A drawer arrives from the side (or the bottom, on
+phones), which is what makes it feel like part of the layout rather than an
+interruption: it can be pushed open beside the content, or laid over it with a
+scrim when the screen is narrow.
+
+Because it is roomy and dismissible, a drawer is the usual home for two things:
+the navigation that will not fit on a small screen, and the details of a row you
+selected in a list. The second use is the one that keeps people in flow, since the
+list stays where it was and the panel does the changing.
+
+Against a [modal dialog](/modal-dialog): both can dim the page, but a modal asks a
+question and a drawer holds a place. If the panel can stay open while you work, it
+is a drawer. Note that Material calls the details variant a "side sheet" and
+reserves "navigation drawer" for the menu case.
+
+The word people reach for when they mean where the panel waits is
+[off canvas](/off-canvas): that is the layout technique of parking a region outside
+the viewport, and a drawer is the component most often parked that way.

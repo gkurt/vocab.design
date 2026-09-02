@@ -1,0 +1,67 @@
+---
+name: Grade
+slug: grade-axis
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A variable font axis that thickens or thins strokes without changing
+  any character's width, so text can get darker without reflowing.
+aliases:
+  - name: GRAD
+    source: opentype
+  - name: optical grade
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - faux-bold
+    - variation-axis
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - font-weight
+implementations: []
+sources:
+  - title: OpenType Design-Variation Axis Tag Registry
+    url: https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg
+  - title: Designing with Variable Fonts
+    url: https://variablefonts.io/about-variable-fonts/
+demo: inline
+exhibit: false
+useWhen: darkening text on a dark background without reflow
+---
+
+Grade is a [variation axis](/variation-axis), registered as `GRAD`, that makes
+strokes heavier or lighter while leaving every advance width exactly where it
+was. Ask for more weight and the glyphs get wider, so the line gets longer, the
+line breaks move, and the paragraph reflows. Ask for more grade and the same
+letters get darker in place: the stems thicken inward, the counters tighten, and
+the text occupies the identical rectangle it did before. The distinction only
+sounds academic until you have to change the darkness of type that is already
+laid out.
+
+The name comes from the print shop, where grade meant a version of a face cut
+slightly heavier or lighter to compensate for a press, a paper, or an ink that
+was gaining or losing weight, without disturbing the composition. The screen
+equivalents are the same kind of compensation. Light text on a dark background
+optically bleeds and reads heavier than the same weight on white, so a graded
+version a step lighter matches it. A low-contrast display, an e-ink panel, or a
+projector may need a step darker. Grade is also the honest axis for hover and
+selected states in dense UI: darkening a table row's label on hover with
+[font-weight](/font-weight) shoves the rest of the row sideways, while darkening
+it with grade does not move a pixel. That is why some families expose grade at
+all, and why Roboto Flex and Google's later text families ship it.
+
+Keep it apart from weight, which is the axis everyone reaches for first.
+[Weight](/font-weight) is a design decision inside the typographic hierarchy: a
+bold word is a different level of emphasis, and its extra width is part of the
+drawing. Grade is a compensation, meant to be invisible as a change of style,
+and a graded line should read as the same weight rendered under different
+conditions rather than as emphasis. That difference in intent is also a
+constraint: grade is not a substitute for a weight ramp, and pushing it far
+enough to look like bold gives you cramped counters instead. Since a family may
+name coordinates on the axis, expect a [named instance](/named-instance) or two
+if the family thinks a particular grade is worth calling something, and expect
+nothing at all in a family that never cut one, because there is no fallback for
+an axis a file does not have.

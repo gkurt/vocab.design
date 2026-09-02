@@ -1,0 +1,78 @@
+---
+name: Spring animation
+slug: spring-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Motion driven by a simulated spring (mass, stiffness, damping)
+  instead of a fixed duration, so the element settles rather than stopping on a
+  schedule.
+aliases:
+  - name: spring
+  - name: spring physics
+  - name: physics-based animation
+  - name: stiffness and damping
+    source: framer-motion
+  - name: tension
+  - name: mass
+tags: []
+relations:
+  contrastWith:
+    - easing
+    - squash-and-stretch
+    - interruptible-animation
+    - duration
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - deformable-ui
+    - bounce-animation
+implementations:
+  - system: hig
+    name: Motion
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+sources:
+  - title: Spring Animations in Pure CSS with linear()
+    url: https://www.carmenansio.com/articles/spring-physics-css/
+  - title: "Chrome for Developers: the linear() easing function"
+    url: https://developer.chrome.com/docs/css-ui/css-linear-easing-function
+demo: inline
+exhibit: false
+useWhen: motion should react to how it was interrupted, not a timer
+---
+
+A spring animation is described by what the thing is made of rather than by how
+long it should take. Give a simulated spring a mass, a stiffness, and a damping
+value, release it, and its position at every moment follows from those three
+numbers. Nobody sets an end time, and strictly speaking there is not one: the
+element approaches its target forever and is simply considered arrived once the
+remaining distance stops being visible. Low damping gives the familiar overshoot
+and settle, higher damping brings it in without passing the target (critically
+damped), and more still makes it crawl the last of the way (overdamped).
+
+The practical payoff is interruption. A spring carries velocity, so a gesture
+that reverses halfway through does not restart a curve or jump to a new one: the
+element is moving at some speed in some direction, the target changes, and the
+same simulation keeps running from where it is. That is why springs took over
+gesture-driven interfaces, where every drag can be released, caught, or thrown at
+any point. A duration-based tween has no such state. Retarget it mid-flight and
+it either snaps or has to be cross-faded into a new curve, which is the visible
+seam a spring does not have.
+
+The vocabulary is a mess worth learning once. Stiffness is also called tension,
+damping is also called friction, and each library normalizes them differently, so
+the same three numbers do not port between them. Some APIs hide the physics
+behind perceptual knobs instead: SwiftUI takes a duration and a bounce, and
+Framer Motion accepts either form. CSS has no springs at all, because a keyframe
+timeline cannot know velocity, and what people mean by a CSS spring is a spring
+sampled ahead of time into a `linear()` easing function with dozens of stops,
+which looks right and interrupts like any other tween.
+
+Reach for one where an element should read as an object with weight: a sheet
+snapping to a detent, a card returning to the grid, a knob answering a drag.
+Avoid it where overshoot would be read as a mistake, which usually means text and
+numbers, and avoid springing anything that changes layout, since an overshoot in
+height pushes the rest of the page twice. Everything said about resting states
+under [duration](/duration) and [easing](/easing) still applies: a reader who has
+asked for reduced motion should get the settled position, not a shorter bounce.

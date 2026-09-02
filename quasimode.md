@@ -1,0 +1,61 @@
+---
+name: Quasimode
+slug: quasimode
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A temporary mode held open by the user, such as a key kept down, so
+  it cannot be forgotten and ends the moment the hold ends.
+aliases:
+  - name: spring-loaded mode
+    source: community
+  - name: held mode
+    source: community
+tags:
+  - keyboard
+relations:
+  contrastWith:
+    - modifier-key
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spring-loading
+implementations: []
+sources:
+  - title: "Wikipedia: mode (user interface)"
+    url: https://en.wikipedia.org/wiki/Mode_(user_interface)
+demo: inline
+exhibit: false
+useWhen: a mode that lasts only while you hold it
+---
+
+Jef Raskin coined the word in his book The Humane Interface, from the Latin quasi, meaning almost:
+a quasimode is almost a mode, and the difference is who is holding it open. An ordinary mode
+is a state the software keeps. A quasimode is a state the reader keeps, with a finger, and it
+collapses the instant that finger lifts. Shift is the one everybody uses without noticing.
+Hold it and the whole keyboard means something else; let go and it does not.
+
+The reason this matters is that modes fail by being forgotten. A mode error is what happens
+when a person acts on a screen that means something other than what they think it means, and
+almost every famous one comes from an interface that was quietly still in a state its user had
+stopped thinking about. A quasimode cannot be forgotten, because forgetting it means letting
+go of it, and letting go of it ends it. The cost of remembering has been moved from memory,
+where it is unreliable, into the hand, where it is free. That is the entire argument, and it
+is why holding space to pan a canvas, holding Alt to sample a colour, and holding a key to
+talk on a radio all feel safe in a way that clicking into a pan tool does not.
+
+It is worth separating from its neighbours precisely. A chorded shortcut also involves keys
+held down, but it fires a command once at the moment the keys come together, and the holding
+is only how the keys are collected. A quasimode fires nothing: it changes what other input
+means, for exactly as long as the hold lasts. Jiggle mode is the counter-example on the other
+side, a mode you enter with a long press and then have to leave deliberately, which is why
+people get stuck in it. And a modifier key is the smallest quasimode there is, which is the
+neatest evidence that the pattern is already everywhere.
+
+The honest caveat is physical. Holding a key while doing something else with the other hand
+is a two-handed gesture, and it is exactly the thing sticky keys exist to undo, so a
+quasimode must never be the only route to a capability. It also needs to say it is on, since
+a reader who has just discovered the mode has no way of knowing where its boundary is until
+something tells them, which is why the good implementations put a visible badge on screen for
+the duration and take it away at the release.

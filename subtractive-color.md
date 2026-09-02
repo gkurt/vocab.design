@@ -1,0 +1,65 @@
+---
+name: Subtractive colour
+slug: subtractive-color
+category: color
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Colour made by taking light away, where inks stack towards black and
+  every added layer can only darken, which is why a screen blue cannot be
+  printed.
+aliases:
+  - name: pigment mixing
+    source: community
+  - name: ink mixing
+    source: community
+tags:
+  - editorial
+  - perception
+relations:
+  contrastWith:
+    - additive-color
+    - cmyk
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - halftone
+implementations: []
+sources:
+  - title: "Wikipedia: subtractive color"
+    url: https://en.wikipedia.org/wiki/Subtractive_color
+demo: inline
+exhibit: false
+useWhen: colour mixed by removing light, as ink does
+---
+
+Ink does not emit anything. A layer of cyan on white paper absorbs most of the red arriving from
+the room and reflects the rest, so what reaches the eye is whatever the paper had minus what the
+ink took. Add magenta over it and the green goes too, and the result is a dark blue rather than a
+brighter anything: every layer can only subtract, so the stack runs towards black by construction.
+Cyan and yellow give green, magenta and yellow give red, cyan and magenta give blue, and the three
+together land on a muddy near-black. Not an actual black, which is the first practical fact about
+the model: real inks are not ideal absorbers, three of them at full strength make a heavy brown
+sludge that takes forever to dry, and that is exactly why print carries a fourth black ink and why
+a rich black is mixed rather than printed from the black plate alone.
+
+The consequence designers meet is gamut loss, and it hurts in one direction in particular. The
+saturated colours a screen is best at are the ones ink is worst at: an emitted blue or a
+fluorescent green sits well outside anything three absorbing layers can reach, so it comes back
+from the press dull, dark, and slightly the wrong hue. The reverse problem barely exists, because
+almost every colour ink can make is inside a screen's reach. So the honest workflow is to design
+towards the smaller space when the piece will be printed, proof it, and treat the screen preview
+as optimistic rather than as the truth. [CMYK](/cmyk) is where the specifics live: four named
+inks, a total coverage limit, and a gamut with its own shape.
+
+A subtractive stack is also why several print techniques on this site are tricks about layers
+rather than choices about colour. [Halftone](/halftone) breaks a tone into dots so that a single
+ink at full strength can stand in for every value between paper and ink, since the ink itself has
+no lighter setting. [Duotone](/duotone) gets a whole image out of two inks by handing one the
+shadows and one the midtones, which only works because the two subtract in a predictable order.
+Both are answers to the same constraint: there is one paper, the inks only darken, and the
+lightest thing available is to not print.
+
+Screens work the other way round, by [additive colour](/additive-color), where three lights sum
+towards white and stacking translucent layers makes them brighter. Holding both models in mind is
+most of what it takes to predict which colours will survive the trip from one to the other.

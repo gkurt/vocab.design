@@ -1,0 +1,69 @@
+---
+name: Quick settings tile
+slug: quick-settings-tile
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A one tap button or toggle an app contributes to the system control
+  surface, so one feature can be reached without opening the app.
+aliases:
+  - name: toggle tile
+    source: community
+  - name: Control Center control
+    source: hig
+tags:
+  - platform-registers
+relations:
+  contrastWith:
+    - widget
+    - switch
+    - app-shortcut
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: hig
+    name: Controls
+    url: https://developer.apple.com/design/human-interface-guidelines/controls
+sources:
+  - title: "Apple HIG: Controls"
+    url: https://developer.apple.com/design/human-interface-guidelines/controls
+  - title: "Android: Create custom Quick Settings tiles"
+    url: https://developer.android.com/develop/ui/views/quicksettings-tiles
+demo: inline
+exhibit: false
+useWhen: one app feature deserves a place in system controls
+---
+
+A quick settings tile is a piece of an app that lives outside the app. The operating system
+owns a panel of controls, pulled down from the top of the screen or swiped in from a corner,
+and an app may contribute one entry to it: a glyph, a short title, sometimes a value, and a
+single tap that does the thing. The whole point is that the app is not running and does not
+have to start. Someone lowering the panel to switch a feature is not visiting the app, they
+are operating one of its switches from the shell.
+
+The anatomy is unusually strict, and it is most of what there is to learn. The symbol has to
+read at a very small size against a background the app does not control. The title is a
+handful of characters and gets truncated without mercy, so it names the feature and never the
+app. The value is optional and is where most of the craft goes: a tile that says only "on" is
+worse than one that says "on, until 6pm", and a tile whose value is stale is worse than one
+that shows none. Because the system draws the tile, the app supplies content and state rather
+than layout, which is why these are a component and not a widget.
+
+The names collide badly and it is worth being explicit about it. Android calls them quick
+settings tiles, and the API is literally a tile service. Apple calls them Controls, which runs
+straight into the generic sense of the word: every button, slider, and switch in every
+interface is a control, so "add a control" is ambiguous in a way "add a tile" is not. Apple
+also groups them with the same building blocks used for widgets and Action button actions,
+which makes the picture broader but the word no clearer. When precision matters, say quick
+settings tile or Control Center control, and reserve the bare word control for the general
+sense.
+
+Against a [switch](/switch) the difference is ownership and reach. A switch is a control
+inside your app, styled by you, understood in the context of the screen around it. A tile is
+the same state exposed through someone else's surface, with no screen around it to give it
+context, which is why the title has to carry all the meaning on its own. Against an
+[icon button](/icon-button) the difference is that a tile is stateful by default: most of them
+report a condition as well as accepting a tap, and a tile that only fires an action has to
+work harder to look like it did anything, since the panel usually closes underneath it.

@@ -1,0 +1,67 @@
+---
+name: Utility navigation
+slug: utility-navigation
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The strip of secondary tools and account actions, sign in, search,
+  language, cart, kept apart from the links that describe the site's content.
+aliases:
+  - name: utility nav
+    source: community
+  - name: pre-header
+    source: community
+tags:
+  - navigation
+relations:
+  contrastWith:
+    - global-navigation
+    - site-footer
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Utility Navigation: What It Is and How to Design It, NN/g"
+    url: https://www.nngroup.com/articles/utility-navigation/
+demo: inline
+exhibit: false
+useWhen: the small links above or beside the main nav
+---
+
+Most products end up with three navigation systems and one of them has no obvious name.
+[Global navigation](/global-navigation) is the set of destinations present on every screen
+and unchanged wherever the reader is. [Local navigation](/local-navigation) is the set
+scoped to the section they are standing in, replaced wholesale when they move. Utility
+navigation is the third: the small cluster of tools that are about the reader rather than
+about the content, so it changes with who is signed in rather than with where they are.
+Search, help, language, currency, account, basket, sign out. It is usually drawn smaller,
+set apart, and pushed to the far corner, and NN/g's
+[account of it](https://www.nngroup.com/articles/utility-navigation/) is that this
+separation is the whole point: readers learn to look in the corner for tools and along the
+bar for content.
+
+The test for whether something belongs here is simple. Ask whether the link describes a
+part of the site or an action the reader takes on their own relationship with it. Products
+is content. Sign in is not. Pricing is content. Change currency is not. The set is also
+the one place where an icon on its own is defensible, because a basket, a magnifier and an
+avatar are among the very few glyphs with settled meanings, and even then the count on the
+basket is doing more work than the glyph. Anything less universal gets a word beside it.
+
+Position carries the meaning. On the desktop web the cluster sits either at the right end
+of the same bar as the main nav or in a thin strip above it, which is why the markup for
+that strip is so often called a pre-header. Either way the reader reads it as secondary
+because it is smaller, quieter, and out of the flow of the content links. Losing that
+contrast is the common failure: once a utility item is styled like a main destination, the
+main nav has silently grown an extra item and the reader has to work out which of these
+words are places.
+
+Two things go wrong at narrow widths. The first is collapsing everything into one
+[hamburger menu](/hamburger-menu), which buries account and basket in the same drawer as
+the content links and destroys the distinction the layout was making. The usual fix is to
+keep the two or three utility controls that matter as icons in the bar and collapse only
+the content links. The second is drift: utility strips attract whatever has nowhere else
+to live, so a bar that started as search and account acquires a careers link, a status
+page, and a promotion, until it is a second global nav that nobody planned. Both are worth
+re-checking whenever the header is touched.

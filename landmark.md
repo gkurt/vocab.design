@@ -1,0 +1,72 @@
+---
+name: Landmark
+slug: landmark
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A named region role (banner, navigation, main, complementary,
+  contentinfo, search) that lets assistive technology jump between the major
+  parts of a page.
+aliases:
+  - name: landmark region
+    source: aria-apg
+  - name: landmark role
+    source: aria
+  - name: region
+    source: wcag
+  - name: main landmark
+    source: community
+tags:
+  - assistive-tech
+  - navigation
+relations:
+  contrastWith:
+    - heading-hierarchy
+    - skip-link
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - page-header
+    - rotor
+implementations: []
+sources:
+  - title: "APG: Landmark Regions"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/
+  - title: A11y Project checklist
+    url: https://www.a11yproject.com/checklist/
+demo: inline
+exhibit: false
+useWhen: naming the big regions so they can be jumped between
+---
+
+A sighted reader takes in a page's shape at a glance: masthead at the top, navigation
+down the side, the article in the middle, related links off to the right. Landmarks are
+that shape written down so software can read it too. A screen reader user pulls up a
+list of the landmarks on the page and moves straight to the one they want, in one
+keystroke, without walking through everything in between. VoiceOver calls that list the
+rotor, NVDA and JAWS reach it with a single letter key, and every one of them is reading
+the same handful of roles.
+
+Most of the roles come free with the right element. `<nav>` is navigation, `<main>` is
+main, `<aside>` is complementary, and `<header>` and `<footer>` become banner and
+contentinfo when they sit at the top level of the document rather than inside an
+article or a section. The `<search>` element carries the search role. `<section>` and
+`<form>` are the two that ask for something in return: they only become a region or a
+form landmark once they carry an accessible name, which is the specification quietly
+saying that an unnamed region is not worth stopping at. Everything here can also be
+spelled with an explicit `role`, and the explicit spelling is what you reach for when
+the markup is out of your hands.
+
+Naming matters as much as marking. Two `<nav>` elements on one page arrive in the rotor
+as "navigation" and "navigation", which helps nobody, so each takes an `aria-label`
+(primary, breadcrumb, in this article). Labels never repeat the role: "main navigation"
+is announced as "main navigation navigation". There should be exactly one main per page,
+and the common advice is that every part of the page worth reaching belongs inside some
+landmark, so nothing is stranded between them.
+
+The failure mode is enthusiasm. A page where twenty things are marked as regions has a
+rotor as long as the page itself, which is the same as having no landmarks at all. Keep
+the set to the major parts, let headings carry the structure inside each one, and
+remember that a skip link is the keyboard-only shortcut covering the same distance for
+readers who never open a rotor.

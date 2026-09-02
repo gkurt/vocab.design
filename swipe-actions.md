@@ -1,0 +1,69 @@
+---
+name: Swipe actions
+slug: swipe-actions
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Buttons hidden behind a list row that a partial sideways swipe
+  reveals, so destructive or common actions live under the item itself.
+aliases:
+  - name: swipe to reveal
+    source: community
+  - name: leading and trailing actions
+    source: community
+  - name: row actions
+    source: community
+tags:
+  - menus
+  - touch
+relations:
+  contrastWith:
+    - context-menu
+    - swipe-to-dismiss
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - swipe
+    - hidden-gesture
+implementations: []
+sources:
+  - title: "LogRocket: Designing accessible swipe contextual action triggers"
+    url: https://blog.logrocket.com/ux-design/accessible-swipe-contextual-action-triggers/
+demo: inline
+exhibit: false
+useWhen: actions parked behind a row until it is swiped
+---
+
+A list row is a small piece of screen with a lot of jobs. Tapping it should open the
+thing, so every other command has to go somewhere else, and the swipe puts them
+underneath. Dragging the row sideways slides its content out of the way and uncovers
+buttons that were always there, scoped to that one item. Apple's Human Interface
+Guidelines split them by direction: the leading edge for the affirming action (mark as
+read, mark as done) and the trailing edge for the dangerous one (delete, archive),
+which is a convention worth keeping because muscle memory is the whole point of a
+gesture nobody can see.
+
+Two behaviours hide under one word, and they feel completely different. A partial
+swipe reveals the buttons and waits, so the reader chooses. A full swipe past a
+further threshold commits to the first action immediately, with no button pressed at
+all. The full swipe is fast and terrifying, so it belongs only to something reversible:
+pair it with an undo affordance and never put an irreversible delete on it. In both
+cases the row should track the finger while the gesture is in progress and settle to a
+definite position when it is released, never park half open.
+
+Nothing about this is discoverable. There is no visual mark on a row that says it can
+be swiped, so a swipe action can only ever be an accelerator for a command that also
+exists somewhere a reader can find it: a detail view, a selection mode, an overflow
+menu on the row. The same reasoning covers input that cannot swipe at all. A keyboard
+has no gesture, a screen reader user is moving through the row rather than dragging it,
+and on the desktop web there is no swipe to speak of. Expose the actions as real
+buttons in the accessibility tree and make sure they are reachable without the
+gesture, rather than treating the reveal as the only door.
+
+Building it on the web means owning the drag yourself. Pointer events plus
+`touch-action: none` on the row stop the browser from claiming the gesture as a scroll,
+and the horizontal offset is applied with a transform so a revealed row cannot push its
+neighbours around. Watch the axis: a list scrolls vertically, so a swipe handler that
+starts reacting before it knows which way the finger is going will fight the scroller
+and lose in both directions.

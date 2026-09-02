@@ -1,0 +1,74 @@
+---
+name: Typing indicator
+slug: typing-indicator
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The three bouncing dots shown while someone is composing a reply, or
+  while an assistant is preparing one.
+aliases:
+  - name: typing dots
+    source: community
+  - name: is typing
+    source: community
+  - name: composing indicator
+    source: community
+  - name: thinking indicator
+    source: community
+tags:
+  - ai
+  - messaging
+relations:
+  contrastWith:
+    - streaming-announcement
+    - read-receipt
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - chat-bubble
+    - conversational-interface
+implementations: []
+sources:
+  - title: "MUI X Chat: typing indicators"
+    url: https://mui.com/x/react-chat/behavior/typing-indicators/
+  - title: "MDN: aria-live"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live
+demo: inline
+exhibit: false
+useWhen: showing that a reply is being composed
+---
+
+A typing indicator is a promise, not a message. Everything else in a thread reports
+something that happened; this one reports something that is about to happen, which is
+why it belongs in the thread rather than in a status bar, and why it is drawn as a
+bubble with nothing in it. The reader is being told to wait a moment, in the exact
+place the waiting will end.
+
+That framing decides the behaviour. A promise has to expire: the dots need a timeout of
+a few seconds after the last keystroke, or a person who starts a sentence, gets
+distracted, and closes the tab leaves a thread that claims forever that a reply is
+coming. It has to survive being kept, too, which is the part demos usually skip: the
+row the dots occupy should be the row the message lands in, at the same height, so the
+arrival is a replacement rather than a shove that moves everything above it. And it
+must be honest about who is composing. One person is "Ada is typing", two is "Ada and
+Jo are typing", more than that is "several people are typing", and a group chat that
+lists eleven names has turned a courtesy into noise.
+
+The dots need a text equivalent, because a decorative animation says nothing to a
+screen reader. The usual shape is a live region announcing "Ada is typing" politely,
+which means `aria-live="polite"` or `role="status"` so it waits for a pause rather than
+interrupting, plus an accessible label on the indicator itself. Keep the announcement
+short and let it retire when the dots do: a live region that fires on every keystroke
+is worse than silence. The animation is decoration on top of that text, so it should
+also stop moving under a reduced motion preference, where three static dots carry the
+same meaning.
+
+There is a fair critique, and it is worth holding while you build one. The indicator
+leaks a state the sender never chose to publish, it invites the reader to sit and watch
+rather than get on with something else, and in a support queue or a chat with an
+assistant it can be theatre: dots animating over a request that is queued rather than
+being composed. Several products now let people turn the signal off, and the pattern
+that borrowed it for machines has mostly moved on to naming the work ("searching the
+docs") because a status that says what is happening beats a status that only says that
+something is.

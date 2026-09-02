@@ -1,0 +1,57 @@
+---
+name: Bypassing pattern
+slug: bypassing-pattern
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scanning shape where readers deliberately skip the opening words
+  of each line because every line in a list starts the same way.
+aliases: []
+tags:
+  - perception
+relations:
+  contrastWith:
+    - commitment-pattern
+    - marking-pattern
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: F-Shaped Pattern of Reading on the Web, NN/g
+    url: https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/
+demo: inline
+exhibit: false
+useWhen: arguing against repeated leading words in lists
+---
+
+Give a reader a list whose every item begins "How to configure", and the eye stops looking
+at the left edge. It jumps past the shared opening words and starts a line or two in, where
+the words that actually differ live. Eye tracking picks this up as a column of first
+fixations sitting well inside the text block instead of flush with it, and the name for that
+shape is the bypassing pattern. Readers are not being lazy. They have worked out, correctly,
+that the first three words carry no information, and they are spending their attention where
+information is.
+
+The pattern is cheap to observe and expensive to ignore, because the skip is not free. Every
+line still has to be entered somewhere, and the entry point drifts: one item is bypassed
+after two words, the next after four, so the fixation column goes ragged and the list stops
+being scannable as a column at all. Worse, the eye that has learned to skip the opening of a
+line will skip it even when one item's opening is the one thing that differs, which is how a
+"Do not" or a "Deprecated" in front position gets missed entirely.
+
+The rule that follows is a single sentence: front-load the word that differs. "Billing
+alerts: how to configure" beats "How to configure billing alerts" for exactly the same
+reason a filename beats a sentence, and the gain compounds down a list because the fixations
+line up in one flush column that can be read vertically. Strip the shared prefix into the
+heading above the list, or into the section the list sits in, where it is stated once and
+scanned once.
+
+Bypassing is one of the family of scanning shapes eye tracking has named, and it is the most
+directly actionable of them. It sits next to the [F pattern](/f-pattern), which describes
+what the eye does to a page of dense text rather than to a list, and next to the
+[layer cake pattern](/layer-cake-pattern), which describes the same instinct working one
+level up: skip whatever repeats, land on whatever distinguishes. The design response in all
+three cases is the same, which is to put the distinguishing words where the eye is already
+going.

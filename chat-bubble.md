@@ -1,0 +1,67 @@
+---
+name: Chat bubble
+slug: chat-bubble
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A rounded container for one message in a conversation, aligned and
+  coloured by who sent it, often with a tail toward the sender's side.
+aliases:
+  - name: message bubble
+  - name: speech bubble
+  - name: bubble
+    source: shadcn
+  - name: message
+    source: shadcn
+tags:
+  - messaging
+relations:
+  contrastWith:
+    - callout
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - read-receipt
+    - typing-indicator
+    - conversational-interface
+implementations:
+  - system: shadcn
+    name: Bubble
+    url: https://ui.shadcn.com/docs/components
+sources:
+  - title: Cloudscape components
+    url: https://cloudscape.design/components/
+demo: inline
+exhibit: false
+useWhen: one message in a conversation view
+---
+
+A chat bubble carries exactly one message. Everything about its appearance answers
+a single question the reader asks dozens of times while scrolling a thread: who
+said this? Three cues answer it at once, and they are redundant on purpose.
+Alignment puts the reader's own messages on one side and everyone else's on the
+other, fill colour separates the two groups, and the tail (or the one squared
+corner that stands in for it) points back toward the speaker.
+
+The bubble is a container, not a row. Timestamps, delivery ticks, reactions and
+the sender's avatar live around it rather than inside it, which is why a thread
+can group three consecutive messages from the same person under one avatar
+without redrawing anything. Width is the part most often got wrong: a bubble
+hugs its content up to a cap of roughly two thirds to three quarters of the
+column, so a one word reply stays small and a paragraph still breaks at a
+comfortable measure instead of running the full width of the screen.
+
+Colour alone is never enough. A reader who cannot separate the two fills gets no
+information from a wall of identical shapes, so alignment has to carry the same
+distinction, and assistive technology needs the sender named in text rather than
+implied by paint. The usual fix is a visually hidden label per bubble or per
+group, plus a list structure so the thread reads as a sequence of items rather
+than as one long run of prose.
+
+The word is loose about scale. In messaging products it names the message
+container; in illustration and comics a speech bubble is the balloon with the
+pointed tail, which is where the shape came from. Interfaces that are not
+conversations borrow it anyway, usually badly: a tooltip drawn as a bubble is
+still a tooltip, and a bubble with no counterpart on the other side is just a
+card with a strange corner.

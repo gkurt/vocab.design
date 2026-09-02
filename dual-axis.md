@@ -1,0 +1,73 @@
+---
+name: Dual axis
+slug: dual-axis
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Two value axes sharing one plot so two series can be compared, and a
+  free knob for manufacturing whatever correlation you like.
+aliases:
+  - name: secondary axis
+  - name: dual y-axis
+  - name: two y-axes
+  - name: combo chart
+tags:
+  - dataviz
+  - perception
+relations:
+  contrastWith:
+    - truncated-axis
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - axis
+    - small-multiples
+implementations: []
+sources:
+  - title: "Datawrapper: Why not to use two axes"
+    url: https://www.datawrapper.de/blog/dualaxis
+demo: inline
+exhibit: false
+useWhen: someone proposes a second y-axis and the scales question needs asking
+---
+
+A second value axis is the standard answer to a real problem: two series that belong in the
+same story and share no unit. Revenue is in thousands, complaints are a count, and neither
+one drawn against the other's scale says anything. So the plot grows a right-hand axis, one
+series is read against each, and the chart appears to have solved it. What it has actually
+done is take the single most important thing the reader will do with the picture, compare
+the two shapes, and hand the person who drew it a knob that decides the answer.
+
+The specimen above never changes a number. Eight months of revenue, eight months of
+complaints, drawn as the same bars and the same line throughout. All that moves is the
+domain of the right axis. Set it wide and the complaint line lies low and almost flat under
+the bars, and the chart says complaints are a rounding error against a business that is
+growing. Set it tight and the identical eight counts climb most of the plot, steeper than
+the bars, and the chart says complaints are outrunning revenue. Both pictures are correctly
+labelled. Both are drawn from the same file. The crossing point where the line meets the
+bars, which is the thing every reader takes away, exists nowhere in the data: it is a
+property of the two domains, and whoever chose them chose it.
+
+There are honest uses, and they are narrower than the pattern's popularity suggests. When
+the second axis is a fixed transformation of the first, degrees Celsius against degrees
+Fahrenheit, a count against that same count as a percentage of a known total, there is no
+free knob at all, because the mapping is arithmetic rather than taste. The same goes for a
+second axis whose domain the subject matter already fixes, such as a rainfall scale a
+meteorological convention pins. Where the two units are genuinely unrelated, the usual
+repairs are to index both series to their own starting value and plot them on one axis in
+percent, or to stop overlaying them at all and use
+[small multiples](/small-multiples), which keeps the comparison honest by refusing to draw
+it as a single shape. [Datawrapper](https://www.datawrapper.de/blog/dualaxis) makes the
+stronger version of the argument, which is that a reader cannot tell a real crossing from a
+manufactured one, so the chart cannot be trusted even when it is right.
+
+The neighbours divide by which part of the drawing does the lying. A
+[truncated axis](/truncated-axis) lies about magnitude, moving one baseline so a difference
+looks bigger than it is; a dual axis lies about correlation, handing each series its own
+free knob so two shapes can be made to agree or disagree at will. [Axis](/axis) is the
+component both are choices about, the drawn line with its ticks and its labels, and
+[chart](/chart) is the whole drawing they serve. When the domains are picked to win an
+argument the numbers do not support, the word stops being a charting term and becomes a
+[dark pattern](/dark-pattern): the evidence is all present, in small type, at the edge
+nobody reads.

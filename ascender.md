@@ -1,0 +1,69 @@
+---
+name: Ascender
+slug: ascender
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The part of a lowercase letter such as b, d, or h that rises above
+  the x-height.
+aliases:
+  - name: ascender line
+  - name: ascent
+    source: css
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - descender
+    - x-height
+    - cap-height
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Ascender (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Ascender_(typography)
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+demo: inline
+exhibit: false
+useWhen: naming the strokes that reach above lowercase height
+---
+
+The letters that carry one are `b`, `d`, `f`, `h`, `k`, `l` and `t`, and the line
+their tops reach is the ascender line. Like every other vertical metric it is
+measured from the [baseline](/baseline), and the part that surprises people is
+where it lands: in most faces it sits a little above the
+[cap height](/cap-height), so the `l` in a word is fractionally taller than the
+`L` beside it. That is deliberate. A capital and an ascender drawn to exactly the
+same height read as a collision rather than as a pair, so the lowercase is given
+a hair of clearance.
+
+Ascenders and [descenders](/descender) together are what give a word its
+silhouette, and the ratio between them and the [x-height](/x-height) is most of
+what makes one face feel airy and another cramped. A face with a large x-height
+has short ascenders by arithmetic, since the total is fixed by the em: its words
+flatten toward rectangles, which is easier to read at small sizes and harder to
+tell apart at a glance. Set the same text in a face with long ascenders and the
+column grows a texture of vertical strokes, which is the quality typographers
+mean by sparkle.
+
+In the font file the number is stored as an ascender metric, and CSS exposes the
+same idea as the `ascent-override` descriptor, which is how a
+[fallback font](/fallback-font) is made to occupy the vertical space of the face
+it stands in for. The metric is not the ascender line, though. A font's declared
+ascent reserves room above the tallest letter for accents and diacritics, so it
+is taller than the `b`, and that reserved air is a good part of why a heading
+looks like it is sitting too low inside its own box.
+
+The practical bite is clipping. Give a badge a fixed height with
+`overflow: hidden`, or set `line-height: 1` on a face whose ascent and descent
+add up to more than one em, and the tops of the ascenders are the first thing to
+go, with the tails of the descenders following at the other end. What makes it
+easy to ship is that the usual test string is lowercase without an `l` or a `k`
+in it, so nothing looks wrong until real content arrives. The fix is not a
+larger [leading](/leading) so much as an honest box: let it be as tall as the
+face actually draws, and crop it with `text-box-trim` if the extra air is the
+problem rather than the ink.

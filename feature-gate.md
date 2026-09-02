@@ -1,0 +1,71 @@
+---
+name: Feature gate
+slug: feature-gate
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: Showing a locked feature in place, with its real position in the
+  interface, so the reader sees what upgrading would unlock rather than a hidden
+  absence.
+aliases:
+  - name: upgrade prompt
+    source: community
+  - name: freemium wall
+    source: community
+  - name: locked feature
+    source: community
+  - name: teaser lock
+    source: community
+  - name: pro badge
+    source: community
+tags:
+  - commerce
+relations:
+  contrastWith:
+    - paywall
+    - metered-paywall
+    - fake-door
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "GoodUI: Try exposing options instead of hiding them"
+    url: https://goodui.org/
+demo: inline
+exhibit: false
+useWhen: a locked feature stays visible with an upgrade badge
+---
+
+A feature gate leaves the feature where it belongs and marks it as not yours yet. The
+row keeps its real label and its real position in the settings list, and instead of the
+control it would have, it carries a lock and the name of the plan that includes it.
+Selecting it explains the trade: what this does, which plan it is on, and how to get
+there. Nothing else about the interface pretends the feature does not exist.
+
+The alternative most products reach for first is hiding, and hiding teaches nobody
+anything. A reader who never sees the row cannot want it, cannot search the help centre
+for it, and cannot tell whether the product lacks the capability or merely lacks it on
+this plan, which is the difference between "not for me" and "not yet". Showing the
+locked row is also the honest answer to a support question that otherwise never gets
+asked out loud. The cost is real and worth stating: every lock is a small reminder that
+the reader is on the cheaper tier, so a screen with eleven of them stops reading as a
+product and starts reading as a demonstration.
+
+It is a different thing from a [paywall](/paywall), which stands in front of content the
+reader has already reached, usually an article they arrived at from a link, and asks for
+payment before they may finish it. A gate is about capability rather than content, it is
+encountered inside a product the reader is already using, and it never interrupts work
+in progress. A metered paywall sits between the two, letting a few articles through per
+month before the wall goes up. Their failure modes differ too: a paywall is judged on
+whether it is honest about the count, a gate on whether it is honest about the value.
+
+The details that separate a fair gate from a nag: name the plan and the benefit rather
+than shouting "Upgrade", let the explanation be dismissed with a plain "Not now" that
+does not come back three seconds later, and never let a locked control eat work already
+done, which is the version people actually resent. Mark the control as unavailable to
+assistive technology with the reason attached, not merely as decoration, so the lock is
+not a purely visual message. And keep the gate honest in the other direction too: if the
+feature is not on any plan, it is not gated, it is unbuilt, and saying so is better than
+a lock that never opens.

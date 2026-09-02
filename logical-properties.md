@@ -1,0 +1,71 @@
+---
+name: Logical properties
+slug: logical-properties
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Layout properties named by flow direction (inline start, block end)
+  rather than by screen edge, so a layout mirrors itself in other writing modes.
+aliases:
+  - name: flow relative properties
+    source: css
+  - name: inline-start and block-end
+    source: css
+  - name: writing mode aware properties
+    source: community
+  - name: margin-inline
+    source: css
+tags:
+  - i18n
+  - web-platform
+relations:
+  contrastWith:
+    - vertical-writing-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - reading-order
+implementations: []
+sources:
+  - title: CSS guides, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides
+demo: inline
+exhibit: false
+useWhen: spacing that must flip for right to left text
+---
+
+Logical properties name edges by the direction text flows rather than by the side of the
+screen. Instead of `margin-left` you write `margin-inline-start`, instead of `padding-bottom`
+you write `padding-block-end`, and instead of `top` and `left` you write `inset-block-start`
+and `inset-inline-start`. Two axes replace four sides: the inline axis is the one text advances
+along, the block axis is the one lines stack along, and each has a start and an end. The
+browser resolves those names against the element's `writing-mode` and `direction`, so the same
+declaration lands on the left edge for English, on the right edge for Arabic, and on the top
+edge for vertical Japanese, with no extra rules written anywhere.
+
+The word this is most often confused with is [RTL mirroring](/rtl-mirroring), and the two are a
+goal and a mechanism rather than two names for one thing. Mirroring is what the layout owes a
+right to left reader: the whole composition reflected, so the reading order still runs from the
+start of the line. Logical properties are how you get that without maintaining a second
+stylesheet full of overrides, which is the approach they replaced and the reason the old
+approach always drifted out of sync. It also means the two disagree in an important place. Not
+everything should mirror, so a design that flips wholesale by logical property still needs
+someone deciding which pieces stay physical.
+
+That decision list is short but real. A clock face, a musical stave, a chart's time axis, and a
+play button keep their direction in every locale, because they are not sentences. Progress
+usually mirrors and playback usually does not, which is why the two are worth arguing about
+separately. And a few properties have no logical form at all, `box-shadow` and `transform`
+among them, so an offset shadow or a nudge written in `translateX` will keep pointing the same
+way while everything around it turns. Those are the cases where a `:dir(rtl)` rule is the
+honest answer rather than a failure of nerve.
+
+Adopting them is unusually cheap for a change of this size. Swap `left` and `right` for
+`inline-start` and `inline-end`, use `text-align: start` instead of `text-align: left`, and
+prefer the two-value shorthands (`margin-inline: 20px 10px`, `padding-block: 12px`) which say
+the axis out loud. A [hanging indent](/hanging-indent) built from `text-indent` and
+`padding-inline-start` survives a direction flip untouched, while the same indent built from
+`padding-left` has to be undone and rewritten. The payoff is not only internationalisation. A
+component whose spacing is written along its own axes is a component you can drop into a
+column, a row, or a vertical strip without unpicking which side its breathing room was on.

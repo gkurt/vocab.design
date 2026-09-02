@@ -1,0 +1,71 @@
+---
+name: Grainy gradient
+slug: grainy-gradient
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A gradient with a fine noise layer over it, added to hide banding
+  and give a flat background the texture of printed paper or film.
+aliases:
+  - name: noise texture
+  - name: grain overlay
+  - name: film grain
+  - name: noisy background
+  - name: feTurbulence background
+    source: svg
+tags:
+  - depth
+  - perception
+relations:
+  contrastWith:
+    - color-banding
+    - aurora-ui
+    - retro-film-aesthetic
+    - terrazzo
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - dithering
+implementations: []
+sources:
+  - title: "CSS-Tricks: Grainy Gradients"
+    url: https://css-tricks.com/grainy-gradients/
+  - title: "ibelick: Creating grainy backgrounds with CSS"
+    url: https://ibelick.com/blog/create-grainy-backgrounds-with-css
+demo: inline
+exhibit: false
+useWhen: a smooth background deliberately roughened with noise
+---
+
+The problem it solves is real and old. A [gradient](/gradient) drawn across a large area
+in eight bits per channel has to quantize, and where the ramp changes slowly the same
+rounded value repeats for many pixels before stepping to the next one. The eye is very
+good at finding those steps, and they show up as banding: soft stripes running across
+what should be a smooth wash, worst in dark blues and greys, worst again on a large
+screen. Adding fine noise dithers the boundary, scattering pixels either side of each
+step so no stripe has a clean edge. Video and print have done exactly this for decades,
+which is why the fix reads as film grain rather than as a repair.
+
+On the web the noise usually comes from SVG. An `feTurbulence` filter with
+`type="fractalNoise"` generates a tileable field of noise, and the whole filter can be
+inlined as a data URI background image, so a page gets grain with no network request and
+no bitmap asset. The alternatives are a small tiled PNG, which is smaller to decode but
+another file, and a canvas-drawn texture, which is flexible and costs script. However it
+is generated, the grain sits over the gradient as its own layer at low opacity, often
+with a blend mode so it darkens and lightens rather than greying the whole thing out.
+
+Somewhere around 2021 the fix became a style. Landing pages, developer tool marketing,
+and music apps started laying visible grain over saturated washes and
+[aurora](/aurora-ui) backdrops, at strengths well past what banding would require, for
+the same reason the film industry keeps adding grain to digital footage: it reads as
+warmth and material, and it takes the plastic sheen off a flat colour. At that point the
+noise is not hiding an artifact, it is the texture of the brand.
+
+Three notes for shipping it. The grain layer is decoration, so it needs
+`aria-hidden` and `pointer-events: none`, and it must never sit between the reader and a
+control. Turbulence is expensive to rasterize, so generate it once at a modest tile size
+and repeat it rather than filtering a full-bleed element, and never animate the filter
+itself. And the strength wants checking on both a phone and a high density desktop
+display, because grain tuned by eye on one pixel ratio can vanish or turn to sandpaper on
+the other.

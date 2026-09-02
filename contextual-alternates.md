@@ -1,0 +1,71 @@
+---
+name: Contextual alternates
+slug: contextual-alternates
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Substitute letterforms a font swaps in automatically based on the
+  neighbouring characters, so joins and repeats look natural.
+aliases:
+  - name: calt
+    source: opentype
+  - name: contextual forms
+  - name: contextual substitution
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - ligature
+    - opentype-features
+    - stylistic-set
+    - swash
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Syntax for OpenType features in CSS (Adobe Fonts)
+    url: https://helpx.adobe.com/fonts/using/open-type-syntax.html
+  - title: Registered features, a-e (OpenType spec)
+    url: https://learn.microsoft.com/en-us/typography/opentype/spec/features_ae
+demo: inline
+exhibit: false
+useWhen: a script font changes shape depending on its neighbours
+---
+
+Some letters look wrong next to certain others. A joining script whose exit stroke
+lands on the entry stroke of the next letter needs a different exit when the next
+letter is a tall one. A doubled letter drawn from one outline twice reads as a
+stamp rather than as handwriting. The `calt` feature is a font's own answer to
+those cases: a table of rules saying which glyph to use when a particular
+neighbour is present, applied by the shaping engine with no decision from the
+person setting the text.
+
+That automatic quality is the whole distinction from its neighbours in the
+[OpenType](/opentype-features) vocabulary. A [stylistic set](/stylistic-set) is a
+deliberate editorial switch: you prefer the other `a`, and you say so. Contextual
+alternates fire on their own, wherever the context calls for them, and they are on
+by default in CSS, which is why most people never learn the tag exists.
+A [ligature](/ligature) is close but not the same shape of rule: it fuses a pair
+into one glyph, while a contextual alternate keeps the count of glyphs and changes
+which drawing one of them uses. In practice the two overlap, and programming faces
+lean on `calt` heavily, both for arrows built out of `-` and `>` and for keeping
+repeated symbols from stacking into one blur.
+
+The CSS is two spellings of the same request. `font-variant-ligatures: contextual`
+and `no-contextual` are the readable form, and `font-feature-settings: "calt" 1`
+or `0` is the raw tag. Turning it off is the rarer and more interesting case:
+a code editor showing exactly the characters in the file, a diagram where `->`
+must stay two characters wide, a table where a substitution would break the
+column. Otherwise leave it alone, because the type designer wrote those rules
+about their own drawings and knows where the collisions are.
+
+The trap is the same one every OpenType tag carries: a request for a feature the
+file does not have is silently ignored, and most text faces have no `calt` table
+at all. Nothing warns you, so a script that looks mechanical is not evidence that
+the browser dropped the feature; it is usually evidence that the font never
+shipped one. The specimen above is set in Fira Code, which does ship one, so its
+switch asks the real question and the glyphs answer it. Ask the same question of
+a text face with no `calt` table and both states come back identical, which is
+what the silence looks like from the outside.

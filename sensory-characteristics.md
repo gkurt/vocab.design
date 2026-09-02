@@ -1,0 +1,63 @@
+---
+name: Sensory characteristics
+slug: sensory-characteristics
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Instructions that lean on shape, size, position, or sound alone,
+  such as the round button on the right, which fail when those cues are not
+  perceived.
+aliases:
+  - name: shape and position instructions
+    source: wcag
+  - name: the button on the right
+    source: community
+tags:
+  - content-design
+  - wcag
+relations:
+  contrastWith:
+    - link-purpose
+    - use-of-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Sensory Characteristics"
+    url: https://www.w3.org/TR/WCAG22/#sensory-characteristics
+demo: inline
+exhibit: false
+useWhen: copy points at a control by shape or position
+---
+
+Criterion 1.3.3 is one sentence long: instructions for using content must not rely solely on
+sensory characteristics such as shape, colour, size, visual location, orientation, or sound. In
+practice it is a rule about copy, not about controls. "Press the round button on the right", "see
+the sidebar to the left", "click the icon above", and "when you hear the tone, continue" are all
+the same defect: the sentence names its target by something the reader may not be able to
+perceive, when a name was available and free.
+
+The reader it blocks most obviously is one listening rather than looking. A [screen
+reader](/screen-reader) walks the interface as a sequence of named things, so shape and side simply
+are not in the account: two buttons that a sighted reader distinguishes instantly as the round one
+and the square one arrive as two buttons, in order, and the instruction has nothing to match on. The
+same failure hits magnification, where "on the right" is off screen, and readers with
+[colour vision deficiency](/color-vision-deficiency), which is why the hue half of this problem gets
+its own criterion in [use of color](/use-of-color).
+
+The less discussed failure mode is that position words are fragile for everybody. A layout that
+[reflows](/reflow) moves things: the button on the right becomes the button at the bottom on a
+phone, the left sidebar becomes a drawer behind a [hamburger](/hamburger-menu), and "above" becomes
+"below" the moment a column stacks. Help copy written against one breakpoint is quietly wrong at
+every other one, and screenshots in documentation age the same way. Naming the control instead makes
+the sentence survive the layout, which is a maintenance benefit long before it is an accessibility
+one.
+
+The fix is not to strip the sensory detail out, it is to add the name and keep the detail as a
+bonus. "Press Continue, the round button on the right" reads naturally, helps a sighted reader find
+the thing faster, and still resolves for a reader who has neither shape nor side. Where the name has
+to match what is announced, [label in name](/label-in-name) is the criterion that keeps the two
+spellings together. And if the copy cannot name the control because the control has no
+[accessible name](/accessible-name), the instruction was never the real bug.

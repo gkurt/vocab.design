@@ -1,0 +1,72 @@
+---
+name: Squircle
+slug: squircle
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A rounded square whose corners curve continuously into the sides
+  instead of meeting a circular arc, the shape behind iOS app icons.
+aliases:
+  - name: superellipse
+  - name: continuous corner radius
+    source: apple
+  - name: smooth corners
+  - name: iOS icon shape
+    source: community
+  - name: G2 continuity
+    source: community
+tags:
+  - platform-registers
+  - tokens
+relations:
+  contrastWith:
+    - blob-shape
+    - chamfer
+    - corner-radius
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: corners that blend in rather than snap to an arc
+---
+
+A normal rounded rectangle is a straight edge and a quarter circle stitched together. The
+two pieces meet at a tangent, so the outline never kinks, but the curvature does: it is
+zero along the edge and then, at one exact point, it is one over the radius. A squircle
+replaces that join with a single curve whose bend ramps up gradually and peaks at the
+corner, so there is no point where anything jumps. Mathematically it is a superellipse,
+the family of shapes given by taking the ellipse equation and raising the exponent above
+two, which is a way of saying the shape sits somewhere between a circle and a square and
+you pick where. In curve terms, a plain radius is G1 continuous and a squircle is G2, and
+that is the whole difference the eye is reacting to.
+
+The shape is older than the software. Piet Hein worked out the superellipse in 1959 for
+Sergels torg in Stockholm, where a roundabout had to be neither a circle nor a rectangle,
+and the same shape turned up on tables, plates, and eventually the outline of an iOS app
+icon when Apple redrew the icon grid for iOS 7. Apple's version is not quite Hein's
+equation, it is a hand tuned set of Bezier curves, which is why matching it exactly took
+the community several attempts and why the values get published as icon templates rather
+than as a formula. It is exposed to developers as a continuous corner style rather than as
+a number, and Figma offers the same thing as a corner smoothing slider, where roughly 60
+percent is the iOS look.
+
+The web has been slower. `border-radius` is defined in terms of elliptical arcs, so it
+cannot make this shape at all, and the workarounds have all been expensive: an SVG path or
+`clip-path: path()` at a fixed size, a mask image, or a paint worklet. CSS now has an
+answer in `corner-shape`, which sits beside `border-radius` and accepts `squircle` or a
+`superellipse()` exponent, letting the same declaration keep the border, the shadow, and
+the background clip that a hand drawn path throws away. Chromium shipped it first and it
+degrades to an ordinary radius where it is missing, so it is usable as a progressive
+refinement rather than as a dependency.
+
+Whether it is worth the trouble depends entirely on size. At a sixteen pixel icon or a six
+pixel input radius, nobody can tell, and reaching for a clip path there is cost with no
+return. It earns its place where the corner is large relative to the shape and the eye has
+time to look at it: app icons, avatars, large media thumbnails, the outer shell of a phone
+mockup, big feature cards. It also has a real practical cost worth knowing about. A plain
+radius clips text, shadows, and children for free, while a masked or clipped squircle
+usually creates its own layer and can soften the edge it is trying to perfect.

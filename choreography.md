@@ -1,0 +1,76 @@
+---
+name: Motion choreography
+slug: choreography
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The plan for how several animating elements relate in time and
+  space, deciding what leads, what follows, and what stays still.
+aliases:
+  - name: orchestration
+    source: community
+  - name: sequencing
+    source: community
+  - name: motion sequence
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - microinteraction
+    - parenting
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - delay
+    - tween
+implementations:
+  - system: fluent
+    name: Motion
+    url: https://fluent2.microsoft.design/motion
+sources:
+  - title: "Carbon Design System: motion choreography"
+    url: https://carbondesignsystem.com/elements/motion/choreography/
+  - title: "Fluent 2: Motion"
+    url: https://fluent2.microsoft.design/motion
+demo: inline
+exhibit: false
+useWhen: more than one thing moves and the order matters
+---
+
+Choreography is the layer above the individual animation. Every element in a group can have
+a perfectly judged curve and duration and the group can still read as chaos, because the
+questions that decide whether a moment works are relational: which element moves first,
+which waits for it, which stays completely still, and how much the moves overlap. A screen
+where everything animates at once has told the reader nothing, since there is no order to
+follow and no way to tell what mattered. Deciding that something does not move is as much
+part of the plan as deciding that something does.
+
+The working vocabulary is small. A [stagger](/stagger) offsets the same animation across a
+set, so a list arrives item by item and the eye is led down it in reading order. Overlap
+means the next element starts before the previous one has finished, which is what keeps a
+sequence feeling like one event rather than a queue of separate ones: with no overlap, six
+cards at 300 milliseconds each take nearly two seconds and read as a loading screen.
+Follow-through is the smaller, later movement of a dependent element, the panel settling
+after the card that opened it. And the whole plan usually hangs off an anchor, the element
+the reader actually acted on, which leads because that is where their attention already is.
+
+Design systems have written this down under different names. Carbon publishes choreography
+guidance on exactly this question, giving delays for how elements should follow each other
+so that motion across a product looks like one hand made it. Fluent covers it as part of its
+motion documentation, and Material's transition patterns are choreography by another route:
+each named transition is a fixed decision about which surface leads and which follows. What
+these have in common is that the plan is a system-level artefact, not a per-screen
+improvisation. Two teams inventing their own order for the same kind of moment is how a
+product ends up with motion that feels borrowed from three different applications.
+
+This is the term that [entrance animation](/entrance-animation) sits inside. An entrance is
+one element's arrival, and it is fully described by a distance, a curve, and a duration.
+Choreography is the story the group tells with those arrivals: same entrance, six delays,
+one meaning. It is also, quietly, what every specimen on this site runs on, since each demo
+ships a declarative script of moves and waits that both plays the demonstration and doubles
+as its test. Writing motion down as data rather than as code is the practical form the
+discipline takes. Keep the total short, cap the cascade at a handful of elements before the
+offsets start compounding into a wait, and remember that a stated
+[prefers-reduced-motion](/prefers-reduced-motion) collapses the whole plan to its end state,
+where everything is simply present at once.

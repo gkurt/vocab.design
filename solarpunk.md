@@ -1,0 +1,69 @@
+---
+name: Solarpunk
+slug: solarpunk
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An optimistic ecological future style of daylight palettes, plant
+  growth over structure, stained glass colour, art nouveau curves, and visible
+  solar and wind technology.
+aliases:
+  - name: solar punk
+  - name: eco-futurism
+  - name: utopian solarpunk
+    source: designmd
+tags:
+  - illustration
+relations:
+  contrastWith:
+    - afrofuturism
+    - cyberpunk-ui
+    - frutiger-aero
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - biophilic-design
+implementations: []
+sources:
+  - title: "Aesthetics Wiki: Solarpunk"
+    url: https://aesthetics.fandom.com/wiki/Solarpunk
+demo: inline
+exhibit: false
+useWhen: a hopeful green future rather than a dystopian one
+---
+
+Solarpunk is a future people would actually want to live in, drawn on purpose. Its whole
+argument is that a sustainable world is worth picturing in detail, because a thing nobody
+can imagine is a thing nobody builds toward. So the pictures are specific: buildings with
+gardens growing across them rather than gardens fenced off beside them, daylight instead
+of neon, warm ochres and leaf greens instead of a cold cast, curved organic structure
+instead of grids, and the machinery of the transition left on show. Solar panels and wind
+turbines are not hidden in solarpunk work. They are drawn as ornament, the way a previous
+century drew chimneys and rivets.
+
+The style is a deliberate inversion, and it names the thing it is inverting.
+[Cyberpunk](/cyberpunk-ui) imagines that technology advances while everything else rots:
+night, rain, corporate signage, a single person against an indifferent system. Solarpunk
+keeps the technology and flips every other variable to hope, which is why the two share a
+suffix and almost nothing else. [Retro futurism](/retro-futurism) is the third corner of
+that argument, since it renders futures that already went out of date, and solarpunk is
+consciously trying to produce one that does not. Its visual vocabulary is borrowed rather
+than invented, mostly from [art nouveau](/art-nouveau): whiplash curves, botanical line
+work, arched frames, and the stained glass palette that gives the genre its characteristic
+jewel tones against warm light.
+
+Used as an interface register it changes a surprising amount. Backgrounds warm up toward
+paper and away from pure white or pure black. Corners get generous. Illustration returns,
+usually botanical and usually line based rather than the flat blob figures of the previous
+decade. Accents come from a stained glass set of amber, terracotta, deep teal and leaf
+green instead of a single saturated brand hue. It suits energy products, climate work,
+gardening and food, community and civic tools, and anything that wants to feel like an
+invitation instead of a warning.
+
+There is one honest caution and it is not a visual one. Solarpunk is a promise, and an
+interface that looks like a greenhouse while the company behind it does nothing about its
+emissions is simply greenwashing with better art direction. The style also loses its
+meaning if the technology disappears from the picture: strip out the panels and turbines
+and what is left is cottagecore, which is a different genre with the opposite attitude to
+machines. Keep them visible and the aesthetic keeps saying what it means.

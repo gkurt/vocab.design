@@ -1,0 +1,71 @@
+---
+name: Overscroll
+slug: overscroll
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Scrolling input that continues after a scroller has reached its
+  limit, which platforms answer with a bounce, a glow, or a handoff to the
+  parent.
+aliases:
+  - name: overscroll affordance
+    source: community
+  - name: edge glow
+    source: material
+  - name: rubber banding
+    source: community
+  - name: bounce scrolling
+    source: community
+tags:
+  - scroll
+  - touch
+relations:
+  contrastWith:
+    - scroll-chaining
+    - momentum-scrolling
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pull-to-refresh
+implementations: []
+sources:
+  - title: "MDN: overscroll-behavior"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior
+  - title: "CSS-Tricks: overscroll-behavior"
+    url: https://css-tricks.com/almanac/properties/o/overscroll-behavior/
+demo: inline
+exhibit: false
+useWhen: input keeps scrolling past the end of the content
+---
+
+A scroller that has run out of content still has input arriving, and something has to
+happen to it. Every platform answers differently and each answer is a small piece of
+vocabulary: iOS stretches the content past the edge and springs it back, Android draws a
+glow at the edge and, more recently, stretches too, and a desktop browser mostly does
+nothing at all. What they have in common is that the response is a message, not a
+decoration. It says the limit is real and the finger has been heard, which is the
+difference between arriving at the end of a list and thinking the interface has frozen.
+
+The other half of overscroll is where the leftover input goes. By default it chains: a
+panel that cannot scroll any further hands the gesture to its parent, so the page behind a
+scrolled-to-the-bottom modal starts moving under it, and the reader who closes the modal
+finds themselves somewhere else. On the web the fix is one declaration.
+`overscroll-behavior: contain` keeps the chaining from happening while leaving the
+platform's own bounce alone, and `none` also suppresses the bounce, which is what a
+full-screen canvas or a map wants. Both are worth reaching for on any scrollable panel
+that floats above content: a drawer, a sheet, a message list, an autocomplete popup.
+
+Two gestures live in the same space and are easy to confuse with the effect. Pull to
+refresh is an overscroll at the top edge given a job, which is why suppressing overscroll
+on the document also turns it off, and the browser's own back gesture on some platforms
+starts as a horizontal overscroll. Neither belongs to a component: if your panel takes
+the whole gesture, it has taken responsibility for what the reader expected the system to
+do with it.
+
+One note for anyone demonstrating this, including the specimen on this page. A real
+rubber band is drawn by the compositor in response to input the scroller could not use,
+and a script that sets `scrollTop` never produces it, because the value simply clamps.
+The effect here is drawn by the demo when the scroller lands on its limit, which is the
+same moment a platform would answer, and it says out loud what the platform would have
+said for free.

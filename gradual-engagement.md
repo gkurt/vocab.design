@@ -1,0 +1,66 @@
+---
+name: Gradual engagement
+slug: gradual-engagement
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Replacing a sign-up form at the front door with a first useful
+  action, so the reader experiences value before being asked for anything.
+aliases:
+  - name: gradual sign up
+    source: goodui
+  - name: progressive engagement
+    source: community
+  - name: value first onboarding
+    source: community
+tags:
+  - auth
+  - onboarding
+relations:
+  contrastWith:
+    - first-run-experience
+    - progressive-profiling
+    - lazy-registration
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "GoodUI: Try Gradual Engagement instead of a hasty sign up"
+    url: https://goodui.org/
+demo: inline
+exhibit: false
+useWhen: the first screen does something instead of asking you to register
+---
+
+Gradual engagement is a decision about ordering, not about form design. The registration
+screen is not made friendlier, it is moved: the product opens into the thing a person came
+to do, and the account is asked for at the first moment having one changes the outcome,
+usually a save, a share, or a second device. The phrase comes from [GoodUI](https://goodui.org),
+whose version of the advice is blunt about why it works. A sign-up form at the door asks
+for a commitment from someone who has no evidence yet, and most of them leave rather than
+pay it.
+
+Two neighbouring words get used for this and mean something else.
+[Progressive profiling](/progressive-profiling) spreads the asking itself across many later
+visits, one question at a time, and it usually starts after registration rather than instead
+of it. A [first run experience](/first-run-experience) is everything shown only on the very
+first open, welcome copy and sample content included, and it can perfectly well sit behind a
+sign-up wall. Gradual engagement is specifically about the ask arriving after the first
+piece of value, so the two can be combined with it and neither is it.
+
+The pattern has one obligation that is easy to skip: the deferred ask must be visible as
+deferred, not absent. A person who has done real work anonymously needs to see that an
+account exists, what it would keep, and that the work already done survives the sign-up.
+Losing the anonymous session at the moment of registering is the classic implementation
+bug, and it is worse than never having offered the tool, because the reader has now spent
+effort to get nothing. [Guest checkout](/guest-checkout) is the same trade in a shop, and a
+[metered paywall](/metered-paywall) is the same trade in publishing: read a few, then be
+asked.
+
+It does not fit every product. Anything whose value is the accumulated record (a bank, a
+medical chart, a payroll run) has no first useful action that works without an identity, and
+faking one produces an [empty state](/empty-state) dressed up as a demo. The honest test is
+whether a stranger can finish one small real task in the product and take the result away
+with them. If they can, the sign-up form belongs after that task, not before it.

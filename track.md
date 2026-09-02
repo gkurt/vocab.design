@@ -1,0 +1,72 @@
+---
+name: Track
+slug: track
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The groove a slider thumb or scrollbar travels along, usually drawn
+  as filled before the handle and empty after it.
+aliases:
+  - name: groove
+    source: community
+  - name: slider track
+    source: community
+  - name: trough
+    source: community
+tags:
+  - dragging
+relations:
+  contrastWith:
+    - tick-marks
+    - range-slider
+  variantOf: []
+  partOf:
+    - slider
+  seeAlso:
+    - scrollbar
+    - playhead
+implementations:
+  - system: material
+    name: Track
+    url: https://m3.material.io/components/sliders/overview
+sources:
+  - title: Sliders, Material Design 3
+    url: https://m3.material.io/components/sliders/overview
+demo: inline
+exhibit: false
+useWhen: naming the groove a handle slides in
+---
+
+A track is the part that holds still. Everything a person grabs in these controls moves
+along one: the thumb of a [slider](/slider), the box in a [scrollbar](/scrollbar), the
+playhead of a [scrubber](/scrubber). The track is what makes the movement legible, because it
+states the whole range at once and shows where in it the handle currently sits. A
+[progress bar](/progress-bar) is the same geometry with the handle taken away, which is a
+good way to see that the track is a component in its own right rather than a decoration on
+one particular widget. This site's own definitions lean on the word twice: a slider is a
+handle dragged along a track, and a scrubber is a track showing elapsed and buffered time.
+Both are naming this.
+
+The track usually has two halves and the convention is old enough to be a rule. The part
+between the start and the handle is filled, and the part beyond the handle is empty, so the
+control reads as a quantity rather than as a position. Material calls these the active and
+inactive track, which is the most useful pair of names in circulation, and a scrubber adds a
+third band for buffered but unplayed time. A scrollbar's track is the exception that proves
+the point: nothing is filled, because the thumb's size already carries the information the
+fill would, namely how much of the content you can see at once.
+
+The naming history is worth knowing because it still shows up in code. Older toolkits call it
+the trough, which is what GTK and Tk both use, and Windows documentation has long said trough
+or shaft for a scrollbar's channel. Web platform APIs are split: the CSS pseudo-elements are
+`::-webkit-slider-runnable-track` and `::-moz-range-track`, so track is the spelling that won
+on the web, while groove and rail survive in conversation. If someone says trough, they are
+probably talking about a scrollbar and probably came from desktop software.
+
+The craft problems are all about thinness. A track drawn at one or two pixels looks elegant
+and is nearly impossible to hit, so the pointer target has to be much taller than the paint:
+give the control a hit area of around 20 to 44 pixels regardless of how thin the groove is,
+and never make the groove itself the only place a press counts. The empty half needs real
+contrast against its background or the range disappears and only the fill reads. And the
+track should not animate its own length: a track that grows while the handle moves turns a
+position into a guess.

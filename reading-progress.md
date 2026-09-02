@@ -1,0 +1,65 @@
+---
+name: Reading progress
+slug: reading-progress
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A bar tied to scroll position that shows how much of an article
+  remains, usually pinned to the top edge and filling as the reader descends.
+aliases:
+  - name: reading progress bar
+    source: community
+  - name: scroll progress indicator
+    source: community
+  - name: scroll-linked progress bar
+    source: community
+  - name: article progress bar
+    source: community
+tags:
+  - progress
+  - scroll
+relations:
+  contrastWith:
+    - scroll-spy
+    - progress-bar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - back-to-top
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the thin bar showing how far through the article you are
+---
+
+The bar answers a question a scrollbar answers badly on a long page and not at all
+on a phone: how much of this is left? It is scroll-linked, meaning the fill is a
+function of position rather than of time. Scroll up and it goes back down, which is
+what separates it from an animation that a scroll position merely starts.
+
+The arithmetic is one line and the honesty is all in which numbers you put in it.
+Divide the distance scrolled by the total scrollable distance and you are measuring
+the document, which includes the comments, the newsletter box, the related stories,
+and the footer. That bar reads 60 percent while the reader is on the last paragraph,
+which is worse than no bar, because it promises another six minutes of an article
+that has already ended. Measure the article element instead: the bar should be full
+when the last line of the piece reaches the bottom of the viewport, and it should
+simply stay full while everything after it scrolls by.
+
+On the web platform it no longer needs a scroll listener. A scroll-driven animation
+with `animation-timeline: scroll()` runs the fill off the scroller's own position,
+off the main thread, and degrades to a static bar where it is unsupported. Where a
+listener is still used, it belongs behind a throttle, because it fires far more
+often than the screen refreshes.
+
+Treat it as decoration in the accessibility layer. A progress bar that announces a
+new percentage on every scroll event is unusable with a screen reader, and the
+information is already available in a way that does not need announcing, so
+`aria-hidden` is usually the right answer rather than `role="progressbar"`. Two
+neighbours are worth keeping apart. [Scroll spy](/scroll-spy) also reads scroll
+position, but it reports which section you are in rather than how far through you
+are, and it is navigation rather than reassurance. A [progress bar](/progress-bar)
+proper reports a task the interface is performing, where reading progress reports
+something the reader is doing and the interface is only watching.

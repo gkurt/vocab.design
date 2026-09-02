@@ -1,0 +1,81 @@
+---
+name: Dark mode
+slug: dark-mode
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A second palette built on dark surfaces with light foregrounds,
+  derived from the light one by rebalancing lightness and saturation rather than
+  by inverting it.
+aliases:
+  - name: dark theme
+    source: material
+  - name: night mode
+    source: community
+  - name: lights out
+    source: community
+  - name: prefers-color-scheme
+    source: css
+tags:
+  - theming
+relations:
+  contrastWith:
+    - inverted-colors
+    - true-black-theme
+    - color-scheme
+    - color-theme
+    - elevation-overlay
+    - inverse-color
+    - dark-mode-email
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - print-stylesheet
+implementations:
+  - system: hig
+    name: Dark Mode
+    url: https://developer.apple.com/design/human-interface-guidelines/dark-mode
+  - system: carbon
+    name: Dark themes (g90, g100)
+    url: https://carbondesignsystem.com/elements/color/usage/
+sources:
+  - title: "Apple HIG: Dark Mode"
+    url: https://developer.apple.com/design/human-interface-guidelines/dark-mode
+demo: inline
+exhibit: false
+useWhen: the dark counterpart of a palette, not an inversion of it
+---
+
+Dark mode is a whole second palette, not a filter over the first one. The interface asks
+which appearance the reader has chosen (`prefers-color-scheme`, plus a `color-scheme`
+declaration so form controls and scrollbars come along), and every value resolves through
+a [colour role](/color-role) to a different number. Because the roles do the asking, a
+component written against `surface` and `on-surface` needs no dark branch of its own: the
+palette changes underneath it. What makes the second palette hard is that it is not the
+first one reflected. It has to be designed, one role at a time.
+
+Elevation is where naive inversion falls apart first. In a light theme a lifted surface is
+told apart from the one below it by a shadow, but a shadow cast on a near black ground is
+invisible, so a dark theme signals height with [lightness](/lightness) instead: the higher
+a surface sits, the lighter it gets. Flip a light palette and that ordering runs backwards,
+because white was the raised card and white inverts to the darkest thing on screen. Accents
+have the mirror problem. A mid [saturation](/saturation) blue that reads cleanly on paper
+turns into a glowing smear on black, and it usually fails its
+[contrast ratio](/contrast-ratio) besides, so a dark accent is lightened and desaturated
+rather than reused. Authoring the ramp in [OKLCH](/oklch) is what makes this a matter of
+moving two numbers instead of guessing at hex.
+
+True black is the standing argument. Pure `#000` saves real power on an OLED panel and
+looks decisive in a screenshot, but it leaves no room below the base surface, so elevation
+has nowhere to go, and it maximises halation: light text on a black field appears to bleed
+for many readers, astigmatic ones especially. Material's answer is a dark grey base around
+`#121212` with white overlays for each elevation step; Apple's is a base and an elevated
+set of system colours that swap when a window sits on top of another. Both are choosing
+headroom over contrast.
+
+The last trap is assuming dark mode is the accessible option. It suits people with light
+sensitivity and migraine, and it is worse for a large minority who read light on dark more
+slowly, which is the whole reason the preference exists rather than a default. Treat both
+appearances as first class: same content, same [contrast ratio](/contrast-ratio) floors,
+neither one an afterthought that only gets tested in a screenshot.

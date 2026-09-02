@@ -1,0 +1,63 @@
+---
+name: Large text threshold
+slug: large-text-threshold
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The size at which text counts as large for contrast purposes (about
+  18pt, or 14pt when bold) and its required ratio drops from 4.5:1 to 3:1.
+aliases:
+  - name: large-scale text
+    source: wcag
+  - name: large text
+    source: community
+  - name: 18pt rule
+    source: community
+tags:
+  - wcag
+relations:
+  contrastWith:
+    - contrast-ratio
+    - apca
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Contrast (Minimum)"
+    url: https://www.w3.org/TR/WCAG22/#contrast-minimum
+demo: inline
+exhibit: false
+useWhen: deciding which contrast number a heading owes
+---
+
+Criterion 1.4.3 asks for a [contrast ratio](/contrast-ratio) of 4.5:1, and then makes one
+exception: large-scale text needs only 3:1. Large-scale means at least 18 point, or at least 14
+point when the text is bold. The reasoning is straightforward, if not quite exact. Bigger
+letterforms put more pixels of ink on the page per stroke, so the same measured ratio is easier
+to resolve, and the standard buys a little contrast back in exchange for size. At the enhanced
+level, 1.4.6, the same split runs one notch tighter: 7:1 normally and 4.5:1 for large text.
+
+The trap is the unit. WCAG states the threshold in points because it was written for a world of
+printed style guides, and CSS is authored in pixels. The conversion the specification itself uses
+is 1pt equals 1.333px, so 18pt is 24px and 14pt bold is 18.66px, which nobody rounds the same way
+twice. Teams routinely convince themselves that a 20px heading is large text. It is not, unless it
+is bold. Two more details catch people out. Bold means the weight the browser actually renders,
+so a 700 declaration on a family with no bold face may not earn the discount. And the threshold is
+about rendered size, so a heading that shrinks at a narrow breakpoint can quietly cross back over
+the line while nobody is testing that width.
+
+Two things it is not. [Non-text contrast](/non-text-contrast) is 1.4.11, and its 3:1 applies to
+icons, borders, and control boundaries at any size, which is a different criterion that happens to
+use the same number. And [APCA](/apca), the candidate replacement algorithm, dissolves the whole
+threshold: it treats size and weight as continuous inputs to one lightness contrast calculation
+rather than as a switch between two fixed ratios, which is a better model of how reading actually
+works and is also why an APCA score cannot be compared to a WCAG one.
+
+Practically, this is the number that decides how much of a palette is usable. It is what makes a
+mid-grey legal in a display heading and illegal in the body copy underneath it, and it is worth
+knowing before you promise a [conformance level](/conformance-level) on a design that leans on
+soft greys. It also has to survive [dynamic type](/dynamic-type): text that a reader has scaled up
+crosses into large-scale territory, which means it can only get safer, while a design that hard
+codes small sizes to keep a layout intact removes the exception it was relying on.

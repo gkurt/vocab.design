@@ -1,0 +1,74 @@
+---
+name: Brand color
+slug: brand-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The colour an organisation owns in a customer's memory, carried into
+  a product as the seed for its palette rather than used directly on every
+  surface.
+aliases:
+  - name: brand palette
+    source: community
+  - name: corporate colors
+  - name: signature color
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - seed-color
+    - static-color
+    - accent-color
+    - status-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: fluent
+    name: Brand colors
+    url: https://fluent2.microsoft.design/color
+sources:
+  - title: "Spectrum: color system"
+    url: https://spectrum.adobe.com/page/color-system/
+demo: inline
+exhibit: false
+useWhen: the colour the company owns, before it becomes UI tokens
+---
+
+A brand colour is a recognition asset first and a design token second. It is chosen so
+that a logo, a shopfront, a delivery van and an app icon all read as the same company
+before anyone reads a word, which means the requirements on it are memorability and
+distinctiveness inside a category, not contrast ratios or elevation. That is why brand
+colours are usually specified in an ink standard as well as in hex: the number that
+matters to a print run is not the one a stylesheet needs.
+
+Carrying it into an interface is a separate job, and the mistake is treating the brand
+value as a paint bucket. A single hex value cannot serve as a button fill, a link colour,
+a focus ring, a hover state and a tinted background at once, because those uses have
+different contrast obligations against different surfaces. What the product actually needs
+is a [ramp](/color-ramp) derived from the brand hue, a foreground
+[on colour](/on-color) paired with each step, and a set of
+[tokens](/color-token) naming the jobs rather than the hue. Material's dynamic colour is
+the industrial version of this idea, generating a whole tonal scheme from one seed, and
+[Material You](/material-you) goes further by letting the wallpaper supply the seed
+instead of the brand.
+
+The discipline is restraint about area. A ratio like sixty thirty ten is the usual guard:
+neutrals carry most of the surface, a secondary tone supports, and the brand hue appears
+on the few elements that should be unmistakable, typically the mark and the primary
+action. Spend it everywhere and it stops signalling anything, and it starts colliding with
+meanings the interface has already assigned. A brand red next to
+[status colours](/status-color) is the classic collision, since the interface now uses the
+same hue for "us" and for "this went wrong". Where the brand hue is genuinely the
+interface's [accent colour](/accent-color), say so once in the token layer and let every
+component read the token.
+
+Ownership is looser than the word suggests. Colour trademarks exist and a handful are
+famous, but they are narrow, category bound and hard to win, so almost every product's
+claim on a colour rests on consistency rather than on law. What makes a colour feel owned
+is that it turns up in the same places, at the same value, for years, which is an argument
+for pinning the exact value in a shared source and against redecorating each time the
+marketing site is redesigned.

@@ -1,0 +1,75 @@
+---
+name: Hoverable, dismissible, persistent
+slug: hoverable-dismissible-persistent
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The three conditions content revealed on hover or focus must meet:
+  reachable with the pointer, dismissible without moving focus, and not
+  self-closing."
+aliases:
+  - name: content on hover or focus
+    source: wcag
+  - name: dismissible tooltip
+    source: community
+  - name: hover bridge
+    source: community
+tags:
+  - overlays
+  - pointer
+  - wcag
+relations:
+  contrastWith:
+    - tooltip
+    - toggletip
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hover-intent
+    - hover-card
+implementations: []
+sources:
+  - title: "WCAG 2.2: Content on Hover or Focus"
+    url: https://www.w3.org/TR/WCAG22/#content-on-hover-or-focus
+  - title: "W3C SCR39: making content on hover or focus hoverable, dismissible, and
+      persistent"
+    url: https://www.w3.org/WAI/WCAG22/Techniques/client-side-script/SCR39.html
+demo: inline
+exhibit: false
+useWhen: judging whether a tooltip or flyout behaves
+---
+
+This one is unusual: it is a term with no headword. Criterion 1.4.13 is called Content on Hover
+or Focus, but nobody says that out loud, and the three conditions it lists are always quoted
+together as a set, so the set became the name. Dismissible means there is a way to make the
+content go away without moving the pointer or the keyboard, which in practice means Escape.
+Hoverable means the pointer can travel onto the revealed content without it vanishing on the
+way. Persistent means it stays until the trigger is released, the reader dismisses it, or its
+information stops being true. Say all three, in that order, and everybody in the room knows
+exactly which rule you mean.
+
+Each condition has its own signature bug. Hoverable fails when there is a gap between the
+trigger and the panel, because the pointer crosses that gap, the trigger's hover ends, and the
+panel is gone before anybody reaches it. The fix has a nickname of its own, the hover bridge: a
+transparent strip covering the gap, or simply anchoring the panel flush against its trigger.
+Persistent fails to a timer, which usually looks reasonable to whoever wrote it and is
+punishing at four times magnification, where finding the panel and reading it can easily take
+longer than the timeout. Dismissible fails when the only way out is to move the mouse, which is
+no way out at all for somebody whose pointer is a head tracker or whose magnified viewport
+follows the caret.
+
+The criterion applies to anything hover or focus reveals, which is a wider net than people
+expect. A [tooltip](/tooltip) is the obvious case. A [hover card](/hover-card) is the harder
+one, because it is bigger, it carries links, and being able to reach those links is precisely
+what hoverable is protecting. A [popover](/popover) opened by a click is outside the criterion
+on its trigger, but the moment it can also be opened by hover it is inside. Menus that open on
+hover are inside too.
+
+Dismissible overlaps with [light dismiss](/light-dismiss) without being the same idea. Light
+dismiss is about clicking away from a surface to close it, and a pointer press is exactly what
+this criterion says must not be required. Escape is what satisfies both at once, which is why
+one keydown handler on the surface tends to be the whole repair. There are exceptions worth
+knowing: content that reports an input error, and content that obscures nothing, are excused
+from the dismissible condition, and content whose information has genuinely expired is allowed
+to leave on its own.

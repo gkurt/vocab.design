@@ -1,0 +1,77 @@
+---
+name: Window size class
+slug: window-size-class
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A named bucket for how much width an app window has, such as
+  compact, medium and expanded, used in place of raw device categories.
+aliases:
+  - name: size class
+    source: hig
+  - name: compact, medium, expanded
+    source: material
+  - name: window size classes
+    source: android
+  - name: regular and compact
+    source: hig
+  - name: viewport range
+    source: merged-candidate
+  - name: viewport ranges
+    source: merged-candidate
+tags:
+  - platform-registers
+  - screen-size
+  - windowing
+relations:
+  contrastWith:
+    - device-posture
+    - breakpoint
+    - responsive-upscaling
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Canonical layouts, Android Developers
+    url: https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts
+demo: inline
+exhibit: false
+useWhen: reasoning about window width, not device type
+---
+
+A window size class is a name for a range of window widths. Material defines three:
+compact below 600dp, medium from 600 to 839dp, and expanded from 840dp up. Apple's
+version is coarser, two classes called regular and compact, measured on each axis
+separately. In both cases the point of the name is to stop the conversation being about
+devices. There is no phone layout and no tablet layout, because a phone in landscape
+can be medium, a tablet in split screen can be compact, and a desktop window dragged
+narrow can be either. The only honest question is how much room this window has right
+now, and the class is the answer given a name the whole team can say.
+
+That is what separates it from a [breakpoint](/breakpoint). A breakpoint is a specific
+pixel width you chose, where one of your rules flips; you own it, you can put it
+anywhere, and nobody else's code knows about it. A size class is a bucket the platform
+hands you, with published edges, so the same decision gets made the same way in every
+application on that platform and a reader arriving from another app already knows what
+your window is going to do. The two coexist happily: a size class decides the
+arrangement, and a breakpoint inside a component can still decide something small, like
+when a label moves above its field.
+
+Almost every adaptive decision hangs off the class rather than off a raw measurement.
+[Adaptive layout](/adaptive-layout) is the practice of drawing a different arrangement
+per class instead of stretching one. The [canonical layouts](/canonical-layout) each
+come with a defined answer per class, which is what makes them worth reaching for. A
+[supporting pane](/supporting-pane) sits beside the focus pane at expanded and drops
+below or behind a control at compact. A [widget](/widget) is offered in the sizes its
+host grants rather than in the size it wants. Naming the bucket is what lets all of
+those be specified once.
+
+The trap is treating the class as a property of the screen. It is a property of the
+window, and on any platform with split screen, multi window, or a foldable hinge, those
+two numbers part company routinely. Read it from the window at layout time, expect it
+to change while the application is running, and expect the transition to happen without
+a restart. The other trap is inventing a fourth class. Three buckets is already a
+compromise between precision and shared vocabulary, and a private extra one costs you
+the only thing the named bucket was for.

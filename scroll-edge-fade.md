@@ -1,0 +1,81 @@
+---
+name: Scroll edge fade
+slug: scroll-edge-fade
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A gradient mask at the edge of a scroll container that fades clipped
+  content out, hinting that more lies past the edge without drawing a control.
+aliases:
+  - name: edge fade
+    source: community
+  - name: scroll fade
+    source: community
+  - name: overflow fade
+    source: community
+  - name: fade mask
+    source: community
+  - name: scroll shadow
+    source: community
+tags:
+  - perception
+  - scroll
+relations:
+  contrastWith:
+    - progressive-blur
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-container
+    - truncation
+implementations: []
+sources:
+  - title: "MDN: mask-image"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/mask-image
+  - title: "Lea Verou: Pure CSS scrolling shadows with background-attachment local"
+    url: https://lea.verou.me/blog/2012/04/background-attachment-local/
+demo: inline
+exhibit: false
+useWhen: showing a list continues past its clipped edge
+---
+
+A clipped edge is ambiguous. A row cut cleanly in half by the bottom of a panel could be
+the last row rendered awkwardly, or it could be the eleventh of ninety. The edge fade
+resolves that ambiguity by softening the cut: content dissolves into the panel colour over
+twenty or thirty pixels, which reads as material passing under an edge rather than as
+material ending at one. The affordance is entirely passive. There is nothing to click, no
+space taken from the content, and no state to keep beyond which edges currently have
+something behind them.
+
+That last part is the whole craft. A fade painted unconditionally is a lie half the time:
+at the top of a list it claims content above that does not exist, and once the reader
+reaches the bottom it keeps hinting at a row that is not there. So both edges answer to the
+scroller's own position. The top fade appears the moment `scrollTop` leaves zero and the
+bottom one leaves when the scroller reaches its end, which means the fades together also
+report where in the list the reader is standing. Two implementations are common. A
+gradient overlay in the container's background colour, absolutely positioned over the
+scroller, is the compatible one and the reason the pattern is also called a scroll shadow:
+paint the same strip as a soft inner shadow instead of a fade and it says the same thing in
+a different dialect. A `mask-image` on the scroller itself is the honest one, since it
+fades whatever is behind it rather than assuming a flat colour, and it survives a
+photograph or a gradient under the list.
+
+The fade and the [scrollbar](/scrollbar) make the same claim by opposite means. A scrollbar
+is a drawn control that states the proportion and the position explicitly and offers to
+change them; a fade only whispers that the [scroll container](/scroll-container) continues,
+and cannot be grabbed. Overlay scrollbars are what made the fade necessary, since a bar
+that appears only while the reader is already scrolling cannot tell them that scrolling is
+possible. On a horizontal rail the fade is doing an extra job: it is the standing cue that
+a [carousel](/carousel) has more items sideways, where nothing about a row of cards ending
+flush at the panel edge suggests any such thing. The same strip appears as pure scenery
+elsewhere, on a [marquee](/marquee), where the content is moving rather than clipped and
+the fade hides the seam at each end.
+
+Two failure modes are worth naming. A fade over a list of interactive rows must set
+`pointer-events: none`, or the strip swallows clicks on the row it is dimming. And a fade
+deep enough to be pretty is deep enough to hide a line of text: the gradient should erase
+the top of a row and never a whole one, because a reader who cannot make out the partial
+row loses the very cue the fade exists to give. Ambient fades that soften content in place,
+rather than at an edge, belong to
+[progressive blur](/progressive-blur) instead.

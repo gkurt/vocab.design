@@ -1,0 +1,71 @@
+---
+name: Counter
+slug: counter
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The fully enclosed white space inside a letterform, the ring of an
+  o or the bowl of a b: letter anatomy, not a character count or a CSS counter."
+aliases:
+  - name: closed counter
+  - name: bowl
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - aperture
+    - ink-trap
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - tittle
+implementations: []
+sources:
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+demo: inline
+exhibit: false
+useWhen: describing the hole inside a letterform
+---
+
+A counter is a piece of letter anatomy: the white shape a stroke encloses, the
+ring inside an o, the space inside the bowl of a b or a p, the loop of a g, the
+lens above the crossbar of an e. It has nothing to do with a
+[character counter](/character-counter) under a text field, and nothing to do
+with the CSS counters that number a list. Typographers talk about counters
+because the white is drawn as deliberately as the black: a designer fitting a
+family decides the counter's shape first and lets the strokes fall around it,
+which is why a face with generous counters reads well small and a face with mean
+ones goes muddy.
+
+Weight is what a counter is most sensitive to. Raise the weight of a face and the
+outer contour barely moves while the strokes thicken inward, so the counter is
+what gets spent. That is the real limit on a black weight: not how thick a stem
+can be drawn but how small a counter can get before the letter stops being
+distinguishable, which is why the heaviest cuts of a family often widen every
+letter to buy the enclosed space back. The same trade sets the relationship
+between counters and [x-height](/x-height), since a large x-height at a given
+size is mostly a way of paying for larger counters, and it is one of the few
+concrete things behind an otherwise vague judgement about
+[legibility](/legibility). Increasing [font weight](/font-weight) in an interface
+is therefore not a free emphasis: at small sizes it is a decision to trade
+counter for colour.
+
+The word to keep it apart from is [aperture](/aperture), the other anatomy term
+about openings, and the distinction is exact. A counter is enclosed, fully shut
+in by strokes. An aperture is the gap where a stroke stops short instead of
+closing, the mouth of a c, the opening of an S, the space between the terminals
+of an a. One letter routinely has both: the upper part of an e is a closed
+counter and its lower part is an aperture, and closing that aperture too far is
+the classic way to make an e read as an o at small sizes. Where a designer widens
+apertures for the same reason they enlarge counters, the two are working
+together; where an aperture is closed to tighten a rhythm, they are in
+competition.
+
+The specimen on this page fills each enclosed space with a solid tint, which is a
+teaching device rather than how anyone sets type, and draws the letters as vector
+paths rather than setting them in a face, so that the same three weights differ
+in exactly one variable. Look at what the fill does: once it is a shape, the
+counter stops reading as absence and starts reading as one of the forms the
+letter is made of, which is the way anyone who draws type sees it already.

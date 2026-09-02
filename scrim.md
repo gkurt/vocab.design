@@ -1,0 +1,80 @@
+---
+name: Scrim
+slug: scrim
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A translucent or gradient layer laid over imagery or behind a
+  dialog, dimming what is beneath so text on top clears contrast or so focus
+  moves forward.
+aliases:
+  - name: overlay
+    source: community
+  - name: backdrop
+    source: community
+  - name: image overlay
+    source: community
+  - name: gradient overlay
+    source: community
+  - name: dim layer
+    source: community
+tags:
+  - depth
+  - overlays
+relations:
+  contrastWith:
+    - progressive-blur
+    - vignette
+    - watermark
+    - focus-trap
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - modal-dialog
+    - lightbox
+implementations:
+  - system: material
+    name: Scrim
+    url: https://m3.material.io/styles/color/roles
+sources:
+  - title: Designing Accessible Text Over Images
+    url: https://www.smashingmagazine.com/2023/08/designing-accessible-text-over-images-part1/
+  - title: "Material 3: color roles"
+    url: https://m3.material.io/styles/color/roles
+demo: inline
+exhibit: false
+useWhen: darkening what is behind so the layer above stays readable
+---
+
+The word comes from the theatre, where a scrim is a gauze cloth that reads as solid or as
+almost invisible depending on which side of it the light is on. In interfaces it is a layer
+whose only job is to take something away from what is behind it, and it turns up in two
+places. Over a photograph it buys the caption a background dark enough to read against. Behind
+a dialog it dims the page, which is how a [modal dialog](/modal-dialog) says that the layer on
+top owns the screen until it is dealt with. Material treats it as a
+[colour role](/color-role) in its own right, so the value is stated once for the whole system.
+
+Over imagery the craft is in how the dimming is spent. A flat wash at 40 percent is the
+cheapest version and it costs the whole picture, since the parts of the image nobody needed
+darkened get darkened too. A gradient scrim spends the same budget only where the text sits:
+two or three [colour stops](/color-stop) running from a heavy dim at the bottom edge to fully
+transparent well before the top, so the subject of the photograph survives. The variants worth
+knowing are a blur instead of a dim, a solid plate behind the words alone, and a duotone
+treatment of the whole image. What none of them changes is how the result must be judged: the
+[contrast ratio](/contrast-ratio) is measured against the composited pixels under the glyphs,
+which is why a scrim that works on one crop can fail on the next.
+
+Behind a dialog the scrim does more than dim. It is usually the click-outside target that
+dismisses the surface, it blocks the pointer from reaching what it covers, and it is the
+visual half of the claim that focus has moved forward. The browser offers `::backdrop` for
+anything in the top layer, which is why a `<dialog>` opened as a modal comes with one for
+free. Note what it does not do: a scrim is decoration and pointer blocking, never a
+[focus trap](/focus-trap), and a keyboard user who can still Tab into the page behind it is
+looking at a dialog that is only pretending to be modal.
+
+Both lives of the word are the same technique, so both are usually the same token: one dim
+value, expressed as black at a stated [alpha](/alpha-channel), reused by every surface that
+needs the layer beneath it to recede. Watch for the naming clash when reading other people's
+code. "Overlay" and "backdrop" get used for this layer and also for the panel it sits under,
+so a component named `Overlay` is worth opening before assuming which half it is.

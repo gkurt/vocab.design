@@ -1,0 +1,71 @@
+---
+name: Parenting
+slug: parenting
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Tying one element's motion to another's so moving or scaling the
+  parent carries the child with it, which is how a group of parts reads as one
+  object instead of several.
+aliases:
+  - name: layer parenting
+    source: community
+  - name: parent-child motion
+    source: community
+  - name: hierarchical motion
+    source: community
+  - name: linked motion
+    source: community
+tags:
+  - design-tools
+relations:
+  contrastWith:
+    - choreography
+    - follow-through
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "UX Magazine: creating usability with motion, the UX in Motion Manifesto"
+    url: https://uxmag.com/articles/creating-usability-with-motion-the-ux-in-motion-manifesto
+  - title: "Issara Willenskomer: the UX in Motion Manifesto"
+    url: https://medium.com/ux-in-motion/creating-usability-with-motion-the-ux-in-motion-manifesto-a87a4584ddc
+demo: inline
+exhibit: false
+useWhen: several elements must move as one because one of them leads
+---
+
+The word comes from animation software, where you literally parent one layer to another and the
+child inherits every transform the parent is given. The idea survives the move to interfaces intact:
+an avatar, a title and a chip that all belong to a card should not be animated three times, they
+should be animated zero times, because the card is animated once and they are inside it. That sounds
+like an implementation detail and it is not. It is what makes the reader see one object rather than
+three things that happen to be travelling together, and the difference shows up the instant the
+timings drift even slightly apart.
+
+On the web, parenting is mostly free: transform a container and its descendants come along, because
+that is what a transform does. The work is in not breaking it. Elements pulled out of the parent for
+layout reasons (a badge positioned against the viewport, a tooltip in the
+[top layer](/top-layer), anything given its own transform mid-flight) have quietly resigned from the
+family and will drift. The cases where it takes deliberate effort are the ones where an element must
+appear to be a child of something it is not a descendant of, which usually means a
+[FLIP animation](/flip-animation) computing the child's position from the parent's every frame. And
+scale is the property that exposes a fake: a group that scales as one body spreads its parts apart,
+while parts scaling individually keep their spacing and give the trick away.
+
+The contrast worth holding onto is with [stagger](/stagger), because the two want opposite things. A
+stagger deliberately delays siblings in sequence so a list arrives as a series of individual items,
+each with a moment of its own. Parenting binds children to a parent's transform so they cannot come
+apart at all. Both are legitimate, and the choice is a claim about what the reader is looking at: a
+collection of things, or one thing. Getting it backwards is a familiar bug, the card whose contents
+shimmy into place a beat behind it, which is a group that has been staggered by accident because
+somebody animated the parts instead of the whole.
+
+Two practical notes. Parenting is what makes a complicated move cheap, since one transform on one
+element is one composited layer rather than a dozen, and it is why the
+[easing](/easing) only has to be decided once for the whole group. And it is hierarchical, so it
+composes: a parent can be a child of something else, which is how a
+[choreography](/choreography) of nested groups stays coherent instead of becoming a table of
+durations somebody has to keep in agreement.

@@ -1,0 +1,62 @@
+---
+name: Tooltip
+slug: tooltip
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A brief text label shown on hover or keyboard focus that names or
+  explains the element it points at, and carries nothing you can interact with.
+aliases: []
+tags:
+  - overlays
+  - pointer
+relations:
+  contrastWith:
+    - popover
+    - hover-card
+    - toggletip
+    - accessible-description
+    - hoverable-dismissible-persistent
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hover-intent
+    - coach-mark
+    - interest-invoker
+implementations:
+  - system: aria-apg
+    name: Tooltip
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
+  - system: material
+    name: Tooltips
+    url: https://m3.material.io/components/tooltips/overview
+  - system: radix
+    name: Tooltip
+    url: https://www.radix-ui.com/primitives/docs/components/tooltip
+  - system: base-ui
+    name: Tooltip
+    url: https://base-ui.com/react/components/tooltip
+sources:
+  - title: "ARIA Authoring Practices Guide: Tooltip pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
+  - title: "Nielsen Norman Group: Tooltip guidelines"
+    url: https://www.nngroup.com/articles/tooltip-guidelines/
+demo: inline
+exhibit: false
+useWhen: a label that names the control under the pointer
+---
+
+A tooltip names things. It is the caption an icon-only button never got, which is
+why the best ones are two or three words long and read like a label rather than a
+sentence.
+
+Everything hard about tooltips follows from being hover-triggered. Hover does not
+exist on touch, and it does not exist for keyboard users, so a tooltip must also
+appear on focus, and anything it says must be available another way. Never put a
+control inside one: if the pointer has to travel to reach it, the tooltip has
+already closed. That is a [popover](/popover).
+
+Delay matters more than it looks. Showing instantly turns a toolbar into a
+flickering mess as the pointer crosses it; a short delay before showing (and a
+shorter one before hiding) is what makes the pattern feel considered.

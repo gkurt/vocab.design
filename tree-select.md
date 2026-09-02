@@ -1,0 +1,70 @@
+---
+name: Tree select
+slug: tree-select
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A select whose popup is a tree, so options can be chosen at any
+  depth with parents collapsing over their children.
+aliases:
+  - name: treeselect
+    source: ant-design
+  - name: hierarchy picker
+    source: community
+  - name: folder picker
+    source: community
+tags:
+  - forms
+  - menus
+relations:
+  contrastWith:
+    - cascader
+    - treeview
+    - select
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Ant Design: components overview"
+    url: https://ant.design/components/overview/
+demo: inline
+exhibit: false
+useWhen: picking from a tree inside a field
+---
+
+A tree select is a field holding one value, where the value can sit at any depth of a
+hierarchy. Press the field and the popup is a tree: the whole shape indented in one column,
+branches that expand and collapse over their children, and every node selectable, not just the
+leaves. The field then shows the chosen path. It is the control a "move to folder" dialog, a
+category assignment, or an org unit picker is built from, and Ant Design's TreeSelect is where
+most people met the name.
+
+Three neighbours sit close enough to be confused with it, and the differences are worth stating
+plainly. A [tree view](/treeview) is the widget itself, a nested expandable list that IS the
+page's content: one tab stop, arrow key navigation, no field and nothing to commit. A
+[cascader](/cascader) also puts a hierarchy behind a field, but it opens one level at a time in
+side by side columns, so you only ever see the path you are on plus its siblings. A tree select
+shows the whole hierarchy at once, indented, which is what lets you compare two distant
+branches before choosing. And a plain [select](/select) is one flat list with one value, which
+is exactly what a tree select generalises. Add a text input that filters the tree and you have
+a [combobox](/combobox) whose listbox happens to be a tree, which most implementations offer as
+a searchable mode rather than as a separate control.
+
+The capability that earns the component its own name is picking a branch. In a cascader, and in
+most drill down interfaces, a parent is a route and only a leaf is an answer, so choosing
+"Marketing" is impossible even when Marketing is genuinely where the file should go. A tree
+select separates the two gestures: the disclosure twisty expands, the row selects, so a
+collapsed parent is still a valid value. That separation is the whole design, and it is where
+implementations go wrong most often, by making the entire row toggle expansion so a branch can
+never be chosen, or by making the row select so the tree cannot be explored without committing.
+
+Two harder problems follow. The field has to show the path, not the leaf name, because
+"Campaigns" is ambiguous the moment two departments have one, and reopening should restore the
+tree scrolled and expanded to the committed node rather than collapsed to the roots. And the
+popup carries the full tree keyboard model on top of the field's own: arrows to move between
+nodes, right and left to expand and collapse, Enter to commit, Escape to close without
+committing. A multiple selection variant adds a third layer, checkboxes with parent and child
+propagation, which is where a tree select stops being a select at all and becomes a
+[transfer list](/transfer-list) with better geography.

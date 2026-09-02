@@ -1,0 +1,65 @@
+---
+name: Runt
+slug: runt
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A single word left alone on the last line of a paragraph or heading.
+aliases:
+  - name: lonely word
+  - name: hanging word
+tags:
+  - editorial
+relations:
+  contrastWith:
+    - widow
+    - orphan
+    - text-balancing
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: An end to typographic widows on the web (Clagnut)
+    url: https://clagnut.com/blog/2424
+  - title: text-wrap balance vs pretty (LogRocket)
+    url: https://blog.logrocket.com/css-text-wrap-balance-vs-text-wrap-pretty/
+demo: inline
+exhibit: false
+useWhen: naming the lone word on a heading's last line
+---
+
+A runt is one word sitting by itself on the last line of a paragraph. Nothing is
+broken: the browser filled every line to the measure and this is what was left
+over. It still reads as a mistake, because a paragraph is a shape as well as a
+block of words, and a shape that ends in a single short stub tells the eye that
+something was cut off. Headings, card titles and buttons suffer most, since a
+two-line heading with one word on the second line is half stub by area.
+
+The vocabulary here is genuinely contested, so it is worth stating the three
+words precisely. A [widow](/widow) is a short last line of a paragraph pushed
+onto the top of the next column or page, alone and away from the rest of its
+paragraph. An [orphan](/orphan) is the opposite end: the first line of a
+paragraph left stranded at the bottom of a column while the rest of it goes
+over. A runt is a single word alone on the last line of a paragraph, wherever
+that line happens to fall. Plenty of people say "widow" for what this entry
+calls a runt, and print tradition on both sides of the Atlantic has swapped the
+first two more than once; on the web the column-break sense is the one the CSS
+`widows` and `orphans` properties actually implement, which leaves runt as the
+free and unambiguous word for the lone stub.
+
+The old fix is a non-breaking space between the last two words, which glues them
+together so they wrap as a unit. It works and it is brittle: at a narrow enough
+measure the glued pair becomes a two-word runt, and on a heading it can force an
+uglier break higher up. The modern answers are
+[text balancing](/text-balancing) with `text-wrap: balance` for headings, where
+the browser evens the lines out over a small number of them, and
+`text-wrap: pretty` for body copy, which leaves the paragraph's shape alone but
+specifically works to avoid a short last line. Nudging the measure, or the copy,
+still fixes it too.
+
+A runt is not a [rag](/rag) problem, though the two are seen at the same edge. A
+rag is the texture of the whole right-hand margin over many lines, and it is
+judged as a shape; a runt is a single event at the end of a block, and it is
+judged the moment you see it.

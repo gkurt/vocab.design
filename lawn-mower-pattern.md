@@ -1,0 +1,61 @@
+---
+name: Lawn mower pattern
+slug: lawn-mower-pattern
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scanning shape for tables where the eye runs across one row, drops
+  down and runs back the other way, mowing the cells in alternating directions.
+aliases:
+  - name: lawnmower pattern
+    source: community
+  - name: lawn mower eyetracking pattern
+    source: nngroup
+tags:
+  - perception
+  - tables
+relations:
+  contrastWith:
+    - spotted-pattern
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - comparison-table
+implementations: []
+sources:
+  - title: The Lawn Mower Eyetracking Pattern for Scanning Comparison Tables, NN/g
+    url: https://www.nngroup.com/articles/lawn-mower-pattern/
+demo: inline
+exhibit: false
+useWhen: laying out a comparison table for scanning
+---
+
+Watch someone compare four plans in a table and the gaze plot comes out looking like a mowed
+lawn. The eye runs across the first row, drops to the second, runs back the other way, drops
+again, and keeps alternating until the answer turns up or the table runs out. Nielsen Norman
+Group named the shape from eye tracking of comparison tables, and it makes sense as an
+economy: returning to the left edge of every row costs a long return sweep, and the reader
+who is already inside the grid can just carry on from where the last row ended.
+
+The consequence is easy to miss. Half the rows are read right to left, so a row whose
+meaning depends on being read in order works for one row and fails for the next. The
+practical rule is to put the values that are being compared where both directions arrive
+first, which is the two ends of the row rather than the middle. Anything buried in a middle
+column is read late in one direction and late in the other. It also means the row itself has
+to be short: a mow across nine columns is not a mow, it is a search, and readers abandon it
+by scrolling instead.
+
+Two layout habits protect the pattern. Keep the row height tight enough that the drop to the
+next row is unambiguous, since a tall row lets the eye lose which line it was on, and that is
+what a [zebra striping](/zebra-striping) or a persistent row highlight is really for. And
+resist stacking the table into cards on small screens without thinking, because the mow
+disappears with the grid: stacked cards are read as one long serial run, which is fine for
+one item and hopeless for comparing four.
+
+The layout that provokes this pattern most reliably is the
+[zigzag layout](/zigzag-layout), which alternates the side that content sits on down the
+page and gets the eye reversing direction for the same reason a table row does. For the
+tables themselves, see [comparison table](/comparison-table) and
+[data table](/data-table): the first is the job the mow is doing, the second is the
+structure it is doing it in.

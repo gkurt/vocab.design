@@ -1,0 +1,65 @@
+---
+name: Navigation menu
+slug: navigation-menu
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A menu of destinations rather than commands, where opening an item
+  moves you somewhere instead of running an action.
+aliases:
+  - name: nav menu
+    source: community
+  - name: nav list
+    source: primer
+tags:
+  - menus
+  - navigation
+relations:
+  contrastWith:
+    - action-list
+    - mega-menu
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - sidebar
+implementations:
+  - system: base-ui
+    name: Navigation Menu
+    url: https://base-ui.com/react/components/navigation-menu
+sources:
+  - title: Navigation Menu, Base UI
+    url: https://base-ui.com/react/components/navigation-menu
+demo: inline
+exhibit: false
+useWhen: a menu whose items are places, not commands
+---
+
+The difference between a navigation menu and a menu is not what it looks like, it
+is what happens when you pick something. A menu item runs a command against the
+thing you are working on: rename, duplicate, export. A navigation menu item takes
+you to a place, and the places are still there when you come back. That is why its
+items are links with real addresses, openable in a new tab, copyable, and
+announced as links rather than as menu items.
+
+That distinction has an accessibility spelling. The ARIA `menu` role and its
+keyboard model (arrow keys move between items, Tab leaves the whole menu) were
+written for application commands, and putting it on a site's header makes a
+screen reader promise a command surface the reader is not in. A header full of
+destinations is better as a list of links inside a `nav`, with the items that
+open panels marked as expandable buttons. Base UI's Navigation Menu is exactly
+this shape: links and grouped panels, not a menubar.
+
+One panel at a time is the behaviour worth getting right. The trigger opens its
+own panel and closes whichever was open, so the header never stacks two, and
+dismissal is explicit: choose a link, press Escape, or press outside. Panels
+should be positioned out of the flow so the page below them holds still, and the
+trigger should stay lit while its panel is down, since that is the only thing
+telling a reader which of five headings they are inside.
+
+Two neighbours are often mistaken for it. A [menu bar](/menu-bar) is the
+application's own command surface (File, Edit, View) and genuinely wants the menu
+role. A [mega menu](/mega-menu) is a shape a navigation menu can take, one wide
+panel of grouped links spanning the header, rather than a different thing: if the
+panel is narrow and there are several of them, navigation menu is the word for the
+whole apparatus.

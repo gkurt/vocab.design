@@ -1,0 +1,70 @@
+---
+name: Fake door
+slug: fake-door
+category: pattern
+status: published
+created: 2026-08-28T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: A control that looks shipped and leads nowhere, put in the interface
+  on purpose to count how many people want the feature behind it.
+aliases:
+  - name: fake door test
+    source: community
+  - name: fake door testing
+    source: amplitude
+  - name: painted door
+    source: community
+  - name: painted door test
+    source: optimizely
+tags: []
+relations:
+  contrastWith:
+    - feature-gate
+    - dark-pattern
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Optimizely optimization glossary: Painted door test"
+    url: https://www.optimizely.com/optimization-glossary/painted-door-test/
+  - title: "Amplitude: What is fake door testing?"
+    url: https://amplitude.com/explore/experiment/fake-door-testing
+demo: inline
+exhibit: false
+useWhen: measuring demand for a feature by shipping only its entrance
+---
+
+A fake door is an entrance with no room behind it. The button sits where the real one
+would sit, worded and weighted like everything around it, and the only thing wired to it
+is a counter. The reasoning is arithmetic: a door costs an afternoon and the room behind
+it costs a quarter, so the cheap half is built first and the expensive half is built only
+if enough people push on the door. Product teams borrow the vocabulary from
+experimentation, where the same thing is called a painted door test.
+
+Almost all of that is a decision about what to spend, and none of it is design. The one
+part a designer composes is what happens on the press, and it is the whole of the term's
+quality. A door that opens onto nothing at all, or onto a generic failure, has told the
+reader the product is broken and taught them not to try again, which corrupts the very
+number the test was run to collect. An honest reveal does three things in about two
+lines: it says the feature does not exist yet, it says why the button is there, and it
+offers something real to do about it, usually being told when it ships. Then it gets out
+of the way and leaves the interface exactly as it was.
+
+The line this word must not cross is the difference between an experiment and a lie. A
+signposted door tells the truth the moment it is opened and asks for nothing the reader
+would not have given. A door that takes a card number, an address, or an afternoon of
+setup for a feature nobody has built has stopped measuring demand and started
+extracting value under a false claim, which is why [dark pattern](/dark-pattern) is the
+contrast here and never the parent. Two smaller costs are worth counting before shipping
+one. A press measures interest in the label as much as demand for the thing, so a door
+labelled with an aspiration reports on the wording. And a door left standing for months
+becomes a permanent piece of the interface that lies every time it is used, so the test
+needs an end date decided before it goes up.
+
+The neighbouring word is [feature gate](/feature-gate), and the difference is sharp:
+behind a gate the feature exists and works, and the reveal names the plan that unlocks
+it, so the reader is being sold something real. Behind a fake door there is nothing to
+sell yet, and the reveal has to admit it. A gate at least carries a lock and the name of
+a plan, so the reader knows before pressing what they are up against. A fake door carries
+nothing, which is why the reveal is doing all of the honest work this pattern has.

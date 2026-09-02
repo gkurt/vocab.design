@@ -1,0 +1,77 @@
+---
+name: Plain language
+slug: plain-language
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: Writing interface copy at the reading level of the people using it,
+  with short sentences, familiar words, and the point first, rather than at the
+  level of the org chart.
+aliases:
+  - name: reading level
+    source: wcag
+  - name: plain English
+    source: govuk
+  - name: lower secondary reading level
+    source: wcag
+tags:
+  - content-design
+  - wcag
+relations:
+  contrastWith:
+    - chunking
+    - readability
+    - cognitive-load
+    - reader-mode
+    - symbol-support
+    - microcopy
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Success Criterion 3.1.5 Reading Level"
+    url: https://www.w3.org/TR/WCAG22/#reading-level
+  - title: "Understanding Success Criterion 3.1.5: Reading Level, W3C WAI"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html
+demo: inline
+exhibit: false
+useWhen: the copy is correct but nobody can act on it
+---
+
+Plain language is not simplified language, and it is not a tone. It is writing at the reading
+level of the people who have to act on the writing, which usually means short sentences, words
+people already own, the active voice, and the thing the reader must do placed at the front
+rather than after the justification. WCAG puts a number on the bar: success criterion 3.1.5
+Reading Level asks that text not require reading ability more advanced than the lower secondary
+education level, and where it does, that a version or a summary at that level be available. It
+sits at Level AAA, which is why so many teams treat it as optional. The population it serves
+does not experience it as optional.
+
+It is worth separating from [readability](/readability), because the two words get used
+interchangeably and they name different failures. Readability is a property of the setting: the
+size, the contrast, the measure, the leading, whether the letterforms hold up at that size.
+Plain language is a property of the words: whether a person who can see the sentence perfectly
+well can also get the instruction out of it. A sentence can be beautifully set and impossible
+to parse, and a plain sentence can be set in grey nine pixel type. They fail independently, and
+fixing one has never once fixed the other.
+
+The audience is much wider than the accessibility framing suggests, which is the usual shape of
+a curb cut. It includes people with cognitive and learning disabilities and people with low
+literacy, and it also includes everyone reading in a second language, everyone reading on a
+phone in a queue, and everyone reading while frightened, which is most people at the moment
+they meet an error message or a bill. It compounds with the reader-side controls: someone using
+[dynamic type](/dynamic-type) at its largest setting sees a handful of words per line, and a
+forty word sentence at that size is a paragraph they have to hold in their head. The place it
+pays best is wherever the interface blocks the way, so the copy on an
+[interstitial](/interstitial), a permission prompt or a consent screen is worth more editing
+attention than anything on the happy path.
+
+In practice the failures are boringly consistent. Copy inherits the vocabulary of the
+organisation rather than the reader: the names of internal systems, the legal wording that was
+safe to sign off, "submit" instead of the thing being sent. The remedy is equally boring. Say
+what the reader has to do, then say the deadline, then say what happens if they miss it. Name
+things the way the reader names them. Then measure the result rather than arguing about it,
+because sentence length and word familiarity are countable, and a first draft that reads at
+university level almost always says the same thing in half the words.

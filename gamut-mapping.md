@@ -1,0 +1,68 @@
+---
+name: Gamut mapping
+slug: gamut-mapping
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Converting a colour that falls outside a display's range into the
+  nearest one inside it, usually by lowering chroma in OKLCH rather than
+  clipping each channel.
+aliases:
+  - name: gamut clipping
+    source: community
+  - name: clamping
+    source: community
+  - name: chroma reduction
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - chroma
+    - color-gamut
+    - wide-gamut
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Color.js: gamut mapping"
+    url: https://colorjs.io/docs/gamut-mapping
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+demo: inline
+exhibit: false
+useWhen: bringing an impossible colour into a display's range
+---
+
+`oklch(0.65 0.3 80)` is a legal CSS colour and no screen can show it. OKLCH is not bounded
+by any device, so a chroma can be written that simply has no pixel. Something has to happen
+next, and gamut mapping is that something: the browser finds the nearest colour it can
+actually paint and paints that instead. This is the other half of the pair with
+[wide gamut](/wide-gamut). Wide gamut is the bigger space; gamut mapping is what happens to
+a colour that does not fit in the smaller one.
+
+The naive answer is to clamp each channel independently, and it is wrong in a way that is
+easy to see. Converting that amber to linear sRGB gives a green channel above 1, so
+clamping pins it at 1 while red and blue stay put, and the ratio between the three
+channels, which is what carries the hue, changes. The colour comes back at a different
+angle on the wheel: an amber asked for at hue 80 returns near hue 47, visibly redder, and
+brighter than it was meant to be. That is exactly the artefact [hue shift](/hue-shift)
+names, arriving here by accident rather than by craft.
+
+The rule is to reduce chroma and hold hue and lightness. Walk the chroma down in
+[OKLCH](/oklch) until the colour crosses into the target [gamut](/color-gamut), keep the
+other two coordinates where they were, and the result is less saturated than requested but
+still recognisably the colour that was asked for. CSS Color 4 specifies a binary search on
+chroma with a small perceptual tolerance, which is roughly what a browser does when it meets
+an out of range value, and what [Color.js](https://colorjs.io/docs/gamut-mapping) implements
+if you need to do it yourself.
+
+Two practical consequences. First, a value that is out of gamut is not an error and gets no
+warning: it silently becomes a different colour, so two screens can disagree about a palette
+that looked fine on the machine it was picked on. Second, mapping happens per colour, not
+per palette, so a ramp whose top two steps both map to the same boundary colour quietly
+loses a step. The defence is to keep anything load bearing, contrast pairs especially, at a
+chroma the smallest target can hold, and to check the mapped value rather than the written
+one.

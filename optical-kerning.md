@@ -1,0 +1,66 @@
+---
+name: Optical kerning
+slug: optical-kerning
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Letting software space letter pairs by looking at their shapes,
+  instead of using the pair values the type designer built into the font.
+aliases:
+  - name: optical spacing
+    source: adobe
+tags:
+  - design-tools
+  - fonts
+relations:
+  contrastWith:
+    - kerning
+    - tracking
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Metrics vs. optical spacing (Practical Typography)
+    url: https://practicaltypography.com/metrics-vs-optical-spacing.html
+demo: inline
+exhibit: false
+useWhen: a font's own spacing is unreliable at display size
+---
+
+Every letter pair gets its space from somewhere. Usually it comes from the font: the
+type designer walks the pairs that need help, an open A beside an open V, a T over a
+round o, and writes a correction for each into a kern table the shaping engine applies
+whenever those two letters meet. Optical kerning throws that table away and computes the
+space instead, by looking at the two outlines and measuring the white trapped between
+them, then closing or opening the pair until every gap along a line holds roughly the
+same amount of white. Adobe's applications offer it as a setting beside the font's own
+values, which is where most designers meet the word.
+
+The distinction to hold is with [kerning](/kerning) itself. Kerning is the adjustment:
+the space added or removed between one particular pair, whoever decided it and however
+it was decided. Optical kerning is one method of deciding it, from the shapes rather
+than from the table, so it is a kind of kerning and not an alternative to it. Neither is
+[tracking](/tracking), which opens or closes every gap in a run by the same amount and
+knows nothing about which two letters it is standing between.
+
+It earns its keep where the table is thin or absent. A face rushed to release, a free
+webfont, or a subset that shipped without its `kern` table will leave a display line
+visibly lumpy, and computing the space from the shapes is better than trusting values
+that were never written. It also handles pairs no table could cover: a [glyph](/glyph)
+pulled from a fallback face has no pair value with the letter beside it, because the two
+were never in the same font. The cost is symmetrical. Run it over a face whose designer
+spaced it carefully and it overrides months of judgement with an average, flattening the
+deliberate looseness after a capital or the tight fit of a designed ligature pair. The
+rule of thumb is to reach for it at display sizes, on faces you do not trust, and to
+leave a good text face alone.
+
+On the web the choice does not exist. The `font-kerning` property only switches the
+font's own table on and off, and no browser computes spacing from outlines, so web
+typography is metric kerning or none at all. The specimen on this page shows all three
+states anyway: the unkerned pair and the metric one are what the browser really does,
+while the optical values were computed ahead of time by rasterizing the two letters,
+measuring the white between them, and solving for the offset that matches a reference
+pair. That is why the three bars land level only in the optical setting, which is the
+whole claim the method makes.

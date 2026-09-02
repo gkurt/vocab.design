@@ -1,0 +1,76 @@
+---
+name: Radio group
+slug: radio-group
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A set of mutually exclusive options, each with its own label and
+  control, exactly one of which can be chosen.
+aliases:
+  - name: radio buttons
+    source: community
+  - name: option group
+    source: community
+tags:
+  - forms
+  - selection
+relations:
+  contrastWith:
+    - checkbox
+    - group-label
+    - selection-card
+    - segmented-control
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - selection-follows-focus
+implementations:
+  - system: aria-apg
+    name: Radio Group pattern
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/radio/
+  - system: material
+    name: Radio button
+    url: https://m3.material.io/components/radio-button/overview
+  - system: radix
+    name: Radio Group
+    url: https://www.radix-ui.com/primitives/docs/components/radio-group
+sources:
+  - title: "ARIA APG: Radio Group pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/radio/
+demo: inline
+exhibit: false
+useWhen: one of several, each option labelled and visible
+---
+
+The unit is the group, not the button, which is why the entry is filed under the plural
+name. One radio on its own is a bug rather than a minimal case: once it is chosen there
+is no gesture that unchooses it, so an interface that offers a single radio has offered
+a decision the reader cannot take back. If the question genuinely has a "neither"
+answer, the group needs a third option that says so.
+
+Against a [checkbox](/checkbox) the difference is cardinality and it is carried by the
+shape. Circles mean pick one, squares mean pick any number, and readers trust the glyph
+over the instructions above it, so a set of squares where only one answer is legal will
+be misread every time. The two are also usually asking different kinds of question: a
+checkbox set collects independent facts, a radio group settles one.
+
+Against a [segmented control](/segmented-control) the difference is register rather than
+logic. Both hold exactly one choice from a small set. A segmented control packs two to
+five options into one control, carries no [group label](/group-label) of its own, and
+normally applies instantly: it is switching a view. A radio group spreads its options
+down the page with room for a description under each, is introduced by the question it
+answers (a [fieldset](/fieldset) and its legend, or `role="radiogroup"` named by the
+heading already on screen), and usually waits for a Save or a Continue. A [selection card](/selection-card)
+is a radio group grown up: the same exclusivity with a whole panel of content as the
+label.
+
+The keyboard behaviour is the real tell, and it is what a hand-rolled group most often
+gets wrong. The whole group is one [tab stop](/tab-stop): Tab moves into the checked
+option and the next Tab leaves the group entirely, while the arrow keys move between the
+options, which is [roving tabindex](/roving-tabindex) doing its work. Inside a radio
+group the arrows do not merely highlight, they choose, so
+[selection follows focus](/selection-follows-focus) is not a design decision here but a
+platform convention. A group that waits for Enter after the arrow will confuse everyone,
+and one that puts every option in the tab sequence charges a keyboard reader five
+presses to walk past a question they had already answered.

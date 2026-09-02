@@ -1,0 +1,67 @@
+---
+name: Reference line
+slug: reference-line
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A line drawn at a meaningful value across a chart: a target, a
+  threshold, an average, a before-and-after moment."
+aliases:
+  - name: threshold line
+  - name: target line
+  - name: goal line
+  - name: benchmark line
+tags:
+  - dataviz
+relations:
+  contrastWith:
+    - error-bar
+    - axis
+  variantOf: []
+  partOf:
+    - chart
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Material (M2): Data visualization"
+    url: https://m2.material.io/design/communication/data-visualization.html
+demo: inline
+exhibit: false
+useWhen: a chart needs a benchmark the eye can compare marks against
+---
+
+A [chart](/chart) shows quantities; a reference line supplies the standard those
+quantities are judged against. Drawn across the plot at a single value, it converts
+every mark into a verdict: above or below, inside or outside, made it or did not. The
+values worth drawing are few and they are all constants of the situation rather than
+readings from it. A target somebody committed to, a threshold where behaviour changes,
+the average of the series itself, the day a change shipped. Without one, a reader looking
+at a line at 240 has to know from memory whether 240 is good.
+
+It is not a [chart annotation](/chart-annotation), and the distinction is worth keeping
+sharp because the two are drawn with the same ink. An annotation points at a moment in
+the data and says what happened there, so it is anchored to a mark and dies with it. A
+reference line states a constant the data is judged against, so it spans the whole plot,
+is anchored to the [axis](/axis) rather than to any mark, and stays exactly where it is
+when the series is replaced. A useful test: if replacing the data would leave the note
+stranded, it is an annotation; if replacing the data would leave the line meaningful, it
+is a reference.
+
+Draw it so it cannot be mistaken for data. The convention is a dashed or dotted stroke
+in a colour the series does not use, thinner than the marks but not so thin it vanishes,
+and always labelled with both its value and what the value means, because "220" alone
+tells nobody whether it is a floor or a ceiling. Put the label at the axis end of the
+line, where a reader already looks for numbers, and keep the line behind the marks so it
+never obscures a value. A tolerance band, drawn as a shaded zone between two references,
+is the same component with a width: reach for it when the honest standard is a range and
+a single line would imply a precision the target does not have, which is the same
+instinct an [error bar](/error-bar) applies to the marks themselves.
+
+One reference line is a benchmark, four are a second chart. The moment a plot carries a
+target, a budget, last year, and the industry median, the series is competing with a grid
+of rules for the reader's attention and the point is lost. Choose the one comparison the
+chart is actually for and put the rest in the caption. And check that the line is honest
+about its own scale: a reference at zero on a [truncated axis](/truncated-axis) is not
+where the reader thinks it is, and a target line drawn above the top of the domain is
+invisible rather than aspirational.

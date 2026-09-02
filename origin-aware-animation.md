@@ -1,0 +1,70 @@
+---
+name: Origin-aware animation
+slug: origin-aware-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Scaling or fading a panel out of the control that opened it by
+  putting its transform origin on that anchor, so the panel reads as belonging
+  to its trigger.
+aliases:
+  - name: transform origin
+    source: css
+  - name: animate from trigger
+    source: community
+  - name: origin-aware transition
+    source: community
+  - name: anchored entrance
+    source: community
+tags:
+  - menus
+  - overlays
+relations:
+  contrastWith:
+    - container-transform
+    - zoom-transition
+    - entrance-animation
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+  - title: The Vocabulary of Motion
+    url: https://motion-vocabulary.vercel.app/
+demo: inline
+exhibit: false
+useWhen: a menu should look like it came from its button
+---
+
+A panel that scales up has to scale up from somewhere, and that somewhere is a design decision the
+default hides. `transform-origin` starts at the centre of the box, so an unconsidered entrance
+blooms outward in every direction at once, from a point the reader was not looking at. Move the
+origin onto the corner nearest the button that was pressed and the same 300 milliseconds say
+something different: this came out of that. The press and the appearance become one event instead of
+two, and nobody has to work out which control produced the thing now covering half the screen.
+
+The mechanism is small. The origin is expressed in the panel's own coordinates (`0% 0%` for its
+top-left corner, `100% 0%` for its top-right), so a menu that can open from three different triggers
+needs three origins and, usually, three positions to match. The harder version is a panel whose
+anchor is not one of its own corners, a card growing out of a thumbnail somewhere else on the page:
+there the origin is a computed percentage or a pixel pair, and at that point the technique shades
+into a [morph transition](/morph-transition) or a
+[view transition](/view-transition), where the browser is asked to interpolate between two real
+boxes rather than to fake the relationship with a scale.
+
+There is a reason this is worth spending attention on. A [popover](/popover) is already anchored in
+space: it points at its trigger, it closes when you press Escape, it moves with the button on
+scroll. The entrance is the one moment where all that anchoring can be contradicted, and a
+centre-origin scale contradicts it every time. The same logic runs in reverse for
+[pinch to zoom](/pinch-to-zoom), where the origin is not a designer's choice at all but the midpoint
+between two fingers: the content grows out of the spot being held, because growing out of anything
+else would feel like the picture had been swapped rather than magnified.
+
+Two practical notes. Scaling a panel scales its text and its border with it, which is why the
+convincing version usually pairs a modest scale (0.9 to 1, not 0.2 to 1) with an opacity fade and
+lets the fade do most of the work. And an origin is only honest while the panel stays where it was
+put: a menu that flips above its trigger because it ran out of room below has to flip its origin at
+the same moment, or the entrance will point at a button that is no longer underneath it.

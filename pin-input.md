@@ -1,0 +1,74 @@
+---
+name: PIN input
+slug: pin-input
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A row of single character boxes for a short code, where typing
+  advances to the next box and pasting the whole code fills them all.
+aliases:
+  - name: otp input
+    source: shadcn
+  - name: one time code field
+    source: community
+  - name: verification code input
+    source: community
+  - name: otp field
+    source: base-ui
+  - name: segmented code input
+    source: community
+  - name: segmented input
+    source: community
+  - name: one-time password field
+    source: radix
+  - name: digit entry view
+    source: hig
+tags:
+  - auth
+  - forms
+relations:
+  contrastWith:
+    - text-field
+    - structured-format
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - virtual-keyboard
+implementations:
+  - system: shadcn
+    name: Input OTP
+    url: https://ui.shadcn.com/docs/components/input-otp
+sources:
+  - title: "shadcn/ui: Input OTP"
+    url: https://ui.shadcn.com/docs/components/input-otp
+demo: inline
+exhibit: false
+useWhen: entering a short code one character per box
+---
+
+Splitting a code into boxes is a formatting decision dressed as a component. The
+value is one string, and every box is a view of one character of it. That is the
+implementation rule the good versions follow: one logical value, with the cells
+either backed by a single hidden input or kept in strict sync, so the thing
+submitted is never assembled from four fields that drifted apart.
+
+What the boxes buy is legibility. Six digits in one box are a smear; six digits in
+six boxes are countable at a glance, and the row shows progress without a counter.
+What they cost is every affordance a plain field has for free. Select all, arrow
+keys, backspace across a boundary, mobile autofill from an SMS, and paste all have
+to be rebuilt by hand, and paste is the one users reach for first, because the code
+is in a message they just read.
+
+Keyboard behaviour is the whole review checklist. Typing fills the current box and
+moves on. Backspace clears the current box, and on an already empty box steps back
+and clears the previous one. Arrow keys move between boxes without eating the
+digits. Pasting a full code from anywhere in the row fills the row and leaves the
+caret at the end. Anything less and people who type quickly end up with the code
+scattered.
+
+Announce it as one field. Each box carries its own label, but the group is what has
+a name and a purpose (`role="group"` with a label, or one visually hidden input
+that owns the value), and `autocomplete="one-time-code"` is what lets a phone offer
+the code from the message rather than asking someone to memorise six digits and
+switch apps.

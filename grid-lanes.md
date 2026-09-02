@@ -1,0 +1,72 @@
+---
+name: Grid lanes
+slug: grid-lanes
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The native masonry mechanism in CSS grid, where one axis keeps
+  strict tracks and the other lets items stack into whichever lane has room.
+aliases:
+  - name: "display: grid-lanes"
+    source: css
+  - name: grid-lanes layout
+    source: mdn
+  - name: stacking axis
+    source: mdn
+  - name: CSS grid level 3
+    source: w3c
+tags:
+  - grids
+  - web-platform
+relations:
+  contrastWith:
+    - masonry
+    - justified-gallery
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - bento-grid
+implementations: []
+sources:
+  - title: Masonry layout, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Masonry_layout
+  - title: CSS Grid Layout Module Level 3
+    url: https://www.w3.org/TR/css-grid-3/
+demo: inline
+exhibit: false
+useWhen: masonry without a library, straight from grid
+---
+
+This entry is a mechanism, not a second word for a look. The look is
+[masonry](/masonry): items of unequal height packed so the rows never line up and the
+bottom edge stays ragged. What this describes is how a browser produces that look from
+grid itself. One axis keeps its tracks and behaves exactly as grid always has, and the
+other stops being a set of tracks at all. Items are placed one after another into
+whichever lane on the strict axis has room, so the columns are regimented and the
+stacking direction is free. Naming the two axes is the whole idea: the strict axis
+holds the lanes, and the other is the stacking axis.
+
+For twenty years this was a scripting job. A library measured every item, absolutely
+positioned it, and re-ran on every resize and every image load, which is why masonry
+pages were the ones that jumped as they loaded. Doing it in the layout engine is
+different in kind, not just in effort. The items stay real grid items, so gaps, item
+alignment and track sizing all keep working, and nothing has to be measured in
+JavaScript to decide where a card goes.
+
+The name is genuinely unsettled, and it is worth knowing why before quoting one. The
+CSS Working Group has argued the feature as a value of `display` (`display: masonry`),
+as a separate item-flow property that would describe the packing independently of grid,
+and as `display: grid-lanes`, the spelling that puts the lanes in the name. The
+argument is not cosmetic: a value on `display` makes it a layout mode of its own, while
+an item-flow property makes it a modifier any grid can take. Level 3 of the grid module
+is where this is being settled, browser support has moved with the proposals, and
+articles written a year apart use different words for the same mechanism.
+
+Two cautions survive whichever name wins. Placement follows source order down the
+lanes, so what the eye reads across a row was never a row: the tab order and the screen
+reader follow the document, and a lane layout that looks like a table of items is not
+one. And the ragged bottom edge is a real design cost. A dashboard whose panels must
+line up wants strict rows from a plain [layout grid](/layout-grid) instead, and a set
+of cards that only differ in height by a little is usually calmer with equal rows and a
+little empty space than with lanes.

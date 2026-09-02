@@ -1,0 +1,67 @@
+---
+name: Consistent identification
+slug: consistent-identification
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-25T00:00:00.000Z
+definition: Calling the same function by the same name and icon everywhere in a
+  product, so a reader who learned it once does not have to relearn it per
+  screen.
+aliases:
+  - name: consistent navigation
+    source: wcag
+  - name: consistent labelling
+    source: community
+  - name: same name same function
+    source: community
+tags:
+  - content-design
+  - wcag
+relations:
+  contrastWith:
+    - consistent-help
+    - overloaded-command
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - accessible-name
+implementations: []
+sources:
+  - title: "WCAG 2.2: Consistent Identification"
+    url: https://www.w3.org/TR/WCAG22/#consistent-identification
+  - title: "WCAG 2.2: Consistent Navigation"
+    url: https://www.w3.org/TR/WCAG22/#consistent-navigation
+demo: inline
+exhibit: false
+useWhen: the same action has three names across screens
+---
+
+WCAG success criterion 3.2.4 asks one question of a whole product rather than of a page: components
+with the same functionality are identified consistently. If the button that commits a record is
+called Save on one screen, Store on the next and left as an unlabelled icon on the third, every
+screen teaches the reader a new word for a thing they already know. Its sibling criterion 3.2.3,
+consistent navigation, says the same about repeated navigation: same order, same names, screen after
+screen.
+
+The cost is highest for readers who never see the layout. A screen reader user finds controls by name
+and builds a mental index of them, so three names for one function is three entries to maintain and
+two chances to conclude that this screen does not have the thing they wanted. It is equally a
+cognitive load issue: recognition is cheap, recall is not, and inconsistent naming converts one into
+the other. The fix costs nothing at build time and is nearly impossible to retrofit, which is why it
+belongs in the vocabulary rather than in a late audit.
+
+Consistency means the [accessible name](/accessible-name) as well as the visible label, and it means
+the icon too. Two buttons named Save that carry different glyphs are inconsistent to the reader
+scanning for the shape, and a matching glyph with mismatched names is inconsistent to the reader
+listening. Identical function is the test, not identical appearance: a Delete in a toolbar and a
+Delete in a row menu can look different and must still be called Delete. The criterion does not ask
+for a house style, only for one name per function.
+
+Two neighbours worth separating. [Consistent help](/consistent-help), criterion 3.2.6, is the same
+instinct applied to one specific thing: if a help mechanism is on multiple pages, put it in the same
+relative place. And a control that deliberately renames itself as its state changes, the pattern
+under [morphing controls](/morphing-controls), is a different question entirely: Follow becoming
+Following is one function reporting its state, which is fine, while Save becoming Store on another
+screen is two names for one function, which is the failure. If you are unsure which you have, ask
+whether the name changed because the state did.

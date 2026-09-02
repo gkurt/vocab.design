@@ -1,0 +1,64 @@
+---
+name: Select all across pages
+slug: select-all-across-pages
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Offering to extend a selection from the visible page to every
+  matching row, after a header checkbox has selected only what is on screen.
+aliases:
+  - name: select all matching
+    source: community
+  - name: select all 1,204 items
+    source: community
+  - name: cross-page selection
+    source: community
+tags:
+  - selection
+  - tables
+relations:
+  contrastWith:
+    - bulk-actions
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - set-size-and-position
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: select all offers to also take the rows you cannot see
+---
+
+"Select all" is one of the great ambiguous labels. In a paginated list it can mean the
+twenty-five rows drawn on screen or the twelve hundred rows the query matched, and the two
+readings differ by two orders of magnitude in consequence. The pattern resolves it by
+refusing to guess: the header checkbox takes the page, which is the smaller and safer
+reading, and then a banner appears saying exactly what was taken and offering the larger
+reading as a second, separate act. Two clicks, two scopes, and no way to confuse them.
+
+The banner is the whole term. It has three jobs and each one matters: it reports the scope
+that currently holds, it states the count of the scope on offer, and it gives the selection
+somewhere to be undone. The count is the part people underestimate. "Select all matching"
+is an abstraction; "Select all 1,204 conversations" is a number a reader can weigh against
+the command they were about to run, which is the last moment before a delete becomes a
+support ticket. Once the wider scope is taken the banner changes rather than disappearing,
+because a selection that reaches past the viewport has no other way to show its size: the
+rows on screen look identical whether five or twelve hundred are held.
+
+Behind the interface the two scopes are genuinely different things. A page selection is a
+list of identifiers the client can hold; a matching selection is a query the server will
+resolve later, and it may resolve to a different set than the reader saw, since rows can
+arrive or change while the banner sits there. That is worth designing for rather than
+hiding: name the filter in the banner, keep the count fresh, and prefer a reversible
+command for the wide scope. Products that get this wrong produce the classic disaster
+report, in which someone archived their entire mailbox while intending to clear one screen.
+
+What is done with the selection afterwards is [bulk actions](/bulk-actions), a separate
+word for a separate half of the job: this term is how the selection grows past the page,
+that one is the bar that acts on it. The surface underneath is usually a
+[data table](/data-table), and the control that starts the whole sequence is an ordinary
+[checkbox](/checkbox), doing the one thing a two-state box cannot do on its own, which is
+why the header box so often carries a mixed state and the wider scope has to be offered in
+words.

@@ -1,0 +1,67 @@
+---
+name: Strikethrough
+slug: strikethrough
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A rule drawn through the middle of text to mark it as removed,
+  superseded, or no longer the current price.
+aliases:
+  - name: line-through
+    source: css
+  - name: strike
+  - name: struck out
+  - name: crossed out
+tags:
+  - content-design
+relations:
+  contrastWith:
+    - underline
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - soft-delete
+implementations: []
+sources:
+  - title: CSS text module (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text
+demo: inline
+exhibit: false
+useWhen: showing text that no longer applies
+---
+
+The mark means the words are still there and no longer count. That is a
+different claim from deleting them, and the three places it earns its keep all
+depend on the reader being able to see what was replaced: a price that has been
+reduced, a task that has been finished, and an edit that someone else has to
+approve. Take the old value off the screen entirely and the reader loses the
+comparison the mark exists to make.
+
+HTML has two elements and they are not synonyms. `<del>` is content removed from
+the document, it pairs with `<ins>`, and it takes `cite` and `datetime`
+attributes that say where the change was decided and when. `<s>` is content that
+is no longer accurate or relevant but was never deleted, which is exactly the
+superseded price. The old `<strike>` element is obsolete, and
+`text-decoration: line-through` is presentation with no meaning attached at all,
+so a completed to-do styled that way says nothing to anything that is not
+looking at it.
+
+Nothing announces a line by default. Screen readers ignore `text-decoration`
+outright, and support for announcing `<del>` and `<s>` is uneven enough that
+plenty of readers hear "sixty four pounds thirty nine pounds" and no indication
+which one they can actually pay. The fix is words, not markup: put the state in
+the text, with a visually hidden "was" and "now", or with `::before` and
+`::after` content on the element carrying the CSS strings. On a to-do list, the
+checked state is already being announced by the checkbox, so the line is
+decoration on top of a fact that is exposed properly, which is the situation you
+want.
+
+The line itself has three knobs worth touching. `text-decoration-thickness` and
+`text-decoration-color` let the rule sit lighter than the letters so it does not
+fight them, and `text-decoration-skip-ink` does nothing here (it only affects
+descenders under an [underline](/underline)). Keep the struck text short: a
+struck paragraph is a paragraph nobody can read, and a struck heading reads as a
+rendering bug. Struck prices are also regulated in most markets, where the
+crossed-out figure has to be a price that was genuinely charged for a stated
+period, so this is one piece of typography with a legal definition attached.

@@ -1,0 +1,77 @@
+---
+name: Surface color
+slug: surface-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The colour of a plane that content sits on, defined as a set of
+  stacked levels so a card on a page and a sheet on a card are told apart by
+  value.
+aliases:
+  - name: background color
+    source: community
+  - name: surface container
+    source: material
+  - name: layer token
+    source: carbon
+  - name: bg-surface
+    source: polaris
+  - name: canvas
+    source: community
+tags:
+  - depth
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - container-color
+    - outline-color
+    - elevation-overlay
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Surface, Surface container (lowest to highest)
+    url: https://m3.material.io/styles/color/roles
+sources:
+  - title: "Material 3: color roles"
+    url: https://m3.material.io/styles/color/roles
+  - title: "Carbon: color"
+    url: https://carbondesignsystem.com/elements/color/overview/
+demo: inline
+exhibit: false
+useWhen: naming the plane content sits on, not the page background
+---
+
+A surface colour is not the CSS property `background-color`, it is the role that property
+is filled from. Interfaces stack planes: the page, a card on the page, a sheet or a menu
+on the card, and each level needs a value distinct enough that the edge between two of
+them is legible without a border doing all the work. Naming those levels as a small,
+finite set is what turns "what grey is this card" into a decision made once.
+
+Every system that has grown up ships the same idea under its own word. Material 3 has
+`surface` plus a run of `surface container` roles from lowest to highest, along with
+`surface dim` and `surface bright`; Carbon calls the same ladder its layer tokens and
+counts them 01, 02, 03; Polaris writes `bg-surface` with modifiers. The shared discipline
+is that a component asks for the next level up rather than for a specific grey, so the
+same card is correct on a page and inside a modal. Three or four levels is usually the
+whole ladder, because a raised sheet raised again has nowhere left to go.
+
+Dark themes are where the ladder earns its keep. A drop shadow works by darkening what is
+behind it, which does nothing at all against a nearly black page, so elevation in the dark
+is carried by lightness instead: each level up is a lighter surface, not a heavier shadow.
+Material 2 did this with an explicit elevation overlay, a white film whose opacity rose
+with height, and Material 3 folded the same behaviour into the surface container roles.
+It reverses the intuition people bring from light themes, where surfaces run *up* toward
+white and elevation is left to the shadow because white has nowhere further to go.
+
+Surfaces never travel alone. Every level implies the ink allowed to sit on it, which is
+what [on colour](/on-color) names, and the pair is what a
+[contrast ratio](/contrast-ratio) is actually calculated between. Pick the ladder out of
+the [neutral palette](/neutral-palette), keep the steps far enough apart that the
+separation survives a dimmed screen, and treat a level as a
+[colour role](/color-role) rather than as a shade: the moment a component hardcodes the
+grey instead of the role, it stops working in the [dark theme](/dark-mode) and inside
+every container that is not the page.

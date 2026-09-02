@@ -1,0 +1,74 @@
+---
+name: Back to top
+slug: back-to-top
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A control that appears after the reader has scrolled some distance
+  and returns them to the top of the page in one action.
+aliases:
+  - name: scroll to top
+    source: community
+  - name: return to top
+    source: community
+  - name: back to top link
+    source: govuk
+  - name: float back to top
+    source: ant-design
+  - name: back to top button
+    source: merged-candidate
+  - name: backtop
+    source: merged-candidate
+  - name: jump to top
+    source: merged-candidate
+tags:
+  - navigation
+  - scroll
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - smooth-scrolling
+    - reading-progress
+implementations: []
+sources:
+  - title: "Ant Design: FloatButton BackTop"
+    url: https://ant.design/components/float-button
+demo: inline
+exhibit: false
+useWhen: the button that appears partway down to send you back up
+---
+
+The control exists because the top of a page holds things the middle does not: the
+search field, the primary navigation, the filters that produced the list you are
+looking at. On a desktop keyboard the Home key already does this and always has. On
+a phone there is no Home key, the header has usually scrolled away, and the
+alternative is a dozen flicks, so a single tap that undoes all of them is worth a
+persistent corner button.
+
+Two decisions make or break it. The first is the threshold. Showing the button
+immediately is noise, because the top is still on screen and the reader can see it;
+a common rule is to reveal it after roughly one viewport of scrolling, which is
+long enough that the top is genuinely gone. Some implementations also hide it again
+while the reader is scrolling down and bring it back on the first upward scroll, on
+the theory that scrolling up is the gesture of someone who wants to go back. The
+second is where it sits. Bottom right is the convention, but it competes with a
+floating action button, a chat launcher, and a cookie bar, and on a phone it has to
+clear the home indicator. Overlapping the last line of the footer is the usual
+symptom of nobody having checked.
+
+Give it a real accessible name, not a bare arrow glyph, and make it a `<button>` or
+a link to a `#top` anchor rather than a decorated `<div>`. If it moves the page, it
+should move focus too: a reader using a keyboard who presses it and finds the view
+at the top but the focus still deep in the document has been stranded. Scrolling
+smoothly is a nicety that has to be dropped under `prefers-reduced-motion`, where a
+long animated flight through the whole document is exactly the motion the preference
+is asking you not to make.
+
+The GOV.UK version is the honest minimum: a plain "Back to top" link in the flow of
+long guidance pages, no floating, no fade in. It is worth remembering that the
+button is compensation. A page that needs one badly is often a page whose navigation
+should have been sticky, or whose content should have been shorter, and a sticky
+header quietly removes most of the reason to build it at all.

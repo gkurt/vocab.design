@@ -1,0 +1,70 @@
+---
+name: Eyedropper
+slug: eyedropper
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A tool that turns the cursor into a sampler so a colour can be
+  picked from anywhere on screen, usually with a magnified preview of the pixel
+  under it.
+aliases:
+  - name: color picker tool
+    source: community
+  - name: dropper
+    source: community
+  - name: EyeDropper API
+    source: wicg
+  - name: pipette
+    source: community
+tags:
+  - design-tools
+  - pointer
+relations:
+  contrastWith:
+    - color-picker
+    - color-well
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: EyeDropper API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API
+  - title: EyeDropper API specification
+    url: https://wicg.github.io/eyedropper-api/
+demo: inline
+exhibit: false
+useWhen: sampling a colour from pixels rather than typing a value
+---
+
+An eyedropper answers one question, and it answers it by pointing: what colour is that? Arming
+the tool converts the pointer from something that presses things into a measuring instrument.
+Every position under it reports a value, a loupe magnifies the neighbourhood so a single pixel
+becomes a target a hand can actually hit, and one click commits the reading to whichever field
+was waiting for it. Then the tool disarms itself, because a sampler that stayed armed would eat
+the next click the reader meant for something else.
+
+The distinction worth keeping is with the [colour picker](/color-picker): a picker offers a
+generated space to choose from, hues and shades that exist because the control drew them, while
+an eyedropper only reports colour that is already on the screen. That is also why the browser
+version is interesting. The `EyeDropper` interface, available in Chromium browsers, opens the
+platform's own sampler and can read pixels outside the page, which no amount of canvas
+inspection can do from inside a document. It resolves once, with the colour, and rejects if the
+reader presses Escape, which is the same one-shot contract a design tool's dropper has.
+
+Two details make the difference between a sampler people trust and one they fight. The first is
+magnification: without a loupe a reader aiming at a one pixel line hits the antialiased edge
+beside it and gets a colour that appears nowhere in the artwork. The second is honesty about
+what a single reading means. Sampling a [gradient](/gradient) gives one point along a ramp, not
+the ramp, and sampling a semi-transparent layer gives the composited result rather than the
+layer's own colour. A tool that shows the coordinates or the layer it read from saves an
+argument later.
+
+The eyedropper is pointer-only by nature, which makes the field beside it the accessible path
+rather than an afterthought. The sampled value has to land somewhere a reader can see, read
+aloud, and retype, so the result belongs in an editable text field with its hex or numeric
+value, not in a swatch that only shows the outcome. Keyboard sampling exists in some tools,
+usually as arrow keys nudging the sample point one pixel at a time with the loupe following,
+and it is worth having for exactly the same reason the loupe is: one pixel is a very small
+thing to ask a person to hit.

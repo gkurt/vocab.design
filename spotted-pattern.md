@@ -1,0 +1,62 @@
+---
+name: Spotted pattern
+slug: spotted-pattern
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scanning shape where the eye jumps to isolated words scattered
+  down the page, hunting a keyword, a link or a number rather than reading
+  anything.
+aliases:
+  - name: spotted scanning
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - marking-pattern
+    - lawn-mower-pattern
+    - commitment-pattern
+    - f-pattern
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Text Scanning Patterns: Eyetracking Evidence, NN/g"
+    url: https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/
+demo: inline
+exhibit: false
+useWhen: predicting a keyword hunt rather than reading
+---
+
+A reader arrives with a specific question: what does it cost, is there parking, which day.
+The gaze plot that comes back is not a path at all but a scatter of isolated fixations down
+the block, each one landing on a single word and none of them on the sentence it sits in.
+Nielsen Norman Group calls this the spotted pattern. The reader is not reading and does not
+intend to. They are running a visual search over the text for the shape of an answer.
+
+What makes the search work is that some words look different from their neighbours. A
+number, a bolded phrase, a link, a capitalised name, a currency symbol: each is a shape the
+eye can find in peripheral vision without reading the words around it. That is the whole
+argument for formatting keywords rather than trusting prose to carry them. Bold the two or
+three words that answer the question, keep numerals as numerals instead of spelling them
+out, and let links say the thing being linked to. In flat, unformatted text the same reader
+finds nothing to land on and the scan degrades: a couple of fixations at the start of the
+first lines, then the page gets abandoned or scrolled past.
+
+The formatting has to be honest, and that is the constraint people miss. Bolding a whole
+sentence gives the eye nothing to spot, because a uniform block is uniform whether it is
+bold or not, and bolding words for emphasis rather than for findability sends the search to
+the wrong place. Two or three spots per screen is the working budget. It is also worth
+remembering that a spotted scan is often the *first* pass rather than the only one: the
+reader lands on a number, then reads the sentence around it, which is why the answer has to
+survive being found out of context.
+
+The pattern sits alongside the other scanning shapes eye tracking has named, and it is the
+one most directly changed by typography rather than by layout. The [F pattern](/f-pattern)
+and the [layer cake pattern](/layer-cake-pattern) describe what dense text and subheaded
+text get; [bypassing](/bypassing-pattern) describes a list whose items all start the same
+way; [commitment](/commitment-pattern) is the rare case where somebody reads every word.
+Spotted is the one to design for when the reader has a question, which is most of the time.

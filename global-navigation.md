@@ -1,0 +1,72 @@
+---
+name: Global navigation
+slug: global-navigation
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The links to the top tier of a site's structure, present on every
+  page and unchanged wherever the reader currently is.
+aliases:
+  - name: global nav
+    source: community
+  - name: primary navigation
+    source: community
+  - name: main navigation
+    source: community
+  - name: site navigation
+    source: community
+tags:
+  - navigation
+relations:
+  contrastWith:
+    - local-navigation
+    - utility-navigation
+    - universal-navigation
+    - hub-and-spoke
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: The Difference Between Information Architecture and Navigation, NN/g
+    url: https://www.nngroup.com/articles/ia-vs-navigation/
+demo: inline
+exhibit: false
+useWhen: the nav that is the same on every page
+---
+
+Global navigation is the set of destinations reachable from every screen, and
+[local navigation](/local-navigation) is the set scoped to the section the reader is
+already in. That one sentence is the whole distinction, and it is worth memorising because
+the two are constantly built as though they were the same control. Global navigation is
+identical on the account page and on the search results page. If a link appears in it on
+some pages and not others, it is not global, whatever it is docked to.
+
+The constraint that gives the pattern its shape is that the list has to be short enough to
+stay whole. Whatever is in global navigation is in it forever, on every page, in a strip
+that also has to hold a brand mark and an account control, so every addition costs the same
+few pixels on every screen in the product. Seven items is the usual practical ceiling and
+five is more comfortable. This is why the top tier of a site's structure and its global
+navigation are not automatically the same list: the structure can be as wide as it needs to
+be, and the navigation is an editorial selection from it, which is the distinction NN/g
+draws between [information architecture and navigation](https://www.nngroup.com/articles/ia-vs-navigation/).
+
+Its physical form varies more than its job does. On the web it is usually a
+[navigation bar](/navigation-bar) across the top; on a phone it is a
+[bottom navigation](/bottom-navigation) bar, on a tablet a [navigation rail](/navigation-rail),
+and on a wide desktop app a [sidebar](/sidebar), which is one reason
+[adaptive layout](/adaptive-layout) treats it as the thing that changes shape at every size
+class. Collapsing it behind a [hamburger menu](/hamburger-menu) is the most consequential
+version of that change, because a global nav that is hidden by default stops advertising
+what the product contains. Where the list is genuinely large, a [mega menu](/mega-menu) is
+the honest way to show a second tier without pretending it fits in a strip.
+
+Two things it must always carry. A [current page indicator](/current-page-indicator), so
+the bar answers "where am I" and not only "where can I go": without it a reader has to infer
+their location from the page content, every time. And a [landmark](/landmark) role, since a
+navigation region announced as such is what lets a screen reader user jump straight to it,
+and is the anchor a [skip link](/skip-link) exists to skip past. What it does not have to
+carry is depth. Trailing a reader's path back up through the hierarchy is
+[breadcrumbs](/breadcrumbs)' work, and the [site footer](/site-footer) is where the long,
+complete, unedited list of everything belongs.

@@ -1,0 +1,76 @@
+---
+name: Step indicator
+slug: step-indicator
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A row or column of numbered stages showing where you are in a multi
+  step flow and what remains.
+aliases:
+  - name: steps
+    source: ant-design
+  - name: progress steps
+    source: community
+  - name: wizard steps
+    source: community
+  - name: progress tracker
+    source: community
+tags:
+  - progress
+relations:
+  contrastWith:
+    - stepper
+    - progress-bar
+    - page-indicator
+    - onboarding-checklist
+    - current-page-indicator
+    - steps-left
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - wizard
+implementations:
+  - system: carbon
+    name: Progress indicator
+    url: https://carbondesignsystem.com/components/progress-indicator/usage/
+sources:
+  - title: Progress indicator, Carbon Design System
+    url: https://carbondesignsystem.com/components/progress-indicator/usage/
+demo: inline
+exhibit: false
+useWhen: showing progress through a numbered flow
+---
+
+A step indicator is the map above a long form. Checkout, onboarding, a tax
+return, a multi part upload: any flow chopped into named stages needs to say
+three things at once, and this component says all three. Where am I, what did I
+already finish, and how much is left. The third one is why people accept the
+flow at all. A form that reveals its length up front is a form someone will
+start, and a sequence of pages that could end at any moment is one they abandon.
+
+The stages are discrete and named, which is the difference from a plain
+percentage. "Step 2 of 4: Shipping" tells you what is coming; "50%" does not.
+That also sets the limit on when the component works: it needs a fixed, ordered,
+knowable set of stages. Flows that branch, loop, or run to an unknown length
+either need the branch collapsed into one nominal step or should not claim a
+count at all, because a tracker that grows a fifth step while you are on the
+fourth is worse than none.
+
+Mark up the stages as an ordered list, since that is what they are, and mark the
+one you are on with `aria-current="step"`. Each stage needs its state announced
+in words, not only in colour: completed, current, and not started should all be
+distinguishable in a screenshot printed in black and white. Completed stages may
+be links back, which is a kindness in a checkout, but stages ahead should stay
+inert, because letting someone jump to payment before entering an address only
+moves the error later. On narrow screens the horizontal row usually collapses to
+a single line ("Step 2 of 4") rather than shrinking the labels into nothing.
+
+The naming here is a genuine mess. Material UI and Ant Design both call this
+component a **Stepper**, while Apple, HTML, and this dictionary use "stepper" for
+the plus and minus number control, which is a completely different thing. Carbon
+calls it a **progress indicator**, a phrase most people hear as a progress bar,
+and in everyday usage it answers to **progress steps** and **progress tracker**
+as well. When precision matters, say
+"step indicator" or "wizard steps" and expect to translate for whichever library
+is in the room.

@@ -1,0 +1,73 @@
+---
+name: Forgiving format
+slug: forgiving-format
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Accepting whatever shape the reader types and normalising it
+  afterwards, instead of rejecting input that differs only in spacing or
+  punctuation.
+aliases:
+  - name: forgiving input
+    source: ui-patterns
+  - name: lenient parsing
+    source: community
+  - name: flexible input
+    source: community
+  - name: input normalisation
+    source: community
+tags:
+  - content-design
+  - errors
+  - forms
+relations:
+  contrastWith:
+    - input-mask
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - smart-defaults
+implementations: []
+sources:
+  - title: "UI Patterns: Forgiving Format"
+    url: https://ui-patterns.com/patterns
+  - title: "GoodUI: Try Forgiving Inputs instead of being strict with data"
+    url: https://goodui.org/
+demo: inline
+exhibit: false
+useWhen: the field takes the card number however you type it
+---
+
+A forgiving format moves the work of tidying an answer from the person to the program.
+The reader types a phone number the way they say it, with spaces or dashes or a country
+code, and the field takes it, strips what it does not need, and stores one canonical
+form. The rejection that would have happened, "please enter a valid phone number", was
+never about validity. The digits were all there and in the right order. The form simply
+wanted them punctuated its way and made that the reader's problem.
+
+The engineering version of the rule is older than the web: be liberal in what you accept
+and conservative in what you send. The design version is easier to apply. Parse, do not
+police. Ask what the value means, extract that, and let everything else go: whitespace,
+punctuation, letter case, a leading plus, a pasted string that arrived with a currency
+symbol attached. Search is the same instinct applied to queries, and a date field that
+takes "next tuesday" is the same courtesy at the far end of the scale. What separates
+this from sloppiness is the second half of the sentence. Accept liberally, then normalise
+to exactly one stored shape, and show the reader what you stored so the leniency never
+turns into a guess they cannot see.
+
+Its close relative is the [input mask](/input-mask), which solves the same problem from
+the other end by supplying the punctuation itself as you type. A mask is the better
+answer where the shape genuinely is fixed and familiar, a card number or a local phone
+number, and where the template also tells the reader how long the answer is. It is the
+worse answer where the shape varies by country or by format, because a mask that insists
+on one arrangement rejects the correct value typed a different way, and it has to fight
+the caret to do it. Where a mask is right, a forgiving parser still belongs underneath it,
+because a paste arrives already punctuated.
+
+Strictness earns its place in a few named cases, and they are narrower than most forms
+assume. A code that must be transcribed exactly, a checksum, an IBAN, a licence key: these
+deserve chunking for legibility and a real check afterwards, not a shrug. Everything else
+gets the courtesy. Do the tidying silently rather than announcing it, keep the raw value
+if the reader may need to correct it, and reserve the error message for input that is
+genuinely missing or genuinely wrong, which is the only kind anybody can act on.

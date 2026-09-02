@@ -1,0 +1,68 @@
+---
+name: Spacing scale
+slug: spacing-scale
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The fixed, named set of spacing values a system allows, so gaps come
+  from a shortlist instead of being invented per screen.
+aliases:
+  - name: space scale
+    source: community
+  - name: spacing tokens
+    source: community
+  - name: spacing ramp
+    source: community
+  - name: space tokens
+    source: atlassian
+tags:
+  - spacing
+  - tokens
+relations:
+  contrastWith:
+    - fluid-space-scale
+    - density
+    - eight-point-grid
+    - gutter
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - concentric-corner-radius
+implementations: []
+sources:
+  - title: Spacing, Atlassian Design
+    url: https://atlassian.design/foundations/spacing
+demo: inline
+exhibit: false
+useWhen: why the gap is 12 and not 13
+---
+
+A spacing scale is a shortlist. Instead of every padding and every gap being a judgement
+call, a system publishes seven or eight allowed values, names them, and asks designers and
+developers to spend only those. The gain is not that 13px looks worse than 12px, because it
+does not. It is that a hundred screens built from eight values look related, review becomes
+a yes or no question, and nobody has to defend a number again.
+
+The steps grow, and they grow faster as they get bigger: 4, 8, 12, 16, 24, 32, 48 rather
+than a plain count by fours all the way up. Small gaps separate things inside one object,
+where a 4px difference is clearly visible, and large gaps separate whole regions, where a
+4px difference is invisible and the eye needs a jump instead. That is why a scale is
+usually near-geometric at the top and linear at the bottom, and why the useful ones stop
+around eight steps: a ladder with twenty rungs is a free-for-all wearing a uniform.
+
+Naming decides how well it survives. Values shipped as tokens with names that carry the
+multiple, `space-2` for twice the base, keep the arithmetic legible;
+t-shirt names, `sm` and `lg`, read easily but hide the ratio and run out of letters. Either
+way the names should be about size and not about the place they are used, since a token
+called `card-padding` becomes a lie the first time a card needs a different one. This is
+where the sibling term parts company: the [8 point grid](/eight-point-grid) is a rule about
+which base unit everything is a multiple of, and a spacing scale is the specific shortlist
+built on that unit, so a team can adopt the unit and still argue about the ladder.
+
+Breaking the scale is allowed and should be rare. Optical alignment, a control that has to
+meet a [touch target size](/touch-target-size), and text that needs a hair of nudging are
+all real, and they are
+also the excuse that ends with a code base holding 31 distinct paddings. Treat an off-scale
+value as a bug report against the scale: if the same odd number keeps appearing, the ladder
+is missing a rung, and adding one is a better answer than tolerating drift.

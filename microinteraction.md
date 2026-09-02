@@ -1,0 +1,69 @@
+---
+name: Microinteraction
+slug: microinteraction
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small self-contained loop of trigger, rule, feedback, and result,
+  such as a toggle that flips, buzzes, and settles into its new state.
+aliases:
+  - name: micro-interaction
+    source: community
+  - name: interaction detail
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - choreography
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hover-lift
+    - detent
+    - feedforward
+    - juiciness
+    - rage-click
+implementations: []
+sources:
+  - title: "Supercharge: UI glossary"
+    url: https://supercharge.design/blog/ui-glossary-list-of-essential-ui-design-terms
+demo: inline
+exhibit: false
+useWhen: one tiny complete interaction, trigger to feedback
+---
+
+Dan Saffer named the thing and then took it apart, which is why the word survived. A
+microinteraction has four parts. The **trigger** starts it, and is either something the
+person did or something the system noticed. The **rules** say what may happen, in what
+order, and what the interface refuses to do. The **feedback** is everything the rules
+make visible: the heart that pops, the count that ticks over, the tick of haptic on a
+phone. And the **loops and modes** are the long tail nobody budgets for, the part that
+decides what the same interaction does the second time, the hundredth time, and when the
+network is not there. Say those four words over any small piece of an interface and the
+missing one is usually obvious.
+
+The scope is the useful part of the definition. A microinteraction is one task at one
+moment: like a post, mute a room, choose a size, dismiss a warning. It is not a flow and
+not a screen, and the moment it needs a second decision from the reader it has become
+something else. That boundary is what separates the term from animation in general. A page
+transition is motion in the service of navigation; a microinteraction may not move at all,
+because a rule that quietly refuses an invalid character is still the whole loop running.
+Motion is only the most visible way feedback gets delivered.
+
+Most of the craft lands in the two middle parts. Rules are where an interaction stops
+lying: if a like is optimistic, the rule has to say what happens when the write fails, and
+the feedback for that failure is part of the same loop rather than a separate error
+screen. Feedback should be proportioned to the act, so a destructive step gets more of it
+than a routine one, and it should be cheap enough to survive repetition, since anything a
+person does forty times a day must not perform for them each time. The vocabulary for the
+individual pieces already exists on this site: the ripple and the state layer are feedback
+spellings, haptics are a channel, optimistic UI is a rule about time, and the toast is what
+the result says when the change happened somewhere the reader cannot see.
+
+Treat the word as a budget line rather than as a compliment. Teams that say "add some
+microinteractions" at the end of a project are asking for decoration, and decoration is
+what they get. Teams that ask which trigger, which rules, what feedback, and what the loop
+does over time are using it as a checklist, and it is a good one: it catches the toggle
+with no pressed state, the field that validates only on submit, and the button that gives
+you nothing at all for the two seconds before the answer arrives.

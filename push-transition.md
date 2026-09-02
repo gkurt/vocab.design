@@ -1,0 +1,76 @@
+---
+name: Push transition
+slug: push-transition
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A navigation transition where the new view slides in and pushes the
+  old one off, and reversing it pops back, encoding depth in a stack.
+aliases:
+  - name: push and pop
+    source: hig
+  - name: navigation push
+    source: hig
+  - name: stack transition
+    source: community
+  - name: drill-down transition
+    source: community
+tags:
+  - navigation
+  - platform-registers
+relations:
+  contrastWith:
+    - slide-transition
+    - modal-presentation
+    - directionality
+    - page-transition
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - drill-down-navigation
+implementations:
+  - system: hig
+    name: Motion
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+sources:
+  - title: "Apple HIG: Motion"
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+demo: inline
+exhibit: false
+useWhen: navigating deeper into a stack and back out
+---
+
+A push is the transition that keeps count. The incoming view enters from the trailing edge
+and the outgoing one leaves toward the leading edge at the same moment, so the reader sees
+the old screen displaced rather than covered: something was moved aside to make room for
+this. Going back reverses both halves, and the screen that comes back in is the one that
+went out. Direction is doing real work here. Forward is one way, back is the other, and a
+reader who has pushed three levels deep has watched three screens go left and knows, without
+a breadcrumb, that three moves will return them.
+
+The vocabulary is Apple's. A navigation stack pushes a view controller on and pops it off,
+and iOS has drawn that with a horizontal push since the first iPhone, complete with the
+detail that makes it read as depth rather than as a carousel: the outgoing screen travels
+only part of the distance the incoming one does, so it looks like it is further away and
+being covered rather than dragged along at the same speed. Android's platform motion has a
+close cousin, and the pattern survives on the web wherever an interface is genuinely a
+hierarchy: a mail list into a message, a settings root into a pane, a folder into a folder.
+
+Three transitions in this family are easy to confuse and worth pinning down. A
+[slide transition](/slide-transition) moves one panel over a background that stays put, so
+nothing is displaced and no stack is implied. A [wipe](/wipe) moves neither panel: only the
+boundary between them travels, revealing the next view through a mask while both sit still.
+A push moves both panels together, and that pairing is exactly what makes it read as a
+stack rather than as an arrival. All three are ways to draw a
+[page transition](/page-transition); the push is the one that means depth.
+
+What breaks a push is inconsistency about which way is deeper. If a back gesture plays the
+forward animation, the interface tells the reader they are going further in while taking
+them out, and the stack they were keeping in their head stops matching what they see. So
+direction should fall out of the route rather than be chosen at each call site, and every
+route should be reachable in both directions, including the one the browser's back button
+takes. Keep the move short, near 300 milliseconds, since it sits between the reader and
+what they asked for, and under a stated
+[prefers-reduced-motion](/prefers-reduced-motion) drop the travel for a fade: the depth was
+useful, but not worth the movement to someone who asked for less of it.

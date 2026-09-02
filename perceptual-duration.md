@@ -1,0 +1,73 @@
+---
+name: Perceptual duration
+slug: perceptual-duration
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: How long a spring appears to take, measured to the point the
+  movement stops being visible rather than to its mathematical rest, the figure
+  to quote against a timed animation.
+aliases:
+  - name: perceived duration
+    source: community
+  - name: settling time
+    source: community
+  - name: visual duration
+    source: community
+tags:
+  - perceived-performance
+  - perception
+relations:
+  contrastWith:
+    - duration
+    - frame-rate
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - damping
+implementations: []
+sources:
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+  - title: The Vocabulary of Motion
+    url: https://motion-vocabulary.vercel.app/
+demo: inline
+exhibit: false
+useWhen: a spring must be compared with a duration
+---
+
+A tween has a number written on it. A [spring](/spring-animation) does not: it is
+described by mass, stiffness and damping, it approaches its target
+asymptotically, and formally it never arrives. That is fine as physics and
+useless as a specification, because the moment anyone asks how the spring
+compares with the 400 millisecond tween beside it, a number is needed. The
+perceptual duration is that number: the time from the start to the last movement a
+person could actually see, with everything after it counted as arrived.
+
+The measurement needs a threshold, and the threshold is a choice rather than a
+constant. Common ones are the point where the remaining distance falls under one
+percent of the travel, or under half a pixel on the screen it will run on, or
+where velocity drops below some small figure and stays there. Different tools
+answer differently, which is why two libraries can report different durations for
+the same three parameters and both be right. State the threshold when the number
+matters, treat it as approximate when it does not, and remember that a springier
+setting can look slower than a stiffer one even when its measured time is shorter,
+because the wobble at the end keeps drawing the eye.
+
+The word perceptual is doing a second job too, and it is worth keeping the two
+apart. Felt time is not clock time: a well eased move reads as quicker than a
+linear one of identical length, an interruptible move reads as quicker than one
+that has to finish, and motion that starts the instant a control is pressed reads
+as quicker than motion of the same length that begins after a delay. That is craft
+lore with attention research behind it rather than a law, and the honest anchors
+are the response-time thresholds: under roughly 100 milliseconds a result feels
+instantaneous, and past about a second a person's attention has started to wander
+off the task.
+
+Use the figure the way any other duration is used. Quote it in a review, compare
+it against the timed transitions it will sit beside, and once a family of springs
+has been chosen, write the settled numbers down where the rest of the system can
+spend them, which is what a [motion token](/motion-token) is for. A spring that
+measures 500 milliseconds and a tween of 400 belong to the same conversation. A
+spring nobody has measured belongs to no conversation at all.

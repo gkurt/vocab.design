@@ -1,0 +1,79 @@
+---
+name: Feedforward
+slug: feedforward
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: What an interface says about the result of an act before it is
+  taken, the half of the loop that sits ahead of the action rather than after
+  it.
+aliases:
+  - name: feed forward
+    source: community
+  - name: action preview
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - affordance
+    - signifier
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - microinteraction
+    - drop-indicator
+implementations: []
+sources:
+  - title: "Djajadiningrat, Overbeeke and Wensveen: But how, Donald, tell us how?
+      (DIS 2002)"
+    url: https://research.tue.nl/en/publications/but-how-donald-tell-us-how-on-the-meaning-of-interaction-design-t
+  - title: "Vermeulen, Luyten, van den Hoven and Coninx: Crossing the bridge over
+      Norman's gulf of execution (CHI 2013)"
+    url: https://research.tue.nl/en/publications/crossing-the-bridge-over-normans-gulf-of-execution-revealing-feed
+demo: inline
+exhibit: false
+useWhen: telling someone what will happen before they act
+---
+
+The word arrived as a complaint. In 2002 Djajadiningrat, Overbeeke and Wensveen published a
+paper whose title asks Donald Norman how, exactly, a person is supposed to know what a
+control does, and their answer was that an interface owes two things and the literature
+only talked about one. Feedback reports what happened. Feedforward communicates the purpose
+of an action before it is performed. Eleven years later Vermeulen, Luyten, van den Hoven
+and Coninx pinned it to Norman's own diagram: feedback is the bridge over the gulf of
+evaluation, and feedforward is the bridge over the gulf of execution, the gap between
+having an intention and knowing which act will satisfy it.
+
+The reason the word is worth learning is that it separates three things a crowded
+neighbourhood keeps mashing together. An [affordance](/affordance) is what the thing lets
+you do, a property of the relationship between an object and a person. A
+[signifier](/signifier) is the mark that tells you where and how to do it, the underline
+under a link, the handle on a drawer. Feedforward is neither: it is a statement about the
+outcome. "You can press this" is an affordance, "press here" is a signifier, and "pressing
+this deletes 14 files and cannot be undone" is feedforward. The test is the tense. If the
+sentence the interface is saying uses the future, and names a consequence rather than a
+mechanism, it is feedforward.
+
+It pays for itself most obviously where the act is expensive: destructive commands, bulk
+operations on a selection, anything irreversible, anything that costs money, anything that
+grants a permission. In all of those the general rule is that specificity is the whole value.
+"This may affect other items" is worse than nothing, because it teaches the reader that the
+warnings here are noise; "removes 14 projects, every build log, and the deploy keys" is a
+sentence somebody can actually act on. The same logic explains the pattern's smallest
+instances, where feedforward is not text at all: a [drop indicator](/drop-indicator) drawing
+the line the row will land on, a [drag preview](/drag-preview) carrying what is being moved,
+a price total updating while the option is only hovered. Each of those is a claim about the
+result, made before the release.
+
+Two duties come with it. The first is reach: an announcement that only exists on hover does
+not exist for a touch screen, for a keyboard, or for a screen reader, so the consequence has
+to be stated somewhere durable as well, on focus, in the confirmation step, or in the label
+itself. The second is honesty, which is where the pattern meets its abusers. A cost revealed
+only after the commit is [drip pricing](/drip-pricing), and a preview that omits the part
+somebody would object to is the same lie with better manners. In the four parts of a
+[microinteraction](/microinteraction), feedforward is the odd one out: it is not the
+trigger, the rules, the feedback or the loop, but the thing said before the trigger is
+pulled. That is exactly why it needs its own name, and why so many interfaces have none of
+it.

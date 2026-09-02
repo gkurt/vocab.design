@@ -1,0 +1,68 @@
+---
+name: Live region
+slug: live-region
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A container marked so assistive technology reads changes inside it
+  without moving focus, used for messages that appear after an action.
+aliases:
+  - name: aria-live
+    source: aria
+  - name: screen reader announcement
+  - name: announcer
+  - name: live announcement
+  - name: LiveAnnouncer
+    source: angular
+  - name: role=alert
+    source: aria
+  - name: alert region
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - visually-hidden
+    - status-message
+    - aria-notify
+    - politeness-level
+    - alert-dialog
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - streaming-announcement
+implementations: []
+sources:
+  - title: "MDN: aria-live"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live
+  - title: "WCAG 2.2: Status Messages"
+    url: https://www.w3.org/TR/WCAG22/#status-messages
+demo: inline
+exhibit: false
+useWhen: something must be spoken without stealing focus
+---
+
+Most of what a screen reader says is a response to where the user went. A live
+region covers the other case: something changed somewhere else on the page, and the
+user needs to hear about it without being dragged there. Added to cart, five results
+found, saving, saved. The point is that focus does not move, so whoever was halfway
+through a form stays halfway through that form.
+
+There are two politeness levels and picking between them is most of the work.
+`aria-live="polite"` queues the message until the user pauses, and it is what almost
+everything should use; `role="status"` is the shorthand for it. `aria-live="assertive"`
+interrupts whatever is being spoken right now, and it is for errors that stop the
+task; `role="alert"` is the shorthand. An assertive region used for routine feedback
+talks over the user constantly, which is why the polite one is the default answer.
+
+The mechanics are unforgiving in one specific way: the region has to exist in the
+DOM, empty, before the message is put into it. Screen readers watch a live region for
+changes, and an element that arrives already carrying its text often arrives as part
+of nothing anyone was watching. Render the empty container on load, then write text
+into it. Keep it in the layout too, or size it deliberately, so the message appearing
+does not shove the page around.
+
+Not every message needs one. If the change is next to what the user just activated
+and focus is about to land on it anyway, a live region only duplicates what they will
+hear. WCAG 2.2's Status Messages criterion asks for the case where the message is
+not where the user is, which is exactly the case the region is for.

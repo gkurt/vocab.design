@@ -1,0 +1,73 @@
+---
+name: One thing per page
+slug: one-thing-per-page
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Asking a single question on each screen of a form so the reader
+  never chooses which field to answer first and errors point somewhere
+  unambiguous.
+aliases:
+  - name: question pages
+    source: govuk
+  - name: one question per page
+    source: govuk
+  - name: single question form
+    source: community
+tags:
+  - forms
+relations:
+  contrastWith:
+    - chunking
+    - wizard
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - form
+    - check-answers
+implementations: []
+sources:
+  - title: "GOV.UK Design System: Question pages"
+    url: https://design-system.service.gov.uk/patterns/question-pages/
+demo: inline
+exhibit: false
+useWhen: each form screen asks exactly one question
+---
+
+The screen holds a question, whatever it takes to answer that question, and a button
+that goes to the next one. Nothing else competes for the reader's attention, so there
+is no scanning, no deciding where to start, and no half-filled column left behind. The
+[GOV.UK Design System](https://design-system.service.gov.uk/patterns/question-pages/)
+made the case that turned a preference into a doctrine, and its services are the
+reference implementation: a long, dull, unavoidable form, cut into screens a person
+can answer one at a time.
+
+The gains are mostly about attention and about failure. A reader holds one question in
+their head instead of eleven, which matters most for the people a long form is hardest
+on: someone on a phone, someone in a second language, someone filling this in during a
+bad week. Validation stops being a puzzle, because an error on a single-question screen
+can only be about that question, and the message can sit where the eye already is
+rather than in an [error summary](/error-summary) pointing off down the page. Branching
+gets cheap too, since the next screen is chosen after the previous answer is known,
+which is how a form skips six questions nobody needs to see. And the drop-off shows up
+in the analytics as one identifiable question rather than as an anonymous abandoned page.
+
+One thing is not one input. An address, a date of birth, a set of checkboxes for
+"select all that apply": each is several controls answering a single question, and
+splitting them further makes the flow longer without making it clearer. The test is
+whether the screen would read as one sentence spoken aloud. The pattern also assumes
+the machinery around it. Answers are saved as they are given, Back genuinely returns to
+the previous answer rather than restarting, each question has a URL of its own so a
+link can point at it, and a [check answers](/check-answers) screen at the end buys back
+the overview all those separate screens took away. Signalling where the reader is,
+with a [stepper](/stepper) or a plain [steps left](/steps-left) line, is the other half
+of that debt.
+
+It is not free and it is not universal. Every screen is a round trip, so a slow
+connection feels it, and repeat expert users who know the whole form by heart are
+slowed down by having to press Continue eleven times: an accountant filing the same
+return every quarter wants the dense grid the pattern forbids. Two or three related
+fields, on a form somebody fills in once, rarely justify splitting. The doctrine earns
+its keep on long, consequential, once-in-a-while forms, which is exactly where a
+[wizard](/wizard) shows up as the same idea wearing a different name.

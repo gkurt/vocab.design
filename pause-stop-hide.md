@@ -1,0 +1,69 @@
+---
+name: Pause, stop, hide
+slug: pause-stop-hide
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A visible control for content that moves, blinks, scrolls, or
+  updates on its own, so a reader can stop it before reading around it.
+aliases:
+  - name: pause button
+    source: community
+  - name: carousel pause control
+    source: community
+  - name: auto-updating content control
+    source: wcag
+tags:
+  - wcag
+relations:
+  contrastWith:
+    - prefers-reduced-motion
+    - audio-control
+    - flashing-content
+    - timeout-warning
+    - autoplay
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - marquee
+    - carousel
+    - attract-mode
+implementations: []
+sources:
+  - title: "WCAG 2.2: Pause, Stop, Hide"
+    url: https://www.w3.org/TR/WCAG22/#pause-stop-hide
+demo: inline
+exhibit: false
+useWhen: something animates or refreshes without being asked
+---
+
+Success criterion 2.2.2 covers two kinds of content and asks for one thing. The first kind is
+anything that moves, blinks, or scrolls by itself for more than five seconds while other
+content is on the page. The second is anything that updates itself: a live count, a feed that
+prepends, a figure that refreshes. For both, the reader must be given a way to pause, to stop,
+or to hide it, and the control has to be reachable without leaving what they were doing. Five
+seconds is the whole of the exemption: a short entrance animation is fine, and a
+[carousel](/carousel) that has rotated three times while somebody was reading the paragraph
+beside it is not.
+
+The reason is not motion sensitivity, though the two overlap. It is that moving content beside
+static content steals attention on a loop, and auto-updating content moves the thing a reader
+was in the middle of reading. Someone using [screen magnification](/screen-magnification) loses
+their place when the layout reflows under them; someone reading slowly loses the sentence every
+time the carousel turns. Stopping is enough. The criterion asks for an escape, not for a
+transport bar, and a single visible Pause that actually stops everything is a complete answer.
+
+This is worth keeping apart from [prefers-reduced-motion](/prefers-reduced-motion), which is
+often offered as though it discharged the duty. A preference is a standing request, made once
+in a system setting, that a person carries to every site. A pause control is an escape offered
+in the moment, on this page, for content that is moving right now. Honouring the preference is
+necessary and it does not cover the reader who has no such preference and simply wants the
+thing to stop. Nor does an endlessly looping [pulse animation](/pulse-animation) get a pass for
+being small: it blinks, it does not stop, and if there is text next to it, it is in scope.
+
+The uncomfortable case for this site is its own [attract mode](/attract-mode). A specimen that
+plays itself, on a loop, beside an article somebody is reading, is precisely the content this
+criterion exists for, which is why every stage carries a visible play control that stops the
+script, why the stage pauses when it leaves the viewport, and why a stated motion preference
+turns attract off entirely rather than merely slowing it down.

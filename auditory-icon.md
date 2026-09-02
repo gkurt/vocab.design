@@ -1,0 +1,78 @@
+---
+name: Auditory icon
+slug: auditory-icon
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A recorded everyday sound standing for an event, so a crumple means
+  delete by resembling the act rather than by convention learned in the
+  interface.
+aliases:
+  - name: everyday sound
+    source: community
+  - name: sound icon
+    source: community
+  - name: natural sound cue
+    source: community
+tags:
+  - icons
+  - sound
+relations:
+  contrastWith:
+    - earcon
+    - skeuomorphism
+    - interface-metaphor
+  variantOf: []
+  partOf:
+    - microinteraction
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Gaver: Auditory Icons, Using Sound in Computer Interfaces
+      (Human-Computer Interaction, 1986, 167-177)"
+    url: https://doi.org/10.1207/s15327051hci0202_3
+  - title: "Wikipedia: Earcon"
+    url: https://en.wikipedia.org/wiki/Earcon
+demo: inline
+exhibit: false
+useWhen: the sound that reports an event by resembling it
+---
+
+William Gaver proposed these in 1986, as the deliberate alternative to a screen full of
+beeps. His argument was that everyday listening is not listening to sound, it is listening
+to events: nobody hears a spectrum, they hear a heavy thing dropped on wood. So the sounds
+an interface makes should be caricatures of naturally occurring sounds, exaggerated
+recordings of real events, and the mapping to what happened should be as close to
+physical as the interface can manage. He sorted the possibilities into three kinds:
+symbolic, where the relation is pure convention, metaphorical, where it is a likeness, and
+nomic, where the sound genuinely is what the thing would sound like. His SonicFinder made
+the case in a real interface, where dragging a file scraped, dropping it thudded, and a
+big file sounded bigger than a small one.
+
+That is the whole discrimination against its sibling. An [earcon](/earcon) is a synthesized
+figure whose meaning is learned, so a set of them has to be taught and can be built into a
+family; an auditory icon is a recording whose meaning is recognised, so it needs no teaching
+and cannot be extended by transposing anything. The trade runs in both directions. Nobody
+has to be told that a crumple means the thing is gone, but the world only supplies sounds
+for events that happen in it, and there is no everyday sound for "your two-factor code
+expired". Interfaces in practice mix the two registers, which is fine as long as they do not
+mix them for the same family of events.
+
+Being a metaphor delivered as sound puts the term next to the visual metaphors and next to
+their failure modes. It is the audio branch of an [interface metaphor](/interface-metaphor),
+and it goes wrong the same way [skeuomorphism](/skeuomorphism) does: the reference ages out.
+A camera shutter on a phone with no shutter, a modem handshake, a typewriter carriage on a
+software keyboard, all of them were once nomic and are now a costume, understood by people
+old enough to have heard the original and mystifying to everyone else. The rule of thumb is
+to borrow from physics rather than from equipment, since paper still crumples and heavy
+things still land, while machines get replaced.
+
+Then there are the duties every sound in an interface owes, and they are the reason the
+specimen here is silent until you press it yourself. Nothing plays unasked, the sound is
+never the only report of anything (a muted phone is the normal case, and a person who cannot
+hear it is owed the same information a listener gets), and a recording is heavier than a
+tone in every sense: more bytes, more room to sound cheap, and much more likely to become
+grating on the fortieth repetition. Where the noise is standing in for
+[haptic feedback](/haptic-feedback) or for a visible change, ship the visible change too and
+treat the sound as the part that can be turned off.

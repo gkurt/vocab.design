@@ -1,0 +1,66 @@
+---
+name: Toggle button
+slug: toggle-button
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A button that stays pressed, reporting an on or off state through
+  aria-pressed rather than firing and returning.
+aliases:
+  - name: sticky button
+    source: community
+  - name: pressed button
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - switch
+    - toggle-group
+  variantOf:
+    - button
+  partOf: []
+  seeAlso:
+    - pressed-state
+implementations:
+  - system: base-ui
+    name: Toggle
+    url: https://base-ui.com/react/overview/quick-start
+sources:
+  - title: "Base UI: components"
+    url: https://base-ui.com/react/overview/quick-start
+demo: inline
+exhibit: false
+useWhen: a button that stays down once you press it
+---
+
+An ordinary [button](/button) does something and comes back up. A toggle button does
+something and stays down, so its appearance is not feedback about a press that just
+happened but a report about the state of the thing it controls. Bold in a toolbar is
+the canonical example: it is down while the selection is bold, and it goes back up
+when the selection is not.
+
+Because the look is the state, it has to be readable when nothing is under the
+pointer and nothing is focused. A tint alone is thin, particularly with an icon only
+control, so the pressed state usually wants a fill and an inset edge as well, and the
+word for the state has to reach a screen reader through `aria-pressed="true"`, which
+is what makes a button announce as pressed. The other half of the same problem is the
+label: a toggle button's label names what it controls, not what pressing it will do
+next. "Mute", pressed, is unambiguous. A button that relabels itself to "Unmute" is
+guesswork, because the reader cannot tell whether they are reading the current state
+or the offer.
+
+The neighbouring words divide by what the control is for. A [switch](/switch) is a
+setting that takes effect the moment it moves, and it reads as on or off in its own
+right. A [checkbox](/checkbox) is a value in a form that is usually submitted later,
+and it can be mixed. A toggle button belongs where a button belongs, in a toolbar
+acting on something right now, and its state happens to persist. When several of them
+answer one question together they become a [toggle group](/toggle-group), and when the
+answer must be exactly one of them, a [segmented control](/segmented-control) is the
+better shape.
+
+Two mechanical notes. Keep the role a button: `aria-pressed` belongs on `role="button"`,
+and reaching for `aria-checked` instead turns it into a checkbox or a switch in the
+accessibility tree while it still looks and behaves like a button. And activate on
+both Space and Enter, which a native `<button>` gives away for free and a div rebuilt
+as a button has to earn back by hand.

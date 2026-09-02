@@ -1,0 +1,70 @@
+---
+name: Line clamp
+slug: line-clamp
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Cutting a block of text off after a fixed number of lines, with an
+  ellipsis at the end of the last one.
+aliases:
+  - name: multiline truncation
+  - name: -webkit-line-clamp
+    source: css
+  - name: multi-line ellipsis
+  - name: text clamping
+tags:
+  - content-design
+  - web-platform
+relations:
+  contrastWith:
+    - truncation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - show-more-toggle
+implementations: []
+sources:
+  - title: line-clamp (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp
+  - title: line-clamp (CSS-Tricks Almanac)
+    url: https://css-tricks.com/almanac/properties/l/line-clamp/
+demo: inline
+exhibit: false
+useWhen: capping a card's description at three lines
+---
+
+A clamp counts lines, which is what separates it from every character based
+version of the same idea. Cut a description at 90 characters and the result is
+ragged: at one width it fills three lines, at another it leaves a line and a half
+of white space. Cut it at three lines and it is three lines at every width, which
+is why a grid of cards clamped this way keeps its rows even while a grid clamped
+by length does not.
+
+It is also the multi-line half of a pair. [Truncation](/truncation) with
+`text-overflow: ellipsis` works on one line and needs that line held on one line,
+with `white-space: nowrap` and `overflow: hidden`; the ellipsis lands at the
+right edge. A clamp lets the text wrap normally and cuts after the nth line, so
+the ellipsis lands wherever that line happened to end, often well short of the
+edge. Both are purely visual. The whole string stays in the DOM, so find-in-page
+matches it, a screen reader reads it out, and copying gets all of it, which is
+usually what you want and occasionally a surprise for someone reviewing the page
+with the text visible.
+
+The implementation has an odd history. `-webkit-line-clamp` came out of an old
+WebKit flexbox draft and required the strange incantation `display: -webkit-box`
+plus `-webkit-box-orient: vertical` plus `overflow: hidden`, all three, or
+nothing happened. Every engine shipped the prefixed version anyway, and the
+unprefixed `line-clamp` from CSS Overflow 4 is now landing, which finally lets
+the property work on an ordinary block. Until support is safe everywhere, both
+declarations get written, and the old `display: -webkit-box` carries its
+side effects: the element's children become box items, so a clamped block with
+inline markup in it can lay out in ways an ordinary paragraph would not.
+
+Two design habits are worth keeping. Give the clamped block the height its
+maximum takes, so a short description and a long one do not shove the card's
+footer around, and so nothing jumps when the text arrives. And decide whether the
+cut text is recoverable: a [show more toggle](/show-more-toggle) belongs on
+content the reader may actually want, while a marketing subtitle can just be
+clamped and forgotten. Clamping a field that carries meaning to the end, an
+address or an error message, is a layout convenience charged to the reader.

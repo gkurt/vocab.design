@@ -1,0 +1,65 @@
+---
+name: Long description
+slug: long-description
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An extended text alternative for a chart, diagram, or map, linked or
+  referenced because a short alt string cannot carry the content.
+aliases:
+  - name: longdesc
+    source: html
+  - name: aria-details
+    source: aria
+  - name: extended description
+    source: community
+  - name: complex image description
+    source: community
+tags:
+  - assistive-tech
+  - content-design
+  - media
+relations:
+  contrastWith:
+    - alt-text
+    - chart-description
+    - figure
+    - accessible-description
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: aria-details"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-details
+demo: inline
+exhibit: false
+useWhen: the image is data and one line will not do
+---
+
+Some images are not illustrations, they are content. A chart, a schematic, a floor plan, a map, an
+org diagram: the information is inside the picture, and there is no sentence that carries it. The
+answer is two alternatives rather than one longer one. A short name identifies the thing, and a
+separate passage of prose says what it contains.
+
+That split is the part people get wrong. [Alt text](/alt-text) and a long description are not two
+points on a length scale. Alt answers "what is this?" and belongs in the flow of reading, which is
+why a hundred word alt attribute is a bad long description as well as a bad alt: a reader tabbing
+through a page gets a paragraph read at them with no way to skip, pause or reread it. The long
+description answers "what does it say?", and its whole value is being somewhere the reader can go
+deliberately and leave again.
+
+Mechanically, the modern options are all just prose in the page. `aria-details` points from the
+image to an element holding the description, and a screen reader announces that details exist and
+offers a key to jump there. A visible disclosure under the figure does the same job for everyone,
+which is usually the better trade: sighted readers who cannot read a dense chart get the account
+too, and nobody has to trust an attribute. The HTML `longdesc` attribute, which took a URL, is
+obsolete and was never implemented consistently; do not reach for it. See also
+[chart description](/chart-description) for what the prose itself should contain.
+
+Write it like a paragraph, not like a table read aloud. Lead with the shape of the data and the
+conclusion the chart was included to support, then give the values that matter, and skip the ones
+that do not. If the honest description turns out to be a table, ship the table: the fastest way to
+finish a long description is to notice that the image was a bad way to publish the numbers in the
+first place.

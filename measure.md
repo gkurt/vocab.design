@@ -1,0 +1,71 @@
+---
+name: Measure
+slug: measure
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The width of a column of text, judged in characters per line, with
+  roughly 45 to 75 treated as the comfortable range for reading.
+aliases:
+  - name: line length
+  - name: column width
+  - name: characters per line
+  - name: CPL
+tags:
+  - editorial
+  - perception
+  - spacing
+relations:
+  contrastWith:
+    - leading
+    - text-columns
+    - ch-unit
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - reader-mode
+    - text-balancing
+implementations: []
+sources:
+  - title: Choose a comfortable measure (Elements of Typographic Style Applied to
+      the Web)
+    url: http://webtypography.net/2.1.2
+  - title: "Readability: The Optimal Line Length (Baymard)"
+    url: https://baymard.com/blog/line-length-readability
+demo: inline
+exhibit: false
+useWhen: deciding how wide a paragraph is allowed to get
+---
+
+The word is letterpress. A compositor set the composing stick to a width, in
+picas, and that width was the measure; every line in the job was built to it. What
+carried over to the screen is the habit of stating it in characters rather than in
+picas or pixels, because the constraint is about the eye and not about the paper.
+At the end of every line the eye has to sweep back and drop one line, and the
+longer the sweep, the more often it lands on the line it just read.
+
+The numbers everyone quotes come from Bringhurst: anything from 45 to 75
+characters is satisfactory for a single-column page, and 66 characters, counting
+letters and spaces, is the figure he calls ideal. Treat that as a well-chosen
+convention rather than a finding. The research underneath is messier and mostly
+says two things at once: readers often move through longer lines slightly faster,
+and they reliably prefer and report better comprehension with shorter ones. When
+speed and preference disagree, interface text should follow preference, since
+nobody is being timed.
+
+In CSS the unit that matches the concept is `ch`, the advance width of the zero
+glyph, so `max-width: 66ch` is the direct translation. It runs a little wide in
+practice, because in most faces a zero is wider than an average lowercase letter
+and much wider than a space, which means a 66ch column holds closer to 70 or 75
+characters. Setting somewhere around 60ch usually lands on Bringhurst's 66 in
+real text. The newer `lh` and `rlh` units make the companion adjustment easy to
+state, since a long measure needs more [leading](/leading) to keep the return
+sweep from missing its target, and a short one needs less.
+
+Measure is the setting a full-width layout forgets. A paragraph in a `div` with no
+constraint inherits the viewport, which on a wide monitor is 200 characters and
+unreadable, and the fix is a maximum on the text column rather than a maximum on
+the page. The other failure is a measure so narrow that every line breaks after
+four or five words: the rag turns violent, hyphenation starts working overtime,
+and the paragraph reads as a list.

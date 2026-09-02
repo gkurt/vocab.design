@@ -1,0 +1,71 @@
+---
+name: Reaction picker
+slug: reaction-picker
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small row of emoji that appears on hover or long press so a
+  message can be answered without a reply.
+aliases:
+  - name: reaction bar
+    source: community
+  - name: quick reactions
+    source: community
+  - name: emoji reactions
+    source: community
+  - name: like button
+    source: uxpatterns
+tags:
+  - icons
+  - messaging
+relations:
+  contrastWith:
+    - rating
+    - emoji-picker
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - read-receipt
+implementations: []
+sources:
+  - title: UX Patterns for Developers
+    url: https://uxpatterns.dev/patterns
+demo: inline
+exhibit: false
+useWhen: answering a message with one emoji
+---
+
+A reaction picker exists because most replies are not worth a reply. Someone posts the
+invoice numbers, four people need to signal that they have seen it, and four messages
+saying "thanks" would bury the thread they are thanking. So the interface offers a row of
+five or six emoji, one tap attaches one of them to the message, and the acknowledgement
+lands without costing anyone a notification they have to read. The picker is the small
+surface that row lives in, reached from a trigger on the message: a plus on hover at a
+desk, a long press on a phone.
+
+Which emoji sit in that row is the whole design, because the row is a vocabulary, not a
+sample. Six is about the ceiling before scanning costs more than typing would, and the six
+have to cover the jobs people actually need: agreement, thanks, acknowledgement, delight,
+and the two or three a particular community has made its own. Recent choices deserve a
+place, since reaction use is heavily repetitive. And there has to be a way out to the full
+set, which is where the picker hands off to an [emoji picker](/emoji-picker) rather than
+growing into one.
+
+That hand-off is the line between the two words, and it runs both ways. An
+[emoji picker](/emoji-picker) inserts a character into text the reader is composing: the
+result is part of a message they have not sent yet, it is theirs alone, and the panel is
+built for retrieval out of thousands of glyphs. A reaction picker attaches a typed response
+to an object that already exists, and the result is not a character at all but a count that
+other people join. Two readers picking the same emoji produce one reaction with a two beside
+it, which is why the attached reaction reads like a [badge](/badge) on the message, and why
+tapping your own again removes yours rather than adding a second.
+
+Once a reaction is counted, the interface owes the reader an answer to "who". A reaction
+group that shows the emoji and the number, with the names behind a hover or tap, is the
+usual answer, and where the set of people matters more than the tally it becomes an
+[avatar group](/avatar-group) instead. Two accessibility obligations come with all of this
+and are routinely missed: the reaction has to be announced as a control with a name and a
+count rather than as a bare glyph, so a screen reader says "thumbs up, two reactions, press
+to add yours", and the picker has to open from the keyboard as readily as it opens from a
+pointer, since a surface that only exists on hover does not exist for everyone.

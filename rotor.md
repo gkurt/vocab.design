@@ -1,0 +1,73 @@
+---
+name: Rotor
+slug: rotor
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "VoiceOver's dial for choosing what a swipe or flick moves between:
+  headings, links, landmarks, form controls, or characters."
+aliases:
+  - name: VoiceOver rotor
+    source: hig
+  - name: gestures rotor
+    source: hig
+  - name: element list
+    source: community
+  - name: quick nav
+    source: community
+  - name: landmark rotor
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - review-cursor
+    - browse-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - heading-hierarchy
+    - landmark
+implementations: []
+sources:
+  - title: Use the VoiceOver rotor on Mac, Apple Support
+    url: https://support.apple.com/guide/voiceover/voiceover-rotor-mchlp2719/mac
+  - title: VoiceOver gestures on iOS, Deque University
+    url: https://dequeuniversity.com/screenreaders/voiceover-ios-shortcuts
+demo: inline
+exhibit: false
+useWhen: naming the VoiceOver dial that picks a navigation unit
+---
+
+The rotor is a dial, and on iOS it is drawn as one: two fingers on the glass, turned as if
+you were turning a knob, and VoiceOver announces each setting as it comes round. On the Mac
+the same dial is reached by holding Control and Option and pressing the left and right
+arrows. Whatever setting is showing decides what the next flick or arrow press means. On
+Headings, a flick down lands on the next heading. On Links, the same flick lands on the next
+link. The page has not changed and the gesture has not changed. Only the unit of travel has.
+
+That makes the rotor a direct readout of the structure you shipped, because its list of
+settings is generated from the document rather than configured by the user. Headings, links,
+form controls, tables, lists and [landmarks](/landmark) each appear as a setting only when
+the page contains some, which is why a page built out of styled `div` elements offers a
+[screen reader](/screen-reader) user a rotor with almost nothing on it. On iOS the settings
+are populated from the [accessibility traits](/accessibility-trait) a view declares, so a
+custom control drawn to look like a heading, announced correctly, and reachable by swipe can
+still be missing from the Headings rotor because it never claimed the `.header` trait. The
+landmark rotor is the clearest case of the payoff: mark the regions and the reader gets a
+table of contents nobody had to write.
+
+Every screen reader has this idea under another name. NVDA and JAWS spell it as quick
+navigation, where single letter keys jump by type (`h` for heading, `f` for form field, `k`
+for link) and a separate elements list dialog shows them all at once. The mechanic differs,
+the design consequence does not. It is worth keeping the rotor distinct from
+[browse mode](/browse-mode), which is often confused with it: browse mode is the mode the
+walking happens in, where the reader claims the keyboard and moves a virtual cursor, and the
+rotor is what chooses which kind of element that walk visits.
+
+The practical reading is that the rotor rewards real semantics and quietly punishes visual
+hierarchy alone. Large bold text is not a heading, a `div` with a click handler is not a
+link, and a fieldset drawn with a border and no element behind it is not a group. None of
+those failures show up in a screenshot, and all of them show up the moment somebody spins
+the dial looking for a way to skim.

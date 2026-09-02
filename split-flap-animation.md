@@ -1,0 +1,70 @@
+---
+name: Split-flap animation
+slug: split-flap-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A digit or letter changing by flipping through every character
+  between the old value and the new one, imitating the mechanical boards of
+  airports and flip clocks.
+aliases:
+  - name: split-flap display
+    source: community
+  - name: flip clock
+    source: community
+  - name: Solari board
+    source: community
+  - name: flip digit
+    source: community
+  - name: flap animation
+    source: community
+tags:
+  - retro
+relations:
+  contrastWith:
+    - count-up-animation
+    - typewriter-effect
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: split-flap display"
+    url: https://en.wikipedia.org/wiki/Split-flap_display
+  - title: "Design engineering: a split-flap display component"
+    url: https://hello-mat.com/design-engineering/component/split-flap-display
+demo: inline
+exhibit: false
+useWhen: a changing value should read as mechanical rather than digital
+---
+
+The original is a machine. A split-flap display holds a stack of hinged cards on a drum, each card
+carrying the bottom half of one character and the top half of the next, and a motor turns the drum
+until the right card is at the front. Because the drum can only turn one way, getting from O to L
+means passing through every letter in between, which is why an airport board clatters through
+twenty-odd characters to change one destination. The boards made by Solari di Udine, drawn by the
+architect Gino Valle, made that clatter part of what a railway station sounds like, and the effect
+survives in software purely as an imitation of a constraint no software has.
+
+That is the whole point, and it is worth being honest about. A split-flap animation is slower than
+simply writing the new value, it delays the information by a second or more, and the delay buys
+nothing except the feeling that something physical has committed to an answer. Where that feeling
+is the product, a countdown to a launch, a scoreboard, a clock on a wall display, it earns its
+keep. Where the number is being read for work, it is friction dressed as craft. The tell for
+whether it belongs is whether anyone would mind waiting for it.
+
+Two neighbours share the mechanics. [Count-up animation](/count-up-animation) also runs a value
+through intermediate states, but it interpolates a quantity, so the numbers it passes through are
+arithmetic and the last one is the answer. A split flap passes through characters that mean nothing
+at all, because they are positions on a drum rather than values. And the flipping itself is a
+[stepped animation](/stepped-animation): a fixed number of discrete positions with no interpolation
+between them, which is why a smoothly morphing flap looks immediately wrong.
+
+Three details separate a convincing board from a novelty. Every cell holds a fixed width, so a
+board reflowing mid-flip destroys the illusion of a physical frame and shifts the layout at the
+same time. The cells start in sequence rather than together, left to right, because a real drum
+takes a moment to receive its instruction and a board flipping in perfect unison reads as a screen
+pretending. And the distance has to be capped or the slowest character sets the pace for the whole
+board, which is how a charming effect becomes a five second wait. Under a reduced-motion preference
+the value should simply be there, since the letters in between were never information.

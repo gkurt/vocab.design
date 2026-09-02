@@ -1,0 +1,69 @@
+---
+name: Accessible description
+slug: accessible-description
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Supplementary text announced after a control's name, carrying hint
+  or error detail without becoming part of the name itself.
+aliases:
+  - name: aria-describedby
+    source: aria
+  - name: aria-description
+    source: aria
+  - name: help text
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - helper-text
+    - long-description
+    - tooltip
+    - accessible-name
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "APG: Providing Accessible Names and Descriptions"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/
+  - title: "MDN: aria-describedby"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby
+demo: inline
+exhibit: false
+useWhen: extra detail that should follow the name, not replace it
+---
+
+Every control gets two strings from the browser, and they have different jobs. The
+[accessible name](/accessible-name) identifies it: "Delete project". The accessible
+description elaborates: "This cannot be undone". The name is announced immediately, with
+the role; the description follows, usually after a short pause, and only when the reader
+has arrived at the control. Keeping them apart is what stops a button from being called
+"Delete project this cannot be undone", which is what happens when a hint is folded into
+the label.
+
+The description has its own computation order, and it is short. `aria-describedby` wins,
+taking the text content of every element it points at, in the order the ids are listed.
+`aria-description` comes next, for a string with no element to point at. The `title`
+attribute is last, which is the only reason a stray `title` sometimes shows up as
+description in an inspector. There is no fallback beyond that, so a hint rendered next to
+a field and joined to nothing is a hint no screen reader user ever hears, however clearly
+it reads on screen.
+
+When a description is announced is out of your hands, which is the practical constraint.
+Screen readers differ on verbosity settings, on whether they repeat descriptions in
+browse mode, and on how much of a long one they will speak before moving on. Anything
+essential to completing a task belongs in the name, the label, or the visible copy, and
+the description carries what is genuinely supplementary: a format hint on a field, a
+consequence on a destructive button, the error text that has just appeared. Point
+`aria-describedby` at the [helper text](/helper-text) and the
+[error message](/error-message) you already render rather than writing the sentence
+twice, and let the association drop when the message does.
+
+It is worth noting what this is not. [Name, role, value](/name-role-value) is the audit
+of a control's obligations, and the description is not one of them: a control with a
+perfect description and no name is still broken, and the fix is a name, not more
+description. `title` as the sole description is the weakest arrangement of the lot,
+because it appears on hover only, which excludes touch and keyboard entirely.

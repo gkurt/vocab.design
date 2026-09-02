@@ -1,0 +1,74 @@
+---
+name: Velocity skew
+slug: velocity-skew
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Skewing or stretching content in proportion to how fast the page is
+  scrolling and easing it back to square when the scroll stops, so speed shows
+  up in the shape of the content.
+aliases:
+  - name: skew on scroll
+    source: gsap
+  - name: scroll velocity skew
+    source: community
+  - name: velocity-based distortion
+    source: community
+  - name: getVelocity
+    source: gsap
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - motion-blur
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-linked-animation
+implementations: []
+sources:
+  - title: "GSAP forums: skew on scroll velocity"
+    url: https://gsap.com/community/forums/topic/25971-skew-on-scroll-velocity/
+  - title: "GSAP docs: ScrollTrigger.getVelocity()"
+    url: https://gsap.com/docs/v3/Plugins/ScrollTrigger/getVelocity()/
+demo: inline
+exhibit: false
+useWhen: scroll speed itself should be visible
+---
+
+Most scroll effects are driven by position: how far down the page you are, how much of an element is
+on screen. This one is driven by the derivative. Sample how fast the scroller is moving, map that
+number onto a `skewY` or a `scaleY` on the content, and let it ease back to zero when the movement
+stops. Flick the page and the cards lean and stretch; stop and they square up. GSAP's
+`ScrollTrigger.getVelocity()` is where most implementations get the number, which is why the effect
+is so often written in that dialect. What it borrows is older than any of it: hand animators drew
+smear frames for exactly this reason, because a shape distorted along its direction of travel reads
+as fast in a way that a shape merely displaced does not, which is the same observation
+[squash and stretch](/squash-and-stretch) is built on.
+
+The comparison worth making carefully is with a [spring animation](/spring-animation), because both
+are described as physical and they are not the same kind of thing at all. A spring converges on a
+target: it has a rest position, it is trying to get there, and its velocity is a by-product of that
+attempt. A velocity skew has no target of its own. It is a readout of a number that something else
+is producing, and it returns to square only because that number returns to zero. Which is also why
+the two behave differently when interrupted. Interrupt a spring and it re-aims at the new target;
+interrupt a velocity skew and it simply reports the new speed, because it was never headed anywhere.
+
+The arithmetic has two parts and both need care. Velocity is a difference between samples, so it is
+noisy: a raw reading jitters, and the distortion jitters with it, which is why every good
+implementation smooths the value before using it. Then there is the return to square, which is a
+decay rather than a tween, and the rate of that decay is exactly what [damping](/damping) names. A
+fast decay makes the effect feel crisp and easy to miss, a slow one leaves the page visibly wobbling
+after the reader has stopped, and past a certain slowness the return stops reading as settling and
+starts reading as a separate animation with its own [easing](/easing) that nobody asked for.
+
+Three cautions. Clamp the maximum: an unclamped mapping produces a forty degree skew on a trackpad
+flick, and forty degrees of skew is unreadable rather than fast. Never apply it to text the reader is
+trying to read at that moment, which in practice means headings, imagery and cards rather than body
+copy. And keep it to `transform` alone so it stays on the compositor, since a distortion recomputed
+per frame is the easiest possible way to introduce [jank](/jank) into the exact moment a reader is
+moving fastest. The physically honest version of the same idea, real
+[motion blur](/motion-blur), is a great deal more expensive and almost never what is wanted here. As
+with any effect keyed to movement, a reader who has asked for less of it should get the content
+square: this belongs behind [prefers-reduced-motion](/prefers-reduced-motion).

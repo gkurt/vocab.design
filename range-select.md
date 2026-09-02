@@ -1,0 +1,74 @@
+---
+name: Range select
+slug: range-select
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Choosing a contiguous run of items by marking one end and holding
+  Shift while marking the other, selecting everything between them.
+aliases:
+  - name: shift-click
+    source: community
+  - name: shift select
+    source: community
+  - name: contiguous selection
+    source: community
+  - name: extend selection
+    source: community
+  - name: range selection
+    source: merged-candidate
+  - name: anchor selection
+    source: merged-candidate
+tags:
+  - keyboard
+  - selection
+relations:
+  contrastWith:
+    - brushing
+    - lasso-selection
+    - bulk-actions
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - selection-color
+    - multi-select
+implementations: []
+sources:
+  - title: "ARIA APG: Developing a keyboard interface"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+exhibit: false
+useWhen: selecting everything between two items at once
+---
+
+Selecting forty rows one click at a time is the kind of work interfaces are supposed to
+absorb. Range select absorbs it with two clicks: the first sets an anchor, the second
+says how far, and everything between the two ends up selected. It came out of desktop
+file managers, arrived on the web with Gmail in 2004, and is now expected in every list
+of things: mail, files, tracks, layers, spreadsheet cells, and any table with a checkbox
+column.
+
+The anchor is the part implementations get wrong. A range is defined by two ends, so the
+list has to remember which item was the last plain click and keep it while shifted clicks
+move only the other end. Shift clicking again from the same anchor should redraw the
+range rather than add a second one, so shrinking a range is just clicking nearer the
+anchor. The anchor moves only on an unmodified click, or on the first item of a
+[modifier key](/modifier-key) pick, and it survives scrolling and sorting. Get that wrong
+and the reader experiences it as a list that forgets where they started.
+
+Order is the other trap. The range is defined over the list as currently rendered, not
+over the underlying data, so a sort or a filter applied while a range is selected leaves a
+selection that is no longer contiguous. Most applications keep the items and drop the
+claim of contiguity, which is honest. Collapsed groups raise the same question in reverse:
+a range that spans a collapsed section usually should include the rows hidden inside it,
+and should say so, because a count that jumps from nine to thirty on expand reads as a
+bug.
+
+Keyboard and screen reader users need the same reach, and the APG spells it out:
+`Shift + Down` extends the selection by one, `Shift + Home` and `Shift + End` extend to
+the ends, and `Control + A` selects everything. The visible state has to be
+`aria-selected` on each item, with the header checkbox reporting `aria-checked="mixed"`
+when only some rows are in, since a half selected list is a real third state rather than
+an unchecked one. Touch has no Shift at all, which is why phones answer with a selection
+mode: one long press enters it, and taps extend from there.

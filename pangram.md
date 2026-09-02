@@ -1,0 +1,62 @@
+---
+name: Pangram
+slug: pangram
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A sentence that uses every letter of the alphabet at least once,
+  used to show a whole character set in one line.
+aliases:
+  - name: the quick brown fox
+  - name: alphabet sentence
+tags:
+  - design-tools
+  - fonts
+relations:
+  contrastWith:
+    - lorem-ipsum
+    - type-specimen
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Typeface (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Typeface_families
+demo: inline
+exhibit: false
+useWhen: you need one line that shows every letter
+---
+
+A pangram is a sentence containing every letter of the alphabet. That is the whole
+definition, and the reason it matters to typography is practical: one line of real
+words that happens to be complete lets you see a face's whole lowercase, and its
+capitals if you set it that way, without reading a grid of isolated glyphs. It
+proves coverage. Every letter is drawn, every letter is present in the file, and
+nothing falls back to another family.
+
+Coverage is not the same as usefulness, and this is where the famous one earns its
+reputation as a poor choice. "The quick brown fox jumps over the lazy dog" spends a
+third of its length on rare letters and gives you a single `s`, one `a`, and no
+repeated pairs worth judging, so it says almost nothing about rhythm, spacing, or
+how the face behaves in a real paragraph. Type designers proof with words chosen for
+their shapes instead: `hamburgefonstiv` for the lowercase skeleton, `HANDGLOVES`
+for the capitals, `nn` and `oo` for spacing. A perfect pangram, one using each
+letter exactly once, is a puzzle rather than a proof, because getting to
+twenty-six letters forces abbreviations and proper nouns that no reader would
+write.
+
+The distinction from a [type specimen](/type-specimen) is that a specimen is the
+display and a pangram is one kind of text you can put in it. A good specimen shows
+the family at several sizes, in a paragraph at reading size, and in the states the
+face will really be used in; a pangram is the one-line completeness check inside
+it, usually near the top. When the point is texture rather than coverage, filler
+copy like [lorem ipsum](/lorem-ipsum) or a real paragraph does the job better,
+because it has the letter frequencies of actual language.
+
+The word is also a convenient test string outside typography: a sentence that
+exercises every letter is a quick check for a keyboard layout, an OCR pass, a
+handwriting model, or a text renderer. In those uses the sentence's readability
+matters even less than in a specimen, which is why the shorter and stranger
+pangrams ("Sphinx of black quartz, judge my vow") tend to win.

@@ -1,0 +1,54 @@
+---
+name: Chip
+slug: chip
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A compact, rounded element holding one value, which can usually be
+  selected, removed, or both.
+aliases:
+  - name: pill
+  - name: token
+tags:
+  - search
+  - selection
+relations:
+  contrastWith:
+    - badge
+    - tag
+    - tag-input
+    - swatch
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - applied-filters
+implementations:
+  - system: material
+    name: Chips
+    url: https://m3.material.io/components/chips/overview
+  - system: carbon
+    name: Tag
+    url: https://carbondesignsystem.com/components/tag/usage/
+  - system: polaris
+    name: Tag
+    url: https://polaris.shopify.com/components/selection-and-input/tag
+sources: []
+demo: inline
+exhibit: false
+useWhen: a compact value you can select or remove
+---
+
+Chips carry values: a filter you applied, a label on an issue, a recipient in a
+"To" field. The shape is doing real work, since a rounded outline reads as one
+object even when the text inside it is a phrase.
+
+The names are a mess and worth knowing. Material says chip, IBM and GitHub say tag,
+Bootstrap popularised pill for the shape, and "token" is what the same thing is
+called once it sits inside a text field (the addresses in an email client). They
+are the same component with different histories, which is why this entry answers to
+all four.
+
+Against a [badge](/badge): a badge is stuck onto something else and reports a count
+or a status, and you cannot click it. If it can be dismissed with an x or toggled
+on and off, it is a chip.

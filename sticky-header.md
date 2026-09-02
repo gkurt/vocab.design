@@ -1,0 +1,70 @@
+---
+name: Sticky header
+slug: sticky-header
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A header that scrolls away with the page until it reaches the top
+  edge, then stays fixed there while the rest keeps moving.
+aliases:
+  - name: sticky nav
+    source: community
+  - name: fixed header
+    source: community
+  - name: pinned header
+    source: community
+  - name: persistent header
+    source: community
+  - name: affix
+    source: bootstrap
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - navigation-bar
+    - sticky-footer
+    - quick-return-header
+    - collapsing-toolbar
+    - frozen-column
+    - sticky-sidebar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - focus-not-obscured
+implementations: []
+sources:
+  - title: Using container scroll-state queries, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Conditional_rules/Container_scroll-state_queries
+demo: inline
+exhibit: false
+useWhen: a header that pins itself once it hits the top
+---
+
+Sticky is a hybrid position, and the hybrid is the whole point. The element sits
+in normal flow, taking up its own room and scrolling with everything around it,
+right up to the moment its offset threshold is met. From there it stops, and the
+content carries on underneath. `position: fixed` is the impostor people reach for
+first: a fixed header is pinned from the first pixel, never occupies flow, and has
+to have its height paid back with padding on whatever follows it.
+
+The behaviour has two conditions that catch everyone. It needs an inset to stick
+to, so `top: 0` is not decoration but the threshold itself, and without it nothing
+happens. And it sticks within its own scroll container, which means any ancestor
+carrying `overflow: hidden`, `auto`, or `clip` becomes that container and the
+header will pin to a box the reader cannot see moving. Most reports of sticky
+being broken are one of those two.
+
+A pinned header is a permanent tax on vertical space, which is why it is worth
+being stingy: it should be shorter than the version that scrolled in, and on a
+phone it should carry the one control that justifies its presence rather than the
+whole navigation. Anchored links need `scroll-margin-top` roughly equal to the
+header's height, or every jump lands with its target hidden behind the thing that
+stayed. Where the header is a table's own head, the same technique applied to
+`th` gives a column header that behaves the way a spreadsheet's does.
+
+Styling the pinned state used to require a scroll listener and a class, which is
+what the specimen does here so the state is legible in markup. CSS now answers it
+directly: a scroll container declared with `container-type: scroll-state` lets a
+rule ask `@container scroll-state(stuck: top)` and change the shadow or the height
+at the moment the header lands, with no script involved.

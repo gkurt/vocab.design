@@ -1,0 +1,61 @@
+---
+name: Ch unit
+slug: ch-unit
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A CSS length equal to the advance width of the digit zero in the
+  current font, used to set column widths in characters rather than pixels.
+aliases:
+  - name: character unit
+    source: css
+  - name: ch
+    source: css
+  - name: character width unit
+tags:
+  - spacing
+  - web-platform
+relations:
+  contrastWith:
+    - measure
+    - em-unit
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Line Length (Measure)
+    url: https://kweri.app/learn/line-length-measure
+demo: inline
+exhibit: false
+useWhen: setting a column width in characters, not pixels
+---
+
+`1ch` is the advance width of the digit zero in whatever font is in effect on that
+element. Not the average letter, not the widest one: the zero, specifically, and the
+advance rather than the ink, so the sidebearings are included. The unit exists
+because the constraint typographers actually care about is stated in characters.
+[Measure](/measure) is a count of characters per line, so `max-width: 66ch` writes
+the rule down in the units of the rule itself, and the column then tracks any
+change in type size for free.
+
+The reason it is the zero and not something more representative is practical: in
+almost every font the digits share one advance, so the zero is the most stable
+single glyph to hand to a layout engine. In a [monospace](/monospace) face that
+makes `ch` exact, and `40ch` holds exactly forty characters of anything. In
+proportional text it makes `ch` an approximation, and a generous one, because a
+zero is wider than an average lowercase letter and much wider than a space. A
+66ch column of English prose typically fits closer to 75 characters, which is why
+about 60ch usually lands on the measure you were aiming for.
+
+The unit is font-relative and font-specific, which is the part that surprises
+people: it is not just proportional to the type size like [em](/em-unit), it also
+changes with the family. Set the same `45ch` in two faces at the same size and you
+get two different pixel widths, because their zeros are drawn to different widths.
+So a column sized in `ch` survives a size change intact and does not survive a
+font swap intact, and a webfont arriving after first paint can visibly resize a
+column that was laid out against the fallback. Newer siblings fill the gaps for
+other axes: `cap` and `ex` for vertical measurements, `lh` for a line's own
+height, and `ic` for the advance of a full-width CJK glyph, where a zero says
+nothing useful.

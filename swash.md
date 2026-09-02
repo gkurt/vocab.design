@@ -1,0 +1,70 @@
+---
+name: Swash
+slug: swash
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A letter drawn with an ornamental flourish, usually an extended
+  entry or exit stroke on an italic capital.
+aliases:
+  - name: swash caps
+  - name: swsh
+    source: opentype
+  - name: flourish
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - stylistic-set
+    - contextual-alternates
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: OpenType features (Typofonderie)
+    url: https://typofonderie.com/help/opentype-features
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+demo: inline
+exhibit: false
+useWhen: naming the decorative tail on a fancy capital
+---
+
+A swash is an alternate drawing of a letter with a stroke run out past where the
+letter needs it: the tail of a Q swung out under the next word, the leg of an R
+or a K carried away to the right, an entry stroke curling in from the left of a
+capital. The shapes come from chancery italic, where a pen leaving the paper at
+speed produced exactly these exits, and they belong to italic capitals more than
+to anything else. A swash is not a different letter and not decoration laid on
+top of one. It is the same [glyph](/glyph) redrawn, which is why substituting it
+changes the fit of the line as well as its texture.
+
+Getting one is a font question before it is a CSS question. Swash forms live in
+the font file under the `swsh` feature (with `cswh` for the contextual case),
+reached from CSS with `font-variant-alternates: swash(…)` or by setting the tag
+directly. Ask a face that carries no swash table and nothing happens at all: the
+text renders in the ordinary forms with no warning, which is the standing trap
+of [OpenType features](/opentype-features) generally. It is the same machinery
+that gives you a [ligature](/ligature) and [small caps](/small-caps), doing a
+different job in each case: a ligature fuses colliding letters into one drawing,
+small caps supply short capitals with the weight of lowercase, and a swash
+supplies a more elaborate drawing of a letter that already fit.
+
+The rules of use are old and still hold. A swash capital is for an initial, a
+final, or a single display word, not for a run of text, because the flourishes
+were drawn to have empty space to travel through and a line of them collide with
+each other. Never set a whole word in swash capitals; the classic advice is
+blunter still, that swash caps are never used with other capitals at all.
+Contextual swash exists precisely to enforce this, swapping the ornate form only
+where the position in the word allows it. The register they carry is festive and
+old, which is why they turn up in wedding stationery, wine labels, and the
+letterforms of [Art Nouveau](/art-nouveau), and why they read as costume
+anywhere else.
+
+One note about the specimen on this page. None of the faces this site loads
+carries a swash table, and a screenshot of a feature silently failing would
+teach the wrong thing, so the letters there are drawn as vector paths rather
+than set in a typeface. The construction is honest about what a swash is, an
+exit stroke extended, but the drawing is this site's and not a foundry's.

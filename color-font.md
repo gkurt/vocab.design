@@ -1,0 +1,69 @@
+---
+name: Color font
+slug: color-font
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A font whose glyphs carry their own colors, gradients, or layers,
+  with a palette the page can override rather than a single ink.
+aliases:
+  - name: COLR font
+  - name: COLRv1
+  - name: chromatic font
+  - name: font-palette
+    source: css
+  - name: OpenType-SVG
+tags:
+  - fonts
+  - web-platform
+relations:
+  contrastWith:
+    - icon-font
+    - emoji-presentation
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: COLRv1 and CSS font-palette (CSS-Tricks)
+    url: https://css-tricks.com/colrv1-and-css-font-palette-web-typography/
+demo: inline
+exhibit: false
+useWhen: type that carries its own colors
+---
+
+Ordinary type is a silhouette. The font supplies an outline and the page supplies
+one ink through `color`, which is why a heading can be any color you like and
+never two colors at once. A color font breaks that arrangement by putting the
+color inside the file. Its glyphs are built from stacked layers, each layer an
+outline of its own with a paint attached: a shadow, a fill, a highlight, sometimes
+a gradient across the lot. The page still asks for one glyph, and the renderer
+draws several shapes to satisfy it. This is why `color` cannot reproduce the
+effect and cannot fully override it either: `color` is a single value, and the
+glyph is asking for a list.
+
+The formats settled after a long detour. Apple's `sbix` and Microsoft's `CBDT`
+store bitmaps, so they scale like images; `SVG-in-OpenType` embeds real SVG
+documents and is powerful but heavy for a text engine. The one that won for text
+is `COLR`, whose second version adds gradients, transforms, and blend modes while
+keeping everything as ordinary outlines that hint, kern, and interpolate like any
+other glyph. Because the layers are outlines, a COLRv1 face can also be a
+[variable font](/variable-font), and its color layers move with the axes. The
+color is stored as an index into the font's own palettes rather than as fixed
+values, which is the part CSS reaches: `font-palette` picks one of the palettes
+the family shipped, and `@font-palette-values` lets a page override individual
+layer colors while leaving the artwork alone.
+
+That indirection is what makes color fonts usable rather than merely decorative.
+A single emoji or icon face can ship a light palette and a dark one and switch
+between them with a media query, which is not something an image sprite can do.
+It also sets the boundary of the term. Turning on a swash or a ligature is a
+[glyph substitution](/opentype-features) inside the same one-ink drawing, and a
+`background-clip: text` gradient is CSS paint applied over a silhouette the font
+still drew flat. Neither is a color font. The practical cautions are the ones you
+would expect from any richer format: fallback is a silhouette in `currentColor`
+rather than nothing, so check that the flat version still reads; the files are
+larger, and a decorative COLR face has no business setting body copy; and
+overriding a palette is a design decision inside someone else's drawing, so a
+palette that ruins the contrast between two layers is now your bug.

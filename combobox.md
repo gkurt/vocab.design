@@ -1,0 +1,63 @@
+---
+name: Combobox
+slug: combobox
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A text input paired with a list of suggestions that narrows as you
+  type, where the list can be navigated and chosen from with the keyboard.
+aliases:
+  - name: combo box
+    source: hig
+  - name: autocomplete
+tags:
+  - forms
+  - search
+relations:
+  contrastWith:
+    - dropdown
+    - command-palette
+    - select
+    - search-field
+    - listbox
+    - multi-select
+    - inline-autocomplete
+    - typeahead
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - active-descendant
+implementations:
+  - system: aria-apg
+    name: Combobox
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+  - system: shadcn
+    name: Combobox
+    url: https://ui.shadcn.com/docs/components/combobox
+  - system: carbon
+    name: Combo box
+    url: https://carbondesignsystem.com/components/dropdown/usage/
+sources:
+  - title: "ARIA Authoring Practices Guide: Combobox pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+demo: inline
+exhibit: false
+useWhen: a text field that filters a list as you type
+---
+
+A combobox is two controls wearing one coat: a field you can type into and a
+listbox that responds to what you typed. That pairing is why it is the hardest
+common component to build correctly, and why it is worth building once and reusing.
+
+The accessibility contract is specific. The input carries `role="combobox"`,
+`aria-expanded`, and `aria-controls` pointing at the list. Focus stays in the
+input while the arrow keys move a highlight through the options, and the option
+under the highlight is named by `aria-activedescendant`. Enter commits, Escape
+closes. Moving real focus into the list instead is the usual mistake, and it
+breaks typing.
+
+Against a [dropdown](/dropdown): if you cannot type into it, it is a select. The
+suggestion list is the point here, so a combobox earns its complexity when the
+option set is long enough that scanning it would be worse than typing three
+letters.

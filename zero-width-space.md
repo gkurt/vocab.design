@@ -1,0 +1,66 @@
+---
+name: Zero-width space
+slug: zero-width-space
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An invisible character that takes no width and adds a legal break
+  point, letting a long string wrap without showing a hyphen.
+aliases:
+  - name: ZWSP
+  - name: U+200B
+  - name: invisible break
+tags:
+  - i18n
+  - web-platform
+relations:
+  contrastWith:
+    - word-break
+    - non-breaking-space
+    - soft-hyphen
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Zero-width space (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Zero-width_space
+demo: inline
+exhibit: false
+useWhen: breaking a long identifier with no visible mark
+---
+
+U+200B is a character with no drawing and no advance width. Its entire job is to
+tell the line breaker that a wrap is allowed here, which is the one thing a long
+unbroken string does not otherwise offer. Put one between the words of a camel-case
+identifier, after the slashes of a URL, or inside a hash, and the string starts
+wrapping at the places you chose instead of running off the side of its column.
+Nothing appears at the break: no hyphen, no dash, no gap, because there is no
+glyph to draw.
+
+That silence is the difference from a [soft hyphen](/soft-hyphen), which is the
+same kind of character with the opposite manners. A soft hyphen also marks a
+permitted break and is also invisible until it is used, but when the line does
+break there, a hyphen is drawn. That is right for prose, where a hyphen tells the
+reader a word was split, and wrong for anything a reader might copy or type back:
+a hyphen in the middle of `ProductCatalogSyncScheduler` reads as part of the name.
+Where a break must never happen at all, the mirror image is a
+[non-breaking space](/non-breaking-space), a character that occupies width and
+forbids the break its ordinary twin would allow.
+
+The alternative to placing characters by hand is asking CSS to break anywhere:
+`overflow-wrap: anywhere`, or [word-break](/word-break) with `break-all`. That
+needs no editing of content, and it also has no judgement, so it will split a name
+mid-syllable and hyphenate nothing. A zero-width space is the opposite trade: you
+say where the seams are, once, and every line thereafter breaks somewhere a reader
+would have chosen. For generated strings, inserting one after each separator is a
+one-line transform.
+
+The cost is that the character is really there. It survives copy and paste, so a
+pasted identifier can carry invisible characters into a code editor, a search
+field, or a database, where it will not match the string it looks identical to.
+It counts toward a length limit, it can break an exact-match query, and it is a
+known trick for slipping past naive text filters. Use it in text you are rendering
+for reading, strip it from anything you are storing or comparing, and prefer the
+CSS route wherever the content is not yours to edit.

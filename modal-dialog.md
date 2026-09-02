@@ -1,0 +1,72 @@
+---
+name: Modal dialog
+slug: modal-dialog
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A window that opens over the page and takes control of it, so
+  nothing behind can be used until the dialog is answered or dismissed.
+aliases:
+  - name: modal
+tags:
+  - overlays
+relations:
+  contrastWith:
+    - popover
+    - drawer
+    - alert-dialog
+    - quick-view
+    - bottom-sheet
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - focus-trap
+    - inert
+    - initial-focus
+    - scrim
+    - lightbox
+    - top-layer
+    - interstitial
+    - invoker-command
+implementations:
+  - system: aria-apg
+    name: Dialog (Modal)
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+  - system: material
+    name: Dialogs
+    url: https://m3.material.io/components/dialogs/overview
+  - system: radix
+    name: Dialog
+    url: https://www.radix-ui.com/primitives/docs/components/dialog
+  - system: base-ui
+    name: Dialog
+    url: https://base-ui.com/react/components/dialog
+sources:
+  - title: "ARIA Authoring Practices Guide: Dialog (Modal) pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+  - title: "Nielsen Norman Group: Modal and nonmodal dialogs"
+    url: https://www.nngroup.com/articles/modal-nonmodal-dialog/
+demo: inline
+exhibit: false
+useWhen: a window that blocks the page until it is dealt with
+---
+
+Modality is the whole word. "Dialog" only says a window appeared; "modal" says the
+rest of the interface has been switched off while it is there. The scrim is how that
+gets communicated: the page is still visible, still recognisable, and out of reach.
+
+That cost is why the pattern is worth being strict about. A modal is right when
+continuing without an answer would be wrong, and expensive when it is used to
+present something the user could just as well have read in place. If the content
+is optional, a [popover](/popover) or a [drawer](/drawer) leaves the page working.
+
+Three obligations come with the pattern, and all three are commonly missed: focus
+moves into the dialog when it opens, focus is kept inside it while it is open (see
+[focus trap](/focus-trap)), and Escape closes it. The platform now gives you these
+for free through `dialog.showModal()`, which is a good reason to start there rather
+than with a positioned `div`.
+
+An [alert dialog](/alert-dialog) is the narrower case: same modality, but the
+content is a warning and the answer is a decision, so it is announced more
+assertively.

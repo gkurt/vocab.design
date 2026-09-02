@@ -1,0 +1,69 @@
+---
+name: Reflow
+slug: reflow
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The requirement that content works in one column at 320 CSS pixels
+  wide without two dimensional scrolling, which is 400 percent zoom on a
+  desktop.
+aliases:
+  - name: 400% zoom
+    source: community
+  - name: 320 CSS pixels
+    source: wcag
+  - name: no horizontal scrolling
+    source: community
+tags:
+  - screen-size
+  - wcag
+relations:
+  contrastWith:
+    - responsive-web-design
+    - resize-text
+    - screen-magnification
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - text-spacing
+implementations:
+  - system: fluent
+    name: Responsive layouts
+    url: https://fluent2.microsoft.design/accessibility
+sources:
+  - title: "WCAG 2.2: Reflow"
+    url: https://www.w3.org/TR/WCAG22/#reflow
+demo: inline
+exhibit: false
+useWhen: checking a layout at heavy zoom, not just on phones
+---
+
+Someone with low vision zooms the browser to 400 percent. A 1280 pixel window then has
+320 CSS pixels of room across, and WCAG's Reflow criterion (1.4.10) asks for one thing
+in return: the content still works, in a single column, scrolling one direction only.
+Nobody should have to scroll sideways to read the end of every line, because at that
+magnification the sideways trip is enormous and it happens on every line.
+
+The width is the interesting part of the wording. The criterion is written as 320 CSS
+pixels wide for vertically scrolling content, and 256 pixels tall for horizontally
+scrolling content, precisely so it can be satisfied either by a responsive layout or by
+a page that was always narrow. A site that already reflows to a phone has usually
+already passed, which is why this reads as free to teams with a mobile layout and as a
+rebuild to teams shipping a fixed-width desktop application.
+
+Zoom is not the same as a small screen, though, and that is where it goes wrong in
+practice. Browser zoom scales CSS pixels, so [media queries](/breakpoint) do fire and
+the phone layout does arrive. What the phone never had is a desktop's furniture:
+a [sticky header](/sticky-header) that eats half of the remaining height, a side panel
+positioned in absolute units, a `min-width` on a wrapper, a modal sized in viewport
+units that now clips its own buttons. Fixed pixel widths, `white-space: nowrap`, and
+horizontally scrolling toolbars are the usual culprits, and none of them show up until
+somebody actually zooms.
+
+The exceptions are narrow and specific: content that genuinely requires two dimensional
+layout is exempt, which covers data tables, maps, diagrams, video, and interfaces like a
+spreadsheet or a code editor where the second dimension carries meaning. Exempt means
+the table may scroll sideways inside its own region. It does not mean the page around it
+may. Test it the way a reader would: one window, zoom to 400 percent, and try to get
+through the task without touching the horizontal scrollbar.

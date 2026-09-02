@@ -1,0 +1,83 @@
+---
+name: Reduced motion
+slug: prefers-reduced-motion
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A user preference asking interfaces to cut non-essential animation,
+  honoured by shortening, cross fading, or removing movement rather than by
+  doing nothing.
+aliases:
+  - name: motion-reduce
+    source: tailwind
+  - name: motion-safe
+    source: tailwind
+  - name: Reduce Motion
+    source: hig
+  - name: remove animations
+    source: android
+tags:
+  - wcag
+  - web-platform
+relations:
+  contrastWith:
+    - flashing-content
+    - pause-stop-hide
+    - reduced-transparency
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - parallax
+    - marquee
+    - shimmer
+    - juiciness
+implementations: []
+sources:
+  - title: "MDN: prefers-reduced-motion"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion
+  - title: "WCAG 2.2: Animation from Interactions"
+    url: https://www.w3.org/TR/WCAG22/#animation-from-interactions
+demo: inline
+exhibit: false
+useWhen: the reader has asked the system for less movement
+---
+
+This is a setting the reader has already changed, somewhere else, before arriving.
+It is called Reduce Motion on Apple platforms, Remove animations on Android, and
+Show animations in Windows, and every one of them reaches the browser as the same
+CSS media feature: `prefers-reduced-motion: reduce`. Nothing about it is a guess or
+an inference. Someone went into system settings and asked, and the query is how the
+request gets to your stylesheet.
+
+The reason is medical often enough to matter. Large moving areas, parallax, spins,
+zooms, and long slides can bring on nausea, dizziness, or migraine for people with
+vestibular conditions, and the trigger is scale and distance rather than speed. The
+same setting also collects everyone who finds interface animation slow or
+distracting, which is a much larger group and a perfectly good reason on its own.
+
+Reduce is not remove, and reading it as remove is the common mistake. A state
+change still has to be legible: something that simply appears, with nothing at all
+marking the change, is easy to miss. The usual answer is to swap the movement for a
+cross fade or an opacity change, cut durations rather than delete them, and keep
+motion that carries meaning while dropping motion that is decoration. Anything
+essential, a progress indicator or a video the reader asked to play, stays.
+
+The safe way to write it is to make the reduced version the default and add the
+movement inside `@media (prefers-reduced-motion: no-preference)`, so a browser or
+platform that does not report the preference lands on the calmer side. Tailwind
+spells the same two directions `motion-safe` and `motion-reduce`. Script driven
+animation has to ask separately, because a media query in a stylesheet cannot reach
+a keyframe set built in JavaScript: query `matchMedia('(prefers-reduced-motion:
+reduce)')`, jump to the end state instead of playing the move, and listen for
+changes if the interface is long lived. WCAG's Animation from Interactions asks for
+a way to turn off non-essential motion triggered by interaction, which the system
+preference satisfies once you honour it.
+
+On this site the preference gates the exhibit itself. Specimens never play
+themselves for a visitor who has asked for less movement: attract mode does not
+run at all, the stage rests on a still frame with the subject already on show, and
+the play control offers a single pass on request. The switch inside the specimen
+below simulates the preference so both treatments can be compared side by side. It
+does not read your system setting, and it cannot: the real one has already been
+answered by the frame around it.

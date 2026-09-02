@@ -1,0 +1,74 @@
+---
+name: Scheduler
+slug: scheduler
+category: component
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A grid of days crossed with hours where each event is a block in its
+  own slot, so a week's free time is visible and an event is moved by dragging
+  it.
+aliases:
+  - name: event calendar
+    source: mui-x
+  - name: time grid
+    source: fullcalendar
+  - name: week view
+    source: community
+  - name: day view
+    source: community
+tags:
+  - time
+relations:
+  contrastWith:
+    - calendar
+    - agenda-view
+    - gantt-chart
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - drag-to-create
+    - recurring-event
+    - time-zone-display
+implementations: []
+sources:
+  - title: "MUI X: React Scheduler component"
+    url: https://mui.com/x/react-scheduler/
+  - title: "FullCalendar: TimeGrid View"
+    url: https://fullcalendar.io/docs/timegrid-view
+demo: inline
+exhibit: false
+useWhen: hours down, days across, events as blocks in the grid
+---
+
+A scheduler is time drawn twice: days across the top, hours down the side, and every
+event a block sitting in the cell where it actually happens. That second axis is the
+whole point. A [calendar](/calendar) is a month of dates, and it can tell you that the
+18th is a Thursday but not that Thursday is booked solid from ten until three. Put the
+hours down the side and the answer is a shape rather than a list: the gaps are the free
+time, and they are the same size on screen as they are in the day.
+
+Because the block has a real height, the surface can be operated by pointing at it. An
+event is moved by dragging it to another cell, lengthened by pulling its lower edge, and
+made in the first place by dragging out its extent across empty slots, which is
+[drag to create](/drag-to-create). Nothing else in the interface has to say "10:30" out
+loud for any of that to work, which is why a scheduler feels less like a form than
+almost any other component that edits data.
+
+Two pieces of the layout are usually underspecified and always noticed. Above the hours
+sits an all-day band, because an event with no time cannot be given a height and would
+otherwise stretch the grid or land at midnight. And two events sharing a slot have to be
+resolved somehow: side by side at half width each, which stays honest but shrinks as the
+overlap deepens, or stacked with a "+2 more" once the column runs out of room. A line
+marking the current time is the third small thing, and it is what makes the view read as
+now rather than as a plan. Libraries differ here in ways worth reading before building:
+[MUI X](https://mui.com) calls the whole family a Scheduler and
+[FullCalendar](https://fullcalendar.io) calls this view a time grid.
+
+The word is worth pinning down because the neighbouring names have moved. FullCalendar
+once called this view "agenda", then renamed it, and the agenda spelling now belongs to
+the chronological list instead: see [agenda view](/agenda-view). In the other direction,
+scheduler libraries often ship a "timeline" that puts resources (rooms, people, machines)
+down the side with time running across, which is the shape of a
+[Gantt chart](/gantt-chart) rather than of this. A scheduler crosses days with hours; a
+Gantt chart crosses tasks with dates.

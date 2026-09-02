@@ -1,0 +1,67 @@
+---
+name: Scroll anchoring
+slug: scroll-anchoring
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Keeping the reader's position fixed when content loads or resizes
+  above it, by adjusting scroll offset so the visible text does not jump.
+aliases:
+  - name: anchor scrolling
+    source: community
+  - name: overflow-anchor
+    source: mdn
+  - name: scroll jump prevention
+    source: community
+tags:
+  - perceived-performance
+  - scroll
+  - web-platform
+relations:
+  contrastWith:
+    - focus-not-obscured
+    - layout-shift
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: overscroll-behavior (scrolling behaviour reference)"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior
+demo: inline
+exhibit: false
+useWhen: content loads above and the view must not jump
+---
+
+A scroll position is a number, and the number means nothing on its own. If something above
+the viewport grows by ninety pixels while a person is reading, holding the number still
+moves the text they were reading ninety pixels down the screen. Scroll anchoring is the fix
+that nobody sees working: the browser picks a node that is actually on screen, watches how
+far it moves when the page above it changes, and adds that distance to the scroll offset in
+the same frame. The number changes precisely so that the view does not.
+
+Browsers do this for you now, and the CSS property is the opt-out rather than the opt-in.
+`overflow-anchor: auto` is the default on every scroller, and `overflow-anchor: none` on a
+scroll container or on an element tells the browser to leave that subtree out of the
+calculation, which you need surprisingly often: an element that grows deliberately, a
+sticky ticker, or an animation that resizes while a reader scrolls past it can all be
+chosen as the anchor and then drag the view along with them. Suppression is also automatic
+in a few cases, notably when the scroll position is already at the very top, since anchoring
+there would prevent the reader from ever seeing content that arrives above.
+
+The pattern that most obviously needs it is the reverse feed: a chat log or a comment thread
+where scrolling upward loads the older items and inserts them above what you are reading.
+Without anchoring, every batch throws the reader back down the list, so the interface fights
+the very gesture it is responding to, and the fix in application code is the same arithmetic
+the browser does: measure the scroll height before the insert, measure it after, and add the
+difference to the scroll offset before the frame is painted. The same problem shows up with
+images that arrive without width and height attributes, with fonts that swap and reflow, and
+with banners that inject themselves at the top of a document.
+
+It is worth keeping the two related words apart. Layout shift is the name for the symptom,
+and it is measured across the whole page whether or not anyone had scrolled. Scroll
+anchoring is one specific defence against one specific cause: change above the reading
+position in a scroller. It cannot help with a button that moves under a thumb halfway down
+the viewport, and it is not a substitute for reserving space, which is the fix that stops
+the content moving at all rather than compensating after it has.

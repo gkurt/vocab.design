@@ -1,0 +1,70 @@
+---
+name: linear() easing
+slug: linear-easing
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An easing written as a list of sampled stops rather than a curve,
+  which lets CSS express springs and bounces that no cubic bezier can describe.
+aliases:
+  - name: linear easing function
+    source: css
+  - name: sampled easing
+    source: community
+  - name: spring easing in CSS
+    source: community
+tags:
+  - web-platform
+relations:
+  contrastWith:
+    - stepped-animation
+    - cubic-bezier
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Chrome for Developers: create complex animation curves with linear()"
+    url: https://developer.chrome.com/docs/css-ui/css-linear-easing-function
+  - title: "Smashing Magazine: the path to awesome CSS easing with linear()"
+    url: https://www.smashingmagazine.com/2023/09/path-css-easing-linear-function/
+demo: inline
+exhibit: false
+useWhen: a curve is not expressible as one bezier
+---
+
+The name carries two meanings and they are not related. `linear` the keyword has
+always meant constant speed, the timing that makes an element look mechanical
+because it starts and stops at full pace. `linear()` the function, which shipped
+across the engines during 2023, means something else entirely: a list of output
+values sampled along the animation, joined by straight segments. Each stop says
+how far along the movement is at that moment, and with enough of them the straight
+segments trace any shape you like. The word describes the interpolation between
+the stops, not the feel of the result.
+
+What this buys is everything a single [cubic bezier](/cubic-bezier) cannot hold.
+A bezier has four numbers and crosses its destination at most once, so a bounce
+or a [spring](/spring-animation) settling through several diminishing passes has
+no expression as one curve. A sampled list has no such ceiling: every extra wobble
+is a few more numbers, and the [damping](/damping) chosen for the spring survives
+the trip into CSS as the shape of the point list. The stops are almost never
+written by hand. A generator solves the spring, samples it, and prints the value,
+which is why real stylesheets carry thirty odd unexplained decimals behind one
+token name.
+
+Two knobs matter in practice. Density decides smoothness, since too few stops
+leave visible corners on a long slow move while too many bloat the stylesheet for
+motion nobody can see, and somewhere around twenty is usually enough. Placement
+decides where that resolution goes: a stop may carry its own input percentage, as
+in `linear(0, 0.25 20%, 1)`, so the busy part of the curve can be sampled closely
+and the calm part left alone. Beyond that it behaves like any other
+[easing](/easing) value, usable anywhere a keyword or a bezier is.
+
+Remember what it is not. A sampled curve is a photograph of a simulation, fixed at
+authoring time, so it cannot answer an interruption the way a real spring does:
+reversing halfway through replays a shape rather than carrying velocity into a new
+target. If a gesture can be caught mid-flight, run the simulation in script and
+keep `linear()` for motion that simply plays, which is most of it. And the usual
+duty applies at the other end: a reader who has asked for reduced motion should
+land on the settled position rather than get a smaller bounce.

@@ -1,0 +1,65 @@
+---
+name: Menu button
+slug: menu-button
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A button whose only job is to open a menu, marked with aria-haspopup
+  and usually drawn with a downward chevron.
+aliases:
+  - name: dropdown trigger
+  - name: menu trigger
+    source: radix
+  - name: disclosure button
+tags:
+  - menus
+relations:
+  contrastWith:
+    - select
+    - split-button
+    - has-popup
+    - action-list
+    - overflow-menu
+    - dropdown
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - kebab-menu
+implementations:
+  - system: aria-apg
+    name: Menu Button
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/
+sources:
+  - title: "ARIA Authoring Practices Guide: Menu Button pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/
+demo: inline
+exhibit: false
+useWhen: the button opens a list of commands, nothing more
+---
+
+A menu button does one thing: it opens a menu. It runs no action of its own, which
+is why pressing it can never be a mistake, and why the word for it names the
+relationship rather than the shape. The menu it opens holds commands, so the button
+usually reads as a category for them ("Actions", "Add", "Share").
+
+Two marks make it recognisable. The chevron pointing down is the visual promise
+that something will appear below, and `aria-haspopup="menu"` with `aria-expanded`
+is the same promise made to assistive technology. Neither is decoration: a button
+that opens a menu without saying so leaves a screen reader user pressing a control
+that seems to do nothing, and a plain button with a chevron on it sets an
+expectation the control has to keep.
+
+The neighbours are easy to mix up. A [select](/select) also opens a list, but that
+list holds values and the control keeps the one you pick; a menu button's list
+holds verbs and the button reads the same afterwards. A
+[kebab menu](/kebab-menu) is a menu button whose label is an icon, used when the
+row cannot spare the width for a word. A split button attaches a default action to
+the same control, so its main half does something before any menu appears. And
+"dropdown" covers all of these loosely enough that it is worth avoiding when the
+distinction matters.
+
+The keyboard contract is the part most often left out. Enter or Space opens the
+menu and moves focus to its first item, Down Arrow does the same, Escape closes it
+and returns focus to the button, and the menu itself takes over arrow-key movement
+between its items rather than leaving them in the page's tab order.

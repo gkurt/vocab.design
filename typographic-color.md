@@ -1,0 +1,71 @@
+---
+name: Typographic color
+slug: typographic-color
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The overall lightness or darkness a block of text produces when you
+  stop reading it and look at it as a grey texture.
+aliases:
+  - name: type color
+  - name: grey value
+  - name: gray value
+  - name: page texture
+tags:
+  - perception
+relations:
+  contrastWith:
+    - readability
+    - river
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - whitespace
+    - font-weight
+implementations: []
+sources:
+  - title: Color (Practical Typography)
+    url: https://practicaltypography.com/color.html
+demo: inline
+exhibit: false
+useWhen: judging a paragraph as texture rather than words
+---
+
+Nothing to do with hue. The word arrives from the printing trades, where a
+compositor stepped back from a forme of set type and judged how dark it looked as a
+patch of ink on paper, and it has stayed in the vocabulary because the judgment is
+still the useful one. Typographic color is a paragraph's grey value: the average
+darkness of the texture the letters make once you stop reading the words. It is not
+[semantic color](/semantic-color), which is about what a hue means in an interface.
+The two words collide badly in a design system conversation, so it is worth saying
+which one you mean out loud.
+
+You judge it by squinting, or by defocusing your eyes, or by looking at the block
+upside down. All three do the same thing: they take the words away and leave the
+texture, which is the only way to see the thing you are actually deciding.
+Four settings determine it, and they trade against each other. Weight and stroke
+contrast set how much ink each letter puts down. Tracking sets how much white sits
+between letters. Leading sets how much white sits between lines. Size shifts the
+whole balance, because a face at 9 pixels is proportionally much darker than the
+same face at 24. Tighten the tracking and drop the leading and the same words go
+several shades darker.
+
+Even color is the goal, and unevenness is a symptom worth reading rather than a
+defect to sand off. A patch that goes pale usually means the [rag](/rag) has opened
+up a hole, or that justification has stretched the word spaces on one line past
+what the measure can absorb. A pale channel running down through several lines is a
+[river](/river), which is the same problem organised vertically. A block that goes
+suddenly dark is usually a run of capitals, a bold phrase, or an acronym; a block
+that goes light is usually a long stretch of lowercase with no ascenders to speak
+of.
+
+The practical use is in comparison, not in absolutes. Set the same paragraph twice
+and look at the two blocks side by side: the greyer one is the lighter read, and if
+one is noticeably darker it will pull the eye on the page whether or not you meant
+it to. That is how a heading is chosen to sit against body text, how a sidebar is
+kept from shouting, and how [vertical rhythm](/vertical-rhythm) work stays honest,
+since a grid that lines up perfectly but alternates dark and pale bands still reads
+as broken. [Legibility](/legibility) is about resolving letters; color is about
+what the block looks like from across the room. A page can pass one and fail the
+other.

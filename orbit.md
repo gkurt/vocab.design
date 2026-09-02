@@ -1,0 +1,68 @@
+---
+name: Orbit
+slug: orbit
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Rotating a camera around a fixed point by dragging, so the scene
+  appears to turn while the subject stays centred.
+aliases:
+  - name: tumble
+    source: community
+  - name: arcball
+    source: community
+  - name: turntable
+    source: community
+  - name: orbit control
+    source: community
+tags:
+  - canvas
+  - depth
+relations:
+  contrastWith:
+    - pan
+    - rotate-gesture
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pointer-lock
+implementations: []
+sources:
+  - title: "Apple Developer: Explore game input in visionOS"
+    url: https://developer.apple.com/videos/play/wwdc2024/10094/
+demo: inline
+exhibit: false
+useWhen: dragging to turn a 3D view around its subject
+---
+
+Drag across a 3D view and the model appears to spin. It does not. What moves is the camera,
+swinging around a fixed target point on the surface of an invisible sphere, and the object sits
+exactly where it always sat. That distinction is the whole reason the word exists. Horizontal
+travel changes the azimuth, the angle around the target, and vertical travel changes the
+elevation, the height the camera looks down from; the distance to the target is left alone,
+which is what keeps the subject the same size and in the middle of the frame while everything
+around it turns.
+
+The two common flavours differ in what they do at the poles. A turntable orbit keeps a fixed
+world up direction and clamps the elevation short of straight up and straight down, so the
+horizon never rolls and the model never goes upside down. An arcball maps the drag onto a
+virtual sphere under the pointer and rotates freely, which is more expressive and much easier to
+get lost in: a few careless drags and the reader is somewhere no label can describe. Clamping
+looks like a limitation and is really the navigation aid. It is the difference between a view
+you can always talk your way out of and one that needs a reset button to rescue.
+
+Orbit is one third of the standard camera set, and the other two are worth keeping distinct.
+Pan slides the target sideways, so the subject moves off centre. Zoom, or a dolly, changes the
+distance along the line of sight. Only orbit leaves both the target and the distance untouched.
+A rotate gesture is the near neighbour that trips people up most, and it is the opposite claim:
+there the content really does turn, in its own plane, and the camera never moves at all. If the
+thing that changed is which side of the object you can see, it was an orbit; if the thing that
+changed is which way up the object is, it was a rotation.
+
+Because the gesture is continuous and unlabelled, an orbit needs a way home. A reset view
+control, a set of named viewpoints (front, top, three quarter), and keyboard steps for readers
+who cannot drag are all doing the same job: making a camera that can be anywhere also be
+somewhere describable. Momentum after the release is a taste decision, and a strong one is worth
+gating behind the reduced motion preference, since a view that keeps drifting after the hand
+stops is a reliable way to make a reader feel unwell.

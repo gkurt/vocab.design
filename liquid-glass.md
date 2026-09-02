@@ -1,0 +1,60 @@
+---
+name: Liquid Glass
+slug: liquid-glass
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Apple's 2025 material where controls float as a translucent layer
+  that refracts what is behind them and reshapes fluidly as content moves
+  underneath.
+aliases:
+  - name: glass effect
+    source: swiftui
+  - name: iOS 26 glass
+    source: community
+  - name: Apple glass design
+tags:
+  - depth
+  - platform-registers
+relations:
+  contrastWith:
+    - glassmorphism
+    - spatial-ui
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - vibrancy
+    - progressive-blur
+implementations: []
+sources:
+  - title: "Wikipedia: Liquid Glass"
+    url: https://en.wikipedia.org/wiki/Liquid_Glass
+  - title: "WWDC25: Meet Liquid Glass"
+    url: https://developer.apple.com/videos/play/wwdc2025/219/
+demo: inline
+exhibit: false
+useWhen: controls are a glass layer that bends the content behind
+---
+
+Apple introduced Liquid Glass at WWDC in June 2025 and shipped it across iOS 26,
+iPadOS, macOS Tahoe, watchOS, and tvOS that autumn. The pitch is a single material for
+every floating control: tab bars, toolbars, sidebars, sheets, and notifications all
+become one translucent layer that sits above the content rather than being drawn into
+it. It is the biggest visual reset on the platform since iOS 7 went flat in 2013.
+
+Technically it is more than a blur. Glassmorphism samples what is behind a panel and
+blurs it; Liquid Glass models a lens, so the layer bends and displaces what passes
+underneath, catches a specular highlight along its curved edge, and picks up colour
+from below. It is also meant to be liquid: controls stretch, merge, and settle as they
+move, a selected item's highlight flows to its new position instead of cutting there,
+and the material lightens or darkens itself against whatever scrolls under it. Concave
+edges plus refraction are what separate it from a frosted panel at a glance.
+
+The trouble is the same trouble every translucent system has, which is contrast that
+depends on content the designer does not control. Early betas drew criticism for
+unreadable navigation over busy backgrounds, and Apple spent the beta cycle adding
+opacity back, eventually shipping a control that lets people pick a tinted, less
+transparent variant. The web has no real equivalent yet: `backdrop-filter` gives the
+blur and the tint, and displacement has to be faked with SVG filters or edge gradients,
+at a cost in compositing that a page full of glass will show.

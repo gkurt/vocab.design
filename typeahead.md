@@ -1,0 +1,90 @@
+---
+name: Typeahead
+slug: typeahead
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Offering suggestions that update on every keystroke, drawn from a
+  live query, so the reader picks a result rather than finishing the phrase.
+aliases:
+  - name: autosuggest
+    source: community
+  - name: search as you type
+    source: community
+  - name: instant search
+    source: community
+  - name: predictive search
+    source: community
+  - name: lookahead
+    source: community
+  - name: suggest
+    source: blueprint
+tags:
+  - forms
+  - search
+relations:
+  contrastWith:
+    - combobox
+    - inline-autocomplete
+    - did-you-mean
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - address-autocomplete
+    - debounce
+implementations:
+  - system: aria-apg
+    name: Editable Combobox With List Autocomplete
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/
+sources:
+  - title: "UI Patterns: autocomplete"
+    url: https://ui-patterns.com/patterns
+demo: inline
+exhibit: false
+useWhen: suggestions appear and change as you type
+---
+
+Typeahead is a behaviour, not a control. It names the loop of query, suggest, refine:
+each keystroke re-runs a lookup and the list under the field is replaced with what
+matched, so the reader stops typing the moment they see what they wanted. Three words
+circle the same ground and it is worth keeping them apart. Combobox is the widget, the
+text input paired with a navigable popup list, and it is what you build. Autocomplete is
+overloaded: in the ARIA vocabulary it describes how much the control fills in for you
+(list, inline, both, or none), while in a browser it means the saved values a form
+offers from your own history. Typeahead is the pattern of suggesting from live data
+while the reader types, whatever widget carries it.
+
+What makes one good is mostly the query, not the popup. Wait for enough characters to
+be worth a lookup, usually two, and debounce the keystrokes so a fast typist causes one
+request rather than nine. Guard against out of order responses, because the answer to
+"ma" arriving after the answer to "marg" will show the reader stale suggestions. Rank by
+what people actually pick rather than alphabetically, keep the list short enough to scan
+in one glance, and show why a row matched by marking the part of it that did. Then say
+what happened when nothing did: an empty popup that just vanishes reads as a broken
+field, where "no stations match marg" reads as an answer.
+
+The keyboard contract is where implementations most often fall down, and it is written
+out in the ARIA authoring practices. The field keeps focus and keeps the typed text;
+arrow keys move an active option marked with `aria-activedescendant` rather than moving
+focus into the list; Enter takes the active option, or submits the raw text when there
+is none; Escape closes the list and leaves what was typed. Announce the number of
+suggestions through a live region, because a list that appeared silently is a list a
+screen reader user has no reason to look for. And never move focus into the popup on
+open, which strands anyone typing.
+
+Suggesting is not the same as choosing, and the distinction decides how strict the field
+should be. A station picker wants a value from its list, so the suggestions are the
+allowed answers and free text should be rejected on submit. A search box wants whatever
+the reader meant, so the suggestions are shortcuts and the typed phrase has to remain
+submittable even when nothing matched. Getting this backwards produces the two familiar
+bugs: a search that refuses to look for an unusual word, and a form that accepts a
+misspelled city because the picker was only ever a hint.
+
+Bare "autocomplete" is best avoided for this, and this site files it as a name for the
+[combobox](/combobox) instead, following ARIA's own usage: the APG's autocomplete
+patterns are combobox patterns, and the component libraries that ship an Autocomplete
+ship a combobox with suggestions attached. Typeahead is the behaviour of suggesting while
+someone types, which a combobox may have and a plain search box may have too;
+[inline autocomplete](/inline-autocomplete) is the third sense, completing the word
+inside the field rather than listing candidates under it.

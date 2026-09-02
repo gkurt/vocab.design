@@ -1,0 +1,77 @@
+---
+name: Comparison table
+slug: comparison-table
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A table whose columns are options and whose rows are features, read
+  across to decide between plans or products.
+aliases:
+  - name: pricing table
+    source: community
+  - name: feature matrix
+    source: community
+  - name: plan comparison
+    source: community
+  - name: spec table
+    source: community
+tags:
+  - commerce
+  - tables
+relations:
+  contrastWith:
+    - data-table
+    - description-list
+    - selection-card
+    - comparison-prevention
+    - diff-viewer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - lawn-mower-pattern
+implementations: []
+sources:
+  - title: UX Patterns for Developers
+    url: https://uxpatterns.dev/patterns
+demo: inline
+exhibit: false
+useWhen: deciding between options feature by feature
+---
+
+A comparison table exists to answer one question: which of these should I pick. It
+does that by putting the options in columns and the things that distinguish them in
+rows, so a reader can run a finger along a row and see, in one movement, where the
+options actually differ. That orientation is not arbitrary. Options go in columns
+because there are usually three or four of them and they need to sit side by side;
+features go in rows because there are usually a dozen and a list scrolls better than
+it wraps. Flip it and you get a table nobody can read: fifteen columns of features
+against three rows of plans, scrolling sideways forever.
+
+Most of the rows are noise. Real feature sets are mostly the same across tiers, and
+a table of twelve identical ticks with two differences buried in it makes the reader
+do the diffing by eye. The fix is to give the table a "differences only" state that
+drops every row where all the options agree, so what is left is the actual decision.
+Keep the full list available, because a reader also wants to confirm that the cheap
+plan includes the thing they care about, but do not make the full list the only view.
+The same reasoning explains why the cells should be short: a tick, a dash, or a
+number. A cell holding a sentence is a cell nobody compares.
+
+Marking one column as recommended is fair as long as the recommendation is honest
+and the other columns are still legible. It stops being fair when the highlighted
+column is the only one with a visible price, when the tick colour is drained out of
+the cheaper plans, or when the rows are ordered so the expensive plan's advantages
+come first and the cheaper plan's parity is pushed below the fold. A tick and a dash
+also have to say what they mean to a screen reader, since a decorative icon reads as
+nothing at all: put "Included" and "Not included" in each cell as hidden text rather
+than trusting the glyph.
+
+The table breaks at small widths, and the standard answers are all compromises.
+Horizontal scroll keeps the comparison intact but loses the feature names unless the
+first column is pinned. Collapsing to one card per option keeps everything readable
+but destroys the across-the-row reading that was the whole point, which is why cards
+built this way usually gain an option switcher so two columns can be held side by
+side. Structurally it is a real `table` with a header row of options and a header
+cell per feature row (`scope="col"` and `scope="row"`), because that pairing is what
+lets a screen reader announce "Single sign-on, Scale, Included" instead of reading a
+grid of unlabelled ticks.

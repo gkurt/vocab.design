@@ -1,0 +1,71 @@
+---
+name: Font smoothing
+slug: font-smoothing
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: How a device softens the edges of letterforms, either by shading
+  whole pixels grey or by lighting a pixel's colored subpixels separately.
+aliases:
+  - name: antialiasing
+  - name: anti-aliasing
+  - name: subpixel rendering
+  - name: grayscale antialiasing
+  - name: -webkit-font-smoothing
+    source: css
+tags:
+  - fonts
+  - perception
+relations:
+  contrastWith:
+    - font-hinting
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pixel-density
+implementations: []
+sources:
+  - title: font-smooth (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth
+  - title: What's the deal with WebKit Font Smoothing?
+    url: https://dbushell.com/2024/11/05/webkit-font-smoothing/
+demo: inline
+exhibit: false
+useWhen: your type looks heavier on one platform than another
+---
+
+A glyph outline covers a pixel partly, and something has to decide what a partly
+covered pixel looks like. Greyscale antialiasing shades the whole pixel in
+proportion to the coverage, so a 40 percent covered pixel is 40 percent ink.
+Subpixel antialiasing exploits the fact that an LCD pixel is not one dot but
+three stripes of red, green, and blue side by side, so it can shade each stripe
+by its own coverage and get three times the horizontal resolution. The cost is
+color: a stem edge picks up a faint orange or blue fringe, invisible at reading
+distance on the display it was tuned for, and obvious the moment the image is
+rotated, scaled, composited on a transparent layer, or shown on a panel with a
+different stripe order. That fragility is why subpixel rendering has been
+retreating for years, and why macOS dropped it entirely in Mojave.
+
+The reason web designers know this term is a CSS property that should not have
+mattered. `-webkit-font-smoothing: antialiased` forces greyscale on macOS
+WebKit and Blink, and greyscale puts down measurably less ink than the subpixel
+path it replaces. Measured on the face this site loads, the same line renders
+around 11 percent lighter at text sizes and 14 percent lighter at display sizes.
+That is not a polish setting, it is a weight decision, and it has been pasted
+into resets and boilerplates for a decade by people who believed it made type
+"crisper". It does make thin light-on-dark type look less clogged, which is the
+one case worth the trade. Applied blindly to a whole site it thins every weight
+on one platform only, so the family you chose is not the family your Mac readers
+see, and no other platform gets the same treatment. The standard property
+`font-smooth` was never really implemented and is not the answer; there is no
+cross-platform control here, which is the honest reason to leave the default
+alone.
+
+Two neighbours to keep straight. [Hinting](/font-hinting) reshapes the outline
+before the pixels are computed, so the letter's own geometry changes; smoothing
+leaves the outline alone and only decides how the edge pixels are shaded. And a
+much better lever for the same complaint is the font itself: if type looks too
+heavy on one platform, a [variable font](/variable-font) axis or a lighter
+[weight](/font-weight) is a change everyone sees, in a direction you chose,
+rather than a rendering side effect on one operating system.

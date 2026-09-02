@@ -1,0 +1,72 @@
+---
+name: Corner radius
+slug: corner-radius
+category: surface
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: How far a shape's corners are rounded off, measured as the radius of
+  the circle that replaces the square angle, and the one number that decides how
+  soft a UI reads.
+aliases:
+  - name: border-radius
+    source: mdn
+  - name: rounded corners
+  - name: corner rounding
+  - name: shape scale
+    source: material
+tags:
+  - tokens
+relations:
+  contrastWith:
+    - squircle
+    - chamfer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - concentric-corner-radius
+implementations: []
+sources:
+  - title: "MDN: border-radius"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-radius
+  - title: "Material Design 3: Shape"
+    url: https://m3.material.io/styles/shape
+demo: inline
+exhibit: false
+useWhen: how rounded a shape's corners are, as one number
+---
+
+A rounded corner is a quarter of a circle laid into the angle where two edges meet, and
+the radius is that circle's radius: the distance back along each edge at which the
+straight run stops and the arc begins. Zero leaves the angle as drawn. Small values read
+as a manufacturing tolerance rather than a decision, which is exactly the register a
+dense tool wants. Large ones read as soft, friendly, consumer. Past a point the number
+stops behaving like a corner at all: at half the shorter side the two arcs on that side
+meet, the straight run between them vanishes, and the shape is a pill. Anything larger
+lands on the same pill, because a browser that finds the stated radii overlapping scales
+every one of them down in proportion until they fit.
+
+Radius belongs to a scale, not to a component. Systems publish a small ladder of steps
+and name them, so a card, a menu and a dialog agree by construction: Material 3 calls
+its ladder the shape scale and runs it from none through extra small, small, medium,
+large and extra large to full, and most other systems ship three to five steps under
+their own names. Picking a number per component is how an interface ends up with 6px
+cards beside 7px buttons and a 10px dialog, differences nobody chose and nobody can
+defend, which read as sloppiness long before anyone can say why.
+
+On the web the property carries more than the one number. `border-radius` takes up to
+eight values, two per corner, separated by a slash: a horizontal radius and a vertical
+one, which makes the corner an ellipse rather than a circle. Almost nothing uses that
+deliberately, and the shapes that do are usually reaching for a blob. Percentages resolve
+against the box's own dimensions, the horizontal radius against its width and the
+vertical against its height, so a percentage radius changes shape as the box resizes and
+`50%` is always an ellipse inscribed in the box rather than a fixed curve. That is the
+difference between a pill written as a large pixel value, which stays a pill at any
+height, and one written as a percentage, which does not.
+
+The neighbouring words name different things. A [squircle](/squircle) is not a bigger
+radius but a different curve, one whose curvature ramps instead of switching on at a
+point, and a [chamfer](/chamfer) replaces the corner with a flat cut measured by its leg
+rather than by a radius. This term is one number on one shape;
+[concentric corner radius](/concentric-corner-radius) is the arithmetic that relates two
+of those numbers when one rounded shape sits inside another.

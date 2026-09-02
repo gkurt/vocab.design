@@ -1,0 +1,68 @@
+---
+name: Access key
+slug: access-key
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A single letter, usually shown underlined, that jumps straight to a
+  menu or control once the access modifier is held.
+aliases:
+  - name: keyboard mnemonic
+    source: community
+  - name: mnemonic
+    source: community
+  - name: underlined letter
+    source: community
+  - name: accesskey
+    source: mdn
+tags:
+  - a11y
+  - keyboard
+relations:
+  contrastWith:
+    - character-key-shortcuts
+    - key-sequence
+    - modifier-key
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Mnemonics (keyboard)"
+    url: https://en.wikipedia.org/wiki/Mnemonics_(keyboard)
+demo: inline
+exhibit: false
+useWhen: the underlined letter that reaches a menu item
+---
+
+A menu title reading File with the F underlined is saying two things at once: what the menu is
+called, and which single letter reaches it. Hold the access modifier (Alt on Windows and most
+Linux desktops) and every mnemonic in sight is drawn; press the letter and the menu opens.
+Inside the menu the letters keep working on their own, so New window is Alt, then F, then N,
+and the pointer was never needed. The underline is the whole discovery mechanism: the letter is
+not something to memorise, it is something to look at.
+
+An access key is not a keyboard shortcut, even though both are keys that run commands. A
+shortcut is a global binding, learned once and pressed from anywhere, and its letters have no
+relationship to what happens to be on screen. An access key is a navigation aid tied to a
+visible label. It only exists while the thing it names is showing, it is chosen out of that
+label's own spelling, and it walks the interface one level at a time rather than jumping
+straight to an action. That is also why the two are pressed differently: a chorded shortcut is
+held together, a key sequence is pressed one key after another, and an access key is usually
+both, since the modifier arms a mode and the letters that follow are pressed alone. The demo
+above latches on Alt for exactly that reason, unlike a quasimode, which lasts only as long as
+the key is down.
+
+Assigning the letters is fussier than it looks. Every item in one menu needs a distinct letter,
+the first letter is preferred and the first strong consonant is the usual fallback, and the
+choice travels with the translated label rather than with the command, which is why toolkits
+put the marker inside the string itself (`&File`) and let translators move it. Get it wrong and
+two items answer the same key, which turns a jump into a cycle.
+
+The honest caveat is that HTML already has an `accesskey` attribute for this and almost nobody
+ships it. Browsers claim the modifier combinations for their own commands, the combination
+differs by browser and platform, screen readers layer their own keys on top, and there is no
+dependable way to tell a reader which letters are live. Most design systems therefore draw
+mnemonics themselves: an underline in the label, a mode armed by the modifier, and their own key
+handling, which is exactly what the specimen above does and why it says so on its face.

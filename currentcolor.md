@@ -1,0 +1,64 @@
+---
+name: currentColor
+slug: currentcolor
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A CSS keyword meaning the element's own text colour, letting
+  borders, icons and fills inherit whatever colour the surrounding text happens
+  to be.
+aliases:
+  - name: inherit the text color
+    source: community
+tags:
+  - tokens
+  - web-platform
+relations:
+  contrastWith:
+    - on-color
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - color-token
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+exhibit: false
+useWhen: an icon or border that should follow the text colour
+---
+
+`currentColor` is a colour value that resolves to the computed value of the element's own
+`color` property. Anywhere a colour is accepted (a border, an outline, an SVG fill, a
+`box-shadow`, a gradient stop, even a background) writing `currentColor` says "whatever
+this text is". Because `color` inherits, one declaration high up carries the whole
+subtree with it, and a component that leans on the keyword gets its
+[state](/state-layer) variants almost free: a link that turns on hover brings its icon,
+its underline, and its focus ring along without any of those being mentioned again.
+
+Two details in the cascade are worth knowing. Used on the `color` property itself,
+`currentcolor` is equivalent to `inherit`, since there is no other current colour to
+refer to. And it resolves per element against that element's own computed `color`, not
+against the value of the ancestor that wrote it: a parent with
+`border-color: currentColor` keeps the parent's colour no matter what a child does. The
+keyword is also case insensitive, so `currentcolor` and `currentColor` are the same
+thing; the camel case spelling is only a readability convention.
+
+The idiom carries most of its weight in icons. An inline SVG with `fill="currentColor"`
+or `stroke="currentColor"` and no colour attribute of its own takes the ink of whatever
+labelled it, which is why a well built icon set ships that way and why a hardcoded
+`fill="#333"` is the single most common reason a set refuses to theme. The requirement is
+that the SVG is actually inline in the document: an icon loaded through `<img>` or as a
+`background-image` is a separate document and inherits nothing, which is the tradeoff
+behind every sprite-versus-inline argument.
+
+Where a [colour token](/color-token) names a specific value the design system chose,
+`currentColor` names a relationship instead, and the two solve different halves of the
+problem. Use a token when the colour is a decision (this is the danger colour). Use the
+keyword when the colour is decided elsewhere and the part simply has to agree, which is
+the case for anything dropped onto an unknown surface with an
+[on-colour](/on-color) already established. It composes too:
+`color-mix(in oklab, currentColor 12%, transparent)` gives a wash that follows the ink it
+was derived from, so a hover fill stays correct on every variant of a button.

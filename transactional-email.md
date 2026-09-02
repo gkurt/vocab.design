@@ -1,0 +1,68 @@
+---
+name: Transactional email
+slug: transactional-email
+category: pattern
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Mail sent because one person did one thing, a receipt or a reset,
+  which is why it may carry no marketing and why its design is a record rather
+  than a pitch.
+aliases:
+  - name: triggered email
+    source: community
+  - name: notification email
+    source: community
+  - name: system email
+    source: community
+tags:
+  - email
+relations:
+  contrastWith:
+    - unsubscribe-link
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - magic-link
+    - one-time-code-login
+    - double-opt-in
+    - unsubscribe-link
+implementations: []
+sources:
+  - title: "Postmark: transactional email best practices"
+    url: https://postmarkapp.com/guides/transactional-email-best-practices
+demo: inline
+exhibit: false
+useWhen: mail triggered by one action, not a campaign
+---
+
+One person did one thing, and this mail is the consequence: a receipt, a password reset,
+a shipping notice, a [magic link](/magic-link) or a
+[one-time code](/one-time-code-login). That origin is the whole definition, and it
+decides everything else about the design. Marketing mail is sent to a list on a schedule
+somebody chose; a transactional mail is sent to one address at a moment that address
+caused, which is why it is expected, why it is opened at rates no campaign will ever
+reach, and why it needs no consent and no way out of a list nobody joined.
+
+The design brief is short. Put the one fact at the top, because a mail client shows about
+three lines before a reader decides whether to open it and the answer to "did it work"
+belongs in those lines rather than under a banner. Then write for a reader who is not in
+front of the product: this is the document somebody searches their mailbox for eleven
+months later, when the order number and the amount are the only things they need, so the
+copy is a record and its most important quality is that it is still legible out of
+context. Everything ornamental competes with that.
+
+The failure mode is smuggling. Because these mails are opened, they are the most valuable
+real estate a company has, and the temptation is to put a campaign in the receipt. It
+costs twice. It displaces the record, so the fact somebody opened the mail for is now
+below a promotion. And it changes what the mail legally is, since a message carrying
+marketing generally needs the consent and the
+[unsubscribe link](/unsubscribe-link) a genuine receipt does not, which is exactly the
+consent nobody collected when they took a card number. A cross-sell in a receipt is not a
+free impression, it is a marketing mail with the deliverability privileges of a receipt.
+
+Two practical notes follow from the same place. Send transactional mail on a different
+sending identity from campaigns, so a marketing complaint cannot take password resets
+down with it. And keep the two kinds of mail honest about which they are, rather than
+letting a "your order shipped" template slowly acquire a newsletter: the distinction is
+the reason this mail is trusted, and it is spent the first time it is abused.

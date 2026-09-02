@@ -1,0 +1,70 @@
+---
+name: Chevron
+slug: chevron
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The small angle bracket used as a directional marker: down means
+  this opens, right means this goes deeper, in breadcrumbs it means next level."
+aliases:
+  - name: arrow indicator
+    source: community
+  - name: chevron icon
+    source: community
+  - name: angle bracket
+    source: community
+tags:
+  - icons
+relations:
+  contrastWith:
+    - disclosure-triangle
+    - caret
+    - sort-indicator
+    - popover-arrow
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "NameThatUI: element index"
+    url: https://namethatui.com/
+demo: inline
+exhibit: false
+useWhen: naming the little angle arrow on a control
+---
+
+A chevron is two strokes meeting at a point, and the only thing it carries is direction.
+It is never the control: it rides inside one, at the trailing edge of a row, beside the
+label of a [select](/select), or between the crumbs of a set of
+[breadcrumbs](/breadcrumbs). Because a single glyph rotated four ways covers every
+direction a control needs, most [icon](/icon) sets ship one chevron and let a transform do
+the rest, which is why the same shape can mean "opens downward" in one row and "continues
+that way" in the next without a reader ever noticing they are the same drawing.
+
+The conventions are worth stating because they are load-bearing. Pointing down means a
+surface will appear below this control: a select, a dropdown, a
+[menu button](/menu-button). Pointing right means there is more in that direction, either
+another level of a [drill-down navigation](/drill-down-navigation) list or the next
+segment of a trail. Pointing up means the thing currently open will close, or that the
+page will return to the top. In a disclosure the glyph turns rather than being swapped:
+right when collapsed, a quarter turn to down when open, so the rotation itself reads as
+the change of state. That turn is why an [accordion](/accordion) header with a chevron
+feels honest and one with a static plus sign does not.
+
+The chevron reports the state; it does not hold it. What a screen reader announces comes
+from `aria-expanded` on the trigger (see [expanded state](/expanded-state)) and from
+`aria-haspopup` where a menu is involved (see [has popup](/has-popup)), so the glyph
+itself is decoration and belongs behind `aria-hidden` (see
+[aria-hidden](/aria-hidden)). Getting this backwards is a common bug: a control whose only
+statement of openness is a rotated icon is silent to everyone not looking at it, and a
+control that announces `aria-expanded="true"` while its chevron still points right is
+lying to everyone who is.
+
+Two neighbours share the job and neither shares the name. The
+[disclosure triangle](/disclosure-triangle) is the filled solid that does the same work in
+file trees and native outline views, older than the chevron and still the platform default
+on macOS. And the [caret](/caret) is the blinking text insertion point, a different thing
+entirely, even though plenty of component libraries call their dropdown glyph a caret: if
+a team says caret and means the arrow on a select, chevron is the word that will not be
+misread.

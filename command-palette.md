@@ -1,0 +1,72 @@
+---
+name: Command palette
+slug: command-palette
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A keyboard-summoned overlay whose single search box finds and runs
+  any command or destination in an application by name.
+aliases:
+  - name: command menu
+    source: shadcn
+  - name: omnibar
+    source: blueprint
+  - name: spotlight
+    source: mantine
+  - name: quick open
+    source: vscode
+  - name: launcher
+tags:
+  - keyboard
+  - menus
+  - overlays
+  - search
+relations:
+  contrastWith:
+    - combobox
+    - search-field
+    - keyboard-shortcut
+    - keyboard-shortcuts-dialog
+    - slash-command
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: shadcn
+    name: Command
+    url: https://ui.shadcn.com/docs/components/command
+  - system: base-ui
+    name: Autocomplete (command palette)
+    url: https://base-ui.com/react/components/autocomplete
+sources:
+  - title: Command palette pattern, UX Patterns for Developers
+    url: https://uxpatterns.dev/patterns/advanced/command-palette
+demo: inline
+exhibit: false
+useWhen: one keystroke reaches every command by name
+---
+
+The palette is a keyboard-first index of everything an application can do.
+`Ctrl+K` or `Cmd+K` opens it from anywhere in the product (VS Code, which made
+the name ordinary, uses `Ctrl+Shift+P`), one field takes a loose string, and the
+list narrows across commands, files, and destinations at once. It earns its
+place when a product has more actions than its menus can hold, and it pays back
+the people who use it most.
+
+Structurally a palette is a modal dialog with a listbox inside it, so it owes
+both sets of duties: focus enters the field on open, `Escape` closes, the arrow
+keys move a highlight the input names with `aria-activedescendant`, and the
+number of matches is announced rather than left to be seen.
+
+Against a [combobox](/combobox), the machinery is the same and the result is
+not. A combobox fills a field in a form and leaves a value behind. A palette
+dismisses itself and something happens somewhere else, which is why its rows
+read as verbs (*Rename project*, *Export as PDF*) rather than as nouns.
+
+The word palette is inherited from graphics software, where a palette was a
+floating tray of tools, so the current sense is close to a misnomer. Every
+product renames it anyway: Blueprint's Omnibar borrows from Chrome's omnibox,
+Mantine's Spotlight borrows from Apple's system search, VS Code splits the idea
+into Command Palette and Quick Open, and Slack calls its version a quick
+switcher. Most React implementations sit on cmdk, which shadcn ships as Command.

@@ -1,0 +1,71 @@
+---
+name: Feed layout
+slug: feed-layout
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scrolling column or adaptive grid of equivalent items built for
+  browsing, where no item outranks another by position alone.
+aliases:
+  - name: feed
+    source: material
+  - name: stream
+    source: community
+  - name: feeds
+    source: tailwind
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - card-grid
+    - content-shelf
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - infinite-scroll
+    - zigzag-layout
+implementations: []
+sources:
+  - title: Canonical layouts, Android Developers
+    url: https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts
+demo: inline
+exhibit: false
+useWhen: endless peers you skim rather than navigate
+---
+
+A feed layout is the arrangement you reach for when the content is a long run of things of
+the same kind and the reader's job is to skim rather than to find. One column of equivalent
+cards, sized so two or three are on screen at once, is the whole shape. On a wide window it
+becomes a small number of columns rather than one wide one, because a card stretched to
+900 pixels stops being a card. Material files it as one of the
+[canonical layouts](https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts),
+alongside list detail and supporting pane, which is the right company for it: these are
+arrangements chosen before any component is picked.
+
+The defining constraint is that the items are peers. Every card gets the same width, the
+same affordances, and the same visual weight, so position is the only ranking the layout
+can express, and that makes the ordering rule the most consequential decision in the whole
+screen. Newest first is a rule a reader can hold in their head. An engagement ranking is
+not, and the honest fix is to say which one is running rather than to hide it, which is why
+mature feeds ship an explicit switch between the two. A feed that promotes one item by
+making it twice as tall has stopped being a feed and become a
+[dashboard grid](/dashboard-grid), where area is the ranking.
+
+Three neighbours are worth keeping distinct. An [activity feed](/activity-feed) is a
+content type, a reverse chronological log of who did what, and it usually renders as a
+[list](/list) rather than as cards; feed layout is the arrangement, and either can host the
+other. A [card grid](/card-grid) is the same equivalence in two dimensions, browsed by
+scanning across as well as down, and it suits items whose thumbnail is the point.
+[Infinite scroll](/infinite-scroll) is a loading strategy that feeds attract because they
+have no natural end, and it is a separate decision with its own costs, which is why
+[load more](/load-more) survives as the alternative.
+
+The practical work is nearly all in the item and the seams. Cards must be a fixed enough
+height that the column does not jolt as images arrive, which usually means an
+[aspect ratio box](/aspect-ratio-box) around every media slot. A long feed wants
+[list virtualization](/list-virtualization) before it wants anything else, since a thousand
+mounted cards will out-cost every other decision on the page. And the top of the column
+needs somewhere to say that new items exist without moving what the reader is currently
+looking at: a "new posts" affordance that they choose to take, rather than an insertion that
+shoves the paragraph they were mid-sentence in down the screen.

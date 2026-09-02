@@ -1,0 +1,66 @@
+---
+name: Name, role, value
+slug: name-role-value
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The three things every control has to expose to assistive
+  technology: what it is called, what kind of thing it is, and what state it is
+  currently in."
+aliases:
+  - name: NRV
+    source: community
+  - name: role name value
+    source: primer
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - semantic-html
+    - accessibility-trait
+    - accessibility-annotation
+    - accessible-name
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - first-rule-of-aria
+implementations: []
+sources:
+  - title: "WCAG 2.2: Name, Role, Value"
+    url: https://www.w3.org/TR/WCAG22/#name-role-value
+demo: inline
+exhibit: false
+useWhen: auditing whether a custom control is really a control
+---
+
+WCAG's success criterion 4.1.2 is the shortest useful audit in the standard. For every
+interface component: is there a name, is there a role, and where the component carries a
+state or a value, is that exposed and kept up to date? Three questions, one control at a
+time. Native HTML answers all three for free, which is why the criterion is almost never
+about `input` and `button` and almost always about the thing somebody built out of a
+`div`.
+
+The name is what the control is called out loud, computed by the
+[accessible name](/accessible-name) rules from a label, `aria-labelledby`, `aria-label`,
+or its own text. The role is what kind of thing it is: button, link, checkbox, switch,
+tab, dialog. It comes from the element you chose, or from an explicit `role` when you
+chose an element that means nothing. The value is the part people forget, and it covers
+state as well as content: `aria-checked` on a switch, `aria-expanded` on a disclosure,
+`aria-selected` on a tab, `aria-valuenow` on a slider. A control whose state changes and
+whose exposed state does not is a control that lies once and then keeps lying.
+
+The failures come apart neatly, and each one is invisible on screen. A control with a
+role and no name is announced as "button", which says something is there and nothing
+about what it does. A control with a name and no role is announced as text, so nobody
+learns it can be pressed. A control with both and no value is a switch that never says
+whether it is on, which is precisely the fact the reader wanted. The pixels are
+identical in all four cases, so the only reliable way to check is to read the
+[accessibility tree](/accessibility-tree) rather than the CSS.
+
+The cheapest fix is almost always to stop hand-rolling. A `button` element is a name, a
+role, keyboard activation, and focus behaviour in one tag, and every ARIA attribute you
+add on top of a `div` is a promise you now have to keep by hand, in every state, forever.
+That is the reasoning behind the first rule of ARIA and behind
+[semantic HTML](/semantic-html) as a practice: use the element that already exposes the
+three things, and spend the ARIA on the cases where no element does.

@@ -1,0 +1,66 @@
+---
+name: Sequential palette
+slug: sequential-palette
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: A data palette that runs light to dark in one direction, encoding an
+  ordered quantity so that darker always means more.
+aliases:
+  - name: sequential scale
+    source: community
+  - name: single-hue scale
+    source: community
+  - name: heatmap scale
+    source: community
+tags:
+  - dataviz
+  - perception
+relations:
+  contrastWith:
+    - diverging-palette
+    - categorical-palette
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - contribution-graph
+implementations: []
+sources:
+  - title: Color palettes for data visualization
+    url: https://colorarchive.org/guides/data-visualization-color-palettes/
+demo: inline
+exhibit: false
+useWhen: colour encoding an ordered quantity
+---
+
+A sequential palette is a quantity written as colour. One hue is sampled at a series of
+steps that get steadily darker, the data is mapped onto those steps, and the reader
+decodes the picture by asking which cells are darker than which. The whole thing rests on
+[lightness](/lightness) being the one attribute of colour the eye ranks without being
+taught: nobody has to be told that the deep end means more, because dark reads as heavier
+than pale before the legend is consulted. Hue and colourfulness may move along with it,
+and in the better ramps they do, but only ever in support of a lightness curve that never
+turns back on itself.
+
+That is exactly the property a rainbow ramp lacks. Red through yellow through green
+through blue has no ranking anyone shares, and its lightness wanders, so a bright yellow
+band appears in the middle of smooth data and reads as a boundary the data does not have.
+The modern replacements (viridis, magma, and the single-hue ramps in most design systems)
+were built by walking a perceptually even space so that equal steps in the number are
+equal steps to the eye, which also means the picture survives being printed in grey or
+read by someone with a colour vision deficiency, since the order was never carried by hue
+in the first place.
+
+In practice the decisions are how many steps and where they fall. Five to seven classes is
+the usual ceiling for a map or a heat grid, because a reader matching a cell back to a
+legend cannot reliably tell apart more than that, while a continuous ramp is fine when the
+job is spotting shape rather than reading values. Keep the pale end clearly distinct from
+whatever "no data" looks like, since an empty cell and a nearly zero one are different
+claims, and remember that any label sitting on the dark end needs its own contrast check.
+
+The two neighbouring shapes answer different questions. A diverging palette is two of
+these ramps back to back around a meaningful middle, for values that run above and below
+something real. A categorical palette abandons order entirely and spends distinct hues on
+groups that have no rank, which is what makes lightness free to be even across all of
+them.

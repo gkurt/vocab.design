@@ -1,0 +1,75 @@
+---
+name: Cassette futurism
+slug: cassette-futurism
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The analog future of late 1970s science fiction: beige and putty
+  plastic, chunky toggles and rocker switches, amber or green CRT readouts, and
+  monochrome bitmap type."
+aliases:
+  - name: cassette punk
+  - name: tape futurism
+  - name: analog futurism
+  - name: used future
+tags:
+  - retro
+relations:
+  contrastWith:
+    - y2k-aesthetic
+    - retro-futurism
+    - steampunk
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - terminal-aesthetic
+implementations: []
+sources:
+  - title: "Aesthetics Wiki: Cassette Futurism"
+    url: https://aesthetics.fandom.com/wiki/Cassette_Futurism
+  - title: "TV Tropes: Cassette Futurism"
+    url: https://tvtropes.org/pmwiki/pmwiki.php/Main/CassetteFuturism
+demo: inline
+exhibit: false
+useWhen: a future built from 1970s and 80s analog hardware
+---
+
+The parts are hardware before they are graphics. Injection moulded plastic in beige, putty,
+and olive, yellowed slightly as though it has been in service for years. Controls that have
+mass: rocker switches, paddle toggles, keys with long travel, knobs with detents, all of
+them large enough to work in gloves. Screens that are small, deeply recessed, and
+monochrome, glowing amber or phosphor green behind a rounded bezel. Type that is either
+engraved into the plastic or drawn by a dot matrix, so the letterforms are blocky, wide
+tracked, and always in capitals. Ribbon cable, grilles, warning stripes, rivets, tape
+reels, and a printed label maker somewhere. Nothing is thin, nothing is seamless, and every
+state is announced by a lamp rather than by an animation.
+
+It is the future as imagined by production designers who had never seen a smartphone. The
+canonical references are the Nostromo's bridge in Alien in 1979, whose beige consoles and
+green text set the template, the deliberately scuffed and repaired hardware of Star Wars in
+1977 that gave the alias its name, and the desk clutter of Blade Runner in 1982. The
+revival is recent and knowing: Alien Isolation reconstructed the look as a game interface,
+and Severance built a whole workplace out of it. What ties them together is a specific
+irony, that the technology in the story is far ahead of ours while the objects carrying it
+are far behind, which is why the style reads as a future that has already been lived in.
+
+Two neighbours on this site are worth keeping distinct from it.
+[Retro-futurism](/retro-futurism) is the umbrella: any future pictured through an earlier
+decade's eyes, whether that decade is the 1930s or the 1980s, and cassette futurism is its
+late 1970s branch. [Scanlines](/scanlines) are one overlay, a repeating gradient that
+imitates the raster of a tube, and the specimen here deliberately leaves them off so the
+term stays with the hardware rather than with the layer that is often dropped over it. The
+[terminal aesthetic](/terminal-aesthetic) is the other close relation, but it is a text
+costume, a monospace grid and a prompt, where this style is a physical one that happens to
+contain a screen.
+
+Used as an interface register it works best where the product is already an instrument:
+audio and synth tools, telemetry dashboards, game menus, anything that wants to feel
+operated rather than browsed. The costs are real. Amber or green on near black is only
+legible at generous sizes, and engraved labels get their character from low contrast, which
+is exactly the thing a [contrast ratio](/contrast-ratio) check will fail. Bitmap type
+resists scaling and hyphenation, so keep it to short capitalised strings and set the actual
+content in an ordinary face. And chunky is a look, not a hit area: draw the switch as large
+as the fiction wants, then make sure the real target still meets the
+[touch target size](/touch-target-size) it needs.

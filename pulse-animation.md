@@ -1,0 +1,57 @@
+---
+name: Pulse
+slug: pulse-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A slow repeating change in scale or opacity that keeps an element
+  alive without moving it, used for waiting states and gentle attention.
+aliases:
+  - name: breathing animation
+  - name: throb
+  - name: heartbeat
+  - name: pulsing dot
+tags: []
+relations:
+  contrastWith:
+    - shimmer
+    - float-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - presence-indicator
+implementations: []
+sources:
+  - title: "Tailwind CSS: animate-pulse"
+    url: https://tailwindcss.com/docs/animation
+  - title: "WCAG 2.2 Understanding SC 2.2.2: Pause, Stop, Hide"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html
+demo: inline
+exhibit: false
+useWhen: an element must signal life while nothing else happens
+---
+
+A pulse is the smallest available sign of life. The element swells and fades on a
+loop and comes back to exactly where it started, so nothing around it has to move
+and no space has to be reserved for it. That is what makes it usable in places a
+[spinner](/spinner) would be too loud for: a recording dot, a live badge, a value
+that is waiting on the server, a map marker asking to be looked at once.
+
+The confusion worth settling is pulse against [shimmer](/shimmer). A shimmer
+travels: a highlight enters one side of a shape and leaves the other, which is why
+one sweep can cover a whole [skeleton screen](/skeleton-screen) and read as a
+single event. A pulse has no direction and no beginning, so it works best on one
+small element and stops reading as anything at all when it is applied to a page
+full of them. A pulse is also not a blink: it never reaches zero, and whatever it
+marks stays legible through the whole cycle.
+
+The alias list comes from bodies and machines (heartbeat, breathing, throb), but
+in code the word is usually Tailwind's. Its `animate-pulse` utility fades opacity
+to 0.5 and back over two seconds and never touches scale, so a designer asking for
+a pulse and a developer reaching for that class can be describing slightly
+different motion. Whichever shape you pick, keep it slow and shallow: an animation
+that repeats forever beside other content is the case WCAG's Pause, Stop, Hide
+criterion is written about, and a pulse must have a resting state that is a
+perfectly ordinary element, since that is all a visitor with reduced motion turned
+on will ever see.

@@ -1,0 +1,68 @@
+---
+name: Ornament
+slug: ornament
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small panel of controls that floats just outside a window edge in
+  visionOS, staying with the window without covering its contents.
+aliases:
+  - name: window ornament
+    source: community
+tags:
+  - overlays
+  - platform-registers
+  - windowing
+relations:
+  contrastWith:
+    - hud-panel
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spatial-ui
+implementations:
+  - system: hig
+    name: Ornaments
+    url: https://developer.apple.com/design/human-interface-guidelines/ornaments
+sources:
+  - title: "Apple HIG: Ornaments"
+    url: https://developer.apple.com/design/human-interface-guidelines/ornaments
+  - title: Creating Ornaments in visionOS, Create with Swift
+    url: https://www.createwithswift.com/creating-ornaments-in-visionos/
+demo: inline
+exhibit: false
+useWhen: controls must stay reachable without eating the content
+---
+
+In visionOS an ornament is a small panel that hangs off the edge of a window, floating
+slightly in front of it, holding controls that belong to that window. It travels with the
+window when the window is moved or resized, it is dismissed with it, and it is deliberately
+outside the frame rather than inside it, so the content area stays whole. A video player's
+playback controls, a browser's toolbar, a tab bar running down the leading edge: on that
+platform these are all ornaments.
+
+The word needs care on this site, because it already appears here in an older sense. When
+the article on [art deco](/art-deco) talks about ornament it means decoration, the applied
+pattern that is not structure. The spatial sense is a specific component name from Apple's
+guidelines and has nothing to do with decoration: an ornament in this sense is functional,
+and a decorative one would be exactly the wrong thing to hang beside a window. This entry
+is about the [spatial](/spatial-ui) meaning only, and the generic English word is not the
+term.
+
+Two familiar components become ornaments by default when an app is built for the platform.
+A [toolbar](/toolbar) moves below the window's bottom edge, and [tabs](/tabs) become a
+vertical strip off the leading edge that widens to show its labels when the eyes reach it.
+That default is the interesting part of the design, because it says something about why the
+pattern exists. A window in a room is a fixed rectangle at a fixed distance, with no
+scrolling the viewer can do to escape a control that sits on top of the thing they are
+looking at. Moving the chrome outside the frame is cheap in a space that has no edges, and
+the content keeps every pixel it had.
+
+Treat it as chrome, not as content. Keep it to a few controls, keep them large enough to be
+picked by [look and pinch](/look-and-pinch), and do not put anything in it that a reader has
+to read at length or anything destructive enough to want a confirmation, since a panel
+floating at the boundary of a window is easy to hit by accident and easy to lose track of.
+The web has no direct equivalent, which is worth knowing when the word comes up in a design
+review: a floating toolbar pinned outside a card is the nearest thing, but a page has no
+window edge of its own to hang from, and no depth to offset into.

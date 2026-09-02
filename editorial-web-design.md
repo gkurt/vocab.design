@@ -1,0 +1,70 @@
+---
+name: Editorial web design
+slug: editorial-web-design
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A style that borrows print magazine craft for the screen: a visible
+  column grid, display type at poster scale, pull quotes, rules, and captioned
+  images set into the text."
+aliases:
+  - name: editorial design
+  - name: editorial style
+  - name: magazine style web design
+  - name: print-inspired web design
+tags:
+  - editorial
+  - grids
+relations:
+  contrastWith:
+    - magazine-layout
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - swiss-style
+implementations: []
+sources:
+  - title: "Speckyboy: Modern magazine web layouts"
+    url: https://speckyboy.com/modern-magazine-web-layouts/
+  - title: "Wix: The biggest web design trends"
+    url: https://www.wix.com/blog/web-design-trends
+demo: inline
+exhibit: false
+useWhen: a page styled like a magazine spread rather than a template
+---
+
+An editorial page announces that somebody laid it out. The signals are the ones a magazine
+art director has always used: a headline set far larger than the interface around it, a
+deck line under it in a contrasting cut, a byline separated by hairline rules, a column
+grid you can see the copy sitting on, a [drop cap](/drop-cap) opening the text, a sentence
+lifted out and set as a pull quote, and images that either bleed to the edge or sit in a
+column with a caption in small type beneath them. None of it is decoration added at the
+end. The composition is the design.
+
+The craft is a direct import from print, and the web could not really run it until
+recently. Display type needs real typefaces and fluid sizing, a visible grid needs a layout
+engine that will hold columns without hacks, and a [full bleed](/full-bleed) image needs a
+page that is not afraid of its own gutters. Once those arrived, publishers and studios went
+back to the magazine playbook, because it solves the problem a feed cannot: making one
+piece feel worth twenty minutes. It is close kin to [Swiss style](/swiss-style) and often
+borrows its grid, but the two are different kinds of thing. Swiss style is a rulebook about
+objectivity, one family, flush left, mathematical grid. Editorial design is a register that
+will hire the Swiss grid on a Tuesday and a nineteenth century didone on a Wednesday, as
+long as the page reads as art directed.
+
+Its real cost is labour, and every publisher discovers this the same way. Art directing an
+article means a human deciding where each element goes, which is affordable for the annual
+report, the flagship feature, the brand story, the case study, and unaffordable for forty
+stories a week. That is what templates are for, and a healthy publication runs both: a
+template for the archive and hand set spreads for the pieces that carry the brand. Deciding
+which bucket a page is in is the first decision, not the last one.
+
+The craft details are where these pages usually fail. Set the [measure](/measure) for
+reading rather than for filling the window, because a headline that spans the viewport does
+not mean the body copy should. Keep the [typographic hierarchy](/typographic-hierarchy)
+down to a few clear steps, since editorial pages tempt designers into six. A pull quote is
+a duplicate of text that already exists in the article, so it should be hidden from
+assistive technology rather than read out twice. And every element that was placed by hand
+on a wide screen has to have an answer for a narrow one, which is where most of the
+art direction budget actually goes.

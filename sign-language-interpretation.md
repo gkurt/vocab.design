@@ -1,0 +1,68 @@
+---
+name: Sign language interpretation
+slug: sign-language-interpretation
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A signed track alongside video, presented as an inset or a companion
+  stream, for readers whose first language is a sign language rather than the
+  written caption text.
+aliases:
+  - name: signed video
+    source: community
+  - name: interpreter inset
+    source: community
+  - name: sign language (prerecorded)
+    source: wcag
+tags:
+  - i18n
+  - media
+  - wcag
+relations:
+  contrastWith:
+    - captions
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - video-player
+implementations: []
+sources:
+  - title: "WCAG 2.2: Sign Language (Prerecorded)"
+    url: https://www.w3.org/TR/WCAG22/#sign-language-prerecorded
+demo: inline
+exhibit: false
+useWhen: captions are not the reader's first language
+---
+
+Criterion 1.2.6 asks for sign language interpretation of prerecorded audio, and it sits at level
+AAA, which is why most teams have never had to think about it. The reason it exists is the part
+worth understanding, because it is not obvious from the outside: a sign language is a language of
+its own, not a transcription of the spoken one. British Sign Language and American Sign Language
+have their own grammar, their own idioms, and no genetic relationship to English or to each other.
+Facial expression and the space in front of the signer carry grammatical meaning, which is why an
+interpretation is a translation and not a relabelling.
+
+That is what [captions](/captions) cannot fix. Captions present the spoken words in written form, so
+for a reader whose first language is a signed one they are a second language, read at speed, while
+also watching the picture. Many Deaf readers are entirely comfortable with that and many are not, in
+the same way that subtitles in your third language are technically sufficient and quietly exhausting.
+Reading age in the written language of the surrounding country is, on average, lower among people who
+have signed from birth, which has nothing to do with ability and everything to do with the written
+language being learned second, largely through the eye.
+
+Presentation is where designs usually go wrong. The common pattern is a small inset in a corner of
+the [video player](/video-player), and the common failure is making it small enough to be free.
+Hands move fast, fingerspelling is fine detail, and the face is grammar, so a thumbnail that keeps
+the picture uncluttered has thrown away most of the language. Better provisions give the signed
+track real size: a companion stream the same size as the video, a picture-in-picture the reader can
+scale and move, or a version of the whole video with the interpreter composed in at a usable size.
+Whatever the arrangement, the reader chooses it, and the choice belongs in the same place as the
+caption and [audio description](/audio-description) controls rather than on a separate page.
+
+Two practical notes. Production cost is real, so it lands first where it pays best: safety
+information, legal and medical content, anything a public body publishes, and evergreen video that
+will be watched for years. And an interpreter is a person, so their track has its own needs: even
+lighting, a plain background, contrasting clothing, no cropping at the wrists, and a shot wide enough
+for signs that use the whole signing space. Getting the framing wrong is the quickest way to spend
+the entire budget on a track nobody can read.

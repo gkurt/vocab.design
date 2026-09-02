@@ -1,0 +1,81 @@
+---
+name: Scroll pinning
+slug: scroll-pinning
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Holding a section fixed in place while the page keeps scrolling,
+  spending scroll distance on an animation instead of on movement.
+aliases:
+  - name: pin
+    source: gsap
+  - name: sticky section
+    source: community
+  - name: pinned section
+    source: community
+  - name: sticky scroll
+    source: community
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - scroll-snap
+    - scrollytelling
+    - scroll-hijacking
+    - stacking-cards
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - sticky-sidebar
+    - collapsing-toolbar
+implementations: []
+sources:
+  - title: "GSAP: ScrollTrigger"
+    url: https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+demo: inline
+exhibit: false
+useWhen: a section should hold still while its content advances
+---
+
+A pinned section stops moving when it reaches the top of the viewport, stays there while
+the reader keeps scrolling, and then releases and scrolls away like everything else. The
+scroll distance the reader spends in between is not spent on travel. It is spent on the
+section's own content: a diagram builds a step at a time, a caption advances from one to
+two to three, a product rotates. The section occupies more of the document than it does
+of the screen, and the difference is the budget the animation runs on. This is the main
+grammatical device of scrollytelling, and the reason a long-form piece can hold one image
+still for three screens without the reader losing their place.
+
+The mechanism is `position: sticky` with a top offset, on an element inside a taller
+container. Sticky is what holds the figure at the edge; the container's extra height is
+what decides how long. Libraries dress this up: GSAP's ScrollTrigger calls it pinning and
+adds `pinSpacing`, which inserts exactly the padding needed so the rest of the document
+does not jump when the pinned element leaves the flow. That padding is the whole reason
+to reach for a helper. Doing it by hand and forgetting it is the classic pinning bug,
+where the content below shifts by the height of the figure at the moment it pins. Pinning
+answers a different question from a
+[sticky header](/sticky-header), which is a persistent element that never releases: a pin
+is bounded by its section, and the release is part of the design.
+
+Pinning is also not the same thing as
+[scroll-linked animation](/scroll-linked-animation), though they almost always ship
+together. Pinning holds the element still; the linking maps the scroll progress inside
+the pinned range onto the animation's timeline, exactly the way a
+[collapsing toolbar](/collapsing-toolbar) maps its first 60 pixels of scroll onto a
+height. You can pin with no animation at all (a figure that simply holds while the text
+beside it scrolls) and you can link with nothing pinned (a
+[parallax](/parallax) backdrop). Saying which of the two you mean saves an argument in
+every review.
+
+The failure mode has a name of its own: scroll hijacking. A pin that lasts too long, that
+swallows a whole flick of the wheel per step, or that leaves the reader unsure whether the
+page has frozen, has taken the scrollbar away from the person holding it. Three tests keep
+a pin honest. The scroll gesture must always move something, so a wheel tick inside the pin
+advances the animation rather than doing nothing. The distance must be modest, so a pin
+that eats more than two or three screens of scrolling is a slideshow wearing a scrollbar.
+And the section has to survive its own animation being switched off, since a
+[prefers-reduced-motion](/prefers-reduced-motion) reader should get the finished figure
+and the full text without the travel. Pinning also breaks in the small: on a short viewport
+there is no room to hold anything still, so the honest mobile fallback is usually no pin at
+all, just the steps stacked in the flow.

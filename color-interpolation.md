@@ -1,0 +1,77 @@
+---
+name: Color interpolation
+slug: color-interpolation
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rule for what happens between two colours in a gradient or
+  transition, including which space the blend runs in and which way around the
+  hue wheel it travels.
+aliases:
+  - name: hue interpolation
+    source: css
+  - name: longer hue
+    source: css
+  - name: shorter hue
+    source: css
+  - name: in oklab
+    source: css
+  - name: grey dead zone
+    source: community
+  - name: gray dead zone
+    source: community
+tags:
+  - web-platform
+relations:
+  contrastWith:
+    - color-stop
+    - color-mix
+    - hue-shift
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - holographic-foil
+    - color-banding
+implementations: []
+sources:
+  - title: "MDN: <color-interpolation-method>"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color-interpolation-method
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+demo: inline
+exhibit: false
+useWhen: controlling the path a blend takes between two colours
+---
+
+Two colours and a blend between them do not describe a single result. Blending is a walk
+from one point to another, and where that walk goes depends on the coordinate system it is
+taken in. In sRGB the walk is a straight line through a cube whose axes are red, green and
+blue, so a blue at one end and a yellow at the other pass through the middle of that cube,
+which is grey. The colours were vivid, the ramp is not, and the flat stretch in the centre
+is what people mean by the dead zone.
+
+The fix is to say which space to walk in. `linear-gradient(in oklch, ...)` interpolates in a
+perceptual [colour space](/color-space) where lightness and chroma are separate axes, so the
+midpoint stays as saturated as its endpoints. Polar spaces such as OKLCH and HSL bring a
+second question with them: hue is an angle, and two angles have two arcs between them.
+`shorter hue` takes the smaller arc and is the default; `longer hue` takes the other way
+round, which is how you get a blue to yellow ramp that travels through magenta and red
+rather than through cyan and green. `increasing hue` and `decreasing hue` pin the direction
+outright.
+
+The method is written in the same place for every construct that blends. Gradients take it
+after the direction, as `linear-gradient(to right in oklch longer hue, ...)`, and it applies
+to every [colour stop](/color-stop) pair in the list. [`color-mix()`](/color-mix) takes it as
+its first argument. `@keyframes` and `transition` do not accept it at all yet, so animated
+colour still interpolates in the space the property resolved to, which is another reason to
+prefer a [gradient](/gradient) when the path matters. The same machinery underneath is what
+tweens any two values, colour or not: a number, a length, a transform, all of them are a
+start, an end, and a rule about the route.
+
+Two cautions. A wider interpolation space can wander outside the display's range in the
+middle of a ramp even when both endpoints are inside it, and the browser will map those
+midpoints back in without telling you. And `longer hue` is a decoration, not a default:
+sweeping most of the wheel between two brand colours reads as a rainbow rather than as a
+blend. Reach for [OKLCH](/oklch) with the shorter arc first, and change the route only when
+the route is the point.

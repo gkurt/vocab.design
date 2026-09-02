@@ -1,0 +1,79 @@
+---
+name: Chart
+slug: chart
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A drawing of data in which position, length, angle or colour carries
+  the numbers, chosen so the comparison a reader needs is the easiest one to
+  see.
+aliases:
+  - name: graph
+    source: community
+  - name: plot
+    source: community
+  - name: data visualisation
+    source: community
+  - name: dataviz
+    source: community
+tags:
+  - dataviz
+relations:
+  contrastWith:
+    - sparkline
+    - flowchart
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - chart-description
+    - sonification
+    - chart-aspect-ratio
+    - data-ink-ratio
+implementations:
+  - system: hig
+    name: Charts
+    url: https://developer.apple.com/design/human-interface-guidelines/charts
+sources:
+  - title: "Apple Human Interface Guidelines: Charts"
+    url: https://developer.apple.com/design/human-interface-guidelines/charts
+demo: inline
+exhibit: false
+useWhen: numbers are easier compared by eye than by reading
+---
+
+A chart is an encoding before it is a picture. Every value in the dataset is turned into
+something the eye can measure: the height of a bar, the position of a point, the angle of
+a wedge, the darkness of a cell. Choosing that encoding is the whole design decision,
+because the eye is far better at some comparisons than others. Length along a common
+baseline is read almost exactly, position along a shared axis nearly as well, and angle
+and area are read badly enough that a pie with more than a few slices stops answering the
+question it was drawn for. The right chart is the one whose encoding makes the comparison
+the reader actually came for the easiest thing on the page.
+
+That is also the line between this word and its neighbours. A chart plots a dataset
+against scales, so it carries axes, a domain, and some way of saying what each mark stands
+for. A [gauge](/gauge) reports one number against a range and adds a judgement about where
+in that range the number sits, which is a different job with a different failure mode. A
+[sparkline](/sparkline) is a chart with its scales taken away so it can sit inside a line
+of text, trading precise reading for shape at a glance. And a [data table](/data-table)
+beats all of them when the reader wants to look one figure up rather than compare a set of
+them, which is why a serious report usually ships both.
+
+Colour in a chart is data, not decoration. When a hue tells one series from another it is
+carrying meaning, so it has to survive being printed, dimmed, or seen by a reader with a
+[colour vision deficiency](/color-vision-deficiency). Pick series colours from a
+[categorical palette](/categorical-palette) built to stay distinguishable, and give every
+series a second cue as well: a direct label at the end of the line, a marker shape, a dash
+pattern. The rule behind [use of colour](/use-of-color) everywhere else applies here with
+more force, because a chart is often the only place a finding appears at all.
+
+A chart is content, so it needs a text alternative. Useful [alt text](/alt-text) for a
+chart is not a description of the drawing but the finding it was drawn to show, with the
+figures that support it; "bar chart of revenue" tells a reader nothing the caption had not
+already given them. Where the underlying numbers matter, publish them, in a table beside
+the chart or behind a disclosure, which serves a screen reader, a copy and paste, and a
+reader who simply distrusts the axis. [Apple's Human Interface
+Guidelines](https://developer.apple.com/design/human-interface-guidelines/charts) argues
+the same case from the other end: make the chart legible before making it animated or
+interactive, because a reader who cannot read it will not wait for it to move.

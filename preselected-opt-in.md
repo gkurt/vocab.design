@@ -1,0 +1,65 @@
+---
+name: Preselected opt-in
+slug: preselected-opt-in
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Arriving at a choice with the answer that benefits the business
+  already ticked, so consent is collected from everyone who does not notice.
+aliases:
+  - name: preselection
+    source: deceptive-design
+  - name: prechecked box
+    source: community
+  - name: opt-out by default
+    source: community
+  - name: default consent
+    source: community
+tags:
+  - consent
+relations:
+  contrastWith:
+    - smart-defaults
+  variantOf:
+    - dark-pattern
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Deceptive Design: Preselection"
+    url: https://www.deceptive.design/types
+demo: inline
+exhibit: false
+useWhen: the marketing box is already ticked when you get there
+---
+
+A preselected opt-in does its work before the reader arrives. The box is ticked, the
+insurance is added, the partner list is joined, and the only thing standing between that
+and a completed sale is whether anyone notices in the two seconds they spend on the step.
+Nothing has to be hidden, because defaults are not read as choices. They are read as the
+state of the world, and most people accept the state of the world and press Continue.
+
+The power of it is well measured. Johnson and Goldstein's 2003 comparison of organ donor
+registration found participation differing by tens of percentage points between countries
+whose only real difference was whether the form started ticked. That research is usually
+cited to argue for good defaults, and it is the same finding either way: whoever sets the
+default writes most of the answers. A preselection is that instrument turned around, and
+the tell is who benefits. A prefilled delivery address saves the reader a step. A
+prechecked travel insurance line at twelve pounds saves the seller a conversation.
+
+This is the exact line [smart defaults](/smart-defaults) draws, and it is worth keeping
+sharp, because the two are indistinguishable in a screenshot and opposite in intent. A
+default that serves the reader's likely intent is good design and costs nothing to
+change. A preselection that spends money, shares data, or signs someone up serves the
+party who wrote it, which is why it sits in the [dark pattern](/dark-pattern) catalogue
+at [deceptive.design](https://www.deceptive.design) as its own named type. Three
+questions separate them reliably: who gains, what does the default cost if it is wrong,
+and would you be comfortable saying it out loud on the screen.
+
+In Europe the argument is already settled in law. Consent under the GDPR has to be a
+freely given, specific, informed and unambiguous act, and the Court of Justice said
+plainly in the 2019 Planet49 ruling that a pre-ticked box is not consent at all. The
+practical rule is short. Anything that is consent, and anything that costs money, starts
+off. Say what the option does in the row rather than in a linked policy. And if the offer
+genuinely is a good deal, it will survive being presented as a question.

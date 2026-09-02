@@ -1,0 +1,67 @@
+---
+name: Increased contrast
+slug: prefers-contrast
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A user preference for more contrast than a theme's default, honoured
+  by strengthening borders, text, and state colours rather than by shifting
+  hues.
+aliases:
+  - name: prefers-contrast media query
+    source: css
+  - name: Increase Contrast
+    source: hig
+  - name: high contrast theme
+    source: community
+tags:
+  - theming
+  - web-platform
+relations:
+  contrastWith:
+    - forced-colors-mode
+    - inverted-colors
+    - reduced-transparency
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: Using media queries for accessibility"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Using_for_accessibility
+demo: inline
+exhibit: false
+useWhen: the system asks for a higher contrast version
+---
+
+Somebody has already decided, in system settings, that your defaults are too soft.
+Apple platforms call it Increase Contrast, Android has a high contrast text setting,
+Windows ships contrast themes, and the browser passes the request on as
+`prefers-contrast`, whose values are `more`, `less`, `custom`, and `no-preference`.
+The reasons are ordinary: low vision, ageing eyes, glare on a phone outdoors, a cheap
+monitor at a bad angle. Most of the people it helps have never opened an accessibility
+menu in their lives; they just turned it on because things were hard to read.
+
+Honouring it is mostly about restoring edges that a modern theme spent years removing.
+Hairline dividers go to full ink, ghost buttons get a real border, secondary text stops
+being three shades down, placeholder and helper text come up, focus indicators thicken,
+and states that were carried by a faint tint get an outline or a shape as well. What it
+is not is a saturation crank. Pushing hue and chroma around usually makes text harder to
+read, not easier, and it breaks the palette's meaning at the same time. Strengthen
+lightness differences and let the hues stay where they are.
+
+`prefers-contrast` is a request, and `forced-colors` is an override. When a Windows
+contrast theme is active, `forced-colors: active` matches and the browser substitutes
+the user's own palette for most of your colours whether you asked for it or not. The
+job then changes: stop painting, start checking. Use the system colour keywords
+(`Canvas`, `CanvasText`, `LinkText`, `ButtonFace`), make sure anything you drew with
+background images or box shadows still exists when they are dropped, and reach for
+`forced-color-adjust: none` only for the rare element whose colours carry information no
+substitute can express.
+
+The preference never buys you out of the baseline. WCAG's contrast minimums apply to the
+default theme, and a design that only becomes readable once the reader finds a setting
+has failed the people who never find it. Treat the increased-contrast rendering as a
+stronger version of a design that already passed, not as the version where the numbers
+finally work.

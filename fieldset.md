@@ -1,0 +1,82 @@
+---
+name: Fieldset
+slug: fieldset
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A group of related form controls sharing one question, with a legend
+  that acts as the label for the whole group.
+aliases:
+  - name: field group
+    source: community
+  - name: legend
+    source: community
+  - name: form group
+    source: community
+  - name: field set
+    source: community
+tags:
+  - forms
+relations:
+  contrastWith:
+    - group-label
+    - chart-legend
+    - form
+    - input-group
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - box
+implementations:
+  - system: base-ui
+    name: Fieldset
+    url: https://base-ui.com/react/components/fieldset
+sources:
+  - title: "HTML Standard: the fieldset element"
+    url: https://html.spec.whatwg.org/multipage/form-elements.html#the-fieldset-element
+  - title: "GOV.UK Design System: components"
+    url: https://design-system.service.gov.uk/components/
+demo: inline
+exhibit: false
+useWhen: several controls answering one question
+---
+
+A [form](/form) is the whole submission; a fieldset is one group inside it. That is the
+entire split, and it is worth holding onto, because the two words get swapped constantly in
+component libraries. A checkout form might carry three fieldsets (delivery address, billing
+address, card details) and still be a single form with a single submit. The grouping is a
+structural act rather than a typographic one: the boundary is in the markup, not in how
+much space you left above a heading.
+
+The legend is what makes it a group rather than a box. The HTML standard requires the
+`<legend>` to be the first child of the `<fieldset>`, and that element becomes the group's
+[accessible name](/accessible-name), which assistive technology prepends when it reaches
+each control inside. That is the whole payoff: with two "Street" fields on one screen, a
+screen reader announces "Delivery address, group, Street" and then "Billing address, group,
+Street", and a listener knows which one they are in. Strip the legend and both announce as
+"Street", identical and unresolvable. Visually the same rule is doing quieter work, which
+is why it is closely related to the general idea of a
+[group label](/group-label).
+
+Some controls cannot be labelled any other way. A [radio group](/radio-group) is the
+classic case: each radio has its own label ("Yes", "No"), but the question those answers
+belong to ("Do you have a national insurance number?") has nowhere else to live, so the
+fieldset and its legend are not decoration there but the only place the question exists. A
+set of related checkboxes is the same shape. The GOV.UK Design System is unusually strict
+about this and worth copying: one question per fieldset, the legend written as that
+question, and the legend styled as the page heading when the question is the only thing on
+the page.
+
+The failure modes are all about reaching for it too often. Wrapping every single input in
+its own fieldset makes a screen reader announce a group name before each field, which is
+noise rather than orientation, so a lone text field takes a plain label. The element also
+carries stubborn layout defaults (a `min-inline-size` of `min-content` that resists
+shrinking, and a legend positioned over the border), which is why so many teams reach for a
+`<div>` with a heading and lose the semantics to save a stylesheet fight. Reset the styles
+and keep the element: nothing else attaches a name to a set of controls the way it does.
+
+The word `legend` is spent twice in interface vocabulary, which is worth knowing before
+writing a ticket. Here it is a group's name in markup; on a [chart](/chart) it is the
+[key that decodes the series colours](/chart-legend), a separate component with separate
+problems. Neither sense is wrong, and neither is a good default reading.

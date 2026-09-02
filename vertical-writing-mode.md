@@ -1,0 +1,71 @@
+---
+name: Vertical writing mode
+slug: vertical-writing-mode
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Setting lines to run top to bottom in columns rather than left to
+  right, as traditional Chinese, Japanese, and Korean typography does.
+aliases:
+  - name: writing-mode
+    source: css
+  - name: vertical text
+  - name: tategaki
+    source: community
+  - name: text-orientation
+    source: css
+tags:
+  - i18n
+  - web-platform
+relations:
+  contrastWith:
+    - logical-properties
+    - bidirectional-text
+    - ruby-annotation
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: CSS text module (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text
+demo: inline
+exhibit: false
+useWhen: typesetting CJK text in columns
+---
+
+A writing mode sets two axes at once: the direction characters advance along a
+line, and the direction lines stack. Western text is `horizontal-tb`, characters
+left to right and lines top to bottom. Traditional Chinese, Japanese, and Korean
+typography is `vertical-rl`: characters advance downward and the columns stack
+right to left, so the first column is at the right edge and the reader works
+leftward. Japanese calls this setting tategaki, and it is still the norm for
+novels, newspapers, and manga, while technical writing usually uses the horizontal
+setting.
+
+The axis swap changes what "width" and "height" mean to a layout, which is the part
+that surprises people who only set the property. In vertical text the inline
+direction is vertical, so the measure of a column is its height, a "line length"
+is a vertical distance, and margins named `top` and `left` no longer sit where the
+text logically begins. That is why the platform grew
+[logical properties](/logical-properties): `inline-size`, `block-size`,
+`margin-block-start`, and their siblings follow the writing mode, so one
+stylesheet can serve both settings without being rewritten per direction.
+
+Latin letters and digits inside vertical CJK text need a separate decision, which
+is what `text-orientation` makes. The default, `mixed`, keeps CJK glyphs upright
+and rotates non-CJK runs ninety degrees clockwise, so an embedded word lies on its
+side and reads downward. `upright` sets every glyph upright, which stacks a Latin
+word one letter above the next: right for a two-letter abbreviation or a unit,
+wrong for a long word. Japanese typography has a third convention for short
+numbers, tate-chu-yoko, where two or three digits are set horizontally inside a
+single vertical slot, available in CSS as `text-combine-upright`.
+
+Nearby terms describe different things and are easy to conflate.
+[Bidirectional text](/bidirectional-text) is about runs of opposite direction
+inside one line, an Arabic sentence with a Latin brand name in it, where the line's
+own axis never changes. Vertical writing mode changes that axis for the whole
+block. [RTL mirroring](/rtl-mirroring) is about flipping an interface for a
+right-to-left language, which a vertical setting does not ask for: a vertical
+Japanese page is read from the right, but its icons are not mirrored.

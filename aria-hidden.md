@@ -1,0 +1,70 @@
+---
+name: aria-hidden
+slug: aria-hidden
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An attribute that removes an element and its whole subtree from the
+  accessibility tree while leaving it visible on screen.
+aliases:
+  - name: aria-hidden="true"
+    source: aria
+  - name: hidden from assistive technology
+    source: community
+tags:
+  - assistive-tech
+  - web-platform
+relations:
+  contrastWith:
+    - inert
+    - visually-hidden
+    - presentation-role
+    - decorative-image
+    - hidden-but-focusable
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - accessibility-tree
+implementations: []
+sources:
+  - title: "MDN: aria-hidden"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-hidden
+  - title: "WAI-ARIA 1.2: aria-hidden"
+    url: https://www.w3.org/TR/wai-aria-1.2/#aria-hidden
+demo: inline
+exhibit: false
+useWhen: hiding something from screen readers but not from eyes
+---
+
+`aria-hidden="true"` is the exact inverse of [visually hidden](/visually-hidden). One takes
+an element out of the picture and leaves it in the [accessibility
+tree](/accessibility-tree); this one leaves the pixels exactly where they are and deletes
+the node. That is the right tool for anything on screen that carries no information: the
+glyph inside an icon button whose label is already written in text, an ornament between a
+headline and a byline, a duplicated copy of a quotation, a decorative overlay of grain or
+scanlines. The reader loses nothing, because there was nothing there to lose.
+
+It takes the whole subtree with it, and that is what separates it from the two attributes
+it gets confused with. [Presentation role](/presentation-role) strips one element of its
+own semantics and leaves every child in place, so a table used for layout stops announcing
+rows while its cells keep being read. A [decorative image](/decorative-image) with an empty
+`alt` drops one image. `aria-hidden` cuts a branch: the element, its children, and their
+children, with no way to mark a descendant present again from inside. Point it at a
+container and everything in that container is gone.
+
+The first trap is the reason the attribute has a warning printed next to it in every
+reference. Hiding the node does nothing to focusability, so `aria-hidden` on anything
+focusable, or on any ancestor of anything focusable, produces a control a keyboard reaches
+and screen reader software insists does not exist. That combination has its own name and
+its own automated rule: see [hidden but focusable](/hidden-but-focusable). If the thing
+should not be reachable, it should not be reachable, and hiding it from software is not
+how you say so.
+
+The second trap is the same mistake at page scale. `aria-hidden` is not
+[inert](/inert). It hides from the tree and touches neither the focus order nor hit
+testing, so a background marked this way behind a dialog still takes clicks and still
+takes Tab stops. Sealing a region needs `inert`, or a `<dialog>` opened with
+`showModal()`, which makes everything outside the top layer inert for you. Reach for
+`aria-hidden` when something is genuinely decoration, and for `inert` when something is
+genuinely out of service.

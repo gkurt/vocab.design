@@ -1,0 +1,66 @@
+---
+name: Scanlines
+slug: scanlines
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Thin repeating dark lines laid over an interface to imitate the
+  raster of a cathode ray tube screen, often with a slight curve and flicker.
+aliases:
+  - name: CRT effect
+  - name: raster lines
+  - name: screen door effect
+    source: community
+  - name: TV lines
+    source: community
+tags:
+  - illustration
+  - retro
+relations:
+  contrastWith:
+    - vhs-aesthetic
+    - glitch-aesthetic
+    - pixel-art-ui
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - terminal-aesthetic
+implementations: []
+sources:
+  - title: "Superdesign: Retro Web Design"
+    url: https://superdesign.dev/styles/retro
+demo: inline
+exhibit: false
+useWhen: the screen is dressed as an old CRT monitor
+---
+
+A cathode ray tube drew its picture with a single electron beam sweeping left to right in
+horizontal lines, and on an interlaced set only half of those lines were painted per pass,
+so the gaps between them stayed visibly darker. That is the whole effect being imitated: a
+few dark rules, one or two pixels apart, laid over everything. On the web it is one
+`repeating-linear-gradient` on an absolutely positioned layer with `pointer-events: none`,
+which is why it shows up in so many retro kits. The rest of the costume is optional and
+usually present anyway: a vignette darkening the corners, a soft bloom around bright text,
+a slight barrel curve, a faint horizontal offset on the colour channels, and a slow
+flicker in the overall brightness.
+
+Scanlines are an overlay, not a style. That is the line worth holding when the two get
+confused: the [terminal aesthetic](/terminal-aesthetic) is a whole costume with a
+monospace grid, one phosphor colour, and a prompt, and scanlines are one layer that can be
+dropped on top of any of it, or on a photograph, or on a perfectly ordinary dashboard. The
+same layer is a member of two other families. VHS decoration adds tracking noise, a rolling
+distortion band, and torn chroma, imitating tape rather than the tube. Cassette futurism,
+the retrofitted future of Alien and Blade Runner, uses the same raster as its screen
+texture while everything else is chunky amber hardware.
+
+The tuning is finer than it looks. Lines have to be spaced against the reader's device
+pixels, not against CSS pixels, or a two pixel period becomes a moire on a high density
+screen and a solid grey wash when the page is zoomed. A dark raster is subtractive: it
+takes real contrast out of every glyph underneath it, so text has to be brightened to pay
+for the effect, and the overlay should be checked with the contrast checker rather than
+with the eye. The flicker is the risky part, since a full frame brightness change is
+exactly the pattern that photosensitivity guidance is about, so keep the amplitude small,
+keep it well under three flashes a second, and drop it entirely for a reader who has asked
+for reduced motion. And the whole layer is decoration: it belongs behind `aria-hidden`, out
+of the pointer's way, and it should never be the only thing carrying meaning.

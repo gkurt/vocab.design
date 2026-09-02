@@ -1,0 +1,67 @@
+---
+name: On-color
+slug: on-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A colour defined by what it sits on, such as on-primary or
+  on-surface, so every fill ships with the foreground guaranteed to be readable
+  against it.
+aliases:
+  - name: onPrimary
+    source: material
+  - name: on-surface
+    source: material
+  - name: contrast color
+    source: community
+  - name: foreground pair
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - emphasis-level
+    - currentcolor
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - contrast-ratio
+implementations:
+  - system: material
+    name: On primary, On surface, On error
+    url: https://m3.material.io/styles/color/roles
+sources:
+  - title: "Material 3: color roles"
+    url: https://m3.material.io/styles/color/roles
+demo: inline
+exhibit: false
+useWhen: the foreground colour that ships paired with a fill
+---
+
+The `on-` prefix names a surface, not a colour. `on-primary` means "whatever is legible
+on top of primary", and its actual value is decided when primary is decided, by whoever
+is deciding primary. Material 3 made the convention widespread by pairing every fill in
+its scheme with one: primary and on-primary, surface and on-surface, error and on-error.
+The payoff is that a component never has to guess. A button reads `primary` for its
+background and `on-primary` for its label, and it stays correct through a theme swap that
+the button's author never saw.
+
+The value of an on-colour is not a constant, and this is the part teams get wrong. On a
+deep indigo, `on-primary` is white. On a mid amber, white fails contrast badly and
+`on-primary` has to be near black. A codebase that hardcodes white for text on brand
+colour has quietly assumed the brand will always be dark, and it breaks the first time
+marketing picks a yellow. Shipping the pair together is what prevents that: the fill
+cannot travel to a new theme without its foreground travelling with it.
+
+Two practical notes. The pair is a contract about contrast, so it is worth checking with
+a ratio rather than by eye: an on-colour that is merely a lighter shade of its own fill
+looks fine on a good monitor and disappears on a laptop in daylight. And the prefix
+composes into everything else, which is why systems that use it end up with a lot of
+tokens: on-primary-container, on-surface-variant, and so on. That is a real cost, and it
+is the cost of never having to decide foreground colour at the call site. A system that
+prefers fewer names will express the same idea as one
+[colour role](/color-role) per pair, or leave it to a
+[colour token](/color-token) named for its job. The idea, not the prefix, is what
+matters.

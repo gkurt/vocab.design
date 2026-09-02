@@ -1,0 +1,74 @@
+---
+name: Privacy zuckering
+slug: privacy-zuckering
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Steering people into sharing more about themselves than they meant
+  to, by making the permissive choice the easy one and the private choice
+  several clicks deep.
+aliases:
+  - name: privacy dark pattern
+    source: community
+  - name: oversharing by default
+    source: community
+  - name: consent maze
+    source: community
+tags:
+  - consent
+relations:
+  contrastWith:
+    - obstruction
+  variantOf:
+    - dark-pattern
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Deceptive Design: types of deceptive pattern"
+    url: https://www.deceptive.design/types
+demo: inline
+exhibit: false
+useWhen: the settings are arranged so sharing is the easy answer
+---
+
+Privacy zuckering is named after Mark Zuckerberg, coined by the Electronic Frontier
+Foundation in 2010 for the way Facebook's settings kept resolving in favour of sharing,
+and it entered Harry Brignull's original catalogue of twelve deceptive patterns. Its
+current status is worth stating plainly, because the taxonomy moved: the types index at
+[deceptive.design](https://www.deceptive.design/types) no longer lists it. The behaviour
+it described has been sorted into the mechanism-named types that replaced it, mainly
+sneaking, obstruction and preselection, which is a better basis for enforcement than a
+person's surname. The word survives in critique and in writing about privacy because it
+names a *domain* rather than a mechanism: whatever the individual trick, the thing being
+extracted is personal data.
+
+The mechanism is an asymmetry of effort, not a lie. Both choices are present, both are
+reachable, and nothing on screen is false. One of them is preselected, sits at the top,
+carries the word "recommended", and needs no clicks (see
+[preselected opt-in](/preselected-opt-in)). The other is behind "More options", one level
+down, in a list that has to be read. Then the confirm button is labelled for the flow
+rather than for the outcome: "Continue" and "Get started" commit the reader to a sharing
+setting without naming what is being shared, which is the
+[misdirection](/misdirection) half of the pattern working on the same screen as the
+[obstruction](/obstruction) half. Effort is the tax, and it is levied only on privacy.
+
+The test for a design you are building is symmetry, and it is easy to apply. Can the
+private choice be made in the same number of interactions as the permissive one, at the
+same reading level, with the same visual weight? Does the button that commits the choice
+name the outcome ("Share with everyone") rather than the transition ("Continue")? Is the
+setting still what the reader chose a month later, after an update that "improved" the
+privacy controls? A flow that fails the third question is a
+[roach motel](/roach-motel) as well: easy in, hard out. The related family case is
+[friend spam](/friend-spam), where the data extracted is not even the reader's own but
+their address book, and the consent covers looking rather than sending.
+
+There is a legal edge to this now that did not exist when the term was coined. Consent
+under GDPR has to be freely given, specific and informed, and regulators have been
+explicit that a design where accepting takes one tap and refusing takes five is not
+freely given. That is why cookie banners in Europe grew a "Reject all" button of equal
+prominence beside "Accept all", and why the same reasoning applies to profile visibility,
+location history and ad personalisation. As a general [dark pattern](/dark-pattern) it is
+also simply bad business: the settings people did not choose are the settings they
+disable in a rush the first time a story about the product breaks.

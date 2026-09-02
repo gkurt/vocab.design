@@ -1,0 +1,71 @@
+---
+name: Dimensionality
+slug: dimensionality
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Giving interface objects a believable place in depth by folding,
+  layering or flipping them, so a reader can tell where something went and where
+  it will come back from.
+aliases:
+  - name: object dimensionality
+    source: community
+  - name: origami dimensionality
+    source: community
+  - name: floating dimensionality
+    source: community
+  - name: spatial depth
+    source: community
+tags:
+  - depth
+  - perception
+relations:
+  contrastWith:
+    - directionality
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spatial-ui
+implementations: []
+sources:
+  - title: "UX Magazine: creating usability with motion, the UX in Motion Manifesto"
+    url: https://uxmag.com/articles/creating-usability-with-motion-the-ux-in-motion-manifesto
+  - title: The 12 principles of UX in motion
+    url: https://shengbanx.gitbooks.io/motion-system/content/chapter5.html
+demo: inline
+exhibit: false
+useWhen: objects need somewhere to come from and return to
+---
+
+A flat interface has no offstage. When a panel simply appears, it came from nowhere, and when it goes
+it goes nowhere, so a reader has nothing to remember and no expectation about how to get it back.
+Dimensionality is the decision to give the interface's objects a believable third dimension: a card
+that folds open along its own edge, a sheet that lifts off the surface behind it, a tile that flips to
+show its reverse. The depth does not have to be literal or even plausible as physics. It has to be
+consistent, so that the same object folds back the way it folded out.
+
+The three usual dialects are origami, layering, and flipping. Origami treats objects as sheets that
+crease and unfold along shared edges, so a summary can become a breakdown without the breakdown
+arriving as a separate screen. Layering treats them as cards stacked in front of one another, where a
+raised object is nearer and the one behind it is still there, which is what makes a
+[bottom sheet](/bottom-sheet) feel like a thing sitting on top of a page rather than a region of it.
+Flipping treats an object as having two faces, front and reverse, and turns it in place: see
+[card flip](/card-flip) for that one on its own, and [page curl](/page-curl) for the fold and the
+flip working together on a single leaf.
+
+It is worth separating from [directionality](/directionality), because the two are often praised in
+the same breath and answer different questions. Directionality is *which way*: it says that going
+deeper travels one way and going back travels the other, and it works perfectly well on completely
+flat panes sliding in a plane. Dimensionality is *how many dimensions the interface is pretending to
+have*: whether its objects are surfaces with edges, thickness and reverses at all. A
+[shared axis](/shared-axis) transition is directional and flat; a card unfolding into its detail is
+dimensional and would still read as one object if it unfolded upwards.
+
+The cost is that fake depth is easy to contradict. If an object folds out of the bottom edge it has to
+fold back into the bottom edge, and it must not be possible to see its reverse when the front is
+facing you, or to see it lit from a light source no other object in the scene agrees with. Once the
+depth is inconsistent, it stops being information and becomes decoration, at which point a plain
+[crossfade](/crossfade) is the more honest move. The scene is also expensive in motion terms, so
+gate it: readers who ask for less movement should get the state change, not the choreography, which
+is what [prefers-reduced-motion](/prefers-reduced-motion) is for.

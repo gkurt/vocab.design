@@ -1,0 +1,79 @@
+---
+name: Breakout
+slug: breakout
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A track wider than the reading column but narrower than the
+  viewport, used for figures and code that need more room than prose.
+aliases:
+  - name: breakout width
+    source: community
+  - name: popout
+    source: community
+  - name: wide track
+    source: community
+  - name: layout breakouts
+    source: community
+  - name: wide alignment
+    source: wordpress
+  - name: alignwide
+    source: wordpress
+tags:
+  - editorial
+  - grids
+relations:
+  contrastWith:
+    - full-bleed
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - sidenote
+implementations: []
+sources:
+  - title: Layout Breakouts with CSS Grid, Ryan Mulligan
+    url: https://ryanmulligan.dev/blog/layout-breakouts/
+demo: inline
+exhibit: false
+useWhen: a figure that needs more width than the text
+---
+
+A page of prose is held to a [measure](/measure), because text is only comfortable at
+somewhere around 45 to 75 characters a line. A figure, a diagram, a wide table and a block
+of code are not text, and that same width starves them. A breakout is the answer stated as
+layout rather than as an exception: the [container](/container) declares a second, wider
+track beside the reading one, and an element that needs the extra room asks for it by name.
+The width is decided once, for the page, so every wide figure on the site lines up with
+every other one.
+
+The modern recipe is a named-line grid, which is why the technique arrived with CSS Grid
+rather than with negative margins. The page declares its lines from the outside in,
+`[full-start] 1fr [breakout-start] 1fr [content-start] min(60ch, 100%) [content-end] 1fr
+[breakout-end] 1fr [full-end]`, everything defaults to `grid-column: content`, and a figure
+opts out with `grid-column: breakout`. Nothing overflows and nothing is pulled sideways out
+of its box, which means no horizontal scrollbar to chase and no `overflow: hidden` needed
+to hide the mistake. It is the same structure a [layout grid](/layout-grid) gives a whole
+product, applied to one article: a small set of tracks everybody aligns to, with the
+alignment names doing the talking. WordPress ships exactly this vocabulary to authors as
+wide alignment, `alignwide` in the markup, sitting between the default width and full
+width, and Ryan Mulligan's [layout breakouts](https://ryanmulligan.dev/blog/layout-breakouts/)
+is the reference write-up for the grid version.
+
+The boundary worth being crisp about is the one against
+[full bleed](/full-bleed). A full-bleed element reaches both edges of the viewport, and
+the breakout deliberately does not: it stops short, keeping a margin of page on either
+side, which is what lets a wide figure read as part of the article rather than as an
+interruption of it. That intermediate step is the whole point, and it is also why the
+track has to be part of the page's declared structure. It is unrelated to a
+[safe area](/safe-area), despite both talking about how close to an edge content may
+come: a safe area is a hardware fact about notches and system bars that the device
+reports, while a breakout is an editorial decision about reading.
+
+Two practical notes. On a narrow screen the breakout track has nowhere to go, so it
+clamps to the available width and a breakout figure ends up looking full bleed. That is
+correct behaviour rather than a bug, but it does mean the distinction only exists above
+a certain width, and it is worth checking that the collapsed version still looks
+deliberate. And resist adding more rungs than the page can use. Two extra tracks past
+the content column give a reader a rhythm they can learn, while five give them a page
+where nothing has a settled width.

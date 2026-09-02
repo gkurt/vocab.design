@@ -1,0 +1,69 @@
+---
+name: Gooey effect
+slug: gooey-effect
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Blurring a group of shapes and then crushing the blur back to a hard
+  edge so overlapping elements merge into one liquid silhouette as they move
+  apart and together.
+aliases:
+  - name: metaball effect
+    source: community
+  - name: blob merge
+    source: community
+  - name: liquid animation
+    source: community
+  - name: feGaussianBlur and feColorMatrix trick
+    source: community
+tags:
+  - illustration
+relations:
+  contrastWith:
+    - morph-transition
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - blob-shape
+implementations: []
+sources:
+  - title: "CSS-Tricks: the gooey effect"
+    url: https://css-tricks.com/gooey-effect/
+  - title: "Animation Patterns: SVG metaball gooey filter with feColorMatrix"
+    url: https://animationpatterns.art/animations/gooey-blob-metaball-filter/
+demo: inline
+exhibit: false
+useWhen: two moving shapes should read as one substance
+---
+
+The gooey effect is two filter primitives in a row, and the second one undoes the first. A heavy
+`feGaussianBlur` turns every hard edge in a group into a soft falloff, so where two shapes overlap
+their falloffs add up and the space between them is more opaque than either falloff alone. An
+`feColorMatrix` then multiplies the alpha channel by a large number and subtracts a constant, which
+pushes everything above a threshold to fully opaque and everything below it to fully transparent.
+Isolated edges come back exactly where they started. The bridge between two nearby shapes, which was
+faint before the crush, comes back as solid surface. Nothing has been deformed: the shapes are still
+circles, and the neck between them is an artefact of the two operations disagreeing about where the
+edge is.
+
+That is why the effect only appears between shapes that are close. Move them apart and each falloff
+drops below the threshold before it reaches the other, and the group snaps back to separate objects.
+The distance at which the neck forms is set by the blur radius, and how abruptly it forms is set by
+the alpha multiplier: a small multiplier gives a soft, wobbly transition, a large one gives a
+mercury-like snap. The filter belongs on the container, never on the individual shapes, because the
+merging is a property of them being composited together.
+
+The name comes from the same family as metaballs, the implicit-surface technique where a field
+function is summed and drawn at a threshold. The filter version is a fast approximation of exactly
+that, and it inherits the look: bulbous, wet, faintly organic, which is the register it shares with
+[blob shapes](/blob-shape) and [claymorphism](/claymorphism). Reach for it when two moving elements
+should read as one substance rather than two objects, which is usually a floating action button
+shedding its options, a loading indicator, or a selection pill flowing between two positions.
+
+Three practical cautions. The filter forces the whole group onto its own compositing layer and
+re-runs a large blur every frame, so keep the group small and the shape count low. Give the filter
+element a unique id: a page with two of these will otherwise have the second instance silently
+borrowing the first one's definition. And the crushed alpha destroys antialiasing at the outer edge,
+so the silhouette can look slightly ragged; set `color-interpolation-filters="sRGB"` to stop the
+colours washing out, and keep the effect away from text, which the same threshold will eat.

@@ -1,0 +1,78 @@
+---
+name: Focus trap
+slug: focus-trap
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A constraint that keeps keyboard focus cycling inside one region
+  until that region is dismissed.
+aliases:
+  - name: focus containment
+  - name: focus sentinel
+  - name: focus lock
+    source: community
+tags:
+  - keyboard
+  - overlays
+relations:
+  contrastWith:
+    - inert
+    - keyboard-trap
+    - focus-management
+    - scrim
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - modal-dialog
+    - initial-focus
+implementations:
+  - system: aria-apg
+    name: Dialog (Modal) Pattern
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+sources:
+  - title: "ARIA APG: dialog (modal) pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
+  - title: "MDN: inert"
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert
+demo: inline
+exhibit: false
+useWhen: focus deliberately held inside one region
+---
+
+A [modal dialog](/modal-dialog) is modal because focus cannot get out of it. That is the
+whole mechanic: Tab from the last control inside the region goes to the first control
+inside the region rather than to whatever sits behind, and Shift Tab from the first goes
+to the last. Without it the surface only looks modal. A [scrim](/scrim) dims the page and
+blocks the pointer, and a keyboard user tabs straight through it into a form they cannot
+see.
+
+It is the same code as a [keyboard trap](/keyboard-trap), and the difference is not
+subtle, it is the exit. A focus trap publishes one: Escape closes the region, a visible
+close control does the same, and both hand focus back to whatever opened it, so the reader
+returns to the sentence they were in the middle of. A keyboard trap is this cycle with
+nothing that ends it, and WCAG 2.1.2 fails it. The pair with [initial
+focus](/initial-focus) is the other half of the contract: something has to decide where
+focus lands when the region appears, and something has to give it back when the region
+goes. A trap that holds focus and then drops it at the top of the document has only done
+half the job.
+
+Modern implementations do not police the foreground at all. [Inert](/inert) seals the
+background instead: put it on everything outside the region and the browser takes those
+subtrees out of focus order, out of hit testing, and out of the accessibility tree
+together, so there is no wrapping to write and no sentinel node to maintain. A `<dialog>`
+opened with `showModal()` gets that for free, since the browser makes everything outside
+the top layer inert on its own. The older pattern, still what most libraries ship, is a
+pair of invisible focusable sentinels either side of the region that bounce focus back
+when it reaches them, which is where the alias "focus sentinel" comes from.
+
+Three things go wrong often enough to check for by hand. A trap built from a static list
+of controls collected on open goes stale the moment the region's content changes, so
+recompute the tabbable set or use `inert` and stop maintaining a list. A trap that
+survives its own region, usually because the listener was never removed on close, is a
+keyboard trap with a good origin story. And the trap belongs to modality, not to
+convenience: holding focus inside a non-modal popover, a cookie banner, or an inline
+editor takes the page away from someone who never asked to be somewhere else. If the
+reader is allowed to leave the surface open and go do something else, do not trap them
+in it. [Focus management](/focus-management) is the wider practice this one decision
+sits inside.

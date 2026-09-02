@@ -1,0 +1,67 @@
+---
+name: Low poly
+slug: low-poly
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A 3D style that keeps the polygon count low enough to see, so
+  surfaces read as faceted triangles under flat shading instead of smooth
+  curves.
+aliases:
+  - name: low-polygon
+  - name: lowpoly
+  - name: faceted 3D
+  - name: polygonal illustration
+tags:
+  - depth
+  - illustration
+relations:
+  contrastWith:
+    - hyperreal-3d
+    - isometric-illustration
+    - pixel-art-ui
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Aesthetics of Design: Low Poly Aesthetic"
+    url: https://www.aesdes.org/2021/01/27/low-poly-aesthetic/
+  - title: "Sessions College: What is the deal with low poly art?"
+    url: https://www.sessions.edu/notes-on-design/whats-the-deal-with-low-poly-art/
+demo: inline
+exhibit: false
+useWhen: deliberately faceted 3D art with visible triangles
+---
+
+Low poly began as an apology and ended as a preference. Console and desktop hardware of
+the 1990s could push only a few hundred triangles per character, so models were built at
+the edge of what the machine could draw and their silhouettes came out angular whether the
+artist wanted that or not. Once the budget lifted, plenty of people kept the angles,
+because a form made of a few big facets is legible at any size, cheap to animate, and
+carries a graphic confidence that a smoothed mesh loses. The style is now a deliberate
+choice rather than a limit, which is the same arc pixel art and chiptune music took.
+
+The look rests on flat shading. A renderer normally interpolates the surface normal across
+each triangle so neighbouring faces blend into a curve, which is what makes a sphere look
+like a sphere rather than like a stack of plates. Turn that off and every triangle takes a
+single value computed from its own facing, so the boundary between two faces is a hard
+line. That hard line is the entire aesthetic: the polygon count only matters because it
+decides how many of those lines you get. Illustrators reach the same result without a
+renderer at all, by drawing the facets flat and picking each fill by hand, which is what
+the specimen here does.
+
+As illustration it does a specific job. Facets give a form volume without asking for
+texture, gradients, or a light rig, so a low poly object drops into a flat layout without
+fighting it. It also scales down to an icon, since the shapes are large. Its closest
+relative on this site is [isometric illustration](/isometric-illustration): both are
+stylizations that state their geometry out loud rather than hiding it, though one is about
+projection (no vanishing point, parallel edges) and this one is about surface (few faces,
+no smoothing). Plenty of work uses both at once.
+
+Two cautions worth stating. Faceting reads as intentional only when the count is
+consistently low, so a scene where one object is coarse and its neighbour is dense looks
+unfinished rather than styled. And low poly leans hard on lightness steps between adjacent
+faces to describe form, which means a palette with too little range flattens the whole
+model into a silhouette. Pick the steps first, then build the geometry that shows them.

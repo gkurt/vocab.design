@@ -1,0 +1,73 @@
+---
+name: Fitts's law
+slug: fitts-law
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rule that the time to hit a target grows with its distance and
+  shrinks with its size, which is why screen edges and corners are so easy to
+  reach.
+aliases:
+  - name: law of target acquisition
+    source: community
+  - name: index of difficulty
+    source: community
+  - name: magic corners
+    source: community
+  - name: target acquisition
+    source: community
+tags:
+  - perception
+  - pointer
+relations:
+  contrastWith:
+    - touch-target-size
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - thumb-zone
+    - target-spacing
+implementations: []
+sources:
+  - title: "Smashing Magazine: accessible tap target sizes"
+    url: https://www.smashingmagazine.com/2023/04/accessible-tap-target-sizes-rage-taps-clicks/
+  - title: "Understanding SC 2.5.8: Target Size (Minimum)"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html
+demo: inline
+exhibit: false
+useWhen: arguing about how big or how near a control should be
+---
+
+Paul Fitts published the model in 1954, about people moving a stylus between metal plates,
+and it has survived every input device invented since. The claim is that pointing is a
+trade of speed against accuracy, and that the difficulty of a move can be written as a
+single number: the index of difficulty, roughly the base-two logarithm of twice the
+distance divided by the width of the target. Movement time is then a straight line in that
+number, with two constants that belong to the device and the person rather than to the
+interface. The units are bits, because the model is really about how much information the
+hand has to resolve to land on the thing.
+
+Two consequences are worth carrying around, and they are not symmetric. Distance is inside
+a logarithm, so halving it saves you less than you would guess, while width is also inside
+the logarithm but is the term you usually have the most freedom over. That is why "make it
+bigger" beats "move it closer" as advice, and why a control used constantly earns its
+extra pixels. It also explains something people notice without naming: a small target you
+have to travel to is disproportionately annoying, because the two penalties compound
+inside the same expression.
+
+The famous corollary is about edges. A pointer stops at the boundary of the screen, so a
+control flush against an edge behaves as though it extends past it forever: the effective
+width in the direction of travel is unbounded, the index of difficulty collapses, and you
+can throw the pointer at it without aiming. A corner is two edges at once, which is why the
+Start button and the Apple menu sit where they do, and why the macOS menu bar being welded
+to the top of the screen has always been faster to hit than a menu bar inside a window a
+few pixels below it. The web mostly forfeits this: a browser page has margins, and a
+sticky bar with padding around it is an edge target that is not touching the edge.
+
+The law is a model of aimed movement, not a law of usability, and it says nothing about
+whether people can find the control or understand it. It also assumes an approach from a
+known starting point, which is why the answer to "where should this button go" is usually
+"near whatever the reader was just doing" rather than "in the middle". On touch there is no
+travel to measure at all, and the size half of the trade takes over completely, which is
+where target size and its minimums come back into it.

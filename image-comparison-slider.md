@@ -1,0 +1,78 @@
+---
+name: Image comparison slider
+slug: image-comparison-slider
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Two images stacked with a draggable divider that wipes between them,
+  used to show a before and an after in one frame.
+aliases:
+  - name: before after slider
+    source: community
+  - name: image comparer
+    source: web-awesome
+  - name: comparison slider
+    source: community
+  - name: wipe slider
+    source: community
+  - name: image compare
+    source: community
+tags:
+  - dragging
+  - media
+relations:
+  contrastWith:
+    - slider
+    - diff-viewer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - wipe
+implementations: []
+sources:
+  - title: "img-comparison-slider: a web component for before and after images"
+    url: https://github.com/sneas/img-comparison-slider
+  - title: "MDN: clip-path"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+demo: inline
+exhibit: false
+useWhen: showing before and after in one frame
+---
+
+Side by side is the obvious way to show a before and an after, and it is the weaker
+one. Two pictures next to each other are two coordinate spaces: the eye has to
+travel, hold the first image in memory, land on the second, and work out which
+differences are the edit and which are the parallax of having moved. Stacking them
+under a divider removes that work entirely. Every pixel stays where it was, so the
+only thing that changes as the divider passes is the treatment, and a difference of a
+few percent in saturation becomes obvious rather than arguable. This is why the
+control is standard in photo editing, satellite imagery, restoration, medical
+imaging, and every renovation portfolio on the web.
+
+The requirement that makes it work is also the one most often broken: the two images
+must be registered. Same framing, same crop, same aspect ratio, same subject position.
+A before shot taken from two steps to the left produces a divider that shows a jump
+rather than a change, and the reader learns nothing except that the photographer
+moved. If the pair cannot be registered, the honest presentation is two labelled
+images, not a wipe pretending they line up. Label the sides too, and keep the labels
+out of the divider's reach, since a caption that ends up over the wrong half is worse
+than none.
+
+The mechanics are small. One image sits underneath at full size, the other is laid
+over it and clipped to the divider's position, usually with a `clip-path` inset or a
+wrapper whose width the divider drives, and the divider carries a handle big enough to
+grab. What is nearly always missing is the keyboard. This is a value between two
+limits, so it belongs to a person pressing arrow keys as much as to a person holding a
+mouse: give the divider `role="slider"`, `aria-valuenow`, and arrow, Home, and End
+handling, and give the images real alt text describing what each grade shows, because
+a reader who cannot see either one still deserves to know what the comparison claims.
+
+The name deserves a note. This is not a range input dressed up, even though it is
+often built from one and reported as one, and it is not a
+[splitter](/splitter): a splitter divides two panes so both can be used at once, while
+this divider hides one thing to reveal another, and there is nothing on the far side to
+work in. "Before after slider" is the plainest name and the one readers search for;
+"image comparer" is the component-library spelling. Reserve "comparison slider" for
+this control rather than for a chart control that compares series, which is a different
+promise entirely.

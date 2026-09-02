@@ -1,0 +1,70 @@
+---
+name: Interpolation
+slug: interpolation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rule that produces the intermediate values between two
+  endpoints, which is why some properties can animate smoothly and others can
+  only switch.
+aliases:
+  - name: interpolatable
+    source: css
+  - name: discrete interpolation
+    source: css
+  - name: value blending
+    source: community
+tags:
+  - web-platform
+relations:
+  contrastWith:
+    - fill-mode
+    - keyframe
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - height-animation
+implementations: []
+sources:
+  - title: "MDN: CSS animated properties"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+demo: inline
+exhibit: false
+useWhen: explaining why a property will or will not animate
+---
+
+An animation is a start value, an end value, and a duration. Everything between them is invented,
+and interpolation is the rule that invents it. Halfway through a width animation from 96px to 216px
+the browser paints 156px, because a number has a halfway. [Easing](/easing) is routinely confused
+with this and is a different job: easing decides how fast the clock runs through the animation,
+interpolation decides what a given reading of that clock turns into. Change the easing and the same
+values arrive in a different order. Change the interpolation rule and the values themselves are
+different.
+
+Not every value has a halfway, and CSS says so property by property. Each property carries an
+animation type, and the interesting one is discrete: the value holds the start until the animation
+is half done, then holds the end. There is no letter between `h` and `H`, so `text-transform`
+switches once, at the midpoint, and nothing is blended. The same goes for `list-style-type`, for
+`visibility` (with a special rule that keeps a visible value on screen for the whole run), and,
+until recently, for `display`. The lesson worth keeping is that a discrete property still animates.
+It animates by switching, and that switch is not a bug or a fallback: it is the interpolation rule
+the specification asked for.
+
+Colours are where the rule becomes a real choice. A number blends one way, but a colour has
+channels, and which channels get blended decides what the middle looks like. A straight per-channel
+blend in sRGB from a blue to a rust runs through a dead violet that neither endpoint suggested,
+which is why [colour interpolation](/color-interpolation) is a knob rather than a constant.
+Transforms are the other case that catches people out: a list of transform functions interpolates
+function by function only while both lists match, and when they stop matching the browser falls
+back to interpolating the resulting matrices, which is how a rotate plus a scale can travel through
+a shape nobody wrote.
+
+In practice all of this collapses into one question, will this animate, and the answer is in each
+property's animation type, catalogued in
+[MDN's list of animated CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties).
+A [keyframe](/keyframe) list only supplies endpoints, so a keyframe on a discrete property buys a
+switch and nothing else, and `transition-behavior: allow-discrete` alongside `@starting-style` is
+how a modern entrance animation gets `display: none` to take part at all. When a transition appears
+to do nothing, the property is usually not the one you thought it was, or it is discrete and the
+switch at the halfway point has been the whole animation all along.

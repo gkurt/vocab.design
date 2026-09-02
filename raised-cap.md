@@ -1,0 +1,67 @@
+---
+name: Raised cap
+slug: raised-cap
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An oversized opening letter that sits on the first line's baseline
+  and rises above the text, rather than sinking into it.
+aliases:
+  - name: raised initial
+  - name: stick-up cap
+  - name: elevated cap
+tags:
+  - editorial
+relations:
+  contrastWith:
+    - drop-cap
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: initial-letter (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/initial-letter
+demo: inline
+exhibit: false
+useWhen: the big opening letter rises instead of sinking
+---
+
+A raised cap is an opening letter set several times the size of the text, with
+its foot on the first line's [baseline](/baseline) and the rest of it standing up
+above the block. Only the first line makes room for it: the letter takes its
+width out of that line and nothing else, so every line below starts at the left
+margin as usual. The name reads as decoration but the geometry is the whole
+term, because the letter's own baseline is what anchors it, and its
+[cap height](/cap-height) is what decides how far into the margin above it
+reaches.
+
+The word to keep it apart from is [drop cap](/drop-cap), and the pair is
+symmetrical. A drop cap sinks below the first baseline, so its foot lands on the
+baseline two or three lines down and those lines all indent to clear it. A
+raised cap sits on the first baseline and pushes the line above it up, taking
+room out of the space over the block instead of out of the block itself. Both
+answer the same brief, giving a reader a place to start, and they fail
+differently: a sunk letter mis-set by half a line drifts off the baseline it
+should be resting on, while a raised letter mis-set collides with whatever is
+above it.
+
+That difference is why a raised cap is the easier of the two to hold together in
+a fluid column. A drop cap has to know how many lines it spans, and the number
+changes with the measure, the leading, and a reader's text size, so it needs a
+new size at every breakpoint to keep its foot on a baseline. A raised cap only
+has to sit on one baseline, which does not move, and only has to be given
+headroom, which a page can simply reserve. It also asks nothing of the wrap: the
+first line runs beside the letter and the rest of the paragraph is untouched, so
+none of the ragged fitting a sunk letter needs applies. Like any initial, it
+replaces a [first-line indent](/first-line-indent) rather than joining one,
+since the letter is already announcing the start.
+
+In CSS both belong to `initial-letter`, which takes a size and a sink: the first
+number is how many lines tall the letter is, the second how many lines it drops.
+Write `initial-letter: 3 1` and the sink is one line, which is the raised cap.
+The property applies to `::first-letter`, so a specimen that needs the letter to
+be a real element (as the one on this page does, since the stage has to be able
+to point at it) sizes the letter directly and lets it rise out of a line box of
+its own, which is the same arrangement stated by hand.

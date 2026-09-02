@@ -1,0 +1,71 @@
+---
+name: Graph layout
+slug: graph-layout
+category: layout
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: "Placing the nodes of a wired diagram by algorithm rather than by
+  hand: layered for a flow, radial for a hub, force-directed for a mesh that has
+  no direction."
+aliases:
+  - name: layered layout
+    source: community
+  - name: force-directed layout
+    source: community
+  - name: graph layout algorithm
+    source: community
+tags:
+  - canvas
+relations:
+  contrastWith:
+    - edge-routing
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - node-graph
+    - flowchart
+implementations: []
+sources:
+  - title: "React Flow: layouting"
+    url: https://reactflow.dev/learn/layouting/layouting
+demo: inline
+exhibit: false
+useWhen: nodes placed by algorithm rather than by hand
+---
+
+A graph has nodes and edges and no coordinates. Something has to invent the coordinates, and
+doing it by algorithm is what this term names. Three families cover nearly every case in
+interface work. A layered arrangement, the Sugiyama family, ranks nodes by dependency and puts
+each rank in its own row or column, so every edge points the same way: this is what you want
+for anything that is a flow, and it is what a [flowchart](/flowchart) engine is doing when it
+places your boxes. A radial arrangement puts one node at the centre and its neighbours on rings
+around it, which suits a hub with many spokes and reads as "this thing, and everything attached
+to it". A force-directed arrangement treats edges as springs and nodes as particles that repel,
+and settles into clusters: it is the right answer for a mesh with no inherent direction, and the
+wrong answer for anything with a start and an end.
+
+The naming here is genuinely ambiguous and worth being careful about. In the node graph world
+this is usually called auto layout, and that is what the button says in most editors. But in
+design tools the same two words mean something else entirely: [Figma](https://www.figma.com)
+has an Auto layout feature that is a flex-like resizing frame, and that meaning is far more
+searched. So say graph layout, or name the algorithm, and reserve auto layout for the frame
+property if your audience is designers at all.
+
+An algorithm can only be judged by what a reader can follow, which is why the metrics that
+matter are boring: how many edges cross, how many bend, how far apart connected nodes ended up,
+and whether the whole thing fits the space it has to live in. Crossings are the expensive one,
+and they interact with [edge routing](/edge-routing): a good arrangement makes any routing
+readable, and no routing rescues a bad one. Aspect ratio matters more than it looks like it
+should, because a layout that is optimal on a wide monitor may be unreadable in a narrow column,
+so the arrangement is part of the responsive question rather than a fixed picture.
+
+The honest cost is spatial memory. Re-running a layout moves everything, and every position the
+reader had learned is gone: the node they were about to click is somewhere else, and the picture
+they had memorised no longer matches. This is why good tools make the arrangement an explicit
+command rather than something that happens on every edit, animate the transition so positions
+can be followed rather than re-learned, keep the result deterministic for the same input (a
+force-directed layout seeded randomly will not survive a reload), and let a node the reader has
+placed by hand stay pinned while the rest is arranged around it. Wiring by hand on an
+[infinite canvas](/infinite-canvas) and arranging by algorithm are not rivals, and the tools
+readers like best let both happen in the same [node graph](/node-graph).

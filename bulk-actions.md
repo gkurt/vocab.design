@@ -1,0 +1,75 @@
+---
+name: Bulk actions
+slug: bulk-actions
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Selecting several rows and applying one command to all of them,
+  usually through a bar that appears once a selection exists and reports its
+  count.
+aliases:
+  - name: batch actions
+    source: carbon
+  - name: bulk edit
+    source: community
+  - name: multi-select actions
+    source: community
+  - name: contextual action bar
+    source: material
+  - name: selection toolbar
+    source: community
+  - name: bulk action bar
+    source: merged-candidate
+tags:
+  - selection
+  - tables
+relations:
+  contrastWith:
+    - range-select
+    - select-all-across-pages
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - applied-filters
+implementations: []
+sources:
+  - title: "Carbon Design System: data table"
+    url: https://carbondesignsystem.com/components/data-table/usage/
+demo: inline
+exhibit: false
+useWhen: picking many rows and acting on them at once
+---
+
+Bulk actions turn a list into a workspace. Without them, archiving forty messages is
+forty trips through the same menu, so the pattern separates the two halves of the job:
+first say which rows, then say what to do. The commands live in a bar that only exists
+while a selection does, which is why Material calls it a contextual action bar and
+Carbon calls it batch actions. It reports the count, because the count is the one thing
+a reader cannot recover by looking, and it offers a way out of the selection as well as
+a way to spend it.
+
+The bar should replace the table's own toolbar rather than push it aside, so the rows
+under it never move when a selection starts. Keep it visible while the reader scrolls,
+since the selection they made at the top is spent by a command they reach at the bottom.
+Show only commands that apply to everything selected, and disable rather than hide the
+ones that do not, with a reason attached, or the toolbar reshuffles under the pointer
+every time a row is added.
+
+Selection has its own grammar and most of the bugs live there. A checkbox column, a
+click on a row that does not fight with opening it, shift click for a range, and a
+header checkbox that shows three states, not two: checked, unchecked, and the mixed
+state that means some but not all. Say what select all covers, because "select all" on
+a filtered, paginated table is genuinely ambiguous, and the honest design offers both:
+the twenty on this page, and then, in a line under the bar, all four hundred that match
+the filter. Clear the selection when the filter changes, or the reader will act on rows
+they can no longer see.
+
+Because one press now reaches many rows, the consequences scale with it. Destructive
+bulk commands deserve a confirmation naming the count, or an undo, and preferably the
+undo. Report the result in the same terms as the request: an interface that says
+"archived" when nine of the twelve failed on permissions has lied about a scale of
+mistake the reader cannot see. Partial failure is the normal case at this size, so plan
+for a summary that names what did not work and leaves those rows selected so the reader
+can try again. And announce the count as it changes, since a bar that appears silently
+is a bar that a screen reader user only discovers by hunting for it.

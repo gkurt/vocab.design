@@ -1,0 +1,66 @@
+---
+name: Audio control
+slug: audio-control
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A way to stop sound that started on its own, because autoplaying
+  audio drowns out the screen reader voice a reader depends on to find the
+  control that stops it.
+aliases:
+  - name: autoplay audio
+    source: community
+  - name: mute control
+    source: community
+  - name: sound off by default
+    source: community
+tags:
+  - media
+  - sound
+  - wcag
+relations:
+  contrastWith:
+    - pause-stop-hide
+    - autoplay
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - media-controls
+implementations: []
+sources:
+  - title: "WCAG 2.2: Audio Control"
+    url: https://www.w3.org/TR/WCAG22/#audio-control
+demo: inline
+exhibit: false
+useWhen: anything makes noise before the reader asked
+---
+
+WCAG 2.2 success criterion 1.4.2 is unusually blunt for a Level A rule. If any audio plays
+automatically for more than three seconds, either it stops itself within those three seconds or the
+page provides a way to pause it, stop it, or turn its volume down independently of the system volume.
+That is the whole requirement, and the reason it exists is a mechanical one rather than a matter of
+taste: a [screen reader](/screen-reader) speaks through the same speakers your autoplaying video is
+using, so unexpected sound does not merely annoy that reader, it hides the interface from them.
+
+Follow the loop that creates. The audio starts. The voice the reader navigates by is now competing
+with it. To find the mute button they have to hear the voice announce it, and they cannot, so the
+only reliable escape is to leave the page or to turn off the system volume, which turns off their
+screen reader as well. This is why "independently of the system volume" is in the text of the
+criterion: a mute control that only works by silencing the whole machine is not a fix, and it is why
+the rule says nothing about how loud the audio is. Speech and music in the same range are still
+speech and music in the same range.
+
+Three details decide whether an implementation actually passes. The control has to be near the start
+of the page in reading and tab order, because a stop button after the article is a stop button the
+reader reaches by listening to the article they cannot hear. It has to have a real
+[accessible name](/accessible-name), since an unlabelled icon in a noisy page is unfindable. And the
+three seconds are measured from when the sound starts, not from when the page finishes loading, so a
+carousel that begins a video on its second slide is inside the same rule.
+
+The safe design is the boring one: sound off by default, and let the reader start it. That covers the
+criterion, and it also covers muted autoplay with [captions](/captions), which is what most feeds
+have converged on for reasons that have nothing to do with accessibility. Where the sound genuinely
+is the content, as in a media player the reader opened on purpose, this criterion does not apply at
+all: the reader asked for it, and what they need instead is a reachable pause and a volume they can
+find.

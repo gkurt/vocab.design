@@ -1,0 +1,69 @@
+---
+name: Stack
+slug: stack
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A layout primitive that puts one consistent gap between every child
+  in a vertical run, so spacing lives with the parent instead of each item.
+aliases:
+  - name: the stack
+    source: every-layout
+  - name: vertical stack
+    source: community
+  - name: owl selector
+    source: community
+  - name: flow
+    source: community
+  - name: VStack
+    source: swiftui
+tags:
+  - spacing
+relations:
+  contrastWith:
+    - cluster
+    - spacer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - density
+implementations: []
+sources:
+  - title: The Stack, Every Layout
+    url: https://every-layout.dev/layouts/stack/
+demo: inline
+exhibit: false
+useWhen: one rule for the space between everything vertical
+---
+
+The stack makes one claim: the space between things belongs to the thing that
+contains them, not to the things themselves. It sounds like a small
+reorganisation and it removes a whole category of bug. When every component ships
+its own bottom margin, the gap between any two components is a negotiation nobody
+scheduled, and a stylesheet fills up with overrides that exist only to undo a
+margin the next element also brought. Move the rule to the parent and the
+component becomes reusable, because it no longer has an opinion about what follows
+it.
+
+There are two ways to write it and both are in use. Heydon Pickering's
+"lobotomized owl", `* + *`, sets a margin on every child except the first, which
+is where the alias owl selector comes from, and it works in normal flow with no
+container type required. Flexbox `gap` says the same thing more directly and never
+collapses, at the cost of turning the parent into a flex container, which changes
+how the children size themselves. Every Layout's version adds one useful option on
+top: applied recursively, the rhythm reaches nested elements too, so a stack of
+stacks does not need a rule per level.
+
+The word also arrives from outside CSS. SwiftUI's `VStack` is the same primitive
+as a component with spacing as an argument, and design systems that grew out of
+utility CSS often name it `flow` or `stack` and pass the value in from a spacing
+scale. Whatever the spelling, the useful discipline is the same: one axis, one
+value from a scale, and any exception declared by the parent that wants it rather
+than by the child that happens to be there.
+
+Two things the primitive is not. It is not a grid: children keep their own
+heights and nothing lines up across a second axis. And it is not a substitute for
+a type scale, because vertical rhythm in prose has to answer to the leading of the
+text it separates, which is why a stack around body copy usually takes its gap in
+`em` rather than from the same pixel scale the interface uses.

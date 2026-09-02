@@ -1,0 +1,75 @@
+---
+name: Pointer cancellation
+slug: pointer-cancellation
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Activating a control on pointer release rather than press, so
+  someone who lands on the wrong target can slide off and abort.
+aliases:
+  - name: up-event activation
+    source: wcag
+  - name: down-event
+    source: wcag
+  - name: slide off to cancel
+    source: community
+  - name: abort or undo
+    source: wcag
+tags:
+  - errors
+  - pointer
+  - wcag
+relations:
+  contrastWith:
+    - press-drag-release
+    - ghost-click
+    - change-of-context
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pressed-state
+implementations: []
+sources:
+  - title: "WCAG 2.2: Pointer Cancellation"
+    url: https://www.w3.org/TR/WCAG22/#pointer-cancellation
+demo: inline
+exhibit: false
+useWhen: letting a mis-press be taken back before release
+---
+
+Success criterion 2.5.2, Pointer Cancellation, is Level A and has been in the standard since
+WCAG 2.1. For anything operated by a single pointer, one of four things has to be true: the down
+event executes no part of the function, or the function completes on the up event and can be
+aborted or undone, or the up event reverses whatever the down event did, or down-event
+activation is essential. In practice almost every interface satisfies it the same way, by
+activating on release, which is exactly what a browser's own click event does: it fires on the
+up event, on the element the press started on, and going anywhere else before letting go cancels
+it.
+
+The reason this is a criterion and not a preference is that down-event activation deletes the
+one recovery an imprecise pointer has. A tremor, a head pointer, a mouth stick, a shaking bus,
+a screen read through a magnifier: all of them produce presses that land on the wrong control,
+and the reader knows it the instant it happens. Sliding off before release is the recovery, and
+it is available for free right up until somebody writes a `pointerdown` handler that acts. That
+is where the failures live. They are almost never in ordinary buttons and almost always in
+hand-rolled ones: a canvas tool, a custom menu that commits on press, a card that navigates from
+`mousedown` because it felt faster.
+
+Faster is the honest argument for the other side, and the criterion answers it: if the down
+event has to act, then the up event must reverse it, or an undo must exist. A control that
+previews on press and commits on release passes cleanly, since the preview is not the function.
+So do gestures where the press starts something rather than doing it, such as a
+[long press](/long-press), a drag past its [drag threshold](/drag-threshold), or a
+[hold to confirm](/hold-to-confirm) that can be released early. Essential is narrow and mostly
+means the down event is the point, as in a piano keyboard where a key has to sound the moment it
+is touched.
+
+Two neighbours are worth keeping apart from it. [Click-through](/click-through) is about a click
+being accepted by a surface that only just appeared, which is a timing problem rather than a
+press-versus-release one, though both are about a tap the reader did not really aim. A
+[ghost click](/ghost-click) is the same tap arriving twice through two event systems. And this
+criterion travels with the rest of the pointer family added or sharpened in recent versions,
+[target spacing](/target-spacing) and the
+[dragging alternative](/dragging-alternative): between them they ask that a control be big
+enough to hit, reachable without a drag, and forgiving of the press that missed.

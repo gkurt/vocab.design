@@ -1,0 +1,82 @@
+---
+name: Long press
+slug: long-press
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A press held in place for a moment before release, used to reveal
+  secondary actions, enter a rearrange mode, or open a contextual menu.
+aliases:
+  - name: touch and hold
+    source: hig
+  - name: press and hold
+    source: community
+  - name: tap and hold
+    source: community
+  - name: long tap
+    source: community
+  - name: long-press drag
+    source: material
+tags:
+  - menus
+  - touch
+relations:
+  contrastWith:
+    - double-tap
+    - force-touch
+    - hold-to-confirm
+    - press-drag-release
+    - tap
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - app-shortcut
+    - hidden-gesture
+implementations:
+  - system: material
+    name: Long press
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures (long press)"
+    url: https://m1.material.io/patterns/gestures.html
+  - title: "iOS HIG: Gestures"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+demo: inline
+exhibit: false
+useWhen: holding a touch to reach the secondary action
+---
+
+Material spells the gesture out as one finger press, wait, lift, and the wait is the
+whole term. Everything else about it is identical to a tap: same finger, same place, same
+release. What the extra half second buys is a second meaning for the same spot, which is
+why long press is where touch keeps the things a mouse keeps behind a right click.
+Apple's name for it is touch and hold, and both platforms own the threshold themselves
+rather than letting an interface pick one, so a design that depends on an exact duration
+is depending on a number it does not control.
+
+The hold has to be paid for while it is happening. A press that looks like nothing for
+five hundred milliseconds and then produces a menu is indistinguishable from a press that
+did not register, so the interface owes the reader progress: a growing ring, a lift, a
+swelling of the pressed element, and on a phone the haptic tick that lands the moment the
+gesture commits. That feedback is also the cancel affordance. Once a reader can see the
+hold filling, lifting early reads as a decision rather than as a failure, and the tap the
+early lift becomes has to still do something sensible.
+
+There is no long press event on the web. What there is is `pointerdown`, a timer you set
+yourself, and the several things that can invalidate it: a lift, a move past a few pixels
+of slop, a second contact, a scroll that starts under the finger. Android's browser also
+fires `contextmenu` for a long press, which is either the behaviour you wanted or a
+competing menu you have to suppress, and a hold over text will start a selection unless
+`user-select` and `touch-action` say otherwise. The one rule worth stating flatly: never
+re-parent the element between the press and the release, because rebuilding the node the
+finger is on cancels the gesture the reader is halfway through making.
+
+Because the gesture is invisible, it is an accelerator and never a door. Anything reachable
+by holding needs a visible route as well: an overflow menu on the row, an edit mode with
+its own button, a secondary click on the desktop. The people a hold-only interface locks
+out are specific. A hand with a tremor may not keep still long enough, a hand that presses
+firmly may lift too fast, and a screen reader has already spent both the tap and the hold
+on its own gestures. Material's own compose is the honest version of the pattern:
+long-press drag, where holding picks a list item up and the drag that follows reorders it,
+with a visible drag handle for everyone who cannot hold.

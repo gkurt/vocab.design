@@ -1,0 +1,67 @@
+---
+name: Video player
+slug: video-player
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A framed video with the controls needed to play, seek, mute and
+  caption it, sized so the controls never crowd the picture.
+aliases:
+  - name: video
+    source: component-gallery
+  - name: media player
+    source: community
+  - name: player
+    source: community
+tags:
+  - media
+relations:
+  contrastWith:
+    - picture-in-picture
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - audio-description
+    - sign-language-interpretation
+    - media-controls
+    - autoplay
+implementations: []
+sources:
+  - title: "The Component Gallery: Video"
+    url: https://component.gallery/components/video/
+demo: inline
+exhibit: false
+useWhen: video is the content and the reader controls playback
+---
+
+A video player is the whole assembly around a moving picture: the frame that holds it,
+the poster that stands in before it starts, the bar of
+[media controls](/media-controls) along the bottom, the caption track, and the states
+in between (buffering, ended, failed). The parts have their own words. The bar is
+media controls, dragging the playhead through the recording is
+[scrubbing](/scrubbing), the track that answers the drag is a
+[scrubber](/scrubber), and the text over the picture is [captions](/captions). What
+this term names is the composite: the box you drop into a page when video is the
+content rather than decoration.
+
+The picture sets the geometry, and everything else has to stay out of its way. Give
+the frame the video's own aspect ratio so the layout does not jump when metadata
+arrives, keep the controls inside that frame instead of adding a strip below it, and
+draw the bar over a scrim rather than over raw picture, because white glyphs on a
+bright frame vanish. The poster is not a formality: it is the frame a reader judges
+the video by, it is what a slow connection shows for several seconds, and choosing it
+from a bright, legible moment does more for completion rates than any autoplay setting.
+Autoplay itself is muted or nothing, since browsers refuse sound without a gesture, and
+a muted autoplaying video with no visible controls is a moving image, not a player.
+
+Captions are the duty most custom players drop. They are needed by deaf and hard of
+hearing viewers, and used far more widely than that: in a noisy room, in a quiet one,
+in a second language. Ship a real text track rather than burned in subtitles, so the
+text can be resized, restyled, searched, and turned off. A transcript beside the player
+costs almost nothing more and serves everyone who would rather read than watch, plus
+every search engine that cannot watch at all. Below all of this sits the platform's own
+answer: a `<video controls>` element already gives you a keyboard accessible bar,
+picture in picture, playback speed, captions plumbing, and the platform's fullscreen
+behaviour. A custom player has to re-earn every one of those, and most of them are the
+things a hurried build skips.

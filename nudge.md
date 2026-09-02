@@ -1,0 +1,71 @@
+---
+name: Nudge
+slug: nudge
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Moving or changing a value by one small fixed step with an arrow
+  key, with a modifier switching to a larger step.
+aliases:
+  - name: arrow key nudge
+    source: community
+  - name: big nudge
+    source: community
+  - name: step
+    source: community
+  - name: increment
+    source: community
+tags:
+  - canvas
+  - keyboard
+relations:
+  contrastWith:
+    - stepper
+    - key-repeat
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - snapping
+    - scrubby-slider
+implementations: []
+sources:
+  - title: "Figma Learn: Adjust alignment, rotation, position, and dimensions"
+    url: https://help.figma.com/hc/en-us/articles/360039956914-Adjust-alignment-rotation-position-and-dimensions
+demo: inline
+exhibit: false
+useWhen: moving something by exact steps with the keyboard
+---
+
+Every design tool ships the same two numbers: an arrow key moves the selection by one
+unit, and the same arrow with Shift held moves it by ten. The big step is usually the
+tool's grid unit rather than an arbitrary multiple, which is what makes the pair worth
+copying. One press is the smallest correction the format allows, and the modified press is
+one whole cell of the layout, so a keyboard alone can both fix a hairline and move
+something a full column over.
+
+The reason nudging survives every generation of direct manipulation is that a pointer
+cannot reliably land on a single pixel and a keyboard always can. A drag has to clear its
+threshold before it counts, it carries whatever tremor the hand has, and near the end it is
+fighting the snapping that was helping a moment earlier. Nudging is the escape hatch from
+all three: it commits an exact quantity, it repeats identically, and it can be undone by
+pressing the opposite arrow the same number of times. That is also why the gesture belongs
+on anything a person can drag. A slider, a splitter, a crop handle, and a reorderable list
+row each owe a keyboard route, and the arrow keys are the route readers already guess.
+
+The same behaviour has a second life in fields, where it is usually called a step rather
+than a nudge. A number input, a spinner's arrows, and a range slider all move by their
+`step` value on an arrow press, with `PageUp` and `PageDown` conventionally taking the
+larger jump instead of a modifier. Two details separate a good implementation from an
+annoying one. Key repeat has to be pleasant, so holding an arrow should accelerate or at
+least coalesce into a single undo entry rather than filling the history with sixty
+one-pixel moves. And the step has to be stated in the units the reader is thinking in: a
+nudge that moves by one CSS pixel inside a canvas zoomed to 400 percent should still move
+the object by one pixel of the artwork, not by a quarter of one on screen.
+
+The failure worth watching for is the one where the arrows are already spoken for. Inside
+a text field the arrows move the caret, inside a listbox they move the active option, and
+inside a canvas they move the selection, so an interface that puts all three on one screen
+has to be clear about what currently owns the keyboard. Fixing that belongs to focus, not
+to the nudge itself: whatever holds focus interprets the arrow, and the visible focus state
+is the only thing telling the reader which of the three they are about to do.

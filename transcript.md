@@ -1,0 +1,66 @@
+---
+name: Transcript
+slug: transcript
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A full text version of time based media, readable without playing it
+  and searchable by both people and machines.
+aliases:
+  - name: text transcript
+    source: community
+  - name: media alternative
+    source: wcag
+  - name: descriptive transcript
+    source: community
+tags:
+  - media
+  - sound
+  - wcag
+relations:
+  contrastWith:
+    - audio-description
+    - captions
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WebAIM: Captions, Transcripts, and Audio Descriptions"
+    url: https://webaim.org/articles/
+demo: inline
+exhibit: false
+useWhen: offering the whole of a video or podcast as text
+---
+
+A transcript is the programme as a document. Speaker labels, what was said, and in the
+descriptive form the things that were only shown, all laid out to be read at the reader's
+own pace instead of the player's. Nothing about it is synchronised, which is exactly what
+makes it useful: it can be skimmed, searched, quoted, translated, printed, and read on a
+braille display, none of which a timed track allows.
+
+The comparison with the other two alternatives is worth getting straight.
+[Captions](/captions) are time locked to the picture and serve a viewer who is watching
+without hearing. [Audio description](/audio-description) is time locked the other way and
+serves a viewer who is hearing without seeing. A transcript is locked to nothing, and it
+is the only one of the three that works for a reader who is both deaf and blind, since it
+can be rendered as braille. That is why WCAG treats a full text alternative as the
+substitute route at level A for prerecorded media, and why a captioned video with no
+transcript still leaves a real audience out.
+
+The plain version carries dialogue only. The descriptive version merges in what the
+description track would have said, so a reader who never plays the video still learns
+that the letter was unsigned. Timestamps are the small feature that makes a long one
+usable: printed beside each passage, they let a reader jump the player to that moment, and
+a player that scrolls the transcript as it plays turns the document into a navigation
+control. Speaker labels do the same work labels do anywhere, which is to keep a wall of
+text from becoming a puzzle.
+
+The commercial arguments are real and slightly beside the point. A transcript is indexable
+where audio is not, it gives a search engine and a language model something to read, it is
+what a reader in an open-plan office actually uses, and it is the cheapest source for
+clips and quotes. Produce it once from an accurate captioning pass rather than twice: a
+reviewed caption file already contains the words, and merging cues into paragraphs with
+speaker names is mostly editing. Unreviewed automatic speech recognition is not a
+transcript, it is a first draft with the names spelled wrong.

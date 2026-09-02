@@ -1,0 +1,71 @@
+---
+name: Risograph style
+slug: risograph
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A print-inspired look of two or three flat spot colors that
+  misregister slightly and show grain, imitating a riso duplicator.
+aliases:
+  - name: riso print
+    source: community
+  - name: riso aesthetic
+  - name: misregistration style
+  - name: spot color print look
+tags:
+  - editorial
+  - retro
+relations:
+  contrastWith:
+    - duotone
+    - halftone
+    - pop-art-style
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - digital-collage
+implementations: []
+sources:
+  - title: "Riso Kagaku: about RISO printers"
+    url: https://us.riso.com/
+demo: inline
+exhibit: false
+useWhen: flat spot colors that overprint and slip out of register
+---
+
+Every feature of the look is a consequence of how the machine works. A Riso duplicator is a
+stencil printer: it burns a master for one colour, wraps it round a drum loaded with that
+ink, and prints the whole run. A second colour means a second drum and a second pass, so the
+paper goes through the machine once per ink. Nothing lines up perfectly twice, which is why
+riso work has doubled edges and haloes of bare paper where two layers were supposed to meet.
+The ink is soy based and never fully dries into the sheet, so it sits on the surface, mottles
+into visible grain, and rubs off on your hands. Where two inks cross they overprint into a
+third colour that neither drum contains, and tone inside a single colour is a coarse screen
+of that one ink rather than a mix, so the palette stays flat and the paper keeps showing
+through.
+
+The machine was built in Japan in the 1980s as office equipment, sold to schools, churches,
+and community groups that needed a thousand newsletters cheaply and did not care that the
+result looked rough. Artists found it in the 2000s and adopted it wholesale, because it makes
+short runs affordable and because its inks include colours offset printing cannot reach:
+fluorescent pink is the signature, a genuinely fluorescent pigment with no equivalent in a
+four colour process build. Zines, risograph studios, and small press comics carried the look
+far enough that it now reads as a signal on its own. Riso means independent, made in small
+numbers, and made by someone who chose the constraint.
+
+It is worth separating from its two technique relatives on this site.
+[Halftone](/halftone) is the screen itself, dot size carrying tone in a single ink, and riso
+uses it inside each layer. [Duotone](/duotone) is a photograph mapped into two colours, an
+image processing operation that can be done perfectly. Riso is the printing process whose
+imperfections became the style, so the register slip, the grain, and the overprint are not
+mistakes it tolerates but the entire reason anyone reaches for it.
+
+Faking it on screen is mostly three moves: flat fills in two or three saturated spot colours,
+layers offset by a couple of pixels rather than aligned, and a multiply blend where they
+overlap so the crossing area darkens the way wet ink does, all under a fine grain overlay.
+Two cautions. Misregistration applied to running text or to a control label is simply
+illegible, so keep the slip on shapes, headlines, and illustration, and leave anything a
+reader has to read or click in register. And the fluorescent inks are the part the medium
+cannot deliver: a screen showing sRGB flattens that pink into something ordinary, which is
+why riso work usually looks better in your hands than in a photograph of it.

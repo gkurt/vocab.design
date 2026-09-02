@@ -1,0 +1,66 @@
+---
+name: Responsive upscaling
+slug: responsive-upscaling
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Designing what a layout does with the space it gains on very wide
+  screens, rather than only what it drops as screens narrow.
+aliases:
+  - name: upscaling
+    source: baymard
+  - name: large screen design
+    source: community
+tags:
+  - screen-size
+relations:
+  contrastWith:
+    - window-size-class
+    - mobile-first
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Responsive Upscaling: 11 Ideas for Large-Screen E-Commerce Design,
+      Baymard"
+    url: https://baymard.com/blog/responsive-upscaling
+demo: inline
+exhibit: false
+useWhen: the layout has more room than it knows what to do with
+---
+
+Almost every responsive layout is designed downward. The desktop composition is the one the
+team drew, and the work is deciding what happens as the screen gets smaller: what collapses,
+what stacks, what hides behind a menu. Responsive upscaling is the opposite question, and it
+is the one that usually goes unasked. Above the last breakpoint there is no design, so the
+layout does whatever its widths happen to imply, which is normally one of two things: a
+column that keeps growing until the line is far past a comfortable
+[measure](/measure), or a page that caps its
+[container](/container) and leaves an enormous field of empty gutter on either side.
+
+The term comes from the [Baymard Institute](https://baymard.com), whose large-screen research
+found that plenty of sites gain hundreds of pixels of viewport and spend none of it. Their
+argument is that the surplus is a design opportunity rather than a rounding error, and their
+suggestions are the ones worth stealing: cap the reading measure and use the extra room for
+something else, promote a sidebar or a table of contents that was hidden at narrower sizes,
+show more items per row where the items are genuinely comparable, widen media rather than
+text, or give the page air on purpose so the emptiness reads as composition instead of as
+an accident. The point of the list is that each item is a decision. Emptiness chosen is
+fine; emptiness left over is what readers notice.
+
+This is not the same claim as [mobile first](/mobile-first), and the two are complementary
+rather than opposed. Mobile first is a method for designing upward from the smallest screen,
+so that the narrow layout is the considered one instead of the leftover. Responsive
+upscaling is about the region past the largest breakpoint the method ever reaches, which
+mobile-first work tends to leave undesigned precisely because it was designed from the other
+end. A team can do both: build up from narrow, and then decide deliberately what the layout
+becomes when the screen keeps going.
+
+Two practical notes. Cap by content rather than by number: text caps at its measure, tables
+and media often want everything they can get, and a single page-wide maximum applied to all
+of them is the blunt version of this that produces the giant-gutter look. And test the state
+you are designing, which means an actual wide window, not a scaled-down browser view.
+Ultrawide monitors, side-by-side windows on a large display, and television browsers are all
+real, and all of them land in the region where nobody checked.

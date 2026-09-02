@@ -1,0 +1,72 @@
+---
+name: Sparkline
+slug: sparkline
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A tiny chart with no axes or labels, drawn inline at text size to
+  show the shape of a trend beside the number it belongs to.
+aliases:
+  - name: mini chart
+    source: community
+  - name: inline chart
+    source: community
+  - name: trend line
+    source: community
+  - name: micro chart
+    source: community
+tags:
+  - dataviz
+relations:
+  contrastWith:
+    - chart
+    - stat
+    - waveform
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - meter
+    - direct-labeling
+implementations: []
+sources:
+  - title: "Cloudscape Design System: components"
+    url: https://cloudscape.design/components/
+  - title: Sparkline (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Sparkline
+demo: inline
+exhibit: false
+useWhen: a trend line small enough to sit inline
+---
+
+Edward Tufte coined the word for a chart small and quiet enough to live in a
+sentence, and the [Wikipedia entry](https://en.wikipedia.org/wiki/Sparkline) still
+carries his framing: a small, intense, word-sized graphic. The point is not that it
+is a shrunken chart. It is that it is typography. A sparkline sits in a line of prose
+or in a table cell, at roughly the height of the surrounding text, and it is read the
+way a word is read, at a glance and in place, without the eye having to travel to a
+separate figure and come back.
+
+The missing axes are the design, not a compromise. A sparkline answers "which way,
+and how smoothly", and it answers that from shape alone: rising, falling, flat,
+spiky, seasonal, cliff. Adding gridlines, tick labels, or a legend does not make it
+more informative, it makes it a small bad chart, because at that size the furniture
+consumes the pixels the data needed. If a reader has to know the exact value, that is
+a job for a number, which is why a sparkline almost always travels with one: the
+current figure in bold beside the line, and often the endpoints or the period high
+and low marked with a single dot each.
+
+There is one honest caveat, and it is worth stating out loud wherever sparklines
+appear together. Each line is usually scaled to its own range, so a metric that
+wobbled by three units and one that swung by three thousand can produce identical
+looking peaks. Stacked in a table that reads as a comparison, they will be compared,
+and the comparison will be wrong. The fixes are to scale a group of related series to
+a shared range, to keep the companion number close enough that it corrects the
+impression, or to label the range once for the whole column.
+
+Interactivity is where the word starts to slip. A tiny line chart with a tooltip on
+every point, a hover crosshair, and a click target per data point is a small chart,
+not a sparkline, and calling it one sets the wrong expectation about density and
+reading effort. "Mini chart" and "micro chart" are the honest names for that thing,
+and several component libraries use them precisely so the two do not get confused.
+Keep "sparkline" for the wordless one.

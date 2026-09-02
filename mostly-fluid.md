@@ -1,0 +1,65 @@
+---
+name: Mostly fluid
+slug: mostly-fluid
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A responsive pattern where a multi column grid stretches with the
+  viewport up to a maximum width, then centres, stacking only on the smallest
+  screens.
+aliases:
+  - name: mostly fluid pattern
+    source: community
+tags:
+  - screen-size
+relations:
+  contrastWith:
+    - column-drop
+    - layout-shifter
+    - tiny-tweaks
+  variantOf:
+    - responsive-web-design
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Multi-Device Layout Patterns, LukeW
+    url: https://www.lukew.com/ff/entry.asp?1514=
+demo: inline
+exhibit: false
+useWhen: one grid that just widens, then caps
+---
+
+Mostly fluid is the plainest of the five responsive layout patterns Luke Wroblewski catalogued
+from early responsive sites, and by a wide margin the most used. One grid, a few columns, tracks
+that stretch as the window widens, a maximum width past which the grid stops growing and centres
+itself, and a single breakpoint near the bottom where the columns give up and stack. That is the
+whole pattern. If you are describing a site and cannot decide which pattern it is, it is probably
+this one, which is the reason the word is worth having: most responsive layouts are mostly fluid,
+and saying so is more useful than calling them responsive and stopping there.
+
+With this entry the set of five is complete on the site. [Tiny tweaks](/tiny-tweaks) changes only
+type, images and margins. [Column drop](/column-drop) loses full height columns one at a time.
+[Off canvas](/off-canvas) parks a region outside the viewport until it is asked for.
+[Layout shifter](/layout-shifter) gives each size its own composition. Mostly fluid is the one
+that changes least while still being a grid: between the stacking breakpoint and the maximum
+width, nothing rearranges at all, and the layout is simply wider or narrower. That makes it the
+cheapest of the five to build and to review, because there is one arrangement to get right rather
+than two or three.
+
+The interesting decision is the maximum, and it is a typographic decision rather than a layout
+one. The grid stops growing where the longest column of text would otherwise pass a comfortable
+[measure](/measure), which in practice puts the cap somewhere around 60 to 75 characters for the
+widest text track and lets everything else be sized from that. Set the cap with `max-width` on
+the container, or let a `minmax()` track and `margin-inline: auto` do it, and state the number
+somewhere a reviewer can find it: a cap that nobody wrote down gets raised by the first person
+who thinks the page looks empty on a large monitor.
+
+What happens above the cap is a separate design problem, and mostly fluid does not answer it. The
+pattern says growth stops; it does not say what the leftover room is for. Left alone it becomes
+symmetric empty margin, which is a legitimate answer and often the right one.
+[Responsive upscaling](/responsive-upscaling) is the term for taking that room seriously instead
+and giving it a job, a promoted sidebar or a second column of secondary content, and the
+distinction is worth keeping straight in review: a page that looks thin on a large screen usually
+does not need a bigger cap, it needs a decision about the margins.

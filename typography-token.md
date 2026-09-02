@@ -1,0 +1,74 @@
+---
+name: Typography token
+slug: typography-token
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A named bundle of type values (family, size, weight, line height,
+  tracking) that a design system hands out instead of raw numbers.
+aliases:
+  - name: type token
+  - name: type style
+  - name: font token
+  - name: text style
+    source: hig
+  - name: typography role
+    source: material
+tags:
+  - fonts
+  - tokens
+relations:
+  contrastWith:
+    - type-scale
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - color-token
+implementations:
+  - system: material
+    name: Type scale tokens
+    url: https://m3.material.io/styles/typography/type-scale-tokens
+sources:
+  - title: "Material 3: Type scale tokens"
+    url: https://m3.material.io/styles/typography/type-scale-tokens
+  - title: "Fluent 2: Design tokens"
+    url: https://fluent2.microsoft.design/design-tokens
+demo: inline
+exhibit: false
+useWhen: naming a text style so it can be reused and themed
+---
+
+A typography token is a named text style a design system hands out: `type.body`,
+`body-medium`, `--p-font-size-350`. What makes it a token rather than a loose
+variable is that it names a role and carries everything that role needs, family,
+size, weight, line height and tracking together, so a component asks for the
+role and never for the numbers. That indirection is the whole return on the
+work: a denser platform, a larger accessibility setting, or a new face can
+re-resolve every value at once without a single component being edited.
+
+It is easy to mistake for a [type scale](/type-scale), and the distinction is
+worth holding onto. A type scale is the ratio that generates the sizes, and a
+typography token is the named bundle a component asks for by role. The scale
+answers what sizes exist; the token answers what a card heading uses. Most token
+sets are built on a scale, but a scale with no names attached leaves every
+component picking a step by hand, which is exactly the coupling tokens exist to
+break.
+
+The layering is the same one colour already uses. A
+[primitive color token](/primitive-color-token) holds a raw value and a
+[color alias](/color-alias) gives it a role, so components consume the role and
+the primitive stays swappable. Typography does the same thing with one extra
+wrinkle: a type role is a bundle rather than a single value, so the alias layer
+is where line height and tracking get pinned to the size they were drawn for,
+instead of being retyped in whichever component happened to need them.
+
+Two failure modes account for most of the disappointment. A token that carries
+only a size is barely a token: line height goes back to being written per
+component and the vertical rhythm drifts within a release. And a token named for
+its appearance rather than its role (`large-bold`, `small-grey`) cannot be
+re-themed, because there is nowhere to say that a card heading should get
+smaller on a dense screen while a page title does not. Role names are also what
+makes [Dynamic Type](/dynamic-type) tractable: the reader moves one slider and
+every consumer of the role follows, which only works if the consumers asked for
+roles in the first place.

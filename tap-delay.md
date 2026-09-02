@@ -1,0 +1,70 @@
+---
+name: Tap delay
+slug: tap-delay
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The pause a touch browser once held before dispatching a click, kept
+  open in case a second tap arrived and turned the gesture into a zoom.
+aliases:
+  - name: 300ms click delay
+    source: community
+  - name: click delay
+    source: community
+  - name: touch delay
+    source: community
+tags:
+  - perceived-performance
+  - touch
+relations:
+  contrastWith:
+    - ghost-click
+    - sticky-hover
+    - drag-threshold
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Chrome for Developers: 300ms tap delay, gone away"
+    url: https://developer.chrome.com/blog/300ms-tap-delay-gone-away
+demo: inline
+exhibit: false
+useWhen: naming the historic lag between tap and response
+---
+
+When the first iPhone put a desktop browser on a phone, it had to make pages built for a
+mouse usable at a quarter of the width, and its answer was double tap to zoom. That single
+decision created the delay. A tap arrives, and the browser cannot yet know what it is: on
+its own it is a click, but if a second tap lands within about three hundred milliseconds
+the pair means zoom instead. So the browser waited out the window before dispatching the
+click, and every button on the mobile web answered a third of a second late. That is long
+enough to feel broken rather than slow, which is why people tapped again, and why
+interfaces of the era were full of double-fired actions.
+
+The workaround came first and the fix came later. Libraries such as FastClick listened for
+the raw touch events, synthesized a click immediately, and swallowed the real one when it
+finally arrived, which worked and brought problems of its own, including the ghost click:
+a click dispatched at the coordinates of a touch after the interface underneath had already
+moved on. Browsers then removed the delay properly, one condition at a time. A page
+declaring `<meta name="viewport" content="width=device-width">` is already laid out for the
+screen, so double tap to zoom buys it nothing and Chrome stopped waiting on such pages in
+2015; Safari followed on iOS 9.3. `touch-action: manipulation` says the same thing for a
+single element, keeping panning and pinching while giving up the double tap, and it remains
+the precise tool for a control on a page that is otherwise zoomable.
+
+The delay is gone from any page that meets those conditions, so a script that fights it in
+2026 is a script fighting a browser it will never meet. FastClick was retired for exactly
+this reason, and its ghost clicks and its interference with form controls went with it. The
+term survives because the symptom outlived the cause: an unresponsive tap is still the
+first thing people call the tap delay, and it is now almost always something else, a heavy
+event handler blocking the main thread, an animation that starts before the state changes,
+or a control with no pressed state at all to acknowledge the touch.
+
+The lesson worth keeping is about zoom, not about milliseconds. Every fix listed above works
+by giving up a gesture, and the ones that give up too much are the ones that cause harm.
+`user-scalable=no` and a maximum scale of one also remove the delay, and they remove
+pinch to zoom along with it, which fails WCAG and takes away the accommodation people rely
+on most. Set the viewport width, reach for `touch-action: manipulation` where a control
+needs it, and leave zooming alone.

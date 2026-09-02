@@ -1,0 +1,65 @@
+---
+name: Drag handle
+slug: drag-handle
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The small gripped area, often drawn as rows of dots or lines, that
+  marks where an item may be picked up and dragged.
+aliases:
+  - name: grip
+    source: community
+  - name: grip dots
+    source: community
+  - name: move handle
+    source: community
+  - name: reorder handle
+    source: community
+tags:
+  - dragging
+  - icons
+relations:
+  contrastWith:
+    - grabber
+    - resize-handle
+    - node-port
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - drag-and-drop
+    - drag-preview
+implementations: []
+sources:
+  - title: "Cloudscape: Drag and drop"
+    url: https://cloudscape.design/patterns/general/drag-and-drop/
+demo: inline
+exhibit: false
+useWhen: the part of an item that says grab me here
+---
+
+A drag handle answers a question the interface cannot otherwise answer: can this
+be moved, and if so, from where. Dragging leaves no trace until it starts, so a
+row that is reorderable looks exactly like a row that is not. The dots are the
+sign, and they are drawn in the same place on every row so that the eye finds the
+column once and stops looking.
+
+Restricting the drag to the handle is the point, not a limitation. If the whole
+row is draggable, then selecting the text in it, tapping a link inside it, and
+scrolling a list of them on touch all collide with the gesture, and the reader
+loses ordinary abilities to gain one. With a handle, dragging the label still
+selects the label, which is what everyone expects text to do, and the list still
+scrolls under a finger.
+
+The mark is a few pixels of dots, and the target must not be. Give the handle a
+hit area of at least the platform's minimum, usually around forty-four pixels
+square, centred on the dots. Give it a real button with a name that says what it
+moves ("Reorder Ember"), because a handle is a control: a gesture-only affordance
+is a gesture-only feature, so the same reorder has to be reachable by keyboard,
+whether that is arrow keys while the handle is focused or a move item in a menu.
+
+Two words sit next to this one. Material calls the mark a drag indicator, and the
+[grabber](/grabber) is the horizontal bar at the top of a sheet, which is the same
+idea drawn for a surface rather than for a row. Both are separate from
+[drag and drop](/drag-and-drop), which names the whole interaction: the handle is
+only where it may begin.

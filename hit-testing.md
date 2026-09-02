@@ -1,0 +1,69 @@
+---
+name: Hit testing
+slug: hit-testing
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Working out which element sits under a pointer, which decides who
+  receives the event when shapes overlap or transparent areas are in the way.
+aliases:
+  - name: hit test
+    source: mdn
+  - name: hit detection
+    source: community
+  - name: pick
+    source: community
+tags:
+  - pointer
+  - web-platform
+relations:
+  contrastWith:
+    - hit-slop
+    - pointer-capture
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - nested-interactive
+implementations: []
+sources:
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+exhibit: false
+useWhen: asking which element a click actually lands on
+---
+
+Every pointer event starts with a question the browser answers before any of your code
+runs: of everything painted at this point, which element is on top? That element becomes
+the event's target, and the event then bubbles from it up through its ancestors. In a flat
+layout the answer is obvious and nobody thinks about it. Interfaces are not flat: a badge
+sits over a thumbnail, a gradient wash sits over a photograph so white text stays legible,
+a full-bleed scrim sits over an entire card. Each of those is a box that answers for the
+point it covers, and a click aimed at what is underneath never gets there.
+
+What counts as being under the point is the element's box, not the pixels it happens to
+have drawn. A transparent corner of a PNG still answers, because the image element is a
+rectangle whatever the file contains. Rounded corners do clip, since `border-radius`
+changes the shape the browser tests against, and so does `clip-path`. An SVG shape is
+tested against its fill and stroke rather than its bounding box, which is why an icon drawn
+as a thin outline can be maddening to click until something gives it a solid backdrop.
+Paint order decides ties, so the stacking context rules that put a positioned element above
+its siblings are also the rules that decide who receives the click.
+
+`pointer-events: none` is the opt-out, and it is the fix for the decorative overlay: the
+element is still painted, but it is skipped during the hit test entirely and the point
+resolves to whatever is behind it. It inherits, so children of an ignored element are
+ignored too, and a child that needs to stay clickable has to set `pointer-events: auto`
+back on itself. When something is stealing clicks and no amount of reading the markup finds
+it, `document.elementFromPoint(x, y)` names the culprit directly, and `elementsFromPoint`
+returns the whole stack at that point in paint order, which is the faster way to see an
+invisible layer you had forgotten was there.
+
+The same mechanism is what lets a target be made bigger than it looks. A twelve pixel
+close glyph can carry a transparent pseudo-element that pushes its hit area out to the
+recommended minimum, so the drawing stays small and the thing you are aiming at is not,
+which is how touch target size is usually satisfied without redrawing anything. The
+discipline is to keep those invisible expansions from overlapping each other: two controls
+whose grown areas cross will trade clicks in a way that is invisible in a screenshot and
+very obvious under a thumb.

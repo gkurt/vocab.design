@@ -1,0 +1,58 @@
+---
+name: Aurora UI
+slug: aurora-ui
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A style whose background is built from heavily blurred color blobs
+  that glow and drift like the northern lights behind the content.
+aliases:
+  - name: aurora gradient
+  - name: northern lights background
+    source: community
+  - name: blurred blob background
+  - name: glow background
+tags:
+  - depth
+relations:
+  contrastWith:
+    - mesh-gradient
+    - grainy-gradient
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - gradient
+    - float-animation
+    - particle-background
+implementations: []
+sources:
+  - title: "Hype4 Academy: Aurora UI, new visual trend for 2021"
+    url: https://hype4.academy/articles/design/aurora-ui-new-visual-trend-for-2021
+  - title: "Superdesign: Aurora UI, the CSS gradient recipe and when it breaks"
+    url: https://superdesign.dev/styles/aurora
+demo: inline
+exhibit: false
+useWhen: the background is soft glowing bands of color
+---
+
+The recipe is short: take a dark or very light base, drop two to four large circles of
+saturated colour on it, blur each one until its edge is gone, and let them overlap. The
+overlaps make hues the palette never named, which is why an aurora reads as a light
+source rather than as a fill. Movement is optional and usually very slow, a drift and a
+gentle scale over ten or twenty seconds, so the background feels alive without ever
+asking to be watched.
+
+Hype4 named the trend in 2021, after the look spread from Stripe's gradient headers and
+the Windows 11 and macOS Big Sur wallpapers into product marketing everywhere. It is a
+backdrop style, not an interface style: content sits on top in flat cards or glass
+panels, and the aurora's job is to give an otherwise empty area colour and depth
+without any imagery to license, localise, or art direct.
+
+It fails in three predictable ways. Text laid directly on the blobs has contrast that
+changes across the element, so anything readable needs its own surface or a scrim. Large
+blur radii are expensive to composite, and a full-viewport aurora that also animates
+will cost frames on low-end hardware. And smooth gradients band on eight bit displays,
+which is why production versions usually add a faint noise texture over the top. Drift
+should also respect a stated motion preference, since a moving background is exactly the
+kind of ambient motion `prefers-reduced-motion` exists to stop.

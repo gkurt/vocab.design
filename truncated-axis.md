@@ -1,0 +1,74 @@
+---
+name: Truncated axis
+slug: truncated-axis
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Starting a value axis above zero so differences look bigger than
+  they are; honest for lines and dots, a lie for bars.
+aliases:
+  - name: broken axis
+  - name: axis truncation
+  - name: cut y-axis
+  - name: non-zero baseline
+  - name: zero baseline
+tags:
+  - dataviz
+  - perception
+relations:
+  contrastWith:
+    - axis
+    - dual-axis
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Calling Bullshit: Misleading axes"
+    url: https://www.callingbullshit.org/tools/tools_misleading_axes.html
+  - title: "Fundamentals of Data Visualization: Proportional ink"
+    url: https://clauswilke.com/dataviz/proportional-ink.html
+demo: inline
+exhibit: false
+useWhen: judging whether cutting the y-axis exaggerates or clarifies
+---
+
+A value axis does not have to start at zero, and most of the long-running argument about
+misleading charts is really an argument about when it does. Truncating means beginning the
+scale just under the smallest number in the data, which spends the whole plot on the range
+those numbers actually occupy. Every difference gets bigger. Whether that reads as
+clarification or as exaggeration depends entirely on what the marks encode, which is why
+"always start at zero" is a rule that is right half the time and confidently wrong the
+other half.
+
+Bars encode value as length measured from a baseline, so the baseline is part of the
+encoding rather than a framing choice around it. Claus Wilke states the constraint as
+[proportional ink](https://clauswilke.com/dataviz/proportional-ink.html): the ink a mark
+spends has to be proportional to the value it stands for, and a bar cut off underneath is
+spending its length on a quantity nothing in the chart names. The specimen above runs the
+same four quarters both ways. Handset share moves from 46.8 to 48.4 percent, a rise of 3.4
+percent, and with the axis cut at 46.4 the last bar is drawn five times the height of the
+first. Nothing in the drawing is false. Every bar ends at the correct tick, and the tick is
+labelled. The reader is simply being invited to compare lengths that have stopped meaning
+what lengths mean.
+
+Lines and dots are the other case, and they are the reason the zero rule cannot be applied
+blind. A line encodes value as position, read against the labelled scale rather than against
+the bottom of the frame, so a chart of body temperature, of a share price, or of pH has no
+business starting at zero: the plot would be a flat band with every reading crushed into a
+few pixels. Truncation there is not a trick, it is what makes the chart legible at all. The
+dishonesty is never the cut. It is cutting silently, with a scale small enough to go
+unread and a shape loud enough to be remembered, which is what the axis break glyph (the
+little zigzag through the baseline) exists to prevent. [Calling
+Bullshit](https://www.callingbullshit.org/tools/tools_misleading_axes.html) collects the
+cases where that signal was left off on purpose.
+
+Three neighbours separate this cleanly. [Axis](/axis) is the component a truncation is a
+choice about: the axis is the drawn line, its ticks, and its labels, while truncation is a
+decision about the domain those labels report, so the same axis component draws both charts
+in the specimen. [Chart](/chart) is the whole drawing the axis serves. And when the cut is
+made deliberately, to win an argument the numbers do not support, the word for it stops
+being a charting term: that is a [dark pattern](/dark-pattern) working by
+[misdirection](/misdirection), sending attention to a shape while the evidence sits in
+small grey type at the left edge.

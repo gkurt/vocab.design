@@ -1,0 +1,66 @@
+---
+name: Mini cart
+slug: mini-cart
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A compact view of the basket opened from the cart icon, confirming
+  what was just added and offering checkout without leaving the current page.
+aliases:
+  - name: cart drawer
+    source: community
+  - name: slide-out cart
+    source: community
+  - name: cart preview
+    source: community
+  - name: basket flyout
+    source: community
+tags:
+  - commerce
+  - overlays
+relations:
+  contrastWith:
+    - drawer
+    - save-for-later
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - order-summary
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the small basket panel that opens from the cart icon
+---
+
+A mini cart is defined by its job, not by where it sits. The job has two halves: confirm
+that the thing just added really is in the basket, and keep the reader on the page they
+were shopping. Everything else about it follows from that pairing. It shows the line that
+was added rather than a count, because a count cannot say which variant landed. It shows a
+subtotal, because the next question after "did it work" is always "how much is this now".
+And it offers two routes out, checkout and back to shopping, because a panel that only
+offers checkout is pushing rather than confirming.
+
+The position is an implementation detail, which is why the aliases disagree with each
+other. The same job is built as a [drawer](/drawer) sliding in from the right edge, as a
+popover hanging off the cart icon, and as a panel that expands inline under the header,
+and the names follow the build: cart drawer, slide-out cart, basket flyout, cart preview.
+A drawer is the generic edge-docked panel and can hold anything, navigation included, so
+"cart drawer" names the construction while "mini cart" names the purpose. Only one of the
+two survives a redesign that moves the panel.
+
+Two details decide whether it works. The added line has to be marked as the new one, since
+a returning shopper's basket may already have five lines and an unmarked sixth proves
+nothing. And dismissal has to be explicit, a close control or a keep-shopping button,
+because a panel that vanishes on a timer takes the subtotal away exactly when the reader
+starts reading it. A mini cart that opens over the page and then blocks it has quietly
+become an interruption, which is the failure mode worth watching for on small screens,
+where the panel is usually full width.
+
+The alternative is to skip the panel. Some shops confirm with a [toast](/toast) and nothing
+else, which is cheaper, less interrupting, and much weaker at confirmation: a toast cannot
+carry a subtotal, a thumbnail, or a route to checkout, and it leaves on its own before a
+distracted reader has looked. Sites that want both usually pair a toast with a
+[sticky add to cart](/sticky-add-to-cart) bar and keep the full [order
+summary](/order-summary) for the checkout page itself.

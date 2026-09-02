@@ -1,0 +1,62 @@
+---
+name: Ken Burns effect
+slug: ken-burns-effect
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A slow pan and zoom across a still image that gives it motion, named
+  after the documentary filmmaker who made the technique famous.
+aliases:
+  - name: pan and zoom
+    source: community
+  - name: slow zoom
+    source: community
+  - name: hero image zoom
+    source: community
+tags:
+  - media
+relations:
+  contrastWith:
+    - dolly-zoom
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - parallax
+implementations: []
+sources:
+  - title: "Wikipedia: Ken Burns effect"
+    url: https://en.wikipedia.org/wiki/Ken_Burns_effect
+demo: inline
+exhibit: false
+useWhen: a static image needs life without becoming video
+---
+
+The technique is older than the name. Filming a photograph and moving the camera slowly across
+it, closing in on a face or drifting from one edge of a crowd to the other, is how archival
+material has been cut into documentaries for as long as there have been documentaries. It
+carries the name of the American filmmaker Ken Burns because his series leaned on it so
+heavily that the move became his signature, and Apple then shipped a feature called after him
+in iMovie, which is how a director's habit became a checkbox.
+
+On the web it is one CSS transform. A picture is cropped by a container with the overflow
+hidden, and the picture itself is slightly larger than the crop and animates between two
+transforms, so the visible region drifts and tightens. Because it is `transform` and nothing
+else, it is one of the few decorative effects that costs almost nothing to run: the
+compositor can carry it while the rest of the page gets on with its work. Hero sections,
+slideshow slides, and the still frames between video segments are where it turns up.
+
+The craft is entirely in restraint. One direction, not two. A zoom of ten or fifteen percent
+over eight to twelve seconds, not a march across the frame. Linear timing, because a drift
+that eases is a drift the eye can see starting and stopping, and the whole point is that the
+motion should be noticed only in the sense that the image feels alive. The crop has to be
+chosen around the focal point of the picture, so that the tightest moment lands on the face
+or the horizon rather than on somebody's elbow, and the source image has to have the pixels
+to spare, or the ending is a soft one.
+
+It is also an effect with no information in it, which makes the accessible answer simple.
+Under a stated preference for reduced motion the picture holds still, at a crop that was
+composed to be looked at rather than at whichever frame the animation happened to reach. Not
+slower, not shorter: static. Nothing was being said by the movement, so nothing is lost by
+removing it, which is a rarer and more comfortable position than most motion decisions get to
+be in.

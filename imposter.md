@@ -1,0 +1,70 @@
+---
+name: Imposter
+slug: imposter
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A layout primitive that positions one element centred over its
+  container, overlapping whatever is beneath rather than taking a place in the
+  flow.
+aliases:
+  - name: the imposter
+    source: every-layout
+  - name: overlay centre
+    source: community
+  - name: absolute centre
+    source: community
+tags:
+  - overlays
+relations:
+  contrastWith:
+    - top-layer
+    - cover
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - anchor-positioning
+implementations: []
+sources:
+  - title: Layouts, Every Layout
+    url: https://every-layout.dev/layouts/
+demo: inline
+exhibit: false
+useWhen: one element floated dead centre over the rest
+---
+
+The imposter is the smallest of Every Layout's primitives and the only one whose job is to
+opt out. Every other primitive arranges children in the flow, dividing space between them; the
+imposter takes one element out of the flow and pins it to the middle of a container, where it
+covers whatever was already there. The recipe is three declarations: the container gets
+`position: relative`, and the child gets `position: absolute` with its offsets and translate
+set to land on the centre. The name is the point. An element in this position is pretending to
+belong to the layout while contributing nothing to it, so nothing around it moves to make room.
+
+What the primitive gives you is the positioning, and nothing else. That is worth stating
+because the things built on top of it have much stronger names. A [scrim](/scrim) is a
+full-bleed wash that dims the layer beneath; an imposter is not a scrim, though a scrim's
+dialog is usually an imposter. A [modal dialog](/modal-dialog) adds a focus trap, an accessible
+role, dismissal rules, and a place in the [top layer](/top-layer); an imposter adds none of
+those and must never be mistaken for one. Reach for the primitive when the centred thing is
+decoration or annotation: a sold-out stamp over a product image, a play button over a
+thumbnail, a label over a chart, an empty-state message centred in a panel. Reach for the
+component when the centred thing takes over.
+
+Its siblings on this site divide space rather than escaping it. A [cover](/cover) centres a
+principal element vertically while everything stays in the flow, which is the right choice
+whenever the centred thing should push the container to fit. A [cluster](/cluster) and a
+[switcher](/switcher) arrange peers. The distinction the imposter draws is between centring
+something and floating something: if the answer to what happens when the centred element grows
+is that the container should grow with it, the layout wanted a cover, not an imposter.
+
+Two failure modes come with the technique, both from the same cause: an absolutely positioned
+element does not answer to its container's size. Overflow is the first, since an imposter larger
+than what it sits over will simply hang outside it, which Every Layout answers with an optional
+contained variant that caps the element's size against its
+[containing block](/containing-block) and scrolls the excess. Occlusion is the second, and it is
+the one to test with real content: the imposter is covering something, and that something may be
+the text a reader needed. If the covered content matters, dim it deliberately or move the
+element off centre, because an overlay that hides an answer is a layout decision, not an
+accident of positioning.

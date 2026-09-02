@@ -1,0 +1,74 @@
+---
+name: Dynamic Type
+slug: dynamic-type
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A platform feature that scales interface text to a size the reader
+  chose in system settings, with layouts expected to reflow around it.
+aliases:
+  - name: text scaling
+  - name: font scaling
+  - name: large text sizes
+    source: hig
+  - name: accessibility text sizes
+    source: hig
+  - name: sp units
+    source: material
+tags:
+  - a11y
+  - platform-registers
+relations:
+  contrastWith:
+    - resize-text
+    - fluid-typography
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: hig
+    name: Dynamic Type
+    url: https://developer.apple.com/design/human-interface-guidelines/typography
+sources:
+  - title: The details of UI typography (WWDC20)
+    url: https://developer.apple.com/videos/play/wwdc2020/10175/
+demo: inline
+exhibit: false
+useWhen: the reader, not the designer, picks the text size
+---
+
+Dynamic Type is the arrangement where the reader sets the text size once, in
+system settings, and every app that plays along redraws itself at that size. The
+app never asks for a number. It asks for a role (body, headline, caption,
+footnote) and the platform hands back whatever that role measures at the
+setting in force, which on iOS runs from twelve steps below the default up to
+the accessibility sizes near the top of the range. Android says the same thing
+with the `sp` unit: a size written in `sp` is multiplied by the system font
+scale, while the same number written in `dp` is not. On the web the equivalent
+is honouring the browser's own font size, which is what setting type in `rem`
+rather than `px` buys.
+
+The split with [point size](/point-size) is worth saying plainly. A point size
+is what the designer specifies. Dynamic Type is what the reader chooses. A
+layout that only holds together at the designer's number is not a layout with
+a rendering bug, it is a layout that has quietly made the reader's setting
+unavailable, and for someone who needs the largest steps that is the whole
+interface gone.
+
+What breaks is almost never the type. It is the box around it: a row given a
+fixed height, a label set to one line, a title and a timestamp sharing a line
+that only just fits at the default. The rule that keeps a screen honest is that
+text may take whatever room it needs and the layout [reflows](/reflow) around
+it, so a row that no longer fits becomes a stack rather than a
+[truncation](/truncation). The same goes for the space the letters sit in:
+paddings, tap targets and gaps written against the type scale rather than
+against fixed pixels, which is the sibling requirement
+[text spacing](/text-spacing) makes.
+
+A [type scale](/type-scale) is what makes this tractable. Roles that are already
+defined as steps of one ratio can all be multiplied together and keep their
+relationships, so the heading stays a heading at every setting instead of
+colliding with the body. And the payoff is
+[readability](/readability) rather than novelty: most people who turn the
+setting up are not testing an edge case, they are reading.

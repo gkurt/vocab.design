@@ -1,0 +1,69 @@
+---
+name: Playhead
+slug: playhead
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The marker showing the current position in a timeline or track,
+  which travels during playback and can be dragged to move it.
+aliases:
+  - name: play head
+    source: community
+  - name: position marker
+    source: community
+  - name: needle
+    source: community
+tags:
+  - dragging
+  - media
+relations:
+  contrastWith:
+    - caret
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - track
+    - scrubber
+    - waveform
+    - scrubbing
+implementations: []
+sources:
+  - title: "UX Patterns for Developers: pattern index"
+    url: https://uxpatterns.dev/patterns
+demo: inline
+exhibit: false
+useWhen: the marker showing where playback is
+---
+
+A playhead is the marker that says now. It sits at the current position on a timeline and does
+two jobs at once: it reports where playback has got to, travelling on its own while media
+plays, and it accepts a drag to move playback somewhere else. In editing tools it is drawn as a
+head at the top of a vertical line that crosses every track in the stack, which is the shape
+the name comes from: the head of a tape machine, sitting over the moving tape.
+
+The word is worth learning because it separates three parts people routinely collapse into
+one. The [track](/track) is the groove, the fixed channel that states the whole duration. The
+playhead is the marker on it. The [scrubber](/scrubber) is the control the two make together,
+the thing a person actually operates, and this site's own definition of it leans on the word:
+a track showing elapsed and buffered time with a playhead you drag. Web developers use all
+three every day in a video player without ever learning the middle one, because HTML gives
+them a `<video>` element with the parts already assembled and no names for its insides. Video
+editors, digital audio workstations and animation tools all say playhead and expect you to
+know it.
+
+There is a real design decision hiding in that double job. A marker that reports position and a
+marker that accepts input want different sizes: the line wants to be one or two pixels so it
+reads as an exact instant, and the grab target wants to be thirty or forty so a person can hit
+it. The usual answer is a wide head at the top of a thin stem, with the hit area belonging to
+the head and often to the whole vertical band around the line. The same split explains why the
+line usually sits above every track in z-order and why it is drawn in a colour used nowhere
+else in the editor.
+
+Two behaviours are worth getting right. First, dragging the playhead should take over from
+playback rather than fight it: the drag pauses the travel, the position follows the pointer,
+and playback resumes from wherever it was dropped. Second, the marker should not lag. A
+playhead animated with a transition eases toward the position it has already reached, which
+turns an exact instant into a guess, so its position is set every frame and its movement is
+never eased. If the timeline can be zoomed, the playhead is also what the view scrolls to keep
+in sight, which is why it usually owns the auto-scroll rule rather than the tracks do.

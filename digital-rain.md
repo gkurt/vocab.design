@@ -1,0 +1,68 @@
+---
+name: Digital rain
+slug: digital-rain
+category: aesthetic
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Columns of glyphs falling and trailing away, green on black, the
+  Matrix screen quoted so often that it now reads as shorthand for a computer
+  thinking.
+aliases:
+  - name: matrix rain
+    source: community
+  - name: matrix code
+    source: community
+  - name: falling code
+    source: community
+tags:
+  - retro
+relations:
+  contrastWith:
+    - particle-background
+    - fictional-user-interface
+  variantOf:
+    - terminal-aesthetic
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Matrix digital rain"
+    url: https://en.wikipedia.org/wiki/Matrix_digital_rain
+demo: inline
+exhibit: false
+useWhen: falling columns of glyphs, green on black
+---
+
+Digital rain is a quotation, not a genre. It comes from the title sequence of the 1999 film
+The Matrix, where the code of the simulated world was drawn as columns of glyphs streaming
+down a black screen in phosphor green. The glyph set is its own invention: half-width katakana
+run through a mirror, mixed with a few Latin numerals, so the wall looks like writing and reads
+as nothing. Nearly thirty years of loading screens, hacker montages and conference backdrops
+later, the picture has become a stock signal that means a computer is working on something the
+viewer is not meant to follow.
+
+Everything about the effect is in the columns rather than in the palette. Each column falls at
+its own speed and respawns above the top edge when it clears the bottom, so the field never
+pulses in unison. The leading glyph is drawn near white and the ones behind it fade back through
+green over eight or ten cells, which is what makes a stream read as falling rather than as a
+list scrolling. And a cell keeps whatever glyph was written into it as the head passed, with new
+characters appearing only at the front, so the wall churns without the whole grid flickering.
+Get any one of those three wrong and it stops looking like the reference.
+
+Two duties come with using it. It is decorative motion with no informational content, so it
+answers [prefers reduced motion](/prefers-reduced-motion) with a still frame rather than a
+slower one, and it should pause when it is off screen. And it is a moving wall of mid green on
+black, which means no text laid directly on it has a stable [contrast ratio](/contrast-ratio):
+the ground under any given letter changes several times a second. Type over digital rain needs
+an opaque plate of its own, exactly as type over video does, and a specimen that puts a headline
+straight onto the field is showing a legibility problem rather than a background.
+
+The word is worth keeping separate from its neighbours. A [particle background](/particle-background)
+is the generic case, any field of small moving agents behind the content, and it can be any
+colour going in any direction; digital rain is one specific screen with a fixed palette, a fixed
+glyph set and one direction, which is why quoting it is a reference and inventing it is not
+possible. It sits inside [terminal aesthetic](/terminal-aesthetic), whose monospace grid and
+green-on-black phosphor it borrows wholesale, and beside
+[fictional user interface](/fictional-user-interface), which is the wider practice of screen
+graphics drawn for a camera rather than for a user.

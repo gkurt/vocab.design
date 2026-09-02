@@ -1,0 +1,70 @@
+---
+name: Rating prompt
+slug: rating-prompt
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An in-product request to rate or review, usually timed to a moment
+  of success and often filtered so only positive responses reach the public
+  store.
+aliases:
+  - name: review request
+    source: community
+  - name: app rating prompt
+    source: community
+  - name: review gating
+    source: community
+  - name: rate this app
+    source: community
+  - name: how are we doing
+    source: community
+tags:
+  - onboarding
+  - platform-registers
+relations:
+  contrastWith:
+    - microsurvey
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - nagging
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the app asks how you like it right after something went well
+---
+
+A rating prompt is a request for public credit, and its design is almost entirely a
+question of timing. Asked at random it collects the average feeling of everyone who
+happens to be holding the app, which is roughly the truth. Asked immediately after
+something worked, a route saved, a transfer cleared, a photo exported, it collects the
+feeling of a person who has just succeeded, which is a good deal better than the truth.
+Nobody has lied. The sample has simply been taken at the top of the wave, and the store
+listing that results is a picture of the best moment the product produces.
+
+The second move is the one with a rule attached. Many prompts do not ask for a rating at
+all, they ask a screening question first, then route the answer: the reader who says they
+are enjoying it is handed the store's own review sheet, and the reader who says they are
+not is handed a private feedback form that goes to the team and nowhere else. That is
+review gating, and both major app stores forbid it. Apple's review guidelines require that
+the rating request use the system API, which cannot be conditioned on the answer to a
+preceding question, and Google Play's policy on ratings and reviews prohibits deterring or
+discouraging negative reviews. The private form is not the offence; funnelling one branch
+into it while the other branch reaches the public record is.
+
+The honest version keeps the diagnosis and drops the filter. Ask the screening question if
+it is useful, then offer the same two doors to both answers: everyone can leave a public
+review, everyone can send private detail, and the reader chooses which they want rather
+than being sorted. Ask once, at a moment the reader can connect to something they did, and
+record the answer so it is not asked again, because a rating prompt that keeps coming back
+has stopped being a request and become [nagging](/nagging). Watch the copy on the refusal
+too: "no, I don't care about supporting free apps" is
+[confirmshaming](/confirmshaming) bolted onto a survey.
+
+None of this makes the pattern suspect on its own. Ratings are how a store ranks anything,
+and a product with no reviews is invisible, so asking is legitimate and asking well is
+craft. What turns it into a [dark pattern](/dark-pattern) is the gate: the moment the
+interface's interest in a high average and the reader's interest in an accurate one come
+apart, and the interface quietly decides which readers get to speak.

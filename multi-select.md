@@ -1,0 +1,71 @@
+---
+name: Multi select
+slug: multi-select
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A select that accepts several values at once, usually showing the
+  chosen ones as removable tokens inside the field.
+aliases:
+  - name: multiselect
+    source: cloudscape
+  - name: tag picker
+    source: fluent
+  - name: multi combobox
+    source: community
+tags:
+  - forms
+  - selection
+relations:
+  contrastWith:
+    - combobox
+    - tag-input
+    - listbox
+    - transfer-list
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - range-select
+implementations:
+  - system: fluent
+    name: Tag picker
+    url: https://fluent2.microsoft.design/components/web/react
+sources:
+  - title: "Cloudscape: components"
+    url: https://cloudscape.design/components/
+demo: inline
+exhibit: false
+useWhen: one field, several answers
+---
+
+A multi select is a [select](/select) whose answer is a set rather than a value.
+Everything else follows from that one change. The list cannot close on the first
+pick, because the reader is not finished; each option has to show whether it is in
+or out, which is why the rows carry checkboxes; and the field has to show a set,
+which is why the chosen values sit in it as removable tokens.
+
+Those tokens are the part that catches people out. A field holding three of them is
+taller than a field holding none, so a form built around a one line control starts
+shuffling everything below it as the reader chooses. Decide the shape up front:
+reserve the room the tokens will take, or keep them to one line and overflow into a
+"+3 more" token, or move them out of the field entirely into a row of
+[applied filters](/applied-filters) underneath. What you must not do is let the page
+jump every time someone answers.
+
+The names split by which half the system emphasises. Cloudscape calls it a
+multiselect, Fluent calls the version with a text input a tag picker, and a control
+that filters as you type is often called a multi combobox. It is worth keeping this
+term apart from [tag input](/tag-input), where the values are invented by the person
+typing rather than chosen from a list, and from a [transfer list](/transfer-list),
+which is the two column answer for picking dozens out of hundreds. When the whole
+list fits on screen and the field is not competing for room, plain checkboxes beat
+all of them.
+
+The accessibility work is mostly about not losing state. The popup is a listbox with
+`aria-multiselectable="true"` and `aria-selected` on every option, not just the
+chosen ones, so the reader can hear that an option is off. Keep the popup open as
+picks accumulate, and keep the reader where they were in it. Every token needs a
+removal that is reachable without a pointer, whether that is a labelled button
+("Remove failed") or Backspace from the end of the field, and the running total is
+worth announcing, because in a control like this the count is the answer.

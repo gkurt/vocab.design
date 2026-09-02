@@ -1,0 +1,73 @@
+---
+name: Node port
+slug: node-port
+category: component
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The typed stub on a node where a wire may land, coloured or shaped
+  by what it accepts, so a connection that would make no sense refuses to
+  complete.
+aliases:
+  - name: socket
+    source: blender
+  - name: node handle
+    source: xyflow
+  - name: connection point
+    source: community
+tags:
+  - canvas
+relations:
+  contrastWith:
+    - drag-handle
+  variantOf: []
+  partOf:
+    - node-graph
+  seeAlso:
+    - edge-routing
+implementations: []
+sources:
+  - title: "React Flow: Handle"
+    url: https://reactflow.dev/api-reference/components/handle
+  - title: "Blender Manual: Node Parts (sockets)"
+    url: https://docs.blender.org/manual/en/latest/interface/controls/nodes/parts.html
+demo: inline
+exhibit: false
+useWhen: the stub on a node where a wire connects
+---
+
+A port is the small stub on the edge of a node where a wire begins or ends. It is the
+smallest named part of a [node graph](/node-graph) and the one that carries the most
+meaning, because a port is typed: it declares what kind of value passes through it, and a
+wire that would carry the wrong kind will not land. That refusal is the design content of
+the whole family. A reader learns the model of the system from what the surface declines to
+connect, without a page of documentation and without an error appearing after the fact.
+
+The vocabulary is unsettled and worth knowing in all three spellings.
+[Blender](https://docs.blender.org/manual/en/latest/interface/controls/nodes/parts.html)
+calls it a socket and codes it twice over, by colour for the data it carries and by shape
+for whether the value is a single item or a field, so the compatibility rule is legible
+before a wire is pulled. [React Flow](https://reactflow.dev/api-reference/components/handle)
+calls it a Handle and makes its position and connectability properties of the component.
+Others say pin or connection point. The bare word "handle" is the one to avoid in prose,
+because in most interfaces a [drag handle](/drag-handle) is a grip that says grab me here,
+which is very nearly the opposite claim: a grip moves the thing it sits on, a port connects
+it to something else.
+
+Three details separate a good port from a frustrating one. The hit target has to be larger
+than the drawn stub, usually by a generous margin, because a 6px dot is not something a
+pointer or a finger can be expected to find; the drawn size is a matter of taste and the
+target is a matter of arithmetic. Ports should light up while a wire is in flight, so the
+answer to "where can this go" arrives before the reader guesses wrong rather than after.
+And a refusal has to say why: a wire that snaps back with no explanation reads as a broken
+drag, while one that reports a type mismatch teaches the rule it just enforced. Direction is
+usually implied by side, inputs on the left and outputs on the right, along with the
+convention that an input accepts one wire and an output fans out to many.
+
+Ports are also where a node graph's accessibility either exists or does not. A connection is
+a pair of ports, so a keyboard path through the graph needs each port to be reachable and
+each connection to be makeable without a pointer, which in practice means a port is a real
+focusable control with a name that includes its node, its direction and its type. Building
+that once is far cheaper than retrofitting it, and it has a useful side effect: naming every
+port properly forces the type model to be explicit, which is what makes the refusal
+explainable in the first place.

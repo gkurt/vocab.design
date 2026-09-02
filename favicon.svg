@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="vocab.design">
+  <title>vocab.design</title>
+  <!-- The header's wordmark, cut down to the one letter that fits in 16 pixels. Accent
+       tile rather than paper, because a tab bar is either light or dark and a solid mark
+       is legible against both. -->
+  <rect width="32" height="32" rx="7" fill="#b34410"/>
+  <g fill="#faf9f6">
+    <!-- Slab serifs on both stems: at this size they are what keeps the letter from
+         reading as a checkmark. -->
+    <rect x="3.9" y="8.4" width="6.7" height="1.9" rx="0.6"/>
+    <rect x="20.8" y="8.4" width="6.3" height="1.9" rx="0.6"/>
+    <path d="M4.6 9.9h5.3l6.3 12.4 5.2-12.4h5.1l-7.9 15.6h-5.4z"/>
+  </g>
+</svg>

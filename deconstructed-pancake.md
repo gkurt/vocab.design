@@ -1,0 +1,67 @@
+---
+name: Deconstructed pancake
+slug: deconstructed-pancake
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A row of equal cards that wraps to fewer per line as space runs out,
+  with the last line left aligned at its natural size rather than stretched to
+  fill.
+aliases:
+  - name: the deconstructed pancake
+    source: web-dev
+  - name: wrapping flex row
+    source: community
+tags:
+  - grids
+  - screen-size
+relations:
+  contrastWith:
+    - cluster
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - justified-gallery
+implementations: []
+sources:
+  - title: Deconstructed pancake, web.dev layout patterns
+    url: https://web.dev/patterns/layout/deconstructed-pancake/
+demo: inline
+exhibit: false
+useWhen: a wrapping row whose last line should not stretch
+---
+
+The deconstructed pancake is the marketing row: three feature cards side by side on a wide
+screen, two and one when the space tightens, one under another on a phone. It is named on
+[web.dev](https://web.dev) as one of a set of layout recipes, and the whole recipe is a single
+flex shorthand. `flex: 0 1 <basis>` on every child, `flex-wrap: wrap` on the parent. The basis
+sets each card's natural width, wrapping happens when the line runs out, and the zero in front
+is the part the name is about: growth is switched off, so a card that ends up alone on the last
+line keeps the width it had rather than swelling to fill the row.
+
+That refusal is the whole design decision, and it is worth being deliberate about it, because
+the alternative is one character away. Write `flex: 1 1 <basis>` and the cards grow to fill
+every line, which means the last line is a card of a different size from the ones above it,
+usually two or three times as wide. Sometimes that is what you want: a
+[pancake stack](/pancake-stack) fills its region on purpose, and a row of statistics can look
+better filled than ragged. For cards carrying an image and a heading it is almost always wrong,
+because the odd one out reads as more important than its peers, and any image inside it is
+suddenly the wrong shape.
+
+Its nearest neighbour in this vocabulary is the [switcher](/switcher), and the difference is how
+they respond to shrinking. A switcher flips all or nothing at one threshold: three across
+becomes three down, with nothing in between. A deconstructed pancake wraps progressively, so it
+passes through two and one on its way to one per line. A [cluster](/cluster) also wraps
+progressively, but its items are of unequal widths and pack like words in a paragraph, while
+the pancake's are equal by construction.
+
+Grid does the same job with a different accent, and the choice between them is a real one. The
+[RAM technique](/ram-technique), `repeat(auto-fit, minmax(<min>, 1fr))`, wraps at a computed
+threshold and stretches the tracks it has, which means a lone item on the last row spans the
+whole width: closer to `flex: 1 1` than to the pancake. Swap `auto-fit` for `auto-fill` and grid
+keeps the empty tracks instead, so the last item stays its natural size and the row keeps its
+rhythm, which is the grid spelling of this pattern. Flex wraps by content and cannot align
+across lines; grid holds a real column structure and can. Pick flex when the cards are a row
+that happens to wrap, and grid when they are a
+[card grid](/card-grid) whose columns should line up.

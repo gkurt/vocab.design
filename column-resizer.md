@@ -1,0 +1,68 @@
+---
+name: Column resizer
+slug: column-resizer
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The invisible strip on a column border that widens or narrows the
+  column when dragged, and often fits the column to its content on double click.
+aliases:
+  - name: column divider
+    source: community
+  - name: column grip
+    source: community
+  - name: resize gripper
+    source: community
+tags:
+  - dragging
+  - tables
+relations:
+  contrastWith:
+    - splitter
+    - resize-handle
+  variantOf: []
+  partOf:
+    - data-table
+  seeAlso:
+    - frozen-column
+implementations: []
+sources:
+  - title: Data table, Carbon Design System
+    url: https://carbondesignsystem.com/components/data-table/usage/
+demo: inline
+exhibit: false
+useWhen: dragging a column border to change its width
+---
+
+A column resizer is a few pixels of border promoted to a control. Nothing about the line
+between two column headings says it can be pulled, so the strip is made wider than it looks,
+usually four to eight pixels of hit area straddling a one pixel rule, and the cursor changes
+to a horizontal double arrow when the pointer is inside it. That cursor is doing most of the
+work of announcing the affordance, which is also why the resizer is one of the few controls
+that is genuinely invisible until approached and still counts as discoverable.
+
+Where it earns its keep is data nobody designed for. A [data table](/data-table) is laid out
+by whoever built it, but the strings arriving in it belong to the reader: one account name is
+four characters and the next is fifty, and no default width is right for both. Rather than
+guess, hand the reader the boundary. The same control appears in a [data grid](/data-grid),
+where it matters more, because a grid is a place people work for an hour at a time and column
+widths become part of their workspace, which is an argument for remembering the widths they
+chose.
+
+Two behaviours belong with the drag and are often forgotten. Double clicking the resizer
+should fit the column to its widest visible cell, since that is what the reader actually
+wants most of the time and dragging to find it by eye is tedious. And the widths have to add
+up: dragging one boundary must not shove the columns either side of it, because a table whose
+other columns twitch while you are aiming at one of them is unusable. In practice that means
+one flexible column, or trailing slack, or a table that simply gets wider and scrolls, and it
+means deciding explicitly whether a column is fixed, fitted to its content, or filling the
+space the others left. A resizer with no policy behind it produces the familiar bug where
+widening one column silently crushes another.
+
+Keep it apart from the two grips it looks like. A [drag handle](/drag-handle) moves a thing:
+grab it and the row goes somewhere else in the order. A [resize handle](/resize-handle) is the
+ribbed corner that grows a whole box in two dimensions at once. A column resizer changes a
+single dimension of a single column and moves nothing, which is why it is drawn as a line
+rather than as a grip with dots on it: the line is already there, doing the job of separating
+two columns, and the control is just permission to move it.

@@ -1,0 +1,69 @@
+---
+name: OpenType features
+slug: opentype-features
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Optional glyph substitutions and spacing rules packed inside a font
+  file, addressed by four-letter tags and switched on from CSS.
+aliases:
+  - name: font features
+  - name: feature tags
+  - name: font-feature-settings
+    source: css
+  - name: OpenType
+tags:
+  - fonts
+  - web-platform
+relations:
+  contrastWith:
+    - stylistic-set
+    - contextual-alternates
+    - ligature
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: OpenType font features (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts
+  - title: OpenType Features (Fonts.com)
+    url: https://www.fonts.com/content/learning/fyti/using-type-tools/opentype-features
+demo: inline
+exhibit: false
+useWhen: reaching for a font capability that is off by default
+---
+
+A font file is not only a set of drawings. It also carries tables of rules about
+those drawings: replace this pair of letters with a single [ligature](/ligature),
+swap these numerals for a set of a different width, rebuild this sequence as a
+fraction, pull these two shapes closer together. Each rule set has a four-letter
+tag, and the tags are the vocabulary you use to ask for them. Some are on before
+you ask (`liga`, `kern`, `calt`); the interesting ones are not.
+
+There are two ways to say it in CSS and they are not equals. `font-variant-caps`,
+`font-variant-ligatures`, and `font-variant-numeric` are the high-level spellings:
+they take readable keywords, they inherit sensibly, and separate declarations
+combine. `font-feature-settings` takes the raw tags, and it is one property holding
+one list, so a rule that sets `"frac" 1` on an element that had `"tnum" 1` from an
+ancestor has just turned tabular figures off. Reach for the high-level property
+whenever one exists, and keep `font-feature-settings` for tags that have no
+keyword, chiefly the stylistic sets `ss01` through `ss20`.
+
+The awkward part is discovery. Nothing in CSS reports which tags a given file
+actually carries, and asking for one that is missing is not an error: it simply
+does nothing, silently, which is what the third row of the specimen is. The one
+exception makes it worse, because `font-variant-caps: small-caps` will be faked by
+the browser out of scaled capitals when the font has no `smcp` table, so the
+declaration that looks like it worked is the one you should distrust. Real
+[small caps](/small-caps) are drawn, not shrunk. Check a face before you build a
+design on a feature, and remember that a [fallback font](/fallback-font) will not
+have the same tables.
+
+Two habits keep this honest. Scope every feature to where it belongs, since
+[tabular figures](/tabular-figures) across a whole document make prose look like a
+spreadsheet and discretionary ligatures in running text are a distraction. And
+remember that all of this is rendering only: the DOM still holds `1/2` and
+`office`, so search, copy and paste, and screen readers see the characters you
+wrote, not the glyphs that were drawn for them.

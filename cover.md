@@ -1,0 +1,71 @@
+---
+name: Cover
+slug: cover
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A layout primitive that fills at least the viewport height, centring
+  a principal element vertically with optional header and footer pinned above
+  and below.
+aliases:
+  - name: the cover
+    source: every-layout
+  - name: full height section
+    source: community
+  - name: viewport height section
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - hero
+    - imposter
+    - pancake-stack
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: The Cover, Every Layout
+    url: https://every-layout.dev/layouts/cover/
+demo: inline
+exhibit: false
+useWhen: a full height panel with something centred in it
+---
+
+The Cover is one of the primitives named in [Every Layout](https://every-layout.dev), and it
+solves the arrangement everyone builds by hand for a landing screen: a region at least as tall
+as the viewport, one principal element centred in it, and optionally something pinned at the
+top (a logo, a nav) and something at the bottom (a scroll hint, a footnote). The whole
+implementation is a flex column with a minimum height, a small amount of padding, and
+`margin-block: auto` on the principal child, which pushes the free space evenly above and
+below it. Nothing is positioned absolutely, nothing is measured, and the arrangement survives
+content it was not designed for.
+
+The word minimum is the load-bearing part. A cover states a minimum height rather than a
+height, so short content gets a full screen with the principal element floating in the middle
+of it, and long content simply makes the region taller and pushes the footer honestly below
+the fold. Setting a fixed height instead is the classic bug: the principal element stays
+centred for a while and then, at some content length nobody tested, quietly overflows the
+region and gets clipped or double scrolled. The other detail worth stating is the padding,
+because it is what keeps the header and footer off the region's edges and stops the centred
+element touching them at very short viewport heights.
+
+A cover is not a [hero](/hero), though heroes are usually built out of one. Hero names the
+content and its job (the big introductory statement at the top of a page); cover names the
+geometry that holds it, and covers turn up plenty of places a hero would not: an empty state, a
+sign in panel, a slide in a deck. Nor is it a [sticky footer](/sticky-footer) arrangement, which
+keeps a page footer at the bottom of the window without centring anything, or the
+[pancake stack](/pancake-stack), which is the same three row shape with the middle row expanding
+rather than its contents centring. Because a cover is deliberately a viewport tall, it is also
+the layout most responsible for [the fold](/the-fold), and pairs naturally with
+[scroll snap](/scroll-snap) when several of them run down a page. Where a cover distributes
+along the block axis, its sibling primitive the [cluster](/cluster) wraps along the inline axis.
+
+Two practical notes. Use the dynamic viewport units (`100dvh` or `min-block-size: 100dvb`)
+rather than `100vh` on phones, since the browser toolbars that appear and disappear are exactly
+what the static unit measures wrongly. And when a cover is nested inside something rather than
+sitting on the page, the minimum should be stated against its container rather than the
+viewport, which is what makes the primitive reusable at all: an
+[aspect ratio box](/aspect-ratio-box) or a panel in a [canonical layout](/canonical-layout) can
+host one perfectly well, and the centring behaves exactly the same at any minimum you give it.

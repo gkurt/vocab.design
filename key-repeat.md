@@ -1,0 +1,69 @@
+---
+name: Key repeat
+slug: key-repeat
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A held key firing repeatedly after an initial delay, which is how
+  arrow keys scroll and backspace deletes more than one character.
+aliases:
+  - name: auto-repeat
+    source: community
+  - name: typematic
+    source: community
+  - name: repeat rate
+    source: community
+  - name: key repeat delay
+    source: community
+tags:
+  - keyboard
+relations:
+  contrastWith:
+    - nudge
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - keyboard-shortcut
+implementations: []
+sources:
+  - title: "ARIA APG: Developing a keyboard interface"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+exhibit: false
+useWhen: holding a key keeps producing the action
+---
+
+Hold a key down and it fires once, pauses, then fires over and over until you let go. The
+pause is the initial delay, the run after it is the repeat rate, and both numbers belong to
+the operating system rather than to any application: a typical desktop waits somewhere near
+half a second and then produces roughly thirty characters a second, and the reader may have
+moved either slider a long way from that. What reaches the page is a plain stream of
+`keydown` events with no gaps in it, one `keyup` at the very end, and a single flag,
+`event.repeat`, marking every event after the first.
+
+That flag is the whole practical lesson. Anything cheap and incremental should be happy to
+be repeated, because repetition is exactly what the reader is asking for: moving a caret,
+deleting a character, nudging a selected object, stepping a value, scrolling a list. Anything
+expensive or irreversible must check the flag and refuse: a shortcut that opens a dialog, a
+key that submits, a handler that fires a request. Holding the key for a second is not a
+deliberate act repeated thirty times, it is one act with a slow finger on it, and code that
+cannot tell the difference will fire thirty dialogs. The same goes for counting: the number
+of `keydown` events is not the number of presses, so a press counter has to ignore repeats.
+
+Repeat is also a place where people differ enormously. Operating systems let the delay be
+lengthened, the rate slowed, or repeat turned off entirely, and the accessibility settings
+around it (slow keys, which require a key to be held before it registers at all, bounce keys,
+which ignore a second press of the same key too soon after the first, and sticky keys) exist
+because a hand with a tremor, or one moving with a mouthstick, produces presses that a default
+configuration reads as either accidental or deliberate in exactly the wrong way. So an
+interface may lean on repeat as a convenience and must never depend on it: whatever a held
+key achieves needs to be achievable by pressing repeatedly, or better, by one press of
+something coarser.
+
+That coarser thing is usually a modifier. The pattern in every design tool is a small step
+on the plain arrow and a large one with Shift held, which is where nudge lives, and it is
+what keeps repeat from being the only way to travel any distance. Repeat gives velocity;
+the modifier gives reach. The nice property of pairing them is that the reader never has to
+guess how long a hold will take to arrive somewhere, because the coarse step gets them close
+in a countable number of presses and the fine one finishes the job.

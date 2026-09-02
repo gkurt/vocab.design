@@ -1,0 +1,77 @@
+---
+name: Ghost click
+slug: ghost-click
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-25T00:00:00.000Z
+definition: A stray click the browser emits after a touch has already been
+  handled, landing on whatever moved under the finger in the meantime.
+aliases:
+  - name: ghostclick
+    source: community
+  - name: phantom click
+    source: community
+  - name: double activation
+    source: community
+tags:
+  - errors
+  - touch
+  - web-platform
+relations:
+  contrastWith:
+    - pointer-cancellation
+    - tap-delay
+    - rage-click
+    - hydration
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "FastClick: polyfill to remove click delays"
+    url: https://github.com/ftlabs/fastclick
+  - title: "Chrome for Developers: 300ms tap delay, gone away"
+    url: https://developer.chrome.com/blog/300ms-tap-delay-gone-away
+demo: inline
+exhibit: false
+useWhen: one touch produces a second, unwanted activation
+---
+
+A touch on a phone produces two conversations, not one. First the touch events fire, and
+then, some milliseconds later, the browser synthesizes a mouse sequence at the same
+coordinates so that pages written for a desktop still work. A ghost click is the second of
+those arriving after the first has already been acted on. The click carries a point, not an
+element, so it is delivered to whatever happens to be under that point when it lands, and if
+the interface has changed in the interval, that is somebody else's control. The classic
+recipe is a handler that fires on `touchend`, closes a menu or opens a banner, and then
+watches a synthesized click activate the row that slid into the vacated space.
+
+The gap existed because of [tap delay](/tap-delay): browsers held the click back for about
+three hundred milliseconds in case a second tap turned the gesture into a zoom. Three hundred
+milliseconds is a long time in an interface. A list can collapse, a modal can close, a
+notification can push everything down by one row. Anything that moves content in response to
+a touch was therefore capable of firing a second, invisible activation somewhere the reader
+never pointed, and destructive actions sitting next to dismissive ones is exactly how that
+bug got noticed. Libraries such as [FastClick](https://github.com/ftlabs/fastclick) made it
+worse before they made it better: synthesizing a click immediately on `touchend` and then
+failing to suppress the browser's own one is the shortest path to a double activation.
+
+The fixes are all about suppression. Calling `preventDefault()` on the touch event tells the
+browser not to synthesize the mouse sequence at all, which is correct and costly, since it
+also cancels scrolling and the default behaviours of form controls, so it belongs on the
+element rather than on the document. A blunter guard is to make the moving region ignore
+pointer input for a few hundred milliseconds after a touch, with `pointer-events: none` or a
+flag in the handler, so the stray click lands on nothing. Better than either is not to move
+things under a finger that just touched them: reserve the banner's space, animate a change
+in after the click could have arrived, or handle the interaction with pointer events, which
+report touch and mouse through one stream and never emit a duplicate.
+
+This is history worth carrying, not a live hazard on a modern page. Browsers dropped the
+delay for pages that declare a viewport width, `touch-action: manipulation` handles the
+remaining cases, and the phrase now shows up mostly in old issue threads. It stays useful
+for two reasons. It names a whole class of bug precisely, a second activation caused by
+content moving between an input and its consequence, and that class survives its original
+cause: a hydration pass that replaces a button between `pointerdown` and `click`, or an
+overlay dismissed on `mousedown` that lets the click fall through, produce the same symptom
+and are diagnosed the same way.

@@ -1,0 +1,66 @@
+---
+name: Focus appearance
+slug: focus-appearance
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The size and contrast a focus indicator must reach to count as
+  visible: enough area around the control, enough change against both the
+  control and its background."
+aliases:
+  - name: focus indicator contrast
+    source: community
+  - name: focus indicator size
+    source: wcag
+  - name: 2px outline rule
+    source: community
+tags:
+  - keyboard
+  - wcag
+relations:
+  contrastWith:
+    - non-text-contrast
+    - focus-ring
+    - focus-visible
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Focus Appearance"
+    url: https://www.w3.org/TR/WCAG22/#focus-appearance
+demo: inline
+exhibit: false
+useWhen: judging whether a focus ring is strong enough
+---
+
+Criterion 2.4.13, added in WCAG 2.2 at level AAA, is the one that puts numbers on a focus
+indicator. It asks three things of the drawing that appears when a control takes focus. The
+indicator must cover at least the area of a 2 CSS pixel thick perimeter of the control, and be
+no thinner than 2 pixels in any direction. The pixels it occupies must change by at least 3:1
+between the unfocused and focused states. And those pixels must either clear 3:1 against the
+colours next to them or be at least 2 pixels thick. Nothing in there is about colour taste. It
+is a floor, expressed in pixels and ratios, under a drawing that is otherwise left to you.
+
+Three terms sit close together here and they fail independently. A [focus ring](/focus-ring) is
+the drawing itself, the thing you style. [Focus visible](/focus-visible) is about *when* that
+drawing appears, which is the question `:focus-visible` answers by telling a keyboard arrival
+apart from a mouse press. Focus appearance is only about whether the drawing you made is strong
+enough for somebody to find. A gorgeous ring shown at all the wrong moments passes this one and
+fails that one, and a perfectly timed one pixel hairline does the reverse.
+
+The 3:1 number is borrowed from [non-text contrast](/non-text-contrast), which is where most
+people first meet it, but the two measure against different things and that is where the
+mistakes happen. Non-text contrast measures a control's boundary against the surface behind it.
+Focus appearance measures the indicator against the pixels it replaced, focused state versus
+unfocused state. An indicator that recolours a border the control already had can satisfy 1.4.11
+comfortably and still fail here, because what gets measured is the change, and grey to blue is
+often a smaller change than it looks.
+
+In practice a browser's own default indicator passes, and almost every failure is a custom one.
+The three habits that cause them are a one pixel outline, a pale tint of the brand colour, and a
+border recolour that adds no area at all. Two small choices fix most of it: draw the indicator
+with `outline` rather than `border`, so it costs no layout, and give it an `outline-offset`, which
+moves the indicator off the control and onto the page behind it, where it usually has more
+contrast to work with and where a reader can see its full perimeter.

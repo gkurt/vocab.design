@@ -1,0 +1,73 @@
+---
+name: Selection handle
+slug: selection-handle
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The draggable grip at each end of a touch text selection, used to
+  widen or narrow the range a finger cannot adjust precisely.
+aliases:
+  - name: selection handles
+    source: community
+  - name: text selection grabber
+    source: community
+  - name: selection anchor
+    source: community
+  - name: text handle
+    source: community
+tags:
+  - dragging
+  - selection
+  - text-editing
+  - touch
+relations:
+  contrastWith:
+    - caret
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - bubble-toolbar
+implementations: []
+sources:
+  - title: "iOS HIG: Gestures (touch and hold in text)"
+    url: https://developer.apple.com/design/human-interface-guidelines/gestures
+demo: inline
+exhibit: false
+useWhen: adjusting a touch selection by its endpoints
+---
+
+Selecting text with a mouse is one gesture: press at the first character, drag, release at
+the last. A finger cannot do that, because it covers roughly ten characters and hides the
+one it is aiming at, so touch platforms split the job in two. A touch and hold, or a double
+tap, makes a rough first selection of the word underneath, and then two grips appear at the
+ends of it, one at the head and one at the tail. Adjusting is a second, separate gesture
+against those grips, and it is the part that makes touch selection workable at all.
+
+The craft is almost entirely in the grip. It is drawn as a small ball on a bar, sitting
+above the line at the start and below it at the end, so that the two are distinguishable and
+so that the ball is somewhere the finger is not about to cover. The visible ball is around
+twelve pixels; the region that answers a drag is three or four times that, which is
+[hit slop](/hit-slop) doing the work it exists for, and it is one of the few places where a
+touch target genuinely cannot be made big enough to see. Snapping is the other half:
+extending by whole words while the finger moves quickly and falling back to characters when
+it slows is what stops a selection from feeling like it is fighting back. And because the
+finger still covers the boundary it is setting, both platforms lift a magnifying loupe above
+the handle while it moves, so the reader can see the character the grip is actually between.
+
+Platforms differ in ways worth knowing before copying either. iOS puts a round ball on each
+end and shows the loupe as a circle; Android uses teardrop shapes hanging below the line,
+tinted with the app's accent, and exposes them through the text-handle theme attributes. Both
+raise a floating bar of actions (cut, copy, look up) alongside the selection, which is a
+different component with a different name and should not be confused with the grips
+themselves. On the web you get whichever the platform provides, and you get very little say:
+the drawn selection can be tinted with
+[selection colour](/selection-color), but the handles come from the browser.
+
+That last point is the practical one. Reimplementing selection handles over a custom text
+surface is a well known way to lose: it means reproducing word snapping, the loupe, the
+action bar, right-to-left ordering, and screen reader integration, all of which the platform
+already ships and none of which is visible in a design mockup. The time to build them is when
+the thing being selected is not text at all, a range on a waveform, a span of rows, a region
+on a map, where there is no native selection to inherit and the two-grip idea is being
+borrowed on purpose.

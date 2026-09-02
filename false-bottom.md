@@ -1,0 +1,65 @@
+---
+name: False bottom
+slug: false-bottom
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A page that looks finished at a point where content actually
+  continues, so the reader stops scrolling and never sees the rest.
+aliases:
+  - name: false floor
+    source: community
+  - name: illusion of completeness
+    source: nngroup
+  - name: premature end
+    source: community
+  - name: suggesting continuity
+    source: goodui
+tags:
+  - errors
+  - perception
+  - scroll
+relations:
+  contrastWith:
+    - the-fold
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - infinite-scroll
+implementations: []
+sources:
+  - title: "GoodUI: Try Suggesting Continuity instead of false bottoms"
+    url: https://goodui.org/
+demo: inline
+exhibit: false
+useWhen: the page looks like it ended but has not
+---
+
+A false bottom is a place on a page that reads as the end of it. The reader arrives, sees
+what looks like a closing band, and stops, and everything below that line might as well not
+have been published. Nielsen Norman Group calls the same thing the illusion of
+completeness, which names the mechanism well: nothing is hidden, and the reader has simply
+been given every visual signal that there is nothing more to look for.
+
+The ingredients are ordinary and that is the problem. A full-bleed band in a different
+colour, a generous stretch of whitespace, a centred rule, a logo or a sign-off sitting on
+its own, a row of links that resembles a footer, a section that happens to fill the last of
+the viewport. Any one of them is fine somewhere else on the page. Together, and landing near
+the bottom edge of a screen size the designer did not test, they compose an ending. Most
+false bottoms are accidents of styling rather than acts of malice, which is exactly why the
+term is worth having: nobody in the room decided to do it, so nobody notices until someone
+names the thing that happened.
+
+It is worth keeping distinct from the boundary it exploits. [The fold](/the-fold) is where
+the viewport happens to end, which changes with every window and is nobody's design; a false
+bottom is a design that claims the content ends there. The fold is a fact about the reader's
+screen, the false bottom is a sentence the page is saying, and the sentence is wrong.
+
+When it stops being an accident it joins other company. A page that puts the decline option
+below a convincing ending is running [misdirection](/misdirection) with layout instead of
+contrast, and at that point it is a [dark pattern](/dark-pattern) rather than a slip. The
+repair is the same either way, and it is cheap: suggest continuity. Cut the whitespace at
+the boundary, keep the closing band for the actual close, and let the next block break the
+line, because half a visible card is the strongest instruction to keep scrolling that a page
+can give.

@@ -1,0 +1,68 @@
+---
+name: True black theme
+slug: true-black-theme
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A dark palette whose background is pure black rather than near
+  black, which switches OLED pixels off entirely but makes elements look like
+  they float in a void.
+aliases:
+  - name: AMOLED theme
+    source: community
+  - name: pure black mode
+    source: community
+  - name: OLED dark mode
+    source: community
+  - name: black theme
+    source: community
+tags:
+  - platform-registers
+  - theming
+relations:
+  contrastWith:
+    - dark-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - elevation-overlay
+implementations: []
+sources:
+  - title: Dark mode color guide
+    url: https://devpalettes.com/blog/dark-mode-color-guide/
+demo: inline
+exhibit: false
+useWhen: a dark theme at pure black for OLED, not near black
+---
+
+Most [dark themes](/dark-mode) are not black. Material's baseline surface is `#121212`, and
+almost every design system picks something similar: dark enough to read as night, light
+enough to have somewhere to go. A true black theme takes the background to `#000000` on
+purpose, usually as a second dark theme offered beside the first, because on an OLED panel a
+black pixel is an unlit pixel and the screen genuinely goes dark rather than dimly grey.
+
+The cost is that the palette loses its floor. Elevation in a dark scheme is carried by an
+[elevation overlay](/elevation-overlay), a white film whose opacity rises with height, and
+it works because every plane is painted from one base colour that the film can lighten. Start
+at pure black and the first rung still exists but there is nothing beneath it, and a drop
+shadow has nothing darker to darken at all, so a card floats without ever looking raised. The
+usual repair is to give surfaces a hairline border, which is why true black interfaces tend
+to look drawn rather than stacked.
+
+The screen argument is real but smaller than it sounds. Power saved scales with how much of
+the display is actually black, so a mostly black reading app saves meaningfully and a
+dashboard full of panels saves very little, and none of it applies to an LCD, where the
+backlight stays on and pure black just looks dark grey. There are two artefacts worth
+knowing. Black smearing: OLED pixels are slower coming back up from fully off, so fast
+scrolling over pure black can trail. And halation, where pure white text on pure black blooms
+for readers with astigmatism, which is the accessibility argument against making this the
+only dark theme on offer.
+
+The practical shape is a third option rather than a replacement. Keep the near black theme as
+the default, offer true black for people who want it, and if you ship one, do not pair it
+with `#FFFFFF` text: something around `#E8EAEF` keeps the
+[contrast ratio](/contrast-ratio) far above the threshold while taking the glare off. Give
+every surface a border so the layers survive without shadows, and check what your
+[status colours](/status-color) do at that depth, since saturated hues that read fine on
+`#121212` can vibrate against nothing at all.

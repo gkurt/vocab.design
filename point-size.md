@@ -1,0 +1,76 @@
+---
+name: Point size
+slug: point-size
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The nominal size of type, measured in points, which describes the
+  body the letters are drawn on rather than the height of any letter.
+aliases:
+  - name: font size
+  - name: type size
+  - name: pt
+    source: css
+tags:
+  - editorial
+  - fonts
+relations:
+  contrastWith:
+    - density-independent-pixel
+    - em-unit
+    - optical-size
+    - x-height
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Point size (Monotype glossary)
+    url: https://www.monotype.com/resources/typographic-terms
+  - title: Point size (Practical Typography)
+    url: https://practicaltypography.com/
+demo: inline
+exhibit: false
+useWhen: explaining why 16pt in two fonts looks different
+---
+
+A point is a seventy-second of an inch, and the point size of type is the height
+of the body the letters are drawn on, not the height of anything you can see.
+The specimen above draws that body as a box: the box is exactly as tall as the
+number says, the capitals stop short of the top, the lowercase stops well short
+of that, and the descenders hang below the line. Change the number and the box
+changes by exactly that much. Everything inside it changes by whatever
+proportion the type designer chose.
+
+That is a direct inheritance from metal. A foundry cast each size on a physical
+rectangle of lead, and the point size was the height of that rectangle, which
+had to hold the tallest ascender and the deepest descender of the design with a
+little clearance. How much of the block the letters actually filled was the
+punchcutter's call, so two faces cast on a 12 point body could look very
+different sizes on the page. Nothing about that changed when type went digital:
+the block became the [em](/em-unit), the em is exactly the font size, and the
+[x-height](/x-height) and [cap height](/cap-height) inside it are still the
+designer's decision. This is the whole answer to why the same number in two
+faces does not look like the same size, and why substituting a
+[fallback font](/fallback-font) at a matching point size can still change a
+layout.
+
+On the web you rarely type `pt` at all. CSS defines it as an absolute unit,
+exactly `1.3333px`, which makes it a clumsy way of saying something `rem` says
+better, and print stylesheets are about the only place it still earns its keep.
+The word survives everywhere else because the vocabulary did: designers hand
+over specs in points, native platform documentation talks in points, and Apple's
+"points" are a display unit rather than a typographic one, which is a collision
+worth naming out loud before a handoff rather than after it.
+[Leading](/leading) is quoted in the same currency, historically as a pair such
+as 10 on 12, and a [drop cap](/drop-cap) is one of the few things sized in lines
+rather than in points.
+
+The practical consequence is to stop trusting the number on its own. Two faces
+that need to look equally large will usually need different point sizes, matched
+by eye on their x-heights rather than by their nominal size, which is exactly
+what a designer is doing when they bump a substituted face up a point. And
+because the reader can override your sizes and should be able to, set body text
+in a relative unit and let [resizing text](/resize-text) work rather than nailing
+a point size to the page.

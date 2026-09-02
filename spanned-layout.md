@@ -1,0 +1,73 @@
+---
+name: Spanned layout
+slug: spanned-layout
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: How an app arranges itself when one window is stretched across two
+  displays, either keeping content clear of the seam or splitting the layout
+  exactly at it.
+aliases:
+  - name: spanning
+    source: microsoft-dual-screen
+  - name: spanned state
+    source: microsoft-dual-screen
+  - name: seam
+    source: community
+  - name: display mask
+    source: microsoft-dual-screen
+  - name: dual-screen layout
+    source: community
+tags:
+  - platform-registers
+  - screen-size
+  - windowing
+relations:
+  contrastWith:
+    - device-posture
+    - multi-window-mode
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Surface Duo device modes, Microsoft Learn
+    url: https://learn.microsoft.com/en-us/dual-screen/design/postures
+demo: inline
+exhibit: false
+useWhen: one app stretched across two screens
+---
+
+A dual-screen device gives an app two choices: sit on one screen, or span both. Spanned is the
+interesting state, because the window the app is handed is not a rectangle it can trust. Running
+down the middle is a seam, which on a two-panel device is a physical gap and on a single folding
+panel is a crease, and either way it is a strip where pixels are either not shown or not
+comfortably read, and where a finger cannot reliably press. Microsoft's dual-screen
+documentation calls the occluded strip the display mask, and calls the app's condition spanning.
+
+There are only three things a spanned layout can do about the seam, and two of them are fine.
+The unaware layout treats the window as one wide rectangle, which puts a line of text and
+usually a control straight across the mask: half a sentence and half a button vanish into the
+hinge. The avoiding layout keeps its single-pane arrangement but reflows so nothing important
+lands on the strip. The splitting layout goes further and treats the seam as a gift, using it as
+the gutter of a two-pane arrangement, list on one screen and detail on the other, master and
+canvas, board and inspector. Splitting is the outcome worth designing for, because the hardware
+boundary and the content boundary then agree, and the seam stops being damage.
+
+The nearest term is [device posture](/device-posture), and the pair divides cleanly: posture is
+the shape the hinge is currently in, which is hardware, while spanning is what the layout does
+about it, which is yours. A device can be flat and spanned, or in book posture and spanned, and
+the arrangement decision is the same either way. The other neighbours are the family the seam
+belongs to. A [safe area](/safe-area) is a region kept clear of system furniture, and a
+[display cutout](/display-cutout) is a hole in one screen; a seam is the same class of problem,
+an area of the window that content must respect, arriving from a different direction.
+
+On the web this is still thin ice. The relevant features are the `viewport-segments`
+environment variables and the `horizontal-viewport-segments` and `vertical-viewport-segments`
+media queries, which report the window as a set of segments with the gap between them, and they
+remain narrow in support and easy to get wrong when a device folds while your media query
+cached. Two habits carry most of the value with none of the risk. Give any two-pane layout a
+gutter that is generous enough to be a seam if it ever has to be one, and never centre a single
+primary control in a window whose width you did not choose, since the middle of the screen is
+exactly where the hardware boundary lives.

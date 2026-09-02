@@ -1,0 +1,71 @@
+---
+name: Kinetic typography
+slug: kinetic-typography
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Type animated over time, where letters and words move, scale,
+  stagger, or morph so the setting carries tone and emphasis a static line
+  cannot.
+aliases:
+  - name: motion typography
+  - name: animated type
+  - name: text in motion
+  - name: type animation
+tags: []
+relations:
+  contrastWith:
+    - typewriter-effect
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - variable-font
+implementations: []
+sources:
+  - title: What is kinetic typography, a guide to text in motion (SVGator)
+    url: https://www.svgator.com/blog/kinetic-typography-a-guide-to-text-in-motion/
+  - title: Kinetic typography, the what, why and how (Linearity)
+    url: https://www.linearity.io/blog/kinetic-typography/
+demo: inline
+exhibit: false
+useWhen: the type itself performs rather than sits still
+---
+
+Kinetic typography is type that performs. Words drop, swell, drift apart,
+stutter, or turn a corner, and the movement is doing the work a typographer
+would otherwise ask of size, weight, or space. The test that separates it from
+animation that merely involves text is whether the motion is part of the
+reading: if the same sentence set still, at the same size, would say exactly the
+same thing, the movement was an entrance and not kinetic typography. A word that
+falls because the sentence is about falling has been typeset in time.
+
+On the web it is built from a small kit. Letters or words are split into their
+own boxes and given a transform each, offset by a
+[stagger](/stagger) so the line arrives in reading order rather than all at
+once. A [variable font](/variable-font) turns weight, width, or optical size
+into something continuous, so a word can genuinely grow heavier along a
+[variation axis](/variation-axis) instead of cutting between two static
+files. And the [easing](/easing) carries most of the tone: the same drop reads
+as gentle, as mechanical, or as a collapse depending only on the curve it lands
+on.
+
+The discipline is knowing where it belongs. Motion in type costs the reader
+their place, so it lives in titles, transitions, callouts, hero lines, and
+lyric videos, and it stays out of body copy and out of anything a person has
+to re-read. A performed word also has to end somewhere legible: the resting
+frame is the one most readers will actually see, and a treatment that only
+makes sense while it is moving has left them a broken sentence. Split letters
+need their word kept whole for assistive technology, so the text is one
+accessible string with the animation applied to spans inside it, not a stack of
+separate letters.
+
+Because the motion is the message here rather than a flourish, it also has to
+answer a reader who has asked for less of it. Under
+[prefers-reduced-motion](/prefers-reduced-motion) the honest answer is the end
+pose, held still, which is why a kinetic setting is worth designing backwards
+from its final frame. The craft is old and pre-digital: Saul Bass moved
+letterforms across film titles in the 1950s, Kyle Cooper's later title
+sequences made the treatment of the letters carry the mood of the film, and both
+were solving the same problem, which is how a line of type behaves once it is
+allowed to take time.

@@ -1,0 +1,65 @@
+---
+name: Pressure sensitivity
+slug: pressure-sensitivity
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Reading how hard a pen or finger presses, plus tilt and twist, so
+  stroke weight and behaviour vary with the shape of the contact.
+aliases:
+  - name: pen pressure
+    source: community
+  - name: stylus tilt
+    source: mdn
+  - name: tilt and twist
+    source: mdn
+  - name: tangential pressure
+    source: mdn
+tags:
+  - pointer
+  - touch
+relations:
+  contrastWith:
+    - force-touch
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - signature-pad
+implementations: []
+sources:
+  - title: "MDN: Pointer events (pressure, tilt, twist)"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+exhibit: false
+useWhen: how hard or how tilted the input is matters
+---
+
+A contact is not a point. A pen touching a tablet reports how hard it is pressing, how far it is
+leaning and in which direction, how far it has been rolled about its own axis, and, on pens with
+a barrel control, how hard that is being squeezed. Pointer events carry all five as ordinary
+properties on every move: `pressure` from 0 to 1, `tiltX` and `tiltY` in degrees, `twist` in
+degrees of barrel rotation, and `tangentialPressure`. Nothing about them is exotic. They arrive
+on the same event a mouse move does, which is exactly why they are so easy to forget about.
+
+What an application does with them is mostly typography for the hand. Pressure drives stroke
+width and opacity, so a line can start thin, swell through the middle of a gesture, and taper as
+the pen lifts. Tilt turns a round nib into a chisel or spreads a shading brush. Twist rotates a
+flat nib the way a calligrapher rotates a real one. Tangential pressure is the airbrush trigger.
+The mapping is almost never linear: a pressure response curve is the setting artists actually
+spend time on, because the interesting range of a human hand is not evenly spread across the
+axis, and the same raw values feel completely different once the curve is bent.
+
+Two neighbours are worth keeping apart. Pressure is a continuous axis, sampled on every move and
+meaningful along its whole length. Force touch is a threshold laid on top of that axis: cross
+one line and a discrete command fires, which makes it a button rather than a dial. Haptic
+feedback is the other side of the exchange entirely, an output the device produces rather than
+an input it reads, and pairing the two is what makes a threshold feel like a click.
+
+The design consequence is blunt. Most pointers have no pressure at all. A mouse reports a
+constant while it is down, plenty of touchscreens report the same, and every one of those
+readers has to be able to reach the command anyway. Pressure is therefore an enrichment and
+never a requirement: it may make a line prettier, and it may not be the only way to make a line
+thick. It is also completely undiscoverable, since nothing on screen suggests that pressing
+harder would do anything, which is why tools that take it seriously put the current value on
+screen while the pen is down and let the reader see the axis they are playing.

@@ -1,0 +1,61 @@
+---
+name: Busy state
+slug: busy-state
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Marking a region as still loading so assistive technology waits for
+  the finished result instead of reading each row as it streams in.
+aliases:
+  - name: aria-busy
+    source: aria
+  - name: loading region
+    source: community
+  - name: suppressed announcements
+    source: community
+tags:
+  - assistive-tech
+  - progress
+relations:
+  contrastWith:
+    - atomic-live-region
+    - politeness-level
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spinner
+implementations: []
+sources:
+  - title: "WAI-ARIA 1.2: aria-busy"
+    url: https://www.w3.org/TR/wai-aria-1.2/#aria-busy
+demo: inline
+exhibit: false
+useWhen: a region updates in pieces and each piece speaks
+---
+
+`aria-busy="true"` says "this part of the page is mid-change, do not read it yet". Set it before you
+start writing into a region, remove it when the region is finished, and assistive technology treats
+everything in between as one edit instead of as a dozen. Without it, a results list that arrives in
+chunks produces a chunk's worth of speech each time, and a reader hears three fragments of three
+different sentences instead of one usable result.
+
+It is the smaller of two settings that shape what a [live region](/live-region) says, and the two
+answer different questions. [Atomic](/atomic-live-region) decides *how much* gets re-read when
+something changes: the changed node alone, or the whole region for context. Busy decides *whether
+it is read yet at all*. A region can be atomic and still be useless if it announces four times
+while it settles, and it can be busy-managed and still be useless if it then reads one number with
+nothing attached.
+
+The discipline is the same as any flag you have to take back down. Set it on the container you are
+about to mutate, not on the page. Clear it in the same code path that finishes the update, including
+the error path, because a region left busy forever is a region that has gone silent: readers will
+skip it, and no error message you put inside it will ever be spoken. If a request can hang, clear
+the flag on the timeout as well.
+
+Two things it is not. It is not a substitute for telling the reader that work is happening, which is
+what a [status message](/status-message) or a [spinner](/spinner) with an accessible name is for:
+busy suppresses speech rather than producing it, so on its own it makes a slow load quieter, not
+clearer. And it is not a way to say a region is stale, unavailable or switched off; those are states of the
+content, and `aria-busy` is a state of the writing. Busy means one thing, which is that the markup
+you are looking at is halfway written.

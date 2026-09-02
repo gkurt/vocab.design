@@ -1,0 +1,67 @@
+---
+name: Sentence case
+slug: sentence-case
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Capitalising only the first word of a label or heading, plus any
+  proper nouns, as you would in an ordinary sentence.
+aliases:
+  - name: sentence-style capitalization
+    source: material
+  - name: normal case
+tags:
+  - content-design
+relations:
+  contrastWith:
+    - title-case
+    - all-caps
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Writing style (Carbon Design System)
+    url: https://carbondesignsystem.com/guidelines/content/writing-style/
+  - title: Title case vs sentence case in UI
+    url: https://www.everyinteraction.com/articles/title-case-vs-sentence-case-in-ui/
+demo: inline
+exhibit: false
+useWhen: Google-style UI copy and anything meant to be read
+---
+
+Sentence case is the rule of ordinary prose applied to interface text: the first
+word takes a capital, proper nouns keep theirs, everything else stays down.
+"Export as PDF" is sentence case, because PDF is an initialism and not a decision
+the writer made, and so is "Mentions in Harbour", because Harbour is a name. The
+rule is grammatical rather than mechanical, which is exactly the part CSS cannot
+do for you: `text-transform: capitalize` raises every word including the ones that
+should stay down, and `lowercase` flattens the names that earned their capitals.
+Sentence case is written into the string, never transformed onto it.
+
+Most of the large systems now ask for it. Material calls it sentence-style
+capitalisation and applies it to buttons, dialog titles and menu items; GOV.UK
+writes it into its content style guide; Carbon asks for it in headings, labels and
+body copy alike. The arguments they give are consistent. Lowercase letters carry
+more silhouette, so a scanned label resolves faster, which is the same shape
+argument that makes [all caps](/all-caps) slow to read. Capitals in the middle of a
+line are a signal that a proper noun is arriving, and spending them on ordinary
+words spends the signal. And sentence case survives translation: French, Spanish
+and most other languages have no title-case convention at all, so a string written
+this way needs no separate decision in every locale it reaches.
+
+[Title case](/title-case) is the alternative, and between the two the difference is
+tone rather than correctness. What is not optional is picking one. Case is a system
+decision applied to every string at once, because a screen where half the headings
+capitalise their nouns and half do not reads as unfinished rather than as varied,
+and reviewers will spend their attention on the inconsistency instead of on the
+work. Write the rule down where the copy is written, not where it is styled.
+
+The arguments that remain are about what counts as a name. A feature is a proper
+noun only when the organisation has genuinely made it one, and most have not, so
+"turn on dark mode" beats "turn on Dark Mode" in almost every product that ships
+the sentence. The same rule runs through the smaller places people forget: column
+headings in a table, the heading of an empty state, the first word after a colon,
+and the labels on a segmented control are all sentences of one or two words, and
+they get the capital the first word of a sentence gets, and no others.

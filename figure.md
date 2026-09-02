@@ -1,0 +1,68 @@
+---
+name: Figure
+slug: figure
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An image, table or code block bound to its caption so the two travel
+  together and can be referred to from the running text.
+aliases:
+  - name: figcaption
+    source: community
+  - name: figure caption
+    source: community
+  - name: captioned image
+    source: community
+tags:
+  - editorial
+  - media
+relations:
+  contrastWith:
+    - decorative-image
+    - long-description
+    - image
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Bootstrap 5.3: Figures"
+    url: https://getbootstrap.com/docs/5.3/content/figures/
+demo: inline
+exhibit: false
+useWhen: a visual needs a caption that belongs to it
+---
+
+A figure is a piece of content that the running text points at rather than contains.
+The test is whether it can be moved: if the paragraph still reads when the picture is
+lifted to the top of the page or the facing column, it is a figure, and it takes its
+caption with it wherever it goes. That binding is the whole component. Everything
+else, the border, the number, the placement, follows from the fact that these two
+pieces are one unit and the surrounding prose is not.
+
+It is not only for photographs. A table, a code listing, a diagram, a chart, or a
+short quotation all qualify, which is why the HTML element is `figure` rather than
+something image shaped, and why the caption sits in a `figcaption` that may come
+before or after the content it labels. Wiring it up properly buys something real: a
+`figure` with a `figcaption` takes that caption as its accessible name, so a screen
+reader announces the group by its label instead of dropping the reader into an
+unattributed image in the middle of an article.
+
+The caption is not [alt text](/alt-text) and writing one as if it were the other is
+the common mistake. Alt text describes the picture to someone who cannot see it, and
+it is redundant the moment the same words are printed underneath. A caption explains
+what the picture means to everyone: what is being shown, when, why it is here. So the
+alt text says a metal staff gauge stands in shallow water beside a stone quay, and the
+caption says the reading was taken at low water on the day the survey began. If the
+image is pure decoration it is a [decorative image](/decorative-image) and it wants
+neither. And a caption in this sense is unrelated to
+[captions](/captions), which are the timed text of a recording.
+
+Number a figure only if the text refers to the number, and if it does, use the
+reference rather than the position: "the gauge in Figure 3" survives a layout change
+that "the picture below" does not. Captions are read far more often than body copy,
+because scanners look at pictures first, so write them as sentences with the point in
+them and never leave a filename or a bare source line standing in for one. Where the
+figure is the reason the reader stopped, the caption is the only text you can count on
+being read.

@@ -1,0 +1,65 @@
+---
+name: Error message
+slug: error-message
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: The line attached to a field that says what went wrong and what to
+  do about it, announced to assistive technology the moment it appears.
+aliases:
+  - name: validation message
+    source: community
+  - name: inline error
+    source: community
+  - name: field error
+    source: community
+tags:
+  - content-design
+  - errors
+  - forms
+relations:
+  contrastWith:
+    - helper-text
+    - inline-validation
+    - callout
+    - error-identification
+    - error-page
+  variantOf: []
+  partOf:
+    - text-field
+  seeAlso: []
+implementations: []
+sources:
+  - title: "GOV.UK Design System: Error message"
+    url: https://design-system.service.gov.uk/components/error-message/
+demo: inline
+exhibit: false
+useWhen: telling one field that its value failed
+---
+
+An error message belongs to a field, not to a form. It sits with the control it
+judges, it is referenced by that control (`aria-describedby`), and it names the
+fix rather than the rule: "Enter a postcode, like SW1A 1AA" does work that
+"Invalid input" does not. A summary at the top of the page is a different
+component, and the two are usually shipped together: the summary collects, the
+message explains.
+
+The word describes the line itself, so the timing is a separate question. A
+message that arrives on submit and a message that arrives while you type are the
+same component playing two roles, and the second one has its own word (see inline
+validation). Submit is the safe default for anything the field cannot judge until
+it is finished, because complaining about an unfinished value is how a form ends
+up shouting at someone halfway through their own email address.
+
+Three things make one work. It appears in space the layout already reserved, so
+the button under it does not jump out from under the pointer. It is announced,
+usually by a live region or `role="alert"`, because a sighted user sees a red
+line appear and a screen reader user gets nothing unless the page says so. And it
+never relies on colour alone: the text is the message, the colour is emphasis.
+
+Copy is most of the work. Say what happened, in the words of the person filling
+the form, and say what to do next. Avoid blame ("you failed to"), avoid system
+vocabulary ("regex mismatch"), and keep the example concrete. If the message
+cannot suggest a fix, the validation rule behind it is usually the thing that
+needs changing.

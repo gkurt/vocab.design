@@ -1,0 +1,64 @@
+---
+name: Input purpose
+slug: input-purpose
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-25T00:00:00.000Z
+definition: Machine readable autocomplete tokens on personal fields, which let
+  browsers autofill and let personalisation tools add familiar icons or wording.
+aliases:
+  - name: autocomplete attribute
+    source: html
+  - name: autofill token
+    source: community
+  - name: identify input purpose
+    source: wcag
+tags:
+  - forms
+  - wcag
+relations:
+  contrastWith:
+    - address-autocomplete
+    - inline-autocomplete
+    - redundant-entry
+    - virtual-keyboard
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - autofill
+implementations: []
+sources:
+  - title: "WCAG 2.2: Identify Input Purpose"
+    url: https://www.w3.org/TR/WCAG22/#identify-input-purpose
+demo: inline
+exhibit: false
+useWhen: telling the browser what a field is actually for
+---
+
+A label tells a person what a field wants. An `autocomplete` token tells software the same thing,
+from a fixed list: `name`, `email`, `tel`, `postal-code`, `cc-number`, `bday`, and a few dozen more.
+WCAG 2.2 makes the tokens a requirement at AA for fields collecting information about the user,
+which is a rare success criterion where the conforming markup is one attribute and the benefit is
+immediate.
+
+The obvious payoff is autofill. A form with the tokens declared fills from the profile the browser
+already holds, which is worth most to the people for whom typing is expensive: anyone using a
+switch, an on-screen keyboard, voice input, or working through a tremor. The less obvious payoff is
+personalisation. Because the token names a known concept rather than an arbitrary string, an
+assistive tool can restate the field in its user's own terms: swap the wording, or put a familiar
+pictogram beside it, which is the whole point of the criterion sitting under the "adaptable"
+guideline rather than under a text alternative one.
+
+The tokens do not replace anything. A field still needs its own visible label and its
+[label association](/label-association), because a token is not a name and a screen reader does not
+speak it. Nor is it the same feature as
+[address autocomplete](/address-autocomplete), which is a live lookup service suggesting whole
+addresses inside one field. The token is a static declaration of what this field means; whether the
+browser then offers a saved value, a lookup, or nothing at all is the browser's business.
+
+Two practical notes. Get the token right or leave it off, since a field labelled "Company" that
+declares `name` will be filled with a person's name forever, and a wrong token is worse than a
+missing one. And treat the whole thing as a first line of defence against
+[redundant entry](/redundant-entry): the more of a checkout the browser can complete from what it
+already knows, the less of your form is a memory test.

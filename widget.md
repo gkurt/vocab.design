@@ -1,0 +1,77 @@
+---
+name: Widget
+slug: widget
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small, glanceable view of an app placed on a system surface such
+  as a home screen or desktop, sized in fixed slots rather than freely.
+aliases:
+  - name: home screen widget
+    source: community
+  - name: app widget
+    source: android
+  - name: glance
+    source: android
+tags:
+  - platform-registers
+relations:
+  contrastWith:
+    - card
+    - app-shortcut
+    - complication
+    - live-activity
+    - quick-settings-tile
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - dashboard-grid
+implementations:
+  - system: hig
+    name: Widgets
+    url: https://developer.apple.com/design/human-interface-guidelines/widgets
+sources:
+  - title: "Apple Human Interface Guidelines: Widgets"
+    url: https://developer.apple.com/design/human-interface-guidelines/widgets
+demo: inline
+exhibit: false
+useWhen: app content is useful without opening the app
+---
+
+A widget is a guest. It is a view of one app, drawn on a surface that app does not own: a
+home screen, a lock screen, a desktop, a notification shade. Everything odd about designing
+one follows from that. The size is not yours to choose, because the host offers a small set
+of fixed slots and the reader picks which one to spend; the refresh schedule is not yours
+either, because the system decides how often it is worth waking you; and the whole thing has
+to make sense to somebody who did not navigate to it and is not going to scroll it. The
+implicit promise is that it saves a trip into the app, so a widget that only says "open me"
+has failed at the one job it had.
+
+That is what separates it from the two components it is most often confused with. A
+[card](/card) is a grouping inside your own product, where you control the width, the
+neighbours and the context the reader arrived with. A
+[dashboard grid](/dashboard-grid) is a field of tiles inside a product someone is already
+looking at, laid out by importance, and a reader who wants more can click through the
+hierarchy it belongs to. A widget has none of that around it. On a watch the same idea
+shrinks again and is called a complication, which is a useful word to know because it names
+the extreme case: the amount of information that fits when the surface is a wristwatch dial.
+
+The craft is choosing what falls away as the slot gets smaller. A widget should recompose
+rather than shrink, so a size class is a different edit of the same content, not the large
+one scaled down or [truncated](/truncation) into a corner. Start from the smallest and ask
+what single fact earns the space, usually one number or one [stat](/stat) and the label that
+makes it mean something; then let each larger size buy a specific addition (the times as
+well as the titles, tomorrow as well as today) rather than more of the same rows. Content
+that is genuinely absent needs its own quiet [empty state](/empty-state) too, since a blank
+tile on a home screen reads as a bug rather than as a free afternoon.
+
+Interaction is deliberately thin. A tap is an opening move, not a control: it should land
+the reader on the specific screen the tile was showing rather than dumping them at the app's
+front door, and anything more elaborate than a tap or a couple of tap targets belongs in the
+app. Text has to survive the reader's own type size, and the tile has to be legible over a
+wallpaper nobody on the team chose, which is why platform widgets lean on solid or heavily
+blurred backgrounds instead of transparency. [Apple's Human Interface
+Guidelines](https://developer.apple.com/design/human-interface-guidelines/widgets) covers
+the size families and the timeline model in detail, and is the right place to check before
+assuming a widget can behave like a small window.

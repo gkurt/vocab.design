@@ -1,0 +1,70 @@
+---
+name: Smart guides
+slug: smart-guides
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Alignment lines that appear only while dragging, showing which edges
+  or centers the moving object currently lines up with.
+aliases:
+  - name: alignment guides
+    source: community
+  - name: dynamic guides
+    source: community
+  - name: magnetic guides
+    source: community
+  - name: red lines
+    source: community
+tags:
+  - canvas
+  - design-tools
+relations:
+  contrastWith:
+    - snapping
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - keyline
+implementations: []
+sources:
+  - title: "CreativePro: Smart(er) guides"
+    url: https://creativepro.com/smarter-guides/
+demo: inline
+exhibit: false
+useWhen: the guide lines that appear mid-drag
+---
+
+Illustrator called them smart guides, InDesign copied the name, and Figma, Sketch and every
+canvas tool since have shipped the same idea with the same red or magenta hairlines: lines
+that are not in the document at all. A ruler guide is something you place and it stays.
+A smart guide exists for as long as your hand is moving an object and vanishes on release,
+because it is not a guide in the drawing sense. It is feedback, drawn to explain a snap the
+tool has already decided to perform.
+
+What the lines report is a small set of coincidences: the moving object's left, centre or
+right edge sitting on a neighbour's left, centre or right, the same three along the other
+axis, and in the better implementations equal spacing between three or more objects, which
+shows up as a pair of matched distance badges rather than a line. The badges are the second
+half of the vocabulary. A line says these two things agree; a number beside it says how far
+apart they are, which is what turns a nudge-until-it-looks-right session into a measured
+one. Anything the tool can measure it can also offer to match, so the same overlay that
+reports a 36 pixel gap will happily snap the next object to 36.
+
+The craft is almost entirely in the snap radius and in what the tool refuses to say. Too
+small a radius and the guides feel unreliable, since the object has to be nearly aligned
+before the tool admits it. Too large and the object is yanked off positions the person
+actually wanted, which is why every tool with snapping also has a modifier key that
+suspends it for the length of one drag. The radius should also be measured in screen
+pixels rather than document units, so it stays the same size under the hand at every zoom
+level. And the display has to stay quiet: showing every coincidence at once produces a
+plaid of lines that reports nothing, so tools rank candidates and draw the nearest one or
+two.
+
+Grid snapping is the useful contrast, and the site has snapping for that broader sense.
+A grid is constant, invisible and indifferent to content: everything lands on a multiple of
+eight whether or not anything else is there. Smart guides are the opposite on every count.
+They are derived from whatever happens to be nearby, they only exist during the gesture,
+and they are the reason a person can align to another object without ever creating a guide,
+opening an alignment panel, or typing a coordinate. Neither replaces the other, which is
+why serious tools run both and let the nearer one win.

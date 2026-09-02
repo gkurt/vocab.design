@@ -1,0 +1,75 @@
+---
+name: Semantic color
+slug: semantic-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A colour named for the job it does rather than the colour it is, so
+  that "danger" or "surface" can be repointed without renaming anything that
+  uses it.
+aliases:
+  - name: semantic colour
+  - name: semantic color token
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - color-role
+    - color-ramp
+    - color-token
+    - primitive-color-token
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: carbon
+    name: Color tokens
+    url: https://carbondesignsystem.com/elements/color/tokens/
+sources:
+  - title: "Carbon Design System: color token usage"
+    url: https://carbondesignsystem.com/elements/color/usage/
+demo: inline
+exhibit: false
+useWhen: naming the colour after its job instead of its hue
+---
+
+Semantic colour is a naming practice before it is a piece of tooling. The rule is that
+the name states the job: `danger`, `success`, `surface`, `text-subtle`. Nothing in the
+name says which hue answers the job today, because the hue is the part that is allowed
+to change. A row painted `danger` is still painted `danger` after the red is retuned for
+contrast, after the dark theme darkens it, and after a white label customer arrives with
+a different red, and none of those edits reach the row.
+
+The word sits in a stack of neighbours that are easy to blur together, so it is worth
+being exact about each one. Semantic colour is the practice. A [colour
+role](/color-role) is one system's named slot, the specific thing a component references
+(`surface`, `on-primary`), which is semantic naming made concrete in a vocabulary. A
+[primitive colour token](/primitive-color-token) is the raw value underneath, named for
+what it is rather than what it is for. A [colour ramp](/color-ramp) is the numbered scale
+those primitives are generated from. And [colour token](/color-token) is the umbrella
+word for any named value in the chain, semantic or not. The practical order is: a ramp
+produces primitives, semantic names point at primitives, components reference only the
+semantic names.
+
+The payoff is repointing. Because nothing downstream mentions a hue, changing what
+`danger` resolves to is a remapping of one table and not a rename anywhere else. That is
+what makes a theme cheap, and it is why an [accent colour](/accent-color) reaches
+components through a semantic name rather than as a value: one substitution reskins the
+product. It is also what keeps meaning localized. A
+[status colour](/status-color) applied through `text-critical` can be moved off a whole
+row and onto a badge without touching the four hundred places that asked for critical
+text.
+
+The failure mode is a name that leaked its hue. `brand-blue`, `light-grey-bg` and
+`blue-button` all look like tokens and none of them can be repointed, because the next
+theme makes the name a lie and nobody dares change the value under a name that says
+`blue`. The mirror failure is a name so vague that two people mean different things by
+it, which is how a system ends up with `surface`, `surface-2` and `surface-alt`. A useful
+test for either: could you change what this name points at, on purpose, and still have
+every use of it be correct? One last confusion to head off, since the two words collide
+in exactly the room where colour is discussed: [typographic
+colour](/typographic-color) is not this at all. It is the grey value of a block of text,
+a judgment about texture rather than about meaning.

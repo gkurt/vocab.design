@@ -1,0 +1,64 @@
+---
+name: Slide transition
+slug: slide-transition
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A transition where content translates in or out along one axis,
+  using direction to say whether the user moved forward, back, up, or down.
+aliases:
+  - name: slide in
+  - name: slide over
+  - name: translate transition
+tags:
+  - navigation
+relations:
+  contrastWith:
+    - crossfade
+    - push-transition
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - page-curl
+implementations: []
+sources:
+  - title: "Material Design 3: Transitions"
+    url: https://m3.material.io/styles/motion/transitions
+demo: inline
+exhibit: false
+useWhen: the change has a direction the reader should feel
+---
+
+A slide is a transition that carries an argument about space. New content enters
+from one edge and old content leaves by the opposite one, and because the two
+move together the reader infers that the screens are laid out side by side and
+that they have travelled along that row. Going back reverses the direction, and
+that reversal is what makes the gesture legible: forward is one way, back is the
+other, every time. This is the whole basis of the push and pop navigation model
+that phones taught everybody, and Material calls the pattern a shared axis for
+the same reason.
+
+The axis has to mean something, and it has to stay meaning it. Horizontal
+usually means moving between siblings or deeper into a hierarchy, vertical
+usually means a surface coming over the current screen from the edge it lives
+on, which is why a [drawer](/drawer) slides from the side it is docked to and a
+sheet comes up from the bottom. Mixing them inside one flow costs the reader the
+map they were building. Where there is no direction to express, a slide invents
+one, and a [crossfade](/crossfade) is the more honest transition for content
+that is simply being replaced.
+
+Mechanically it is a translate on a track, with the moving pieces taken out of
+the normal flow and clipped by a viewport that never changes size. Animating
+`left` or `margin` instead reflows the page on every frame and produces the
+staggered, jerky slide that gives the technique its bad name. Keep the distance
+short, since the eye reads direction from the first few pixels and the rest is
+waiting, and let the outgoing screen move slightly less than the incoming one if
+you want the pair to read as layered rather than as one rigid strip.
+
+Direction is also the part of a slide that some readers should not be given. A
+full screen of content flying sideways is one of the motions most likely to
+provoke discomfort, so under reduced motion the standard substitution is to keep
+the change and drop the travel, resolving the transition as a fade in place.
+Nothing about the navigation is lost, because the destination and the back
+affordance were carrying that information already.

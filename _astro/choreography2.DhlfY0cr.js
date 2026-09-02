@@ -1,0 +1,1 @@
+import{t as e}from"./choreography.Dfvzj6n2.js";var t=e([{assert:{selector:`[data-part=panel]`,state:`hidden`}},{moveTo:`[data-part=trigger]`},{click:!0},{wait:400},{assert:{selector:`[data-part=panel]`,state:`visible`}},{wait:1600},{moveTo:`[data-part=scrim]`},{click:!0},{wait:500},{assert:{selector:`[data-part=panel]`,state:`hidden`}}]);export{t as default};

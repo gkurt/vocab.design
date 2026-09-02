@@ -1,0 +1,61 @@
+---
+name: Toggletip
+slug: toggletip
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A tip revealed by clicking rather than hovering, so it works by
+  touch and may contain links or controls a tooltip could not.
+aliases:
+  - name: toggle tip
+  - name: info popover
+  - name: help bubble
+  - name: info label
+    source: fluent
+tags:
+  - overlays
+  - touch
+relations:
+  contrastWith:
+    - tooltip
+    - popover
+    - hoverable-dismissible-persistent
+    - coach-mark
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: carbon
+    name: Toggletip
+    url: https://carbondesignsystem.com/components/toggletip/usage/
+  - system: fluent
+    name: Info label
+    url: https://fluent2.microsoft.design/components/web/react/core/infolabel/usage
+sources:
+  - title: "Inclusive Components: Tooltips and toggletips"
+    url: https://inclusive-components.design/tooltips-toggletips/
+demo: inline
+exhibit: false
+useWhen: a hint you click open, not hover open
+---
+
+A toggletip is the tip you have to ask for. The small "i" beside a field label is
+the classic one: press it and a surface appears holding a sentence of guidance
+and, often, a link to the longer version. It stays put until you dismiss it,
+because nothing about it depends on where the pointer went.
+
+That is the whole difference from a [tooltip](/tooltip), and it is a difference
+of mechanism rather than of size. Hover has no touch equivalent and no keyboard
+equivalent, so a hover-triggered tip cannot safely carry anything you are meant
+to reach. A click can be made with any input device, which is why a toggletip is
+allowed a link, and why its content is usually announced through a live region
+instead of being tied to the button with `aria-describedby`. Against a
+[popover](/popover) the line is narrower: a toggletip is a popover whose entire
+job is to explain the control beside it.
+
+Heydon Pickering drew that line, and named the toggletip, in Inclusive
+Components in 2017. Design systems have not agreed on the word since: Carbon
+ships a Toggletip, Fluent calls the same construction an info label, and plenty
+of teams say info popover or help bubble. Asking for a toggletip is the quickest
+way to rule out hover.

@@ -1,0 +1,68 @@
+---
+name: Adaptive layout
+slug: adaptive-layout
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A layout that switches between a few discrete arrangements chosen
+  per size class, rather than flowing continuously as the window changes.
+aliases:
+  - name: adaptive design
+    source: community
+  - name: adaptive versus responsive
+    source: community
+  - name: adaptive apps
+    source: android
+tags:
+  - screen-size
+relations:
+  contrastWith:
+    - responsive-web-design
+    - intrinsic-web-design
+    - layout-shifter
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Canonical layouts, Android Developers
+    url: https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts
+demo: inline
+exhibit: false
+useWhen: distinguishing snapping between layouts from fluid reflow
+---
+
+An adaptive layout is a small set of designs rather than one design that stretches. The
+window is sorted into a size class, the class picks an arrangement, and the arrangement
+holds until the next threshold is crossed. Nothing in between is designed, because nothing
+in between exists as far as the layout is concerned. That sounds like a limitation and it
+is, but it is also the point: an arrangement that was drawn at one width can be drawn
+properly, and a navigation pattern that only makes sense above a certain size can simply be
+absent below it.
+
+This is the word [responsive web design](/responsive-web-design) is usually being
+distinguished from, and the difference is continuity. A responsive layout is doing
+something reasonable at 900 pixels because it was never drawn for a width at all. An
+adaptive one is showing the design it was given for that class, whatever the remaining
+space happens to be. In practice almost every real interface is both: proportional inside
+each arrangement, discrete between them. The useful question is not which label applies
+but whether the change at a threshold is a reflow or a different layout, because only the
+second kind needs designing, testing, and naming.
+
+The vocabulary that made this precise is window size classes. Material sorts width into
+compact (under 600dp), medium (600 to 839dp), and expanded (840dp and above), with a
+matching set of [canonical layouts](https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts)
+per class, and Apple's size classes make the same coarse cut with two values instead of
+three. What changes across a threshold is the kind of thing on screen, not its width: a
+[bottom navigation](/bottom-navigation) bar becomes a [navigation rail](/navigation-rail)
+and then a full [sidebar](/sidebar), and a single scrolling list becomes a
+[list detail](/list-detail) pair once there is room to show both halves at once.
+
+Two cautions. Size classes are about the window, not the device, so a resized desktop
+window and a tablet in portrait can legitimately land in the same class and get the same
+arrangement, which is usually the right answer and occasionally a surprise. And a foldable
+crossing a hinge, or a split-screen app dropping to half width, changes class while the
+reader is mid task, so the arrangements have to agree about where that reader was.
+An adaptive layout whose panes do not preserve selection and scroll position across a
+swap is the reason this pattern gets blamed for feeling unstable.

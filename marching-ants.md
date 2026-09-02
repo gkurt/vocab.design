@@ -1,0 +1,71 @@
+---
+name: Marching ants
+slug: marching-ants
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The animated dashed outline that circles a selection, moving
+  continuously so the boundary reads as active rather than drawn.
+aliases:
+  - name: crawling ants
+    source: community
+  - name: animated selection border
+    source: community
+  - name: dancing ants
+    source: community
+tags:
+  - canvas
+  - design-tools
+  - selection
+relations:
+  contrastWith:
+    - lasso-selection
+    - jiggle-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - selection-color
+implementations: []
+sources:
+  - title: "Computer Hope: What is a marquee?"
+    url: https://www.computerhope.com/jargon/m/marquee.htm
+demo: inline
+exhibit: false
+useWhen: the crawling dashed border around a selection
+---
+
+The drawing is a dashed stroke around whatever is selected, and the animation is the
+dash pattern sliding along that stroke: shift the offset by exactly one full dash plus
+one full gap and the pattern lands back on itself, so the loop has no seam and the
+dashes appear to walk around the perimeter forever. Every implementation is a version
+of that one idea. A canvas app animates `lineDashOffset`, an SVG outline animates
+`stroke-dashoffset`, and a plain HTML box does it with a repeating gradient whose
+background position travels. The border itself never moves; only the pattern painted
+along it does.
+
+The name comes from the era that made the effect famous. MacPaint shipped a moving
+dashed marquee in 1984 and Photoshop made it the universal sign of a selection, and
+users named the crawling dashes after the insects they look like. Motion is doing real
+work there, not decoration. A dashed rectangle is one of the most common decorative
+borders in software, so a still one says nothing in particular, while a moving one can
+only mean that the application is holding this region and waiting for the next command.
+It is the rare case where an animation carries state that no static treatment carries,
+which is why the effect has survived four decades of otherwise total visual turnover.
+
+Three details separate a good one from a distracting one. Speed: slow, in the range of
+twenty to forty pixels a second, because faster reads as an error state and the ants
+should sit under the work rather than pull the eye off it. Contrast: the classic
+alternates dark and light dashes rather than using one colour, so the boundary survives
+being drawn over a black photograph and a white page in the same document. Direction:
+the crawl should circulate around the perimeter, all four edges agreeing, since dashes
+travelling in contradictory directions read as four separate animations rather than one
+boundary. In a browser the animation also has to answer `prefers-reduced-motion`, and
+the correct answer is to rest the dashes rather than delete the outline: the boundary is
+information and only the walking is decoration.
+
+Marching ants is the outline; the gesture that draws it is usually a
+[lasso selection](/lasso-selection) or a rectangular drag. Graphics tools call that
+rectangle a marquee, which is worth keeping straight from [marquee](/marquee) as the
+web uses the word, a strip of continuously scrolling content. Both scroll something
+forever, and that is where the resemblance ends.

@@ -1,0 +1,72 @@
+---
+name: Interface metaphor
+slug: interface-metaphor
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "Explaining a system by dressing it as something the user already
+  knows: the desktop, the trash can, the folder, the shopping cart."
+aliases:
+  - name: desktop metaphor
+  - name: UI metaphor
+  - name: conceptual metaphor
+tags:
+  - perception
+relations:
+  contrastWith:
+    - skeuomorphism
+    - diegetic-interface
+    - auditory-icon
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - affordance
+implementations: []
+sources:
+  - title: "Nielsen Norman Group: Metaphors in UX"
+    url: https://www.nngroup.com/articles/classifying-ux-metaphors/
+  - title: "Wikipedia: Interface metaphor"
+    url: https://en.wikipedia.org/wiki/Interface_metaphor
+demo: inline
+exhibit: false
+useWhen: a familiar concept is carrying the explanation of an unfamiliar system
+---
+
+An interface metaphor is a loan of structure. The system has operations nobody has seen
+before, so it borrows a situation everybody has: a desk with paper on it, a folder that
+holds pages, a can you drop rubbish into, a cart you push around a shop and pay for at
+the end. The reader arrives already knowing that a page can be put in a folder, that the
+folder can be moved with the page still inside, and that what is in the can stays
+retrievable until the can is emptied. None of that had to be taught, and none of it is
+literally true of the machine. What the metaphor buys is a good first guess about a
+system the reader has no model of yet.
+
+The loan comes with terms, because a metaphor is a promise about behaviour and it is
+kept or broken by behaviour rather than by pictures. Trash that cannot be reopened has
+broken it. A cart that quietly empties overnight has broken it. A folder in a system
+where one file genuinely lives in two places at once has broken it, which is why tags
+and labels eventually had to be given a name of their own instead of being drawn as
+folders. When the borrowed model and the real one part ways, the metaphor stops being a
+shortcut and starts generating confident wrong predictions, which is worse than no
+metaphor at all. The other end is age: a save icon shaped like a floppy disk still reads
+as save to people who have never held one, but it is a rune now, not a metaphor, because
+the borrowed knowledge is gone and only the convention is left.
+
+It is worth keeping three words apart that are usually mixed. The metaphor is the
+concept borrowed, and it can be perfectly flat: a folder icon made of two plain
+rectangles is still the folder metaphor. [Skeuomorphism](/skeuomorphism) is one way of
+dressing a metaphor, drawing the borrowed object in its material with stitching, paper
+grain, and a real hinge, and a design can drop every bit of that and keep the metaphor
+untouched. [Affordance](/affordance) is narrower again: what one thing looks like it can
+do, which is a property of a control rather than of a whole model. A metaphor sets the
+rules of a world, [signifiers](/signifier) point out the moves available inside it, and
+[direct manipulation](/direct-manipulation) is what lets the reader make those moves by
+handling the objects themselves.
+
+The desktop metaphor is the one that stuck, from the Xerox Star through the Macintosh to
+every file manager since, and its lesson is that a thin metaphor beats a thorough one. A
+system does not need a whole simulated office; it needs a handful of nouns whose rules
+it can actually honour, and a plain name for everything else. When a screen has to
+apologize for the metaphor ("this is like a folder, except it does not contain
+anything"), the borrowed word has stopped working and the literal one is ready.

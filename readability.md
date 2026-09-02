@@ -1,0 +1,71 @@
+---
+name: Readability
+slug: readability
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "How comfortably a body of text can be read at length, a property of
+  the setting: size, measure, leading, and contrast."
+aliases:
+  - name: reading comfort
+  - name: text readability
+tags:
+  - content-design
+  - perception
+relations:
+  contrastWith:
+    - plain-language
+    - legibility
+    - typographic-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Readability: The Optimal Line Length (Baymard)"
+    url: https://baymard.com/blog/line-length-readability
+  - title: Choose a comfortable measure (webtypography.net)
+    url: http://webtypography.net/2.1.2
+demo: inline
+exhibit: false
+useWhen: judging the setting, not the typeface
+---
+
+Readability is a question about a block, not about a character. Nobody reads one
+letter at a time: the eye moves along a line in short hops, taking three or four
+words at a stride, and at the end of every line it has to swing back and down to
+a starting point it has never actually looked at. Everything that makes that
+journey easy or tiring is the setting rather than the typeface. Size, the width
+of the column, the space between the lines, the contrast against the background,
+and how the paragraph is broken.
+
+[Measure](/measure) is the knob with the most published advice attached to it.
+Something like 45 to 75 characters a line is the range typographers converge on
+for continuous text, and it is guidance rather than law: it comes from the return
+sweep, because a line long enough to lose your place on the way back is tiring
+whatever the face is, and a line short enough to break every three words makes
+you sweep constantly. [Leading](/leading) is the knob that keeps a long line
+survivable, which is why the two are set together rather than one at a time, and
+why the specimen above moves them together. [Text balancing](/text-balancing)
+and a decent rag deal with the last of it.
+
+Readability is not [legibility](/legibility). Legibility is whether a reader can
+tell one character from another, which is a property of the drawing; readability
+is whether a block of text is comfortable to get through, which is a property of
+the setting. The practical consequence is that they fail separately: a face with
+a superbly distinct I and l can still be set at 11px across a 110 character line,
+and a generous, well-led column in a face whose zero and O are the same oval will
+still cost you a reference number.
+
+Two honest complications. The word is also used, in a different field, for how
+hard the *words* are: Flesch and its descendants score sentence length and
+syllable counts and say nothing about type at all, so an argument about
+readability can be two people discussing different things. And the last word on
+the setting is not yours: readers zoom, override fonts, and read at
+[reflow](/reflow) widths you never designed. Contrast is the same story from the
+other side, which is what [APCA](/apca) is for, and cramming more text onto a
+screen for [density](/density) buys space by spending exactly this. Ignoring all
+of it is a defensible aesthetic position, as
+[brutalist web design](/brutalist-web-design) shows, but it is a position rather
+than an oversight.

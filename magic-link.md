@@ -1,0 +1,74 @@
+---
+name: Magic link
+slug: magic-link
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Signing in by clicking a single-use link emailed on request, with no
+  password, and a screen that waits and offers to resend while the mail arrives.
+aliases:
+  - name: email link sign-in
+    source: community
+  - name: passwordless link
+    source: community
+  - name: login link
+    source: community
+  - name: check your email screen
+    source: community
+tags:
+  - auth
+  - email
+relations:
+  contrastWith:
+    - accessible-authentication
+    - one-time-code-login
+    - passkey
+    - social-login
+    - double-opt-in
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - speculative-loading
+    - transactional-email
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: you sign in by clicking a link sent to your email
+---
+
+Nothing is remembered and nothing is typed back. The reader names an address, the
+server mints a token, and the token travels inside a URL to the only inbox that can
+receive it. Clicking the link is the whole proof: possession of the mailbox stands in
+for a password, on the reasonable theory that anyone who can read that mailbox could
+have reset the password anyway. The pattern is two screens, and the second one is the
+part people forget to design. A page that only says "check your email" has no way to
+tell the reader which address it used, how long the link lasts, or what to do when the
+message does not turn up.
+
+The sibling worth comparing it to is [one-time code login](/one-time-code-login), and
+the difference is where the proof lives. A code is carried by hand, so the session
+that asked to sign in is the session that finishes signing in. A link carries the
+proof itself, so whichever application opens the message completes the sign-in: a mail
+client's in-app browser, a different browser than the one the reader started in, often
+a different device. That is the pattern's largest and least visible cost. Someone who
+requests a link on a laptop and opens their mail on a phone ends up signed in on the
+phone, staring at a laptop that is still waiting. Design for the handoff or accept the
+support tickets.
+
+The rest of the honest list is short. Delivery is not instant and not guaranteed, so
+offer a resend on a cooldown and say plainly that spam folders exist. Links expire,
+usually in ten or fifteen minutes, and an expired link deserves a page that offers a
+new one rather than an error. A link is single use, which is what stops a forwarded
+message from becoming a spare key, and prefetching mail scanners will sometimes spend
+that use before a human ever clicks, which is why the safest versions ask for one
+confirming press on landing. And the token in the URL is the credential, so it must
+never survive in a referrer, an analytics event, or a shared screenshot.
+
+Against a [passkey](/passkey), the trade is convenience for resistance. A magic link
+is still a bearer token travelling through a channel nobody controls, so a convincing
+fake sign-in page can ask for one and a stolen mailbox is the whole account. It is a
+good default for low-stakes products, consumer tools, and anything where the
+alternative would be a reused password, and it is the wrong default for anything with
+money or administrative power behind it.

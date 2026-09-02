@@ -1,0 +1,79 @@
+---
+name: Permission priming
+slug: permission-priming
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Explaining why access is needed in the product's own dialog first,
+  and only firing the operating system prompt once the reader has said yes to
+  that.
+aliases:
+  - name: pre-permission prompt
+    source: community
+  - name: soft ask
+    source: community
+  - name: double permission pattern
+    source: web-dev
+  - name: primer dialog
+    source: community
+  - name: permission pre-prompt
+    source: community
+tags:
+  - auth
+  - consent
+  - onboarding
+relations:
+  contrastWith:
+    - cookie-consent-banner
+    - nagging
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - push-notification
+implementations: []
+sources:
+  - title: "UserOnboard: Permission Priming"
+    url: https://www.useronboard.com/onboarding-ux-patterns/permission-priming/
+  - title: "web.dev: Permission UX for push notifications"
+    url: https://web.dev/articles/push-notifications-permissions-ux
+demo: inline
+exhibit: false
+useWhen: your own dialog asks before the real system prompt does
+---
+
+Permission priming is an ask before the ask. The product puts up its own card, in its own
+voice, saying what it wants access to and what the reader gets for it, and offers two
+answers. Only one of them reaches the operating system. Say yes and the real prompt
+appears, already answered in the reader's head. Say not now and nothing happens at all,
+which is the whole point: the system prompt has not been spent, and the app can ask again
+after the next order, the next photo, the next trip.
+
+The reason it exists is that the platform prompt is close to a single use resource. On
+iOS the notification prompt is shown once, and a person who declines has to find a
+buried settings screen to change their mind. Android and browser prompts are similar
+enough in practice, and browsers now punish repeat asking directly: Chrome and Firefox
+suppress prompts a person keeps dismissing, and Safari requires a gesture before one can
+be shown at all. A cold prompt on first launch, before the app has done anything worth
+being told about, is therefore not a fast route to permission. It is how a product loses
+the channel permanently, and the decline rate on cold notification asks is the reason
+priming became standard practice.
+
+Timing is most of the craft. Ask where the value is obvious, immediately after the
+gesture that creates it: the order is placed, so offer to say when the driver leaves; the
+photo has been taken, so offer the camera roll. Name the specific thing you will send and
+how often, because a vague promise reads as marketing and gets refused. And keep the ask
+proportionate. One primer per moment, dismissible with a plain Not now, is priming. The
+same card returning on every screen until it wins is nagging, and a reader who cannot
+make it go away will remove the app instead.
+
+The pattern is honest as long as the primer is honestly a primer. It has to be visibly
+the product's own interface rather than a copy of the system dialog, because a card
+dressed as an operating system alert is borrowing an authority it does not have, which is
+[misdirection](/misdirection) and reads as one the moment anyone notices. The decline has
+to be a real answer, not a delay disguised as one. And the promise made in the card is
+the contract for what the channel is used for afterwards, so a
+[push notification](/push-notification) permission granted for delivery updates does not
+also license weekend discount campaigns. The same shape applies to every sensitive
+permission, location, camera, microphone, contacts, and the rule is the same everywhere:
+earn it in your own words first, then let the system ask once.

@@ -1,0 +1,80 @@
+---
+name: Speculative loading
+slug: speculative-loading
+category: pattern
+status: published
+created: 2026-08-25T00:00:00.000Z
+modified: 2026-08-25T00:00:00.000Z
+definition: Fetching, or fully rendering, a page before the reader asks for it,
+  on a guess about where they go next, so the navigation is already done when
+  the click lands.
+aliases:
+  - name: prefetching
+    source: mdn
+  - name: preloading
+    source: mdn
+  - name: prerendering
+    source: mdn
+  - name: speculation rules
+    source: mdn
+  - name: instant navigation
+    source: community
+tags:
+  - perceived-performance
+  - web-platform
+relations:
+  contrastWith:
+    - lazy-loading
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hydration
+    - magic-link
+implementations: []
+sources:
+  - title: "MDN: Speculative loading"
+    url: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Speculative_loading
+  - title: "MDN: Speculation Rules API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Speculation_Rules_API
+demo: inline
+exhibit: false
+useWhen: the next page is fetched before the reader clicks it
+---
+
+A navigation feels slow because it starts when the reader clicks. Speculative loading
+moves the start earlier, on a guess: the browser fetches the next document, or goes
+further and renders it in a hidden tab, while the reader is still reading this one. If
+the guess was right the click is answered from memory and the page appears to have been
+there all along. If it was wrong, the work is thrown away and nobody notices except the
+network.
+
+Three words get used interchangeably and they are three different amounts of work.
+Preload is about this page: a resource the current document definitely needs, fetched
+earlier in the queue than the parser would have found it. Prefetch is about the next
+navigation: the document is pulled into the cache, but nothing is parsed or run.
+Prerender is the whole thing, the next page loaded and rendered and its scripts
+executed, waiting off screen. The [Speculation Rules API](https://developer.mozilla.org/en-US/docs/Web/API/Speculation_Rules_API)
+is how a page declares which links get which treatment, and its eagerness settings are
+really a guessing budget: `immediate` speculates on load, `moderate` waits for about
+200 ms of hover, and `conservative` waits until the pointer actually goes down, which
+still buys the tens of milliseconds between pointerdown and click.
+
+The guess is the design decision, and guessing wrong is not free. Every wrong guess is
+bandwidth and battery spent on a page nobody visited, which lands on the reader's data
+plan rather than yours. A prerendered page also runs: its scripts execute, its
+analytics can fire, and anything with a side effect happens for a visit that never
+occurred, which is why prerendering is restricted to same-origin navigations that the
+page has explicitly nominated and why the Speculation Rules spec gives a page an API to
+notice it is being prerendered. The pattern has a history of biting designs that did
+not expect it. As [magic link](/magic-link) notes, mail scanners that prefetch every
+link in a message will happily spend a one-time sign-in link before its owner opens the
+mail: any URL that changes something when merely fetched is a URL a speculator can
+break.
+
+The opposite bet is [lazy loading](/lazy-loading), which answers the same question by
+fetching as late as possible instead of as early as possible, and the two coexist
+because they are aimed at different things: defer what is probably not needed,
+speculate on what probably is. Where speculative loading is easiest to justify is a
+site with a strong next step, an article with a next chapter, a listing whose first
+result gets most of the clicks. Where it is hardest is a page full of equally likely
+links, because speculating on all of them is just downloading the site.

@@ -1,0 +1,45 @@
+---
+name: Progressive disclosure
+slug: progressive-disclosure
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Showing the few options most people need and keeping the rest one
+  deliberate step away, so complexity arrives only when it is asked for.
+aliases: []
+tags:
+  - perception
+relations:
+  contrastWith:
+    - accordion
+    - disclosure
+    - progressive-reduction
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - cognitive-load
+implementations: []
+sources:
+  - title: "Nielsen Norman Group: Progressive disclosure"
+    url: https://www.nngroup.com/articles/progressive-disclosure/
+demo: inline
+exhibit: false
+useWhen: keeping advanced options one click away instead of on screen
+---
+
+Progressive disclosure is an arrangement, not a component. It is the decision about
+what goes on the first screen and what waits behind "Advanced options", "Show
+more", or a second step. The demo here shows the smallest version of it, but the
+same idea covers wizards, settings pages that start with a summary, and editors
+that reveal their toolbars as you use them.
+
+The rule of thumb is frequency, not importance. The first layer holds what most
+people need most of the time; the second holds what a few people need occasionally.
+Getting this backwards produces forms where everyone opens the extra section every
+time, which is worse than never having hidden it.
+
+What makes it work is that the second layer is visible as a promise. A control
+labelled "Advanced options" tells you the settings exist and where they are.
+Hiding options with no trace of them is not disclosure, it is just absence. An
+[accordion](/accordion) is one mechanism for the reveal, not the pattern itself.

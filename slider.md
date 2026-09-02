@@ -1,0 +1,96 @@
+---
+name: Slider
+slug: slider
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A control that sets a value by dragging a handle along a track,
+  showing the whole range at once.
+aliases:
+  - name: range input
+    source: community
+  - name: range control
+    source: nngroup
+  - name: track bar
+    source: community
+tags:
+  - dragging
+  - forms
+relations:
+  contrastWith:
+    - stepper
+    - progress-bar
+    - carousel
+    - scrubber
+    - image-comparison-slider
+    - knob
+    - range-slider
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - tick-marks
+implementations:
+  - system: aria-apg
+    name: Slider
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/slider/
+  - system: material
+    name: Sliders
+    url: https://m3.material.io/components/sliders/overview
+  - system: hig
+    name: Sliders
+    url: https://developer.apple.com/design/human-interface-guidelines/sliders
+  - system: carbon
+    name: Slider
+    url: https://carbondesignsystem.com/components/slider/usage/
+  - system: radix
+    name: Slider
+    url: https://www.radix-ui.com/primitives/docs/components/slider
+  - system: base-ui
+    name: Slider
+    url: https://base-ui.com/react/components/slider
+  - system: shadcn
+    name: Slider
+    url: https://ui.shadcn.com/docs/components/slider
+sources:
+  - title: "ARIA Authoring Practices Guide: Slider pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/slider/
+  - title: Sliders, Material Design 3
+    url: https://m3.material.io/components/sliders/overview
+demo: inline
+exhibit: false
+useWhen: picking a value where the range matters more than the number
+---
+
+A slider trades precision for orientation. The track is the whole range drawn to
+scale, so the handle's position answers *where am I in this* before it answers
+*what number is this*. That makes it right for brightness, volume, opacity, a
+price ceiling, a blur radius: values a person tunes by result rather than types
+from memory. When the exact figure is what matters, or the range runs to
+thousands of steps, a number field is the honest control, and the two are often
+paired so the slider does the coarse move and the field does the last digit.
+
+The parts have names worth using. The **track** is the full range; the **fill**
+(also *indicator* or *active track*) is the part from the minimum to the current
+value; the **thumb** (also *handle* or *knob*) is what you drag. **Ticks**, or
+stops, mark the steps a discrete slider snaps to. A **range slider** carries two
+thumbs and produces a span rather than a value, which is a different control with
+its own problems: two handles that can collide, and no obvious way to move one
+past the other.
+
+"Slider" is also the web's most reliable false friend. In marketing and theme
+vocabulary it usually means a rotating banner of images, which is a
+carousel: nothing is being set, and there is no range. "Track bar" is the same
+control under its Windows Forms name. Two neighbors are worth keeping apart from
+it as well. A progress bar looks like a filled track but reports rather than
+accepts, and dragging it does nothing. A scrollbar also has a thumb on a track,
+yet its thumb has a *size* that reports how much of the content you can see, and
+it moves a viewport instead of setting a value.
+
+Sliders are easy to build and easy to build badly. The handle needs a target
+large enough for a fingertip even when the track is a few pixels tall, the
+current value should be readable without dragging, and arrow keys must step it
+(`role="slider"` with `aria-valuemin`, `aria-valuemax`, and `aria-valuenow`, or a
+native `<input type="range">`, which brings all of that for free). Give the value
+a unit in `aria-valuetext` when the raw number would be read out meaninglessly,
+and never make a slider the only way to reach a value that has to be exact.

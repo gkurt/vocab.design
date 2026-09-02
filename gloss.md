@@ -1,0 +1,66 @@
+---
+name: Gloss
+slug: gloss
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A wet plastic finish made from a light gradient across the top half
+  of a control, a highlight arc, and a darker lower half.
+aliases:
+  - name: glossy button
+  - name: shine
+    source: community
+tags:
+  - depth
+  - retro
+relations:
+  contrastWith:
+    - specular-highlight
+    - bevel
+    - aqua
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "GirlieMac: CSS3 Gradients, no image Aqua button"
+    url: https://girliemac.com/blog/2009/04/30/css3-gradients-no-image-aqua-button/
+demo: inline
+exhibit: false
+useWhen: the control looks like polished wet plastic
+---
+
+Gloss is a lighting trick with three parts and no more. The top half of the shape carries
+a pale wash that fades as it descends, the bottom half is a deeper, more saturated version
+of the same colour, and between them sits a hard edge where the wash stops rather than
+tapers. That abrupt boundary is the whole illusion: a soft ramp reads as a gradient, while
+a ramp that ends in a line reads as light landing on something wet. A thin dark rim around
+the outside keeps the shape from dissolving, and a faint glow near the bottom edge, where
+light bounces back up through the body, sells the idea that the object has thickness
+rather than a painted face.
+
+The finish belongs to the 2000s, and it spread further than any single vendor.
+[Aqua](/aqua) is the best documented version and the one that names the arc from gloss to
+flat, since Apple both perfected the look and killed it. The web took the idea and applied
+it to everything: beta badges, reflective floors under logos, download buttons the size of
+a hand. [Frutiger Aero](/frutiger-aero) is the name the wider visual genre of that decade
+now goes by, all bubbles and water and lens flare, and gloss is the surface treatment that
+genre put on its controls. Within the [skeuomorphism](/skeuomorphism) family gloss is the
+cheapest member: leather stitching and torn paper claim a specific object, while gloss
+claims only a material, which is why it survived long after the notepads did.
+
+It is not gone. App icons still ship with a specular band because a small square needs
+every legibility trick it can get, game interfaces lean on it because a plastic button is
+readable at speed and reads as pressable across cultures, and hardware product pages use it
+because the physical thing really is polished. Used deliberately today it reads as period
+costume with a purpose: warm, tactile, unembarrassed. The trap is the same one Apple ran
+into. Gloss is a hierarchy device, so a page where every control shines has spent the
+signal and has no way left to say which button matters. One glossy control against matte
+neighbours still works exactly as it did in 2004.
+
+Two practical cautions. The specular band eats contrast, since white label text over a
+pale upper half is often the failing half of a control that passes when measured against
+its darker bottom, so measure the light region rather than the average. And gloss is
+almost never a token: the gradient, the rim, and the inner glow have to be tuned per hue,
+which is exactly the maintenance cost flat design was invented to escape.

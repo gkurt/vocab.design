@@ -1,0 +1,70 @@
+---
+name: Haptic feedback
+slug: haptic-feedback
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A brief physical vibration or tap produced by the device to confirm
+  an interaction, mark a boundary, or signal success and failure.
+aliases:
+  - name: haptics
+    source: hig
+  - name: vibration feedback
+    source: community
+  - name: taptic feedback
+    source: community
+tags:
+  - platform-registers
+  - touch
+relations:
+  contrastWith:
+    - ripple
+  variantOf: []
+  partOf:
+    - microinteraction
+  seeAlso:
+    - force-touch
+    - shake-animation
+    - earcon
+implementations: []
+sources:
+  - title: "UXmatters: Designing for touch"
+    url: https://www.uxmatters.com/mt/archives/2020/02/designing-for-touch.php
+demo: inline
+exhibit: false
+useWhen: feedback the user feels rather than sees or hears
+---
+
+A touchscreen took away the one thing a physical control always had, which is the small
+mechanical answer of a key going down or a switch clicking over. Haptics put a version of
+it back. A linear actuator produces a tap short enough to read as a single event rather
+than as a buzz, and the interface spends it at the moments a hand expects an answer: a
+value stepping to the next notch, a switch committing, a long press reaching its
+threshold, a refresh being armed. It is the cheapest feedback channel an interface has,
+because it costs no screen space, no reading time, and no sound in a quiet room.
+
+Both mobile platforms publish a vocabulary of events rather than a waveform editor, and
+learning the vocabulary is most of the work. Apple's set divides into selection, for a
+value that has moved past a detent, impact, for something that has landed or hit a limit,
+in several weights, and notification, which reports the outcome of a task as success,
+warning, or error. Android's is shaped the same way, from the older feedback constants up
+to the composition primitives (a tick, a click, a thud) that newer versions can assemble.
+Both exist so that a tap means the same thing in every app on the device, which is exactly
+what a haptic that was designed per screen would destroy: authored buzzes are how a phone
+starts feeling like a pager.
+
+The web has almost none of this. `navigator.vibrate()` takes a duration or a pattern of
+milliseconds, which is a motor turning on rather than a tap, it needs a user gesture to
+fire, it is absent on iOS Safari, and it is disabled outright in enough contexts that
+nothing may depend on it. A web interface that wants the feel of a native control is
+therefore designing for a channel that may simply not be there, which is the practical
+reason haptics are never allowed to carry a message by themselves.
+
+That is the rule the specimen on this page is built around. Feedback nobody can see needs
+a partner they can: the tick confirms what the screen already said, and never says
+anything on its own. Two more worth stating. The system setting is a real preference, so
+haptics that are routed through the platform's own generators are silenced when a reader
+has turned them off, while a hand-rolled vibration pattern quietly is not. And the budget
+is small: a tick per committed action reads as craft, a tick per scroll notch reads as a
+fault in the phone.

@@ -1,0 +1,86 @@
+---
+name: Keyboard shortcuts dialog
+slug: keyboard-shortcuts-dialog
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The panel opened by pressing question mark that lists every shortcut
+  in the application, grouped by area.
+aliases:
+  - name: hotkeys dialog
+    source: blueprint
+  - name: shortcut cheat sheet
+    source: community
+  - name: keyboard help
+    source: community
+  - name: shortcuts overlay
+    source: community
+  - name: keyboard shortcut overlay
+    source: merged-candidate
+  - name: shortcut cheatsheet
+    source: merged-candidate
+  - name: hotkey overlay
+    source: merged-candidate
+  - name: press ? for help
+    source: merged-candidate
+tags:
+  - keyboard
+  - menus
+  - overlays
+relations:
+  contrastWith:
+    - command-palette
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - kbd
+    - keyboard-shortcut
+implementations: []
+sources:
+  - title: Blueprint documentation
+    url: https://blueprintjs.com/docs/
+demo: inline
+exhibit: false
+useWhen: the cheat sheet of every shortcut
+---
+
+An application with fifty [keyboard shortcuts](/keyboard-shortcut) has a documentation
+problem, and the convention that solved it is a dialog listing all of them, grouped by
+area, opened by pressing question mark. The gesture is close to a de facto standard now
+(Gmail, GitHub, Slack, Notion and most editors answer it), which means a keyboard user
+arriving at an unfamiliar application already has one thing to try. That is the component's
+real value: not the list, which could live on a help page, but the fact that the list is
+one keystroke away from wherever the reader is standing.
+
+Compare it with a [command palette](/command-palette) and the division of labour is clean.
+A palette does the thing you search for: you type three letters, press Enter, and the
+action happens, which makes it the better discovery surface, because a person who does not
+know a feature exists can find it by describing what they want and use it in the same
+gesture. A shortcuts dialog only tells you how and then gets out of the way, which makes
+it the better reference, because it is complete, it is grouped by area rather than ranked
+by a search, and it answers the question a palette cannot: what is the key I should be
+using instead of this menu. Ship both if you can; they are not competing, they are the
+learn-it and the do-it halves of the same problem.
+
+Build the list out of the same data the shortcuts are registered from, or it will be
+wrong within a release. Group by area rather than alphabetically, since a reader is
+looking for "the thing I do in the editor" and not for a word. Draw each key as its own
+chip rather than as a run of text, so a
+[chorded shortcut](/chorded-shortcut) reads as the two presses it actually is. Print the
+modifier names the current platform uses, since a Mac reader shown Ctrl will press the
+wrong key. And show the shortcuts that are live in the current context, marking the ones
+that are not, because a global list that includes twenty editor commands while the reader
+is in a settings screen teaches them the wrong thing twice.
+
+Being a dialog brings the usual duties: it takes focus, it returns it, it closes on Escape,
+and it is reachable by pointer as well, from a help menu, since not every reader who needs
+it can discover it by pressing a key they do not know about. Put a visible hint somewhere
+quiet (a line in the status bar, an item in the help menu) so the gesture is discoverable
+by someone who has never met it. And note that the keys this dialog lists are the
+application's own, which is a separate mechanism from an
+[access key](/access-key): those are declared on the page and handed to the browser, and
+they belong in the interface beside the control rather than in a list of the program's
+commands. The [Blueprint documentation](https://blueprintjs.com/docs/) is the most
+commonly cited implementation, and its hotkeys dialog is generated from the registered
+hotkeys themselves, which is exactly the right architecture.

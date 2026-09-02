@@ -1,0 +1,73 @@
+---
+name: Fluid grid
+slug: fluid-grid
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A grid whose columns and gutters are expressed as proportions rather
+  than fixed pixels, so the whole composition stretches and shrinks with its
+  container.
+aliases:
+  - name: fluid grids
+    source: alistapart
+  - name: fluid layout
+    source: community
+  - name: liquid layout
+    source: community
+  - name: percentage grid
+    source: community
+tags:
+  - grids
+  - screen-size
+relations:
+  contrastWith:
+    - twelve-column-grid
+    - intrinsic-web-design
+    - ram-technique
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - fluid-space-scale
+implementations: []
+sources:
+  - title: Responsive Web Design, A List Apart
+    url: https://alistapart.com/article/responsive-web-design/
+demo: inline
+exhibit: false
+useWhen: columns measured in proportions, not pixels
+---
+
+A fixed grid says a column is 220 pixels wide. A fluid grid says a column is a third of
+whatever it is inside. The difference only shows up at widths nobody drew: the fixed grid
+either runs off the edge or leaves a strip of dead space beside itself, while the fluid one
+is doing something sensible at every width because proportion is all it was ever told. This
+is why it is the first of the three ingredients in Ethan Marcotte's
+[Responsive Web Design](https://alistapart.com/article/responsive-web-design/): media
+queries handle the moments a layout changes shape, and the fluid grid handles all the
+widths in between, which is most of them.
+
+The old conversion is worth knowing because it explains the mindset. Marcotte's formula is
+target divided by context equals result: a 220 pixel column inside a 960 pixel wrapper
+becomes `width: 22.9166667%`, and the long decimal is deliberate, since rounding is what
+makes columns fail to add up. It is a recipe for translating a fixed comp into ratios, and
+in a world of `float` it was the only way. Modern CSS says the same thing without the
+arithmetic: `grid-template-columns: repeat(3, 1fr)` divides the free space after the gaps
+are taken out, so gutters can stay in fixed units while the columns stay proportional,
+which is usually what you actually want. `repeat(auto-fit, minmax(14rem, 1fr))` goes
+further and lets the column count follow the space with no query at all.
+
+Fluid is a property of the tracks, not of the whole system, so it sits beside rather than
+instead of its neighbours. A [layout grid](/layout-grid) is the shared column structure a
+design agrees on; making its tracks proportional is what makes it fluid. A
+[breakpoint](/breakpoint) is where that structure is allowed to change into a different
+one. Between two breakpoints, the fluid grid is the only thing still working.
+
+The failure mode is the mirror of the fixed grid's. Proportions have no opinion about
+content, so a column that is a third of the space can shrink until the text inside it sets
+three words to a line, and a hero image can stretch until it is a smear. Both limits are
+handled by putting a floor and a ceiling on the fluidity rather than abandoning it: a
+[container](/container) caps the outer width so lines never get too long, `minmax()` gives
+a track a width it refuses to go below, and a breakpoint changes the count once shrinking
+stops being reasonable. A grid that is fluid within sane bounds is the goal; a grid that is
+fluid without them is just a grid that breaks more quietly.

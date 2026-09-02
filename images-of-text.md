@@ -1,0 +1,69 @@
+---
+name: Images of text
+slug: images-of-text
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Text baked into a raster image, which cannot be resized, restyled,
+  selected, translated, or read by anything but the alt attribute someone
+  remembered to write.
+aliases:
+  - name: text in images
+    source: community
+  - name: baked-in text
+    source: community
+  - name: image of text
+    source: wcag
+tags:
+  - media
+  - wcag
+relations:
+  contrastWith:
+    - alt-text
+    - icon-font
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - resize-text
+implementations: []
+sources:
+  - title: "WCAG 2.2: Images of Text"
+    url: https://www.w3.org/TR/WCAG22/#images-of-text
+demo: inline
+exhibit: false
+useWhen: arguing a headline should be text, not a picture of text
+---
+
+WCAG 1.4.5 puts it as a default rather than a ban: where the technology can produce the
+visual presentation, use text and not an image of text. The exceptions are narrow. A
+logotype is allowed, because the shape of the wordmark is the thing being shown. So is an
+image the reader can customise. Everything else, the promo banner, the pull quote set in
+the brand face, the pricing table exported from a design tool, is a picture standing in
+for words, and the words are gone.
+
+What the reader loses is not one feature but every one that depends on the text still
+being text. Scaling resamples the picture instead of re-rendering the letters, so the
+people most likely to zoom get the softest result. A reader who has set a larger minimum
+font size, a dyslexia-friendly face, or the letter and word spacing WCAG 1.4.12 asks
+products to tolerate gets none of it, because none of those settings can reach inside a
+raster. Selection, find in page, machine translation, and text to speech all step straight
+over the region. Dark mode leaves the banner glowing white in a dark column. The single
+remaining channel is the [alt text](/alt-text), which has to repeat the words exactly and
+is the first thing to fall out of date when the offer changes.
+
+The practice has a real history, and it is worth saying out loud when reviewing an old
+codebase: before web fonts, an image was the only way to set a headline in the brand face,
+and a generation of build tools grew up around slicing them. That constraint is gone. CSS
+now does gradients, outlines, shadows, variable weights, and rotation on live text, and a
+web font costs less to download than the same words rendered three times for three
+breakpoints. Localisation makes the arithmetic worse still: an image of text is one asset
+per language, each needing a designer, and each free to drift from the copy it was cut
+from.
+
+There are honest uses left, and they share a trait: the picture is of a thing rather than
+of words used as words. A screenshot of an interface is a picture of that interface, and
+the text inside it is part of the depiction. A chart's labels are part of the chart, though
+the chart still owes the reader a text alternative. And a wordmark is a drawing that
+happens to be letter shaped. Outside those, the review question is short: could this be a
+heading with CSS on it? It nearly always could.

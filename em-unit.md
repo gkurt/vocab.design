@@ -1,0 +1,60 @@
+---
+name: Em
+slug: em-unit
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A relative unit equal to the current font size, historically the
+  width of the square the letter m was cast on.
+aliases:
+  - name: em square
+  - name: em quad
+  - name: rem
+    source: css
+tags:
+  - spacing
+  - web-platform
+relations:
+  contrastWith:
+    - ch-unit
+    - point-size
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Em sizing (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: "Typography Terms: Glossary (NN/g)"
+    url: https://www.nngroup.com/articles/typography-terms-ux/
+demo: inline
+exhibit: false
+useWhen: sizing something relative to the text it sits in
+---
+
+An em is not a length, it is a ratio. `1em` resolves to whatever font size is in force
+where it is written, so `padding: 0.75em` on a 14px card is 10.5px and the same
+declaration on a 20px card is 15px, without anyone editing the rule. The name comes from
+metal type, where the em was the square body the capital M was cast on: a unit defined by
+the size being set rather than by any fixed distance. The em quad was that square used as
+a space, which is why an [em dash](/em-dash) is one em wide and an
+[en dash](/en-dash) half of it.
+
+The unit it gets confused with is `rem`, and the difference is which font size it asks.
+An em asks the element it is written on; a rem asks the root, so it means the same
+number of pixels everywhere in the document. That makes em the compounding one: a
+`font-size: 0.9em` nested three deep is 0.9 of 0.9 of 0.9, and a component that lands
+inside another copy of itself shrinks each time. The one place the asymmetry bites is
+the `font-size` property itself, where an em has no current size to read yet and
+resolves against the parent instead.
+
+Reach for em when a value belongs to the text beside it: padding and radius on a chip,
+the gap between an icon and its label, the width of a bullet, the [tracking](/tracking)
+on a heading, the [measure](/measure) of a column stated in characters rather than
+pixels. Those values are wrong at a fixed size the moment the type changes, and right
+forever if they are written as fractions of it. Reach for rem when a value belongs to
+the page: the [spacing scale](/spacing-scale), the [type scale](/type-scale), the
+rhythm a whole layout is built on. Both of them beat pixels for one shared reason,
+which is that they answer the font size a reader chose in their own browser, and a
+layout in px does not (see [resize text](/resize-text)).

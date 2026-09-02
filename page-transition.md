@@ -1,0 +1,73 @@
+---
+name: Page transition
+slug: page-transition
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Motion that covers a navigation between two whole pages or routes,
+  replacing the hard cut a document load would otherwise produce.
+aliases:
+  - name: route transition
+    source: community
+  - name: screen transition
+    source: community
+  - name: navigation transition
+    source: hig
+tags:
+  - navigation
+  - web-platform
+relations:
+  contrastWith:
+    - view-transition
+    - push-transition
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - route-announcement
+    - predictive-back
+implementations: []
+sources:
+  - title: "MDN: View Transition API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API
+demo: inline
+exhibit: false
+useWhen: navigation between routes should feel continuous
+---
+
+Native apps have had these since the beginning, because their navigation is a stack: a
+detail screen pushes in from the trailing edge, the title slides with it, and going back
+runs the same move in reverse. The web had a hard cut instead. A document load tears down
+the old page before the new one exists, so for years the only way to animate between two
+routes was to stop navigating: keep one document alive, let a router swap the route's
+markup in place, and animate that swap. That is what a page transition is, whichever
+technology delivers it, and it is why the effect arrived on the web attached to
+single-page applications.
+
+The platform has since closed most of the gap. `document.startViewTransition` animates a
+change of state inside one document, and `@view-transition` extends the same machinery to
+ordinary navigations between same-origin documents, so a plain multi-page site can push
+and fade without a router. Worth keeping the two words apart:
+[view transition](/view-transition) is a browser mechanism, while a page transition is
+the thing being asked for, and it can equally be a router animating two mounted routes,
+which is what the specimen here shows. The move itself is borrowed vocabulary either way,
+usually a [crossfade](/crossfade) or a [slide transition](/slide-transition).
+
+Direction is the part that carries meaning, and the part most often got wrong. Going
+deeper should travel one way and going back should run the same motion backwards, because
+a back gesture that plays the forward animation tells the reader they have gone further
+in. Depth reads as a push, sibling routes read as a crossfade or a short slide, and a
+route that is really a layer over the current one (a checkout step, a photo) reads as a
+rise. If one element genuinely persists across the navigation, a thumbnail becoming a
+header image, that element should be animated as itself rather than faded out and faded
+in as somebody else.
+
+The budget is tighter than for any other transition, because this motion sits between the
+reader and the content they asked for. Somewhere around 200 to 300 milliseconds is the
+usual ceiling for a route change, and the transition must not be waiting on data: animate
+to a page that is ready, or to a placeholder, never into a spinner. Two accessibility
+obligations come with the pattern, and both are easy to forget once navigation stops
+being a document load. Focus has to move to the new page rather than staying on the link
+that was clicked, and the route change has to be announced, since no page load event will
+do it for you. And a reader who has asked for reduced motion should get the new route
+plainly: the navigation is the function, the animation is the decoration.

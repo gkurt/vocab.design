@@ -1,0 +1,73 @@
+---
+name: Roach motel
+slug: roach-motel
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Making entry into a commitment take one click and exit take a phone
+  call, a chat queue, or a buried page, so the asymmetry keeps people
+  subscribed.
+aliases:
+  - name: hard to cancel
+    source: deceptive-design
+  - name: cancellation friction
+    source: community
+  - name: easy in hard out
+    source: community
+  - name: click to cancel violation
+    source: community
+tags:
+  - commerce
+relations:
+  contrastWith:
+    - forced-continuity
+    - obstruction
+    - unsubscribe-link
+  variantOf:
+    - dark-pattern
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Deceptive Design: Hard to cancel"
+    url: https://www.deceptive.design/types
+demo: inline
+exhibit: false
+useWhen: easy to sign up, deliberately hard to leave
+---
+
+The name comes from the pest trap advertised as the place roaches check into and never
+check out of, and it describes an asymmetry rather than a screen. Signing up is a
+single button on the page you were already reading, prefilled, one tap on a saved card.
+Leaving is somewhere else: three levels into an account menu, behind a retention offer,
+behind a survey, and finally behind a phone number staffed on weekday afternoons. No
+step is a lie. Each one is defensible on its own, which is exactly how the pattern
+survives review. What gives it away is the comparison: the same company that built a
+one-click entrance decided the exit needed four screens and a queue.
+
+It sits under the [dark pattern](/dark-pattern) umbrella as the type Harry Brignull's
+catalogue at [deceptive.design](https://www.deceptive.design) calls hard to cancel, and
+it travels with a companion. Forced continuity is the free trial that silently becomes a
+paid subscription; the roach motel is what makes that renewal hard to stop once it has
+started. Together they turn an experiment into an annuity. The retention offer deserves
+its own note, because it is the part teams defend hardest: an offer presented once, on
+the way out, is a legitimate business move. An offer that must be declined twice, then
+survey answered, then confirmed on the telephone, is a toll booth wearing a discount.
+
+The measurement most often quoted in its defence is churn, and churn is exactly the
+number the pattern is designed to corrupt. A cancellation that a person could not
+complete is recorded as a retained subscriber, so the friction improves the metric
+whether or not it changed anyone's mind, and the true cost lands somewhere the
+dashboard cannot see: chargebacks, card cancellations, one-star reviews written in the
+voice of someone who spent forty minutes on hold. The complaint that follows is rarely
+about the money. It is about having been made to fight.
+
+Regulators arrived at the same conclusion. The US Federal Trade Commission has run
+enforcement actions over subscriptions that were simple to start and difficult to stop,
+and its click to cancel rulemaking is built on a single symmetry test: cancelling has to
+be at least as easy as signing up, in the same medium the sign-up happened in. California
+and several EU consumer rules say a version of the same thing. The design rule is easier
+to remember than the statute. Put the cancel control on the account screen where a
+person would look for it, let one click do it, confirm on screen rather than by email,
+and make any offer you want to make after the cancellation is already safe.

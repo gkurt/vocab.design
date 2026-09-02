@@ -1,0 +1,67 @@
+---
+name: Chroma
+slug: chroma
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Colourfulness measured in absolute terms rather than as a percentage
+  of the maximum, so a light pastel and a dark ink can be compared on one scale.
+aliases:
+  - name: C in OKLCH
+  - name: C in HCT
+    source: material
+tags:
+  - perception
+relations:
+  contrastWith:
+    - saturation
+    - gamut-mapping
+    - perceptual-uniformity
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: radix
+    name: the purest step (step 9)
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+sources:
+  - title: "MDN: oklch()"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/oklch
+  - title: HCT in ColorAide
+    url: https://facelessuser.github.io/coloraide/colors/hct/
+demo: inline
+exhibit: false
+useWhen: comparing colourfulness across colours of different lightness
+---
+
+Chroma is how far a colour sits from grey, stated as an amount rather than as a share of
+anything. In `oklch()` it is the middle number, an open ended figure that starts at zero
+and runs to roughly 0.37 for the most vivid colours sRGB can reach. Zero chroma is grey,
+at every [lightness](/lightness) and with no [hue](/hue) left to name. The useful property
+is that 0.12 means the same quantity of colour on a pale surface as it does on a near
+black one, which is what lets a whole palette be tuned on one number.
+
+[Saturation](/saturation) answers a different question, and the difference is not
+pedantry. Saturation is relative: colourfulness as a proportion of the most a colour could
+be at that lightness. A dark navy and a pale sky blue can report the same saturation
+figure while one of them holds several times the chroma of the other, and HSL makes this
+worse by letting its saturation channel visibly drag its lightness channel around, so a
+row of swatches at one HSL lightness is not a row at one perceived lightness. Chroma is
+the axis that stays put: change it and only the amount of colour moves.
+
+What chroma does not promise is availability. The maximum reachable chroma depends on
+both lightness and hue, peaking at a cusp somewhere in the middle of the lightness range,
+which is why a [colour ramp](/color-ramp) cannot hold one chroma across every step and
+why designed scales taper it at the light and dark ends instead. Radix names the step
+where the taper peaks, its step 9, the purest step in the scale, and Material's HCT model
+carries a chroma channel of its own for the same reason. Ask for more than the cusp
+allows and the value is quietly gamut mapped, so the colour you receive is not the one
+you wrote (see [colour gamut](/color-gamut)).
+
+In practice the numbers are small and worth memorising. A tinted neutral lives around
+0.005 to 0.03, enough that the grey has a temperature and not so much that it reads as a
+colour. A body accent sits near 0.12 to 0.18. Anything above that is a highlight applied
+to something small, because a large field of high chroma makes the type on it vibrate.
+Dark themes want the same hues pulled down again, since chroma that looked composed on
+white glows against a dark surface.

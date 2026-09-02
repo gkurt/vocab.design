@@ -1,0 +1,67 @@
+---
+name: Title bar
+slug: title-bar
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The strip along the top of a window carrying its title and window
+  controls, and the region you drag to move the window.
+aliases:
+  - name: window title bar
+    source: community
+  - name: titlebar
+    source: community
+  - name: unified title bar
+    source: hig
+  - name: caption bar
+    source: community
+tags:
+  - platform-registers
+  - windowing
+relations:
+  contrastWith:
+    - window-controls
+    - page-header
+    - app-bar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - toolbar
+    - chrome
+implementations: []
+sources:
+  - title: Traffic Lights (Window Controls), NameThatUI
+    url: https://namethatui.com/macos/traffic-lights
+demo: inline
+exhibit: false
+useWhen: the draggable strip at the top of a window
+---
+
+A title bar does three jobs at once and is usually credited with only the first. It names
+the window, so a row of them in a task switcher can be told apart. It carries the window
+controls at one end. And it is the handle: the operating system treats the whole strip,
+minus the controls, as the region a drag moves the window by, which is why a bar with no
+empty space left in it is a window nobody can move.
+
+[Window controls](/window-controls) are the buttons, the title bar is the strip that
+carries them, and the difference matters as soon as an application draws its own. A
+[toolbar](/toolbar) is the other neighbour, and the two are distinguished by who owns the
+commands: a toolbar holds actions that act on the document, while the title bar belongs to
+the window manager and acts on the window. A unified bar is what a platform gets when it
+merges those two strips into one, putting the document's tools and the window's name on a
+single line. It buys back a whole strip of vertical space, and it costs the drag region
+that space used to provide, so a unified bar has to keep some of itself empty on purpose.
+
+The bar is also where a window says whether it is the one you are talking to. An inactive
+window dims its title, its controls, and often the bar's own fill, while the content below
+stays legible. That dimming is a real signal rather than decoration: on a desktop covered
+in overlapping windows it is frequently the only thing distinguishing the window that will
+receive the next keystroke from the four behind it. Dim the bar, never the document.
+
+Because it is the first thing drawn and the last thing customised, the title bar is where
+platform style shows itself most plainly: the striped, glossy lozenges of [Aqua](/aqua),
+the translucent [Mica](/mica) backdrop tinted by the desktop behind it, the chiselled grey
+caption bars that [retro web design](/retro-web-design) reaches for when it wants a page to
+look like a 1998 application. Web apps that draw a title bar of their own inherit the whole
+contract with it, including the part where a reader expects to be able to grab it.

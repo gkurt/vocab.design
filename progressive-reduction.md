@@ -1,0 +1,69 @@
+---
+name: Progressive reduction
+slug: progressive-reduction
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Simplifying a control as the same person uses it more, dropping the
+  label once the icon has been learned and restoring it after a long absence.
+aliases:
+  - name: adaptive simplification
+    source: community
+  - name: experience-based UI
+    source: community
+  - name: proficiency-adaptive interface
+    source: community
+tags:
+  - icons
+  - onboarding
+  - perception
+relations:
+  contrastWith:
+    - progressive-disclosure
+    - morphing-controls
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "GoodUI: adaptive and progressive ideas"
+    url: https://goodui.org/
+demo: inline
+exhibit: false
+useWhen: the label falls away once you have used it enough
+---
+
+Progressive reduction is the idea that a control should get quieter as a particular person
+learns it. The first encounter gets the full affordance: an icon, a written label, maybe a
+hint. After a dozen successful uses the label shortens. After enough uses it disappears and
+the glyph carries the meaning on its own, because by then the reader recognises the shape
+faster than they can read the word. The part everyone forgets is the return trip: if that
+person goes away for two months, the interface has to give the label back, because
+proficiency decays and an interface that assumes otherwise punishes the returning user
+hardest.
+
+The term was coined at LayerVault around 2013, credited to Dan Birman and Allan Grinshtein,
+and it is one of the most cited ideas in interface design with one of the thinnest records
+of actually shipping. It is worth being honest about why. The pattern needs per-person usage
+state, which means the interface's appearance now depends on data that lives in an account,
+survives devices, and has to be recomputed forever. It breaks on shared accounts and shared
+screens, where one person's expertise silently strips labels from another person's first
+visit. It makes support and documentation harder, because a screenshot is no longer a
+description of the product. And it makes the product unlearnable in the one place learning
+is cheapest, which is over someone's shoulder.
+
+The nearer, safer relatives are worth naming, because most teams reaching for progressive
+reduction actually want one of them. An [icon button](/icon-button) with a
+[tooltip](/tooltip) gives every reader the label on demand rather than by proficiency
+estimate, at a fraction of the machinery. A density setting hands the decision to the
+person, which is the same reduction chosen rather than inferred. And plain restraint,
+labelling only the controls that need labels, gets most of the visual calm without any
+per-user state at all.
+
+If you do build it, the design constraints are strict. The control may narrow, but the row
+it sits in and everything below it must not move, so reserve the widest state's space in the
+layout rather than letting the toolbar reflow as one person's expertise grows. Reduce along
+one dimension only, the label, and never the hit area: a 24 pixel target is not a reward for
+loyalty. Keep the reduction reversible on demand as well as on absence, and count *successful*
+uses rather than clicks, so a control someone keeps mis-hitting never loses its explanation.

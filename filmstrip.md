@@ -1,0 +1,64 @@
+---
+name: Filmstrip
+slug: filmstrip
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scrollable row of thumbnails beside a larger view, where picking
+  one changes what the large view shows.
+aliases:
+  - name: thumbnail strip
+    source: community
+  - name: thumbnail rail
+    source: community
+  - name: gallery strip
+    source: community
+  - name: image list
+    source: mui
+tags:
+  - media
+relations:
+  contrastWith:
+    - carousel
+    - content-shelf
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - thumbnail
+    - lightbox
+implementations: []
+sources:
+  - title: Material UI components
+    url: https://mui.com/material-ui/all-components/
+demo: inline
+exhibit: false
+useWhen: a thumbnail rail that drives a big preview
+---
+
+A filmstrip is a rail of small stand-ins that drives a big view. The rail holds the whole
+set at once, or as much of it as will fit before scrolling, and the large pane holds
+exactly one item. Picking in the rail changes the pane; the rail itself never moves on to
+anything. That split is the point: the reader keeps an overview of where they are in a set
+while looking closely at one part of it.
+
+The nearest neighbour is the [carousel](/carousel), and the two are often confused because
+both hold a set and show one thing. A carousel moves a viewport over the set, so the set is
+only ever partly knowable and the reader navigates by stepping. A filmstrip shows the set
+and the item at the same time, in two regions, so nothing has to be remembered between
+steps. If your rail has no big pane beside it, you have a scrolling gallery; if your big
+pane has no rail, you have a carousel with better manners.
+
+The parts have their own words. Each small image is a [thumbnail](/thumbnail), and it earns
+its place only if it is croppable to a consistent box: a rail of ragged shapes is
+unscannable. A [lightbox](/lightbox) is the other way to show the big version, over the
+page rather than beside the rail, which suits a grid of images better than a working
+review does. Slide sorters, page navigators, video scrubbing rails, and photo pickers are
+all the same component with different content, which is why the word travels well.
+
+Mark the current item in the rail and keep it in view. The commonest bug in the pattern is
+a rail that scrolls independently until the selected thumbnail is off screen, so the
+reader loses their place in the set they were keeping an eye on. Give each thumbnail a real
+accessible name, mark the current one with `aria-current`, and make sure arrow keys move
+through the rail, since a strip of images is exactly the kind of control people expect to
+walk with the keyboard.

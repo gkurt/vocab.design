@@ -1,0 +1,66 @@
+---
+name: Error identification
+slug: error-identification
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Naming the field that failed and saying what went wrong in text,
+  rather than only outlining the input in red.
+aliases:
+  - name: inline error message
+    source: community
+  - name: error suggestion
+    source: wcag
+tags:
+  - errors
+  - forms
+  - wcag
+relations:
+  contrastWith:
+    - error-message
+    - inline-validation
+    - error-summary
+    - invalid-state
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Error Identification"
+    url: https://www.w3.org/TR/WCAG22/#error-identification
+  - title: "GOV.UK Design System: Error message"
+    url: https://design-system.service.gov.uk/components/error-message/
+demo: inline
+exhibit: false
+useWhen: the failure has to be named in text, not carried by red alone
+---
+
+A red outline is a hint, not an identification. WCAG's Error Identification criterion
+asks for two things in text: which field is in error, and what the error is. Text,
+because a red border says nothing to a screen reader, nothing to anyone who cannot
+separate red from grey, and nothing to a reader on a phone in sunlight. The colour is
+welcome. It just cannot be the only carrier, which is the same rule as Use of Colour
+applied to the one moment a form is hardest to use.
+
+This is a criterion, not a component. An error message is the line of copy attached to
+a field; error identification is the requirement that the failure is named in a way
+anyone can perceive, and it is usually satisfied by that message plus a few attributes.
+Mark the field `aria-invalid="true"`, point at the message with `aria-describedby` so
+it is read out as part of the field, and add a shape to the colour: an icon, bold
+weight, a thick left rule. Then the marking survives being printed in black and white,
+which is the cheapest test there is.
+
+For a form that fails on submit, a summary above the form is the pattern that has
+proven itself, and GOV.UK's version is the reference: a list at the top naming every
+error, each item linking to its field. Move focus to that summary, so a screen reader
+reader hears the whole verdict at once instead of hunting for it, and keep the summary
+wording and the field wording identical. Errors should also say what to do rather than
+what the rule was. "Enter a date like 27 3 2007" gets people through; "invalid format"
+leaves them guessing which part of the format was wrong.
+
+Two adjacent criteria are worth knowing by name. Error Suggestion asks that, where the
+fix is knowable, you offer it: the expected format, the nearest valid value, a
+correction. And Error Prevention asks that anything legal, financial, or destructive be
+reversible, checkable, or confirmed. Together they describe the whole arc: prevent what
+you can, identify what you cannot, and suggest the way out.

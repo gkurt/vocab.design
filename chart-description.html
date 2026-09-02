@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en" data-page-type="term" data-term-category="accessibility"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="preload" href="/_astro/source-serif-4-latin-wght-normal.D9elroTD.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="/favicon.ico" sizes="32x32"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>@font-face{font-family:'Fira Code';font-style:normal;font-weight:400;font-display:swap;src:url(/_astro/FiraCode-Regular.jAL9VymT.woff2) format('woff2')}@font-face{font-family:'Junicode';font-style:normal;font-weight:400;font-display:swap;src:url(/_astro/junicode-latin.D1SpUvqZ.woff2) format('woff2')}</style><meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#171512" media="(prefers-color-scheme: dark)"><title>Chart description · accessibility · vocab.design</title><meta name="description" content="The text alternative for a chart: a summary of the takeaway plus access to the underlying values, not a recital of the pixels."><link rel="canonical" href="https://vocab.design/chart-description"><meta property="og:type" content="article"><meta property="og:site_name" content="vocab.design"><meta property="og:title" content="Chart description · accessibility · vocab.design"><meta property="og:description" content="The text alternative for a chart: a summary of the takeaway plus access to the underlying values, not a recital of the pixels."><meta property="og:url" content="https://vocab.design/chart-description"><meta property="og:image" content="https://vocab.design/og/chart-description.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="The vocab.design demo for chart description, with the term itself picked out of the demonstration."><meta name="twitter:card" content="summary_large_image"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="vocab.design: new entries" href="/rss.xml"><script>(function(){const id = "G-8F2F1H3YTZ";
+
+      (function () {
+        var nav = navigator;
+        if (nav.globalPrivacyControl === true) return;
+        if (nav.doNotTrack === "1" || window.doNotTrack === "1") return;
+        var data = document.documentElement.dataset;
+        var params = { page_type: data.pageType, term_category: data.termCategory || "" };
+        var host = location.hostname;
+        if (host === "localhost" || host === "127.0.0.1" || host === "[::1]" || host.endsWith(".local")) params.debug_mode = true;
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag("js", new Date());
+        gtag("config", id, params);
+        var tag = document.createElement("script");
+        tag.async = true;
+        tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(id);
+        document.head.appendChild(tag);
+      })();
+    })();</script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.BrYGcpA9.js"></script><script>
+      // The reader's own answers to two questions the server could not have known, both
+      // written on the root element. Classic and inline, so they are settled during parse
+      // and the first paint is already right.
+      //
+      // Under the router the root's attributes are REPLACED by each swap: everything the
+      // server rendered comes back with the new page, and everything set here is wiped.
+      // So this is a function, and the swap calls it again. `astro:after-swap` is the one
+      // moment that works, because it runs inside the transition's own DOM update, before
+      // the new page is captured for the animation; anything later is a flash of the
+      // wrong theme on every navigation. It is also why nothing here re-runs on
+      // `astro:page-load`, and why the script is identical on every page: the router
+      // recognises a script it has already executed and leaves this one alone.
+      function vdRoot() {
+        const theme = localStorage.getItem("theme");
+        if (theme === "light" || theme === "dark")
+          document.documentElement.dataset.theme = theme;
+        // Which modifier the search chord is spelled with. Set here rather than in the
+        // deferred script so the header paints the right key once: both spellings are
+        // real text in the markup and CSS hides the wrong one, so there is nothing to
+        // reflow.
+        document.documentElement.dataset.chord = /mac|iphone|ipad|ipod/i.test(
+          navigator.platform || navigator.userAgent,
+        )
+          ? "apple"
+          : "other";
+      }
+      vdRoot();
+      document.addEventListener("astro:after-swap", vdRoot);
+    </script><script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Chart description","alternateName":["chart alt text","accessible chart","data table fallback"],"description":"The text alternative for a chart: a summary of the takeaway plus access to the underlying values, not a recital of the pixels.","keywords":["assistive-tech","content-design","dataviz"],"url":"https://vocab.design/chart-description","inDefinedTermSet":{"@type":"DefinedTermSet","name":"vocab.design","url":"https://vocab.design/"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"vocab.design","item":"https://vocab.design/"},{"@type":"ListItem","position":2,"name":"accessibility","item":"https://vocab.design/browse/accessibility"},{"@type":"ListItem","position":3,"name":"Chart description","item":"https://vocab.design/chart-description"}]}</script><link rel="alternate" type="text/markdown" href="/chart-description.md" title="Chart description as markdown"><link rel="stylesheet" href="/_astro/stage.C15my9ln.css"><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*),[data-astro-transition-scope]{animation:none!important}}.astro-route-announcer{clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;width:1px;height:1px;position:absolute;top:0;left:0;overflow:hidden}
+@font-face{font-family:Geist Variable;font-style:normal;font-display:swap;font-weight:100 900;src:url(/_astro/geist-cyrillic-ext-wght-normal.DjL33-gN.woff2)format("woff2-variations");unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:Geist Variable;font-style:normal;font-display:swap;font-weight:100 900;src:url(/_astro/geist-cyrillic-wght-normal.BEAKL7Jp.woff2)format("woff2-variations");unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116}@font-face{font-family:Geist Variable;font-style:normal;font-display:swap;font-weight:100 900;src:url(/_astro/geist-vietnamese-wght-normal.6IgcOCM7.woff2)format("woff2-variations");unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB}@font-face{font-family:Geist Variable;font-style:normal;font-display:swap;font-weight:100 900;src:url(/_astro/geist-latin-ext-wght-normal.DC-KSUi6.woff2)format("woff2-variations");unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Geist Variable;font-style:normal;font-display:swap;font-weight:100 900;src:url(/_astro/geist-latin-wght-normal.BgDaEnEv.woff2)format("woff2-variations");unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style><link rel="stylesheet" href="/_astro/global.I1UxL8yy.css"><style>@font-face{font-family:Roboto Flex Variable;font-style:normal;font-display:swap;font-weight:100 1000;src:url(/_astro/roboto-flex-cyrillic-ext-grad-normal.BTfdehR1.woff2)format("woff2-variations");unicode-range:U+460-52F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}@font-face{font-family:Roboto Flex Variable;font-style:normal;font-display:swap;font-weight:100 1000;src:url(/_astro/roboto-flex-cyrillic-grad-normal.BecMCeuw.woff2)format("woff2-variations");unicode-range:U+301,U+400-45F,U+490-491,U+4B0-4B1,U+2116}@font-face{font-family:Roboto Flex Variable;font-style:normal;font-display:swap;font-weight:100 1000;src:url(/_astro/roboto-flex-greek-grad-normal.Bp24zhlt.woff2)format("woff2-variations");unicode-range:U+370-377,U+37A-37F,U+384-38A,U+38C,U+38E-3A1,U+3A3-3FF}@font-face{font-family:Roboto Flex Variable;font-style:normal;font-display:swap;font-weight:100 1000;src:url(/_astro/roboto-flex-vietnamese-grad-normal.DInAaoM4.woff2)format("woff2-variations");unicode-range:U+102-103,U+110-111,U+128-129,U+168-169,U+1A0-1A1,U+1AF-1B0,U+300-301,U+303-304,U+308-309,U+323,U+329,U+1EA0-1EF9,U+20AB}@font-face{font-family:Roboto Flex Variable;font-style:normal;font-display:swap;font-weight:100 1000;src:url(/_astro/roboto-flex-latin-ext-grad-normal.BFpmAHZn.woff2)format("woff2-variations");unicode-range:U+100-2BA,U+2BD-2C5,U+2C7-2CC,U+2CE-2D7,U+2DD-2FF,U+304,U+308,U+329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}@font-face{font-family:Roboto Flex Variable;font-style:normal;font-display:swap;font-weight:100 1000;src:url(/_astro/roboto-flex-latin-grad-normal.CGemNx9F.woff2)format("woff2-variations");unicode-range:U+??,U+131,U+152-153,U+2BB-2BC,U+2C6,U+2DA,U+2DC,U+304,U+308,U+329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:Material Icons;font-style:normal;font-display:swap;font-weight:400;src:url(/_astro/material-icons-latin-400-normal.kAwBdRge.woff2)format("woff2"),url(/_astro/material-icons-latin-400-normal.B5tbEuci.woff)format("woff")}@font-face{font-family:Vollkorn;font-style:normal;font-display:swap;font-weight:400;src:url(/_astro/vollkorn-latin-400-normal.BaltSqSR.woff2)format("woff2"),url(/_astro/vollkorn-latin-400-normal.CbHXUhyQ.woff)format("woff")}
+</style><script type="module" src="/_astro/page.CKU1N9Na.js"></script><style>[data-astro-transition-scope="astro-hq4gd3o4-1"] { view-transition-name: term-card-chart-description; }@layer astro { ::view-transition-old(term-card-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(term-card-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(term-card-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(term-card-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-hq4gd3o4-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-hq4gd3o4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-hq4gd3o4-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-hq4gd3o4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-hq4gd3o4-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-hq4gd3o4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-hq4gd3o4-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-hq4gd3o4-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-4nxpiu34-2"] { view-transition-name: term-headword-chart-description; }@layer astro { ::view-transition-old(term-headword-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(term-headword-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(term-headword-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(term-headword-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-4nxpiu34-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-4nxpiu34-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-4nxpiu34-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-4nxpiu34-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-4nxpiu34-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-4nxpiu34-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-4nxpiu34-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-4nxpiu34-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-hebkwvuh-3"] { view-transition-name: term-definition-chart-description; }@layer astro { ::view-transition-old(term-definition-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(term-definition-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(term-definition-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(term-definition-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-hebkwvuh-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-hebkwvuh-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-hebkwvuh-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-hebkwvuh-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-hebkwvuh-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-hebkwvuh-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-hebkwvuh-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-hebkwvuh-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-5dgothsq-4"] { view-transition-name: term-specimen-chart-description; }@layer astro { ::view-transition-old(term-specimen-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(term-specimen-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(term-specimen-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(term-specimen-chart-description) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-5dgothsq-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-5dgothsq-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-5dgothsq-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-5dgothsq-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-5dgothsq-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-5dgothsq-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-5dgothsq-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-5dgothsq-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-gyrtbwwo-5"] { view-transition-name: chrome-header; }@layer astro { ::view-transition-old(chrome-header) { animation: none; opacity: 0; mix-blend-mode: normal; }::view-transition-new(chrome-header) { animation: none; mix-blend-mode: normal; }::view-transition-group(chrome-header) { animation: none } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-gyrtbwwo-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-gyrtbwwo-5"] { animation: none; mix-blend-mode: normal; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-gyrtbwwo-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-gyrtbwwo-5"] { animation: none; mix-blend-mode: normal; }</style></head><body><div class="vd-header-sentinel" aria-hidden="true"></div><div data-astro-transition-scope="astro-gyrtbwwo-5" data-header class="sticky top-0 z-40"><header class="vd-header-bar mx-auto flex max-w-3xl items-baseline justify-between gap-4 px-5 py-4"><a href="/" class="vd-wordmark min-w-0 font-serif font-semibold tracking-tight">vocab.design</a><nav class="vd-nav flex shrink-0 items-center gap-3 text-sm text-muted sm:gap-5"><a href="/glossary" data-nav class="hover:text-ink">A&ndash;Z</a><a href="/random" data-nav data-astro-reload data-astro-prefetch="false" class="hover:text-ink">Random</a><a href="/search" data-search-open="true" class="group inline-flex items-baseline gap-1.5 hover:text-ink">Search<kbd class="vd-chord"><span class="vd-chord-apple">&#8984;</span><span class="vd-chord-other">Ctrl&nbsp;</span>K</kbd></a><a href="https://x.com/gkurttech" rel="me noopener" aria-label="The author on X" title="The author on X" data-nav class="vd-icon-link hover:text-ink"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a><a href="https://github.com/gkurt/vocab.design" rel="me noopener" aria-label="This site's source on GitHub" title="This site's source on GitHub" data-nav class="vd-icon-link hover:text-ink"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A7.995 7.995 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg></a><button data-theme-toggle class="cursor-pointer hover:text-ink" title="Toggle theme">◐</button></nav></header></div><main class="mx-auto max-w-3xl px-5 pt-6 pb-24"><article data-term="chart-description" data-pagefind-body data-pagefind-meta="category:accessibility" data-pagefind-filter="category:accessibility"><div data-astro-transition-scope="astro-hq4gd3o4-1" class="vd-solid bg-paper"><p class="text-sm text-muted italic"><a href="/browse/accessibility" class="hover:text-ink" data-rel="category">accessibility</a> · <a href="/tags/assistive-tech" class="not-italic hover:text-ink" data-pagefind-filter="tag:assistive-tech">assistive-tech</a> · <a href="/tags/content-design" class="not-italic hover:text-ink" data-pagefind-filter="tag:content-design">content-design</a> · <a href="/tags/dataviz" class="not-italic hover:text-ink" data-pagefind-filter="tag:dataviz">dataviz</a></p><h1 data-astro-transition-scope="astro-4nxpiu34-2" class="mt-1 w-fit font-serif text-5xl font-semibold tracking-tight" data-pagefind-weight="10">Chart description</h1><p class="mt-3 text-sm text-muted" data-pagefind-weight="8">also called <span class="text-ink italic">chart alt text</span>, <span class="text-ink italic">accessible chart</span>, <span class="text-ink italic">data table fallback</span></p><p data-astro-transition-scope="astro-hebkwvuh-3" class="article mt-6 text-xl" data-pagefind-weight="6">The text alternative for a chart: a summary of the takeaway plus access to the underlying values, not a recital of the pixels.</p><div data-astro-transition-scope="astro-5dgothsq-4" class="vd-solid mt-8" data-pagefind-ignore><vd-stage data-slug="chart-description" data-name="Chart description" data-isolation="inline" data-state="idle"><figure><div class="vd-stage-reach"><div class="vd-stage-body"><div data-stage-canvas></div></div><div class="vd-stage-strip" data-stage-strip hidden></div><div data-stage-overlay aria-hidden="true"></div></div><div class="vd-stage-bar"><span class="vd-stage-controls"><button data-stage-identify type="button" title="Point out the chart description">⌖ Identify</button></span><button data-stage-replay type="button" title="Play the demonstration"><span class="vd-stage-autoplay"><svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><rect x="1.4" y="1" width="2.6" height="8" rx="0.7"></rect><rect x="6" y="1" width="2.6" height="8" rx="0.7"></rect></svg>Playing</span><span class="vd-stage-play"><svg viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><path d="M2.2 1.1 8.5 5 2.2 8.9Z"></path></svg>Play</span></button></div></figure></vd-stage><script type="module" src="/_astro/SpecimenStage.astro_astro_type_script_index_0_lang.CrfJI1xy.js"></script></div></div><div class="article mt-8"><p>A <a href="/chart">chart</a> carries two separate things a text alternative has to deliver, and most
+alternatives deliver neither. The first is the conclusion the chart was drawn to support.
+The second is the numbers that support it. The shape that works is a one line summary
+naming the takeaway (“support tickets fell by a third after the March release”) followed by
+real access to the values, normally a <a href="/data-table">data table</a> sitting beside the figure or
+behind a disclosure, marked up as rows and columns a <a href="/screen-reader">screen reader</a> can
+walk. The W3C’s complex images tutorial calls this pairing a short description plus a long
+description, and it is the only arrangement that survives a chart with more than one series.</p>
+<p><a href="/alt-text">Alt text</a> is the shorter word for the shorter job, and the two are worth keeping
+apart. Alt text is the string an image carries, and for a chart it can hold the summary half
+at best, which is why a chart description usually cannot live in an attribute at all. Going
+the other way: writing <code>alt=&quot;bar chart of quarterly revenue&quot;</code> describes the picture, and
+describing the picture is exactly what a chart alternative must not do, because a reader who
+cannot see it did not ask for the pixels to be recited. Say what the chart shows, then hand
+over the numbers. <a href="/audio-description">Audio description</a> sounds like a relative and is not
+one: that narrates a moving picture in the gaps of its own soundtrack, while a chart
+description is static text that the reader controls the pace of.</p>
+<p>None of the chart’s own furniture carries across the boundary by itself. An
+<a href="/axis">axis</a> is a ruled edge with tick labels a reader can see, a
+<a href="/chart-legend">chart legend</a> is a colour key nobody can hear, and
+<a href="/direct-labeling">direct labeling</a> puts names next to lines that are also unavailable. A
+<a href="/chart-annotation">chart annotation</a> is the exception worth exploiting: the note already
+pinned onto the data, saying what to see, is usually the best first draft of the summary
+line, because somebody has already done the work of deciding what the chart is for.</p>
+<p>The practical test is to read the alternative aloud with the chart covered. If the listener
+cannot repeat the takeaway, the summary is missing. If they cannot answer a question about a
+specific point, the values are missing. A description that passes both is worth building
+into the page for everyone: sighted readers use the table too, and a
+<a href="/sparkline">sparkline</a> or a small multiple with a table under it is a better artefact than
+either half alone.</p></div><section class="mt-10"><h2 class="text-sm tracking-wide text-muted uppercase">Which word?</h2><table class="mt-3 w-full text-sm"><thead><tr class="text-left text-muted"><th class="py-1 pr-4 font-normal">If you want</th><th class="py-1 font-normal">say</th></tr></thead><tbody><tr class="border-t border-line" data-pagefind-weight="6"><td class="py-2 pr-4">a chart needs to work for readers who cannot see it</td><td class="py-2 font-semibold">chart description</td></tr><tr class="border-t border-line" data-pagefind-ignore><td class="py-2 pr-4">writing what an image says when it cannot be seen</td><td class="py-2"><a href="/alt-text" data-rel="which-word" class="text-accent underline underline-offset-3">alt text</a></td></tr><tr class="border-t border-line" data-pagefind-ignore><td class="py-2 pr-4">the image is data and one line will not do</td><td class="py-2"><a href="/long-description" data-rel="which-word" class="text-accent underline underline-offset-3">long description</a></td></tr><tr class="border-t border-line" data-pagefind-ignore><td class="py-2 pr-4">a chart has to be perceivable without sight</td><td class="py-2"><a href="/sonification" data-rel="which-word" class="text-accent underline underline-offset-3">sonification</a></td></tr></tbody></table></section><section class="mt-10" data-pagefind-ignore><h2 class="text-sm tracking-wide text-muted uppercase">Related</h2><p class="mt-2 text-sm"><span class="text-muted">See also: </span><a href="/chart" data-rel="see-also" class="text-accent underline underline-offset-3">Chart</a> · <a href="/data-table" data-rel="see-also" class="text-accent underline underline-offset-3">Data table</a></p></section><section class="mt-10"><h2 class="text-sm tracking-wide text-muted uppercase">Sources</h2><ul class="mt-2 text-sm"><li><a href="https://www.w3.org/WAI/tutorials/images/complex/" class="text-accent underline underline-offset-3" rel="noopener">W3C WAI: Complex images</a></li><li><a href="https://developer.apple.com/design/human-interface-guidelines/charts" class="text-accent underline underline-offset-3" rel="noopener">Apple HIG: Charts</a></li></ul></section></article><script type="module" src="/_astro/_slug_.astro_astro_type_script_index_0_lang.B4QxOCCV.js"></script></main><vd-search-dialog><dialog data-search-dialog aria-label="Search vocab.design"><vd-search data-bundle="/pagefind/pagefind.js" data-index="/pagefind/" data-paths="/paths.json" data-surface="modal" class="flex min-h-0 flex-1 flex-col"><label class="block border-b border-line px-4 py-3"><span class="sr-only">Search terms</span><input type="search" data-search-input placeholder="segmented control, snackbar, three dots..." autocomplete="off" autocapitalize="off" spellcheck="false" class="w-full bg-transparent text-lg outline-none placeholder:text-muted"></label><div class="flex items-center gap-2 border-b border-line px-4 py-2"><label class="min-w-0"><span class="sr-only">Narrow to a category</span><select data-search-filter="category" class="vd-select"><option value="">All categories</option><option value="component">component</option><option value="layout">layout</option><option value="pattern">pattern</option><option value="aesthetic">aesthetic</option><option value="interaction">interaction</option><option value="motion">motion</option><option value="typography">typography</option><option value="color">color</option><option value="surface">surface</option><option value="accessibility">accessibility</option></select></label><label class="min-w-0"><span class="sr-only">Narrow to a tag</span><select data-search-filter="tag" class="vd-select"><option value="">All tags</option><option value="a11y">a11y</option><option value="ai">ai</option><option value="assistive-tech">assistive-tech</option><option value="auth">auth</option><option value="canvas">canvas</option><option value="commerce">commerce</option><option value="consent">consent</option><option value="content-design">content-design</option><option value="dark-pattern">dark pattern</option><option value="dataviz">dataviz</option><option value="depth">depth</option><option value="design-tools">design-tools</option><option value="devtools">devtools</option><option value="dragging">dragging</option><option value="editorial">editorial</option><option value="email">email</option><option value="errors">errors</option><option value="fonts">fonts</option><option value="forms">forms</option><option value="gamification">gamification</option><option value="grids">grids</option><option value="i18n">i18n</option><option value="icons">icons</option><option value="illustration">illustration</option><option value="keyboard">keyboard</option><option value="media">media</option><option value="menus">menus</option><option value="messaging">messaging</option><option value="microinteraction">microinteraction</option><option value="navigation">navigation</option><option value="onboarding">onboarding</option><option value="overlays">overlays</option><option value="perceived-performance">perceived-performance</option><option value="perception">perception</option><option value="platform-registers">platform-registers</option><option value="pointer">pointer</option><option value="progress">progress</option><option value="responsive-web-design">responsive web design</option><option value="retro">retro</option><option value="screen-size">screen-size</option><option value="scroll">scroll</option><option value="search">search</option><option value="selection">selection</option><option value="sound">sound</option><option value="spacing">spacing</option><option value="tables">tables</option><option value="text-editing">text-editing</option><option value="theming">theming</option><option value="time">time</option><option value="tokens">tokens</option><option value="touch">touch</option><option value="wcag">wcag</option><option value="web-platform">web-platform</option><option value="windowing">windowing</option></select></label></div><p data-search-status role="status" aria-live="polite" class="border-b border-line px-4 py-2 text-xs text-muted empty:hidden"></p><div class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-3"><ul data-search-results class="grid gap-2"></ul><button data-search-more type="button" hidden class="mt-4 w-full cursor-pointer rounded-lg border border-line px-4 py-2 text-sm text-muted hover:border-accent hover:text-ink"></button></div><div class="flex items-baseline justify-between gap-4 border-t border-line px-4 py-2 text-xs text-muted"><span><kbd class="rounded border border-line px-1 font-mono text-[0.7rem]">Esc</kbd> to close</span><a data-search-full href="/search" class="underline underline-offset-3 hover:text-ink">Open the search page</a></div></vd-search></dialog></vd-search-dialog><script type="module" src="/_astro/SearchDialog.astro_astro_type_script_index_0_lang.Crw_dndz.js"></script><script type="module" src="/_astro/Base.astro_astro_type_script_index_0_lang.Bhdq8iF5.js"></script></body></html>

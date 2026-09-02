@@ -1,0 +1,74 @@
+---
+name: Selection follows focus
+slug: selection-follows-focus
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A widget where moving focus also selects, so arrowing through tabs
+  or a listbox changes the selection immediately rather than on a second press.
+aliases:
+  - name: automatic activation
+    source: aria-apg
+  - name: manual activation
+    source: aria-apg
+  - name: follow focus
+    source: community
+tags:
+  - a11y
+  - keyboard
+  - selection
+relations:
+  contrastWith:
+    - change-of-context
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - roving-tabindex
+    - tabs
+    - radio-group
+implementations:
+  - system: aria-apg
+    name: Deciding When to Make Selection Automatically Follow Focus
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+sources:
+  - title: "ARIA APG: Developing a keyboard interface"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+exhibit: false
+useWhen: arrowing changes the choice, not just the highlight
+---
+
+Every tab row, listbox and tree has to answer one question about its arrow keys: when focus
+lands on the next item, does that item become the selected one straight away, or does it only
+get highlighted until Enter or Space confirms it? Selection following focus is the first
+answer, sometimes called automatic activation. The second is manual activation, where focus
+and selection are allowed to sit on different items for as long as the reader is browsing.
+Both are correct. Which one is correct here depends entirely on what selecting costs.
+
+The rule of thumb is cheapness. If choosing an item is instant and harmless, following focus
+is the kinder behavior, because it takes one keystroke rather than two and the keyboard
+reader gets the same running preview a mouse user gets by clicking around. Tabs over content
+that is already in the document, a list of messages beside a reading pane, a font picker
+that previews as you go: all of these should follow focus. If choosing an item is expensive
+or disruptive, following focus is punishing: arrowing across five tabs would fire five
+requests, throw away four of them, and move the reader's viewport around while they are
+still deciding. There the highlight should travel alone and Enter should commit it.
+
+Underneath, the two facts are genuinely separate. Focus is where keystrokes go, and the
+widget shows it with a focus ring. Selection is what the widget currently holds, and it is
+spelled `aria-selected` (or `aria-checked`, depending on the role). Only one item in the row
+is in the page's tab order at a time, which is roving tabindex, so Tab enters and leaves the
+whole widget while the arrows move within it. Keeping the two visually distinct matters more
+in manual activation than anywhere else: if the highlight and the selection look identical,
+a reader who has arrowed two items along cannot tell what pressing Tab away would leave
+behind. Radio groups are the special case that ends the debate, since a radio group's
+selection always follows focus by platform convention, and a group that waits for Enter will
+surprise everyone.
+
+The failure worth watching for is the middle position: a widget that follows focus while
+also doing something expensive per item. The fix is not to abandon the pattern but to make
+selecting cheap, by keeping the panels in the document, debouncing the work the selection
+triggers, or letting the visible change land immediately and the loading finish behind it.
+Announcements matter too, since a screen reader will read each newly selected item as focus
+passes over it, which is helpful in a list and exhausting if each item carries a paragraph.

@@ -1,0 +1,64 @@
+---
+name: FOUT
+slug: fout
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The visible swap when a page first paints text in a fallback face
+  and then re-renders it once the web font arrives.
+aliases:
+  - name: flash of unstyled text
+  - name: font swap
+  - name: font flash
+  - name: "font-display: swap"
+    source: css
+tags:
+  - fonts
+  - perceived-performance
+relations:
+  contrastWith:
+    - flash-of-inaccurate-color-theme
+    - foft
+    - foit
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: FOUT (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/fout
+  - title: FOUT, FOIT, FOFT (CSS-Tricks)
+    url: https://css-tricks.com/fout-foit-foft/
+demo: inline
+exhibit: false
+useWhen: the text visibly changes font on load
+---
+
+FOUT is the flash of unstyled text: the page paints in whatever face the stack
+falls through to, the file lands a moment later, and every line is set again in
+it. `font-display: swap` asks for this by name, cutting the block period to zero
+and leaving the swap period open for as long as the download takes. The reader
+gets words at first paint, which is the whole argument for it, and pays for them
+with a second layout of the same text.
+
+The cost is not the change of face, it is the change of metrics. Two faces at
+the same declared size rarely share an x-height or an advance width, so the
+swapped line is a different length, wraps at a different word, and drags
+everything below it up or down. On a long page that reflow is the single biggest
+contributor a font makes to cumulative layout shift, and it lands exactly when
+the reader has started reading. The fix is to make the two faces measure the
+same rather than to hide the moment they trade places: declare a local
+[fallback font](/fallback-font) in its own `@font-face` rule and tune it with
+`size-adjust`, `ascent-override`, and `descent-override` until the stand-in
+occupies the space the real face will. Done well, the swap is a change of
+drawing with nothing moving around it.
+
+The sibling failure is [FOIT](/foit), which hides the text instead and buys a
+still page at the cost of a blank one. Between the two extremes sit `fallback`,
+which allows a brief block period and then a short swap window before settling
+on the stand-in for good, and `optional`, which will drop the file rather than
+ever swap. Which one is right is a content question: an article wants the words
+early and can absorb a tuned swap, while a logotype or an icon face usually
+cannot afford to be seen in the wrong drawing at all. [Web font](/web-font)
+holds the full set of strategies these two are the visible halves of.

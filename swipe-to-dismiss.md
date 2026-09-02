@@ -1,0 +1,69 @@
+---
+name: Swipe to dismiss
+slug: swipe-to-dismiss
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Flinging an item off the edge of the screen to remove it, with the
+  item tracking the finger and snapping back if the throw is too short.
+aliases:
+  - name: swipe away
+    source: community
+  - name: dismissible
+    source: material
+  - name: flick to dismiss
+    source: community
+  - name: swipe to clear
+    source: community
+tags:
+  - dragging
+  - touch
+relations:
+  contrastWith:
+    - swipe-actions
+    - swipe-deck
+  variantOf:
+    - microinteraction
+  partOf: []
+  seeAlso:
+    - interactive-transition
+    - undo
+implementations: []
+sources:
+  - title: "NN/g: Using Swipe to Trigger Contextual Actions"
+    url: https://www.nngroup.com/articles/contextual-swipe/
+demo: inline
+exhibit: false
+useWhen: throwing a card or notification off the screen to clear it
+---
+
+The gesture works because it borrows a physical intuition: the item is under your
+finger, it moves exactly as far as you move, and past a point it is going to keep
+going whether you hold on or not. All three parts have to be built. An item that
+only reacts on release is a button with extra steps, one that never snaps back
+punishes an accidental brush, and one with no point of no return leaves the reader
+guessing whether they threw it hard enough. The commit rule is usually distance or
+velocity, whichever arrives first, so that a short fast flick and a long slow drag
+both count.
+
+[Swipe actions](/swipe-actions) is the neighbouring gesture and the two are told
+apart by what is underneath. There, the row slides to uncover buttons and the swipe
+is a way of asking a question; here, there is nothing underneath and the swipe is the
+answer. Interfaces that use both usually give one direction to each, which is why
+a partial swipe reveals Archive and a full swipe just archives.
+
+Because the gesture is invisible and irreversible, it needs two things around it.
+An undo, offered immediately and in the place the item vanished from, because a
+gesture this cheap will be made by accident. And a visible equivalent, since a swipe
+cannot be performed with a keyboard, is awkward with a screen reader's own gesture
+set, and is impossible for anyone using a switch or voice control. A dismiss button
+on the item satisfies all of those at once, which is why the platform components
+that ship this pattern also ship the button.
+
+The last detail is what happens to the space. Removing the item without closing the
+gap leaves a hole that reads as a rendering bug, and closing the gap instantly makes
+the next item jump under a finger that is still moving. The usual answer is to let
+the item leave first and then collapse its own height, so the list settles as one
+movement, and to make that collapse the one piece of motion here that reduced motion
+turns off.

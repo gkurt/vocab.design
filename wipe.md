@@ -1,0 +1,69 @@
+---
+name: Wipe
+slug: wipe
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A transition where a moving edge or mask travels across the frame,
+  replacing what was there with what comes next.
+aliases:
+  - name: mask reveal
+    source: community
+  - name: clip reveal
+    source: community
+  - name: swipe transition
+    source: community
+tags:
+  - media
+relations:
+  contrastWith:
+    - dissolve
+    - reveal-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - image-comparison-slider
+implementations: []
+sources:
+  - title: "School of Motion: motion design dictionary"
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+exhibit: false
+useWhen: a reveal should have a visible leading edge
+---
+
+The word comes from the cutting room, where a wipe is a shot that pushes another shot
+off the screen behind a travelling line. Film has spent a century decorating that line:
+the straight edge, the clock wipe that sweeps around a centre, the iris that closes to a
+point, and the star wipe that a certain generation of television could not leave alone.
+What all of them share is the mechanism. Neither picture moves. A boundary moves across
+a stationary frame, and everything behind the boundary belongs to the new picture.
+
+That is what separates it from the transitions it is most often confused with. A
+[slide transition](/slide-transition) moves the panels themselves: the outgoing screen
+travels off one edge while the incoming one travels in from the other, and both are in
+motion. A wipe holds both perfectly still and moves only the mask edge between them, so
+the incoming content is never seen anywhere except in its final position. A
+[crossfade](/crossfade) has no edge at all: both sides are partly visible everywhere at
+once, over the same span. A [dissolve](/dissolve) is the same absence of direction with
+a single slot. So the choice between them is a choice about what to make explicit:
+travel, overlap, or a border in space.
+
+On the web this is a `clip-path` job. Stack the incoming panel over the outgoing one,
+give it an `inset()` clip that starts fully closed on the side the edge will come from,
+and transition it to zero, which walks the boundary across the box; a `polygon()` gets
+angled and iris shapes, and `mask-image` with a gradient gets a soft edge instead of a
+hard one. Two things must hold throughout. Both panels stay laid out at full size for
+the whole span, since a clip changes what is painted and never what is measured, which
+is exactly why nothing shifts. And the incoming panel has to be the one on top, or the
+edge you see travelling belongs to the wrong picture.
+
+A wipe is a loud transition, and it is worth being deliberate about the volume. It reads
+as broadcast, as sport, as title sequence, so it suits full-bleed imagery, section
+reveals, and covers that hide a screen while something loads, and it looks absurd
+carrying a settings panel. Keep the travel quick, roughly 300 to 600 milliseconds, since
+a boundary crossing a frame is highly legible and a slow one turns into a wait. Above
+all, it should be answering a question the reader has: an edge sweeping past says the
+new thing came from that direction, so pick the direction with the same care as any
+other claim, and let a reader who has asked for less motion simply have the new frame.

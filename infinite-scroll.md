@@ -1,0 +1,80 @@
+---
+name: Infinite scroll
+slug: infinite-scroll
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A list that appends the next page of results automatically as the
+  reader approaches the bottom, so the content never ends and no page controls
+  appear.
+aliases:
+  - name: endless scroll
+    source: community
+  - name: continuous scrolling
+    source: ui-patterns
+  - name: infinite scrolling
+    source: nngroup
+  - name: auto-load
+    source: community
+  - name: infinite list
+    source: community
+tags:
+  - perceived-performance
+  - scroll
+relations:
+  contrastWith:
+    - load-more
+    - pagination
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - feed-layout
+    - list-virtualization
+    - false-bottom
+implementations: []
+sources:
+  - title: "NN/g: infinite scrolling, when to use it and when to avoid it"
+    url: https://www.nngroup.com/articles/infinite-scrolling-tips/
+  - title: "UI Patterns: continuous scrolling"
+    url: https://ui-patterns.com/patterns
+demo: inline
+exhibit: false
+useWhen: the feed loads more by itself as you near the bottom
+---
+
+Infinite scroll takes the reader's scroll as the request. A sentinel sits at the end
+of the list, and when it comes near the viewport the next page is fetched and appended,
+so the gesture that was already happening does the paging. The mechanism on the web is
+usually an IntersectionObserver watching that sentinel, which is why the pattern is
+also written as a threshold: load when the reader is within a screen or so of the
+bottom, early enough that the new items are in place before the old ones run out.
+
+Its family resemblance is to load more, and the difference is one of consent. Load more
+ends the list with a control and waits to be asked, which gives the reader a stopping
+point, a stable footer, and a moment to decide they have seen enough. Infinite scroll
+removes the asking. That suits a feed with no destination, where the reader is browsing
+rather than looking for one thing, and it suits touch, where a flick is cheaper than a
+tap on a small target. It suits a results list badly: someone comparing options wants
+to know how many there are, to keep a place, and to come back to it, and pagination is
+the pattern that gives them a numbered place to come back to.
+
+The costs are well documented and mostly structural. Anything below the feed becomes
+unreachable, because the bottom moves away as fast as the reader approaches it, so a
+footer with the settings, the terms, or the contact link has to move somewhere else.
+Position is lost on navigation unless the pattern is built to restore it, so tapping an
+item and coming back can mean scrolling the whole way down again. The document grows
+without limit, which costs memory and eventually smoothness, so long feeds need
+windowing that recycles rows rather than keeping every one of them. And there is no
+sense of scale: a reader cannot tell whether they are near the end of the results or at
+the start of a river. Keyboard and screen reader users feel each of these more sharply,
+since content that arrives without an announcement is content they were not told about.
+
+The mitigations are the pattern's real craft. Keep a visible loading row so waiting
+looks like waiting rather than like the end. Announce arrivals politely, so the count
+that changed is heard as well as seen. Restore the scroll position and the loaded pages
+when the reader comes back. Cap it: many feeds load three or four pages this way and
+then plant a button, which keeps the effortless part and gives the reader back the
+choice. And keep a paged route to the same content underneath, because a search engine,
+a shared link, and anyone who wants page nine all need an address that a scroll offset
+cannot give them.

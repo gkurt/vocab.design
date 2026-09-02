@@ -1,0 +1,75 @@
+---
+name: Brutalist web design
+slug: brutalist-web-design
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A raw style that leaves the document showing: system or monospace
+  type, default link blue, hard borders, and no decoration beyond structure."
+aliases:
+  - name: web brutalism
+    source: namethatui
+  - name: brutalism
+  - name: raw HTML aesthetic
+  - name: default browser look
+  - name: brutalist typography
+    source: community
+  - name: anti-grid brutalism
+    source: community
+  - name: sports brutalism
+    source: daisyui
+tags:
+  - retro
+relations:
+  contrastWith:
+    - neubrutalism
+    - terminal-aesthetic
+    - anti-design
+    - hand-drawn-ui
+    - retro-web-design
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Superdesign: Brutalist Web Design: CSS Recipe, Live Examples and Trend
+      Data"
+    url: https://superdesign.dev/styles/brutalism
+  - title: "NameThatUI: Neobrutalism"
+    url: https://namethatui.com/styles/neobrutalism
+demo: inline
+exhibit: false
+useWhen: the page looks like unstyled HTML on purpose
+---
+
+Brutalist web design shows the document. The typeface is whatever the machine has (a
+system serif, or a monospace), links are the browser's blue and purple with their
+underlines intact, tables have real borders, rules are actual rules, and headings are
+sized by their level rather than by a scale someone chose. Layout is left aligned and
+often a single column because that is what the page does on its own. The style is
+recognised by refusal: no shadows, no radii, no gradients, no icon set, frequently no
+grid, and no attempt to hide that a page is a stack of blocks in normal flow.
+
+The point is not incompetence, it is honesty about the medium, borrowed from brutalist
+architecture where the concrete stays visible instead of being clad. On the web it turned
+up as a counter-move around 2014 to 2016, when template-driven design had made every site
+look alike, and it stuck in places where the raw look is itself a claim: personal sites,
+zines and art projects, technical writing, and products that want to read as being made
+by a person rather than by a marketing department. Because it asks for so little CSS it
+also loads fast, degrades gracefully, and survives being read in a text browser or a
+reader mode, which is a real argument and not only a pose.
+
+It should be kept separate from neubrutalism, which is a different style that borrowed
+the name. Neubrutalism is highly designed: thick black outlines, saturated flat fills,
+and hard offset shadows applied through a deliberate system. Brutalist web design is the
+absence of that system. One is loud on purpose, the other is plain on purpose, and the
+words are not interchangeable even though the family resemblance is real.
+
+The style's own worst habits are the ones that come from confusing raw with careless:
+measures that run the full width of a wide window, text at the browser default with no
+line height, contrast pushed to pure black on pure white, and, in the anti-grid variants,
+overlapping absolute positioning that traps keyboard order and reflows badly on a phone.
+Refusing decoration is free. Refusing readability is not, and the good examples of the
+style are usually stricter about measure, spacing, and focus visibility than the
+decorated pages they are reacting against.

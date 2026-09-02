@@ -1,0 +1,71 @@
+---
+name: Order summary
+slug: order-summary
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The persistent panel beside a checkout listing items, quantities,
+  and every cost line, kept visible so nothing about the total arrives as a
+  surprise.
+aliases:
+  - name: order recap
+    source: community
+  - name: cart summary
+    source: community
+  - name: basket summary
+    source: community
+  - name: cost breakdown
+    source: community
+tags:
+  - commerce
+relations:
+  contrastWith:
+    - check-answers
+    - confirmation-page
+    - drip-pricing
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - mini-cart
+    - express-checkout
+implementations: []
+sources:
+  - title: "Baymard Institute: Ecommerce Checkout UX"
+    url: https://baymard.com/learn/checkout-flow-ux-optimization
+demo: inline
+exhibit: false
+useWhen: the panel beside checkout that itemises what you will pay
+---
+
+A checkout asks for a series of commitments, and the summary is the only thing on the
+screen that says what they are for. It stays put while the form changes underneath it,
+carrying the items, their quantities, and every line that adds up to the number at the
+bottom. Persistence is most of the design: a recap that appears only on the last step
+is a reveal, and the reader has already spent four screens not knowing what they were
+agreeing to.
+
+Unexpected extra costs are the single most cited reason people abandon a cart, and the
+research from [Baymard Institute](https://baymard.com) has said so for years. That
+makes shipping the line to be most careful about. If it cannot be known before an
+address is given, say so in that row rather than leaving it out, and say what decides
+it. The rule generalises: every cost gets a row with a name, including the ones a
+seller would rather not itemise, and a row that cannot be filled yet says why instead
+of hiding.
+
+The honest version is defined by its dishonest twin. Drip pricing reveals fees one
+screen at a time so the advertised number stays low and the reader has already invested
+too much effort to leave by the time the total is real, which puts it squarely in the
+[dark pattern](/dark-pattern) family and, in several jurisdictions, on the wrong side
+of the law. The tell is not that a total changes: totals should change when the reader
+changes something. The tell is a total that changes because the seller advanced the
+step. Recalculate visibly, keep the arithmetic where the reader can follow it, and let
+a discount insert a named row rather than quietly editing the subtotal.
+
+Beside a summary, a discount field is a small trap worth naming: an empty promo box
+sends people out of the checkout to hunt for a code they do not have. Keep it quiet,
+keep it inside the panel, and never let it look like the main action. And where
+[check answers](/check-answers) is the same idea for a form, this is the version for
+money: both put everything that was decided on one screen before it is final, but one
+is reviewed for accuracy and the other is reviewed for cost, which is why every line
+here carries a number and the last one is the only one people read twice.

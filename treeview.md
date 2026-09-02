@@ -1,0 +1,75 @@
+---
+name: Tree view
+slug: treeview
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A nested list where branches expand and collapse in place, navigated
+  with arrow keys as a single tab stop.
+aliases:
+  - name: tree
+    source: fluent
+  - name: outline view
+    source: hig
+  - name: file tree
+  - name: folder tree
+  - name: explorer
+tags:
+  - keyboard
+  - navigation
+relations:
+  contrastWith:
+    - list
+    - tree-select
+    - treegrid
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - mixed-state-checkbox
+implementations:
+  - system: aria-apg
+    name: Tree View
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+  - system: fluent
+    name: Tree
+    url: https://fluent2.microsoft.design/components/web/react
+sources:
+  - title: "ARIA Authoring Practices Guide: Tree View pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+exhibit: false
+useWhen: nested items that expand in place
+---
+
+A tree view shows a hierarchy as one list, indented by depth, where any branch can
+be opened without leaving the list. That is the property worth naming: the reader
+keeps the parent, the siblings, and the newly revealed children in view at the same
+time, so the shape of the hierarchy stays legible while they work inside it. The
+alternative families give that up on purpose. A drill-down replaces the level you
+were on, and a column view puts each level in its own pane.
+
+Two gestures live in every row and they are not the same gesture. The
+[disclosure triangle](/disclosure-triangle) opens the branch; the row itself selects
+the item. Conflating them is the most common bug in a hand-rolled tree: a reader who
+meant to peek inside a folder ends up opening the file that folder stands for, or a
+click meant to select an item collapses the branch under it. Expansion is about
+visibility, selection is about what the rest of the interface is now pointed at, and
+a tree needs to say which one it just did.
+
+The keyboard contract is what makes a tree a tree rather than a pile of nested
+[disclosures](/disclosure). The whole tree is one tab stop, not one per row: Down and
+Up Arrow move through the visible rows, Right Arrow opens a closed branch and then
+steps into it, Left Arrow closes an open branch or jumps to its parent, Home and End
+reach the ends, and typing a letter jumps to the next row starting with it. In ARIA
+that is `role="tree"` around `role="treeitem"` rows, with `role="group"` wrapping each
+set of children, `aria-expanded` on every branch, and `aria-selected` on what is
+chosen. If the rows have columns as well as depth, the pattern is a treegrid, which
+is a different contract.
+
+Trees are strongest where hierarchy is the data (files, layers, organisation charts,
+a document outline) and weakest as a navigation menu, where depth turns into hunting
+and a tiny target has to be hit precisely. Anything past three or four levels
+usually reads better as breadcrumbs plus a flat list of the current level, and a
+tree that will hold thousands of nodes needs virtual scrolling and lazy expansion
+before it needs styling.

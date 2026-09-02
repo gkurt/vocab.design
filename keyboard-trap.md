@@ -1,0 +1,64 @@
+---
+name: Keyboard trap
+slug: keyboard-trap
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A place keyboard focus can enter but not leave by keyboard alone,
+  stranding anyone who is not using a pointer.
+aliases:
+  - name: focus trap (accidental)
+    source: community
+  - name: keyboard dead end
+    source: community
+  - name: no keyboard trap
+    source: wcag
+tags:
+  - errors
+  - keyboard
+  - wcag
+relations:
+  contrastWith:
+    - focus-trap
+    - inert
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "ARIA APG: Developing a keyboard interface"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+demo: inline
+exhibit: false
+useWhen: focus goes in and cannot be tabbed back out
+---
+
+A keyboard trap is a one-way door. Tab moves focus into some region and then no
+combination of Tab, Shift Tab, or Escape gets it out again, so anybody driving the page
+from a keyboard is finished: they cannot reach the rest of the form, the navigation, or
+the browser's own chrome without picking up a mouse. WCAG 2.1.2 states the rule in one
+sentence: if focus can be moved into a component with a keyboard, it must be possible to
+move it away with a keyboard, and where that takes something other than the arrow or tab
+keys, the user has to be told how.
+
+Almost all of them are accidental. Embedded third-party content is the classic source: a
+video player, a map, an ad frame, or an old plug-in that swallows Tab and cycles its own
+controls forever. Hand-written trapping code is the other one, usually a dialog whose
+focus loop was never released when it closed, or a `keydown` handler that calls
+`preventDefault()` on Tab to insert a tab character in an editor. Rich text editors,
+code editors, and spreadsheet grids all want Tab for themselves, and every one of them
+needs a documented way to give it back, usually Escape first and then Tab.
+
+This is the opposite of the term it looks like. A deliberate [focus trap](/focus-trap) in
+a [modal dialog](/modal-dialog) is correct behaviour: holding focus inside the dialog is
+what makes it modal, and it satisfies 2.1.2 because Escape and a visible close button are
+both there and both work. So the criterion is not "never hold focus". It is "always
+publish an exit, and honour it". A trap is what you have when the exit is missing, is
+undocumented, or exists only as a pointer target.
+
+Traps survive review because a pointer never meets one. Finding them costs a minute: tab
+from the top of the page to the bottom, then Shift Tab back up, and watch for the ring
+going in circles or vanishing. Never handle Tab without leaving a way out, keep Escape
+working in everything that captures keys, and tab through embedded frames rather than
+assuming somebody else tested them.

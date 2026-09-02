@@ -1,0 +1,65 @@
+---
+name: Show more toggle
+slug: show-more-toggle
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The control at the end of clamped text that expands it to full
+  length and, when honest, collapses it again.
+aliases:
+  - name: read more
+    source: community
+  - name: expandable text
+    source: uxpatterns
+  - name: spoiler
+    source: mantine
+  - name: see more
+    source: community
+  - name: truncate toggle
+    source: community
+tags:
+  - content-design
+relations:
+  contrastWith:
+    - disclosure
+    - load-more
+    - truncation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - line-clamp
+implementations: []
+sources:
+  - title: Expandable text, UX Patterns for Developers
+    url: https://uxpatterns.dev/patterns/content-management/expandable-text
+demo: inline
+exhibit: false
+useWhen: expanding text that was cut off after n lines
+---
+
+A show more toggle is a disclosure whose region is text the reader can already
+partly see. That is the difference worth holding on to: nothing is hidden in the
+sense of being secret, so the control is a promise about length, not about
+content. Reviews, comments, product descriptions, and release notes all get
+clamped this way to keep a list scannable.
+
+The clamp itself is usually `-webkit-line-clamp` with `display: -webkit-box`, or
+the newer `line-clamp`. Clamping by lines rather than by characters is what keeps
+the cut honest across widths and translations, and it means the toggle should
+only appear when the text actually overflowed. A "Show more" under three lines
+that were never truncated is the most common bug in this pattern, and the fix is
+to measure `scrollHeight` against `clientHeight` before rendering the control.
+
+Make it collapse again. A one-way expansion is easier to build and leaves the
+reader stranded in a wall of text with the rest of the page pushed off screen,
+which is why the honest version says "Show less" on the way back. Label the
+control with what it will do, not with what it is showing, and give it
+`aria-expanded` plus `aria-controls` so it reads as one disclosure rather than as
+a stray link.
+
+Two things this pattern must not be asked to do: hide content from search engines
+or from screen readers (the text is in the DOM either way, so use it as a
+progressive enhancement rather than a paywall), and hide the one line that
+actually answers the reader's question. Clamped text should still make sense on
+its own.

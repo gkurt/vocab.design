@@ -1,0 +1,70 @@
+---
+name: Sticky add to cart
+slug: sticky-add-to-cart
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A condensed product bar that pins itself to an edge once the real
+  buy button has scrolled away, keeping price and purchase always reachable.
+aliases:
+  - name: sticky buy bar
+    source: community
+  - name: persistent add to cart
+    source: community
+  - name: floating purchase bar
+    source: community
+  - name: sticky CTA
+    source: community
+tags:
+  - commerce
+  - scroll
+relations:
+  contrastWith:
+    - sticky-footer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - floating-action-button
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the buy bar that sticks once the real button scrolls off
+---
+
+A product page is long for good reasons: photographs, sizes, materials, delivery, reviews.
+The buy button lives near the top, next to the price, which is where it belongs, and it is
+gone by the time the reader has finished the reasons to buy. The sticky add to cart bar is
+the answer to that: a condensed version of the same offer, pinned to an edge, carrying the
+minimum needed to commit (a thumbnail, the name, the price, the chosen variant, one
+button). On phones it sits at the bottom inside the [thumb zone](/thumb-zone); on desktop
+it more often rides the top like a [sticky header](/sticky-header).
+
+The design tension is that the page now has two buy buttons, and only one of them is the
+real control. Everything that qualifies the purchase (the size picker, the quantity, the
+delivery estimate) lives with the original, so the bar either mirrors that state or lies
+about it. The rule that keeps it honest is that the bar is a shortcut to the same
+transaction and never a second one: it shows the variant that is actually selected, it
+disables itself when no variant is chosen instead of guessing, and pressing it does what
+pressing the real button does. When teams get this wrong the symptom is a basket
+containing the default size nobody picked.
+
+Retiring matters as much as appearing. The bar earns its space only while the real button
+is off screen, so scrolling back up should put it away, and a bar that stays pinned for
+the whole page is just a floating advert for a control the reader is already looking at.
+It also has to keep out of the way of the content it covers: reserve the strip's height in
+the scroll container rather than letting it sit on top of the last paragraph, respect the
+[safe area](/safe-area) on phones with a home indicator, and never stack with a cookie
+notice, a chat launcher and a promo bar until the page is a sandwich of bars around a
+sliver of product. It is a close cousin of the [sticky footer](/sticky-footer) in geometry
+and nothing like it in purpose: one is where a document ends, the other is a control that
+followed you.
+
+Because appearance is driven by scroll position, the implementation is the same machinery
+as a [scroll-triggered animation](/scroll-triggered-animation), and the cheapest correct
+version needs no scroll listener at all: an `IntersectionObserver` watching the real
+button, or CSS `position: sticky` on a wrapper, both of which stay smooth while the reader
+flicks. Measure it against the page's conversion rather than the bar's own clicks, since
+the bar mostly harvests taps that the original button would have collected anyway, and
+compare against the honest alternative of making the page shorter.

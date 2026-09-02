@@ -1,0 +1,73 @@
+---
+name: Magnetic button
+slug: magnetic-button
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A control that leans toward the cursor as it approaches, translating
+  a fraction of the distance to its centre so it reads as attracted rather than
+  merely hovered.
+aliases:
+  - name: magnetic hover
+    source: community
+  - name: magnetic cursor
+    source: community
+  - name: cursor attraction
+    source: community
+  - name: magnetic effect
+    source: community
+tags:
+  - pointer
+relations:
+  contrastWith:
+    - hover-lift
+    - cursor-follower
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Init HTML: magnetic hover effect, cursor-attracted buttons"
+    url: https://en.inithtml.com/resources/magnetic-hover-effect-creating-cursor-attracted-buttons-with-vanilla-javascript/
+  - title: "GSAP Vault: magnetic cursor effect"
+    url: https://gsapvault.com/effects/magnetic-cursor
+demo: inline
+exhibit: false
+useWhen: a hero control should feel alive before it is clicked
+---
+
+The recipe is four lines long. Watch pointer moves near the control, take the vector
+from the control's centre to the pointer, and if its length is under some radius,
+translate the control by a fraction of that vector. Outside the radius, translate back
+to zero. A pull factor around a quarter to a third is where the effect reads as
+attraction rather than as a control that has come loose, and the translation is worth
+capping so the button cannot be dragged halfway across its own container by a pointer
+sitting just inside the edge of the field. Fancier versions move the label further than
+the box, which adds a little parallax, and ease the return so the release has some
+weight.
+
+What makes it more than decoration is that it happens before contact. A hover state
+answers a pointer that has already arrived; a magnetic button answers one that is on its
+way, which is why it reads as the control noticing you. That is also the whole of its
+budget. One per page, on the one control the page is actually about, is the dose. A grid
+of magnetic cards is a field of things twitching at a passing pointer, and the effect
+that felt attentive on a hero reads as nervous everywhere else.
+
+The costs deserve saying plainly. The control moves away from the coordinate the reader
+aimed at, so a strong pull works directly against them: keep the pull small enough that
+the pointer is still inside the control when it lands, or the effect starts costing
+clicks. It only exists for mice, so the touch experience is a plain button and the
+design has to be complete without the motion. Continuous movement under the cursor is
+also exactly the class of animation that makes some readers ill, so
+`prefers-reduced-motion` has to leave the control resting where it was drawn, not
+merely shorten the travel. And a magnetic button is a cousin of the custom cursor
+follower, the blob that trails the pointer and swells over links: same appetite, same
+budget, and usually the same page.
+
+Two pieces of vocabulary sit close by. [Hover lift](/hover-lift) is what a card does
+once the pointer is on it, which is a response to contact rather than to approach. And
+[snapping](/snapping) is sometimes called magnetic snapping, but that is a dragged
+object jumping into alignment when it comes near a guide: the object moves to a
+correct position and stays there, where a magnetic button leans at a passing pointer
+and springs back to exactly where it started.

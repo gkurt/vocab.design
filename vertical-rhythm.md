@@ -1,0 +1,71 @@
+---
+name: Vertical rhythm
+slug: vertical-rhythm
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Spacing every block of text by multiples of one line height so the
+  page keeps an even beat from top to bottom.
+aliases:
+  - name: typographic rhythm
+  - name: baseline rhythm
+tags:
+  - grids
+  - spacing
+relations:
+  contrastWith:
+    - baseline-grid
+    - first-line-indent
+    - leading
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: What the Font are Vertical Rhythm and Modular Scale?
+    url: https://www.bounteous.com/insights/2018/03/26/what-font-are-vertical-rhythm-and-modular-scale/
+demo: inline
+exhibit: false
+useWhen: spacing paragraphs and headings by one consistent unit
+---
+
+The unit is one line of body text. Pick a base size and a
+[leading](/leading) that multiply to a whole number, say 16px at 1.5 for a 24px
+line, and then every vertical measurement on the page is a multiple of that 24:
+the space above a heading, the space below it, the height of a rule, the margin
+under an image. Nothing has a size of its own; everything is counted in lines.
+The practice comes from print, where facing pages and adjacent columns had to
+align across the gutter, and a shared [baseline](/baseline) grid was the only
+way to guarantee it.
+
+Doing it properly means auditing everything that adds height. Headings need
+line-heights that are multiples of the unit rather than of their own font size,
+so a 32px heading might be set at 48px of leading rather than at 1.2. Borders
+are the classic leak: a 1px border adds a pixel to the box, so the padding
+beside it has to give one back. Images and embeds arrive at whatever height they
+arrive at, so they are either given a fixed aspect box that rounds to the unit
+or allowed to break the grid on purpose. Lists, blockquotes, and code blocks all
+need the same treatment, which is why rhythm is usually enforced by a handful of
+spacing tokens rather than by hand.
+
+The web fights back in ways print did not. CSS aligns line boxes, not baselines:
+the leading is split half above and half below the text, so the actual baseline
+sits wherever the font's own metrics put it, and swapping to a fallback face
+with a different [x-height](/x-height) moves it. Reader-set font sizes, fluid
+type, and responsive line-height changes all shift the unit at runtime.
+`text-box-trim` and `text-box-edge` are the parts of CSS that finally address
+this, by trimming the half-leading so a text box starts at the cap height and
+ends at the baseline, which is what makes real baseline alignment tractable
+rather than approximate.
+
+Strict rhythm is expensive and mostly invisible, and it is worth being honest
+about which half of the effect readers actually perceive. Nobody notices that a
+paragraph sits exactly three lines below a heading. What they do notice is
+inconsistency, and the relationship between the space above a heading and the
+space below it: more room above than below is what makes a heading belong to the
+section it introduces rather than float between two. A spacing scale derived
+from the line height, applied consistently, delivers nearly all of that with
+none of the pixel accounting. Reach for a true grid when the page really does
+have columns that must align, and take the beat without the ruler everywhere
+else.

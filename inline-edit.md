@@ -1,0 +1,77 @@
+---
+name: Inline edit
+slug: inline-edit
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Text that reads as plain content until you click it, at which point
+  it becomes an input in the same place with save and cancel.
+aliases:
+  - name: editable
+    source: chakra
+  - name: click to edit
+    source: community
+  - name: edit in place
+    source: community
+  - name: inline editing
+    source: community
+tags:
+  - text-editing
+relations:
+  contrastWith:
+    - direct-manipulation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - autosave
+    - rich-text-editor
+    - data-grid
+    - yellow-fade-technique
+implementations: []
+sources:
+  - title: Chakra UI components overview
+    url: https://chakra-ui.com/docs/components/concepts/overview
+demo: inline
+exhibit: false
+useWhen: editing a value where it is displayed
+---
+
+Inline edit is one value with two modes in one box. In view mode it is text, part of
+the page, reading exactly as the finished thing reads. In edit mode the same box
+holds an input carrying the same value, plus a way to keep the change and a way to
+abandon it. The whole argument for the pattern is that the reader never leaves: no
+dialog, no separate settings screen, no round trip to a form that shows them the
+value again out of context. For a page of a dozen small facts, that is the
+difference between changing one of them and going somewhere else to change one of
+them.
+
+Its famous weakness is that view mode advertises nothing. Text that can be edited
+looks like text that cannot, so the pattern needs a signifier, and the usual one (a
+pencil that fades in on hover) fails for every reader without a pointer, which is
+everyone on a touchscreen and everyone using a keyboard. The workable versions keep
+the control permanently visible, or make the whole row a control with a hover and
+focus treatment that says so, and accept that a little visual noise is the price of
+being findable. An interface where the only way to discover editing is to try
+clicking things is an interface with a secret.
+
+The commit model is the other decision, and there are three. Explicit save and
+cancel is the clearest: nothing changes until asked, and abandoning is safe.
+Blur-to-save is tidier on screen and dangerous in practice, because clicking
+somewhere else is not the same gesture as agreeing, and a reader who tabbed away by
+accident has now edited their own data. Autosave with an undo is the most forgiving
+where the value is low stakes. Whichever you choose, Enter should commit and Escape
+should abandon, since those are the two keys people already press. And if the save
+fails, the field goes back into edit mode holding the reader's text: discarding what
+someone typed because a request timed out is the worst outcome the pattern can
+produce.
+
+Both modes have to occupy the same room. An input is taller than a line of text and
+a pair of buttons is wider than a pencil, so a naive swap makes the row grow and
+shoves the page around at exactly the moment the reader is aiming at something.
+Reserve the larger box from the start and let the smaller mode sit inside it. Focus
+belongs in the input the moment edit mode opens, and back on the control that opened
+it once the mode closes, or a keyboard reader is dropped at the top of the document
+holding a value they cannot see. Validation stays in place too, next to the field
+rather than in a summary somewhere else, because the entire premise of the pattern
+is that the reader never had to go anywhere.

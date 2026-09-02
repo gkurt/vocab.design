@@ -1,0 +1,78 @@
+---
+name: Holographic foil
+slug: holographic-foil
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A finish that shifts hue with viewing angle, imitating foil, soap
+  film, or a CD surface with banded rainbow gradients over a pale metallic
+  ground.
+aliases:
+  - name: iridescent
+  - name: iridescence
+  - name: holo gradient
+  - name: pearlescent
+  - name: oil slick
+    source: community
+tags:
+  - depth
+  - illustration
+relations:
+  contrastWith:
+    - gradient-border
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - color-interpolation
+implementations: []
+sources:
+  - title: "Envato Tuts+: 100+ best holographic and iridescent textures"
+    url: https://design.tutsplus.com/articles/100-best-holographic-iridescent-textures-foil-backgrounds-and-effects--cms-40042
+  - title: "Effect Labs: CSS holographic effect, iridescent and chrome"
+    url: https://effect-labs.com/en/pages/blog/effet-holographique-css.html
+demo: inline
+exhibit: false
+useWhen: a surface whose colour shifts as if it were foil
+---
+
+The physics in one sentence: a film only a few hundred nanometres thick reflects light from
+its top and its bottom surface at once, the two reflections arrive slightly out of step, and
+they cancel some wavelengths while reinforcing others, so white light comes back split by
+colour. That is thin-film interference, and it is why soap bubbles, oil on wet tarmac, beetle
+shells and the data side of a CD all do the same trick. Two consequences matter for drawing
+it. The colour order is fixed, because it follows the spectrum rather than a designer's
+preference, so a convincing foil runs its hues in sequence and never jumps from green to
+magenta and back. And the effect is angle dependent by definition: change the path length
+through the film and you change which wavelengths cancel, which is why the surface appears
+to move when you do.
+
+That last point is the whole difference between this and
+[specular-highlight](/specular-highlight). A highlight is one light source reflected in one
+place, a bright spot that says the surface is smooth, and it stays the same colour as the
+light that made it. Iridescence is wavelength separation happening across the entire
+surface, and no single part of it is "the light". Get this wrong and you produce a foil card
+with a hot white blob on it, which reads as plastic rather than as foil.
+[Gloss](/gloss) is the related finish for a wet, polished look, and it is also achromatic:
+it modulates lightness, not hue.
+
+The screen version is a stack of gradients rather than a simulation. A pale metallic ground,
+usually a near-white with a cool grey mixed into it, carries a banded gradient of saturated
+hues in spectral order, plus a conic or second linear pass at a different angle to break the
+regularity, with blend modes doing the mixing so the bands sit in the metal rather than on
+it. [Mesh-gradient](/mesh-gradient) shares the technique of layering colour fields and none
+of the constraint: a mesh gradient is free to put any hue next to any other, where a foil
+that does so stops looking like a physical surface. [Aurora-ui](/aurora-ui) is closer in
+mood, soft glowing bands behind an interface, but it reads as light in the air rather than
+as a finish on an object.
+
+If you want the effect to be true rather than merely pretty, tie it to something that
+changes. A device-orientation or pointer-driven tilt moves the gradient the way a real card
+moves in the hand, and that is the moment the surface stops being a texture. It also has to
+be optional: an angle-driven sheen is motion, so it belongs behind a reduced-motion check,
+and device orientation needs permission on some platforms and should degrade to a still
+image rather than to nothing. Two more practical notes. Contrast is the usual failure here,
+since text over a full-spectrum surface has no reliable background luminance to sit on, so
+keep type off the foil or give it a solid plate. And the register carries strong
+associations, holographic stickers, trading cards, festival branding and late-nineties
+CD-ROM packaging, which is either exactly what you want or an accident waiting to happen.

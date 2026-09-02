@@ -1,0 +1,73 @@
+---
+name: Rotate gesture
+slug: rotate-gesture
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Two fingers turning around a common center to rotate the object or
+  view beneath them, the angle tracking the fingers as they orbit.
+aliases:
+  - name: rotate
+    source: material
+  - name: twist
+    source: community
+  - name: two-finger rotate
+    source: community
+tags:
+  - canvas
+  - touch
+relations:
+  contrastWith:
+    - orbit
+    - pinch-to-zoom
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Rotate
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures (rotate)"
+    url: https://m1.material.io/patterns/gestures.html
+demo: inline
+exhibit: false
+useWhen: turning content with two fingers rather than a handle
+---
+
+A rotate gesture is arithmetic on a line. Two contacts land, and the surface remembers the
+angle of the segment between them. As the fingers orbit, that angle changes, and the
+difference between the current angle and the remembered one is applied to the content. The
+pivot is the midpoint of the two contacts, not the center of the object, which is why an
+object turning under two fingers feels pinned to the hand rather than to the canvas. Every
+part of this is the same recognizer that produces pinch: one pair of contacts yields a
+distance, an angle, and a midpoint at once, so scale, rotation and pan usually arrive from
+the same gesture and have to be applied together. See [multi-touch](/multi-touch) for the
+contact bookkeeping underneath, which is where the `pointerId` that keeps two fingers apart
+comes from.
+
+Raw angle is almost never what ships. Fingers wobble, so a rotation applied straight from
+the sensor drifts a degree or two off true and nothing ever lands square again. The fix is
+detents: as the value passes within a few degrees of 0, 90, 180 or 270, it sticks there
+until the fingers pull it decisively away, and good implementations mark the moment with a
+short haptic tick and a guide line. A second guard is a threshold before rotation begins at
+all, usually around ten degrees of travel, so a two-finger pan or pinch does not leave the
+photo half a degree crooked. Both are cheap, and both are the difference between a gesture
+that feels precise and one people stop using.
+
+Whether rotation should exist at all is a question about the content. A photo, a shape on a
+design canvas, a 3D model: these have no privileged orientation, so turning them is an edit
+the reader intends. A map is the harder case. North up is a strong convention and a lot of
+readers rely on it, so map rotation is normally paired with a compass affordance that both
+reports the current heading and resets to north on a tap, and plenty of map products keep
+rotation off until the reader opts in. A document, a list, or a form has no rotate at all,
+because there is no meaning to give the result.
+
+The trap is accidental rotation. Any two-finger gesture on a surface that recognizes turning
+will produce a little of it, so a reader who meant to pinch a photo ends up with it three
+degrees off and no obvious way back. Three habits keep that from being a bug report: give
+the gesture a threshold, snap to the cardinal angles, and always offer a cheap way home,
+either a reset control or plain [undo](/undo). And remember that rotation is a
+[multi-touch](/multi-touch) gesture with no keyboard or mouse equivalent, so whatever it
+does has to be reachable another way for anyone who cannot make it.

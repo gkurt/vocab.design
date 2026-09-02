@@ -1,0 +1,82 @@
+---
+name: Anti-design
+slug: anti-design
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A deliberately awkward style that breaks layout, type, and color
+  conventions so the interface reads as a statement rather than as a polished
+  product.
+aliases:
+  - name: ugly design
+    source: community
+  - name: intentionally ugly web design
+  - name: anti-aesthetic
+  - name: anti-polish
+    source: uistyleguide
+  - name: raw aesthetic
+    source: uistyleguide
+  - name: Internet Ugly
+    source: namethatui
+tags:
+  - grids
+relations:
+  contrastWith:
+    - brutalist-web-design
+    - grunge-design
+    - acid-graphics
+    - maximalism
+    - new-wave-design
+    - vernacular-web
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - broken-grid
+implementations: []
+sources:
+  - title: "Envato: Minimalism vs. maximalism, battle of the divisive design styles"
+    url: https://elements.envato.com/learn/minimalism-vs-maximalism-design-style
+demo: inline
+exhibit: false
+useWhen: the rule breaking is the message
+---
+
+The moves are consistent enough to list. Two or three type faces that have no business
+together, usually whatever the operating system shipped: a transitional serif next to a
+casual script next to a monospace, at sizes nobody chose from a scale. Elements set off the
+grid, rotated a few degrees, or overlapping the thing they should sit beside. Colour used at
+full saturation and unmodulated, so a hot magenta lands straight on a hot cyan with no tint,
+shade, or neutral in between. Borders and controls left in their raw browser or system state,
+bevels and all, instead of restyled. Images stretched out of their aspect ratio on purpose.
+Any one of these turns up in broken work by accident, which is exactly the point: the style
+borrows the visual signature of incompetence and uses it deliberately.
+
+That deliberateness is the whole difference from
+[brutalist-web-design](/brutalist-web-design), the neighbour it is most often confused with.
+Brutalism strips an interface back to raw defaults out of honesty about the medium, arguing
+that unstyled HTML, a blue underlined link, and a system font are what the web actually is,
+so the restraint is a claim about truth. Anti-design knows the conventions perfectly well and
+violates them for friction and attitude, so the same undecorated button means "we did not
+bother to hide the machinery" in one register and "we are refusing your expectations" in the
+other. [Neubrutalism](/neubrutalism) is a third thing again, a house style with rules of its
+own (thick outline, hard unblurred shadow, flat loud fill) that happens to look rough.
+
+The craft problem is that a break only reads as a decision if something nearby is clearly
+still under control. A composition where every single value is arbitrary reads as a rendering
+bug, and readers leave rather than admire it. The version that works keeps one axis
+disciplined, usually the reading order and the hit targets, and spends the anarchy on
+surface: the price can overlap the photograph, but it still has to be findable, still has to
+pass contrast, and the buy button still has to be the biggest reachable thing on the card.
+Those constraints are not a compromise of the style. A statement nobody can operate is not
+read as a statement.
+
+Historically it is the descendant of a long argument against tidiness, from the Cranbrook and
+David Carson typography of the late 1980s through the net.art of the 1990s, and it resurfaces
+whenever the mainstream gets too smooth: the 2018 wave arrived on the heels of a decade of
+identical flat, centred, sans-serif landing pages. It sits close to
+[maximalism](/maximalism), which shares the loudness but is about abundance rather than
+transgression, and to [memphis-design](/memphis-design), which broke the same rules forty
+years earlier with better manners and a fixed vocabulary of shapes. Use it where the brand is
+the message and the visitor is browsing, on portfolios, record labels, event pages, and
+zines. Do not use it where somebody is trying to finish something.

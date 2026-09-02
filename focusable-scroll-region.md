@@ -1,0 +1,70 @@
+---
+name: Focusable scroll region
+slug: focusable-scroll-region
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Giving a scrollable box its own tab stop so a keyboard user can
+  scroll it, which matters whenever the content inside holds no focusable
+  element of its own.
+aliases:
+  - name: scrollable-region-focusable
+    source: deque
+  - name: keyboard scrollable region
+    source: community
+  - name: tabindex on a scroller
+    source: community
+tags:
+  - keyboard
+  - scroll
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-container
+    - tabbable
+implementations: []
+sources:
+  - title: "Deque: Scrollable region must have keyboard access"
+    url: https://dequeuniversity.com/rules/axe/4.9/scrollable-region-focusable
+  - title: "WCAG 2.2: 2.1.1 Keyboard"
+    url: https://www.w3.org/TR/WCAG22/#keyboard
+demo: inline
+exhibit: false
+useWhen: a code block or log pane scrolls but cannot be reached
+---
+
+A pointer user scrolls an overflowing box by putting the wheel over it. A keyboard user
+scrolls by pressing an arrow key, and an arrow key scrolls whichever scroller currently
+holds focus. So a box that overflows and contains nothing focusable is unreachable by
+keyboard: the rest of its content is on the page, rendered, and no key sequence brings it
+into view. The usual casualties are the ones nobody thinks of as interactive, because they
+are not: a syntax-highlighted code sample, a build log, a terms-of-service panel, a wide
+table in a horizontally scrolling wrapper, a diff view.
+
+The fix is one attribute on the element that actually does the scrolling:
+`tabindex="0"`. That makes the scroller a [tab stop](/tab-stop) of its own, so Tab lands
+on it and the arrow keys, Page Down and Home then scroll it the way they would scroll the
+page. The axe rule `scrollable-region-focusable` checks exactly this and maps it to WCAG
+success criterion 2.1.1 Keyboard (Level A). The [scroll container](/scroll-container)
+entry in layout is what a scroll container *is*, the box the CSS specifications call the
+scrollport; this entry is why that box so often needs a tabindex before anyone can use it.
+
+Two things decide whether you need it. First, if the region already contains a focusable
+element (a link in the code sample, a button in the table), the browser gives you the
+scroll for nothing, because focus can get inside and the arrow keys follow it. Second, if
+the box does not actually overflow, adding a stop only lengthens the sequence for
+everyone. Both conditions change with viewport width and with content, so this is a rule
+worth checking at the size where the overflow appears rather than at the size you design
+at.
+
+Once the region is a tab stop, it owes the reader two more things. It needs a visible
+[focus ring](/focus-ring), because a stop nobody can see is a place the eye loses the
+sequence. And it needs a name, or a screen reader user is told only that focus moved to a
+group with nothing in it; `role="region"` with an `aria-label`, or a heading referenced by
+`aria-labelledby`, turns it into a [landmark](/landmark) they can also jump to directly.
+The failure mode to avoid on the way there is setting `tabindex="-1"` on everything inside
+the region to tidy the tab sequence, which removes the last route in and produces the
+problem this term exists to name.

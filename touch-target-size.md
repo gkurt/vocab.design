@@ -1,0 +1,76 @@
+---
+name: Touch target size
+slug: touch-target-size
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The minimum area a control must offer a finger or imprecise pointer,
+  measured on the activation region rather than the painted glyph.
+aliases:
+  - name: tap target
+  - name: hit area
+  - name: target size
+    source: wcag
+  - name: minimum touch target
+    source: material
+  - name: 44pt minimum
+    source: hig
+  - name: 48dp minimum
+    source: material
+  - name: dwell target
+tags:
+  - touch
+  - wcag
+relations:
+  contrastWith:
+    - touch-target
+    - fitts-law
+    - target-spacing
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - icon-button
+    - explore-by-touch
+    - density
+implementations:
+  - system: material
+    name: Touch target size (48dp)
+    url: https://support.google.com/accessibility/android/answer/7101858
+sources:
+  - title: "WCAG 2.2: Target Size (Minimum)"
+    url: https://www.w3.org/TR/WCAG22/#target-size-minimum
+  - title: "TetraLogical: Foundations, target sizes"
+    url: https://tetralogical.com/blog/2022/12/20/foundations-target-size/
+demo: inline
+exhibit: false
+useWhen: sizing something for a fingertip, not a cursor
+---
+
+A fingertip lands on an area roughly a centimetre across, and it lands there without
+a cursor to aim with, because the finger covers the thing it is pointing at. Target
+size is the design response: make the region that reacts big enough that an
+approximate landing still counts.
+
+The number to hold onto is that this is measured on the activation region, not on
+what is drawn. A 16 px icon in a 44 px button is a 44 px target. The same icon with
+no padding is a 16 px target that merely looks the same in a screenshot. Three
+figures are quoted in practice, and they do not agree because they are answering
+slightly different questions: WCAG 2.2 sets 24 by 24 CSS pixels as the AA floor
+(with exceptions for inline links and for targets that have enough spacing around
+them), Apple asks for 44 by 44 points, and Android asks for 48 by 48 density
+independent pixels. Clearing the WCAG floor is not the same as being comfortable.
+Anything a person will use one handed, in motion, or repeatedly deserves the
+platform figure.
+
+Spacing counts as much as size. Two 44 px targets touching each other are worse than
+two 36 px targets with 12 px between them, because the failure mode people actually
+hit is the neighbouring control, not empty space. WCAG says as much: a small target
+can pass on spacing alone, since the offset from its neighbours is what protects it.
+
+Size is also not only about fingers. A pointer driven by a trackpad, a head switch,
+eye tracking, or a shaky hand has the same problem a thumb has, which is why the
+success criterion is written about targets in general rather than about touch. If
+the design cannot spare the pixels, grow the region without growing the paint: extra
+padding, a pseudo-element that extends the hit area, or a larger row that carries the
+click on behalf of the icon inside it.

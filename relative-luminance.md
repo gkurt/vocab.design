@@ -1,0 +1,69 @@
+---
+name: Relative luminance
+slug: relative-luminance
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The brightness of a colour measured on a 0 to 1 scale after each
+  channel is linearised, which is the input every WCAG contrast calculation
+  actually uses.
+aliases:
+  - name: luminance
+    source: community
+  - name: perceived brightness
+    source: community
+  - name: L1 L2
+    source: wcag
+tags:
+  - perception
+  - wcag
+relations:
+  contrastWith:
+    - contrast-ratio
+    - lightness
+    - perceptual-uniformity
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Understanding Success Criterion 1.4.11: Non-text Contrast"
+    url: https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html
+  - title: CSS Color Module Level 4
+    url: https://www.w3.org/TR/css-color-4/
+demo: inline
+exhibit: false
+useWhen: explaining why two colours of equal saturation contrast differently
+---
+
+Relative luminance is how much light a colour puts out, normalised so black is 0 and white
+is 1. WCAG computes it as `Y = 0.2126 R + 0.7152 G + 0.0722 B`, and the three weights are
+the whole story: green carries seventy percent of the answer, red a fifth, blue almost
+nothing. That is not an aesthetic judgement, it is the sensitivity of human cone response
+measured in 1931 and standardised since. It is also why pure blue text on black measures
+almost no contrast while pure green on black measures a great deal, even though both are
+"a saturated hue on black".
+
+The linearisation step in front of that sum is the part people skip. An
+[sRGB](/srgb) channel value is not proportional to light; it carries a transfer curve of
+roughly the 2.2 power, so each channel has to be undone before it can be weighted. This is
+why `#808080` measures 0.216 rather than 0.5. Half the channel value is nowhere near half
+the light, and any arithmetic done on raw hex values, averaging two colours, taking a
+midpoint, guessing a contrast, is arithmetic on the wrong numbers.
+
+Everything downstream consumes this one figure. A [contrast ratio](/contrast-ratio) is
+`(L1 + 0.05) / (L2 + 0.05)` with the lighter colour on top, which is where the names L1 and
+L2 come from; the 0.05 is a constant standing in for ambient light reflecting off the screen,
+and it is what keeps black against black at 1:1 instead of dividing by zero. Because the
+formula sees only luminance, two colours can be wildly different in hue and still measure
+close to 1:1, which is exactly the failure a designer's eye forgives.
+
+It is worth keeping this apart from [lightness](/lightness), because the alias "perceived
+brightness" points at the wrong one. Relative luminance is physics weighted by the eye's
+sensitivity to wavelength: a linear measure of light. `L*` in CIELAB, and `L` in OKLCH, are
+that same quantity rescaled so that equal numeric steps look like equal steps, which is a
+perceptual measure. Mid grey sits at 0.216 in luminance and at 53.6 in `L*`, and both are
+correct answers to different questions. Contrast maths wants the first;
+[colour ramps](/color-ramp) want the second. [APCA](/apca) starts from a luminance of its own
+with a different curve and a clamp near black, for exactly this reason.

@@ -1,0 +1,75 @@
+---
+name: Spatial UI
+slug: spatial-ui
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Interface designed to sit in three dimensional space, where panels
+  are made of a system glass material and hierarchy is carried by depth rather
+  than by colour.
+aliases:
+  - name: spatial design
+    source: apple
+  - name: visionOS UI
+  - name: XR interface
+  - name: 3D UI
+  - name: mixed reality UI
+tags:
+  - depth
+  - platform-registers
+relations:
+  contrastWith:
+    - liquid-glass
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - ornament
+    - look-and-pinch
+    - hyperreal-3d
+    - dimensionality
+implementations:
+  - system: hig
+    name: Spatial layout
+    url: https://developer.apple.com/design/human-interface-guidelines/spatial-layout
+sources:
+  - title: "WWDC23: Design for spatial user interfaces"
+    url: https://developer.apple.com/videos/play/wwdc2023/10076/
+  - title: "Create with Swift: Ensuring interface legibility and contrast in visionOS"
+    url: https://www.createwithswift.com/ensuring-interface-legibility-and-contrast-in-visionos/
+demo: inline
+exhibit: false
+useWhen: the interface floats in the room, not on a screen
+---
+
+A spatial interface has no page to sit on. Panels hang in the room the reader is actually
+in, so the design problems change shape: there is no fixed background to guarantee contrast
+against, no viewport edge to align to, and no reliable notion of what is behind anything.
+Apple's answer, and the reason this style looks the way it does, is to hand every window the
+same system material, a dark or light glass that blurs whatever the room puts behind it, and
+then to separate elements by moving them toward the viewer rather than by colouring them
+differently. Depth becomes the hierarchy. Elevation is not a metaphor here, it is the actual
+z axis.
+
+The vocabulary is worth learning even if you never ship on a headset. A window is a flat
+panel of app content. A volume is a bounded box holding three dimensional content that can
+be walked around. An immersive space is the app taking over the room entirely. Content is
+placed at a comfortable arm's length and curved slightly toward the reader, and it is
+anchored to the room instead of to the head, because interface pinned to a face is the
+fastest route to nausea. This is where the style parts company with
+[glassmorphism](/glassmorphism): glassmorphism is the material borrowed onto a flat screen
+as a look, while here the material is a physical answer to an unknown backdrop, and the
+depth behind it is real.
+
+Input is the other half of the aesthetic. The primary gesture is looking at a target and
+pinching, so every control has to be big enough to be selected by an unsteady gaze, spaced
+far enough from its neighbours that a near miss is not a wrong tap, and drawn so that a
+hover highlight can appear the instant the eyes land on it. That is why spatial controls are
+pill shaped, generously padded, and comparatively few. A dense toolbar copied from a desktop
+app is unusable in this medium, and looks it.
+
+Legibility deserves its own paragraph, because glass costs contrast. Text over a translucent
+panel is only as readable as the room behind it allows, which is why the platform pushes
+vibrant text styles that adapt to their backdrop rather than fixed colours, and why thin
+weights and low contrast greys fail here in ways they survive on a monitor. Assume the room
+is unpredictable, and design to the worst backdrop the reader might be sitting in front of.

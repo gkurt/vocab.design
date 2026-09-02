@@ -1,0 +1,68 @@
+---
+name: Color temperature
+slug: color-temperature
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Whether a colour reads warm (toward red and orange) or cool (toward
+  blue), the axis designers use to bias a neutral grey without changing its
+  lightness.
+aliases:
+  - name: warm and cool colors
+    source: community
+  - name: warm grey
+    source: community
+  - name: cool grey
+    source: community
+  - name: warm gray
+    source: community
+  - name: cool gray
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - tint
+    - hue-shift
+    - tinted-neutral
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hue
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+exhibit: false
+useWhen: biasing a palette warm or cool
+---
+
+Temperature splits the wheel in half: reds, oranges and yellows are warm, blues and
+cyans are cool, with green and magenta sitting on the fence and going either way depending
+on which side of themselves they lean. The vocabulary comes from the colour of hot metal
+and from photography's Kelvin scale, which is why the physics reads backwards here. A
+higher colour temperature in Kelvin is a bluer light, so the number goes up as designers
+would say the colour gets cooler.
+
+The everyday use of the word is not about colourful things at all, it is about greys. A
+neutral at zero [saturation](/saturation) is inert and slightly dead, so most systems keep a
+few percent of a hue in theirs: a warm grey holds a trace of yellow or red and reads like
+paper and daylight, a cool grey holds a trace of blue and reads like screens, steel and
+clinical spaces. The trick is that the bias changes only the hue, never the
+[lightness](/lightness), so a warm and a cool version of the same step are equally light and
+the interface's contrast ratios do not move when a team switches from one to the other.
+
+Getting the bias to agree across a palette is the actual craft. Warm greys under a cool blue
+accent make the accent look slightly dirty, and a single cool border in an otherwise warm
+panel reads as a mistake nobody can name. Pick a direction, apply it to every neutral, and
+choose accents that lean the same way. Readers meet the same axis at the system level too,
+where Night Shift, f.lux and "warm" display modes shift the whole white point toward amber
+after dark, which is worth remembering when a carefully cooled interface is being viewed
+through an orange filter.
+
+Two limits. Temperature is relative rather than absolute, so a warm blue and a cool red are
+both perfectly ordinary things to say, and a colour only reads as warm next to something
+cooler. And it carries no contrast of its own: shifting a grey warm does nothing for
+legibility, which stays a question of how far apart two colours sit on the lightness axis.

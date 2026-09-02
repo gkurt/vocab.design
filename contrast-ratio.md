@@ -1,0 +1,77 @@
+---
+name: Contrast ratio
+slug: contrast-ratio
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A number from 1:1 to 21:1 describing how far apart two colours sit
+  in relative luminance, used to decide whether text on a background is
+  readable.
+aliases:
+  - name: colour contrast
+    source: community
+  - name: color contrast
+    source: community
+  - name: contrast checker
+    source: community
+  - name: 4.5:1
+    source: wcag
+  - name: AA contrast
+    source: wcag
+tags:
+  - a11y
+  - perception
+  - wcag
+relations:
+  contrastWith:
+    - large-text-threshold
+    - non-text-contrast
+    - apca
+    - relative-luminance
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - on-color
+implementations:
+  - system: radix
+    name: Understanding the scale
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+sources:
+  - title: "Understanding Success Criterion 1.4.11: Non-text Contrast"
+    url: https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html
+demo: inline
+exhibit: false
+useWhen: measuring whether two colours are far enough apart to read
+---
+
+The ratio is one formula: take the relative luminance of each colour, add 0.05 to both, and
+divide the lighter by the darker. Relative luminance is a weighted sum of the three sRGB
+channels after they have been linearised, green counting for most of it and blue for almost
+none, which is why the number is about light rather than about hue. Black on white is 21:1,
+any colour against itself is 1:1, and everything real lands somewhere between. Two colours
+that look nothing alike can still score close to 1:1 if they happen to carry the same amount
+of light, which is exactly the case a designer's eye forgives and the formula does not.
+
+WCAG turns the number into thresholds. Body text needs 4.5:1 and reaches AAA at 7:1. Large
+text, meaning 24px or 18.66px bold and up, needs 3:1 and reaches AAA at 4.5:1. A third
+threshold, 3:1 from criterion 1.4.11, covers everything that is not text but still has to be
+found: the boundary of an input, the track of a slider, the state that tells a checked box
+from an unchecked one. Ratios are computed against what is actually behind the text, so a
+colour carrying an [alpha channel](/alpha-channel) has no ratio of its own until it has been
+composited, and text over a photograph has a different ratio in every square inch unless a
+[scrim](/scrim) is doing the work.
+
+The formula's weakness is that it is symmetric and perception is not. Light text on a dark
+field measures the same as the reverse pair and does not read the same, which is one of the
+reasons a naive [dark mode](/dark-mode) can pass every check and still feel wrong. APCA, the
+candidate replacement drafted for WCAG 3, reports a polarity-aware lightness contrast (Lc)
+instead of a ratio, and systems like Radix already state their scales in it. Until it lands,
+4.5:1 is the number that appears in contracts and audits.
+
+The practical move is to stop checking colours and start building the guarantee into the
+[colour ramp](/color-ramp): fix which steps are text steps, fix which steps they are allowed
+to sit on, and every [on-colour](/on-color) pair in the system inherits a passing ratio.
+Checking a finished screen only tells you which combinations someone already shipped, and it
+says nothing about the reader who has turned on a [contrast preference](/prefers-contrast)
+and is asking for more than the minimum.

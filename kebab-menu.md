@@ -1,0 +1,54 @@
+---
+name: Kebab menu
+slug: kebab-menu
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A menu of secondary actions opened from a trigger of three
+  vertically stacked dots, usually at the end of a row, card, or toolbar.
+aliases:
+  - name: three-dot menu
+  - name: vertical ellipsis
+tags:
+  - icons
+  - menus
+relations:
+  contrastWith:
+    - meatball-menu
+    - hamburger-menu
+    - context-menu
+  variantOf:
+    - overflow-menu
+  partOf: []
+  seeAlso:
+    - popover
+    - menu-button
+implementations:
+  - system: material
+    name: Menus
+    url: https://m3.material.io/components/menus/overview
+  - system: radix
+    name: Dropdown Menu
+    url: https://www.radix-ui.com/primitives/docs/components/dropdown-menu
+sources: []
+demo: inline
+exhibit: false
+useWhen: extra actions behind three stacked dots
+---
+
+The name is kitchen vernacular that stuck: three dots on a vertical skewer. It is
+not in any style guide's index, which is exactly why people cannot find it, and
+why "what is the three dots menu called" is one of the most searched questions in
+this vocabulary.
+
+The family is worth keeping straight. Three dots stacked vertically is a kebab.
+Three dots laid out horizontally is a [meatball](/meatball-menu). Three lines is a
+[hamburger](/hamburger-menu), and it means navigation, not actions. Six dots in a
+grid is a bento; a vertical grip of dots you can drag is a hamburger's cousin
+called a grabber.
+
+Whatever it is called, it is an [overflow menu](/overflow-menu): the place actions
+go when a row cannot afford to show them. Two rules keep it usable. Give it an
+accessible name, since three dots read as nothing to a screen reader, and never
+hide the only path to an action behind it.

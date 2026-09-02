@@ -1,0 +1,70 @@
+---
+name: Truncation
+slug: truncation
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Cutting text that does not fit and marking the cut, usually with an
+  ellipsis, so the reader knows something was removed.
+aliases:
+  - name: text truncation
+  - name: ellipsis
+  - name: text-overflow
+    source: css
+  - name: truncate
+    source: tailwind
+  - name: clipping text
+tags:
+  - content-design
+relations:
+  contrastWith:
+    - show-more-toggle
+    - marquee
+    - line-clamp
+    - word-break
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-edge-fade
+    - preview-text
+    - subject-line
+implementations: []
+sources:
+  - title: "MDN: CSS text module"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text
+  - title: "Tailwind CSS: text-overflow"
+    url: https://tailwindcss.com/docs/text-overflow
+demo: inline
+exhibit: false
+useWhen: text has to fit a box it does not fit
+---
+
+The mark is the point. Text that simply runs out of room and stops has been
+clipped, and a reader has no way to tell a clipped title from a short one. An
+ellipsis says a decision was made and there is more where that came from, which
+is what turns a rendering accident into a piece of interface.
+
+CSS offers two mechanisms and they behave differently. `text-overflow: ellipsis`
+works on a single line and needs the line kept on one line
+(`white-space: nowrap`) plus `overflow: hidden` to have anything to overflow.
+Multi-line truncation goes through `line-clamp`, which cuts after a fixed number
+of lines. Both are visual only. The full string stays in the DOM, so it is what
+find-in-page matches, what a screen reader announces, and what gets copied,
+which is usually the behaviour you want and occasionally a surprise.
+
+Where the cut lands matters more than people expect. Trailing truncation is the
+default and it is the wrong end for filenames, URLs, and version numbers, where
+everything that distinguishes one item from its neighbours sits at the tail:
+`report-2024-final-v3...` and `report-2024-final-v7...` truncate to the same
+string. Middle truncation, keeping both ends and cutting the centre, is the fix,
+and it has to be done in script since CSS has no property for it. Truncating a
+column of values the reader is there to compare is the worst case of all.
+
+Reaching for `title` to restore the missing text is the common reflex and a
+weak one: native tooltips have an uncontrollable delay, never appear on touch,
+and are read out in addition to the element's own text rather than instead of
+it. A real [tooltip](/tooltip) on the truncated element, or a detail view that
+shows the whole string, is the honest recovery. Better still is designing for
+the length the content actually has, since truncation is a last resort dressed
+up as a layout technique.

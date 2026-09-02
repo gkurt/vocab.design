@@ -1,0 +1,60 @@
+---
+name: Stat
+slug: stat
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A single number shown large with a label and often a change
+  indicator, the unit a dashboard is built from.
+aliases:
+  - name: statistic
+    source: ant-design
+  - name: metric card
+  - name: kpi card
+  - name: big number
+  - name: scorecard
+tags:
+  - dataviz
+relations:
+  contrastWith:
+    - meter
+    - complication
+    - sparkline
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Chakra UI components overview
+    url: https://chakra-ui.com/docs/components/concepts/overview
+demo: inline
+exhibit: false
+useWhen: one number shown big with its label
+---
+
+A stat is a number promoted to a headline. The value is set several steps larger
+than anything around it, the label under or over it says what was counted, and an
+optional third part says which way it moved and by how much. Put four of them in a
+row and you have the top of almost every dashboard ever shipped, which is why the
+component is worth naming: it is the unit those pages are assembled from, not a
+one off piece of layout.
+
+The parts have a fixed job each. The label must name the measure and its scope
+("Revenue, last 30 days"), because a number with an ambiguous denominator is worse
+than no number. The value should be formatted for reading rather than for
+accuracy: thousands separated, currency marked, long figures abbreviated, and set
+in tabular figures so a value that updates does not shuffle the digits beside it.
+The change indicator needs a baseline, and up is not automatically good, so colour
+and arrow direction have to be decided per measure rather than by the sign.
+
+Sizing the number is the design decision people get wrong. The point of the large
+type is that one glance reaches the value, so the label and the delta must stay
+noticeably smaller and the whole block must not compete with the next one along.
+If every stat on the page is emphasised, none of them is, and a grid of eight
+identical big numbers is a table that has forgotten it is a table.
+
+A stat is a summary, not a chart. It answers "where are we now" and leaves "how
+did we get here" to the sparkline beside it or the detail view behind it. If the
+reader needs the shape of the series to understand the number, the number alone
+was the wrong component.

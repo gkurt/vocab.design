@@ -1,0 +1,65 @@
+---
+name: Common region
+slug: common-region
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The grouping principle that anything inside a shared boundary reads
+  as one group, strong enough to beat how far apart the items actually are.
+aliases:
+  - name: law of common region
+    source: community
+  - name: Gestalt common region
+    source: nngroup
+  - name: container grouping
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - proximity
+    - box
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "The Principle of Common Region: Containers Create Groupings, NN/g"
+    url: https://www.nngroup.com/articles/common-region/
+demo: inline
+exhibit: false
+useWhen: when a container has to beat the spacing
+---
+
+Draw a line around some things and they become one thing. That is the whole principle, and
+it was the last of the Gestalt grouping laws to be described, by Stephen Palmer in 1992,
+because it is so obvious that it took a while to notice it was doing work. A border, a
+shared background, a card, or a panel all state the same claim: whatever is inside this
+edge belongs together, and whatever is outside it does not.
+
+What makes common region worth naming separately is that it wins. Put six items in a row at
+equal spacing, draw a box around the first three, and no amount of gap between items two
+and three will pull them apart again. Enclosure outranks nearness, which is why it is the
+tool for grouping things you are not allowed to move: a settings page whose sections are
+fixed in order, a form whose fields cannot be resequenced, a dashboard where the tiles are
+placed by the reader. [Proximity](/proximity) can only group by rearranging, so where the
+arrangement is out of your hands, the boundary is the only lever left.
+
+The cost is ink. Every boundary is a line the reader has to look past to get to the
+content, and a page that draws one around each of nine things has spent its whole visual
+budget on saying that nine things exist. This is what the flat era was reacting to when it
+deleted the boxes, and the compromise that survived it is the softest boundary that still
+reads: a background tint with no stroke at all, or a hairline where the tint would clash
+with the content. Nielsen Norman Group's
+[write-up of the principle](https://www.nngroup.com/articles/common-region/) makes the same
+point from the other side, that a container is a strong signal and strong signals should be
+spent rarely.
+
+The rule that follows is to pick one grouping device and let it be the only one. Spacing,
+enclosure, and a shared colour all say the same sentence, and saying it three times is how a
+page ends up loud. Reach for the region when the grouping has to survive an arrangement you
+do not control, when a group must be interactive as a unit (a [card](/card) is a common
+region you can click), or when two groups must sit side by side with no room for a gap
+between them. Otherwise let the [whitespace](/whitespace) do it, and keep the boundary in
+reserve.

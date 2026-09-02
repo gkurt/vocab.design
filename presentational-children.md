@@ -1,0 +1,60 @@
+---
+name: Presentational children
+slug: presentational-children
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rule that some roles flatten everything inside them into their
+  own label, which is why an icon and a span inside a button are never announced
+  separately.
+aliases:
+  - name: children are presentational
+    source: aria
+  - name: flattened children
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - accessibility-grouping
+    - accessibility-tree
+    - presentation-role
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WAI-ARIA 1.2: Presentational Children"
+    url: https://www.w3.org/TR/wai-aria-1.2/#childrenArePresentational
+demo: inline
+exhibit: false
+useWhen: markup inside a control vanishes from the a11y tree
+---
+
+Some roles are leaves whatever you put inside them. ARIA lists the ones whose children are
+presentational: `button`, `checkbox`, `radio`, `switch`, `tab`, `option`, `menuitem`, `progressbar`,
+`slider`, `meter`, `img`, `math`, `separator` and their kin. Everything nested inside such an
+element loses its own role in the accessibility tree, and its text is swept up into the
+[accessible name](/accessible-name) of the ancestor instead. A button holding an icon, a bold
+count and a two item list is one node with one name, not six nodes a reader can walk through.
+
+This is a feature, and it is the reason a composed control works at all. The button you shipped is
+a box with a picture and two lines of copy in it; the announcement is "Archive 3 messages Frees 40
+MB, button", in document order, with no interruption. Without the rule a reader would step into the
+button, meet a graphic, a chunk of text and a list, and have to reassemble the control from its
+parts.
+
+Where it bites is when you nest semantics you expected to survive. A `<h3>` inside a button is not
+a heading to anyone using headings to navigate. A list inside an `option` is not a list. A nested
+`<button>` inside a `tab` is not reachable as a control at all, since the flattening removes the
+inner widget's role, and the browser's own [nested interactive](/nested-interactive) warnings exist
+because of exactly this. The markup validates, the visual design works, and the structure you
+believe you authored is silently discarded.
+
+So treat the rule as a hint about where the boundary of a control belongs. If the content inside
+really is structure a reader should be able to navigate, the container is not a button, and the
+[first rule of ARIA](/first-rule-of-aria) points at the same answer from the other direction: build
+the thing whose semantics you actually want. If the content is decoration and copy, flattening is
+already doing the right thing, and your only job is to check that the swept up string reads as a
+sentence rather than as a pile of fragments.

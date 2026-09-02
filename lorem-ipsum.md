@@ -1,0 +1,69 @@
+---
+name: Lorem ipsum
+slug: lorem-ipsum
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Scrambled pseudo-Latin placeholder text used so a layout can be
+  judged on its shape and texture before the real copy exists.
+aliases:
+  - name: greeking
+  - name: dummy text
+  - name: placeholder text
+  - name: filler text
+tags:
+  - content-design
+  - design-tools
+relations:
+  contrastWith:
+    - pangram
+    - type-specimen
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hand-drawn-ui
+implementations: []
+sources:
+  - title: Lorem ipsum (Wikipedia)
+    url: https://en.wikipedia.org/wiki/Lorem_ipsum
+demo: inline
+exhibit: false
+useWhen: filling a layout before the copy is written
+---
+
+The text is a mangled extract from Cicero. A passage of *De finibus bonorum et
+malorum* on the nature of pleasure, written in 45 BC, contains the phrase
+`dolorem ipsum quia dolor sit amet`, and some Renaissance compositor cut the
+opening word, scrambled the rest, and used the result as a specimen. It reached
+modern design through Letraset dry-transfer sheets in the 1960s and then through
+Aldus PageMaker, which shipped it as sample copy, which is why the same
+corrupted paragraph appears in software that has nothing else in common. The
+older word for the practice is greeking: text set as pure texture, unreadable on
+purpose, so the eye grades the block instead of the sentence.
+
+That unreadability is the whole argument for it. Set a column in language the
+viewer can read and they will read it, and a judgement about
+[measure](/measure), [leading](/leading), and the colour of a page turns into a
+judgement about the words. Latin has roughly the letter frequencies and word
+lengths of English without meaning anything, so it gives a paragraph the right
+grey.
+
+It also hides every question worth asking. Real content has lengths that
+placeholder text is careful never to have: a name that is one word, a title that
+is a German compound running to forty characters, a bio nobody filled in, a
+product with two reviews and another with eleven thousand. A card grid that
+looks composed under lorem ipsum is a card grid nobody has tested, and the
+failures it conceals are the ordinary ones, not the exotic ones. Designing with
+real content, or at least with a set of deliberately awkward real examples, is
+the correction, and it is cheaper before the layout is built than after.
+
+The practical hazards are small and constant. Lorem ipsum ships: it turns up in
+production pages, in printed brochures, and in press releases, because nothing
+in a build fails when placeholder copy is still there. It also lies to
+assistive technology and to translation, since it is neither English nor
+Latin as far as a `lang` attribute is concerned. The joke variants (bacon,
+hipster, cupcake) trade the one property that made the original useful, which
+was being ignorable, for a paragraph that everyone stops to read. If you need
+filler, use the real thing, keep it out of anything anyone can publish, and
+treat every block of it as a question you have not answered yet.

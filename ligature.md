@@ -1,0 +1,70 @@
+---
+name: Ligature
+slug: ligature
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A single glyph that replaces two or more letters whose shapes would
+  otherwise collide, such as the f and i pair.
+aliases:
+  - name: ligatures
+  - name: standard ligatures
+    source: opentype
+  - name: discretionary ligatures
+    source: opentype
+  - name: liga
+    source: opentype
+  - name: programming ligatures
+    source: community
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - icon-font
+    - contextual-alternates
+    - opentype-features
+    - kerning
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Practical Typography: Ligatures"
+    url: https://practicaltypography.com/
+  - title: "MDN: OpenType font features"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts
+demo: inline
+exhibit: false
+useWhen: two letters collide and the font fuses them
+---
+
+Some letters do not get along. In many serif faces the arm of an f reaches far
+enough to crash into the dot of a following i, and the pair renders as a smudge
+at small sizes and as an obvious accident at large ones. The typographic answer
+is older than printing presses: draw the two letters as one glyph, shaped so the
+collision never happens. That glyph is a ligature.
+
+The f family is where most of them live, since f is the letter with the longest
+reach: fi, fl, ff, ffi and ffl are the standard set. Which of them a given
+typeface carries is entirely up to its designer, and a face whose f is drawn
+with a short arm may need none at all. Beyond the standard set sit discretionary
+ligatures, the decorative ones (st, ct, and similar), which exist to be turned
+on deliberately rather than to solve a problem.
+
+The distinction is exactly how the OpenType features are named. `liga` holds the
+standard ligatures and browsers apply it by default to body text;
+`dlig` holds the discretionary ones and is off until asked for; `clig` covers
+contextual cases. CSS reaches all of them through `font-variant-ligatures`,
+where `none` switches the lot off. Off is occasionally the right answer: at very
+wide [tracking](/tracking) a fused pair looks wrong beside letters that have
+been pushed apart, and text being revealed or animated one character at a time
+cannot afford a glyph that spans two of them.
+
+Programming ligatures are a separate idea wearing the same word. Faces like Fira
+Code and JetBrains Mono use the mechanism to render `=>` as a single arrow and
+`!=` as a not-equal sign, which is a substitution for meaning rather than for
+collision, and one that some readers like as much as others dislike. Note what
+this specimen's own typeface does: it fuses ff, ffi and ffl, and leaves the
+classic fi pair alone, which is a good reminder that the feature is a promise
+the font makes, not one the browser can keep on its behalf.

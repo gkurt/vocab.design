@@ -1,0 +1,136 @@
+# vocab.design
+
+> A linked visual dictionary of design and UI vocabulary: terms, definitions, aliases,
+> relations between concepts, and pointers to real implementations. Content is CC BY 4.0.
+
+## When to use this
+
+Reach for vocab.design when a task turns on which word names an interface thing.
+
+- Naming a component, a pattern or a state before building it, in the word the rest of
+  the industry already uses for it.
+- Settling a loose word someone reached for: whether a "popup" is a modal, a popover, a
+  toast or a tooltip, and what each of those claims.
+- Resolving an alias to the term it names, before it goes into a spec, a ticket or a
+  commit message. /snackbar and /toast are one entry.
+- Reading what a term asserts, with a worked demo of it, instead of inferring the
+  meaning from the name.
+- Walking outward from a word already in hand: its variants, its parts, the words it
+  gets confused with, and the design systems that ship it.
+
+It defines words. It is not an implementation reference, an accessibility ruling, or
+the current API of any design system; each term links out to the systems that
+implement it.
+
+## How to call it
+
+- The whole vocabulary in one request: /llms-full.txt for every term with its
+  definition, /terms.json for the same terms with their aliases, relations, tags and
+  implementations.
+- One term, with the word in hand: /{slug}.md is that term as raw markdown, frontmatter
+  included. A slug is the headword lowercased with hyphens for spaces. An alias has an
+  HTML page at /{alias} and no markdown twin, so resolve it to a slug first.
+- Whether a word exists at all: /paths.json maps every slug to its headword and every
+  alias to the term it resolves to. It is a fraction of terms.json and answers that one
+  question on its own.
+- A term found by description rather than by name: match against the definitions in
+  /llms-full.txt. /search is a page rather than an API, so there is nothing to query.
+
+Everything is static, public and CC BY 4.0. No key, no rate limit, no POST.
+
+## Pages
+
+The site is at https://vocab.design, and every path below is relative to it.
+
+- /{slug}: a term. Definition, article, live demo, aliases, related terms, and the
+  design systems that implement it.
+- /{slug}.md: the same term as raw markdown.
+- /{alias}: a redirect to the term that spelling names. Aliases live at the root beside
+  the terms, so /snackbar answers as well as /toast.
+- /browse/{category}: every term in one category, with definitions.
+- /tags/{tag}: every term carrying one tag, grouped by category.
+- /glossary and /glossary/{letter}: A to Z over every term and every alias.
+- /search?q={query}: full text over headwords, aliases, definitions and articles,
+  filtered by category and by tag.
+
+## Data
+
+- [llms-full.txt](https://vocab.design/llms-full.txt): all 1,124 terms with their definitions.
+- [terms.json](https://vocab.design/terms.json): the whole dataset, including aliases,
+  relations, tags and implementations.
+- [rss.xml](https://vocab.design/rss.xml): the hundred most recently published terms.
+
+## Categories
+
+Every term has exactly one, and it is the kind of thing the term is.
+
+- component (208): A named piece of interface you can point at, place, and reuse.
+- layout (143): How a page arranges its regions, and what governs the arrangement.
+- pattern (161): A recurring answer to a recurring problem, larger than any one component.
+- aesthetic (65): A named visual style, with a period and a set of moves.
+- interaction (85): What a reader does, and how the interface answers.
+- motion (100): Change over time, and the vocabulary for describing it.
+- typography (118): Type, and the measurements and conventions that set it.
+- color (89): Colour as a system: palettes, roles, contrast, and schemes.
+- surface (21): The finish on a shape: its corners, its edges, its depth, its texture.
+- accessibility (134): Terms that exist so an interface works for everyone.
+
+## Tags
+
+Cross-cutting groupings. A term carries any number of them, or none.
+Three tags are also terms, with a definition and a page of their own at /{tag}: dark-pattern, microinteraction, responsive-web-design.
+
+- a11y (12): Terms filed under their own kind that exist because of accessibility.
+- ai (12): The vocabulary of interfaces an assistant drives, or that drive one.
+- assistive-tech (61): The software that reads an interface out, and the ways people drive it.
+- auth (18): Signing in, staying in, and proving you are a person.
+- canvas (24): An unbounded workspace, panned and zoomed, with things placed on it.
+- commerce (25): Choosing, paying, and the pressure applied along the way.
+- consent (10): Permission asked for, and the ways it is manufactured.
+- content-design (57): The words in the interface, chosen as carefully as the pixels.
+- dark-pattern (17): Every deceptive pattern that declares the term, from confirmshaming to the roach motel.
+- dataviz (30): Charts and the parts they are assembled from.
+- depth (54): Making a flat screen read as raised, layered, or three dimensional.
+- design-tools (23): Vocabulary that comes from the tools designs are drawn in.
+- devtools (12): Vocabulary that comes from the tools software is built with.
+- dragging (43): Picking something up, moving it, and letting it go.
+- editorial (59): Vocabulary the page inherited from print and publishing.
+- email (15): Designing for an inbox, and for the renderers mail arrives in.
+- errors (38): Something went wrong, and the ways back out of it.
+- fonts (60): The files type arrives in, and what they can do.
+- forms (68): Assembling a form, filling it in, and telling someone it is wrong.
+- gamification (9): Progress, streaks, and rewards used as motivation.
+- grids (37): Columns, rows, and the structure a page is laid against.
+- i18n (14): Scripts, directions, and languages other than the one it was drawn in.
+- icons (25): Small drawings standing in for words.
+- illustration (32): Drawn artwork inside an interface, and the styles it is drawn in.
+- keyboard (41): Reaching and driving an interface without a pointer.
+- media (38): Video, audio, images, and the controls and alternatives they need.
+- menus (39): A list of commands, opened from something.
+- messaging (22): Conversations, presence, and things that arrive unannounced.
+- microinteraction (16): The loops that are kinds of one, and the ripples and toasts that are parts of one.
+- navigation (49): Getting somewhere else, and knowing where you are.
+- onboarding (17): The first run, the empty screen, and teaching in place.
+- overlays (49): Surfaces that open over the page, and how they give it back.
+- perceived-performance (34): Making a wait read as shorter than it is.
+- perception (118): How eyes and attention actually take an interface in.
+- platform-registers (56): Vocabulary that exists because of one platform: TV, watch, phone, desktop, headset.
+- pointer (44): What a mouse or a pen can do that a finger cannot.
+- progress (21): How far along something is, and how much of it is left.
+- responsive-web-design (6): LukeW's layout patterns, the five ways a page reflows as the viewport narrows.
+- retro (50): Looks borrowed from an earlier era, on purpose.
+- screen-size (39): Designing for a screen whose size you do not know.
+- scroll (42): Everything that happens because a page is longer than a screen.
+- search (16): Asking for something by typing, and narrowing what comes back.
+- selection (20): Marking what an action will apply to.
+- sound (17): Interfaces that are heard: speech, alerts, and audio.
+- spacing (36): The empty room between things, and the scales it comes from.
+- tables (18): Rows, columns, and reading across both.
+- text-editing (19): Writing and editing text in place.
+- theming (36): One interface, more than one palette.
+- time (20): Dates, clocks, calendars, and saying when.
+- tokens (46): Design decisions stored as names so they can be repointed.
+- touch (55): Input from a finger rather than a cursor.
+- wcag (49): Terms that are, or come straight from, a WCAG success criterion.
+- web-platform (93): Terms that name a web platform feature, not a design idea.
+- windowing (34): Windows, panes, and the frame around an application.

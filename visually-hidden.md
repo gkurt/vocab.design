@@ -1,0 +1,54 @@
+---
+name: Visually hidden
+slug: visually-hidden
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Content removed from the visual layout but left in the accessibility
+  tree, so screen readers announce what the design leaves unsaid.
+aliases:
+  - name: screen reader only text
+  - name: sr-only
+  - name: screen reader only
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - aria-hidden
+    - live-region
+    - alt-text
+    - hidden-but-focusable
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - skip-link
+    - label-in-name
+    - honeypot-field
+implementations: []
+sources:
+  - title: "The A11Y Project: How to hide content"
+    url: https://www.a11yproject.com/posts/how-to-hide-content/
+  - title: "WebAIM: CSS in action, invisible content"
+    url: https://webaim.org/techniques/css/invisiblecontent/
+demo: inline
+exhibit: false
+useWhen: text for screen readers that never shows on screen
+---
+
+Every icon-only button needs a name, and the name has to live somewhere. Visually
+hidden text is that somewhere: real content, in the DOM, in the accessibility tree,
+clipped out of the picture.
+
+The technique is specific because the obvious approaches all fail.
+`display: none` and `visibility: hidden` remove the element from the accessibility
+tree along with the layout. `width: 0` collapses the text so some screen readers
+skip it. The pattern that works keeps the element one pixel and clips it:
+`position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow:
+hidden; white-space: nowrap`. Tailwind ships it as `sr-only`, Bootstrap as
+`visually-hidden`, and most design systems carry a copy under one of those names.
+
+It is the exact opposite of [aria-hidden](/aria-hidden), which leaves an element on
+screen and takes it out of the accessibility tree. One hides from the eye, the
+other hides from the reader, and reaching for the wrong one produces buttons that
+are either unnamed or announced twice.

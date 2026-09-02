@@ -1,0 +1,1 @@
+function e(e){return(e.ownerDocument?.defaultView??window).matchMedia(`(prefers-reduced-motion: reduce)`).matches}export{e as t};

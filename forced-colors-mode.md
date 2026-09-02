@@ -1,0 +1,80 @@
+---
+name: Forced colors mode
+slug: forced-colors-mode
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: An operating system mode that replaces a page's palette with a small
+  user-chosen set of system colours, overriding almost everything an author
+  specified.
+aliases:
+  - name: Windows High Contrast Mode
+    source: community
+  - name: WHCM
+    source: community
+  - name: contrast themes
+    source: microsoft
+  - name: forced-colors
+    source: css
+  - name: -ms-high-contrast
+    source: microsoft
+tags:
+  - a11y
+  - theming
+  - web-platform
+relations:
+  contrastWith:
+    - prefers-contrast
+    - inverted-colors
+    - system-color-keyword
+    - dark-mode-email
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - non-text-contrast
+implementations: []
+sources:
+  - title: "MDN: forced-colors"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/forced-colors
+  - title: Styling for Windows high contrast with forced colors
+    url: https://blogs.windows.com/msedgedev/2020/09/17/styling-for-windows-high-contrast-with-new-standards-for-forced-colors/
+demo: inline
+exhibit: false
+useWhen: the OS is imposing its own palette on your interface
+---
+
+Forced colors mode is the browser handing the palette over to the operating system. It grew
+out of Windows High Contrast Mode, now shipped as contrast themes, where a person picks a
+small set of colours (a background, a text colour, a link colour, a button pair, a
+selection pair) and every application is expected to render in those and nothing else. In a
+browser that means author colours are substituted wholesale: backgrounds become `Canvas`,
+text becomes `CanvasText`, buttons take `ButtonFace` and `ButtonText`, links take
+`LinkText`, and box shadows and most background images are simply dropped. CSS exposes the
+state through the `forced-colors: active` media query and the system colour keywords, plus
+`forced-color-adjust` for the rare element (a colour picker's swatches, a chart's key)
+whose colours are the content and must survive.
+
+It is not dark mode, and treating it as one is the usual mistake. Dark mode is a preference
+the author designs for and controls, with a full palette of the author's own choosing;
+forced colors is an override the author does not get to design, in a palette that may be
+black on white, white on black, or beige with brown, and that carries only about seven
+usable values. A page can be in a light theme and a high contrast theme at once. The
+companion query `prefers-contrast` asks the softer question of whether more contrast is
+wanted, and answers it with the author's own colours; forced colors has already taken those
+colours away.
+
+What this exposes is how much interface leans on fill. Anything distinguished only by
+background colour collapses when every background becomes the same value: a primary button
+next to a secondary one, a selected row, a card against the page, a disabled control, an
+icon drawn as a coloured shape. Borders survive, so borders end up doing the work of
+signifying, which is why the practical advice is to give meaningful boundaries a real
+border (even a transparent one, since `transparent` resolves to a visible colour in this
+mode) and to draw icons as strokes that inherit `currentColor`. Selection and focus keep
+their own pair, `Highlight` and `HighlightText`, so the current thing stays legible.
+
+Testing it is cheap and nothing else substitutes: turn on a contrast theme in Windows
+settings and open the page, or emulate the media feature in a browser's rendering panel.
+The failures are loud and specific once seen. An invisible icon, two buttons that became
+identical, a state that vanished, a hairline that became the same colour as the text beside
+it.

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vocab.design/sitemap-index.xml

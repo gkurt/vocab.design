@@ -1,0 +1,64 @@
+---
+name: Type to confirm
+slug: type-to-confirm
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Guarding a destructive action by making the reader type the name of
+  the thing being destroyed before the confirm button becomes usable.
+aliases:
+  - name: type the name to confirm
+    source: community
+  - name: confirmation by typing
+    source: community
+  - name: delete confirmation input
+    source: community
+  - name: friction dialog
+    source: community
+tags:
+  - auth
+  - errors
+relations:
+  contrastWith:
+    - confirmation-dialog
+    - soft-delete
+    - hold-to-confirm
+    - slide-to-confirm
+  variantOf:
+    - microinteraction
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Cloudscape: Delete patterns"
+    url: https://cloudscape.design/patterns/
+demo: inline
+exhibit: false
+useWhen: you must type the repo name to delete it
+---
+
+An ordinary confirmation dialog can be cleared by a reflex. Two clicks in the same
+place, muscle memory, a half-read sentence, and the repository is gone. Typing its
+name defeats the reflex, because it cannot be done without reading what is being
+destroyed and matching it character by character. The friction is the feature, and
+it is aimed precisely at the moment where speed is the enemy.
+
+The cost is real, so spend it rarely. Reserve it for actions that are permanent,
+wide in blast radius, and not covered by undo: deleting a project, transferring
+ownership, dropping a production database. Everywhere else, an undo window is a
+better guard, since it costs nothing on the way in and still saves the mistake on
+the way out. A product that asks people to type names all day trains them to copy
+and paste without reading, which is exactly the reflex the pattern existed to
+break.
+
+Implementation details decide whether it helps or just annoys. Show the name to be
+typed as selectable text, and expect people to copy it: they will, and it is still
+better than a reflex click. Compare exactly, but say what is wrong rather than
+just staying disabled, because a dead button with no explanation reads as a broken
+form. Keep the confirm control present and explain why it cannot be used yet, and
+let Escape and the cancel button out of the dialog at any time.
+
+The name matters too. Ask for the thing's own identifier, not a word like DELETE:
+a typed name proves the reader knows which of their forty projects they are
+looking at, and a typed keyword proves only that they can type.

@@ -1,0 +1,78 @@
+---
+name: Quick return header
+slug: quick-return-header
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A header that slides out of the way while the reader scrolls down
+  and returns immediately on the first upward scroll, without waiting for the
+  top of the page.
+aliases:
+  - name: hidey bar
+    source: community
+  - name: headroom
+    source: community
+  - name: hide on scroll header
+    source: community
+  - name: auto-hiding header
+    source: community
+  - name: quick return pattern
+    source: android
+tags:
+  - scroll
+  - windowing
+relations:
+  contrastWith:
+    - sticky-header
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-triggered-animation
+implementations: []
+sources:
+  - title: "Bram.us: hide a header when scrolling down, show it again when scrolling
+      up"
+    url: https://www.bram.us/2025/10/22/solved-by-css-scroll-state-queries-hide-a-header-when-scrolling-down-show-it-again-when-scrolling-up/
+demo: inline
+exhibit: false
+useWhen: the bar hides going down and comes back the moment you scroll up
+---
+
+The bar at the top of a long list is worth about forty pixels of screen, and it is only
+worth them at the moment the reader wants it. A quick return header spends those pixels on
+exactly that moment. Scrolling down is a statement that the reader is going somewhere, so
+the bar leaves. Scrolling up is a statement that they are coming back, so the bar returns,
+at once, wherever they happen to be. The pattern is named for the second half, because the
+first half is easy and common and not much use on its own.
+
+The distinction the specimen above draws is between returning and rewinding. A plain hiding
+header also leaves on the way down, but it comes back only when the scroller reaches the
+top, which means a reader two thousand pixels into a feed who wants the search field has to
+throw away everything they scrolled through to get it. That is not a header that hides, it
+is a header that has been taken away. Quick return reads the first upward gesture as intent
+and answers it immediately, so the bar is available from any position in the document at
+the cost of one flick.
+
+The upward gesture is where implementations go wrong, and the failures are all about
+thresholds. Return on any upward pixel and the bar flickers in and out during the small
+elastic bounces at the end of a fling or on a trackpad that never travels in one direction
+for long. Demand too large an upward delta and the bar feels broken, because the reader
+made the gesture and nothing happened. The usual settlement is a small dead zone in each
+direction plus a rule that the bar is always present at the top of the document, and,
+increasingly, a rule that it is always present while a scroll gesture is not in progress at
+all. CSS scroll state queries have started to make the whole thing declarative, which
+[Bram Van Damme](https://www.bram.us/2025/10/22/solved-by-css-scroll-state-queries-hide-a-header-when-scrolling-down-show-it-again-when-scrolling-up/)
+walks through; before them it was a scroll listener, a stored previous offset, and a
+transform.
+
+The near neighbour is the one to be precise about. A [sticky header](/sticky-header) never
+leaves, so it spends its strip of the viewport on every screen the reader will ever see; a
+quick return header gives that room back and buys it again the moment it reads intent to
+return. Both are the same mechanism, a bar pinned to the top of a scroller, and they differ
+only in whether the pinning is unconditional. [The fold](/the-fold) is what makes the
+argument matter at all, since the bar is competing for the few hundred pixels that are on
+screen without scrolling, and
+[scroll-linked animation](/scroll-linked-animation) is the general family this behaviour
+belongs to: motion whose progress is a function of scroll position rather than of elapsed
+time.

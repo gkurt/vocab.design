@@ -1,0 +1,68 @@
+---
+name: Split view
+slug: split-view
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A layout of two or more side by side panes where a choice in the
+  leading pane decides what the trailing pane shows.
+aliases:
+  - name: split views
+    source: hig
+  - name: two pane layout
+    source: community
+  - name: dual pane
+    source: community
+  - name: side by side panes
+    source: community
+tags:
+  - screen-size
+  - windowing
+relations:
+  contrastWith:
+    - drawer
+    - holy-grail-layout
+    - sidebar
+    - list-detail
+    - multi-window-mode
+    - split-screen-layout
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - splitter
+    - pane
+implementations:
+  - system: hig
+    name: Split views
+    url: https://developer.apple.com/design/human-interface-guidelines/split-views
+sources:
+  - title: Split views, Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/split-views
+demo: inline
+exhibit: false
+useWhen: two panes where one drives the other
+---
+
+The arrangement is older than the web: a file browser, a mail client, and a
+settings window all put the index on the left and the thing you picked on the
+right. What makes it a split view rather than two boxes next to each other is the
+dependency. The leading pane holds a selection, the trailing pane is that
+selection expanded, and the selection stays visible while you read it, so moving
+to the next item costs one click instead of a click and a trip back.
+
+Two properties are worth writing down. The panes have their own size rules: the
+leading one is usually resizable within a minimum and a maximum, and the trailing
+one takes what is left, which is why the divider clamps in the specimen rather
+than letting the sidebar disappear. And selection persists: the row you came from
+stays marked, because a detail pane with no visible source reads as a page that
+arrived from nowhere.
+
+Apple's vocabulary allows a third column, which is the same relationship applied
+twice: mailbox, message list, message. Past three the pattern collapses under its
+own width, and past two it needs a plan for what happens when the window is too
+narrow to hold them all. That plan is the same everywhere: the panes stop being
+side by side and become a stack you navigate, list first, detail pushed in over
+it, with a back control that reverses the push. Building the narrow case as an
+afterthought is how a split view ends up with a detail pane nobody can get out
+of.

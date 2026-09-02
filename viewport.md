@@ -1,0 +1,74 @@
+---
+name: Viewport
+slug: viewport
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The visible rectangle of a page inside the browser window, excluding
+  the browser's own bars, and the unit basis for vh and vw.
+aliases:
+  - name: visual viewport
+    source: css
+  - name: layout viewport
+    source: css
+  - name: viewport units
+    source: community
+  - name: svh, lvh, dvh
+    source: css
+tags:
+  - screen-size
+  - web-platform
+relations:
+  contrastWith:
+    - the-fold
+    - scroll-container
+    - infinite-canvas
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Viewport concepts, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/CSSOM_view/Viewport_concepts
+demo: inline
+exhibit: false
+useWhen: the visible window, not the whole document
+---
+
+A document is usually taller than the window showing it, and the viewport is the window's
+share: the rectangle of page you can actually see right now. Everything else about scrolling
+follows from that split. The document has a size that does not change when you scroll, the
+viewport has a size that does not change either, and scrolling only moves one across the
+other. Saying "the top of the page" and "the top of the screen" as if they were the same
+thing is the mistake this word exists to prevent, and it is the same distinction
+[the fold](/the-fold) is a boundary in.
+
+There are in fact two viewports on a phone, and the reason most people meet the word is that
+they disagree. The **layout viewport** is what CSS lays out against and what a percentage or
+a media query resolves in. The **visual viewport** is what is on the glass at this instant,
+which pinch zoom shrinks, an on-screen keyboard shortens, and a scrolled-away URL bar
+lengthens. `vh` was defined against the layout viewport, so the famous `height: 100vh`
+overflow on mobile was never a bug so much as a question with two right answers. The fix was
+to stop pretending there is one number: `svh` is the smallest the viewport gets (browser bars
+showing), `lvh` the largest (bars retracted), and `dvh` the live value that changes as they
+move, which is honest but reflows text while a reader is reading it. `vw` has its own trap,
+since it includes the classic scrollbar's width and `dvw` does not, and `vmin` and `vmax` pick
+whichever axis is smaller or larger, which is how a square element can be sized off the short
+edge in both orientations.
+
+The tag in every HTML boilerplate is about the same object. `<meta name="viewport"
+content="width=device-width, initial-scale=1">` tells a mobile browser to make its layout
+viewport the actual device width instead of the roughly 980px fiction it otherwise pretends
+to be so that desktop-era pages fit on a phone. Without it a responsive stylesheet is laid
+out against a lie and then scaled down, which is why a page can be perfectly responsive and
+still render as a tiny unreadable desktop layout. Adding `maximum-scale=1` or
+`user-scalable=no` to that tag disables pinch zoom, which is a WCAG failure and worth naming
+as such rather than copying from an old snippet.
+
+The word also does work well away from the browser window. A scroll container is a viewport
+for its own content, which is what makes an IntersectionObserver's `root` option meaningful,
+and a [container query](/container-query) asks the same question of a box rather than of the
+window, which is why a component can stop caring about the [breakpoint](/breakpoint) that the
+page as a whole is at. Both are the same relationship: something with a fixed frame, something
+larger behind it, and an offset between them.

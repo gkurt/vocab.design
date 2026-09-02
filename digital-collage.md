@@ -1,0 +1,78 @@
+---
+name: Digital collage
+slug: digital-collage
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A composition assembled from cut-out photography, torn paper edges,
+  scanned texture, and type set at odd angles, so the page reads as pasted up
+  rather than laid out.
+aliases:
+  - name: collage aesthetic
+  - name: cut-out collage
+  - name: mixed media
+    source: kittl
+  - name: scrapbook aesthetic
+  - name: paper cut-out style
+tags:
+  - editorial
+  - illustration
+relations:
+  contrastWith:
+    - grunge-design
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - maximalism
+    - risograph
+implementations: []
+sources:
+  - title: "Linearity: Everything designers need to know about digital collage"
+    url: https://www.linearity.io/blog/digital-collage-guide/
+  - title: "Envato: Trend deep dive, collage art"
+    url: https://author.envato.com/hub/trend-deep-dive-collage-art/
+demo: inline
+exhibit: false
+useWhen: imagery cut out and pasted rather than placed
+---
+
+The register borrows its whole argument from a physical process. Somebody cut a photograph
+out of a magazine, tore the edge rather than trimming it, laid it over a scrap of coloured
+paper at whatever angle their hand happened to hold it, and glued the result down. Every
+tell follows from that: torn or roughly cut edges instead of clean rectangles, drop shadows
+that say one piece sits on top of another, wildly mismatched scales because the source
+images were never at the same reproduction size, a visible paper grain under everything, and
+type set at angles no grid would produce. Halftone dots turn up constantly, because a
+picture cut out of print is made of them.
+
+What the look actually signals is assembly from found material, and that is why it survives
+in a field full of generated imagery: a gradient can be perfect, but nothing about a
+gradient says a person chose these particular pieces and put them in this particular order.
+The unpolished part is doing the work. It is a useful register for editorial pages, event
+posters, music and culture sites, and anywhere a brand wants to read as curated rather than
+manufactured. It is a bad one anywhere a reader is trying to complete a task, because a
+composition whose whole grammar is "these things do not line up" fights the scanning
+behaviour a form or a table depends on.
+
+Two of its ingredients are terms in their own right.
+[Halftone](/halftone) is the reproduction technique the dots come from, and it is available
+on its own without the cutting and pasting. [Risograph](/risograph) is another print process
+the register raids for its misregistration and its flat spot colours, and collage work
+frequently wears both. Where collage differs from
+[maximalism](/maximalism) is intent: maximalism is about quantity and density, while a
+collage can be three pieces on a mostly empty ground and still be unmistakably collage,
+because the claim is about how the pieces got there.
+[Memphis-design](/memphis-design) is the neighbour people most often mix it up with, since
+both are loud and both use clashing scraps, but Memphis draws its shapes rather than cutting
+them out of something else, and its parts are vector-flat where a collage's parts carry the
+texture of their origin.
+
+Doing it well on a screen is mostly about committing. Half-hearted collage, a stock photo
+with a slightly rough mask on it, reads as a mistake rather than a decision, so the edges
+have to be obviously torn and the angles obviously chosen. Two practical warnings. Rights
+matter more here than in most registers, since the aesthetic invites you to use imagery you
+did not make, and "it is a collage" is not a licence. And the texture is expensive: a
+full-bleed grain overlay and half a dozen high-resolution cut-outs will cost more bytes than
+the rest of the page put together, so build the ground from a small tiling texture or an SVG
+filter and save the weight for the pieces the composition is actually about.

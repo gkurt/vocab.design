@@ -1,0 +1,75 @@
+---
+name: Flowchart
+slug: flowchart
+category: component
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A diagram of steps in boxes joined by arrows, read rather than
+  operated, and now more often generated from a few lines of text than drawn by
+  hand.
+aliases:
+  - name: flow chart
+    source: community
+  - name: diagram as code
+    source: mermaid
+  - name: process diagram
+    source: community
+  - name: mermaid diagram
+    source: mermaid
+tags:
+  - canvas
+  - dataviz
+relations:
+  contrastWith:
+    - node-graph
+    - chart
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - graph-layout
+    - edge-routing
+implementations: []
+sources:
+  - title: "Mermaid: flowchart syntax"
+    url: https://mermaid.js.org/syntax/flowchart.html
+  - title: Mermaid
+    url: https://mermaid.js.org/
+demo: inline
+exhibit: false
+useWhen: steps in boxes joined by arrows, read not operated
+---
+
+A flowchart shows a process as steps in boxes joined by arrows. Its shape vocabulary is
+older than software and is still worth respecting, because readers know it without being
+taught: a rectangle is a step, a diamond is a decision with a labelled branch out of each
+side, a rounded box or a stadium is a start or an end. The reader's job is to follow one
+path through it, which is why a flowchart with more than a dozen boxes has usually stopped
+being a flowchart and become a diagram nobody reads.
+
+The important modern fact is that nobody positions one. The steps and the arrows are written
+as a few lines of text, a layout engine decides where every box goes, and the picture is a
+build artifact. [Mermaid](https://mermaid.js.org) put that inside code review and chat and
+documentation sites, where the same fenced block also produces sequence, state, entity
+relationship and gantt diagrams from the same habit, and the tradition goes back through
+Graphviz and its dot language. What the practice buys is that a diagram lives in the
+repository beside the thing it describes, diffs like text when the process changes, and
+cannot be edited into a lie by whoever last had the drawing file. What it costs is control:
+you get the arrangement the engine chose, which is a matter of
+[graph layout](/graph-layout) rather than of taste, and the usual way to fix an ugly result
+is to reorder the source or split the diagram rather than to nudge a box.
+
+A flowchart is read, not operated, which is the whole distinction from a
+[node graph](/node-graph). A node graph's wiring is the artifact and dragging a line changes
+what the system does; a flowchart's arrows are a claim about a process that lives somewhere
+else, so there is nothing to drag and nothing that would happen if there were. Confusing the
+two produces the worst of both: a diagram that looks editable and is not, or an editor whose
+changes do nothing.
+
+Two obligations come with shipping one. It has to have a text alternative, because a
+generated picture is a picture: the source is usually the best description available, and a
+figure with a caption naming the decision points serves a reader who cannot see the arrows.
+And it has to survive a dark theme and a phone, which generated diagrams often do not,
+since the engine sizes the canvas from the content and a wide chart on a narrow column
+either shrinks past legibility or scrolls sideways. Deciding early whether the diagram is
+allowed to be a horizontal scroller is cheaper than discovering the answer in production.

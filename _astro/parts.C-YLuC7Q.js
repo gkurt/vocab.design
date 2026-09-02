@@ -1,0 +1,1 @@
+function e(e,t){let n=e.querySelector(`[data-part="${t}"]`);if(!n)throw Error(`specimen part "${t}" not found`);return n}function t(e,t){return[...e.querySelectorAll(`[data-part="${t}"]`)]}function n(e,t,n){n?e.setAttribute(t,``):e.removeAttribute(t)}export{e as n,t as r,n as t};

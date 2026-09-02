@@ -1,0 +1,66 @@
+---
+name: Typographic hierarchy
+slug: typographic-hierarchy
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The ordering of text by visual weight so a reader can tell at a
+  glance what is a title, what is body, and what is a caption.
+aliases:
+  - name: type hierarchy
+  - name: visual hierarchy of text
+tags:
+  - perception
+relations:
+  contrastWith:
+    - visual-hierarchy
+    - type-scale
+    - heading
+    - oversized-typography
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: "Type roles: display, headline, title, body, label"
+    url: https://m3.material.io/styles/typography/type-scale-tokens
+sources:
+  - title: Hierarchical headings (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: Typography (Fluent 2)
+    url: https://fluent2.microsoft.design/typography
+demo: inline
+exhibit: false
+useWhen: making importance readable without reading
+---
+
+Hierarchy is what lets someone answer a question about a page before reading a
+word of it. Squint until the letters stop being letters and the ranks should
+still be there: a title, a run of body, a caption hanging off the bottom. If
+everything survives the squint at the same weight, there is no hierarchy, only
+text that happens to be different sizes. [Visual hierarchy](/visual-hierarchy)
+is the umbrella over every cue a layout can use; this is the part of it made out
+of type alone.
+
+Type has five levers and size is the least interesting of them. Weight separates
+a heading from its body without taking any more room. Case, particularly small
+caps or a tracked-out line of capitals, marks a label as a label. Space above
+and below groups a heading with what it introduces rather than with what it
+follows, which is the single most common thing a scale gets wrong: a heading
+sitting equidistant between two paragraphs belongs to neither. Colour and its
+quieter cousin, a drop to a muted ink, demotes a caption without shrinking it
+past legibility. Size is the lever everyone reaches for first, and it is the one
+that runs out fastest, because three ranks of heading built on size alone need a
+range that a small screen cannot hold.
+
+Two ranks are usually enough and four is nearly always too many. Design
+systems name their ranks rather than numbering them for exactly this reason:
+Material publishes display, headline, title, body, and label, each a role with a
+job rather than a step on a ladder, so a designer picks the one that describes
+the content instead of picking a size. Build the steps from a
+[modular scale](/modular-scale) if you want the proportions to relate, but let
+the roles decide how many steps you actually ship. And keep the visible ranks
+honest against the document outline: a caption styled like a heading, or an
+`h2` styled to look smaller than the `h3` under it, tells the eye one story and
+[assistive technology](/screen-reader) another.

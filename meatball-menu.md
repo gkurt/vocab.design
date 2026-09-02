@@ -1,0 +1,59 @@
+---
+name: Meatball menu
+slug: meatball-menu
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: An overflow menu whose trigger is three horizontal dots, usually
+  sitting at the end of a row or a card.
+aliases:
+  - name: three dots menu
+  - name: horizontal ellipsis menu
+  - name: three horizontal dots
+    source: community
+tags:
+  - icons
+  - menus
+relations:
+  contrastWith:
+    - kebab-menu
+    - hamburger-menu
+  variantOf:
+    - overflow-menu
+  partOf: []
+  seeAlso: []
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: extra actions behind three dots lying sideways
+---
+
+A meatball menu is three dots lying flat, and the actions behind them. The name is
+the same kitchen vernacular that gave us the [kebab](/kebab-menu) and the
+[hamburger](/hamburger-menu): a kebab is skewered, so its dots stack vertically, and
+meatballs sit in a row on the plate. Nobody designed this vocabulary. It grew because
+the glyphs have no official names and people needed something to say in a review.
+
+The honest part first: the distinction carries no functional difference at all.
+Rotate the dots and nothing about the component changes, not the menu, not the
+keyboard contract, not the accessible name it still needs. That is exactly why the
+words are worth pinning down. When two people are looking at the same screen the
+orientation is obvious and the name is redundant; in a ticket, a design review, or a
+search box it is the only handle anyone has, and "the three dots thing" matches both
+glyphs and finds neither.
+
+Orientation does track placement, which is where the small amount of real design
+guidance lives. Horizontal dots read as belonging to the horizontal thing they sit at
+the end of, a table row or a card header, and they fill a wide slot better than a tall
+one. Vertical dots suit a narrow column and a list that is already a stack. Whichever
+way they lie, the rules of the [overflow menu](/overflow-menu) apply unchanged: give
+the trigger a real accessible name, because three dots announce nothing, and never
+let it be the only route to an action.
+
+Platform habit explains most of what you will see. Material's own menus put the
+vertical dots in a top app bar, so Android products lean kebab, while a great deal of
+web tooling puts the horizontal dots at the end of table rows. Both are conventions
+rather than rules, and mixing the two in one product is the actual mistake, since a
+reader learns one glyph as "there is more here" and then has to learn a second.

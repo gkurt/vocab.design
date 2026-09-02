@@ -1,0 +1,72 @@
+---
+name: Spacer
+slug: spacer
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A deliberate empty element between regions: the gap between two
+  panes that carries the drag handle when they resize, or the flexible filler
+  that pushes toolbar items apart."
+aliases:
+  - name: pane spacer
+    source: material
+  - name: flexible space
+    source: community
+tags:
+  - spacing
+relations:
+  contrastWith:
+    - whitespace
+    - stack
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Spacer
+    url: https://m3.material.io/foundations/layout/scaffold/overview
+sources:
+  - title: Scaffold, Material Design 3
+    url: https://m3.material.io/foundations/layout/scaffold/overview
+demo: inline
+exhibit: false
+useWhen: the empty element that does the spacing
+---
+
+A spacer is an element whose entire job is to occupy room. It holds no content, has no
+paint, and is not a container for anything: it exists so that the things either side of it
+end up where the designer wanted them. Two senses are in common use. In a toolbar it is the
+flexible filler, a child with `flex: 1` sitting between the title and the actions so the
+actions are pushed to the far edge. In a multi-pane layout it is the channel between two
+panes, which Material calls the pane spacer, and there it usually earns its existence by
+carrying something: the [resize handle](/resize-handle) that lets a reader redistribute
+width between the [panes](/pane) either side.
+
+The word is worth having because it names an element rather than a value, which is exactly
+what separates it from its neighbours. A [spacing scale](/spacing-scale) is a set of
+numbers, and a [fluid space scale](/fluid-space-scale) is a set of numbers that interpolate.
+Neither of them is in the document; they are what a `gap`, a `margin` or a `padding` is set
+to. A [gutter](/gutter) is the space itself, a region of the layout with no element behind
+it. A spacer is the case where somebody put a real node in the tree to do that job, and the
+distinction matters the moment you inspect, style or test the thing: an empty node has a
+box, shows up in the accessibility tree unless it is hidden, and can be given a class, a
+handle, a cursor and a listener.
+
+Which is also why it is often a smell. If the only thing the empty element does is separate
+two siblings, a `gap` on the parent, a `margin` on the sibling, or `margin-inline-start:
+auto` on the group that should sit at the end all say the same thing with nothing extra in
+the document, and they keep saying it when the content changes. Chains of empty divs used to
+push content down the page are the extreme version of this, and they are the reason the
+pattern has a bad name. The honest test is whether the element carries anything: a channel
+with a drag handle in it, a hit area a reader can actually grab, a slot a framework fills at
+runtime. If it does, the node is doing work. If it does not, delete it and set a gap.
+
+Two related shapes are worth separating. A [sticky footer](/sticky-footer) is the classic
+job people reach for a spacer to do, pushing a footer to the bottom of a short page, and
+modern layout does it without one: a `1fr` middle row in a grid, or a
+`margin-block-start: auto` on the footer, holds the bottom edge with no filler element at
+all. And a [divider](/divider) is a spacer's visible cousin, an element in the same
+position with a line drawn in it, which means it is communicating a boundary rather than
+just holding room. If you find yourself styling a spacer so it can be seen, it has become
+a divider and should be named one.

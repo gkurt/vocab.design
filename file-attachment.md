@@ -1,0 +1,69 @@
+---
+name: File attachment
+slug: file-attachment
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A row or card standing in for a file, showing its type, name and
+  size, with the one action that file supports: download, open or remove."
+aliases:
+  - name: file
+    source: component-gallery
+  - name: attachment
+    source: component-gallery
+  - name: download
+    source: component-gallery
+  - name: document list
+    source: community
+  - name: file card
+    source: community
+tags:
+  - forms
+relations:
+  contrastWith:
+    - file-upload
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - thumbnail
+implementations: []
+sources:
+  - title: "The Component Gallery: File"
+    url: https://component.gallery/components/file/
+demo: inline
+exhibit: false
+useWhen: a file has to be represented rather than uploaded
+---
+
+A file is the one object in an interface that has no shape of its own. It cannot be
+shown the way a photo or a message can, so it gets a stand-in: a row carrying a glyph
+for its kind, the filename, the size, and exactly one thing you can do with it. That
+row is the file attachment, and it turns up in three places that look identical and
+mean different things: under a message you are writing, under a message you received,
+and in a list of documents attached to a record.
+
+The word gets confused with the act of attaching, which is a different component.
+[File upload](/file-upload) is the control that takes a file off the device, and a
+[drop zone](/drop-zone) is the region that accepts one released onto it. Both of them
+end by producing an attachment, and the attachment outlives them: it is still there
+the next time the record is opened, when there is no uploader on the page at all.
+Keeping the two apart matters in the markup as well, because the uploader is an input
+and the attachment is content.
+
+The single action is the design decision. Before sending, that action is remove.
+After sending, it is download or open, and remove is either gone or restricted to the
+author. Putting all three on the same row is how people delete the file they meant to
+save, so pick the one the context supports and label it with the filename in its
+accessible name, since a column of buttons all reading "Remove" tells a screen reader
+user nothing about which file they are about to lose. Filenames also run long, so
+[truncate](/truncation) them in the middle rather than at the end: the extension is
+the part carrying the kind, and it is the first thing an ellipsis at the end eats.
+
+Three states earn their own design. Arriving, where the row shows a
+[progress bar](/progress-bar) and the action becomes cancel. Failed, where the row
+stays put with a plain reason and a retry, instead of vanishing and leaving the sender
+to wonder. And removed, which is worth an [undo](/undo) rather than a confirmation
+dialog, because deleting the wrong attachment is cheap to reverse and expensive to
+interrupt. The size belongs on every row in all three states: it is the only clue a
+reader has about whether the download is worth starting.

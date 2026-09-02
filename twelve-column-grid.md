@@ -1,0 +1,64 @@
+---
+name: 12 column grid
+slug: twelve-column-grid
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The web's default column count, chosen because twelve divides
+  cleanly into halves, thirds, quarters and sixths.
+aliases:
+  - name: twelve columns
+    source: community
+  - name: 12-col
+    source: community
+  - name: 12-span grid
+    source: web-dev
+tags:
+  - grids
+relations:
+  contrastWith:
+    - fluid-grid
+    - layout-grid
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - column-offset
+implementations: []
+sources:
+  - title: Grid system, Bootstrap
+    url: https://getbootstrap.com/docs/5.3/layout/grid/
+demo: inline
+exhibit: false
+useWhen: why almost every layout grid has twelve columns
+---
+
+Twelve is not a magic number, it is a well divided one. It splits into two sixes, three
+fours, four threes, six twos, and one twelve, so halves, thirds, quarters and sixths are
+all available without a fraction of a column anywhere. Ten gives no thirds, eight gives no
+thirds either, and sixteen gives thirds only as 5.33 columns. A layout that needs a sidebar
+at a third and a gallery in quarters on the next page can have both from one structure, and
+that is the entire argument.
+
+The vocabulary underneath it is worth keeping straight. Columns are the twelve tracks,
+[gutters](/gutter) are the gaps between them, and margins are the space between the outer
+columns and the edge of the container: a block does not span gutters so much as swallow the
+ones it covers, which is why an element spanning six columns is a little wider than half
+the content area minus a gutter. Spans are the counting unit, so an 8 and a 4 sit together
+exactly as a 6 and a 6 do, and the columns underneath never move when the arrangement
+above them changes.
+
+The convention arrived through frameworks. The 960 grid system popularised twelve on fixed
+width pages, Bootstrap carried it into responsive layouts, and design systems mostly
+inherited it, often with fewer columns at small sizes: four on a phone, eight on a tablet,
+twelve on a desktop, all under the same names. It is a coordination device more than a
+technical one, which is what makes it worth adopting even now that CSS can make any tracks
+you like: `grid-template-columns: repeat(12, 1fr)` with a `gap` is the whole implementation,
+and `grid-column: span 4` is how a block claims a third of it.
+
+Its own [layout grid](/layout-grid) is the thing being described here, and twelve is only
+its most common column count. Modern layouts break out of it freely: a `repeat(auto-fit,
+minmax(240px, 1fr))` gallery has no fixed column count at all, and content-driven track
+sizing often reads better than forcing a card set into thirds. Treat twelve as the default
+worth having a reason to leave, not as a rule, and remember that the grid stops helping the
+moment blocks stop lining up with it.

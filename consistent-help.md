@@ -1,0 +1,66 @@
+---
+name: Consistent help
+slug: consistent-help
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Keeping the same help route, a contact link, a chat launcher, a
+  self-help pane, in the same relative place on every page so a stuck reader can
+  find it again.
+aliases:
+  - name: help entry point
+    source: wcag
+  - name: persistent help
+    source: community
+  - name: help in the same place
+    source: community
+tags:
+  - wcag
+relations:
+  contrastWith:
+    - consistent-identification
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - help-drawer
+implementations: []
+sources:
+  - title: "WCAG 2.2: Consistent Help"
+    url: https://www.w3.org/TR/WCAG22/#consistent-help
+demo: inline
+exhibit: false
+useWhen: placing the help affordance so it never moves
+---
+
+Criterion 3.2.6 is new in WCAG 2.2 and sits at level A, which surprises people, because it does
+not ask you to add anything. It says that if a set of pages carries a help mechanism, and the
+same mechanism appears on more than one of them, it has to occur in the same relative order
+relative to the rest of the page. The mechanisms it names are specific: human contact details,
+a way to reach a human such as a chat launcher or a callback form, a self-help option like a
+searchable knowledge base, and a fully automated assistant. A tooltip on one field is not one of
+them. A support link in the footer is.
+
+The wording that does the work is *relative order*, not position. Nothing here demands identical
+pixels. If help is the last item in the header on one page, it may be the last item in the
+header at a narrower breakpoint too, even though the header has reflowed into a menu. What is
+not allowed is help appearing after the navigation on one page and before it on another, or
+living in the header here and in the footer there. Order is what a reader learns, and order is
+what the criterion protects.
+
+Who this is for is worth stating plainly, because the benefit is easy to underrate if you can
+scan a page in one glance. Somebody using a screen magnifier sees a fraction of the layout at a
+time, so relocating the help link means sweeping the whole page again. Somebody with a cognitive
+disability may have learned one route and only that route. Both are cheap to serve and expensive
+to fail, and the failure mode is silent: nobody files a bug saying they could not find help,
+they simply leave. It pairs with [redundant entry](/redundant-entry), the other WCAG 2.2
+addition aimed at the same audience, which is about not making people supply the same
+information twice.
+
+Two neighbours are easy to confuse with it. There is a sibling criterion about consistent
+identification, which is about naming the same function the same way everywhere rather than
+placing it in the same spot, and the two are usually satisfied together by the same decision.
+And an [onboarding tour](/onboarding-tour) is not help in this sense at all: a tour runs once
+and then it is gone, which is the opposite of the persistent help this criterion asks for. If
+you want the mechanism to be findable by a reader who is already stuck, put it in a
+[landmark](/landmark) that appears in the same order on every page and leave it there.

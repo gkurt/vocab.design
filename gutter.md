@@ -1,0 +1,73 @@
+---
+name: Gutter
+slug: gutter
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The space between columns or tracks in a grid, distinct from the
+  outer margin that separates the grid from the container edge.
+aliases:
+  - name: alley
+    source: print
+  - name: gap
+    source: css
+  - name: column gap
+    source: css
+  - name: grid gap
+    source: community
+  - name: gutters
+    source: bootstrap
+tags:
+  - grids
+  - spacing
+relations:
+  contrastWith:
+    - layout-margins
+    - spacing-scale
+    - column-offset
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Gutters, MDN glossary
+    url: https://developer.mozilla.org/en-US/docs/Glossary/Gutters
+  - title: Gutters, Webflow glossary
+    url: https://university.webflow.com/glossary/gutters
+demo: inline
+exhibit: false
+useWhen: the space between columns, not around them
+---
+
+The distinction that matters is gutter against margin. Gutters are interior: they
+fall between the columns and there is always one fewer of them than there are
+columns. Margins are exterior: they hold the whole grid off the edge of its
+container, and they belong to the container rather than to the grid. Change the
+gutter and the columns get narrower while the grid stays where it is. Change the
+margin and the whole grid moves inward. Systems that publish a grid publish both
+numbers, and reviewers who only ask about one of them get pages that line up
+internally and float at inconsistent distances from the edge.
+
+Print used the word differently, which is where the confusion started. In a bound
+book the gutter is the inner margin, the space swallowed by the binding, and the
+space between columns of type on one page is the alley. The web borrowed "gutter"
+for the alley and quietly dropped the original sense, so a typesetter and a front
+end developer can use the same word about the same page and mean two different
+strips of white.
+
+CSS eventually gave the idea a property. `gap`, plus `column-gap` and `row-gap`,
+sets the space between tracks in grid and flex layouts and nowhere else, which is
+precisely the gutter definition: it never adds space at the outside edges. The older
+`grid-gap` spelling is an alias kept alive for compatibility. Anything you want at
+the outer edge has to come from the container's own padding, and that is a feature
+rather than an omission, because the two numbers are genuinely independent.
+
+Frameworks that predate `gap` usually fake it, and the fake leaks. Bootstrap builds
+gutters from horizontal padding on each column plus a negative margin on the row, so
+half a gutter lives inside every column and the row hangs outside its parent by that
+much. It produces the right picture and behaves differently the moment you nest a
+row, or set a background on a column, or forget the wrapping row. Carbon's 2x Grid
+takes the same padding-based approach with a 32px gutter split across the pair. When
+someone says a gutter looks wrong, the first question is whether it is a real gap or
+padding wearing a gutter's name.

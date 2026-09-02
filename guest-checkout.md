@@ -1,0 +1,72 @@
+---
+name: Guest checkout
+slug: guest-checkout
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Letting a buyer complete a purchase without creating an account,
+  with the offer to save details moved to after the order is placed.
+aliases:
+  - name: checkout as guest
+    source: community
+  - name: no account checkout
+    source: community
+  - name: anonymous checkout
+    source: community
+tags:
+  - auth
+  - commerce
+relations:
+  contrastWith:
+    - lazy-registration
+    - express-checkout
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - social-login
+implementations: []
+sources:
+  - title: "Baymard Institute: the checkout UX guide"
+    url: https://baymard.com/learn/checkout-flow-ux-optimization
+demo: inline
+exhibit: false
+useWhen: buying without being made to create an account
+---
+
+Guest checkout is the path through a purchase that does not pass through account
+creation. The shop still collects everything the order needs, an email address for the
+receipt, a delivery address, a payment method, and it simply does not ask for a password
+or store the result under a login. The account is not abolished, it is deferred: once the
+order is placed, the same details are already on screen and the shop can offer to keep
+them, which is a very different question from being asked to invent a password before
+anyone has agreed to sell anything.
+
+The reason this is a named pattern rather than an obvious courtesy is that the account
+wall is one of the most expensive things a checkout can do. The [Baymard
+Institute](https://baymard.com/learn/checkout-flow-ux-optimization) puts forced account
+creation among the leading causes of cart abandonment, with roughly 18% of shoppers
+walking away from an order specifically because they did not want an account. The buyer
+has already decided to spend money and is then asked for a second, unrelated commitment
+in the middle of it. Nothing about the transaction requires it, so the request reads as
+the shop's convenience being priced into the buyer's time.
+
+Building it honestly is mostly a layout problem. Put both paths on the same screen, in
+the same row, at the same size, and label the guest one plainly: "Continue as guest"
+rather than "Continue" under a heading about accounts. Do not pre-select the account
+path, do not make the guest control a small underlined line beneath a filled button, and
+do not phrase the choice so that one answer sounds like the responsible one. The specimen
+above draws both versions for exactly this reason: the difference between guest checkout
+and an account wall is not usually a missing feature, it is which of two present controls
+was given the weight. The related move sometimes called lazy registration goes one step
+further and creates the account silently from what the buyer already typed, asking only
+for a password afterwards.
+
+The pattern shares a family with several others worth keeping distinct.
+[Check answers](/check-answers) is about showing what is about to be submitted before the
+buyer commits, and belongs at the end of the same flow. [Forced
+continuity](/forced-continuity) is what happens when the account collected at checkout
+quietly becomes a subscription, which is the strongest argument for not collecting one
+at all. The [confirmation page](/confirmation-page) is where guest checkout does its
+other half of the work: the order is placed, the receipt is on screen, and the offer to
+save the address for next time can finally be made as an offer rather than as a toll.

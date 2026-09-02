@@ -1,0 +1,68 @@
+---
+name: Orbit animation
+slug: orbit-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: One element circling another on a continuous path, used for logo
+  constellations and loading states where the revolving is the ornament.
+aliases:
+  - name: orbiting elements
+    source: community
+  - name: circular loop animation
+    source: community
+  - name: satellite animation
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - float-animation
+    - motion-path
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+  - title: The Vocabulary of Motion
+    url: https://motion-vocabulary.vercel.app/
+demo: inline
+exhibit: false
+useWhen: elements should revolve around a fixed centre
+---
+
+An orbit animation sends one element around another on a closed path, forever. It is the
+motion of a logo constellation, where a product mark sits in the middle and the integrations
+it connects to circle it, and of a certain kind of loading state, where the revolving stands
+in for work happening somewhere out of sight. The revolving is the whole ornament: nothing
+about the orbit reports progress, nothing about it changes state, and the element that comes
+back round is exactly the element that left.
+
+The cheapest way to build one is to rotate a wrapper rather than to move the satellite. Put
+the satellite at the top of a square box centred on the hub, rotate the box, and the
+satellite traces a perfect circle without any trigonometry at all. If the satellite is a
+logo or a glyph that has to stay the right way up, give it a counter-rotation of the same
+duration in the opposite direction and it will hold its heading all the way round. For paths
+that are not circles, the property to reach for is [motion path](/motion-path), which puts
+an element on an arbitrary shape and offers it a distance along that shape to animate. An
+orbit is the special case circular enough not to need it.
+
+Speed is the only knob that matters, and it is easy to get wrong in the same direction
+everyone gets it wrong: too fast. Ambient motion that catches the eye every second is motion
+the reader has to actively ignore, so a satellite that takes six to ten seconds to come
+round reads as alive, and one that takes two reads as a spinner. Give each satellite in a
+constellation a different period so they drift apart rather than marching in formation, keep
+the orbit transform-only so it can never move the layout, and stop it under
+`prefers-reduced-motion`: an endless revolution is exactly the ambient motion that preference
+exists to switch off, and the resting arrangement of a constellation is perfectly legible
+standing still. A [pulse animation](/pulse-animation) has the same ambient job and the same
+caution attached, and a [marquee](/marquee) is the linear cousin, an endless loop along a
+line instead of around a point.
+
+The slug says orbit animation rather than orbit because the shorter word is already taken by
+a gesture: [orbit](/orbit) is the three-finger or right-drag camera move that swings a
+viewpoint around a 3D scene, which is a piece of interaction vocabulary rather than a piece
+of motion vocabulary. Asking a designer for "an orbit" in a 3D tool and asking for one on a
+marketing page will get you two very different things.

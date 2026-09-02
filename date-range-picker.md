@@ -1,0 +1,62 @@
+---
+name: Date range picker
+slug: date-range-picker
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A calendar that takes a start and an end date in one pass,
+  highlighting the span between them as you move.
+aliases:
+  - name: range calendar
+    source: react-aria
+  - name: date range
+  - name: check in check out picker
+tags:
+  - forms
+  - time
+relations:
+  contrastWith:
+    - date-picker
+    - range-slider
+    - calendar
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Cloudscape: components"
+    url: https://cloudscape.design/components/
+demo: inline
+exhibit: false
+useWhen: the answer is a span of days, not one day
+---
+
+A date range picker is one calendar answering two questions at once. The first press
+sets the start, the second sets the end, and between them the grid previews the span
+under the pointer so the reader can see the shape of the booking before committing to
+it. That preview is the whole reason the component exists: a range typed into two
+separate fields is a pair of dates, while a range painted across a month is a duration
+you can judge at a glance, weekends and all.
+
+The craft is in the second press. The two dates have an order, so the picker either
+swaps them when the reader picks backwards or restarts the range from the new date,
+and it has to pick one rule and keep it. Beyond that sit the constraints a single date
+never has: a minimum and maximum length, blackout days that a span may not cross,
+nights versus days (a hotel stay of three nights touches four dates), and a second
+month drawn beside the first so a span that crosses a month boundary can be made
+without paging. Presets carry most of the real traffic, since "last 7 days" and "this
+quarter" are what people actually want from a report filter, and they belong beside
+the grid rather than inside it. Whatever is chosen has to be said in words too: a
+screen reader user needs "6 April to 13 April, 8 days" announced, not two selected
+cells they have to reconstruct.
+
+The rest of the family divides cleanly. A [date picker](/date-picker) takes one date
+and closes; a [calendar](/calendar) is the month grid itself, which both pickers
+embed and which can also stand alone as a display; a [time picker](/time-picker)
+takes a time of day, and pairing one with each end of a range is how a booking gets
+its check-in and check-out hours. A range of numbers rather than dates is a
+[range slider](/range-slider), which shares the two-handle idea and none of the
+calendar. When the span is nearly always one of a handful of stock answers, a
+[select](/select) of presets with a range picker behind a "Custom" option is lighter
+than a grid nobody opens.

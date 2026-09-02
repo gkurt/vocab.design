@@ -1,0 +1,67 @@
+---
+name: Read receipt
+slug: read-receipt
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A per-message marker reporting how far a message got, sent,
+  delivered, or read, drawn as ticks, labels, or the recipient's avatar.
+aliases:
+  - name: delivery receipt
+    source: community
+  - name: seen indicator
+    source: community
+  - name: blue ticks
+    source: community
+  - name: message status
+    source: community
+tags:
+  - messaging
+relations:
+  contrastWith:
+    - typing-indicator
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - chat-bubble
+    - presence-indicator
+    - reaction-picker
+    - relative-timestamp
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the ticks that say sent, delivered, and read
+---
+
+A read receipt is a tiny state machine parked in the corner of a message. The states are
+the same everywhere because the network makes them so: the message left this device, the
+message arrived on that device, the recipient's app reported it on screen. Three facts,
+each one weaker than it looks, and the marker's job is to report which of them has happened
+without pretending to more.
+
+The drawing is where the agreement ends. One tick then two ticks, ticks that change colour,
+a filled circle then a hollow one, the recipient's avatar sliding along under the thread,
+the word "Seen" with a timestamp: every one of these is somebody's convention and none of
+them is a standard. There is no specification, no platform guidance, and no shared meaning
+for the second tick's colour, which is why the phrase "blue ticks" identifies exactly one
+product and means nothing on any other. The term travels perfectly. The glyph does not
+travel at all, so a marker needs a text alternative and a legend somewhere, and a
+screenshot of one product's ticks teaches nothing about another's.
+
+Products also disagree about what "read" means, and the disagreement is not a detail. In
+some it means the conversation was on screen, whether or not anyone was looking. In others
+it means the message scrolled into view. In some it fires when a notification is expanded
+on a lock screen. Group chats fragment the question further, since a message can be read by
+four people out of nine, and the marker has to choose between the earliest reader, the last
+one, and a count. This is why the same marker means "she is ignoring me" to one person and
+nothing at all to another, and why so many products make the whole feature switchable, often
+symmetrically: turn yours off and you stop seeing everyone else's.
+
+The design consequence is to keep the marker's claim as narrow as its evidence. Prefer the
+weakest true word over the strongest available one, put delivery and reading in different
+states rather than collapsing them, treat the timestamp as part of the claim, and never
+place the marker where it reads as being about the whole conversation instead of one
+message. A status that overstates itself does not just misinform, it changes how the reader
+feels about a silence, which is a large thing to do with fourteen pixels.

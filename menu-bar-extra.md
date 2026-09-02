@@ -1,0 +1,77 @@
+---
+name: Menu bar extra
+slug: menu-bar-extra
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small application controlled item living in the system menu bar or
+  tray, usually an icon that opens a compact panel of status and controls.
+aliases:
+  - name: status item
+    source: hig
+  - name: system tray icon
+    source: community
+  - name: notification area icon
+    source: community
+  - name: menulet
+    source: community
+  - name: tray icon
+    source: community
+tags:
+  - menus
+  - platform-registers
+  - windowing
+relations:
+  contrastWith:
+    - menu-bar
+    - dock
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - notification-center
+implementations: []
+sources:
+  - title: NameThatUI element index
+    url: https://namethatui.com/
+demo: inline
+exhibit: false
+useWhen: an app's icon living in the system bar or tray
+---
+
+Every desktop keeps a strip of the screen for the system itself, and lets applications
+rent a slot in it. On one platform that strip is the right end of the
+[menu bar](/menu-bar) and the slot is called a status item; on another it is the
+notification area at the end of the taskbar and the slot is called a tray icon. The
+component is the same either way: a small, always-present handle for an application that
+is mostly not on screen, showing a glanceable state in its icon and opening a compact
+panel of status and controls when clicked.
+
+It is the right home for exactly one kind of software, the sort that runs continuously and
+is only occasionally worth looking at. A backup agent, a VPN, a clipboard manager, a time
+tracker, a music player. What all of those share is that their main window is a chore, and
+that their state (connected, syncing, recording, paused) is worth reading without opening
+anything. Everything else that ends up in the tray is there because the developer did not
+want to be closed, which is why platform guidelines have spent two decades telling people
+not to put an icon there, and why users have spent the same two decades hiding them.
+
+The confusion worth clearing up is with the
+[notification centre](/notification-center). A notification centre is a place, owned by the
+system, where messages from every application collect and wait to be read. A menu bar extra
+is a handle, owned by one application, that is present whether or not it has anything to
+say. They sit in the same corner of the screen and they answer different questions: what
+happened while I was away, versus what is this program doing right now. The neighbours in
+the strip are the system's own status items and, at the other end of the window, the
+[title bar](/title-bar) and its [window controls](/window-controls). Note also that a
+[status bar](/status-bar) is the application's own strip inside its own window, whereas
+this one lives outside every window in a bar the application does not own.
+
+Design it as if it will be looked at for half a second, because it will. The icon carries
+the state, so it needs a shape that reads at sixteen pixels in a monochrome template
+(colour is often stripped by the system), and it needs to sit still: an icon that animates
+in the corner of every screen is an interruption the user never asked for. The panel it
+opens is a [popover](/popover) with a job, not a menu of everything: current status, the
+one or two actions worth taking from here, and a way into the real application. Give it an
+explicit dismissal (choose something, press Escape, click away) rather than making the
+icon a toggle, and remember that on most systems the user can drag the item out of the bar
+entirely, so nothing may be reachable only from here.

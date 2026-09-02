@@ -1,0 +1,78 @@
+---
+name: Vaporwave
+slug: vaporwave
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A retro internet look of magenta and cyan gradients, grid horizons,
+  Japanese type, statuary, and 90s desktop chrome used ironically.
+aliases:
+  - name: vapourwave
+  - name: aesthetic
+    source: community
+  - name: mallsoft
+    source: community
+  - name: 80s 90s nostalgia UI
+tags:
+  - retro
+relations:
+  contrastWith:
+    - y2k-aesthetic
+    - retro-web-design
+    - synthwave
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Vaporwave | Aesthetics Wiki
+    url: https://aesthetics.fandom.com/wiki/Vaporwave
+  - title: "Shutterstock: What Is the Vaporwave Aesthetic"
+    url: https://www.shutterstock.com/blog/vaporwave-aesthetic-retro-design
+demo: inline
+exhibit: false
+useWhen: 90s mall and desktop imagery reused with irony
+---
+
+The parts list is short and almost fixed. A sunset gradient running violet through magenta
+into peach, with a striped sun sitting on the horizon. A grid in cyan and pink laid flat in
+perspective, running off to a vanishing point. A plaster cast of a Greco-Roman bust, ideally
+photographed badly. Katakana or kanji set beside the Latin word, usually reading as the
+same word transliterated. Palms, dolphins, marble, chequerboard floors, and low polygon
+renders of all of them. And the software furniture of the period, meaning Windows 95 and
+Mac OS window frames, dialog boxes, and pixel scrollbars, which appear as props rather than
+as controls. Letters get spaced out wide, sometimes to full width characters, which is where
+the one word alias comes from.
+
+It arrived as a music genre before it was a look. Chuck Person's Eccojams in 2010 and
+Macintosh Plus's Floral Shoppe in 2011 slowed and looped forgotten mall muzak and smooth
+jazz into something both nostalgic and unsettling, and Floral Shoppe's sleeve, a bust on
+magenta with Japanese type, became the reference image for everything after it. The stance
+was ironic from the start. The material being recycled was commercial optimism from the
+years just before the web, so a style built out of shopping mall ambience, corporate
+demo software, and duty free luxury reads as an elegy for a future that was being sold and
+never arrived. That is what separates it from its neighbours: synthwave and outrun revisit
+the 1980s sincerely, as an action movie sunset with a chrome grid and a car, while
+vaporwave revisits the 1990s knowingly and a little sadly, and the mallsoft branch pushes
+that all the way to empty shopping centres.
+
+Its cousin on this site is the [Y2K aesthetic](/y2k-aesthetic), which is worth keeping
+distinct. Y2K is blue, glossy, and forward looking: chrome type, bubbles, translucent
+plastic, the millennium as a promise. Vaporwave is pink and cyan, backward looking, and
+built out of degraded copies rather than new surfaces, which is also why the
+[glitch aesthetic](/glitch-aesthetic) sits so close to it: compression artefacts, VHS
+tracking errors, and scan lines are period detail here rather than decoration. In practice
+the two get mixed freely, and the giveaway for vaporwave is the perspective grid and the
+statue.
+
+For interface work, treat it as a costume with a short guest list: music and merch, event
+pages, [itch.io](https://itch.io) games, streaming overlays, anything addressing an audience that reads the
+reference. It fights readability in ways that are not negotiable. Magenta text on cyan is
+unreadable at any size, chrome lettering has no single colour and therefore no measurable
+contrast, and the endless scrolling grid is exactly the sort of background motion that needs
+a [reduced motion](/prefers-reduced-motion) path. The workable pattern is a loud hero and a
+quiet product: let the grid, the sun, and the bust carry the register, then set the parts
+people have to actually use in ordinary type on an ordinary surface, with the
+[neon glow](/neon-glow) reserved for one or two accents rather than sprayed over every
+control.

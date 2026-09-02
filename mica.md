@@ -1,0 +1,75 @@
+---
+name: Mica
+slug: mica
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Fluent's opaque app background material, subtly tinted with the
+  user's desktop wallpaper colour and going neutral when the window loses focus.
+aliases:
+  - name: mica material
+    source: fluent
+  - name: Mica Alt
+    source: fluent
+  - name: wallpaper-aware background
+tags:
+  - depth
+  - platform-registers
+  - theming
+relations:
+  contrastWith:
+    - glassmorphism
+    - material-you
+    - windows-aero
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: fluent
+    name: Mica
+    url: https://learn.microsoft.com/en-us/windows/apps/design/style/mica
+sources:
+  - title: "Microsoft Learn: Mica material"
+    url: https://learn.microsoft.com/en-us/windows/apps/design/style/mica
+  - title: "Microsoft Learn: Materials used in Windows apps"
+    url: https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials
+demo: inline
+exhibit: false
+useWhen: an opaque window background tinted by the wallpaper
+---
+
+Mica is the background Windows 11 gives to long lived windows: Settings, File Explorer,
+the apps you leave open all day. It is opaque, so nothing behind the window is ever
+legible through it, and it is personalised, because its neutral is mixed with a colour
+taken from the desktop wallpaper underneath. Move the window across a wallpaper and the
+tint shifts with it. Leave the window and it drops the tint entirely, falling back to a
+plain neutral fill, which is how a screen full of windows says which one is listening to
+your keyboard. Mica Alt is the same material with the wallpaper pushed harder, meant for
+apps whose title bar carries tabs and needs to separate from the commanding area below.
+
+The Fluent material family is worth keeping straight, because the three names are
+routinely used as if they meant one thing. Mica samples the wallpaper once and paints an
+opaque fill from it, so what you see through a Mica window is nothing at all. Acrylic is
+translucent and blurs live, recomputing as content moves behind it, which is why Microsoft
+reserves it for transient surfaces such as flyouts and menus rather than for the app
+backdrop. [Glassmorphism](/glassmorphism) is the genre both of those belong to as a look,
+the general translucent blurred panel that arrived in interface fashion around 2020.
+Mica is the odd one out of the three, since it is the only member that is not see through.
+
+The sampling rule is the whole engineering argument. A live blur has to be recomposited
+whenever anything under it moves, and an app backdrop is the largest surface in the
+window, so the cost lands on every frame for the whole life of the app. Mica captures the
+wallpaper once, which is why Microsoft describes it as designed for performance and why it
+is the material recommended for backdrops while acrylic is not. Mica also knows when to
+stop: it collapses to a solid fill when the user turns transparency off, when battery
+saver is on, on low end hardware, in High Contrast mode, and whenever the window is
+inactive. Every one of those is the material admitting that personalisation is the first
+thing worth spending.
+
+Borrowing the idea outside Windows is harder than it looks, because the web has no access
+to the desktop wallpaper, and an opaque fill tinted by an image you cannot read is a
+strange thing to fake. What does travel is the principle: derive the app's base surface
+from something the user already chose, keep it opaque so text contrast is fixed rather
+than dependent on scroll position, and let focus be the thing the colour reports. That
+last part is the piece most often skipped, and it is the one carrying real information.

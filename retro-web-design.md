@@ -1,0 +1,68 @@
+---
+name: Retro web design
+slug: retro-web-design
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A style that rebuilds the early desktop web on purpose: beveled
+  window chrome, pixel and system type, garish color, and animated banners."
+aliases:
+  - name: 90s web design
+  - name: retro UI
+  - name: nostalgia web
+  - name: Windows 95 UI
+    source: community
+tags:
+  - retro
+relations:
+  contrastWith:
+    - vernacular-web
+    - brutalist-web-design
+    - vaporwave
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pixel-art-ui
+implementations: []
+sources:
+  - title: "Superdesign: Retro Web Design: CSS Recipe, Live Examples and Trend Data"
+    url: https://superdesign.dev/styles/retro
+  - title: "Setproduct: Retro and brutalist UI design, a field guide"
+    url: https://www.setproduct.com/blog/retro-brutalist-ui-design-2026
+demo: inline
+exhibit: false
+useWhen: the page imitates a 90s desktop or an early website
+---
+
+The parts list is unusually literal, because the style is an impersonation rather than an
+abstraction. Grey window chrome with a coloured title bar. Buttons cut from a raised
+[bevel](/bevel) with a light edge on top and a dark one underneath. A tiled background
+image repeating behind everything. System type, or a bitmap face, or the one script face
+everybody had. Saturated primaries used with no restraint at all. A hit counter, an under
+construction sign, a guestbook link, a webring at the foot of the page, and something
+animated for no reason, which is why the [marquee](/marquee) has never quite died.
+
+Two separate periods get collapsed into it, and the difference is worth keeping. The
+personal web of the mid nineties, built on free hosting services, is what researchers call
+the vernacular web: pages made by people with no training, where the aesthetic came from
+using whatever the tools gave away for free. The desktop it ran on is the other half,
+because the beveled grey window is an operating system's design language, not a website's,
+and it got copied onto pages simply because it was what a screen looked like. A modern
+revival usually mixes both, which is historically sloppy and looks exactly right.
+
+The revival is not really about the nineties. It works now as a reaction against platform
+sameness: every product looks like the same rounded card in the same neutral palette, so a
+page that looks handmade, cluttered, and slightly wrong reads as a person rather than a
+brand system. That is the same argument [neubrutalism](/neubrutalism) makes, but the two
+arrive at it differently. Neubrutalism is a contemporary style breaking contemporary rules;
+retro web design is period costume, and its charm depends on the reader recognising the
+period. If they do not, the page is just badly designed.
+
+Wear it where it can be enjoyed and take it off where it cannot. Marketing sites, event
+pages, game pages, personal sites, and the odd product easter egg can carry it. The pieces
+that must not be costume are contrast, focus states, motion, and hit targets: the original
+web was inaccessible by accident, and reproducing that faithfully is the one part of the
+homage nobody wants. Blinking text and endless marquees are also a genuine hazard, not just
+a taste question. Draw the nostalgia in colour, chrome, and type, and leave the behaviour
+in this decade.

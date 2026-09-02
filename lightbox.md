@@ -1,0 +1,65 @@
+---
+name: Lightbox
+slug: lightbox
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An overlay that shows one image or video large over a dimmed page,
+  with next and previous controls and a dismiss.
+aliases:
+  - name: image viewer
+    source: community
+  - name: media overlay
+    source: community
+  - name: photo viewer
+    source: community
+  - name: image preview
+    source: ant-design
+tags:
+  - media
+  - overlays
+relations:
+  contrastWith:
+    - quick-view
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scrim
+    - modal-dialog
+    - filmstrip
+implementations: []
+sources:
+  - title: User Interface Elements Glossary, NN/g
+    url: https://www.nngroup.com/articles/ui-elements-glossary/
+demo: inline
+exhibit: false
+useWhen: an image opened large over the dimmed page
+---
+
+A lightbox takes one image out of a grid and puts it up against a darkened page.
+The dimming is the mechanism, not decoration: it removes the surrounding colour so
+the eye has one thing to look at, and it says that the page is still there and
+still where you left it. The name comes from the backlit box photographers laid
+slides on, and it arrived in interfaces through a 2005 JavaScript library that
+almost every gallery has since copied.
+
+It is a modal, so it has a modal's obligations. Focus moves into the overlay and
+stays there while it is open, Escape closes it, the page behind it does not scroll,
+and closing returns focus to the thumbnail that opened it, since that is where the
+reader's place in the grid is. Being able to step to the next image without going
+back to the grid is the reason the pattern beats a link to a detail page, so
+arrows, arrow keys, and swipe should all move the same counter, and the counter
+should be visible: "4 of 12" is what tells someone how much is left.
+
+The controls have to survive the picture. A close button over a photograph can land
+on a white sky, so give it a background of its own rather than trusting contrast
+with an image nobody has seen yet. Load a small preview first and swap in the full
+size behind it, hold the frame's size steady between images so the arrows do not
+move under the pointer, and remember that a lightbox around a video is a different
+promise: it needs the player's controls, and it must not autoplay with sound.
+
+The one time to reach for something else is when the image is not the point. If
+the reader needs the description, the price, or the specification beside it, that
+is a [quick view](/quick-view) or a detail page, and a lightbox will just make them
+close it to find out anything.

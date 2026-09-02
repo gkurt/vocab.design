@@ -1,0 +1,74 @@
+---
+name: Progress ring
+slug: progress-ring
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A circular progress indicator that fills around a ring, often with
+  the percentage in the middle.
+aliases:
+  - name: progress circle
+    source: chakra
+  - name: ring progress
+    source: mantine
+  - name: circular progress
+    source: mui
+  - name: donut progress
+    source: community
+  - name: activity ring
+    source: community
+tags:
+  - perceived-performance
+  - progress
+relations:
+  contrastWith:
+    - progress-bar
+    - spinner
+    - gauge
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Mantine: components"
+    url: https://mantine.dev/core/package/
+  - title: "MDN: stroke-dashoffset"
+    url: https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-dashoffset
+demo: inline
+exhibit: false
+useWhen: progress drawn as a filling circle
+---
+
+A progress ring says exactly what a [progress bar](/progress-bar) says, in a shape
+that fits somewhere a bar does not. The reasons to reach for the circle are layout
+reasons, not information reasons: a square tile in a dashboard, a thumbnail-sized slot
+beside a file, the middle of a button that has just been pressed, an upload chip in a
+corner. It also leaves a hole, and the hole is useful, because the percentage, the
+remaining time, or a cancel control can sit inside the track instead of beside it.
+
+Determinate is the word that matters. A ring that fills to a known fraction is
+progress, and it needs a real denominator: bytes of a known total, steps of a known
+count, seconds of a known duration. A ring that spins forever is a
+[spinner](/spinner), and the two look close enough that people ship the second while
+believing they shipped the first. If the code cannot answer "out of how much", the
+honest control is the indeterminate one, and the honest fix is usually to find a
+denominator rather than to fake one by animating to ninety percent and waiting.
+
+The drawing is one trick, worth knowing because it explains every quirk of the
+component. A circle is stroked, `stroke-dasharray` is set to its own circumference so
+the dash is exactly one lap, and `stroke-dashoffset` is animated from that
+circumference down to zero, which walks the visible arc around the ring. The stroke
+starts at three o'clock, so the element is rotated by a quarter turn to begin at the
+top, and the stroke straddles the path, so the radius has to be inset by half the
+stroke width or the ring is clipped by its own box. Reading the value out loud is not
+part of the drawing: the ring needs `role="progressbar"` with `aria-valuenow`, since
+what a screen reader announces is the role and the number, never the shape.
+
+Two cautions from practice. The arc is a poor instrument at small sizes and at
+extremes, because a few degrees of a small circle is a couple of pixels, which is why
+the number in the middle is doing more work than most designers assume, and why very
+short tasks are better served by a control that does not invite the reader to measure
+an angle. And the circle should not be spent on decoration: an activity ring that
+encodes a daily goal is legitimate progress, while a ring drawn around an avatar
+because it looks tidy teaches readers to ignore the one shape you will need later.

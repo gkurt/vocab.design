@@ -1,0 +1,67 @@
+---
+name: X-height
+slug: x-height
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The height of a lowercase x in a typeface, measured from the
+  baseline, which is what makes two fonts at the same point size look different
+  sizes.
+aliases:
+  - name: lowercase height
+  - name: mean line
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - cap-height
+    - point-size
+    - ascender
+    - petite-caps
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: X-height (Wikipedia)
+    url: https://en.wikipedia.org/wiki/X-height
+  - title: "Typography Terms: Glossary (NN/g)"
+    url: https://www.nngroup.com/articles/typography-terms-ux/
+demo: inline
+exhibit: false
+useWhen: explaining why two fonts at the same size look different
+---
+
+The `x` is used because it is flat top and bottom, so it has no overshoot: round
+letters like `o` and `e` are drawn slightly taller and deeper than the lines they
+sit on, or they would look smaller than their flat neighbours. The line the `x`
+reaches is the mean line, and the distance from the baseline up to it is the
+x-height. Everything else in the lowercase is measured against it: ascenders on
+`b` and `h` rise above it, descenders on `p` and `g` fall below the baseline, and
+the ratio between them is most of what gives a face its texture.
+
+This is the answer to the complaint that two fonts at 16px look nothing alike.
+Point size is the size of the em, an invisible box inherited from the body of
+metal type, and it says nothing about how much of that box the letters fill.
+Verdana spends about 55 percent of the em on its x-height and Times New Roman
+about 45, so at one declared size Verdana looks a size or two larger. Designers
+handle this by optically matching rather than numerically matching: when you swap
+a typeface you almost always have to re-pick the size, and a
+[font stack](/font-stack) whose fallback has a different x-height will jump on
+the frame the real face arrives.
+
+A large x-height is not simply better, though the last two decades of interface
+faces have leaned that way. It buys legibility at small sizes and on screens,
+because the part of the letter doing the identifying is bigger, and it holds up
+under low resolution. What it costs is word shape: with short ascenders and
+descenders, words flatten toward uniform rectangles and are harder to tell apart
+at a glance, which is one reason ALL CAPS (no ascenders or descenders at all)
+reads slowly. Large x-height faces also need more [leading](/leading), since the
+lines are visually heavier and crowd each other sooner.
+
+The measurement is available in CSS as the `ex` unit, one x-height of the
+element's first available font, and in the font file as the `sxHeight` metric.
+The related unit `cap` is the cap height. Both are useful for the specific job of
+aligning something to the visual top of lowercase text, an icon beside a label
+being the usual case, where an em based value drifts every time the face changes.

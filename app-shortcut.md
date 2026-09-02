@@ -1,0 +1,80 @@
+---
+name: App shortcut
+slug: app-shortcut
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A short menu of app actions hung off the app icon itself, opened by
+  a long press or a secondary click before the app is even running.
+aliases:
+  - name: home screen quick action
+    source: hig
+  - name: dock menu
+    source: hig
+  - name: quick action
+    source: community
+  - name: launcher shortcut
+    source: android
+  - name: long press shortcut
+    source: community
+tags:
+  - menus
+  - platform-registers
+relations:
+  contrastWith:
+    - quick-settings-tile
+    - widget
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - long-press
+implementations:
+  - system: hig
+    name: Home Screen quick actions
+    url: https://developer.apple.com/design/human-interface-guidelines/home-screen-quick-actions
+  - system: hig
+    name: Dock menus
+    url: https://developer.apple.com/design/human-interface-guidelines/dock-menus
+sources:
+  - title: "Apple HIG: Home Screen quick actions"
+    url: https://developer.apple.com/design/human-interface-guidelines/home-screen-quick-actions
+  - title: "Android: App shortcuts overview"
+    url: https://developer.android.com/develop/ui/views/launch/shortcuts
+demo: inline
+exhibit: false
+useWhen: a frequent action should skip the app launch
+---
+
+An app shortcut is a menu the launcher draws for an app that is not running. Press and hold
+an icon on a home screen, or secondary-click one in the [dock](/dock), and the shell asks the
+app for two to four things a person might want to start with: a new message, a new note, the
+last document, today's list. Choosing one launches the app already inside that action. The
+menu is short by design, because it is read while a finger is still on the glass and because
+the launcher, not the app, decides how much room it gets.
+
+The distinction from a [context menu](/context-menu) is what makes the term worth having. A
+context menu acts on an object you are already looking at: this file, this word, this row.
+An app shortcut acts on an application that is not open, so its items cannot refer to any
+selection or any state on screen. That constraint is the whole design problem. The items have
+to be the small set of entry points that make sense with no context at all, which is why
+"New note" is a good shortcut and "Delete" is not one. The trigger is also not the term:
+[long press](/long-press) is the gesture that opens the menu on touch, the secondary click is
+its pointer equivalent, and neither is the thing that opens.
+
+Apple's Human Interface Guidelines treat this as one idea under two names, which is a useful
+signal that it is one component: Home Screen quick actions on iOS and iPadOS, Dock menus on
+macOS, the same short list of app-supplied actions in both places, with the platform adding a
+few of its own (Share, Remove App, Show in Finder). Android calls them app shortcuts and
+splits them by who defines them: static ones declared in the manifest, dynamic ones the app
+publishes at runtime, and pinned ones a person drags out to sit on the home screen as their
+own launcher. Be careful with the Apple name collision here: App Shortcuts in the App Intents
+sense are actions exposed to Siri and the Shortcuts app, a different feature entirely, and
+this entry is about the icon menu.
+
+The craft is mostly restraint and ordering. Put the single most likely action first, since a
+finger sliding down from a held icon lands there. Keep labels to a couple of words, because
+the menu is sized by the launcher and long ones truncate. Never spend a slot on something the
+app opens on anyway. And treat the list as a promise about state: a dynamic shortcut naming a
+document that has since been deleted is worse than no shortcut, so publishing them means
+retiring them too.

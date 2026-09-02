@@ -1,0 +1,67 @@
+---
+name: Glyph
+slug: glyph
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A single drawn shape in a font, which may be one character, a
+  variant of one, or several characters fused together.
+aliases:
+  - name: character
+  - name: letterform
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - typeface
+    - tofu
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - tittle
+implementations: []
+sources:
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+  - title: Letters (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/letters
+demo: inline
+exhibit: false
+useWhen: talking about drawn shapes rather than characters
+---
+
+Three words get used for the same thing and they are not the same thing. A
+character is the unit of writing: the letter a, whatever it looks like. A codepoint
+is the number a character is stored as, U+0061 for that a. A glyph is a shape a
+typeface draws, and it exists in the font file rather than in the text. Set a
+sentence in two faces and the characters are identical while every glyph has been
+replaced, which is the whole reason a font swap changes the length of a line.
+
+The mapping between the two is many to many in both directions. One character can
+have several glyphs in a single face: a lining figure and an oldstyle one, a
+[small cap](/small-caps) and a full capital, a swash alternate for the last letter
+of a word, a contextual form that only appears after certain letters. And several
+characters can share one glyph, which is what a [ligature](/ligature) is: the pair
+f and i stays two characters in the string, two codepoints in the file, and one
+drawing on the screen. Nothing about the text changed. The font simply had a better
+answer for that sequence, and [OpenType features](/opentype-features) are the switches
+that let it give one.
+
+The distinction bites wherever software has to count. String length counts
+codepoints, not shapes, so a fused fi is two and a family emoji built from several
+codepoints joined together is five or six while being unmistakably one picture. The
+caret has to move by shapes rather than by codepoints, or an arrow key lands
+somewhere with no visible position, which is why text engines work in clusters
+instead. Scripts like Devanagari and Arabic make the gap obvious rather than
+occasional, since a written syllable there is routinely one glyph assembled from
+several characters, and any tool that assumed one shape per character breaks the
+first time it meets one.
+
+For anyone shipping fonts, glyphs are also the unit of cost. Subsetting a web font
+means keeping the glyphs a site actually needs and discarding the rest, which is
+where the real weight goes, and a face advertised as having thousands of glyphs is
+advertising its coverage of scripts and alternates rather than anything about its
+letters. It is worth checking what a file really contains, because a feature the
+font has no glyphs for cannot happen: the tag is accepted, nothing is substituted,
+and the page looks exactly as it did before.

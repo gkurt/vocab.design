@@ -1,0 +1,71 @@
+---
+name: Follow-through
+slug: follow-through
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Parts of a composition that keep moving briefly after the main
+  element stops, and start slightly after it starts, so a group does not move as
+  one rigid block.
+aliases:
+  - name: overlapping action
+    source: community
+  - name: drag and settle
+    source: community
+  - name: trailing motion
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - parenting
+    - anticipation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - stagger
+implementations: []
+sources:
+  - title: "IxDF: UI Animation, applying Disney's 12 principles to UI"
+    url: https://ixdf.org/literature/article/ui-animation-how-to-apply-disney-s-12-principles-of-animation-to-ui-design
+demo: inline
+exhibit: false
+useWhen: a group should move like connected parts, not one slab
+---
+
+Follow-through and overlapping action are the fifth of Disney's twelve principles,
+and they describe one observation: nothing made of parts starts or stops all at
+once. A runner halts and the coat keeps going for a beat. An arm swings and the
+hand arrives after the elbow. The body leads, the loose things trail, and the
+picture reads as a connected object rather than as a shape being repositioned. In
+an interface the loose things are a badge on a card, an avatar, a caption line, a
+shadow, an icon inside a button.
+
+The trick is small offsets, not different destinations. Every part travels to the
+same place; each one simply leaves and lands on its own beat, usually 40 to 120
+milliseconds behind the body, often with a hair of correction at the end. Larger
+than that and the card looks broken into pieces; smaller and nobody feels it.
+This completes a trio the other two members of which are already words:
+[anticipation](/anticipation) is the small move the wrong way *before* the main
+one, [overshoot](/overshoot) is the surplus carried *past* the target, and
+follow-through is what the trailing parts do *after* the leader has stopped.
+
+It is worth separating from two neighbours. [Stagger](/stagger) offsets peers, a
+list of rows entering one after another, where the items are unrelated to each
+other; follow-through offsets parts of a single object, where the lag is what says
+they are attached. Secondary action, Disney's principle seven, is a different
+gesture entirely: a second motion that adds meaning rather than a delayed copy of
+the first. If the parts are moved by a [spring](/spring-animation) rather than by
+timed curves, the same effect falls out of giving each part slightly less
+stiffness than its parent, which is why gesture-driven interfaces get it almost
+for free.
+
+The costs are the usual ones. Every offset extends the total time the reader waits
+before the composition is at rest, so keep follow-through for arrivals worth
+watching and off anything triggered many times an hour. Text should not trail,
+because a line still sliding is a line that cannot be read. Nothing that trails
+may change layout, since a part still settling is a part still pushing its
+neighbours around. And under
+[prefers-reduced-motion](/prefers-reduced-motion) the whole composition simply
+arrives, together, at rest.

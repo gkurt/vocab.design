@@ -1,0 +1,69 @@
+---
+name: QR code
+slug: qr-code
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A square matrix barcode rendered in the interface to hand a link or
+  credential to a phone camera.
+aliases:
+  - name: qrcode
+    source: ant-design
+  - name: scan code
+    source: community
+  - name: 2d barcode
+    source: community
+tags:
+  - platform-registers
+relations:
+  contrastWith:
+    - share-sheet
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - smart-app-banner
+implementations: []
+sources:
+  - title: "Ant Design: components overview"
+    url: https://ant.design/components/overview/
+demo: inline
+exhibit: false
+useWhen: handing a link to a phone by camera
+---
+
+A QR code is a square matrix barcode: a grid of light and dark modules with three heavy
+squares in its corners, invented at Denso Wave in 1994 for tracking car parts and now the
+standard way a screen hands something to a phone. In an interface it is almost never
+decoration. It is a transfer, and what it transfers is usually a URL, a pairing token, or a
+one time credential that the reader's second device is meant to read off the first device's
+display. Ant Design ships it as a component called QRCode, which is the right instinct: the
+thing has states, and a picture does not.
+
+What makes it a design problem rather than a graphic is that three physical properties decide
+whether a camera can read it at all. The quiet zone, the empty margin of at least four modules
+on every side, is what lets a decoder find the symbol's edges, so a code cropped flush to its
+container or laid over a busy background is a code that fails silently. Contrast has to be
+high and in the conventional polarity, dark modules on a light field, which is why a code
+inverted for a dark theme is a common and expensive mistake. And the module has a minimum
+size: below roughly two device pixels per module the camera cannot resolve the grid, so a code
+that shrinks with its layout stops working long before it looks too small to a designer.
+
+Then there are the states. A code carrying a short lived pairing token expires, and the expiry
+has to be visible, because a reader whose scan silently fails has no way to tell a stale code
+from a bad camera angle. Show the remaining life and offer a refresh rather than swapping the
+matrix out from underneath. A code also needs a path for anyone with one device: printing the
+same value as characters to type by hand, which is what
+[pin input](/pin-input) is for at the receiving end, keeps the flow usable for a reader on a
+desktop with no phone in reach, and for anyone who cannot aim a camera steadily. The code is
+never the only route, in the same way that
+[one time code login](/one-time-code-login) and [magic link](/magic-link) are alternate doors
+into the same account rather than replacements for the password field.
+
+Accessibility is the part most implementations skip. The matrix is an image of data, so it
+needs an accessible name that says what it is for and, where the payload is short, the payload
+itself in text nearby rather than only inside the pixels. Screen reader users, and sighted
+readers on the device that is showing the code, cannot scan it at all. "2D barcode" is the
+generic term worth knowing, since Data Matrix and Aztec codes solve the same problem with
+different geometry, and a spec that says QR when it means any square code will eventually be
+built wrong.

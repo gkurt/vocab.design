@@ -1,0 +1,67 @@
+---
+name: Skeuomorphism
+slug: skeuomorphism
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A style that makes interface elements imitate real objects and
+  materials, using leather, metal, paper, and glossy highlights so their purpose
+  reads as familiar.
+aliases:
+  - name: skeuomorphic design
+  - name: realistic UI
+    source: community
+  - name: skeuomorph
+  - name: textured UI
+    source: community
+tags:
+  - depth
+relations:
+  contrastWith:
+    - flat-design
+    - aqua
+    - neo-skeuomorphism
+    - interface-metaphor
+    - auditory-icon
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - affordance
+implementations: []
+sources:
+  - title: Skeuomorphism, Aesthetics Wiki
+    url: https://aesthetics.fandom.com/wiki/Skeuomorphism
+  - title: "NN/g: Flat Design: Its Origins, Its Problems, and Why Flat 2.0 Is Better
+      for Users"
+    url: https://www.nngroup.com/articles/flat-design/
+demo: inline
+exhibit: false
+useWhen: the control is dressed as the physical object it replaces
+---
+
+The word predates software. A skeuomorph is any ornament that survives from the way a
+thing used to be made, like the moulded rivets on a plastic case or the stitching
+printed on a vinyl dashboard. In interfaces it means dressing a control as the object
+it replaced: a notes app bound in leather, a recorder with a brushed metal faceplate, a
+switch that looks machined, a bookshelf with wood grain behind the books.
+
+Its high-water mark was roughly 2007 to 2013, on Apple's platforms above all, and the
+argument for it was learnability. A new touchscreen had no established vocabulary, so
+borrowing the appearance of familiar objects told people what could be pressed, slid,
+or turned. The materials also carried lighting, and lighting carried affordance: a
+bevelled, glossy face reads as raised, and raised reads as pressable without anyone
+being told.
+
+The reaction was flat design, and it won on cost as much as on taste. Textures do not
+scale across resolutions and densities, every new control needs its own artwork rather
+than a token, and the metaphors age badly once the physical object is gone (floppy
+disks, cassette tapes, address books). The lasting critique is that imitation past the
+point of usefulness starts to constrain: an interface shaped like a real notepad
+inherits the notepad's limits, page by page, instead of doing what software can.
+
+What survived is the useful half. Depth, lighting, and material cues are still how
+interfaces say pressable, and both flat 2.0 and the current glass and clay styles are
+arguments about how much of that to keep. Full skeuomorphism now lives mostly where the
+metaphor is genuinely the product: audio plugins that look like the hardware they model,
+instrument apps, and games.

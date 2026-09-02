@@ -1,0 +1,70 @@
+---
+name: Throttle
+slug: throttle
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Capping how often a continuous stream of input is acted on, so a
+  response fires at a steady rate instead of on every event.
+aliases:
+  - name: throttling
+    source: community
+  - name: rate limiting input
+    source: community
+  - name: sampling
+    source: community
+tags:
+  - perceived-performance
+relations:
+  contrastWith:
+    - debounce
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - frame-rate
+implementations: []
+sources:
+  - title: "MDN: Pointer events"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+demo: inline
+exhibit: false
+useWhen: limiting how often a continuous input is answered
+---
+
+Some input arrives as a stream rather than as a decision. A scroll produces an event for
+every few pixels, a drag one for every pointer sample, a resize one for every frame of the
+window being dragged, and none of those individual events is interesting: what matters is
+where things ended up, sampled often enough to look continuous. Throttling puts a floor
+under the interval between responses. The first event is usually answered immediately (the
+leading edge) and everything arriving inside the interval is absorbed, with one more answer
+after the interval so the last value is not lost (the trailing edge). The promise is a
+cadence, and the guarantee is that expensive work happens a bounded number of times per
+second no matter how generous the browser is with events.
+
+That is the opposite bargain from debouncing, which waits for a gap and answers once when
+the input stops. A debounced handler attached to a scroll that never stops never runs at
+all, and a throttled handler attached to a search field answers with values the person was
+only passing through. Bursts with an end to them want debounce; continuous streams want
+throttle. It is worth saying out loud which one a piece of code is, because the two are
+routinely named as though they were interchangeable and the bugs they cause look nothing
+alike.
+
+Choose the interval from what the response costs. Anything that paints should be throttled
+to the frame rather than to a clock, which means `requestAnimationFrame`: at 60 hertz a
+timer set to 16 milliseconds and a frame callback look similar and only one of them is
+actually aligned with when the screen is redrawn. Work that hits the network or does real
+computation wants something in the range of 100 to 250 milliseconds. Always keep the
+trailing call, or the readout is left holding a position the reader has already scrolled
+past. Cancel any pending call when whatever owns the handler is torn down, register scroll
+and pointer listeners as `passive` so the browser need not wait to see whether the event
+will be cancelled, and check what the platform already gives you: pointer events are
+coalesced by the browser, and `getCoalescedEvents` hands back the samples that were merged
+if you actually want them.
+
+The failure mode is throttling something that has to feel immediate. A hover highlight or
+a drag preview capped at 200 milliseconds does not read as efficient, it reads as a
+laggy interface, and the fix is a shorter interval or a frame callback rather than a
+different technique. Watch out for the word appearing in two unrelated places, too: the
+server-side rate limit that answers with HTTP 429 is also called throttling, and it is
+someone else's cap on your requests rather than your cap on your own work.

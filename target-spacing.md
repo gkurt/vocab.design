@@ -1,0 +1,77 @@
+---
+name: Target spacing
+slug: target-spacing
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The exception that lets an undersized control pass when no other
+  target falls inside a 24 pixel circle centred on it, trading size for
+  clearance.
+aliases:
+  - name: spacing exception
+    source: wcag
+  - name: 24px circle test
+    source: community
+  - name: target offset
+    source: community
+  - name: undersized target
+    source: wcag
+tags:
+  - pointer
+  - touch
+  - wcag
+relations:
+  contrastWith:
+    - touch-target-size
+    - hit-slop
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - fitts-law
+implementations: []
+sources:
+  - title: "WCAG 2.2: Target Size (Minimum)"
+    url: https://www.w3.org/TR/WCAG22/#target-size-minimum
+  - title: "TetraLogical: Foundations, target size"
+    url: https://tetralogical.com/blog/2022/12/20/foundations-target-size/
+demo: inline
+exhibit: false
+useWhen: small controls that cannot grow but can be separated
+---
+
+Success criterion 2.5.8, Target Size (Minimum), arrived with WCAG 2.2 and asks for 24 by 24 CSS
+pixels, which is the part everybody quotes. The part that decides most real toolbars is the
+spacing exception underneath it. An undersized target still passes if a 24 pixel diameter circle
+centred on it does not intersect another target, or the circle of another undersized target. So
+the criterion is not really a size rule at all: it is a rule that a control must own 24 pixels,
+either by being that big or by having that much clearance around it, and a row of 20 pixel icons
+set 8 pixels apart passes while the same icons packed edge to edge do not.
+
+Drawing the circles is the fastest audit there is, and the number is about the pointer rather
+than the finger. Twenty four pixels is roughly what an imprecise mouse, a trackpad with a tremor,
+or a head pointer needs in order to land where it aimed; the finger number is 44 pixels, and it
+lives one level up in 2.5.5, Target Size (Enhanced), at AAA. The other exceptions are worth
+knowing because they are narrower than they sound. Inline covers a link inside a sentence, where
+line height decides the box and shrinking the text would be worse. Equivalent covers a small
+control that has a full sized twin somewhere else on the same page. Essential covers cases where
+the exact position is the point, such as a pin dropped on a map. User agent default covers
+anything you have not styled.
+
+The most useful thing to know is that the criterion measures the *target*, which is the area
+that responds to the pointer, not the area that has paint on it. That makes
+[hit slop](/hit-slop) a legitimate way to pass without redrawing a single icon: padding pushed
+out beyond the artwork enlarges the target itself, and 20 pixels of glyph inside a 24 pixel
+button is a pass. The catch is that grown areas which overlap trade taps between neighbours, so
+slop is only spacing spent in advance, and the same clearance has to exist either way. Where two
+grown areas would meet, the honest fix is a [dead zone](/dead-zone) between them or a gutter big
+enough that no zone is needed.
+
+Treat the number as a floor and not as a goal. [Fitts's law](/fitts-law) says acquisition time
+falls with size and rises with distance, and a control at exactly 24 pixels is still slow and
+still missed, particularly out at the reach limits of the [thumb zone](/thumb-zone). It also
+travels with the rest of the pointer criteria: a control that is hard to hit is worse when it
+demands a sustained drag, which is what a [dragging alternative](/dragging-alternative) and a
+generous [drag threshold](/drag-threshold) exist to soften. For the general question of how big
+a control ought to be, rather than how small it is allowed to be, see
+[touch target size](/touch-target-size).

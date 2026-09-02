@@ -1,0 +1,74 @@
+---
+name: List detail
+slug: list-detail
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A browsable list paired with a pane showing the selected item in
+  full, collapsing to one screen at a time when the window is narrow.
+aliases:
+  - name: master detail
+    source: community
+  - name: list pane and detail pane
+    source: material
+  - name: index detail
+    source: community
+  - name: reading pane
+    source: community
+  - name: preview pane
+    source: community
+tags:
+  - navigation
+  - screen-size
+relations:
+  contrastWith:
+    - split-view
+    - multi-column-layout
+    - supporting-pane
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Canonical layouts, Android Developers
+    url: https://developer.android.com/develop/adaptive-apps/guides/canonical-layouts
+demo: inline
+exhibit: false
+useWhen: browse a list, read one item, keep both in view
+---
+
+Two panes, one relationship: the left pane is an index you can scan, the right pane is
+whichever entry of it you picked, and selecting in the first is what changes the second. Mail
+clients, file browsers, settings screens, issue trackers, and music libraries are all this
+layout, which is why it is one of the small set of arrangements worth having a name for at
+all. What it buys is context. You can read one item without losing your place in the set, and
+you can move to the next one without a round trip back to a list you have to find your
+position in again.
+
+The older name is master-detail, from database tooling, where a master record owns a set of
+detail rows. Material 3 and the Android adaptive layout guidance renamed it list-detail, both
+to drop the master terminology and because the newer name says what the panes actually are.
+It sits alongside two other canonical arrangements in that guidance: the supporting pane,
+where the second pane holds tools for the first rather than a selected item, and the feed,
+where there is no selection to speak of. Worth keeping distinct from
+[split view](/split-view), which is the general mechanic of two resizable panes side by side:
+list-detail is the specific relationship where one pane is an index of the other.
+
+The interesting part is what happens when the window is too narrow for both, because that is
+where the layout stops being a picture and becomes navigation. Collapsed, the list and the
+detail become two screens: choosing pushes the detail over the list, and a back control pops
+it. Three decisions follow, and skipping them is what makes a collapsed list-detail feel
+broken. Whether an item is selected at all when the layout is expanded, since a detail pane
+showing nothing needs an [empty state](/empty-state) rather than a blank half of the window.
+Which pane wins when the window is resized or the device rotated with a detail open, since
+throwing the reader back to the list loses their place. And where the browser or system back
+gesture goes, since in one shape it must return to the list and in the other it must leave
+the screen entirely.
+
+The list pane is usually the [sidebar](/sidebar) at desktop widths, and the switch between
+the two shapes is usually driven by a [breakpoint](/breakpoint) or a
+[container query](/container-query) rather than by a guess about the device. Keeping the
+selection marked in the list while its detail is open matters more than it looks: it is the
+only thing telling the reader which of the twenty rows they are currently reading, and
+`aria-current` or a selected state on that row is what carries it.

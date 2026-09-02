@@ -1,0 +1,1 @@
+import{n as e}from"./registry.AnrLb83H.js";function t(t){window.__specimen=Promise.resolve(e(t)).then(e=>{if(!e)throw Error(`no demo module for "${t}"`);return{mount:e.mount}})}t(document.body.dataset.slug??``);

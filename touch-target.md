@@ -1,0 +1,67 @@
+---
+name: Touch target
+slug: touch-target
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The area of a control that answers a press, padded out around
+  whatever is drawn so a fingertip can hit it without catching its neighbours.
+aliases:
+  - name: hit target
+    source: hig
+  - name: click target
+    source: community
+tags:
+  - a11y
+  - pointer
+  - touch
+relations:
+  contrastWith:
+    - touch-target-size
+    - hit-slop
+    - bulletproof-button
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Understanding SC 2.5.8: Target Size (Minimum)"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html
+  - title: "Smashing Magazine: accessible tap target sizes"
+    url: https://www.smashingmagazine.com/2023/04/accessible-tap-target-sizes-rage-taps-clicks/
+demo: inline
+exhibit: false
+useWhen: sizing what the finger must hit, not what is drawn
+---
+
+A touch target is a region, and the mark inside it is a separate thing. That separation is
+the whole word. A sixteen pixel glyph centred in a forty-four pixel button is a
+forty-four pixel target: press anywhere in the padding, well clear of the drawing, and the
+control fires. Take the padding away and the same glyph looks identical in a screenshot
+while the region that answers has shrunk to the size of the ink. Every argument about
+targets is really an argument about which of those two boxes someone measured.
+
+The numbers are worth carrying, and they do not agree because they answer different
+questions. Apple asks for at least forty-four by forty-four points, Android for
+forty-eight by forty-eight density independent pixels, and WCAG 2.2 sets twenty-four by
+twenty-four CSS pixels as its AA floor, with exemptions for inline links and for small
+targets that have enough clear space around them. The floor is a floor. Anything used one
+handed, in motion, or repeatedly deserves the platform figure rather than the minimum that
+passes. The size question has an entry of its own on this site, under touch target size;
+this one is about the region the size is a property of.
+
+Spacing belongs to the same idea, because the failure people actually hit is the
+neighbouring control rather than empty space. Two targets that touch each other are worse
+than two slightly smaller ones with a gap, and WCAG says so explicitly by letting spacing
+substitute for size. When targets are packed into a row, the honest fix is fewer of them,
+not a tighter grid.
+
+Growing the region without growing the paint is the everyday craft. Padding on the control
+itself is the cleanest version, since it keeps one box for layout and hit testing. A
+pseudo-element stretched beyond the visible bounds works where the layout cannot spare the
+room, as long as nothing overlaps the extension. Making the whole row carry the press on
+behalf of the small icon inside it is often the best answer of all. And the word is not
+only about fingers: a trackpad, a head switch, eye tracking, and an unsteady hand all have
+the same aiming problem, which is why the criterion is written about targets in general
+rather than about touch.

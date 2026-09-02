@@ -1,0 +1,70 @@
+---
+name: Curb cut effect
+slug: curb-cut-effect
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The pattern where something built for a disabled minority turns out
+  to serve everyone, the way dropped kerbs serve prams and captions serve noisy
+  rooms.
+aliases:
+  - name: curb cut
+    source: community
+  - name: solve for one extend to many
+    source: microsoft
+  - name: electric door effect
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - situational-disability
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - functional-need
+implementations: []
+sources:
+  - title: "Wikipedia: Curb cut effect"
+    url: https://en.wikipedia.org/wiki/Curb_cut_effect
+  - title: "Microsoft Design: Inclusive 101"
+    url: https://inclusive.microsoft.design/articles/inclusive-101-guidebook
+demo: inline
+exhibit: false
+useWhen: justifying accessibility work to a sceptical room
+---
+
+The name comes from a piece of civil disobedience. In Berkeley in the early 1970s, disabled
+activists, many of them wheelchair users from the campus independent living movement, took
+sledgehammers and cement to the kerbs the city would not cut, and the ramps that followed
+became the first municipal programme of its kind in the United States. What happened next is
+the part the term is actually about: the ramps were used constantly by people who had never
+been part of the argument, pushing prams, dragging suitcases, wheeling delivery trolleys,
+riding skateboards, walking with a cane. The count was never close. On any given kerb the
+intended user is a rounding error against everyone else rolling something.
+
+Digital interfaces repeat the pattern so reliably that it is worth treating as a prediction
+rather than a happy accident. [Captions](/captions) were built for deaf and hard of hearing
+viewers and are now switched on by people watching in bed, in a gym, in an open-plan office,
+or in their second language. Voice control was built for people who cannot use their hands
+and became how everyone talks to a phone in a car. Autocomplete reduces the number of
+keystrokes a person with limited fine motor control has to make, and it is also why nobody
+types a full address any more. High contrast modes were built for low vision and get used
+outdoors in the sun. The constraint that forces a clearer design is the same constraint for
+everybody; the disabled user just hits it first, and hardest.
+
+This matters most as an argument, because accessibility work is usually killed by the phrase
+"edge case". The framing smuggles in a false model of the market: that the population needing
+the feature is both tiny and separate from the paying one. Neither half survives contact with
+the numbers. Disability is not a fixed minority but a state most people pass through, by age,
+injury, illness, or a badly timed hand full of shopping, and the feature almost never stays
+in its lane. A team that ships captions to satisfy a regulator ends up shipping a
+searchable transcript, better SEO, and a video that works with the sound off in a feed, which
+is where most video is watched.
+
+Two cautions keep the term honest. It is an observation, not a justification: the ramp would
+be worth building for the people it was built for even if nobody else ever used it, and an
+argument that only ever cites the mainstream benefit has quietly conceded that disabled users
+alone are not reason enough. And it does not run in reverse. Designing for the majority and
+hoping it happens to work for a wheelchair user produces a kerb, not a ramp. The effect only
+appears when the constraint drove the design.

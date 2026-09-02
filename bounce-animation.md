@@ -1,0 +1,66 @@
+---
+name: Bounce
+slug: bounce-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Motion that arrives, rebounds, and arrives again in decreasing
+  amounts, reading as an object landing on a surface.
+aliases:
+  - name: bounce easing
+    source: easings.net
+  - name: easeOutBounce
+    source: easings.net
+  - name: bounce ease
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - pop-in
+    - overshoot
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spring-animation
+implementations: []
+sources:
+  - title: Easing Functions Cheat Sheet
+    url: https://easings.net/
+demo: inline
+exhibit: false
+useWhen: an arrival should read as landing, with weight
+---
+
+A bounce is an arrival that happens more than once. The element reaches its destination,
+comes back off it, returns, and repeats with less height and less time each round until it
+stops. Two properties carry the whole impression. The rebounds have to decay, because
+equal rebounds read as a loop rather than as energy being lost, and the element must never
+pass through its destination, because the surface it landed on is what it is bouncing off.
+That second rule is what separates a bounce from an elastic or
+[spring](/spring-animation) curve: elastic overshoots past the target and oscillates
+around it, as though the element were on the end of a rubber band, while a bounce
+approaches from one side only and never crosses the line.
+
+CSS has no bounce timing function. `ease-out` decelerates and stops, and no cubic Bezier
+can produce a rebound at all, since a Bezier curve with those control points cannot
+reverse direction. So a bounce is either keyframes, where the pins are the landings and
+the peaks and the per-keyframe easing does the accelerating and decelerating, or the newer
+`linear()` function, which approximates any curve with enough points and is how libraries
+now ship an `easeOutBounce` you can drop into a plain transition. The keyframe version is
+worth writing by hand once, because the timings are the physics: each rebound reaches
+roughly half the previous height and takes proportionally less time, so the beats crowd
+together at the end. Evenly spaced landings sound wrong even though nothing here makes a
+sound.
+
+Bounces are expensive in the only currency that matters, which is time. The state change
+is finished at the first landing and everything after it is decoration the reader has to
+sit through, so a bounce belongs on things that arrive rarely and want to be noticed, a
+notification badge, a downloaded file landing in its tray, a mascot in an onboarding
+screen. It belongs badly on anything the reader is waiting for or repeating: menus,
+validation messages, list items, anything that appears dozens of times a session. Keep the
+whole gesture under about 600 milliseconds, keep it to two rebounds, and make sure the
+element is usable from the first landing rather than at the end of the settle. Under
+`prefers-reduced-motion` the bounce is the first thing to go, since bouncing motion is
+also among the likeliest to provoke discomfort in readers sensitive to it.

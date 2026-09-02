@@ -1,0 +1,72 @@
+---
+name: Recurring event
+slug: recurring-event
+category: pattern
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: An event stored once as a rule instead of as copies, so every second
+  Tuesday can be edited, skipped for one week, or ended, without touching the
+  rest.
+aliases:
+  - name: recurrence rule
+    source: community
+  - name: RRULE
+    source: ietf
+  - name: repeating event
+    source: community
+tags:
+  - time
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scheduler
+    - calendar
+    - time-zone-display
+implementations: []
+sources:
+  - title: "RFC 5545: Recurrence Rule (iCalendar)"
+    url: https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.5.3
+  - title: "MUI X: React Scheduler component"
+    url: https://mui.com/x/react-scheduler/
+demo: inline
+exhibit: false
+useWhen: one event that repeats by a rule
+---
+
+A recurring event is one record, not a hundred. What is stored is a rule ("every second
+Tuesday at 9:30, until 16 December"), and the occurrences a reader sees in a
+[scheduler](/scheduler) or a [calendar](/calendar) are generated from it on the way to the
+screen. Storing copies instead looks simpler for exactly one day, until someone changes the
+time and the change has to be chased through every copy that has not happened yet, and not
+through the ones that have. The shared grammar for the rule is the `RRULE` of RFC 5545, the
+iCalendar spec, which is why two products that have never met can still agree on what "the
+last Friday of the month" means.
+
+The rule buys the storage, and it charges for it in one place: every edit becomes a
+question. Change one occurrence and the interface has to ask which occurrences you meant.
+This event only, which records an exception hanging off the rule. This and all following,
+which usually ends the old rule the day before and starts a new one. Or all of them, which
+edits the rule itself and rewrites history along with the future. This is one of the very
+few dialogs in software that cannot be designed away: the three answers give genuinely
+different results, and no default is right often enough to skip the asking. What good
+designs do instead is show the consequence, marking which occurrences the choice is about
+to touch before it touches them.
+
+Two more parts of the rule need somewhere to live in the interface. An exception is a single
+occurrence that has been moved, changed, or skipped without disturbing the rest, so a
+cancelled week reads as a gap in the series rather than as the series ending. And the rule
+needs an end: after a count, until a date, or never. "Never" is a real answer, but it is a
+poor default, because a rule with no end quietly outlives the team, the room, and the
+project it was made for.
+
+One hazard is worth stating plainly, because it is where this pattern meets
+[time zone display](/time-zone-display). A rule is not a list of timestamps. When a weekly
+event crosses a daylight-saving boundary, it either keeps the same wall-clock time (9:30
+stays 9:30, and the gap between occurrences is not exactly a week) or the same instant
+(the gap is exactly a week, and 9:30 becomes 8:30). It cannot do both, and both are
+defensible: a standup wants the wall clock, a market close wants the instant. The rule
+therefore has to record which zone it is anchored in, and an interface that shows the rule
+without showing that zone is hiding the only fact that resolves the ambiguity.

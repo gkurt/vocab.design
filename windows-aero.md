@@ -1,0 +1,74 @@
+---
+name: Windows Aero
+slug: windows-aero
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The Windows Vista and 7 look built on translucent glass window
+  frames, soft outer glows, reflections, and animated window transitions.
+aliases:
+  - name: Aero Glass
+    source: microsoft
+  - name: Aero
+    source: microsoft
+  - name: Windows 7 glass
+  - name: glass window borders
+    source: community
+tags:
+  - depth
+  - retro
+relations:
+  contrastWith:
+    - glassmorphism
+    - mica
+    - aqua
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - metro-design
+implementations: []
+sources:
+  - title: "Wikipedia: Windows Aero"
+    url: https://en.wikipedia.org/wiki/Windows_Aero
+  - title: "NameThatUI: visual style catalog"
+    url: https://namethatui.com/styles
+demo: inline
+exhibit: false
+useWhen: see-through window chrome from the Vista and 7 era
+---
+
+Windows Aero shipped with Windows Vista in 2007 and reached its best-liked form in Windows 7
+in 2009. The signature is the window frame: a thick [title bar](/title-bar) and border made
+of translucent glass, blurring whatever happens to be behind it in real time, tinted with a
+colour the user picked, edged with a bright inner highlight, and rounded at the top corners.
+Around that sat the rest of the kit, a soft outer glow instead of a hard drop shadow,
+oversized [window controls](/window-controls) with their own glass pills, live thumbnails in
+the taskbar, and animated window transitions including the notorious Flip 3D. It needed a
+GPU, which is exactly why Microsoft dropped most of it in Windows 8 and why the tablets of
+the period never got it.
+
+Set it against [Mica](/mica) and the whole argument becomes visible. Aero blurs whatever is
+behind the window, continuously, and tints the result, so dragging a window across the
+desktop changes what its own frame looks like, frame by frame. Mica samples the desktop
+wallpaper once, tints an opaque surface with it, and never looks again, so moving the window
+changes nothing and only a wallpaper change does. That is not a small implementation detail:
+Mica is deliberately the cheap version, designed after a decade of complaints about battery
+and compositor cost, and it is the reason the effect could come back at all. Aero is glass,
+Mica is a painted wall that happens to match the room.
+
+The other useful comparison is [Aqua](/aqua), Apple's contemporary. Both are glossy and both
+lean on translucency, but Aqua's gloss is a *material* applied to controls, with candy
+buttons and pinstripes and a lozenge scrollbar, whereas Aero left the controls comparatively
+plain and spent its whole effect on the window frame.
+
+For a modern reader the useful word is [glassmorphism](/glassmorphism), which is the same
+technique generalized and given a CSS property. Aero was a compositor feature nobody on the
+web could have; `backdrop-filter` is that feature, available in a stylesheet, and the
+lessons Aero learned the hard way transfer directly. Text on glass fails contrast the moment
+the wallpaper changes, so the tint has to be opaque enough to guarantee a floor rather than
+merely look good over the developer's own desktop. Blur is expensive to composite, and a
+page that blurs a large area on every scroll frame will feel it. And a see-through frame is
+a decision about what the user is meant to attend to: Aero's own designers eventually
+conceded it made the active window harder to pick out, which is a large part of why the
+next release replaced it with flat, opaque [Metro design](/metro-design).

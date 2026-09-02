@@ -1,0 +1,67 @@
+---
+name: Fallback font
+slug: fallback-font
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The typeface actually used when the preferred one is missing or has
+  not loaded, either for the whole run of text or for characters it lacks.
+aliases:
+  - name: font fallback
+  - name: substitute font
+  - name: backup font
+  - name: per-character fallback
+tags:
+  - fonts
+  - perceived-performance
+relations:
+  contrastWith:
+    - tofu
+    - font-metric-override
+    - font-stack
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - bulletproof-button
+implementations: []
+sources:
+  - title: Framework tools for font fallbacks (Chrome for Developers)
+    url: https://developer.chrome.com/blog/framework-tools-font-fallback/
+  - title: Creating Perfect Font Fallbacks in CSS
+    url: https://www.aleksandrhovhannisyan.com/blog/perfect-font-fallbacks/
+demo: inline
+exhibit: false
+useWhen: naming what shows up when the real font does not
+---
+
+A fallback is not a spare tyre kept in the boot. It is the face most readers see
+first and some readers see for the whole visit, so it deserves to be chosen
+rather than inherited from the end of a list. Two different mechanisms answer to
+the name. The first is the whole-run kind: the preferred family is missing or
+still downloading, so the next entry of the [font stack](/font-stack) sets
+everything. The second is per-character: the chosen face is present but has no
+glyph for a character in the text, so the browser goes looking for one family at
+a time and sets that single character somewhere else. That is why one arrow, one
+accented vowel, or one emoji can arrive in an obviously different drawing while
+the words around it stay put.
+
+Choosing one by feel is the usual mistake. What matters is metrics, because a
+mismatched stand-in is what turns a swap into a layout shift: the x-height
+decides how big the text looks at a given size, the average advance width
+decides where lines break, and the ascent and descent decide how tall each line
+box is. Compare candidates at the same declared size with the
+[x-height](/x-height) ruled rather than at whatever size each one flatters, and
+prefer a stand-in already on the reader's machine so nothing has to be fetched
+for it.
+
+Once a candidate is close, CSS can close the rest of the gap. Declare the local
+family in an `@font-face` rule of its own, point `src` at `local()`, and correct
+it with `size-adjust` to scale the outlines, plus `ascent-override`,
+`descent-override`, and `line-gap-override` to pin the line box. Then name that
+adjusted family, not the raw one, as the next entry after the web font. Several
+frameworks now generate this block automatically from the real face's metrics,
+which is the right amount of work for a problem that is pure arithmetic. What it
+buys is a [FOUT](/fout) that changes the drawing without moving a single line,
+and a page that still measures correctly for readers whose font never arrives at
+all.

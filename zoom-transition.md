@@ -1,0 +1,79 @@
+---
+name: Zoom transition
+slug: zoom-transition
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A presentation that scales a tapped element up into the full view it
+  opens, so the destination appears to come from the thing that was touched.
+aliases:
+  - name: zoom navigation transition
+    source: hig
+  - name: scale-in presentation
+    source: community
+  - name: open from source
+    source: community
+tags:
+  - navigation
+  - touch
+relations:
+  contrastWith:
+    - modal-presentation
+    - origin-aware-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - semantic-zoom
+    - dolly-zoom
+implementations:
+  - system: hig
+    name: Zoom transition
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+sources:
+  - title: "Apple HIG: Motion"
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+demo: inline
+exhibit: false
+useWhen: the destination should visibly come from what was tapped
+---
+
+A zoom transition presents a new view by scaling it up out of the element that was tapped.
+The destination starts small and faint, positioned so its centre sits on the source's
+centre, and grows to its full size on one curve while the source fades away underneath it.
+Nothing is shared between the two: the source is a thumbnail in a grid and the destination
+is a whole screen with its own layout, and the only thing tying them together is where the
+growth started. That is enough. The eye reads the origin of a scale as the cause of it, so
+the reader knows which of six thumbnails they opened without any label saying so, and the
+reverse gesture puts the view back where it came from, which is what makes closing feel
+like an undo rather than a navigation.
+
+Its round mate is the useful contrast. A [container transform](/container-transform) keeps
+one shared container whose bounds morph from the source rectangle to the destination
+rectangle, so the source becomes the destination and stops existing separately. A zoom
+transition scales the destination out of the source's rectangle with no shared container
+persisting, so there are two surfaces throughout and one of them simply leaves. The
+practical tell is what happens to the source: under a container transform it is gone
+because it is now the screen, and under a zoom it is still there, dimmed or faded, waiting
+to be returned to.
+
+This entry sits close enough to its neighbours that merging them is a fair question, and the
+honest reason it keeps its own is that "zoom transition" is the phrase people actually
+search and actually ship. It is the platform word: Apple's motion guidance names it,
+SwiftUI's navigation transition is spelled `zoom`, and a designer asking for "the zoom in
+from the tapped card" is not asking for a container transform even when the two would look
+similar. On the web the same effect is usually built with a
+[view transition](/view-transition), which photographs the page before and after and tweens
+between the snapshots, so the zoom is what you asked for and the view transition is what
+drew it. Note that this site files the shared-element idea under
+[view transition](/view-transition), so there is no separate entry for that phrase.
+
+Two things spoil it. The first is scaling the wrong thing: a destination whose aspect ratio
+is far from the source's has to be scaled uniformly or its contents distort, and the
+mismatch shows most at the start, so keep the source thumbnails close in proportion to the
+view they open. The second is symmetry. A zoom in that has no matching zoom out leaves the
+reader somewhere with no visible way back, which is the specific complaint people have about
+[modal presentation](/modal-presentation) done carelessly. Dismissal should retrace the same
+path at the same speed, and under `prefers-reduced-motion` both directions collapse to a
+plain crossfade rather than a faster zoom, since the scaling is the part that causes
+trouble.

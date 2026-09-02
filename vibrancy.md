@@ -1,0 +1,76 @@
+---
+name: Vibrancy
+slug: vibrancy
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Apple's treatment where foreground colour is derived from the
+  blurred content behind a material, so labels on a translucent panel shift with
+  whatever they sit over.
+aliases:
+  - name: vibrant material
+    source: hig
+tags:
+  - depth
+  - platform-registers
+relations:
+  contrastWith:
+    - glassmorphism
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - reduced-transparency
+    - liquid-glass
+implementations:
+  - system: hig
+    name: Vibrancy
+    url: https://developer.apple.com/design/human-interface-guidelines/materials
+sources:
+  - title: "Apple HIG: Materials"
+    url: https://developer.apple.com/design/human-interface-guidelines/materials
+  - title: "Apple HIG: Dark Mode"
+    url: https://developer.apple.com/design/human-interface-guidelines/dark-mode
+demo: inline
+exhibit: false
+useWhen: foreground colour that reacts to the blur behind it
+---
+
+Apple's sidebars, menus and control centres are not painted with a colour. They are painted
+with a material: a translucent layer that blurs and saturates whatever it covers. Vibrancy
+is the second half of that system, and it is the half that gets forgotten. The blur handles
+the background; vibrancy handles the *foreground*, deriving the colour of labels, glyphs
+and separators from the same blurred sample the material is made of. A sidebar label over a
+warm photograph goes warm, and the same label over a cool one goes cool, without the app
+changing a single colour value.
+
+That is the precise split from [glassmorphism](/glassmorphism), which is worth stating in
+one sentence: glassmorphism blurs the backdrop, and vibrancy additionally lets the backdrop
+tint the foreground, which is why Apple treats it as a text rendering mode rather than as a
+background style. A panel with blur and no vibrancy has flat ink sitting on a moving
+surface, and the ink is the part that gives the trick away. The same idea runs through
+[liquid glass](/liquid-glass) and, in a much quieter register, through
+[Mica](/mica), where the desktop wallpaper tints a window's chrome. A
+[progressive blur](/progressive-blur) shapes how much backdrop reaches the layer; vibrancy
+decides what the layer does with it.
+
+On the web the effect is assembled by hand from two properties.
+`backdrop-filter: blur() saturate()` builds the material, and a blend mode on the
+foreground makes it vibrant:
+`mix-blend-mode: luminosity` keeps the label's own lightness while taking hue and
+saturation from what is behind it, which is close to what the specimen above is doing.
+Blend modes composite against the nearest isolating ancestor, so the panel has to be the
+group the text blends into, and a stacking context created anywhere in between quietly
+turns the effect off. There is no `vibrancy` keyword and no way to ask the platform for
+Apple's exact curve, so what ships on the web is an approximation whose parameters are the
+designer's to defend.
+
+The cost is that contrast becomes a property of the wallpaper. A label whose colour is
+sampled from a backdrop the app does not control has no fixed
+[contrast ratio](/contrast-ratio), which is why Apple ships a small number of vibrancy
+levels rather than a free-form blend and why the system drops vibrancy entirely under
+Increase Contrast and Reduce Transparency. Web work inherits the same duty:
+[prefers-contrast](/prefers-contrast) is the signal to fall back to a solid surface with
+an ordinary [colour role](/color-role), and any vibrant treatment should be checked against
+the darkest and lightest backdrop it can plausibly land on rather than against the one
+screenshot that sold the idea.

@@ -1,0 +1,78 @@
+---
+name: Labor illusion
+slug: labor-illusion
+category: pattern
+status: published
+created: 2026-08-25T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: "Showing the work a system is doing, or stretching it, so the answer
+  feels earned: the search that lists the sites it is checking instead of
+  answering at once."
+aliases:
+  - name: fake loading bar
+    source: community
+  - name: faux progress bar
+    source: community
+  - name: artificial delay
+    source: community
+  - name: labour illusion
+    source: community
+tags:
+  - perceived-performance
+  - progress
+relations:
+  contrastWith:
+    - endowed-progress
+    - spinner
+    - operational-transparency
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - progress-bar
+implementations: []
+sources:
+  - title: "Buell & Norton: The Labor Illusion, Management Science 57(9)"
+    url: https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1376
+  - title: "Harvard Business School: The Labor Illusion"
+    url: https://www.hbs.edu/faculty/Pages/item.aspx?num=40158
+demo: inline
+exhibit: false
+useWhen: a wait made visible so the result feels worked for
+---
+
+Ryan Buell and Michael Norton put a travel search in front of people twice. One version
+answered instantly. The other took longer and narrated itself, naming each airline and
+agency as it checked them. People rated the slower, narrated one higher, on the quality
+of its results as well as on the experience of waiting, and were willing to wait
+substantially longer for it. Their 2011 Management Science paper called the effect the
+labor illusion: effort you can see is effort you credit, and a system that hides its
+work is a system that appears to have done none.
+
+This is the mechanism behind a great deal of interface furniture that looks like
+decoration. A search that says "checking 218 sites" and ticks them off, a checkout that
+walks through verifying the card and confirming the address, an assistant that streams
+the steps of its reasoning rather than pausing and returning a paragraph: all of them
+are the same trade, spending seconds to buy confidence. It works because an unexplained
+wait is ambiguous in a way a narrated one is not. A blank pause could mean the system is
+working, stuck, or asleep, and readers reliably assume the worst of it; the same wait
+with the work named on it reads as effort rather than as failure.
+
+None of that makes the pattern deceptive by default, and it is worth saying plainly
+because the term sounds like an accusation. In the original study the transparent search
+really was doing the work it described, and the instant version was the one readers
+liked less, so the honest version of this pattern is closer to operational transparency
+than to a trick. It becomes a [dark pattern](/dark-pattern) at a specific point: when
+the labour shown is not happening. A bar that animates against no work, steps invented
+to fill a delay, or a computation slowed on purpose so a subscription feels worth its
+price are all the same lie, and as [progress bar](/progress-bar) says, a bar that lies
+does more damage than no bar at all, because the next honest one is not believed either.
+[Endowed progress](/endowed-progress) is the neighbouring idea and a different claim: it
+credits work the reader has not done, where this one credits work the system may or may
+not be doing.
+
+Two practical tests keep it on the right side. First, is every unit of work you name a
+real one, so the list would be shorter if the job were smaller? Second, would you be
+comfortable if the reader could see the timings? If the answer to either is no, what you
+have is a stretched wait wearing the costume of a busy one. And where the work genuinely
+is instant, let it be instant: the finding is about waits that exist, not a licence to
+manufacture them.

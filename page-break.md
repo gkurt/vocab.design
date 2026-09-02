@@ -1,0 +1,70 @@
+---
+name: Page break
+slug: page-break
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Where content is cut to continue in the next fragment, a printed
+  page, a column or a region, plus the rules that decide where the cut may fall.
+aliases:
+  - name: CSS fragmentation
+    source: mdn
+  - name: fragmentainer
+    source: css
+  - name: break-inside
+    source: css
+  - name: break-before
+    source: css
+tags:
+  - editorial
+  - web-platform
+relations:
+  contrastWith:
+    - print-stylesheet
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - cmyk
+    - text-columns
+    - orphan
+implementations: []
+sources:
+  - title: CSS fragmentation, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fragmentation
+demo: inline
+exhibit: false
+useWhen: controlling where printed or column content splits
+---
+
+Most layout assumes one continuous surface. Printing does not, and neither does a
+multi column article or a paged region: the content has to be cut into fragments and
+each fragment poured into a box of its own. CSS calls each of those boxes a
+fragmentainer, and calls the whole business fragmentation. A page break is the cut
+itself, and the properties around it are the only say an author gets in where it lands:
+`break-before` and `break-after` force or forbid a break at a given element, and
+`break-inside` says whether an element may be split at all.
+
+The default is that the cut falls wherever the page happens to run out, which is fine
+for continuous prose and terrible for anything with a shape. A figure sliced through the
+middle prints as two unrelated grey bands. A table loses its header on the second page.
+A heading that lands as the last line of a page introduces text the reader cannot see
+yet, so `break-after: avoid` on headings, sometimes called keep with next, is the single
+rule with the best return. The cost is honest and worth stating: refusing a break means
+the block moves to the next page whole, and the page it left ends early with visible
+empty space. There is no setting that gives you both.
+
+The related words describe the damage rather than the control. A [widow](/widow) is the
+last line of a paragraph pushed alone onto the next fragment and an
+[orphan](/orphan) is the first line left behind alone on the previous one; both are
+things a bad break leaves behind, while a page break is the break itself. The same
+machinery runs your [text columns](/text-columns): a column box is a fragmentainer like a
+page is, so `break-inside: avoid` on a card keeps it from being sawn in half by a column
+edge, and the properties are spelled identically because they are the same properties.
+
+Two practical notes. First, the older `page-break-before` and `page-break-after`
+properties are aliases kept for compatibility, and new work should use the unprefixed
+`break-*` family, which covers pages, columns and regions in one vocabulary. Second, none
+of this is visible until someone prints, so it rots quietly. If a document view matters
+to your product, put a print stylesheet in the same review as the screen one, and open
+the print preview at least as often as you open the browser at a narrow width.

@@ -1,0 +1,76 @@
+---
+name: Scroll-linked animation
+slug: scroll-linked-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An animation whose progress is bound to scroll position rather than
+  to time, so scrolling back rewinds it exactly.
+aliases:
+  - name: scroll scrubbing
+  - name: scroll-driven animation
+    source: css
+  - name: scroll progress timeline
+    source: css
+  - name: scroll timeline
+    source: css
+tags:
+  - scroll
+  - web-platform
+relations:
+  contrastWith:
+    - scroll-hijacking
+    - scroll-triggered-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scrubbing
+    - velocity-skew
+    - view-progress-timeline
+implementations: []
+sources:
+  - title: "MDN: CSS scroll-driven animations"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations
+demo: inline
+exhibit: false
+useWhen: the reader's scroll should drive the animation frame by frame
+---
+
+A scroll-linked animation has no duration. It has a range, and the reader's scroll position
+is the playhead inside it: at 40 percent of the range the animation is at 40 percent of its
+keyframes, no matter how fast or slowly the reader got there. Stopping mid-gesture stops the
+animation mid-frame, and scrolling back up runs it backwards to exactly the frame it was at
+on the way down. Nothing is playing, in the sense a video plays. A position is being mapped
+to a state, continuously, and the mapping is the whole thing.
+
+That is the line between this and
+[scroll-triggered animation](/scroll-triggered-animation), the two effects that share the
+loose name scroll animation. A trigger uses position once, as a switch: the element crosses
+a threshold, an animation starts, and from that moment it runs on its own clock and ignores
+the scroller entirely. Scroll back over it and nothing rewinds, because the cue was spent.
+The test that separates them takes a second: scroll halfway into the effect and stop. If it
+holds where you left it and unwinds when you go back, it is linked; if it finishes on its
+own and stays finished, it is triggered. Most of what people call parallax is linked, and
+most reveal-on-scroll libraries are triggered.
+
+CSS now expresses the link declaratively. A keyframe animation gets
+`animation-timeline: scroll()` to run against a scroller's own progress, or `view()` to run
+against a single element's progress through the viewport, with `animation-range` naming the
+slice of that travel the keyframes are spread over. The scripted equivalents are
+`ScrollTimeline` and `ViewTimeline` in the Web Animations API, and the older approach that
+predates both is a scroll listener that reads `scrollTop`, divides by the scrollable
+distance, and writes a transform every frame. The declarative forms are worth the migration
+because they run off the main thread: a scroll handler doing layout work per frame is the
+classic way to make a page feel like it is dragging behind the finger.
+
+Two constraints come with binding motion to position. The animation must not change the
+scrollable height, or the mapping feeds back into its own input and the page fights the
+reader; drive `transform` and `opacity`, never height or margin. And the range has to be
+long enough to be steerable, since a mapping crammed into 60 pixels of travel snaps rather
+than animates. Position-bound motion is still motion, so a stated
+[prefers-reduced-motion](/prefers-reduced-motion) should leave the end state in place and
+drop the travel. The familiar cases are all one shape: a
+[parallax](/parallax) backdrop, a [reading progress](/reading-progress) bar, a
+[collapsing toolbar](/collapsing-toolbar) that condenses across the first 60 pixels of
+scroll. Each is a value read off the scrollbar rather than off a clock.

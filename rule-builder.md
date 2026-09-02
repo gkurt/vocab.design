@@ -1,0 +1,67 @@
+---
+name: Rule builder
+slug: rule-builder
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Assembling a condition from dropdowns and values, joined by and or
+  or, so a non-programmer can express a query without writing one.
+aliases:
+  - name: condition builder
+    source: community
+  - name: smart playlist rules
+    source: community
+tags:
+  - forms
+  - search
+relations:
+  contrastWith:
+    - attribute-editor
+    - property-filter
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "UI Patterns: interaction design patterns"
+    url: https://ui-patterns.com/patterns
+  - title: "Cloudscape: patterns"
+    url: https://cloudscape.design/patterns/
+demo: inline
+exhibit: false
+useWhen: building an if-this-then-that condition from dropdowns
+---
+
+A rule builder turns a boolean expression into a form. Each clause is a row: pick a field,
+pick an operator the field allows, give a value. Rows are joined by *and* or *or*, and the
+whole assembly is a condition the product then keeps: a smart playlist, a mail filter, an
+alert threshold, a segment, an automation trigger. The reason it looks the way it looks is
+that a person who would never write `rating >= 4 AND plays >= 12` will happily pick those
+five things from menus, and the menus can only offer combinations that are actually valid,
+so the expression is correct by construction.
+
+The neighbour to keep it apart from is the [property filter](/property-filter), because the
+two overlap in vocabulary and not in purpose. A property filter is one field: the reader
+types into it, the field offers properties and values, and each accepted triple lands as a
+token that narrows the list on screen right now. A rule builder is a form of explicit clause
+rows with visible operators between them, and what it produces is meant to outlive the
+session: it is saved, named, and applied later, often to rows nobody is looking at. That
+difference drives every design decision below. Tokens can be terse because the reader just
+typed them. A saved rule has to be readable months later by somebody else.
+
+So the things worth getting right are readability and reachability. Echo the finished
+condition back as a sentence, because that is the artefact a reader will audit later. Show a
+live match count while the rule is being built, since a rule that matches everything or
+nothing is the most common mistake and the count catches it before saving. Keep the boolean
+join explicit rather than implied, and be honest about mixed joins: `a and b or c` is
+ambiguous to almost everyone, so either force one operator per group and offer nested
+groups, or say plainly which binds tighter. Offer removal per row and never leave a clause
+half-built without saying what is missing.
+
+Where this pattern goes wrong is ambition. Given nesting, negation, and a hundred fields, a
+rule builder becomes a programming language with a worse editor, and the people who can
+drive it are exactly the people who would rather type the query. The usual escape is a
+second view of the same rule, the query in text, kept in sync, so power users can write and
+everyone else can point. If you find yourself designing parentheses, that is the signal to
+offer the text view rather than another dropdown.

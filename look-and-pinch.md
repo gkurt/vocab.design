@@ -1,0 +1,65 @@
+---
+name: Look and pinch
+slug: look-and-pinch
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Spatial input where the eyes choose the target and a finger pinch
+  commits the action, so selection and activation come from different body
+  parts.
+aliases:
+  - name: gaze and pinch
+    source: community
+  - name: indirect gesture
+    source: hig
+  - name: eye tracking selection
+    source: community
+tags:
+  - platform-registers
+  - pointer
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spatial-ui
+    - dwell-activation
+implementations: []
+sources:
+  - title: "Apple Developer: Explore game input in visionOS"
+    url: https://developer.apple.com/videos/play/wwdc2024/10094/
+demo: inline
+exhibit: false
+useWhen: gaze selects, hand confirms, no cursor involved
+---
+
+There is no cursor and no controller. The reader looks at a button, touches thumb to
+forefinger, and the button is pressed. Aim and commit have been split between two body parts:
+the eyes do the pointing, continuously and without effort, and the hand does nothing but say
+yes. The hand can be anywhere, resting in a lap or on an armrest, which is why the platform
+vocabulary calls this the indirect gesture and reserves direct manipulation for the other
+mode, reaching out and touching a panel that is within arm's length.
+
+The split has one consequence that reorganises everything else: hover cannot mean anything. A
+pointer can be parked in a corner, but eyes are always somewhere, so an interface that acted on
+gaze would be firing constantly at whatever the reader happened to glance at. Systems built this
+way therefore draw a soft highlight on the looked-at element and stop there. The highlight is
+feedback and nothing more, and every real consequence waits for the pinch. Anything a mouse
+would have hung on hover, a preview, a submenu, a tooltip that reveals the answer, has to move
+to an explicit commit or be shown all the time.
+
+The second consequence is that targets have to be big and far apart. Gaze is noisy: the eye
+drifts, jitters, and lands within a degree or so rather than on a pixel, and the sharp part of
+vision is a small patch in the middle of a wide field. Controls that a mouse could pack shoulder
+to shoulder become a coin toss. Generous hit areas, real space between neighbours, and no
+critical control tucked beside its opposite are not polish here, they are the difference between
+an interface that works and one that does the wrong thing at random.
+
+Privacy is a design constraint rather than a footnote. Where the reader looked is intimate data,
+so the system composites the highlight itself and hands the application nothing but the commit,
+which means an app learns what was chosen and never what was considered. The accessible fallback
+matters just as much: pinching is not available to everyone, and the same aim-then-commit split
+can be closed with time instead of a hand, which is exactly what dwell activation does. Voice
+and switch input close it a third way. A design that offers only one of these has quietly made
+the eyes mandatory as well.

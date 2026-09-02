@@ -1,0 +1,70 @@
+---
+name: Window controls
+slug: window-controls
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The cluster of close, minimise and zoom controls in a window's title
+  bar, three coloured dots on macOS and three glyphs on Windows.
+aliases:
+  - name: traffic lights
+    source: community
+  - name: title bar buttons
+    source: hig
+  - name: caption buttons
+    source: community
+  - name: window buttons
+    source: community
+  - name: close minimize maximize
+    source: community
+tags:
+  - platform-registers
+  - windowing
+relations:
+  contrastWith:
+    - close-button
+    - title-bar
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Traffic Lights (Window Controls), NameThatUI
+    url: https://namethatui.com/macos/traffic-lights
+demo: inline
+exhibit: false
+useWhen: the close, minimise and maximise cluster
+---
+
+Every desktop window carries the same three commands in its title bar: get rid of this,
+get it out of my way, and make it bigger. macOS draws them as three coloured discs at the
+left, red then amber then green, which is where the nickname traffic lights comes from.
+Windows draws them as three thin glyphs at the right, minimise then maximise then close.
+The commands are the same; only the shape and the corner differ, and both platforms put
+the destructive one at the outer edge, furthest from the other two.
+
+Placement is the whole point of naming this cluster, because it is pure muscle memory. A
+person who has used one platform for a decade throws the pointer at a corner without
+looking, and they are right often enough that the aim has stopped being a decision. That
+is also why the corner is worth so much: it is a target with two infinite edges, so the
+pointer cannot overshoot it. An application that invents a third position, or that swaps
+the order inside the cluster, costs its readers a beat on every window they close, and the
+beat never quite goes away. A web app drawing its own title bar (a desktop shell, or an
+installed app that takes over the title bar area) inherits this obligation: follow the
+host platform rather than picking the one the designer grew up with.
+
+Close deserves more care than the other two, because it is the only one that can lose work,
+and it is deliberately placed where a fast hand lands. Confirm before discarding unsaved
+changes rather than after, and never make close the quiet neighbour of a destructive
+action it could be mistaken for. Minimise and zoom are cheap and reversible by comparison,
+which is a reasonable ordering rule in general: the reversible commands sit inboard, the
+one with consequences sits at the end.
+
+The cluster is not the same thing as a close button inside the window's content. A
+[modal dialog](/modal-dialog) has its own dismissal, and so does a
+[drawer](/drawer); those act on a surface the application drew, while window controls act
+on the window the operating system drew around all of it. Keeping the two apart matters
+when a web app fills the screen: a close glyph at the top right of a panel is not a window
+control, and drawing it in the platform's caption style will have readers quitting the
+application when they meant to shut a sidebar.

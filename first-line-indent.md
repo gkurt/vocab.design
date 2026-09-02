@@ -1,0 +1,66 @@
+---
+name: First-line indent
+slug: first-line-indent
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Indenting the opening line of a paragraph so the start of each
+  paragraph is visible without a blank line between them.
+aliases:
+  - name: paragraph indent
+  - name: text-indent
+    source: css
+  - name: indent
+tags:
+  - editorial
+  - spacing
+relations:
+  contrastWith:
+    - hanging-indent
+    - vertical-rhythm
+    - pilcrow
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: First-line indents (Practical Typography)
+    url: https://practicaltypography.com/
+demo: inline
+exhibit: false
+useWhen: marking new paragraphs without adding space
+---
+
+A first-line indent is the oldest way of saying "a new paragraph starts here".
+It costs no vertical space, survives any measure, and stays invisible until it
+is needed: the eye finds the notch without ever being asked to look for one. In
+CSS it is a single property, `text-indent`, set on the block rather than on the
+line, because which words end up on that first line is whatever the wrapping
+happens to produce. Write it in ems, since the indent is a measurement of the
+type rather than of the page, and it should grow when the type does.
+
+The rule most implementations miss is that the first paragraph after a heading,
+a rule, or a figure is set flush. An indent marks a break from the paragraph
+above, and after a heading there is no paragraph above, so the notch announces a
+boundary that does not exist. The fix is the selector rather than the value:
+`p + p { text-indent: 2em }` indents only a paragraph that actually follows one.
+
+It is an alternative to space between paragraphs, not a partner. A blank line
+marks the same boundary, so setting both marks it twice, and the indent stops
+reading as a signal and starts reading as a ragged left edge. Space suits
+screens and short blocks, where a reader is scanning for entry points; the
+indent suits continuous prose, where nobody wants the column chopped into slabs.
+On size, one em is the usual floor and
+[Practical Typography](https://practicaltypography.com) puts the useful range at
+one to four times the point size. Less than an em does not read as deliberate,
+and much more starts reading as a list.
+
+A [hanging indent](/hanging-indent) is the same measurement pointed the other
+way: a first-line indent pushes the opening line in and leaves the rest flush,
+while a hanging indent leaves the opening line flush and pushes every line after
+it in. They answer different questions, which is why they almost never compete:
+the first says "a new paragraph" inside running prose, the second says "a new
+entry" in a list you look things up in. A [drop cap](/drop-cap) is the loud
+version of the same signal, and it belongs to exactly the opening paragraph that
+takes no indent at all.

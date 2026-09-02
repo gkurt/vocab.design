@@ -1,0 +1,67 @@
+---
+name: Steps left
+slug: steps-left
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Telling the reader where they are in a multi step task and how many
+  steps are still to come, so the end of the task is visible from the start.
+aliases:
+  - name: completeness meter
+    source: ui-patterns
+  - name: step 2 of 5
+    source: community
+tags:
+  - gamification
+  - progress
+relations:
+  contrastWith:
+    - step-indicator
+    - endowed-progress
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - goal-gradient
+implementations: []
+sources:
+  - title: "UI Patterns: Steps Left"
+    url: https://ui-patterns.com/patterns
+demo: inline
+exhibit: false
+useWhen: the flow says step 2 of 5
+---
+
+Steps left is a promise, not a widget. The interface commits to a length ("Step 2 of
+4") and from then on the reader can price the task: what is behind them, what is in
+front, and whether they have time for it now. That is the whole mechanism. People
+rarely abandon a form because it is long. They abandon it because it might be long,
+and an unbounded sequence of screens gives them no way to find out except by finishing
+it. Naming the remainder converts an open question into a small, boring number.
+
+Everything then rests on the number being true. Do not grow the count while someone is
+inside it: discovering a fifth step on the fourth screen costs more trust than the
+honest "5" would have cost at the start. Branching flows should collapse the branch
+into one nominal step or drop the count and say something else, because a total that
+changes is worse than no total. Where the length genuinely cannot be known, a time
+estimate ("about 2 minutes") or a plain description of what is coming does the same
+work without lying. And a percentage is not a substitute: "50%" tells a reader how far
+they have come, while "Step 2 of 4, next: payment" tells them what is left, which is
+the question they actually asked.
+
+The pattern has a well studied engine behind it, the goal gradient effect: effort
+rises as a goal gets visibly closer. Ran Kivetz and colleagues demonstrated it with
+coffee loyalty cards in 2006, including the endowed progress variant, where a card
+with ten spaces and two stamps already given is completed faster than a card with
+eight empty ones. That is a real finding about loyalty cards, and it is the point
+where this pattern can turn. Showing progress the reader has genuinely made is
+disclosure; inventing a head start, or splitting one screen into three to make the bar
+move, is a [dark pattern](/dark-pattern) wearing a progress bar. The test is whether
+the count would still be defensible if the reader could see the flow's source.
+
+Three neighbouring words are worth keeping straight. A [step indicator](/step-indicator)
+is the component that draws the stages as a numbered row, a [wizard](/wizard) is the
+flow those stages belong to, and [stepper](/stepper) on this site is the small plus and
+minus control for a quantity. Steps left is none of those: it is the disclosure itself,
+which is why it can be satisfied by one line of text above a form, by a segmented bar,
+or by a sentence in a confirmation email saying two things remain.

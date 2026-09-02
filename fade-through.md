@@ -1,0 +1,64 @@
+---
+name: Fade through
+slug: fade-through
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "Material's transition for unrelated views: the outgoing view fades
+  out completely before the incoming one fades in while scaling up slightly."
+aliases:
+  - name: sequential fade
+    source: community
+  - name: fade out then in
+    source: community
+tags: []
+relations:
+  contrastWith:
+    - crossfade
+    - dissolve
+    - shared-axis
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Fade through
+    url: https://m3.material.io/styles/motion/transitions
+sources:
+  - title: "Material Design 3: Transitions"
+    url: https://m3.material.io/styles/motion/transitions
+demo: inline
+exhibit: false
+useWhen: two views have no spatial or hierarchical relationship
+---
+
+A fade through is two fades that refuse to overlap. The outgoing view drops to nothing over
+roughly the first third of the transition, and only once it is gone does the incoming one
+come up, scaling from about 92 percent to full size as it arrives. Nothing is ever half of
+one view and half of another, so the moment reads as a clean handover: that has ended, this
+has begun. The small scale-up is the whole reason it does not read as a stall. It gives the
+arriving view a direction of travel without giving it a place it travelled from.
+
+Material publishes it as the transition for destinations that have no relationship. Tabs in
+a bottom bar, top-level sections behind a navigation rail, a card whose contents are being
+replaced with something of a different shape: these are the cases where any spatial story
+would be a lie, since the views are not beside each other and one is not inside the other.
+The absence of geometry is the argument, and it is what makes fade through the safe default
+when a view swap has nothing true to say about direction.
+
+Three neighbours are easy to confuse with it. A [crossfade](/crossfade) overlaps its two
+halves on purpose, so both are partly visible at the midpoint and the change reads as one
+thing becoming another rather than as one thing replacing another.
+[Shared axis](/shared-axis) keeps the paired fade but adds travel along a single x, y, or z
+axis, which turns the swap into a claim about where the views sit relative to each other.
+A [dissolve](/dissolve) is the same overlap seen from film, usually across a whole frame of
+imagery rather than between two interface views.
+
+The craft is mostly in the container. Both views have to be out of the flow for the
+duration, stacked in one slot that holds its own size, or the moment when neither is present
+will collapse the layout and everything below will jump. Keep the whole move short, near
+300 milliseconds, since a handover with a gap in the middle feels twice as long as it is.
+Keep the scale change small enough that it reads as arrival rather than as zoom. And under a
+stated [prefers-reduced-motion](/prefers-reduced-motion) let it flatten to a plain swap: with
+no overlap to protect, there is nothing left to lose.

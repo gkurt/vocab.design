@@ -1,0 +1,69 @@
+---
+name: Grunge design
+slug: grunge-design
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A 1990s style of torn and photocopied texture, overlapped and cut
+  type, off-grid layout, and dirty muted colour, where legibility is traded for
+  emotional pitch.
+aliases:
+  - name: grunge typography
+  - name: punk grunge
+    source: kittl
+  - name: distressed style
+  - name: zine aesthetic
+tags:
+  - editorial
+  - retro
+relations:
+  contrastWith:
+    - digital-collage
+    - anti-design
+    - new-wave-design
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Sessions College: The grunge typography of David Carson"
+    url: https://www.sessions.edu/notes-on-design/who-designed-it-the-grunge-typography-of-david-carson/
+  - title: "Mew Design Docs: Grunge graphic design, the raw distressed art of the 90s"
+    url: https://docs.mew.design/blog/grunge-graphic-design-style/
+demo: inline
+exhibit: false
+useWhen: distressed texture and type deliberately off-grid
+---
+
+Everything in the style is evidence of a process that went wrong on purpose. Edges are
+torn rather than trimmed. Type is photocopied until the letters clog and break up, then
+overlapped, cut apart, set at an angle, or run off the edge of the page. The layout
+abandons the grid, or keeps one and violates it visibly, and images arrive as high
+contrast halftones and misregistered overprints. Colour is dirty: muddy greens, oxblood,
+mustard, and newsprint grey rather than anything a printer would call clean. The result is
+loud about mood and careless about reading, which is the trade the style is making.
+
+Its centre is David Carson, art director of Ray Gun through the mid 1990s, who set an
+entire interview in a dingbat face on the grounds that the interview was boring, and whose
+pages made the point that a reader can be gripped by an image of text before they read a
+word of it. The energy behind it was the end of print as the default: desktop publishing
+had just handed the tools to people with no training in them, zines and record sleeves
+were the venue, and the response to decades of tidy modernism was to make something that
+looked handled. Because it was expensive to imitate properly, most of what the era
+produced was the surface only, which is how it became a filter you could apply.
+
+Set it against [brutalist web design](/brutalist-web-design), because both are called raw
+and they are raw in different places. Brutalism is structural: default browser styling,
+visible system fonts, blue underlined links, nothing hidden about how the page is built.
+Grunge is a surface treatment: the structure underneath may be perfectly conventional
+while the paint on top is torn, smudged, and off register. One is a page refusing to be
+decorated; the other is a page decorated with damage.
+
+For interfaces the honest reading is that this is a poster style, not a product style.
+Music, festivals, streetwear, and editorial covers carry it well. Everything else pays
+for it: distressed type at interface sizes turns into contrast failures rather than
+texture, a torn edge is an image rather than a layout, and a screen reader gets nothing
+from any of it. The workable version keeps the register in the hero and the illustration,
+uses one distressed display face against ordinary body copy, and puts the roughness in
+backgrounds and dividers, where the reader can feel it without having to decode it.

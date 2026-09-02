@@ -1,0 +1,67 @@
+---
+name: Initial focus
+slug: initial-focus
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Where focus lands when a view, dialog, or page first appears, chosen
+  deliberately rather than left on the body or dumped on the first close button.
+aliases:
+  - name: autofocus
+    source: whatwg-html
+  - name: default focus
+    source: community
+  - name: focus on open
+    source: community
+tags:
+  - keyboard
+  - overlays
+relations:
+  contrastWith:
+    - focus-delegation
+    - focus-management
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - modal-dialog
+    - focus-trap
+implementations: []
+sources:
+  - title: "Primer: Focus management"
+    url: https://primer.style/accessibility/design-guidance/focus-management/
+demo: inline
+exhibit: false
+useWhen: a dialog opens and nobody decided where focus goes
+---
+
+When a dialog opens, something gets focus. If you did not choose, the choice was made
+for you: focus stays on the body, and the reader tabs from the top of the page into a
+dialog they are already looking at, or a naive implementation grabs the first tabbable
+element, which in most dialog layouts is the close button in the corner. Initial focus
+is the decision itself, made once per surface.
+
+The answer depends on what the surface is for. A dialog whose job is input gets the
+first field, so the reader can start typing. A confirmation gets the safest action,
+which for a destructive confirmation means Cancel and never Delete: the reader may press
+Enter before they have read anything, and initial focus decides what that press does. A
+dialog with no obvious first control, or one whose title carries the important
+information, gets the container instead, which needs `tabindex="-1"` and gives assistive
+technology the whole thing to read from the top. A long non-interactive surface is the
+same case. The one answer that is never right is whatever happened to come first in the
+markup.
+
+The HTML `autofocus` attribute expresses this declaratively and is fine inside a dialog
+that has just opened, since it fires when the dialog is shown. On a page load it is a
+different proposition: focus jumps past everything above the field, the reader loses the
+page's beginning, and on small screens the keyboard opens uninvited. A search-first page
+can earn it. A newsletter box cannot.
+
+Its neighbours divide cleanly, one sentence each.
+[Focus management](/focus-management) is the whole practice of deciding where focus goes
+at every change, and initial focus is its first decision. [Focus trap](/focus-trap) is
+what keeps focus inside the surface after it has landed. [Focus order](/focus-order) is
+the sequence Tab follows from that landing point onward.
+[Focus visible](/focus-visible) is whether the ring gets drawn where focus arrives,
+which matters here because a landing nobody can see is indistinguishable from no landing
+at all.

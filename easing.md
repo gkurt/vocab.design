@@ -1,0 +1,54 @@
+---
+name: Easing
+slug: easing
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rate of change across an animation, deciding how it accelerates
+  and settles rather than how long it takes.
+aliases:
+  - name: timing function
+    source: css
+  - name: ease
+tags:
+  - tokens
+relations:
+  contrastWith:
+    - duration
+    - spring-animation
+    - cubic-bezier
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - stagger
+    - view-transition
+    - asymmetric-easing
+implementations:
+  - system: material
+    name: Easing and duration
+    url: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+sources:
+  - title: "MDN: easing-function"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function
+demo: inline
+exhibit: false
+useWhen: the shape of a motion over its duration, not its length
+---
+
+Same distance, same duration, completely different feeling. Easing is the curve
+that says where the movement is on its way, and it is what makes motion read as
+mechanical, considered, or playful.
+
+Three families cover almost everything. Ease-out starts fast and settles, which
+suits things arriving and responses to a click, because the user sees the result
+immediately. Ease-in starts slow and accelerates away, which suits things leaving.
+Ease-in-out is for movement that both starts and ends on screen. Linear reads as
+machinery and should be reserved for things that genuinely are, like a progress
+bar or a marquee.
+
+Overshoot curves, the ones that pass the target and come back, are borrowed
+physics. They are excellent once, on something meant to be noticed, and grating on
+anything a person does forty times a day. When motion feels wrong, reach for the
+curve before the [duration](/duration): most animations that feel sluggish are
+ease-in-out when they should be ease-out.

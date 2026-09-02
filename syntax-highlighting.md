@@ -1,0 +1,74 @@
+---
+name: Syntax highlighting
+slug: syntax-highlighting
+category: color
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Colouring code by what each token is, keyword or string or comment
+  or name, so the structure and the typo are visible before a line has actually
+  been read.
+aliases:
+  - name: syntax colouring
+    source: community
+  - name: syntax coloring
+    source: community
+  - name: code highlighting
+    source: community
+  - name: semantic highlighting
+    source: vscode
+tags:
+  - devtools
+  - text-editing
+relations:
+  contrastWith:
+    - code-editor
+  variantOf:
+    - color-coding
+  partOf: []
+  seeAlso:
+    - monospace
+implementations: []
+sources:
+  - title: "VS Code: Syntax Highlight Guide"
+    url: https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide
+demo: inline
+exhibit: false
+useWhen: colour that follows the code's own token classes
+---
+
+Syntax highlighting is [colour coding](/color-coding) whose categories come from the
+language rather than from whoever is reading. A tokeniser walks the characters, decides that
+this run is a keyword and that one is a string literal, and each class is handed a colour.
+What the reader gets back is structure at a glance: the shape of a block before any of it has
+been read, a string that never closed running green to the end of the file, a name misspelt
+into a colour it should not be. None of that is a message the code contains. It is the
+editor showing its parse, which is why a line that highlights wrongly is usually a line that
+is wrong.
+
+There are two passes and they do not always agree. The first is lexical: a grammar of
+patterns, TextMate style, matching runs of characters without understanding them, which is
+fast, needs no project and works on a file that does not compile. The second is semantic, and
+it asks a language server what each name actually resolves to, so a bare identifier can be
+told apart as a parameter, a class, a property, or an unused import. The second pass runs
+later and is allowed to overrule the first, which is the part worth knowing: a name that
+changes colour half a second after a file opens has not been re-coloured for effect, it has
+been resolved. Where no server is available, the grammar's answer is the only answer, and it
+is usually good enough.
+
+The convention is not the widget. A [code editor](/code-editor) has highlighting among its
+features, along with a gutter, folding and a caret that understands indentation, but
+highlighting long ago escaped the editor: it runs in read-only documentation blocks, in
+terminal output, in code review and diff views, in chat messages, in a static site generator
+that ships pre-coloured markup with no JavaScript at all. Naming the convention separately
+is what lets a design system specify it once for surfaces that have no editor in them.
+
+Colour is not the only channel a theme has, and the good ones do not lean on it alone.
+Comments go italic, keywords take weight, a deprecated symbol gets a strikethrough, and an
+unreachable branch is faded rather than tinted. That redundancy matters more here than in
+most colour coding, because a theme runs out of separable hues at roughly the same dozen
+everything else does, while a language hands it far more token classes than that. The way
+out is not more hues: it is grouping the classes that can share one, and spending weight,
+slant and opacity on the distinctions colour can no longer carry. Highlighting is also
+usually the first thing a reader tunes, so a set that only works at one contrast level and
+one background is a set that stops working the moment somebody switches themes.

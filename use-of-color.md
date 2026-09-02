@@ -1,0 +1,85 @@
+---
+name: Use of color
+slug: use-of-color
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: The rule that colour must never be the only carrier of meaning, so a
+  red field also needs an icon, wording, or shape change.
+aliases:
+  - name: colour alone
+    source: wcag
+  - name: don't rely on color
+    source: community
+  - name: redundant coding
+    source: community
+  - name: pattern fill
+    source: community
+  - name: texture encoding
+    source: community
+  - name: color alone
+    source: merged-candidate
+  - name: color as the only cue
+    source: merged-candidate
+  - name: color-only information
+    source: merged-candidate
+  - name: greyscale test
+    source: merged-candidate
+  - name: grayscale test
+    source: merged-candidate
+tags:
+  - dataviz
+  - perception
+  - wcag
+relations:
+  contrastWith:
+    - color-vision-deficiency
+    - sensory-characteristics
+    - color-coding
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - contribution-graph
+implementations:
+  - system: carbon
+    name: Use of color and color blindness
+    url: https://carbondesignsystem.com/guidelines/accessibility/color/
+sources:
+  - title: "WCAG 2.2: Use of Color"
+    url: https://www.w3.org/TR/WCAG22/#use-of-color
+demo: inline
+exhibit: false
+useWhen: the only difference between two states is hue
+---
+
+WCAG's success criterion 1.4.1 is one sentence long and it bans one thing: colour as the
+only visual means of conveying information, indicating an action, prompting a response,
+or distinguishing one element from another. Colour is not the problem. Colour carrying
+the message by itself is. Red-green colour vision deficiency runs at roughly 8 percent of
+men and half a percent of women, which in most products is a larger group than every
+screen reader user combined, and it is joined by anyone reading on a washed-out phone in
+sunlight, on a cheap projector, through a monochrome print, or with a tinted display
+filter on for the evening.
+
+The fix is redundancy, and it is usually cheap. A required field gets an asterisk or the
+word "required" beside its red label. An [error message](/error-message) gets a warning
+glyph and a sentence, not just a red border. A [link](/link) inside a paragraph gets an
+[underline](/underline) as well as a hue, because "blue means clickable" is a convention
+the reader has to be able to see. Chart series get a pattern fill or a direct label
+instead of a legend that maps hue to name. Status rows get a word next to the dot, which
+is what makes [status colour](/status-color) safe to use at all. The test is quick: view
+the screen in greyscale and ask whether every distinction the design was making survives.
+
+It is worth keeping this criterion apart from the contrast ones, because they get merged
+in review and they ask different questions. 1.4.1 is about redundancy: is there a second
+cue at all? [Contrast ratio](/contrast-ratio) (1.4.3) and non-text contrast (1.4.11) are
+about legibility: can these two colours be told apart from each other in the first place?
+A red error message can pass contrast perfectly and still fail 1.4.1, and a design with
+icons on every state can satisfy 1.4.1 while its grey-on-grey label fails contrast. Both
+have to hold.
+
+The one exemption people reach for wrongly is the parenthetical about colour that a
+person is told about in text. That covers a wine list saying which entries are marked in
+green, not a dashboard hoping the reader will work it out. If the only way to explain a
+state is to write a sentence about the palette, the state needed a shape.

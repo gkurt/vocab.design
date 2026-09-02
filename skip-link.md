@@ -1,0 +1,72 @@
+---
+name: Skip link
+slug: skip-link
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A link at the very start of a page, revealed on focus, that jumps
+  past repeated navigation to the main content.
+aliases:
+  - name: bypass blocks
+    source: wcag
+  - name: skip navigation
+    source: webaim
+  - name: skip to main content
+  - name: skip to content
+tags:
+  - keyboard
+  - navigation
+  - wcag
+relations:
+  contrastWith:
+    - landmark
+    - hidden-but-focusable
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - visually-hidden
+    - focus-order
+implementations: []
+sources:
+  - title: "WCAG 2.2: Understanding Bypass Blocks"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html
+  - title: "WebAIM: Skip navigation links"
+    url: https://webaim.org/techniques/skipnav/
+demo: inline
+exhibit: false
+useWhen: the first-tab link past the navigation
+---
+
+The masthead, the search box, and the twelve navigation links at the top of a page are
+the same twelve on every page. A pointer skips them by looking past them. A keyboard
+presses Tab twelve times, on arrival, every single time. The skip link is the shortcut:
+the first focusable thing in the document, invisible until focus reaches it, painting
+itself the instant it does, and jumping to the article when it is activated.
+
+Three mechanics are what make it work, and each of them is commonly got wrong. It has to
+be first in the DOM, not merely first on screen, because Tab follows source order and a
+shortcut that arrives after the thing it shortcuts is not one. It has to be hidden the way
+[visually hidden](/visually-hidden) text is hidden, or by being parked off screen and
+brought back on focus, never with `display: none`, which takes it out of the tab sequence
+along with the layout, and never revealed on hover, which is broken by definition: nobody
+tabbing through a page is hovering it. And activating it has to move focus, not merely
+scroll. Pointing the link at an `id` scrolls the page in every browser and moves focus in
+only some, which leaves the reader looking at the article while their next Tab lands back
+in the navigation they just skipped. The fix is to give the target `tabindex="-1"` so
+focus can be placed on it deliberately.
+
+Its neighbours divide by who they are for. A [landmark](/landmark) covers the same
+distance for readers whose software offers a rotor or a region list, which is most screen
+reader users and nobody else. The skip link is for everybody else, and the group that
+needs it most is sighted keyboard users: people using a switch, a head pointer, voice
+control, or just a keyboard because a mouse hurts, none of whom have a rotor to open.
+That is also why the link is worth showing rather than hiding perfectly. Ship both; they
+cost nothing and they serve different rooms.
+
+It sits next to [hidden but focusable](/hidden-but-focusable) as its mirror image, and
+telling them apart is the fastest way to know whether yours is built correctly. Both are
+invisible and in the tab sequence. One is in the sequence on purpose and announces itself
+the moment focus arrives; the other is in it by accident, has been told by `aria-hidden`
+that it does not exist, and announces nothing. If your skip link is silent when focus
+lands on it, or stays invisible, you have not built a skip link. You have built the bug.

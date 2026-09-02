@@ -1,0 +1,61 @@
+---
+name: Toast
+slug: toast
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A brief, self-dismissing message that appears at a screen edge to
+  confirm an action or report status without interrupting the user's flow.
+aliases:
+  - name: snackbar
+    source: material
+tags:
+  - messaging
+relations:
+  contrastWith:
+    - banner
+    - alert-dialog
+    - callout
+    - offline-indicator
+    - status-message
+  variantOf: []
+  partOf:
+    - microinteraction
+  seeAlso:
+    - optimistic-ui
+    - undo
+implementations:
+  - system: material
+    name: Snackbar
+    url: https://m3.material.io/components/snackbar/overview
+  - system: base-ui
+    name: Toast
+    url: https://base-ui.com/react/components/toast
+  - system: shadcn
+    name: Sonner
+    url: https://ui.shadcn.com/docs/components/sonner
+  - system: carbon
+    name: Toast notification
+    url: https://carbondesignsystem.com/components/notification/usage/
+sources:
+  - title: "ARIA Authoring Practices Guide: Alert pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/alert/
+demo: inline
+exhibit: false
+useWhen: a passing confirmation that cleans up after itself
+---
+
+The defining property of a toast is that it leaves on its own. It exists to
+acknowledge (*saved*, *sent*, *copied*) and then get out of the way. The moment a
+message needs a decision, a dismissal, or more than a glance, it has outgrown the
+pattern.
+
+The name "snackbar" comes from Material Design, where the component may also carry a
+single optional action (like *undo*). In practice the two words are used
+interchangeably; "toast" is the older and more widespread term, from the way the
+message pops up like bread from a toaster.
+
+Because toasts vanish unprompted, they are a poor home for errors or anything a
+screen-reader user must not miss. Announce them politely (`role="status"`), keep
+them short, and never stack more than a few.

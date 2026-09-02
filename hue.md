@@ -1,0 +1,65 @@
+---
+name: Hue
+slug: hue
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The attribute that gives a colour its name, red or teal or violet,
+  expressed as an angle around a colour wheel independent of how light or vivid
+  it is.
+aliases:
+  - name: colour angle
+    source: community
+  - name: color angle
+    source: community
+  - name: H in HSL
+tags:
+  - perception
+relations:
+  contrastWith:
+    - saturation
+    - lightness
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - complementary-colors
+    - color-temperature
+    - color-wheel
+implementations:
+  - system: material
+    name: Hue (the H in HCT)
+    url: https://m3.material.io/styles/color/system/how-the-system-works
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+exhibit: false
+useWhen: naming the colour itself, apart from its lightness or intensity
+---
+
+Hue is the one of the three colour attributes that answers "which colour is it". Every
+model that separates the attributes puts hue on a circle, because the family of colour
+names has no ends: keep walking past violet and you arrive back at red. That is why hue
+is written as an angle rather than an amount. `hsl(210 80% 50%)`, `hwb(210 20% 10%)` and
+`oklch(0.6 0.15 210)` all say "the hue at 210 degrees" and differ only in what they do
+with the rest.
+
+The angles are not portable between models. HSL derives its wheel from the RGB cube, so
+its hue numbers are whatever that geometry produces; `oklch` derives its wheel from a
+perceptual space, so the same name lands at a different number, and both differ again
+from the red, yellow, blue wheel taught in art classes. Two further traps come with the
+territory. Equal steps of hue are not equal perceptual steps, which is why a spectrum
+sliced into twelve even angles gives four greens and one orange. And hue does not carry
+lightness with it: holding HSL lightness at 50 percent while rotating the hue produces a
+yellow that glares and a blue that goes murky, because HSL's lightness is arithmetic
+rather than perceptual. Rotating hue in `oklch` is the version that behaves.
+
+In interface work hue rotation is how one curve becomes a whole palette. Fix the
+lightness and chroma of a [colour ramp](/color-ramp), change only the angle, and step
+600 stays step 600 whether the product is indigo or amber. Hue is also how status is
+conventionally signalled, red for danger and green for success, which is exactly why it
+must never be the only signal: the most common colour vision deficiencies compress the
+red to green part of the wheel, so a hue difference that is obvious to one reader is
+invisible to another. Pair it with a shape, a label, or a difference in
+[lightness](/lightness).

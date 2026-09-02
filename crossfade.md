@@ -1,0 +1,58 @@
+---
+name: Crossfade
+slug: crossfade
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A transition in which one element fades out while the other fades in
+  over the same span, so both are partly visible at the midpoint.
+aliases:
+  - name: cross dissolve
+  - name: cross-fade
+tags: []
+relations:
+  contrastWith:
+    - slide-transition
+    - view-transition
+    - fade
+    - fade-through
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "School of Motion: motion design dictionary"
+    url: https://schoolofmotion.com/blog/motion-design-dictionary
+demo: inline
+exhibit: false
+useWhen: swapping content of the same shape in place
+---
+
+A crossfade is two fades sharing one span. The outgoing element is still on its
+way down while the incoming one is already on its way up, and at the halfway
+point both are on screen at partial opacity. That overlap is the whole
+definition, and it is what separates a crossfade from the far more common
+sequence of fade out, pause, fade in: the second one dips through the background
+colour and reads as two events with a gap between them, while a crossfade reads
+as one thing becoming another.
+
+Because nothing moves, a crossfade says that the new content belongs in the same
+place as the old, at the same size, doing the same job. That makes it the right
+choice for swapping a chart's range, a card's front for its back, or one photo
+for the next in the same frame, and the wrong choice when the change has a
+direction the reader should feel. Direction is what a
+[slide transition](/slide-transition) is for. If the two sides are not the same
+shape, the overlap turns into a moment of visual noise where two different
+layouts are legible at once, which is the usual reason a crossfade looks cheap.
+
+Two details decide whether it looks expensive instead. The first is the timing
+function: fading opacity linearly tends to read better than easing it, because
+the human eye is more sensitive to change at the dark end and an eased pair can
+appear to sag in the middle. The second is layout. Both elements must be out of
+the flow for the duration, usually stacked in a grid cell or absolutely
+positioned inside a container that holds the height, otherwise the two of them
+briefly stack and everything below jumps. In the browser this is also what
+`view-transition-old` and `view-transition-new` do for you by default, which is
+why an untouched [view transition](/view-transition) already looks like a
+crossfade.

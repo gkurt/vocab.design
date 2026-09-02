@@ -1,0 +1,71 @@
+---
+name: Alpha channel
+slug: alpha-channel
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The transparency component carried inside a colour value itself,
+  which lets a border or fill blend with whatever surface it lands on instead of
+  assuming one.
+aliases:
+  - name: alpha
+    source: community
+  - name: rgba
+    source: community
+  - name: alpha scale
+    source: radix
+  - name: transparency channel
+tags:
+  - depth
+relations:
+  contrastWith:
+    - opacity
+    - alpha-compositing
+    - transparency-checkerboard
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: radix
+    name: Alpha variants
+    url: https://www.radix-ui.com/colors
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+  - title: Radix Colors
+    url: https://www.radix-ui.com/colors
+demo: inline
+exhibit: false
+useWhen: a colour that must blend with an unknown background
+---
+
+Alpha is a fourth number riding along with the three that name the colour, running from 0
+for invisible to 1 for solid. Every modern CSS colour function takes it after a slash,
+`rgb(226 74 46 / 0.64)` and `oklch(0.62 0.19 32 / 0.64)` alike, and
+[hex](/hex-color) spells it as a fourth pair of digits, `#E24A2EA3`. What makes it different
+from the [opacity](/opacity) property is where it lives. Opacity fades an element and
+everything inside it as one composited layer, so a card at 60 percent takes its text and its
+border down with it. Alpha belongs to a single value, so a border can be half transparent
+while the text beside it stays solid.
+
+That distinction is why design systems ship alpha scales. A hairline tuned to look right on
+white turns muddy on a tinted card and invisible on a dark one, but the same line written as
+black at 8 percent stays a shade of whatever it is drawn over, which is what Radix means by
+giving every scale a matching alpha variant. The same trick is the whole mechanism behind a
+[state layer](/state-layer): hover is not a second set of colours, it is the one colour laid
+on at a low alpha. A [scrim](/scrim) is the same idea at a larger size.
+
+The compositing is straightforward and worth knowing, because it explains the surprises.
+Painting a colour with alpha `a` over a backdrop gives `src * a + dst * (1 - a)` per channel,
+so alpha does not add up: two layers at 50 percent leave 75 percent coverage, not 100.
+Stacking alphas therefore reaches the target colour asymptotically and never quite arrives,
+which is why a stack of translucent overlays looks washed rather than dark. Straight and
+premultiplied alpha are two storage conventions for the same value, and the difference only
+bites when images are being resized or filtered rather than when CSS is being written.
+
+The trap is text. A [contrast ratio](/contrast-ratio) can only be computed against what is
+actually behind the glyphs, so a foreground carrying alpha has no measurable contrast until
+it is composited, and if the backdrop is an image or a video it has a different one in every
+square inch. Use alpha for lines, fills, shadows and washes, where blending is the point,
+and give text a solid [on-colour](/on-color) whose ratio you can state.

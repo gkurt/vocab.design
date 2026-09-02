@@ -1,0 +1,75 @@
+---
+name: Prototype
+slug: prototype
+category: pattern
+status: published
+created: 2026-08-28T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: "A design wired up just enough to be tried: screens linked so that a
+  tap goes somewhere, with nothing real behind the links."
+aliases:
+  - name: clickable prototype
+    source: community
+  - name: interactive prototype
+    source: community
+  - name: high-fidelity prototype
+    source: nngroup
+  - name: hi-fi prototype
+    source: community
+  - name: paper prototype
+    source: nngroup
+  - name: prototyping
+    source: community
+tags:
+  - design-tools
+relations:
+  contrastWith:
+    - wireframe
+    - mockup
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "NN/g: UX Prototypes, Low Fidelity vs. High Fidelity"
+    url: https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/
+  - title: "Figma Help Center: Prototyping in Figma"
+    url: https://help.figma.com/hc/en-us/articles/360040451373-Prototyping-in-Figma
+demo: inline
+exhibit: false
+useWhen: putting a flow in someone's hands before it is built
+---
+
+A prototype is the first artifact in a design process that can be handed over rather
+than presented. Somebody else holds it, taps something, and finds out where that lands.
+That is a different kind of evidence from an opinion about a picture: it produces the
+sentence "I thought this button would take me to my orders", which no review of a still
+image ever produces, because a still image never took anybody anywhere.
+
+What makes it affordable is how little of it is real. A screen is linked to another
+screen, so pressing a region swaps one for the other, and that swap is the entire
+mechanism. Nothing is stored, nothing is fetched, nothing is validated. The tells are
+always the same and they are worth recognizing on sight: the results list is the same
+row three times, the greeting has one hardcoded name in it, the search field accepts
+typing and returns identical results whatever you type, and one control on each screen
+goes somewhere while every other control is painted on. Fidelity is a separate axis from
+this and gets confused with it constantly. A prototype can be paper cut with scissors or
+a pixel-exact build, and either can be wired; what makes it a prototype is that a tap
+resolves, not how finished it looks.
+
+Two prototypes usually get called the same word while doing opposite jobs. One exists to
+be tested, so it covers a single path in enough detail that a stranger can walk it
+unaided, and everything off that path is deliberately dead. The other exists to be
+approved, so it covers every screen shallowly and is walked by the person who built it,
+who knows which taps work. Handing the second kind to a usability participant is the
+common failure: they wander off the wired path within seconds, nothing responds, and the
+session becomes a study of the artifact rather than of the design.
+
+Against its two siblings the line is clean. A [wireframe](/wireframe) and a
+[mockup](/mockup) are both still pictures and differ from each other only by how much
+has been decided; a prototype is the one that answers input, which is a difference in
+kind rather than in finish. The cost of that difference is what teams underestimate: a
+wired flow needs states a picture never had to have, so the pressure is always to wire
+the happy path and let the empty, error and loading cases stay unbuilt, which is exactly
+where a real reader ends up. It is also the one of the three that is hardest to hand off,
+because the wiring lives in the prototyping tool and none of it survives into code.

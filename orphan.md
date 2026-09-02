@@ -1,0 +1,62 @@
+---
+name: Orphan
+slug: orphan
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A first line of a paragraph left alone at the bottom of a column or
+  page, with the rest of the paragraph carried over.
+aliases:
+  - name: orphan line
+  - name: orphaned line
+tags:
+  - editorial
+relations:
+  contrastWith:
+    - widow
+    - runt
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - page-break
+implementations: []
+sources:
+  - title: "Typography Terms: Glossary (NN/g)"
+    url: https://www.nngroup.com/articles/typography-terms-ux/
+demo: inline
+exhibit: false
+useWhen: naming a first line left behind at the bottom of a column
+---
+
+An orphan is a beginning with nothing after it: the first line of a paragraph sits
+at the bottom of a column, and the rest of the paragraph is on the next one. The
+mnemonic is the same one that sorts out its sibling. An orphan has no past, a
+[widow](/widow) has no future, so the orphan is the line at the bottom and the
+widow is the line at the top.
+
+Treat the definitions as contested. Bringhurst and most typesetting manuals use
+them this way round, several style guides and a few applications swap them, and
+some writers use one word for both cases. When it matters, describe the case
+instead of naming it: "one line left at the bottom of the column" cannot be
+misread, and neither can "one word on the last line".
+
+The worst orphan is not a line of body text at all, it is a heading. A heading
+stranded at the foot of a column promises something that is not there, and the
+reader has to turn the page to find out what it was introducing. That case is
+worth a rule of its own rather than a case by case fix.
+
+CSS states the whole family declaratively, and it only means anything where there
+are fragments to break between: paged media, print stylesheets, and multi-column
+layout. `orphans` sets the minimum number of lines a paragraph may leave behind at
+the bottom of a fragment, `widows` the minimum it may carry to the top of the next,
+and two is the usual answer for both. `break-inside: avoid` keeps a whole block
+together, which is right for a short paragraph, a figure, or a table row.
+`break-after: avoid` on a heading ties it to whatever follows, and it is the one
+declaration that fixes the heading case for good.
+
+On a screen the geometry moves under your feet, since the reader's window, font
+size, and zoom all change where a column ends. So ask for the outcome rather than
+hand fixing the break. Hand tuned copy that behaves in one viewport is doing
+nothing at all in the next, and a paragraph edited to save a line often reads worse
+than the orphan it was avoiding.

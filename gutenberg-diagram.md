@@ -1,0 +1,67 @@
+---
+name: Gutenberg diagram
+slug: gutenberg-diagram
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A model splitting evenly weighted pages into four quadrants, with
+  the eye falling from the primary area at top left to the terminal area at
+  bottom right.
+aliases:
+  - name: reading gravity
+    source: community
+  - name: Gutenberg rule
+    source: community
+  - name: primary optical area
+    source: community
+  - name: terminal area
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - f-pattern
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - visual-hierarchy
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: placing the last thing you want read
+---
+
+The diagram cuts a page into four quadrants and gives each one a name. The top left is the
+primary optical area, where a western reader's eye lands without being asked. The top right
+is the strong fallow area and the bottom left the weak fallow area, both of them passed
+over. The bottom right is the terminal area, where the sweep finishes. Between the first
+quadrant and the last runs the axis of orientation, and the pull along it is what the model
+calls reading gravity: a series of left to right sweeps, each starting slightly lower than
+the one before.
+
+Its scope is narrower than its fame. The diagram was set out by the American newspaper
+designer Edmund Arnold, who named it after Gutenberg, and it describes what happens on a
+page of evenly weighted material, which is roughly a broadsheet page or a text-heavy
+document with no strong hierarchy. That condition is doing all the work. Give the page one
+large image, one bright button, or one heading twice the size of everything else, and the
+eye goes there instead. The diagram is a description of a default, not a route the reader
+is obliged to take.
+
+It is the third of three reading models and the three divide by density. The
+[F pattern](/f-pattern) is what dense text produces, because there is enough material for
+the eye to sample line beginnings. The [Z pattern](/z-pattern) is what a sparse layout
+produces, because there are only a few objects to bounce between. The Gutenberg diagram is
+for the case in between, a page evenly filled with material of similar weight, where
+nothing sticks out enough to redirect the gaze. Reaching for the wrong one of the three is
+usually a misreading of how dense the page is.
+
+Used honestly it settles one question well: where does the last thing you want read belong?
+The answer is the terminal area, which is why a sign-up button, a next step, or a signature
+sits bottom right so reliably that the placement now reads as convention on its own. The
+mirror image of that is the useful warning. The two fallow corners are where attention is
+cheapest, so anything parked there is being deprioritised whether you meant it or not, and
+under a right to left script the whole diagram flips with the reading direction. Everything
+else is better decided by [visual hierarchy](/visual-hierarchy), which overrules position
+whenever the two disagree.

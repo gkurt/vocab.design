@@ -1,0 +1,65 @@
+---
+name: Onboarding checklist
+slug: onboarding-checklist
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A persistent list of setup tasks with completion state and a
+  progress meter, kept available so the reader can return to unfinished steps.
+aliases:
+  - name: getting started checklist
+    source: community
+  - name: setup checklist
+    source: community
+  - name: task list
+    source: govuk
+  - name: complete multiple tasks
+    source: govuk
+  - name: quick start guide
+    source: community
+tags:
+  - gamification
+  - onboarding
+  - progress
+relations:
+  contrastWith:
+    - step-indicator
+    - onboarding-tour
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - first-run-experience
+    - goal-gradient
+    - zero-state
+implementations: []
+sources:
+  - title: "GOV.UK Design System: Complete multiple tasks"
+    url: https://design-system.service.gov.uk/patterns/complete-multiple-tasks/
+demo: inline
+exhibit: false
+useWhen: a setup list you can leave and come back to
+---
+
+The checklist turns setup into something a person can put down. A wizard holds the
+reader captive until the last step; a checklist states the same steps, marks the
+ones already done, and lets them leave and come back without losing their place.
+That is the whole distinction, and it is why the pattern belongs to products
+people configure over days rather than minutes.
+
+Three things make it work. The tasks have to be genuinely independent, or at least
+the dependencies have to be shown, since a list that silently requires an order is
+a wizard wearing a checklist's clothes. Completion has to be detected rather than
+claimed: a task that ticks itself when the reader actually connects the repository
+is trustworthy in a way a manual "mark as done" never is. And the progress reading
+has to be visible from wherever the reader normally works, which usually means a
+card on the home screen rather than a page they have to remember to visit.
+
+The pattern's failure mode is the dead checklist: every item done and the card
+still sitting there, or an item nobody can complete because it needs an
+administrator. Give it an ending. When the last task is finished, say so, offer
+the thing the setup was for, and let the card be dismissed for good.
+
+Keep the list short, five or six items at most, and order it so the first task is
+the one that proves the product works. The point is not to enumerate the settings
+but to get someone to their first real result.

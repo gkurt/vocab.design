@@ -1,0 +1,75 @@
+---
+name: Chart annotation
+slug: chart-annotation
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A note pinned onto the data itself: a callout, arrow, or
+  highlighted span that tells the reader what to see in the chart."
+aliases:
+  - name: annotation layer
+  - name: callout label
+  - name: data annotation
+tags:
+  - content-design
+  - dataviz
+relations:
+  contrastWith:
+    - chart-legend
+    - direct-labeling
+  variantOf: []
+  partOf:
+    - chart
+  seeAlso:
+    - chartjunk
+implementations: []
+sources:
+  - title: "Datawrapper: Text in data visualizations"
+    url: https://www.datawrapper.de/blog/text-in-data-visualizations
+demo: inline
+exhibit: false
+useWhen: the takeaway should be written on the chart, not left to the caption
+---
+
+A [chart](/chart) shows what happened; an annotation says what it means. The dip in March
+was an outage, the step change in June was the launch, the flat line at four hundred is
+the target nobody has hit yet. None of that is in the data, and a reader who does not
+already know it will either miss the point or invent a worse explanation. An annotation
+puts the explanation where the evidence is, so the eye never has to leave the plot to find
+out why the shape it is looking at has that shape.
+
+The forms are few and each answers a different question. A callout pins a short phrase to
+one mark, usually with a leader line or an arrow, and answers "what is that spike". A
+highlighted span shades a range of the domain and answers "what was going on between these
+two dates", which is the only form that can say something about a period rather than a
+point. A rule drawn across the plot at a fixed value answers "compared to what", and is the
+cheapest way to turn a line of numbers into a judgement. All three are written by the
+author, not derived from the data, which is exactly why they have to be kept honest: an
+annotation is a claim, and a wrong one is harder to catch than a wrong number.
+
+The contrast with a [tooltip](/tooltip) is the one worth holding on to. A tooltip appears
+on demand, belongs to whoever is currently pointing at a mark, and leaves nothing behind
+when the pointer moves on, so nothing it says is part of what the chart says. An annotation
+is authored into the chart, is there for every reader including the one looking at a
+printout or a screenshot, and survives being pasted into a slide, which is precisely why
+the single most important sentence about a chart belongs in an annotation rather than in a
+hover. The practical corollary: never put a finding only in a tooltip, and never put
+per-mark detail only in an annotation.
+
+Bare "annotation" is claimed by three unrelated things and is worth qualifying every
+time. This one is a note drawn on a chart. An
+[accessibility annotation](/accessibility-annotation) is a note on a design file,
+telling a developer what the mockup cannot show. A
+[ruby annotation](/ruby-annotation) is pronunciation set above a run of characters.
+Nothing but the word is shared.
+
+Keep the layer thin. Two or three notes on a plot read as emphasis; eight read as a second
+chart drawn on top of the first, and the marks stop being visible at all. Anchor each note
+to the mark it is about rather than to a pixel coordinate, so it survives a resize or a
+change of scale. And write the note as a sentence with a finding in it, since "June" is a
+label the axis already carries, whereas "launch, orders up 72 per cent" is the reason the
+chart was drawn. The [Datawrapper piece on text in data
+visualizations](https://www.datawrapper.de/blog/text-in-data-visualizations) makes the
+strongest version of this case, which is that the words are not decoration on the chart but
+the part most readers actually read.

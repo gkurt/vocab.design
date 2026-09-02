@@ -1,0 +1,72 @@
+---
+name: Date picker
+slug: date-picker
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A field that opens a small calendar so a date can be chosen by
+  looking at the month rather than typing it.
+aliases:
+  - name: calendar picker
+    source: nngroup
+  - name: date field
+    source: polaris
+  - name: date input
+    source: govuk
+  - name: datepicker
+tags:
+  - forms
+  - time
+relations:
+  contrastWith:
+    - select
+    - calendar
+    - date-range-picker
+    - time-picker
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: shadcn
+    name: Date Picker
+    url: https://ui.shadcn.com/docs/components
+sources:
+  - title: "Cloudscape: components"
+    url: https://cloudscape.design/components/
+demo: inline
+exhibit: false
+useWhen: choosing a date where the day of week matters
+---
+
+A date picker pairs a field with a month grid. The grid is the part that earns the
+component: it answers questions a text box cannot, such as which day of the week the
+14th falls on, where the weekend sits, how far away the date is, and which days are
+unavailable. Booking a flight, picking a delivery slot, or scheduling a meeting are
+all calendar questions, so the calendar belongs there.
+
+When the date is already known, the same calendar is a tax. Nobody needs to see a
+month to enter their own date of birth, and paging back three hundred months to reach
+1987 is a famous piece of interface cruelty. That is why GOV.UK's date input offers
+three plain boxes for day, month, and year and no calendar at all. The rule of thumb
+is simple: if the reader is remembering a date, let them type it; if they are choosing
+one, show them the month. A field that does both, typed entry with a calendar beside
+it, is the strongest form and the reason the [text field](/text-field) should never be
+made read-only just because a picker exists.
+
+The calendar is a [popover](/popover) with a grid inside it, so the mechanics of both
+apply. It opens from the field, dismisses on choosing a day, on Escape, and on a
+press outside ([light dismiss](/light-dismiss)), and it returns focus to the field it
+came from. Inside, the days are a real grid: arrow keys move by day, Page Up and Page
+Down by month, Home and End to the ends of the week, and the selected day carries
+`aria-selected` while today is marked separately. Changing month must announce the new
+month and year, or a screen reader user is left navigating an unnamed set of numbers.
+Days that cannot be chosen need a stated reason, not just a greyed-out number.
+
+The family is larger than the single date. A range picker takes two dates in one
+grid, previewing the span as the pointer moves and requiring an order between the two
+ends. A date and time picker adds a second control for the clock, which is usually
+better kept separate. An inline calendar skips the popover entirely and is right when
+picking a date is the page's whole purpose. And native `input type="date"` gives the
+platform's own picker, keyboard behaviour, and locale formatting for free, which is
+worth trying before building any of the above.

@@ -1,0 +1,80 @@
+---
+name: Spring loading
+slug: spring-loading
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-22T00:00:00.000Z
+definition: Hovering a dragged item over a container until it opens, so a drag
+  can travel through nested destinations without being dropped and restarted.
+aliases:
+  - name: spring-loaded folders
+    source: hig
+  - name: hover to open during drag
+    source: community
+  - name: drag hover expand
+    source: community
+tags:
+  - dragging
+  - menus
+relations:
+  contrastWith:
+    - drag-autoscroll
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - submenu
+    - quasimode
+implementations: []
+sources:
+  - title: "MacPaw: What is spring loading on Mac"
+    url: https://macpaw.com/how-to/use-spring-loading-on-mac
+demo: inline
+exhibit: false
+useWhen: a drag opens what it hovers so it can go deeper
+---
+
+The Finder has done this since the early nineties and still does: pick a file up, hold it
+over a folder without letting go, and after a moment the folder opens under the pointer.
+Hold it over a folder in there and that one opens too, so a drag can descend three levels
+and land where it was actually going. When you release, the windows the drag sprang open
+close themselves again, because they were opened by the gesture rather than by you. macOS
+even lets a person skip the wait by tapping the trackpad while holding, and exposes the
+delay as a slider in system settings, which tells you how contested the right number is.
+
+Everything about the pattern is really a fix for one problem: a drag is a modal gesture
+with no room in it for navigation. Once the mouse button is down you cannot click a
+disclosure triangle, scroll with a second hand, or open a tab, so any destination that is
+not already on screen is unreachable without dropping the item somewhere temporary and
+picking it up again. Spring loading turns dwell time, the one thing a drag can still
+express, into a navigation command. That is why the same behaviour appears far beyond
+folders: dragging over a collapsed node in a tree expands it, over a browser tab switches
+to it, over a collapsed accordion section opens it, and over the edge of a scrolling list
+scrolls it.
+
+The dwell has to be paid for while it runs, exactly as a long press does, or the delay is
+indistinguishable from nothing happening. A filling ring, a growing highlight, or the
+folder icon flicking open all work; what does not work is silence followed by a sudden
+change of context under a pointer that is holding something. The delay itself is a
+compromise between two failures. Too short and every folder the drag crosses on its way
+somewhere else flies open, which is disorienting and slow. Too long and nobody discovers
+the behaviour at all. Whatever the number, leaving the target before it elapses has to
+cancel cleanly and reset the countdown, since crossing a folder is far more common than
+aiming at one.
+
+A phone home screen is the same mechanic with the stakes raised. Drag an app onto a folder,
+hold, and the folder opens over the whole screen so the app can be dropped inside; let go and
+it closes again. Because the opened folder covers everything, the cost of opening is
+impossible to miss: one that sprang the moment a drag touched it would bury the grid on every
+pass across it, and there would be nowhere left to drag to. On a touchscreen the pick-up is often a long press of
+its own, which puts two waits back to back: one to get something in hand, one to open what it
+is being held over. They are different gestures doing different work.
+
+Long press is the neighbouring gesture and the contrast worth holding onto: a long press
+is a press held in place with nothing in hand, and it usually reveals actions for the thing
+underneath. Spring loading is a hold that happens inside an existing drag, and it changes
+where the drag can go rather than what it can do. Both are invisible, both are timing based,
+and both therefore need an alternative for people who cannot hold a pointer steady for half
+a second. For a drag that has to traverse, the honest alternative is not a better dwell: it
+is cut and paste, a move-to command, or a destination picker, which is also the only route
+a keyboard has.

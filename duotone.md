@@ -1,0 +1,68 @@
+---
+name: Duotone
+slug: duotone
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An image rendered in two colours instead of full colour, mapping its
+  shadows to one hue and its highlights to another so photography joins the
+  brand palette.
+aliases:
+  - name: two-tone
+    source: community
+  - name: duotone filter
+    source: community
+  - name: gradient map
+    source: community
+tags:
+  - media
+relations:
+  contrastWith:
+    - risograph
+    - monochromatic-palette
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - blend-mode
+implementations: []
+sources:
+  - title: "web.dev: Blend Modes"
+    url: https://web.dev/learn/css/blend-modes
+demo: inline
+exhibit: false
+useWhen: forcing photography into two brand colours
+---
+
+Duotone is a printing word before it is a design one. A duotone press run laid a
+photograph down in two inks rather than one, typically black plus a spot colour, because
+a single plate of black could not hold the full tonal range of a halftone. The second ink
+filled in what the first could not. Interfaces borrowed the look and dropped the reason:
+today a duotone is a full colour photograph flattened to luminance and then repainted, so
+that its darkest pixels become one brand colour and its lightest become another, with
+everything in between interpolated along the line connecting them.
+
+Mechanically it is a gradient map. Read each pixel's [lightness](/lightness), throw the
+hue away, then use that number to look up a position in a two stop ramp. In CSS the quick
+version is a sandwich: a greyscale image with a dark solid over it in `lighten` and a
+light solid over that in `darken`, which clamps every value between the two colours. The
+accurate version is an SVG filter, where `feColorMatrix` does the desaturation and
+`feComponentTransfer` maps each channel through explicit `tableValues`, referenced from
+CSS as `filter: url(#duotone)`. The SVG route is the one that survives a designer asking
+for a ramp that is not a straight line between two points.
+
+The look went everywhere after Spotify's 2015 identity, and the appeal is systemic rather
+than decorative. A product with a big [monochromatic palette](/monochromatic-palette) and
+a photo library it does not control has a consistency problem that art direction cannot
+solve at scale. A duotone treatment solves it mechanically: any photograph, from any
+source, comes out in the two colours the brand already owns, and headline type sits over
+it predictably because the range of values underneath is now known.
+
+The costs are worth stating. Flattening to luminance destroys skin tone, which makes
+duotone a poor default for photographs of people when the photograph is about who those
+people are. Two colours that are close in lightness produce a flat, muddy image, so the
+pair wants real separation in L\* before it wants an interesting hue relationship, and
+text over the result still has to clear its [contrast ratio](/contrast-ratio) against the
+lightest area it crosses, not against the average. It is also a
+[blend mode](/blend-mode) effect in most implementations, so it inherits the stacking
+context trap: isolate the figure or the tint will reach the page behind it.

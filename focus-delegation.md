@@ -1,0 +1,66 @@
+---
+name: Focus delegation
+slug: focus-delegation
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A shadow root option that forwards focus from the host into the
+  first focusable element inside it, so clicking the padding of a custom element
+  does not leave focus nowhere.
+aliases:
+  - name: delegatesFocus
+    source: whatwg-html
+  - name: dead focus zone
+    source: community
+  - name: host focus forwarding
+    source: community
+tags:
+  - keyboard
+  - web-platform
+relations:
+  contrastWith:
+    - initial-focus
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hit-slop
+implementations: []
+sources:
+  - title: "MDN: ShadowRoot.delegatesFocus"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/delegatesFocus
+  - title: "Frontend Masters: Shadow DOM focus delegation"
+    url: https://frontendmasters.com/blog/shadow-dom-focus-delegation-getting-delegatesfocus-right/
+demo: inline
+exhibit: false
+useWhen: a custom element swallows clicks near its edges
+---
+
+`attachShadow({ mode: 'open', delegatesFocus: true })` makes a custom element pass focus through
+itself. A click on any part of the host that is not focusable in its own right moves focus to the
+first focusable element inside the shadow tree, calling `host.focus()` does the same, and the host
+matches `:focus` and `:focus-visible` while the inner element holds it, so the ring can be drawn
+around the component rather than around the input buried in it.
+
+Without it you get a dead focus zone, and it is a bug people meet before they have a word for it.
+A component with comfortable padding is mostly host: a reader clicks half a centimetre from the
+input, the press lands on the host, the host is not focusable, and focus goes nowhere. Typing does
+nothing. Worse, focus is now on the body, so the next Tab starts again from the top of the document
+rather than from where the reader was, which quietly wrecks [focus order](/focus-order) for anyone
+who mixes pointer and keyboard. Nothing on screen says any of this happened, which is why the same
+component ships broken twice.
+
+The forwarding is literal: it goes to the first focusable element in tree order, not to the one you
+consider the main control, so a Clear button rendered before the input will win. It is decided once,
+when `attachShadow` runs, and cannot be flipped later. It changes what a press inside the component
+means, so it can fight text selection: dragging across static text in the shadow tree is a press in
+a non-focusable area, and a press in a non-focusable area is now a focus move. And it is not a fix
+for what is or is not [tabbable](/tabbable) inside your component, nor a substitute for deciding
+[initial focus](/initial-focus) when a component opens. It solves exactly one thing, which is that
+the host should not be able to eat a click.
+
+This site is a good place to notice it, because every inline specimen on it is exactly such a host:
+`<vd-stage>` puts each demo in a shadow root, and everything a reader clicks in one is inside that
+tree. Any custom element with generous padding, a card, a field wrapper, a media control, a stage,
+should ask whether a press on its own body ought to reach the control inside it. Usually the answer
+is yes, and the option is one line.

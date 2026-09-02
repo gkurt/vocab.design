@@ -1,0 +1,86 @@
+---
+name: Card
+slug: card
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A bounded surface holding a preview of one thing, usually an image,
+  a title, some detail and one or two actions, that as a whole leads somewhere.
+aliases:
+  - name: tile
+    source: community
+  - name: panel
+    source: bootstrap
+  - name: item card
+    source: cloudscape
+  - name: product card
+    source: community
+  - name: lockup
+    source: merged-candidate
+tags: []
+relations:
+  contrastWith:
+    - media-object
+    - nested-interactive
+    - selection-card
+    - widget
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - box
+implementations:
+  - system: material
+    name: Card
+    url: https://m3.material.io/components/cards/overview
+  - system: fluent
+    name: Card
+    url: https://fluent2.microsoft.design/components/web/react/core/card/usage
+  - system: carbon
+    name: Tile
+    url: https://carbondesignsystem.com/components/tile/usage/
+  - system: radix
+    name: Card
+    url: https://www.radix-ui.com/themes/docs/components/card
+  - system: shadcn
+    name: Card
+    url: https://ui.shadcn.com/docs/components/card
+sources:
+  - title: "Cards: UI-Component Definition"
+    url: https://www.nngroup.com/articles/cards-component/
+  - title: "Cloudscape: Cards"
+    url: https://cloudscape.design/components/cards/
+demo: inline
+exhibit: false
+useWhen: one thing previewed on its own surface
+---
+
+A card is a preview, not a container. It stands for exactly one thing (a product,
+an article, a repository, a person) and carries just enough of it to decide
+whether to open the full version. Cards are almost always plural: the shape earns
+its keep in a grid or a feed where every item has the same anatomy, so titles line
+up and the eye can scan one column instead of reading each box.
+
+The word gets stretched to mean any bordered box, and that is where it stops being
+useful. A dashboard region, a settings group, a form section: those are panels.
+Bootstrap 3 called them panels, Bootstrap 4 renamed the same box "card", and the
+industry inherited the ambiguity. The test is whether the surface stands for
+something you could open. If nothing lies behind it, it is a panel or a section,
+and calling it a card promises a destination that does not exist.
+
+The whole surface leading somewhere is the part implementations most often get
+wrong. Wrap the card in a single link and every button inside it becomes a control
+nested in a link, which is invalid and unusable by keyboard. Carbon resolves this
+by banning internal actions from a clickable tile outright. The common alternative
+is to link the title and stretch its hit area over the card with a positioned
+pseudo-element, so assistive technology hears one link named by the title while a
+pointer still gets the whole rectangle; actions that act in place (save, add to
+cart) sit above that layer and stop the click from travelling.
+
+"Tile" is usually the same object under a different name (Carbon, older Windows),
+but it also names a layout unit that leads nowhere, such as a cell in a bento
+grid, so it is the weaker word when the destination matters. "Product card" and
+"item card" are cards with their content named, not separate components. The
+boundary worth watching is the list row, which is also a preview that leads
+somewhere: reach for a card when the item needs an image and edges of its own, and
+for a row when there are many items and scanning beats browsing.

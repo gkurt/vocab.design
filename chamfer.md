@@ -1,0 +1,80 @@
+---
+name: Chamfer
+slug: chamfer
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A corner cut flat at an angle instead of rounded, the sharp-edged
+  sibling of border-radius that reads industrial, military, or sci-fi.
+aliases:
+  - name: chamfered corner
+  - name: cut corner
+  - name: angled corner
+  - name: clipped corner
+tags:
+  - depth
+relations:
+  contrastWith:
+    - squircle
+    - blob-shape
+    - bevel
+    - corner-radius
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: corner-shape"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape
+demo: inline
+exhibit: false
+useWhen: corners should read machined rather than soft
+---
+
+The word comes from workshops, not from screens. Machinists and woodworkers distinguish
+two ways of taking the sharpness off an edge: a chamfer removes the corner with a flat
+angled cut, usually at 45 degrees, while a fillet replaces it with a curve. The cut is
+measured by its leg, the distance it eats back along each face, which is why a drawing
+calls out something like "2 mm x 45 degrees" rather than a radius. Chamfers exist for
+practical reasons before they are decorative: they take the burr off a machined edge,
+give a bolt or a shaft a lead-in so it can find its hole, and stop a sharp corner from
+cutting the hand that picks the part up. All of that is what a chamfered corner is quietly
+borrowing when it appears in an interface. It looks like something that was made on a
+machine, because on real objects it is.
+
+On the web the shape is usually cut rather than described. `clip-path` with a polygon is
+the compatible route, listing eight points instead of four so each corner is replaced by
+a short diagonal, and it works everywhere clip-path does. Its cost is that clipping is
+applied to the whole element: the border, the box shadow, and the focus ring are all cut
+away with the corner, so a chamfered control often has to redraw its own outline as an
+inner layer. A background-only version is cheaper still, since a linear gradient with a
+hard stop at a transparent leg produces the same silhouette without touching layout. The
+newer route is CSS `corner-shape`, which lets `border-radius` describe the size of the
+corner while the shape keyword decides whether it is turned through an arc or cut flat.
+That one keeps the border and the shadow following the real outline, which is exactly the
+thing clip-path cannot do, and it is recent enough to be worth checking support for
+before it carries a layout.
+
+The register it lends is specific. Rounded corners have read as friendly and modern since
+the first iPhone, so cutting a corner instead is one of the fastest ways to say the
+opposite: hardware, instrument panel, spacecraft, weapon crate. It is a load-bearing part
+of [cassette-futurism](/cassette-futurism) and of most [cyberpunk-ui](/cyberpunk-ui) work,
+where an angled corner reads as a chassis rather than a card, and
+[retro-futurism](/retro-futurism) uses it for the same reason. It also has a much older
+life in ornament: [art-deco](/art-deco) cut its corners as a matter of course, and printed
+tickets, coupons and boarding passes have used clipped corners for so long that the shape
+alone says "tear here". Compare [squircle](/squircle), which is the opposite extreme of the
+same decision: a corner so continuously curved that the transition disappears, where a
+chamfer makes the transition into a visible face of its own.
+
+Two clarifications worth keeping straight. A chamfer is geometry and [bevel](/bevel) is
+shading. A bevel leaves the outline alone and paints a lit face and a shadowed face so a
+flat rectangle appears to have a raised edge; a chamfer changes the actual silhouette and
+may be painted entirely flat. Objects often have both, since a real chamfered edge catches
+light differently from the faces either side of it, but they are separate claims and only
+one of them survives a screenshot at 1 bit. The other is practical: keep the cut a fixed
+length rather than a percentage. A percentage chamfer grows with the box, so the same
+component reads as a delicate machined edge in a narrow column and as a hexagon in a wide
+one, and content padding has to clear the cut or the first line of text will run into the
+diagonal.

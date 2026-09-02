@@ -1,0 +1,48 @@
+---
+name: Stagger
+slug: stagger
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Playing the same animation on a set of elements with a small delay
+  added item by item, so the group arrives as a cascade instead of a block.
+aliases:
+  - name: staggering
+  - name: delay cascade
+  - name: staggered animation
+tags:
+  - perception
+relations:
+  contrastWith:
+    - view-transition
+    - delay
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - easing
+    - follow-through
+implementations: []
+sources:
+  - title: "Material Design 3: Motion overview"
+    url: https://m3.material.io/styles/motion/overview
+demo: inline
+exhibit: false
+useWhen: the same entrance played one item after another
+---
+
+One animation, offset. A handful of rows fading in together read as a screen
+redrawing; the same rows offset by a tenth of a second each read as a list being
+dealt out, and the eye follows the order you intended.
+
+The offset is small. Fifty to a hundred milliseconds between items is usually
+enough, and the total should stay under about half a second, which means the
+per-item delay has to shrink as the list grows. A ten-item list at 100ms takes a
+second to finish, and by the end the user is waiting for the interface rather than
+watching it.
+
+Stagger is for entrances, for lists that change as a group, and for drawing
+attention to order. It is wrong for anything the user is waiting on, since every
+item after the first is being deliberately delayed. Pair it with an
+[easing](/easing) that settles rather than bounces, or the cascade turns into
+noise.

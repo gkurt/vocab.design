@@ -1,0 +1,70 @@
+---
+name: Language attribute
+slug: language-attribute
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The declared language of a document or a passage inside it, which
+  picks the voice, the pronunciation rules, and the hyphenation a reader gets.
+aliases:
+  - name: lang attribute
+    source: whatwg-html
+  - name: language of page
+    source: wcag
+  - name: language of parts
+    source: wcag
+  - name: lang switch
+    source: community
+tags:
+  - assistive-tech
+  - i18n
+relations:
+  contrastWith:
+    - bidirectional-text
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - rtl-mirroring
+implementations: []
+sources:
+  - title: "WCAG 2.2: Language of Page"
+    url: https://www.w3.org/TR/WCAG22/#language-of-page
+  - title: "WCAG 2.2: Language of Parts"
+    url: https://www.w3.org/TR/WCAG22/#language-of-parts
+demo: inline
+exhibit: false
+useWhen: a quoted passage is in another language than the page
+---
+
+Two success criteria cover it, and the split is worth knowing. Language of Page (3.1.1)
+asks for one declaration on the root element, `<html lang="en">`, and it is the single
+cheapest accessibility fix there is. Language of Parts (3.1.2) asks for a declaration on
+any passage that changes language, which is the one people forget: a French pull quote, a
+German product name, a paragraph of the terms in the original. The value is a BCP 47 tag,
+so `en`, `fr`, `pt-BR`, and it is inherited, which means an inner declaration only has to
+say what changed.
+
+What the attribute buys is not abstract. A [screen reader](/screen-reader) uses it to pick
+a synthesizer and a pronunciation table, and an English voice reading French produces
+sounds that are not words in either language. The browser uses it for
+[hyphenation](/hyphenation), since `hyphens: auto` needs to know which dictionary to
+consult and simply does nothing when it cannot tell. It picks the quotation marks a `q`
+element draws, which is why the same markup renders as curly quotes in English, guillemets
+in French, and low-then-high marks in German. It steers font fallback for scripts that
+share code points across languages, and the spelling checker in a text field, and search
+engines deciding who a page is for.
+
+The failure worth naming is the wrong declaration rather than the missing one. A template
+that ships `lang="en"` on every page of a Spanish site is a page that tells the reader's
+software something false and confidently, so the voice never switches and there is nothing
+in the interface to reveal why the words are unintelligible. A missing attribute at least
+lets some readers fall back to a user default or a guess. Wrong language is the same class
+of mistake as a wrong ARIA role: assistive technology believes what the markup claims.
+
+In practice, the discipline is small. Set the root attribute from the same value that
+picks the interface copy, so the two can never drift. Add `lang` to any quoted passage a
+translator would treat as foreign, and add `dir` alongside it when the script runs
+right to left. And when a language switcher offers other languages by name, mark each
+option with its own `lang` so the reader hears "Deutsch" spoken as German rather than
+spelled out by an English voice.

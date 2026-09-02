@@ -1,0 +1,84 @@
+---
+name: Scroll-triggered animation
+slug: scroll-triggered-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An animation that scroll position only starts, after which it runs
+  on its own clock and does not rewind when the reader scrolls back up.
+aliases:
+  - name: animate on scroll
+    source: community
+  - name: reveal on scroll
+    source: community
+  - name: AOS
+    source: community
+  - name: in-view animation
+    source: framer-motion
+  - name: toggleActions
+    source: gsap
+  - name: scroll reveal
+    source: community
+  - name: animation-trigger
+    source: css
+  - name: timeline-trigger
+    source: css
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - scroll-linked-animation
+    - view-progress-timeline
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - lazy-loading
+    - quick-return-header
+implementations: []
+sources:
+  - title: "GSAP: ScrollTrigger"
+    url: https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+  - title: "Chrome for Developers: CSS scroll-triggered animations are coming"
+    url: https://developer.chrome.com/blog/scroll-triggered-animations
+demo: inline
+exhibit: false
+useWhen: scrolling should start the motion, not steer it
+---
+
+Two very different effects get called scroll animation, and the difference is whether
+the scroll is a switch or a dial. Scroll-linked motion follows the position
+continuously: back up a little and it backs up with you, because the scrollbar is the
+playhead. That is [parallax](/parallax), a reading-progress bar, a
+[collapsing toolbar](/collapsing-toolbar). Scroll-triggered motion uses position only to
+fire: the element crosses a line, the animation starts, and from that moment it runs on
+time like any other animation. Scrolling on past it does not speed it up, and scrolling
+back does not rewind it.
+
+The script version is a few lines and has not changed much in a decade. An
+IntersectionObserver watches each element with a threshold and usually a negative
+`rootMargin`, so the line sits comfortably inside the viewport rather than at its very
+edge; when the entry reports intersecting, the element gets a class and the observer
+stops watching it. The last step is the one people forget, and it is what the once
+behaviour is made of. Libraries spell it in their own dialects: GSAP's ScrollTrigger
+calls it `toggleActions: 'play none none none'`, Framer Motion has `whileInView` with
+`viewport={{ once: true }}`, and the CSS working group is landing a declarative form so
+that a threshold can start a keyframe animation with no observer at all.
+
+The craft is mostly about not breaking the page. Anything that animates in has to
+already occupy its box, or the layout reflows as each element arrives and every
+threshold below it moves, which is how these effects end up firing at the wrong moment or
+not at all: opacity and transform are the safe pair for exactly that reason. The content
+should also be readable with the effect switched off, since an element parked at zero
+opacity waiting for a script that failed is content nobody will ever see, including
+print and, in some cases, search. And the trigger line belongs well inside the viewport,
+because an element that starts its entrance at the exact bottom edge has already been
+half read by the time it fades in.
+
+The once rule is not just an optimization. A page whose sections re-animate every time
+the reader scrolls back over them never settles, and re-reading a paragraph should not
+cost a second entrance. So this is an [entrance animation](/entrance-animation) with a
+position for a cue, [staggered](/stagger) if a group arrives together, played a single
+time. And because the reader did not ask for any of it, a stated
+[prefers-reduced-motion](/prefers-reduced-motion) should skip straight to the end state:
+the content still arrives, it simply does not travel to get there.

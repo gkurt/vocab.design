@@ -1,0 +1,77 @@
+---
+name: Parallax
+slug: parallax
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Moving layers at different rates against the same input, so the
+  slower layers read as farther away and the scene gains depth.
+aliases:
+  - name: parallax scrolling
+  - name: parallax effect
+    source: hig
+  - name: depth effect
+    source: hig
+  - name: layered scrolling
+tags:
+  - depth
+  - scroll
+relations:
+  contrastWith:
+    - dolly-zoom
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - prefers-reduced-motion
+    - ken-burns-effect
+    - tilt-effect
+implementations:
+  - system: hig
+    name: Motion effects (parallax)
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+sources:
+  - title: "Apple HIG: Motion"
+    url: https://developer.apple.com/design/human-interface-guidelines/motion
+demo: inline
+exhibit: false
+useWhen: depth should come from relative speed, not shadow
+---
+
+Parallax is borrowed from astronomy, where it names the apparent displacement of
+an object when the observer moves. The same arithmetic runs a car window: the
+fence posts fly past, the far hills barely shift, and nobody has to be told which
+is closer. An interface stages that on purpose. One input, usually scroll,
+sometimes pointer position or device tilt, is answered by several layers at
+different fractions, and the fractions alone decide the depth. A layer answering
+all of the scroll is the surface you are touching, a layer answering a fifth of it
+is a long way off, and the ratio between the two is the whole effect.
+
+The common shape on the web is a hero band that scrolls at half rate under
+content that scrolls at full rate, and the common way to build it is a transform
+recalculated from the container's scroll position. Two lighter alternatives are
+worth knowing. `background-attachment: fixed` gives the crude version, a layer
+answering none of the scroll at all, which is pinning rather than parallax. Modern
+CSS scroll-driven animations (`animation-timeline: scroll()`) express the real
+thing declaratively and run off the main thread, which matters because a scroll
+handler that writes transforms is the classic way to make a page feel sticky under
+the finger. Apple's depth effect is the same idea taken off the scroller: layers
+respond to how the device is held.
+
+Parallax has a real accessibility cost, which is why it is the standard example in
+WCAG's Animation from Interactions criterion. Large background movement that the
+reader did not ask for is a known trigger for nausea and dizziness in people with
+vestibular sensitivities, and the criterion asks for a way to turn it off unless
+the motion is essential. In practice that means gating the layers behind a stated
+motion preference and letting them all answer the scroll at the same rate, which
+flattens the scene and loses nothing else. The lighter the ratio, the safer: a
+band moving at 0.9 of the scroll still reads as depth and barely registers as
+movement.
+
+The other cost is meaning. Depth is already spoken in interfaces by shadow and
+elevation, and a scene that says one thing with speed and another with shadow
+reads as neither. Parallax also tends to arrive alongside scroll hijacking, where
+the page takes over the scroll wheel to time a sequence, and the two get blamed
+together. Keep the layers honest: this is a technique for suggesting that a
+picture sits behind a sheet of content, not a substitute for a
+[sticky header](/sticky-header) or for a reason to visit the page.

@@ -1,0 +1,67 @@
+---
+name: Mesh gradient
+slug: mesh-gradient
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A soft multi-point blend built from colours placed on a grid and
+  smoothed between them, giving the blurred, cloudlike backgrounds a linear
+  gradient cannot.
+aliases:
+  - name: gradient mesh
+    source: community
+  - name: aurora background
+    source: community
+  - name: blob gradient
+    source: community
+  - name: MeshGradient
+    source: swiftui
+tags:
+  - depth
+relations:
+  contrastWith:
+    - aurora-ui
+    - gradient
+    - conic-gradient
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Color gradient
+    url: https://en.wikipedia.org/wiki/Color_gradient
+demo: inline
+exhibit: false
+useWhen: a soft multi-point colour blend, not a straight ramp
+---
+
+An ordinary [gradient](/gradient) interpolates along one path: a line, a radius, an angle.
+A mesh gradient interpolates across a surface. You place colours at points on a grid, and
+every pixel between them is worked out from the points around it, in two directions at
+once. That is why the result reads as light rather than as a fill. The colours meet in
+places nobody specified, so the field contains hues that appear nowhere in the palette, and
+moving one point re-blends a whole region rather than shifting one edge.
+
+The honest note is that CSS has no mesh gradient. There is no `mesh-gradient()`, and the
+proposals for one are not shipping anywhere. What people call a mesh gradient on the web is
+almost always several large radial gradients stacked in one `background-image`, each fading
+to transparent, which approximates the effect well enough that most readers never know the
+difference. The real thing exists elsewhere: Illustrator has had gradient meshes since the
+nineties, SwiftUI added `MeshGradient` as a first class type, and the design tool plugins
+that export "mesh gradients" hand you either a raster image or exactly the stack of radials
+described above. A shader or a canvas will do a true bilinear mesh if you need one, at the
+cost of shipping a renderer for a background.
+
+The look is the whole point of [aurora UI](/aurora-ui), and the same craft applies. Keep
+the points close together on the [colour wheel](/color-wheel), because four colours from
+opposite sides of it blend through grey in the middle. Keep the field large and the falloff
+soft, since a mesh with visible circle edges is just some blurry dots. Expect
+[colour banding](/color-banding): a mesh is mostly shallow transitions over a big area,
+which is the exact condition bands appear in, so most shipped meshes carry a grain layer
+for the same reason a [grainy gradient](/grainy-gradient) does.
+
+Text over one needs care. A mesh has no single background colour, so there is no contrast
+ratio to quote: the same paragraph can pass over the violet and fail over the pale middle.
+Either put the text on a solid plate, or constrain the mesh to a lightness range narrow
+enough that the worst pixel still clears the threshold.

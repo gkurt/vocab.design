@@ -1,0 +1,79 @@
+---
+name: Swiss style
+slug: swiss-style
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The Swiss modernist system of a strict grid, flush left sans serif
+  type, asymmetric layout, and objective photography, still the base of clean UI
+  layout.
+aliases:
+  - name: International Typographic Style
+  - name: Swiss design
+  - name: grid system design
+  - name: Helvetica style
+    source: community
+  - name: Swiss modernism
+  - name: Swiss modernism 2.0
+    source: uistyleguide
+tags:
+  - editorial
+  - grids
+  - retro
+relations:
+  contrastWith:
+    - new-wave-design
+    - bauhaus-style
+    - minimalism
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - editorial-web-design
+    - oversized-typography
+implementations: []
+sources:
+  - title: "Wikipedia: International Typographic Style"
+    url: https://en.wikipedia.org/wiki/International_Typographic_Style
+  - title: "Wikipedia: Swiss Style (design)"
+    url: https://en.wikipedia.org/wiki/Swiss_Style_(design)
+demo: inline
+exhibit: false
+useWhen: grid, Helvetica, and nothing decorative
+---
+
+The rules are unusually explicit for a style, which is why it survived as a teachable
+system rather than as a period look. Everything is placed on a modular grid, and the grid
+is not a suggestion: columns, gutters, and a baseline rhythm are decided before any
+content arrives, and elements align to them or move. Type is a neo-grotesque sans set
+flush left with a ragged right edge, on the argument that even word spacing is worth more
+than a straight second margin. Composition is asymmetric, and the space left over is
+treated as an active element rather than as a gap to fill. Photography is documentary and
+unretouched, hierarchy comes from size and position instead of ornament, and colour is
+usually black on white with one accent, traditionally red.
+
+It came out of Zurich and Basel in the 1950s, taught by Josef Müller-Brockmann, Armin
+Hofmann, and Emil Ruder, and carried outward by Neue Grafik and by the students those
+schools sent everywhere. Müller-Brockmann's "Grid Systems in Graphic Design" is the
+handbook, and the typefaces are part of the story: Akzidenz-Grotesk first, then Neue Haas
+Grotesk, renamed Helvetica in 1960 for export and eventually so ubiquitous that it earned
+its own documentary and its own backlash. The politics behind it mattered too. A neutral,
+systematic, unillustrated visual language was a deliberate answer to the persuasive
+graphics of the preceding decades, and it suited an international audience because it
+carried as little local flavour as possible.
+
+Interfaces inherited more of this than of any other twentieth century style. A design
+system with a [layout grid](/layout-grid), a spacing scale, a
+[type scale](/type-scale) of one [sans serif](/sans-serif) family, and one accent colour is
+a Swiss poster with components in it, and [flat design](/flat-design) was, in part, a
+software rediscovery of the same argument about ornament. The lineage is direct enough
+that "Swiss modernism 2.0" has been used for the current wave of grid-forward,
+Helvetica-adjacent product marketing sites.
+
+The criticism worth taking seriously is that neutrality is a claim, not a fact. A system
+this strict flattens differences it should sometimes keep, works less well for content
+that is genuinely warm or funny, and can make ten different products look like one
+consultancy. It is also easy to perform badly: a grid used as decoration, with lines drawn
+on top and nothing actually aligned to them, is the most common failure. The honest use is
+structural, which is why the specimen above shows the columns the composition really sits
+on rather than a set of rules laid over a free arrangement.

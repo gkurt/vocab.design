@@ -1,0 +1,70 @@
+---
+name: Sticky sidebar
+slug: sticky-sidebar
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A side column that scrolls with the page and then holds in place
+  once its top reaches the viewport edge, releasing at the end of its container.
+aliases:
+  - name: pinned sidebar
+    source: community
+  - name: sticky rail
+    source: community
+  - name: sticky aside
+    source: community
+  - name: sticky column
+    source: community
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - sticky-header
+    - sidenote
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-pinning
+    - table-of-contents
+implementations: []
+sources:
+  - title: position, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/position
+demo: inline
+exhibit: false
+useWhen: a side column that follows you down a long article
+---
+
+A sticky sidebar has three lives in one scroll. It starts in the flow, moving with
+everything else. Once its top edge would pass the offset it was given, it stops and
+holds, while the article beside it keeps going. Then, when its container runs out, it
+is let go and scrolls away like anything else. That last part is what separates it
+from a fixed panel, and it is the reason `position: sticky` was worth adding to CSS:
+a fixed element never leaves, so it eventually collides with the footer, and the
+workarounds involved measuring scroll position in JavaScript on every frame.
+
+The mechanics are unforgiving in a specific way. Sticky positioning is relative to
+the nearest scrolling ancestor, and it is bounded by its own parent's box. If the
+parent is exactly as tall as the sidebar, there is nowhere to travel and nothing
+sticks, which is the single most common bug: the column looks right, the CSS looks
+right, and the effect never fires because the wrapper shrank to fit. It also needs
+an inset to stick to, so a rule with no `top` value does nothing at all. And any
+ancestor with `overflow: hidden` or `overflow: auto` between the sticky element and
+the scroller quietly becomes the scroll container, which usually means the sticky
+element is stuck inside a box it can never move within.
+
+Height is the other constraint, and it is a design decision rather than a bug. A
+sidebar taller than the viewport can only ever show its top, because the part below
+the fold is pinned out of reach. Either keep the sticky card short enough to fit,
+which is why sticky rails tend to hold a table of contents, a filter summary, or a
+price box rather than a full navigation tree, or give the sticky element its own
+scroller with a bounded `max-height`. The version that reads worst is the one that
+looks fine on a laptop and hides half its links on a short window.
+
+It is worth asking what the column is for before pinning it. A table of contents that
+tracks the reader's position, usually paired with scroll spy, earns its place because
+it answers a question that comes up mid-article. A promotional card that follows
+someone for four thousand words does not, and it costs the reading column width on
+every screen. The same reasoning applies to a sticky header: the test is whether the
+content is needed continuously, not whether it is important.

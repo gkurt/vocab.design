@@ -1,0 +1,75 @@
+---
+name: Dock magnification
+slug: dock-magnification
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Scaling each item in a row by how close the pointer is to it, so the
+  item under the cursor swells, its neighbours ramp down, and the row reads as
+  bulging.
+aliases:
+  - name: fisheye effect
+    source: community
+  - name: fisheye menu
+    source: community
+  - name: magnified dock
+    source: community
+  - name: dock effect
+    source: community
+  - name: distance-based scaling
+    source: community
+tags:
+  - depth
+  - pointer
+relations:
+  contrastWith:
+    - fisheye-view
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - dock
+    - hover-lift
+implementations: []
+sources:
+  - title: "Build UI: magnified dock recipe"
+    url: https://buildui.com/recipes/magnified-dock
+  - title: "jQuery 1.4 Animation Techniques: resizing elements and the fisheye menu"
+    url: https://www.oreilly.com/library/view/jquery-14-animation/9781849513302/ch06s07.html
+demo: inline
+exhibit: false
+useWhen: a dense row of icons needs a hovered target enlarged in place
+---
+
+Every item in the row is given a size that is a function of one number: how far its resting centre
+is from the pointer. Close means large, far means unchanged, and in between there is a smooth
+falloff, usually a bell curve a hundred or so pixels wide. Nothing is hovered in the binary sense.
+The effect is continuous, which is why the row bulges rather than blinking one item bigger, and it
+is what separates this from an ordinary hover state. Mac OS X shipped it on the dock in 2001 and it
+has been copied into web docks, toolbars and emoji pickers ever since.
+
+The argument for it is density. A row of thirty small icons is unreadable at rest and unclickable
+at rest, and magnification lets it be both compact and inspectable without a menu opening or a
+tooltip firing. The argument against it is that the thing you were aiming at moves. Fitts's law
+says a bigger target is faster to acquire, and the item under the pointer is certainly bigger; but
+the same scaling that grew it also pushed its neighbours outward, so the icon you started moving
+toward is no longer where it was when you started. That is the whole complaint, and it is why
+people who love the effect and people who turn it off are usually describing different tasks: one
+is browsing a row, the other is hitting a known target.
+
+That makes the details unusually load-bearing. The row has to grow from a fixed edge, so a dock at
+the bottom of the screen grows upward and never pushes the content above it, and the item under the
+pointer should stay under the pointer rather than sliding out from beneath it, which means laying
+the row out from the pointer rather than simply widening each item where it sits. The falloff
+should reach two or three neighbours, since a curve too narrow reads as a single item popping and
+one too wide magnifies everything and therefore nothing. And magnification is not identification:
+the icon is still an icon, so a dock that relies on the swell to tell you what a thing is has
+skipped the label.
+
+The nearest neighbour on this site is the [magnetic button](/magnetic-button), which is the same
+input, pointer distance, spent on a single control that leans toward the cursor instead of a row
+that reshapes around it. The general information visualisation technique of showing the region
+under the pointer at full detail while compressing the rest is a fisheye view, and the surface this
+particular one lives on is a dock. Neither exists here yet. Worth saying plainly: there is no
+pointer on a touch screen, so this whole family of effects is desktop-only ornament, and a design
+that needs it to be usable is not usable on a phone.

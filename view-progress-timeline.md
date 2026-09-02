@@ -1,0 +1,78 @@
+---
+name: View progress timeline
+slug: view-progress-timeline
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scroll timeline measured by one element's passage through the
+  scrollport, with named ranges for entering, being contained, covering, and
+  exiting.
+aliases:
+  - name: view timeline
+    source: css
+  - name: view()
+    source: css
+  - name: entry and exit range
+    source: css
+  - name: cover and contain
+    source: css
+  - name: animation-range
+    source: css
+tags:
+  - scroll
+  - web-platform
+relations:
+  contrastWith:
+    - scroll-triggered-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - scroll-linked-animation
+implementations: []
+sources:
+  - title: "MDN: CSS scroll-driven animations"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations
+demo: inline
+exhibit: false
+useWhen: the animation should track one element, not the whole page
+---
+
+There are two things a scroll can measure, and CSS gives them two different functions.
+`animation-timeline: scroll()` measures the scroller: nought per cent is the top of the container and
+one hundred per cent is the bottom, and every element driven by it shares one playhead.
+`animation-timeline: view()` measures one element's own journey through the scrollport instead, so a
+card halfway up the page and a card at the very bottom each get a timeline of their own that starts
+when they arrive and finishes when they leave. That is the whole difference, and it is why the same
+scroll gesture drives the two completely differently: a
+[scroll-linked animation](/scroll-linked-animation) reads the scroller's progress and a view progress
+timeline reads the subject's progress through the viewport, so one number is shared by the page while
+the other belongs to a single box.
+
+The ranges are what make it usable, because "the journey" needs naming. `cover` is the whole overlap:
+it begins the instant the element's leading edge touches the far edge of the scrollport and ends the
+instant its trailing edge clears the near one. `contain` is only the stretch where the element is
+wholly inside, which for an element taller than the scrollport inverts into the stretch where the
+scrollport is wholly inside the element. `entry` runs from the start of `cover` to the start of
+`contain`, and `exit` from the end of `contain` to the end of `cover`, which makes them exactly the
+arriving and the leaving. `animation-range: entry 0% entry 100%` is the everyday fade-up, and the
+crossing variants (`entry-crossing`, `exit-crossing`) measure against one edge rather than two, which
+is what you want when the element is enormous and `contain` has stopped meaning anything useful.
+
+The other thing to keep it apart from is a
+[scroll-triggered animation](/scroll-triggered-animation), which is a different mechanism wearing the
+same effect. A trigger watches for a threshold, fires a normal timed animation once, and is finished
+whether or not the reader keeps scrolling. A view progress timeline never plays: the element's
+position *is* the playhead, so scrolling back up walks the animation backwards through the same
+frames, and there is nothing to interrupt, replay, or debounce. If the effect should happen once and
+stay done, a trigger is the honest tool and a timeline will look broken when the reader scrolls back.
+
+Two things bite in practice. The first is that `cover` only touches nought and one hundred per cent
+when the element genuinely crosses both edges: anything already on screen at load starts partway
+through its own timeline, and anything short of the far edge never finishes, which is why an entrance
+tied to `cover` can appear pre-faded on the first screen. The `entry` range plus a
+`view-timeline-inset` to move the trip wire off the exact edge is usually the fix. The second is that
+these animations are still animations. They are driven by a gesture rather than by a clock, which
+makes them feel direct, but a reader who has asked for less movement has still asked for less
+movement, so the declaration belongs behind
+[prefers-reduced-motion](/prefers-reduced-motion) like any other.

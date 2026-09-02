@@ -1,0 +1,1 @@
+import{t as e}from"./choreography.Dfvzj6n2.js";var t=e([{assert:{selector:`[data-part=dot-mic]`,state:`visible`}},{wait:900},{moveTo:`[data-part=dot-mic]`},{wait:1800},{assert:{selector:`[data-part=dot-mic]`,state:`visible`}},{assert:{selector:`[data-part=dot-camera]`,state:`visible`}},{assert:{selector:`[data-part=row-screen]`,state:`visible`}},{wait:900}]);export{t as default};

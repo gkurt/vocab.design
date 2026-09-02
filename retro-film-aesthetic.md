@@ -1,0 +1,78 @@
+---
+name: Retro film aesthetic
+slug: retro-film-aesthetic
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A treatment that makes digital imagery look shot on film, adding
+  grain, halation, light leaks, faded contrast, dust, and sometimes a corner
+  date stamp.
+aliases:
+  - name: vintage analog
+    source: uistyleguide
+  - name: analog nostalgia
+  - name: film look
+  - name: 35mm look
+  - name: polaroid look
+  - name: light leak
+tags:
+  - media
+  - retro
+relations:
+  contrastWith:
+    - grainy-gradient
+    - vhs-aesthetic
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - vignette
+implementations: []
+sources:
+  - title: "Wix: web design trends"
+    url: https://www.wix.com/blog/web-design-trends
+demo: inline
+exhibit: false
+useWhen: photography faked to look developed rather than rendered
+---
+
+Every part of this register is an imitation of a specific physical accident, and knowing
+which accident makes the difference between a convincing treatment and a filter. Grain is
+silver: film emulsion is a suspension of silver halide crystals, and the visible speckle is
+those crystals, so grain sits in the image rather than on it, it is coarser in the shadows
+and in faster stock, and it does not scale with the picture. Halation is the glow around a
+bright object: light strong enough to pass through the emulsion reflects off the back of
+the film base and returns to expose the grains around the highlight, which is why the bloom
+is warm, why it appears only around the brightest parts of a frame, and why some stocks
+show it and others do not. A light leak is exactly what it sounds like, daylight reaching
+the film through a gap in the body. Faded blacks come from age and from scanning, and the
+date stamp in the corner is a small red-orange display exposing itself onto the frame
+through the back of the camera.
+
+Interfaces reach for it because a photograph that looks developed reads as evidence rather
+than as art direction. That is useful for anything selling memory, craft, provenance or
+slowness: a coffee brand, a record label, a personal site, a travel journal. It arrives
+today as a full page treatment rather than as an image filter, so the grain runs across the
+whole layout, the type is warm off white rather than white, and the background carries a
+vignette. It has a real cost. Grain over an entire page is a large repeating texture that
+compositors cannot compress well, and it makes text harder to read at exactly the sizes
+people read at, so the honest arrangement is a treated image behind clean, untreated type.
+
+It is worth separating from the artefact terms it looks like.
+[Dithering](/dithering) and [halftone](/halftone) are also artefacts of a reproduction
+process, but both come from a machine trying to show more tones than it has, and neither is
+nostalgic on its own; they turn up in a modern interface as constraints rather than as
+mood. [E-ink-aesthetic](/e-ink-aesthetic) is the same distinction in another direction: an
+imitation of a display's real limits rather than of a chemical process. The register this
+one is genuinely related to is [vaporwave](/vaporwave), where the artefacts are also
+borrowed rather than earned, though vaporwave takes its damage from tape and broadcast
+instead of from film, which is why it is magenta and green where this one is amber. If you
+want the pure form of that reference, [vhs-aesthetic](/vhs-aesthetic) is next door.
+
+Two cautions. Simulated grain is not real grain, and the tell is uniformity: real grain
+varies with exposure and with the stock, so a single static noise layer at one opacity
+across a whole page reads as a texture pasted on rather than as film. Vary it with the
+tone of the image if you can. And the register is a claim about time. A date stamp reading
+a year the product did not exist in, or a light leak on a photograph of a brand new object,
+is a small lie that readers who grew up with film will catch immediately. Borrow the
+artefacts, not a false history.

@@ -1,0 +1,73 @@
+---
+name: Operational transparency
+slug: operational-transparency
+category: pattern
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Showing the work as it happens, the kitchen made visible, so a wait
+  is understood rather than merely endured and the result is trusted more for
+  having been watched.
+aliases:
+  - name: visible work
+    source: community
+  - name: showing the work
+    source: community
+tags:
+  - perceived-performance
+  - progress
+relations:
+  contrastWith:
+    - labor-illusion
+    - spinner
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - progress-bar
+implementations: []
+sources:
+  - title: "HBR: Operational Transparency (Ryan Buell, 2019)"
+    url: https://hbr.org/2019/03/operational-transparency
+  - title: "Buell & Norton: The Labor Illusion, Management Science 57(9)"
+    url: https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1376
+demo: inline
+exhibit: false
+useWhen: letting the reader watch the work happen
+---
+
+Operational transparency is Ryan Buell's name for designing so that the work is visible while
+it happens: the open kitchen, the glass wall at the bakery, the travel search that names each
+airline as it queries it. The experiment behind it is the same one that produced its darker
+twin. Buell and Norton put two versions of a flight search in front of people, one instant
+and one slower but narrated, and people preferred the slower one, rating both the experience
+and the quality of its results higher. The finding that matters to a designer is not that
+waiting can be pleasant. It is that a wait with the work named on it is a different
+experience from the same wait with nothing on it, and readers credit the effort they can see.
+
+In an interface it looks like this: a search that lists the sources it is checking and ticks
+them off, a checkout that says it is verifying the card and then confirming the address, an
+assistant that streams the steps it is taking instead of pausing and returning a paragraph, a
+delivery map, a build log. All of them convert dead time into information. That is the second
+benefit and the one usually left out of the story: named work is legible work, so a step that
+is slow is identifiable, a step that failed says which one, and a reader who can see the
+sources being checked learns something about the answer they are about to be given. A
+[spinner](/spinner) buys none of that. It says only that something is happening, which the
+reader had already assumed, and it says the same thing at second two and at second forty.
+
+The boundary is the whole ethics of the pattern, and it is sharper than it is obvious. This is
+honest only while the work being shown is real. The moment the steps are padding, invented to
+fill a delay or spun out to make a result feel expensive, the same interface is a
+[labor illusion](/labor-illusion) being used as a trick, and readers who find out do not
+merely discount that screen: they stop believing the next honest one. What makes this hard is
+that the line is not always visible from inside the team shipping it. A step list written to
+match the backend, then kept after the backend got fast, is now theatre nobody decided to
+build. Two questions keep it straight. Would the list be shorter if the job were smaller? And
+would you be comfortable publishing the timings beside it?
+
+The practical version, then. Name real units of work, in the reader's language rather than
+your service names, at the granularity where a step failing would be worth reporting. Let a
+finished step stay finished on screen, because the record of what has been done is most of the
+reassurance. Show a count or a result beside each step where you have one, since a number is
+the difference between a claim of work and evidence of it. And where the work genuinely is
+instant, let it be instant: transparency is for waits that exist, never a reason to
+manufacture one.

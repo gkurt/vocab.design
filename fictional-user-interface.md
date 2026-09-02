@@ -1,0 +1,71 @@
+---
+name: Fictional user interface
+slug: fictional-user-interface
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: "The screen graphics style invented for film, television, and games:
+  dense readouts, targeting reticles, and animated telemetry that look
+  computational without computing anything."
+aliases:
+  - name: FUI
+  - name: fantasy user interface
+  - name: futuristic user interface
+  - name: film user interface
+  - name: sci-fi HUD
+  - name: HUD style
+tags:
+  - illustration
+relations:
+  contrastWith:
+    - diegetic-interface
+    - hud-panel
+    - cyberpunk-ui
+    - digital-rain
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Reel Deal Film School: Creating Fantasy User Interfaces (FUIs)"
+    url: https://reeldealfilmschool.wordpress.com/2014/10/23/creating-fantasy-user-interfaces-fuis/
+  - title: "Kit FUI: user interfaces from movies, TV and video games"
+    url: https://saji8k.github.io/kit-fui/
+demo: inline
+exhibit: false
+useWhen: interface art made to be watched rather than used
+---
+
+FUI is interface as prop. Its job is to be photographed over an actor's shoulder for two
+seconds and instantly say analysis, targeting, or breach, which is a completely different
+brief from being used by anybody. That brief produces a consistent vocabulary: thin
+linework, one or two luminous colours on near black, concentric rings and radial gauges,
+wireframe globes and rotating models, monospaced hex and coordinates, brackets and reticles
+that snap onto things, and numbers that update faster than a human could possibly read
+them. Density is the point. A screen with three controls on it does not read as powerful.
+
+The lineage runs from the wall of blinking lights through the wireframe era to the touch
+and gesture wave that Minority Report set off in 2002 and Iron Man refined into the studio
+house style. What is interesting is the feedback loop. Directors wanted screens that looked
+advanced, motion designers invented a visual language for it, and real products then copied
+that language back, which is why so many mission control dashboards, crypto trading
+terminals, and car cluster displays carry ornament that was designed to be watched rather
+than read. Borrowed FUI is usually a tell: dense ornament earns its keep on a fictional
+screen because nobody has to find anything on it.
+
+The line between this term and [cyberpunk UI](/cyberpunk-ui) is worth holding, because they
+share a palette. FUI is a craft, not a world. It serves any fiction that needs a computer to
+look competent, whether the story is a Cold War thriller, a space opera, a superhero film,
+or a strategy game, and its default mood is clean, expensive, and confident. Cyberpunk is
+one genre with one worldview, corporate dystopia, and its screens are grubby, hostile, and
+noisy on purpose. A cyberpunk screen is often built with FUI techniques; a FUI screen is not
+usually cyberpunk.
+
+Bringing any of it into a working product means separating the two things it is made of.
+The composition skills transfer: hierarchy under low light, a restrained luminous palette,
+data that stays legible in dense arrangements. The tropes do not. Numbers that flicker
+cannot be read, decorative rings compete with real controls, and animated telemetry loops
+forever, which spends battery and defies every reduced motion preference a reader has set.
+Keep the atmosphere in the empty states, the loading screens, and the hero, and let the
+panel a person actually operates be quiet.

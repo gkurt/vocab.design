@@ -1,0 +1,62 @@
+---
+name: Triadic color scheme
+slug: triadic-colors
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A palette of three hues spaced evenly around the colour wheel, vivid
+  by construction and usually applied with one hue dominant.
+aliases:
+  - name: triad
+    source: community
+  - name: tetradic
+    source: community
+  - name: square scheme
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith:
+    - analogous-colors
+    - complementary-colors
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+exhibit: false
+useWhen: three hues balanced evenly around the wheel
+---
+
+Pick a hue, add 120 degrees, add 120 more. That is the whole rule, and it is one of the
+oldest members of the [colour harmony](/color-harmony) family: a set chosen by geometry on
+the [colour wheel](/color-wheel) rather than by taste. Because the three are as far from
+each other as three hues can get, none of them reads as a variation of another. A triad is
+the maximally contrasting three-colour set, in the same way that
+[complementary colours](/complementary-colors) are the maximally contrasting pair.
+
+That is also the problem. Three hues at equal saturation and equal lightness have equal
+claim on the eye, and a screen painted from them argues with itself: nothing looks primary
+because everything is. The working version of the rule is one hue dominant and the other two
+as accents, which is what the [60-30-10 rule](/sixty-thirty-ten-rule) formalises. In
+practice that means the triad supplies hues, not amounts: the lead hue is spent as a large
+quiet surface or a dark header, and the other two appear at chip and button scale, usually
+as tints and shades rather than at full strength.
+
+The same geometry generalises. Split-complementary keeps the base and replaces its opposite
+with the two hues either side of it, which keeps the opposition and loses the vibration.
+Tetradic, also called the square scheme, takes four hues 90 degrees apart, and is the same
+idea one step further and one step harder to balance. All of them are spacing rules, and
+none of them says anything about how much of each colour to use.
+
+Two cautions before trusting the arithmetic. Which wheel you are counting on matters: the
+painter's red-yellow-blue wheel puts a triad at red, yellow and blue, while a hue angle in
+CSS counts on an RGB wheel where the same three steps land somewhere else, and OKLCH counts
+on a third wheel again. And equal spacing is not equal presence, because the sRGB gamut
+holds much more chroma at some hues than others; a triad mixed at one chroma will still have
+a loud member and a quiet one. Adjust by eye afterwards, and treat the 120 degrees as the
+starting point rather than the answer.

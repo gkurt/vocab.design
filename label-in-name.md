@@ -1,0 +1,72 @@
+---
+name: Label in name
+slug: label-in-name
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rule that a control's accessible name must contain its visible
+  label text, so speaking the visible words works in voice control.
+aliases:
+  - name: visible label mismatch
+    source: community
+  - name: speech input label
+    source: community
+  - name: aria-label override problem
+    source: community
+tags:
+  - content-design
+  - wcag
+relations:
+  contrastWith:
+    - voice-control
+    - accessible-name
+    - label-association
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - visually-hidden
+implementations: []
+sources:
+  - title: "WCAG 2.2: Success Criterion 2.5.3 Label in Name"
+    url: https://www.w3.org/TR/WCAG22/#label-in-name
+  - title: "Understanding Success Criterion 2.5.3: Label in Name, W3C WAI"
+    url: https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html
+demo: inline
+exhibit: false
+useWhen: aria-label and the visible text disagree
+---
+
+Success criterion 2.5.3 is one sentence long: for user interface components with labels that
+include text or images of text, the name contains the text that is presented visually. It is
+Level A, which means it is not a refinement anybody gets to defer. The reason it exists is
+mechanical rather than philosophical. Somebody using
+[voice control](/voice-control) addresses a control by reading it out, and the software
+matches what they said against the accessible name. If the words on the button and the words
+in its name are different strings, the button has no address. Nothing looks wrong, nothing is
+announced wrongly, and the control is simply unreachable by speech.
+
+The rule is easy to confuse with the thing it constrains, so it is worth separating the two:
+an [accessible name](/accessible-name) is the string a control is called in the accessibility
+tree, and label in name is the constraint that this string has to contain the words printed on
+the control. Note the verb. Contain, not equal. A name of "Send message" is fine for a button
+that reads Send, because the visible text is in there. A name of "Submit form" is a failure,
+because it is not. This is why the criterion has a reputation for being violated by people
+being helpful: `aria-label` replaces the content of an element rather than adding to it, so a
+well meant clarification quietly deletes the only words the user can say.
+
+The habit that avoids all of it is to let the visible text be the name and add nothing. Where
+extra context genuinely is needed, put the visible label at the start of the name rather than
+in the middle, because speech engines and elements lists both work better when the string
+begins with what the user is looking at. In HTML the cheapest way to comply is usually
+[label association](/label-association): a real `<label>` pointing at a real control gives you
+a name derived from the visible text automatically, and it stays correct when somebody edits
+the copy. An `aria-label` does not; it is a second copy of the words, and second copies drift.
+
+Two neighbouring habits fail the same population for the same reason. A row of links that all
+read "Read more" is ambiguous to speech in exactly the way a [link purpose](/link-purpose)
+audit describes, except that here the result is a disambiguation prompt on every single
+attempt. And an icon-only control has no visible label at all, which technically puts it
+outside this criterion (there is no visible text to contain) and squarely inside the problem
+it is about: the user has to fall back to a numbered overlay to reach something everyone else
+reaches by pointing. Passing 2.5.3 is not the goal. Being sayable is.

@@ -1,0 +1,75 @@
+---
+name: Pane
+slug: pane
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A layout container that holds one destination's content inside a
+  window, either fixed or flexible in width, combined with other panes to fill
+  the space.
+aliases:
+  - name: fixed pane
+    source: material
+  - name: flexible pane
+    source: material
+  - name: floating pane
+    source: material
+  - name: semi permanent pane
+    source: material
+tags:
+  - windowing
+relations:
+  contrastWith:
+    - supporting-pane
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - split-view
+    - inspector
+implementations:
+  - system: material
+    name: Panes
+    url: https://m3.material.io/foundations/layout/scaffold/overview
+sources:
+  - title: Scaffold, Material Design 3
+    url: https://m3.material.io/foundations/layout/scaffold/overview
+demo: inline
+exhibit: false
+useWhen: naming one region of a multi region window
+---
+
+A window with more than one thing in it is divided into panes, and the pane is the unit that
+division is counted in. A mail client is three panes: mailboxes, messages, and the message you
+are reading. A settings window is two. The word is useful precisely because it names a region
+without naming its contents: you can say "the middle pane" to someone who has never seen your
+app and be understood, which is why every toolkit that lays out windows ends up with panes in
+its vocabulary. Material's [scaffold](/scaffold) documentation is one of the tidier statements
+of the idea, and it is where the kinds of pane get their names.
+
+Those kinds are about width, and about who decides it. A fixed pane states its own width and
+keeps it, so the pane beside it absorbs every change in the window. A flexible pane is the
+opposite arrangement seen from the other side: it takes whatever is left over, which means its
+neighbour is the one holding a number. A floating pane comes off the surface entirely and sits
+over the content with an inset and an elevation, so what is underneath keeps its full width. A
+semi permanent pane is one the reader can send away and call back, occupying real space while
+it is there rather than hovering over the content like a drawer. Most windows mix them: a rail
+that never moves, a list that keeps a set width, and a reading pane that takes the rest.
+
+Pane is not the same word as panel, though systems use panel loosely for any boxed region,
+including cards and popovers, which are not panes at all. A pane is a division of a window's
+own space and it is always adjacent to its siblings rather than floating in front of them,
+which is why an [inspector](/inspector) is a pane and a popover is not. The related words
+divide up differently: [split view](/split-view) names the arrangement of two panes and the
+draggable boundary between them, [list detail](/list-detail) names the specific pairing where
+one pane indexes what the other displays, [supporting pane](/supporting-pane) names the
+secondary region that assists the main one, and [sidebar](/sidebar) names a pane by its
+position and its usual job. A [canonical layout](/canonical-layout) is a named pane
+arrangement worth reusing.
+
+The pane is also where responsive layout actually happens, since a window narrowing does not
+change what the panes contain, only how many of them fit. The usual sequence is that a three
+pane window becomes two panes and then one, with the pane that lost its place turning into a
+route you navigate to, or a drawer you summon. Deciding that sequence in terms of panes rather
+than pixels is what keeps a large layout describable: three panes, one of them fixed, the last
+one collapsing first.

@@ -1,0 +1,63 @@
+---
+name: Analogous colors
+slug: analogous-colors
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A palette built from hues that neighbour each other on the wheel,
+  giving a calm scheme with no colour fighting another for attention.
+aliases:
+  - name: adjacent colors
+    source: community
+  - name: neighbouring hues
+tags:
+  - perception
+relations:
+  contrastWith:
+    - complementary-colors
+    - triadic-colors
+    - monochromatic-palette
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Design Glossary: Basic Color Terminology"
+    url: https://design4users.com/basic-color-terminology/
+demo: inline
+exhibit: false
+useWhen: a quiet palette of neighbouring hues
+---
+
+An analogous scheme takes two to five hues from one neighbourhood of the
+[colour wheel](/color-wheel), typically inside a span of about sixty degrees, and gives
+one of them the leading part while the others support it. Amber, orange and gold; teal,
+cyan and green. Because no member of the set sits opposite any other, nothing in the
+palette produces the vibration that a complement does, and the whole thing reads as a
+single climate rather than as a set of decisions. That calmness is the reason to reach
+for it and also the thing to watch: a scheme with no tension in it can slide into having
+no hierarchy either.
+
+The vocabulary around it is a family. [Complementary](/complementary-colors) pairs sit
+opposite and maximise contrast, triadic sets take three points evenly spaced around the
+wheel, split complementary softens the opposition by taking the two hues either side of
+it, and [monochromatic](/monochromatic-palette) drops to one hue and works in lightness
+alone. Analogous sits between the last two. It is also worth knowing which wheel is being
+talked about: the artist's red yellow blue wheel puts different colours opposite one
+another than a screen's does, so a set that is adjacent in one is not always adjacent in
+the other, and a perceptual wheel like the one `oklch` describes disagrees with both.
+
+Neighbouring hues cannot separate anything on their own, so the separation has to come
+from the other two axes. Vary [lightness](/lightness) and [chroma](/chroma) hard across
+the set, give one hue clearly the largest area, and anchor the whole thing on a
+[neutral palette](/neutral-palette): a near black for text and a paper background give the
+eye somewhere to rest and stop the scheme from turning into a wash. Contrast against the
+neutrals, not against each other, is what keeps an analogous layout readable.
+
+In product interfaces the scheme is usually spent on illustration, marketing pages and
+data visualisation rather than on the shell, for a practical reason: hues in a UI already
+have jobs. [Status colours](/status-color) mean success, warning and danger, and an
+analogous palette that seats warning right next to error has made two meanings look
+alike. Use the neighbourhood where the colour is decoration, and keep hue distance where
+the colour is information.

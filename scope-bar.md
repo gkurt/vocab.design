@@ -1,0 +1,68 @@
+---
+name: Scope bar
+slug: scope-bar
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The row of category buttons directly under a search field that
+  narrows what the query searches, such as All, Mail, Files.
+aliases:
+  - name: search scope bar
+    source: hig
+  - name: search filters
+    source: community
+  - name: search tabs
+    source: community
+tags:
+  - search
+relations:
+  contrastWith:
+    - tabs
+    - segmented-control
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - search-field
+implementations: []
+sources:
+  - title: "Apple Human Interface Guidelines: Search fields"
+    url: https://developer.apple.com/design/human-interface-guidelines/search-fields
+demo: inline
+exhibit: false
+useWhen: buttons under a search box that limit its reach
+---
+
+A scope bar sits under a [search field](/search-field) and answers a different question
+from the field itself. The field holds what you are looking for; the bar holds where to
+look. Picking a scope never changes the query, it changes the corpus the query runs
+against, which is why the field keeps its text and the results below simply get shorter.
+Apple named the control, and it is all over the platform: Mail scoped to a mailbox,
+Finder scoped to This Mac or the current folder, Music scoped to your library or the
+whole catalogue.
+
+The name never crossed to the web, even though the pattern is everywhere on it. The row
+of All, Images, News and Videos under a web search box is a scope bar. So is the Code,
+Issues, Pull requests row on a code host, and the Messages, Files, Channels row in a chat
+app's search. Web teams tend to call these tabs, which is close enough to be a problem,
+because the two behave differently.
+
+The difference against [tabs](/tabs) is worth stating plainly. A tab switches the view:
+each panel is its own place, with its own content, and the tab is meaningful with nothing
+typed anywhere. A scope is a modifier on a query, so it means nothing until there is one,
+and every scope shows the same kind of result list, just less of it. That is also why a
+scope bar belongs under the field rather than above the results: it reads as part of the
+search, not as navigation. If your scopes each want their own layout, you have tabs and
+should call them that.
+
+Against a [faceted filter](/faceted-filter) the distinction is combination. Scopes are
+mutually exclusive and few, one corpus at a time, chosen from a fixed list the product
+ships; facets combine freely, are usually multi-select, and often come from the data
+itself. The two coexist happily, with the scope bar choosing what kind of thing to search
+and facets narrowing within it, and both should show what is currently in force, whether
+through the selected scope or through
+[applied filters](/applied-filters). Build it from a
+[segmented control](/segmented-control) or a tablist, keep it to about five scopes, never
+clear the field when the scope changes, put the scope in the URL so the back button and a
+shared link both survive, and announce the new result count rather than letting the list
+change in silence.

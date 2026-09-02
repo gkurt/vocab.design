@@ -1,0 +1,80 @@
+---
+name: Safe area
+slug: safe-area
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The part of the screen guaranteed clear of notches, system bars and
+  rounded corners, where interactive content can safely sit.
+aliases:
+  - name: safe area inset
+    source: community
+  - name: safe area layout guide
+    source: hig
+  - name: safe zone
+    source: community
+  - name: env(safe-area-inset-bottom)
+    source: css
+  - name: window insets
+    source: android
+tags:
+  - platform-registers
+  - screen-size
+relations:
+  contrastWith:
+    - display-cutout
+    - home-indicator
+    - edge-to-edge
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - focus-not-obscured
+    - layout-margins
+    - status-bar
+implementations:
+  - system: hig
+    name: safeAreaLayoutGuide
+    url: https://developer.apple.com/documentation/uikit/uiview/safearealayoutguide
+sources:
+  - title: env() CSS function, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/env
+  - title: Using safe-area-inset to build mobile-safe layouts, Polypane
+    url: https://polypane.app/blog/using-safe-area-inset-to-build-mobile-safe-layouts/
+demo: inline
+exhibit: false
+useWhen: the region a control can occupy without being clipped
+---
+
+A screen and a usable screen stopped being the same rectangle in 2017, when the iPhone X put
+a camera housing into the top of the display and a gesture bar across the bottom. The safe
+area is what is left: the part of the [viewport](/viewport) where you can put a button and
+know it will be neither covered by system furniture nor cut off by a rounded corner. Everything
+outside it is still yours to paint, which is the point of going edge to edge, but it is not
+yours to put a control in.
+
+On the web the safe area arrives as four environment variables,
+`env(safe-area-inset-top | right | bottom | left)`, usable anywhere a length is: as padding on
+a fixed bar, inside a `calc()`, or as a `max(16px, env(safe-area-inset-bottom))` so a phone
+with no notch still gets ordinary spacing. They resolve to zero until the page opts out of the
+browser's own letterboxing with `viewport-fit=cover` in the viewport meta tag, which is the
+single most common reason a correct-looking rule appears to do nothing. The values are live:
+they change on rotation, and Safari also feeds the keyboard and toolbars into
+`env(keyboard-inset-*)` and the visual viewport rather than into these.
+
+Every platform has the same idea under a different name. UIKit gives a view a
+`safeAreaLayoutGuide` and a `safeAreaInsets` rectangle to constrain against, SwiftUI applies
+it by default and makes you say `ignoresSafeArea` to leave it, and Android calls the whole
+family window insets: system bars, display cutouts, gesture navigation, and the IME each
+report their own, which is why the Android advice is to consume the specific inset you care
+about rather than the union of all of them. Android 15 made edge-to-edge the default for apps
+targeting it, which converted a stylistic choice into a correctness requirement in the same
+way `viewport-fit=cover` does on the web.
+
+The failures are boringly repeatable and worth recognising by shape. A
+[sticky footer](/sticky-footer) or a [bottom navigation](/bottom-navigation) bar with a plain
+`padding-bottom` sits its tap targets under the home indicator, where the operating system
+will happily eat the touch. A full-bleed hero with a title at the very top puts that title
+behind the clock. A landscape layout forgets that the notch becomes a left or right inset, not
+just a top one. The habit that avoids all of it: let backgrounds run to the physical edge and
+let content stop at the safe one.

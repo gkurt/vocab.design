@@ -1,0 +1,65 @@
+---
+name: Agenda view
+slug: agenda-view
+category: component
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: The same events as a chronological list grouped by day, so the next
+  thing is at the top instead of somewhere inside a grid.
+aliases:
+  - name: schedule view
+    source: google
+  - name: up next
+    source: community
+tags:
+  - time
+relations:
+  contrastWith:
+    - scheduler
+    - calendar
+    - activity-feed
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - empty-state
+implementations: []
+sources:
+  - title: "FullCalendar: List View"
+    url: https://fullcalendar.io/docs/list-view
+  - title: "Google Calendar Help: view your day, week, or month"
+    url: https://support.google.com/calendar/answer/6110849
+demo: inline
+exhibit: false
+useWhen: events as a list, with the next thing at the top
+---
+
+An agenda view is the same events a [scheduler](/scheduler) draws as blocks, set instead
+as a list running down the page: a heading per day, and under it the day's events in the
+order they happen. Nothing is positioned by time, so nothing is sized by duration either.
+What the reader gets in exchange is the one question a grid answers badly, which is what
+happens next. The next thing is the first row, and it stays the first row no matter how
+empty or how crammed the week around it is.
+
+That trade is why both views exist and why a view switcher is not indecision. A grid
+answers where, so it wins when the reader is hunting a free hour or moving a meeting into
+one. A list answers when, so it wins on a phone, on a watch, in a notification, and any
+time the interface has a column and not a canvas. The switcher is the place the reader
+says which question they are asking.
+
+A list also has to say something a grid says for free. In a grid, a free day is a column
+of blank cells and needs no words. In a list, a day with nothing in it either vanishes,
+which quietly makes the week look busier than it is, or it gets a row of its own saying
+so. Spelling it out is almost always right, and it is the same reasoning as any other
+[empty state](/empty-state): absence is information, and information needs a place to be
+printed. The day headings usually stick to the top of the scroller while their day is on
+screen, so the reader always knows which day they are reading.
+
+The name needs care, because it has pointed at two opposite things.
+[FullCalendar](https://fullcalendar.io) used `agendaWeek` and `agendaDay` for the
+day-and-hour grid, then renamed those to `timeGrid` in version 4, while Google Calendar
+went the other way and renamed its chronological list from Agenda to Schedule. So a
+document that says "agenda view" may mean the grid, depending on which library and which
+year it was written in. On this site the grid is the scheduler and the list is this, and
+neither borrows the other's spelling. Note also that a list of what is coming is not a
+list of what happened: a stream of past events is an [activity feed](/activity-feed).

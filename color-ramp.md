@@ -1,0 +1,65 @@
+---
+name: Color ramp
+slug: color-ramp
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: One hue rendered at a fixed series of lightness steps, numbered so
+  that the same step means the same job in every hue.
+aliases:
+  - name: color scale
+    source: radix
+  - name: shade scale
+  - name: tonal palette
+tags:
+  - tokens
+relations:
+  contrastWith:
+    - semantic-color
+    - gradient
+    - neutral-palette
+    - interaction-color-step
+    - monochromatic-palette
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - tint
+    - shade
+    - hct
+    - hue-shift
+implementations:
+  - system: radix
+    name: Radix Colors
+    url: https://www.radix-ui.com/colors
+sources:
+  - title: Radix Colors
+    url: https://www.radix-ui.com/colors
+demo: inline
+exhibit: false
+useWhen: one hue at every lightness the interface needs
+---
+
+A ramp is the answer to a question every design system hits early: a product needs
+far more than one blue. It needs a blue faint enough to fill a selected row, one
+solid enough to be a button, and one dark enough to read as text on white. Picking
+those three separately gives three unrelated blues. Generating them as steps along
+one curve gives a family.
+
+The numbering is the useful part. Once step 600 is the accent in every hue, a
+component can ask for "600" instead of a hex value, and swapping the whole
+interface from slate to indigo becomes one substitution. Conventions differ on the
+digits: Tailwind runs 50 to 950, Radix runs 1 to 12, and Material calls the same
+idea a tonal palette running 0 to 100. They are the same construct under different
+arithmetic.
+
+The trap is naive lightness. Mixing a hue toward white and black in sRGB produces
+steps that look evenly spaced on paper and badly uneven on screen, because yellow
+at 50% lightness is far brighter to the eye than blue at 50%. Perceptual spaces
+such as oklch exist for this: hold lightness and chroma, vary only hue, and step
+600 stays step 600 whatever colour it is made of.
+
+A ramp is a set of values, not a set of meanings. Deciding that 600 is the accent
+and 900 is body text is the separate job of a
+[semantic colour](/semantic-color) layer, and keeping the two apart is what lets
+one ramp serve a light theme and a dark one.

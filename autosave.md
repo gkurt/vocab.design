@@ -1,0 +1,65 @@
+---
+name: Autosave
+slug: autosave
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Persisting the reader's work continuously without a save action,
+  usually with a quiet status line reporting when the last save happened.
+aliases:
+  - name: auto-save
+    source: community
+  - name: saving indicator
+    source: community
+  - name: all changes saved
+    source: community
+  - name: draft saving
+    source: community
+tags:
+  - errors
+  - forms
+  - text-editing
+relations:
+  contrastWith:
+    - unsaved-changes-guard
+    - undo
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - optimistic-ui
+    - inline-edit
+implementations: []
+sources:
+  - title: "UI Patterns: Autosave"
+    url: https://ui-patterns.com/patterns/autosave
+demo: inline
+exhibit: false
+useWhen: work is kept without anyone pressing save
+---
+
+Autosave removes a decision the reader never wanted to make. Work is committed as
+it happens, on a short debounce after typing stops or on a fixed interval, and the
+only thing left of the old Save button is a line of text saying what the system
+believes about the document right now: saving, saved a moment ago, or unable to
+save.
+
+That status line is doing more work than it looks like. Without a save action the
+reader has no way to test whether their work is safe, so the line is the entire
+guarantee, and it has to be honest about all three states rather than flashing
+"Saved" and going quiet. The failure state is the one that matters most: a network
+drop with a green checkmark still on screen is worse than no indicator at all,
+because it converts an interruption into lost work the reader finds out about
+later.
+
+Autosave suits documents, drafts, and settings a person can freely revise. It
+suits transactions badly. Where a change is expensive, irreversible, or meant to
+be reviewed as a whole (a published post, a price change, a payment), the moment
+of commitment is part of the design and deserves an explicit button. Products that
+autosave those things usually end up reinventing the button anyway, as Publish,
+Apply, or Send.
+
+The pattern rarely travels alone. It pairs with an undo history, because
+continuous saving with no way back is just continuous overwriting, and with a
+draft or version list, so the reader can see that the last thirty saves were
+real.

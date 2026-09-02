@@ -1,0 +1,69 @@
+---
+name: Image well
+slug: image-well
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An editable image view that shows its current picture and accepts a
+  replacement dragged or pasted straight into it.
+aliases:
+  - name: image drop target
+    source: community
+  - name: avatar upload
+    source: community
+tags:
+  - dragging
+  - forms
+relations:
+  contrastWith:
+    - file-upload
+    - drop-zone
+    - signature-pad
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - avatar
+implementations:
+  - system: hig
+    name: Image wells
+    url: https://developer.apple.com/design/human-interface-guidelines/image-wells
+sources:
+  - title: "Apple Human Interface Guidelines: Image wells"
+    url: https://developer.apple.com/design/human-interface-guidelines/image-wells
+demo: inline
+exhibit: false
+useWhen: a picture is both the display and the drop target
+---
+
+An image well is the control that shows a picture and is also the place you put the next one.
+Apple named it in AppKit, where `NSImageView` becomes an image well the moment it is marked
+editable, and the name has quietly outlived the framework: the profile-picture box in every
+settings screen on the web is an image well, built over and over by teams who have no word
+for it. The defining property is the fusing of two roles. It is the display, so it always
+shows the current value, and it is the target, so a picture dragged onto it lands.
+
+The contrast with [file upload](/file-upload) is the whole reason the word is useful. A file
+input is a button: it says Choose file, it opens the system picker, and the thing you get
+back is a file name in a field somewhere. An image well never opens anything by itself. You
+drop onto it, or paste into it, and the picture you see is the value, so there is no gap
+between what was chosen and what will be saved. Most real controls are both, with the well as
+the primary target and a small Choose button beside it for people who would rather browse
+than drag.
+
+What a person expects of it goes past dropping. Because it behaves like a view of an image
+rather than a form field, the standard editing commands are all supposed to work on it:
+Command-C copies the picture out, Command-V pastes one in, and Delete or Backspace clears it
+back to a placeholder. Drag out is expected too, dragging the picture from the well into
+another app. Teams that wire only the drop half ship something that looks like an image well
+and answers like a div, which is exactly the kind of half-built control that teaches people
+not to try.
+
+Two things it is not. An [avatar](/avatar) is the round picture as a display element, with no
+implication that you can change it there; an image well may be drawn as one, but the word
+names the editability. And a general
+[drag and drop](/drag-and-drop) zone is bigger and emptier: it accepts many files, it is
+usually a dashed rectangle with instructions in it, and it does not show you a value at rest.
+If the box is showing you the current picture, the word is image well, and a visible
+drop-target state (the border lighting up as something enters) is the part teams most often
+forget.

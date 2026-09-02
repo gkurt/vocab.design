@@ -1,0 +1,59 @@
+---
+name: Swatch
+slug: swatch
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small block of flat colour shown as a sample, used in pickers and
+  documentation to stand in for a value the reader cannot otherwise see.
+aliases:
+  - name: color chip
+    source: community
+  - name: color sample
+    source: community
+  - name: palette square
+    source: community
+tags:
+  - design-tools
+relations:
+  contrastWith:
+    - color-well
+    - chip
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - color-picker
+    - transparency-checkerboard
+implementations: []
+sources:
+  - title: The EyeDropper API (mentions the preview swatch)
+    url: https://developer.chrome.com/docs/capabilities/web-apis/eyedropper
+demo: inline
+exhibit: false
+useWhen: a small block standing in for a colour value
+---
+
+The word is borrowed from textiles, where a swatch is a cut corner of the actual cloth,
+and the borrowing is exact: a swatch is a sample of the material, shown at a size small
+enough to arrange many of them and large enough to judge one. Interfaces use it in three
+places. In a picker, swatches are the options. In documentation, they stand beside the
+name and the value so a reader can see what `#D9480F` is without pasting it anywhere. In
+a canvas tool, the swatch on the toolbar reports the current fill.
+
+A swatch is a sample, not a decoration, so the craft is in what surrounds it. It needs a
+border or an inset outline, because a white swatch on a white surface disappears and a
+dark one bleeds into a dark theme. It needs enough area to be judged, since a colour read
+off a 12 pixel dot is not the colour it will be at full bleed. It should carry its name
+and ideally its value, because the point of showing a sample is to let someone identify
+and then use it. And selection has to be marked with something other than the colour
+itself: a ring outside the block, a check drawn on it, never a change to the fill, which
+would make the sample lie about the value it represents.
+
+Colour is the one thing a swatch cannot rely on to communicate. A palette where the only
+difference between the selected chip and the rest is a subtle hue shift fails for anyone
+who cannot see that shift, so pair the fill with a name, and mark state with shape or
+position. That is also why a swatch should show transparency honestly, over a
+checkerboard, rather than mixing the alpha into a solid: a sample that flattens what it
+is sampling is a sample of nothing. See [colour token](/color-token) for the named
+values a documented palette is usually made of.

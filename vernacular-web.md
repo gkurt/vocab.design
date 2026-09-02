@@ -1,0 +1,72 @@
+---
+name: Vernacular web
+slug: vernacular-web
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The amateur homepage look of the GeoCities era: tiled backgrounds,
+  sparkle GIFs, under construction signs, midi music, and hit counters."
+aliases:
+  - name: GeoCities aesthetic
+  - name: old web
+    source: community
+  - name: web 1.0
+  - name: amateur web
+  - name: under construction web
+    source: community
+tags:
+  - retro
+relations:
+  contrastWith:
+    - anti-design
+    - retro-web-design
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: A Vernacular Web, Olia Lialina
+    url: https://art.teleportacia.org/observation/vernacular/
+  - title: "NameThatUI: visual style catalog"
+    url: https://namethatui.com/styles
+demo: inline
+exhibit: false
+useWhen: the hand-made amateur homepage look
+---
+
+This is the web as ordinary people built it between roughly 1994 and 2001, before design
+was a job that the web had. Pages were centred because centring was the easy tag. Backgrounds
+were tiled because a small image repeated was cheap. Type was whatever the browser had, so
+Times and Comic Sans and Courier appeared in the same paragraph. Rules were the chiselled
+grey default. Decoration came from free clip art: spinning envelopes, sparkling dividers,
+dancing babies, flame bullets, a yellow road sign saying the site was under construction.
+The furniture was social rather than commercial: a guestbook, a hit counter, a webring
+strip at the foot, a midi file starting on load, an email address written out in full.
+
+The name comes from Olia Lialina, whose essay [A Vernacular Web](https://art.teleportacia.org/observation/vernacular/)
+treated these pages as a folk idiom rather than as bad design, and read their conventions
+the way you would read the conventions of a handmade sign. The argument that stuck is that
+the style was honest about its author. Every choice was made by a person with no training,
+no toolkit, and no template, working in whatever editor they had, and the resulting page
+said things about them that a professional page cannot. When GeoCities was shut down in
+2009 a large part of that record went with it, which is why the surviving archives are
+treated as an archaeological site.
+
+The distinction to hold onto is between this and [retro web design](/retro-web-design).
+The vernacular web is the original, made sincerely, by people who wanted a marquee and had
+no idea it would later be a joke. Retro web design is the deliberate revival: a designer in
+the present choosing beveled grey buttons and a hit counter, with full knowledge of how
+they read, usually for a portfolio, a music project, or a brand that wants to seem
+handmade. The parts list overlaps almost exactly. What differs is intent, and it shows in
+the execution, since the homage is nearly always tidier, better aligned, and more
+restrained than anything the era actually produced.
+
+Borrowing it in a product means borrowing an argument, that this place is personal, small,
+and not corporate. The parts that carry that reading without hurting anyone are the tiled
+background, the centred masthead, the visible link colours, the guestbook, and the counter.
+The parts to leave in 1998 are the ones the era got wrong for real reasons: audio that
+starts by itself, text over a background tile with no contrast to speak of, animated GIFs
+that never stop and that WCAG asks you to stop after five seconds, and layouts held
+together by tables that no screen reader can make sense of. The affection is worth keeping;
+the accessibility record is not.

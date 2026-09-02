@@ -1,0 +1,72 @@
+---
+name: Keyline
+slug: keyline
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An invisible line that content across a whole screen aligns to, such
+  as the edge line every row starts at and the deeper line where text begins
+  after an icon.
+aliases:
+  - name: keylines
+    source: material
+  - name: metrics and keylines
+    source: material
+  - name: alignment line
+    source: community
+tags:
+  - grids
+  - spacing
+relations:
+  contrastWith:
+    - divider
+    - baseline-grid
+    - optical-alignment
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - zebra-striping
+    - smart-guides
+implementations:
+  - system: material
+    name: Metrics & keylines
+    url: https://m1.material.io/layout/metrics-keylines.html
+sources:
+  - title: Metrics and keylines, Material Design
+    url: https://m1.material.io/layout/metrics-keylines.html
+demo: inline
+exhibit: false
+useWhen: the shared line every row's text starts on
+---
+
+A keyline is a vertical line that is never drawn. It is a decision, held across a whole
+screen, about where a class of content begins: every row's text starts here, every
+avatar's left edge sits there, the title in the bar lines up with the first list item
+below it. Nothing on the finished screen shows the line. What shows is the absence of
+raggedness, and what shows when a keyline is missed is a list that feels loose without
+anyone being able to say which row is wrong.
+
+The word comes from the first Material Design, which specified two keylines for a phone
+layout and gave them numbers. Content started 16dp from the screen edge, and in a row
+with a leading avatar or icon, text started 72dp in, so the text of a row with an image
+and the text of a row without one began at the same place. Those numbers were the useful
+part: they turned "align things" into a value you could put in a spec and check in a
+review. Material has since moved on, and the page that named them belongs to the first
+version of the system, but designers kept saying keyline, because no better word arrived
+for the thing it names.
+
+It is worth being precise about what a keyline is not. It is not a
+[layout grid](/layout-grid), which is a repeating structure of columns and gutters
+across the page; a keyline is one line, chosen for one kind of content, and it usually
+does not fall on a column edge at all. It is not a divider, which is a drawn line doing
+a visible job. And it is not the [safe area](/safe-area), which is the region a device
+guarantees is uncovered: the safe area tells you where content may go, and the keyline
+is your own decision about where it starts within that.
+
+Where keylines earn their keep is in a [list](/list), and specifically in a list whose
+rows are not all the same shape. As soon as some rows have an avatar, some an icon, and
+some nothing at all, three plausible text positions exist and every one of them is
+defensible in isolation. Naming a single keyline makes the choice once, and the rows
+that have no leading element indent to it anyway. That is the discipline the term is
+really about: a shared line is worth more than each row being locally correct.

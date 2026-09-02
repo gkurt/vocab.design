@@ -1,0 +1,73 @@
+---
+name: Visual balance
+slug: visual-balance
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The distribution of visual weight across a composition, reached by
+  mirroring elements, by setting one large element against several small ones,
+  or by radiating from a centre.
+aliases:
+  - name: symmetrical balance
+    source: community
+  - name: asymmetrical balance
+    source: community
+  - name: radial balance
+    source: community
+  - name: compositional balance
+    source: community
+  - name: visual weight
+    source: community
+tags:
+  - perception
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - visual-hierarchy
+    - sixty-thirty-ten-rule
+    - optical-alignment
+implementations: []
+sources:
+  - title: "Design Principles: Compositional, Symmetrical And Asymmetrical Balance"
+    url: https://www.smashingmagazine.com/2015/06/design-principles-compositional-balance-symmetry-asymmetry/
+demo: inline
+exhibit: false
+useWhen: saying why a layout feels tippy or settled
+---
+
+People read a layout as if it had mass. Put a heavy element on one side of a page with
+nothing to answer it and the composition feels like it is about to tip over, even though
+nothing is moving and nobody could say why. Balance is the arrangement that removes that
+feeling: weight distributed across the composition so no side is left unanswered. The
+useful mental picture is a beam on a fulcrum, where an element's pull is its weight
+multiplied by its distance from the centre.
+
+There are three ways to reach it. Symmetry is the easy one: mirror the elements across an
+axis and the balance is guaranteed, which is why it reads as formal, stable, and a little
+static. Asymmetry is the interesting one: one large element on one side answered by two or
+three smaller ones on the other, further out, so the composition settles without repeating
+itself. Radial balance arranges everything around a centre, as a dial, a hub of orbiting
+labels, or a circular menu does. Balance and symmetry are not the same claim, and the
+difference matters: symmetry is one method of balancing, and the most common reason a
+layout feels lifeless is that symmetry was reached for when balance was what was wanted.
+
+What makes an element heavy is worth naming, because these are the knobs available when
+something is tipping. Size is the first and largest. Contrast against the background is
+the second: a dark block outweighs a pale one of the same size. Saturation adds weight, so
+a small patch of strong colour holds down a corner that a large grey one could not.
+Density does too, since a paragraph of small text weighs more than the same area of empty
+space. So does isolation, which is why one element alone in a field pulls harder than it
+has any right to. And position multiplies all of it: the further from the axis, the more
+leverage, which is how a caption in the far corner can answer a photograph near the
+middle.
+
+The whole of [De Stijl](/de-stijl) is a thesis about this, arranging unequal rectangles
+until they hold still without ever being mirrored, and Swiss typographic layout inherited
+the same instinct. In interface work the practical version is smaller: when a screen feels
+tippy, find the element that has no answer, and either give it one, move it toward the
+axis, or lighten it. Balance is also not the same job as the [focal point](/focal-point).
+One thing should still win. Balance is only the arrangement that lets it win without
+dragging the whole page over with it.

@@ -1,0 +1,68 @@
+---
+name: Invalid state
+slug: invalid-state
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The programmatic mark that a field's value failed validation, paired
+  with a pointer to the message that explains it.
+aliases:
+  - name: aria-invalid
+    source: aria
+  - name: aria-errormessage
+    source: aria
+  - name: error state
+    source: community
+tags:
+  - errors
+  - forms
+relations:
+  contrastWith:
+    - required-field-indicator
+    - inline-validation
+    - error-identification
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: aria-invalid"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-invalid
+demo: inline
+exhibit: false
+useWhen: the field itself must report that it is wrong
+---
+
+A red border is a picture of a problem, not a report of one. `aria-invalid="true"` is the
+report: it makes the field itself say "this value was rejected", so the state travels with
+the control into the accessibility tree instead of living only in the pixels. Screen readers
+speak it as part of the field, which is why a person tabbing back into a form hears that the
+field is wrong at the moment they arrive on it, rather than having to go hunting for red
+text. The attribute also takes `grammar` and `spelling`, both for a narrower claim about a
+particular span of text, and `false`, which is the default and rarely worth writing.
+
+The mark on its own is only half a sentence. It says something is wrong and not what, so it
+has to be paired with a pointer to the explanation: `aria-describedby` naming the element
+that holds the message, which every screen reader in use supports, or `aria-errormessage`,
+which is the purpose-built version and is still unevenly implemented, so the pragmatic build
+uses `aria-describedby` and adds `aria-errormessage` alongside it. Either way, the message
+element has to be present and visible, since a description pointing at a hidden node is
+announced as nothing. What that message should say belongs to
+[error message](/error-message).
+
+Timing is where most implementations go wrong. Flag the field after validation has actually
+run, which usually means on submit or on blur, and never on every keystroke: someone typing
+their email address is briefly holding an invalid value on the way to a valid one, and a
+screen reader announcing "invalid entry" after each letter makes the form unusable. Clear
+the flag the moment the value passes, so the state never outlives the problem. The
+whole timing question, including how early is too early, is the subject of
+[inline validation](/inline-validation), and the wider requirement to tell people what went
+wrong and how to fix it is [error identification](/error-identification).
+
+The failure this term exists to name is the styled-only field: red border, red text
+underneath, nothing in the accessibility tree. It announces exactly like a field that is
+fine, so the only people who learn there is a problem are the ones who can see the colour,
+which is the same population the red already served. It is a one-attribute fix that no
+visual review will ever catch, because on screen the broken build and the correct one are
+identical.

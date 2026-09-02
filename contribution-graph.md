@@ -1,0 +1,89 @@
+---
+name: Contribution graph
+slug: contribution-graph
+category: component
+status: published
+created: 2026-08-28T00:00:00.000Z
+modified: 2026-08-28T00:00:00.000Z
+definition: A year of days as a grid of week columns, each cell shaded by how
+  much happened that day, so a habit reads as a pattern instead of a number.
+aliases:
+  - name: calendar heatmap
+    source: community
+  - name: contribution calendar
+    source: github
+  - name: activity grid
+    source: community
+  - name: green squares
+    source: community
+tags:
+  - dataviz
+  - time
+relations:
+  contrastWith:
+    - calendar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - streak
+    - sequential-palette
+    - use-of-color
+implementations: []
+sources:
+  - title: "GitHub Docs: Viewing contributions on your profile"
+    url: https://docs.github.com/en/account-and-profile/how-tos/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/viewing-contributions-on-your-profile
+  - title: "GitHub Changelog: Accessibility improvements for the contribution graph"
+    url: https://github.blog/changelog/2023-03-02-accessibility-improvements-for-the-contribution-graph/
+  - title: "Adrian Roselli: GitHub Contributions Chart"
+    url: https://adrianroselli.com/2018/02/github-contributions-chart.html
+demo: inline
+exhibit: false
+useWhen: a year of daily activity shown at a glance as one dense grid
+---
+
+The grid is a [calendar](/calendar) before it is a chart, and almost every decision in it is
+a layout decision rather than an encoding one. Each column is one week, each row one weekday,
+and the year runs left to right, so the reader is not reading an axis, they are reading a
+wall calendar turned on its side. That means the choices are calendar choices: which weekday
+the columns start on (Sunday in the United States, Monday nearly everywhere else, and the two
+produce visibly different textures because weekends land in different rows), whether the
+window is a fixed calendar year or the trailing 53 weeks up to today, and where the month
+labels sit when a month never begins neatly at the top of a column. Get those wrong and the
+picture is still pretty and no longer legible: a reader who cannot tell which row is Saturday
+cannot see that the habit only happens at weekends.
+
+The shading is a [sequential palette](/sequential-palette) cut into five discrete steps
+rather than run as a continuous ramp, and that is deliberate. Nobody reads a year of 8 pixel
+squares by value; they read it by texture, and four filled steps plus an empty one are about
+as many as the eye can rank at that size. Binning is therefore part of the design, not an
+implementation detail: wide bins flatten a heavy contributor into one solid block, narrow
+bins turn ordinary weeks into noise. The subtler decision is the pair at the bottom of the
+scale. A day with a count of zero is data, and it gets the lightest square. A day with no
+data at all, before the account existed or after today, gets no square. Collapsing those two
+into one grey means the future looks like failure, which is exactly the reading the picture
+should not invite.
+
+What makes the component more than a chart type is that it changes behaviour. The picture is
+the reason [streaks](/streak) work: a long unbroken run is visible as a run, one blank square
+in the middle of it is visible as a hole, and the graph makes both legible a year at a time
+in a way a counter never can. That is a real design decision with a cost. A graph that
+rewards daily activity gets daily activity, including work done at midnight for the square
+rather than for the work, and a year with a genuine break in it (illness, leave, a new baby)
+is rendered as a stretch of nothing. Anyone shipping one is choosing to make consistency the
+visible virtue, so it is worth being honest about whether consistency is the thing worth
+measuring.
+
+The accessibility problem is documented rather than theoretical, and its history is short
+enough to learn from. [Adrian Roselli](https://adrianroselli.com/2018/02/github-contributions-chart.html)
+took GitHub's version apart in 2018: 365 shaded squares with no structure and no text are a
+picture a screen reader cannot narrate, colour is the only carrier of the quantity (see
+[use of color](/use-of-color)), and the tooltip holding the actual number was reachable only
+by pointer. GitHub's answer in 2023 was to make the thing it always looked like: a real
+table, announced as 54 columns by 8 rows, with weekday row headers, month column headers, a
+count and a date in every cell, and arrow keys to walk it. The specimen here does the same,
+which is the point. It is a `table` with a caption naming the range and the shape, `th`
+headers down the side and across the top, a sentence of hidden text in every cell giving the
+count and the date, and arrow keys that walk a roving tab stop from square to square, a week
+at a time sideways and a day at a time down, so the number is reachable without a mouse. For
+a reader who wants the shape rather than the numbers, [sonification](/sonification) is the
+other route out of a picture like this one.

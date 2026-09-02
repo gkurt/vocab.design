@@ -1,0 +1,68 @@
+---
+name: Pointer lock
+slug: pointer-lock
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Hiding the cursor and reading only its movement deltas, so input
+  keeps flowing past the edges of the screen instead of stopping at them.
+aliases:
+  - name: mouse lock
+    source: mdn
+  - name: mouse look
+    source: community
+  - name: cursor lock
+    source: community
+tags:
+  - pointer
+  - web-platform
+relations:
+  contrastWith:
+    - pointer-capture
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - orbit
+implementations: []
+sources:
+  - title: "MDN: Pointer Lock API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API
+demo: inline
+exhibit: false
+useWhen: input is relative movement, not a screen position
+---
+
+An ordinary pointer has a position, and a position has edges. Push the mouse right for long
+enough and the cursor arrives at the side of the screen and stops, while your hand keeps
+going and the interface hears nothing more. For anything where the movement itself is the
+input rather than the place it lands, that ceiling is the whole problem. Pointer lock
+removes it: the cursor is hidden and detached from the display, and the events keep coming
+as pure deltas, `movementX` and `movementY`, for as long as the hand keeps moving. There is
+no position to run out of because there is no longer a position at all.
+
+The lineage is games and 3D. Mouse look in a first person view, orbiting a model in a CAD
+tool, and panning a canvas that is larger than any screen all want the same thing: turn by
+this much, not point at that spot. The scrubby slider is the same trade made small, and it
+runs into the same wall, since a value dragged far enough eventually reaches the edge of
+the window and stops changing. Locking the pointer is the honest fix for an unbounded
+scrub, which is why serious editing tools reach for it on their number fields and their
+colour wheels.
+
+The API is deliberately awkward, because a page that can hide your cursor and swallow every
+movement is a page that can trap you. `element.requestPointerLock()` has to be called from
+a user gesture, the browser shows its own notice the first time, and Escape always releases
+the lock without the page being able to prevent it. That last rule is why an interface built
+on it must say so: draw a reticle where the cursor used to be, so the reader can see that
+the pointer is somewhere else now, and print the escape convention on the screen rather than
+hoping people guess. Locking is also asynchronous and can fail, so the correct place to
+switch a view into its locked mode is the `pointerlockchange` event, never the line after
+the request.
+
+Two practicalities decide whether the result feels good. The deltas are raw device
+movement, which means they are not scaled by the operating system's acceleration curve in
+the same way a cursor is, so a sensitivity multiplier and a way to change it are part of
+the feature rather than a nicety. And nothing that only works while locked can be the only
+route to an action, because a trackpad, a touchscreen, and any assistive pointing device
+either cannot lock or cannot supply steady deltas. Keyboard steps, a numeric field, or a
+plain slider have to sit behind the gesture.

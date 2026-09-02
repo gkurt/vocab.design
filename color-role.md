@@ -1,0 +1,66 @@
+---
+name: Color role
+slug: color-role
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A named job in the interface, such as surface or outline or
+  on-primary, that components style themselves against instead of reaching for a
+  palette value.
+aliases:
+  - name: semantic token
+    source: community
+  - name: color slot
+    source: community
+  - name: role token
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - color-alias
+    - semantic-color
+    - primitive-color-token
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Color roles
+    url: https://m3.material.io/styles/color/roles
+sources:
+  - title: "Material 3: color roles"
+    url: https://m3.material.io/styles/color/roles
+demo: inline
+exhibit: false
+useWhen: the job a colour does, as the thing components reference
+---
+
+A palette answers "which colours do we have". Roles answer "what is each colour for".
+`surface`, `on-surface`, `outline`, `primary`, `error`: none of these names a colour, and
+that is the point. A card asks for `surface` and gets whatever the current scheme has
+decided a surface is, so the card can be written once and rendered into a light theme, a
+dark theme, and a high contrast theme without anybody editing the card. Material 3 is the
+best known role vocabulary, but the idea predates it and every mature system arrives at
+some version of it.
+
+Roles are a division of labour with a palette, not a replacement for one. Underneath,
+something still says `primary` resolves to `#3557E8`, and swapping that mapping is how a
+theme happens. What roles buy is that the mapping lives in one place instead of in four
+hundred components. The practical test of whether a name is a role: could you change what
+it points at, on purpose, without hunting through the interface for the places that meant
+something else by it? `brand-blue-600` fails that test. `primary` passes it.
+
+The failure mode is a role vocabulary that is really a palette wearing a costume. If your
+roles are `blue`, `light-blue` and `dark-blue`, you have renamed the values, not named the
+jobs, and the first dark theme will expose it. The opposite failure is a vocabulary so
+fine grained that nobody can pick from it, which is what happens when a role is minted for
+every component that ever needed a slightly different grey. Keep the set small enough to
+hold in your head, and let genuine one-offs stay one-offs.
+
+The word overlaps heavily with [colour token](/color-token), and the honest distinction is
+about tiers rather than about a different mechanism. A token is any named value in the
+chain; a role is a token whose name states a job rather than a colour, which is the tier
+components are supposed to read. [On-colours](/on-color) are roles too, defined by the
+surface they sit on rather than by a job of their own.

@@ -1,0 +1,72 @@
+---
+name: Synthwave
+slug: synthwave
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A neon 1980s look built on sunset gradients, glowing perspective
+  grids, and chrome type, close to vaporwave but sincere rather than ironic.
+aliases:
+  - name: outrun
+  - name: retrowave
+  - name: neon 80s
+    source: community
+  - name: SynthWave '84
+    source: vscode
+tags:
+  - retro
+relations:
+  contrastWith:
+    - vaporwave
+    - cyberpunk-ui
+    - retro-futurism
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Vaporwave | Aesthetics Wiki
+    url: https://aesthetics.fandom.com/wiki/Vaporwave
+  - title: "Digital Heroes: Vaporwave Retro Brand Design 2026"
+    url: https://digitalheroesco.com/styles/vaporwave/
+demo: inline
+exhibit: false
+useWhen: neon grid and sunset 80s futurism, played straight
+---
+
+The scene is nearly fixed, which is part of the appeal. A sun sitting on the horizon, huge,
+graded from yellow through orange into hot pink, and sliced by horizontal bands that get
+thicker toward the bottom. Below it a grid in cyan or magenta, laid flat and running to a
+single vanishing point, glowing as though the lines were tubes. Above it a violet to black
+sky with a few stars, sometimes mountains, a palm, or a car shot from behind. The title is
+set in heavy italic capitals with a chrome gradient, a hard bevel, and wide tracking, and
+anything that can carry a bloom does. The palette is short: hot pink, cyan, violet, deep
+blue, and black, with no neutrals at all.
+
+It is a revival with a soundtrack rather than a period style. The music came first, from
+mid 2000s French house and its descendants, and it was named for what it sounded like: the
+synthesizers of 1980s film scores and the 1986 arcade racer that gave the outrun alias its
+name. The imagery followed the records, then the films caught up, with Drive in 2011 and
+Hotline Miami in 2012 fixing the look for a wide audience. What is being copied is not the
+1980s exactly, it is 1980s packaging: VHS sleeves, arcade cabinet art, airbrushed album
+covers, and title sequences, all of it more saturated in memory than it ever was on the
+shelf.
+
+The sibling it gets confused with is [vaporwave](/vaporwave), and the difference is stance
+rather than parts. Both use a striped sun and a perspective grid. Vaporwave sets them beside
+statuary, katakana, and 1990s desktop furniture, and means it as elegy, a joke about
+commerce that curdles into sadness. Synthwave means it straight: this is an action movie
+poster, the car is fast, the night is warm, and nobody is being ironic about the neon.
+[Retro-futurism](/retro-futurism) is the umbrella above both, since each is a future
+imagined by an earlier decade, and [neon glow](/neon-glow) is the one technique the style
+leans on hardest.
+
+Used as an interface register it is a hero costume and little more. Saturated pink and cyan
+on near black is at the bottom of what the eye can focus on at once, since the lens cannot
+bring long and short wavelengths to the same plane, so the type appears to vibrate and small
+text becomes genuinely unreadable. A glow makes it worse by lowering the effective
+[contrast ratio](/contrast-ratio) of the letterform against its own halo. So put the sun,
+the grid, and the chrome title in the header, then set the interface underneath in ordinary
+type on a plain dark surface, and if the grid scrolls, give
+[reduced motion](/prefers-reduced-motion) a version that holds still.

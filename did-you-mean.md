@@ -1,0 +1,72 @@
+---
+name: Did you mean
+slug: did-you-mean
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Offering a corrected spelling for a query that returned little or
+  nothing, either as a suggestion to accept or as a substitution the reader can
+  undo.
+aliases:
+  - name: spelling suggestion
+    source: community
+  - name: query correction
+    source: community
+  - name: showing results for
+    source: community
+  - name: search instead for
+    source: community
+tags:
+  - content-design
+  - errors
+  - forms
+  - search
+relations:
+  contrastWith:
+    - no-results-state
+    - typeahead
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: search offers a corrected spelling of your query
+---
+
+"Did you mean" is what a search does instead of shrugging. The query came back thin or
+empty, the index holds a word one or two keystrokes away from what was typed, and rather
+than reporting the failure the interface names the near miss and offers it. The
+correction is cheap to compute (edit distance against the terms the index already knows,
+weighted by how often each is searched for) and it is worth far more than the arithmetic
+suggests, because the alternative is a reader who concludes the thing they wanted does
+not exist.
+
+There are two conventions and the difference between them is who decides. The suggestion
+form leaves the query alone: it shows the results for what was typed, however few, and
+offers the correction as a link to accept. The substitution form decides for the reader:
+it runs the corrected query, says so ("Showing results for receive"), and offers the way
+back ("Search instead for recieve"). Confidence picks between them. A near-certain
+correction with no results for the literal query earns the substitution, because making
+someone click to get the only useful answer is a toll. A guess earns the suggestion,
+because silently answering a question nobody asked is worse than answering the wrong one
+out loud. Either way the reader must be able to see what was actually searched and get
+their own words back in one click, which is the part that gets dropped.
+
+The suggestion belongs above the results, not below them, and it has to say both words:
+the one it ran and the one that was typed. A strip that reads only "Showing results for
+receive" leaves the reader unsure whether their spelling was wrong or their memory was.
+Screen readers need the same fact, so the strip is a live region that announces the swap
+rather than a decoration that quietly appears. On this site
+[no results state](/no-results-state) is the outcome this is trying to prevent: a typo
+is the most common reason a list goes empty, so the empty state and the correction are
+usually built in the same afternoon.
+
+The name comes from the phrasing Google shipped in the early 2000s, and it stuck so
+firmly that the words are now the name of the pattern in most teams, whichever wording
+actually appears on screen. Keep it distinct from autocorrect, which rewrites text as it
+is typed and is not a search behaviour at all, and from a typeahead, which suggests
+whole queries before the search has run. This one arrives after: it is a repair, not a
+prediction.

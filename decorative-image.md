@@ -1,0 +1,73 @@
+---
+name: Decorative image
+slug: decorative-image
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An image that carries no information and is given an empty alt
+  attribute so assistive technology skips it entirely.
+aliases:
+  - name: null alt
+    source: community
+  - name: empty alt
+    source: community
+  - name: alt=""
+    source: html
+  - name: pure decoration
+    source: wcag
+  - name: presentational image
+    source: aria
+tags:
+  - assistive-tech
+  - media
+relations:
+  contrastWith:
+    - alt-text
+    - presentation-role
+    - aria-hidden
+    - figure
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - image
+implementations: []
+sources:
+  - title: "WCAG 2.2: Non-text Content"
+    url: https://www.w3.org/TR/WCAG22/#non-text-content
+  - title: A11y Project checklist
+    url: https://www.a11yproject.com/checklist/
+demo: inline
+exhibit: false
+useWhen: the picture adds nothing a reader would miss
+---
+
+Some images say nothing. A flourish under a heading, a texture behind a card, a stock
+photo of two people at a laptop, an icon sitting beside the word it already repeats.
+For those the correct alternative text is no text: `alt=""`, which tells the browser
+to drop the image out of the accessibility tree so a screen reader passes over it
+without a word. WCAG calls this pure decoration, and it is the one case where writing
+nothing is the accessible answer.
+
+The decision test is short. Remove the image and read what is left. If nothing is
+missing, it was decoration. If the caption, the heading, or the sentence beside it
+already says the same thing, it is decoration too, because hearing it twice is worse
+than not hearing it at all. If anything at all goes missing, the image is
+informational and owes the reader a real alternative, and a chart or a screenshot
+almost always does.
+
+Empty is not the same as absent. `alt=""` is a deliberate statement that there is
+nothing to say; an image with no `alt` attribute is an image whose author has not been
+asked, and screen readers fall back to announcing the file name, which is how readers
+end up hearing "hero underscore final two dot jpg". Both look identical on screen,
+which is why automated checkers flag the missing one and cannot flag a wrong one.
+`role="presentation"` and `aria-hidden="true"` reach the same result by other routes,
+and for an `<img>` the empty attribute is the plain way to say it. Genuinely
+background decoration can also stop being an image: a CSS `background-image` is never
+in the tree in the first place.
+
+Two traps. An image inside a link, with nothing else in that link, must not be
+decorative: emptying its alt leaves the link with no name at all, so the alt has to
+describe the destination rather than the picture. And an icon beside a text label is
+decoration only while the label is really there. The moment the label is hidden at
+small sizes, the icon is the only thing left and it needs the name back.

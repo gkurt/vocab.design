@@ -1,0 +1,74 @@
+---
+name: Flashing content
+slug: flashing-content
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Content that flashes more than three times per second in a large
+  enough area, restricted because it can trigger seizures.
+aliases:
+  - name: three flashes threshold
+    source: wcag
+  - name: photosensitive epilepsy
+    source: community
+  - name: general flash and red flash thresholds
+    source: wcag
+  - name: seizure safe
+    source: community
+tags:
+  - perception
+  - wcag
+relations:
+  contrastWith:
+    - prefers-reduced-motion
+    - pause-stop-hide
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "WCAG 2.2: Three Flashes or Below Threshold"
+    url: https://www.w3.org/TR/WCAG22/#three-flashes-or-below-threshold
+demo: inline
+exhibit: false
+useWhen: judging whether a flash rate is dangerous
+---
+
+Success criterion 2.3.1, Three Flashes or Below Threshold, is Level A and it is the one criterion
+in the standard written to prevent physical harm. Nothing on a page may flash more than three
+times in any one second, unless the flashing stays below the general flash and red flash
+thresholds. The risk is a seizure in a reader with photosensitive epilepsy, which is why this
+criterion has no user preference attached to it, no opt-in, and no severity discussion: three
+per second is the line, and 2.3.2, Three Flashes, at AAA, removes even the threshold exemption.
+
+The thresholds are what make the rule usable rather than absolute. A flash is a pair of opposing
+changes in relative luminance, and the general threshold is crossed when that change is 10
+percent or more of maximum relative luminance while the darker state sits below 0.80. Saturated
+red gets its own rule, because transitions to and from deep red are more provocative than the
+same change in any other hue. And there is a small safe area: flashing is exempt if the flashing
+region is no larger than roughly a quarter of a small central area of vision, which works out at
+about 21,824 pixels, a region around 341 by 256, at a typical viewing distance. Three numbers,
+then: how fast, how bright a swing, and how big.
+
+The failures in ordinary product work are rarely deliberate. An autoplaying hero video with a
+strobe cut, a glitch effect looping in a background, a loading state that inverts, a theme that
+flips back and forth while a preference resolves, a scroll-driven animation that stutters into a
+flicker when a heavy page drops frames. Note that
+[prefers reduced motion](/prefers-reduced-motion) does not discharge this duty. A preference is a
+standing request from the readers who made it, and this criterion protects everyone, including
+the reader who has never touched that setting. A slow
+[pulse animation](/pulse-animation) is not in scope at all, because it is one cycle every second
+or two and a small swing at that, and where the movement is long-running rather than dangerous
+the applicable rule is [pause, stop, hide](/pause-stop-hide).
+
+The specimen above runs a flash faster than the count and stays lawful, which is the part worth
+seeing. Its lamp swings between white and a very light grey four times a second: past three, and
+still not a flash, because the swing is 13.7 percent of maximum while the darker state sits at
+0.86, and a general flash needs both a swing over 10 percent and a darker state under 0.80. The
+lamp is also 6,720 pixels, which puts it inside the small safe area on its own. Two exemptions,
+either of them sufficient. The third control asks for twenty four a second at full contrast over
+a large region, and the specimen refuses that one: it holds a still frame and shows the numbers
+it would be failing. Explaining a seizure risk by producing one, unattended, on a loop, beside an
+article somebody is reading, is the single thing this entry must not do, and the way out of that
+bind is not silence but measurement.

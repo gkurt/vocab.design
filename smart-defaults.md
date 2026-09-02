@@ -1,0 +1,76 @@
+---
+name: Smart defaults
+slug: smart-defaults
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Prefilling a choice with the answer most people in this situation
+  want, so the common case needs no work and every other case is still
+  reachable.
+aliases:
+  - name: good defaults
+    source: ui-patterns
+  - name: sensible defaults
+    source: community
+  - name: prefilled values
+    source: community
+  - name: recommended option
+    source: goodui
+tags:
+  - forms
+relations:
+  contrastWith:
+    - redundant-entry
+    - preselected-opt-in
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - forgiving-format
+implementations: []
+sources:
+  - title: "UI Patterns: Good Defaults"
+    url: https://ui-patterns.com/patterns
+  - title: "GoodUI: Try Smart Defaults instead of asking to do extra work"
+    url: https://goodui.org/
+demo: inline
+exhibit: false
+useWhen: the form arrives already answered the way you would have
+---
+
+A default is the answer the interface gives on the reader's behalf before they have
+said anything. It is not a neutral act. Defaults are the most powerful control on any
+form, because most people accept them: Eric Johnson and Daniel Goldstein's 2003 study
+of organ donor registration found participation rates differing by tens of percentage
+points between countries whose only meaningful difference was whether the box started
+ticked. Whatever a form starts with is what most of its answers will be. A smart
+default is the deliberate use of that fact in the reader's favour, filling in what the
+situation already implies so that the common case is a single tap and every other case
+is one gesture away.
+
+Good defaults come from three places. The reader's own context supplies most of them:
+locale, timezone, the address on file, the card used last time, today's date in a date
+field. Population data supplies the rest: if four in five people pick standard
+delivery, standard delivery is the honest starting point. And where neither knows, the
+default should be the least destructive option, since an accepted default that does
+nothing is recoverable and one that spends money is not. Saying why on screen turns a
+guess into information: a small "Most common" beside the preselected shipping method
+tells the minority who need something else that the form is not merely assuming, and
+it costs the majority nothing.
+
+The line between this and the dark twin is direction, not mechanism. A smart default
+serves the reader's likely intent; a **preselection** serves the seller, and it is
+catalogued as a [dark pattern](/dark-pattern) for good reason. Three rules keep the
+two apart. Never default to spending more, sharing more, or consenting to more:
+consent under the GDPR has to be an affirmative act, which is why a pre-ticked
+marketing box is a compliance problem and not a design preference. Never hide the
+default: a prefilled field a reader can see is one they can correct, while an
+assumption made silently is discovered at the worst moment. And changing it has to be
+a single, visible gesture, never a trip into a settings screen.
+
+Two failure modes remain even when the intent is good. A default that is right for the
+majority is wrong for someone, so the exception path deserves the same care as the
+happy one: an inferred country that cannot be changed until a page reloads is worse
+than an empty select. And some fields have no defensible default at all. A name, a
+password, a medical answer, a legal declaration: prefilling those does not save work,
+it invites a person to agree to something they did not read.

@@ -1,0 +1,68 @@
+---
+name: Layout shifter
+slug: layout-shifter
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A responsive pattern where the arrangement genuinely differs per
+  breakpoint rather than reflowing, so each size gets its own composition.
+aliases:
+  - name: layout shifter pattern
+    source: community
+tags:
+  - screen-size
+relations:
+  contrastWith:
+    - adaptive-layout
+    - column-drop
+    - layout-shift
+    - mostly-fluid
+  variantOf:
+    - responsive-web-design
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Multi-Device Layout Patterns, LukeW
+    url: https://www.lukew.com/ff/entry.asp?1514=
+demo: inline
+exhibit: false
+useWhen: sizes get different layouts, not the same one reflowed
+---
+
+Two words apart, and completely unrelated: this is not [layout shift](/layout-shift). Layout
+shift is the performance defect measured by Cumulative Layout Shift, content jumping under a
+reader's eye after the page has already painted, and it is something you work to eliminate.
+Layout shifter is one of the five responsive layout patterns Luke Wroblewski catalogued from
+early responsive sites, and it is a deliberate design decision made ahead of time. A reader who
+searches for one name and lands on the other will find advice that reads as exactly backwards,
+which is the strongest argument for keeping both words in the vocabulary and knowing which one
+you mean.
+
+With this entry the set of five is complete on the site: [tiny tweaks](/tiny-tweaks) changes only
+the numbers, [mostly fluid](/mostly-fluid) stretches one grid and then caps it,
+[column drop](/column-drop) loses full height columns one at a time, [off canvas](/off-canvas)
+parks a region outside the viewport until it is asked for, and layout shifter is the one where the
+composition itself is different at each size. Not the same arrangement at another width, and not
+the same blocks in the same order at a different column count: a genuinely different plan, in
+which a region can be a full height rail at one size, a card in a two up row at the next, and a
+full width band at the smallest. The other four are all one composition responding to space. This
+one is several compositions, selected by space.
+
+The mechanism has got much better since the pattern was named. Named grid areas make each
+composition a readable block of `grid-template-areas` per breakpoint, so the arrangement is
+declared in one place instead of being reconstructed from floats and widths scattered across
+media queries. That is also the honest test of whether you are looking at a layout shifter: if
+you can write the three plans as three area maps and they do not look alike, the pattern applies.
+If two of them are the same map with different track sizes, what you actually have is
+[mostly fluid](/mostly-fluid) or a [switcher](/switcher), and you should say so.
+
+The cost is why the pattern is rarer than it sounds. Three compositions are three layouts to
+design, build, review and keep working, and each new region has to find a home in all of them.
+Worse, the arrangements have to agree with a single source order, because there is only one
+document: a region that reads third on desktop and first on mobile is either a
+a break between [reading order](/reading-order) and visual order, with the [focus order](/focus-order) problems that brings,
+or a compromise in one of the two compositions. Decide the source order from the content's own
+priority first, then check that every composition can be built from it, and treat any
+arrangement that needs a different order as a cost rather than a free choice.

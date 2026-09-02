@@ -1,0 +1,67 @@
+---
+name: Zero state
+slug: zero-state
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The first-run screen a feature shows before any data exists, written
+  to teach the feature rather than to report emptiness.
+aliases:
+  - name: zero data state
+    source: community
+tags:
+  - content-design
+  - onboarding
+relations:
+  contrastWith:
+    - empty-state
+    - first-run-experience
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - onboarding-checklist
+    - coach-mark
+implementations: []
+sources:
+  - title: Empty states in application design, NN/g
+    url: https://www.nngroup.com/articles/empty-state-interface-design/
+demo: inline
+exhibit: false
+useWhen: the teaching screen shown before any data exists
+---
+
+The line this site draws runs through what the screen is for. An
+[empty state](/empty-state) reports an absence: it names what is missing and hands over
+the one action that ends it, and it comes back every time the container is emptied
+again. A [first run experience](/first-run-experience) is bounded to a single moment,
+the very first open, and is spent as soon as it is seen. A zero state is neither a
+report nor a moment: it is what the feature wears for as long as it holds nothing, and
+its job is to teach what the feature will look like once it holds something. That is why
+zero states show sample or ghosted content, a preview of the filled version, while empty
+states show a sentence and a button.
+
+Be warned that plenty of teams use the two words as synonyms, and a fair number use
+"zero state" for any empty container at all. The distinction is worth keeping because
+the two screens fail differently. An empty state that tries to teach becomes a lecture
+someone reads on their fourth visit after deleting a row. A zero state that only reports
+teaches a person nothing about a feature they have never seen, which is exactly the
+moment teaching is cheap: there is no content to get in the way, so the whole surface is
+available to show what content would look like.
+
+What goes on it is a preview and a first step. Ghosted rows, a faded example board, a
+chart drawn from made-up numbers, anything that answers "what will this look like when
+it works" without pretending to be real data, and then one control that starts the real
+thing. Two failure modes are worth naming. Sample content that is indistinguishable from
+real content is worse than none, since the first thing the person does is try to open
+it. And a zero state stapled onto every empty container in the product turns into
+[nagging](/nagging), because the twentieth teaching screen is teaching nothing.
+
+It pairs naturally with the rest of the onboarding family without being any of them: an
+[onboarding checklist](/onboarding-checklist) can live on it and a
+[coach mark](/coach-mark) can point at the control it offers, and both outlive it. The
+zero state itself has no memory, which is the sharpest practical test against a first
+run experience. It is met on first run, which is what the word is usually reaching for,
+but it is a function of the data rather than of the visit: create a row and delete it
+again, and the screen that comes back is the zero state, while the first run experience
+is gone for good.

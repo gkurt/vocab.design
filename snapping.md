@@ -1,0 +1,69 @@
+---
+name: Snapping
+slug: snapping
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Pulling a dragged object into exact alignment once it comes within a
+  small distance of a grid, guide, or another object's edge.
+aliases:
+  - name: snap to grid
+    source: community
+  - name: magnetic snapping
+    source: community
+  - name: snap to object
+    source: community
+  - name: snap tolerance
+    source: community
+tags:
+  - canvas
+  - dragging
+relations:
+  contrastWith:
+    - smart-guides
+    - drop-indicator
+    - detent
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - drag-and-drop
+    - nudge
+implementations: []
+sources:
+  - title: "Wikipedia: Snap (computer graphics)"
+    url: https://en.wikipedia.org/wiki/Snap_(computer_graphics)
+demo: inline
+exhibit: false
+useWhen: a drag jumps into alignment near a guide
+---
+
+Nobody can drop a box on an exact coordinate with a mouse, and no design would be
+better for it if they could. Snapping takes the intention and discards the tremor: while
+the object is inside a tolerance of some reference, its position is quietly replaced by
+the reference's own. What it snaps to is the interesting part, because the references
+form a hierarchy. A fixed grid is the coarsest. Guides a person placed themselves are
+next. Then the edges, centres, and baselines of the neighbouring objects, which is what
+makes a diagram tool feel like it understands the drawing rather than just the canvas.
+
+The tolerance is measured in screen pixels, not in document units, which is the detail
+people get wrong first. Snap at a fixed model distance and the behaviour changes
+character as the reader zooms: irresistible when zoomed out, unreachable when zoomed in.
+Keep the catch radius constant on screen, somewhere around 5 to 10 pixels, and it feels
+the same at every scale. The other classic mistake is snapping the pointer instead of
+the object. The reader is dragging a shape, so what has to land on the line is the
+shape's edge or centre, and every candidate the shape offers should be tested against
+every nearby reference so that a corner, a midpoint, or a baseline can each be what
+catches.
+
+Show your work while the drag is live. Snapping that only happens on release is a
+lottery, so tools draw the alignment as it is found: the guide the object is about to
+lock onto lights up, an outline shows where the drop will land, and something (a
+distance badge, a matching gap marker) says why that position was chosen. A snap that
+happens silently and invisibly reads as the object refusing to go where it was put.
+
+Which brings up the escape hatch. Snapping is a guess about intent, and it is sometimes
+wrong, so every serious tool lets a reader overrule it by holding a modifier during the
+drag or turning the grid off outright. Without that, the last few pixels of a layout
+become impossible, and the feature that was supposed to make alignment effortless is
+the thing standing in the way.

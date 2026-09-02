@@ -1,0 +1,78 @@
+---
+name: Type scale
+slug: type-scale
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The fixed set of text sizes a design allows, chosen so sizes relate
+  to each other rather than being picked one at a time.
+aliases:
+  - name: type ramp
+    source: fluent
+  - name: typescale
+    source: material
+  - name: type sets
+    source: carbon
+  - name: text styles
+    source: hig
+  - name: font size scale
+tags:
+  - fonts
+  - tokens
+relations:
+  contrastWith:
+    - leading
+    - heading-hierarchy
+    - modular-scale
+    - typographic-hierarchy
+    - typography-token
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Type scale
+    url: https://m3.material.io/styles/typography/type-scale-tokens
+  - system: fluent
+    name: Type ramp
+    url: https://fluent2.microsoft.design/typography
+  - system: hig
+    name: Text styles
+    url: https://developer.apple.com/design/human-interface-guidelines/typography
+sources:
+  - title: "Fluent 2: Typography"
+    url: https://fluent2.microsoft.design/typography
+  - title: "Material Design 3: Type scale tokens"
+    url: https://m3.material.io/styles/typography/type-scale-tokens
+demo: inline
+exhibit: false
+useWhen: deciding what sizes are allowed to exist at all
+---
+
+A type scale is a closed list. Once a design has one, 15px is not a smaller
+choice than 16px, it is an illegal one. That constraint is the whole point:
+sizes picked one screen at a time drift into a dozen near-identical values that
+nobody can tell apart and every engineer has to guess between.
+
+Most scales are built by multiplying a base size by a ratio over and over.
+Common ratios run from the quiet 1.125 (major second) through 1.25 and 1.333
+(perfect fourth) to the dramatic 1.5 (perfect fifth) and 1.618 (golden). A
+small ratio gives many steps that sit close together, good for dense product
+UI where a caption and a body line must still read as different. A large ratio
+gives few steps with obvious gaps, good for editorial pages where a headline is
+supposed to shout. The ratio is a generator, not a law: designers routinely
+round its output to whole pixels and drop the steps they never use.
+
+Design systems ship the result as named roles rather than as numbers, because
+the name is what survives a redesign. Material has display, headline, title,
+body and label; Fluent calls the same idea a type ramp; Apple ties its text
+styles to Dynamic Type so the reader's own size preference moves the whole
+scale at once. A role carries more than a size, since a step is only usable
+once its weight and its [leading](/leading) are decided with it.
+
+Two things a scale does not settle. It says nothing about measure, the line
+length that decides whether a size is comfortable, and it says nothing about
+which role a given piece of content deserves. Both of those are judgement
+applied on top of the scale, which is why a system with a beautiful ramp can
+still produce a page where everything is a title.

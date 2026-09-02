@@ -1,0 +1,67 @@
+---
+name: Route announcement
+slug: route-announcement
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Telling assistive technology that a client side navigation happened,
+  by moving focus to the new heading or posting the new title to a live region.
+aliases:
+  - name: route announcer
+    source: next
+  - name: SPA navigation announcement
+    source: community
+  - name: page change announcement
+    source: community
+  - name: focus on route change
+    source: community
+tags:
+  - assistive-tech
+  - navigation
+relations:
+  contrastWith:
+    - page-title
+    - focus-management
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - page-transition
+implementations: []
+sources:
+  - title: "Dave Rupert: Accessible page navigations in single page apps"
+    url: https://daverupert.com/2019/01/accessible-page-navigations-in-single-page-apps/
+demo: iframe
+exhibit: false
+useWhen: the URL changed but the page never reloaded
+---
+
+A full page load announces itself for free. The browser tears the document down, builds a new one,
+says its title, and puts focus back at the top, so a screen reader user hears where they have
+arrived and starts reading from the beginning. A client-side route change does none of that. The URL
+in the address bar is new, the main region has been replaced, and as far as assistive technology is
+concerned nothing at all has happened: focus is still sitting on the link that was clicked, and the
+document's title, which is the one thing a reader can ask for at any moment, still names the page
+they left.
+
+The fix is to do by hand the two things the browser used to do. Update `document.title`, so the
+title matches what is on screen. Then either move focus to the new view, usually its heading given
+`tabindex="-1"` so it can receive focus without joining the tab order, or post the new page's name
+into a [live region](/live-region). Focus is the stronger option: it announces the destination and
+puts the reader at the top of the new content, which also fixes [focus order](/focus-order) for
+keyboard users, who otherwise carry on tabbing from wherever the old page's link happened to be. A
+live region announces without moving anyone, which is gentler but leaves the reader's position
+behind.
+
+Most frameworks now ship something. Next.js has a route announcer that reads the new page title
+into a live region, and several routers offer a focus target or an announcement hook. They are worth
+using and worth checking, because the generic version can only say the title, and a title of
+"Dashboard" is not much of an arrival announcement if the actual change was a filter applied to a
+table. Where you write your own, keep the post short and complete, and let the region be
+[atomic](/atomic-live-region) so the reader hears the whole name rather than the word that changed.
+
+Two traps. The first is announcing too much: a route change fired on every scroll-driven URL update,
+or on every query-parameter change, turns a helpful arrival message into a stream of interruptions.
+The second is announcing too early, before the new view exists, which posts a title for content that
+has not rendered. Announce when the destination is on screen and focusable, and if the route is slow,
+say that it is loading and announce arrival separately.

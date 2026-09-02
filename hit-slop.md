@@ -1,0 +1,79 @@
+---
+name: Hit slop
+slug: hit-slop
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Invisible padding that extends a control's activatable area beyond
+  its drawn bounds, so a small icon can stay small and still be easy to hit.
+aliases:
+  - name: hitSlop
+    source: community
+  - name: touch target padding
+    source: community
+  - name: invisible hit area
+    source: community
+  - name: extended tap area
+    source: community
+  - name: touch target expansion
+    source: merged-candidate
+  - name: tap area padding
+    source: merged-candidate
+  - name: extended touch target
+    source: merged-candidate
+tags:
+  - a11y
+  - pointer
+  - touch
+relations:
+  contrastWith:
+    - target-spacing
+    - drag-threshold
+    - hit-testing
+    - touch-target
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - focus-delegation
+    - dead-zone
+implementations: []
+sources:
+  - title: "Smashing Magazine: accessible tap target sizes"
+    url: https://www.smashingmagazine.com/2023/04/accessible-tap-target-sizes-rage-taps-clicks/
+demo: inline
+exhibit: false
+useWhen: the tappable area is bigger than the visible control
+---
+
+Two boxes belong to every control: the one that is drawn and the one that answers. Hit slop
+is the difference between them, deliberately made positive. A close glyph stays at sixteen
+pixels because that is how big it should look, and the region the browser tests a tap
+against is pushed out to forty-four in every direction, invisibly. Nobody sees it, everybody
+benefits from it, and a design review that measures the artwork will report a failure that
+does not exist. React Native gave the idea its most quoted spelling, a `hitSlop` prop taking
+four insets, and the name has travelled well beyond that framework.
+
+It is the technique that lets touch target size be satisfied without redrawing anything.
+The guideline asks for a minimum region, not a minimum drawing, so the two ways to meet it
+are to make the control bigger or to make the invisible half bigger, and only one of those
+changes the design. On the web the plain version is padding on the control itself, which
+also grows its layout box. Where that would disturb the arrangement, an absolutely
+positioned overlay pinned with negative insets inside the control does the same job without
+touching the layout, and the standard trick is a transparent pseudo-element. Either way the
+mechanism is hit testing: the extended region is a box on top, and a point inside it
+resolves to the control.
+
+The discipline is spacing rather than size. Grown areas that overlap trade taps in a way no
+screenshot will ever show, and the loser is always the same control, since whichever box is
+painted last wins the point. Two icons sixteen pixels apart cannot both have twelve pixels
+of slop, so the honest fix is to space them for the region you intend rather than for the
+ink. Slop also does nothing for a pointer that is being aimed, only for one that is being
+approximated, so it will not rescue a control the reader cannot find. And it must not be
+larger than the gap to a destructive neighbour: a delete that quietly annexes the pixels
+around it is worse than a delete that is merely small.
+
+Read together with the neighbouring vocabulary, the picture is simple. Hit testing is the
+question of which element answers a point. Touch target size is the minimum area the answer
+must cover. Hit slop is how a control that is smaller than that minimum gets there without
+growing.

@@ -1,0 +1,68 @@
+---
+name: Table of contents
+slug: table-of-contents
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A list of a document's sections, linked in reading order, shown
+  beside or above the text.
+aliases:
+  - name: contents
+  - name: in-page navigation
+    source: community
+tags:
+  - editorial
+  - navigation
+relations:
+  contrastWith:
+    - scroll-spy
+    - local-navigation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - sticky-sidebar
+    - heading-hierarchy
+implementations: []
+sources:
+  - title: "DPUB-ARIA: doc-toc role"
+    url: https://www.w3.org/TR/dpub-aria-1.0/#doc-toc
+  - title: nav element, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav
+demo: inline
+exhibit: false
+useWhen: the document's own sections, in reading order
+---
+
+A table of contents is the list. [Scroll spy](/scroll-spy) is the behaviour that
+highlights which entry you are currently under, and the two get talked about as one
+thing because they so often ship together, but a contents list with no tracking at all
+is still a table of contents: it enumerates the document, it links each entry to the
+section it names, and it does that whether or not anything ever lights up. The list is
+the noun and the highlight is the verb, which is why a specimen of this term can be
+demonstrated with a click and nothing else.
+
+Reading order is not a detail. A list of the same links sorted alphabetically, or by
+popularity, or by how recently each section changed, is an index rather than a contents
+list, and it answers a different question: an index is for a reader who already knows
+the word they want, a contents list is for one who wants the shape of the whole. That
+shape is also why depth stops helping fast. Two levels give a reader the sections and
+their parts; a third turns the aid into a second document to read before the first one,
+and the usual fix is to publish the top two and let the page's own headings carry the
+rest.
+
+The honest way to build one is to generate it from the headings. A hand-maintained list
+drifts the moment a section is renamed or moved, and it drifts silently, since nothing
+about a stale entry looks broken until someone clicks it. Deriving the list from the
+document's [heading hierarchy](/heading-hierarchy) makes the two impossible to
+disagree, and it turns a flat heading structure into a visible bug rather than a
+private one. Marking the list up as a `nav` with `aria-label` (or the publishing
+world's `doc-toc` role) is what tells a screen reader that this block is a navigational
+aid and not the first paragraph.
+
+On a long page the contents list usually wants to stay reachable, which is where it
+becomes a [sticky sidebar](/sticky-sidebar) in a side rail rather than a block above
+the text. Do not confuse it with [local navigation](/local-navigation), which lists
+other pages: a table of contents never leaves the document it describes, and when a
+single page is the whole section, the two collapse into each other and the rail's
+entries stop being URLs.

@@ -1,0 +1,70 @@
+---
+name: Politeness level
+slug: politeness-level
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The urgency setting on a live region: polite waits for a pause in
+  speech, assertive interrupts whatever is being read."
+aliases:
+  - name: aria-live polite
+    source: aria
+  - name: assertive
+    source: aria
+  - name: live region politeness
+    source: community
+  - name: announcement queue
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - atomic-live-region
+    - busy-state
+    - live-region
+    - verbosity
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: aria-live"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live
+demo: inline
+exhibit: false
+useWhen: choosing whether an update may interrupt speech
+---
+
+`aria-live` takes three values and they are a queue policy, not a volume knob. `off` is the
+default: changes inside the element are not announced at all. `polite` puts the new text at
+the back of the queue, so the screen reader finishes the sentence it is speaking, finishes
+anything already waiting, and then reads it. `assertive` clears the queue and speaks
+immediately, abandoning the current utterance mid-word. Nothing about the visual design
+changes; the setting only decides where in a stream of speech the update lands. What a
+[live region](/live-region) is, and how one is wired up, belongs to that entry.
+
+Assertive is almost always the wrong answer, because interrupting means destroying: the
+sentence the reader was listening to is gone, and there is no way to ask for it back. That
+cost is worth paying only when acting late is worse than losing the sentence, which in
+practice means a session about to expire, a connection dropping mid-transaction, or a
+validation failure that has already blocked a submit the person just made. A saved draft, a
+finished upload, a filter that returned nine results: all of those are polite, because
+waiting two seconds costs nobody anything. The rule of thumb that survives review is to
+write `polite` by default and make anyone proposing `assertive` say out loud what the reader
+loses.
+
+Two shorthands sit on top of the attribute. `role="status"` carries an implicit polite
+politeness, and `role="alert"` carries assertive plus an implicit `aria-atomic="true"`, so
+the whole region is re-read rather than just the changed words. Reaching for the role
+instead of the attribute is usually better, since the role also tells assistive technology
+what kind of thing the region is, and a
+[status message](/status-message) is the pattern most of these updates actually are.
+
+The failure modes are queue failures. Several polite regions updated in the same tick pile
+up and are read one after another, so a page that announces every filter change announces
+four of them by the time the reader has stopped typing. An assertive region that fires
+repeatedly makes speech unusable, since each new message kills the one before it, including
+its own predecessor. And a region that is emptied and refilled in quick succession may be
+read twice or not at all, depending on the screen reader, which is why an announcer usually
+debounces and writes one final string rather than a running commentary.

@@ -1,0 +1,71 @@
+---
+name: Accent color
+slug: accent-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The one saturated colour an interface spends sparingly on the things
+  it wants clicked, so its rarity is what makes it read as important.
+aliases:
+  - name: primary color
+    source: material
+  - name: tint color
+    source: hig
+  - name: brand accent
+  - name: highlight color
+tags:
+  - perception
+  - tokens
+relations:
+  contrastWith:
+    - brand-color
+    - container-color
+    - status-color
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - color-token
+    - sixty-thirty-ten-rule
+implementations:
+  - system: radix
+    name: accent scale
+    url: https://www.radix-ui.com/themes/docs/theme/color
+  - system: material
+    name: Primary
+    url: https://m3.material.io/styles/color/roles
+sources:
+  - title: "MDN: accent-color"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/accent-color
+demo: inline
+exhibit: false
+useWhen: the one colour reserved for the primary action
+---
+
+An accent works on a budget. The colour itself carries no meaning; what carries
+meaning is that almost nothing else on the screen is wearing it. A panel with one
+accent-coloured button says press this, and the same panel with an accent button,
+an accent heading, an accent border and an accent icon says nothing at all. The
+rule of thumb most systems land on is that the accent should be the smallest
+coloured area in any view it appears in.
+
+Every vocabulary names it differently. Material calls it primary and gives it a
+family of roles (primary, on-primary, primary container) so that a single decision
+propagates to text and fills that must sit on it. Apple calls it the tint colour,
+and treats it as something the person can change. Radix ships it as an accent
+scale of twelve steps, on the argument that one accent value is never enough:
+the same hue is needed as a faint fill, a solid, and a readable text colour. CSS
+has an `accent-color` property too, but it is a much narrower thing, only
+recolouring the parts of native form controls the browser draws for you.
+
+The value itself usually comes from one step of a [color ramp](/color-ramp) and
+reaches components through a [semantic colour](/semantic-color) name, which is why
+reskinning a product can be a single substitution. Brand colour and accent colour
+are related but not the same job: a brand red tuned for a logo at 200 pixels often
+fails contrast as a 13 pixel label, so the accent is typically a tuned relative of
+the brand hue rather than the brand hue itself.
+
+The accent must also never be the only thing saying something. A destructive
+button that differs from a safe one by hue alone, or a selected row marked only by
+a wash of accent, disappears for a reader with a colour vision deficiency and for
+anyone in bright sun. Pair it with position, weight, a label, or a check.

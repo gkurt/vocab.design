@@ -1,0 +1,69 @@
+---
+name: Scrubber
+slug: scrubber
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The seek control of a media player: a track showing elapsed and
+  buffered time with a playhead you drag to move through it."
+aliases:
+  - name: seek bar
+  - name: progress scrubber
+  - name: timeline scrubber
+  - name: transport slider
+tags:
+  - dragging
+  - media
+  - time
+relations:
+  contrastWith:
+    - slider
+    - progress-bar
+    - waveform
+    - scrubbing
+    - media-controls
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - playhead
+    - timeline
+implementations: []
+sources:
+  - title: "UX Patterns for Developers: patterns"
+    url: https://uxpatterns.dev/patterns
+demo: inline
+exhibit: false
+useWhen: the bar you drag to move through a video
+---
+
+A scrubber is the one control that turns a recording into a place. The track is the
+whole duration, the playhead is where the reader is standing in it, and dragging the
+playhead is called scrubbing after the physical act of rocking a reel of tape across a
+playback head to find a frame by ear. Everything else in a transport row (play, skip,
+speed) moves through time on the player's terms. The scrubber is the only part that
+lets the reader do it on theirs.
+
+It looks like a [slider](/slider) and it is not one. A slider sets a value that did not
+exist until the reader chose it, so nothing about the track is true except the range. A
+scrubber reports a position in something that already exists, which is why the track
+carries information a slider's track never does: how much has been played, how much has
+been downloaded ahead of the playhead, where the chapters divide, and often a thumbnail
+of the frame under the pointer. The buffered band is the honest part. Without it, a
+reader who drags past the download is dragging into a stall with no warning.
+
+Precision is the whole design problem. A two hour film on a 320 pixel track means
+roughly twenty seconds per pixel, so the difference between a good scrubber and a bad
+one is what it does about that: a preview thumbnail so a reader can aim by picture, a
+timecode that follows the pointer, chapter markers to snap toward, fine scrubbing when
+the pointer moves away from the track (the iOS gesture), and keyboard steps in seconds
+rather than percentages. Continuous seeking while the drag is in flight feels immediate
+but costs bandwidth, so many players preview during the drag and only seek on release.
+
+Accessibility treats it as a slider with a name, which is where the resemblance is
+useful. The playhead reports `aria-valuemin`, `aria-valuemax`, and `aria-valuenow` in
+seconds, plus an `aria-valuetext` that says "1 minute 24 seconds" instead of "84", and
+arrow keys have to move it in useful steps (five seconds, ten seconds, a chapter). The
+target also needs to be bigger than the line it draws: a 4 pixel track with a 4 pixel
+hit area is unusable with a trackpad and impossible with a thumb, so the pressable
+region is padded well past the paint ([touch target size](/touch-target-size)).

@@ -1,0 +1,75 @@
+---
+name: Primitive color token
+slug: primitive-color-token
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A raw palette value named for what it is, like blue-500, sitting
+  under the semantic layer that names colours for what they do.
+aliases:
+  - name: global token
+    source: fluent
+  - name: reference token
+    source: material
+  - name: core token
+    source: community
+  - name: base token
+    source: community
+  - name: raw value
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - color-role
+    - color-alias
+    - color-token
+    - semantic-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: fluent
+    name: Global tokens
+    url: https://fluent2.microsoft.design/design-tokens
+sources:
+  - title: "Color token naming: primitive, semantic and component layers"
+    url: https://colorarchive.org/guides/color-token-naming-guide/
+demo: inline
+exhibit: false
+useWhen: the raw palette value beneath a semantic name
+---
+
+`blue-500: #3557E8` is a primitive token. The name describes the value and nothing else: it
+says which hue and roughly how dark, and it says nothing about buttons, links, focus rings,
+or which theme is running. That silence is the feature. A primitive is the bottom of the
+chain, the place a hex code is written down once, and everything above it is a reference
+rather than a copy.
+
+The layer above is the semantic one, where [colour roles](/color-role) name jobs:
+`color-action`, `color-surface`, `color-critical`. A role points at a primitive, and
+swapping themes re-points it. The layer above that is component scoped, `button-background`
+pointing at `color-action` rather than at `blue-500`. The rule the layering exists for is
+short: a component never names a primitive, because a primitive has no opinion about where
+it is used. The moment a button reaches past the role and takes `blue-500` directly, the
+dark theme cannot move it and the next brand change has to find it by hand.
+
+Naming a primitive is mostly about resisting meaning. Number the scale rather than
+describing it, because `blue-light` and `blue-lighter` run out after two steps and
+`blue-100` through `blue-900` does not. Keep product words out of it: a primitive called
+`brand-blue` has already made a promise the palette cannot keep when the brand shifts.
+Include the neutrals and the pure values, `white` and `black` included, so that even the
+literal colours are referenced through a name. A primitive scale is usually generated
+rather than hand picked, which is where a [seed colour](/seed-color) and a ramp built in
+[OKLCH](/oklch) come in: the numbers in the names then mean something consistent at every
+hue.
+
+The honest cost of three layers is indirection. Reading `button-background` and wanting the
+hex means two hops, and a system with too many primitives gives every designer a slightly
+different blue to pick wrongly. Two habits keep it survivable. Keep the primitive scale
+small enough that the whole thing fits on one screen, and make the tooling print the
+resolved value beside the name, so the chain can be read without being traced. What must
+never happen is a primitive that is quietly redefined to fix one component: everything
+downstream moved, and nothing said so.

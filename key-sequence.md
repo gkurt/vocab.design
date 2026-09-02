@@ -1,0 +1,68 @@
+---
+name: Key sequence
+slug: key-sequence
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A shortcut typed as an ordered run of presses, where the first key
+  opens a mode and the next chooses within it.
+aliases:
+  - name: leader key
+    source: community
+  - name: sequential shortcut
+    source: community
+  - name: prefix key
+    source: community
+  - name: key chord sequence
+    source: community
+tags:
+  - keyboard
+relations:
+  contrastWith:
+    - access-key
+    - chorded-shortcut
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Chorded keyboard"
+    url: https://en.wikipedia.org/wiki/Chorded_keyboard
+demo: inline
+exhibit: false
+useWhen: shortcuts typed in order, like a prefix then a letter
+---
+
+Press `g`, let go, then press `i`, and Gmail goes to the inbox. That is a key sequence: two
+or more presses that mean something in order, rather than one press with modifiers held down.
+The distinction is worth keeping sharp, because a chord and a sequence are written almost the
+same way and typed nothing alike. In a chord the keys are down together and the last one to
+arrive fires the command, which is what `Ctrl` plus `S` is. In a sequence each key is pressed
+and released on its own, and what the first press does is put the application into a mode
+where the second press has a different meaning.
+
+The lineage runs through Emacs, which built its whole keymap on prefixes such as `C-x`, and
+through vim, where `d` is an operator waiting for the motion that tells it what to delete.
+Gmail borrowed the idea for navigation (`g` then `i`, `g` then `s`, `g` then `t`) and a
+generation of web applications borrowed it from Gmail. The appeal is arithmetic: a modifier
+based scheme runs out of letters quickly, while one prefix key buys a whole alphabet of
+commands that need no modifier at all, and the presses stay on the home row instead of
+becoming hand contortions. That is also the argument for a [modifier
+key](/modifier-key) never being the only scheme a serious application offers.
+
+The mechanic that has to be designed is the pending state. Between the first press and the
+second, the application is in a mode nobody asked to be told about, and three things can end
+it: the expected key, an unexpected key, or time. A timeout is what keeps a stray press from
+lying in wait, and something on screen has to say that the prefix is held, because a mode with
+no indicator is a mode the reader can be in by accident. The prefix itself must therefore do
+nothing on its own, and the escape must be free: `Escape` cancels, an unrecognized key
+cancels, and neither costs anything. Sequences also collide badly with typing, so an
+application that has any text field at all has to stand its sequence handler down whenever
+the focus is inside one.
+
+Discoverability is the standing weakness, and the answer everyone converged on is a shortcut
+sheet on `?` plus the sequence printed next to the command in menus, which is the same job a
+[command palette](/command-palette) does by letting the name be searched instead of memorized.
+The two are complements rather than rivals: the palette is how a shortcut is found the first
+time, and the [keyboard shortcut](/keyboard-shortcut) is how it is used the hundredth.

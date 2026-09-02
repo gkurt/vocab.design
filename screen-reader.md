@@ -1,0 +1,71 @@
+---
+name: Screen reader
+slug: screen-reader
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Software that speaks or brailles the accessibility tree and supplies
+  its own keyboard commands for moving through a page.
+aliases:
+  - name: NVDA
+    source: community
+  - name: JAWS
+    source: community
+  - name: VoiceOver
+    source: hig
+  - name: TalkBack
+    source: android
+  - name: Narrator
+    source: microsoft
+tags:
+  - assistive-tech
+  - sound
+relations:
+  contrastWith:
+    - braille-display
+    - voice-control
+    - screen-magnification
+    - read-aloud
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - accessibility-tree
+    - pronunciation
+    - screen-curtain
+    - verbosity
+implementations: []
+sources:
+  - title: WebAIM articles
+    url: https://webaim.org/articles/
+  - title: "web.dev: accessibility glossary"
+    url: https://web.dev/learn/accessibility/glossary/
+demo: inline
+exhibit: false
+useWhen: naming the software that reads an interface aloud
+---
+
+A screen reader is a separate program sitting between the browser and the person using
+it: NVDA and JAWS on Windows, VoiceOver on Apple platforms, TalkBack on Android,
+Narrator shipped with Windows. What it reads is not your CSS and not your HTML. It reads
+the accessibility tree, the structure the browser derives from the markup, where every
+node has a role, an [accessible name](/accessible-name), and a set of states. A control
+that ends up in that tree as a `div` with no name is announced as nothing useful,
+however obvious it looks on screen.
+
+It also brings its own keyboard, which is the part most sighted developers never see.
+Alongside Tab, which visits only what is focusable, there is a virtual cursor that walks
+everything in [reading order](/focus-order) including plain text, plus an element list or
+rotor that jumps straight to the next heading, link, landmark, or form field. That is why
+[headings](/heading-hierarchy) and [landmarks](/landmark) are navigation rather than
+decoration, and why a page's [tab order](/focus-order) is only part of what somebody
+actually traverses.
+
+Two mistakes follow from thinking of it as a preview. The first is writing for one
+product: announcements differ between readers and between browsers, so verbosity fixes
+aimed at a single one usually break another, and the durable answer is correct roles,
+names, and states rather than tuned text. The second is confusing the software with its
+output. The reader is the thing that speaks; a change it announces without being sent
+there needs a [live region](/live-region), and a result it must report is a
+[status message](/status-message). Turn one on and use your own site with the screen off
+for five minutes: it costs an afternoon and replaces most guessing.

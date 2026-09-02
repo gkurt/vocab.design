@@ -1,0 +1,68 @@
+---
+name: Line focus
+slug: line-focus
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A reading aid that dims everything except one to five lines of text,
+  so the eye has a single band to track and cannot skip or reread a line by
+  accident.
+aliases:
+  - name: reading ruler
+    source: community
+  - name: line highlighter
+    source: community
+  - name: focus mode reading
+    source: community
+tags:
+  - assistive-tech
+  - perception
+relations:
+  contrastWith:
+    - reader-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - read-aloud
+implementations: []
+sources:
+  - title: "Microsoft Support: Use Immersive Reader in Microsoft Edge"
+    url: https://support.microsoft.com/en-US/edge/use-immersive-reader-in-microsoft-edge
+demo: inline
+exhibit: false
+useWhen: long prose has to be readable line by line
+---
+
+Line focus is the digital version of a card held under a line of print. A band of one, three, or
+five lines stays lit while the rest of the column drops back behind a dim wash, and the band moves
+down as the reader finishes each pass. Immersive Reader in Microsoft Edge popularised the feature
+with exactly those three widths, and the same idea turns up in ebook apps, dyslexia-focused readers,
+and a long tail of browser extensions.
+
+It solves a specific failure, not a general one. Returning from the end of a line to the start of
+the next is the hardest movement in reading: the eye has to travel back across a whole
+[measure](/measure) and land one line lower, with nothing but line spacing to aim by. When that
+sweep misses, a reader either repeats the line just finished or skips the next one entirely, and
+usually notices only a sentence later. Tight [leading](/leading), a long measure, and low
+[contrast](/contrast-ratio) all make the miss more likely. A focus band removes the ambiguity by
+removing the alternatives: there is one place the eye can be. That helps readers with dyslexia and
+readers with attention difficulties most, and it helps anybody at all working through a wall of text
+on a phone at the end of a long day, which is the [curb cut](/curb-cut-effect) shape this feature
+has.
+
+Two neighbours are easy to confuse with it. [Read aloud](/read-aloud) also moves a highlight through
+text, but it is driven by speech: the voice sets the pace and the highlight follows the spoken word,
+so the reader is listening rather than tracking. Line focus makes no sound and the reader keeps the
+pace. [Line clamp](/line-clamp) is the opposite operation altogether: it removes lines from the
+layout to make a block shorter, where line focus keeps every line and only changes which one is
+prominent. Nothing is hidden, so nothing has to be restored before a reader can search, select, or
+copy the passage.
+
+The design cost is mostly in the plumbing. A band has to know where the lines are, which means it
+belongs to a reading surface with a predictable rhythm, not to arbitrary page content wrapped
+around floats and figures, and it has to survive [dynamic type](/dynamic-type) and
+[reflow](/reflow), where a rewrap changes both the line count and the line height. Advancing needs
+an input the reader can use without looking, so keyboard, tap, and scroll should all move the band.
+Make the wash a dimming rather than a blur, so a reader can still see where they are in the page,
+and let the band be turned off in one action: an aid that cannot be dismissed is a constraint.

@@ -1,0 +1,71 @@
+---
+name: Header association
+slug: table-header-association
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The markup that ties a data cell to its row and column headers, so a
+  cell read on its own still says what it is.
+aliases:
+  - name: scope attribute
+    source: html
+  - name: headers attribute
+    source: html
+  - name: row header
+    source: community
+  - name: column header
+    source: community
+tags:
+  - assistive-tech
+  - tables
+relations:
+  contrastWith:
+    - frozen-column
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - data-table
+    - sort-state
+implementations: []
+sources:
+  - title: "W3C WAI: Tables tutorial"
+    url: https://www.w3.org/WAI/tutorials/tables/
+  - title: "WebAIM: Creating accessible tables"
+    url: https://webaim.org/techniques/tables/data
+demo: inline
+exhibit: false
+useWhen: a table cell must announce which column it is in
+---
+
+A [screen reader](/screen-reader) does not read a [data table](/data-table) the way an eye
+does. It moves cell by cell, and at each stop it says the cell's contents plus whatever
+headers that cell is associated with. Land on an unassociated cell and you hear "42". Land on
+an associated one and you hear "Revenue, Northwest, 42", which is the same information a
+sighted reader gets for free by glancing up and left. Header association is the markup that
+makes the second announcement possible, and there is no way to infer it from appearance: a
+bold grey row across the top of a table is a visual convention, not a relationship, and a
+`td` styled to look like a heading associates nothing at all.
+
+The cheap mechanism is `scope`. Put `scope="col"` on the cells in the header row and
+`scope="row"` on the first cell of each body row, use `th` rather than `td` for both, and a
+simple grid is done. The expensive mechanism is `id` and `headers`: every header gets an `id`
+and every data cell lists the ids that describe it, in the order they should be spoken. It is
+laborious and it is worth reaching for exactly once, when the table has a header spanning
+several columns above a second row of headers. That upper level is the one `scope="col"` does
+not reach, `scope="colgroup"` reaches only where support is good, and `headers` reaches
+reliably, which is why a quarter-over-quarter table with Revenue and Units under each quarter
+is the canonical case for it.
+
+Two neighbouring terms make the association visible rather than audible, and neither replaces
+it. A [sticky header](/sticky-header) keeps the header row on screen as the body scrolls,
+which helps an eye and does nothing for a cursor walking cells. [Sort state](/sort-state)
+tells a reader which column the table is ordered by, which is a different fact about the same
+header cell. Both assume the header is a real `th` in the first place, so the association is
+the thing to get right first and the thing most often skipped.
+
+The two failures worth watching for are a layout grid pretending to be a table, where there
+are no header cells to associate with, and a table where every cell in the top row is a `th`
+but nothing carries `scope`, which is halfway and announces nothing. Both look correct in a
+screenshot. The test is to read one cell out of context and ask whether it still says what it
+is.

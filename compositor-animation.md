@@ -1,0 +1,72 @@
+---
+name: Compositor-only animation
+slug: compositor-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An animation limited to properties the compositor can handle alone,
+  usually transform and opacity, so it keeps running even when the main thread
+  is busy.
+aliases:
+  - name: GPU-accelerated animation
+    source: community
+  - name: cheap properties
+    source: community
+  - name: transform and opacity only
+    source: community
+  - name: will-change
+    source: css
+  - name: hardware acceleration
+    source: community
+tags:
+  - perceived-performance
+  - web-platform
+relations:
+  contrastWith:
+    - jank
+    - layout-thrashing
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - frame-rate
+implementations: []
+sources:
+  - title: "MDN: animation performance and frame rate"
+    url: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Animation_performance_and_frame_rate
+demo: inline
+exhibit: false
+useWhen: motion must stay smooth under load
+---
+
+A browser draws a page in stages: it works out where boxes go, paints them into layers, and
+then composites those layers into the picture that reaches the screen. The first two stages
+belong to the main thread, the one that also runs every line of script. The last one does
+not. If an animation only changes things the compositor can decide by itself, the whole move
+can be handed over once and then advanced without the main thread being consulted again. In
+practice that means `transform` and `opacity`, which is why the shorthand for this idea is
+often just "transform and opacity only".
+
+The payoff is what happens when the main thread is stuck. A long task, a burst of layout, a
+few hundred rows being built: any of these blocks the thread for tens or hundreds of
+milliseconds, and anything animated from script or from a layout-affecting property simply
+stops being redrawn until the thread comes back. That stutter has a name of its own,
+[jank](/jank), and this is the escape it points to. The same slide written with `left` holds
+still through the stall and then jumps; written with `translate` it keeps gliding, because
+nothing in that stall was ever the compositor's problem.
+
+The property list is shorter than people hope. `transform` and `opacity` are the reliable
+pair; `filter` and `backdrop-filter` are compositable in most engines, and a handful of
+scroll-driven and view-transition animations get similar treatment. Everything that changes
+geometry (`left`, `top`, `width`, `height`, `margin`, `padding`) forces layout on every
+frame, and `box-shadow`, `background-color` and `border-radius` force paint. A useful
+sanity check is whether the animated value could change the position of any other element:
+if it could, the compositor cannot be trusted with it alone.
+
+`will-change` is the way to ask for the layer before the animation starts, so the promotion
+does not happen inside the first frame. It is a hint with a real cost, since every promoted
+layer is memory the compositor holds, so it belongs on the few elements about to move and
+comes off when they stop. The deeper caveat is that smoothness here is a local fix. A
+compositor animation glides beautifully over a main thread that has stopped answering
+clicks, and the reader still cannot use the page. It buys the motion, not the
+responsiveness.

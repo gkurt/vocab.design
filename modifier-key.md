@@ -1,0 +1,68 @@
+---
+name: Modifier key
+slug: modifier-key
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A key held to change what another input means, so the same click or
+  keystroke can copy instead of move, or add instead of replace.
+aliases:
+  - name: meta key
+    source: community
+  - name: qualifier key
+    source: community
+  - name: Shift, Ctrl, Alt, Cmd
+    source: community
+tags:
+  - keyboard
+  - pointer
+relations:
+  contrastWith:
+    - quasimode
+    - access-key
+    - chorded-shortcut
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Mnemonics (keyboard)"
+    url: https://en.wikipedia.org/wiki/Mnemonics_(keyboard)
+demo: inline
+exhibit: false
+useWhen: a held key changes what the next input does
+---
+
+A modifier key produces nothing on its own. Held down, it changes the meaning of whatever
+happens next: the same click that replaces a selection adds to it, the same drag that
+moves a file copies it, the same arrow key that moves the caret extends a selection
+behind it. Shift began as exactly this on typewriters, physically lifting the type
+basket so a key struck a different glyph, and the idea survived every reinvention of the
+keyboard because it multiplies a small set of inputs without adding controls to the
+screen.
+
+Each one carries a rough job description, and the conventions hold across most desktop
+software. Shift extends: it takes the current thing and stretches it to where you just
+pointed, which is where [range select](/range-select) comes from. Control or Command
+picks: it adds and removes individual items without disturbing the rest, and it prefixes
+application commands. Alt or Option alters: it asks for the variant, the alternative
+drop, the finer step, the extra menu entry. Nothing enforces these, but breaking them
+costs a reader the transfer they brought with them from every other program.
+
+Platform divergence is the tax. Command on macOS does what Control does on Windows and
+Linux for commands, while Control on macOS keeps its own smaller role, so a web
+application has to accept `metaKey || ctrlKey` and render the right glyph for the reader's
+system rather than picking one and hoping. Browsers claim some of these combinations
+first: Command or Control click on a link opens a new tab, and Shift click opens a window,
+which means a list of links cannot use those combinations for selection without fighting
+the browser. Touch has no modifiers at all, so anything reachable only through one needs a
+second path, usually a selection mode or a long press.
+
+The deeper cost is that a held key is invisible. Nothing on screen says a click could mean
+something else, so modified inputs are accelerators for people who already know they exist
+and dead weight for everyone else. The usual answers are a legend near the control, the
+hint in a context menu (Copy here appearing when Alt is down), and a pointer that changes
+while the key is held. Every modified action still needs an unmodified route: a checkbox
+column beside the rows, a Duplicate command in the menu, a Select all button. The
+shortcut may be the fast way, never the only way.

@@ -1,0 +1,66 @@
+---
+name: App shell
+slug: app-shell
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The persistent frame of an application, its header, navigation and
+  footer, that stays put while only the content region swaps as you move around.
+aliases:
+  - name: application shell
+    source: community
+  - name: app frame
+    source: community
+  - name: shell layout
+    source: community
+  - name: application shells
+    source: tailwind
+  - name: app layout
+    source: cloudscape
+tags:
+  - perceived-performance
+  - windowing
+relations:
+  contrastWith:
+    - scaffold
+    - chrome
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Instant Loading Web Apps with an Application Shell Architecture
+    url: https://developer.chrome.com/blog/app-shell
+demo: inline
+exhibit: false
+useWhen: naming the part of the app that never reloads
+---
+
+The word arrived as a performance idea before it was a layout one. Around 2015 the
+Chrome team described an "application shell architecture": cache the minimal
+markup, styles and script that draw the chrome, serve them from a service worker so
+the interface paints on the first frame, and stream the actual content in behind it.
+The shell was whatever you could send before you knew what the reader had asked for.
+
+What counts as shell is a boundary you draw, and drawing it well is the whole
+exercise. The header bar, the navigation (a sidebar, a rail, or a bottom navigation
+bar on a phone), and any footer or status strip are usually in. The region those
+things surround is out, because it is the only part that has to change when someone
+picks a different destination. Anything you put in the shell you are promising to
+keep on screen everywhere, which is why a filter panel that only two screens use
+belongs in the content region rather than in the frame.
+
+The layout sense outgrew the caching sense once client-side routing became normal.
+In a single page application the shell is not merely painted early, it is never
+re-rendered at all: the same DOM nodes survive every navigation. That is what makes
+the persistent media player possible, the one that keeps playing while you browse,
+and it is why a scroll position or an open menu in the rail is still there when you
+come back. It is also the failure mode. State that outlives the page it belonged to
+has to be cleared deliberately, because nothing is going to clear it for you.
+
+The trade is honest and worth stating. A shell that paints instantly and then shows
+a skeleton screen for two seconds has not made anything faster, it has just moved
+the waiting somewhere more comfortable. The pattern earns its keep when the frame is
+genuinely stable and genuinely useful on its own: navigation you can start using
+before the content lands, rather than an empty box with a logo on top of it.

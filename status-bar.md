@@ -1,0 +1,66 @@
+---
+name: Status bar
+slug: status-bar
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A thin strip along the edge of a window or screen that reports state
+  and offers only minor actions, never the primary ones.
+aliases:
+  - name: system status bar
+    source: community
+  - name: info bar
+    source: community
+tags:
+  - windowing
+relations:
+  contrastWith:
+    - utility-bar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - safe-area
+implementations: []
+sources:
+  - title: Visual Studio Code User Interface
+    url: https://code.visualstudio.com/docs/editing/userinterface
+demo: inline
+exhibit: false
+useWhen: an edge strip that reports rather than commands
+---
+
+A status bar reports. That is the whole of the definition, and it is what separates the
+strip from every other bar in an interface: a toolbar offers actions, a navigation bar
+offers destinations, and a status bar tells you where you are and what is true right now.
+The two famous examples are at opposite ends of the stack. On a phone the strip across the
+top carrying the clock, the signal and the battery belongs to the operating system, and no
+app draws it. In a desktop editor the strip along the bottom carries the branch name, the
+cursor position, the language mode and the problem count, and it belongs to the
+application. Both obey the same rule: everything on the strip is a fact, and the few
+things that are clickable are shortcuts to settings, never the primary action.
+
+The phone case comes with a hard boundary that is easy to get wrong. An app does not own
+the system status bar; it can only ask for a style. What it declares is whether its own
+content behind the bar is light or dark, and the system picks glyph colours that will read
+against it. Get the declaration backwards and the clock disappears into the header, which
+is a bug reported as "the time is missing" and fixed in one line. Everything the app draws
+has to start below the bar, and the inset that says where below is comes from
+[safe area](/safe-area), which covers the notch and the home indicator in the same
+mechanism.
+
+Hiding it is a real option and a narrow one. Full screen video, a camera viewfinder, and a
+game can take the strip away, because in each case the content genuinely is the whole
+screen and the reader can get the bar back with one gesture. Everything else keeps it: an
+immersive reading mode that costs someone their clock and their battery reading is
+borrowing attention it did not ask for. The desktop equivalent of the same restraint is
+density. A status bar earns its row of pixels by being scannable at a glance, and the
+moment it becomes a place to park anything that did not fit in the toolbar it stops being
+readable at exactly the size it has to be readable at.
+
+The one thing a status bar must not do is carry news. A message that matters, an error a
+person has to act on, or a confirmation of something they just did belongs in a
+[status message](/status-message) or a [toast](/toast), announced where attention already
+is. Persistent state at the edge of the screen is read on purpose, not noticed by accident,
+which is precisely why it is the right place for the battery and the wrong place for
+"changes could not be saved".

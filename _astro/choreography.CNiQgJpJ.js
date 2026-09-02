@@ -1,0 +1,1 @@
+import{t as e}from"./choreography.Dfvzj6n2.js";var t=e([{assert:{selector:`[data-part=bubble-sent]`,state:`visible`}},{moveTo:`[data-part=composer-input]`},{type:`Caption held at 12.`},{moveTo:`[data-part=send]`},{click:!0},{wait:400},{assert:{selector:`[data-part=bubble-new]`,state:`visible`}}]);export{t as default};

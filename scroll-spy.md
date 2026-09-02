@@ -1,0 +1,46 @@
+---
+name: Scroll spy
+slug: scroll-spy
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Navigation that watches the scroll position and highlights the entry
+  for the section currently in view.
+aliases:
+  - name: scrollspy
+tags:
+  - navigation
+  - scroll
+relations:
+  contrastWith:
+    - table-of-contents
+    - reading-progress
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: Intersection Observer API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+demo: inline
+exhibit: false
+useWhen: navigation that highlights the section you are reading
+---
+
+A scroll spy answers "where am I" without being asked. The list of sections is
+ordinary navigation; what makes it a scroll spy is that the highlight follows the
+reader instead of only the click.
+
+Most of the difficulty is in deciding what "in view" means. A section is usually
+counted as current once its heading crosses a line near the top of the viewport,
+not when it is merely visible, or two entries light up at once. Two edge cases
+have to be handled explicitly: short final sections that can never reach the line
+(treat the end of the scroll as the last section), and the jump caused by clicking
+an entry, which should not make the highlight flicker through everything in
+between.
+
+`IntersectionObserver` with a `rootMargin` that clips the viewport down to a band
+is the cheap implementation, and it beats a scroll listener because it does not run
+on every frame. See also [table of contents](/table-of-contents), which is the same
+list without the tracking.

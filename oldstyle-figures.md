@@ -1,0 +1,70 @@
+---
+name: Oldstyle figures
+slug: oldstyle-figures
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Numerals with varying heights, some rising and some dropping below
+  the baseline, so numbers blend into lowercase running text.
+aliases:
+  - name: old style figures
+  - name: text figures
+  - name: lowercase numerals
+  - name: hanging figures
+  - name: onum
+    source: opentype
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - tabular-figures
+    - lining-figures
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "OpenType at Work: Figure Styles (Type Network)"
+    url: https://typenetwork.com/articles/opentype-at-work-figure-styles
+  - title: Practical Typography (Matthew Butterick)
+    url: https://practicaltypography.com/
+demo: inline
+exhibit: false
+useWhen: numbers inside a sentence, not in a table
+---
+
+A numeral set is a small alphabet, and like an alphabet it can be drawn tall or short.
+The default in most fonts is the lining set: every digit the same height, aligned to the
+capitals, drawn to sit beside `MMXXIV` without a step in the line. Oldstyle figures are
+the other drawing. Their bodies sit at the [x-height](/x-height), a few of them rise to
+the [ascender](/ascender), and the rest drop a tail below the baseline, so a number in
+the middle of a sentence has the same rhythm of ups and downs as the words around it.
+The usual pattern is 0, 1 and 2 at x-height, 6 and 8 rising, and 3, 4, 5, 7 and 9
+hanging, though the exact set is the type designer's call.
+
+The reason to reach for them is the same reason a paragraph does not shout. Lining
+figures are drawn at the [cap height](/cap-height), so a date inside running lowercase
+reads as five capital letters dropped into the sentence, and the eye stops at them. That
+is a virtue in a price, a total, or an interface number that has to be found at a
+glance, and a nuisance in a footnote, a citation, or an essay about the eighteen
+nineties. The same instinct produces [small caps](/small-caps): capitals that have to
+appear inside a sentence get redrawn to lowercase height so they stop interrupting it.
+
+Keep it clear of [tabular figures](/tabular-figures), which answer a different question.
+Tabular is about width: every numeral given the same advance so that columns of numbers
+line up digit under digit, whatever the values are. Oldstyle is about height and shape:
+numerals redrawn to the proportions of lowercase so a number stops standing out in a
+paragraph. A face can offer either, both, or the two combined, which is why a good text
+family ships four figure sets, and why "proportional oldstyle" for prose and "tabular
+lining" for the accounts is a normal pair of choices rather than a contradiction.
+
+In practice the switch is `font-variant-numeric: oldstyle-nums`, or the `onum` feature
+underneath it, and it does nothing at all in a face that carries no oldstyle set. That
+silence is the trap: the CSS is valid, the build is clean, and the numbers stay lining.
+The specimen on this page is set in Vollkorn, where the arrangement runs the other way:
+the oldstyle set is the default and `lnum` is the switch, which is normal in a book face
+and worth knowing before you write `onum`, see nothing change, and conclude the feature
+is missing. Both heights are ruled across the line there, because a claim about a height
+is only readable against a line, and the number changes width as it changes drawing: a
+real oldstyle set brings its own advances.

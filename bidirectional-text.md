@@ -1,0 +1,75 @@
+---
+name: Bidirectional text
+slug: bidirectional-text
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Text mixing a right-to-left script with left-to-right runs such as
+  numbers or Latin words, where each run keeps its own direction.
+aliases:
+  - name: right-to-left text
+  - name: RTL
+  - name: unicode-bidi
+    source: css
+tags:
+  - i18n
+  - web-platform
+relations:
+  contrastWith:
+    - language-attribute
+    - vertical-writing-mode
+    - rtl-mirroring
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: CSS text module (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text
+demo: inline
+exhibit: false
+useWhen: Arabic or Hebrew text containing Latin or digits
+---
+
+Hebrew and Arabic are read from the right. Numbers are read from the left, in
+every script on earth, and so are Latin words, so a sentence in Hebrew that
+mentions a product name and a year contains three runs going one way and two going
+the other. Bidirectional text is the name for that mixture, and for the algorithm
+that resolves it: Unicode Annex 9 assigns every character a direction, groups
+adjacent characters of the same direction into runs, and then orders the runs
+according to the paragraph's base direction while each run keeps its own internal
+order. The result is that the memory order of the characters (what someone typed)
+and the visual order on screen (what they read) are simply different sequences, and
+neither is wrong.
+
+Everything hangs on the base direction, and the base direction is a declaration
+rather than a guess. `dir="rtl"` on the element, or `dir="auto"` to let the browser
+take it from the first strongly directional character, tells the algorithm which
+way the paragraph runs. Leave it off and the paragraph inherits whatever the page
+said, usually left to right, and the runs come out in the order they were typed
+instead of the order they should be read. The visible symptom is punctuation and
+numbers landing on the wrong end of a sentence: a trailing question mark drifting
+to the left edge, a year jumping to the front. That failure is why user-generated
+content needs `dir="auto"` per item rather than one direction for the whole page,
+and it is why the CSS logical properties (`margin-inline-start`, `text-align:
+start`) exist, so a stylesheet can stop naming physical sides.
+
+Neutral characters are where the sharp edges live. Spaces, hyphens, brackets and
+punctuation have no direction of their own and take one from their neighbours, so
+`(1974)` beside a Hebrew word can end up with its parentheses swapped, and a
+hyphen between a Hebrew word and a Latin one can attach to either side. The Unicode
+isolate controls are the fix, and CSS spells them `unicode-bidi: isolate` and
+`plaintext`: an isolated run cannot influence the ordering of anything outside it,
+which stops an interpolated username or filename from rearranging the sentence
+around it.
+
+Do not confuse this with [RTL mirroring](/rtl-mirroring). Mirroring is a layout
+decision: the navigation moves to the right, the back arrow points the other way,
+progress fills leftward. Bidirectional text is what happens inside a text run, and
+it happens whether or not the layout was ever mirrored. An English page listing
+Arabic book titles needs bidi handling and no mirroring at all, and a fully
+mirrored Arabic interface still gets its phone numbers wrong if the text runs are
+not resolved. The
+[directionality](/directionality) declaration is what both of them read from, and
+it is the one thing neither can be done without.

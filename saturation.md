@@ -1,0 +1,59 @@
+---
+name: Saturation
+slug: saturation
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: How far a colour is from grey on a scale where 100 percent is the
+  pure hue and 0 percent is neutral, as modelled by HSL and its relatives.
+aliases:
+  - name: intensity
+    source: community
+  - name: vividness
+  - name: colourfulness
+  - name: colorfulness
+  - name: S in HSL
+tags:
+  - perception
+relations:
+  contrastWith:
+    - hue
+    - lightness
+    - chroma
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+demo: inline
+exhibit: false
+useWhen: describing how vivid or washed out a colour looks
+---
+
+Saturation is the axis between grey and the purest version of a [hue](/hue). At zero
+there is no hue left to name, only a neutral; at the top the colour is as intense as the
+model can express at that lightness. It is the knob a designer reaches for when a palette
+is the right colour but too loud, or right but too timid, and the one channel that can be
+turned all the way down without changing which colour something is meant to be.
+
+The strict vocabulary is messier than the slider suggests. Colour science distinguishes
+chroma, colourfulness measured on its own, from saturation, colourfulness measured
+relative to how light the sample is: a dark navy and a pale sky blue can share a
+saturation figure while differing wildly in chroma. HSL uses the word loosely, and it
+pays for that. Its saturation does nothing at all near black or white, it interacts with
+its own lightness channel so that raising one visibly moves the other, and 100 percent
+means something different at every hue. `oklch` splits the job the useful way: chroma is
+an absolute amount that behaves the same wherever you are on the wheel, with the catch
+that how much of it a screen can actually show depends on the display's gamut.
+
+In practice saturation is budgeted by area. Small things can be intense, so accents,
+badges, and focus rings live near the top of the scale, while anything large enough to sit
+under text (page backgrounds, table fills, banner surfaces) is pulled far down, because a
+saturated field makes the type on it vibrate and tires the eye within a paragraph. Dark
+themes need the same colours desaturated again, since a fully saturated hue against a dark
+surface glows and smears. And the neutrals are where the interesting decision hides: a
+grey at exactly zero saturation is inert, so most systems keep a few percent of a hue in
+theirs, which is what [colour temperature](/color-temperature) is about.

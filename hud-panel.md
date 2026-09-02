@@ -1,0 +1,69 @@
+---
+name: HUD panel
+slug: hud-panel
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small dark translucent floating window of controls that hovers
+  over content without taking it over, common in media and creative tools.
+aliases:
+  - name: floating window
+    source: mantine
+  - name: heads up display
+    source: community
+  - name: tool palette
+    source: community
+  - name: inspector palette
+    source: community
+tags:
+  - overlays
+  - windowing
+relations:
+  contrastWith:
+    - fictional-user-interface
+    - inspector
+    - ornament
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "NameThatUI: element index"
+    url: https://namethatui.com/
+demo: inline
+exhibit: false
+useWhen: a small dark floating palette over content
+---
+
+A HUD panel is a small floating window of controls that sits over the content rather than beside
+it. It is almost always dark and translucent, has a title strip you can drag it by, and holds
+the handful of controls you need while looking at something: exposure and colour in a photo
+editor, layer opacity in a compositor, playback and volume over a video. The name comes from
+aircraft heads-up displays, by way of Mac OS X, where Apple's HUD windows were the dark
+translucent palettes in tools like Final Cut and Aperture and got their own style in the
+Human Interface Guidelines.
+
+The reason it exists is that some content cannot afford to share the layout. In a media or
+creative tool the image, the timeline or the 3D view is the product, and every pixel a control
+takes from the edge is a pixel of the work you cannot see. A HUD panel solves that by leaving
+the layout entirely: it floats, so the content keeps its full size, and it can be dragged out
+of the way when it covers the part you are working on.
+
+The tradeoff is unavoidable and worth stating plainly. Because it is out of the layout, it is
+always covering something. That is why the dark translucency is functional rather than
+decorative, why the panel is small, why it is draggable, and why these tools usually offer a
+key that hides every HUD at once. An [inspector](/inspector) makes the opposite trade: it is
+docked, permanent and claims real layout space, and in exchange it never hides your work and
+can hold far more controls. A [popover](/popover) is a third thing again, since it belongs to
+the control that opened it and dies when you dismiss it, while a HUD stays put until you close
+it. A [toolbar](/toolbar) is docked to an edge of the window and, like the inspector, is part of
+the layout.
+
+Three details separate a good one from a floating box. Translucency has to be tuned for
+legibility over unpredictable content, which usually means a dark blur plus a hairline light
+border, not simple transparency, or the panel dissolves over a bright photo. Position should be
+remembered per document, since people move these panels for a reason. And the panel needs a
+keyboard route in and out: a floating window that only a mouse can reach is a control surface
+some people cannot use at all, so it belongs in the tab order and its close control needs a
+shortcut.

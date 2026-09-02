@@ -1,0 +1,61 @@
+---
+name: Sticky footer
+slug: sticky-footer
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A footer held against the bottom of the viewport when the page is
+  short, and pushed below the content when the page is long.
+aliases:
+  - name: bottom stuck footer
+    source: community
+  - name: footer to bottom
+    source: community
+tags:
+  - scroll
+relations:
+  contrastWith:
+    - sticky-header
+    - pancake-stack
+    - site-footer
+    - sticky-add-to-cart
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: a footer that will not float in the middle of a short page
+---
+
+The name is a small lie that everyone has agreed to. Nothing here is sticky in
+the CSS sense, and nothing is fixed: the footer never travels with the viewport
+and never sits over the content. It has exactly one job, which is to not float in
+the middle of the screen when a page runs short. An about page with two
+paragraphs and a footer halfway down, with a field of empty background under it,
+reads as a page that failed to finish loading, and that impression is what the
+technique exists to prevent.
+
+The condition has two halves and both are load bearing. When the content is
+shorter than the viewport, the footer sits on the bottom edge. When the content is
+longer, the footer goes back to being an ordinary block at the end of the
+document, below the fold, reached by scrolling. A footer that stayed on the bottom
+edge in the second case would be a different component with a different name (a
+bottom bar, or a fixed footer), and it would be covering content while it did it.
+
+For about a decade this was genuinely awkward. The best known answer, Ryan Fait's,
+pushed the footer down with a spacer carrying a negative margin equal to the
+footer's height, which meant the footer had a height you were not allowed to
+change. Others used `display: table`, or absolute positioning with padding
+reserved on the wrapper. Flexbox reduced all of it to a wrapper at
+`min-height: 100vh` with the main region set to grow, and grid to
+`grid-template-rows: auto 1fr auto`, which is what the specimen does inside its
+own scroll container. The remaining wrinkle is that `100vh` on a phone means the
+viewport with the browser chrome retracted, so the fix is `100dvh` or
+`min-height: 100%` against a container whose height you actually own.
+
+Worth saying out loud: this is a rule about where a footer lands, not permission
+to make the footer taller. A short page whose bottom half is a link farm has
+solved the empty space problem by filling the space with things nobody asked for.

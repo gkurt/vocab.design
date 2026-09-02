@@ -1,0 +1,61 @@
+---
+name: Speed dial
+slug: speed-dial
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A floating action button that fans out into three to six smaller
+  related actions when pressed or hovered.
+aliases:
+  - name: fab menu
+    source: material
+  - name: expanding fab
+    source: community
+  - name: radial fab
+    source: community
+tags:
+  - menus
+  - touch
+relations:
+  contrastWith:
+    - floating-action-button
+    - split-button
+    - radial-menu
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Material UI: Speed Dial"
+    url: https://mui.com/material-ui/react-speed-dial/
+demo: inline
+exhibit: false
+useWhen: one prominent button that unfolds into a few actions
+---
+
+A speed dial is what a [floating action button](/floating-action-button) becomes when the
+screen has more than one action worth promoting. Press it and a small fan of related
+actions unfolds along one edge, each a mini button with a label beside it, staggered so the
+group reads as opening rather than as appearing. Choose one and the fan closes again.
+
+It exists because the floating action button has exactly one slot and screens rarely have
+exactly one important action. The rule of thumb is three to six: fewer than three and the
+extra press is not worth it, more than six and you have built a menu that happens to be
+round. Every action in the fan should be the same kind of thing (ways to add something,
+ways to send something), because the fan has no headings, no grouping, and no room to
+explain itself. If your six actions need explaining, you want a [menu
+button](/menu-button) with a proper menu attached.
+
+The name comes from the telephone, and it survives mostly in React vocabulary. Material
+2 documented the pattern, Material 3 dropped it, and Material UI kept both the component
+and the name, which is why "speed dial" is what people search for and "expanding FAB" is
+what the design documentation calls it. Do not confuse it with a
+[marking menu](/marking-menu), which is also radial but answers a stroke made before it
+appears, and is a gesture vocabulary rather than a button with children.
+
+The accessibility notes are the usual ones for a floating layer, plus one of its own. Each
+mini button needs a real label, not just an icon, and the label should be visible rather
+than only in a tooltip, because the icons in a fan are being read at a glance and half of
+them will be ambiguous. Opening on hover alone is a mistake on touch and a trap on desktop:
+open on press, close on choosing, on Escape, or on a press outside.

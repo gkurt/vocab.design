@@ -1,0 +1,73 @@
+---
+name: Natural language interface
+slug: natural-language-interface
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: "An interface whose input is ordinary language, typed or spoken: the
+  user states an intent in their own words and the system parses it, instead of
+  picking from controls."
+aliases:
+  - name: NLI
+  - name: natural language UI
+  - name: NLUI
+  - name: language user interface
+tags:
+  - ai
+  - sound
+relations:
+  contrastWith:
+    - generative-ui
+    - conversational-interface
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - prompt-input
+implementations: []
+sources:
+  - title: "Wikipedia: Natural-language user interface"
+    url: https://en.wikipedia.org/wiki/Natural-language_user_interface
+demo: inline
+exhibit: false
+useWhen: the input is a sentence, not a selection
+---
+
+In a natural language interface the user says what they want and the system works out what
+that means. There is no field for the customer, no dropdown for the status, and no date
+range picker: there is a sentence, and behind it a parser that turns "unpaid invoices from
+Acme over 500 last quarter" into four constraints. The trade is exact and worth naming. The
+user is spared learning the interface, and in exchange they lose the guarantee a control
+gives, which is that every option they can pick is an option that exists. A sentence can
+always ask for something the system cannot do.
+
+That is why the good ones show their work. The parse is echoed back as something the user
+can see and correct, usually structured chips or a restated query, so the interface answers
+two questions at once: here is what I did, and here is what I understood you to mean. Where
+the guess is shown, a wrong guess costs a tap to fix. Where it is hidden, a wrong guess
+produces a confidently empty result and the user has no way to tell a bad query from an
+empty database. Echoing the parse also teaches the vocabulary: a user who sees "amount over
+500" become a chip learns that amounts are something they may ask about.
+
+A natural language interface does not have to be a conversation. A single search box that
+accepts a sentence, parses it, and returns a result is a complete NLI with no turn taking,
+no history, and no assistant persona. The turn-taking pattern is a further thing layered on
+top, and confusing the two leads teams to build a chat window where a query field would
+have done. It is also distinct from its neighbours in the same corner of the vocabulary. A
+[command palette](/command-palette) matches commands by their names, so it rewards a user
+who already knows the word for what they want; an NLI accepts the description instead of
+the name. A [prompt input](/prompt-input) is the composer that submits a message to a model
+and is the shape most assistants ship, but the shape is not the pattern: the pattern is that
+language is the input, whether the parser behind it is a model, a grammar, or forty
+regular expressions.
+
+The pattern is old, and its history is a warning about scope. The natural language search
+engines of the nineties failed less because parsing was hard than because they invited
+questions of a system that could only answer a few of them. The remedy has not changed:
+narrow the domain, publish examples so the user can see the range of what is understood,
+keep the parse visible and editable, and leave the controls available for anyone who would
+rather point than type. A [faceted search](/faceted-search) sidebar beside the sentence box
+is not a redundancy, it is the fallback for the query the parser gets wrong. Speech adds
+nothing conceptually and everything practically: dictated language is looser, so the parse
+has to be more forgiving and the echo more prominent, since a user who cannot see the
+transcript cannot see the mistake.

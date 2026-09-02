@@ -1,0 +1,70 @@
+---
+name: Label association
+slug: label-association
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The programmatic link between a label and its field, made by for and
+  id or by wrapping, which makes the label clickable and the field named.
+aliases:
+  - name: explicit label
+    source: community
+  - name: implicit label
+    source: community
+  - name: for/id pairing
+    source: html
+  - name: label wrapping
+    source: community
+tags:
+  - assistive-tech
+  - forms
+relations:
+  contrastWith:
+    - accessible-name
+    - placeholder-as-label
+    - label-in-name
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: polaris
+    name: Valid label for every input
+    url: https://github.com/Shopify/polaris/blob/main/documentation/Accessibility.md
+sources:
+  - title: A11y Project checklist
+    url: https://www.a11yproject.com/checklist/
+  - title: "WCAG 2.2: Labels or Instructions"
+    url: https://www.w3.org/TR/WCAG22/#labels-or-instructions
+demo: inline
+exhibit: false
+useWhen: connecting the words to the input they name
+---
+
+A label sitting above a field is not attached to it. It looks attached, which is the
+problem: the words are there, the layout is right, and nothing has told the browser
+that these two elements belong together. Association is what does that, and there are
+exactly two ways to write it. Explicit, where `<label for="email">` points at
+`<input id="email">`, and implicit, where the label wraps the input and needs no
+attributes at all. Either one makes the label the field's accessible name.
+
+Three things arrive with the link. The field gets announced with its name instead of
+as "edit text", which is the whole reason the criterion exists. The label becomes part
+of the control's hit area, which is a real gain on a phone and a large one for anyone
+with a tremor. And speech control starts working, because "click Email" needs the
+words on screen to be the name of the thing they sit next to.
+
+A placeholder is not a label. It vanishes the moment someone types, it is styled at a
+contrast most designs would fail on for body text, and it leaves the reader with no
+way to check what they were asked for. Screen readers may or may not fall back to it
+depending on the browser, which is the worst possible property for something you are
+relying on. `aria-label` is a real option, and it is the right one for a control whose
+label genuinely is not on screen, an icon-only button or a search field in a toolbar.
+It costs the visible words though, so a field with a visible label should get that
+label associated rather than duplicated in an attribute.
+
+When both exist, keep them saying the same thing. If the visible label reads "Email
+address" and the `aria-label` reads "Contact", the attribute wins, and a speech-control
+user reading the screen asks for something the page does not answer to. That is WCAG's
+Label in Name criterion, and the safe pattern is to let the visible text be the name:
+associate it, and add nothing.

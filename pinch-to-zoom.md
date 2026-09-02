@@ -1,0 +1,76 @@
+---
+name: Pinch to zoom
+slug: pinch-to-zoom
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Two fingers moving apart or together on a surface to scale content
+  up or down, with the scale tracking the distance between them.
+aliases:
+  - name: pinch open
+    source: material
+  - name: pinch closed
+    source: material
+  - name: pinch out
+    source: community
+  - name: pinch in
+    source: community
+  - name: spread
+    source: community
+tags:
+  - canvas
+  - touch
+relations:
+  contrastWith:
+    - rotate-gesture
+    - double-tap
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - semantic-zoom
+implementations:
+  - system: material
+    name: Pinch open / pinch closed
+    url: https://m1.material.io/patterns/gestures.html
+sources:
+  - title: "Material Design: Gestures (pinch open and closed)"
+    url: https://m1.material.io/patterns/gestures.html
+  - title: "UIKit: Handling pinch gestures"
+    url: https://developer.apple.com/documentation/uikit/handling-pinch-gestures
+demo: inline
+exhibit: false
+useWhen: two fingers changing the scale of what is on screen
+---
+
+Material names the two halves separately, pinch open and pinch closed, because they are
+one gesture read in two directions: two fingers press, move outwards or inwards, lift. The
+scale follows the ratio between the current distance and the distance at the start, which
+is what makes the gesture feel physical. It is not a stepped control that fires when the
+fingers stop. The content is at 1.4 times when the fingers are 1.4 times as far apart, and
+it goes back on the way in without a discrete step in between.
+
+The second half of the gesture is where it happens. A pinch has a midpoint, and that
+midpoint is the anchor: the point of the content between the fingers must stay between the
+fingers for the whole move, which in CSS terms means the transform origin is wherever the
+fingers landed rather than the centre of the box. Zooming from the centre while the fingers
+are over the top right corner reads as the content sliding away from the hand, and it is
+the single most common way a hand-rolled zoom feels wrong. The other half of that
+faithfulness is momentum: two fingers rotating slightly while they spread is normal, so a
+gesture recogniser that insists on a pure scale rejects most real pinches.
+
+On the web the gesture arrives in two shapes, and neither of them is a pinch event.
+Two-finger touch means two `pointerdown` events with different `pointerId` values, which
+you track yourself and turn into a distance. On a trackpad, though, the same intention
+arrives as a `wheel` event with `ctrlKey` set, a convention browsers adopted so that
+pinching a page zooms it, and the practical consequence is that any surface offering its
+own zoom must handle both. Whichever path it takes, the browser's own page zoom is the one
+underneath, and disabling it with `user-scalable=no` fails WCAG 1.4.4: someone who needs
+the whole page at 200 per cent is not asking about your photo viewer.
+
+Because the gesture is invisible and needs two working fingers, scale also has to be
+reachable another way. Buttons that step through named factors, a double tap that jumps to
+a sensible zoom, a keyboard pair on the desktop: any of those keeps the reader who cannot
+spread two fingers from being locked out of the detail. Naming the steps has a second
+benefit, which is that a person can tell you they are at four times and mean something
+exact, where a pinch is only ever roughly where the hand left it.

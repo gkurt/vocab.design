@@ -1,0 +1,69 @@
+---
+name: Page curl
+slug: page-curl
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A page turn that lifts and bends the leaf away from the spine as the
+  finger drags it, the most literal transition a reader can be given.
+aliases:
+  - name: page turn animation
+    source: community
+  - name: curl transition
+    source: community
+  - name: page flip
+    source: community
+  - name: book page turn
+    source: community
+tags:
+  - editorial
+  - touch
+relations:
+  contrastWith:
+    - card-flip
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - slide-transition
+implementations: []
+sources:
+  - title: "MacRumors: re-enable the classic page turning animation in Apple Books"
+    url: https://www.macrumors.com/how-to/re-enable-page-turning-animation-apple-books/
+  - title: Creating a page curl transition in SwiftUI
+    url: https://swiftuisnippets.wordpress.com/2025/11/27/creating-a-page-curl-transition-in-swiftui-bridging-uikits-power/
+demo: inline
+exhibit: false
+useWhen: turning a page should read as paper rather than as a slide
+---
+
+A page curl is a page turn that admits the page is made of paper. The leaf lifts off the one beneath
+it, bends around a fold that travels across the spread, shows its own back as it goes, and drops
+flat on the other side of the spine. It tracks the finger, so a half-hearted drag leaves the page
+half turned and lets it fall back, which is the property that separates a curl from an animation
+that merely plays. Apple Books shipped the definitive version, and it is the reason most people can
+picture the effect without being shown it.
+
+The full version is a piece of geometry, not a piece of CSS. The paper is treated as a cone wrapped
+around the fold, which is what produces the crescent-shaped shadow and the slight bulge at the
+corner, and it is normally drawn on the GPU with a mesh or a shader. The cheap approximation, which
+is what most web implementations and the specimen below actually do, is a reflection: the part of
+the leaf past the fold line is mirrored back across it, the remainder is clipped away, and a narrow
+gradient at the fold does the work of the bend. Reflect a sheet about a vertical line and the back
+of it lands upright rather than mirrored, which is why a real book's turning page stays readable
+mid-turn, and the same fact keeps the trick honest. Everything else is a clip path, a translate, and
+one strip of light.
+
+The reason to know the term is mostly the reason it lost. The curl was the flagship example of
+[skeuomorphism](/skeuomorphism), and it carried the same bill: it is slow, because paper is slow, so
+a reader who wants the next page has to wait for a metaphor they already understood; it is heavy to
+draw; it is meaningless on a scroll-based reader; and it says nothing a plain crossfade does not
+already say. Apple demoted it to an option and then defaulted it off, and the ebook readers that
+followed shipped a slide or a fade. What survived is the part that was never decoration: the page
+tracking the finger, which is worth keeping in any gesture-driven transition.
+
+It is worth separating from its neighbours. A [flip animation](/flip-animation) rotates a card about
+an axis to show a second face, with no bend and no fold travelling across it. A
+[reveal animation](/reveal-animation) uncovers something already in place. A curl is neither: it
+deforms the surface itself while moving it, and that deformation is the whole reason the effect
+costs what it costs.

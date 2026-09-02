@@ -1,0 +1,72 @@
+---
+name: Page indicator
+slug: page-indicator
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The row of small dots under a carousel or onboarding screen showing
+  how many pages there are and which one you are on.
+aliases:
+  - name: page control
+    source: hig
+  - name: carousel dots
+    source: community
+  - name: pagination dots
+    source: community
+  - name: slide indicators
+    source: bootstrap
+  - name: position indicator
+    source: community
+tags:
+  - navigation
+  - progress
+relations:
+  contrastWith:
+    - step-indicator
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - carousel
+    - stories
+implementations:
+  - system: hig
+    name: Page controls
+    url: https://developer.apple.com/design/human-interface-guidelines/page-controls
+sources:
+  - title: Page controls, Apple Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/page-controls
+demo: inline
+exhibit: false
+useWhen: the dots under a swipeable set of screens
+---
+
+Page indicators answer two questions in about twenty pixels: how many screens
+are there, and which one is this. They belong under anything you move through
+sideways by swiping, which is why they are inseparable from onboarding flows,
+image galleries, and home screens. The dots are small because the answer is
+small. Nobody needs to know that screen three is called "Notifications" while
+looking at screen two; they need to know there are five and that three is
+coming.
+
+The pattern has a hard ceiling. Somewhere around seven or eight dots people stop
+counting and start guessing, and past that the row either overflows or shrinks
+into a smear. The usual repairs are a numeric counter ("4 of 26"), a thumbnail
+strip, or a scrolling window of dots that shows a few neighbours at a time. If
+the pages have names worth reading, the dots were the wrong component from the
+start and tabs are the right one.
+
+Dots are also controls, not decoration. Apple's page control has always been
+tappable, and on the web the same expectation holds: each dot should carry the
+name of the page it goes to ("Page 3 of 5"), the current one should be marked
+with `aria-current`, and the state has to survive black and white, which means
+the active dot changes size or fill and not just tint. A nine pixel circle is a
+cruel target on its own, so give each one a padded hit area of its own without
+letting that padding change what the row looks like.
+
+Two neighbours use the same picture for a different job. A step indicator also
+draws a row of small marks, but its stages are ordered, named, and cannot be
+visited out of turn: it reports progress, while a page indicator reports
+position among peers. Pagination, meanwhile, numbers pages of a list and is
+navigated by clicking those numbers, where dots assume the real gesture is a
+swipe and the dots are just the readout.

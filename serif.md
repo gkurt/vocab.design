@@ -1,0 +1,63 @@
+---
+name: Serif
+slug: serif
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The small finishing stroke at the end of a letter's stem, and by
+  extension the class of typefaces that have them.
+aliases:
+  - name: serif font
+  - name: roman
+    source: community
+  - name: bracketed serif
+tags:
+  - fonts
+relations:
+  contrastWith:
+    - sans-serif
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - typeface
+implementations: []
+sources:
+  - title: A Glossary of Typographic Terms (Monotype)
+    url: https://www.monotype.com/resources/typographic-terms
+  - title: Classification (Google Fonts Knowledge)
+    url: https://fonts.google.com/knowledge/glossary/classification
+demo: inline
+exhibit: false
+useWhen: naming the little feet on the ends of strokes
+---
+
+Every serif is the record of a tool. The capitals cut into Trajan's Column end in
+flared terminations that one influential account explains as a brush stroke the
+chisel then followed, and the shape has outlived the technique by two thousand
+years. The word does double duty, which trips people up: a serif is one of those
+strokes, and a serif is also any typeface that has them, so "the serif on the R"
+and "set it in a serif" are both correct.
+
+How the stroke meets the stem is most of what separates one serif face from
+another. A bracketed serif curves into the stem on a fillet, the way the old
+style faces of the sixteenth century do. An unbracketed serif meets it at a
+corner as a flat hairline, which is the signature of a Didone such as Bodoni. A
+slab serif carries the same weight as the stem and reads as a rectangle stuck on
+the end. The usual genre list (old style, transitional, Didone, slab) is really a
+sequence of answers to that one question, plus where the thin part of a curve
+falls and how much the strokes vary in weight.
+
+"Roman" turns up as a loose synonym and means two different things. In its strict
+sense it names the upright form of a face, the one an italic is set against. In
+looser use it names the whole inherited tradition of serifed book faces, which is
+why a foundry can call a face "roman" and mean neither more nor less than "not
+sans".
+
+The claim that serifs guide the eye along the line, and therefore read faster, is
+repeated far more often than it is supported: controlled studies keep failing to
+find a reliable difference for body text at ordinary sizes. What did matter was
+resolution. On a 72 dpi screen a hairline serif had no pixels to live in, so it
+smeared or vanished, and interfaces settled on sans faces for a generation. That
+constraint is gone. Serif body text on a phone is now unremarkable, and the
+choice is back to being one of voice.

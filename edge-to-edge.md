@@ -1,0 +1,71 @@
+---
+name: Edge to edge
+slug: edge-to-edge
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Drawing an app behind the system bars so content reaches the
+  physical screen edges, with insets applied only to what must stay tappable.
+aliases:
+  - name: immersive mode
+    source: android
+  - name: draw behind system bars
+    source: android
+  - name: full screen layout
+    source: community
+tags:
+  - platform-registers
+  - screen-size
+relations:
+  contrastWith:
+    - safe-area
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - chrome
+implementations: []
+sources:
+  - title: Learn about foldables, Android Developers
+    url: https://developer.android.com/develop/adaptive-apps/guides/foldables/learn-about-foldables
+demo: inline
+exhibit: false
+useWhen: content under the bars, controls kept clear of them
+---
+
+Edge to edge is a layout decision about where an app's background stops. By default a phone app
+is handed a box between the system bars: the status bar at the top, the navigation bar or home
+indicator at the bottom, and whatever the hardware adds around them. Going edge to edge means
+declining that box and painting into the whole screen, so a hero image, a map, a video, or just
+the page's own background colour runs under the bars and out to the physical edge. What does not
+change is where the controls sit. Buttons, text, and anything else the reader has to hit are
+still pushed inside the [safe area](/safe-area), because a button under the clock is a button
+nobody can press.
+
+That split is the whole pattern, and it is the part most easily got wrong. Backgrounds go to the
+edge; targets do not. In practice the app asks the system for the current insets and applies them
+per element rather than to the root: padding on the scroll content, on the toolbar, on the
+floating action button, while the surface behind them all spans the window. The reward is that
+the screen stops looking like a rectangle inside another rectangle, and scrolling content passes
+under a translucent bar instead of hitting a hard line. The cost is that every inset becomes the
+app's own responsibility, so a keyboard appearing, a rotation, or a foldable unfolding is now a
+layout event the app has to answer.
+
+The name is the confusing part, because each platform picked a different one for the same idea.
+Android says edge-to-edge, and since Android 15 it is the default for apps targeting that
+release, with `enableEdgeToEdge()` and `WindowInsets` as the API surface. Apple does not use the
+phrase at all: a view controller's content already extends under the bars, and the discipline is
+expressed the other way round, as respecting `safeAreaLayoutGuide`. The web spells it
+`viewport-fit=cover` on the viewport meta tag, which lets the page paint into the notch and hands
+the numbers back through `env(safe-area-inset-*)`. Three vocabularies, one behaviour, which is
+why a cross-platform team can argue about this for an afternoon without disagreeing about
+anything.
+
+Two neighbours are worth keeping distinct. A [full bleed](/full-bleed) element runs to the edges
+of its container, usually a content column, and is a typographic and editorial decision. Edge to
+edge is about the window against the screen, and the bars belong to the system rather than to the
+design. Immersive mode, Android's other term, goes further still by hiding the bars outright,
+which is right for a game or a photo viewer and wrong for anything the reader navigates. Keeping
+the bars visible while drawing behind them is the point: the [status bar](/status-bar) and the
+[home indicator](/home-indicator) stay where the reader expects, over content rather than beside
+it.

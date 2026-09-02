@@ -1,0 +1,71 @@
+---
+name: Scrubbing
+slug: scrubbing
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Dragging a playhead along a timeline to move through media by hand,
+  previewing frames as the position changes rather than waiting for playback.
+aliases:
+  - name: scrub
+    source: community
+  - name: seeking
+    source: community
+  - name: timeline scrubbing
+    source: community
+tags:
+  - dragging
+  - media
+  - time
+relations:
+  contrastWith:
+    - scrubber
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - playhead
+    - scroll-linked-animation
+implementations: []
+sources:
+  - title: "Cloudinary: Video scrubbing"
+    url: https://cloudinary.com/glossary/video-scrubbing
+  - title: "Audacity manual: Scrubbing and seeking"
+    url: https://manual.audacityteam.org/man/scrubbing_and_seeking.html
+demo: inline
+exhibit: false
+useWhen: dragging through time to find a moment
+---
+
+The word is borrowed from tape. To find an edit point on a reel to reel machine an
+engineer disengaged the capstan and rocked the reels by hand, dragging the tape back and
+forth across the playback head until the sound of the splice arrived. The gesture was
+called scrubbing, the audio it produced was a smear rather than playback, and the whole
+point was that the operator heard something at every position on the way. Digital editors
+kept the name, kept the smear (Audacity still plays audio while you scrub, at whatever
+speed your hand moves), and video kept the visual half: frames going past under the
+finger.
+
+Scrubbing and seeking get used as if they were the same act, and the difference is the
+feedback in between. A seek is a jump: press a point on the track, arrive there, and
+nothing is shown between where you were and where you landed. Scrubbing is a held drag
+where every intermediate position is rendered, which is what makes it a search rather
+than a guess. That is the whole reason a reader drags instead of clicking. They do not
+know the timestamp they want, they know the shot, and the only way to find it is to be
+shown the frames while looking.
+
+The engineering cost lands on that promise. Decoding a frame at every pointer position is
+expensive, so players cheat in well understood ways: a sprite sheet of low resolution
+thumbnails generated at upload and shown in a bubble above the pointer, a preview that
+snaps to the nearest keyframe, or a seek that only fires on release while the drag itself
+is served entirely from the thumbnail sheet. Choosing to preview but not seek is usually
+the right trade on a network, and it is why a scrubbed video often looks like it is
+moving before it audibly is.
+
+Precision is the other half, and it is a Fitts problem: two hours of footage across three
+hundred pixels is roughly twenty four seconds per pixel. Editors answer with a zoomable
+timeline, players answer with fine scrubbing (drag away from the track and the ratio of
+pointer travel to time drops, an iOS convention), and both answer with keyboard steps in
+seconds rather than percentages. The control being dragged is the
+[scrubber](/scrubber); scrubbing is what the reader does to it, and a scrubber that
+previews nothing has been reduced to a seek bar.

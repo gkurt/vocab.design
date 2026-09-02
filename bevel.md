@@ -1,0 +1,74 @@
+---
+name: Bevel and emboss
+slug: bevel
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Light and dark edges drawn along a shape's border so it reads as
+  raised or carved, the depth trick behind classic desktop buttons.
+aliases:
+  - name: beveled edge
+  - name: emboss
+  - name: outset border
+    source: css
+  - name: 3D border
+    source: community
+  - name: chiseled edge
+tags:
+  - depth
+  - retro
+relations:
+  contrastWith:
+    - chamfer
+    - letterpress-text
+    - gloss
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: 98.css
+    url: https://jdan.github.io/98.css/
+demo: inline
+exhibit: false
+useWhen: a raised edge drawn from a light and a dark border
+---
+
+The whole effect is two colours and an assumption. Light is taken to come from the top
+left, so the edges facing it get a lighter tone than the face and the edges facing away
+get a darker one. Put the light pair on the top and left borders and the dark pair on the
+bottom and right, and the shape reads as raised. Swap them and the same shape reads as
+pressed in, which is why a classic desktop button needed no artwork to animate: the down
+state was the up state with its border colours exchanged, and usually the label nudged one
+pixel down and right to sell the travel. Windows 95 spent four tones on it rather than
+two, an outer highlight and shadow around an inner pair, which is what gives that
+generation of controls their slightly chunky edge. Emboss is the same trick applied to
+type or to a thin rule, so the shape looks stamped into the surface instead of sitting on
+it.
+
+CSS shipped a shorthand for it in the first version of the language. `border-style: outset`
+and `inset` derive the two tones from the declared border colour, and `groove` and `ridge`
+do the doubled version, which is a fair reminder of what the web was expected to look like
+in 1996. Almost nobody uses the keywords now, partly because the derived tones are
+untunable and partly because hand written border colours give the same result with control
+over both of them. The technique itself never went away: it is what `98.css` and every
+other retro desktop kit is made of.
+
+The bevel is the load bearing detail of skeuomorphism, and it was the first thing flat
+design threw out. Once the industry decided in the early 2010s that borrowing physical
+lighting was dishonest, the raised edge went with the gradients and the drop shadows, and
+for a few years a button was a rectangle of flat colour with nothing at all saying it
+could be pressed. What came back is not the bevel but its job. Neubrutalism's hard offset
+shadow, with no blur and no falloff, is doing exactly what the light and dark border pair
+did, and admitting that it is a graphic device rather than a lighting model. The
+neubrutalist press state, where the surface drops onto its own shadow, is the 1995 down
+state redrawn with a different set of tricks.
+
+Two practical notes if you reach for it. A bevel drawn from fixed light and dark values
+stops working the moment the surface colour changes, so on a dark canvas the highlights
+have to be recomputed rather than reused, and a translucent white plus a translucent black
+travels better than two opaque greys. And depth is not a substitute for contrast: an edge
+one shade off the face reads as an edge to someone standing at the screen and as nothing
+at all to a reader with low vision, so whatever the bevel says about pressability still has
+to be said by the label, the cursor, and the state changes underneath it.

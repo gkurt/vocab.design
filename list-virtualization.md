@@ -1,0 +1,79 @@
+---
+name: List virtualization
+slug: list-virtualization
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Rendering only the rows currently in view and a small buffer around
+  them, while spacers preserve the scrollbar of the full list.
+aliases:
+  - name: windowing
+    source: community
+  - name: virtual scrolling
+    source: community
+  - name: virtualized list
+    source: community
+  - name: virtual list
+    source: ant-design
+  - name: row virtualization
+    source: tanstack-table
+tags:
+  - perceived-performance
+  - scroll
+  - tables
+relations:
+  contrastWith:
+    - set-size-and-position
+    - lazy-loading
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - infinite-scroll
+implementations: []
+sources:
+  - title: "patterns.dev: List virtualization"
+    url: https://www.patterns.dev/
+demo: inline
+exhibit: false
+useWhen: a huge list renders only the rows you can see
+---
+
+The list has ten thousand rows and the document has fourteen. A virtualized scroller
+watches its own scroll position, works out which slice of the data that position lands
+on, and renders that slice plus a few rows either side as a cushion. Everything else is
+held up by a spacer sized to what the full list would have measured, which is what
+keeps the scrollbar honest: the thumb is the right size, the scroll distance is the
+real one, and the reader never learns that the rows they are heading towards do not
+exist yet. Most implementations assume a fixed row height, because that assumption
+turns "which rows are visible" into one division.
+
+The reason to reach for it is that browsers are fast at scrolling and slow at holding
+ten thousand of anything. Layout, paint, memory, and event listeners all scale with the
+node count, and a table with a few columns of markup per row hits the wall long before
+the data does. Virtualization decouples the two: the DOM cost becomes a constant set by
+the viewport rather than by the dataset, which is why it turns up under every large data
+grid, log viewer, chat history, and file tree.
+
+It is easy to confuse with the patterns that decide when data arrives, and the line is
+worth being exact about. [Infinite scroll](/infinite-scroll), [load more](/load-more),
+and [pagination](/pagination) are all answers to *when the next batch is fetched*;
+virtualization is an answer to *whether the rows you already have exist in the
+document*. They compose freely, and usually do: an infinite feed that never virtualizes
+gets slower the longer it is read, and a virtualized list still has to get its data from
+somewhere. A paginated table can virtualize a single page, and often should not, since
+a page small enough to read is small enough to render.
+
+The costs are real and mostly land on the reader. Flick fast enough and the scroller
+outruns its own rendering, showing a band of nothing where rows should be, which is why
+serious implementations overscan generously and fill the gap with a
+[skeleton screen](/skeleton-screen) rather than blank space. Rows that are not in the
+document cannot be found by the browser's own find-in-page, cannot be linked to with a
+fragment, and cannot hold focus: unmounting the row a keyboard user is standing on
+throws focus to the body unless the code catches it. Assistive technology needs to be
+told what it cannot see, with `aria-setsize` and `aria-posinset` on each row, since the
+accessibility tree only ever holds the window. Variable row heights require measuring
+and caching, and a wrong guess makes the scrollbar lie and triggers
+[scroll anchoring](/scroll-anchoring) corrections mid-scroll. None of this is worth
+paying under a few hundred rows, where `content-visibility: auto` gets much of the
+benefit for one line of CSS and none of the bugs.

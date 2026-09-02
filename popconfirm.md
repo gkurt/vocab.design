@@ -1,0 +1,60 @@
+---
+name: Popconfirm
+slug: popconfirm
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A small confirmation bubble anchored to the control you just
+  pressed, asking whether you meant it without opening a dialog over the page.
+aliases:
+  - name: inline confirmation
+    source: community
+  - name: confirm popover
+    source: community
+  - name: are you sure popover
+    source: community
+tags:
+  - overlays
+relations:
+  contrastWith:
+    - confirmation-dialog
+  variantOf:
+    - popover
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Ant Design: Popconfirm"
+    url: https://ant.design/components/popconfirm
+demo: inline
+exhibit: false
+useWhen: confirming in place instead of in a dialog
+---
+
+The word comes from Ant Design, which named the component by squashing popover and
+confirm together, and the name has since escaped into general use because nothing
+else was short for it. A popconfirm is a [popover](/popover) with one job: it holds a
+one line question and two answers, and it opens beside the control that raised it.
+
+Anchoring is the whole argument for it. The question arrives next to the button you
+just pressed, so the thing being confirmed is still on screen, still pointed at, and
+still recognisable from the row it sits in. A
+[confirmation dialog](/confirmation-dialog) has to name that context in words because
+it has covered it up, and it has to be dismissed before you can look at anything
+again. When the answer is obvious and the consequence is small (removing one row,
+revoking one key), the bubble asks for a fraction of the attention and gets an answer
+from the same pointer position.
+
+It buys that lightness by giving up what a modal has: nothing is trapped, nothing is
+inert, and a stray click anywhere else closes the question without answering it.
+That is the right trade for reversible or small consequences and the wrong one for
+irreversible ones. If losing the answer to a mis-click would be bad, or the
+explanation runs past a line, or the confirmation should be typed out, use the
+dialog.
+
+Two details separate a working popconfirm from a [tooltip](/tooltip) with buttons in
+it. It opens on click and never on hover, because a bubble that appears while passing
+over a delete button is an accident waiting to be clicked through. And it holds real
+focus rather than borrowing it, so the answer is reachable by keyboard, with Escape
+mapped to the safe way out.

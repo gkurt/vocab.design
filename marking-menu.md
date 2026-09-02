@@ -1,0 +1,64 @@
+---
+name: Marking menu
+slug: marking-menu
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A radial menu that can be answered before it appears: waiting shows
+  the menu, while a confident stroke in the item's direction selects it
+  outright."
+aliases:
+  - name: gesture menu
+    source: community
+  - name: mark mode
+    source: community
+  - name: flow menu
+    source: community
+tags:
+  - menus
+  - pointer
+relations:
+  contrastWith:
+    - radial-menu
+    - mouse-gesture
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - press-drag-release
+implementations: []
+sources:
+  - title: "Kurtenbach and Buxton: user learning and performance with marking menus"
+    url: https://www.billbuxton.com/MMUserLearn.html
+demo: inline
+exhibit: false
+useWhen: an expert stroke that skips showing the menu
+---
+
+Press and hold on the canvas and a ring of commands appears around the pointer, each in its own
+direction. Move toward one and release, and it runs. Now make the same movement quickly, before
+the ring has had time to appear, and the command runs anyway: the interface saw a stroke to the
+north and that is all it needed. That is the whole idea. The menu and the gesture are the same
+gesture, one performed slowly enough to need help and one performed fast enough not to.
+
+What makes this more than a novelty is that the slow version teaches the fast one. Gordon
+Kurtenbach and William Buxton set out the argument and the evidence: because the item's
+position in the ring is its direction, every hesitant trip through the visible menu is also a
+rehearsal of the mark, and people drift from one to the other without being told there is
+another way. Most interfaces make their expert path a separate thing to learn, printed in a
+menu as a keyboard shortcut nobody reads. A marking menu makes the expert path the same
+movement, which is why the pattern is sometimes described as self revealing.
+
+Direction is also easier to remember than position. A list makes you find the item you want
+among its neighbours, and the answer is a location on a moving surface. A ring makes the answer
+a heading, up, right, down, left, and the hand holds that far better than the eye holds a row
+number. The cost is that the vocabulary is small: four directions are read reliably, eight with
+care, and anything past that starts trading accuracy for breadth. Depth is bought instead with
+compound marks, a stroke that turns a corner, which is powerful and genuinely hard to learn.
+
+Set against its neighbours: a context menu is a list that appears at the pointer to be read and
+then clicked, and it has no faster form. A radial menu is the component shape on its own, a ring
+of items with no mark behind it. The marking menu is the one that promises the ring can be
+skipped. The costs are the ones any press and hold carries, since the hold has to be free of
+other meanings on that surface, and the ring needs somewhere to be drawn that will not run off
+the edge of the window.

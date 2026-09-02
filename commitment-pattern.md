@@ -1,0 +1,54 @@
+---
+name: Commitment pattern
+slug: commitment-pattern
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The rare scanning shape where a motivated reader fixates on nearly
+  every word, the only pattern that behaves like actual reading.
+aliases: []
+tags:
+  - perception
+relations:
+  contrastWith:
+    - bypassing-pattern
+    - spotted-pattern
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Text Scanning Patterns: Eyetracking Evidence, NN/g"
+    url: https://www.nngroup.com/articles/text-scanning-patterns-eyetracking/
+demo: inline
+exhibit: false
+useWhen: the one case where readers read every word
+---
+
+Sometimes the eye tracker records something that looks like reading: a fixation on nearly
+every word, in order, all the way down the block. Nielsen Norman Group calls this the
+commitment pattern, and the name is the explanation. It shows up when the reader has decided
+this particular text is worth the effort, which in practice means the text answers a
+question they arrived with and the cost of getting it wrong is theirs. A dosage instruction,
+the total on a checkout page, a cancellation clause, a recipe being cooked from, an error
+message that stands between someone and their money.
+
+Assuming this pattern is the default is the single most common layout mistake, and it is the
+reason the rest of this family of terms exists. Copy gets written as though every word will
+be read, so the important sentence goes third, the qualifier that changes everything goes at
+the end of the paragraph, and the distinguishing word goes after the shared opening. Then the
+page ships and gets skimmed, because ordinary pages are skimmed:
+the [F pattern](/f-pattern), the [layer cake pattern](/layer-cake-pattern), the
+[spotted pattern](/spotted-pattern) and the
+[bypassing pattern](/bypassing-pattern) are all descriptions of what
+happens to text nobody has committed to.
+
+Two practical consequences follow. First, commitment is earned rather than designed: no
+amount of typography turns a marketing blurb into a text somebody reads word by word, so the
+lever is motivation, which usually means answering the reader's actual question sooner.
+Second, where commitment genuinely exists, the design job inverts. A dose, a total, a
+deadline, a legal term: those blocks should be short, unhurried, generously led, and free of
+anything competing, because the reader is spending real attention and the layout's only job
+is to not waste it. Long, dense, evenly weighted text is not a way to make people read
+carefully. It is a way to make sure the one sentence that mattered gets skipped.

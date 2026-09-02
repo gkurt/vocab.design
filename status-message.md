@@ -1,0 +1,67 @@
+---
+name: Status message
+slug: status-message
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A change in content that reports progress, result, or state and must
+  be announced without taking focus, such as a count of search results.
+aliases:
+  - name: role=status
+    source: aria
+  - name: status region
+    source: community
+  - name: polite status
+    source: community
+tags:
+  - assistive-tech
+  - wcag
+relations:
+  contrastWith:
+    - toast
+    - banner
+    - live-region
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - microsurvey
+    - offline-indicator
+implementations: []
+sources:
+  - title: "WCAG 2.2: Status Messages"
+    url: https://www.w3.org/TR/WCAG22/#status-messages
+demo: inline
+exhibit: false
+useWhen: reporting an outcome the reader did not navigate to
+---
+
+Saved. Three results found. Copied to clipboard. One error remaining. Uploading, 40
+percent. These are status messages: text that appears to report how something went,
+somewhere the reader did not ask to be taken. WCAG 4.1.3 covers exactly this case at
+level AA. If new content tells the user about the outcome of an action, about progress,
+or about a state, and it appears without receiving focus, then assistive technology has
+to be able to announce it, which in practice means giving it a role.
+
+The mechanism is a [live region](/live-region), and the two terms are worth keeping
+apart. The live region is the marked container and its politeness setting: the plumbing.
+The status message is what is being reported, plus the rule that says it cannot be
+reported to sighted readers only. `role="status"` is the usual answer, since it implies
+`aria-live="polite"` and `aria-atomic="true"`, and `role="alert"` is for the message that
+must interrupt. The container has to be in the page before the text goes into it, and
+nothing about a status message ever moves focus, which is the difference between it and
+an [error summary](/error-identification) the reader is deliberately sent to.
+
+Two ways to fail it, and both are common. The first is painting the words into a plain
+`span`, or into a [toast](/toast) with no role, so the change is visible and silent: this
+is the single most frequent 4.1.3 failure, and it costs one attribute to fix. The second
+is overcorrecting, marking every routine confirmation as an alert so a
+[screen reader](/screen-reader) is interrupted constantly, or announcing a message that
+focus is already about to land on, which reads it twice.
+
+A few habits keep them useful. Say the same words in the visible text and in the
+announcement, since a reader may be using both. Front-load the part that matters, because
+"3 results found for oat milk" is heard before the qualifier is. Reserve the room the
+message will occupy so its arrival does not shove the page around. And if the outcome
+requires the reader to do something, that is not a status message any more: move focus and
+say so.

@@ -1,0 +1,71 @@
+---
+name: Passkey
+slug: passkey
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Signing in with a device-held credential unlocked by the reader's
+  own biometric or screen lock, so the interface asks for a face or fingerprint,
+  not a secret.
+aliases:
+  - name: WebAuthn
+    source: community
+  - name: FIDO2
+    source: community
+  - name: biometric login
+    source: community
+  - name: device credential
+    source: community
+tags:
+  - auth
+relations:
+  contrastWith:
+    - accessible-authentication
+    - magic-link
+    - social-login
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: Web Authentication API"
+    url: https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API
+demo: inline
+exhibit: false
+useWhen: signing in with a fingerprint instead of a password
+---
+
+The credential is a key pair: the private half never leaves the device that made it,
+the site keeps the public half, and signing in means the device signs a challenge
+after the reader has unlocked it. Everything a designer needs follows from that one
+sentence. There is no secret to type, so there is no field. There is nothing on the
+server worth stealing, so a breach leaks nothing that signs in anywhere. And the
+gesture the reader performs is not authentication to the site, it is unlocking the
+device, which is why the interface says "use Touch ID" and not "enter your face".
+
+Phishing resistance is the headline, and it is structural rather than educational. The
+browser hands the site's origin to the authenticator, and a key minted for one origin
+will not sign for another, so a convincing replica on a lookalike domain gets nothing.
+No amount of care makes that true of a password, and it is not true of a
+[magic link](/magic-link) or a [one-time code](/one-time-code-login) either: both send
+a bearer token that a relay in the middle can ask for and then spend. That is the
+argument for moving high-value accounts here and leaving the mailbox flows for the
+low-stakes ones.
+
+Two flavours ship under the same word and they behave differently in the interface. A
+synced passkey lives in a credential manager and follows the reader across their
+devices, which is what makes it a plausible replacement for a password rather than a
+second factor. A device-bound one stays on the hardware that made it, including
+security keys, and is what a bank means when it says the passkey cannot be copied.
+Registration is where this distinction has to be spoken out loud, because the answer
+decides whether losing a phone is an inconvenience or a lockout.
+
+The interface work is mostly in the seams. Offer the passkey route first, above the
+password, and let conditional mediation put saved credentials straight into the
+sign-in field rather than making the reader remember they have one. Never leave the
+reader alone with a system sheet: the screen behind it should say which account is
+being verified, and dismissing the sheet must land somewhere useful rather than on a
+blank error. Keep a recovery path, and be honest that it is now the weakest link.
+Biometrics are also a consent question, so say plainly that the fingerprint stays on
+the device and no image of it ever reaches the site.

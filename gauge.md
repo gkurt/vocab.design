@@ -1,0 +1,73 @@
+---
+name: Gauge
+slug: gauge
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A dial style readout showing one value on an arc between a minimum
+  and a maximum, borrowed from instrument panels.
+aliases:
+  - name: dial gauge
+    source: community
+  - name: speedometer chart
+    source: community
+  - name: semi circle progress
+    source: mantine
+  - name: radial gauge
+    source: community
+tags:
+  - dataviz
+  - progress
+relations:
+  contrastWith:
+    - meter
+    - progress-ring
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Apple Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/
+demo: inline
+exhibit: false
+useWhen: a value read off an arc like a dial
+---
+
+A gauge answers one question: where does this value sit between the lowest it can be
+and the highest it can be? Everything in the component serves that question. The arc is
+the range, the needle is the value, the ticks let you read an approximate number
+without a label on every step, and the coloured bands say which parts of the range are
+comfortable and which are not. It is the only common chart shape that carries a
+judgement as well as a measurement, and that is both its strength and the reason it is
+so easy to abuse.
+
+The confusion worth clearing up is with the [progress ring](/progress-ring). Progress is
+a journey toward completion: it starts at nothing, it only goes up, and reaching the end
+means the work is done. A gauge measures rather than tracks. Its value can fall as
+easily as it can rise, its maximum is a limit rather than a finish line, and there is
+nothing to celebrate at a hundred percent, which is usually the worst reading on the
+dial. When the value is a quantity inside a known range with no notion of finishing,
+the semantic sibling in HTML is the [meter](/meter) rather than the progress element,
+and the same distinction applies in every design system that ships both.
+
+Bands are where the design gets opinionated, so they have to be honest. A threshold
+drawn on the arc is a promise that somebody decided what "too high" means and that the
+number is real, not a decorative gradient from green to red. Keep the count of bands
+small, three at most, label the value in text as well as pointing at it, and never let
+colour be the only thing carrying the verdict, since red and amber are precisely the
+pair that disappears for a red-green colour blind reader. If the reading matters at a
+glance, the shape of the needle position and a written status word do the work that
+colour alone cannot.
+
+The form is inherited from physical instrument panels, which is why it still smells
+faintly of dials and brushed metal even in a flat drawing, and why it is often the first
+thing a dashboard reaches for and the first thing a serious one drops. A gauge spends a
+lot of pixels on a single number, and a wall of them is far harder to scan than a column
+of plain figures. It earns its place where the range genuinely matters and the reading
+is glanceable: disk pressure, remaining budget, a live rate against a stated ceiling.
+[Apple's Human Interface
+Guidelines](https://developer.apple.com/design/human-interface-guidelines/) is worth
+reading here for the small-screen version, where the same idea shrinks to an arc with no
+needle at all.

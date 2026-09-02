@@ -1,0 +1,71 @@
+---
+name: Radial menu
+slug: radial-menu
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A menu whose items sit around the point of invocation, so a choice
+  is made by direction and distance rather than by reading a list.
+aliases:
+  - name: pie menu
+    source: community
+  - name: circular menu
+    source: community
+  - name: wheel menu
+    source: community
+tags:
+  - menus
+  - pointer
+relations:
+  contrastWith:
+    - marking-menu
+    - context-menu
+    - speed-dial
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Pie menu"
+    url: https://en.wikipedia.org/wiki/Pie_menu
+demo: inline
+exhibit: false
+useWhen: a menu chosen by direction from where you pressed
+---
+
+A radial menu opens around the pointer rather than beside it, and that single decision
+changes what choosing feels like. Every item is the same short distance away, so no
+option is cheaper to reach than any other and none of them needs to be read in order.
+The item is identified by the direction you travel, and the wedge is as large as the
+angle it owns, which makes it a very forgiving target compared with a row in a list.
+Most implementations add a dead zone at the centre: travel far enough and a direction
+counts, release inside the hub and nothing runs, which gives the gesture a built in
+cancel that costs no extra control.
+
+The list version of the same trigger is the [context menu](/context-menu), and the
+comparison is the whole argument. A list can hold twenty commands, group them with
+separators, nest submenus, and carry keyboard shortcuts down the right hand edge; a
+radial menu can hold about six before the labels start fighting for arc, and it has
+nowhere to put a long one. What it buys instead is speed and muscle memory: the same
+command always lies in the same direction, which is a thing a hand can learn and a
+sorted list can never offer, because a list reorders itself the moment its contents
+change.
+
+That learning is what the [marking menu](/marking-menu) is built on. A marking menu is
+this component after the reader no longer needs to see it: hold still and the ring is
+drawn, stroke the direction straight away and the choice is made without the menu ever
+appearing. The two terms are worth keeping apart, because one names the drawn thing and
+the other names the gesture that outgrows it. A [speed dial](/speed-dial) is a third
+relative, a fan of actions off a single button, but it is anchored to that button rather
+than to wherever you pressed, and it is picked by tapping an item rather than by
+direction.
+
+The pattern is common in tools where the pointer is already doing the work and rare
+almost everywhere else: 3D and CAD applications, Blender's pie menus, the radial weapon
+and emote wheels of games, a few drawing apps on tablets. The web has almost none, for
+reasons worth taking seriously. There is no honest keyboard or screen reader equivalent
+of "north east", so the commands have to exist somewhere linear as well, which means
+building both. It needs a press and hold or a right click to invoke, so it is
+undiscoverable to anyone who does not already know it is there. And it wants room in
+every direction, which the corners and edges of a document rarely have.

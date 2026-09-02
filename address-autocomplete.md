@@ -1,0 +1,67 @@
+---
+name: Address autocomplete
+slug: address-autocomplete
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-25T00:00:00.000Z
+definition: Replacing a set of address fields with one lookup that suggests full
+  addresses after a few characters and fills the rest on selection.
+aliases:
+  - name: address lookup
+    source: govuk
+  - name: postcode lookup
+    source: govuk
+  - name: address finder
+    source: community
+  - name: autofill address
+    source: community
+tags:
+  - forms
+  - search
+relations:
+  contrastWith:
+    - input-purpose
+    - autofill
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - typeahead
+implementations: []
+sources:
+  - title: "GOV.UK Design System: Addresses"
+    url: https://design-system.service.gov.uk/patterns/addresses/
+demo: inline
+exhibit: false
+useWhen: typing a postcode fills in the whole address
+---
+
+An address is the worst-shaped thing a form ever asks for. It has a different number of
+parts in every country, the parts are named differently, and half of them are ambiguous to
+the person who lives there. Address autocomplete replaces the interrogation with a single
+lookup: type a few characters of a street or a postcode, pick a real address out of the
+suggestions, and the structured fields fill themselves in. Seven decisions become one, and
+the one that remains is the only one the reader is actually qualified to make.
+
+The machinery is a [combobox](/combobox) over an address database, which is worth saying
+plainly because it means the pattern inherits a solved accessibility problem rather than a
+new one: a text input, a listbox of suggestions, arrow keys, an active option, and a chosen
+value announced when it lands. [Mention autocomplete](/mention-autocomplete) is the same
+machinery aimed at people instead of places, and the difference between them is entirely in
+what the query is matched against. What address autocomplete adds on top is the fan-out:
+one selection writes several fields, so the reader has to be able to see what was written
+and correct it.
+
+That last part is where implementations fail. A lookup that swallows the address into an
+opaque token leaves anyone with a flat number, a new build, a farm, or a business park with
+no way to finish, because the database is always a little behind the world. Keep the
+structured fields on screen after the fill, keep them editable, and keep a plain "enter it
+manually" path within reach rather than behind an apology. The [GOV.UK Design
+System](https://design-system.service.gov.uk/patterns/addresses/) is unusually blunt about
+this: a lookup is an optimisation over the manual fields, not a replacement for them.
+
+Two details buy most of the remaining quality. Wait until the query has enough in it to be
+worth answering, so one character does not return a thousand streets, and say what the field
+wants before anything has been typed. And reserve the room the suggestion list will take, so
+opening it never shoves the rest of the form down the page under someone who is
+mid-sentence.

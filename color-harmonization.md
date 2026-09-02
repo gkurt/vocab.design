@@ -1,0 +1,70 @@
+---
+name: Color harmonization
+slug: color-harmonization
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Nudging an outside colour's hue toward the current scheme so a fixed
+  brand or status colour sits inside a generated palette without looking
+  imported.
+aliases:
+  - name: harmonize
+    source: material
+  - name: HarmonizedColors
+    source: material
+  - name: color blending
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - color-mix
+    - seed-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: material
+    name: Harmonized custom colors
+    url: https://m3.material.io/styles/color/overview
+sources:
+  - title: "Material 3: color overview"
+    url: https://m3.material.io/styles/color/overview
+demo: inline
+exhibit: false
+useWhen: making a fixed outside colour belong to a generated scheme
+---
+
+A generated scheme derives every role from one [seed colour](/seed-color), and then reality
+arrives with colours that were never going to be derived from anything: a brand red fixed by
+a style guide, a partner's green, the amber a status system has always used. Dropping them
+into the scheme unchanged reads as a paste. Harmonization is the small correction that fixes
+it, rotating the outside colour's hue a short way toward the scheme's own hue and leaving
+everything else where it was.
+
+The operation is worth stating exactly, because it is smaller than it sounds. Material's
+`Blend.harmonize` moves the source hue toward the target by half of the angular difference
+between them, capped at 15 degrees, and touches neither chroma nor tone. Only hue moves, so
+every contrast ratio the colour was chosen for survives the change. The rotation is a short
+walk around the [colour wheel](/color-wheel) in the direction that closes the gap, which is
+why a colour already near the scheme barely shifts at all and a colour on the far side shifts
+by the cap and no further. Material performs it in [HCT](/hct), the space, while harmonization
+is one of the operations that space exists to make safe; the specimen here rotates an OKLCH
+hue instead, because that is the perceptual hue circle a browser can compute exactly.
+
+The cap is the interesting part, and it exists because some colours are not yours to move. A
+status colour carries meaning agreed outside your palette, so a red rotated far enough stops
+reading as an error before it starts reading as harmonized, and a green that has drifted to
+teal no longer says "safe" to anyone glancing at it. The same holds for a brand mark under a
+contract, for the colour of a physical product the screen is meant to match, and for anything
+a user has learned by rote. Harmonize those by a few degrees or not at all, and let the rest
+of the palette do the belonging.
+
+Harmonization is most visible in [Material You](/material-you), where the scheme is regenerated
+from whatever wallpaper the user picked and a fixed brand colour would otherwise clash with a
+different palette every week. It is worth doing anywhere a scheme is generated rather than
+drawn, including a light and dark pair built from one seed. What it is not is a fix for a
+badly chosen colour: harmonization makes a foreign hue neighbourly, and it cannot make an
+unreadable one legible.

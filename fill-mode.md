@@ -1,0 +1,69 @@
+---
+name: Fill mode
+slug: fill-mode
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Whether an animation's first or last keyframe styles apply outside
+  its running window, which decides if an element snaps back when it finishes or
+  stays where it landed.
+aliases:
+  - name: animation-fill-mode
+    source: css
+  - name: fill forwards
+    source: community
+  - name: forwards
+    source: css
+  - name: backwards
+    source: css
+tags:
+  - web-platform
+relations:
+  contrastWith:
+    - yoyo-loop
+    - interpolation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - exit-animation
+implementations: []
+sources:
+  - title: "MDN: animation-fill-mode"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode
+  - title: Animation Vocabulary
+    url: https://animations.dev/vocabulary
+demo: inline
+exhibit: false
+useWhen: an animation ends and the element must not jump back
+---
+
+An animation owns an element only while it is running. Before it starts, and after it ends,
+the element is drawn from its own styles, which is why a keyframe set that begins somewhere
+other than where the element already sits produces two jumps: one into the first keyframe
+when the animation starts, and one back out of the last when it stops. Fill mode is the
+property that decides how far outside its own window an animation's styles reach.
+`forwards` keeps the last keyframe applied after the end, `backwards` applies the first one
+during the delay before the start, `both` does each, and `none`, the default, does neither.
+
+`backwards` exists almost entirely for delays. A staggered list where each row is given
+`animation-delay` and fades up from `opacity: 0` will show every row at full opacity for the
+length of its delay and then blink out to start, which is the flash-of-start-state bug and
+is fixed by the one word. `forwards` exists for the opposite edge: a menu that scales open
+and is then dropped back to its closed keyframe the instant the animation finishes. `both`
+is what you actually want whenever an animation has a delay and an end state that must hold.
+
+The catch with `forwards` is that it never lets go. A filled animation keeps applying its
+last keyframe from the animation origin of the cascade, which outranks ordinary
+declarations, so later attempts to set that property in CSS or in JavaScript are quietly
+ignored while the animation object is still around. That is why keeping the end state in the
+element's own styles is usually the better answer: add a class, set the property, and let
+the animation cover the change rather than becoming the change. With the Web Animations API
+the same idea is `commitStyles()` followed by `cancel()`, which writes the final values into
+the element's inline style and gets the animation out of the way.
+
+Two smaller notes. Fill is meaningless on an animation that never ends, since an infinite
+animation has no outside to fill into. And a paused or delayed animation with `both` is a
+legitimate way to hold an element at a keyframe indefinitely, which is how scroll-linked
+effects were built before scroll timelines: set the fill, set the delay negative, and treat
+the timeline as a value you seek rather than a clock you start.

@@ -1,0 +1,73 @@
+---
+name: State layer
+slug: state-layer
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A translucent sheet of the content colour laid over a control at a
+  fixed opacity per state, so hover, focus and pressed are one rule instead of
+  three palettes.
+aliases:
+  - name: state overlay
+  - name: hover layer
+  - name: interaction state layer
+    source: material
+  - name: ripple color
+    source: material
+tags:
+  - depth
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - hover-lift
+    - interaction-color-step
+    - ripple
+    - container-color
+    - surface-tint
+  variantOf: []
+  partOf:
+    - microinteraction
+  seeAlso:
+    - tint
+    - focus-ring
+implementations: []
+sources:
+  - title: "Material: states"
+    url: https://m2.material.io/go/design-states/
+  - title: "Spectrum design data: states"
+    url: https://opensource.adobe.com/spectrum-design-data/registry/states
+demo: inline
+exhibit: false
+useWhen: one overlay opacity expressing hover, focus and pressed
+---
+
+The naive way to style interaction is to pick a colour per state: a blue button, a
+darker blue on hover, a darker one still when pressed. That works until the same
+button exists in six colours, plus an outlined variant, plus a version sitting on a
+tinted card, and the palette has quietly grown to thirty values that must all stay
+in step. A state layer replaces the palette with arithmetic. One translucent sheet,
+coloured by whatever the control's content colour is, sits over the container at an
+opacity that depends only on the state.
+
+Material's numbers are the ones most often borrowed: nothing at rest, around 8
+percent on hover, and a little more for focus and for pressed. The exact figures
+matter less than the property they have, which is that they compose. Because the
+sheet is drawn in the content colour, the same 8 percent darkens a light button and
+lightens a dark one, and a component nobody anticipated inherits correct states for
+free. Ripples, where they exist, are the same layer arriving from the point of
+contact rather than everywhere at once.
+
+Two things are easy to get wrong. The layer must sit above the container and below
+the label, or the text dims along with the background and the control reads as
+disabled at the exact moment it is being pressed. And a layer is not a substitute
+for a focus indicator: an 8 percent wash rarely clears the contrast a visible focus
+ring is held to, so keyboard focus needs its own outline in addition to whatever
+the layer does.
+
+There is a real alternative, which is naming a token per state
+(`accent.background.hover`) and letting each one be tuned by hand. That gives a
+designer control the arithmetic cannot, at the cost of every new surface colour
+needing its own set. Systems tend to choose by scale: hand-tuned states where the
+component count is small and stable, a state layer where it is not.

@@ -1,0 +1,87 @@
+---
+name: Abbreviation
+slug: abbreviation
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A shortened form of a word or phrase, from Dr. to NASA, with its own
+  typographic conventions and an expansion assistive tech can speak.
+aliases:
+  - name: acronym
+  - name: initialism
+  - name: abbr
+  - name: abbr element
+    source: whatwg-html
+  - name: abbreviations
+    source: wcag
+  - name: acronym expansion
+    source: community
+  - name: expansion on first use
+    source: community
+tags:
+  - a11y
+  - content-design
+relations:
+  contrastWith:
+    - pronunciation
+    - small-caps
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <abbr>"
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/abbr
+  - title: "WCAG 2.2: Abbreviations"
+    url: https://www.w3.org/TR/WCAG22/#abbreviations
+demo: inline
+exhibit: false
+useWhen: shortened forms need setting, marking up, or expanding
+---
+
+Abbreviation is the family name, and the family has members worth telling apart.
+An *acronym* is built from initial letters and pronounced as a word: NASA, scuba,
+laser, two of which have been words for so long that nobody capitalises them any
+more. An *initialism* is built the same way but read letter by letter: HTML, PDF,
+BBC. A *contraction* keeps the first and last letters and drops the middle, which
+is why British style writes Dr and Mr without a full stop, while a *truncation*
+cuts the end off and keeps one: Prof., Fri., etc. The rule behind the punctuation
+is that the full stop stands in for the letters you removed, so it belongs where
+the word simply stops. Whichever convention you pick, pick one and hold it: a
+page that writes Dr. in one place and Dr in another is reporting nothing except
+that two people wrote it.
+
+Typographically, a run of capitals is a problem. Capitals are all one height, so
+a string of them makes a solid dark rectangle in the middle of a line, and the
+line's colour goes uneven. The traditional fix is [small caps](/small-caps),
+which set the abbreviation at roughly x-height so it sits in the texture of the
+paragraph instead of on top of it, with a little [letter spacing](/tracking)
+because capitals are drawn to be fitted loosely. Real small caps come from the
+font; the synthesized kind CSS falls back to are shrunken capitals with the
+wrong stroke weight. Everything the entry on [all caps](/all-caps) says about
+reading speed applies here in miniature, which is a further argument for keeping
+the abbreviation shorter than the sentence around it.
+
+The markup is `<abbr>`, and its `title` attribute is where good intentions go to
+die. A title shows as a tooltip on hover, which means it is unreachable by
+keyboard, unreachable by touch, and inconsistently announced by screen readers,
+so an expansion that lives only there is an expansion almost nobody receives.
+WCAG asks, at AAA, for *a* mechanism to get the expanded form, and the mechanism
+that works for every reader is much older than the web: write the full phrase out
+the first time and put the short form in brackets after it, then use the short
+form from then on. That is why the specimen above puts the expansions on the page
+behind an explicit control rather than behind a hover, and why `<abbr>` earns its
+keep mostly as a styling and semantics hook rather than as an accessibility
+feature.
+
+The remaining trouble is pronunciation, and it is not fully solvable. Screen
+readers guess whether to say a string of capitals as a word or as letters, and
+they guess from heuristics that differ per reader and per voice, so JPEG,
+"jaypeg" to you, may arrive as four letters or as noise. Full stops between the
+letters change the guess and are worth trying when a specific initialism reads
+badly, but the reliable move is to spell it out in the text once. And every
+abbreviation you introduce is a small tax on the reader's
+[cognitive load](/cognitive-load): a shortening saves the writer more than it
+saves anybody else, so the ones worth keeping are the ones the audience already
+uses.

@@ -1,0 +1,73 @@
+---
+name: Expanded state
+slug: expanded-state
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The open or closed state of a disclosure, exposed with aria-expanded
+  on the control that owns it rather than on the panel it reveals.
+aliases:
+  - name: aria-expanded
+    source: aria
+  - name: disclosure state
+    source: aria-apg
+  - name: open state
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - has-popup
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - disclosure
+    - disclosure-triangle
+implementations: []
+sources:
+  - title: "MDN: aria-expanded"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-expanded
+  - title: "ARIA APG: Disclosure pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/
+demo: inline
+exhibit: false
+useWhen: the trigger must say whether its panel is open
+---
+
+`aria-expanded` goes on the control, never on the thing it reveals. The APG puts it plainly
+for the disclosure pattern: when the content is visible the element with role button has
+`aria-expanded` set to true, and when the content is hidden it is set to false. That is the
+whole attribute, and the placement is the part people get wrong. A screen reader announces
+state as part of the control it is on, so a reader arriving at a button hears "Shipping
+details, button, collapsed" and knows what pressing it will do. Put the attribute on the
+panel instead and the button announces nothing, because a control that says nothing about its
+own state is a control you have to press to understand.
+
+Absence is meaningful too. MDN is explicit that the presence of the attribute indicates
+control, so it should not be added to elements that do not own an expandable region. A button
+with no `aria-expanded` is a button that does something; a button with `aria-expanded="false"`
+is a button that will show you something. That distinction is worth protecting, which is why
+scattering the attribute across every button in a toolbar is worse than leaving it off.
+
+Several patterns carry it and they are not interchangeable.
+A [disclosure](/disclosure) and an [accordion](/accordion) header use it for content that
+appears in the flow. A [menu button](/menu-button) uses it alongside
+[aria-haspopup](/has-popup), which says what kind of surface will appear while
+`aria-expanded` says whether it is there right now; the two answer different questions and a
+menu button wants both. A [combobox](/combobox) carries it on the input for its popup. A
+[tooltip](/tooltip) or a [toggletip](/toggletip) does not, and neither does a
+[modal dialog](/modal-dialog) trigger, since a dialog is not a region that control keeps
+expanded. Whatever the pattern, the state has to be written when the state actually changes:
+an attribute set once at build time and never updated is a lie the reader has no way to
+check, and wiring the control to its region with `aria-controls` does not rescue it. The
+control's [accessible name](/accessible-name) should hold still across the flip for the same
+reason: with the state already announced, a button that renames itself from Show to Hide is
+saying the same thing twice and disagreeing with itself half the time.
+
+The visual half of the same message is the part everyone remembers to build. A rotating
+[disclosure triangle](/disclosure-triangle), an [icon morph](/icon-morph) from plus to minus,
+a chevron that flips: all of these are the sighted spelling of exactly what `aria-expanded`
+carries, which makes them a useful check on each other. If the glyph changes and the
+attribute does not, the two halves of the interface disagree, and only one of them is being
+read aloud.

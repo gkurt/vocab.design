@@ -1,0 +1,64 @@
+---
+name: Magazine layout
+slug: magazine-layout
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: An editorial composition with mixed column widths, one dominant lead
+  story and smaller supporting items arranged around it.
+aliases:
+  - name: editorial layout
+    source: community
+  - name: newspaper layout
+    source: community
+  - name: front page layout
+    source: community
+tags:
+  - editorial
+  - grids
+relations:
+  contrastWith:
+    - editorial-web-design
+    - text-columns
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - broken-grid
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: an editorial page with one clear lead and ranked rest
+---
+
+A magazine layout ranks its content. One story is the lead, and it says so with size: a bigger
+picture, a bigger headline, more of the page. Two or three items sit at a middle weight below or
+beside it, and a column of briefs runs down one side at the smallest weight the page has. Nothing
+about that arrangement is decorative. The composition is an editor's judgement about what matters
+today, made visible before a single word is read, which is why the pattern is named after the
+medium that invented it.
+
+The mechanism is [visual hierarchy](/visual-hierarchy) expressed as area and position rather than
+as columns. Mixed column widths matter (a lead spanning two tracks while the briefs take one is
+what makes the lead read as a lead) but the widths are a consequence of the ranking, not the point
+of it. In practice a magazine layout is built on a [layout grid](/layout-grid) with items spanning
+different numbers of tracks, and the design work is deciding the steps: how much bigger the lead's
+headline is than a second's, how far down the scale the briefs sit, and where the reader's eye is
+meant to land first and second.
+
+The contrast worth drawing is [bento grid](/bento-grid), which also mixes tile sizes but ranks
+nothing: its tiles vary in shape to fit the content in each, and the composition reads as a set of
+equals. Flatten a magazine layout into equal tiles and you can watch what is lost, since the same
+six items now make the reader do the ranking the editor was supposed to have done. The related
+trap is having a [hero](/hero) and calling it hierarchy: one big thing at the top with an
+undifferentiated grid beneath it has a lead and nothing else, so the second and third tiers of the
+page carry no information at all.
+
+Two cautions when the layout has to be responsive. Ranking by area only works while the areas are
+side by side, so a composition that collapses to a single column keeps its hierarchy through type
+size and order instead, which is what
+[content choreography](/content-choreography) is about. And the pattern rewards real editorial
+input: a template with a lead slot, a seconds row and a briefs rail will produce a page that looks
+ranked whether or not the ranking is true, and readers learn to distrust it quickly. A magazine
+layout is a promise that somebody decided.

@@ -1,0 +1,73 @@
+---
+name: Focusable disabled
+slug: focusable-disabled
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A control styled as unavailable but left in the tab order with
+  aria-disabled, so a reader can find it and learn why it is off.
+aliases:
+  - name: aria-disabled
+    source: aria
+  - name: soft disable
+    source: community
+  - name: disabled but focusable
+    source: aria-apg
+tags:
+  - forms
+  - keyboard
+relations:
+  contrastWith:
+    - tabbable
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - button
+implementations: []
+sources:
+  - title: "ARIA APG: Developing a Keyboard Interface"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+  - title: "MDN: aria-disabled"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled
+demo: inline
+exhibit: false
+useWhen: a disabled control still needs to be discoverable
+---
+
+There are two ways to say a control is unavailable and they are not variants of each other.
+The HTML `disabled` attribute does everything: it takes the element out of the tab order,
+stops events firing, keeps the value out of form submission, and hands the browser its own
+`:disabled` styling. `aria-disabled="true"` does one thing: it changes what the control is
+announced as. The element stays focusable, clicks still fire, the value is still submitted,
+and suppressing the action is now your job. Drawn side by side the two are identical, which
+is exactly why the difference gets missed.
+
+The reason to want the second is discoverability, and the ARIA Authoring Practices Guide
+puts the trade plainly: skipping disabled elements usually saves keyboard users key presses,
+but screen reader users are far less likely to discover disabled elements that are not
+focusable, because moving focus is one of their primary methods of discovery. So its advice
+splits on whether the absence is inferable. A greyed Previous button on the first page of
+results can safely leave the sequence, because the neighbouring controls tell you it is
+there. A disabled Cut in a toolbar, an unavailable option in a listbox, a tab that cannot be
+opened yet: those are features a reader learns exist by landing on them, and taking them out
+of the sequence deletes them from that reader's mental model of the app.
+
+Choosing `aria-disabled` buys you two obligations. You have to block the action yourself,
+usually by returning early from the handler, since the click will arrive. And because the
+control is now something a person will actually reach and read, you owe it a reason:
+`aria-describedby` pointing at the sentence that says what is missing turns "unavailable"
+into "unavailable, add a delivery address". Note that WCAG exempts inactive components from
+both 1.4.3 Contrast (Minimum) and 1.4.11 Non-text Contrast, so the usual 45 percent opacity
+is technically conformant; the moment the control is meant to be found and understood, that
+exemption stops being a good reason to leave it unreadable.
+
+Its neighbours mark the edges. [Inert](/inert) is the opposite move, removing a whole
+subtree from focus, the accessibility tree and hit testing at once, which is right for
+what is behind a dialog and wrong for one button. A link has no disabled state at all,
+which is one more thing to weigh when choosing
+[button versus link](/button-versus-link). And a control switched off because a rule has not
+been met yet is often better handled as an [invalid state](/invalid-state) on the thing that
+failed, or better still not switched off: let the reader press Submit and tell them what is
+missing, which is the only version of this that works for someone who never saw the button
+go grey.

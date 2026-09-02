@@ -1,0 +1,75 @@
+---
+name: Text columns
+slug: text-columns
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Flowing one block of running text into several columns that fill and
+  balance automatically, with an optional rule drawn between them.
+aliases:
+  - name: CSS multi-column layout
+    source: mdn
+  - name: multicol
+    source: community
+  - name: column-count
+    source: css
+  - name: column rule
+    source: css
+  - name: newspaper columns
+    source: community
+tags:
+  - editorial
+  - grids
+relations:
+  contrastWith:
+    - measure
+    - magazine-layout
+    - multi-column-layout
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hyphenation
+    - page-break
+implementations: []
+sources:
+  - title: CSS multi-column layout, MDN
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout
+demo: inline
+exhibit: false
+useWhen: one passage of text split into columns
+---
+
+This is the newspaper mechanism: one continuous passage of text, poured into several
+columns, filling the first before it starts the second. The browser does the pouring, which
+is what separates it from every other multi-column arrangement in CSS. You do not place
+anything. You state how many columns you want with `column-count`, or how wide each should
+be with `column-width` and let the browser fit as many as it can, and the text finds its own
+way through. `column-gap` sets the space between them and `column-rule` draws the hairline
+down it, using the same syntax as `border`.
+
+The name collides with something else, and the collision is worth stating plainly. A
+[multi column layout](/multi-column-layout) in the interface sense is an application shell
+with three regions, navigation and a list and a reading pane, each holding different
+content. This is the other meaning: one piece of content, several columns, and the reader
+moves down a column and back up to the top of the next one. The two share nothing except a
+word, so the safest habit is to say multicol when you mean the CSS mechanism and name the
+regions when you mean the shell.
+
+Where it works on screen is short runs: a footnote block, a list of links in a footer, a
+glossary, a set of image captions, anything the reader takes in without scrolling. Where it
+fails is the case people reach for first. A long article in two columns on a screen taller
+than the columns are means reading to the bottom, scrolling back up, and reading down
+again, and the taller the window the worse it gets. Print does not have this problem because
+a page ends. A screen does not, so the honest constraint is that the whole column set has to
+be visible at once, which in practice caps it at a few paragraphs.
+
+Two properties keep the flow from cutting things in the wrong place. `break-inside: avoid`
+on a heading, a figure, or a card stops a column boundary from landing in the middle of it,
+and `column-span: all` lifts an element out of the flow so it spans the full width, which is
+how a section heading sits across the top of the columns rather than inside one of them.
+Two other things are worth knowing before shipping it. Reading order is source order, so
+assistive technology and the tab sequence follow the text as written rather than the visual
+columns, which is correct here and is exactly why hand-placed columns are not. And a
+[measure](/measure) narrows fast: three columns in a normal container is often 25 characters
+a line, which is below the readable range and the usual reason to ask for two instead.

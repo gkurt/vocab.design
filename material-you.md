@@ -1,0 +1,72 @@
+---
+name: Material You
+slug: material-you
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Google's personalization layer where the system derives an app's
+  entire color scheme from the user's wallpaper, so every app shifts together.
+aliases:
+  - name: dynamic color
+    source: material
+  - name: Material 3
+    source: material
+  - name: Monet
+    source: community
+  - name: wallpaper theming
+  - name: wallpaper-based theming
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - material-3-expressive
+    - mica
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - seed-color
+    - hct
+implementations:
+  - system: material
+    name: Dynamic color
+    url: https://developer.android.com/develop/ui/views/theming/dynamic-colors
+sources:
+  - title: "Android Developers: Dynamic color"
+    url: https://developer.android.com/develop/ui/views/theming/dynamic-colors
+demo: inline
+exhibit: false
+useWhen: the palette comes from the user's wallpaper
+---
+
+Material You arrived with Android 12 in 2021 as the personalization half of Material 3.
+The system picks source colors out of the wallpaper, expands each into a tonal palette
+of thirteen fixed lightness steps, and hands apps a set of roles filled from those
+steps. An app that asks for the primary role rather than for a specific blue gets the
+user's blue, and every app that does the same shifts together when the wallpaper
+changes. The extraction engine was called Monet inside Google, and the name stuck in
+the modding community long after the docs settled on "dynamic color".
+
+The machinery underneath is a color space, HCT, that pairs the hue and chroma of
+CIELAB with a tone axis borrowed from a contrast model, so tone 40 against tone 100 is
+a guaranteed contrast ratio no matter which hue the wallpaper produced. That is the
+whole trick: because lightness is standardized and hue is not, an unpredictable seed
+can drive a predictable, accessible scheme. It also means the design has to be written
+against roles such as primary, surface, and on-surface rather than against literal
+values, which is the same discipline a design system asks for with its color tokens.
+
+Two things follow for anyone building on top of it. First, brand color and dynamic
+color are in tension, and you have to decide which one wins per surface: a payment
+confirmation may want the brand, a home screen widget almost never does. Second,
+nothing in the scheme is a constant you may hard code, so illustrations, charts, and
+anything with a fixed palette need their own answer before the wallpaper picks one for
+them. The look also travels beyond Android, since the same tonal palette approach shows
+up wherever a product wants a theme it can generate rather than draw by hand.
+
+The phrase is also used loosely, and it is worth keeping the parts separate. Material 3
+is the design system, dynamic color is the mechanism, and Material You is the
+personalization it makes possible: the large round shapes, the wide corner radii, and
+the pastel surfaces of the 2021 refresh are Material 3's own visual language, and they
+persist whether or not a device is theming from anyone's wallpaper.

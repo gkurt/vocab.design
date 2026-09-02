@@ -1,0 +1,69 @@
+---
+name: Positive tabindex
+slug: positive-tabindex
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Using tabindex values above zero to force an order, which yanks
+  those elements to the front of the whole page sequence and is almost always a
+  bug.
+aliases:
+  - name: tabindex="1"
+    source: community
+  - name: tabindex greater than zero
+    source: community
+  - name: forced tab order
+    source: community
+tags:
+  - errors
+  - keyboard
+relations:
+  contrastWith:
+    - roving-tabindex
+    - focus-order
+    - tabbable
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: tabindex"
+    url: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/tabindex
+demo: inline
+exhibit: false
+useWhen: someone proposes tabindex="1" to fix an order
+---
+
+The attribute has three meanings and only two of them are useful. A negative value, by
+convention `-1`, takes an element out of the tab sequence while leaving it focusable by
+script, which is how a dialog, a panel, or a heading is given focus after it opens. A value
+of `0` puts an element into the sequence at the position its markup already has, which is
+how a `div` that has become a real control joins the order. A positive value does something
+different in kind: it creates a second sequence that runs before the first.
+
+That is the part people are surprised by. The browser tabs through every element with a
+positive value first, in ascending numeric order, ties broken by document order, and only
+then walks everything with `0` or an implicit position in source order. So one
+`tabindex="1"` in a form does not move that field up a few places. It moves the field ahead
+of the [skip link](/skip-link), the navigation, the search box, and every other control on
+the page, no matter where any of them sit. A reader who tabs into the page lands in the
+middle of a form they have not read yet, and the controls that should have come first are
+now reached last.
+
+The failure compounds because the sequence is document wide and the numbers are not
+namespaced. A component that ships with `tabindex="1"` fights every other component on the
+page, and two of them together produce an order neither team designed. Adding a field
+between 2 and 3 means renumbering, which is why the codebases that go down this road end up
+with values in the twenties and gaps kept "just in case". Nothing about that is local, and
+nothing about it survives a page being assembled from parts.
+
+There is almost always a better answer to the problem that prompted it. If the visual order
+and the tab order disagree, the honest fix is to change the source order so that they agree,
+which is what [focus order](/focus-order) asks for, since the mismatch was usually created
+by a CSS `order` or `grid-area` in the first place. If the goal is to make a composite
+widget behave like one stop rather than fifteen, that is
+[roving tabindex](/roving-tabindex), built from `0` and `-1` and nothing else. Automated
+checkers flag positive values as a matter of course, and the rare argument for keeping one
+is worth hearing out, but in a decade of these arguments the answer has been the source
+order almost every time.

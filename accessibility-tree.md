@@ -1,0 +1,79 @@
+---
+name: Accessibility tree
+slug: accessibility-tree
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The parallel tree a browser derives from the DOM, holding the role,
+  name, state, and value that assistive technology actually reads.
+aliases:
+  - name: a11y tree
+    source: community
+  - name: accessibility node
+    source: community
+  - name: accessibility API
+    source: community
+  - name: UI Automation
+    source: microsoft
+  - name: IAccessible2
+    source: community
+  - name: off-screen model
+    source: community
+tags:
+  - assistive-tech
+  - web-platform
+relations:
+  contrastWith:
+    - presentational-children
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - semantic-html
+    - accessible-name
+    - screen-reader
+    - accessibility-annotation
+    - aria-hidden
+implementations: []
+sources:
+  - title: "Erik Kroes: accessibility glossary"
+    url: https://www.erikkroes.nl/glossary/
+  - title: "MDN glossary: Accessibility"
+    url: https://developer.mozilla.org/en-US/docs/Glossary/Accessibility
+demo: inline
+exhibit: false
+useWhen: talking about what assistive technology sees, not what renders
+---
+
+A browser builds two trees from one document. The render tree decides what gets painted,
+and the accessibility tree decides what gets announced. Each node in the second one is
+mostly four facts: a role (what kind of thing this is), a name (what it is called), a
+state (checked, expanded, disabled, current), and a value where one applies. Assistive
+technology never sees your markup and never sees your pixels. It sees this tree, which is
+why "it looks like a button" and "it is a button" can be two different sentences.
+
+The tree is derived, not authored. Native semantics come first: a `button` element
+arrives as a button, an `h2` as a heading with a level, an `input type="checkbox"` as a
+checkbox that carries its own checked state. ARIA edits that derivation rather than
+adding anything to the page, which is the whole of its job description. `role` swaps the
+node's role, `aria-*` sets state the DOM has no attribute for, and the
+[accessible name](/accessible-name) is computed by a specified walk over labels and
+content. A `div` with a click handler and no role becomes a generic node: present, named
+nothing, announced as nothing.
+
+Three things move an element between the two trees, and they are worth keeping straight.
+`display: none` and `visibility: hidden` remove it from both. [Visually
+hidden](/visually-hidden) text removes it from the painted one only, so it stays in the
+accessibility tree and gets read out. [aria-hidden](/aria-hidden) does the opposite: the
+element still paints, and it and its whole subtree vanish from the accessibility tree.
+`role="presentation"` (and its synonym `role="none"`) is a lighter cut, stripping a
+node's own semantics while leaving its children in place, which is how a table used for
+layout stops announcing rows and columns.
+
+Below the browser sit the platform accessibility APIs the tree is exposed through: UI
+Automation and IAccessible2 on Windows, NSAccessibility on macOS, AT-SPI on Linux. This
+is why the same tree is loosely called "the accessibility API", and why the old
+screen-reader term for it was the off-screen model. You can read it directly: every
+browser's developer tools show the computed tree, node by node, and comparing what you
+see there against what you expected is faster than guessing why a
+[screen reader](/screen-reader) said "group" out loud.

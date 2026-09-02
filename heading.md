@@ -1,0 +1,68 @@
+---
+name: Heading
+slug: heading
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A short line of type that names the section under it and, by its
+  size and weight, says how far down the outline that section sits.
+aliases:
+  - name: title
+    source: community
+  - name: headline
+    source: community
+  - name: section header
+    source: community
+  - name: subheading
+    source: community
+tags:
+  - content-design
+relations:
+  contrastWith:
+    - heading-hierarchy
+    - typographic-hierarchy
+    - deck
+    - eyebrow
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "The Component Gallery: Heading"
+    url: https://component.gallery/components/heading/
+demo: inline
+exhibit: false
+useWhen: naming a section and showing its depth at once
+---
+
+A heading does two jobs at once, and it is worth separating them. It labels the
+block that follows, and its treatment (size, weight, colour, space above) places
+that block in the document's outline. The label is content; the placement is
+typography. Getting the first right and the second wrong produces a page that
+reads correctly line by line and is impossible to skim, because a reader
+navigating by headings is reading the sizes rather than the words.
+
+The vocabulary is inconsistent across fields. Publishing says headline for the
+title of a piece and subheading, deck, or standfirst for the line beneath it that
+elaborates. Interface work says title for the name of a screen or a dialog,
+section header for the sticky label above a group in a list, and heading for the
+generic case. HTML says `h1` to `h6` and nothing else, so all of it collapses to
+six levels the moment it becomes markup.
+
+That collapse is where the trouble starts, because visual level and semantic
+level are separate decisions that get conflated. `h1` is not "the biggest text",
+it is "the top of the outline", and the two only coincide when nobody has had to
+fit a design to a document yet. A card title set at 13px may well be an `h3`,
+and a display line at 48px may be no heading at all if it is marketing copy with
+nothing under it. Style the level with a class and choose the element from the
+structure, never the other way round, and keep the levels in order:
+[heading hierarchy](/heading-hierarchy) is the term for the sequence, and
+skipping a level is what breaks it.
+
+Two habits do most of the work. Bind each heading to what it labels with space:
+more room above than below, so it reads as attached to the section beneath it
+rather than floating between two. And keep them short. A heading is scanned, not
+read, and a full sentence set at heading size is a paragraph with delusions,
+which is also why sentence case tends to beat title case at anything longer than
+three words.

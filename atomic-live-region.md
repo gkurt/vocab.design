@@ -1,0 +1,65 @@
+---
+name: Atomic live region
+slug: atomic-live-region
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A live region setting that makes assistive technology re-read the
+  whole region when any part of it changes, instead of only the changed
+  fragment.
+aliases:
+  - name: aria-atomic
+    source: aria
+  - name: aria-relevant
+    source: aria
+  - name: whole region announcement
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - busy-state
+    - politeness-level
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: aria-atomic"
+    url: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-atomic
+demo: inline
+exhibit: false
+useWhen: a partial update would be read out of context
+---
+
+A [live region](/live-region) tells assistive technology to watch a part of the page and say
+something when it changes. `aria-atomic` answers the next question: how much of it to say. The
+default is `false`, which means the reader announces only the node that actually changed. Set it
+to `true` and the whole region is treated as one unit, so any change re-reads all of it. That is
+the entire attribute, and it is either exactly what you need or exactly what makes your interface
+unbearable.
+
+The rule of thumb is whether the changed fragment carries its own meaning. A departure board row
+that reads "Flight AA21, Gate B4, 14:20" does not: change the gate and a non-atomic region
+announces "B7", which is a piece of information with nothing attached to it. Somebody who was not
+watching the screen has no idea which flight moved. Set `aria-atomic="true"` and they hear the
+flight, the new gate and the time together, which is one sentence longer and infinitely more
+useful. Turn it the other way around for a running log or a chat transcript, where each new line
+is a complete thought and re-reading the previous forty would be punishing. Note that
+`role="alert"` already carries an implicit `aria-atomic="true"`, which is often why an alert reads
+whole while a hand-rolled status line reads in pieces.
+
+The neighbouring setting is `aria-relevant`, and the two are easy to mix up because both narrow
+what gets spoken. Atomic is about *how much* is read when something changes. Relevant is about
+*which kinds* of change count at all: additions, removals, text edits, or all of them. Its default,
+`additions text`, is right nearly always, and the honest advice about `aria-relevant` is that
+support has historically been patchy and most teams never need to touch it. Atomic is the one
+worth reaching for.
+
+It sits alongside two other decisions about the same region, and all three are independent. The
+[politeness level](/politeness-level) decides *when* the announcement gets a turn. Atomic decides
+how much of the region that turn covers. And whether the thing you are announcing is a
+[status message](/status-message) at all decides whether a live region is the right tool rather
+than moving focus. A region can be polite and atomic, assertive and atomic, or any other pairing;
+setting one has no bearing on the other.

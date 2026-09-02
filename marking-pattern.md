@@ -1,0 +1,57 @@
+---
+name: Marking pattern
+slug: marking-pattern
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A scanning shape where the eye holds one spot on the screen while
+  content scrolls past underneath it, most common on phones.
+aliases: []
+tags:
+  - perception
+  - scroll
+relations:
+  contrastWith:
+    - bypassing-pattern
+    - spotted-pattern
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: F-Shaped Pattern of Reading on the Web, NN/g
+    url: https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/
+demo: inline
+exhibit: false
+useWhen: reasoning about where eyes rest while scrolling
+---
+
+Most scanning patterns describe a path the eye travels. This one describes the eye refusing
+to travel at all. The reader parks their gaze at a fixed point on the screen, usually a
+little above centre, and scrolls the content through it, the way you might hold a finger on
+a line while dragging a page under it. Nielsen Norman Group recorded it as the marking
+pattern and found it mostly on phones, where the thumb is already doing the moving and where
+a small screen makes holding one spot cheaper than searching a large one.
+
+Design consequences follow from the fact that the screen now has a hot band rather than a hot
+corner. Content is judged as it passes through that band, in the width of a phone and in a
+fraction of a second, which is why a feed item has to identify itself in its first line and
+why a heading that needs the paragraph under it to make sense will be scrolled past unread.
+It also explains an ordinary frustration with sticky elements: a
+[sticky header](/sticky-header) or a floating promotion parked in the upper third of a phone
+screen is sitting exactly where the gaze is held, so it does not get glanced at, it gets
+scrolled through, over and over.
+
+The pattern says nothing about the reader being careless. Marking is efficient, and it is how
+people triage a long list: hold the point, stream the candidates, stop when something matches.
+The layout job is to make each passing item resolvable on its own, which usually means a
+strong first line, a consistent left edge for names and numbers so the held point lands on
+the same column every time, and no important distinction that only shows up in an item's
+second half.
+
+One name collision is worth stating plainly, because the words are almost identical and the
+concepts are unrelated. The marking pattern is an eye tracking finding about where the gaze
+rests. A [marking menu](/marking-menu) is an interaction control: a radial menu whose items
+are selected with a directional gesture. Nothing in this entry is about gestures, and nothing
+in that one is about eyes.

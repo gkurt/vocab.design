@@ -1,0 +1,75 @@
+---
+name: Interaction color step
+slug: interaction-color-step
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The convention that hover, active and selected are the next steps
+  along the same scale rather than separate colours, so states are derived from
+  one ramp.
+aliases:
+  - name: interactive token
+    source: carbon
+  - name: hover token
+    source: community
+  - name: half step
+    source: carbon
+  - name: hovered UI element background
+    source: radix
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - color-ramp
+    - state-layer
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: radix
+    name: Steps 4 and 5, hover and active
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+sources:
+  - title: "Radix Colors: understanding the scale"
+    url: https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale
+  - title: "Carbon: color"
+    url: https://carbondesignsystem.com/elements/color/overview/
+demo: inline
+exhibit: false
+useWhen: hover and pressed derived from a scale, not picked
+---
+
+Hover is not a colour. It is the next rung. Radix builds this into the shape of its scales:
+step 3 is a UI element background, step 4 is that element hovered, step 5 is it active or
+selected, and the three are neighbours on one ramp rather than three decisions. Carbon says
+the same thing with tokens, shipping an interaction token beside each background token so a
+component asks for `layer-hover` instead of computing one. Once the convention is in place,
+"what colour is hover" stops being a question anyone answers by eye.
+
+The alternative is what most codebases actually do, and it is why the convention exists. A
+`filter: brightness(1.1)`, a 10 percent black overlay, or an opacity drop is a claim about a
+background that nobody checked: the same rule lands differently on a pale surface and a
+saturated one, it can push a control out of contrast without anyone noticing, and it cannot be
+themed because there is no token to re-point. A step is a real value with a real measurement,
+which means the hover state can be audited exactly like the rest state.
+[Emphasis level](/emphasis-level) makes the same move on the other axis, replacing an opacity
+ladder for text with named tokens picked per surface.
+
+Two neighbours are worth keeping apart. [Pressed state](/pressed-state) names the state itself,
+the condition a control is in while the pointer is down, while an interaction colour step names
+where that state's colour comes from; one is a fact about the control, the other is a fact
+about the palette. [Sticky hover](/sticky-hover) is the failure at the other end: on touch, the
+hover step is painted and then never removed, so a control sits one rung along from rest for as
+long as it stays on screen. That the step is a swappable token rather than a filter is exactly
+what makes it removable.
+
+Practical shape. Keep the steps small enough that the control still reads as the same control
+and large enough to be seen, which in practice is a few units of perceptual lightness rather
+than a dramatic change; the specimen's ramp moves about 4.8 L\* per rung. Let selection outrank
+hover, so a selected control does not brighten again under the pointer and quietly become a
+fifth colour. And note that systems disagree about the end of the ramp: Radix folds active and
+selected into one step, while Carbon gives selected its own token. Anywhere a control is swept
+rather than clicked, a [rating](/rating) most of all, the ramp is what keeps the sweep looking
+like one gesture instead of a light show.

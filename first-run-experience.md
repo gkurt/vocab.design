@@ -1,0 +1,69 @@
+---
+name: First run experience
+slug: first-run-experience
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Everything shown only on the very first open, from a welcome
+  sequence to seeded sample content, and never shown to that person again.
+aliases:
+  - name: FRE
+    source: fluent
+  - name: first-time user experience
+    source: community
+  - name: FTUE
+    source: community
+  - name: welcome flow
+    source: community
+  - name: sample data
+    source: community
+  - name: onboarding flow
+    source: uiterms
+tags:
+  - onboarding
+relations:
+  contrastWith:
+    - welcome-mat
+    - gradual-engagement
+    - zero-state
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - onboarding-checklist
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: what happens only the very first time you open it
+---
+
+A first run experience is defined by not coming back. Every other kind of guidance is
+available whenever it is wanted: a help page can be reopened, a tour can be restarted, a
+tooltip waits for the next hover. This scaffolding is spent the moment it is seen, which
+makes it the most expensive screen in the product to design and the easiest one to get
+wrong, because the team that builds it sees it hundreds of times and the person it was
+built for sees it once.
+
+It is a bundle rather than a single component, and the parts are named separately. A
+welcome line explains what the thing is for. Seeded sample content, a demo board, two
+fake transactions, one example project, keeps the product from opening into an
+[empty state](/empty-state) that teaches nothing. A [coach mark](/coach-mark) puts one
+sentence beside the one control that will not be guessed. An
+[onboarding checklist](/onboarding-checklist) may stay behind after the rest is gone,
+which is the line worth watching: the checklist persists, so it is not part of the first
+run experience even when it is introduced by one.
+
+The names product teams actually use are the initials. FRE is Microsoft's, and Fluent's
+guidance uses it directly; FTUE, for first-time user experience, came up through games
+and is now general. Both are said out loud in planning meetings far more often than the
+words they stand for, which is why a designer who only knows the long form can miss what
+a ticket is asking for.
+
+Two rules carry most of the weight. It has to be skippable, because a person who already
+knows the product from another device is being held up by an explanation they do not
+need. And the fact that it was shown has to be recorded per person rather than per
+device, or the pattern quietly turns into [nagging](/nagging) for anyone who signs in
+somewhere new. The long tail after it belongs to a different word:
+[progressive profiling](/progressive-profiling) collects a little more on each later
+visit, while a first run experience is bounded to the first open and then gone.

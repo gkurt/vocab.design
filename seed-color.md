@@ -1,0 +1,72 @@
+---
+name: Seed color
+slug: seed-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The single input colour an algorithm expands into a whole scheme, so
+  a palette becomes something derived from one decision rather than picked
+  swatch by swatch.
+aliases:
+  - name: source color
+    source: material
+  - name: key color
+    source: material
+  - name: base color
+    source: community
+  - name: primary seed
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - hct
+    - color-harmonization
+    - brand-color
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - material-you
+    - identicon
+implementations:
+  - system: radix
+    name: Custom palette generation
+    url: https://www.radix-ui.com/colors/docs/overview/custom-palettes
+sources:
+  - title: "Material 3: how the color system works"
+    url: https://m3.material.io/styles/color/system/how-the-system-works
+demo: inline
+exhibit: false
+useWhen: one colour in, a whole palette out
+---
+
+A seed colour is an input, not a swatch you ship. You hand the generator one value and it
+produces the rest: a ramp of lightness steps at that hue, a set of neutrals tinted towards
+it, and the role assignments that say which step is a button fill and which is the tinted
+background behind a notice. Nothing downstream names the seed. Components ask for the roles,
+so changing the one input re-derives every surface at once instead of sending someone
+through a stylesheet replacing hex codes.
+
+The reason this works is that the generator does its arithmetic in a perceptual space.
+Material's HCT holds hue and chroma from CIELAB and takes its tone axis from a contrast
+model, so tone 40 against tone 100 lands on a known contrast whatever hue arrived, and other
+tools do the same job in [OKLCH](/oklch). Because the lightness ladder is fixed and only the
+hue is unpredictable, an arbitrary seed still produces an accessible scheme. That is the
+whole trick, and it is why the rungs are usually numbered: "step 11 on step 2" is a rule that
+survives a change of seed, while "this blue on that grey" is not.
+
+Where the seed comes from is the interesting part. Usually it is the
+[brand colour](/brand-color), carried in once and then left alone. It can also be extracted
+from an image, which is what [Material You](/material-you) does when it reads source colours
+out of a wallpaper and every app on the device shifts together. Some systems take more than
+one: a secondary or tertiary seed for accents that should not simply be the primary hue
+rotated, and a neutral seed that decides how warm the greys are.
+
+Two cautions. A seed is a starting point, not a guarantee: generated ramps drift at the
+extremes, near-neutral and very light seeds behave badly, and any serious system checks the
+output and pins overrides rather than trusting the curve. And a generated scheme has no
+opinion about meaning, so anything carrying a fixed sense of its own, a
+[status colour](/status-color), a chart's categorical series, an illustration, needs its own
+answer before the seed decides for it.

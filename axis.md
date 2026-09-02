@@ -1,0 +1,79 @@
+---
+name: Axis
+slug: axis
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "The ruled edge of a chart that maps position to value: scale,
+  ticks, and labels that make the marks readable as numbers."
+aliases:
+  - name: x-axis
+  - name: y-axis
+  - name: value axis
+  - name: category axis
+tags:
+  - dataviz
+relations:
+  contrastWith:
+    - reference-line
+    - tick-marks
+    - truncated-axis
+  variantOf: []
+  partOf:
+    - chart
+  seeAlso:
+    - dual-axis
+implementations:
+  - system: carbon
+    name: Axes and labels
+    url: https://carbondesignsystem.com/data-visualization/axes-and-labels/
+sources:
+  - title: "Fundamentals of Data Visualization: Coordinate systems and axes"
+    url: https://clauswilke.com/dataviz/coordinate-systems-axes.html
+  - title: "Carbon: Axes and labels"
+    url: https://carbondesignsystem.com/data-visualization/axes-and-labels/
+demo: inline
+exhibit: false
+useWhen: discussing tick density, label rotation, or what scale a chart hangs on
+---
+
+An axis is a scale made visible. Somewhere behind every [chart](/chart) is a function
+turning numbers into pixels, and the axis is the part of that function the reader can
+actually see: a ruled edge, a handful of ticks sampling the scale, and a label on each
+tick saying what value that position stands for. Without it a bar chart is a row of
+shapes with a shared bottom, readable as bigger and smaller but not as amounts. The
+positional accuracy of a chart is inherited entirely from its axes, which is why they
+are drawn first and thrown away last.
+
+The two names most people reach for describe geography rather than work. An x-axis and a
+y-axis say where the edge sits on the page; a value axis and a category axis say what it
+carries, and only the second distinction changes the design. A value axis holds a
+continuous quantity, so the space between ticks means something and the reader may
+interpolate across it. A category axis holds names with no distance between them, so its
+ticks are slots rather than measurements and there is nothing to interpolate. Confusing
+the two produces the classic mistake of a line drawn through unordered categories,
+implying a trend where only an alphabet exists.
+
+Most axis craft is subtraction. Fewer ticks than feel safe, spaced at round numbers a
+reader can do arithmetic with, because a label of 2,150 costs more attention than 2,500
+saves. Where the data's own extent gives ugly numbers, extend the domain to a rounded
+one and accept the headroom, or switch to a scale whose structure suits the data, such as
+the log scale that makes three orders of magnitude readable at once. Rotated tick labels
+are almost always a message about layout rather than typography: if the category names do
+not fit horizontally, the bars want to be horizontal too. And the choice of domain is a
+separate decision from the component itself, which is where a
+[truncated axis](/truncated-axis) comes in: the axis is the apparatus, truncation is one
+claim you can make with it, and a bar chart cut off above zero misreports every length on
+it.
+
+An axis also earns its space, which is the argument for sometimes going without one. A
+[sparkline](/sparkline) drops both axes deliberately: at text size there is no room for a
+scale, and the chart is trading precise reading for the shape of a trend beside the number
+it belongs to, so the reader is expected to get the exact figure from the text and only
+the direction from the picture. Note also that [tick marks](/tick-marks) is a live word in
+two places at once, on a chart's axis and on a slider track, where the notches are printed
+stops rather than a scale being sampled. [Carbon's guidance on axes and
+labels](https://carbondesignsystem.com/data-visualization/axes-and-labels/) is the most
+practical published version of the tick-density rules, down to when to skip labels rather
+than turn them.

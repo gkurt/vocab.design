@@ -1,0 +1,72 @@
+---
+name: Icon font
+slug: icon-font
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A font whose glyphs are icons rather than letters, addressed by code
+  point or by a ligature so an icon can be styled like text.
+aliases:
+  - name: font icons
+  - name: glyph icons
+  - name: ligature icons
+  - name: Material Symbols
+    source: material
+  - name: Font Awesome
+    source: community
+tags:
+  - fonts
+  - icons
+relations:
+  contrastWith:
+    - images-of-text
+    - color-font
+    - ligature
+    - icon
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - font-subsetting
+implementations: []
+sources:
+  - title: SVG, Icon Fonts, and Accessibility (24 Accessibility)
+    url: https://www.24a11y.com/2017/svg-icon-fonts-accessibility-case-study/
+demo: inline
+exhibit: false
+useWhen: icons delivered as type instead of as images
+---
+
+An icon font is a [web font](/web-font) whose [glyphs](/glyph) are pictures. You put a
+character in the markup and the font draws a house, a trash can, a star. There are two
+ways to address one. The old way is a code point in the Unicode private use area, a
+region reserved for exactly this kind of private agreement between a file and a font, so
+the markup contains a character that means nothing to anyone else. The newer way is a
+[ligature](/ligature): the font maps the letter sequence `home` to a single drawing, so
+the markup contains the readable word and the font substitutes the icon.
+
+The appeal was real. One request delivered a whole set, the icons scaled like type
+because they were type, `color` and `font-size` styled them without touching a fill
+attribute, and they lined up on the baseline beside a label for free.
+[Font Awesome](https://fontawesome.com) built an era on that, and
+[Material Symbols](https://fonts.google.com/icons) still ships as a variable icon font
+with the ligature naming and axes for weight, fill and optical size.
+
+The failures are also real, and they are all failures of a picture pretending to be
+text. If the font does not arrive, a private-use code point renders as [tofu](/tofu) and
+a ligature renders as the raw word, so the toolbar reads home star trash until the file
+loads (or forever, on a network that ate it). A screen reader meets whatever is in the
+text node: a meaningless private-use character, or the word `home` announced in the
+middle of a sentence it does not belong to. A reader who overrides page fonts, which is
+a real accessibility setting and not an edge case, loses every icon at once. Translation
+tools and copy and paste both take the text and leave the picture behind. And one font
+file is one colour.
+
+SVG icons won because they answer all of that: per-icon delivery, multiple colours,
+`aria-hidden` on the drawing with a real [accessible name](/accessible-name) on the
+control around it (see [icon button](/icon-button)), and no reliance on a font arriving
+at all. Icon fonts persist where the ecosystem is older than that argument, in long-lived
+design systems, in terminal setups, in codebases where the swap is not worth the churn.
+If you ship one, hide the glyph from assistive technology, name the control properly, and
+make sure the thing a reader sees while the font is in flight is not a word you did not
+mean to publish.

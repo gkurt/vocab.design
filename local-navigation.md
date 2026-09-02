@@ -1,0 +1,71 @@
+---
+name: Local navigation
+slug: local-navigation
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Links contextual to where the reader is, showing the siblings and
+  children of the current page rather than the whole site.
+aliases:
+  - name: local nav
+    source: community
+  - name: contextual navigation
+    source: community
+  - name: section navigation
+    source: community
+  - name: sub navigation
+    source: community
+tags:
+  - navigation
+relations:
+  contrastWith:
+    - global-navigation
+    - tabs
+    - table-of-contents
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - sidebar
+implementations: []
+sources:
+  - title: Local Navigation Is a Valuable Orientation and Wayfinding Aid, NN/g
+    url: https://www.nngroup.com/articles/local-navigation/
+demo: inline
+exhibit: false
+useWhen: nav that changes with the section you are in
+---
+
+Local navigation changes when you change section; [global navigation](/global-navigation)
+does not. A local nav lists the pages that live alongside and beneath the one you are on,
+so its contents are a function of your position: the billing section shows plans, invoices
+and payment methods, and the moment you move to the team section that list is replaced
+wholesale. Together with a global nav and the utility links (account, help, sign out) that
+usually sit in the far corner, it makes up the three part navigation family most products
+converge on.
+
+What it is actually for is depth. A global nav can only ever advertise a top tier, and
+without a second control the tiers below it are invisible until you land in one. Local
+navigation shows a reader the shape of the room they are standing in: how many siblings the
+current page has, whether it has children, and roughly how much more there is. NN/g's
+argument for it is that this
+[orientation is separable from wayfinding](https://www.nngroup.com/articles/local-navigation/),
+and that removing it forces every move within a section back through a landing page. It is
+also the control that makes a section feel like a place rather than a URL prefix.
+
+It is usually a vertical rail, and often the same [sidebar](/sidebar) component the global
+nav uses on a wide window, which is exactly why the two get conflated in code. The test is
+not where it is docked but whether the list survives a move to another section. Where a
+section has only a handful of peers and they are genuinely alternate views of one thing,
+[tabs](/tabs) do the same job in a horizontal strip. Where the "section" is a single long
+document, the local nav collapses into a [table of contents](/table-of-contents) driven by
+[scroll spy](/scroll-spy), and its current marker tracks a scroll position rather than a
+page.
+
+Two failure modes are worth watching for. The first is a rail that changes silently: if the
+list is replaced when a reader moves and nothing says which section it now belongs to, the
+change reads as the interface losing their place, so the rail should be headed by the name
+of the section it describes. The second is duplication. Local navigation answers "what else
+is here", [breadcrumbs](/breadcrumbs) answer "how did I get here", and a
+[current page indicator](/current-page-indicator) answers "where am I". Building all three
+to say the same thing is a common way to spend a quarter of the screen on redundancy.

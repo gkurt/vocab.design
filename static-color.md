@@ -1,0 +1,69 @@
+---
+name: Static color
+slug: static-color
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A colour deliberately excluded from theming because it sits on
+  something that never changes, such as a label over a photo or a fixed brand
+  mark.
+aliases:
+  - name: static color palette
+    source: spectrum
+  - name: fixed color
+    source: material
+  - name: theme-independent color
+    source: community
+  - name: always white
+    source: community
+tags:
+  - theming
+  - tokens
+relations:
+  contrastWith:
+    - inverse-color
+    - color-theme
+    - brand-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Spectrum: color system"
+    url: https://spectrum.adobe.com/page/color-system/
+demo: inline
+exhibit: false
+useWhen: a colour that must not flip with the theme
+---
+
+Every modern colour system is a machine for re-deriving values. Change the scheme and the
+surfaces, the accents and the ink all move together, which is the point. A static colour is the
+declared exception: a value that is told not to participate, because whatever it sits on is not
+participating either. Spectrum ships a static palette for exactly this, Material calls the same
+idea its fixed roles, and the honest test is simple. If the thing underneath the colour does not
+change with the theme, the colour on top of it must not either.
+
+Three cases account for most of them. A label or a control laid over a photograph or a video is
+sitting on pixels the theme has no opinion about, so white ink stays white in a dark theme and
+in a light one. A brand mark is owned outside the product, and re-deriving it produces something
+that is nearly the logo, which is worse than either version. And a safety or status colour that
+means one specific thing, a live circuit or a stop condition, has to keep meaning it across
+every scheme, since a reader who has learned the colour is not going to re-learn it at dusk.
+
+Set beside its neighbours the difference is sharp. [Material You](/material-you) re-derives an
+entire scheme from a wallpaper, and a static colour is the thing that has to survive that
+derivation intact, which is why the two are best explained together. A
+[container colour](/container-color) is derived and answers to emphasis; a
+[surface tint](/surface-tint) is derived and answers to height; a static colour answers to
+nothing and is deliberately unreachable from the [seed colour](/seed-color). Do not confuse it
+with a [brand colour](/brand-color) either. A brand colour is often the seed the whole scheme
+grows from, and it usually should re-derive; static is a decision about a specific placement,
+not about ownership of a hue.
+
+The bill comes with the exemption. Nothing is re-deriving an [on colour](/on-color) for a static
+value, so the pair has to carry its own [contrast ratio](/contrast-ratio) and be checked in
+every context it can appear in, including over the busiest frame of a video. Two habits keep it
+under control: name static values in the token layer rather than pasting hexes into components,
+so the set is countable, and keep that set small. A palette where a third of the values opted
+out of theming is not a themed palette, it is two palettes wearing one name.

@@ -1,0 +1,71 @@
+---
+name: Exit animation
+slug: exit-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The motion an element plays on its way out, which requires deferring
+  its removal from the layout until the animation has finished.
+aliases:
+  - name: leave animation
+    source: vue
+  - name: unmount animation
+    source: community
+  - name: AnimatePresence
+    source: framer-motion
+  - name: allow-discrete
+    source: css
+  - name: exit transition
+    source: material
+tags:
+  - web-platform
+relations:
+  contrastWith:
+    - dissolve
+    - entrance-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - fill-mode
+implementations: []
+sources:
+  - title: "Motion for React: AnimatePresence"
+    url: https://motion.dev/docs/react-animate-presence
+  - title: "MDN: @starting-style (with transition-behavior: allow-discrete)"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@starting-style
+demo: inline
+exhibit: false
+useWhen: something is being removed and should not blink out
+---
+
+An exit is harder than an entrance for one structural reason: the thing being animated is
+the thing being destroyed. Remove the element and the animation has no subject, so
+whatever is doing the removing has to be told to wait. In a framework that means keeping
+the node mounted after the state says it is gone and unmounting only when the animation
+reports finished, which is the entire job of a component like Motion's `AnimatePresence`
+or Vue's leave hooks. In plain CSS it means transitioning the discrete properties too:
+`display` and `overlay` only animate when `transition-behavior: allow-discrete` is set,
+which is what lets the browser hold `display: block` until the fade is over and then flip
+it in one step at the end.
+
+The shape of the motion should be the entrance run backwards, but the timing should not
+be. An exit is accelerating, easing in so the element leaves faster than it arrived, and
+it should be shorter: roughly two thirds of the entrance is a good starting point. The
+reason is attention. Arrival is asking to be noticed, departure is getting out of the way,
+and a slow exit is an interface making the reader watch something they have already
+finished with. The exception is a destructive removal, where a beat of visible motion is
+the reader's last chance to notice what went, which is why a deleted row usually leaves
+more slowly than a dismissed tooltip.
+
+Where an exit runs, the space it occupied has to be dealt with. Collapsing the space
+during the animation makes everything below slide up while the element is still visible on
+top of them, which reads as a glitch. Collapsing it after gives a hard jump at the end.
+The usual answer is to animate the space too, height or margin along with the opacity, so
+the gap closes as the element leaves. In a specimen, or anywhere the surrounding layout
+must hold still, the honest alternative is to keep the slot and let it empty. Whatever you
+choose, the removal must be idempotent: if a second dismiss arrives while the first
+animation is running, the element still has to end up gone, and a handler that only removes
+on a `transitionend` that never fires (because the transition was interrupted, or because
+the reader asked for reduced motion and there was no transition at all) leaves an invisible
+element sitting in the layout swallowing clicks.

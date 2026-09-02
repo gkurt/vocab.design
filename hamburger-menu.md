@@ -1,0 +1,56 @@
+---
+name: Hamburger menu
+slug: hamburger-menu
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A button of three stacked horizontal lines that opens a site's main
+  navigation, usually in a panel over the page.
+aliases:
+  - name: doner menu
+  - name: burger
+    source: mantine
+  - name: hamburger button
+  - name: nav toggle
+tags:
+  - icons
+  - menus
+  - navigation
+relations:
+  contrastWith:
+    - kebab-menu
+    - meatball-menu
+  variantOf: []
+  partOf:
+    - app-bar
+  seeAlso:
+    - drawer
+    - navigation-bar
+    - icon-morph
+    - priority-plus-navigation
+implementations:
+  - system: material
+    name: Navigation drawer
+    url: https://m3.material.io/components/navigation-drawer/overview
+sources:
+  - title: "Nielsen Norman Group: Hamburger menus and hidden navigation hurt UX"
+    url: https://www.nngroup.com/articles/hamburger-menus/
+demo: inline
+exhibit: false
+useWhen: the three-line button that opens the whole navigation
+---
+
+Three lines, and everyone knows what happens when you press it. That recognition
+is real, and it is the strongest argument for the pattern: on a phone there is no
+room for a nav bar, and the alternative is a screen that begins with a list of
+links.
+
+The cost is equally well documented. Navigation you cannot see gets used less, so
+anything behind the hamburger is effectively demoted. The usual compromise is to
+promote three or four destinations into a visible bar and leave the long tail in
+the panel.
+
+It is not a [kebab menu](/kebab-menu). Lines mean places to go; dots mean things to
+do to the item next to them. Swapping the two is one of the most common vocabulary
+mistakes in interface work, and it produces menus that surprise people.

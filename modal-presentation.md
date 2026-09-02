@@ -1,0 +1,76 @@
+---
+name: Modal presentation
+slug: modal-presentation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The slide-up-over transition that puts a sheet or dialog in front of
+  the current screen while what is behind recedes, the platform motion for
+  entering a modal context.
+aliases:
+  - name: cover vertical
+    source: uikit
+  - name: sheet presentation
+    source: hig
+  - name: slide-up modal
+    source: community
+  - name: modality transition
+    source: hig
+  - name: page sheet
+    source: uikit
+tags:
+  - overlays
+relations:
+  contrastWith:
+    - zoom-transition
+    - push-transition
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - bottom-sheet
+implementations:
+  - system: hig
+    name: Modality
+    url: https://developer.apple.com/design/human-interface-guidelines/modality
+sources:
+  - title: "Human Interface Guidelines: Modality"
+    url: https://developer.apple.com/design/human-interface-guidelines/modality
+  - title: UI Terms
+    url: https://uiterms.com/
+demo: inline
+exhibit: false
+useWhen: a task takes over the screen and must be dismissible
+---
+
+Entering a modal context is a change of place, and the motion that performs it is doing a specific
+job: it has to say *this is on top of what you were doing, it is temporary, and you are getting the
+other thing back*. The vocabulary is remarkably stable across platforms. Something arrives from an
+edge or grows in the centre, it comes with a scrim, and the screen behind it dims and usually recedes
+slightly rather than disappearing. That surviving glimpse of the previous screen is the whole
+argument: a full replacement would read as navigation, and navigation does not promise to give
+anything back.
+
+The three common presentations answer three different sizes of task. A sheet rises from the bottom
+edge and stops short of the top, which is the honest shape for a task that is smaller than the screen
+and expects to be dismissed quickly. A centred zoom and fade is for a decision rather than a task,
+which is why alerts use it and why it is the shape people mean when they say
+[modal dialog](/modal-dialog). A full-screen cover is for a task that deserves the whole screen and
+has its own internal navigation. A [bottom sheet](/bottom-sheet) is the component that first
+presentation produces, with detents and a drag handle of its own; this term is how it got there.
+
+The rule that keeps all three coherent is that the way out mirrors the way in. A sheet that rose from
+the bottom leaves through the bottom, a zoom shrinks back into the middle, and a cover slides down
+the way it came. Reversing the [entrance animation](/entrance-animation) is not decoration: the
+[exit animation](/exit-animation) is what tells the reader that the thing they closed went back where
+it came from and that nothing else changed underneath. A dismissal that fades out when the entrance
+slid up leaves people checking whether the screen behind is the one they left. On the web the whole
+family belongs in the [top layer](/top-layer), through a `dialog` element or the popover attribute,
+so the presentation is painted above the page rather than fighting it for stacking order.
+
+Three details make or break it. Give the modal a dismissal that does not depend on a gesture: an
+explicit close control as well as a swipe, since the swipe is a pointer idiom and the Escape key is a
+keyboard one. Keep the transition short, around a quarter of a second, because it stands between the
+reader and the task they asked for. And be careful presenting a modal from a modal: the second
+presentation has no room left to recede into, which is usually a sign the first one should have been
+a screen.

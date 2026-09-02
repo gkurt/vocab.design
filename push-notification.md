@@ -1,0 +1,78 @@
+---
+name: Push notification
+slug: push-notification
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A system delivered message shown outside the app, on a lock screen
+  or in a notification list, that has to earn the interruption it costs.
+aliases:
+  - name: notification
+    source: hig
+  - name: system notification
+    source: community
+  - name: remote notification
+    source: community
+  - name: heads-up notification
+    source: android
+tags:
+  - messaging
+  - platform-registers
+relations:
+  contrastWith:
+    - live-activity
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - aria-notify
+    - notification-center
+    - permission-priming
+    - badge
+implementations:
+  - system: hig
+    name: Notifications
+    url: https://developer.apple.com/design/human-interface-guidelines/notifications
+sources:
+  - title: "Apple HIG: Notifications"
+    url: https://developer.apple.com/design/human-interface-guidelines/notifications
+demo: inline
+exhibit: false
+useWhen: something needs saying while the app is closed
+---
+
+A push notification is the only piece of an app that runs when the app does not. A
+server sends it, the operating system draws it, and the app has almost no say in how
+it looks: a banner over whatever the person was doing, a card on the lock screen, a
+row in the notification list, a count on the icon. What the app controls is the text,
+the grouping, and the destination the tap leads to. Everything else belongs to the
+platform, which is why the same message reads differently on two phones and why
+designing one means writing rather than styling.
+
+The word that gets confused with it is [toast](/toast). A toast lives inside a running
+app, appears in a corner of a screen the person is already looking at, needs no
+permission, and disappears on its own. A push notification needs an explicit grant
+before a single one can be delivered, survives until it is dismissed, and reaches
+someone who is not using the app at all. They answer opposite questions. Confirming
+that a file saved is a toast; telling someone their delivery is two stops away is a
+push. The count that accumulates on the app icon is a [badge](/badge), which is the
+quiet register of the same system and the right place for anything that does not
+justify a sound.
+
+Permission is the hinge, and it is spent once. On both platforms a person who declines
+is very hard to ask again, so asking on first launch, before the app has done anything
+worth being told about, is how a product loses the channel permanently. Prime it
+instead: explain in your own interface what will be sent and how often, ask only when
+someone has just done the thing that produces a notification (placed an order,
+followed a thread), and treat a refusal as an answer rather than a state to nag out
+of. Give people per type controls afterwards, because the alternative to a switch they
+can find is the system level off switch, which takes everything with it.
+
+Then earn each one. The useful test is whether the message would be worth waking a
+phone in a pocket for, and the honest answer for most marketing pushes is no.
+Write the important half in the first few words, since a banner truncates and a lock
+screen may be set to hide the content entirely. Group related messages into a thread
+instead of stacking eight separate rows. Deep link to the exact screen the notification
+is about, never to the home screen. And remember that a notification tapped a day later
+is still expected to work, which means the destination has to exist even when the
+event it announced has moved on.

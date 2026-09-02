@@ -1,0 +1,72 @@
+---
+name: Stories
+slug: stories
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A sequence of full-screen cards that advance on a timer, paused by
+  holding, skipped by tapping the edges, and gone after a fixed lifetime.
+aliases:
+  - name: story format
+    source: community
+  - name: ephemeral stories
+    source: community
+  - name: story rail
+    source: community
+  - name: segmented progress bars
+    source: community
+tags:
+  - media
+  - messaging
+  - touch
+relations:
+  contrastWith:
+    - carousel
+    - swipe-deck
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - page-indicator
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the timed full-screen cards you tap through
+---
+
+Stories arrived with Snapchat in 2013 and were copied, format intact, into
+Instagram, WhatsApp, Facebook, LinkedIn, and half the products that have a feed. The
+copying is unusually literal because the format is a grammar rather than a
+component, and the grammar only works whole: full-bleed cards, one author per run,
+a fixed dwell per card, and a row of segmented bars across the top that says how
+many cards there are, which one you are on, and how much of it is left. Take away
+the bars and the reader has no idea whether they are two cards from the end or
+twenty.
+
+The gestures are as fixed as the layout. Tap the right side to skip forward, tap the
+left to go back, hold anywhere to pause, swipe down to leave, swipe sideways to jump
+to the next author entirely. None of this is labelled anywhere, which is the format
+betting that it is now common knowledge, and mostly winning that bet. The one part
+readers do get wrong is the invisible seam between the back zone and the forward
+zone: making the back zone a narrow strip means a thumb resting near the left edge
+skips backwards forever, and making it half the card means every second tap goes the
+wrong way.
+
+Ephemerality is the other half of the definition and the reason the format took. A
+card that expires in twenty-four hours is cheap to post, because it will not sit on
+a profile being judged next year, and that lowered cost is what filled the format
+with content. It also changes the reading contract: a story is watched once, in
+order, at the author's pace, where a feed is grazed. Products that adopted the look
+without the expiry usually ended up with a carousel wearing progress bars, which is
+a different thing and reads as one.
+
+The format fights accessibility on purpose, so it has to give ground somewhere.
+Content that moves on by itself after a few seconds needs a way to stop it, both
+because WCAG asks for one and because reading speeds differ by more than the dwell
+does; hold-to-pause is that mechanism, and it is invisible, so an explicit pause
+control earns its place. Tap zones need to be reachable one-handed and large enough
+to hit without looking. Text burned into an image is text no screen reader will ever
+say, so anything that matters has to exist as a caption too. And on a desktop
+viewport the format has nothing to stand on: there is no thumb, no edges within
+reach, and a full-screen card in a browser window is just a slideshow.

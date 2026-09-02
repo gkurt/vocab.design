@@ -1,0 +1,67 @@
+---
+name: Reading flow
+slug: reading-flow
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A CSS property that repoints reading and tab order at the visual
+  arrangement of a flex or grid container, instead of leaving both stuck in
+  source order.
+aliases:
+  - name: flex-visual
+    source: css
+  - name: ordinal group
+    source: css
+tags:
+  - keyboard
+  - web-platform
+relations:
+  contrastWith:
+    - reading-order
+    - focus-order
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: reading-flow"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/reading-flow
+demo: inline
+exhibit: false
+useWhen: a visual reorder has left tab order zigzagging
+---
+
+For as long as flexbox and grid have been able to move a box without moving a node, the
+gap between what a page looks like and what it reads like has been the author's problem to
+avoid. Set `order` on a flex item, place a grid item on a line of your choosing, or let
+`grid-auto-flow: dense` backfill a hole, and the picture rearranges while speech and the
+Tab key keep walking the source. `reading-flow` is the property that closes the gap from
+the other side: declared on the flex or grid container, it tells the browser to expose the
+children in the order they were laid out rather than the order they were written.
+
+The values name the arrangement you want followed. `flex-visual` reads a flex container the
+way the eye does, along each line and then down; `flex-flow` follows the writing mode's flex
+direction instead. `grid-rows` and `grid-columns` do the same for a grid, one axis at a
+time, and `grid-order` follows the boxes as `order` sorted them. `source-order` is the
+interesting one: it leaves the sequence alone but still makes the container a reading flow
+container, which is what lets the per-item `reading-order` property inside it push
+individual children into earlier or later ordinal groups. `normal` is the default and the
+behaviour every page has today.
+
+Support is the honest caveat. The property shipped in Chromium and is not yet in Firefox or
+Safari, so it is a progressive improvement rather than a licence to reorder freely: build
+the source in the order the content makes sense in, and reach for `reading-flow` where the
+layout genuinely wants a different arrangement on one breakpoint. The specimen above draws
+the sequence rather than proving it with a real Tab press, because a demonstration on this
+site never moves real focus.
+
+It is worth being precise about what this fixes and what it does not.
+[Reading order](/reading-order) is the underlying question, and the failure it names is the
+one this property answers. [Focus order](/focus-order) is the keyboard half of the same
+question, and `reading-flow` moves both at once, which is exactly why it is better than the
+old workaround of hand-tuning tabindex: [positive tabindex](/positive-tabindex) moves the
+tab sequence and leaves speech where it was, so the two orders end up disagreeing in a new
+way. What `reading-flow` cannot do is make a bad source order good for the reader who
+arrives with styles off, which is still the argument for writing the markup in a sensible
+sequence first.

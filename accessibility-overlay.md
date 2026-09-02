@@ -1,0 +1,75 @@
+---
+name: Accessibility overlay
+slug: accessibility-overlay
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A third party script bolted onto a site with a promise of automatic
+  compliance, usually a floating widget of font and contrast toggles that fixes
+  nothing underneath.
+aliases:
+  - name: overlay widget
+    source: community
+  - name: accessibility widget
+    source: community
+  - name: a11y toolbar
+    source: community
+  - name: compliance plugin
+    source: community
+tags:
+  - assistive-tech
+relations:
+  contrastWith:
+    - conformance-level
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - first-rule-of-aria
+    - dark-pattern
+implementations: []
+sources:
+  - title: Overlay Fact Sheet
+    url: https://overlayfactsheet.com/en/
+demo: inline
+exhibit: false
+useWhen: someone proposes buying a widget instead of fixing
+---
+
+An accessibility overlay is one line of JavaScript sold as a solution. It loads a floating button,
+usually a wheelchair or a person glyph in a corner, which opens a panel of knobs: bigger text,
+higher contrast, a dyslexia font, a reading guide, sometimes a cursor the size of a thumb. The
+promise attached to it is that the site is now compliant. The knobs are real and the promise is
+not. This entry does not pretend the question is open, because among people who do this work it is
+not.
+
+Start with what the panel can and cannot reach. Text size and colour are properties of the
+rendering, so a script can change them, although browsers and operating systems already offer both
+and do it better. Everything a script cannot reach is where accessibility actually lives: an icon
+button with no [accessible name](/accessible-name) has nothing for the widget to enlarge, a form
+whose only error signal is red text still fails [use of color](/use-of-color) after the contrast
+toggle, a custom control that ignores the keyboard is still unreachable, a video still has no
+[captions](/captions), and a heading structure that was never authored cannot be inferred from font
+sizes. Some overlays attempt exactly that inference, guessing at names and roles and injecting ARIA,
+which is how they end up making things worse: a wrong name is more damaging than an absent one,
+because the reader has no way to tell it is wrong. Several also break the assistive technology the
+reader brought with them, by intercepting keys or repainting the page underneath it.
+
+The consensus is documented, not anecdotal. An open letter against overlays as a substitute for
+remediation has been signed by thousands of accessibility practitioners, engineers, and disabled
+users, including many who build the screen readers involved. The [Overlay Fact
+Sheet](https://overlayfactsheet.com/en/) collects the technical claims and the evidence against
+them. And the legal argument, which is usually the reason a widget gets bought, runs the other way
+in practice: sites carrying overlays have been sued over the same barriers the overlay was supposed
+to have removed, and the widget is not a defence because the underlying page still fails. No
+[conformance level](/conformance-level) is achievable by a script that does not have access to the
+authored intent.
+
+The uncomfortable part is why they sell so well, and it is not stupidity. An overlay is a purchase
+order, and remediation is a roadmap: one is a decision a single person can make this quarter, the
+other is design work, engineering work, and testing spread across every team. Answering "just buy
+the widget" therefore needs more than contempt. Name the specific barriers on your own site, show
+which of them the panel does not touch, and offer the smallest real first step, usually names and
+labels, keyboard operability, and one honest audit. The features overlay panels advertise are worth
+having, but they belong in the product, built in and testable, where they work for readers who never
+find the floating button at all.

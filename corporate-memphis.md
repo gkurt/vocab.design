@@ -1,0 +1,73 @@
+---
+name: Corporate Memphis
+slug: corporate-memphis
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The flat vector illustration style of bright, faceless people with
+  long bendy limbs and small torsos that spread across tech marketing from 2017.
+aliases:
+  - name: Alegria
+    source: facebook
+  - name: big tech illustration
+    source: community
+  - name: humans of flat
+    source: community
+  - name: flat art
+  - name: blob people
+    source: community
+tags:
+  - illustration
+relations:
+  contrastWith:
+    - kawaii-ui
+    - memphis-design
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Wikipedia: Corporate Memphis"
+    url: https://en.wikipedia.org/wiki/Corporate_Memphis
+  - title: "Webflow: Blue people and long limbs"
+    url: https://webflow.com/blog/corporate-memphis
+demo: inline
+exhibit: false
+useWhen: flat faceless people with long bendy limbs
+---
+
+The tells are consistent enough that you can list them. Figures have no faces, or at
+most a suggestion of one. Limbs are longer than the bodies they hang off, bend like
+ribbons rather than at joints, and end without hands. Skin is whatever colour the palette
+needed, usually lavender, coral, or mint, which sidesteps depicting anyone in
+particular. Everything is filled flat with no shading and few outlines, props are scaled
+wrong on purpose (a phone the size of a door, a leaf the size of a person), and the whole
+thing is drawn from a brand palette of three or four colours plus a soft background blob.
+
+The name is a misnomer that stuck. Memphis proper was the Milan design collective Ettore
+Sottsass started in 1981, whose furniture was loud postmodern pattern and clashing
+laminate, and the only real inheritance here is bright flat colour and geometric shape.
+Facebook's version, drawn by the studio Buck in 2017 and rolled out across its products,
+was internally called Alegria, and that name gets used for the whole family. So does
+"humans of flat", from the earlier flat illustration wave, and simply "big tech
+illustration".
+
+It spread because it solved a real production problem. A company shipping dozens of
+marketing pages, empty states, and onboarding screens needs illustration that can be
+drawn by different people, in different countries, without a house painter's eye, and
+still look like one set. Flat vector at any scale, a fixed palette, and abstracted humans
+give exactly that, and the abstraction quietly avoids having to decide who is in every
+picture. It also sits comfortably in a system built around
+[flat design](/flat-design), because both were answers to the same question about what to
+do once you have stopped drawing shadows.
+
+The backlash is now the more famous half of the story. Around 2020 the criticism became
+loud: that the style makes every company look interchangeable and unthreatening,
+regardless of what the company actually does, and that friendliness applied evenly across
+a landing page and a layoff announcement is a kind of tone-washing. By 2022 much of tech
+marketing had moved on to 3D renders, photography, and hand drawn work. It remains a
+useful reference point, and if you do reach for it, treat the picture as decoration:
+almost every one of these is [decorative](/decorative-image) and belongs behind an empty
+`alt` attribute rather than a description of five faceless people holding an enormous
+pencil.

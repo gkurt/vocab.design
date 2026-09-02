@@ -1,0 +1,47 @@
+import{n as e}from"./parts.C-YLuC7Q.js";import"./segmented.DtyfKPDf.js";var t=[`43.5 198.9`,`41.1 197.6`,`36 193.4`,`31 187.2`,`22.8 170.5`,`11.4 134.4`,`2.1 80.4`,`3.5 33.3`,`18.6 14.7`,`38.7 20.9`,`57.4 32.4`,`75.4 46.2`,`93.3 61.2`,`111 76.7`,`128.1 91.9`,`143.8 105.7`,`156.8 117.2`,`166.5 125.8`,`172.9 131.5`,`177 135.1`,`181.5 139.1`,`183.7 141`].join(` L`),n=[{key:`srgb`,label:`sRGB`,tri:`160 126.7 75 66.7 37.5 186.7`,at:`79 64`,red:`rgb(255 0 0)`,css:`rgb(255 0 0)`},{key:`p3`,label:`Display P3`,tri:`170 128.9 66.3 46.7 37.5 186.7`,at:`70 44`,red:`color(display-p3 1 0 0)`,css:`color(display-p3 1 0 0)`},{key:`rec2020`,label:`Rec. 2020`,tri:`177 135.1 42.5 22.9 32.8 189.8`,at:`46 20`,red:`color(rec2020 1 0 0)`,css:`color(rec2020 1 0 0)`}],r=`srgb`;function i(i){i.innerHTML=`
+    <div class="sp-app">
+      <div class="sp-window" style="width: 380px">
+        <div class="sp-row sp-row--between sp-context" style="justify-content: flex-end">
+          <sp-segmented data-stage-mode class="sp-segmented" data-axis="Gamut" data-part="segmented" data-value="${r}">
+            <button class="sp-segment" data-part="seg-srgb" value="srgb">sRGB</button>
+            <button class="sp-segment" data-part="seg-p3" value="p3">P3</button>
+            <button class="sp-segment" data-part="seg-rec2020" value="rec2020">2020</button>
+          </sp-segmented>
+        </div>
+
+        <div class="sp-row" style="gap: 12px; margin-top: 12px; align-items: flex-start">
+          <div data-part="diagram" data-subject data-space="${r}"
+               style="flex: 0 0 auto; padding: 4px; border-radius: var(--sp-radius); background: var(--sp-sunken)">
+            <svg viewBox="0 0 200 200" style="display: block; width: 152px; height: 152px" aria-hidden="true">
+              <clipPath id="gamut-locus"><path d="M${t} Z"></path></clipPath>
+              <g clip-path="url(#gamut-locus)" style="filter: blur(15px)">
+                <circle cx="184" cy="141" r="48" fill="#ff2d16"></circle>
+                <circle cx="152" cy="116" r="42" fill="#ffb000"></circle>
+                <circle cx="34" cy="26" r="54" fill="#12c04a"></circle>
+                <circle cx="6" cy="92" r="42" fill="#06b6d4"></circle>
+                <circle cx="42" cy="198" r="46" fill="#3f2fd0"></circle>
+                <circle cx="112" cy="188" r="42" fill="#c026d3"></circle>
+                <circle cx="78" cy="127" r="30" fill="#f6f5f0"></circle>
+              </g>
+              <path d="M${t} Z" fill="none" stroke="var(--sp-line)" stroke-width="1.2"></path>
+              ${n.map(e=>`
+      <polygon data-part="tri-${e.key}" points="${e.tri}" fill="none"
+               stroke="var(--sp-muted)" stroke-width="1" stroke-linejoin="round" opacity="0.55"></polygon>
+      <text data-part="label-${e.key}" x="${e.at.split(` `)[0]}" y="${e.at.split(` `)[1]}"
+            style="paint-order: stroke; stroke: rgb(255 255 255 / 0.82); stroke-width: 2.5px; fill: #23262b;
+                   font-size: 9px; font-weight: 500">${e.label}</text>`).join(``)}
+            </svg>
+          </div>
+
+          <div class="sp-stack sp-context sp-grow" style="gap: 6px">
+            <span class="sp-label">Red primary</span>
+            <ul class="sp-list" data-part="reds">${n.map(e=>`
+      <li class="sp-list-item" data-part="row-${e.key}" style="gap: 8px; padding: 6px 8px">
+        <span class="sp-swatch" style="flex: 0 0 auto; width: 18px; height: 18px; --sp-swatch: ${e.red}"></span>
+        <span class="sp-text" style="font-size: 11px; color: var(--sp-ink)">${e.css}</span>
+      </li>`).join(``)}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;let a=e(i,`diagram`),o=t=>{if(n.some(e=>e.key===t)){a.dataset.space=t;for(let r of n){let n=r.key===t,a=e(i,`tri-${r.key}`);a.setAttribute(`stroke`,n?`var(--sp-ink)`:`var(--sp-muted)`),a.setAttribute(`stroke-width`,n?`2`:`1`),a.setAttribute(`opacity`,n?`1`:`0.5`),e(i,`label-${r.key}`).style.fontWeight=n?`700`:`500`;let o=e(i,`row-${r.key}`);n?o.setAttribute(`data-selected`,``):o.removeAttribute(`data-selected`)}}};o(r),e(i,`segmented`).addEventListener(`change`,e=>o(e.detail))}export{i as mount};

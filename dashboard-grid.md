@@ -1,0 +1,65 @@
+---
+name: Dashboard grid
+slug: dashboard-grid
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A grid of tiles, each holding one metric, chart or list, that a
+  reader can often resize and rearrange.
+aliases:
+  - name: widget grid
+    source: community
+  - name: tile layout
+    source: community
+  - name: dashboard canvas
+    source: community
+  - name: card dashboard
+    source: community
+tags:
+  - dataviz
+  - grids
+relations:
+  contrastWith:
+    - card-grid
+    - bento-grid
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - widget
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: many independent readouts on one screen
+---
+
+A dashboard grid is the layout genre behind almost every analytics screen, admin console
+and monitoring page: a field of tiles laid on one shared grid, each tile answering exactly
+one question. The grid underneath is usually a [twelve column grid](/twelve-column-grid),
+because twelve divides into halves, thirds, quarters and sixths, which is the whole
+vocabulary a dashboard needs to say "this one is worth twice that one".
+
+Size is the ranking. Area is the strongest importance signal a page has, so a tile's span
+is an editorial decision rather than a packing problem: the chart that answers the reason
+people opened the page gets eight columns and two rows, the supporting numbers get three
+columns each, and the audit log gets whatever is left. The failure this term exists to
+name is the uniform grid, every tile the same size in the same rectangle, which looks tidy
+and says nothing. A reader facing a wall of identical cards has to rank them personally,
+every visit, which is the job the layout was supposed to do.
+
+This is the functional cousin of the [bento grid](/bento-grid), and the two are worth
+keeping apart. A bento arrangement is an aesthetic one, mixing tile sizes for rhythm on a
+marketing page where the sizes carry no claim. A dashboard grid mixes them for meaning,
+and its tiles are live: they load independently, refresh on their own schedule, and often
+come with a per tile [skeleton screen](/skeleton-screen) so a slow query cannot hold up
+the rest of the page. The rearrangeable part (drag a tile, resize it, save the layout) is
+common but optional, and it has a real cost: once every reader's dashboard is different,
+the default arrangement is the only one you can design, support or screenshot.
+
+Two practical constraints shape the rest. The grid has to collapse gracefully, which means
+deciding the single column reading order in advance rather than accepting whatever the
+source order gives, since importance in one column is expressed only by position. And a
+tile must be allowed to be boring: a dashboard grows by accretion, everyone wants their
+number on it, and a page showing forty tiles is a page showing none. Prune to what a
+reader would act on, and let the rest live a click away.

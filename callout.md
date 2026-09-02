@@ -1,0 +1,63 @@
+---
+name: Callout
+slug: callout
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A boxed note set into the flow of content to carry a warning, tip or
+  aside, coloured by severity and staying put once shown.
+aliases:
+  - name: admonition
+  - name: inline alert
+  - name: message bar
+    source: fluent
+  - name: inset text
+    source: govuk
+  - name: flashbar
+    source: cloudscape
+tags:
+  - content-design
+  - editorial
+relations:
+  contrastWith:
+    - toast
+    - error-message
+    - chat-bubble
+    - banner
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations:
+  - system: fluent
+    name: Message bar
+    url: https://fluent2.microsoft.design/components/web/react
+sources:
+  - title: "Fluent 2: web components"
+    url: https://fluent2.microsoft.design/components/web/react
+demo: inline
+exhibit: false
+useWhen: a boxed note sitting inside the content
+---
+
+A callout is content, not notification. It is written into the page at the point
+where it is relevant, it stays there for every reader on every visit, and it is
+usually pulled out of the prose because a reader skimming would otherwise miss
+something that costs them (a limit, a caveat, an irreversible step). Docs
+toolchains call the same thing an admonition and give it a set of flavours:
+note, tip, warning, caution.
+
+The neighbouring words differ by where they come from and how long they last. A
+toast is transient and system-generated. A banner sits at the top of a page or
+region and speaks about that whole surface, often about a state that just
+changed. A callout speaks about the paragraph it interrupts and has no lifecycle
+at all, so a dismiss button on one is usually a sign it wanted to be a banner.
+
+Severity is carried by colour, an icon and a word, never by colour alone, and it
+should be spent carefully: a page where every third paragraph is a red box has
+taught its readers to skip red boxes. Reserve the loudest level for consequences
+that are hard to undo, and demote everything else to a plain note.
+
+Keep the box short and keep the surrounding text honest. A callout that runs to
+five paragraphs has become the content, and the prose around it has become the
+aside. If the note is essential to following the steps, it belongs in the steps.

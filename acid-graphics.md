@@ -1,0 +1,71 @@
+---
+name: Acid graphics
+slug: acid-graphics
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A 2020s rave revival style of chrome and liquid 3D objects, warped
+  and stretched lettering, clashing saturated colour on near black, smileys,
+  globes, and wireframe motifs.
+aliases:
+  - name: acid design
+  - name: acid house revival
+  - name: acid brutalism
+    source: community
+  - name: rave graphics
+tags:
+  - depth
+  - retro
+relations:
+  contrastWith:
+    - anti-design
+    - psychedelic-style
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - y2k-aesthetic
+implementations: []
+sources:
+  - title: "AIGA Eye on Design: Acid graphics are the new psychedelia"
+    url: https://eyeondesign.aiga.org/acid-graphics-are-the-new-psychedelia-with-a-heady-dose-of-cynicism/
+  - title: "Aesthetics Wiki: Acid Design"
+    url: https://aesthetics.fandom.com/wiki/Acid_Design
+demo: inline
+exhibit: false
+useWhen: chrome, warped type, and rave motifs used ironically
+---
+
+The parts list is short and loud. Objects are rendered in 3D and finished in liquid chrome
+or mercury, so a headline arrives as a poured metal solid rather than as set type. Letters
+are stretched, squeezed, bent around a curve, or melted, usually past the point where the
+word is comfortable to read. Colour is saturated to the edge and deliberately clashing,
+acid green against magenta, cyan against orange, almost always over a near black ground.
+The motifs come straight off a rave flyer: the 1988 acid house smiley, a wireframe globe,
+concentric rings, checkerboards in forced perspective, hazard tape, and stickers dropped
+on at odd angles as though the poster had been photocopied and then covered in them.
+
+The lineage runs through two places. The first is 1960s psychedelia, which invented the
+warped, melting, hard to read display lettering the style borrows, and the second is the
+late 1980s and early 1990s rave flyer, which supplied the smiley, the clashing inks, and
+the cheapness of the reproduction. What the 2020s revival added was cynicism and a render
+engine. The originals promised transcendence and were made on a photocopier; the revival
+is ironic about the promise, and is made in 3D software where chrome, subsurface goo, and
+mesh distortion are one checkbox each.
+
+It is worth holding against [Y2K aesthetic](/y2k-aesthetic), because both are shiny and
+both are being revived by the same generation. Y2K is consumer gloss: translucent plastic,
+optimistic silver, product photography, the future as sold in a shop window. Acid is
+underground: the same chrome, but hostile, over black, with type that refuses to behave
+and a smiley that reads as a warning rather than as a greeting. One wants to be bought,
+the other wants to be found.
+
+In product work it lives almost entirely in marketing surfaces for music, festivals,
+streetwear drops, agency portfolios, and the occasional developer tool trying to sound
+dangerous. The costs are real and worth stating. Saturated hues on near black fail
+contrast far more often than they look like they should, and acid green on black is one of
+the few pairings that passes, which is why so much of the style leans on it. Warped and
+melted lettering cannot carry a label, a form, or a price, so keep it in the hero and set
+everything a person has to act on in ordinary type. The 3D assets are heavy, and a poster
+made of them is a long download for one impression. And the register is loud enough that
+it dates quickly: a page dressed this way will read as 2022 for the rest of its life.

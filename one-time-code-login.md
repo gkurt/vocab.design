@@ -1,0 +1,71 @@
+---
+name: One-time code login
+slug: one-time-code-login
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Signing in by typing a short code sent to a second channel, keeping
+  the reader inside the app rather than sending them out to a mail client.
+aliases:
+  - name: OTP
+    source: community
+  - name: email OTP
+    source: community
+  - name: verification code
+    source: community
+  - name: six digit code
+    source: community
+  - name: two-factor code
+    source: community
+tags:
+  - auth
+  - email
+relations:
+  contrastWith:
+    - accessible-authentication
+    - magic-link
+    - social-login
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - transactional-email
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: you type a six digit code sent by mail or text
+---
+
+The flow is three beats: name a channel, receive a code on it, carry the code back.
+What the code proves is control of that channel, and the reason it is a code rather
+than a link is that a code can be carried by hand. It fits in short-term memory,
+which means the session that started the sign-in is the session that finishes it.
+
+That is the argument against the alternative it is usually compared with. A magic
+link puts the proof in a URL, so whichever application opens the message completes
+the sign-in: the in-app browser of a mail client, a different browser than the one
+the reader started in, sometimes a different device entirely. Half of magic link
+support load is people who are suddenly signed in somewhere they were not trying to
+be. A code never leaves the tab that asked for it. Against a password, the trade is
+plainer still: nothing to remember, nothing to reuse, nothing worth stealing from
+the database, in exchange for a round trip through a mailbox on every sign-in.
+
+The component this flow centres on has its own entry: the boxes people type the
+digits into are a [PIN input](/pin-input), and the keyboard behaviour, the paste
+handling, and the one-value-many-views rule all belong there. What the flow owns is
+everything around them. Do not navigate away from the page that is waiting, because
+the reader will come back to a form that forgot who they were. Say which address it
+went to, and offer a way to correct a typo without restarting. Give the code an
+expiry and say what it is. Offer a resend, on a cooldown, because the first message
+sometimes does not arrive. Rate limit the guesses, and never clear the field on a
+wrong code: that punishes a typo with retyping.
+
+Two details are worth having by name. `autocomplete="one-time-code"` is what lets a
+phone offer the code from the message it just received, and the WebOTP API does the
+same job on the web without asking anyone to switch apps and memorise digits.
+Submitting automatically once the last digit lands is a real courtesy where the code
+is a fixed length. And a code as the *only* factor is a different security claim
+from a code as the *second* one: a mailbox or a SIM becomes the whole account,
+which is why codes over SMS are the weakest version of this, and why high-value
+accounts move on to factors that resist phishing.

@@ -1,0 +1,69 @@
+---
+name: Dark mode email
+slug: dark-mode-email
+category: pattern
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Designing a mail for clients that will invert its palette without
+  asking, where a near-black behaves better than black and a logo needs a ground
+  it survives on.
+aliases:
+  - name: email dark mode
+    source: community
+  - name: dark mode for email
+    source: litmus
+tags:
+  - email
+  - theming
+relations:
+  contrastWith:
+    - dark-mode
+    - forced-colors-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - bulletproof-button
+implementations: []
+sources:
+  - title: "Litmus: the developer guide to coding dark mode emails"
+    url: https://www.litmus.com/blog/coding-emails-for-dark-mode
+  - title: "Litmus: the ultimate guide to dark mode for email"
+    url: https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers
+demo: inline
+exhibit: false
+useWhen: a mail whose colours the client may invert
+---
+
+On the web, dark mode is a preference the page answers. In a mail it is something done to you.
+The client reads the reader's system setting and repaints your document, and the three behaviours
+it might pick are all out of your hands: honour `prefers-color-scheme` and let you supply a
+second palette, invert the document partly (grounds flipped, some declared fills kept), or
+invert it wholesale. There is no reliable opt-out and no way to detect which client is doing
+which, so the work is defensive rather than expressive. [Litmus](https://www.litmus.com/blog/the-ultimate-guide-to-dark-mode-for-email-marketers)
+reports that well over a quarter of opens now happen in dark mode, which makes this the single
+rendering condition most likely to be the one your reader actually sees.
+
+The failure everybody ships once is a grey. Partial inversion flips the ground under your copy
+and leaves a colour it does not recognise as a pure value alone, so `#3A3A3A` body text that
+looked considered on white sits on near-black and cannot be read at all. The two values at the
+extremes have the opposite problem: several clients key their flip on exact `#FFFFFF` and
+`#000000`, so writing `#FEFEFE` and `#0E0E0E` instead leaves those surfaces untouched, and text
+in a near-black keeps the ground you gave it. Mid-tones are the safest fills of all, because a
+colour already halfway up the scale is still halfway up it after a lightness inversion.
+
+The other casualty is the logo, and it fails silently. A transparent PNG of a dark wordmark has
+no ground of its own, so it is invisible the moment the client darkens what is behind it, and no
+inversion algorithm will recolour the pixels of an image. The fix is to give the mark a ground it
+survives on: a plate of your brand colour behind it, or a stroke around it, or a version of the
+file with the background baked in. The same reasoning applies to anything else whose colour is
+locked into pixels rather than declared in markup, which in most mails means the whole hero
+image.
+
+Two neighbours are worth keeping apart. [Dark mode](/dark-mode) proper is the palette a product
+derives and ships on purpose, where the interesting question is whether the dark values were
+rebalanced or merely flipped. [Forced colors mode](/forced-colors-mode) is a reader's contrast
+theme overriding your palette by design, and the honest response there is to stop fighting it.
+Dark mode in mail is neither: nobody chose your dark palette, the substitution is not
+documented, and the only thing you control is how much of the design still works after it
+happens.

@@ -1,0 +1,74 @@
+---
+name: Reading order
+slug: reading-order
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The order content is exposed in the DOM, which drives both speech
+  output and tab order, and which visual reordering can silently contradict.
+aliases:
+  - name: meaningful sequence
+    source: wcag
+  - name: DOM order
+    source: community
+  - name: source order
+    source: community
+  - name: visual order mismatch
+    source: community
+tags:
+  - assistive-tech
+  - keyboard
+relations:
+  contrastWith:
+    - focus-order
+    - reading-flow
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - logical-properties
+    - content-choreography
+    - masonry
+implementations: []
+sources:
+  - title: "WCAG 2.2: Meaningful Sequence"
+    url: https://www.w3.org/TR/WCAG22/#meaningful-sequence
+demo: inline
+exhibit: false
+useWhen: the visual order and the source order disagree
+---
+
+Success criterion 1.3.2 asks for one thing: when the sequence content is presented in
+affects its meaning, that sequence has to be programmatically determinable. In practice
+that sequence is the DOM, because the DOM is what a screen reader walks, what the browser
+builds the tab sequence from, and what a reader gets when styles fail to load or a page is
+run through reader mode. Everything visual sits on top of it. The order the eye reads is a
+rendering of the source, and CSS is free to render it in a different order entirely.
+
+That freedom is where the failure comes from, and it is almost always accidental. Flexbox
+`order` and `row-reverse`, grid line placement, `grid-auto-flow: dense`, and absolute
+positioning all move boxes without moving a single node, so a card promoted to the front
+of a row visually stays wherever it was in the markup. Nothing on screen says so. Speech
+still reaches it in its old position, Tab still visits it in its old position, and a
+sighted keyboard user watches the focus ring jump backwards across a row that looks
+perfectly ordered. The CSS working group's own note on `order` says it is for visual
+reordering only and that it must not be used to reorder content in a way that changes
+meaning, which is a specification quietly documenting the mistake people make with it. The
+`reading-flow` property is the standards answer arriving now: it lets a flex or grid
+container declare that focus should follow the visual arrangement rather than the source,
+which fixes focus order without pretending the DOM changed.
+
+The two orders are related but not the same question, and it is worth keeping them apart in
+review. Reading order is what the content says and in what sequence; [focus
+order](/focus-order) is which controls the keyboard reaches and in what sequence.
+[Positive tabindex](/positive-tabindex) is the sibling failure on the focus side, breaking
+the second while leaving the first intact, and it fails 2.4.3 rather than 1.3.2. A page can
+also break both at once, which is what a visually reordered form with a hand-tuned tabindex
+usually turns out to be.
+
+The test is boring and reliable. Turn the stylesheet off, or read the page in the
+accessibility tree, and see whether the content still tells its story in order. Tab through
+it and watch whether the ring ever moves backwards or sideways in a way the layout does not
+explain. When the visual arrangement genuinely has to differ, the fix is to reorder the
+source and let CSS place it, not to reorder the pixels and hope nobody arrives through the
+other door.

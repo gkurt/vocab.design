@@ -1,0 +1,70 @@
+---
+name: Broken grid
+slug: broken-grid
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A composition that sets up a grid and then deliberately violates it,
+  overlapping and offsetting elements to create tension.
+aliases:
+  - name: asymmetric layout
+    source: community
+  - name: broken grid layout
+    source: community
+  - name: deconstructed layout
+    source: community
+  - name: overlapping layout
+    source: community
+  - name: asymmetric grid
+    source: uiterms
+tags:
+  - grids
+relations:
+  contrastWith:
+    - compound-grid
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - magazine-layout
+    - anti-design
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: breaking the grid on purpose, not by accident
+---
+
+The whole term is the phrase "on purpose". A page whose blocks land a few pixels off
+their tracks looks like a mistake, because it is one. A page where an image plainly
+takes a column the text already owns, overhangs its track by a visible amount, and
+covers the corner of a headline reads as a decision, because no accident is that
+consistent. The difference between the two is not the amount of the violation but
+whether the structure being violated is still legible. A broken grid needs a
+[layout grid](/layout-grid) underneath it, doing its usual work everywhere else, so
+that the exception has something to be an exception to.
+
+That is also why the move belongs to editorial design before it belonged to the web.
+The [Swiss style](/swiss-style) taught a generation to align everything to a grid, and
+the reaction of the 1980s and 1990s was to keep the grid and break it, in magazine
+spreads where a photograph slid across the gutter and type ran over the image. On the
+web the technique was awkward while layout was floats and absolute positioning, since
+overlap meant taking an element out of flow and hand-holding it at every width. CSS
+grid made it ordinary: two items can be given the same row and column range, overlap
+by declaration, and stay tied to the same tracks at every breakpoint.
+
+Two different layouts get called asymmetric, and it is worth keeping them apart. One is
+this: a grid, deliberately violated, with elements overlapping and offset. The other is
+a grid whose columns are of unequal width by design, a wide column beside a narrow one,
+where nothing overlaps and nothing is off-track at all. The second is not broken in any
+sense, it is just not a set of identical columns, and calling both an asymmetric grid
+makes the word useless for either. Say uneven columns for one and broken grid for the
+other.
+
+The cost is paid in two places. Overlap has a stacking order, so a
+[stacking context](/stacking-context) decides which element wins where they meet, and
+contrast has to survive the collision, since type over an image is the usual casualty.
+And a layout that reads left to right visually may not do so in the source, which is
+the [content choreography](/content-choreography) problem: what the eye sees as one
+arrangement, the keyboard and the screen reader get in document order, so the
+[reading order](/reading-order) has to be checked rather than assumed.

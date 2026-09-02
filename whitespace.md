@@ -1,0 +1,72 @@
+---
+name: Whitespace
+slug: whitespace
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The empty area between and around elements, treated as an active
+  design material rather than as leftover space.
+aliases:
+  - name: negative space
+    source: community
+  - name: white space
+    source: community
+  - name: breathing room
+    source: community
+  - name: macro whitespace
+    source: community
+  - name: micro whitespace
+    source: community
+tags:
+  - perception
+  - spacing
+relations:
+  contrastWith:
+    - proximity
+    - layout-margins
+    - spacer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - minimalism
+    - typographic-color
+implementations: []
+sources:
+  - title: White space (visual arts)
+    url: https://en.wikipedia.org/wiki/White_space_(visual_arts)
+demo: inline
+exhibit: false
+useWhen: the empty space doing the grouping work
+---
+
+Whitespace is not white and it is not empty. The word comes from print, where the
+unprinted paper was literally white, and it survives because there is no better
+name for the material. Any background colour counts, an image counts, and a dark
+theme is full of it. What makes it whitespace is that nothing has been placed there
+on purpose, which is a different thing from nothing being there.
+
+Its real job is grouping, and that is the part that gets argued about as decoration.
+Proximity is the strongest grouping signal a layout has: things placed close together
+are read as belonging together, before anyone has read a word of them. Put a price
+right under a product name and two millimetres of space between that pair and the
+next one, and the reader gets the structure for free. Space everything evenly and the
+reader has to work the structure out from the content, which is slower and less
+reliable, no matter how good the content is. This is why spacing scales exist. A
+scale with a few widely separated steps produces grouping; a scale of near neighbours
+produces a wall.
+
+The usual split is macro and micro. Macro whitespace is the space between the big
+parts, sections, columns, the margin around a page, and it sets the pace at which a
+page is read. Micro whitespace is the space inside and between small things: the
+leading between lines, the tracking between letters, the padding inside a button, the
+gap between a label and its field. Micro whitespace is what makes text legible rather
+than merely present, and it is usually the first thing lost when a design is squeezed
+into a smaller viewport.
+
+The pressure is always to fill it. Whitespace looks like wasted room in a review, it
+pushes content below the fold, and it is hard to defend against a stakeholder holding
+a list of things that must be visible. The defence is to talk about it as work rather
+than as taste: this space is what tells the reader those two lines are one thing, and
+removing it does not add information, it removes structure. Sites that read as calm
+and expensive are usually not doing anything clever. They are just spending space.

@@ -1,0 +1,70 @@
+---
+name: Density independent pixel
+slug: density-independent-pixel
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A virtual unit of length that stays the same physical size across
+  screen densities, so one number can describe a layout on every device.
+aliases:
+  - name: dp
+    source: android
+  - name: dip
+    source: community
+  - name: device independent pixel
+    source: community
+  - name: effective pixel
+    source: fluent
+tags:
+  - platform-registers
+  - screen-size
+relations:
+  contrastWith:
+    - pixel-density
+    - point-size
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Support different pixel densities, Android Developers
+    url: https://developer.android.com/training/multiscreen/screendensities
+demo: inline
+exhibit: false
+useWhen: why sizes are written in dp, pt or CSS px
+---
+
+A density independent pixel is a unit of length that does not care how finely a screen is
+made. Android anchors it to a reference display of 160 dots per inch, so one dp is one
+physical pixel there and the conversion everywhere else is the ratio: at 3x, a 48 dp button
+is painted with 144 device pixels and comes out exactly as large under the thumb.
+[Pixel density](/pixel-density) is how many device pixels a screen packs into an inch; a dp
+is the unit that cancels it out, so a control stays thumb sized on every phone that ships.
+The pairing is the whole idea. One number describes the layout, and the platform does the
+multiplication.
+
+Every platform has this unit and each gave it a different name, which is most of the
+confusion around it. Android says dp. Apple says point, which is not the
+[typographic point](/point-size) despite sharing the word, and multiplies it by the device's
+scale factor. Microsoft says effective pixel. The web says CSS pixel, anchored to roughly 96
+per inch rather than 160, and exposes the multiplier as the device pixel ratio. The
+arithmetic differs, the idea does not. Android adds one more unit, sp, which is a dp that
+also scales with the reader's chosen text size, and it is the correct unit for anything made
+of type.
+
+The unit is a reference, not a physical measure, and that is worth being precise about. It
+is calibrated to a typical viewing distance as much as to an inch, which is why a tablet
+held at arm's length and a phone held close can share a number and still feel right, and why
+a dp on a television is not a dp on a watch. What it reliably buys is that a
+[viewport](/viewport) is measured in the same currency the layout is written in, so density
+never moves a [breakpoint](/breakpoint) and a
+[touch target](/touch-target-size) specified at 48 dp is 48 dp everywhere.
+
+In practice the rule is that device pixels appear in exactly two conversations. The first is
+raster assets, which need enough samples for the densest screen they will land on. The
+second is hairlines, where a one dp rule is drawn with two or three device pixels and can
+look heavier than intended, which is why some systems specify their dividers in device
+pixels on purpose. Everything else, spacing, radii, target sizes, type, belongs in the
+density independent unit, and a physical pixel value anywhere in a layout file is almost
+always a bug waiting for a denser phone.

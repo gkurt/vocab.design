@@ -1,0 +1,70 @@
+---
+name: Additive animation
+slug: additive-animation
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Composing an animation on top of whatever is already animating the
+  same property instead of replacing it, so a second nudge adds to the first
+  rather than restarting it.
+aliases:
+  - name: animation-composition
+    source: css
+  - name: "composite: add"
+    source: community
+  - name: accumulate
+    source: css
+  - name: additive transform
+    source: community
+tags:
+  - web-platform
+relations:
+  contrastWith:
+    - interruptible-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - keyframe
+implementations: []
+sources:
+  - title: "MDN: animation-composition"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-composition
+  - title: "CSS-Tricks: additive animation with the Web Animations API"
+    url: https://css-tricks.com/additive-animation-web-animations-api/
+demo: inline
+exhibit: false
+useWhen: a repeated trigger should stack rather than snap back to the start
+---
+
+The default answer to "this element is already animating and here is another animation for the same
+property" is to throw the first one away. That is what `composite: replace` means, and it is why a
+button pressed twice in quick succession jumps back to the start of its own bounce halfway through
+the first one. The reader sees a stutter, because the second press did not add to the first: it
+cancelled it and began again from zero.
+
+`composite: add` changes the arithmetic. The new animation's values are added to the underlying
+value rather than substituted for it, and the underlying value includes whatever the earlier
+animations are currently producing. Two 90 pixel nudges fired 200 milliseconds apart end 180 pixels
+along, and while both are running the element is moving at the sum of the two speeds. There is a
+third mode, `accumulate`, which differs only for values where addition and accumulation are not the
+same operation (a list of transform functions, a shadow list), and in the plain translate case it
+behaves identically. In CSS the same choice is spelled
+`animation-composition: replace | add | accumulate`, and in the Web Animations API it is the
+`composite` option, settable per effect or per keyframe.
+
+There is a trap here worth knowing before you rely on it. A finished animation with
+`fill: forwards` is automatically removed by the browser once it is no longer contributing anything,
+and in a stack of additive animations that removal silently collapses the total back to a single
+nudge. The fix is `animation.persist()` on each one, which is what the specimen below calls, and it
+was confirmed by running both paths and reading the real end positions rather than by trusting the
+description. The tidier long-term answer is to let the stack finish and then commit the result: read
+the composed value, write it to the element's own style, and cancel the animations, so the page is
+not carrying an unbounded pile of persisted effects.
+
+Additive composition is the honest way to build any gesture that can be repeated before it settles.
+A volume nudge, a card that shuffles a little further with each tap, a toast stack that shifts when
+another arrives: all of them read as one continuous physical response rather than a series of
+interrupted ones. It is the same instinct as [interpolation](/interpolation) generally, applied one
+level up: interpolation decides what the in-between value of a single animation is, and composition
+decides what happens when two of them want the same property at the same moment.

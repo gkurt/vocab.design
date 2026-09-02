@@ -1,0 +1,97 @@
+---
+name: Navigation bar
+slug: navigation-bar
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The horizontal strip of primary destinations across the top of a
+  site, usually holding the logo, the main sections and an account control.
+aliases:
+  - name: navbar
+    source: bootstrap
+  - name: top navigation
+    source: cloudscape
+  - name: site header
+    source: community
+  - name: nav
+    source: fluent
+  - name: global header
+    source: community
+  - name: header
+    source: component-gallery
+tags:
+  - navigation
+  - windowing
+relations:
+  contrastWith:
+    - bottom-navigation
+    - toolbar
+    - sticky-header
+    - menu-bar
+    - sidebar
+    - app-bar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hamburger-menu
+    - current-page-indicator
+implementations:
+  - system: aria-apg
+    name: Navigation landmark
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/navigation.html
+  - system: carbon
+    name: UI shell header
+    url: https://carbondesignsystem.com/components/UI-shell-header/usage/
+  - system: radix
+    name: Navigation Menu
+    url: https://www.radix-ui.com/primitives/docs/components/navigation-menu
+  - system: base-ui
+    name: Navigation Menu
+    url: https://base-ui.com/react/components/navigation-menu
+  - system: shadcn
+    name: Navigation Menu
+    url: https://ui.shadcn.com/docs/components/navigation-menu
+sources:
+  - title: "Cloudscape: Top navigation"
+    url: https://cloudscape.design/components/top-navigation/
+  - title: "ARIA Authoring Practices Guide: Landmark regions"
+    url: https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/
+demo: inline
+exhibit: false
+useWhen: the top strip of site level destinations
+---
+
+A navigation bar answers one question on every page: where else can I go. It is the
+site's table of top-level places, laid out in a row and repeated identically
+everywhere, with the wordmark at one end acting as the link home and an account
+control at the other. Repetition is the whole value, so the bar earns its space by
+never changing: the same destinations in the same order, with only the current-page
+marker moving. Keep the list short enough to read in one glance (roughly five to
+seven items), wrap it in a `nav` element so the navigation landmark exists, and mark
+the destination you are on with `aria-current="page"` rather than colour alone.
+
+The confusable neighbours all live at the top of the screen too. An app bar carries
+the title and actions of the screen you are currently on, so its contents change as
+you move; a navigation bar carries the places you can move to, so its contents do
+not. A toolbar holds verbs (bold, undo, export) rather than places. Tabs also sit in
+a row and mark one item as selected, but they switch panels inside a single page
+without changing the address, and a reader who bookmarks a tab is usually
+disappointed. If your row of links is the site's spine, it is a navigation bar; if it
+is the page's own contents, it is tabs.
+
+The naming is unusually messy, and most of the mess comes from native platforms.
+Apple's UIKit has called the top strip of an iOS screen a `UINavigationBar` since the
+first iPhone, but that bar holds a back button and the current screen's title, which
+is much closer to what the web calls an app bar. Material Design moved in the
+opposite direction and gave "navigation bar" to the bar of destinations pinned to the
+*bottom* on small screens. Bootstrap's "navbar" is the version most web developers
+mean, and it is the one this entry describes.
+
+Component libraries rarely ship the strip itself, because the strip is mostly layout:
+a flex row, a logo, and a list. What they ship is the interactive part, the list of
+links with its optional dropdowns, which Radix, Base UI and shadcn all call a
+navigation menu. Carbon is the exception among tracked systems, shipping the whole
+top strip as its UI shell header. When you are naming things in your own codebase,
+`SiteHeader` for the strip and `MainNav` for the list inside it is a division most
+readers guess correctly on the first try.

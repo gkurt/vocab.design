@@ -1,0 +1,69 @@
+---
+name: Hold to confirm
+slug: hold-to-confirm
+category: interaction
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Requiring a press to be held for a moment before a destructive
+  action commits, with progress shown so the wait is understood as deliberate.
+aliases:
+  - name: press and hold to confirm
+    source: community
+  - name: hold to delete
+    source: community
+  - name: long press to confirm
+    source: community
+tags:
+  - errors
+  - touch
+relations:
+  contrastWith:
+    - long-press
+    - type-to-confirm
+    - slide-to-confirm
+  variantOf:
+    - microinteraction
+  partOf: []
+  seeAlso:
+    - confirmation-dialog
+implementations: []
+sources:
+  - title: "Material Design: Gestures (long press)"
+    url: https://m1.material.io/patterns/gestures.html
+demo: inline
+exhibit: false
+useWhen: a dangerous action guarded by a held press
+---
+
+A confirmation dialog asks a question the reader has already answered. They pressed
+Delete, so of course they mean it, and after the fourth dialog nobody is reading the
+sentence in the middle any more: the muscle memory is press, press, gone. Holding
+replaces that second press with a second of continued intent. The action cannot be
+committed by a reflex, because a reflex is a tap, and it cannot be committed by a
+misplaced click, because a misplaced click lifts. Nothing is asked and nothing has to be
+read. The guard is the duration.
+
+The progress has to be visible for any of that to work, which is the craft in this
+pattern. A button that does nothing for the first four hundred milliseconds is a broken
+button, so the press has to be answered immediately: a ring filling, a bar sweeping the
+label, a fill rising through the control. That mark is also the cancel affordance, since
+it says what the reader has to do to escape (let go) and how long they have left to do
+it. Releasing early must land somewhere honest as well, which usually means saying
+plainly that nothing happened rather than silently resetting.
+
+Duration is the whole calibration and it is unforgiving in both directions. Under about
+half a second the hold is indistinguishable from a slow click and stops guarding
+anything. Past about a second and a half it reads as the interface being broken or the
+network being slow, and readers let go to try again. Somewhere between six hundred
+milliseconds and one second is the usual answer, with the fill running slightly ahead of
+real time at the start so the control feels responsive. Anything genuinely irreversible
+still wants a typed confirmation instead, since the point there is to make the reader
+name the thing being destroyed.
+
+The cost is discoverability, and it is real: a press and hold advertises nothing to
+someone who does not already press and hold. Nothing about a button says its press has to
+outlast a threshold, so the label has to say it (Hold to delete, not Delete), and the
+keyboard needs a path of its own, because holding Enter fires key repeat rather than one
+long press. Treat it as a guard on an action the reader has already chosen, never as the
+only way to reach one.

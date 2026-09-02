@@ -1,0 +1,61 @@
+---
+name: Password strength meter
+slug: password-strength-meter
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A gauge that scores a password while it is typed and names what
+  would improve it, replacing a list of rules with continuous feedback.
+aliases:
+  - name: strength indicator
+    source: community
+  - name: password meter
+    source: community
+  - name: password quality bar
+    source: community
+tags:
+  - auth
+  - forms
+  - progress
+relations:
+  contrastWith:
+    - meter
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - inline-validation
+implementations: []
+sources:
+  - title: "UI Patterns: Password Strength Meter"
+    url: https://ui-patterns.com/patterns
+  - title: "GOV.UK Design System: Passwords"
+    url: https://design-system.service.gov.uk/patterns/passwords/
+demo: inline
+exhibit: false
+useWhen: the bar that rates a password as you type it
+---
+
+The meter replaces a checklist of composition rules with one moving judgement.
+Instead of "at least one number, one capital, one symbol", it says how good the
+password is right now and what would make it better, which lets a long ordinary
+phrase score well without having to satisfy rules that were never really about
+strength.
+
+Two parts have to work together. The bar carries the score, and a line of text
+carries the reason. A bar alone is unreadable: nobody knows what two segments out
+of four means, and colour alone fails anyone who cannot see it. Read them together
+and the meter says something useful, like "weak, add a few more words". The score
+also has to be honest, which in practice means estimating guessability, including
+dictionary words, keyboard runs, and known breached passwords, rather than
+counting character classes.
+
+The meter's real job is to advise, not to block. A strength score used as a hard
+gate turns into the composition rules it was meant to replace, and pushes people
+toward the shortest string that clears the bar. Let the meter say weak, keep the
+submit button live above a low floor, and put the strictness where it belongs: in
+rate limiting, in breach checks, and in a length minimum.
+
+Announce the change politely rather than on every keystroke, keep the reading in
+reserved space so the form does not jump as the verdict grows a word, and pair it
+with a reveal control so a person can check what they actually typed.

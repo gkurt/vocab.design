@@ -1,0 +1,74 @@
+---
+name: Print stylesheet
+slug: print-stylesheet
+category: pattern
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: "The rules that decide what a page becomes on paper: navigation
+  dropped, link targets spelled out, backgrounds abandoned, and the content
+  given page margins."
+aliases:
+  - name: print styles
+    source: community
+  - name: "@media print"
+    source: mdn
+  - name: print view
+    source: community
+tags:
+  - editorial
+  - web-platform
+relations:
+  contrastWith:
+    - page-break
+    - reader-mode
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - link-purpose
+    - dark-mode
+implementations: []
+sources:
+  - title: "MDN: Printing"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing
+demo: inline
+exhibit: false
+useWhen: what a page becomes when it is printed
+---
+
+A print stylesheet is the block of rules under `@media print` that says what your page turns
+into on paper. The syntax is trivial and the decision is not, because paper is a different
+medium and not a narrower screen: it has no navigation, no hover, no sound, no scroll and no
+way to follow a link. Start from what the reader is printing FOR. A recipe, a boarding pass,
+a receipt, a set of instructions to hold while both hands are busy. That purpose decides
+every rule that follows, and a page whose print styles were written without asking it ends up
+as eleven sheets with the first paragraph on the third.
+
+Most of the work is subtraction, and the test is brutally simple: on paper, anything whose
+only job is to take you somewhere else is dead ink. Global navigation, breadcrumbs, the
+search field, the share row, the newsletter interstitial, the cookie notice, the related
+articles, the video player, the sticky header that would otherwise print on top of the first
+line. All of it goes. So does anything that reserves space it no longer needs: a sidebar set
+in a grid column, a hero sized to the viewport, a fixed element whose position paper has no
+concept of.
+
+What is left needs translating rather than merely keeping. A link is the clearest case: its
+text is the whole of it on screen, and on paper the destination is gone unless you print it,
+which is why `a[href^="http"]::after { content: " (" attr(href) ")" }` is the one print rule
+almost every site should have. It is the same duty [link purpose](/link-purpose) names for
+screens, arriving on paper as literal words. Colour is the second case. Browsers do not print
+backgrounds by default, so a light-on-dark design does not come out inverted, it comes out
+invisible, and a [dark mode](/dark-mode) left switched on prints either as a black rectangle
+or as pale grey text on nothing. Set ink on white explicitly rather than trusting the
+default. Then the physical details that only exist here: real units are meaningful, so body
+type can be set in points, and `@page` gives the sheet its margins.
+
+Two boundaries. [Page break](/page-break) owns where the cut falls, which is the CSS
+fragmentation vocabulary of breaks, [orphans](/orphan) and widows; this term owns what is on
+the page at all. And a print stylesheet is not
+[reader mode](/reader-mode), even though both strip a page to its content. Reader mode is the
+browser deciding, for a reader who asked, and it can be wrong; a print stylesheet is the site
+deciding, in advance, for a medium it can predict exactly. The last thing to say about the
+whole subject is that nobody checks it. Print the page. Print it to PDF at least, on the
+review checklist beside the mobile breakpoint, because a print stylesheet is the one part of
+a design that ships broken for years without a single bug report.

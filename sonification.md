@@ -1,0 +1,69 @@
+---
+name: Sonification
+slug: sonification
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Turning data into sound, mapping a series to pitch or rhythm, so a
+  chart can be heard as a shape rather than described one value at a time.
+aliases:
+  - name: data sonification
+    source: community
+  - name: audio chart
+    source: community
+  - name: audio graph
+    source: community
+  - name: data table alternative
+    source: community
+tags:
+  - dataviz
+  - sound
+relations:
+  contrastWith:
+    - chart-description
+    - earcon
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - chart
+implementations: []
+sources:
+  - title: "University of Washington: Making data visualizations accessible"
+    url: https://www.washington.edu/accesstech/dataviz/
+  - title: "Wikipedia: Data sonification"
+    url: https://en.wikipedia.org/wiki/Data_sonification
+demo: inline
+exhibit: false
+useWhen: a chart has to be perceivable without sight
+---
+
+A sonified chart plays the series instead of describing it: each value becomes a tone, usually with
+pitch carrying the value and time carrying the axis, so twelve months of revenue take about three
+seconds to hear. What that conveys is shape. A steady climb sounds like a climb, a spike sounds like
+a spike, a plateau sounds like nothing changing, and a reader who has heard the sweep once knows
+where in the series to ask a question. It is the same trick a heart monitor plays, and it works for
+the same reason: hearing is very good at change over time.
+
+What it conveys badly is values. Pitch discrimination is coarse, absolute pitch is rare, and nobody
+listens to a tone and reports 41.8 percent. This is why sonification is an addition rather than a
+replacement. The reader who wants the number needs a [data table](/data-table) or a
+[long description](/long-description); the reader who wants to know whether the line went up needs
+three seconds of audio rather than a paragraph read out one figure at a time. Serve both, from the
+same data, and let the reader pick.
+
+Design decisions that matter more than the synthesis. Map value to pitch rather than to volume,
+because loudness is heard as importance and a small value should not sound like a mistake. Keep the
+mapping monotonic, so higher is always higher, and say what the mapping is before the sweep plays,
+in the same way a visual chart labels its axis. Mark the axis audibly if the series is long, with a
+click per month or a change of timbre per quarter, since a reader cannot count fifty tones any more
+than they can count fifty gridlines. Give a play control with a real
+[accessible name](/accessible-name), let the reader replay and step point by point, and never start
+the audio by itself: unrequested sound is exactly what [audio control](/audio-control) exists to
+undo.
+
+The vocabulary is still settling. Audio chart and audio graph usually mean a chart component with
+sonification built in, sonification means the technique in general, and the phrase data table
+alternative describes the role it plays rather than the sound it makes. Whichever word you use, the
+[alt text](/alt-text) rule underneath does not change: the chart still needs a short text
+equivalent, because a reader browsing a page of figures is not going to play all of them.

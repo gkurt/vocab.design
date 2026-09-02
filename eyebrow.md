@@ -1,0 +1,63 @@
+---
+name: Eyebrow
+slug: eyebrow
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A short line of text above a heading that says what category or
+  series the content belongs to.
+aliases:
+  - name: kicker
+  - name: overline
+    source: material
+  - name: eyebrow heading
+  - name: pretitle
+  - name: superhead
+tags:
+  - content-design
+  - editorial
+relations:
+  contrastWith:
+    - heading
+    - deck
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: Eyebrow Typography (Verdigris Design System)
+    url: https://design.verdigris.co/categories/typography/eyebrow
+demo: inline
+exhibit: false
+useWhen: labelling what kind of thing a heading is
+---
+
+An eyebrow is the small line sitting above a headline that says what kind of thing you
+are looking at: the section, the series, the content type, the release it belongs to.
+The headline says what this one is; the eyebrow says which shelf it came off. Newsrooms
+have called it a kicker for a century, Material calls the type role overline, and the
+[page header](/page-header) is where it most often turns up in an application, above the
+page title and below the breadcrumbs.
+
+It earns its place by being read first and being read fast, which is why the conventions
+are so consistent: small, one short phrase, no sentence, and set apart from the headline
+by treatment rather than by size alone. [All caps](/all-caps) with a little extra
+[tracking](/tracking) is the classic setting, and the letter spacing is not decoration
+there, it is the repair that all-caps text needs to stay legible. A colour of its own,
+usually the accent, does the same job with less shouting. What breaks it is length: an
+eyebrow that runs to a full line stops being a label and starts competing with the
+headline it is supposed to introduce.
+
+Keep the markup honest. An eyebrow is not a heading, and marking it up as an `h3` above
+an `h1` wrecks the [heading hierarchy](/heading-hierarchy) for anyone navigating by
+headings. A span above the heading is fine, and a span inside the heading is fine when
+the category really is part of the title; what is not fine is putting a taxonomy label
+in the document outline. In a card that is entirely one link, the same care applies to
+the [accessible name](/accessible-name): the link should be named by the headline, not by
+the eyebrow and headline mashed together.
+
+Drop it when it says nothing. An eyebrow that repeats the section heading directly above
+it, or that reads as a slogan rather than a category, is one more line between a reader
+and the thing they came for. It pays for itself when cards are scanned in a list, where
+the category is what tells one from another before any headline is read.

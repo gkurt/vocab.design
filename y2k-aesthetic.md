@@ -1,0 +1,74 @@
+---
+name: Y2K aesthetic
+slug: y2k-aesthetic
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The turn of the millennium look of chrome type, bubble shapes,
+  translucent plastic, and lens flares, revived as a web and app style.
+aliases:
+  - name: Y2K futurism
+  - name: millennium aesthetic
+  - name: chrome aesthetic
+    source: community
+  - name: cybercore
+    source: community
+  - name: liquid chrome
+    source: community
+  - name: 3D chrome
+    source: community
+tags:
+  - retro
+relations:
+  contrastWith:
+    - maximalism
+    - frutiger-aero
+    - aqua
+    - cassette-futurism
+    - vaporwave
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - acid-graphics
+implementations: []
+sources:
+  - title: "NameThatUI: visual style catalog"
+    url: https://namethatui.com/styles
+  - title: Frutiger Aero | 2000 Aesthetics Wiki
+    url: https://2000-aesthetics.fandom.com/wiki/Frutiger_Aero
+demo: inline
+exhibit: false
+useWhen: chrome, bubbles, and translucent plastic futurism
+---
+
+The vocabulary is specific enough to check off. Type is chrome: a metallic gradient
+running down the glyphs, an outline around them, and a hard specular streak across the
+middle. Shapes are bubbles and lozenges, rounded far past what a radius scale would
+allow, with a gloss highlight sitting inside the top edge so the surface reads as
+translucent plastic rather than as paint. Backgrounds are skies, water, and soft blue
+gradients, and something in the frame is usually flaring: a four point star, a lens
+streak, a burst of white where a light source is implied but never drawn.
+
+It belongs to roughly 1998 to 2004, and it came from hardware as much as from graphics.
+Translucent coloured plastic arrived with the iMac G3, Aqua gave every button a gel
+highlight and a pulse, chrome lettering was what a CD sleeve or a film title did to
+promise the future, and the whole palette was carried by the optimism attached to the
+millennium itself. The adjacent term is Frutiger Aero, which names the slightly later,
+gentler branch of the same family: glossy, nature-facing, full of water droplets, grass,
+and clean blue skies, running through mid-2000s consumer software.
+
+The revival started around 2020 on TikTok and Pinterest, moved through fashion and music
+packaging, and reached interfaces as a deliberately dated register for music apps, games,
+merch stores, and anything addressing an audience nostalgic for a decade it may not have
+lived through. Modern CSS makes it much cheaper than it was the first time, when chrome
+type meant a bitmap: a gradient clipped to text, a couple of layered inset shadows, and a
+blurred radial for the flare will do most of it.
+
+Two cautions carry over from the original era. Chrome type is decoration first and
+legible second, so it belongs to display sizes and needs a plain fallback wherever text
+has to be read rather than admired, and a gradient clipped to glyphs has no contrast
+value you can measure with a single colour. And gloss is an affordance in this style
+rather than a flourish: if every surface is glossy then gloss no longer marks the
+controls, which is the same problem skeuomorphism ran into and the reason flat design
+happened next.

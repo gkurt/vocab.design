@@ -1,0 +1,68 @@
+---
+name: Fade
+slug: fade
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A change in opacity used to bring an element in or take it out, the
+  cheapest transition and the one that implies no spatial relationship.
+aliases:
+  - name: fade in
+  - name: fade out
+  - name: opacity transition
+tags: []
+relations:
+  contrastWith:
+    - crossfade
+    - dissolve
+    - yellow-fade-technique
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - opacity
+implementations:
+  - system: material
+    name: Fade
+    url: https://m3.material.io/styles/motion/transitions
+sources:
+  - title: "Material Design 3: Transitions"
+    url: https://m3.material.io/styles/motion/transitions
+demo: inline
+exhibit: false
+useWhen: an element appears or leaves without moving
+---
+
+A fade changes one number. The element stays exactly where it is, at exactly its
+size, and only its opacity travels between zero and one, which is why a fade
+makes no claim about space: it does not say the panel came from the button, or
+that the next screen is to the right, or that anything is above anything else. It
+is the transition to reach for when there is nothing spatial to say, and the one
+to avoid when there is.
+
+That neutrality is also why it is cheap. Opacity is one of the two properties a
+browser can animate without touching layout or paint, so a fade is close to free
+on any hardware, and it degrades to nothing worse than a cut. Compare a
+[crossfade](/crossfade), which is two fades sharing one span and needs both
+elements out of the flow so they can overlap at the midpoint. A single fade has
+no partner and no overlap. The related sequence, fading out, holding on the
+background, then fading in, is a third thing again (Material calls it fade
+through), and it reads as two events rather than one because the eye passes
+through the empty state between them.
+
+Two details separate a fade that works from one that flickers. Space first: a
+fading element must already own the room it will occupy, because nothing about
+opacity reserves it. Animate opacity while the element is also joining the flow
+and everything below it jumps at the moment the fade starts, which reads as
+breakage rather than as arrival. Pointer events second: an element parked at zero opacity is still
+there and still clickable, so pair the opacity with `visibility` or
+`display: none` at the ends of the transition, and let the discrete property flip
+while the continuous one carries the look.
+
+Asymmetric timing is the last piece of craft. Arrival usually wants longer than
+departure, since a reader needs to notice something appear but does not need to
+watch it leave, and a fade out that lingers reads as an interface that cannot
+make up its mind. A fade is also the standard substitute when movement is not
+wanted: interfaces honouring a stated preference for reduced motion commonly keep
+the fade and drop the translation, which makes this the one transition that
+rarely has to be removed.

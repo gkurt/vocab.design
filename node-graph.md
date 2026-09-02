@@ -1,0 +1,78 @@
+---
+name: Node graph
+slug: node-graph
+category: component
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A canvas of boxes wired to each other by lines, where each box does
+  one job and the wiring between them is the thing being built, rearranged by
+  dragging.
+aliases:
+  - name: node-based editor
+    source: xyflow
+  - name: node editor
+    source: blender
+  - name: node-based UI
+    source: xyflow
+  - name: flow editor
+    source: community
+tags:
+  - canvas
+  - devtools
+relations:
+  contrastWith:
+    - flowchart
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - infinite-canvas
+    - edge-routing
+    - graph-layout
+implementations: []
+sources:
+  - title: "React Flow: node-based UIs in React"
+    url: https://reactflow.dev/
+  - title: "Blender Manual: Node Editors"
+    url: https://docs.blender.org/manual/en/latest/interface/controls/nodes/node_editors.html
+  - title: "Blender Manual: Node Parts (sockets)"
+    url: https://docs.blender.org/manual/en/latest/interface/controls/nodes/parts.html
+demo: inline
+exhibit: false
+useWhen: boxes wired by lines, where the wiring is the content
+---
+
+A node graph is a surface where each box does one small job and the lines between the boxes
+say what feeds what. The distinction from a picture of boxes and arrows is that here the
+wiring is not an illustration of the work, it is the work: pull a line out of one box, drop
+it on another, and the thing being built has changed. Shader editors, audio patchers,
+automation builders, visual programming environments and the newer generation of agent and
+data pipeline tools all land on this shape, because the domain is genuinely a graph and any
+linear representation of it would be a lie about the dependencies.
+
+The parts have settled into a stable vocabulary. A node is the box, usually with a title,
+sometimes with controls inside it. A [node port](/node-port) is the stub on its edge where a
+line lands, called a socket in [Blender](https://docs.blender.org/manual/en/latest/interface/controls/nodes/parts.html)
+and a handle in [React Flow](https://reactflow.dev). An edge is the line, and how it gets
+from one port to the other is its own design decision, covered under
+[edge routing](/edge-routing). The interesting part is that ports are typed, so the graph
+teaches its own rules by refusing: a wire that would carry the wrong kind of value will not
+land, and the reader learns the model from what the surface declines to do rather than from
+documentation.
+
+Underneath, a node graph is nearly always an [infinite canvas](/infinite-canvas), which
+means it inherits every problem that surface has. It has to [pan](/pan) diagonally, it
+needs a [minimap](/minimap) once the graph outgrows one screen, and it spends most of its
+interaction budget disambiguating a drag, because the same gesture means move the camera,
+move a node, draw a wire and select a region depending on what is under the pointer when it
+goes down. Where a wire starts is what resolves that ambiguity, which is why ports are drawn
+as targets big enough to hit and often grow while a wire is in flight.
+
+Two costs are worth naming before building one. Placement is the first: a graph assembled by
+hand drifts into a tangle, and the fix is [graph layout](/graph-layout), which trades the
+tangle for the reader losing every position they had learned. Accessibility is the second and
+harder one, because a plane of freely placed nodes has no reading order at all, so keyboard
+traversal and anything a screen reader announces have to be built from the graph structure
+rather than from the geometry. The tools that manage it expose the same graph as a list or a
+tree, which is what a [tree view](/treeview) already is when the data happens to be a
+hierarchy.

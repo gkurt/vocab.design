@@ -1,0 +1,70 @@
+---
+name: Honeypot field
+slug: honeypot-field
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A form field hidden from people but visible to automated form
+  fillers, used to reject submissions that fill it in without challenging
+  anyone.
+aliases:
+  - name: honeypot
+    source: community
+  - name: bot trap field
+    source: community
+  - name: spam trap input
+    source: community
+tags:
+  - auth
+  - forms
+relations:
+  contrastWith:
+    - captcha
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - visually-hidden
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: the invisible field that only a bot would fill in
+---
+
+A honeypot field is a piece of bait in a form. The markup carries an extra input, named
+something a script would find irresistible ("website", "url", "company"), and the
+stylesheet takes it out of the visual layout so nobody filling the form in a browser
+ever meets it. A naive form filler walks the DOM, sees an empty input, and types
+something into it. The server then throws that submission away. The reader who filled
+the form by hand never knew there was a trap, was never asked to prove anything, and
+was never made to read warped letters. That is the entire appeal: it moves the cost of
+the check off the person and onto the attacker.
+
+It is the quiet alternative to the [CAPTCHA](/captcha), and for ordinary contact forms
+and comment boxes it removes a startling share of the spam for none of the friction.
+The honest limits are worth stating too. It catches naive automation rather than
+targeted attack, since anything that renders the page with a real browser engine can
+see that the field is off screen and skip it. So it belongs in a layered defence with
+rate limits, signed tokens sent with the form, and its time-based cousin: a hidden
+timestamp that rejects any submission completed in under a couple of seconds, because
+no person types that fast.
+
+The accessibility detail is what separates a working trap from a broken one, and it is
+where most implementations fail. Hiding must hide from everybody, assistive technology
+included. A field pushed off screen with a class like `visually-hidden` is still in the
+accessibility tree and still in the tab order, so a screen reader user hears it, a
+keyboard user tabs into it, and either may fill it in and have their perfectly genuine
+submission silently discarded. That is not a spam filter, it is a way of dropping the
+messages of exactly the people least able to work out why they got no reply. The
+trap therefore needs `aria-hidden="true"`, `tabindex="-1"`, and `autocomplete="off"` at
+minimum, plus a visible-to-nobody label reading "leave this field empty" for the case
+where a browser or an extension surfaces it anyway. Use `display: none` or off-screen
+positioning rather than opacity, and never rely on the placeholder alone to explain it.
+
+The last rule is about the rejection itself. A trapped submission should look
+successful to whoever sent it: the same confirmation page, the same status code, no
+error that says which field gave them away. Telling a script that it failed is how a
+script learns to stop filling that field. Log the hit on the server if you want the
+numbers, and give a real person a way to reach you that is not the form at all, so a
+false positive is an inconvenience rather than a wall.

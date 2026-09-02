@@ -1,0 +1,74 @@
+---
+name: Superscript
+slug: superscript
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Small raised characters used for footnote markers, ordinals, and
+  exponents, ideally drawn by the font rather than shrunk by software.
+aliases:
+  - name: superior figures
+  - name: subscript
+  - name: inferior figures
+  - name: ordinals
+    source: opentype
+  - name: sups
+    source: opentype
+tags:
+  - editorial
+  - fonts
+relations:
+  contrastWith:
+    - prime-mark
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - sidenote
+    - ruby-annotation
+implementations: []
+sources:
+  - title: Ordinals (Practical Typography)
+    url: https://practicaltypography.com/
+  - title: OpenType font features (MDN)
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Fonts/OpenType_fonts
+demo: inline
+exhibit: false
+useWhen: footnote markers, ordinals, and exponents
+---
+
+Superscript has three jobs and they are not the same job. A footnote marker points at a
+note somewhere else. An ordinal marks a number as first, second, third. An exponent or a
+unit is mathematics, where the raised digit changes what the expression means. Only the
+third one is load-bearing, which is worth knowing before raising anything: the other two
+are conventions, and conventions vary.
+
+A typeface that takes the job seriously draws the raised characters itself, as superior
+figures: their own [glyphs](/glyph), a little heavier in the stroke than the text so they
+do not go thin, spaced for their own size, sitting at a height the designer chose. You
+ask for them with `font-variant-position: super`, or with the raw feature through
+`font-feature-settings: "sups"`, and for raised ordinals with `"ordn"`. See
+[OpenType features](/opentype-features) for how those switches work in general. The catch
+is the same one [optical size](/optical-size) has: most faces do not ship the feature, the declaration is
+then inert, and nothing on screen tells you which case you are in. Both families this
+site loads are in the second case, which is why the specimen above shows the declaration
+doing nothing and says so.
+
+What software does instead is shrink the normal figure and lift it, which is what
+`<sup>` gets you by default. It is legible and it is not free. A shrunken figure is
+thinner than the text around it, so it fades at small sizes; and `vertical-align: super`
+grows the line box, so the one line carrying a footnote marker sits further from its
+neighbour than every other line does, and the [vertical rhythm](/vertical-rhythm) of the
+column breaks on it. The fix is three declarations: a size around 0.7em, a baseline shift
+in relative position, and `line-height: 0` so the raised box stops contributing height.
+Keep the `<sup>` and `<sub>` elements while you do it, because they carry the meaning that
+styling does not, and make a footnote marker a real link to its note rather than a raised
+number that does nothing.
+
+Not everything numeric wants raising. Raised ordinals are a house style rather than a
+rule: much English publishing sets 1st and 2nd on the baseline, and locales differ, so
+`1er` in French and `1.º` in Spanish carry conventions of their own that an automatic
+"raise the suffix" rule gets wrong. Chemistry and mathematics need both directions, since
+a subscript (an inferior figure, the same mechanism pointing down) is the only thing
+telling the 2 in a water molecule from the 2 in a square metre. And if a face has neither feature, one honest option is to leave ordinals
+alone: a baseline `1st` reads better than a spindly raised one.

@@ -1,0 +1,75 @@
+---
+name: Inspector
+slug: inspector
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A pane, usually on the trailing edge, that shows and edits the
+  properties of whatever is currently selected.
+aliases:
+  - name: properties panel
+    source: community
+  - name: inspector pane
+    source: hig
+  - name: attributes panel
+    source: community
+  - name: right rail
+    source: community
+  - name: design panel
+    source: figma
+tags:
+  - design-tools
+  - windowing
+relations:
+  contrastWith:
+    - description-list
+    - supporting-pane
+    - hud-panel
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pane
+implementations: []
+sources:
+  - title: Split views, Human Interface Guidelines
+    url: https://developer.apple.com/design/human-interface-guidelines/split-views
+demo: inline
+exhibit: false
+useWhen: a panel whose contents follow the selection
+---
+
+An inspector is about the current selection, so it is empty when nothing is selected, and
+that is exactly what separates it from a settings panel. Settings describe the document or
+the application and are there whether or not you have clicked anything. An inspector
+describes the object under the cursor's last click, changes wholesale when you click a
+different one, and has nothing to say when you click the background. Every design tool,
+every code editor with a properties view, and every page builder has one, docked to the
+trailing edge because that is where a reading eye ends up rather than where it starts.
+
+The contents are properties, grouped, editable in place, and reflecting the object rather
+than describing it: change a number in the pane and the object moves, move the object and
+the number follows. Two behaviours are worth designing rather than inheriting. The first is
+multiple selection, where the pane has to show what the objects share and mark the rest as
+mixed rather than as blank, which is the same problem a
+[mixed state checkbox](/mixed-state-checkbox) solves for one value. The second is what the
+pane says when nothing is selected: an
+[empty state](/empty-state) naming the action that would fill it is worth more than a
+blank rail, because a reader who sees nothing cannot tell an empty inspector from a broken
+one.
+
+Its neighbours are easy to confuse because they are all rails. A [sidebar](/sidebar) is
+navigation and sits on the leading edge, so it answers where you are rather than what you
+picked. A [drawer](/drawer) is temporary and slides over the content, while an inspector is
+part of the layout and holds its width. The general family is the supporting pane, one of
+the [canonical layouts](/canonical-layout), and an inspector is that arrangement with a
+particular rule about what fills it. When the window narrows, the honest move is usually to
+turn the inspector into a drawer rather than to squeeze it, since a pane too narrow to hold
+a labelled number is worse than one summoned on demand.
+
+Two things make or break the feel of it. Reserve the width and the internal geometry, so
+that switching between a rectangle's position controls and a text object's type controls
+does not resize the pane or shift the canvas beside it. And keep the selection explicit:
+an inspector that follows hover rather than clicks flickers through every object the
+pointer crosses, which is why tools that do offer a hover preview keep it visually distinct
+from the committed selection.

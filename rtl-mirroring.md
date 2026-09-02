@@ -1,0 +1,70 @@
+---
+name: RTL mirroring
+slug: rtl-mirroring
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: Flipping a layout horizontally for right to left languages, moving
+  navigation and progression to the other side while leaving some elements
+  unmirrored.
+aliases:
+  - name: bidirectional layout
+    source: community
+  - name: bidi
+    source: community
+  - name: right to left layout
+    source: community
+  - name: mirroring
+    source: material
+tags:
+  - i18n
+relations:
+  contrastWith:
+    - bidirectional-text
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - language-attribute
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: shipping the same screen in Arabic or Hebrew
+---
+
+Arabic, Hebrew, Persian and Urdu are read from the right, and a screen in one of those
+languages is not the same screen with the text right aligned. It is the mirror image: the
+navigation starts on the right, the back control points the other way, a progress bar fills
+leftward, a sidebar swaps edges, and the first cell of a table is the rightmost one. Setting
+`dir="rtl"` on the document is the switch that says so, and everything after that is a
+question of whether the layout was written in a way that can hear it.
+
+Almost all of the work is avoided rather than done, by writing the layout in logical terms
+from the start. `margin-inline-start` instead of `margin-left`, `inset-inline-start` instead
+of `left`, `padding-block` instead of top and bottom, `text-align: start`, and
+`border-start-start-radius` for the corner nearest where reading begins. Flexbox and grid
+already work this way, since a row runs along the inline axis and reverses with it, which is
+why a layout built from them and from logical properties often mirrors correctly the first
+time it is asked to. Every physical value left in the sheet is a small hardcoded assumption
+about which side the reader starts on, and they are much easier to avoid than to find later.
+
+What does not mirror is where the judgment lives, and it comes down to what an element is
+about. Anything that represents reading order or forward progression flips: back and forward
+arrows, undo and redo, indentation, the direction a stepper advances. Anything that
+represents a physical object or a shared convention holds: a clock face, a checkmark, a star,
+media playback controls, a company logo. Digits are the case that surprises people, because
+numbers run left to right even inside right to left text, so a time or a measurement keeps
+its own internal order while moving to the other side of the row. The practical form of this
+is an icon audit: go through the set once, mark each glyph mirror or hold, and keep the list,
+because the answer for a given glyph is a decision rather than something a stylesheet can
+derive.
+
+The second half of the term is the part the name only hints at. Real content is bidirectional
+rather than uniformly one direction: a Latin brand name inside an Arabic sentence, an email
+address in a Hebrew paragraph, a user-supplied string of unknown direction dropped into your
+layout. The Unicode bidirectional algorithm resolves most of it, and the tools for the rest
+are `dir="auto"` on inputs and user content, and `<bdi>` to isolate a run so a stray strong
+character cannot reorder the text around it. Test with real strings in a real language, since
+the reliable way to find the one hardcoded `left` is to look at a screen where everything else
+has already moved.

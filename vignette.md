@@ -1,0 +1,75 @@
+---
+name: Vignette
+slug: vignette
+category: surface
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A gradual darkening toward the edges of an image that pulls the eye
+  to the centre, borrowed from lens falloff and applied deliberately for focus
+  and mood.
+aliases:
+  - name: vignetting
+    source: community
+  - name: lens vignette
+    source: community
+  - name: edge darkening
+    source: community
+tags:
+  - media
+  - perception
+relations:
+  contrastWith:
+    - scrim
+    - progressive-blur
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - retro-film-aesthetic
+implementations: []
+sources:
+  - title: "Wikipedia: Vignetting"
+    url: https://en.wikipedia.org/wiki/Vignetting
+demo: inline
+exhibit: false
+useWhen: the edges of an image quietly dimmed to hold focus
+---
+
+Vignetting started as a defect. A lens passes less light to the corners of the frame than to
+the middle, for four separate reasons that photographers name separately: the hood or filter
+ring physically clipping the cone of light, the falloff that geometry alone produces, the
+aperture blades shading the oblique rays, and, on a digital sensor, photosites that answer
+light arriving at a steep angle less willingly. Printers then spent decades adding the same
+darkening back on purpose, burning in the edges under the enlarger to stop the eye wandering
+off the paper. Interfaces inherited the deliberate version. One absolutely positioned layer,
+a radial gradient of black at a low [alpha](/alpha-channel), `pointer-events: none` and
+`aria-hidden`, laid over a photograph or a video poster so the middle of the picture keeps the
+attention.
+
+The word gets used for a second layer that is not the same thing, and the distinction is worth
+holding. A [scrim](/scrim) is functional: it exists so text on top clears its
+[contrast ratio](/contrast-ratio), so it is usually one sided, heaviest at the edge the words
+sit against, and it is judged by measuring the composited pixels under the glyphs. A vignette
+is compositional: radially symmetric, spending the same ink on all four corners whether or not
+anything is written there, and judged by where the eye lands. A [hero](/hero) often carries
+both layers at once, and the whole stack gets called a vignette in conversation, which is fine
+until someone tries to fix a failing contrast check by deepening the corners.
+
+The tuning is mostly restraint. Match the gradient's shape to the frame rather than using a
+circle, since a circular falloff on a wide image darkens the left and right edges long before
+the top and bottom. Keep the centre fully transparent across a generous radius and give the
+ramp a long soft tail, because a visible boundary reads as a smudged lens or a bad crop rather
+than as mood. Prefer a black overlay at a stated alpha over a `filter`, so the value is one
+token instead of a per-image guess, and remember it is subtractive: anything already near the
+edge, a caption, a play button, a control in the corner, loses real contrast to it. On small
+cards a vignette is easy to misread as an inset shadow or a rendering bug, and on a whole page
+it dims content the reader actually needs, which is why it belongs on imagery and almost never
+on layout.
+
+Two naming traps. Outside design, a vignette is a short self contained scene in writing or a
+small decorative illustration, so a component named `Vignette` in an unfamiliar codebase is
+worth opening before assuming it darkens anything. Inside design, the corner darkening is one
+ingredient in larger costumes rather than a look of its own: it turns up in
+[retro film](/retro-film-aesthetic) alongside grain and halation, under
+[scanlines](/scanlines) as part of the tube, and beside a [duotone](/duotone) treatment where
+the two together do the job a photograph on its own would not.

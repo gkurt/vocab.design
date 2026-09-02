@@ -1,0 +1,70 @@
+---
+name: System color keyword
+slug: system-color-keyword
+category: color
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A CSS keyword such as Canvas, CanvasText or LinkText that resolves
+  to a colour chosen by the operating system rather than by the page.
+aliases:
+  - name: system colors
+    source: css
+  - name: CanvasText
+    source: css
+  - name: AccentColor
+    source: css
+  - name: ButtonFace
+    source: css
+tags:
+  - theming
+  - web-platform
+relations:
+  contrastWith:
+    - forced-colors-mode
+    - named-color
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "MDN: <color> CSS type"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value
+  - title: Windows High Contrast Mode and CSS custom properties
+    url: https://www.smashingmagazine.com/2022/03/windows-high-contrast-colors-mode-css-custom-properties/
+demo: inline
+exhibit: false
+useWhen: styling with the colours the OS itself picked
+---
+
+A system colour keyword is a `<color>` value the page does not get to decide. Write
+`background: Canvas; color: CanvasText` and the browser fills in whatever the operating
+system, the browser theme, or the user's accessibility settings currently say those are. CSS
+Color 4 defines about twenty of them and they come in pairs, a surface and the text meant to
+sit on it: `Canvas` and `CanvasText`, `Field` and `FieldText`, `ButtonFace` and `ButtonText`
+with `ButtonBorder` for the edge, `Highlight` and `HighlightText` for selection, plus
+`LinkText`, `VisitedText`, `ActiveText`, `GrayText`, `Mark` and `MarkText`, and the newer
+`AccentColor` and `AccentColorText` for the accent the user picked in their OS settings.
+
+Their most important job is not voluntary. In
+[forced colors mode](/forced-colors-mode) the browser substitutes these keywords for the
+page's own palette wholesale, so this small set is the entire palette an interface has, and
+authoring against it is how a page stays coherent when it is repainted by a contrast theme.
+That is why a border declared as `1px solid ButtonBorder` survives and a border declared as
+`1px solid #D8DEE9` does not: one is a keyword the OS is already filling in, the other is a
+value it has taken away.
+
+Used deliberately, outside that mode, they buy something else: an element that matches the
+platform instead of the product. A selection band drawn in `Highlight`, a focus treatment in
+`AccentColor`, a native-feeling control in `ButtonFace` will all track the user's own theme
+and shift when they change it, which no [colour token](/color-token) of yours can do. The
+catch is that you cannot predict any of these values, so they have to be used in their
+pairs, never mixed with an author colour on the other side of the same contrast. `AccentColor`
+on your own grey is a [contrast ratio](/contrast-ratio) nobody has measured.
+
+Two footnotes. The keywords answer `prefers-color-scheme` through the element's
+`color-scheme`, so `Canvas` is not permanently white; it is whichever surface the current
+scheme calls for. And there is an older, deprecated set with names like `ActiveBorder`,
+`ButtonHighlight`, `InactiveCaptionText` and `ThreeDFace`, inherited from the Windows 95
+control panel. Browsers still parse them, but they resolve to fixed compatibility values
+rather than to anything the user chose, so they answer nothing and are not worth writing.

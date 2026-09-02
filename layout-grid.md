@@ -1,0 +1,69 @@
+---
+name: Layout grid
+slug: layout-grid
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The shared column, gutter and margin structure a team lays every
+  screen against, so different people's pages line up with each other.
+aliases:
+  - name: grid system
+    source: community
+  - name: column grid
+    source: community
+  - name: 2x Grid
+    source: carbon
+  - name: responsive grid
+    source: community
+tags:
+  - design-tools
+  - grids
+relations:
+  contrastWith:
+    - modular-grid
+    - twelve-column-grid
+    - baseline-grid
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - canonical-layout
+implementations: []
+sources:
+  - title: Layout grid, U.S. Web Design System
+    url: https://designsystem.digital.gov/utilities/layout-grid/
+demo: inline
+exhibit: false
+useWhen: the agreed skeleton every screen is built on
+---
+
+A layout grid is an agreement, not a technology. Three numbers define it: how many
+columns, how wide the gutters between them are, and how much margin sits outside
+them. Everything placed on a screen then starts and ends on a column edge, which is
+what makes two pages drawn by two people on two different days look like they belong
+to the same product. The grid is invisible in the finished work. Its only evidence is
+that nothing is a few pixels off from anything else.
+
+Twelve columns became the default because twelve divides cleanly by two, three, four
+and six, so halves, thirds and quarters all land on real column edges without
+inventing fractions. Other counts exist for good reasons. Carbon's 2x Grid runs 4
+columns on small screens, 8 on medium and 16 on large, and Material's runs 4, 8 and
+12, which is the other half of the agreement: the column count itself changes at
+breakpoints, and a component that spans 8 of 12 on a desktop spans 4 of 4 on a phone
+rather than shrinking to a quarter of the width.
+
+The word overlaps with CSS Grid and the two are not the same thing. CSS Grid is a
+layout algorithm for arranging boxes in two dimensions, and you can implement a
+layout grid with it very neatly, using twelve `1fr` tracks and a `gap`. But you can
+also implement a layout grid with flexbox, with floats, or with a spreadsheet and a
+lot of discipline, and you can use CSS Grid for a component that has nothing to do
+with the page grid at all. The layout grid is the specification; CSS Grid is one way
+to build to it.
+
+In practice the grid lives as an overlay you can switch on, in Figma and in browser
+devtools, drawn as translucent columns over the design. Turning it on is the review
+step: a block that ends halfway through column seven is either a mistake or a
+deliberate exception, and the overlay is what makes the difference visible. The
+exceptions are worth allowing. Full bleed imagery ignores the margins on purpose, and
+so does a hero that runs edge to edge, and a grid that admits no exception tends to
+produce pages where nothing breathes.

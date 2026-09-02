@@ -1,0 +1,78 @@
+---
+name: Rich text toolbar
+slug: rich-text-toolbar
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The strip of formatting controls above or beside an editor, whose
+  buttons report their state from wherever the caret sits.
+aliases:
+  - name: formatting toolbar
+    source: community
+  - name: wysiwyg toolbar
+    source: community
+  - name: editor toolbar
+    source: community
+  - name: format bar
+    source: community
+tags:
+  - menus
+  - text-editing
+relations:
+  contrastWith:
+    - toolbar
+    - ribbon
+    - bubble-toolbar
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - rich-text-editor
+implementations:
+  - system: aria-apg
+    name: Toolbar
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+sources:
+  - title: "ARIA Authoring Practices Guide: Toolbar pattern"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/
+demo: inline
+exhibit: false
+useWhen: the formatting strip over a text editor
+---
+
+What makes a rich text toolbar different from any other row of buttons is that it
+reads. Every control in the strip is a mirror as well as a lever: move the caret into
+a bold word and the Bold button comes down without anyone pressing it, move it out
+again and the button lifts. The button is reporting the formatting under the caret,
+so its pressed state is a fact about the document rather than a memory of the last
+click. Get this wrong and the strip lies constantly, which is the single most common
+defect in home-grown editors.
+
+Because the state comes from the selection, so does the vocabulary. Each latching
+control is a button with `aria-pressed`, never a checkbox and never a link, and a run
+that is partly bold has no honest binary answer, which is why serious editors show a
+third, indeterminate look for a mixed selection. The strip itself takes
+`role="toolbar"` and behaves as one tab stop, with the left and right arrow keys
+roving between the controls inside it, so a keyboard user reaches the editor in one
+Tab rather than fourteen. The [ARIA Authoring Practices
+Guide](https://www.w3.org/WAI/ARIA/apg/patterns/) writes that contract out, and it is
+worth following exactly, because a toolbar is one of the few widgets where people
+genuinely do arrow around.
+
+Placement is a real choice, not a default. A docked strip sits above the editor and
+is always there, which suits long-form writing where the same six commands are used
+constantly. A bubble toolbar (also called a floating or selection toolbar) appears
+next to the selection only once there is one, which keeps the canvas clean and suits
+short comment-style fields, at the cost of hiding the affordances until someone
+already knows to select text. Many editors ship both, plus a slash menu for block
+level commands, and the split is usually inline formatting in the strip and block
+insertion elsewhere.
+
+For commands that do not currently apply, prefer disabled over hidden. A tool that
+vanishes when the caret enters a code block teaches nothing and makes the strip
+shuffle its contents, which moves every other button under the reader's finger. Leave
+it in place, mark it `aria-disabled` so it stays reachable and can still be
+announced, and let the person work out that this is not a place where headings live.
+The same argument makes a fixed set of tools better than one that reflows: a toolbar
+people can build muscle memory for is worth more than one that is always exactly
+minimal.

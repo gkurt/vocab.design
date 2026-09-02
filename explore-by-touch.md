@@ -1,0 +1,73 @@
+---
+name: Explore by touch
+slug: explore-by-touch
+category: accessibility
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The touch screen reader mode where dragging a finger reads whatever
+  is under it and activation takes a second, deliberate tap, so nothing fires by
+  accident.
+aliases:
+  - name: touch exploration
+    source: android
+  - name: TalkBack explore by touch
+    source: android
+  - name: double-tap to activate
+    source: community
+tags:
+  - assistive-tech
+  - touch
+relations:
+  contrastWith:
+    - magic-tap
+    - escape-gesture
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - touch-target-size
+    - screen-curtain
+implementations: []
+sources:
+  - title: "Android Accessibility Help: Navigate your device with TalkBack"
+    url: https://support.google.com/accessibility/android/answer/6006598
+  - title: "Deque University: TalkBack keyboard shortcuts and gestures"
+    url: https://dequeuniversity.com/screenreaders/talkback-shortcuts
+demo: inline
+exhibit: false
+useWhen: designing touch targets a finger has to find blind
+---
+
+A touch screen has no keys to feel for, so a [screen reader](/screen-reader) on a phone has to
+solve a problem a desktop one never had: how do you find out what is on the glass without
+setting it off? The answer is to separate reading from doing. Android's instructions are
+literally to drag one finger slowly around the screen while TalkBack announces icons, buttons,
+and other items, and then, when you find the item you want, to double-tap anywhere on the
+screen to select it. VoiceOver on iOS works the same way. The finger becomes a probe, and the
+second tap is the commitment.
+
+The consequence that matters for design is that every gesture shifts by one. A single
+[tap](/tap) no longer activates, it reads. A [double tap](/double-tap) is not a special
+gesture any more, it is the ordinary one, which is why any interface that assigns its own
+meaning to a double tap is fighting the operating system. A one-finger
+[swipe](/swipe) moves to the next or previous element rather than scrolling, so scrolling
+takes two fingers, and a [swipe action](/swipe-actions) on a list row is unreachable by the
+gesture that reveals it. Anything built on a bare drag, a
+[long press](/long-press), or a custom multi-touch gesture needs a plain, findable
+alternative, which is what an actions menu on the element is for.
+
+Because the finger is finding things blind, two ordinary quality bars become load bearing.
+The [accessible name](/accessible-name) is the whole of what a reader gets when their finger
+lands on a control, so an [icon button](/icon-button) with no name is a dead patch of glass.
+And [touch target size](/touch-target-size) stops being about accuracy and starts being about
+discoverability: a target smaller than a fingertip can be swept straight over without ever
+being announced, so it is not merely hard to press, it is invisible. Gaps between targets are
+part of the same problem, since two controls with no space between them read as one moving
+blur.
+
+The pattern to watch for is anything that only exists at a precise position: a
+[drag handle](/drag-handle) that must be grabbed exactly, a chart a reader is meant to trace,
+a canvas whose only affordance is where you put your finger. None of those survive the shift,
+and the fix is almost never a better gesture. It is a named, focusable control that does the
+same job, which is also what makes the feature work for
+[switch access](/switch-access) and for a keyboard.

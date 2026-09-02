@@ -1,0 +1,75 @@
+---
+name: Afrofuturism
+slug: afrofuturism
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A style that pictures technology through the African diaspora,
+  combining cosmic imagery, textile and mask pattern, gold and indigo, and
+  geometric ornament used structurally.
+aliases:
+  - name: Afro-futurism
+  - name: Afrofuturist design
+tags:
+  - illustration
+  - retro
+relations:
+  contrastWith:
+    - retro-futurism
+    - solarpunk
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Aesthetics Wiki: Afrofuturism"
+    url: https://aesthetics.fandom.com/wiki/Afrofuturism
+  - title: "Wikipedia: Afrofuturism"
+    url: https://en.wikipedia.org/wiki/Afrofuturism
+demo: inline
+exhibit: false
+useWhen: a future told through African diaspora imagery
+---
+
+Afrofuturism is a cultural movement first and a set of visual moves a long way second. The
+word was coined by the critic Mark Dery in a 1993 essay, but he was naming work that had
+been going on for decades: Sun Ra and his Arkestra playing a cosmology as much as a music,
+George Clinton landing the Mothership on stage, Octavia E. Butler and Samuel R. Delany
+writing futures where Black people are present and central rather than quietly absent,
+Nalo Hopkinson and Nnedi Okorafor after them. The literature and the music are the tradition.
+Its central question is what a future looks like when it is imagined by people whose past
+includes the Middle Passage, and the answer usually involves reclaiming technology rather
+than fearing it. That is why a designer borrowing the look without the argument tends to
+produce something that reads as decoration.
+
+The visual language most people now recognise comes largely from film and album art, and
+its most influential recent statement is the 2018 film Black Panther, whose production
+design by Hannah Beachler and costume design by Ruth E. Carter both won Academy Awards. From
+that lineage the recurring moves are: deep indigo, black and midnight blue as the ground,
+with gold and copper as the light in it; cosmic imagery, orbits, and star fields; geometry
+taken from textile and beadwork traditions and used structurally, as columns, frames and
+dividers rather than as a background pattern; a bold display face, often set in wide caps;
+and speculative technology drawn as architecture rather than as chrome. The structural use
+of pattern is the move most worth stealing correctly, because it is the one that separates
+this register from a wallpaper.
+
+Two neighbours it gets confused with. [Retro-futurism](/retro-futurism) looks backward at
+somebody else's discarded future, the chrome rockets and ray guns of the 1950s, and its
+mood is affectionate nostalgia; Afrofuturism is looking forward, and its mood is a claim
+about who gets to be there. [Cyberpunk-ui](/cyberpunk-ui) shares the speculative frame and
+inverts the politics: it is neon, corporate, and pessimistic, and the technology is a boot
+on someone's neck. [Solarpunk](/solarpunk) is the closest in spirit, another optimistic
+register that argues a future is worth building, but it argues it through ecology rather
+than through diaspora. Worth knowing too that Nnedi Okorafor proposed
+"Africanfuturism" for work rooted directly in Africa and its cultures rather than in the
+diaspora, and that Amazofuturism is a separate Brazilian movement rather than another name
+for this one.
+
+The care this register needs is not stylistic, it is attributional. The geometry comes from
+identifiable traditions, kente and adinkra and Ndebele among many others, made by specific
+peoples who are still making it, so sampling a pattern off a mood board and calling it
+futuristic is the failure mode. Name your references, commission from the communities the
+work comes from where you can, and do not reduce a movement with sixty years of literature
+and music behind it to indigo and gold. If all you actually need is a dark palette with a
+warm metallic accent, that is a fine thing to want, and it does not need this word.

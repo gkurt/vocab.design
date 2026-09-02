@@ -1,0 +1,70 @@
+---
+name: E-ink aesthetic
+slug: e-ink-aesthetic
+category: aesthetic
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: "A paper-like style built for or borrowed from electronic ink:
+  near-white ground, pure black text, hairline rules, no shadows or gradients,
+  and paged navigation."
+aliases:
+  - name: paper UI
+  - name: e-paper UI
+  - name: e-ink UI
+  - name: paper-like interface
+  - name: 1-bit UI
+tags:
+  - platform-registers
+relations:
+  contrastWith:
+    - minimalism
+    - terminal-aesthetic
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Intent: How to design for e-ink devices"
+    url: https://www.withintent.com/blog/e-ink-design/
+  - title: "CHI 2026: A Dedicated E-Paper Design System for Mobile Phones"
+    url: https://doi.org/10.1145/3772318.3791459
+demo: inline
+exhibit: false
+useWhen: an interface styled like reflective ink on paper
+---
+
+Electronic ink is pigment, not light. Microcapsules of black and white particles are pushed
+into position by a charge and then stay there with the power off, which is why a reader
+holds a page for weeks on one battery and why the page is legible in direct sun and
+invisible in the dark. Everything the style looks like follows from that physics. There is
+no backlight to make a gradient glow, only a handful of grey levels between the two
+pigments, and a full refresh takes a noticeable fraction of a second, during which the
+panel often flashes to clear itself.
+
+So the design vocabulary strips down to what survives. Ground is a warm near-white rather
+than pure white, since reflective paper is never brighter than the room. Text is pure
+black at a generous size, because contrast is the only emphasis available. Structure is
+carried by hairline rules and by space instead of by elevation, since a drop shadow is a
+soft grey ramp and there are barely any greys to spend on it. Photographs and illustration
+arrive as [dithering](/dithering), fine patterns of pure black dots that the eye averages
+into tones the panel cannot actually produce. Navigation is paged rather than scrolled,
+because a smooth scroll on a slow panel smears, and animation is simply absent. Where the
+previous screen has not fully cleared, a faint residue of it stays behind, which the
+industry calls ghosting and readers see as a shadow of the page before.
+
+The look now travels well beyond the hardware. Focus timers, journals, note takers,
+minimal readers, and no distraction phones all borrow it on ordinary emissive screens,
+because the constraints happen to describe a calm interface: nothing glows, nothing moves,
+nothing competes, and the only hierarchy is size and space. It is a close relative of
+reader mode, which strips a page back to text for the same reason from the other
+direction. The digital wellness market took the aesthetic as a promise about attention
+rather than as a fact about a display.
+
+Borrowing it honestly means remembering which parts were physics and which were taste.
+Pure black on pure white is comfortable on reflective paper and harsh on a lit panel, so
+the borrowed version should keep the warm ground and pull the ink back toward a very dark
+grey. Removing motion is a real gain, but removing feedback is not: a control that cannot
+animate still needs to change state visibly. And if you are actually designing for the
+panel, test on it. Hairlines thin out, mid greys collapse toward one another, and the
+refresh flash is a design decision you will have to make on purpose rather than inherit.

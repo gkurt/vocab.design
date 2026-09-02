@@ -1,0 +1,73 @@
+---
+name: Confirmation dialog
+slug: confirmation-dialog
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A modal that stops an action part way through to ask whether you
+  meant it, naming the consequence in its confirm button rather than saying OK.
+aliases:
+  - name: confirm dialog
+    source: community
+  - name: are you sure modal
+    source: community
+  - name: destructive confirmation
+    source: community
+tags:
+  - errors
+  - overlays
+relations:
+  contrastWith:
+    - popconfirm
+    - type-to-confirm
+    - unsaved-changes-guard
+    - soft-delete
+    - alert-dialog
+  variantOf:
+    - modal-dialog
+  partOf: []
+  seeAlso:
+    - hold-to-confirm
+implementations:
+  - system: aria-apg
+    name: Alert and Message Dialogs
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+  - system: material
+    name: Dialogs
+    url: https://m3.material.io/components/dialogs/overview
+sources:
+  - title: "ARIA Authoring Practices Guide: Alert and Message Dialogs"
+    url: https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/
+demo: inline
+exhibit: false
+useWhen: stopping a destructive action to ask
+---
+
+A confirmation dialog is an interruption with a job: the action is already in
+flight, and the interface stops it to make sure a person meant what they pressed.
+That job is only worth doing when the consequence is hard to undo. Anything you can
+reverse with an [undo](/toast) in a passing message should be reversed that way
+instead, because a prompt that appears for everything gets dismissed reflexively,
+and a reflex is not consent.
+
+The wording carries most of the value. A title that states the consequence ("Delete
+3 files?") and a confirm button that repeats the verb ("Delete files") let a reader
+answer from the buttons alone. "Are you sure?" with OK and Cancel forces them back
+up to the title to work out which button does what, and OK is the one people press
+by habit. Name the safe way out too: "Keep file" beats "Cancel" when the sentence
+above it already used the word cancel for something else.
+
+Structurally it is a [modal dialog](/modal-dialog) with focus moved into it, focus
+trapped while it is open, Escape wired to the safe answer, and the page inert behind
+it. Where it differs from a plain modal is the ARIA role: because the dialog
+interrupts rather than being requested, it is announced as an
+[alert dialog](/alert-dialog), which asks the screen reader to say it at once. Give
+it an accessible name from the title and a description from the body, and put the
+initial focus on the safe button, not the destructive one.
+
+The smaller cousin is the [popconfirm](/popconfirm), an anchored bubble that asks the
+same question next to the control instead of taking over the screen. Reach for the
+dialog when the consequence deserves the full stop, when the question needs more than
+one line to explain, or when a typed confirmation is warranted. Reach for the bubble
+when the answer is obvious and the interruption is not.

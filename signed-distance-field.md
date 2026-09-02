@@ -1,0 +1,74 @@
+---
+name: Signed distance field
+slug: signed-distance-field
+category: typography
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: A texture storing each pixel's distance to a shape's edge rather
+  than its color, so glyphs and icons rendered from it stay crisp at any scale
+  on the GPU.
+aliases:
+  - name: SDF
+  - name: distance field
+    source: community
+  - name: MSDF
+    source: community
+  - name: multi-channel signed distance field
+    source: community
+tags:
+  - devtools
+  - fonts
+relations:
+  contrastWith:
+    - font-hinting
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - pixel-density
+implementations: []
+sources:
+  - title: "Chris Green (Valve), SIGGRAPH 2007: Improved alpha-tested magnification
+      for vector textures"
+    url: https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf
+  - title: "Wikipedia: Signed distance function"
+    url: https://en.wikipedia.org/wiki/Signed_distance_function
+demo: inline
+exhibit: false
+useWhen: text or icons must scale sharply inside a GPU pipeline
+---
+
+A normal glyph texture stores coverage: each texel says how much ink is here.
+Blow it up and the answer is blurry, because the in-between texels were never
+recorded. A signed distance field stores something else at each texel, the
+distance to the nearest edge of the shape, negative inside and positive outside.
+That field is smooth even where the shape has a hard edge, so interpolating
+between two texels gives a believable distance rather than a smeared color, and
+the edge can be recovered at any size by asking the shader a single question: is
+the interpolated distance past zero? One 32 by 32 texel field can render a letter
+at 12 pixels and at 400 with the same crispness, from one texture lookup and one
+comparison. That was the point of Valve's 2007 paper: vector sharpness at bitmap
+cost, in a pipeline that only knows how to sample textures.
+
+UI meets this mostly through renderers rather than through CSS. Game engines set
+their entire interface type from SDF atlases, which is why Unity ships TextMeshPro
+and why a game's HUD can scale to any resolution without a font rasteriser in the
+loop. Map renderers do the same for labels: vector map libraries pack glyph
+fields into atlases so a label can be rotated, scaled, and given a halo on the
+GPU, the halo being nothing more than a second threshold at a different distance.
+The technique also carries icons, where being a field rather than a bitmap buys
+outlines, glows, and rounded joins for free. The classic failure is a sharp
+corner, which bilinear interpolation of one distance channel rounds off; the fix
+is a multi-channel field (MSDF), which encodes several edge distances in the red,
+green, and blue channels and recovers corners by taking the median.
+
+Where the analogy stops matters, because SDFs have become a fashionable phrase.
+This is not the same technique as a [gooey effect](/gooey-effect), which is a
+blur plus an alpha contrast curve applied to ordinary shapes: both live under the
+same mathematical roof of implicit surfaces, and neither one is doing the other's
+work. It is also not the raster versus vector trade a
+[Lottie](/lottie) animation makes, since a field is still a bitmap, just a bitmap
+of the wrong quantity on purpose. And it is not something a stylesheet can turn
+on: on the web, text stays the browser's own rasteriser's business, and you meet
+distance fields when you step into canvas or WebGL, or when you export an icon set
+for an engine that wants one.

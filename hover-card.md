@@ -1,0 +1,77 @@
+---
+name: Hover card
+slug: hover-card
+category: component
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: A rich preview panel that appears on hover over a link or an avatar,
+  summarising what is behind it.
+aliases:
+  - name: hovercard
+  - name: rich preview
+  - name: profile preview
+tags:
+  - overlays
+  - pointer
+relations:
+  contrastWith:
+    - tooltip
+    - quick-view
+    - popover
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - hoverable-dismissible-persistent
+    - hover-intent
+    - interest-invoker
+implementations:
+  - system: radix
+    name: Hover Card
+    url: https://www.radix-ui.com/primitives/docs/components/hover-card
+  - system: base-ui
+    name: Preview Card
+    url: https://base-ui.com/react/components/preview-card
+sources:
+  - title: Hover Card, Radix Primitives
+    url: https://www.radix-ui.com/primitives/docs/components/hover-card
+  - title: Preview Card, Base UI
+    url: https://base-ui.com/react/components/preview-card
+demo: inline
+exhibit: false
+useWhen: a rich preview that opens on hover, not on click
+---
+
+A hover card answers a question the reader has not committed to asking. The pointer
+rests on a username, a repository link, or an avatar, and after a short delay a small
+panel arrives with the few facts that decide whether following the link is worth it:
+who this is, what this is, how many of them there are, and one thing to do about it.
+GitHub's user cards and the profile previews in most social products are the shape
+everyone copies.
+
+Three neighbours, three lines. A [tooltip](/tooltip) is a short text label that names
+the thing under the pointer, and it is never interactive, which is the whole reason it
+can afford to vanish the moment the pointer moves. A [quick view](/quick-view) is
+opened by a deliberate click and behaves as a dialog: the reader asked for it and
+closing it is the expected ending. A [popover](/popover) is the same rich surface as a
+hover card with a click for a trigger, which is really the only difference between the
+two. A hover card sits in the awkward middle, summoned by a pointer that made no
+decision, yet holding things worth aiming at.
+
+That middle is what makes [hoverable, dismissible, persistent](/hoverable-dismissible-persistent)
+a genuine obligation here rather than a nicety. If the card holds a Follow button, the
+pointer has to be able to travel from the trigger onto the card without the card
+disappearing on the way, so there can be no gap between them, or a transparent bridge
+across it. Escape has to close it without moving the pointer. And it must not close on
+a timer, since a reader magnifying the screen may need longer to find the panel than
+the timeout allows. The delay before it opens matters just as much in the other
+direction: with no [hover intent](/hover-intent) built in, a paragraph full of mentions
+turns into a slideshow as the pointer crosses it.
+
+The last rule is the one products break most often. Hover is not available to a
+keyboard, and it does not exist on touch at all, so everything in the card needs a
+second route: the same summary on the destination page, the same actions in a menu the
+row already has. Opening it on focus as well as hover covers the keyboard, and a tap
+that follows the link rather than opening a phantom card is the honest answer on a
+phone. A hover card is an accelerator for people who happen to have a pointer, never
+the only place a fact lives.

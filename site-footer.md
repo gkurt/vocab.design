@@ -1,0 +1,70 @@
+---
+name: Site footer
+slug: site-footer
+category: layout
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: The closing region of a site holding secondary navigation, legal
+  links, and contact details that do not deserve top level placement.
+aliases:
+  - name: footer
+    source: community
+  - name: fat footer
+    source: community
+  - name: mega footer
+    source: community
+  - name: sitemap footer
+    source: community
+tags:
+  - navigation
+relations:
+  contrastWith:
+    - utility-navigation
+    - sticky-footer
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - universal-navigation
+implementations: []
+sources: []
+demo: inline
+exhibit: false
+useWhen: everything that must exist but must not compete
+---
+
+The site footer is where a page puts everything that has to exist and must not compete:
+the legal pages nobody reads until they need them, the contact route, the second tier of
+navigation, the newsletter box, the copyright line. It is defined by its job rather than
+its position, which is why it survives in interfaces that have no bottom of the page at
+all. Marked up as `<footer>` at the top level of the document it is the `contentinfo`
+[landmark](/landmark), which is how a screen reader user jumps straight to it, and that is
+worth getting right precisely because the content there is the content people go looking
+for on purpose.
+
+The fat footer, a grid of headed link columns amounting to a small sitemap, became the
+default for a reason. Readers arrive at the bottom of a page in one of two states: they
+finished, or the page failed them. Both are moments when offering the whole site cheaply
+is more useful than offering nothing, and the footer is the one place where a long list of
+links costs the design nothing, because whatever it pushes down is only more footer. The
+craft is in the columns having real headings and a defensible order. A fat footer that is
+just forty links in four columns is a wall, and a wall at the bottom of a page reads as
+abandonment.
+
+The word to keep separate is [sticky footer](/sticky-footer), which sounds like a kind of
+footer and is not. That term names a positioning behaviour, holding the footer against the
+bottom of the viewport when the content is too short to push it there, and it applies to
+this region only incidentally: the site footer is a region defined by what it contains,
+and it stays that region whether it is pinned, pushed, or scrolled past. The
+[page header](/page-header) is its opposite number at the top, and the two are usually
+designed as a pair, since anything that loses the argument for the header ends up here.
+
+Two failures are worth naming. The first is reachability: pair a footer with
+[infinite scroll](/infinite-scroll) and it becomes unreachable, because new content loads
+faster than a reader can get past it, which is how a support link disappears from a site
+that still technically has one. Either abandon the infinite list, use an explicit load
+control, or move the footer's essentials somewhere with an end. The second is accretion. A
+footer is the path of least resistance for any link nobody wants to argue about, so it
+grows until it is a second homepage in a smaller type size. The test is whether a reader
+skimming the headings could find the one thing they came for; when the answer stops being
+yes, the fix is deletion, not another column.

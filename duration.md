@@ -1,0 +1,80 @@
+---
+name: Duration
+slug: duration
+category: motion
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-21T00:00:00.000Z
+definition: How long a transition takes from start to finish, measured
+  separately from the shape of its easing.
+aliases:
+  - name: transition duration
+    source: css
+  - name: animation duration
+    source: css
+tags:
+  - tokens
+relations:
+  contrastWith:
+    - delay
+    - perceptual-duration
+    - easing
+    - spring-animation
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - motion-token
+    - tween
+implementations:
+  - system: material
+    name: Easing and duration
+    url: https://m3.material.io/styles/motion/easing-and-duration/tokens-specs
+  - system: carbon
+    name: Motion duration
+    url: https://carbondesignsystem.com/elements/motion/overview/
+sources:
+  - title: "MDN: transition-duration"
+    url: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration
+  - title: "Nielsen Norman Group: response times, the three important limits"
+    url: https://www.nngroup.com/articles/response-times-3-important-limits/
+demo: inline
+exhibit: false
+useWhen: how long a motion lasts, not its shape
+---
+
+A duration is the one number in an animation everyone can agree on: the time from the
+first frame to the last. It says nothing about where the element is on the way, which
+is [easing](/easing)'s job, and nothing about when the movement begins, which belongs
+to the [delay](/delay). The three are independent, and reading a CSS shorthand as
+though they were not is the usual slip: `transition: transform 200ms 400ms` is a fifth
+of a second of movement that starts four tenths of a second late, not a six hundred
+millisecond move.
+
+The working scale is short. Interface motion lives roughly between 100 and 500
+milliseconds, and the published sets tier it by the size of the thing that moves:
+small controls at the fast end, where a checkbox filling or a chip selecting takes
+somewhere near 100 to 150 milliseconds; everyday surfaces in the middle, where a menu
+or a popover opens in 200 to 300; and full-screen or long-travel entrances at the slow
+end, 400 to 500 and occasionally past it. Distance and size choose the tier, not taste.
+A large surface crossing the screen at a small control's duration reads as a snap, and
+a small control borrowing a large surface's duration reads as a stall. Below about 100
+milliseconds nothing reads as motion at all, which is exactly right for a state flip
+and wrong for anything the eye is meant to follow, and past a second the reader has
+stopped watching the animation and started waiting for the product.
+
+Not every animation carries one. A [spring](/spring-animation) is specified by mass,
+stiffness and damping, approaches its target asymptotically, and formally never
+arrives, so there is no duration written on it to quote in a review. The figure to use
+there is its [perceptual duration](/perceptual-duration), measured to the last
+movement a person could actually see. Once a family of these numbers has been settled,
+they belong in the system rather than at four hundred call sites, which is what a
+[motion token](/motion-token) is for: the whole product gets retuned by editing one
+scale.
+
+Two cautions worth carrying into a review. Duration is usually not the reason a motion
+feels wrong, so reach for the curve first: an animation that feels sluggish is more
+often ease-in-out where it should have been ease-out. And a duration has to survive
+being taken away. Under [prefers-reduced-motion](/prefers-reduced-motion) the honest
+treatment is to cut the times rather than delete the change, which means the resting
+state has to be correct on its own, with the element at its settled position and
+nothing in the layout depending on the movement having happened.

@@ -1,0 +1,80 @@
+---
+name: 10-foot UI
+slug: ten-foot-ui
+category: pattern
+status: published
+created: 2026-08-21T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: "The register for screens read from a couch: focus-driven navigation
+  with a remote, oversized type and cards, horizontal rails, and safe margins
+  for TV overscan."
+aliases:
+  - name: ten-foot experience
+    source: community
+  - name: TV UI
+    source: community
+  - name: leanback UI
+    source: android
+  - name: living-room UI
+    source: community
+tags:
+  - platform-registers
+  - screen-size
+relations:
+  contrastWith: []
+  variantOf: []
+  partOf: []
+  seeAlso:
+    - spatial-navigation
+    - overscan-safe-area
+    - top-shelf
+implementations: []
+sources:
+  - title: "Wikipedia: 10-foot user interface"
+    url: https://en.wikipedia.org/wiki/10-foot_user_interface
+  - title: "Android for TV: design guidance"
+    url: https://developer.android.com/design/ui/tv
+demo: inline
+exhibit: false
+useWhen: the screen is across the room and the input is a remote
+---
+
+The name is a measurement. A phone is held at one foot, a laptop at two, and a television is
+watched from about ten, which means a 55 inch screen across a living room subtends roughly
+the same angle as a laptop on a desk. Everything follows from that. Type that would be
+generous on a desktop is unreadable at ten feet, so body text starts where desktop headings
+stop; a card that would be a thumbnail becomes the size of a playing card held at arm's
+length; and the number of things that can be on screen at once collapses, which is why a TV
+home screen is a handful of horizontal rails rather than a grid of forty items.
+
+The input changes more than the distance does. There is no pointer: there is a directional
+pad with four arrows and a select button, and possibly a voice key. Every navigable element
+must therefore be reachable by up, down, left, and right from wherever the highlight
+currently sits, which turns layout into a graph problem. The highlight is not a decoration
+but the entire location system, so it is drawn far heavier than a
+[focus ring](/focus-ring) on the web, usually as a scale, a glow, and a colour change at
+once, and it is never allowed to be absent: a screen that arrives with nothing highlighted
+has stranded the viewer. Because focus and selection travel together here, moving the
+highlight is expected to preview or load, which is a case of
+[selection follows focus](/selection-follows-focus) that would be an antipattern in a
+desktop list. Hover does not exist, so nothing may hide behind it, and every state a design
+wants to show has to be reachable by arrows alone.
+
+The horizontal rail is the register's signature layout, and it is a
+[carousel](/carousel) with one crucial difference: it is scrolled by the focus rather than by
+a gesture or a pair of arrow buttons. Pressing right moves the highlight to the next
+[card](/card) and the rail slides only when the highlight would otherwise leave the screen,
+which is why a rail can be forty items long without a scrollbar, a pagination control, or
+any indication of its length. The cost is depth. Getting to the fortieth item is thirty-nine
+presses, so real systems lean on rows as categories, on a "continue watching" rail pinned
+first, and on search by voice for anything the viewer already knows the name of.
+
+The last constraint is physical. Consumer televisions still overscan, cropping a few percent
+off every edge of the picture, and a panel that is exactly the reported resolution may still
+lose its outermost rows to a bezel or to display scaling. The remedy is the title-safe
+margin, a border of five percent or so that carries no text and no interactive element,
+which is why TV interfaces look as though they float in the middle of the screen. Two
+further living-room facts complete the register: viewers sit in a dark room, so backgrounds
+run dark and pure white is avoided as glare; and remote input arrives with real latency over
+infrared or Bluetooth, so the highlight must answer instantly even when the content behind
+it has not loaded, or the viewer presses right three more times and overshoots by three.

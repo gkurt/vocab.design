@@ -1,0 +1,76 @@
+---
+name: Flame graph
+slug: flame-graph
+category: component
+status: published
+created: 2026-08-26T00:00:00.000Z
+modified: 2026-08-26T00:00:00.000Z
+definition: Stacked bars where width is time spent and depth is call nesting, so
+  the widest plateau rather than the tallest tower is the thing worth fixing.
+aliases:
+  - name: flame chart
+    source: chrome-developers
+  - name: icicle graph
+    source: community
+  - name: flamegraph
+    source: community
+tags:
+  - dataviz
+  - devtools
+relations:
+  contrastWith:
+    - trace-viewer
+    - treegrid
+  variantOf: []
+  partOf: []
+  seeAlso: []
+implementations: []
+sources:
+  - title: "Brendan Gregg: Flame Graphs"
+    url: https://www.brendangregg.com/flamegraphs.html
+  - title: "Chrome DevTools: Performance panel"
+    url: https://developer.chrome.com/docs/devtools/performance
+demo: inline
+exhibit: false
+useWhen: nested call stacks with width as time spent
+---
+
+A profiler collects thousands of stack samples and a flame graph turns them into one
+picture. Each bar is a function, its width is how much of the profile was spent inside
+that function, and the bar sitting on top of another is the function it called. Read
+downward and the picture is a call tree; read across and it is a bill. The reason it is
+worth learning to read is that the two directions mean completely different things, and
+the beginner's mistake is to chase the tallest column. Depth is only how many frames
+deep the recursion went, which costs nothing by itself. Cost is width, so the finding is
+almost always a wide plateau: one frame, low in the picture, holding a third of the
+profile with nothing above it to blame.
+
+The colours are a trap of their own. In the original technique from
+[Brendan Gregg](https://www.brendangregg.com/flamegraphs.html) the warm palette is
+deliberately random, chosen so the block reads as a flame and so adjacent frames stay
+apart. It encodes nothing. Some tools later gave hue a job (by package, by language, by
+whether the frame is in your code or a library), and both conventions now exist in the
+wild, which means the only safe reading is to check the legend before believing a colour
+means anything at all.
+
+Now the naming, because it is the part people get wrong and the tools do not help. A
+flame graph merges identical stacks and sorts the children of each frame
+alphabetically, so the horizontal axis is not time: it is just a stable order, and width
+is total cost across the whole profile. A flame chart keeps the samples in chronological
+order instead, so the horizontal axis is a clock and the same function appearing in three
+separate bursts stays three separate bars. That is what the Chrome DevTools
+[performance panel](https://developer.chrome.com/docs/devtools/performance) draws, and
+what most people mean when they say flame graph while pointing at a browser. An icicle
+graph is neither of those, just the same drawing hung downward from the root instead of
+built up from it, which is what most tree-style profilers use because it reads like a
+file tree. Because the two spellings are constantly swapped, say which axis you mean
+rather than trusting the word: aggregated, or in order.
+
+Two neighbours cover the same ground differently. A [trace viewer](/trace-viewer) is one
+request in order, one row per span, with position on the axis meaning a real moment, and
+it answers where did this request go rather than where does the code spend its life. A
+[treegrid](/treegrid) is the same call tree as a table, one row per frame with self and
+total time in columns, and it beats the picture whenever the answer is a number instead
+of a shape, since it sorts and a flame graph cannot. Serious profilers ship both against
+one dataset, and the practised move is to find the plateau in the graph and then read its
+number in the table.
