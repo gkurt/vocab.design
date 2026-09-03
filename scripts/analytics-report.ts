@@ -24,6 +24,7 @@
  *   bun run analytics 7              # the last 7 days
  *   bun run analytics --now          # realtime, for checking that wiring works at all
  *   bun run analytics --json         # the same data, machine readable
+ *   bun run analytics --everyone     # the author's own country included
  */
 
 export {}; // top-level await needs this file to be a module
@@ -34,6 +35,14 @@ const SEARCH_CONSOLE_SITE = process.env.SC_SITE ?? 'sc-domain:vocab.design';
 const SCOPES = ['https://www.googleapis.com/auth/analytics.readonly', 'https://www.googleapis.com/auth/webmasters.readonly'];
 /** How many rows of a long tail are worth reading in one sitting. */
 const ROWS = 25;
+/**
+ * Where the author sits. His own reading is not readership, and on a vocabulary this young
+ * it is most of the traffic, so it is dropped from every report unless `--everyone` asks
+ * for it. The trade is deliberate and coarse: a real reader in Turkey is dropped with him,
+ * because nothing here can tell the two apart. GA speaks ISO alpha-2 through `countryId`,
+ * Search Console speaks lowercase alpha-3.
+ */
+const HOME = { ga: 'TR', console: 'tur', name: 'Turkey' };
 
 interface Row {
   dimensionValues?: { value?: string }[];
@@ -208,7 +217,7 @@ async function token(): Promise<string> {
   return body.accessToken;
 }
 
-function filters(question: Question) {
+function filters(question: Question, excludeHome: boolean) {
   const expressions = [];
   if (question.event) {
     expressions.push({ filter: { fieldName: 'eventName', stringFilter: { value: question.event } } });
@@ -216,17 +225,18 @@ function filters(question: Question) {
   for (const [field, value] of Object.entries(question.where ?? {})) {
     expressions.push({ filter: { fieldName: field, stringFilter: { value } } });
   }
+  if (excludeHome) expressions.push({ notExpression: { filter: { fieldName: 'countryId', stringFilter: { value: HOME.ga } } } });
   if (expressions.length === 0) return undefined;
   if (expressions.length === 1) return expressions[0];
   return { andGroup: { expressions } };
 }
 
-async function ask(auth: string, question: Question, days: number, realtime: boolean): Promise<Row[]> {
+async function ask(auth: string, question: Question, days: number, realtime: boolean, excludeHome: boolean): Promise<Row[]> {
   const endpoint = realtime ? 'runRealtimeReport' : 'runReport';
   const body: Record<string, unknown> = {
     dimensions: question.dimensions.map((name) => ({ name })),
     metrics: [{ name: 'eventCount' }],
-    dimensionFilter: filters(question),
+    dimensionFilter: filters(question, excludeHome),
     orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
     limit: question.limit ?? ROWS,
   };
@@ -255,7 +265,7 @@ function day(offset: number): string {
  * any window are always empty. Nothing is wrong when a fresh property answers with nothing:
  * a new domain is not crawled on the day it appears.
  */
-async function arrivals(auth: string, question: Arrival, days: number): Promise<Row[]> {
+async function arrivals(auth: string, question: Arrival, days: number, excludeHome: boolean): Promise<Row[]> {
   const site = encodeURIComponent(SEARCH_CONSOLE_SITE);
   const response = await fetch(`https://searchconsole.googleapis.com/webmasters/v3/sites/${site}/searchAnalytics/query`, {
     method: 'POST',
@@ -265,6 +275,9 @@ async function arrivals(auth: string, question: Arrival, days: number): Promise<
       endDate: day(0),
       dimensions: question.dimensions,
       rowLimit: question.limit ?? ROWS,
+      dimensionFilterGroups: excludeHome
+        ? [{ filters: [{ dimension: 'country', operator: 'notEquals', expression: HOME.console }] }]
+        : undefined,
     }),
   });
   const body = (await response.json()) as {
@@ -315,6 +328,7 @@ function table(rows: Row[], headers?: string[]): string {
 const args = process.argv.slice(2);
 const realtime = args.includes('--now');
 const json = args.includes('--json');
+const excludeHome = !args.includes('--everyone');
 const days = Number(args.find((a) => /^\d+$/.test(a)) ?? 28);
 
 const SEARCH_METRICS = ['clicks', 'impr', 'ctr', 'pos'];
@@ -323,7 +337,7 @@ const auth = await token();
 const answers: { question: Question; rows: Row[]; failed?: string }[] = [];
 for (const question of realtime ? NOW : QUESTIONS) {
   try {
-    answers.push({ question, rows: await ask(auth, question, days, realtime) });
+    answers.push({ question, rows: await ask(auth, question, days, realtime, excludeHome) });
   } catch (error) {
     // One question failing (a dimension GA has not finished registering, most likely) is
     // not a reason to lose the rest of the report.
@@ -336,7 +350,7 @@ if (!realtime) {
   for (const arrival of ARRIVALS) {
     const question: Question = { ...arrival, headers: [...arrival.dimensions, ...SEARCH_METRICS] };
     try {
-      answers.push({ question, rows: await arrivals(auth, arrival, days) });
+      answers.push({ question, rows: await arrivals(auth, arrival, days, excludeHome) });
     } catch (error) {
       answers.push({ question, rows: [], failed: error instanceof Error ? error.message : String(error) });
     }
@@ -361,7 +375,8 @@ if (json) {
   );
 } else {
   const window = realtime ? 'the last 30 minutes' : `the last ${days} days`;
-  console.log(`\nvocab.design · what readers could not find · ${window}\n${'='.repeat(64)}`);
+  const scope = excludeHome ? ` · not counting ${HOME.name}` : '';
+  console.log(`\nvocab.design · what readers could not find · ${window}${scope}\n${'='.repeat(64)}`);
   for (const { question, rows, failed } of answers) {
     console.log(`\n${question.title}`);
     if (question.note) console.log(`  ${question.note}`);
